@@ -4,4 +4,4 @@
 
 加入一些模型和插件，更换了xformers、cuda、torch版本
 
-[![Open In Colab](https://user-images.githubusercontent.com/54370274/224839804-50c0c18b-3960-4a1c-b7fa-3c7074b11779.svg)](https://colab.research.google.com/github/licyk/sd-webui-for-colab/blob/main/stable_diffusion_webui_colab.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/licyk/sd-webui-for-colab/blob/main/stable_diffusion_webui_colab.ipynb)
