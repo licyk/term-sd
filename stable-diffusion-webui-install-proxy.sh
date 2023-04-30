@@ -3,7 +3,7 @@ echo "请确保已安装python、git、aria2"
 git clone https://ghproxy.com/https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
 
 # clone repositories for Stable Diffusion and (optionally) CodeFormer
-mkdir .//stable-diffusion-webui/repositories
+mkdir ./stable-diffusion-webui/repositories
 git clone https://ghproxy.com/https://github.com/CompVis/stable-diffusion.git ./stable-diffusion-webui/repositories/stable-diffusion
 git clone https://ghproxy.com/https://github.com/CompVis/taming-transformers.git ./stable-diffusion-webui/repositories/taming-transformers
 git clone https://ghproxy.com/https://github.com/sczhou/CodeFormer.git ./stable-diffusion-webui/repositories/CodeFormer
@@ -23,7 +23,7 @@ pip install git+https://ghproxy.com/https://github.com/crowsonkb/k-diffusion.git
 pip install git+https://ghproxy.com/https://github.com/TencentARC/GFPGAN.git --prefer-binary -i https://mirrors.bfsu.edu.cn/pypi/web/simple
 
 # (可选) 安装 requirements for CodeFormer (face restoration)
-pip install -r ./repositories/CodeFormer/requirements.txt --prefer-binary -i https://mirrors.bfsu.edu.cn/pypi/web/simple
+pip install -r ./stable-diffusion-webui/repositories/CodeFormer/requirements.txt --prefer-binary -i https://mirrors.bfsu.edu.cn/pypi/web/simple
 
 # 升级numpy版本至最新版本
 pip install -U numpy  --prefer-binary -i https://mirrors.bfsu.edu.cn/pypi/web/simple
