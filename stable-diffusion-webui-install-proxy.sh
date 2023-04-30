@@ -23,7 +23,7 @@ pip install git+https://ghproxy.com/https://github.com/crowsonkb/k-diffusion.git
 pip install git+https://ghproxy.com/https://github.com/TencentARC/GFPGAN.git --prefer-binary -i https://mirrors.bfsu.edu.cn/pypi/web/simple
 
 # (可选) 安装 requirements for CodeFormer (face restoration)
-pip install -r repositories/CodeFormer/requirements.txt --prefer-binary -i https://mirrors.bfsu.edu.cn/pypi/web/simple
+pip install -r ./repositories/CodeFormer/requirements.txt --prefer-binary -i https://mirrors.bfsu.edu.cn/pypi/web/simple
 
 # 升级numpy版本至最新版本
 pip install -U numpy  --prefer-binary -i https://mirrors.bfsu.edu.cn/pypi/web/simple
