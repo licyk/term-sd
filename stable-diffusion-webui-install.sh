@@ -10,21 +10,23 @@ git clone https://github.com/sczhou/CodeFormer.git ./stable-diffusion-webui/repo
 git clone https://github.com/salesforce/BLIP.git ./stable-diffusion-webui/repositories/BLIP
 
 # 安装stable diffusion所需环境
-pip install -q torch==1.13.1+cu117 torchvision==0.14.1+cu117 torchaudio==0.13.1 torchtext==0.14.1 torchdata==0.5.1 --extra-index-url https://download.pytorch.org/whl/cu117 -U
-pip install -q xformers==0.0.16 triton==2.0.0 -U
-pip install -r ./stable-diffusion-webui/requirements.txt  --prefer-binary -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install torch==1.13.1+cu117 torchvision==0.14.1+cu117 torchaudio==0.13.1 torchtext==0.14.1 torchdata==0.5.1 -i https://mirrors.bfsu.edu.cn/pypi/web/simple -f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html
+
+pip install xformers==0.0.16 -i https://mirrors.bfsu.edu.cn/pypi/web/simple -f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html
+
+pip install -r ./stable-diffusion-webui/requirements.txt  --prefer-binary -i https://mirrors.bfsu.edu.cn/pypi/web/simple
 
 # 安装 k-diffusion
-pip install git+https://github.com/crowsonkb/k-diffusion.git --prefer-binary
+pip install git+https://github.com/crowsonkb/k-diffusion.git --prefer-binary -i https://mirrors.bfsu.edu.cn/pypi/web/simple
 
 # (可选) 安装 GFPGAN (face restoration)
-pip install git+https://github.com/TencentARC/GFPGAN.git --prefer-binary
+pip install git+https://github.com/TencentARC/GFPGAN.git --prefer-binary -i https://mirrors.bfsu.edu.cn/pypi/web/simple
 
 # (可选) 安装 requirements for CodeFormer (face restoration)
-pip install -r repositories/CodeFormer/requirements.txt --prefer-binary -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install -r repositories/CodeFormer/requirements.txt --prefer-binary -i https://mirrors.bfsu.edu.cn/pypi/web/simple
 
 # 升级numpy版本至最新版本
-pip install -U numpy  --prefer-binary -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install -U numpy  --prefer-binary -i https://mirrors.bfsu.edu.cn/pypi/web/simple
 
 # 安装插件
 # sd-webui-additional-networks
