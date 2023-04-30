@@ -11,9 +11,7 @@ git clone https://ghproxy.com/https://github.com/salesforce/BLIP.git ./stable-di
 
 # 安装stable diffusion所需环境
 pip install torch==1.13.1+cu117 torchvision==0.14.1+cu117 torchaudio==0.13.1 torchtext==0.14.1 torchdata==0.5.1 -i https://mirrors.bfsu.edu.cn/pypi/web/simple -f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html
-
 pip install xformers==0.0.16 -i https://mirrors.bfsu.edu.cn/pypi/web/simple -f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html
-
 pip install -r ./stable-diffusion-webui/requirements.txt  --prefer-binary -i https://mirrors.bfsu.edu.cn/pypi/web/simple
 
 # 安装 k-diffusion
@@ -122,5 +120,8 @@ aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckp
 #下载模型
 aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/andite/anything-v4.0/resolve/main/anything-v4.0-pruned-fp16.safetensors -d ./stable-diffusion-webui/models/Stable-diffusion -o anything-v4.0-pruned-fp16.safetensors
 aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/andite/anything-v4.0/resolve/main/anything-v4.0.vae.pt -d ./stable-diffusion-webui/models/VAE -o anything-v4.0.vae.pt
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/embed/upscale/resolve/main/4x-UltraSharp.pth -d ./stable-diffusion-webui/models/ESRGAN -o 4x-UltraSharp.pth
+git clone https://huggingface.co/embed/negative ./stable-diffusion-webui/embeddings/negative
+git clone https://huggingface.co/embed/lora ./stable-diffusion-webui/models/Lora/positive
 
 echo "安装结束"
