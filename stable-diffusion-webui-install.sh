@@ -12,7 +12,7 @@ choose_environment() {
     echo '1.Torch 1.12.1(CUDA11.3)+xFormers 0.014'
     echo '2.Torch 1.13.1(CUDA11.7)+xFormers 0.016'
 	echo '3.Torch 2.0.0(CUDA11.8)+xFormers 0.018'
-	echo '4.Torch 2.0.0(CUDA11.8)+xFormers 0.018'
+	echo '4.torch 0.15.0+RoCM5.4.2'
 	echo 'q.已安装工具包，跳过'
 	# 获取用户的输入
     read -p '请输入序号进行安装: ' -n 1 environmentnum
@@ -33,7 +33,7 @@ choose_environment() {
     pip install torch==2.0.0+cu118 torchvision==0.14.1+cu117 torchaudio==2.0.1+cu118 torchtext==0.15.1 torchdata==0.6.0 -i https://mirrors.bfsu.edu.cn/pypi/web/simple -f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html
     pip install xformers==0.0.18 -i https://mirrors.bfsu.edu.cn/pypi/web/simple -f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html
 	elif [ $environmentnum == '4' ];then
-		echo '开始安装RoCM5.4.2'
+		echo '开始安装torch 0.15.0+RoCM5.4.2'
     pip install torch torchvision torchaudio --index-url https://mirror.sjtu.edu.cn/pytorch-wheels/nightly/rocm5.4.2
 	elif [ $environmentnum == 'q' ];then
 		echo '跳过安装'
