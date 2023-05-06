@@ -1,7 +1,58 @@
 echo "请确保已安装python、git、aria2"
+#选择CUDA,RoCM版本
+
+choose_environment() {
+    # 重新选择
+    reselect=${1}
+    if [ $reselect == 0 ];then
+        echo '请选择要安装的CUDA或RoCM工具包版本: '
+    elif [ $$reselect == 1 ];then
+        echo '请重新选择要安装的版本: '
+	fi
+    echo '1.Torch 1.12.1(CUDA11.3)+xFormers 0.014'
+    echo '2.Torch 1.13.1(CUDA11.7)+xFormers 0.016'
+	echo '3.Torch 2.0.0(CUDA11.8)+xFormers 0.018'
+	echo '4.Torch 2.0.0(CUDA11.8)+xFormers 0.018'
+	echo 'q.已安装工具包，跳过'
+	# 获取用户的输入
+    read -p '请输入序号进行安装: ' -n 1 environmentnum
+	echo '\n'
+	# 这里注意，判断空必须加双引号，双引号识别为没有内容；主要处理没有输入指令直接回车
+	if [ -z "$environmentnum" ];then
+		choose_environment 0
+    elif [ $environmentnum == 1 ];then
+        echo '开始安装Torch 1.12.1(CUDA11.3)+xFormers 0.014'
+    pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1 -i https://mirrors.bfsu.edu.cn/pypi/web/simple -f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html
+    pip install xformers==0.0.14 -i https://mirrors.bfsu.edu.cn/pypi/web/simple -f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html
+    elif [ $environmentnum == 2 ];then
+        echo '开始安装Torch 1.13.1(CUDA11.7)+xFormers 0.016'
+    pip install torch==1.13.1+cu117 torchvision==0.14.1+cu117 torchaudio==0.13.1 torchtext==0.14.1 torchdata==0.5.1 -i https://mirrors.bfsu.edu.cn/pypi/web/simple -f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html
+    pip install xformers==0.0.16 -i https://mirrors.bfsu.edu.cn/pypi/web/simple -f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html
+	elif [ $environmentnum == '3' ];then
+		echo '开始安装Torch 2.0.0(CUDA11.8)+xFormers 0.018'
+    pip install torch==2.0.0+cu118 torchvision==0.14.1+cu117 torchaudio==2.0.1+cu118 torchtext==0.15.1 torchdata==0.6.0 -i https://mirrors.bfsu.edu.cn/pypi/web/simple -f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html
+    pip install xformers==0.0.18 -i https://mirrors.bfsu.edu.cn/pypi/web/simple -f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html
+	elif [ $environmentnum == '4' ];then
+		echo '开始安装RoCM5.4.2'
+    pip install torch torchvision torchaudio --index-url https://mirror.sjtu.edu.cn/pytorch-wheels/nightly/rocm5.4.2
+	elif [ $environmentnum == 'q' ];then
+		echo '跳过安装'
+		# 结束脚本执行
+#		exit 1
+    else 
+        echo '不支持的序号'
+		echo $environmentnum
+		choose_environment 1
+    fi
+}
+
+choose_environment 0
+
+echo "结束工具包安装"
 # 下载stable diffusion
 echo "下载stable diffusion"
 git clone https://ghproxy.com/https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
+aria2c https://raw.githubusercontent.com/licyk/sd-webui-scipt/main/update.sh -O ./stable-diffusion-webui
 
 #下载Stable Diffusion和CodeFormer
 echo "下载Stable Diffusion和CodeFormer"
@@ -13,8 +64,7 @@ git clone https://ghproxy.com/https://github.com/salesforce/BLIP.git ./stable-di
 
 # 安装stable diffusion所需环境
 echo "安装stable diffusion所需环境"
-pip install torch==1.13.1+cu117 torchvision==0.14.1+cu117 torchaudio==0.13.1 torchtext==0.14.1 torchdata==0.5.1 -i https://mirrors.bfsu.edu.cn/pypi/web/simple -f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html
-pip install xformers==0.0.16 -i https://mirrors.bfsu.edu.cn/pypi/web/simple -f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html
+
 pip install -r ./stable-diffusion-webui/requirements.txt  --prefer-binary -i https://mirrors.bfsu.edu.cn/pypi/web/simple
 
 # 安装 k-diffusion
