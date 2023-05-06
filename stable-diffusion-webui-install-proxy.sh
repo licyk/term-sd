@@ -53,7 +53,7 @@ echo "结束工具包安装"
 # 下载stable diffusion
 echo "下载stable diffusion"
 git clone https://ghproxy.com/https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
-aria2c https://raw.githubusercontent.com/licyk/sd-webui-scipt/main/update.sh -d ./stable-diffusion-webui
+aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/sd-webui-scipt/main/update.sh -d ./stable-diffusion-webui
 
 #下载Stable Diffusion和CodeFormer
 echo "下载Stable Diffusion和CodeFormer"
