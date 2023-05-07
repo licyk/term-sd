@@ -62,7 +62,7 @@ git clone https://github.com/CompVis/stable-diffusion.git ./stable-diffusion-web
 git clone https://github.com/CompVis/taming-transformers.git ./stable-diffusion-webui/repositories/taming-transformers
 git clone https://github.com/sczhou/CodeFormer.git ./stable-diffusion-webui/repositories/CodeFormer
 git clone https://github.com/salesforce/BLIP.git ./stable-diffusion-webui/repositories/BLIP
-
+git clone https://github.com/Stability-AI/stablediffusion.git/ ./stable-diffusion-webui/repositories/stable-diffusion-stability-ai
 # 安装stable diffusion所需环境
 echo "安装stable diffusion所需环境"
 pip install -r ./stable-diffusion-webui/requirements.txt  --prefer-binary -i https://mirrors.bfsu.edu.cn/pypi/web/simple

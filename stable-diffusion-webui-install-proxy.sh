@@ -62,7 +62,7 @@ git clone https://ghproxy.com/https://github.com/CompVis/stable-diffusion.git ./
 git clone https://ghproxy.com/https://github.com/CompVis/taming-transformers.git ./stable-diffusion-webui/repositories/taming-transformers
 git clone https://ghproxy.com/https://github.com/sczhou/CodeFormer.git ./stable-diffusion-webui/repositories/CodeFormer
 git clone https://ghproxy.com/https://github.com/salesforce/BLIP.git ./stable-diffusion-webui/repositories/BLIP
-
+git clone https://ghproxy.com/https://github.com/Stability-AI/stablediffusion.git/ ./stable-diffusion-webui/repositories/stable-diffusion-stability-ai
 # 安装stable diffusion所需环境
 echo "安装stable diffusion所需环境"
 
