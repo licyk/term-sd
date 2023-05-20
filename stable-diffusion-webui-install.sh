@@ -37,7 +37,7 @@ choose_environment() {
 	elif [ $environmentnum == '4' ];then
 		echo '开始安装Torch 2.0.1(CUDA11.8)+xFormers 0.019'
     pip install torch==2.0.1+cu118 torchvision==0.15.2+cu118 --index-url https://download.pytorch.org/whl
-    pip install xformers==0.0.19
+    pip install xformers==0.0.19 --no-deps
 	elif [ $environmentnum == '5' ];then
 		echo '开始安装torch 2.0.1+RoCM 5.4.2'
     pip install torch==2.0.1+rocm5.4.2 torchvision==0.15.2+rocm5.4.2 --index-url https://download.pytorch.org/whl
