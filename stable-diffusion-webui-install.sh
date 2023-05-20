@@ -13,7 +13,8 @@ choose_environment() {
     echo '1.Torch 1.12.1(CUDA11.3)+xFormers 0.014'
     echo '2.Torch 1.13.1(CUDA11.7)+xFormers 0.016'
 	echo '3.Torch 2.0.0(CUDA11.8)+xFormers 0.018'
-	echo '4.torch 0.15.0+RoCM 5.4.2'
+	echo '4.Torch 2.0.1(CUDA11.8)+xFormers 0.019'
+	echo '5.torch 0.15.0+RoCM 5.4.2'
 	echo 'q.已安装工具包，跳过'
 	# 获取用户的输入
     read -p '请输入序号进行安装: ' -n 1 environmentnum
@@ -23,19 +24,23 @@ choose_environment() {
 		choose_environment 0
     elif [ $environmentnum == 1 ];then
         echo '开始安装Torch 1.12.1(CUDA11.3)+xFormers 0.014'
-    pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1 -i https://mirrors.bfsu.edu.cn/pypi/web/simple -f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html
-    pip install xformers==0.0.14 -i https://mirrors.bfsu.edu.cn/pypi/web/simple -f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html
+    pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 --index-url https://download.pytorch.org/whl
+    pip install xformers==0.0.14
     elif [ $environmentnum == 2 ];then
         echo '开始安装Torch 1.13.1(CUDA11.7)+xFormers 0.016'
-    pip install torch==1.13.1+cu117 torchvision==0.14.1+cu117 torchaudio==0.13.1 torchtext==0.14.1 torchdata==0.5.1 -i https://mirrors.bfsu.edu.cn/pypi/web/simple -f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html
-    pip install xformers==0.0.16 -i https://mirrors.bfsu.edu.cn/pypi/web/simple -f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html
+    pip install torch==1.13.1+cu117 torchvision==0.14.1+cu117 --index-url https://download.pytorch.org/whl
+    pip install xformers==0.0.16
 	elif [ $environmentnum == '3' ];then
 		echo '开始安装Torch 2.0.0(CUDA11.8)+xFormers 0.018'
-    pip install torch==2.0.0+cu118 torchvision==0.15.1+cu118 torchaudio==2.0.1+cu118 torchtext==0.15.1 torchdata==0.6.0 -i https://mirrors.bfsu.edu.cn/pypi/web/simple -f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html
-    pip install xformers==0.0.18 -i https://mirrors.bfsu.edu.cn/pypi/web/simple -f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html
+    pip install torch==2.0.0+cu118 torchvision==0.15.1+cu118 --index-url https://download.pytorch.org/whl
+    pip install xformers==0.0.18
 	elif [ $environmentnum == '4' ];then
-		echo '开始安装torch 0.15.0+RoCM 5.4.2'
-    pip install torch torchvision torchaudio --index-url https://mirror.sjtu.edu.cn/pytorch-wheels/nightly/rocm5.4.2
+		echo '开始安装Torch 2.0.1(CUDA11.8)+xFormers 0.019'
+    pip install torch==2.0.1+cu118 torchvision==0.15.2+cu118 --index-url https://download.pytorch.org/whl
+    pip install xformers==0.0.19
+	elif [ $environmentnum == '5' ];then
+		echo '开始安装torch 2.0.1+RoCM 5.4.2'
+    pip install torch==2.0.1+rocm5.4.2 torchvision==0.15.2+rocm5.4.2 --index-url https://download.pytorch.org/whl
 	elif [ $environmentnum == 'q' ];then
 		echo '跳过安装'
 		# 结束脚本执行
@@ -63,29 +68,38 @@ git clone https://github.com/CompVis/taming-transformers.git ./stable-diffusion-
 git clone https://github.com/sczhou/CodeFormer.git ./stable-diffusion-webui/repositories/CodeFormer
 git clone https://github.com/salesforce/BLIP.git ./stable-diffusion-webui/repositories/BLIP
 git clone https://github.com/Stability-AI/stablediffusion.git/ ./stable-diffusion-webui/repositories/stable-diffusion-stability-ai
+
 # 安装stable diffusion所需环境
 echo "安装stable diffusion所需环境"
-pip install -r ./stable-diffusion-webui/requirements.txt  --prefer-binary -i https://mirrors.bfsu.edu.cn/pypi/web/simple
+pip install -r ./stable-diffusion-webui/requirements.txt  --prefer-binary
 
 # 安装 k-diffusion
 echo "安装 k-diffusion"
-pip install git+https://github.com/crowsonkb/k-diffusion.git --prefer-binary -i https://mirrors.bfsu.edu.cn/pypi/web/simple
+pip install git+https://github.com/crowsonkb/k-diffusion.git --prefer-binary
 
 #安装 GFPGAN
 echo "安装 GFPGAN"
-pip install git+https://github.com/TencentARC/GFPGAN.git --prefer-binary -i https://mirrors.bfsu.edu.cn/pypi/web/simple
+pip install git+https://github.com/TencentARC/GFPGAN.git --prefer-binary
 
 #安装CodeFormer依赖
 echo "安装CodeFormer依赖"
-pip install -r ./stable-diffusion-webui/repositories/CodeFormer/requirements.txt --prefer-binary -i https://mirrors.bfsu.edu.cn/pypi/web/simple
+pip install -r ./stable-diffusion-webui/repositories/CodeFormer/requirements.txt --prefer-binary
+
+#安装clip
+echo "安装clip"
+pip install git+https://github.com/openai/CLIP.git --prefer-binary
+
+#安装open_clip
+echo "安装open_clip"
+pip install git+https://github.com/mlfoundations/open_clip.git --prefer-binary
 
 # 升级numpy版本至最新版本
 echo "升级numpy版本至最新版本"
-pip install -U numpy  --prefer-binary -i https://mirrors.bfsu.edu.cn/pypi/web/simple
+pip install -U numpy  --prefer-binary
 
 #安装其他依赖环境
 echo "安装其他依赖环境"
-pip install -r ./stable-diffusion-webui/requirements.txt  --prefer-binary -i https://mirrors.bfsu.edu.cn/pypi/web/simple
+pip install -r ./stable-diffusion-webui/requirements.txt  --prefer-binary
 
 #设置环境变量
 echo "设置环境变量"
@@ -156,6 +170,8 @@ git clone https://github.com/ashen-sensored/stable-diffusion-webui-two-shot ./st
 git clone https://github.com/hako-mikan/sd-webui-lora-block-weight ./stable-diffusion-webui/extensions/sd-webui-lora-block-weight
 # sd-face-editor
 git clone https://github.com/ototadana/sd-face-editor ./stable-diffusion-webui/extensions/sd-face-editor
+# sd-webui-segment-anything
+git clone https://github.com/continue-revolution/sd-webui-segment-anything.git
 # controlnet
 git clone https://github.com/Mikubill/sd-webui-controlnet ./stable-diffusion-webui/extensions/sd-webui-controlnet
 ##controlnet插件的相关模型
