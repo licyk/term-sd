@@ -1358,7 +1358,7 @@ if which whiptail > /dev/null ;then
         if which pip > /dev/null;then
           echo "系统已安装pip"
           echo "Term-SD初始化完成"
-	  echo "启动Term-SD中......"
+	        echo "启动Term-SD中......"
           term_sd_version
         else
           echo "未安装pip,请安装后重试"
