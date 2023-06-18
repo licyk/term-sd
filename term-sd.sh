@@ -677,14 +677,16 @@ function update_option()
         aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/sd-webui-scipt/main/term-sd.sh -d ./update-tmp/
         rm term-sd.sh
         mv ./update-tmp/term-sd.sh
-        rm -rv update-tmp
+        rm -rfv ./update-tmp
+	chmod u+x term-sd.sh
         echo "更新完成，请重启Term-SD"
         exit
     else
         aria2c https://raw.githubusercontent.com/licyk/sd-webui-scipt/main/term-sd.sh -d ./update-tmp/
         rm term-sd.sh
         mv ./update-tmp/term-sd.sh
-        rm -rv update-tmp
+        rm -rfv ./update-tmp
+	chmod u+x term-sd.sh
         echo "更新完成，请重启Term-SD"
         exit
     fi
