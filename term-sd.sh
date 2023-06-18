@@ -779,7 +779,7 @@ function python_dep_install()
 			"2" "Torch 1.13.1(CUDA11.7)+xFormers 0.016" \
 			"3" "Torch 2.0.0(CUDA11.8)+xFormers 0.018" \
 			"4" "Torch 2.0.1(CUDA11.8)+xFormers 0.019" \
-      "5" "Torch 0.15.0+RoCM 5.4.2" \
+      "5" "Torch 2.0.1+RoCM 5.4.2" \
       "6" "跳过安装" \
 			3>&1 1>&2 2>&3
 	)
