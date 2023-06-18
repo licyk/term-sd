@@ -3,6 +3,14 @@
 
 需安装aria2,python,pip,git,whiptail
 
+使用方法：
+
+aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/sd-webui-scipt/main/term-sd.sh
+
+chmod +x term-sd.sh
+
+./term-sd.sh
+
 # sd-webui-for-colab
 
 脚本修改自https://github.com/camenduru/stable-diffusion-webui-colab
