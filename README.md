@@ -1,3 +1,8 @@
+# term-sd
+基于whiptail实现界面显示的管理器，支持安装，管理A1111-SD-Webui,ComfyUI.InvokeAI(未完全支持),lora-scripts
+
+需安装aria2,python,pip,git,whiptail
+
 # sd-webui-for-colab
 
 脚本修改自https://github.com/camenduru/stable-diffusion-webui-colab
