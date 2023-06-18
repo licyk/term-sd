@@ -676,8 +676,7 @@ function update_option()
     if (whiptail --title "更新选项" --yesno "更新时是否选择代理" --yes-button "是" --no-button "否" 20 60) then
         aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/sd-webui-script/main/term-sd.sh -d ./update-tmp/
         if [ "$?"="0" ];then
-           rm term-sd.sh
-           mv ./update-tmp/term-sd.sh .
+           cp -fv ./update-tmp/term-sd.sh ./
            rm -rfv ./update-tmp
 	   chmod u+x term-sd.sh
            echo "更新完成，请重启Term-SD"
@@ -688,8 +687,7 @@ function update_option()
     else
         aria2c https://raw.githubusercontent.com/licyk/sd-webui-script/main/term-sd.sh -d ./update-tmp/
         if [ "$?"="0" ];then
-           rm term-sd.sh
-           mv ./update-tmp/term-sd.sh .
+           cp -fv ./update-tmp/term-sd.sh ./
            rm -rfv ./update-tmp
 	   chmod u+x term-sd.sh
            echo "更新完成，请重启Term-SD"
