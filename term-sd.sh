@@ -735,10 +735,10 @@ extra_python_proxy=""
 github_proxy=""
 force_pip=""
 
-final_proxy_options=$(whiptail --separate-output --notags --checklist "代理选择" 10 60 10 \
+final_proxy_options=$(whiptail --separate-output --notags --title "代理选择" --checklist "请选择代理，强制使用pip非必须选项" 10 60 10 \
   "1" "启用python代理" ON \
   "2" "启用github代理" ON \
-  "3" "强制使用pip" ON 3>&1 1>&2 2>&3)
+  "3" "强制使用pip" OFF 3>&1 1>&2 2>&3)
 
 #下面是为了解决已奇怪的bug
 final_proxy_option=$(whiptail --title "代理选择" --msgbox " 回车继续 "  3>&1 1>&2 2>&3)
