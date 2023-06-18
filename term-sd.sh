@@ -15,14 +15,18 @@ echo "Term-SD初始化中......"
 
 #设置启动时脚本路径
 start_path=$(pwd)
+#设置虚拟环境
+venv_active="enable"
+venv_info="启用"
 
 #主界面
 function mainmenu()
 {
     cd $start_path #回到最初路径
-
+    exit_venv #确保进行下一步操作前已退出其他虚拟环境
     mainmenu_select=$(
-		whiptail --title "Term-SD" --menu "请使用方向键和回车键进行操作" 20 60 10 \
+		whiptail --title "Term-SD" --menu "请使用方向键和回车键进行操作\n当前虚拟环境状态:"$venv_info"" 20 60 10 \
+      "0" "venv虚拟环境" \
 			"1" "AUTOMATIC1111-stable-diffusion-webui" \
 			"2" "ComfyUI" \
 			"3" "InvokeAI" \
@@ -52,7 +56,9 @@ function mainmenu()
             elif [ "${mainmenu_select}" == '8' ]; then #选择关于
                 info_option
             elif [ "${mainmenu_select}" == '9' ]; then #选择退出
-            exit
+                exit
+            elif [ "${mainmenu_select}" == '0' ]; then #选择venv虚拟环境
+                venv_option
             else
             exit
             fi
@@ -290,6 +296,9 @@ function start_option()
             if [ "${final_start_option}" == '1' ]; then #选择AUTOMATIC1111-stable-diffusion-webui
                 if [ -d "./stable-diffusion-webui/term-sd-launch.sh" ]; then #找到启动脚本
                   if (whiptail --title "stable-diffusion-webui" --yesno "选择直接启动/修改启动参数" --yes-button "启动" --no-button "修改参数" 20 60) then
+                      cd ./stable-diffusion-webui
+                      enter_venv
+                      cd ..
                       exec ./stable-diffusion-webui/term-sd-launch.sh
                       mainmenu
                   else #修改启动脚本
@@ -301,6 +310,9 @@ function start_option()
             elif [ "${final_start_option}" == '2' ]; then #选择ComfyUI
                 if [ -d "./ComfyUI/term-sd-launch.sh" ]; then #找到启动脚本
                   if (whiptail --title "ComfyUI启动选择" --yesno "选择直接启动/修改启动参数" --yes-button "启动" --no-button "修改参数" 20 60) then
+                      cd ./ComfyUI
+                      enter_venv
+                      cd ..
                       exec ./ComfyUI/term-sd-launch.sh
                       mainmenu
                   else
@@ -312,6 +324,9 @@ function start_option()
             elif [ "${final_start_option}" == '3' ]; then #选择InvokeAI
                 if [ -d "./InvokeAI/term-sd-launch.sh" ]; then #找到启动脚本
                   if (whiptail --title "InvokeAI启动选择" --yesno "选择直接启动/修改启动参数" --yes-button "启动" --no-button "修改参数" 20 60) then
+                      cd ./InvokeAI
+                      enter_venv
+                      cd ..
                       exec ./InvokeAI/term-sd-launch.sh
                       mainmenu
                   else
@@ -334,8 +349,10 @@ function start_option()
 #                fi
 #(多此一举,都没什么启动参数可选)
               cd lora-scripts
+              enter_venv
               chmod u+x install.bash
               exec python"$py_cmd" run_gui.ps1
+              exit_venv
               mainmenu
             else #选择whiptail下面的取消按钮
               mainmenu
@@ -536,7 +553,9 @@ function generate_a1111_sd_webui_launch()
     echo "设置启动参数" "$a1111_launch_option_1" "$a1111_launch_option_2" "$a1111_launch_option_3" "$a1111_launch_option_4" "$a1111_launch_option_5" "$a1111_launch_option_6" "$a1111_launch_option_7" "$a1111_launch_option_8" "$a1111_launch_option_9" "$a1111_launch_option_10" "$a1111_launch_option_11" "$a1111_launch_option_12" "$a1111_launch_option_13" "$a1111_launch_option_14" "$a1111_launch_option_15" "$a1111_launch_option_16" "$a1111_launch_option_17" "$a1111_launch_option_18" "$a1111_launch_option_19" "$a1111_launch_option_20" "$a1111_launch_option_21" "$a1111_launch_option_22" "$a1111_launch_option_23" "$a1111_launch_option_24" "$a1111_launch_option_25" "$a1111_launch_option_26"
     echo "python"$py_cmd" launch.py "$a1111_launch_option_1" "$a1111_launch_option_2" "$a1111_launch_option_3" "$a1111_launch_option_4" "$a1111_launch_option_5" "$a1111_launch_option_6" "$a1111_launch_option_7" "$a1111_launch_option_8" "$a1111_launch_option_9" "$a1111_launch_option_10" "$a1111_launch_option_11" "$a1111_launch_option_12" "$a1111_launch_option_13" "$a1111_launch_option_14" "$a1111_launch_option_15" "$a1111_launch_option_16" "$a1111_launch_option_17" "$a1111_launch_option_18" "$a1111_launch_option_19" "$a1111_launch_option_20" "$a1111_launch_option_21" "$a1111_launch_option_22" "$a1111_launch_option_23" "$a1111_launch_option_24" "$a1111_launch_option_25" "$a1111_launch_option_26"" >term-sd-launch.sh
     chmod u+x term-sd-launch.sh
+    enter_venv
     exec ./term-sd-launch.sh
+    exit_venv
     mainmenu
 }
 
@@ -656,7 +675,9 @@ function generate_comfyui_launch()
     echo "设置启动参数" "$comfyui_launch_option_1" "$comfyui_launch_option_2" "$comfyui_launch_option_3" "$comfyui_launch_option_4" "$comfyui_launch_option_5" "$comfyui_launch_option_6" "$comfyui_launch_option_7" "$comfyui_launch_option_8" "$comfyui_launch_option_9" "$comfyui_launch_option_10" "$comfyui_launch_option_11" "$comfyui_launch_option_12" "$comfyui_launch_option_13" "$comfyui_launch_option_14"
     echo "python"$py_cmd" main.py "$comfyui_launch_option_1" "$comfyui_launch_option_2" "$comfyui_launch_option_3" "$comfyui_launch_option_4" "$comfyui_launch_option_5" "$comfyui_launch_option_6" "$comfyui_launch_option_7" "$comfyui_launch_option_8" "$comfyui_launch_option_9" "$comfyui_launch_option_10" "$comfyui_launch_option_11" "$comfyui_launch_option_12" "$comfyui_launch_option_13" "$comfyui_launch_option_14"" >term-sd-launch.sh
     chmod u+x term-sd-launch.sh
+    enter_venv
     exec ./term-sd-launch.sh
+    exit_venv
     mainmenu
 }
 
@@ -665,7 +686,9 @@ function generate_comfyui_launch()
 function generate_invokeai_launch()
 {
   cd InvokeAI
+  enter_venv
   whiptail --title "invokeai" --msgbox "未开发" 20 60
+  exit_venv
   mainmenu
 }
 
@@ -674,10 +697,10 @@ function generate_invokeai_launch()
 function update_option()
 {
     if (whiptail --title "更新选项" --yesno "更新时是否选择代理" --yes-button "是" --no-button "否" 20 60) then
-        aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/sd-webui-script/main/term-sd.sh -d ./update-tmp/
+        aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/sd-webui-script/main/term-sd.sh -d ./term-sd-update-tmp/
         if [ "$?"="0" ];then
-           cp -fv ./update-tmp/term-sd.sh ./
-           rm -rfv ./update-tmp
+           cp -fv ./term-sd-update-tmp/term-sd.sh ./
+           rm -rfv ./term-sd-update-tmp
 	   chmod u+x term-sd.sh
            echo "更新完成，请重启Term-SD"
            exit
@@ -685,10 +708,10 @@ function update_option()
            echo "更新失败"
         fi
     else
-        aria2c https://raw.githubusercontent.com/licyk/sd-webui-script/main/term-sd.sh -d ./update-tmp/
+        aria2c https://raw.githubusercontent.com/licyk/sd-webui-script/main/term-sd.sh -d ./term-sd-update-tmp/
         if [ "$?"="0" ];then
-           cp -fv ./update-tmp/term-sd.sh ./
-           rm -rfv ./update-tmp
+           cp -fv ./term-sd-update-tmp/term-sd.sh ./
+           rm -rfv ./term-sd-update-tmp
 	   chmod u+x term-sd.sh
            echo "更新完成，请重启Term-SD"
            exit
@@ -718,6 +741,51 @@ function info_option()
 {
     whiptail --title "关于" --msgbox "Term-SD是基于终端显示的管理器,可以对项目进行简单的管理  \n支持的项目如下: \n 1、AUTOMATIC1111-stable-diffusion-webui \n 2、ComfyUI \n 3、InvokeAI \n 4、lora-scripts \n该脚本的编写参考了https://gitee.com/skymysky/linux \n目前脚本支持Linux,WSL,Termux上运行\nMacOS或许支持 \n该脚本有不足之处,请见凉 \n\nby licyk\n(◍•ᴗ•◍)" 20 60
     mainmenu
+}
+
+#################################################
+
+#venv虚拟环境处理
+
+
+function venv_option()
+{
+    if (whiptail --title "venv虚拟环境" --yesno "是否启用venv虚拟环境,默认为启用状态,推荐启用" --yes-button "启用" --no-button "禁用" 20 60) then
+        venv_active="enable"
+        venv_info="启用"
+        echo "启用虚拟环境"
+    else
+        venv_active="disable"
+        venv_info="禁用"
+        echo "禁用虚拟环境"
+    fi
+    mainmenu
+}
+
+function venv_generate()
+{
+    if [ "$venv_active" = "enable" ];then
+    echo "创建venv虚拟环境"
+    python"$py_cmd" -m venv venv
+    else
+    echo "忽略创建venv虚拟环境"
+    fi
+}
+
+function enter_venv()
+{
+  if [ "$venv_active" = "enable" ];then
+  echo "进入venv虚拟环境"
+  source ./venv/bin/activate
+  else
+  echo "忽略进入venv虚拟环境"
+  fi
+}
+
+function exit_venv()
+{
+  echo "退出venv虚拟环境"
+  deactivate
 }
 
 
@@ -1054,6 +1122,10 @@ function process_install_a1111_sd_webui()
   #开始安装插件
   echo "开始安装stable-diffusion-webui"
   git clone "$github_proxy"https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
+  cd ./stable-diffusion-webui
+  venv_generate
+  enter_venv
+  cd ..
   pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip
   mkdir ./stable-diffusion-webui/repositories
   git clone "$github_proxy"https://github.com/CompVis/stable-diffusion.git ./stable-diffusion-webui/repositories/stable-diffusion
@@ -1152,7 +1224,7 @@ function process_install_a1111_sd_webui()
   aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_sketch_sd15v2.pth -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o t2iadapter_sketch_sd15v2.pth
   aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_zoedepth_sd15v1.pth -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o t2iadapter_zoedepth_sd15v1.pth
   fi
-  
+  exit_venv
 }
 
 
@@ -1167,10 +1239,14 @@ function process_install_comfyui()
     #开始安装comfyui
     echo "开始安装comfyui"
     git clone "$github_proxy"https://github.com/comfyanonymous/ComfyUI.git
+    cd ./ComfyUI
+    venv_generate
+    enter_venv
+    cd ..
     pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip
     pip install -r ./ComfyUI/requirements.txt  --prefer-binary $python_proxy $force_pip
     aria2c https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt -d ./ComfyUI/models/checkpoints/ -o sd-v1-4.ckpt
-
+    exit_venv
 }
 
 
@@ -1183,8 +1259,13 @@ function process_install_invokeai()
     #开始安装invokeai
     echo "开始安装invokeai"
     git clone "$github_proxy"https://github.com/invoke-ai/InvokeAI.git
+    cd ./InvokeAI
+    venv_generate
+    enter_venv
+    cd ..
+    chmod u+x ./InvokeAI/installer/create_installer.sh
     exec ./InvokeAI/installer/create_installer.sh
-
+    exit_venv
 }
 
 #lora-scipts安装处理部分
@@ -1196,9 +1277,12 @@ function process_install_lora_scripts()
     echo "开始安装lora-scipts"
     git clone "$github_proxy"https://github.com/Akegarasu/lora-scripts.git
     cd lora-scripts
+    venv_generate
+    enter_venv
     chmod +x ./install.bash
     exec ./install.bash
     aria2c https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt -d ./sd-models/ -o model.ckpt
+    exit_venv
 }
 
 
@@ -1237,7 +1321,7 @@ final_extension_methon=$(
 function extension_manager()
 {
         cd $start_path/stable-diffusion-webui/extensions #回到原来的插件目录
-        dir_list=$(ls -l  | awk -F ' ' ' { print $8 " " $7 } ') #当前目录文件和文件夹信息
+        dir_list=$(ls -l  | awk -F ' ' ' { print $9 " " $6 $7 } ') #当前目录文件和文件夹信息
 
         extension_selection=$(whiptail --title "插件管理" \
                           --menu "使用上下键选择要操作的插件并回车确认" 20 60 10 \
@@ -1341,7 +1425,7 @@ fi
 #显示版本信息
 function term_sd_version()
 {
-  whiptail --title "版本信息" --msgbox " Term-SD:0.0.1\n python:$(python"$py_cmd" --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n aria2:$(aria2c --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n git:$(git --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n whiptail:$(whiptail --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n\n提示:\n 使用方向键、Tab键、Enter进行选择，Space键勾选或取消选项\n Ctrl+C可中断指令的运行" 20 60
+  whiptail --title "版本信息" --msgbox " Term-SD:0.0.2\n python:$(python"$py_cmd" --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n aria2:$(aria2c --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n git:$(git --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n whiptail:$(whiptail --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n\n提示:\n 使用方向键、Tab键、Enter进行选择，Space键勾选或取消选项\n Ctrl+C可中断指令的运行" 20 60
   mainmenu
 }
 #判断系统是否安装必须使用的软件
