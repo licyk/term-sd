@@ -5,7 +5,7 @@
 
 使用方法：
 
-aria2c https://raw.githubusercontent.com/licyk/sd-webui-scipt/main/term-sd.sh
+aria2c https://raw.githubusercontent.com/licyk/sd-webui-script/main/term-sd.sh
 
 chmod +x term-sd.sh
 
