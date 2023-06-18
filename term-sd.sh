@@ -674,7 +674,7 @@ function generate_invokeai_launch()
 function update_option()
 {
     if (whiptail --title "更新选项" --yesno "更新时是否选择代理" --yes-button "是" --no-button "否" 20 60) then
-        aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/sd-webui-scipt/main/term-sd.sh -d ./update-tmp/
+        aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/sd-webui-script/main/term-sd.sh -d ./update-tmp/
         if [ "$?"="0"];then
            rm term-sd.sh
            mv ./update-tmp/term-sd.sh .
@@ -686,7 +686,7 @@ function update_option()
            echo "更新失败"
         fi
     else
-        aria2c https://raw.githubusercontent.com/licyk/sd-webui-scipt/main/term-sd.sh -d ./update-tmp/
+        aria2c https://raw.githubusercontent.com/licyk/sd-webui-script/main/term-sd.sh -d ./update-tmp/
         if [ "$?"="0"];then
            rm term-sd.sh
            mv ./update-tmp/term-sd.sh .
@@ -698,6 +698,7 @@ function update_option()
            echo "更新失败"
         fi
     fi
+    exit
 }
 
 #python代理选项
