@@ -735,7 +735,7 @@ extra_python_proxy=""
 github_proxy=""
 force_pip=""
 
-final_proxy_options=$(whiptail --separate-output --notags --title "代理选择" --checklist "请选择代理，强制使用pip非必须选项" 10 60 10 \
+final_proxy_options=$(whiptail --separate-output --notags --title "代理选择" --checklist "请选择代理，强制使用pip非必须选项" 20 60 10 \
   "1" "启用python代理" ON \
   "2" "启用github代理" ON \
   "3" "强制使用pip" OFF 3>&1 1>&2 2>&3)
