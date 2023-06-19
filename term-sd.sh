@@ -1231,7 +1231,9 @@ function process_install_comfyui()
     enter_venv
     cd ..
     pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip
-    pip install -r ./ComfyUI/requirements.txt  --prefer-binary $python_proxy $force_pip
+    cd ./ComfyUI
+    pip install -r requirements.txt  --prefer-binary $python_proxy $force_pip
+    cd ..
     aria2c https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt -d ./ComfyUI/models/checkpoints/ -o sd-v1-4.ckpt
     exit_venv
 }
@@ -1260,6 +1262,7 @@ function process_install_lora_scripts()
     proxy_option #代理选择
     python_dep_install #pytorch选择
 
+    #参考lora-scripts里的install.bash写的
     echo "开始安装lora-scipts"
     git clone "$github_proxy"https://github.com/Akegarasu/lora-scripts.git
     cd ./lora-scripts
