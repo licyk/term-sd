@@ -194,7 +194,7 @@ function comfyui_option()
             mainmenu #回到主界面
 	    fi
 
-        else
+    else
         if (whiptail --title "ComfyUI管理" --yesno "检测到当前未安装ComfyUI,是否进行安装" 20 60) then
             process_install_comfyui
         else
@@ -1153,7 +1153,7 @@ function process_install_a1111_sd_webui()
   git clone https://huggingface.co/embed/negative ./stable-diffusion-webui/embeddings/negative
   git clone https://huggingface.co/embed/lora ./stable-diffusion-webui/models/Lora/positive
 
- if ["$(extension_34)" =='https://github.com/Mikubill/sd-webui-controlnet' ]; then
+ if [ "$extension_34" = "https://github.com/Mikubill/sd-webui-controlnet" ]; then #安装controlnet时再下载相关模型
   aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11e_sd15_ip2p_fp16.safetensors -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11e_sd15_ip2p_fp16.safetensors
   aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11e_sd15_shuffle_fp16.safetensors -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11e_sd15_shuffle_fp16.safetensors
   aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_canny_fp16.safetensors -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11p_sd15_canny_fp16.safetensors
