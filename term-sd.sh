@@ -337,8 +337,6 @@ function lora_scripts_option()
 function generate_a1111_sd_webui_launch()
 {
 
-        cd stable-diffusion-webui
-
 #清空启动参数
         a1111_launch_option_1=""
         a1111_launch_option_2=""
@@ -534,8 +532,6 @@ function generate_a1111_sd_webui_launch()
 function generate_comfyui_launch()
 {
 
-        cd ComfyUI
-
         comfyui_launch_option_1=""
         comfyui_launch_option_2=""
         comfyui_launch_option_3=""
@@ -654,7 +650,7 @@ function generate_comfyui_launch()
 #invokeai启动脚本生成部分
 function generate_invokeai_launch()
 {
-  cd InvokeAI
+
   whiptail --title "invokeai" --msgbox "未开发" 20 60
   mainmenu
 }
