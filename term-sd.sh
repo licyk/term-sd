@@ -298,8 +298,9 @@ function lora_scripts_option()
 
       if [ "${final_lora_scripts_option}" == '5' ]; then
 		        enter_venv
-            chmod u+x install.bash
-            exec python3 run_gui.ps1
+            export HF_HOME=huggingface
+            export PYTHONUTF8=1
+            python3 ./gui.py
             mainmenu
 	    fi
 
@@ -1098,10 +1099,12 @@ function process_install_a1111_sd_webui()
   #开始安装插件
   echo "开始安装stable-diffusion-webui"
   git clone "$github_proxy"https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
+
   cd ./stable-diffusion-webui
   venv_generate
   enter_venv
   cd ..
+
   pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip
   mkdir ./stable-diffusion-webui/repositories
   git clone "$github_proxy"https://github.com/CompVis/stable-diffusion.git ./stable-diffusion-webui/repositories/stable-diffusion
@@ -1109,14 +1112,21 @@ function process_install_a1111_sd_webui()
   git clone "$github_proxy"https://github.com/sczhou/CodeFormer.git ./stable-diffusion-webui/repositories/CodeFormer
   git clone "$github_proxy"https://github.com/salesforce/BLIP.git ./stable-diffusion-webui/repositories/BLIP
   git clone "$github_proxy"https://github.com/Stability-AI/stablediffusion.git/ ./stable-diffusion-webui/repositories/stable-diffusion-stability-ai
-  pip install -r ./stable-diffusion-webui/requirements.txt  --prefer-binary $python_proxy $force_pip
   pip install git+"$github_proxy"https://github.com/crowsonkb/k-diffusion.git --prefer-binary $python_proxy $force_pip
   pip install git+"$github_proxy"https://github.com/TencentARC/GFPGAN.git --prefer-binary $python_proxy $force_pip
-  pip install -r ./stable-diffusion-webui/repositories/CodeFormer/requirements.txt --prefer-binary $python_proxy $force_pip
+
+  cd ./stable-diffusion-webui/repositories/CodeFormer/
+  pip install -r requirements.txt --prefer-binary $python_proxy $force_pip
+  cd $start_path
+
   pip install -U numpy  --prefer-binary $python_proxy $force_pip
   pip install git+"$github_proxy"https://github.com/openai/CLIP.git --prefer-binary $python_proxy $force_pip
   pip install git+"$github_proxy"https://github.com/mlfoundations/open_clip.git --prefer-binary $python_proxy $force_pip
-  pip install -r ./stable-diffusion-webui/requirements.txt  --prefer-binary $python_proxy $force_pip
+
+  cd ./stable-diffusion-webui
+  pip install -r requirements.txt  --prefer-binary $python_proxy $force_pip #安装stable-diffusion-webui的依赖
+  cd ..
+  
   sed -i -e 's/\"sd_model_checkpoint\"\,/\"sd_model_checkpoint\,sd_vae\,CLIP_stop_at_last_layers\"\,/g' ./stable-diffusion-webui/modules/shared.py
   #sed -i -e 's/\"sd_model_checkpoint\"\,/\"sd_model_checkpoint\,sd_vae\,CLIP_stop_at_last_layers\,cross_attention_optimization\,token_merging_ratio\,token_merging_ratio_img2img\,token_merging_ratio_hr\,show_progress_type\"\,/g' ./stable-diffusion-webui/modules/shared.py
   git clone "$github_proxy"$extension_1 ./stable-diffusion-webui/extensions/kohya-config-webui
@@ -1248,14 +1258,18 @@ function process_install_lora_scripts()
 {
     #安装前的准备
     proxy_option #代理选择
-    
+    python_dep_install #pytorch选择
+
     echo "开始安装lora-scipts"
     git clone "$github_proxy"https://github.com/Akegarasu/lora-scripts.git
-    cd lora-scripts
+    cd ./lora-scripts
     venv_generate
     enter_venv
-    chmod +x ./install.bash
-    exec ./install.bash
+    pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip
+    cd ./sd-scripts
+    pip install $python_proxy $extra_python_proxy $force_pip --upgrade -r requirements.txt
+    cd ..
+    pip install --upgrade $python_proxy $extra_python_proxy $force_pip lion-pytorch lycoris-lora dadaptation fastapi uvicorn wandb
     aria2c https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt -d ./sd-models/ -o model.ckpt
     exit_venv
 }
@@ -1396,7 +1410,7 @@ fi
 #显示版本信息
 function term_sd_version()
 {
-  whiptail --title "版本信息" --msgbox " Term-SD:0.0.4\n python:$(python3 --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n aria2:$(aria2c --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n git:$(git --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n whiptail:$(whiptail --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n\n提示:\n 使用方向键、Tab键、Enter进行选择，Space键勾选或取消选项\n Ctrl+C可中断指令的运行\n 建议保持启用虚拟环境，因为不同项目对软件包的版本要求不同" 20 60
+  whiptail --title "版本信息" --msgbox " Term-SD:0.0.5\n python:$(python3 --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n aria2:$(aria2c --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n git:$(git --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n whiptail:$(whiptail --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n\n提示:\n 使用方向键、Tab键、Enter进行选择，Space键勾选或取消选项\n Ctrl+C可中断指令的运行\n 建议保持启用虚拟环境，因为不同项目对软件包的版本要求不同" 20 60
   mainmenu
 }
 #判断系统是否安装必须使用的软件
