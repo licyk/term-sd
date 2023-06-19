@@ -206,64 +206,53 @@ function comfyui_option()
 #InvokeAI选项
 function invokeai_option()
 {
-    if [ -d "InvokeAI" ];then
+  if [ -d "InvokeAI" ];then
+      if which invokeai > /dev/null ;then
         cd InvokeAI
+        enter_venv
         final_invokeai_option=$(
     		whiptail --title "InvokeAI管理" --menu "请使用方向键和回车键对InvokeAI进行操作" 20 60 10 \
 	    		"1" "更新" \
     			"2" "卸载" \
-	    		"3" "修复" \
-          "4" "切换版本" \
-          "5" "启动" \
+          "3" "启动" \
 	    		"0" "返回" \
 	    		3>&1 1>&2 2>&3
 	        )
 
-	    if [ "${final_invokeai_option}" == '1' ]; then
-              echo "更新InvokeAI中"
-             git pull
-    	fi
+	        if [ "${final_invokeai_option}" == '1' ]; then
+                 echo "更新InvokeAI中"
+                 pip install --upgrade invokeai
+         	fi
 
-	    if [ "${final_invokeai_option}" == '2' ]; then
-            echo "删除InvokeAI中"
-            cd ..
-            rm -rfv ./InvokeAI
-    	fi
+	        if [ "${final_invokeai_option}" == '2' ]; then
+                exit_venv
+                echo "删除InvokeAI中"
+                cd ..
+                rm -rfv ./InvokeAI
+    	    fi
 
-	    if [ "${final_invokeai_option}" == '3' ]; then
-		    echo "将工作区、暂存取和HEAD保持一致"
-            git reset --hard HEAD
-	    fi
+	        if [ "${final_invokeai_option}" == '3' ]; then
+                generate_invokeai_launch
+	        fi
 
-	    if [ "${final_invokeai_option}" == '4' ]; then
-		        echo "切换版本"
-            git_checkout_manager
-	    fi
+	        if [ "${final_invokeai_option}" == '0' ]; then
+                mainmenu #回到主界面
+	        fi
 
-      if [ "${final_invokeai_option}" == '5' ]; then
-		    if [ -f "./term-sd-launch.sh" ]; then #找到启动脚本
-          if (whiptail --title "InvokeAI启动选择" --yesno "选择直接启动/修改启动参数" --yes-button "启动" --no-button "修改参数" 20 60) then
-              exec ./term-sd-launch.sh
-              mainmenu
+      else 
+          if (whiptail --title "项目管理" --yesno "检测到当前未安装InvokeAI,是否进行安装" 20 60) then
+              process_install_invokeai
           else
-              generate_invokeai_launch
+              mainmenu
           fi
-        else #找不到启动脚本,并启动脚本生成界面
-          generate_invokeai_launch
-        fi
-	    fi
-
-	    if [ "${final_invokeai_option}" == '0' ]; then
-            mainmenu #回到主界面
-	    fi
-
-        else
+      fi
+  else
         if (whiptail --title "项目管理" --yesno "检测到当前未安装InvokeAI,是否进行安装" 20 60) then
-            process_install_invokeai
+          process_install_invokeai
         else
-            mainmenu
+          mainmenu
         fi
-    fi
+  fi
         mainmenu #处理完后返回主界面界面
 }
 
@@ -653,8 +642,30 @@ function generate_comfyui_launch()
 function generate_invokeai_launch()
 {
 
-  whiptail --title "invokeai" --msgbox "未开发" 20 60
-  mainmenu
+  invokeai_launch_option=$(
+		whiptail --title "InvokeAI启动选项" --menu "请使用方向键和回车键选择启动参数" 20 60 10 \
+      "1" "invokeai-configure" \
+			"2" "invokeai" \
+			"3" "invokeai --web" \
+			"4" "invokeai-ti --gui" \
+      "5" "invokeai-merge --gui" \
+      "6" "返回" \
+			3>&1 1>&2 2>&3 )
+
+      if [ "${invokeai_launch_option}" == '1' ]; then 
+          invokeai-configure
+      elif [ "${invokeai_launch_option}" == '2' ]; then 
+          invokeai
+      elif [ "${invokeai_launch_option}" == '3' ]; then 
+          invokeai --web
+      elif [ "${invokeai_launch_option}" == '4' ]; then 
+          invokeai-ti --gui
+      elif [ "${invokeai_launch_option}" == '5' ]; then 
+          invokeai-merge --gui
+      elif [ "${invokeai_launch_option}" == '6' ]; then 
+          mainmenu
+      fi
+    mainmenu
 }
 
 
@@ -766,7 +777,7 @@ extra_python_proxy=""
 github_proxy=""
 force_pip=""
 
-final_proxy_options=$(whiptail --separate-output --notags --title "代理选择" --checklist "请选择代理，强制使用pip非必须选项" 20 60 10 \
+final_proxy_options=$(whiptail --separate-output --notags --title "代理选择" --checklist "请选择代理，强制使用pip一般情况下不选" 20 60 10 \
   "1" "启用python代理" ON \
   "2" "启用github代理" ON \
   "3" "强制使用pip" OFF 3>&1 1>&2 2>&3)
@@ -1219,18 +1230,16 @@ function process_install_comfyui()
 #invokeai安装处理部分
 function process_install_invokeai()
 {
-    #安装前的准备
-    proxy_option #代理选择
+    #安装前准备
+    proxy_option
 
     #开始安装invokeai
     echo "开始安装invokeai"
-    git clone "$github_proxy"https://github.com/invoke-ai/InvokeAI.git
+    mkdir InvokeAI
     cd ./InvokeAI
     venv_generate
     enter_venv
-    cd ..
-    chmod u+x ./InvokeAI/installer/create_installer.sh
-    exec ./InvokeAI/installer/create_installer.sh
+    pip install invokeai $python_proxy $extra_python_proxy $force_pip
     exit_venv
 }
 
@@ -1366,8 +1375,6 @@ function git_checkout_manager()
 
     git checkout $commit_selection 
     echo 切换到"$commit_selection"版本
-
-
 }
 
 
@@ -1389,7 +1396,7 @@ fi
 #显示版本信息
 function term_sd_version()
 {
-  whiptail --title "版本信息" --msgbox " Term-SD:0.0.3\n python:$(python3 --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n aria2:$(aria2c --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n git:$(git --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n whiptail:$(whiptail --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n\n提示:\n 使用方向键、Tab键、Enter进行选择，Space键勾选或取消选项\n Ctrl+C可中断指令的运行\n 建议保持启用虚拟环境，因为不同项目对软件包的版本要求不同" 20 60
+  whiptail --title "版本信息" --msgbox " Term-SD:0.0.4\n python:$(python3 --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n aria2:$(aria2c --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n git:$(git --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n whiptail:$(whiptail --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n\n提示:\n 使用方向键、Tab键、Enter进行选择，Space键勾选或取消选项\n Ctrl+C可中断指令的运行\n 建议保持启用虚拟环境，因为不同项目对软件包的版本要求不同" 20 60
   mainmenu
 }
 #判断系统是否安装必须使用的软件
