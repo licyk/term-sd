@@ -374,7 +374,7 @@ function generate_a1111_sd_webui_launch()
         "5" "lowvram" ON \
         "6" "lowram" OFF \
         "7" "enable-insecure-extension-access" ON \
-        "8" "theme dark" OFF \
+        "8" "theme dark" ON \
         "9" "autolaunch" ON \
         "10" "xformers" ON \
         "11" "listen" ON \
@@ -1104,7 +1104,8 @@ function process_install_a1111_sd_webui()
   pip install git+"$github_proxy"https://github.com/openai/CLIP.git --prefer-binary $python_proxy $force_pip
   pip install git+"$github_proxy"https://github.com/mlfoundations/open_clip.git --prefer-binary $python_proxy $force_pip
   pip install -r ./stable-diffusion-webui/requirements.txt  --prefer-binary $python_proxy $force_pip
-  sed -i -e 's/\"sd_model_checkpoint\"\,/\"sd_model_checkpoint\,sd_vae\,CLIP_stop_at_last_layers\,cross_attention_optimization\,token_merging_ratio\,token_merging_ratio_img2img\,token_merging_ratio_hr\,show_progress_type\"\,/g' ./stable-diffusion-webui/modules/shared.py
+  sed -i -e 's/\"sd_model_checkpoint\"\,/\"sd_model_checkpoint\,sd_vae\,CLIP_stop_at_last_layers\"\,/g' ./stable-diffusion-webui/modules/shared.py
+  #sed -i -e 's/\"sd_model_checkpoint\"\,/\"sd_model_checkpoint\,sd_vae\,CLIP_stop_at_last_layers\,cross_attention_optimization\,token_merging_ratio\,token_merging_ratio_img2img\,token_merging_ratio_hr\,show_progress_type\"\,/g' ./stable-diffusion-webui/modules/shared.py
   git clone "$github_proxy"$extension_1 ./stable-diffusion-webui/extensions/kohya-config-webui
   git clone "$github_proxy"$extension_2 ./stable-diffusion-webui/extensions/sd-webui-additional-networks
   git clone "$github_proxy"$extension_3 ./stable-diffusion-webui/extensions/a1111-sd-webui-tagcomplete
