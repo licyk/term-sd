@@ -113,7 +113,6 @@ function a1111_sd_webui_option()
       if [ "${final_a1111_sd_webui_option}" == '6' ]; then
         if [ -f "./term-sd-launch.sh" ]; then #找到启动脚本
           if (whiptail --title "stable-diffusion-webui" --yesno "选择直接启动/修改启动参数" --yes-button "启动" --no-button "修改参数" 20 60) then
-              enter_venv
               exec ./term-sd-launch.sh
               mainmenu
           else #修改启动脚本
@@ -179,7 +178,6 @@ function comfyui_option()
       if [ "${final_comfyui_option}" == '5' ]; then
 		    if [ -f "./term-sd-launch.sh" ]; then #找到启动脚本
           if (whiptail --title "ComfyUI启动选择" --yesno "选择直接启动/修改启动参数" --yes-button "启动" --no-button "修改参数" 20 60) then
-              enter_venv
               exec ./term-sd-launch.sh
               mainmenu
           else
@@ -245,7 +243,6 @@ function invokeai_option()
       if [ "${final_invokeai_option}" == '5' ]; then
 		    if [ -f "./term-sd-launch.sh" ]; then #找到启动脚本
           if (whiptail --title "InvokeAI启动选择" --yesno "选择直接启动/修改启动参数" --yes-button "启动" --no-button "修改参数" 20 60) then
-              enter_venv
               exec ./term-sd-launch.sh
               mainmenu
           else
@@ -525,9 +522,9 @@ function generate_a1111_sd_webui_launch()
 #生成启动脚本
     rm -v ./term-sd-launch.sh
     echo "设置启动参数" "$a1111_launch_option_1" "$a1111_launch_option_2" "$a1111_launch_option_3" "$a1111_launch_option_4" "$a1111_launch_option_5" "$a1111_launch_option_6" "$a1111_launch_option_7" "$a1111_launch_option_8" "$a1111_launch_option_9" "$a1111_launch_option_10" "$a1111_launch_option_11" "$a1111_launch_option_12" "$a1111_launch_option_13" "$a1111_launch_option_14" "$a1111_launch_option_15" "$a1111_launch_option_16" "$a1111_launch_option_17" "$a1111_launch_option_18" "$a1111_launch_option_19" "$a1111_launch_option_20" "$a1111_launch_option_21" "$a1111_launch_option_22" "$a1111_launch_option_23" "$a1111_launch_option_24" "$a1111_launch_option_25" "$a1111_launch_option_26"
-    echo "python3 launch.py "$a1111_launch_option_1" "$a1111_launch_option_2" "$a1111_launch_option_3" "$a1111_launch_option_4" "$a1111_launch_option_5" "$a1111_launch_option_6" "$a1111_launch_option_7" "$a1111_launch_option_8" "$a1111_launch_option_9" "$a1111_launch_option_10" "$a1111_launch_option_11" "$a1111_launch_option_12" "$a1111_launch_option_13" "$a1111_launch_option_14" "$a1111_launch_option_15" "$a1111_launch_option_16" "$a1111_launch_option_17" "$a1111_launch_option_18" "$a1111_launch_option_19" "$a1111_launch_option_20" "$a1111_launch_option_21" "$a1111_launch_option_22" "$a1111_launch_option_23" "$a1111_launch_option_24" "$a1111_launch_option_25" "$a1111_launch_option_26"" >term-sd-launch.sh
+    echo "source ./venv/bin/activate" >term-sd-launch.sh
+    echo "python3 launch.py "$a1111_launch_option_1" "$a1111_launch_option_2" "$a1111_launch_option_3" "$a1111_launch_option_4" "$a1111_launch_option_5" "$a1111_launch_option_6" "$a1111_launch_option_7" "$a1111_launch_option_8" "$a1111_launch_option_9" "$a1111_launch_option_10" "$a1111_launch_option_11" "$a1111_launch_option_12" "$a1111_launch_option_13" "$a1111_launch_option_14" "$a1111_launch_option_15" "$a1111_launch_option_16" "$a1111_launch_option_17" "$a1111_launch_option_18" "$a1111_launch_option_19" "$a1111_launch_option_20" "$a1111_launch_option_21" "$a1111_launch_option_22" "$a1111_launch_option_23" "$a1111_launch_option_24" "$a1111_launch_option_25" "$a1111_launch_option_26"" >>term-sd-launch.sh
     chmod u+x ./term-sd-launch.sh
-    enter_venv
     exec ./term-sd-launch.sh
     mainmenu
 }
@@ -646,9 +643,9 @@ function generate_comfyui_launch()
 
     rm -v ./term-sd-launch.sh
     echo "设置启动参数" "$comfyui_launch_option_1" "$comfyui_launch_option_2" "$comfyui_launch_option_3" "$comfyui_launch_option_4" "$comfyui_launch_option_5" "$comfyui_launch_option_6" "$comfyui_launch_option_7" "$comfyui_launch_option_8" "$comfyui_launch_option_9" "$comfyui_launch_option_10" "$comfyui_launch_option_11" "$comfyui_launch_option_12" "$comfyui_launch_option_13" "$comfyui_launch_option_14"
-    echo "python3 main.py "$comfyui_launch_option_1" "$comfyui_launch_option_2" "$comfyui_launch_option_3" "$comfyui_launch_option_4" "$comfyui_launch_option_5" "$comfyui_launch_option_6" "$comfyui_launch_option_7" "$comfyui_launch_option_8" "$comfyui_launch_option_9" "$comfyui_launch_option_10" "$comfyui_launch_option_11" "$comfyui_launch_option_12" "$comfyui_launch_option_13" "$comfyui_launch_option_14"" >term-sd-launch.sh
+    echo "source ./venv/bin/activate" >term-sd-launch.sh
+    echo "python3 main.py "$comfyui_launch_option_1" "$comfyui_launch_option_2" "$comfyui_launch_option_3" "$comfyui_launch_option_4" "$comfyui_launch_option_5" "$comfyui_launch_option_6" "$comfyui_launch_option_7" "$comfyui_launch_option_8" "$comfyui_launch_option_9" "$comfyui_launch_option_10" "$comfyui_launch_option_11" "$comfyui_launch_option_12" "$comfyui_launch_option_13" "$comfyui_launch_option_14"" >>term-sd-launch.sh
     chmod u+x ./term-sd-launch.sh
-    enter_venv
     exec ./term-sd-launch.sh
     mainmenu
 }
@@ -658,7 +655,6 @@ function generate_comfyui_launch()
 function generate_invokeai_launch()
 {
   cd InvokeAI
-  enter_venv
   whiptail --title "invokeai" --msgbox "未开发" 20 60
   mainmenu
 }
