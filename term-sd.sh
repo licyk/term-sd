@@ -311,7 +311,12 @@ function lora_scripts_option()
 		        enter_venv
             export HF_HOME=huggingface
             export PYTHONUTF8=1
+            if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
+            python ./gui.py
+            else
             python3 ./gui.py
+            fi
+
             mainmenu
 	    fi
 
@@ -519,8 +524,15 @@ function generate_a1111_sd_webui_launch()
     rm -v ./term-sd-launch.sh
     echo "设置启动参数" "$a1111_launch_option_1" "$a1111_launch_option_2" "$a1111_launch_option_3" "$a1111_launch_option_4" "$a1111_launch_option_5" "$a1111_launch_option_6" "$a1111_launch_option_7" "$a1111_launch_option_8" "$a1111_launch_option_9" "$a1111_launch_option_10" "$a1111_launch_option_11" "$a1111_launch_option_12" "$a1111_launch_option_13" "$a1111_launch_option_14" "$a1111_launch_option_15" "$a1111_launch_option_16" "$a1111_launch_option_17" "$a1111_launch_option_18" "$a1111_launch_option_19" "$a1111_launch_option_20" "$a1111_launch_option_21" "$a1111_launch_option_22" "$a1111_launch_option_23" "$a1111_launch_option_24" "$a1111_launch_option_25" "$a1111_launch_option_26"
     echo "echo "进入venv虚拟环境"" >term-sd-launch.sh
+
+    if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
+    echo "source ./venv/Scripts/activate" >>term-sd-launch.sh
+    echo "python launch.py "$a1111_launch_option_1" "$a1111_launch_option_2" "$a1111_launch_option_3" "$a1111_launch_option_4" "$a1111_launch_option_5" "$a1111_launch_option_6" "$a1111_launch_option_7" "$a1111_launch_option_8" "$a1111_launch_option_9" "$a1111_launch_option_10" "$a1111_launch_option_11" "$a1111_launch_option_12" "$a1111_launch_option_13" "$a1111_launch_option_14" "$a1111_launch_option_15" "$a1111_launch_option_16" "$a1111_launch_option_17" "$a1111_launch_option_18" "$a1111_launch_option_19" "$a1111_launch_option_20" "$a1111_launch_option_21" "$a1111_launch_option_22" "$a1111_launch_option_23" "$a1111_launch_option_24" "$a1111_launch_option_25" "$a1111_launch_option_26"" >>term-sd-launch.sh
+    else
     echo "source ./venv/bin/activate" >>term-sd-launch.sh
     echo "python3 launch.py "$a1111_launch_option_1" "$a1111_launch_option_2" "$a1111_launch_option_3" "$a1111_launch_option_4" "$a1111_launch_option_5" "$a1111_launch_option_6" "$a1111_launch_option_7" "$a1111_launch_option_8" "$a1111_launch_option_9" "$a1111_launch_option_10" "$a1111_launch_option_11" "$a1111_launch_option_12" "$a1111_launch_option_13" "$a1111_launch_option_14" "$a1111_launch_option_15" "$a1111_launch_option_16" "$a1111_launch_option_17" "$a1111_launch_option_18" "$a1111_launch_option_19" "$a1111_launch_option_20" "$a1111_launch_option_21" "$a1111_launch_option_22" "$a1111_launch_option_23" "$a1111_launch_option_24" "$a1111_launch_option_25" "$a1111_launch_option_26"" >>term-sd-launch.sh
+    fi
+
     chmod u+x ./term-sd-launch.sh
     exec ./term-sd-launch.sh
     mainmenu
@@ -636,8 +648,16 @@ function generate_comfyui_launch()
     rm -v ./term-sd-launch.sh
     echo "设置启动参数" "$comfyui_launch_option_1" "$comfyui_launch_option_2" "$comfyui_launch_option_3" "$comfyui_launch_option_4" "$comfyui_launch_option_5" "$comfyui_launch_option_6" "$comfyui_launch_option_7" "$comfyui_launch_option_8" "$comfyui_launch_option_9" "$comfyui_launch_option_10" "$comfyui_launch_option_11" "$comfyui_launch_option_12" "$comfyui_launch_option_13" "$comfyui_launch_option_14"
     echo "echo "进入venv虚拟环境"" >term-sd-launch.sh
+    
+
+    if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
+    echo "source ./venv/Scripts/activate" >>term-sd-launch.sh
+    echo "python main.py "$comfyui_launch_option_1" "$comfyui_launch_option_2" "$comfyui_launch_option_3" "$comfyui_launch_option_4" "$comfyui_launch_option_5" "$comfyui_launch_option_6" "$comfyui_launch_option_7" "$comfyui_launch_option_8" "$comfyui_launch_option_9" "$comfyui_launch_option_10" "$comfyui_launch_option_11" "$comfyui_launch_option_12" "$comfyui_launch_option_13" "$comfyui_launch_option_14"" >>term-sd-launch.sh
+    else
     echo "source ./venv/bin/activate" >>term-sd-launch.sh
     echo "python3 main.py "$comfyui_launch_option_1" "$comfyui_launch_option_2" "$comfyui_launch_option_3" "$comfyui_launch_option_4" "$comfyui_launch_option_5" "$comfyui_launch_option_6" "$comfyui_launch_option_7" "$comfyui_launch_option_8" "$comfyui_launch_option_9" "$comfyui_launch_option_10" "$comfyui_launch_option_11" "$comfyui_launch_option_12" "$comfyui_launch_option_13" "$comfyui_launch_option_14"" >>term-sd-launch.sh
+    fi
+
     chmod u+x ./term-sd-launch.sh
     exec ./term-sd-launch.sh
     mainmenu
@@ -747,20 +767,34 @@ function venv_option()
 function venv_generate()
 {
     if [ "$venv_active" = "enable" ];then
-    echo "创建venv虚拟环境"
-    python3 -m venv venv
+        if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
+            echo "系统为windows"
+            echo "创建venv虚拟环境"
+            python -m venv venv
+        else
+            echo "系统为$(uname -o)"
+            echo "创建venv虚拟环境"
+            python3 -m venv venv
+        fi
     else
-    echo "忽略创建venv虚拟环境"
+      echo "忽略创建venv虚拟环境"
     fi
 }
 
 function enter_venv()
 {
   if [ "$venv_active" = "enable" ];then
-  echo "进入venv虚拟环境"
-  source ./venv/bin/activate
+        if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
+            echo "系统为windows"
+            echo "进入venv虚拟环境"
+            source ./venv/Scripts/activate
+        else
+            echo "系统为$(uname -o)"
+            echo "进入venv虚拟环境"
+            source ./venv/bin/activate
+        fi
   else
-  echo "忽略进入venv虚拟环境"
+    echo "忽略进入venv虚拟环境"
   fi
 }
 
@@ -1405,11 +1439,52 @@ function git_checkout_manager()
 #显示版本信息
 function term_sd_version()
 {
-  dialog --clear --title "版本信息" --msgbox " 系统:$(uname -o)\n Term-SD:0.1.0\n python:$(python3 --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n aria2:$(aria2c --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n git:$(git --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n dialog:$(dialog --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n\n提示:\n使用方向键、Tab键、Enter进行选择，Space键勾选或取消选项\nCtrl+C可中断指令的运行\n建议保持启用虚拟环境，因为不同项目对软件包的版本要求不同\n若没有设置过python代理，推荐在\"python代理\"进行设置" 20 60
+  if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
+    dialog --clear --title "版本信息" --msgbox " 系统:$(uname -o)\n Term-SD:0.1.1\n python:$(python --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n aria2:$(aria2c --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n git:$(git --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n dialog:$(dialog --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n\n提示:\n使用方向键、Tab键、Enter进行选择，Space键勾选或取消选项\nCtrl+C可中断指令的运行\n建议保持启用虚拟环境，因为不同项目对软件包的版本要求不同\n若没有设置过python代理，推荐在\"python代理\"进行设置" 20 60
+  else
+    dialog --clear --title "版本信息" --msgbox " 系统:$(uname -o)\n Term-SD:0.1.1\n python:$(python3 --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n aria2:$(aria2c --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n git:$(git --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n dialog:$(dialog --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n\n提示:\n使用方向键、Tab键、Enter进行选择，Space键勾选或取消选项\nCtrl+C可中断指令的运行\n建议保持启用虚拟环境，因为不同项目对软件包的版本要求不同\n若没有设置过python代理，推荐在\"python代理\"进行设置" 20 60
+  fi
   mainmenu
 }
 #判断系统是否安装必须使用的软件
 
+
+if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
+echo "检测依赖软件是否安装"
+if which dialog > /dev/null ;then
+  echo "系统已安装dialog"
+  if which aria2c > /dev/null ;then
+    echo "系统已安装aria2"
+    if which python > /dev/null;then
+      echo "系统已安装python"
+      if which git > /dev/null;then
+        echo "系统已安装git"
+        if which pip > /dev/null;then
+          echo "系统已安装pip"
+          echo "Term-SD初始化完成"
+	        echo "启动Term-SD中......"
+          term_sd_version
+        else
+          echo "未安装pip,请安装后重试"
+          exit
+        fi
+      else 
+        echo "未安装git,请安装后重试"
+        exit
+      fi
+    else
+      echo "未安装python,请安装后重试"
+      exit
+    fi
+  else
+    echo "未安装aria2,请安装后重试"
+    exit
+  fi
+else
+  echo "未安装dialog,请安装后重试"
+  exit
+fi
+else
 echo "检测依赖软件是否安装"
 if which dialog > /dev/null ;then
   echo "系统已安装dialog"
@@ -1443,4 +1518,5 @@ if which dialog > /dev/null ;then
 else
   echo "未安装dialog,请安装后重试"
   exit
+fi
 fi
