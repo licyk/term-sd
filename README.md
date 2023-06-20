@@ -10,6 +10,9 @@
     chmod +x term-sd.sh  
     ./term-sd.sh  
 
+windows系统安装
+
+
 # sd-webui-for-colab
 
 脚本修改自https://github.com/camenduru/stable-diffusion-webui-colab  
