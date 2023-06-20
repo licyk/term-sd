@@ -25,7 +25,7 @@ function mainmenu()
     cd $start_path #回到最初路径
     exit_venv 2> /dev/null #确保进行下一步操作前已退出其他虚拟环境
     mainmenu_select=$(
-		whiptail --title "Term-SD" --menu "请使用方向键和回车键进行操作\n当前虚拟环境状态:"$venv_info"" 20 60 10 \
+		dialog --clear --title "Term-SD" --menu "请使用方向键和回车键进行操作\n当前虚拟环境状态:"$venv_info"" 20 60 10 \
       "0" "venv虚拟环境" \
 			"1" "AUTOMATIC1111-stable-diffusion-webui" \
 			"2" "ComfyUI" \
@@ -72,7 +72,7 @@ function a1111_sd_webui_option()
 
         cd stable-diffusion-webui
         final_a1111_sd_webui_option=$(
-    		whiptail --title "A1111-SD-Webui管理" --menu "请使用方向键和回车键对A1111-Stable-Diffusion-Webui进行操作" 20 60 10 \
+    		dialog --clear --title "A1111-SD-Webui管理" --menu "请使用方向键和回车键对A1111-Stable-Diffusion-Webui进行操作" 20 60 10 \
 	    		"1" "更新" \
     			"2" "卸载" \
 	    		"3" "修复" \
@@ -89,7 +89,7 @@ function a1111_sd_webui_option()
     	fi
 
 	    if [ "${final_a1111_sd_webui_option}" == '2' ]; then
-          if (whiptail --title "删除选项" --yesno "是否删除A1111-Stable-Diffusion-Webui" --yes-button "是" --no-button "否" 20 60) then
+          if (dialog --clear --title "删除选项" --yesno "是否删除A1111-Stable-Diffusion-Webui" 20 60) then
             echo "删除A1111-Stable-Diffusion-Webui中"
             exit_venv
             cd ..
@@ -115,7 +115,7 @@ function a1111_sd_webui_option()
 
       if [ "${final_a1111_sd_webui_option}" == '6' ]; then
         if [ -f "./term-sd-launch.sh" ]; then #找到启动脚本
-          if (whiptail --title "stable-diffusion-webui" --yesno "选择直接启动/修改启动参数" --yes-button "启动" --no-button "修改参数" 20 60) then
+          if (dialog --clear --title "stable-diffusion-webui" --yes-label "启动" --no-label "修改参数" --yesno "选择直接启动/修改启动参数" 20 60) then
               exec ./term-sd-launch.sh
               mainmenu
           else #修改启动脚本
@@ -131,7 +131,7 @@ function a1111_sd_webui_option()
 	    fi
 
     else #找不到stable-diffusion-webui目录
-        if (whiptail --title "A1111-SD-Webui管理" --yesno "检测到当前未安装A1111-Stable-Diffusion-Webui,是否进行安装" 20 60) then
+        if (dialog --clear --title "A1111-SD-Webui管理" --yesno "检测到当前未安装A1111-Stable-Diffusion-Webui,是否进行安装" 20 60) then
             process_install_a1111_sd_webui
         else
             mainmenu
@@ -147,7 +147,7 @@ function comfyui_option()
     if [ -d "ComfyUI" ];then
         cd ComfyUI
         final_comfyui_option=$(
-    		whiptail --title "ComfyUI管理" --menu "请使用方向键和回车键对ComfyUI进行操作" 20 60 10 \
+    		dialog --clear --title "ComfyUI管理" --menu "请使用方向键和回车键对ComfyUI进行操作" 20 60 10 \
 	    		"1" "更新" \
     			"2" "卸载" \
 	    		"3" "修复" \
@@ -163,7 +163,7 @@ function comfyui_option()
     	fi
 
 	    if [ "${final_comfyui_option}" == '2' ]; then
-          if (whiptail --title "删除选项" --yesno "是否删除ComfyUI" --yes-button "是" --no-button "否" 20 60) then
+          if (dialog --clear --title "删除选项" --yes-label "是" --no-label "否" --yesno "是否删除ComfyUI" 20 60) then
             echo "删除ComfyUI中"
             exit_venv
             cd ..
@@ -183,7 +183,7 @@ function comfyui_option()
 
       if [ "${final_comfyui_option}" == '5' ]; then
 		    if [ -f "./term-sd-launch.sh" ]; then #找到启动脚本
-          if (whiptail --title "ComfyUI启动选择" --yesno "选择直接启动/修改启动参数" --yes-button "启动" --no-button "修改参数" 20 60) then
+          if (dialog --clear --title "ComfyUI启动选择" --yes-label "启动" --no-label "修改参数" --yesno "选择直接启动/修改启动参数" 20 60) then
               exec ./term-sd-launch.sh
               mainmenu
           else
@@ -199,7 +199,7 @@ function comfyui_option()
 	    fi
 
     else
-        if (whiptail --title "ComfyUI管理" --yesno "检测到当前未安装ComfyUI,是否进行安装" 20 60) then
+        if (dialog --clear --title "ComfyUI管理" --yesno "检测到当前未安装ComfyUI,是否进行安装" 20 60) then
             process_install_comfyui
         else
             mainmenu
@@ -217,7 +217,7 @@ function invokeai_option()
         cd InvokeAI
         enter_venv
         final_invokeai_option=$(
-    		whiptail --title "InvokeAI管理" --menu "请使用方向键和回车键对InvokeAI进行操作" 20 60 10 \
+    		dialog --clear --title "InvokeAI管理" --menu "请使用方向键和回车键对InvokeAI进行操作" 20 60 10 \
 	    		"1" "更新" \
     			"2" "卸载" \
           "3" "启动" \
@@ -231,7 +231,7 @@ function invokeai_option()
          	fi
 
 	        if [ "${final_invokeai_option}" == '2' ]; then
-              if (whiptail --title "删除选项" --yesno "是否删除InvokeAI" --yes-button "是" --no-button "否" 20 60) then
+              if (dialog --clear --title "删除选项" --yes-label "是" --no-label "否" --yesno "是否删除InvokeAI" 20 60) then
                 echo "删除InvokeAI中"
                 exit_venv
                 cd ..
@@ -248,14 +248,14 @@ function invokeai_option()
 	        fi
 
       else 
-          if (whiptail --title "项目管理" --yesno "检测到当前未安装InvokeAI,是否进行安装" 20 60) then
+          if (dialog --clear --title "项目管理" --yesno "检测到当前未安装InvokeAI,是否进行安装" 20 60) then
               process_install_invokeai
           else
               mainmenu
           fi
       fi
   else
-        if (whiptail --title "项目管理" --yesno "检测到当前未安装InvokeAI,是否进行安装" 20 60) then
+        if (dialog --clear --title "项目管理" --yesno "检测到当前未安装InvokeAI,是否进行安装" 20 60) then
           process_install_invokeai
         else
           mainmenu
@@ -273,7 +273,7 @@ function lora_scripts_option()
     if [ -d "./lora-scripts" ];then
         cd lora-scripts
         final_lora_scripts_option=$(
-    		whiptail --title "lora-scripts管理" --menu "请使用方向键和回车键对lora-scripts进行操作" 20 60 10 \
+    		dialog --clear --title "lora-scripts管理" --menu "请使用方向键和回车键对lora-scripts进行操作" 20 60 10 \
 	    		"1" "更新" \
     			"2" "卸载" \
 	    		"3" "修复" \
@@ -289,7 +289,7 @@ function lora_scripts_option()
     	fi
 
 	    if [ "${final_lora_scripts_option}" == '2' ]; then
-          if (whiptail --title "删除选项" --yesno "是否删除lora-scripts" --yes-button "是" --no-button "否" 20 60) then
+          if (dialog --clear --title "删除选项" --yes-label "是" --no-label "否" --yesno "是否删除lora-scripts" 20 60) then
             echo "删除lora-scripts中"
             exit_venv
             cd ..
@@ -320,7 +320,7 @@ function lora_scripts_option()
 	    fi
 
     else
-        if (whiptail --title "lora-scripts管理" --yesno "检测到当前未安装lora_scripts,是否进行安装" 20 60) then
+        if (dialog --clear --title "lora-scripts管理" --yesno "检测到当前未安装lora_scripts,是否进行安装" 20 60) then
             process_install_lora_scripts
         else
             mainmenu
@@ -367,7 +367,7 @@ function generate_a1111_sd_webui_launch()
         a1111_launch_option_26=""
         
 #展示启动参数选项
-    final_generate_a1111_sd_webui_launch_=$(whiptail --separate-output --notags --checklist "A1111-Stable-Diffusion-Webui启动参数选择" 20 60 10 \
+    final_generate_a1111_sd_webui_launch_=$(dialog --clear --separate-output --notags --checklist "A1111-Stable-Diffusion-Webui启动参数选择" 20 60 10 \
         "1" "skip-torch-cuda-test" OFF \
         "2" "no-half" ON \
         "3" "no-half-vae" ON \
@@ -396,9 +396,6 @@ function generate_a1111_sd_webui_launch()
         "26" "multiple" OFF \
    3>&1 1>&2 2>&3)
 
-    #下面是为了解决已奇怪的bug
-    final_generate_a1111_sd_webui_launch=$(whiptail --title "启动参数选择" --msgbox " 回车继续 "  3>&1 1>&2 2>&3)
-    #删去后下面的case就没办法正常判断
 
 #根据菜单得到的数据设置变量
     if [ -z "$final_generate_a1111_sd_webui_launch_" ]; then
@@ -549,7 +546,7 @@ function generate_comfyui_launch()
         comfyui_launch_option_13=""
         comfyui_launch_option_14=""
 
-    final_generate_comfyui_launch_=$(whiptail --separate-output --notags --checklist "ComfyUI启动参数选择" 20 60 10 \
+    final_generate_comfyui_launch_=$(dialog --clear --separate-output --notags --checklist "ComfyUI启动参数选择" 20 60 10 \
         "1" "listen" OFF \
         "2" "auto-launch" OFF \
         "3" "dont-upcast-attention" OFF \
@@ -566,9 +563,6 @@ function generate_comfyui_launch()
         "14" "quick-test-for-ci" OFF \
     3>&1 1>&2 2>&3)
 
-    #下面是为了解决已奇怪的bug
-    final_generate_comfyui_launch=$(whiptail --title "启动参数选择" --msgbox " 回车继续 "  3>&1 1>&2 2>&3)
-    #删去后下面的case就没办法正常判断
 
     if [ -z "$final_generate_comfyui_launch_" ]; then
      echo "不选择启动参数"
@@ -655,7 +649,7 @@ function generate_invokeai_launch()
 {
 
   invokeai_launch_option=$(
-		whiptail --title "InvokeAI启动选项" --menu "请使用方向键和回车键选择启动参数" 20 60 10 \
+		dialog --clear --title "InvokeAI启动选项" --menu "请使用方向键和回车键选择启动参数" 20 60 10 \
       "1" "invokeai-configure" \
 			"2" "invokeai" \
 			"3" "invokeai --web" \
@@ -684,7 +678,7 @@ function generate_invokeai_launch()
 #term-sd更新选项
 function update_option()
 {
-    if (whiptail --title "更新选项" --yesno "更新时是否选择代理" --yes-button "是" --no-button "否" 20 60) then
+    if (dialog --clear --title "更新选项" --yes-label "是" --no-label "否" --yesno "更新时是否选择代理" 20 60) then
         aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/sd-webui-script/main/term-sd.sh -d ./term-sd-update-tmp/
         if [ "$?"="0" ];then
            cp -fv ./term-sd-update-tmp/term-sd.sh ./
@@ -713,7 +707,7 @@ function update_option()
 #python代理选项
 function set_proxy_option()
 {
-    if (whiptail --title "python代理选项" --yesno "是否启用python代理" --yes-button "是" --no-button "否" 20 60) then
+    if (dialog --clear --title "python代理选项" --yes-label "是" --no-label "否" --yesno "是否启用python代理" 20 60) then
         pip config set global.index-url "https://mirror.sjtu.edu.cn/pypi/web/simple"
         pip config set global.extra-index-url "https://mirror.sjtu.edu.cn/pytorch-wheels"
     else
@@ -727,7 +721,7 @@ function set_proxy_option()
 #term-sd版本信息
 function info_option()
 {
-    whiptail --title "关于" --msgbox "Term-SD是基于终端显示的管理器,可以对项目进行简单的管理  \n支持的项目如下: \n 1、AUTOMATIC1111-stable-diffusion-webui \n 2、ComfyUI \n 3、InvokeAI \n 4、lora-scripts \n该脚本的编写参考了https://gitee.com/skymysky/linux \n目前脚本支持Linux,WSL,Termux上运行\nMacOS或许支持 \n该脚本有不足之处,请见凉 \n\nby licyk\n(◍•ᴗ•◍)" 20 60
+    dialog --clear --title "关于" --msgbox "Term-SD是基于终端显示的管理器,可以对项目进行简单的管理  \n支持的项目如下: \n 1、AUTOMATIC1111-stable-diffusion-webui \n 2、ComfyUI \n 3、InvokeAI \n 4、lora-scripts \n该脚本的编写参考了https://gitee.com/skymysky/linux \n目前脚本支持Linux,WSL,Termux上运行\nMacOS或许支持 \n该脚本有不足之处,请见凉 \n\nby licyk\n(◍•ᴗ•◍)" 20 60
     mainmenu
 }
 
@@ -738,7 +732,7 @@ function info_option()
 
 function venv_option()
 {
-    if (whiptail --title "venv虚拟环境" --yesno "是否启用venv虚拟环境,默认为启用状态,推荐启用" --yes-button "启用" --no-button "禁用" 20 60) then
+    if (dialog --clear --title "venv虚拟环境" --yes-label "启用" --no-label "禁用" --yesno "是否启用venv虚拟环境,默认为启用状态,推荐启用" 20 60) then
         venv_active="enable"
         venv_info="启用"
         echo "启用虚拟环境"
@@ -789,14 +783,11 @@ extra_python_proxy=""
 github_proxy=""
 force_pip=""
 
-final_proxy_options=$(whiptail --separate-output --notags --title "代理选择" --checklist "请选择代理，强制使用pip一般情况下不选" 20 60 10 \
+final_proxy_options=$(dialog --clear --separate-output --notags --title "代理选择" --checklist "请选择代理，强制使用pip一般情况下不选" 20 60 10 \
   "1" "启用python代理" ON \
   "2" "启用github代理" ON \
   "3" "强制使用pip" OFF 3>&1 1>&2 2>&3)
 
-#下面是为了解决已奇怪的bug
-final_proxy_option=$(whiptail --title "代理选择" --msgbox " 回车继续 "  3>&1 1>&2 2>&3)
-#删去后下面的case就没办法正常判断
 
 if [ -z "$final_proxy_options" ]; then
   echo "不选择代理"
@@ -830,7 +821,7 @@ fi
 function python_dep_install()
 {
   final_python_dep_install=$(
-		whiptail --title "pytorch安装" --menu "请使用方向键和回车键选择安装的pytorch版本" 20 60 10 \
+		dialog --clear --title "pytorch安装" --menu "请使用方向键和回车键选择安装的pytorch版本" 20 60 10 \
 			"1" "Torch 1.12.1(CUDA11.3)+xFormers 0.014" \
 			"2" "Torch 1.13.1(CUDA11.7)+xFormers 0.016" \
 			"3" "Torch 2.0.0(CUDA11.8)+xFormers 0.018" \
@@ -904,7 +895,7 @@ function a1111_sd_webui_extension_option()
   extension_34=""  
 
 
-  final_extension_options=$(whiptail --separate-output --notags --checklist "A1111-Stable-Diffusion-Webui插件选择" 20 60 10 \
+  final_extension_options=$(dialog --separate-output --notags --checklist "A1111-Stable-Diffusion-Webui插件选择" 20 60 10 \
   "1" "kohya-config-webui" ON \
   "2" "sd-webui-additional-networks" ON \
   "3" "a1111-sd-webui-tagcomplete" ON \
@@ -941,9 +932,6 @@ function a1111_sd_webui_extension_option()
   "34" "sd-webui-controlnet" ON \
    3>&1 1>&2 2>&3)
 
-#下面是为了解决已奇怪的bug
-final_extension_option=$(whiptail --title "插件选择" --msgbox " 回车继续 "  3>&1 1>&2 2>&3)
-#删去后下面的case就没办法正常判断
 
 if [ -z "$final_extension_options" ]; then
   echo "不安装插件"
@@ -1301,7 +1289,7 @@ function extension_methon()
 
 #功能选择界面
 final_extension_methon=$(
-		whiptail --title "插件管理" --menu "请使用方向键和回车键进行操作" 20 60 10 \
+		dialog --clear --title "插件管理" --menu "请使用方向键和回车键进行操作" 20 60 10 \
 			"1" "安装" \
 			"2" "管理" \
 			"3" "返回" \
@@ -1314,7 +1302,7 @@ final_extension_methon=$(
             extension_manager
             elif [ "${final_extension_methon}" == '3' ]; then #选择返回
             mainmenu
-            else #选择whiptail下面的取消按钮
+            else #选择dialog下面的取消按钮
             mainmenu
             fi
             extension_methon
@@ -1328,10 +1316,8 @@ function extension_manager()
         cd $start_path/stable-diffusion-webui/extensions #回到原来的插件目录
         dir_list=$(ls -l  | awk -F ' ' ' { print $9 " " $6 $7 } ') #当前目录文件和文件夹信息
 
-        extension_selection=$(whiptail --title "插件管理" \
+        extension_selection=$(dialog --clear --title "插件管理" \
                           --menu "使用上下键选择要操作的插件并回车确认" 20 60 10 \
-                           --cancel-button 取消 \
-                           --ok-button 确定 \
                            $dir_list \
                            3>&1 1>&2 2>&3)
 
@@ -1350,7 +1336,7 @@ function extension_manager()
 #插件安装模块
 function extension_install()
 {
-    extension_address=$(whiptail --title "插件安装" --inputbox "输入插件的github或其他下载地址" 10 60 3>&1 1>&2 2>&3)
+    extension_address=$(dialog --clear --title "插件安装" --inputbox "输入插件的github或其他下载地址" 10 60 3>&1 1>&2 2>&3)
 
     exitstatus=$?
     if [ $exitstatus = 0 ]; then
@@ -1364,7 +1350,7 @@ function extension_install()
 function operate_extension() 
 {
 	final_operate_extension=$(
-		whiptail --title "操作选择" --menu "请使用方向键和回车键选择对该插件进行的操作" 20 60 10 \
+		dialog --clear --title "操作选择" --menu "请使用方向键和回车键选择对该插件进行的操作" 20 60 10 \
 			"1" "更新" \
 			"2" "卸载" \
 			"3" "修复" \
@@ -1378,8 +1364,9 @@ function operate_extension()
         git pull
         echo "更新完毕"
 	elif [ "${final_operate_extension}" == '2' ]; then
-      if (whiptail --title "删除选项" --yesno "是否删除该插件" --yes-button "是" --no-button "否" 20 60) then
+      if (dialog --clear --title "删除选项" --yes-label "是" --no-label "否" --yesno "是否删除该插件" 20 60) then
         echo "删除"$extension_selection"插件中"
+        cd ..
         rm -rfv ./$extension_selection
       fi
 	elif [ "${final_operate_extension}" == '3' ]; then
@@ -1398,15 +1385,15 @@ function git_checkout_manager()
 {
     commit_lists=$(git log --date=short --pretty=format:"%H %cd" | awk -F  ' ' ' {print $1 " " $2} ')
 
-    commit_selection=$(whiptail --title "版本管理" \
+    commit_selection=$(dialog --clear --title "版本管理" \
                           --menu "使用上下键选择要切换的版本并回车确认" 20 60 10 \
-                           --cancel-button 取消 \
-                           --ok-button 确定 \
                            $commit_lists \
                            3>&1 1>&2 2>&3)
 
+    if [ "$?" = "0" ];then
     git checkout $commit_selection 
     echo 切换到"$commit_selection"版本
+    fi
 }
 
 
@@ -1428,14 +1415,14 @@ fi
 #显示版本信息
 function term_sd_version()
 {
-  whiptail --title "版本信息" --msgbox " Term-SD:0.0.7\n python:$(python3 --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n aria2:$(aria2c --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n git:$(git --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n whiptail:$(whiptail --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n\n提示:\n 使用方向键、Tab键、Enter进行选择，Space键勾选或取消选项\n Ctrl+C可中断指令的运行\n 建议保持启用虚拟环境，因为不同项目对软件包的版本要求不同\n若没有设置过python代理，推荐在\"python代理\"进行设置" 20 60
+  dialog --clear --title "版本信息" --msgbox " Term-SD:0.1.0\n python:$(python3 --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n aria2:$(aria2c --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n git:$(git --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n dialog:$(dialog --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n\n提示:\n 使用方向键、Tab键、Enter进行选择，Space键勾选或取消选项\n Ctrl+C可中断指令的运行\n 建议保持启用虚拟环境，因为不同项目对软件包的版本要求不同\n若没有设置过python代理，推荐在\"python代理\"进行设置" 20 60
   mainmenu
 }
 #判断系统是否安装必须使用的软件
 
 
-if which whiptail > /dev/null ;then
-  echo "系统已安装whiptail"
+if which dialog > /dev/null ;then
+  echo "系统已安装dialog"
   if which aria2c > /dev/null ;then
     echo "系统已安装aria2"
     if which python3 > /dev/null;then
@@ -1464,6 +1451,6 @@ if which whiptail > /dev/null ;then
     exit
   fi
 else
-  echo "未安装whiptail,请安装后重试"
+  echo "未安装dialog,请安装后重试"
   exit
 fi
