@@ -3,14 +3,11 @@
 基于dialog实现界面显示的管理器，支持安装，管理A1111-SD-Webui,ComfyUI.InvokeAI,lora-scripts  
 理论上可实现全平台(Windows平台需安装msys2,Android平台需要安装Termux)  
 需安装aria2,python,pip,git,dialog，python推荐使用3.10的版本  
+使用term-sd前先配置好环境  
 
-## 使用方法：
 
-    aria2c https://raw.githubusercontent.com/licyk/sd-webui-script/main/term-sd.sh  
-    chmod +x term-sd.sh  
-    ./term-sd.sh  
+windows系统安装配置环境的方法：  
 
-## windows系统安装配置环境的方法：  
 1、进入[msys2官网](https://www.msys2.org/)  
 在官网“Installation”找到”1、Download the installer:“，点击右边的按钮进行下载并安装  
 安装好后在windows的开始菜单里找到MSYS2 MSYS，打开  
@@ -37,7 +34,7 @@
 在“系统变量”部分点双击“Path”，点击新建，把刚刚记下来的路径粘贴上去，然后一直点确定直至完成  
 此时aira2安装完成
 
-## Linux配置环境方法：
+ Linux配置环境方法：
 
 Debian系：  
 
@@ -46,6 +43,14 @@ Debian系：
 ArchLinux系：  
 
     sudo pacman -S aria2 python3 git  
+
+
+ 配置完环境后使用term-sd的方法：
+
+    aria2c https://raw.githubusercontent.com/licyk/sd-webui-script/main/term-sd.sh  
+    chmod +x term-sd.sh  
+    ./term-sd.sh  
+
 
 
 # sd-webui-for-colab
