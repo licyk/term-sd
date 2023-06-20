@@ -89,9 +89,11 @@ function a1111_sd_webui_option()
     	fi
 
 	    if [ "${final_a1111_sd_webui_option}" == '2' ]; then
+          if (whiptail --title "删除选项" --yesno "是否删除A1111-Stable-Diffusion-Webui" --yes-button "是" --no-button "否" 20 60) then
             echo "删除A1111-Stable-Diffusion-Webui中"
             cd ..
             rm -rfv ./stable-diffusion-webui
+          fi
     	fi
 
 	    if [ "${final_a1111_sd_webui_option}" == '3' ]; then
@@ -155,14 +157,16 @@ function comfyui_option()
 	        )
 
 	    if [ "${final_comfyui_option}" == '1' ]; then
-              echo "更新comfyui中"
+              echo "更新ComfyUI中"
              git pull
     	fi
 
 	    if [ "${final_comfyui_option}" == '2' ]; then
-            echo "删除comfyui中"
+          if (whiptail --title "删除选项" --yesno "是否删除ComfyUI" --yes-button "是" --no-button "否" 20 60) then
+            echo "删除ComfyUI中"
             cd ..
             rm -rfv ./ComfyUI
+          fi
     	fi
 
 	    if [ "${final_comfyui_option}" == '3' ]; then
@@ -225,10 +229,12 @@ function invokeai_option()
          	fi
 
 	        if [ "${final_invokeai_option}" == '2' ]; then
+              if (whiptail --title "删除选项" --yesno "是否删除InvokeAI" --yes-button "是" --no-button "否" 20 60) then
                 exit_venv
                 echo "删除InvokeAI中"
                 cd ..
                 rm -rfv ./InvokeAI
+              fi
     	    fi
 
 	        if [ "${final_invokeai_option}" == '3' ]; then
@@ -281,9 +287,11 @@ function lora_scripts_option()
     	fi
 
 	    if [ "${final_lora_scripts_option}" == '2' ]; then
+          if (whiptail --title "删除选项" --yesno "是否删除lora-scripts" --yes-button "是" --no-button "否" 20 60) then
             echo "删除lora-scripts中"
             cd ..
             rm -rfv ./lora-scripts
+          fi
     	fi
 
 	    if [ "${final_lora_scripts_option}" == '3' ]; then
@@ -1367,8 +1375,10 @@ function operate_extension()
         git pull
         echo "更新完毕"
 	elif [ "${final_operate_extension}" == '2' ]; then
+      if (whiptail --title "删除选项" --yesno "是否删除该插件" --yes-button "是" --no-button "否" 20 60) then
         echo "删除"$extension_selection"插件中"
         rm -rfv ./$extension_selection
+      fi
 	elif [ "${final_operate_extension}" == '3' ]; then
 		    echo "将工作区、暂存取和HEAD保持一致"
         git reset --hard HEAD
@@ -1415,7 +1425,7 @@ fi
 #显示版本信息
 function term_sd_version()
 {
-  whiptail --title "版本信息" --msgbox " Term-SD:0.0.6\n python:$(python3 --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n aria2:$(aria2c --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n git:$(git --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n whiptail:$(whiptail --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n\n提示:\n 使用方向键、Tab键、Enter进行选择，Space键勾选或取消选项\n Ctrl+C可中断指令的运行\n 建议保持启用虚拟环境，因为不同项目对软件包的版本要求不同\n若没有设置过python代理，推荐在\"python代理\"进行设置" 20 60
+  whiptail --title "版本信息" --msgbox " Term-SD:0.0.7\n python:$(python3 --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n aria2:$(aria2c --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n git:$(git --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n whiptail:$(whiptail --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n\n提示:\n 使用方向键、Tab键、Enter进行选择，Space键勾选或取消选项\n Ctrl+C可中断指令的运行\n 建议保持启用虚拟环境，因为不同项目对软件包的版本要求不同\n若没有设置过python代理，推荐在\"python代理\"进行设置" 20 60
   mainmenu
 }
 #判断系统是否安装必须使用的软件
