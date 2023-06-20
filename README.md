@@ -1,6 +1,6 @@
 # term-sd
 
-基于whiptail实现界面显示的管理器，支持安装，管理A1111-SD-Webui,ComfyUI.InvokeAI,lora-scripts  
+基于dialog实现界面显示的管理器，支持安装，管理A1111-SD-Webui,ComfyUI.InvokeAI,lora-scripts  
 理论上可实现全平台(Windows平台需安装msys2,Android平台需要安装Termux)  
 需安装aria2,python,pip,git,dialog  
 
