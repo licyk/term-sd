@@ -13,7 +13,9 @@ windows系统安装配置环境的方法：
 安装好后在windows的开始菜单里找到MSYS2 MSYS，打开  
 
 2、在msys终端输入  
+
     sed -i "s#https\?://mirror.msys2.org/#https://mirrors.tuna.tsinghua.edu.cn/msys2/#g" /etc/pacman.d/mirrorlist*  
+
 然后输入  
     pacman -Syu dialog  
 输入y，回车，等待安装完成  
