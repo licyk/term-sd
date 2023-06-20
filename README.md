@@ -1,14 +1,14 @@
 # term-sd
 
-基于whiptail实现界面显示的管理器，支持安装，管理A1111-SD-Webui,ComfyUI.InvokeAI(未完全支持),lora-scripts  
+基于whiptail实现界面显示的管理器，支持安装，管理A1111-SD-Webui,ComfyUI.InvokeAI,lora-scripts  
 理论上可实现全平台(Windows平台需安装msys2,Android平台需要安装Termux)  
 需安装aria2,python,pip,git,dialog  
 
 使用方法：
 
-'aria2c https://raw.githubusercontent.com/licyk/sd-webui-script/main/term-sd.sh'  
-'chmod +x term-sd.sh'  
-'./term-sd.sh'  
+    aria2c https://raw.githubusercontent.com/licyk/sd-webui-script/main/term-sd.sh  
+    chmod +x term-sd.sh  
+    ./term-sd.sh  
 
 # sd-webui-for-colab
 

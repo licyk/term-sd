@@ -1402,12 +1402,10 @@ function git_checkout_manager()
 
 #启动程序部分
 
-echo "OS: $(uname -o)"
-
 #显示版本信息
 function term_sd_version()
 {
-  dialog --clear --title "版本信息" --msgbox " Term-SD:0.1.0\n python:$(python3 --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n aria2:$(aria2c --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n git:$(git --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n dialog:$(dialog --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n\n提示:\n 使用方向键、Tab键、Enter进行选择，Space键勾选或取消选项\n Ctrl+C可中断指令的运行\n 建议保持启用虚拟环境，因为不同项目对软件包的版本要求不同\n若没有设置过python代理，推荐在\"python代理\"进行设置" 20 60
+  dialog --clear --title "版本信息" --msgbox " 系统:$(uname -o)\n Term-SD:0.1.0\n python:$(python3 --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n aria2:$(aria2c --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n git:$(git --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n dialog:$(dialog --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n\n提示:\n 使用方向键、Tab键、Enter进行选择，Space键勾选或取消选项\n Ctrl+C可中断指令的运行\n 建议保持启用虚拟环境，因为不同项目对软件包的版本要求不同\n若没有设置过python代理，推荐在\"python代理\"进行设置" 20 60
   mainmenu
 }
 #判断系统是否安装必须使用的软件
