@@ -1402,15 +1402,7 @@ function git_checkout_manager()
 
 #启动程序部分
 
-
-os_release=$(uname)
-if [ "${os_release}" == 'Linux' ];then
-echo "OS: $os_release"
-elif [ "${os_release}" == 'Darwin' ];then
-echo "OS: MacOS"
-else
-echo "OS: Other"
-fi
+echo "OS: $(uname -o)"
 
 #显示版本信息
 function term_sd_version()
