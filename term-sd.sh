@@ -79,6 +79,7 @@ function a1111_sd_webui_option()
           "4" "管理插件" \
           "5" "切换版本" \
           "6" "启动" \
+          "7" "重新安装" \
 	    		"0" "返回" \
 	    		3>&1 1>&2 2>&3
 	        )
@@ -115,7 +116,7 @@ function a1111_sd_webui_option()
 
       if [ "${final_a1111_sd_webui_option}" == '6' ]; then
         if [ -f "./term-sd-launch.sh" ]; then #找到启动脚本
-          if (dialog --clear --title "stable-diffusion-webui" --yes-label "启动" --no-label "修改参数" --yesno "选择直接启动/修改启动参数" 20 60) then
+          if (dialog --clear --title "stable-diffusion-webui管理" --yes-label "启动" --no-label "修改参数" --yesno "选择直接启动/修改启动参数" 20 60) then
               exec ./term-sd-launch.sh
               mainmenu
           else #修改启动脚本
@@ -125,6 +126,15 @@ function a1111_sd_webui_option()
           generate_a1111_sd_webui_launch
 	      fi
       fi
+
+	    if [ "${final_a1111_sd_webui_option}" == '7' ]; then
+          if (dialog --clear --title "A1111-SD-Webui管理" --yesno "是否重新安装A1111-Stable-Diffusion-Webui" 20 60) then
+            echo "重新安装A1111-Stable-Diffusion-Webui"
+            cd ..
+            exit_venv
+            process_install_a1111_sd_webui
+          fi
+	    fi
 
 	    if [ "${final_a1111_sd_webui_option}" == '0' ]; then
             mainmenu #回到主界面
@@ -153,6 +163,7 @@ function comfyui_option()
 	    		"3" "修复" \
           "4" "切换版本" \
           "5" "启动" \
+          "6" "重新安装" \
 	    		"0" "返回" \
 	    		3>&1 1>&2 2>&3
 	        )
@@ -194,6 +205,15 @@ function comfyui_option()
         fi    
 	    fi
 
+	    if [ "${final_comfyui_option}" == '6' ]; then
+          if (dialog --clear --title "ComfyUI管理" --yesno "是否重新安装ComfyUI" 20 60) then
+            echo "重新安装ComfyUI"
+            cd ..
+            exit_venv
+            process_install_comfyui
+          fi
+	    fi
+
 	    if [ "${final_comfyui_option}" == '0' ]; then
             mainmenu #回到主界面
 	    fi
@@ -221,6 +241,7 @@ function invokeai_option()
 	    		"1" "更新" \
     			"2" "卸载" \
           "3" "启动" \
+          "4" "重新安装" \
 	    		"0" "返回" \
 	    		3>&1 1>&2 2>&3
 	        )
@@ -243,19 +264,28 @@ function invokeai_option()
                 generate_invokeai_launch
 	        fi
 
+	        if [ "${final_invokeai_option}" == '4' ]; then
+              if (dialog --clear --title "InvokeAI管理" --yesno "是否重新安装InvokeAI" 20 60) then
+                echo "重新安装InvokeAI"
+                cd ..
+                exit_venv
+                process_install_invokeai
+              fi
+	        fi
+
 	        if [ "${final_invokeai_option}" == '0' ]; then
                 mainmenu #回到主界面
 	        fi
 
       else 
-          if (dialog --clear --title "项目管理" --yesno "检测到当前未安装InvokeAI,是否进行安装" 20 60) then
+          if (dialog --clear --title "InvokeAI管理" --yesno "检测到当前未安装InvokeAI,是否进行安装" 20 60) then
               process_install_invokeai
           else
               mainmenu
           fi
       fi
   else
-        if (dialog --clear --title "项目管理" --yesno "检测到当前未安装InvokeAI,是否进行安装" 20 60) then
+        if (dialog --clear --title "InvokeAI管理" --yesno "检测到当前未安装InvokeAI,是否进行安装" 20 60) then
           process_install_invokeai
         else
           mainmenu
@@ -279,6 +309,7 @@ function lora_scripts_option()
 	    		"3" "修复" \
           "4" "版本切换" \
           "5" "启动" \
+          "6" "重新安装" \
 	    		"0" "返回" \
 	    		3>&1 1>&2 2>&3
 	        )
@@ -318,6 +349,15 @@ function lora_scripts_option()
             fi
 
             mainmenu
+	    fi
+
+	    if [ "${final_lora_scripts_option}" == '6' ]; then
+          if (dialog --clear --title "lora-scripts管理" --yesno "是否重新安装lora_scripts" 20 60) then
+             echo "重新安装lora_scripts"
+             cd ..
+             exit_venv
+             process_install_lora_scripts
+          fi
 	    fi
 
 	    if [ "${final_lora_scripts_option}" == '0' ]; then
