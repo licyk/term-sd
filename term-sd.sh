@@ -91,6 +91,7 @@ function a1111_sd_webui_option()
 	    if [ "${final_a1111_sd_webui_option}" == '2' ]; then
           if (whiptail --title "删除选项" --yesno "是否删除A1111-Stable-Diffusion-Webui" --yes-button "是" --no-button "否" 20 60) then
             echo "删除A1111-Stable-Diffusion-Webui中"
+            exit_venv
             cd ..
             rm -rfv ./stable-diffusion-webui
           fi
@@ -164,6 +165,7 @@ function comfyui_option()
 	    if [ "${final_comfyui_option}" == '2' ]; then
           if (whiptail --title "删除选项" --yesno "是否删除ComfyUI" --yes-button "是" --no-button "否" 20 60) then
             echo "删除ComfyUI中"
+            exit_venv
             cd ..
             rm -rfv ./ComfyUI
           fi
@@ -230,8 +232,8 @@ function invokeai_option()
 
 	        if [ "${final_invokeai_option}" == '2' ]; then
               if (whiptail --title "删除选项" --yesno "是否删除InvokeAI" --yes-button "是" --no-button "否" 20 60) then
-                exit_venv
                 echo "删除InvokeAI中"
+                exit_venv
                 cd ..
                 rm -rfv ./InvokeAI
               fi
@@ -289,6 +291,7 @@ function lora_scripts_option()
 	    if [ "${final_lora_scripts_option}" == '2' ]; then
           if (whiptail --title "删除选项" --yesno "是否删除lora-scripts" --yes-button "是" --no-button "否" 20 60) then
             echo "删除lora-scripts中"
+            exit_venv
             cd ..
             rm -rfv ./lora-scripts
           fi
