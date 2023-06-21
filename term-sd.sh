@@ -32,7 +32,7 @@ function mainmenu()
 			"3" "InvokeAI" \
       "4" "lora-scripts" \
       "5" "更新脚本" \
-      "6" "python代理" \
+      "6" "python镜像源" \
       "7" "关于" \
       "8" "退出" \
 			3>&1 1>&2 2>&3 )
@@ -48,7 +48,7 @@ function mainmenu()
                 lora_scripts_option
             elif [ "${mainmenu_select}" == '5' ]; then #选择更新脚本
                 update_option
-            elif [ "${mainmenu_select}" == '6' ]; then #选择python代理
+            elif [ "${mainmenu_select}" == '6' ]; then #选择python镜像源
                 set_proxy_option
             elif [ "${mainmenu_select}" == '7' ]; then #选择关于
                 info_option
@@ -840,6 +840,7 @@ function info_option()
 2、ComfyUI \n
 3、InvokeAI \n
 4、lora-scripts \n
+(项目都主要基于stable-diffusion)\n
 \n
 使用说明：\n
 1、使用方向键、Tab键、Enter进行选择，Space键勾选或取消选项 \n
@@ -847,17 +848,22 @@ Ctrl+C可中断指令的运行 \n
 2、安装项目的路径和Term-SD脚本所在路径相同，方便管理\n
 3、若项目使用了venv虚拟环境，移动项目到新的路径后需要使用Term-SD的“重新生成venv虚拟环境”功能，才能使venv虚拟环境正常工作\n
 4、若更新项目失败时，可使用“修复”功能，再重新更新\n
+5、Term-SD只能实现简单的安装，管理功能，若要导入模型等操作需手动在文件管理器上操作
 \n
 建议保持启用虚拟环境，因为不同项目对软件包的版本要求不同\n
-若没有设置过python代理，推荐在\"python代理\"进行设置\n
+若没有设置过python镜像源，推荐在\"python镜像源\"进行设置\n
 \n
 该脚本的编写参考了https://gitee.com/skymysky/linux \n
-目前脚本支持Linux,WSL,Termux上运行\n
-MacOS或许支持 \n
-该脚本有不足之处,请见凉 \n
+脚本在理论上支持全平台(Windows平台需安装msys2,Android平台需要安装Termux)\n
 \n
-    by licyk\
-    (◍•ᴗ•◍)" 20 60
+stable-diffusion相关链接：\n
+https://huggingface.co/\n
+https://civitai.com/\n
+https://www.bilibili.com/read/cv22159609\n
+\n
+\n
+by licyk\
+(◍•ᴗ•◍)" 20 60
 
     #返回主菜单  
     mainmenu
