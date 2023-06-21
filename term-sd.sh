@@ -80,6 +80,7 @@ function a1111_sd_webui_option()
           "5" "切换版本" \
           "6" "启动" \
           "7" "重新安装" \
+          "8" "重新安装pytorch" \
 	    		"0" "返回" \
 	    		3>&1 1>&2 2>&3
 	        )
@@ -136,6 +137,10 @@ function a1111_sd_webui_option()
           fi
 	    fi
 
+	    if [ "${final_a1111_sd_webui_option}" == '8' ]; then
+             pytorch_reinstall
+    	fi
+
 	    if [ "${final_a1111_sd_webui_option}" == '0' ]; then
             mainmenu #回到主界面
 	    fi
@@ -164,6 +169,7 @@ function comfyui_option()
           "4" "切换版本" \
           "5" "启动" \
           "6" "重新安装" \
+          "7" "重新安装pytorch" \
 	    		"0" "返回" \
 	    		3>&1 1>&2 2>&3
 	        )
@@ -213,6 +219,10 @@ function comfyui_option()
             process_install_comfyui
           fi
 	    fi
+
+	    if [ "${final_comfyui_option}" == '7' ]; then
+              pytorch_reinstall
+    	fi
 
 	    if [ "${final_comfyui_option}" == '0' ]; then
             mainmenu #回到主界面
@@ -312,6 +322,7 @@ function lora_scripts_option()
           "4" "版本切换" \
           "5" "启动" \
           "6" "重新安装" \
+          "7" "重新安装pytorch" \
 	    		"0" "返回" \
 	    		3>&1 1>&2 2>&3
 	        )
@@ -362,6 +373,10 @@ function lora_scripts_option()
              process_install_lora_scripts
           fi
 	    fi
+
+	    if [ "${final_lora_scripts_option}" == '7' ]; then
+              pytorch_reinstall
+    	fi
 
 	    if [ "${final_lora_scripts_option}" == '0' ]; then
             mainmenu #回到主界面
@@ -1161,7 +1176,7 @@ else
 fi
 }
 
-
+#################################################
 
 #a1111-sd-webui安装处理部分
 function process_install_a1111_sd_webui()
@@ -1366,6 +1381,18 @@ function process_install_lora_scripts()
 }
 
 
+#选择重新安装pytorch
+function pytorch_reinstall()
+{
+    #安装前的准备
+    proxy_option #代理选择
+    python_dep_install #pytorch选择
+
+    #开始安装pytorch
+    enter_venv
+    pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip
+}
+
 #################################################
 
 #插件管理部分(目前只有a1111-sd-webui用到)
@@ -1493,9 +1520,9 @@ function git_checkout_manager()
 function term_sd_version()
 {
   if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
-    dialog --clear --title "版本信息" --msgbox " 系统:$(uname -o)\n Term-SD:0.1.1\n python:$(python --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n aria2:$(aria2c --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n git:$(git --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n dialog:$(dialog --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n\n提示:\n使用方向键、Tab键、Enter进行选择，Space键勾选或取消选项\nCtrl+C可中断指令的运行\n建议保持启用虚拟环境，因为不同项目对软件包的版本要求不同\n若没有设置过python代理，推荐在\"python代理\"进行设置" 20 60
+    dialog --clear --title "版本信息" --msgbox " 系统:$(uname -o)\n Term-SD:0.1.2\n python:$(python --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n aria2:$(aria2c --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n git:$(git --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n dialog:$(dialog --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n\n提示:\n使用方向键、Tab键、Enter进行选择，Space键勾选或取消选项\nCtrl+C可中断指令的运行\n建议保持启用虚拟环境，因为不同项目对软件包的版本要求不同\n若没有设置过python代理，推荐在\"python代理\"进行设置" 20 60
   else
-    dialog --clear --title "版本信息" --msgbox " 系统:$(uname -o)\n Term-SD:0.1.1\n python:$(python3 --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n aria2:$(aria2c --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n git:$(git --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n dialog:$(dialog --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n\n提示:\n使用方向键、Tab键、Enter进行选择，Space键勾选或取消选项\nCtrl+C可中断指令的运行\n建议保持启用虚拟环境，因为不同项目对软件包的版本要求不同\n若没有设置过python代理，推荐在\"python代理\"进行设置" 20 60
+    dialog --clear --title "版本信息" --msgbox " 系统:$(uname -o)\n Term-SD:0.1.2\n python:$(python3 --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n aria2:$(aria2c --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n git:$(git --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n dialog:$(dialog --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n\n提示:\n使用方向键、Tab键、Enter进行选择，Space键勾选或取消选项\nCtrl+C可中断指令的运行\n建议保持启用虚拟环境，因为不同项目对软件包的版本要求不同\n若没有设置过python代理，推荐在\"python代理\"进行设置" 20 60
   fi
   mainmenu
 }
