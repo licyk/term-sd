@@ -766,10 +766,10 @@ function update_option()
     exit
 }
 
-#python代理选项
+#python镜像源选项
 function set_proxy_option()
 {
-    if (dialog --clear --title "python代理选项" --yes-label "是" --no-label "否" --yesno "是否启用python代理" 20 60) then
+    if (dialog --clear --title "python镜像源选项" --yes-label "是" --no-label "否" --yesno "是否启用python镜像源" 20 60) then
         pip config set global.index-url "https://mirror.sjtu.edu.cn/pypi/web/simple"
         pip config set global.extra-index-url "https://mirror.sjtu.edu.cn/pytorch-wheels"
     else
@@ -860,7 +860,7 @@ github_proxy=""
 force_pip=""
 
 final_proxy_options=$(dialog --clear --separate-output --notags --title "代理选择" --checklist "请选择代理，强制使用pip一般情况下不选" 20 60 10 \
-  "1" "启用python代理" ON \
+  "1" "启用python镜像源" ON \
   "2" "启用github代理" ON \
   "3" "强制使用pip" OFF 3>&1 1>&2 2>&3)
 
@@ -871,9 +871,9 @@ else
   for final_proxy_option in $final_proxy_options; do
     case "$final_proxy_option" in
     "1")
-      echo "设置python代理"
-      python_proxy="-i https://mirrors.bfsu.edu.cn/pypi/web/simple"
-      extra_python_proxy="-f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
+      echo "设置python镜像源"
+      python_proxy="-i https://mirror.sjtu.edu.cn/pypi/web/simple"
+      extra_python_proxy="-f https://mirror.sjtu.edu.cn/pytorch-wheels"
       ;;
     "2")
       echo "设置github代理"
