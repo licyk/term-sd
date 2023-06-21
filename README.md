@@ -42,11 +42,11 @@ windows系统安装配置环境的方法：
 
 Debian系：  
 
-    sudo apt install python3 git aira2
+    sudo apt install python3 python3-pip python3-venv git aira2  
 
 ArchLinux系：  
 
-    sudo pacman -S aria2 python3 git  
+    sudo pacman -S python3 python3-pip python3-venv git aria2  
 
 
  配置完环境后使用term-sd的方法：

@@ -1318,6 +1318,17 @@ function process_install_invokeai()
 {
     #安装前准备
     proxy_option
+    pip_install_methon=$(dialog --clear --title "pip安装模式选择" --yes-label "确认" --no-cancel --menu "选择pip安装方式\n1、常规安装可能会有问题,但速度较快\n2、标准构建安装为InvokeAI官方推荐安装方式,但速度较慢" 20 60 10 \
+	  "1" "常规安装(setup.py)" \
+	  "2" "标准构建安装(--use-pep517)" \
+	  3>&1 1>&2 2>&3 )
+	    if [ $pip_install_methon = "1" ];then
+		    echo "使用常规安装"
+        pip_install_methon_select=""
+	    else
+		    echo "使用标准构建安装"
+        pip_install_methon_select="--use-pep517"
+	    fi
 
     #开始安装invokeai
     echo "开始安装invokeai"
@@ -1325,7 +1336,7 @@ function process_install_invokeai()
     cd ./InvokeAI
     venv_generate
     enter_venv
-    pip install invokeai $python_proxy $extra_python_proxy $force_pip
+    pip install invokeai $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select
     exit_venv
 }
 
