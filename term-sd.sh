@@ -1605,7 +1605,7 @@ Ctrl+C可中断指令的运行 \n
 
     dialog --clear --title "版本信息" --msgbox "系统:$(uname -o) \n
 Term-SD:0.1.2 \n
-python3:$(python --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
+python:$(python3 --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
 pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
 aria2:$(aria2c --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ') \n
 git:$(git --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ') \n
