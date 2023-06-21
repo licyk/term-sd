@@ -14,11 +14,11 @@ windows系统安装配置环境的方法：
 
 2、在msys终端输入  
 
-    sed -i "s#https\?://mirror.msys2.org/#https://mirrors.tuna.tsinghua.edu.cn/msys2/#g" /etc/pacman.d/mirrorlist*  
+    sed -i "s#https\?://mirror.msys2.org/#https://mirrors.tuna.tsinghua.edu.cn/msys2/#g" /etc/pacman.d/mirrorlist*
 
 然后输入  
 
-    pacman -Syu dialog  
+    pacman -Syu dialog
 
 输入y，回车，等待安装完成  
 此时完成msys2，和dialog的安装  
@@ -33,7 +33,9 @@ windows系统安装配置环境的方法：
 4、前往[aira2官网下载](http://aria2.github.io/)，点击“Download version ”进入下载页面，找到“aria2-xx版本-win-64bit-build1.zip ”点击下载，解压得到aria2c.exe  
 在系统的某个位置创建一个文件夹，得到一个路径，比如D:\Program Files\aria2，记下来，将aria2c.exe放入文件夹  
 按下“win+R”快捷键，打开运行对话框，输入指令：  
+
     sysdm.cpl  
+
 打开【系统属性】窗体后，依次点击选项卡【高级】、【环境变量】按钮  
 在“系统变量”部分点双击“Path”，点击新建，把刚刚记下来的路径粘贴上去，然后一直点确定直至完成  
 此时aira2安装完成
@@ -42,18 +44,18 @@ windows系统安装配置环境的方法：
 
 Debian系：  
 
-    sudo apt install python3 python3-pip python3-venv git aira2  
+    sudo apt install python3 python3-pip python3-venv git aira2
 
 ArchLinux系：  
 
-    sudo pacman -S python3 python3-pip python3-venv git aria2  
+    sudo pacman -S python3 python3-pip python3-venv git aria2
 
 
  配置完环境后使用term-sd的方法：
 
-    aria2c https://raw.githubusercontent.com/licyk/sd-webui-script/main/term-sd.sh  
-    chmod +x term-sd.sh  
-    ./term-sd.sh  
+    aria2c https://raw.githubusercontent.com/licyk/sd-webui-script/main/term-sd.sh
+    chmod +x term-sd.sh
+    ./term-sd.sh
 
 
 
