@@ -81,13 +81,19 @@ function a1111_sd_webui_option()
           "6" "启动" \
           "7" "重新安装" \
           "8" "重新安装pytorch" \
+          "9" "重新生成venv虚拟环境" \
 	    		"0" "返回" \
 	    		3>&1 1>&2 2>&3
 	        )
 
 	    if [ "${final_a1111_sd_webui_option}" == '1' ]; then
               echo "更新A1111-Stable-Diffusion-Webui中"
-             git pull
+              git pull
+              if [ $? = "0" ];then
+                  dialog --clear --title "A1111-SD-Webui管理" --msgbox "更新成功" 20 60
+              else
+                  dialog --clear --title "A1111-SD-Webui管理" --msgbox "更新失败" 20 60
+              fi
     	fi
 
 	    if [ "${final_a1111_sd_webui_option}" == '2' ]; then
@@ -100,7 +106,8 @@ function a1111_sd_webui_option()
     	fi
 
 	    if [ "${final_a1111_sd_webui_option}" == '3' ]; then
-		    echo "将工作区、暂存取和HEAD保持一致"
+		        echo "将工作区、暂存取和HEAD保持一致"
+            git checkout master
             git reset --hard HEAD
 	    fi
 
@@ -141,6 +148,10 @@ function a1111_sd_webui_option()
              pytorch_reinstall
     	fi
 
+	    if [ "${final_a1111_sd_webui_option}" == '9' ]; then
+             venv_generate
+    	fi
+
 	    if [ "${final_a1111_sd_webui_option}" == '0' ]; then
             mainmenu #回到主界面
 	    fi
@@ -170,13 +181,19 @@ function comfyui_option()
           "5" "启动" \
           "6" "重新安装" \
           "7" "重新安装pytorch" \
+          "8" "重新生成venv虚拟环境" \
 	    		"0" "返回" \
 	    		3>&1 1>&2 2>&3
 	        )
 
 	    if [ "${final_comfyui_option}" == '1' ]; then
               echo "更新ComfyUI中"
-             git pull
+              git pull
+              if [ $? = "0" ];then
+                  dialog --clear --title "A1111-SD-Webui管理" --msgbox "更新成功" 20 60
+              else
+                  dialog --clear --title "A1111-SD-Webui管理" --msgbox "更新失败" 20 60
+              fi
     	fi
 
 	    if [ "${final_comfyui_option}" == '2' ]; then
@@ -224,6 +241,10 @@ function comfyui_option()
               pytorch_reinstall
     	fi
 
+	    if [ "${final_comfyui_option}" == '8' ]; then
+              venv_generate
+    	fi
+
 	    if [ "${final_comfyui_option}" == '0' ]; then
             mainmenu #回到主界面
 	    fi
@@ -253,6 +274,7 @@ function invokeai_option()
     			"2" "卸载" \
           "3" "启动" \
           "4" "重新安装" \
+          "5" "重新生成venv虚拟环境" \
 	    		"0" "返回" \
 	    		3>&1 1>&2 2>&3
 	        )
@@ -282,6 +304,10 @@ function invokeai_option()
                 exit_venv
                 process_install_invokeai
               fi
+	        fi
+
+	        if [ "${final_invokeai_option}" == '5' ]; then
+                venv_generate
 	        fi
 
 	        if [ "${final_invokeai_option}" == '0' ]; then
@@ -323,13 +349,19 @@ function lora_scripts_option()
           "5" "启动" \
           "6" "重新安装" \
           "7" "重新安装pytorch" \
+          "8" '重新生成venv虚拟环境' \
 	    		"0" "返回" \
 	    		3>&1 1>&2 2>&3
 	        )
 
 	    if [ "${final_lora_scripts_option}" == '1' ]; then
               echo "更新lora-scripts中"
-             git pull
+              git pull
+              if [ $? = "0" ];then
+                  dialog --clear --title "A1111-SD-Webui管理" --msgbox "更新成功" 20 60
+              else
+                  dialog --clear --title "A1111-SD-Webui管理" --msgbox "更新失败" 20 60
+              fi
     	fi
 
 	    if [ "${final_lora_scripts_option}" == '2' ]; then
@@ -343,7 +375,6 @@ function lora_scripts_option()
 
 	    if [ "${final_lora_scripts_option}" == '3' ]; then
 		        echo "将工作区、暂存取和HEAD保持一致"
-            git checkout master
             git reset --hard HEAD
 	    fi
 
@@ -376,6 +407,10 @@ function lora_scripts_option()
 
 	    if [ "${final_lora_scripts_option}" == '7' ]; then
               pytorch_reinstall
+    	fi
+
+	    if [ "${final_lora_scripts_option}" == '8' ]; then
+              venv_generate
     	fi
 
 	    if [ "${final_lora_scripts_option}" == '0' ]; then
@@ -799,7 +834,32 @@ function set_proxy_option()
 #term-sd版本信息
 function info_option()
 {
-    dialog --clear --title "关于" --msgbox "Term-SD是基于终端显示的管理器,可以对项目进行简单的管理  \n支持的项目如下: \n 1、AUTOMATIC1111-stable-diffusion-webui \n 2、ComfyUI \n 3、InvokeAI \n 4、lora-scripts \n该脚本的编写参考了https://gitee.com/skymysky/linux \n目前脚本支持Linux,WSL,Termux上运行\nMacOS或许支持 \n该脚本有不足之处,请见凉 \n\nby licyk\n(◍•ᴗ•◍)" 20 60
+    dialog --clear --title "关于" --msgbox "Term-SD是基于终端显示的管理器,可以对项目进行简单的管理  \n
+支持的项目如下: \n
+1、AUTOMATIC1111-stable-diffusion-webui \n
+2、ComfyUI \n
+3、InvokeAI \n
+4、lora-scripts \n
+\n
+使用说明：\n
+1、使用方向键、Tab键、Enter进行选择，Space键勾选或取消选项 \n
+Ctrl+C可中断指令的运行 \n
+2、安装项目的路径和Term-SD脚本所在路径相同，方便管理\n
+3、若项目使用了venv虚拟环境，移动项目到新的路径后需要使用Term-SD的“重新生成venv虚拟环境”功能，才能使venv虚拟环境正常工作\n
+4、若更新项目失败时，可使用“修复”功能，再重新更新\n
+\n
+建议保持启用虚拟环境，因为不同项目对软件包的版本要求不同\n
+若没有设置过python代理，推荐在\"python代理\"进行设置\n
+\n
+该脚本的编写参考了https://gitee.com/skymysky/linux \n
+目前脚本支持Linux,WSL,Termux上运行\n
+MacOS或许支持 \n
+该脚本有不足之处,请见凉 \n
+\n
+    by licyk\
+    (◍•ᴗ•◍)" 20 60
+
+    #返回主菜单  
     mainmenu
 }
 
@@ -1389,6 +1449,7 @@ function pytorch_reinstall()
     python_dep_install #pytorch选择
 
     #开始安装pytorch
+    venv_generate
     enter_venv
     pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip
 }
@@ -1520,9 +1581,35 @@ function git_checkout_manager()
 function term_sd_version()
 {
   if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
-    dialog --clear --title "版本信息" --msgbox " 系统:$(uname -o)\n Term-SD:0.1.2\n python:$(python --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n aria2:$(aria2c --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n git:$(git --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n dialog:$(dialog --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n\n提示:\n使用方向键、Tab键、Enter进行选择，Space键勾选或取消选项\nCtrl+C可中断指令的运行\n建议保持启用虚拟环境，因为不同项目对软件包的版本要求不同\n若没有设置过python代理，推荐在\"python代理\"进行设置" 20 60
+
+dialog --clear --title "版本信息" --msgbox "系统:$(uname -o) \n
+Term-SD:0.1.2 \n
+python:$(python --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
+pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
+aria2:$(aria2c --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ') \n
+git:$(git --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ') \n
+dialog:$(dialog --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
+\n
+提示: \n
+使用方向键、Tab键、Enter进行选择，Space键勾选或取消选项 \n
+Ctrl+C可中断指令的运行 \n
+第一次使用Term-SD时先在主界面选择“关于”查看使用说明" 20 60
+
   else
-    dialog --clear --title "版本信息" --msgbox " 系统:$(uname -o)\n Term-SD:0.1.2\n python:$(python3 --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n aria2:$(aria2c --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n git:$(git --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n dialog:$(dialog --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n\n提示:\n使用方向键、Tab键、Enter进行选择，Space键勾选或取消选项\nCtrl+C可中断指令的运行\n建议保持启用虚拟环境，因为不同项目对软件包的版本要求不同\n若没有设置过python代理，推荐在\"python代理\"进行设置" 20 60
+
+    dialog --clear --title "版本信息" --msgbox "系统:$(uname -o) \n
+Term-SD:0.1.2 \n
+python3:$(python --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
+pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
+aria2:$(aria2c --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ') \n
+git:$(git --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ') \n
+dialog:$(dialog --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
+\n
+提示: \n
+使用方向键、Tab键、Enter进行选择，Space键勾选或取消选项 \n
+Ctrl+C可中断指令的运行 \n
+第一次使用Term-SD时先在主界面选择“关于”查看使用说明" 20 60
+
   fi
   mainmenu
 }
