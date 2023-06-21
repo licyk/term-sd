@@ -332,6 +332,7 @@ function lora_scripts_option()
 
 	    if [ "${final_lora_scripts_option}" == '3' ]; then
 		        echo "将工作区、暂存取和HEAD保持一致"
+            git checkout master
             git reset --hard HEAD
 	    fi
 
