@@ -233,8 +233,9 @@ function comfyui_option()
 function invokeai_option()
 {
   if [ -d "InvokeAI" ];then
-      if which invokeai > /dev/null ;then
         cd InvokeAI
+        enter_venv
+      if which invokeai > /dev/null ;then
         enter_venv
         final_invokeai_option=$(
     		dialog --clear --title "InvokeAI管理" --menu "请使用方向键和回车键对InvokeAI进行操作" 20 60 10 \
@@ -267,7 +268,7 @@ function invokeai_option()
 	        if [ "${final_invokeai_option}" == '4' ]; then
               if (dialog --clear --title "InvokeAI管理" --yesno "是否重新安装InvokeAI" 20 60) then
                 echo "重新安装InvokeAI"
-                cd ..
+                cd $start_path
                 exit_venv
                 process_install_invokeai
               fi
@@ -279,6 +280,7 @@ function invokeai_option()
 
       else 
           if (dialog --clear --title "InvokeAI管理" --yesno "检测到当前未安装InvokeAI,是否进行安装" 20 60) then
+              cd $start_path
               process_install_invokeai
           else
               mainmenu
