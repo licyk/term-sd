@@ -159,8 +159,6 @@ function a1111_sd_webui_option()
     else #找不到stable-diffusion-webui目录
         if (dialog --clear --title "A1111-SD-Webui管理" --yesno "检测到当前未安装A1111-Stable-Diffusion-Webui,是否进行安装" 20 60) then
             process_install_a1111_sd_webui
-        else
-            mainmenu
         fi
     fi
         mainmenu #处理完后返回插件管理界面
@@ -252,8 +250,6 @@ function comfyui_option()
     else
         if (dialog --clear --title "ComfyUI管理" --yesno "检测到当前未安装ComfyUI,是否进行安装" 20 60) then
             process_install_comfyui
-        else
-            mainmenu
         fi
     fi
         mainmenu #处理完后返回主界面界面
@@ -265,16 +261,15 @@ function invokeai_option()
 {
   if [ -d "InvokeAI" ];then
         cd InvokeAI
+        venv_generate #尝试重新生成虚拟环境,有可能因为路径移动导致虚拟环境无法进入，然后检测不到invokeai
         enter_venv
       if which invokeai > /dev/null ;then
-        enter_venv
         final_invokeai_option=$(
     		dialog --clear --title "InvokeAI管理" --menu "请使用方向键和回车键对InvokeAI进行操作" 20 60 10 \
 	    		"1" "更新" \
     			"2" "卸载" \
           "3" "启动" \
           "4" "重新安装" \
-          "5" "重新生成venv虚拟环境" \
 	    		"0" "返回" \
 	    		3>&1 1>&2 2>&3
 	        )
@@ -306,10 +301,6 @@ function invokeai_option()
               fi
 	        fi
 
-	        if [ "${final_invokeai_option}" == '5' ]; then
-                venv_generate
-	        fi
-
 	        if [ "${final_invokeai_option}" == '0' ]; then
                 mainmenu #回到主界面
 	        fi
@@ -318,15 +309,11 @@ function invokeai_option()
           if (dialog --clear --title "InvokeAI管理" --yesno "检测到当前未安装InvokeAI,是否进行安装" 20 60) then
               cd $start_path
               process_install_invokeai
-          else
-              mainmenu
           fi
       fi
   else
         if (dialog --clear --title "InvokeAI管理" --yesno "检测到当前未安装InvokeAI,是否进行安装" 20 60) then
           process_install_invokeai
-        else
-          mainmenu
         fi
   fi
         mainmenu #处理完后返回主界面界面
@@ -420,8 +407,6 @@ function lora_scripts_option()
     else
         if (dialog --clear --title "lora-scripts管理" --yesno "检测到当前未安装lora_scripts,是否进行安装" 20 60) then
             process_install_lora_scripts
-        else
-            mainmenu
         fi
     fi
         mainmenu #处理完后返回主界面界面
@@ -821,7 +806,8 @@ function update_option()
 function set_proxy_option()
 {
     if (dialog --clear --title "python镜像源选项" --yes-label "是" --no-label "否" --yesno "是否启用python镜像源" 20 60) then
-        pip config set global.index-url "https://mirror.sjtu.edu.cn/pypi/web/simple"
+        #pip config set global.index-url "https://mirror.sjtu.edu.cn/pypi/web/simple"
+        pip config set global.index-url "https://mirrors.bfsu.edu.cn/pypi/web/simple"
         pip config set global.extra-index-url "https://mirror.sjtu.edu.cn/pytorch-wheels"
     else
         pip config unset global.index-url
@@ -955,7 +941,8 @@ else
     case "$final_proxy_option" in
     "1")
       echo "设置python镜像源"
-      python_proxy="-i https://mirror.sjtu.edu.cn/pypi/web/simple"
+      #python_proxy="-i https://mirror.sjtu.edu.cn/pypi/web/simple" #上海交大的镜像源有点问题，在安装invokeai时会报错，可能是软件包版本的问题
+      python_proxy="-i https://mirrors.bfsu.edu.cn/pypi/web/simple"
       extra_python_proxy="-f https://mirror.sjtu.edu.cn/pytorch-wheels"
       ;;
     "2")
@@ -972,6 +959,12 @@ else
       ;;
     esac
   done
+fi
+
+if [ $python_proxy = "" ];then #防止系统上配置文件的影响
+echo "使用python官方源"
+python_proxy="-i https://pypi.python.org/simple"
+extra_python_proxy="-f https://download.pytorch.org/whl"
 fi
 }
 
@@ -1585,7 +1578,7 @@ function git_checkout_manager()
 
 #启动程序部分
 
-term_sd_version_="0.1.3"
+term_sd_version_="0.1.4"
 #显示版本信息
 function term_sd_version()
 {
