@@ -852,6 +852,7 @@ Ctrl+C可中断指令的运行 \n
 5、如果没有质量较好的科学上网工具，建议在安装时使用git代理和python镜像源\n
 6、建议保持启用虚拟环境，因为不同项目对软件包的版本要求不同\n
 7、若没有设置过python镜像源，推荐在\"python镜像源\"为系统设置python镜像源\n
+8、Term-SD提供的插件更新功能不支持一键更新全部插件，若要一键更新全部插件，可启动sd-webui后在的扩展功能一键更新全部插件\n
 \n
 该脚本的编写参考了https://gitee.com/skymysky/linux \n
 脚本在理论上支持全平台(Windows平台需安装msys2,Android平台需要安装Termux)\n
@@ -1399,7 +1400,8 @@ function process_install_comfyui()
 function process_install_invokeai()
 {
     #安装前准备
-    proxy_option
+    proxy_option #代理选择
+    python_dep_install #pytorch选择
     pip_install_methon=$(dialog --clear --title "pip安装模式选择" --yes-label "确认" --no-cancel --menu "选择pip安装方式\n1、常规安装可能会有问题,但速度较快\n2、标准构建安装为InvokeAI官方推荐安装方式,但速度较慢" 20 60 10 \
 	  "1" "常规安装(setup.py)" \
 	  "2" "标准构建安装(--use-pep517)" \
@@ -1418,7 +1420,7 @@ function process_install_invokeai()
     cd ./InvokeAI
     venv_generate
     enter_venv
-    pip install invokeai $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select
+    pip install invokeai $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select
     exit_venv
 }
 
@@ -1583,13 +1585,14 @@ function git_checkout_manager()
 
 #启动程序部分
 
+term_sd_version_="0.1.3"
 #显示版本信息
 function term_sd_version()
 {
   if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
 
 dialog --clear --title "版本信息" --msgbox "系统:$(uname -o) \n
-Term-SD:0.1.2 \n
+Term-SD:"$term_sd_version_" \n
 python:$(python --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
 pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
 aria2:$(aria2c --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ') \n
@@ -1604,7 +1607,7 @@ Ctrl+C可中断指令的运行 \n
   else
 
     dialog --clear --title "版本信息" --msgbox "系统:$(uname -o) \n
-Term-SD:0.1.2 \n
+Term-SD:"$term_sd_version_" \n
 python:$(python3 --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
 pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
 aria2:$(aria2c --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ') \n
