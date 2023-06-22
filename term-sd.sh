@@ -270,6 +270,7 @@ function invokeai_option()
     			"2" "卸载" \
           "3" "启动" \
           "4" "重新安装" \
+          "5" "重新安装pytorch" \
 	    		"0" "返回" \
 	    		3>&1 1>&2 2>&3
 	        )
@@ -299,6 +300,10 @@ function invokeai_option()
                 exit_venv
                 process_install_invokeai
               fi
+	        fi
+
+	        if [ "${final_invokeai_option}" == '5' ]; then
+                pytorch_reinstall
 	        fi
 
 	        if [ "${final_invokeai_option}" == '0' ]; then
