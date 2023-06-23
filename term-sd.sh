@@ -1673,7 +1673,7 @@ function git_checkout_manager()
 
 #启动程序部分
 
-term_sd_version_="0.1.4"
+term_sd_version_="0.1.5"
 #显示版本信息
 function term_sd_version()
 {
