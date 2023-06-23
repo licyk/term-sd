@@ -1018,8 +1018,8 @@ function exit_venv()
 #安装前代理选择
 function proxy_option()
 {
-python_proxy=""
-extra_python_proxy=""
+python_proxy="-i https://pypi.python.org/simple"
+extra_python_proxy="-f https://download.pytorch.org/whl"
 github_proxy=""
 force_pip=""
 
@@ -1056,13 +1056,6 @@ else
   done
 fi
 
-if [ $python_proxy = "-i https://mirrors.bfsu.edu.cn/pypi/web/simple" ];then #防止系统上配置文件的影响
-echo
-else
-echo "使用python官方源"
-python_proxy="-i https://pypi.python.org/simple"
-extra_python_proxy="-f https://download.pytorch.org/whl"
-fi
 }
 
 
