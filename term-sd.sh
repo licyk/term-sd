@@ -758,7 +758,8 @@ function generate_invokeai_launch()
 			"3" "invokeai --web" \
 			"4" "invokeai-ti --gui" \
       "5" "invokeai-merge --gui" \
-      "6" "返回" \
+      "6" "自定义启动参数" \
+      "0" "返回" \
 			3>&1 1>&2 2>&3 )
 
       if [ "${invokeai_launch_option}" == '1' ]; then 
@@ -772,6 +773,95 @@ function generate_invokeai_launch()
       elif [ "${invokeai_launch_option}" == '5' ]; then 
           invokeai-merge --gui
       elif [ "${invokeai_launch_option}" == '6' ]; then 
+
+        cust_invokeai_launch_option_1=""
+        cust_invokeai_launch_option_2=""
+        cust_invokeai_launch_option_3=""
+        cust_invokeai_launch_option_4=""
+        cust_invokeai_launch_option_5=""
+        cust_invokeai_launch_option_6=""
+        cust_invokeai_launch_option_7=""
+        cust_invokeai_launch_option_8=""
+        cust_invokeai_launch_option_9=""
+        cust_invokeai_launch_option_10=""
+        cust_invokeai_launch_option_11=""
+
+          final_invokeai_launch_option_=$(dialog --clear --separate-output --notags --checklist "InvokeAI启动参数选择" 20 60 10 \
+        "1" "web" ON \
+        "2" "free_gpu_mem" ON \
+        "3" "precision auto" ON \
+        "4" "precision fp32" OFF\
+        "5" "precision fp16" OFF \
+        "6" "--no-xformers" OFF \
+        "7" "xformers" ON \
+        "8" "no-patchmatch" OFF \
+        "9" "autoconvert" OFF \
+        "10" "ckpt_convert" OFF \
+        "11" "safety-checker" OFF \
+         3>&1 1>&2 2>&3)
+
+
+        if [ -z "$final_invokeai_launch_option_" ]; then
+          echo "不选择启动参数"
+        else
+          for final_invokeai_launch_option in $final_invokeai_launch_option_; do
+            case "$final_invokeai_launch_option" in
+              "1")
+              echo "web"
+              cust_invokeai_launch_option_1="--web"
+              ;;
+            "2")
+              echo "free_gpu_mem"
+              cust_invokeai_launch_option_2="--free_gpu_mem"
+              ;;
+            "3")
+              echo "precision auto"
+              cust_invokeai_launch_option_3="--precision auto"
+              ;;
+            "4")
+              echo "precision fp32"
+              cust_invokeai_launch_option_4="--precision fp32"
+              ;;
+            "5")
+              echo "precision fp16"
+              cust_invokeai_launch_option_5="--precision fp16"
+              ;;
+            "6")
+              echo "no-xformers"
+              cust_invokeai_launch_option_6="--no-xformers"
+              ;;
+            "7")
+              echo "xformers"
+              cust_invokeai_launch_option_7="--xformers"
+              ;;
+            "8")
+              echo "no-patchmatch"
+              cust_invokeai_launch_option_8="--no-patchmatch"
+              ;;
+            "9")
+              echo "autoconvert"
+              cust_invokeai_launch_option_9="--autoconvert"
+              ;;
+            "10")
+              echo "ckpt_convert"
+              cust_invokeai_launch_option_10="--ckpt_convert"
+              ;;
+            "11")
+              echo "safety-checker"
+              cust_invokeai_launch_option_11="--safety-checker"
+              ;;
+            *)
+              echo "不选择启动参数" >&2
+              exit 1
+              ;;    
+            esac
+         done
+        fi
+
+        echo "设置启动参数 $cust_invokeai_launch_option_1 $cust_invokeai_launch_option_2 $cust_invokeai_launch_option_3 $cust_invokeai_launch_option_4 $cust_invokeai_launch_option_5 $cust_invokeai_launch_option_6 $cust_invokeai_launch_option_7 $cust_invokeai_launch_option_8 $cust_invokeai_launch_option_9 $cust_invokeai_launch_option_10 $cust_invokeai_launch_option_11"
+        invokeai $cust_invokeai_launch_option_1 $cust_invokeai_launch_option_2 $cust_invokeai_launch_option_3 $cust_invokeai_launch_option_4 $cust_invokeai_launch_option_5 $cust_invokeai_launch_option_6 $cust_invokeai_launch_option_7 $cust_invokeai_launch_option_8 $cust_invokeai_launch_option_9 $cust_invokeai_launch_option_10 $cust_invokeai_launch_option_11
+
+      elif [ "${invokeai_launch_option}" == '0' ]; then 
           mainmenu
       fi
     mainmenu
