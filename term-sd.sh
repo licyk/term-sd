@@ -1056,7 +1056,9 @@ else
   done
 fi
 
-if [ $python_proxy = "" ];then #防止系统上配置文件的影响
+if [ $python_proxy = "-i https://mirrors.bfsu.edu.cn/pypi/web/simple" ];then #防止系统上配置文件的影响
+echo
+else
 echo "使用python官方源"
 python_proxy="-i https://pypi.python.org/simple"
 extra_python_proxy="-f https://download.pytorch.org/whl"
