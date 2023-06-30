@@ -106,19 +106,17 @@ function a1111_sd_webui_option()
     	fi
 
 	    if [ "${final_a1111_sd_webui_option}" == '3' ]; then
-		        echo "将工作区、暂存取和HEAD保持一致"
+		        echo "修复中"
             git checkout master
             git reset --hard HEAD
 	    fi
 
 	    if [ "${final_a1111_sd_webui_option}" == '4' ]; then
-		    echo "管理插件"
         cd extensions
         extension_methon
 	    fi
 
 	    if [ "${final_a1111_sd_webui_option}" == '5' ]; then
-		    echo "切换版本"
         git_checkout_manager
 	    fi
 
@@ -137,7 +135,6 @@ function a1111_sd_webui_option()
 
 	    if [ "${final_a1111_sd_webui_option}" == '7' ]; then
           if (dialog --clear --title "A1111-SD-Webui管理" --yesno "是否重新安装A1111-Stable-Diffusion-Webui" 20 60) then
-            echo "重新安装A1111-Stable-Diffusion-Webui"
             cd ..
             exit_venv
             process_install_a1111_sd_webui
@@ -204,12 +201,11 @@ function comfyui_option()
     	fi
 
 	    if [ "${final_comfyui_option}" == '3' ]; then
-		    echo "将工作区、暂存取和HEAD保持一致"
+		    echo "修复中"
             git reset --hard HEAD
 	    fi
 
 	    if [ "${final_comfyui_option}" == '4' ]; then
-		        echo "切换版本"
             git_checkout_manager
 	    fi
 
@@ -228,7 +224,6 @@ function comfyui_option()
 
 	    if [ "${final_comfyui_option}" == '6' ]; then
           if (dialog --clear --title "ComfyUI管理" --yesno "是否重新安装ComfyUI" 20 60) then
-            echo "重新安装ComfyUI"
             cd ..
             exit_venv
             process_install_comfyui
@@ -295,7 +290,6 @@ function invokeai_option()
 
 	        if [ "${final_invokeai_option}" == '4' ]; then
               if (dialog --clear --title "InvokeAI管理" --yesno "是否重新安装InvokeAI" 20 60) then
-                echo "重新安装InvokeAI"
                 cd $start_path
                 exit_venv
                 process_install_invokeai
@@ -366,12 +360,11 @@ function lora_scripts_option()
     	fi
 
 	    if [ "${final_lora_scripts_option}" == '3' ]; then
-		        echo "将工作区、暂存取和HEAD保持一致"
+		        echo "修复中"
             git reset --hard HEAD
 	    fi
 
 	    if [ "${final_lora_scripts_option}" == '4' ]; then
-		        echo "切换版本"
             git_checkout_manager
 	    fi
 
@@ -390,7 +383,6 @@ function lora_scripts_option()
 
 	    if [ "${final_lora_scripts_option}" == '6' ]; then
           if (dialog --clear --title "lora-scripts管理" --yesno "是否重新安装lora_scripts" 20 60) then
-             echo "重新安装lora_scripts"
              cd ..
              exit_venv
              process_install_lora_scripts
@@ -492,111 +484,84 @@ function generate_a1111_sd_webui_launch()
       for final_generate_a1111_sd_webui_launch in $final_generate_a1111_sd_webui_launch_; do
     case "$final_generate_a1111_sd_webui_launch" in
     "1")
-      echo "skip-torch-cuda-test"
       a1111_launch_option_1="--skip-torch-cuda-test"
       ;;
     "2")
-      echo "no-half"
       a1111_launch_option_2="--no-half"
       ;;
     "3")
-      echo "no-half-vae"
       a1111_launch_option_3="--no-half-vae"
       ;;
     "4")
-      echo "medvram"
       a1111_launch_option_4="--medvram"
       ;;
     "5")
-      echo "lowvram"
       a1111_launch_option_5="--lowvram"
       ;;
     "6")
-      echo "lowram"
       a1111_launch_option_6="--lowram"
       ;;
     "7")
-      echo "enable-insecure-extension-access"
       a1111_launch_option_7="--enable-insecure-extension-access"
       ;;
     "8")
-      echo "theme dark"
       a1111_launch_option_8="--theme dark"
       ;;
     "9")
-      echo "autolaunch"
       a1111_launch_option_9="--autolaunch"
       ;;
     "10")
-      echo "xformers"
       a1111_launch_option_10="--xformers"
       ;;
     "11")
-      echo "listen"
       a1111_launch_option_11="--listen"
       ;;
     "12")
-      echo "precision full"
       a1111_launch_option_12="--precision full"
       ;;
     "13")
-      echo "force-enable-xformers"
       a1111_launch_option_13="--force-enable-xformers"
       ;;
     "14")
-      echo "xformers-flash-attention"
       a1111_launch_option_14="--xformers-flash-attention"
       ;;
     "15")
-      echo "api"
       a1111_launch_option_15="--api"
       ;;
     "16")
-      echo "ui-debug-mode"
       a1111_launch_option_16="--ui-debug-mode"
       ;;
     "17")
-      echo "share"
       a1111_launch_option_17="--share"
       ;;
     "18")
-      echo "opt-split-attention-invokeai"
       a1111_launch_option_18="--opt-split-attention-invokeai"
       ;;
     "19")
-      echo "opt-split-attention-v1"
       a1111_launch_option_19="--opt-split-attention-v1"
       ;;
     "20")
-      echo "opt-sdp-attention"
       a1111_launch_option_20="--opt-sdp-attention"
       ;;
     "21")
-      echo "opt-sdp-no-mem-attention"
       a1111_launch_option_21="--opt-sdp-no-mem-attention"
       ;;
     "22")
-      echo "disable-opt-split-attention"
       a1111_launch_option_22="--disable-opt-split-attention"
       ;;
     "23")
-      echo "use-cpu all"
       a1111_launch_option_23="--use-cpu all"
       ;;
     "24")
-      echo "opt-channelslast"
       a1111_launch_option_24="--opt-channelslast"
       ;;
     "25")
-      echo "gradio-queue"
       a1111_launch_option_25="--gradio-queue"
       ;;
     "26")
-      echo "multiple"
       a1111_launch_option_26="--multiple"
       ;;
     *)
-      echo "不选择启动参数" >&2
       exit 1
       ;;    
         esac
@@ -665,59 +630,45 @@ function generate_comfyui_launch()
       for final_generate_comfyui_launch in $final_generate_comfyui_launch_; do
     case "$final_generate_comfyui_launch" in
     "1")
-      echo "listen"
       comfyui_launch_option_1="--listen"
       ;;
     "2")
-      echo "auto-launch"
       comfyui_launch_option_2="--auto-launch"
       ;;
     "3")
-      echo "dont-upcast-attention"
       comfyui_launch_option_3="--dont-upcast-attention"
       ;;
     "4")
-      echo "force-fp32"
       comfyui_launch_option_4="--force-fp32"
       ;;
     "5")
-      echo "use-split-cross-attention"
       comfyui_launch_option_5="--use-split-cross-attention"
       ;;
     "6")
-      echo "use-pytorch-cross-attention"
       comfyui_launch_option_6="--use-pytorch-cross-attention"
       ;;
     "7")
-      echo "disable-xformers"
       comfyui_launch_option_7="--disable-xformers"
       ;;
     "8")
-      echo "gpu-only"
       comfyui_launch_option_8="--gpu-only"
       ;;
     "9")
-      echo "highvram"
       comfyui_launch_option_9="--highvram"
       ;;
     "10")
-      echo "normalvram"
       comfyui_launch_option_10="--normalvram"
       ;;
     "11")
-      echo "lowvram"
       comfyui_launch_option_11="--lowvram"
       ;;
     "12")
-      echo "novram"
       comfyui_launch_option_12="--novram"
       ;;
     "13")
-      echo "cpu"
       comfyui_launch_option_13="--cpu"
       ;;
     "14")
-      echo "quick-test-for-ci"
       comfyui_launch_option_14="--quick-test-for-ci"
       ;;
     *)
@@ -807,47 +758,36 @@ function generate_invokeai_launch()
           for final_invokeai_launch_option in $final_invokeai_launch_option_; do
             case "$final_invokeai_launch_option" in
               "1")
-              echo "web"
               cust_invokeai_launch_option_1="--web"
               ;;
             "2")
-              echo "free_gpu_mem"
               cust_invokeai_launch_option_2="--free_gpu_mem"
               ;;
             "3")
-              echo "precision auto"
               cust_invokeai_launch_option_3="--precision auto"
               ;;
             "4")
-              echo "precision fp32"
               cust_invokeai_launch_option_4="--precision fp32"
               ;;
             "5")
-              echo "precision fp16"
               cust_invokeai_launch_option_5="--precision fp16"
               ;;
             "6")
-              echo "no-xformers"
               cust_invokeai_launch_option_6="--no-xformers"
               ;;
             "7")
-              echo "xformers"
               cust_invokeai_launch_option_7="--xformers"
               ;;
             "8")
-              echo "no-patchmatch"
               cust_invokeai_launch_option_8="--no-patchmatch"
               ;;
             "9")
-              echo "autoconvert"
               cust_invokeai_launch_option_9="--autoconvert"
               ;;
             "10")
-              echo "ckpt_convert"
               cust_invokeai_launch_option_10="--ckpt_convert"
               ;;
             "11")
-              echo "safety-checker"
               cust_invokeai_launch_option_11="--safety-checker"
               ;;
             *)
@@ -961,11 +901,9 @@ function venv_option()
     if (dialog --clear --title "venv虚拟环境" --yes-label "启用" --no-label "禁用" --yesno "是否启用venv虚拟环境,默认为启用状态,推荐启用" 20 60) then
         venv_active="enable"
         venv_info="启用"
-        echo "启用虚拟环境"
     else
         venv_active="disable"
         venv_info="禁用"
-        echo "禁用虚拟环境"
     fi
     mainmenu
 }
@@ -1030,26 +968,22 @@ final_proxy_options=$(dialog --clear --separate-output --notags --title "代理�
 
 
 if [ -z "$final_proxy_options" ]; then
-  echo "不选择代理"
+  echo
 else
   for final_proxy_option in $final_proxy_options; do
     case "$final_proxy_option" in
     "1")
-      echo "设置python镜像源"
       #python_proxy="-i https://mirror.sjtu.edu.cn/pypi/web/simple" #上海交大的镜像源有点问题，在安装invokeai时会报错，可能是软件包版本的问题
       python_proxy="-i https://mirrors.bfsu.edu.cn/pypi/web/simple"
       extra_python_proxy="-f https://mirror.sjtu.edu.cn/pytorch-wheels"
       ;;
     "2")
-      echo "设置github代理"
       github_proxy="https://ghproxy.com/"
       ;;
     "3")
-      echo "强制使用pip"
       force_pip="--break-system-packages"
       ;;
     *)
-      echo "不选择代理" >&2
       exit 1
       ;;
     esac
@@ -1074,22 +1008,16 @@ function python_dep_install()
 	)
 
 	if [ "${final_python_dep_install}" == '1' ]; then
-        echo "安装Torch 1.12.1(CUDA11.3)+xFormers 0.014"
         ins_pytorch="torch==1.12.1+cu113 torchvision==0.13.1+cu113 xformers==0.0.14"
 	elif [ "${final_python_dep_install}" == '2' ]; then
-        echo "安装Torch 1.13.1(CUDA11.7)+xFormers 0.016"
         ins_pytorch="torch==1.13.1+cu117 torchvision==0.14.1+cu117 xformers==0.0.16"
 	elif [ "${final_python_dep_install}" == '3' ]; then
-		    echo "开始安装Torch 2.0.0(CUDA11.8)+xFormers 0.018"
         ins_pytorch="torch==2.0.0+cu118 torchvision==0.15.1+cu118 xformers==0.0.18"
 	elif [ "${final_python_dep_install}" == '4' ]; then
-        echo "开始安装Torch 2.0.1(CUDA11.8)+xFormers 0.020"
         ins_pytorch="torch==2.0.1+cu118 torchvision==0.15.2+cu118 xformers==0.0.20"
   elif [ "${final_python_dep_install}" == '5' ]; then
-        echo "开始安装Torch 0.15.0+RoCM 5.4.2"
         ins_pytorch="torch==2.0.1+rocm5.4.2 torchvision==0.15.2+rocm5.4.2"
   elif [ "${final_python_dep_install}" == '6' ]; then
-        echo "跳过安装"
         ins_pytorch=""
     fi
 }
@@ -1176,148 +1104,113 @@ function a1111_sd_webui_extension_option()
 
 
 if [ -z "$final_extension_options" ]; then
-  echo "不安装插件"
+  echo
 else
   for final_extension_option in $final_extension_options; do
     case "$final_extension_option" in
     "1")
-      echo "安装kohya-config-webui"
       extension_1="https://github.com/WSH032/kohya-config-webui"
       ;;
     "2")
-      echo "安装sd-webui-additional-networks"
       extension_2="https://github.com/kohya-ss/sd-webui-additional-networks"
       ;;
     "3")
-      echo "安装a1111-sd-webui-tagcomplete"
       extension_3="https://github.com/DominikDoom/a1111-sd-webui-tagcomplete"
       ;;
     "4")
-      echo "安装multidiffusion-upscaler-for-automatic1111"
       extension_4="https://github.com/pkuliyi2015/multidiffusion-upscaler-for-automatic1111"
       ;;
     "5")
-      echo "安装sd-dynamic-thresholding"
       extension_5="https://github.com/mcmonkeyprojects/sd-dynamic-thresholding"
       ;;
     "6")
-      echo "安装sd-webui-cutoff"
       extension_6="https://github.com/hnmr293/sd-webui-cutoff"
       ;;
     "7")
-      echo "安装sd-webui-model-converter"
       extension_7="https://github.com/Akegarasu/sd-webui-model-converter"
       ;;
     "8")
-      echo "安装sd-webui-supermerger"
       extension_8="https://github.com/hako-mikan/sd-webui-supermerger"
       ;;
     "9")
-      echo "安装stable-diffusion-webui-localization-zh_CN"
       extension_9="https://github.com/dtlnor/stable-diffusion-webui-localization-zh_CN"
       ;;
     "10")
-      echo "安装stable-diffusion-webui-wd14-tagger"
       extension_10="https://github.com/tsukimiya/stable-diffusion-webui-wd14-tagger"
       ;;
     "11")
-      echo "安装sd-webui-regional-prompter"
       extension_11="https://github.com/hako-mikan/sd-webui-regional-prompter"
       ;;
     "12")
-      echo "安装stable-diffusion-webui-baidu-netdisk"
       extension_12="https://github.com/zanllp/stable-diffusion-webui-baidu-netdisk"
       ;;
     "13")
-      echo "安装stable-diffusion-webui-anti-burn"
       extension_13="https://github.com/klimaleksus/stable-diffusion-webui-anti-burn"
       ;;
     "14")
-      echo "安装loopback_scaler"
       extension_14="https://github.com/Elldreth/loopback_scaler.git"
       ;;
     "15")
-      echo "安装latentcoupleregionmapper"
       extension_15="https://github.com/CodeZombie/latentcoupleregionmapper.git"
       ;;
     "16")
-      echo "安装ultimate-upscale-for-automatic1111"
       extension_16="https://github.com/Coyote-A/ultimate-upscale-for-automatic1111.git"
       ;;
     "17")
-      echo "安装deforum-for-automatic1111"
       extension_17="https://github.com/deforum-art/deforum-for-automatic1111-webui"
       ;;
     "18")
-      echo "安装stable-diffusion-webui-images-browser"
       extension_18="https://github.com/AlUlkesh/stable-diffusion-webui-images-browser"
       ;;
     "19")
-      echo "安装stable-diffusion-webui-huggingface"
       extension_19="https://github.com/camenduru/stable-diffusion-webui-huggingface"
       ;;
     "20")
-      echo "安装sd-civitai-browser"
       extension_20="https://github.com/camenduru/sd-civitai-browser"
       ;;
     "21")
-      echo "安装sd-webui-additional-networks"
       extension_21="https://github.com/kohya-ss/sd-webui-additional-networks"
       ;;
     "22")
-      echo "安装openpose-editor"
       extension_22="https://github.com/camenduru/openpose-editor"
       ;;
     "23")
-      echo "安装sd-webui-depth-lib"
       extension_23="https://github.com/jexom/sd-webui-depth-lib"
       ;;
     "24")
-      echo "安装posex"
       extension_24="https://github.com/hnmr293/posex"
       ;;
     "25")
-      echo "安装sd-webui-tunnels"
       extension_25="https://github.com/camenduru/sd-webui-tunnels"
       ;;
     "26")
-      echo "安装batchlinks-webui"
       extension_26="https://github.com/etherealxx/batchlinks-webui"
       ;;
     "27")
-      echo "安装stable-diffusion-webui-catppuccin"
       extension_27="https://github.com/camenduru/stable-diffusion-webui-catppuccin"
       ;;
     "28")
-      echo "安装a1111-sd-webui-locon"
       extension_28="https://github.com/KohakuBlueleaf/a1111-sd-webui-locon"
       ;;
     "29")
-      echo "安装stable-diffusion-webui-rembg"
       extension_29="https://github.com/AUTOMATIC1111/stable-diffusion-webui-rembg"
       ;;
     "30")
-      echo "安装stable-diffusion-webui-two-shot"
       extension_30="https://github.com/ashen-sensored/stable-diffusion-webui-two-shot"
       ;;
     "31")
-      echo "安装sd-webui-lora-block-weight"
       extension_31="https://github.com/hako-mikan/sd-webui-lora-block-weight"
       ;;
     "32")
-      echo "安装sd-face-editor"
       extension_32="https://github.com/ototadana/sd-face-editor"
       ;;
     "33")
-      echo "安装sd-webui-segment-anything"
       extension_33="https://github.com/continue-revolution/sd-webui-segment-anything.git"
       ;;
     "34")
-      echo "安装sd-webui-controlnet"
       extension_34="https://github.com/Mikubill/sd-webui-controlnet"
       ;;
     *)
-      echo "不安装插件" >&2
       exit 1
       ;;
     
@@ -1490,10 +1383,8 @@ function process_install_invokeai()
 	  "2" "标准构建安装(--use-pep517)" \
 	  3>&1 1>&2 2>&3 )
 	    if [ $pip_install_methon = "1" ];then
-		    echo "使用常规安装"
         pip_install_methon_select=""
 	    else
-		    echo "使用标准构建安装"
         pip_install_methon_select="--use-pep517"
 	    fi
 
@@ -1636,10 +1527,9 @@ function operate_extension()
         rm -rfv ./$extension_selection
       fi
 	elif [ "${final_operate_extension}" == '3' ]; then
-		    echo "将工作区、暂存取和HEAD保持一致"
+		    echo "修复中"
         git reset --hard HEAD
 	elif [ "${final_operate_extension}" == '4' ]; then
-	    	echo "运行版本切换模块"
         git_checkout_manager
 	elif [ "${final_operate_extension}" == '0' ]; then
         echo 
@@ -1658,7 +1548,6 @@ function git_checkout_manager()
 
     if [ "$?" = "0" ];then
     git checkout $commit_selection 
-    echo 切换到"$commit_selection"版本
     fi
 }
 
