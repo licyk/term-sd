@@ -1598,73 +1598,81 @@ Ctrl+C可中断指令的运行 \n
 
 
 if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
-echo "检测依赖软件是否安装"
-if which dialog > /dev/null ;then
-  echo "系统已安装dialog"
-  if which aria2c > /dev/null ;then
-    echo "系统已安装aria2"
-    if which python > /dev/null;then
-      echo "系统已安装python"
-      if which git > /dev/null;then
-        echo "系统已安装git"
-        if which pip > /dev/null;then
-          echo "系统已安装pip"
-          echo "Term-SD初始化完成"
-	        echo "启动Term-SD中......"
-          term_sd_version
-        else
-          echo "未安装pip,请安装后重试"
-          exit
-        fi
-      else 
-        echo "未安装git,请安装后重试"
-        exit
-      fi
+  echo "检测依赖软件是否安装"
+  test_num=0
+  if which dialog > /dev/null ;then
+    test_num=$(( $test_num + 1 ))
     else
-      echo "未安装python,请安装后重试"
-      exit
-    fi
+    echo "未安装dialog,请安装后重试"
+  fi
+
+  if which aria2c > /dev/null ;then
+    test_num=$(( $test_num + 1 ))
   else
     echo "未安装aria2,请安装后重试"
-    exit
   fi
-else
-  echo "未安装dialog,请安装后重试"
-  exit
-fi
-else
-echo "检测依赖软件是否安装"
-if which dialog > /dev/null ;then
-  echo "系统已安装dialog"
-  if which aria2c > /dev/null ;then
-    echo "系统已安装aria2"
-    if which python3 > /dev/null;then
-      echo "系统已安装python"
-      if which git > /dev/null;then
-        echo "系统已安装git"
-        if which pip > /dev/null;then
-          echo "系统已安装pip"
-          echo "Term-SD初始化完成"
-	        echo "启动Term-SD中......"
-          term_sd_version
-        else
-          echo "未安装pip,请安装后重试"
-          exit
-        fi
-      else 
-        echo "未安装git,请安装后重试"
-        exit
-      fi
+
+  if which python > /dev/null;then
+    test_num=$(( $test_num + 1 ))
+  else
+    echo "未安装python,请安装后重试"
+  fi
+
+  if which pip >/dev/null;then
+    test_num=$(( $test_num + 1 ))
+  else
+    echo "未安装git,请安装后重试"
+  fi
+
+  if which git > /dev/null;then
+    test_num=$(( $test_num + 1 ))
+  else
+    echo "未安装git,请安装后重试"
+  fi
+
+else #检测到为其他系统
+
+  echo "检测依赖软件是否安装"
+  test_num=0
+  if which dialog > /dev/null ;then
+    test_num=$(( $test_num + 1 ))
     else
-      echo "未安装python,请安装后重试"
-      exit
-    fi
+    echo "未安装dialog,请安装后重试"
+  fi
+
+  if which aria2c > /dev/null ;then
+    test_num=$(( $test_num + 1 ))
   else
     echo "未安装aria2,请安装后重试"
-    exit
   fi
-else
-  echo "未安装dialog,请安装后重试"
-  exit
+
+  if which python3 > /dev/null;then
+    test_num=$(( $test_num + 1 ))
+  else
+    echo "未安装python,请安装后重试"
+  fi
+
+  if which pip >/dev/null;then
+    test_num=$(( $test_num + 1 ))
+  else
+    echo "未安装git,请安装后重试"
+  fi
+
+  if which git > /dev/null;then
+    test_num=$(( $test_num + 1 ))
+  else
+    echo "未安装git,请安装后重试"
+  fi
+
 fi
+
+#启动term-sd
+
+if [ $test_num -ge 5 ];then
+  echo "初始化Term-SD完成"
+  echo "启动Term-SD中"
+  term_sd_version
+else
+  echo "未满足依赖要求，正在退出"
+  exit
 fi
