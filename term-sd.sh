@@ -816,22 +816,24 @@ function update_option()
         if [ "$?"="0" ];then
            cp -fv ./term-sd-update-tmp/term-sd.sh ./
            rm -rfv ./term-sd-update-tmp
-	   chmod u+x term-sd.sh
-           echo "更新完成，请重启Term-SD"
-           exit
+	         chmod u+x term-sd.sh
+           if (dialog --clear --title "更新选项" --msgbox "更新成功" 20 60);then
+           source ./term-sd.sh
+           fi
         else
-           echo "更新失败"
+           dialog --clear --title "更新选项" --msgbox "更新失败，请重试" 20 60
         fi
     else
         aria2c https://raw.githubusercontent.com/licyk/sd-webui-script/main/term-sd.sh -d ./term-sd-update-tmp/
         if [ "$?"="0" ];then
            cp -fv ./term-sd-update-tmp/term-sd.sh ./
            rm -rfv ./term-sd-update-tmp
-	   chmod u+x term-sd.sh
-           echo "更新完成，请重启Term-SD"
-           exit
+	         chmod u+x term-sd.sh
+           if (dialog --clear --title "更新选项" --msgbox "更新成功" 20 60);then
+           source ./term-sd.sh
+           fi
         else
-           echo "更新失败"
+           dialog --clear --title "更新选项" --msgbox "更新失败，请重试" 20 60
         fi
     fi
     exit
@@ -1493,7 +1495,7 @@ function extension_manager()
 #插件安装模块
 function extension_install()
 {
-    extension_address=$(dialog --clear --title "插件安装" --inputbox "输入插件的github或其他下载地址" 10 60 3>&1 1>&2 2>&3)
+    extension_address=$(dialog --clear --title "插件安装" --inputbox "输入插件的github或其他下载地址" 20 60 3>&1 1>&2 2>&3)
 
     exitstatus=$?
     if [ $exitstatus = 0 ]; then
