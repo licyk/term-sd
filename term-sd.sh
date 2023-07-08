@@ -836,7 +836,7 @@ function update_option()
            dialog --clear --title "更新选项" --msgbox "更新失败，请重试" 20 60
         fi
     fi
-    exit
+    mainmenu
 }
 
 #python镜像源选项
