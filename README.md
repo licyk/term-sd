@@ -10,7 +10,18 @@ windows系统安装配置环境的方法：
 
 1、进入[msys2官网](https://www.msys2.org/)  
 在官网“Installation”找到”1、Download the installer:“，点击右边的按钮进行下载并安装  
-安装好后在windows的开始菜单里找到MSYS2 MSYS，打开  
+记下刚刚安装的路径，比如C:\msys64
+按下“win+R”快捷键，打开运行对话框，输入指令：  
+
+    sysdm.cpl
+
+打开【系统属性】窗口后，依次点击选项卡【高级】、【环境变量】按钮  
+在“系统变量”部分点双击“Path”，点击新建，输入以下路径,分别创建两条环境变量  
+
+    C:\msys64\mingw64\bin
+    C:\msys64\usr\bin
+
+安装好后在windows的开始菜单里找到MSYS2 MINGW64，打开  
 
 2、在msys终端输入  
 
@@ -18,10 +29,10 @@ windows系统安装配置环境的方法：
 
 然后输入  
 
-    pacman -Syu dialog
+    pacman -Syu dialog git 
 
 输入y，回车，等待安装完成  
-此时完成msys2，和dialog的安装  
+此时完成msys2,dialog,git的安装  
 
 3、进入python官网下载python，[python3.10下载](https://www.python.org/downloads/release/python-31011/)  
 在python3.10的页面找到Windows installer (64-bit)，点击下载  
@@ -51,10 +62,17 @@ ArchLinux系：
     sudo pacman -S python3 python3-pip python3-venv git aria2
 
 
- 配置完环境后使用term-sd的方法：
+ 配置完环境后使用term-sd的方法：  
+ 1、下载term-sd
 
-    aria2c https://raw.githubusercontent.com/licyk/sd-webui-script/main/term-sd.sh
-    chmod +x term-sd.sh
+    aria2c https://raw.githubusercontent.com/licyk/sd-webui-script/main/term-sd.sh && chmod +x term-sd.sh
+
+如果下载失败可以打开科学上网，再输入刚才的指令，或者使用github代理下载  
+
+    aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/sd-webui-script/main/term-sd.sh && chmod +x term-sd.sh
+
+2、启动term-sd
+
     ./term-sd.sh
 
 
