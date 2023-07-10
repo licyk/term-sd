@@ -1236,7 +1236,6 @@ function final_install_check()
 python镜像源:$final_install_check_python \n
 github代理:$final_install_check_github\n
 强制使用pip:$final_install_check_force_pip\n
-插件:$extension_1 $extension_2 $extension_3 $extension_4 $extension_5 $extension_6 $extension_7 $extension_8 $extension_9 $extension_10 $extension_11 $extension_12 $extension_13 $extension_14 $extension_15 $extension_16 $extension_17 $extension_18 $extension_19 $extension_20 $extension_21 $extension_22 $extension_23 $extension_24 $extension_25 $extension_26 $extension_27 $extension_28 $extension_29 $extension_30 $extension_31 $extension_32 $extension_33 $extension_34\n
 " 20 60);then
         echo
     else
