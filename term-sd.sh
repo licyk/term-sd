@@ -1021,20 +1021,23 @@ function python_dep_install()
         "3" "Torch 2.0.0(CUDA11.8)+xFormers 0.018" \
         "4" "Torch 2.0.1(CUDA11.8)+xFormers 0.020" \
         "5" "Torch 2.0.1+RoCM 5.4.2" \
-        "6" "跳过安装" \
+        "6" "Torch" \
+        "0" "跳过安装" \
         3>&1 1>&2 2>&3)
 
     if [ "${final_python_dep_install}" == '1' ]; then
-        ins_pytorch="torch==1.12.1+cu113 torchvision==0.13.1+cu113 xformers==0.0.14"
+        ins_pytorch="torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1+cu113 xformers==0.0.14"
     elif [ "${final_python_dep_install}" == '2' ]; then
-        ins_pytorch="torch==1.13.1+cu117 torchvision==0.14.1+cu117 xformers==0.0.16"
+        ins_pytorch="torch==1.13.1+cu117 torchvision==0.14.1+cu117 torchaudio==0.13.1+cu117 xformers==0.0.16"
     elif [ "${final_python_dep_install}" == '3' ]; then
-        ins_pytorch="torch==2.0.0+cu118 torchvision==0.15.1+cu118 xformers==0.0.18"
+        ins_pytorch="torch==2.0.0+cu118 torchvision==0.15.1+cu118 torchaudio==2.0.1+cu118 xformers==0.0.18"
     elif [ "${final_python_dep_install}" == '4' ]; then
-        ins_pytorch="torch==2.0.1+cu118 torchvision==0.15.2+cu118 xformers==0.0.20"
+        ins_pytorch="torch==2.0.1+cu118 torchvision==0.15.2+cu118 torchaudio==2.0.2+cu118 xformers==0.0.20"
     elif [ "${final_python_dep_install}" == '5' ]; then
-        ins_pytorch="torch==2.0.1+rocm5.4.2 torchvision==0.15.2+rocm5.4.2"
-    elif [ "${final_python_dep_install}" == '6' ]; then
+        ins_pytorch="torch==2.0.1+rocm5.4.2 torchvision==0.15.2+rocm5.4.2 torchaudio==2.0.2+rocm5.4.2"
+    elif [ "${final_python_dep_install}" == '5' ]; then
+        ins_pytorch="torch torchvision torchaudio"
+    elif [ "${final_python_dep_install}" == '0' ]; then
         ins_pytorch=""
     fi
 }
@@ -1100,7 +1103,7 @@ function a1111_sd_webui_extension_option()
     extension_34=""
 
     final_extension_options=$(
-        dialog --separate-output --notags --checklist "A1111-Stable-Diffusion-Webui插件选择" 20 60 10 \
+        dialog --separate-output --notags --yes-label "确认" --no-cancel --checklist "A1111-Stable-Diffusion-Webui插件选择" 20 60 10 \
         "1" "kohya-config-webui" ON \
         "2" "sd-webui-additional-networks" ON \
         "3" "a1111-sd-webui-tagcomplete" ON \
