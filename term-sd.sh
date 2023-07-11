@@ -43,6 +43,7 @@ function mainmenu()
         elif [ "${mainmenu_select}" == '2' ]; then #选择ComfyUI
             comfyui_option
         elif [ "${mainmenu_select}" == '3' ]; then #选择InvokeAI
+            venv_generate #尝试重新生成虚拟环境,解决因为路径移动导致虚拟环境无法进入，然后检测不到invokeai
             invokeai_option
         elif [ "${mainmenu_select}" == '4' ]; then #选择lora-scripts
             lora_scripts_option
@@ -87,6 +88,7 @@ function a1111_sd_webui_option()
             if [ "${final_a1111_sd_webui_option}" == '1' ]; then
                 echo "更新A1111-Stable-Diffusion-Webui中"
                 git pull
+                a1111_sd_webui_option
                 if [ $? = "0" ];then
                     dialog --clear --title "A1111-SD-Webui管理" --msgbox "更新成功" 20 60
                 else
@@ -107,6 +109,7 @@ function a1111_sd_webui_option()
                 echo "修复中"
                 git checkout master
                 git reset --hard HEAD
+                a1111_sd_webui_option
             fi
 
             if [ "${final_a1111_sd_webui_option}" == '4' ]; then
@@ -117,18 +120,21 @@ function a1111_sd_webui_option()
 
             if [ "${final_a1111_sd_webui_option}" == '5' ]; then
                 git_checkout_manager
+                a1111_sd_webui_option
             fi
 
             if [ "${final_a1111_sd_webui_option}" == '6' ]; then
                 if [ -f "./term-sd-launch.sh" ]; then #找到启动脚本
                     if (dialog --clear --title "stable-diffusion-webui管理" --yes-label "启动" --no-label "修改参数" --yesno "选择直接启动/修改启动参数" 20 60) then
                         exec ./term-sd-launch.sh
-                        mainmenu
+                        a1111_sd_webui_option
                     else #修改启动脚本
                         generate_a1111_sd_webui_launch
+                        a1111_sd_webui_option
                     fi
                 else #找不到启动脚本,并启动脚本生成界面
                 generate_a1111_sd_webui_launch
+                a1111_sd_webui_option
                 fi
             fi
 
@@ -137,15 +143,18 @@ function a1111_sd_webui_option()
                 cd $start_path
                 exit_venv
                 process_install_a1111_sd_webui
+                a1111_sd_webui_option
                 fi
             fi
 
             if [ "${final_a1111_sd_webui_option}" == '8' ]; then
                 pytorch_reinstall
+                a1111_sd_webui_option
             fi
 
             if [ "${final_a1111_sd_webui_option}" == '9' ]; then
                 venv_generate
+                a1111_sd_webui_option
             fi
 
             if [ "${final_a1111_sd_webui_option}" == '0' ]; then
@@ -187,6 +196,7 @@ function comfyui_option()
             if [ "${final_comfyui_option}" == '1' ]; then
                 echo "更新ComfyUI中"
                 git pull
+                comfyui_option
                 if [ $? = "0" ];then
                     dialog --clear --title "A1111-SD-Webui管理" --msgbox "更新成功" 20 60
                 else
@@ -206,10 +216,12 @@ function comfyui_option()
             if [ "${final_comfyui_option}" == '3' ]; then
                 echo "修复中"
                 git reset --hard HEAD
+                comfyui_option
             fi
 
             if [ "${final_comfyui_option}" == '4' ]; then
                 git_checkout_manager
+                comfyui_option
             fi
 
             if [ "${final_comfyui_option}" == '5' ]; then
@@ -219,9 +231,11 @@ function comfyui_option()
                         mainmenu
                     else
                         generate_comfyui_launch
+                        comfyui_option
                     fi
                 else #找不到启动脚本,并启动脚本生成界面
                     generate_comfyui_launch
+                    comfyui_option
                 fi    
             fi
 
@@ -230,15 +244,18 @@ function comfyui_option()
                     cd $start_path
                     exit_venv
                     process_install_comfyui
+                    comfyui_option
                 fi
             fi
 
             if [ "${final_comfyui_option}" == '7' ]; then
                 pytorch_reinstall
+                comfyui_option
             fi
 
             if [ "${final_comfyui_option}" == '8' ]; then
                 venv_generate
+                comfyui_option
             fi
 
             if [ "${final_comfyui_option}" == '0' ]; then
@@ -261,7 +278,6 @@ function invokeai_option()
     cd $start_path #回到最初路径
     if [ -d "InvokeAI" ];then
         cd InvokeAI
-        venv_generate #尝试重新生成虚拟环境,解决因为路径移动导致虚拟环境无法进入，然后检测不到invokeai
         enter_venv
         if which invokeai > /dev/null ;then
             final_invokeai_option=$(
@@ -282,6 +298,7 @@ function invokeai_option()
                     final_install_check #安装前确认
                     echo "更新InvokeAI中"
                     pip install $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --upgrade invokeai
+                    invokeai_option
                 fi
 
                 if [ "${final_invokeai_option}" == '2' ]; then
@@ -295,6 +312,7 @@ function invokeai_option()
 
                 if [ "${final_invokeai_option}" == '3' ]; then
                     generate_invokeai_launch
+                    invokeai_option
                 fi
 
                 if [ "${final_invokeai_option}" == '4' ]; then
@@ -302,11 +320,13 @@ function invokeai_option()
                         cd $start_path
                         exit_venv
                         process_install_invokeai
+                        invokeai_option
                     fi
                 fi
 
                 if [ "${final_invokeai_option}" == '5' ]; then
                     pytorch_reinstall
+                    invokeai_option
                 fi
 
                 if [ "${final_invokeai_option}" == '0' ]; then
@@ -353,6 +373,7 @@ function lora_scripts_option()
             if [ "${final_lora_scripts_option}" == '1' ]; then
                 echo "更新lora-scripts中"
                 git pull
+                lora_scripts_option
                 if [ $? = "0" ];then
                     dialog --clear --title "A1111-SD-Webui管理" --msgbox "更新成功" 20 60
                 else
@@ -372,10 +393,12 @@ function lora_scripts_option()
             if [ "${final_lora_scripts_option}" == '3' ]; then
                 echo "修复中"
                 git reset --hard HEAD
+                lora_scripts_option
             fi
 
             if [ "${final_lora_scripts_option}" == '4' ]; then
                 git_checkout_manager
+                lora_scripts_option
             fi
 
             if [ "${final_lora_scripts_option}" == '5' ]; then
@@ -395,15 +418,18 @@ function lora_scripts_option()
                     cd $start_path
                     exit_venv
                     process_install_lora_scripts
+                    lora_scripts_option
                 fi
             fi
 
             if [ "${final_lora_scripts_option}" == '7' ]; then
                 pytorch_reinstall
+                lora_scripts_option
             fi
 
             if [ "${final_lora_scripts_option}" == '8' ]; then
                 venv_generate
+                lora_scripts_option
             fi
 
             if [ "${final_lora_scripts_option}" == '0' ]; then
@@ -596,7 +622,6 @@ function generate_a1111_sd_webui_launch()
         chmod u+x ./term-sd-launch.sh
         exec ./term-sd-launch.sh
     fi
-    a1111_sd_webui_option
 }
 
 #comfyui启动脚本生成部分
@@ -706,7 +731,6 @@ function generate_comfyui_launch()
         chmod u+x ./term-sd-launch.sh
         exec ./term-sd-launch.sh
     fi
-    comfyui_option
 }
 
 #invokeai启动脚本生成部分
@@ -818,7 +842,6 @@ function generate_invokeai_launch()
             mainmenu
         fi
     fi
-    invokeai_option
 }
 
 #term-sd更新选项
@@ -1486,6 +1509,7 @@ function pytorch_reinstall()
     venv_generate
     enter_venv
     pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select
+    exit_venv
 }
 
 ###############################################################################
@@ -1607,7 +1631,7 @@ function git_checkout_manager()
 
 #启动程序部分
 
-term_sd_version_="0.2.1"
+term_sd_version_="0.2.2"
 
 if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
     test_python="python"
