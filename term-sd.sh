@@ -37,7 +37,7 @@ function mainmenu()
         "8" "退出" \
         3>&1 1>&2 2>&3 )
 
-    if [ $? = 0  ];then
+    if [ $? = 0  ];then #选择确认
         if [ "${mainmenu_select}" == '1' ]; then #选择AUTOMATIC1111-stable-diffusion-webui
             a1111_sd_webui_option
         elif [ "${mainmenu_select}" == '2' ]; then #选择ComfyUI
@@ -57,7 +57,7 @@ function mainmenu()
         elif [ "${mainmenu_select}" == '0' ]; then #选择venv虚拟环境
             venv_option
         fi
-    else
+    else #选择取消
         exit
     fi
 }
@@ -1534,7 +1534,7 @@ function extension_manager()
         elif [[ -f "$extension_selection" ]]; then
             extension_manager #留在当前目录
         else
-            extension_methon #返回功能选择界面
+            extension_manager #留在当前目录
         fi
     fi
 }
