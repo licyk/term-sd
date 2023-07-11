@@ -43,7 +43,6 @@ function mainmenu()
         elif [ "${mainmenu_select}" == '2' ]; then #选择ComfyUI
             comfyui_option
         elif [ "${mainmenu_select}" == '3' ]; then #选择InvokeAI
-            venv_generate #尝试重新生成虚拟环境,解决因为路径移动导致虚拟环境无法进入，然后检测不到invokeai
             invokeai_option
         elif [ "${mainmenu_select}" == '4' ]; then #选择lora-scripts
             lora_scripts_option
@@ -287,6 +286,7 @@ function invokeai_option()
     exit_venv 2> /dev/null #确保进行下一步操作前已退出其他虚拟环境
     if [ -d "InvokeAI" ];then #找到invokeai文件夹
         cd InvokeAI
+        venv_generate #尝试重新生成虚拟环境,解决因为路径移动导致虚拟环境无法进入，然后检测不到invokeai
         enter_venv #进入环境
         if which invokeai > /dev/null ;then #查找环境中有没有invokeai
             final_invokeai_option=$(
