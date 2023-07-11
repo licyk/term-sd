@@ -1021,7 +1021,7 @@ function python_dep_install()
         "3" "Torch 2.0.0(CUDA11.8)+xFormers 0.018" \
         "4" "Torch 2.0.1(CUDA11.8)+xFormers 0.020" \
         "5" "Torch 2.0.1+RoCM 5.4.2" \
-        "6" "Torch" \
+        "6" "Torch 2.0.1+CPU" \
         "0" "跳过安装" \
         3>&1 1>&2 2>&3)
 
@@ -1036,7 +1036,7 @@ function python_dep_install()
     elif [ "${final_python_dep_install}" == '5' ]; then
         ins_pytorch="torch==2.0.1+rocm5.4.2 torchvision==0.15.2+rocm5.4.2 torchaudio==2.0.2+rocm5.4.2"
     elif [ "${final_python_dep_install}" == '6' ]; then
-        ins_pytorch="torch torchvision torchaudio"
+        ins_pytorch="torch==2.0.1+cpu torchvision==0.15.2+cpu torchaudio==2.0.2+cpu"
     elif [ "${final_python_dep_install}" == '0' ]; then
         ins_pytorch=""
     fi
