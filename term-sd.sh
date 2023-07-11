@@ -125,16 +125,18 @@ function a1111_sd_webui_option()
             fi
 
             if [ "${final_a1111_sd_webui_option}" == '6' ]; then
-                if [ -f "./term-sd-launch.sh" ]; then #找到启动脚本
+                if [ -f "./term-sd-launch.conf" ]; then #找到启动脚本
                     if (dialog --clear --title "stable-diffusion-webui管理" --yes-label "启动" --no-label "修改参数" --yesno "选择直接启动/修改启动参数" 20 60) then
-                        exec ./term-sd-launch.sh
+                        term_sd_launch
                         a1111_sd_webui_option
                     else #修改启动脚本
                         generate_a1111_sd_webui_launch
+                        term_sd_launch
                         a1111_sd_webui_option
                     fi
                 else #找不到启动脚本,并启动脚本生成界面
                 generate_a1111_sd_webui_launch
+                term_sd_launch
                 a1111_sd_webui_option
                 fi
             fi
@@ -228,16 +230,18 @@ function comfyui_option()
             fi
 
             if [ "${final_comfyui_option}" == '5' ]; then
-                if [ -f "./term-sd-launch.sh" ]; then #找到启动脚本
+                if [ -f "./term-sd-launch.conf" ]; then #找到启动脚本
                     if (dialog --clear --title "ComfyUI启动选择" --yes-label "启动" --no-label "修改参数" --yesno "选择直接启动/修改启动参数" 20 60) then
-                        exec ./term-sd-launch.sh
-                        mainmenu
+                        term_sd_launch
+                        comfyui_option
                     else
                         generate_comfyui_launch
+                        term_sd_launch
                         comfyui_option
                     fi
                 else #找不到启动脚本,并启动脚本生成界面
                     generate_comfyui_launch
+                    term_sd_launch
                     comfyui_option
                 fi    
             fi
@@ -614,22 +618,10 @@ function generate_a1111_sd_webui_launch()
             done
         fi
     
-
         #生成启动脚本
-        rm -v ./term-sd-launch.sh
+        rm -v ./term-sd-launch.conf
         echo "设置启动参数" "$a1111_launch_option_1" "$a1111_launch_option_2" "$a1111_launch_option_3" "$a1111_launch_option_4" "$a1111_launch_option_5" "$a1111_launch_option_6" "$a1111_launch_option_7" "$a1111_launch_option_8" "$a1111_launch_option_9" "$a1111_launch_option_10" "$a1111_launch_option_11" "$a1111_launch_option_12" "$a1111_launch_option_13" "$a1111_launch_option_14" "$a1111_launch_option_15" "$a1111_launch_option_16" "$a1111_launch_option_17" "$a1111_launch_option_18" "$a1111_launch_option_19" "$a1111_launch_option_20" "$a1111_launch_option_21" "$a1111_launch_option_22" "$a1111_launch_option_23" "$a1111_launch_option_24" "$a1111_launch_option_25" "$a1111_launch_option_26"
-        echo "echo "进入venv虚拟环境"" >term-sd-launch.sh
-
-        if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
-            echo "source ./venv/Scripts/activate" >>term-sd-launch.sh
-            echo "python launch.py "$a1111_launch_option_1" "$a1111_launch_option_2" "$a1111_launch_option_3" "$a1111_launch_option_4" "$a1111_launch_option_5" "$a1111_launch_option_6" "$a1111_launch_option_7" "$a1111_launch_option_8" "$a1111_launch_option_9" "$a1111_launch_option_10" "$a1111_launch_option_11" "$a1111_launch_option_12" "$a1111_launch_option_13" "$a1111_launch_option_14" "$a1111_launch_option_15" "$a1111_launch_option_16" "$a1111_launch_option_17" "$a1111_launch_option_18" "$a1111_launch_option_19" "$a1111_launch_option_20" "$a1111_launch_option_21" "$a1111_launch_option_22" "$a1111_launch_option_23" "$a1111_launch_option_24" "$a1111_launch_option_25" "$a1111_launch_option_26"" >>term-sd-launch.sh
-        else
-            echo "source ./venv/bin/activate" >>term-sd-launch.sh
-            echo "python3 launch.py "$a1111_launch_option_1" "$a1111_launch_option_2" "$a1111_launch_option_3" "$a1111_launch_option_4" "$a1111_launch_option_5" "$a1111_launch_option_6" "$a1111_launch_option_7" "$a1111_launch_option_8" "$a1111_launch_option_9" "$a1111_launch_option_10" "$a1111_launch_option_11" "$a1111_launch_option_12" "$a1111_launch_option_13" "$a1111_launch_option_14" "$a1111_launch_option_15" "$a1111_launch_option_16" "$a1111_launch_option_17" "$a1111_launch_option_18" "$a1111_launch_option_19" "$a1111_launch_option_20" "$a1111_launch_option_21" "$a1111_launch_option_22" "$a1111_launch_option_23" "$a1111_launch_option_24" "$a1111_launch_option_25" "$a1111_launch_option_26"" >>term-sd-launch.sh
-        fi
-
-        chmod u+x ./term-sd-launch.sh
-        exec ./term-sd-launch.sh
+        echo "launch.py "$a1111_launch_option_1" "$a1111_launch_option_2" "$a1111_launch_option_3" "$a1111_launch_option_4" "$a1111_launch_option_5" "$a1111_launch_option_6" "$a1111_launch_option_7" "$a1111_launch_option_8" "$a1111_launch_option_9" "$a1111_launch_option_10" "$a1111_launch_option_11" "$a1111_launch_option_12" "$a1111_launch_option_13" "$a1111_launch_option_14" "$a1111_launch_option_15" "$a1111_launch_option_16" "$a1111_launch_option_17" "$a1111_launch_option_18" "$a1111_launch_option_19" "$a1111_launch_option_20" "$a1111_launch_option_21" "$a1111_launch_option_22" "$a1111_launch_option_23" "$a1111_launch_option_24" "$a1111_launch_option_25" "$a1111_launch_option_26"" >term-sd-launch.conf
     fi
 }
 
@@ -725,20 +717,9 @@ function generate_comfyui_launch()
             done
         fi
 
-        rm -v ./term-sd-launch.sh
+        rm -v ./term-sd-launch.conf
         echo "设置启动参数" "$comfyui_launch_option_1" "$comfyui_launch_option_2" "$comfyui_launch_option_3" "$comfyui_launch_option_4" "$comfyui_launch_option_5" "$comfyui_launch_option_6" "$comfyui_launch_option_7" "$comfyui_launch_option_8" "$comfyui_launch_option_9" "$comfyui_launch_option_10" "$comfyui_launch_option_11" "$comfyui_launch_option_12" "$comfyui_launch_option_13" "$comfyui_launch_option_14"
-        echo "echo "进入venv虚拟环境"" >term-sd-launch.sh
-
-        if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
-            echo "source ./venv/Scripts/activate" >>term-sd-launch.sh
-            echo "python main.py "$comfyui_launch_option_1" "$comfyui_launch_option_2" "$comfyui_launch_option_3" "$comfyui_launch_option_4" "$comfyui_launch_option_5" "$comfyui_launch_option_6" "$comfyui_launch_option_7" "$comfyui_launch_option_8" "$comfyui_launch_option_9" "$comfyui_launch_option_10" "$comfyui_launch_option_11" "$comfyui_launch_option_12" "$comfyui_launch_option_13" "$comfyui_launch_option_14"" >>term-sd-launch.sh
-        else
-            echo "source ./venv/bin/activate" >>term-sd-launch.sh
-            echo "python3 main.py "$comfyui_launch_option_1" "$comfyui_launch_option_2" "$comfyui_launch_option_3" "$comfyui_launch_option_4" "$comfyui_launch_option_5" "$comfyui_launch_option_6" "$comfyui_launch_option_7" "$comfyui_launch_option_8" "$comfyui_launch_option_9" "$comfyui_launch_option_10" "$comfyui_launch_option_11" "$comfyui_launch_option_12" "$comfyui_launch_option_13" "$comfyui_launch_option_14"" >>term-sd-launch.sh
-        fi
-
-        chmod u+x ./term-sd-launch.sh
-        exec ./term-sd-launch.sh
+        echo "main.py "$comfyui_launch_option_1" "$comfyui_launch_option_2" "$comfyui_launch_option_3" "$comfyui_launch_option_4" "$comfyui_launch_option_5" "$comfyui_launch_option_6" "$comfyui_launch_option_7" "$comfyui_launch_option_8" "$comfyui_launch_option_9" "$comfyui_launch_option_10" "$comfyui_launch_option_11" "$comfyui_launch_option_12" "$comfyui_launch_option_13" "$comfyui_launch_option_14"" >term-sd-launch.conf
     fi
 }
 
@@ -852,6 +833,21 @@ function generate_invokeai_launch()
         fi
     fi
 }
+
+function term_sd_launch()
+{
+    enter_venv
+    term_sd_launch_info=$(cat ./term-sd-launch.conf)
+    if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
+        python $term_sd_launch_info
+    else
+        python3 $term_sd_launch_info
+    fi
+}
+
+###############################################################################
+
+#term-sd其他选项
 
 #term-sd更新选项
 function update_option()
