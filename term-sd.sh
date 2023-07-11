@@ -1262,6 +1262,7 @@ function final_install_check()
 python镜像源:$final_install_check_python \n
 github代理:$final_install_check_github\n
 强制使用pip:$final_install_check_force_pip\n
+pytorch:$ins_pytorch\n
 pip安装方式:$final_install_check_pip_methon\n
 " 20 60);then
         echo
