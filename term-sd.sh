@@ -1035,7 +1035,7 @@ function python_dep_install()
         ins_pytorch="torch==2.0.1+cu118 torchvision==0.15.2+cu118 torchaudio==2.0.2+cu118 xformers==0.0.20"
     elif [ "${final_python_dep_install}" == '5' ]; then
         ins_pytorch="torch==2.0.1+rocm5.4.2 torchvision==0.15.2+rocm5.4.2 torchaudio==2.0.2+rocm5.4.2"
-    elif [ "${final_python_dep_install}" == '5' ]; then
+    elif [ "${final_python_dep_install}" == '6' ]; then
         ins_pytorch="torch torchvision torchaudio"
     elif [ "${final_python_dep_install}" == '0' ]; then
         ins_pytorch=""
