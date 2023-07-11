@@ -169,6 +169,7 @@ function a1111_sd_webui_option()
     else #找不到stable-diffusion-webui目录
         if (dialog --clear --title "A1111-SD-Webui管理" --yesno "检测到当前未安装A1111-Stable-Diffusion-Webui,是否进行安装" 20 60) then
             process_install_a1111_sd_webui
+            a1111_sd_webui_option
         fi
     fi
     mainmenu #处理完后返回主界面
@@ -271,6 +272,7 @@ function comfyui_option()
     else
         if (dialog --clear --title "ComfyUI管理" --yesno "检测到当前未安装ComfyUI,是否进行安装" 20 60) then
             process_install_comfyui
+            comfyui_option
         fi
     fi
     mainmenu #处理完后返回主界面界面
@@ -344,11 +346,13 @@ function invokeai_option()
             if (dialog --clear --title "InvokeAI管理" --yesno "检测到当前未安装InvokeAI,是否进行安装" 20 60) then
                 cd $start_path
                 process_install_invokeai
+                invokeai_option
             fi
         fi
     else
         if (dialog --clear --title "InvokeAI管理" --yesno "检测到当前未安装InvokeAI,是否进行安装" 20 60) then
           process_install_invokeai
+          invokeai_option
         fi
     fi
     mainmenu #处理完后返回主界面界面
@@ -447,6 +451,7 @@ function lora_scripts_option()
     else
         if (dialog --clear --title "lora-scripts管理" --yesno "检测到当前未安装lora_scripts,是否进行安装" 20 60) then
             process_install_lora_scripts
+            lora_scripts_option
         fi
     fi
     mainmenu #处理完后返回主界面界面
