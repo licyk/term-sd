@@ -159,7 +159,7 @@ function a1111_sd_webui_option()
             process_install_a1111_sd_webui
         fi
     fi
-        mainmenu #处理完后返回主界面
+    mainmenu #处理完后返回主界面
 }
 
 
@@ -252,7 +252,7 @@ function comfyui_option()
             process_install_comfyui
         fi
     fi
-        mainmenu #处理完后返回主界面界面
+    mainmenu #处理完后返回主界面界面
 }
 
 #InvokeAI选项
@@ -277,9 +277,12 @@ function invokeai_option()
             if [ $? = 0 ];then
 
                 if [ "${final_invokeai_option}" == '1' ]; then
+                    proxy_option #代理选择
+                    pip_install_methon #安装方式选择
+                    final_install_check #安装前确认
                     echo "更新InvokeAI中"
-                    pip install --upgrade invokeai
-                 fi
+                    pip install $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --upgrade invokeai
+                fi
 
                 if [ "${final_invokeai_option}" == '2' ]; then
                     if (dialog --clear --title "删除选项" --yes-label "是" --no-label "否" --yesno "是否删除InvokeAI" 20 60) then
@@ -323,7 +326,7 @@ function invokeai_option()
           process_install_invokeai
         fi
     fi
-        mainmenu #处理完后返回主界面界面
+    mainmenu #处理完后返回主界面界面
 }
 
 #lora-scripts选项
@@ -414,7 +417,7 @@ function lora_scripts_option()
             process_install_lora_scripts
         fi
     fi
-        mainmenu #处理完后返回主界面界面
+    mainmenu #处理完后返回主界面界面
 }
 
 ###############################################################################
@@ -974,7 +977,7 @@ function proxy_option()
     final_install_check_force_pip="禁用"
 
     final_proxy_options=$(
-        dialog --clear --separate-output --notags --title "代理选择" --checklist "请选择代理，强制使用pip一般情况下不选" 20 60 10 \
+        dialog --clear --separate-output --notags --title "代理选择" --yes-label "确认" --no-cancel --checklist "请选择代理，强制使用pip一般情况下不选" 20 60 10 \
         "1" "启用python镜像源" ON \
         "2" "启用github代理" ON \
         "3" "强制使用pip" OFF 3>&1 1>&2 2>&3)
@@ -1009,8 +1012,10 @@ function proxy_option()
 #pytorch安装选择
 function python_dep_install()
 {
+    ins_pytorch=""
+
     final_python_dep_install=$(
-        dialog --clear --title "pytorch安装" --menu "请使用方向键和回车键选择安装的pytorch版本" 20 60 10 \
+        dialog --clear --title "pytorch安装" --yes-label "确认" --no-cancel --menu "请使用方向键和回车键选择安装的pytorch版本" 20 60 10 \
         "1" "Torch 1.12.1(CUDA11.3)+xFormers 0.014" \
         "2" "Torch 1.13.1(CUDA11.7)+xFormers 0.016" \
         "3" "Torch 2.0.0(CUDA11.8)+xFormers 0.018" \
@@ -1032,9 +1037,29 @@ function python_dep_install()
     elif [ "${final_python_dep_install}" == '6' ]; then
         ins_pytorch=""
     fi
-
 }
 
+#pip安装模式选择
+function pip_install_methon()
+{
+    pip_install_methon_select=""
+    final_install_check_pip_methon="常规安装(setup.py)"
+
+    final_pip_install_methon=$(
+        dialog --clear --title "pip安装模式选择" --yes-label "确认" --no-cancel --menu "选择pip安装方式\n1、常规安装可能会有问题,但速度较快\n2、标准构建安装可解决一些报错问题,但速度较慢" 20 60 10 \
+        "1" "常规安装(setup.py)" \
+        "2" "标准构建安装(--use-pep517)" \
+        3>&1 1>&2 2>&3 )
+
+    if [ $final_pip_install_methon = "1" ];then
+        pip_install_methon_select=""
+        final_install_check_pip_methon="常规安装(setup.py)"
+    else
+        pip_install_methon_select="--use-pep517"
+        final_install_check_pip_methon="标准构建安装(--use-pep517)"
+    fi
+}
+    
 #automatic1111-webui插件选择
 function a1111_sd_webui_extension_option()
 {
@@ -1112,120 +1137,118 @@ function a1111_sd_webui_extension_option()
         "34" "sd-webui-controlnet" ON \
          3>&1 1>&2 2>&3)
 
-    if [ $? = 0 ];then
-        if [ -z "$final_extension_options" ]; then
-            echo
-        else
-            for final_extension_option in $final_extension_options; do
-            case "$final_extension_option" in
-            "1")
-            extension_1="https://github.com/WSH032/kohya-config-webui"
-            ;;
-            "2")
-            extension_2="https://github.com/kohya-ss/sd-webui-additional-networks"
-            ;;
-            "3")
-            extension_3="https://github.com/DominikDoom/a1111-sd-webui-tagcomplete"
-            ;;
-            "4")
-            extension_4="https://github.com/pkuliyi2015/multidiffusion-upscaler-for-automatic1111"
-            ;;
-            "5")
-            extension_5="https://github.com/mcmonkeyprojects/sd-dynamic-thresholding"
-            ;;
-            "6")
-            extension_6="https://github.com/hnmr293/sd-webui-cutoff"
-            ;;
-            "7")
-            extension_7="https://github.com/Akegarasu/sd-webui-model-converter"
-            ;;
-            "8")
-            extension_8="https://github.com/hako-mikan/sd-webui-supermerger"
-            ;;
-            "9")
-            extension_9="https://github.com/dtlnor/stable-diffusion-webui-localization-zh_CN"
-            ;;
-            "10")
-            extension_10="https://github.com/tsukimiya/stable-diffusion-webui-wd14-tagger"
-            ;;
-            "11")
-            extension_11="https://github.com/hako-mikan/sd-webui-regional-prompter"
-            ;;
-            "12")
-            extension_12="https://github.com/zanllp/stable-diffusion-webui-baidu-netdisk"
-            ;;
-            "13")
-            extension_13="https://github.com/klimaleksus/stable-diffusion-webui-anti-burn"
-            ;;
-            "14")
-            extension_14="https://github.com/Elldreth/loopback_scaler.git"
-            ;;
-            "15")
-            extension_15="https://github.com/CodeZombie/latentcoupleregionmapper.git"
-            ;;
-            "16")
-            extension_16="https://github.com/Coyote-A/ultimate-upscale-for-automatic1111.git"
-            ;;
-            "17")
-            extension_17="https://github.com/deforum-art/deforum-for-automatic1111-webui"
-            ;;
-            "18")
-            extension_18="https://github.com/AlUlkesh/stable-diffusion-webui-images-browser"
-            ;;
-            "19")
-            extension_19="https://github.com/camenduru/stable-diffusion-webui-huggingface"
-            ;;
-            "20")
-            extension_20="https://github.com/camenduru/sd-civitai-browser"
-            ;;
-            "21")
-            extension_21="https://github.com/kohya-ss/sd-webui-additional-networks"
-            ;;
-            "22")
-            extension_22="https://github.com/camenduru/openpose-editor"
-            ;;
-            "23")
-            extension_23="https://github.com/jexom/sd-webui-depth-lib"
-            ;;
-            "24")
-            extension_24="https://github.com/hnmr293/posex"
-            ;;
-            "25")
-            extension_25="https://github.com/camenduru/sd-webui-tunnels"
-            ;;
-            "26")
-            extension_26="https://github.com/etherealxx/batchlinks-webui"
-            ;;
-            "27")
-            extension_27="https://github.com/camenduru/stable-diffusion-webui-catppuccin"
-            ;;
-            "28")
-            extension_28="https://github.com/KohakuBlueleaf/a1111-sd-webui-locon"
-            ;;
-            "29")
-            extension_29="https://github.com/AUTOMATIC1111/stable-diffusion-webui-rembg"
-            ;;
-            "30")
-            extension_30="https://github.com/ashen-sensored/stable-diffusion-webui-two-shot"
-            ;;
-            "31")
-            extension_31="https://github.com/hako-mikan/sd-webui-lora-block-weight"
-            ;;
-            "32")
-            extension_32="https://github.com/ototadana/sd-face-editor"
-            ;;
-            "33")
-            extension_33="https://github.com/continue-revolution/sd-webui-segment-anything.git"
-            ;;
-            "34")
-            extension_34="https://github.com/Mikubill/sd-webui-controlnet"
-            ;;
-            *)
-            exit 1
-            ;;
-            esac
-            done
-        fi
+    if [ -z "$final_extension_options" ]; then
+        echo
+    else
+        for final_extension_option in $final_extension_options; do
+        case "$final_extension_option" in
+        "1")
+        extension_1="https://github.com/WSH032/kohya-config-webui"
+        ;;
+        "2")
+        extension_2="https://github.com/kohya-ss/sd-webui-additional-networks"
+        ;;
+        "3")
+        extension_3="https://github.com/DominikDoom/a1111-sd-webui-tagcomplete"
+        ;;
+        "4")
+        extension_4="https://github.com/pkuliyi2015/multidiffusion-upscaler-for-automatic1111"
+        ;;
+        "5")
+        extension_5="https://github.com/mcmonkeyprojects/sd-dynamic-thresholding"
+        ;;
+        "6")
+        extension_6="https://github.com/hnmr293/sd-webui-cutoff"
+        ;;
+        "7")
+        extension_7="https://github.com/Akegarasu/sd-webui-model-converter"
+        ;;
+        "8")
+        extension_8="https://github.com/hako-mikan/sd-webui-supermerger"
+        ;;
+        "9")
+        extension_9="https://github.com/dtlnor/stable-diffusion-webui-localization-zh_CN"
+        ;;
+        "10")
+        extension_10="https://github.com/tsukimiya/stable-diffusion-webui-wd14-tagger"
+        ;;
+        "11")
+        extension_11="https://github.com/hako-mikan/sd-webui-regional-prompter"
+        ;;
+        "12")
+        extension_12="https://github.com/zanllp/stable-diffusion-webui-baidu-netdisk"
+        ;;
+        "13")
+        extension_13="https://github.com/klimaleksus/stable-diffusion-webui-anti-burn"
+        ;;
+        "14")
+        extension_14="https://github.com/Elldreth/loopback_scaler.git"
+        ;;
+        "15")
+        extension_15="https://github.com/CodeZombie/latentcoupleregionmapper.git"
+        ;;
+        "16")
+        extension_16="https://github.com/Coyote-A/ultimate-upscale-for-automatic1111.git"
+        ;;
+        "17")
+        extension_17="https://github.com/deforum-art/deforum-for-automatic1111-webui"
+        ;;
+        "18")
+        extension_18="https://github.com/AlUlkesh/stable-diffusion-webui-images-browser"
+        ;;
+        "19")
+        extension_19="https://github.com/camenduru/stable-diffusion-webui-huggingface"
+        ;;
+        "20")
+        extension_20="https://github.com/camenduru/sd-civitai-browser"
+        ;;
+        "21")
+        extension_21="https://github.com/kohya-ss/sd-webui-additional-networks"
+        ;;
+        "22")
+        extension_22="https://github.com/camenduru/openpose-editor"
+        ;;
+        "23")
+        extension_23="https://github.com/jexom/sd-webui-depth-lib"
+        ;;
+        "24")
+        extension_24="https://github.com/hnmr293/posex"
+        ;;
+        "25")
+        extension_25="https://github.com/camenduru/sd-webui-tunnels"
+        ;;
+        "26")
+        extension_26="https://github.com/etherealxx/batchlinks-webui"
+        ;;
+        "27")
+        extension_27="https://github.com/camenduru/stable-diffusion-webui-catppuccin"
+        ;;
+        "28")
+        extension_28="https://github.com/KohakuBlueleaf/a1111-sd-webui-locon"
+        ;;
+        "29")
+        extension_29="https://github.com/AUTOMATIC1111/stable-diffusion-webui-rembg"
+        ;;
+        "30")
+        extension_30="https://github.com/ashen-sensored/stable-diffusion-webui-two-shot"
+        ;;
+        "31")
+        extension_31="https://github.com/hako-mikan/sd-webui-lora-block-weight"
+        ;;
+        "32")
+        extension_32="https://github.com/ototadana/sd-face-editor"
+        ;;
+        "33")
+        extension_33="https://github.com/continue-revolution/sd-webui-segment-anything.git"
+        ;;
+        "34")
+        extension_34="https://github.com/Mikubill/sd-webui-controlnet"
+        ;;
+        *)
+        exit 1
+        ;;
+        esac
+        done
     fi
 }
 
@@ -1236,6 +1259,7 @@ function final_install_check()
 python镜像源:$final_install_check_python \n
 github代理:$final_install_check_github\n
 强制使用pip:$final_install_check_force_pip\n
+pip安装方式:$final_install_check_pip_methon\n
 " 20 60);then
         echo
     else
@@ -1253,6 +1277,7 @@ function process_install_a1111_sd_webui()
     proxy_option #代理选择
     python_dep_install #pytorch选择
     a1111_sd_webui_extension_option #插件选择
+    pip_install_methon #安装方式选择
     final_install_check #安装前确认
 
     #开始安装插件
@@ -1264,26 +1289,26 @@ function process_install_a1111_sd_webui()
     enter_venv
     cd ..
 
-    pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip
+    pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select
     mkdir ./stable-diffusion-webui/repositories
     git clone "$github_proxy"https://github.com/CompVis/stable-diffusion.git ./stable-diffusion-webui/repositories/stable-diffusion
     git clone "$github_proxy"https://github.com/CompVis/taming-transformers.git ./stable-diffusion-webui/repositories/taming-transformers
     git clone "$github_proxy"https://github.com/sczhou/CodeFormer.git ./stable-diffusion-webui/repositories/CodeFormer
     git clone "$github_proxy"https://github.com/salesforce/BLIP.git ./stable-diffusion-webui/repositories/BLIP
     git clone "$github_proxy"https://github.com/Stability-AI/stablediffusion.git/ ./stable-diffusion-webui/repositories/stable-diffusion-stability-ai
-    pip install git+"$github_proxy"https://github.com/crowsonkb/k-diffusion.git --prefer-binary $python_proxy $force_pip
-    pip install git+"$github_proxy"https://github.com/TencentARC/GFPGAN.git --prefer-binary $python_proxy $force_pip
+    pip install git+"$github_proxy"https://github.com/crowsonkb/k-diffusion.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select
+    pip install git+"$github_proxy"https://github.com/TencentARC/GFPGAN.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select
 
     cd ./stable-diffusion-webui/repositories/CodeFormer/
-    pip install -r requirements.txt --prefer-binary $python_proxy $force_pip
+    pip install -r requirements.txt --prefer-binary $python_proxy $force_pip $pip_install_methon_select
     cd $start_path
 
     pip install -U numpy --prefer-binary $python_proxy $force_pip
-    pip install git+"$github_proxy"https://github.com/openai/CLIP.git --prefer-binary $python_proxy $force_pip
-    pip install git+"$github_proxy"https://github.com/mlfoundations/open_clip.git --prefer-binary $python_proxy $force_pip
+    pip install git+"$github_proxy"https://github.com/openai/CLIP.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select
+    pip install git+"$github_proxy"https://github.com/mlfoundations/open_clip.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select
 
     cd ./stable-diffusion-webui
-    pip install -r requirements.txt --prefer-binary $python_proxy $force_pip #安装stable-diffusion-webui的依赖
+    pip install -r requirements.txt --prefer-binary $python_proxy $force_pip $pip_install_methon_select #安装stable-diffusion-webui的依赖
     cd ..
     
     #sed -i -e 's/\"sd_model_checkpoint\"\,/\"sd_model_checkpoint\,sd_vae\,CLIP_stop_at_last_layers\"\,/g' ./stable-diffusion-webui/modules/shared.py
@@ -1377,6 +1402,7 @@ function process_install_comfyui()
     #安装前的准备
     proxy_option #代理选择
     python_dep_install #pytorch选择
+    pip_install_methon #安装方式选择
     final_install_check #安装前确认
 
     #开始安装comfyui
@@ -1386,9 +1412,9 @@ function process_install_comfyui()
     venv_generate
     enter_venv
     cd ..
-    pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip
+    pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select
     cd ./ComfyUI
-    pip install -r requirements.txt  --prefer-binary $python_proxy $force_pip
+    pip install -r requirements.txt  --prefer-binary $python_proxy $force_pip $pip_install_methon_select
     cd ..
     aria2c https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt -d ./ComfyUI/models/checkpoints/ -o sd-v1-4.ckpt
     exit_venv
@@ -1400,18 +1426,7 @@ function process_install_invokeai()
     #安装前准备
     proxy_option #代理选择
     python_dep_install #pytorch选择
-    pip_install_methon=$(
-        dialog --clear --title "pip安装模式选择" --yes-label "确认" --no-cancel --menu "选择pip安装方式\n1、常规安装可能会有问题,但速度较快\n2、标准构建安装为InvokeAI官方推荐安装方式,但速度较慢" 20 60 10 \
-        "1" "常规安装(setup.py)" \
-        "2" "标准构建安装(--use-pep517)" \
-        3>&1 1>&2 2>&3 )
-
-        if [ $pip_install_methon = "1" ];then
-            pip_install_methon_select=""
-        else
-            pip_install_methon_select="--use-pep517"
-        fi
-
+    pip_install_methon #安装方式选择
     final_install_check #安装前确认
 
     #开始安装invokeai
@@ -1431,6 +1446,7 @@ function process_install_lora_scripts()
     #安装前的准备
     proxy_option #代理选择
     python_dep_install #pytorch选择
+    pip_install_methon #安装方式选择
     final_install_check #安装前确认
 
     #参考lora-scripts里的install.bash写的
@@ -1441,11 +1457,11 @@ function process_install_lora_scripts()
     cd ./lora-scripts
     venv_generate
     enter_venv
-    pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip
+    pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select
     cd ./sd-scripts
-    pip install $python_proxy $extra_python_proxy $force_pip --upgrade -r requirements.txt
+    pip install $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --upgrade -r requirements.txt 
     cd ..
-    pip install --upgrade $python_proxy $extra_python_proxy $force_pip lion-pytorch lycoris-lora dadaptation fastapi uvicorn wandb
+    pip install --upgrade $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select lion-pytorch lycoris-lora dadaptation fastapi uvicorn wandb
     aria2c https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt -d ./sd-models/ -o model.ckpt
     exit_venv
 }
@@ -1456,12 +1472,13 @@ function pytorch_reinstall()
     #安装前的准备
     proxy_option #代理选择
     python_dep_install #pytorch选择
+    pip_install_methon #安装方式选择
     final_install_check #安装前确认
 
     #开始安装pytorch
     venv_generate
     enter_venv
-    pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip
+    pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select
 }
 
 ###############################################################################
@@ -1583,7 +1600,7 @@ function git_checkout_manager()
 
 #启动程序部分
 
-term_sd_version_="0.2.0"
+term_sd_version_="0.2.1"
 
 if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
     test_python="python"
