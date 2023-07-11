@@ -25,9 +25,7 @@ function mainmenu()
     cd $start_path #回到最初路径
     exit_venv 2> /dev/null #确保进行下一步操作前已退出其他虚拟环境
     mainmenu_select=$(
-        dialog --clear --title "Term-SD" --menu "请使用方向键和回车键进行操作\n
-        当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')\n
-        当前虚拟环境状态:"$venv_info"" 20 60 10 \
+        dialog --clear --title "Term-SD" --menu "请使用方向键和回车键进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')\n当前虚拟环境状态:"$venv_info"" 20 60 10 \
         "0" "venv虚拟环境" \
         "1" "AUTOMATIC1111-stable-diffusion-webui" \
         "2" "ComfyUI" \
