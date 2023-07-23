@@ -88,12 +88,12 @@ function a1111_sd_webui_option()
             if [ "${final_a1111_sd_webui_option}" == '1' ]; then
                 echo "更新A1111-Stable-Diffusion-Webui中"
                 git pull
-                a1111_sd_webui_option
                 if [ $? = "0" ];then
                     dialog --clear --title "A1111-SD-Webui管理" --msgbox "更新成功" 20 60
                 else
                     dialog --clear --title "A1111-SD-Webui管理" --msgbox "更新失败" 20 60
                 fi
+                a1111_sd_webui_option
             fi
 
             if [ "${final_a1111_sd_webui_option}" == '2' ]; then
@@ -200,12 +200,12 @@ function comfyui_option()
             if [ "${final_comfyui_option}" == '1' ]; then
                 echo "更新ComfyUI中"
                 git pull
-                comfyui_option
                 if [ $? = "0" ];then
                     dialog --clear --title "A1111-SD-Webui管理" --msgbox "更新成功" 20 60
                 else
                     dialog --clear --title "A1111-SD-Webui管理" --msgbox "更新失败" 20 60
                 fi
+                comfyui_option
             fi
 
             if [ "${final_comfyui_option}" == '2' ]; then
@@ -385,12 +385,12 @@ function lora_scripts_option()
             if [ "${final_lora_scripts_option}" == '1' ]; then
                 echo "更新lora-scripts中"
                 git pull
-                lora_scripts_option
                 if [ $? = "0" ];then
                     dialog --clear --title "A1111-SD-Webui管理" --msgbox "更新成功" 20 60
                 else
                     dialog --clear --title "A1111-SD-Webui管理" --msgbox "更新失败" 20 60
                 fi
+                lora_scripts_option
             fi
 
             if [ "${final_lora_scripts_option}" == '2' ]; then
