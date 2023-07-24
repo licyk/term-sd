@@ -126,6 +126,9 @@ function a1111_sd_webui_option()
             if [ "${final_a1111_sd_webui_option}" == '6' ]; then
                 if [ -f "./term-sd-launch.conf" ]; then #找到启动脚本
                     if (dialog --clear --title "stable-diffusion-webui管理" --yes-label "启动" --no-label "修改参数" --yesno "选择直接启动/修改启动参数" 20 60) then
+                        cd extensions
+                        extension_dep_install
+                        cd "$start_path"/stable-diffusion-webui
                         term_sd_launch
                         a1111_sd_webui_option
                     else #修改启动脚本
@@ -1529,7 +1532,8 @@ function extension_methon()
         dialog --clear --title "插件管理" --menu "请使用方向键和回车键进行操作" 20 60 10 \
         "1" "安装" \
         "2" "管理" \
-        "3" "返回" \
+        "3" "更新全部插件" \
+        "4" "返回" \
         3>&1 1>&2 2>&3 )
 
         if [ $? = 0 ];then
@@ -1539,7 +1543,10 @@ function extension_methon()
             elif [ "${final_extension_methon}" == '2' ]; then #选择管理
                 extension_manager
                 extension_methon
-            elif [ "${final_extension_methon}" == '3' ]; then #选择返回
+            elif [ "${final_extension_methon}" == '3' ]; then #选择更新全部插件
+                extension_all_update
+                extension_methon
+            elif [ "${final_extension_methon}" == '4' ]; then #选择返回
                 echo
             fi
         fi
@@ -1632,11 +1639,41 @@ function git_checkout_manager()
     fi
 }
 
+#插件依赖安装部分
+function extension_dep_install()
+{
+    echo "安装插件依赖"
+    enter_venv
+    for extension_folder in ./*
+    do
+        [ -f "$extension_folder" ] && continue #排除文件
+        cd $extension_folder
+        echo "安装"$extension_folder"插件依赖"
+        pip install -r requirements.txt
+        cd ..
+    done
+    exit_venv
+}
+
+#一键更新全部插件功能
+function extension_all_update()
+{
+    echo "更新插件"
+    for extension_folder in ./*
+    do
+        [ -f "$extension_folder" ] && continue #排除文件
+        cd $extension_folder
+        echo "更新"$extension_folder"插件中"
+        git pull
+        cd ..
+    done
+}
+
 ###############################################################################
 
 #启动程序部分
 
-term_sd_version_="0.2.2"
+term_sd_version_="0.2.3"
 
 if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
     test_python="python"
