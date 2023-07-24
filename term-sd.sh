@@ -126,24 +126,15 @@ function a1111_sd_webui_option()
             if [ "${final_a1111_sd_webui_option}" == '6' ]; then
                 if [ -f "./term-sd-launch.conf" ]; then #找到启动脚本
                     if (dialog --clear --title "stable-diffusion-webui管理" --yes-label "启动" --no-label "修改参数" --yesno "选择直接启动/修改启动参数" 20 60) then
-                        cd extensions
-                        extension_dep_install
-                        cd "$start_path/stable-diffusion-webui"
                         term_sd_launch
                         a1111_sd_webui_option
                     else #修改启动脚本
                         generate_a1111_sd_webui_launch
-                        cd extensions
-                        extension_dep_install
-                        cd "$start_path/stable-diffusion-webui"
                         term_sd_launch
                         a1111_sd_webui_option
                     fi
                 else #找不到启动脚本,并启动脚本生成界面
                 generate_a1111_sd_webui_launch
-                cd extensions
-                extension_dep_install
-                cd "$start_path/stable-diffusion-webui"
                 term_sd_launch
                 a1111_sd_webui_option
                 fi
@@ -924,7 +915,7 @@ Ctrl+C可中断指令的运行 \n
 5、如果没有质量较好的科学上网工具，建议在安装时使用git代理和python镜像源\n
 6、建议保持启用虚拟环境，因为不同项目对软件包的版本要求不同\n
 7、若没有设置过python镜像源，推荐在\"python镜像源\"为系统设置python镜像源\n
-8、Term-SD提供的插件更新功能不支持一键更新全部插件，若要一键更新全部插件，可启动sd-webui后在的扩展功能一键更新全部插件\n
+8、插件安装好后推荐运行一次"安装插件依赖"\n
 \n
 该脚本的编写参考了https://gitee.com/skymysky/linux \n
 脚本在理论上支持全平台(Windows平台需安装msys2,Android平台需要安装Termux)\n
@@ -965,10 +956,12 @@ function venv_generate()
             echo "系统为windows"
             echo "创建venv虚拟环境"
             python -m venv venv
+            python -m pip install -U pip
         else
             echo "系统为$(uname -o)"
             echo "创建venv虚拟环境"
             python3 -m venv venv
+            python3 -m pip install -U pip
         fi
     else
         echo "忽略创建venv虚拟环境"
@@ -1539,7 +1532,8 @@ function extension_methon()
         "1" "安装" \
         "2" "管理" \
         "3" "更新全部插件" \
-        "4" "返回" \
+        "4" "安装插件依赖" \
+        "5" "返回" \
         3>&1 1>&2 2>&3 )
 
         if [ $? = 0 ];then
@@ -1552,7 +1546,10 @@ function extension_methon()
             elif [ "${final_extension_methon}" == '3' ]; then #选择更新全部插件
                 extension_all_update
                 extension_methon
-            elif [ "${final_extension_methon}" == '4' ]; then #选择返回
+            elif [ "${final_extension_methon}" == '4' ]; then #选择安装插件依赖
+                extension_dep_install
+                extension_methon
+            elif [ "${final_extension_methon}" == '5' ]; then #选择返回
                 echo
             fi
         fi
