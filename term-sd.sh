@@ -126,18 +126,30 @@ function a1111_sd_webui_option()
             if [ "${final_a1111_sd_webui_option}" == '6' ]; then
                 if [ -f "./term-sd-launch.conf" ]; then #找到启动脚本
                     if (dialog --clear --title "stable-diffusion-webui管理" --yes-label "启动" --no-label "修改参数" --yesno "选择直接启动/修改启动参数" 20 60) then
+                        enter_venv
                         cd extensions
                         extension_dep_install
+                        exit_venv
                         cd "$start_path/stable-diffusion-webui"
                         term_sd_launch
                         a1111_sd_webui_option
                     else #修改启动脚本
                         generate_a1111_sd_webui_launch
+                        enter_venv
+                        cd extensions
+                        extension_dep_install
+                        exit_venv
+                        cd "$start_path/stable-diffusion-webui"
                         term_sd_launch
                         a1111_sd_webui_option
                     fi
                 else #找不到启动脚本,并启动脚本生成界面
                 generate_a1111_sd_webui_launch
+                enter_venv
+                cd extensions
+                extension_dep_install
+                exit_venv
+                cd "$start_path/stable-diffusion-webui"
                 term_sd_launch
                 a1111_sd_webui_option
                 fi
@@ -1643,7 +1655,6 @@ function git_checkout_manager()
 function extension_dep_install()
 {
     echo "安装插件依赖"
-    enter_venv
     for extension_folder in ./*
     do
         [ -f "$extension_folder" ] && continue #排除文件
@@ -1652,9 +1663,9 @@ function extension_dep_install()
         if [ -f requirements.txt ];then
             pip install -r requirements.txt
         fi
+        sleep 0.5
         cd ..
     done
-    exit_venv
 }
 
 #一键更新全部插件功能
