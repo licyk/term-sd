@@ -1649,7 +1649,9 @@ function extension_dep_install()
         [ -f "$extension_folder" ] && continue #排除文件
         cd "$extension_folder"
         echo "安装"$extension_folder"插件依赖"
-        pip install -r requirements.txt
+        if [ -f requirements.txt ];then
+            pip install -r requirements.txt
+        fi
         cd ..
     done
     exit_venv
@@ -1673,7 +1675,7 @@ function extension_all_update()
 
 #启动程序部分
 
-term_sd_version_="0.2.3"
+term_sd_version_="0.2.4"
 
 if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
     test_python="python"
