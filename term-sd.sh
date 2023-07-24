@@ -22,7 +22,7 @@ venv_info="启用"
 #主界面
 function mainmenu()
 {
-    cd $start_path #回到最初路径
+    cd "$start_path" #回到最初路径
     exit_venv 2> /dev/null #确保进行下一步操作前已退出其他虚拟环境
     mainmenu_select=$(
         dialog --clear --title "Term-SD" --menu "请使用方向键和回车键进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')\n当前虚拟环境状态:"$venv_info"" 20 60 10 \
@@ -65,7 +65,7 @@ function mainmenu()
 #a1111_sd_webui_option选项
 function a1111_sd_webui_option()
 {
-    cd $start_path #回到最初路径
+    cd "$start_path" #回到最初路径
     exit_venv 2> /dev/null #确保进行下一步操作前已退出其他虚拟环境
     if [ -d "stable-diffusion-webui" ];then #找到stable-diffusion-webui目录
         cd stable-diffusion-webui
@@ -128,7 +128,7 @@ function a1111_sd_webui_option()
                     if (dialog --clear --title "stable-diffusion-webui管理" --yes-label "启动" --no-label "修改参数" --yesno "选择直接启动/修改启动参数" 20 60) then
                         cd extensions
                         extension_dep_install
-                        cd "$start_path"/stable-diffusion-webui
+                        cd "$start_path/stable-diffusion-webui"
                         term_sd_launch
                         a1111_sd_webui_option
                     else #修改启动脚本
@@ -145,7 +145,7 @@ function a1111_sd_webui_option()
 
             if [ "${final_a1111_sd_webui_option}" == '7' ]; then
                 if (dialog --clear --title "A1111-SD-Webui管理" --yesno "是否重新安装A1111-Stable-Diffusion-Webui" 20 60) then
-                cd $start_path
+                cd "$start_path"
                 exit_venv
                 process_install_a1111_sd_webui
                 a1111_sd_webui_option
@@ -181,7 +181,7 @@ function a1111_sd_webui_option()
 #comfyui选项
 function comfyui_option()
 {
-    cd $start_path #回到最初路径
+    cd "$start_path" #回到最初路径
     exit_venv 2> /dev/null #确保进行下一步操作前已退出其他虚拟环境
     if [ -d "ComfyUI" ];then
         cd ComfyUI
@@ -250,7 +250,7 @@ function comfyui_option()
 
             if [ "${final_comfyui_option}" == '6' ]; then
                 if (dialog --clear --title "ComfyUI管理" --yesno "是否重新安装ComfyUI" 20 60) then
-                    cd $start_path
+                    cd "$start_path"
                     exit_venv
                     process_install_comfyui
                     comfyui_option
@@ -285,7 +285,7 @@ function comfyui_option()
 #InvokeAI选项
 function invokeai_option()
 {
-    cd $start_path #回到最初路径
+    cd "$start_path" #回到最初路径
     exit_venv 2> /dev/null #确保进行下一步操作前已退出其他虚拟环境
     if [ -d "InvokeAI" ];then #找到invokeai文件夹
         cd InvokeAI
@@ -329,7 +329,7 @@ function invokeai_option()
 
                 if [ "${final_invokeai_option}" == '4' ]; then
                     if (dialog --clear --title "InvokeAI管理" --yesno "是否重新安装InvokeAI" 20 60) then
-                        cd $start_path
+                        cd "$start_path"
                         exit_venv
                         process_install_invokeai
                         invokeai_option
@@ -349,7 +349,7 @@ function invokeai_option()
 
         else 
             if (dialog --clear --title "InvokeAI管理" --yesno "检测到当前未安装InvokeAI,是否进行安装" 20 60) then
-                cd $start_path
+                cd "$start_path"
                 process_install_invokeai
                 invokeai_option
             fi
@@ -366,7 +366,7 @@ function invokeai_option()
 #lora-scripts选项
 function lora_scripts_option()
 {
-    cd $start_path #回到最初路径
+    cd "$start_path" #回到最初路径
     exit_venv 2> /dev/null #确保进行下一步操作前已退出其他虚拟环境
     if [ -d "./lora-scripts" ];then
         cd lora-scripts
@@ -430,7 +430,7 @@ function lora_scripts_option()
 
             if [ "${final_lora_scripts_option}" == '6' ]; then
                 if (dialog --clear --title "lora-scripts管理" --yesno "是否重新安装lora_scripts" 20 60) then
-                    cd $start_path
+                    cd "$start_path"
                     exit_venv
                     process_install_lora_scripts
                     lora_scripts_option
@@ -1336,7 +1336,7 @@ function process_install_a1111_sd_webui()
 
     cd ./stable-diffusion-webui/repositories/CodeFormer/
     pip install -r requirements.txt --prefer-binary $python_proxy $force_pip $pip_install_methon_select
-    cd $start_path
+    cd "$start_path"
 
     pip install -U numpy --prefer-binary $python_proxy $force_pip
     pip install git+"$github_proxy"https://github.com/openai/CLIP.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select
@@ -1564,7 +1564,7 @@ function extension_manager()
         3>&1 1>&2 2>&3)
     if [ $? = 0 ];then
         if [[ -d "$extension_selection" ]]; then  # 选择文件夹
-            cd $extension_selection
+            cd "$extension_selection"
             operate_extension #调用operate_extension函数处理插件
             extension_manager
         elif [[ -f "$extension_selection" ]]; then
@@ -1647,7 +1647,7 @@ function extension_dep_install()
     for extension_folder in ./*
     do
         [ -f "$extension_folder" ] && continue #排除文件
-        cd $extension_folder
+        cd "$extension_folder"
         echo "安装"$extension_folder"插件依赖"
         pip install -r requirements.txt
         cd ..
@@ -1662,7 +1662,7 @@ function extension_all_update()
     for extension_folder in ./*
     do
         [ -f "$extension_folder" ] && continue #排除文件
-        cd $extension_folder
+        cd "$extension_folder"
         echo "更新"$extension_folder"插件中"
         git pull
         cd ..
