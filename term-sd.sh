@@ -1656,8 +1656,8 @@ function extension_dep_install()
     do
         [ -f "$extension_folder" ] && continue #排除文件
         cd "$extension_folder"
-        echo "安装"$extension_folder"插件依赖"
         if [ -f requirements.txt ];then
+            echo "安装"$extension_folder"插件依赖"
             pip install -r requirements.txt
         fi
         cd ..
