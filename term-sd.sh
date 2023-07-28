@@ -910,7 +910,7 @@ function info_option()
 Ctrl+C可中断指令的运行 \n
 2、安装项目的路径和Term-SD脚本所在路径相同，方便管理\n
 3、若项目使用了venv虚拟环境，移动项目到新的路径后需要使用Term-SD的“重新生成venv虚拟环境”功能，才能使venv虚拟环境正常工作\n
-4、若更新项目失败时，可使用“修复”功能，再重新更新\n
+4、若更新项目或者插件失败时，可使用“修复”功能，再重新更新\n
 5、Term-SD只能实现简单的安装，管理功能，若要导入模型等操作需手动在文件管理器上操作\n
 5、如果没有质量较好的科学上网工具，建议在安装时使用git代理和python镜像源\n
 6、建议保持启用虚拟环境，因为不同项目对软件包的版本要求不同\n
@@ -926,8 +926,7 @@ https://civitai.com/\n
 https://www.bilibili.com/read/cv22159609\n
 \n
 \n
-by licyk\n
-(◍•ᴗ•◍)" 20 60
+" 20 60
 
     #返回主菜单  
     mainmenu
@@ -1685,7 +1684,7 @@ function extension_all_update()
 
 #启动程序部分
 
-term_sd_version_="0.2.4"
+term_sd_version_="0.2.5"
 
 if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
     test_python="python"
