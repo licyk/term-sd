@@ -916,6 +916,7 @@ Ctrl+C可中断指令的运行 \n
 6、建议保持启用虚拟环境，因为不同项目对软件包的版本要求不同\n
 7、若没有设置过python镜像源，推荐在\"python镜像源\"为系统设置python镜像源\n
 8、插件安装好后推荐运行一次"安装插件依赖"\n
+9、AUTOMATIC1111-stable-diffusion-webui安装好后，可以使用秋叶aaaki制作的启动器来启动sd-webui。将秋叶的启动器放入stable-diffusion-webui文件夹中，双击启动（仅限windows,因为秋叶的启动器只有window的版本）\n
 \n
 该脚本的编写参考了https://gitee.com/skymysky/linux \n
 脚本在理论上支持全平台(Windows平台需安装msys2,Android平台需要安装Termux)\n
@@ -924,6 +925,9 @@ stable-diffusion相关链接：\n
 https://huggingface.co/\n
 https://civitai.com/\n
 https://www.bilibili.com/read/cv22159609\n
+\n
+学习stable-diffusion-webui推荐该系列视频：\n
+https://www.bilibili.com/video/BV1As4y127HW\n
 \n
 \n
 " 20 60
