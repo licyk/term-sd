@@ -1330,6 +1330,7 @@ function process_install_a1111_sd_webui()
     git clone "$github_proxy"https://github.com/sczhou/CodeFormer.git ./stable-diffusion-webui/repositories/CodeFormer
     git clone "$github_proxy"https://github.com/salesforce/BLIP.git ./stable-diffusion-webui/repositories/BLIP
     git clone "$github_proxy"https://github.com/Stability-AI/stablediffusion.git/ ./stable-diffusion-webui/repositories/stable-diffusion-stability-ai
+    git clone "$github_proxy"https://github.com/Stability-AI/generative-models.git ./stable-diffusion-webui/repositories/generative-models
     pip install git+"$github_proxy"https://github.com/crowsonkb/k-diffusion.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select
     pip install git+"$github_proxy"https://github.com/TencentARC/GFPGAN.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select
 
@@ -1603,8 +1604,12 @@ function operate_extension()
         if [ "${final_operate_extension}" == '1' ]; then
             echo "更新"$extension_selection"中"
             git pull
+            if [ $? = "0" ];then
+                dialog --clear --title "插件管理" --msgbox "更新成功" 20 60
+            else
+                dialog --clear --title "插件管理" --msgbox "更新失败" 20 60
+            fi
             cd ..
-            echo "更新完毕"
         elif [ "${final_operate_extension}" == '2' ]; then
             if (dialog --clear --title "删除选项" --yes-label "是" --no-label "否" --yesno "是否删除该插件" 20 60) then
                 echo "删除"$extension_selection"插件中"
