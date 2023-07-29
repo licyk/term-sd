@@ -1144,6 +1144,7 @@ function a1111_sd_webui_extension_option()
     extension_42=""
     extension_43=""
     extension_44=""
+    extension_45=""
 
     final_extension_options=$(
         dialog --separate-output --notags --yes-label "确认" --no-cancel --checklist "A1111-Stable-Diffusion-Webui插件选择" 20 60 10 \
@@ -1191,6 +1192,7 @@ function a1111_sd_webui_extension_option()
         "42" "adetailer" ON \
         "43" "sd-webui-mov2mov" ON \
         "44" "sd-webui-IS-NET-pro" ON \
+        "45" "ebsynth_utility" ON \
         3>&1 1>&2 2>&3)
 
     if [ -z "$final_extension_options" ]; then
@@ -1330,6 +1332,9 @@ function a1111_sd_webui_extension_option()
         "44")
         extension_44="https://github.com/ClockZinc/sd-webui-IS-NET-pro"
         ;;
+        "45")
+        extension_45="https://github.com/s9roll7/ebsynth_utility"
+        ;;
         *)
         exit 1
         ;;
@@ -1443,6 +1448,7 @@ function process_install_a1111_sd_webui()
     git clone "$github_proxy"$extension_42 ./stable-diffusion-webui/extensions/adetailer
     git clone "$github_proxy"$extension_43 ./stable-diffusion-webui/extensions/sd-webui-mov2mov
     git clone "$github_proxy"$extension_44 ./stable-diffusion-webui/extensions/sd-webui-IS-NET-pro
+    git clone "$github_proxy"$extension_45 ./stable-diffusion-webui/extensions/ebsynth_utility
 
     #aria2c https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt -d ./stable-diffusion-webui/models/Stable-diffusion -o sd-v1-4.ckpt
     aria2c https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./stable-diffusion-webui/models/Stable-diffusion -o sd-v1-5.ckpt
