@@ -915,7 +915,7 @@ Ctrl+C可中断指令的运行 \n
 5、如果没有质量较好的科学上网工具，建议在安装时使用git代理和python镜像源\n
 6、建议保持启用虚拟环境，因为不同项目对软件包的版本要求不同\n
 7、若没有设置过python镜像源，推荐在\"python镜像源\"为系统设置python镜像源\n
-8、插件安装好后推荐运行一次"安装插件依赖"\n
+8、sd-webui安装好后或者sd-webui的插件安装好后推荐运行一次"安装插件依赖"\n
 9、AUTOMATIC1111-stable-diffusion-webui安装好后，可以使用秋叶aaaki制作的启动器来启动sd-webui。将秋叶的启动器放入stable-diffusion-webui文件夹中，双击启动（仅限windows,因为秋叶的启动器只有window的版本）\n
 \n
 该脚本的编写参考了https://gitee.com/skymysky/linux \n
@@ -1134,6 +1134,7 @@ function a1111_sd_webui_extension_option()
     extension_32=""
     extension_33=""
     extension_34=""
+    extension_35=""
 
     final_extension_options=$(
         dialog --separate-output --notags --yes-label "确认" --no-cancel --checklist "A1111-Stable-Diffusion-Webui插件选择" 20 60 10 \
@@ -1171,7 +1172,8 @@ function a1111_sd_webui_extension_option()
         "32" "sd-face-editor" ON \
         "33" "sd-webui-segment-anything" ON \
         "34" "sd-webui-controlnet" ON \
-         3>&1 1>&2 2>&3)
+        "35" "sd-webui-prompt-all-in-one" \
+        3>&1 1>&2 2>&3)
 
     if [ -z "$final_extension_options" ]; then
         echo
@@ -1280,6 +1282,9 @@ function a1111_sd_webui_extension_option()
         "34")
         extension_34="https://github.com/Mikubill/sd-webui-controlnet"
         ;;
+        "35")
+        extension_35="https://github.com/Physton/sd-webui-prompt-all-in-one"
+        ;;
         *)
         exit 1
         ;;
@@ -1336,15 +1341,13 @@ function process_install_a1111_sd_webui()
     git clone "$github_proxy"https://github.com/Stability-AI/generative-models.git ./stable-diffusion-webui/repositories/generative-models
     pip install git+"$github_proxy"https://github.com/crowsonkb/k-diffusion.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select
     pip install git+"$github_proxy"https://github.com/TencentARC/GFPGAN.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select
-
-    cd ./stable-diffusion-webui/repositories/CodeFormer/
-    pip install -r requirements.txt --prefer-binary $python_proxy $force_pip $pip_install_methon_select
-    cd "$start_path"
-
     pip install -U numpy --prefer-binary $python_proxy $force_pip
     pip install git+"$github_proxy"https://github.com/openai/CLIP.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select
     pip install git+"$github_proxy"https://github.com/mlfoundations/open_clip.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select
 
+    cd ./stable-diffusion-webui/repositories/CodeFormer/
+    pip install -r requirements.txt --prefer-binary $python_proxy $force_pip $pip_install_methon_select
+    cd "$start_path"
     cd ./stable-diffusion-webui
     pip install -r requirements.txt --prefer-binary $python_proxy $force_pip $pip_install_methon_select #安装stable-diffusion-webui的依赖
     cd ..
@@ -1384,6 +1387,8 @@ function process_install_a1111_sd_webui()
     git clone "$github_proxy"$extension_32 ./stable-diffusion-webui/extensions/sd-face-editor
     git clone "$github_proxy"$extension_33 ./stable-diffusion-webui/extensions/sd-webui-segment-anything
     git clone "$github_proxy"$extension_34 ./stable-diffusion-webui/extensions/sd-webui-controlnet
+    git clone "$github_proxy"$extension_35 ./stable-diffusion-webui/extensions/sd-webui-prompt-all-in-one
+
     #aria2c https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt -d ./stable-diffusion-webui/models/Stable-diffusion -o sd-v1-4.ckpt
     aria2c https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./stable-diffusion-webui/models/Stable-diffusion -o sd-v1-5.ckpt
     aria2c https://huggingface.co/embed/upscale/resolve/main/4x-UltraSharp.pth -d ./stable-diffusion-webui/models/ESRGAN -o 4x-UltraSharp.pth
@@ -1589,6 +1594,17 @@ function extension_install()
 
     if [ $? = 0 ]; then
         git clone $extension_address
+        extension_dep_notice=""
+
+        if [ -f "./$(awk -F "/" '{print $NF}' <<< "$extension_address")/requirements.txt" ];then
+            extension_dep_notice="检测到该插件需要安装依赖，请运行一次\"安装插件依赖\"功能"
+        fi
+
+        if [ $? = "0" ];then
+            dialog --clear --title "插件管理" --msgbox "安装成功\n$extension_dep_notice" 20 60
+        else
+            dialog --clear --title "插件管理" --msgbox "安装失败" 20 60
+        fi
     fi
 }
 
