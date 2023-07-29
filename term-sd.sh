@@ -1594,13 +1594,11 @@ function extension_install()
 
     if [ $? = 0 ]; then
         git clone $extension_address
-        extension_dep_notice=""
-
-        if [ -f "./$(awk -F "/" '{print $NF}' <<< "$extension_address")/requirements.txt" ];then
-            extension_dep_notice="检测到该插件需要安装依赖，请运行一次\"安装插件依赖\"功能"
-        fi
-
         if [ $? = "0" ];then
+            extension_dep_notice=""
+            if [ -f "./$(awk -F "/" '{print $NF}' <<< "$extension_address")/requirements.txt" ];then
+                extension_dep_notice="检测到该插件需要安装依赖，请运行一次\"安装插件依赖\"功能"
+            fi
             dialog --clear --title "插件管理" --msgbox "安装成功\n$extension_dep_notice" 20 60
         else
             dialog --clear --title "插件管理" --msgbox "安装失败" 20 60
