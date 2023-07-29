@@ -1135,6 +1135,12 @@ function a1111_sd_webui_extension_option()
     extension_33=""
     extension_34=""
     extension_35=""
+    extension_36=""
+    extension_37=""
+    extension_38=""
+    extension_39=""
+    extension_40=""
+    extension_41=""
 
     final_extension_options=$(
         dialog --separate-output --notags --yes-label "确认" --no-cancel --checklist "A1111-Stable-Diffusion-Webui插件选择" 20 60 10 \
@@ -1172,7 +1178,13 @@ function a1111_sd_webui_extension_option()
         "32" "sd-face-editor" ON \
         "33" "sd-webui-segment-anything" ON \
         "34" "sd-webui-controlnet" ON \
-        "35" "sd-webui-prompt-all-in-one" \
+        "35" "sd-webui-prompt-all-in-one" ON \
+        "36" "sd-webui-comfyui" ON \
+        "37" "a1111-sd-webui-lycoris" ON \
+        "38" "sd-webui-photopea-embed" ON \
+        "39" "sd-webui-openpose-editor" ON \
+        "40" "sd-webui-llul" ON \
+        "41" "sd-webui-bilingual-localization" ON \
         3>&1 1>&2 2>&3)
 
     if [ -z "$final_extension_options" ]; then
@@ -1220,13 +1232,13 @@ function a1111_sd_webui_extension_option()
         extension_13="https://github.com/klimaleksus/stable-diffusion-webui-anti-burn"
         ;;
         "14")
-        extension_14="https://github.com/Elldreth/loopback_scaler.git"
+        extension_14="https://github.com/Elldreth/loopback_scaler"
         ;;
         "15")
-        extension_15="https://github.com/CodeZombie/latentcoupleregionmapper.git"
+        extension_15="https://github.com/CodeZombie/latentcoupleregionmapper"
         ;;
         "16")
-        extension_16="https://github.com/Coyote-A/ultimate-upscale-for-automatic1111.git"
+        extension_16="https://github.com/Coyote-A/ultimate-upscale-for-automatic1111"
         ;;
         "17")
         extension_17="https://github.com/deforum-art/deforum-for-automatic1111-webui"
@@ -1277,13 +1289,31 @@ function a1111_sd_webui_extension_option()
         extension_32="https://github.com/ototadana/sd-face-editor"
         ;;
         "33")
-        extension_33="https://github.com/continue-revolution/sd-webui-segment-anything.git"
+        extension_33="https://github.com/continue-revolution/sd-webui-segment-anything"
         ;;
         "34")
         extension_34="https://github.com/Mikubill/sd-webui-controlnet"
         ;;
         "35")
         extension_35="https://github.com/Physton/sd-webui-prompt-all-in-one"
+        ;;
+        "36")
+        extension_36="https://github.com/ModelSurge/sd-webui-comfyui"
+        ;;
+        "37")
+        extension_37="https://github.com/KohakuBlueleaf/a1111-sd-webui-lycoris"
+        ;;
+        "38")
+        extension_38="https://github.com/yankooliveira/sd-webui-photopea-embed"
+        ;;
+        "39")
+        extension_39="https://github.com/huchenlei/sd-webui-openpose-editor"
+        ;;
+        "40")
+        extension_40="https://github.com/hnmr293/sd-webui-llul"
+        ;;
+        "41")
+        extension_41="https://github.com/journey-ad/sd-webui-bilingual-localization"
         ;;
         *)
         exit 1
@@ -1388,6 +1418,12 @@ function process_install_a1111_sd_webui()
     git clone "$github_proxy"$extension_33 ./stable-diffusion-webui/extensions/sd-webui-segment-anything
     git clone "$github_proxy"$extension_34 ./stable-diffusion-webui/extensions/sd-webui-controlnet
     git clone "$github_proxy"$extension_35 ./stable-diffusion-webui/extensions/sd-webui-prompt-all-in-one
+    git clone "$github_proxy"$extension_36 ./stable-diffusion-webui/extensions/sd-webui-comfyui
+    git clone "$github_proxy"$extension_37 ./stable-diffusion-webui/extensions/a1111-sd-webui-lycoris
+    git clone "$github_proxy"$extension_38 ./stable-diffusion-webui/extensions/sd-webui-photopea-embed
+    git clone "$github_proxy"$extension_39 ./stable-diffusion-webui/extensions/sd-webui-openpose-editor
+    git clone "$github_proxy"$extension_40 ./stable-diffusion-webui/extensions/sd-webui-llul
+    git clone "$github_proxy"$extension_41 ./stable-diffusion-webui/extensions/sd-webui-bilingual-localization
 
     #aria2c https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt -d ./stable-diffusion-webui/models/Stable-diffusion -o sd-v1-4.ckpt
     aria2c https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./stable-diffusion-webui/models/Stable-diffusion -o sd-v1-5.ckpt
