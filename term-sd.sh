@@ -1142,6 +1142,8 @@ function a1111_sd_webui_extension_option()
     extension_40=""
     extension_41=""
     extension_42=""
+    extension_43=""
+    extension_44=""
 
     final_extension_options=$(
         dialog --separate-output --notags --yes-label "确认" --no-cancel --checklist "A1111-Stable-Diffusion-Webui插件选择" 20 60 10 \
@@ -1187,6 +1189,8 @@ function a1111_sd_webui_extension_option()
         "40" "sd-webui-llul" ON \
         "41" "sd-webui-bilingual-localization" ON \
         "42" "adetailer" ON \
+        "43" "sd-webui-mov2mov" ON \
+        "44" "sd-webui-IS-NET-pro" ON \
         3>&1 1>&2 2>&3)
 
     if [ -z "$final_extension_options" ]; then
@@ -1320,6 +1324,12 @@ function a1111_sd_webui_extension_option()
         "42")
         extension_42="https://github.com/Bing-su/adetailer"
         ;;
+        "43")
+        extension_43="https://github.com/Scholar01/sd-webui-mov2mov"
+        ;;
+        "44")
+        extension_44="https://github.com/ClockZinc/sd-webui-IS-NET-pro"
+        ;;
         *)
         exit 1
         ;;
@@ -1374,6 +1384,7 @@ function process_install_a1111_sd_webui()
     git clone "$github_proxy"https://github.com/salesforce/BLIP.git ./stable-diffusion-webui/repositories/BLIP
     git clone "$github_proxy"https://github.com/Stability-AI/stablediffusion.git/ ./stable-diffusion-webui/repositories/stable-diffusion-stability-ai
     git clone "$github_proxy"https://github.com/Stability-AI/generative-models.git ./stable-diffusion-webui/repositories/generative-models
+    
     pip install git+"$github_proxy"https://github.com/crowsonkb/k-diffusion.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select
     pip install git+"$github_proxy"https://github.com/TencentARC/GFPGAN.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select
     pip install -U numpy --prefer-binary $python_proxy $force_pip
@@ -1430,6 +1441,8 @@ function process_install_a1111_sd_webui()
     git clone "$github_proxy"$extension_40 ./stable-diffusion-webui/extensions/sd-webui-llul
     git clone "$github_proxy"$extension_41 ./stable-diffusion-webui/extensions/sd-webui-bilingual-localization
     git clone "$github_proxy"$extension_42 ./stable-diffusion-webui/extensions/adetailer
+    git clone "$github_proxy"$extension_43 ./stable-diffusion-webui/extensions/sd-webui-mov2mov
+    git clone "$github_proxy"$extension_44 ./stable-diffusion-webui/extensions/sd-webui-IS-NET-pro
 
     #aria2c https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt -d ./stable-diffusion-webui/models/Stable-diffusion -o sd-v1-4.ckpt
     aria2c https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./stable-diffusion-webui/models/Stable-diffusion -o sd-v1-5.ckpt
@@ -1479,6 +1492,24 @@ function process_install_a1111_sd_webui()
         aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_sketch_sd15v2.pth -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o t2iadapter_sketch_sd15v2.pth
         aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_zoedepth_sd15v1.pth -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o t2iadapter_zoedepth_sd15v1.pth
     fi
+
+    if [ "$extension_42" = "https://github.com/Bing-su/adetailer" ];then #安装adetailer插件相关模型
+        aria2c https://huggingface.co/Bingsu/adetailer/resolve/main/deepfashion2_yolov8s-seg.pt -d ./stable-diffusion-webui/models/adetailer -o deepfashion2_yolov8s-seg.pt
+        aria2c https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8m.pt -d ./stable-diffusion-webui/models/adetailer -o face_yolov8m.pt
+        aria2c https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8n.pt -d ./stable-diffusion-webui/models/adetailer -o face_yolov8n.pt
+        aria2c https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8n_v2.pt -d ./stable-diffusion-webui/models/adetailer -o face_yolov8n_v2.pt
+        aria2c https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8s.pt -d ./stable-diffusion-webui/models/adetailer -o face_yolov8s.pt
+        aria2c https://huggingface.co/Bingsu/adetailer/resolve/main/hand_yolov8n.pt -d ./stable-diffusion-webui/models/adetailer -o hand_yolov8n.pt
+        aria2c https://huggingface.co/Bingsu/adetailer/resolve/main/hand_yolov8s.pt -d ./stable-diffusion-webui/models/adetailer -o hand_yolov8s.pt
+        aria2c https://huggingface.co/Bingsu/adetailer/resolve/main/person_yolov8m-seg.pt -d ./stable-diffusion-webui/models/adetailer -o person_yolov8m-seg.pt
+        aria2c https://huggingface.co/Bingsu/adetailer/resolve/main/person_yolov8n-seg.pt -d ./stable-diffusion-webui/models/adetailer -o person_yolov8n-seg.pt
+        aria2c https://huggingface.co/Bingsu/adetailer/resolve/main/person_yolov8s-seg.pt -d ./stable-diffusion-webui/models/adetailer -o person_yolov8s-seg.pt
+    fi
+
+    if [ "$extension_44" = "https://github.com/ClockZinc/sd-webui-IS-NET-pro" ];then #安装sd-webui-IS-NET-pro插件相关模型
+        aria2c https://huggingface.co/ClockZinc/IS-NET_pth/resolve/main/isnet-general-use.pth -d ./stable-diffusion-webui/extensions/sd-webui-IS-NET-pro/saved_models/IS-Net -o isnet-general-use.pth
+    fi
+
     exit_venv
 }
 
