@@ -1141,6 +1141,7 @@ function a1111_sd_webui_extension_option()
     extension_39=""
     extension_40=""
     extension_41=""
+    extension_42=""
 
     final_extension_options=$(
         dialog --separate-output --notags --yes-label "确认" --no-cancel --checklist "A1111-Stable-Diffusion-Webui插件选择" 20 60 10 \
@@ -1185,6 +1186,7 @@ function a1111_sd_webui_extension_option()
         "39" "sd-webui-openpose-editor" ON \
         "40" "sd-webui-llul" ON \
         "41" "sd-webui-bilingual-localization" ON \
+        "42" "adetailer" ON \
         3>&1 1>&2 2>&3)
 
     if [ -z "$final_extension_options" ]; then
@@ -1315,6 +1317,9 @@ function a1111_sd_webui_extension_option()
         "41")
         extension_41="https://github.com/journey-ad/sd-webui-bilingual-localization"
         ;;
+        "42")
+        extension_42="https://github.com/Bing-su/adetailer"
+        ;;
         *)
         exit 1
         ;;
@@ -1424,6 +1429,7 @@ function process_install_a1111_sd_webui()
     git clone "$github_proxy"$extension_39 ./stable-diffusion-webui/extensions/sd-webui-openpose-editor
     git clone "$github_proxy"$extension_40 ./stable-diffusion-webui/extensions/sd-webui-llul
     git clone "$github_proxy"$extension_41 ./stable-diffusion-webui/extensions/sd-webui-bilingual-localization
+    git clone "$github_proxy"$extension_42 ./stable-diffusion-webui/extensions/adetailer
 
     #aria2c https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt -d ./stable-diffusion-webui/models/Stable-diffusion -o sd-v1-4.ckpt
     aria2c https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./stable-diffusion-webui/models/Stable-diffusion -o sd-v1-5.ckpt
