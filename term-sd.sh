@@ -1378,7 +1378,7 @@ function process_install_a1111_sd_webui()
     pip_install_methon #安装方式选择
     final_install_check #安装前确认
 
-    #开始安装插件
+    #开始安装
     echo "开始安装stable-diffusion-webui"
     git clone "$github_proxy"https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
 
