@@ -1163,14 +1163,14 @@ function a1111_sd_webui_extension_option()
         "11" "sd-webui-regional-prompter" ON \
         "12" "stable-diffusion-webui-baidu-netdisk" ON \
         "13" "stable-diffusion-webui-anti-burn" ON \
-        "14" "loopback_scaler" ON \
+        "14" "loopback_scaler" OFF \
         "15" "latentcoupleregionmapper" ON \
         "16" "ultimate-upscale-for-automatic1111" ON \
         "17" "deforum-for-automatic1111" OFF \
         "18" "stable-diffusion-webui-images-browser" ON \
         "19" "stable-diffusion-webui-huggingface" OFF \
         "20" "sd-civitai-browser" OFF \
-        "21" "sd-webui-additional-networks" ON \
+        "21" "a1111-stable-diffusion-webui-vram-estimator" OFF \
         "22" "openpose-editor" ON \
         "23" "sd-webui-depth-lib" OFF \
         "24" "posex" OFF \
@@ -1191,7 +1191,7 @@ function a1111_sd_webui_extension_option()
         "39" "sd-webui-openpose-editor" ON \
         "40" "sd-webui-llul" ON \
         "41" "sd-webui-bilingual-localization" OFF \
-        "42" "adetailer" ON \
+        "42" "adetailer" OFF \
         "43" "sd-webui-mov2mov" OFF \
         "44" "sd-webui-IS-NET-pro" OFF \
         "45" "ebsynth_utility" OFF \
@@ -1264,7 +1264,7 @@ function a1111_sd_webui_extension_option()
         extension_20="https://github.com/camenduru/sd-civitai-browser"
         ;;
         "21")
-        extension_21="https://github.com/kohya-ss/sd-webui-additional-networks"
+        extension_21="https://github.com/space-nuko/a1111-stable-diffusion-webui-vram-estimator"
         ;;
         "22")
         extension_22="https://github.com/camenduru/openpose-editor"
@@ -1496,7 +1496,7 @@ function process_install_a1111_sd_webui()
     fi
 
     if [ ! $extension_21 = "" ];then
-        git clone "$github_proxy"$extension_21 ./stable-diffusion-webui/extensions/sd-webui-additional-networks
+        git clone "$github_proxy"$extension_21 ./stable-diffusion-webui/extensions/a1111-stable-diffusion-webui-vram-estimator
     fi
 
     if [ ! $extension_22 = "" ];then
