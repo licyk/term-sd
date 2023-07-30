@@ -1389,6 +1389,7 @@ function process_install_a1111_sd_webui()
 
     pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5 #"--default-timeout=100 --retries 5"在网络差导致下载中断时重试下载
 
+    #安装的依赖参考"stable-diffusion-webui/modules/launch_utils.py"
     mkdir ./stable-diffusion-webui/repositories
     git clone "$github_proxy"https://github.com/CompVis/stable-diffusion.git ./stable-diffusion-webui/repositories/stable-diffusion
     git clone "$github_proxy"https://github.com/CompVis/taming-transformers.git ./stable-diffusion-webui/repositories/taming-transformers
