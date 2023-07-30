@@ -1184,7 +1184,7 @@ function a1111_sd_webui_extension_option()
         "30" "stable-diffusion-webui-two-shot" ON \
         "31" "sd-webui-lora-block-weight" ON \
         "32" "sd-face-editor" OFF \
-        "33" "sd-webui-segment-anything" ON \
+        "33" "sd-webui-segment-anything" OFF \
         "34" "sd-webui-controlnet" ON \
         "35" "sd-webui-prompt-all-in-one" ON \
         "36" "sd-webui-comfyui" OFF \
