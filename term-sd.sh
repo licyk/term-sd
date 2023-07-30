@@ -306,7 +306,7 @@ function invokeai_option()
                     pip_install_methon #安装方式选择
                     final_install_check #安装前确认
                     echo "更新InvokeAI中"
-                    pip install $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --upgrade invokeai
+                    pip install $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --upgrade invokeai --default-timeout=100 --retries 5
                     invokeai_option
                 fi
 
@@ -1386,7 +1386,8 @@ function process_install_a1111_sd_webui()
     enter_venv
     cd ..
 
-    pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select
+    pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5 #"--default-timeout=100 --retries 5"在网络差导致下载中断时重试下载
+
     mkdir ./stable-diffusion-webui/repositories
     git clone "$github_proxy"https://github.com/CompVis/stable-diffusion.git ./stable-diffusion-webui/repositories/stable-diffusion
     git clone "$github_proxy"https://github.com/CompVis/taming-transformers.git ./stable-diffusion-webui/repositories/taming-transformers
@@ -1395,17 +1396,17 @@ function process_install_a1111_sd_webui()
     git clone "$github_proxy"https://github.com/Stability-AI/stablediffusion.git/ ./stable-diffusion-webui/repositories/stable-diffusion-stability-ai
     git clone "$github_proxy"https://github.com/Stability-AI/generative-models.git ./stable-diffusion-webui/repositories/generative-models
     
-    pip install git+"$github_proxy"https://github.com/crowsonkb/k-diffusion.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select
-    pip install git+"$github_proxy"https://github.com/TencentARC/GFPGAN.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select
-    pip install -U numpy --prefer-binary $python_proxy $force_pip
-    pip install git+"$github_proxy"https://github.com/openai/CLIP.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select
-    pip install git+"$github_proxy"https://github.com/mlfoundations/open_clip.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select
+    pip install git+"$github_proxy"https://github.com/crowsonkb/k-diffusion.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+    pip install git+"$github_proxy"https://github.com/TencentARC/GFPGAN.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+    pip install -U numpy --prefer-binary $python_proxy $force_pip --default-timeout=100 --retries 5
+    pip install git+"$github_proxy"https://github.com/openai/CLIP.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+    pip install git+"$github_proxy"https://github.com/mlfoundations/open_clip.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
 
     cd ./stable-diffusion-webui/repositories/CodeFormer/
-    pip install -r requirements.txt --prefer-binary $python_proxy $force_pip $pip_install_methon_select
+    pip install -r requirements.txt --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
     cd "$start_path"
     cd ./stable-diffusion-webui
-    pip install -r requirements.txt --prefer-binary $python_proxy $force_pip $pip_install_methon_select #安装stable-diffusion-webui的依赖
+    pip install -r requirements.txt --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5 #安装stable-diffusion-webui的依赖
     cd ..
     
     #sed -i -e 's/\"sd_model_checkpoint\"\,/\"sd_model_checkpoint\,sd_vae\,CLIP_stop_at_last_layers\"\,/g' ./stable-diffusion-webui/modules/shared.py
@@ -1541,9 +1542,9 @@ function process_install_comfyui()
     venv_generate
     enter_venv
     cd ..
-    pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select
+    pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
     cd ./ComfyUI
-    pip install -r requirements.txt  --prefer-binary $python_proxy $force_pip $pip_install_methon_select
+    pip install -r requirements.txt  --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
     cd ..
     #aria2c https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt -d ./ComfyUI/models/checkpoints/ -o sd-v1-4.ckpt
     aria2c https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./ComfyUI/models/checkpoints/ -o sd-v1-5.ckpt
@@ -1565,7 +1566,7 @@ function process_install_invokeai()
     cd ./InvokeAI
     venv_generate
     enter_venv
-    pip install invokeai $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select
+    pip install invokeai $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
     exit_venv
 
 }
@@ -1587,11 +1588,11 @@ function process_install_lora_scripts()
     cd ./lora-scripts
     venv_generate
     enter_venv
-    pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select
+    pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
     cd ./sd-scripts
-    pip install $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --upgrade -r requirements.txt 
+    pip install $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --upgrade -r requirements.txt  --default-timeout=100 --retries 5
     cd ..
-    pip install --upgrade $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select lion-pytorch lycoris-lora dadaptation fastapi uvicorn wandb
+    pip install --upgrade $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select lion-pytorch lycoris-lora dadaptation fastapi uvicorn wandb --default-timeout=100 --retries 5
     #aria2c https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt -d ./sd-models/ -o model.ckpt
     aria2c https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./sd-models/ -o model.ckpt
     exit_venv
@@ -1609,7 +1610,7 @@ function pytorch_reinstall()
     #开始安装pytorch
     venv_generate
     enter_venv
-    pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select
+    pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
     exit_venv
 }
 
@@ -1762,7 +1763,7 @@ function extension_dep_install()
         cd "$extension_folder"
         if [ -f requirements.txt ];then
             echo "安装"$extension_folder"插件依赖"
-            pip install -r requirements.txt
+            pip install -r requirements.txt --default-timeout=100 --retries 5
         fi
         cd ..
     done
@@ -1787,7 +1788,7 @@ function extension_all_update()
 
 #启动程序部分
 
-term_sd_version_="0.2.5"
+term_sd_version_="0.2.6"
 
 if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
     test_python="python"
