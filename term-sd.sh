@@ -1396,6 +1396,7 @@ function process_install_a1111_sd_webui()
     git clone "$github_proxy"https://github.com/salesforce/BLIP.git ./stable-diffusion-webui/repositories/BLIP
     git clone "$github_proxy"https://github.com/Stability-AI/stablediffusion.git/ ./stable-diffusion-webui/repositories/stable-diffusion-stability-ai
     git clone "$github_proxy"https://github.com/Stability-AI/generative-models.git ./stable-diffusion-webui/repositories/generative-models
+    git clone "$github_proxy"https://github.com/crowsonkb/k-diffusion.git ./stable-diffusion-webui/repositories/k-diffusion
     
     pip install git+"$github_proxy"https://github.com/crowsonkb/k-diffusion.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
     pip install git+"$github_proxy"https://github.com/TencentARC/GFPGAN.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
