@@ -1145,17 +1145,18 @@ function a1111_sd_webui_extension_option()
     extension_43=""
     extension_44=""
     extension_45=""
+    extension_46=""
 
     final_extension_options=$(
         dialog --separate-output --notags --yes-label "确认" --no-cancel --checklist "A1111-Stable-Diffusion-Webui插件选择" 20 60 10 \
-        "1" "kohya-config-webui" ON \
+        "1" "kohya-config-webui" OFF \
         "2" "sd-webui-additional-networks" ON \
         "3" "a1111-sd-webui-tagcomplete" ON \
         "4" "multidiffusion-upscaler-for-automatic1111" ON \
         "5" "sd-dynamic-thresholding" ON \
         "6" "sd-webui-cutoff" ON \
         "7" "sd-webui-model-converter" ON \
-        "8" "sd-webui-supermerger" ON \
+        "8" "sd-webui-supermerger" OFF \
         "9" "stable-diffusion-webui-localization-zh_CN" ON \
         "10" "stable-diffusion-webui-wd14-tagger" ON \
         "11" "sd-webui-regional-prompter" ON \
@@ -1164,35 +1165,36 @@ function a1111_sd_webui_extension_option()
         "14" "loopback_scaler" ON \
         "15" "latentcoupleregionmapper" ON \
         "16" "ultimate-upscale-for-automatic1111" ON \
-        "17" "deforum-for-automatic1111" ON \
+        "17" "deforum-for-automatic1111" OFF \
         "18" "stable-diffusion-webui-images-browser" ON \
-        "19" "stable-diffusion-webui-huggingface" ON \
-        "20" "sd-civitai-browser" ON \
+        "19" "stable-diffusion-webui-huggingface" OFF \
+        "20" "sd-civitai-browser" OFF \
         "21" "sd-webui-additional-networks" ON \
         "22" "openpose-editor" ON \
-        "23" "sd-webui-depth-lib" ON \
-        "24" "posex" ON \
-        "25" "sd-webui-tunnels" ON \
-        "26" "batchlinks-webui" ON \
+        "23" "sd-webui-depth-lib" OFF \
+        "24" "posex" OFF \
+        "25" "sd-webui-tunnels" OFF \
+        "26" "batchlinks-webui" OFF \
         "27" "stable-diffusion-webui-catppuccin" ON \
-        "28" "a1111-sd-webui-locon" ON \
+        "28" "a1111-sd-webui-lycoris" ON \
         "29" "stable-diffusion-webui-rembg" ON \
         "30" "stable-diffusion-webui-two-shot" ON \
         "31" "sd-webui-lora-block-weight" ON \
-        "32" "sd-face-editor" ON \
+        "32" "sd-face-editor" OFF \
         "33" "sd-webui-segment-anything" ON \
         "34" "sd-webui-controlnet" ON \
         "35" "sd-webui-prompt-all-in-one" ON \
-        "36" "sd-webui-comfyui" ON \
+        "36" "sd-webui-comfyui" OFF \
         "37" "a1111-sd-webui-lycoris" ON \
         "38" "sd-webui-photopea-embed" ON \
         "39" "sd-webui-openpose-editor" ON \
         "40" "sd-webui-llul" ON \
-        "41" "sd-webui-bilingual-localization" ON \
+        "41" "sd-webui-bilingual-localization" OFF \
         "42" "adetailer" ON \
-        "43" "sd-webui-mov2mov" ON \
+        "43" "sd-webui-mov2mov" OFF \
         "44" "sd-webui-IS-NET-pro" ON \
-        "45" "ebsynth_utility" ON \
+        "45" "ebsynth_utility" OFF \
+        "46" "sd_dreambooth_extension" OFF \
         3>&1 1>&2 2>&3)
 
     if [ -z "$final_extension_options" ]; then
@@ -1282,7 +1284,7 @@ function a1111_sd_webui_extension_option()
         extension_27="https://github.com/camenduru/stable-diffusion-webui-catppuccin"
         ;;
         "28")
-        extension_28="https://github.com/KohakuBlueleaf/a1111-sd-webui-locon"
+        extension_28="https://github.com/KohakuBlueleaf/a1111-sd-webui-lycoris"
         ;;
         "29")
         extension_29="https://github.com/AUTOMATIC1111/stable-diffusion-webui-rembg"
@@ -1334,6 +1336,9 @@ function a1111_sd_webui_extension_option()
         ;;
         "45")
         extension_45="https://github.com/s9roll7/ebsynth_utility"
+        ;;
+        "46")
+        extension_46="https://github.com/d8ahazard/sd_dreambooth_extension"
         ;;
         *)
         exit 1
@@ -1431,7 +1436,7 @@ function process_install_a1111_sd_webui()
     git clone "$github_proxy"$extension_25 ./stable-diffusion-webui/extensions/sd-webui-tunnels
     git clone "$github_proxy"$extension_26 ./stable-diffusion-webui/extensions/batchlinks-webui
     git clone "$github_proxy"$extension_27 ./stable-diffusion-webui/extensions/stable-diffusion-webui-catppuccin
-    git clone "$github_proxy"$extension_28 ./stable-diffusion-webui/extensions/a1111-sd-webui-locon
+    git clone "$github_proxy"$extension_28 ./stable-diffusion-webui/extensions/a1111-sd-webui-lycoris
     git clone "$github_proxy"$extension_29 ./stable-diffusion-webui/extensions/stable-diffusion-webui-rembg
     git clone "$github_proxy"$extension_30 ./stable-diffusion-webui/extensions/stable-diffusion-webui-two-shot
     git clone "$github_proxy"$extension_31 ./stable-diffusion-webui/extensions/sd-webui-lora-block-weight
@@ -1449,6 +1454,7 @@ function process_install_a1111_sd_webui()
     git clone "$github_proxy"$extension_43 ./stable-diffusion-webui/extensions/sd-webui-mov2mov
     git clone "$github_proxy"$extension_44 ./stable-diffusion-webui/extensions/sd-webui-IS-NET-pro
     git clone "$github_proxy"$extension_45 ./stable-diffusion-webui/extensions/ebsynth_utility
+    git clone "$github_proxy"$extension_46 ./stable-diffusion-webui/extensions/sd_dreambooth_extension
 
     #aria2c https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt -d ./stable-diffusion-webui/models/Stable-diffusion -o sd-v1-4.ckpt
     aria2c https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./stable-diffusion-webui/models/Stable-diffusion -o sd-v1-5.ckpt
