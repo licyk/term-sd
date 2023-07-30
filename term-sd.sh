@@ -1410,6 +1410,7 @@ function process_install_a1111_sd_webui()
     cd ..
     
     #sed -i -e 's/\"sd_model_checkpoint\"\,/\"sd_model_checkpoint\,sd_vae\,CLIP_stop_at_last_layers\"\,/g' ./stable-diffusion-webui/modules/shared.py
+    echo "安装插件中，出现\"致命错误：无法访问\"一般可以忽略"
     git clone "$github_proxy"$extension_1 ./stable-diffusion-webui/extensions/kohya-config-webui
     git clone "$github_proxy"$extension_2 ./stable-diffusion-webui/extensions/sd-webui-additional-networks
     git clone "$github_proxy"$extension_3 ./stable-diffusion-webui/extensions/a1111-sd-webui-tagcomplete
@@ -1457,6 +1458,7 @@ function process_install_a1111_sd_webui()
     git clone "$github_proxy"$extension_45 ./stable-diffusion-webui/extensions/ebsynth_utility
     git clone "$github_proxy"$extension_46 ./stable-diffusion-webui/extensions/sd_dreambooth_extension
 
+    echo "下载模型中"
     #aria2c https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt -d ./stable-diffusion-webui/models/Stable-diffusion -o sd-v1-4.ckpt
     aria2c https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./stable-diffusion-webui/models/Stable-diffusion -o sd-v1-5.ckpt
     aria2c https://huggingface.co/embed/upscale/resolve/main/4x-UltraSharp.pth -d ./stable-diffusion-webui/models/ESRGAN -o 4x-UltraSharp.pth
@@ -1523,6 +1525,7 @@ function process_install_a1111_sd_webui()
         aria2c https://huggingface.co/ClockZinc/IS-NET_pth/resolve/main/isnet-general-use.pth -d ./stable-diffusion-webui/extensions/sd-webui-IS-NET-pro/saved_models/IS-Net -o isnet-general-use.pth
     fi
 
+    echo "安装结束"
     exit_venv
 }
 
