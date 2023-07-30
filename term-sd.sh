@@ -1191,9 +1191,9 @@ function a1111_sd_webui_extension_option()
         "39" "sd-webui-openpose-editor" ON \
         "40" "sd-webui-llul" ON \
         "41" "sd-webui-bilingual-localization" OFF \
-        "42" "adetailer" OFF \
+        "42" "adetailer" ON \
         "43" "sd-webui-mov2mov" OFF \
-        "44" "sd-webui-IS-NET-pro" OFF \
+        "44" "sd-webui-IS-NET-pro" ON \
         "45" "ebsynth_utility" OFF \
         "46" "sd_dreambooth_extension" OFF \
         3>&1 1>&2 2>&3)
