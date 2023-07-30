@@ -619,7 +619,9 @@ function generate_a1111_sd_webui_launch()
         fi
     
         #生成启动脚本
-        rm -v ./term-sd-launch.conf
+        if [ -f "./term-sd-launch.conf" ];then
+            rm -v ./term-sd-launch.conf
+        fi
         echo "设置启动参数" "$a1111_launch_option_1" "$a1111_launch_option_2" "$a1111_launch_option_3" "$a1111_launch_option_4" "$a1111_launch_option_5" "$a1111_launch_option_6" "$a1111_launch_option_7" "$a1111_launch_option_8" "$a1111_launch_option_9" "$a1111_launch_option_10" "$a1111_launch_option_11" "$a1111_launch_option_12" "$a1111_launch_option_13" "$a1111_launch_option_14" "$a1111_launch_option_15" "$a1111_launch_option_16" "$a1111_launch_option_17" "$a1111_launch_option_18" "$a1111_launch_option_19" "$a1111_launch_option_20" "$a1111_launch_option_21" "$a1111_launch_option_22" "$a1111_launch_option_23" "$a1111_launch_option_24" "$a1111_launch_option_25" "$a1111_launch_option_26"
         echo "launch.py "$a1111_launch_option_1" "$a1111_launch_option_2" "$a1111_launch_option_3" "$a1111_launch_option_4" "$a1111_launch_option_5" "$a1111_launch_option_6" "$a1111_launch_option_7" "$a1111_launch_option_8" "$a1111_launch_option_9" "$a1111_launch_option_10" "$a1111_launch_option_11" "$a1111_launch_option_12" "$a1111_launch_option_13" "$a1111_launch_option_14" "$a1111_launch_option_15" "$a1111_launch_option_16" "$a1111_launch_option_17" "$a1111_launch_option_18" "$a1111_launch_option_19" "$a1111_launch_option_20" "$a1111_launch_option_21" "$a1111_launch_option_22" "$a1111_launch_option_23" "$a1111_launch_option_24" "$a1111_launch_option_25" "$a1111_launch_option_26"" >term-sd-launch.conf
     fi
@@ -717,7 +719,9 @@ function generate_comfyui_launch()
             done
         fi
 
-        rm -v ./term-sd-launch.conf
+        if [ -f "./term-sd-launch.conf" ];then
+            rm -v ./term-sd-launch.conf
+        fi
         echo "设置启动参数" "$comfyui_launch_option_1" "$comfyui_launch_option_2" "$comfyui_launch_option_3" "$comfyui_launch_option_4" "$comfyui_launch_option_5" "$comfyui_launch_option_6" "$comfyui_launch_option_7" "$comfyui_launch_option_8" "$comfyui_launch_option_9" "$comfyui_launch_option_10" "$comfyui_launch_option_11" "$comfyui_launch_option_12" "$comfyui_launch_option_13" "$comfyui_launch_option_14"
         echo "main.py "$comfyui_launch_option_1" "$comfyui_launch_option_2" "$comfyui_launch_option_3" "$comfyui_launch_option_4" "$comfyui_launch_option_5" "$comfyui_launch_option_6" "$comfyui_launch_option_7" "$comfyui_launch_option_8" "$comfyui_launch_option_9" "$comfyui_launch_option_10" "$comfyui_launch_option_11" "$comfyui_launch_option_12" "$comfyui_launch_option_13" "$comfyui_launch_option_14"" >term-sd-launch.conf
     fi
@@ -915,8 +919,7 @@ Ctrl+C可中断指令的运行 \n
 5、如果没有质量较好的科学上网工具，建议在安装时使用git代理和python镜像源\n
 6、建议保持启用虚拟环境，因为不同项目对软件包的版本要求不同\n
 7、若没有设置过python镜像源，推荐在\"python镜像源\"为系统设置python镜像源\n
-8、sd-webui安装好后或者sd-webui的插件安装好后推荐运行一次"安装插件依赖"\n
-9、AUTOMATIC1111-stable-diffusion-webui安装好后，可以使用秋叶aaaki制作的启动器来启动sd-webui。将秋叶的启动器放入stable-diffusion-webui文件夹中，双击启动（仅限windows,因为秋叶的启动器只有window的版本）\n
+8、AUTOMATIC1111-stable-diffusion-webui安装好后，可以使用秋叶aaaki制作的启动器来启动sd-webui。将秋叶的启动器放入stable-diffusion-webui文件夹中，双击启动（仅限windows,因为秋叶的启动器只有window的版本）\n
 \n
 该脚本的编写参考了https://gitee.com/skymysky/linux \n
 脚本在理论上支持全平台(Windows平台需安装msys2,Android平台需要安装Termux)\n
@@ -1410,53 +1413,191 @@ function process_install_a1111_sd_webui()
     cd ..
     
     #sed -i -e 's/\"sd_model_checkpoint\"\,/\"sd_model_checkpoint\,sd_vae\,CLIP_stop_at_last_layers\"\,/g' ./stable-diffusion-webui/modules/shared.py
-    echo "安装插件中，出现\"致命错误：无法访问\"一般可以忽略"
-    git clone "$github_proxy"$extension_1 ./stable-diffusion-webui/extensions/kohya-config-webui
-    git clone "$github_proxy"$extension_2 ./stable-diffusion-webui/extensions/sd-webui-additional-networks
-    git clone "$github_proxy"$extension_3 ./stable-diffusion-webui/extensions/a1111-sd-webui-tagcomplete
-    git clone "$github_proxy"$extension_4 ./stable-diffusion-webui/extensions/multidiffusion-upscaler-for-automatic1111
-    git clone "$github_proxy"$extension_5 ./stable-diffusion-webui/extensions/sd-dynamic-thresholding
-    git clone "$github_proxy"$extension_6 ./stable-diffusion-webui/extensions/sd-webui-cutoff
-    git clone "$github_proxy"$extension_7 ./stable-diffusion-webui/extensions/sd-webui-model-converter
-    git clone "$github_proxy"$extension_8 ./stable-diffusion-webui/extensions/sd-webui-supermerger
-    git clone "$github_proxy"$extension_9 ./stable-diffusion-webui/extensions/stable-diffusion-webui-localization-zh_CN
-    git clone "$github_proxy"$extension_10 ./stable-diffusion-webui/extensions/stable-diffusion-webui-wd14-tagger
-    git clone "$github_proxy"$extension_11 ./stable-diffusion-webui/extensions/sd-webui-regional-prompter
-    git clone "$github_proxy"$extension_12 ./stable-diffusion-webui/extensions/stable-diffusion-webui-baidu-netdisk
-    git clone "$github_proxy"$extension_13 ./stable-diffusion-webui/extensions/stable-diffusion-webui-anti-burn
-    git clone "$github_proxy"$extension_14 ./stable-diffusion-webui/extensions/loopback_scaler
-    git clone "$github_proxy"$extension_15 ./stable-diffusion-webui/extensions/latentcoupleregionmapper
-    git clone "$github_proxy"$extension_16 ./stable-diffusion-webui/extensions/ultimate-upscale-for-automatic1111
-    git clone "$github_proxy"$extension_17 ./stable-diffusion-webui/extensions/deforum-for-automatic1111-webui
-    git clone "$github_proxy"$extension_18 ./stable-diffusion-webui/extensions/stable-diffusion-webui-images-browser
-    git clone "$github_proxy"$extension_19 ./stable-diffusion-webui/extensions/stable-diffusion-webui-huggingface
-    git clone "$github_proxy"$extension_20 ./stable-diffusion-webui/extensions/sd-civitai-browser
-    git clone "$github_proxy"$extension_21 ./stable-diffusion-webui/extensions/sd-webui-additional-networks
-    git clone "$github_proxy"$extension_22 ./stable-diffusion-webui/extensions/openpose-editor
-    git clone "$github_proxy"$extension_23 ./stable-diffusion-webui/extensions/sd-webui-depth-lib
-    git clone "$github_proxy"$extension_24 ./stable-diffusion-webui/extensions/posex
-    git clone "$github_proxy"$extension_25 ./stable-diffusion-webui/extensions/sd-webui-tunnels
-    git clone "$github_proxy"$extension_26 ./stable-diffusion-webui/extensions/batchlinks-webui
-    git clone "$github_proxy"$extension_27 ./stable-diffusion-webui/extensions/stable-diffusion-webui-catppuccin
-    git clone "$github_proxy"$extension_28 ./stable-diffusion-webui/extensions/a1111-sd-webui-lycoris
-    git clone "$github_proxy"$extension_29 ./stable-diffusion-webui/extensions/stable-diffusion-webui-rembg
-    git clone "$github_proxy"$extension_30 ./stable-diffusion-webui/extensions/stable-diffusion-webui-two-shot
-    git clone "$github_proxy"$extension_31 ./stable-diffusion-webui/extensions/sd-webui-lora-block-weight
-    git clone "$github_proxy"$extension_32 ./stable-diffusion-webui/extensions/sd-face-editor
-    git clone "$github_proxy"$extension_33 ./stable-diffusion-webui/extensions/sd-webui-segment-anything
-    git clone "$github_proxy"$extension_34 ./stable-diffusion-webui/extensions/sd-webui-controlnet
-    git clone "$github_proxy"$extension_35 ./stable-diffusion-webui/extensions/sd-webui-prompt-all-in-one
-    git clone "$github_proxy"$extension_36 ./stable-diffusion-webui/extensions/sd-webui-comfyui
-    git clone "$github_proxy"$extension_37 ./stable-diffusion-webui/extensions/a1111-sd-webui-lycoris
-    git clone "$github_proxy"$extension_38 ./stable-diffusion-webui/extensions/sd-webui-photopea-embed
-    git clone "$github_proxy"$extension_39 ./stable-diffusion-webui/extensions/sd-webui-openpose-editor
-    git clone "$github_proxy"$extension_40 ./stable-diffusion-webui/extensions/sd-webui-llul
-    git clone "$github_proxy"$extension_41 ./stable-diffusion-webui/extensions/sd-webui-bilingual-localization
-    git clone "$github_proxy"$extension_42 ./stable-diffusion-webui/extensions/adetailer
-    git clone "$github_proxy"$extension_43 ./stable-diffusion-webui/extensions/sd-webui-mov2mov
-    git clone "$github_proxy"$extension_44 ./stable-diffusion-webui/extensions/sd-webui-IS-NET-pro
-    git clone "$github_proxy"$extension_45 ./stable-diffusion-webui/extensions/ebsynth_utility
-    git clone "$github_proxy"$extension_46 ./stable-diffusion-webui/extensions/sd_dreambooth_extension
+    
+    echo "安装插件中"
+    if [ ! $extension_1 = "" ];then
+        git clone "$github_proxy"$extension_1 ./stable-diffusion-webui/extensions/kohya-config-webui
+    fi
+
+    if [ ! $extension_2 = "" ];then
+        git clone "$github_proxy"$extension_2 ./stable-diffusion-webui/extensions/sd-webui-additional-networks
+    fi
+
+    if [ ! $extension_3 = "" ];then
+        git clone "$github_proxy"$extension_3 ./stable-diffusion-webui/extensions/a1111-sd-webui-tagcomplete
+    fi
+
+    if [ ! $extension_4 = "" ];then
+        git clone "$github_proxy"$extension_4 ./stable-diffusion-webui/extensions/multidiffusion-upscaler-for-automatic1111
+    fi
+
+    if [ ! $extension_5 = "" ];then
+        git clone "$github_proxy"$extension_5 ./stable-diffusion-webui/extensions/sd-dynamic-thresholding
+    fi
+
+    if [ ! $extension_6 = "" ];then
+        git clone "$github_proxy"$extension_6 ./stable-diffusion-webui/extensions/sd-webui-cutoff
+    fi
+
+    if [ ! $extension_7 = "" ];then
+        git clone "$github_proxy"$extension_7 ./stable-diffusion-webui/extensions/sd-webui-model-converter
+    fi
+
+    if [ ! $extension_8 = "" ];then
+        git clone "$github_proxy"$extension_8 ./stable-diffusion-webui/extensions/sd-webui-supermerger
+    fi
+
+    if [ ! $extension_9 = "" ];then
+        git clone "$github_proxy"$extension_9 ./stable-diffusion-webui/extensions/stable-diffusion-webui-localization-zh_CN
+    fi
+
+    if [ ! $extension_10 = "" ];then
+        git clone "$github_proxy"$extension_10 ./stable-diffusion-webui/extensions/stable-diffusion-webui-wd14-tagger
+    fi
+
+    if [ ! $extension_11 = "" ];then
+        git clone "$github_proxy"$extension_11 ./stable-diffusion-webui/extensions/sd-webui-regional-prompter
+    fi
+
+    if [ ! $extension_12 = "" ];then
+        git clone "$github_proxy"$extension_12 ./stable-diffusion-webui/extensions/stable-diffusion-webui-baidu-netdisk
+    fi
+
+    if [ ! $extension_13 = "" ];then
+        git clone "$github_proxy"$extension_13 ./stable-diffusion-webui/extensions/stable-diffusion-webui-anti-burn
+    fi
+
+    if [ ! $extension_14 = "" ];then
+        git clone "$github_proxy"$extension_14 ./stable-diffusion-webui/extensions/loopback_scaler
+    fi
+
+    if [ ! $extension_15 = "" ];then
+        git clone "$github_proxy"$extension_15 ./stable-diffusion-webui/extensions/latentcoupleregionmapper
+    fi
+
+    if [ ! $extension_16 = "" ];then
+        git clone "$github_proxy"$extension_16 ./stable-diffusion-webui/extensions/ultimate-upscale-for-automatic1111
+    fi
+
+    if [ ! $extension_17 = "" ];then
+        git clone "$github_proxy"$extension_17 ./stable-diffusion-webui/extensions/deforum-for-automatic1111-webui
+    fi
+
+    if [ ! $extension_18 = "" ];then
+        git clone "$github_proxy"$extension_18 ./stable-diffusion-webui/extensions/stable-diffusion-webui-images-browser
+    fi
+
+    if [ ! $extension_19 = "" ];then
+        git clone "$github_proxy"$extension_19 ./stable-diffusion-webui/extensions/stable-diffusion-webui-huggingface
+    fi
+
+    if [ ! $extension_20 = "" ];then
+        git clone "$github_proxy"$extension_20 ./stable-diffusion-webui/extensions/sd-civitai-browser
+    fi
+
+    if [ ! $extension_21 = "" ];then
+        git clone "$github_proxy"$extension_21 ./stable-diffusion-webui/extensions/sd-webui-additional-networks
+    fi
+
+    if [ ! $extension_22 = "" ];then
+        git clone "$github_proxy"$extension_22 ./stable-diffusion-webui/extensions/openpose-editor
+    fi
+
+    if [ ! $extension_23 = "" ];then
+        git clone "$github_proxy"$extension_23 ./stable-diffusion-webui/extensions/sd-webui-depth-lib
+    fi
+
+    if [ ! $extension_24 = "" ];then
+        git clone "$github_proxy"$extension_24 ./stable-diffusion-webui/extensions/posex
+    fi
+
+    if [ ! $extension_25 = "" ];then
+        git clone "$github_proxy"$extension_25 ./stable-diffusion-webui/extensions/sd-webui-tunnels
+    fi
+
+    if [ ! $extension_26 = "" ];then
+        git clone "$github_proxy"$extension_26 ./stable-diffusion-webui/extensions/batchlinks-webui
+    fi
+
+    if [ ! $extension_27 = "" ];then
+        git clone "$github_proxy"$extension_27 ./stable-diffusion-webui/extensions/stable-diffusion-webui-catppuccin
+    fi
+
+    if [ ! $extension_28 = "" ];then
+        git clone "$github_proxy"$extension_28 ./stable-diffusion-webui/extensions/a1111-sd-webui-lycoris
+    fi
+
+    if [ ! $extension_29 = "" ];then
+        git clone "$github_proxy"$extension_29 ./stable-diffusion-webui/extensions/stable-diffusion-webui-rembg
+    fi
+
+    if [ ! $extension_30 = "" ];then
+        git clone "$github_proxy"$extension_30 ./stable-diffusion-webui/extensions/stable-diffusion-webui-two-shot
+    fi
+
+    if [ ! $extension_31 = "" ];then
+        git clone "$github_proxy"$extension_31 ./stable-diffusion-webui/extensions/sd-webui-lora-block-weight
+    fi
+
+    if [ ! $extension_32 = "" ];then
+        git clone "$github_proxy"$extension_32 ./stable-diffusion-webui/extensions/sd-face-editor
+    fi
+
+    if [ ! $extension_33 = "" ];then
+        git clone "$github_proxy"$extension_33 ./stable-diffusion-webui/extensions/sd-webui-segment-anything
+    fi
+
+    if [ ! $extension_34 = "" ];then
+        git clone "$github_proxy"$extension_34 ./stable-diffusion-webui/extensions/sd-webui-controlnet
+    fi
+
+    if [ ! $extension_35 = "" ];then
+        git clone "$github_proxy"$extension_35 ./stable-diffusion-webui/extensions/sd-webui-prompt-all-in-one
+    fi
+
+    if [ ! $extension_36 = "" ];then
+        git clone "$github_proxy"$extension_36 ./stable-diffusion-webui/extensions/sd-webui-comfyui
+    fi
+
+    if [ ! $extension_37 = "" ];then
+        git clone "$github_proxy"$extension_37 ./stable-diffusion-webui/extensions/a1111-sd-webui-lycoris
+    fi
+
+    if [ ! $extension_38 = "" ];then
+        git clone "$github_proxy"$extension_38 ./stable-diffusion-webui/extensions/sd-webui-photopea-embed
+    fi
+
+    if [ ! $extension_39 = "" ];then
+        git clone "$github_proxy"$extension_39 ./stable-diffusion-webui/extensions/sd-webui-openpose-editor
+    fi
+
+    if [ ! $extension_40 = "" ];then
+        git clone "$github_proxy"$extension_40 ./stable-diffusion-webui/extensions/sd-webui-llul
+    fi
+
+    if [ ! $extension_41 = "" ];then
+        git clone "$github_proxy"$extension_41 ./stable-diffusion-webui/extensions/sd-webui-bilingual-localization
+    fi
+
+    if [ ! $extension_42 = "" ];then
+        git clone "$github_proxy"$extension_42 ./stable-diffusion-webui/extensions/adetailer
+    fi
+
+    if [ ! $extension_43 = "" ];then
+        git clone "$github_proxy"$extension_43 ./stable-diffusion-webui/extensions/sd-webui-mov2mov
+    fi
+
+    if [ ! $extension_44 = "" ];then
+        git clone "$github_proxy"$extension_44 ./stable-diffusion-webui/extensions/sd-webui-IS-NET-pro
+    fi
+
+    if [ ! $extension_45 = "" ];then
+        git clone "$github_proxy"$extension_45 ./stable-diffusion-webui/extensions/ebsynth_utility
+    fi
+
+    if [ ! $extension_46 = "" ];then
+        git clone "$github_proxy"$extension_46 ./stable-diffusion-webui/extensions/sd_dreambooth_extension
+    fi
 
     echo "下载模型中"
     #aria2c https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt -d ./stable-diffusion-webui/models/Stable-diffusion -o sd-v1-4.ckpt
@@ -1630,8 +1771,7 @@ function extension_methon()
         "1" "安装" \
         "2" "管理" \
         "3" "更新全部插件" \
-        "4" "安装插件依赖" \
-        "5" "返回" \
+        "4" "返回" \
         3>&1 1>&2 2>&3 )
 
         if [ $? = 0 ];then
@@ -1644,10 +1784,7 @@ function extension_methon()
             elif [ "${final_extension_methon}" == '3' ]; then #选择更新全部插件
                 extension_all_update
                 extension_methon
-            elif [ "${final_extension_methon}" == '4' ]; then #选择安装插件依赖
-                extension_dep_install
-                extension_methon
-            elif [ "${final_extension_methon}" == '5' ]; then #选择返回
+            elif [ "${final_extension_methon}" == '4' ]; then #选择返回
                 echo
             fi
         fi
@@ -1704,7 +1841,7 @@ function operate_extension()
         "2" "卸载" \
         "3" "修复" \
         "4" "版本切换" \
-        "0" "返回" \
+        "5" "返回" \
         3>&1 1>&2 2>&3)
     if [ $? = 0 ];then
         if [ "${final_operate_extension}" == '1' ]; then
@@ -1728,7 +1865,7 @@ function operate_extension()
             cd ..
         elif [ "${final_operate_extension}" == '4' ]; then
             git_checkout_manager
-        elif [ "${final_operate_extension}" == '0' ]; then
+        elif [ "${final_operate_extension}" == '5' ]; then
             cd ..
         fi
     else
@@ -1753,26 +1890,6 @@ function git_checkout_manager()
     fi
 }
 
-#插件依赖安装部分
-function extension_dep_install()
-{
-    cd ..
-    enter_venv
-    cd -
-    echo "安装插件依赖"
-    for extension_folder in ./*
-    do
-        [ -f "$extension_folder" ] && continue #排除文件
-        cd "$extension_folder"
-        if [ -f requirements.txt ];then
-            echo "安装"$extension_folder"插件依赖"
-            pip install -r requirements.txt --default-timeout=100 --retries 5
-        fi
-        cd ..
-    done
-    exit_venv
-}
-
 #一键更新全部插件功能
 function extension_all_update()
 {
@@ -1791,7 +1908,7 @@ function extension_all_update()
 
 #启动程序部分
 
-term_sd_version_="0.2.6"
+term_sd_version_="0.2.7"
 
 if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
     test_python="python"
