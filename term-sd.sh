@@ -1155,7 +1155,7 @@ function a1111_sd_webui_extension_option()
         "4" "multidiffusion-upscaler-for-automatic1111" ON \
         "5" "sd-dynamic-thresholding" ON \
         "6" "sd-webui-cutoff" ON \
-        "7" "sd-webui-model-converter" ON \
+        "7" "sd-webui-model-converter" OFF \
         "8" "sd-webui-supermerger" OFF \
         "9" "stable-diffusion-webui-localization-zh_CN" ON \
         "10" "stable-diffusion-webui-wd14-tagger" ON \
@@ -1176,7 +1176,7 @@ function a1111_sd_webui_extension_option()
         "25" "sd-webui-tunnels" OFF \
         "26" "batchlinks-webui" OFF \
         "27" "stable-diffusion-webui-catppuccin" ON \
-        "28" "a1111-sd-webui-lycoris" ON \
+        "28" "a1111-sd-webui-lycoris" OFF \
         "29" "stable-diffusion-webui-rembg" ON \
         "30" "stable-diffusion-webui-two-shot" ON \
         "31" "sd-webui-lora-block-weight" ON \
@@ -1192,7 +1192,7 @@ function a1111_sd_webui_extension_option()
         "41" "sd-webui-bilingual-localization" OFF \
         "42" "adetailer" ON \
         "43" "sd-webui-mov2mov" OFF \
-        "44" "sd-webui-IS-NET-pro" ON \
+        "44" "sd-webui-IS-NET-pro" OFF \
         "45" "ebsynth_utility" OFF \
         "46" "sd_dreambooth_extension" OFF \
         3>&1 1>&2 2>&3)
