@@ -962,12 +962,10 @@ function venv_generate()
             echo "系统为windows"
             echo "创建venv虚拟环境"
             python -m venv venv
-            python -m pip install -U pip
         else
             echo "系统为$(uname -o)"
             echo "创建venv虚拟环境"
             python3 -m venv venv
-            python3 -m pip install -U pip
         fi
     else
         echo "忽略创建venv虚拟环境"
