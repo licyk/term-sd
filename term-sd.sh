@@ -1604,7 +1604,11 @@ function process_install_a1111_sd_webui()
     aria2c https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./stable-diffusion-webui/models/Stable-diffusion -o sd-v1-5.ckpt
     aria2c https://huggingface.co/embed/upscale/resolve/main/4x-UltraSharp.pth -d ./stable-diffusion-webui/models/ESRGAN -o 4x-UltraSharp.pth
     git clone https://huggingface.co/embed/negative ./stable-diffusion-webui/embeddings/negative
+    rm -rf ./stable-diffusion-webui/embeddings/negative/.git
+    rm -rf ./stable-diffusion-webui/embeddings/negative/.gitattributes
     git clone https://huggingface.co/embed/lora ./stable-diffusion-webui/models/Lora/positive
+    rm -rf ./stable-diffusion-webui/models/Lora/positive/.git
+    rm -rf ./stable-diffusion-webui/models/Lora/positive/.gitattributes
 
     if [ "$extension_34" = "https://github.com/Mikubill/sd-webui-controlnet" ]; then #安装controlnet时再下载相关模型
         aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11e_sd15_ip2p_fp16.safetensors -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11e_sd15_ip2p_fp16.safetensors
