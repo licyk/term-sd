@@ -1147,6 +1147,7 @@ function a1111_sd_webui_extension_option()
     extension_44=""
     extension_45=""
     extension_46=""
+    extension_47=""
 
     final_extension_options=$(
         dialog --separate-output --notags --yes-label "确认" --no-cancel --checklist "A1111-Stable-Diffusion-Webui插件选择" 20 60 10 \
@@ -1196,6 +1197,7 @@ function a1111_sd_webui_extension_option()
         "44" "sd-webui-IS-NET-pro" ON \
         "45" "ebsynth_utility" OFF \
         "46" "sd_dreambooth_extension" OFF \
+        "47" "sd-webui-memory-release" ON \
         3>&1 1>&2 2>&3)
 
     if [ -z "$final_extension_options" ]; then
@@ -1340,6 +1342,9 @@ function a1111_sd_webui_extension_option()
         ;;
         "46")
         extension_46="https://github.com/d8ahazard/sd_dreambooth_extension"
+        ;;
+        "47")
+        extension_47="https://github.com/Haoming02/sd-webui-memory-release"
         ;;
         *)
         exit 1
@@ -1597,6 +1602,10 @@ function process_install_a1111_sd_webui()
 
     if [ ! $extension_46 = "" ];then
         git clone "$github_proxy"$extension_46 ./stable-diffusion-webui/extensions/sd_dreambooth_extension
+    fi
+
+    if [ ! $extension_47 = "" ];then
+        git clone "$github_proxy"$extension_47 ./stable-diffusion-webui/extensions/sd-webui-memory-release
     fi
 
     echo "下载模型中"
