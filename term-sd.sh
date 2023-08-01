@@ -1186,7 +1186,7 @@ function a1111_sd_webui_extension_option()
         "34" "sd-webui-controlnet" ON \
         "35" "sd-webui-prompt-all-in-one" ON \
         "36" "sd-webui-comfyui" OFF \
-        "37" "a1111-sd-webui-lycoris" ON \
+        "37" "a1111-sd-webui-lycoris" OFF \
         "38" "sd-webui-photopea-embed" ON \
         "39" "sd-webui-openpose-editor" ON \
         "40" "sd-webui-llul" ON \
