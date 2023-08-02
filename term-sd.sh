@@ -32,13 +32,16 @@ function mainmenu()
         "3" "InvokeAI" \
         "4" "lora-scripts" \
         "5" "更新脚本" \
-        "6" "python镜像源" \
-        "7" "关于" \
-        "8" "退出" \
+        "6" "扩展脚本" \
+        "7" "python镜像源" \
+        "8" "关于" \
+        "9" "退出" \
         3>&1 1>&2 2>&3 )
 
     if [ $? = 0  ];then #选择确认
-        if [ "${mainmenu_select}" == '1' ]; then #选择AUTOMATIC1111-stable-diffusion-webui
+        if [ "${mainmenu_select}" == '0' ]; then #选择venv虚拟环境
+            venv_option
+        elif [ "${mainmenu_select}" == '1' ]; then #选择AUTOMATIC1111-stable-diffusion-webui
             a1111_sd_webui_option
         elif [ "${mainmenu_select}" == '2' ]; then #选择ComfyUI
             comfyui_option
@@ -48,14 +51,14 @@ function mainmenu()
             lora_scripts_option
         elif [ "${mainmenu_select}" == '5' ]; then #选择更新脚本
             update_option
-        elif [ "${mainmenu_select}" == '6' ]; then #选择python镜像源
+        elif [ "${mainmenu_select}" == '6' ]; then #选择扩展脚本
+            term_sd_extension
+        elif [ "${mainmenu_select}" == '7' ]; then #选择python镜像源
             set_proxy_option
-        elif [ "${mainmenu_select}" == '7' ]; then #选择关于
+        elif [ "${mainmenu_select}" == '8' ]; then #选择关于
             info_option
-        elif [ "${mainmenu_select}" == '8' ]; then #选择退出
+        elif [ "${mainmenu_select}" == '9' ]; then #选择退出
             exit
-        elif [ "${mainmenu_select}" == '0' ]; then #选择venv虚拟环境
-            venv_option
         fi
     else #选择取消
         exit
@@ -882,6 +885,89 @@ function update_option()
         fi
     fi
     mainmenu
+}
+
+#扩展脚本选项
+function term_sd_extension()
+{
+    term_sd_extension_proxy=""
+    term_sd_extension_1_=""
+    term_sd_extension_2_=""
+
+    if [ -f "./sd-webui-extension.sh" ];then
+        term_sd_extension_1="ON"
+    else
+        term_sd_extension_1="OFF"
+    fi
+
+    if [ -f "./sd-webui-gui-launch.sh" ];then
+        term_sd_extension_2="ON"
+    else
+        term_sd_extension_2="OFF"
+    fi
+
+    term_sd_extension_select_=$(
+        dialog --clear --separate-output --notags --checklist "term-sd扩展脚本列表\n勾选以下载,如果脚本已下载，则会执行更更新；取消勾选以删除\n下载的脚本将会放在term-sd脚本所在目录下\n推荐勾选\"下载代理\"" 20 60 10 \
+            "1" "下载代理" ON \
+            "2" "sd-webui-extension" "$term_sd_extension_1" \
+            "3" "sd-webui-gui-launch" "$term_sd_extension_2" \
+            3>&1 1>&2 2>&3)
+        
+    if [ $? = 0 ];then
+
+        for term_sd_extension_select in $term_sd_extension_select_;do
+        case "$term_sd_extension_select" in
+        "1")
+        term_sd_extension_proxy="https://ghproxy.com"
+        ;;
+        "2")
+        term_sd_extension_option_1="1"
+        ;;
+        "3")
+        term_sd_extension_option_2="1"
+        ;;
+        *)
+        exit 1
+        ;;
+        esac
+        done
+
+        if [ $term_sd_extension_option_1 = "1" ];then
+            aria2c $term_sd_extension_proxy/https://raw.githubusercontent.com/licyk/sd-webui-script/main/other/sd-webui-extension.sh -d ./term-sd-update-tmp/ -o sd-webui-extension.sh
+            
+            if [ $? = 0 ];then
+                term_sd_extension_info_1="下载成功"
+                cp -fv ./term-sd-update-tmp/sd-webui-extension.sh ./
+                chmod +x ./sd-webui-extension.sh
+                rm -rfv ./term-sd-update-tmp/
+            else
+                term_sd_extension_info_1="下载失败"
+            fi
+        else
+            rm -rfv ./sd-webui-extension.sh
+            term_sd_extension_info_1="已删除"
+        fi
+
+        if [ $term_sd_extension_option_2 = "1" ];then
+            aria2c $term_sd_extension_proxy/https://raw.githubusercontent.com/licyk/sd-webui-script/main/other/sd-webui-gui-launch.sh -d ./term-sd-update-tmp/ -o sd-webui-gui-launch.sh
+            if [ $? = 0 ];then
+                term_sd_extension_info_2="下载成功"
+                cp -fv ./term-sd-update-tmp/sd-webui-gui-launch.sh ./
+                chmod +x ./sd-webui-gui-launch.sh
+                rm -rfv ./term-sd-update-tmp/
+            else
+                term_sd_extension_info_2="下载失败"
+            fi
+        else
+            rm -rfv ./sd-webui-gui-launch.sh
+            term_sd_extension_info_2="已删除"
+        fi
+
+        dialog --clear --title "扩展脚本" --msgbox "扩展插件状态：\nsd-webui-extension:$term_sd_extension_info_1\nsd-webui-gui-launch:$term_sd_extension_info_2" 20 60
+        term_sd_extension
+    else
+        mainmenu
+    fi
 }
 
 #python镜像源选项
@@ -1921,7 +2007,7 @@ function extension_all_update()
 
 #启动程序部分
 
-term_sd_version_="0.2.7"
+term_sd_version_="0.2.8"
 
 if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
     test_python="python"
