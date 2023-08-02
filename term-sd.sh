@@ -891,8 +891,8 @@ function update_option()
 function term_sd_extension()
 {
     term_sd_extension_proxy=""
-    term_sd_extension_1_=""
-    term_sd_extension_2_=""
+    term_sd_extension_option_1=""
+    term_sd_extension_option_2=""
 
     if [ -f "./sd-webui-extension.sh" ];then
         term_sd_extension_1="ON"
