@@ -1457,6 +1457,18 @@ function a1111_sd_webui_extension_option()
     fi
 }
 
+#comfyui插件选择
+function comfyui_extension_option()
+{
+    #清除插件选择
+}
+
+#comfyui自定义节点选择
+function comfyui_custom_node_option()
+{
+    #清除自定义节点选择
+}
+
 #安装前确认界面
 function final_install_check()
 {
@@ -2049,8 +2061,16 @@ function comfyui_custom_node_install()
 
     if [ $? = 0 ]; then
         git clone $comfyui_custom_node_address
+
+        comfyui_custom_node_dep_notice=""
+        if [ -f "./$(awk -F "/" '{print $NF}' <<< "$comfyui_custom_node_address")/requirements.txt" ];then
+            comfyui_custom_node_dep_notice="检测到该自定义节点需要安装依赖，请进入自定义节点管理功能，选中该自定义节点，运行一次\"安装依赖\"功能"
+        elif [ -f "./$(awk -F "/" '{print $NF}' <<< "$comfyui_custom_node_address")/install.py" ];then
+            comfyui_custom_node_dep_notice="检测到该自定义节点需要安装依赖，请进入自定义节点管理功能，选中该自定义节点，运行一次\"安装依赖\"功能"
+        fi
+
         if [ $? = "0" ];then
-            dialog --clear --title "自定义节点管理" --msgbox "安装成功" 20 60
+            dialog --clear --title "自定义节点管理" --msgbox "安装成功\n$comfyui_custom_node_dep_notice" 20 60
         else
             dialog --clear --title "自定义节点管理" --msgbox "安装失败" 20 60
         fi
@@ -2079,7 +2099,7 @@ function operate_comfyui_custom_node()
                 dialog --clear --title "自定义节点管理" --msgbox "更新失败" 20 60
             fi
             cd ..
-        elif [ "${final_operate_comfyui_extension}" == '2' ]; then #comfyui并不像a1111-sd-webui自动为插件安装依赖，所以只能手动装
+        elif [ "${final_operate_comfyui_custom_node}" == '2' ]; then #comfyui并不像a1111-sd-webui自动为插件安装依赖，所以只能手动装
             cd "$start_path"/ComfyUI
             enter_venv
             cd -
@@ -2095,6 +2115,7 @@ function operate_comfyui_custom_node()
                 pip install -r requirements.txt
             fi
             exit_venv
+            cd ..
         elif [ "${final_operate_comfyui_custom_node}" == '3' ]; then
             if (dialog --clear --title "删除选项" --yes-label "是" --no-label "否" --yesno "是否删除该自定义节点" 20 60) then
                 echo "删除"$comfyui_custom_node_selection"自定义节点中"
@@ -2174,8 +2195,16 @@ function comfyui_extension_install()
 
     if [ $? = 0 ]; then
         git clone $comfyui_extension_address
+
+        comfyui_extension_dep_notice=""
+        if [ -f "./$(awk -F "/" '{print $NF}' <<< "$comfyui_extension_address")/requirements.txt" ];then
+            comfyui_extension_dep_notice="检测到该插件需要安装依赖，请进入插件管理功能，选中该插件，运行一次\"安装依赖\"功能"
+        elif [ -f "./$(awk -F "/" '{print $NF}' <<< "$comfyui_extension_address")/install.py" ];then
+            comfyui_extension_dep_notice="检测到该插件需要安装依赖，请进入插件管理功能，选中该插件，运行一次\"安装依赖\"功能"
+        fi
+
         if [ $? = "0" ];then
-            dialog --clear --title "插件管理" --msgbox "安装成功" 20 60
+            dialog --clear --title "插件管理" --msgbox "安装成功\n$comfyui_extension_dep_notice" 20 60
         else
             dialog --clear --title "插件管理" --msgbox "安装失败" 20 60
         fi
@@ -2221,6 +2250,7 @@ function operate_comfyui_extension()
                 pip install -r requirements.txt
             fi
             exit_venv
+            cd ..
         elif [ "${final_operate_comfyui_extension}" == '3' ]; then
             if (dialog --clear --title "删除选项" --yes-label "是" --no-label "否" --yesno "是否删除该插件" 20 60) then
                 echo "删除"$comfyui_extension_selection"插件中"
