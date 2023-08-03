@@ -2014,7 +2014,8 @@ function comfyui_custom_node_methon()
         "1" "安装" \
         "2" "管理" \
         "3" "更新全部自定义节点" \
-        "4" "返回" \
+        "4" "安装全部自定义节点依赖" \
+        "5" "返回" \
         3>&1 1>&2 2>&3 )
 
     if [ $? = 0 ];then
@@ -2027,7 +2028,10 @@ function comfyui_custom_node_methon()
         elif [ "${final_comfyui_custom_node_methon}" == '3' ]; then #选择更新全部自定义节点
             extension_all_update
             comfyui_custom_node_methon
-        elif [ "${final_comfyui_custom_node_methon}" == '4' ]; then #选择返回
+        elif [ "${final_comfyui_custom_node_methon}" == '4' ]; then #选择安装全部插件依赖
+            comfyui_extension_dep_install
+            comfyui_custom_node_methon
+        elif [ "${final_comfyui_custom_node_methon}" == '5' ]; then #选择返回
             echo
         fi
     fi
@@ -2148,7 +2152,8 @@ function comfyui_extension_methon()
         "1" "安装" \
         "2" "管理" \
         "3" "更新全部插件" \
-        "4" "返回" \
+        "4" "安装全部插件依赖" \
+        "5" "返回" \
         3>&1 1>&2 2>&3 )
 
     if [ $? = 0 ];then
@@ -2161,7 +2166,10 @@ function comfyui_extension_methon()
         elif [ "${final_comfyui_extension_methon}" == '3' ]; then #选择更新全部插件
             extension_all_update
             comfyui_extension_methon
-        elif [ "${final_comfyui_extension_methon}" == '4' ]; then #选择返回
+        elif [ "${final_comfyui_extension_methon}" == '4' ]; then #选择安装全部插件依赖
+            comfyui_extension_dep_install
+            comfyui_extension_methon
+        elif [ "${final_comfyui_extension_methon}" == '5' ]; then #选择返回
             echo
         fi
     fi
@@ -2271,6 +2279,33 @@ function operate_comfyui_extension()
     else
         cd ..
     fi
+}
+
+#comfyui插件/自定义节点依赖安装部分
+function comfyui_extension_dep_install()
+{
+    cd "$start_path"/ComfyUI
+    enter_venv
+    cd -
+    for extension_folder in ./*
+    do
+        [ -f "$extension_folder" ] && continue #排除文件
+        cd $extension_folder
+        echo "安装"$extension_folder"依赖"
+        if [ -f "./install.py" ];then
+            if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
+                python install.py
+            else
+                python3 install.py
+            fi
+        fi
+
+        if [ -f "./requirements.txt" ];then
+            pip install -r requirements.txt
+        fi
+        cd ..
+    done
+    exit_venv
 }
 
 ###############################################################################
