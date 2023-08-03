@@ -231,13 +231,15 @@ function comfyui_option()
             if [ "${final_comfyui_option}" == '4' ]; then
                 cd custom_nodes
                 comfyui_custom_node_methon
+                comfyui_option
             fi
 
             if [ "${final_comfyui_option}" == '5' ]; then
                 cd web/extensions
                 comfyui_extension_methon
+                comfyui_option
             fi
-            
+
             if [ "${final_comfyui_option}" == '6' ]; then
                 git_checkout_manager
                 comfyui_option
@@ -2278,7 +2280,7 @@ function extension_all_update()
 
 #启动程序部分
 
-term_sd_version_="0.2.8"
+term_sd_version_="0.2.9"
 
 if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
     test_python="python"
