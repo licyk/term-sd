@@ -2063,7 +2063,7 @@ function comfyui_custom_node_install()
 
     if [ $? = 0 ]; then
         git clone $comfyui_custom_node_address
-
+        git_req=$?
         comfyui_custom_node_dep_notice=""
         if [ -f "./$(awk -F "/" '{print $NF}' <<< "$comfyui_custom_node_address")/requirements.txt" ];then
             comfyui_custom_node_dep_notice="检测到该自定义节点需要安装依赖，请进入自定义节点管理功能，选中该自定义节点，运行一次\"安装依赖\"功能"
@@ -2071,7 +2071,7 @@ function comfyui_custom_node_install()
             comfyui_custom_node_dep_notice="检测到该自定义节点需要安装依赖，请进入自定义节点管理功能，选中该自定义节点，运行一次\"安装依赖\"功能"
         fi
 
-        if [ $? = "0" ];then
+        if [ $git_req = "0" ];then
             dialog --clear --title "自定义节点管理" --msgbox "安装成功\n$comfyui_custom_node_dep_notice" 20 60
         else
             dialog --clear --title "自定义节点管理" --msgbox "安装失败" 20 60
@@ -2197,7 +2197,7 @@ function comfyui_extension_install()
 
     if [ $? = 0 ]; then
         git clone $comfyui_extension_address
-
+        git_req=$?
         comfyui_extension_dep_notice=""
         if [ -f "./$(awk -F "/" '{print $NF}' <<< "$comfyui_extension_address")/requirements.txt" ];then
             comfyui_extension_dep_notice="检测到该插件需要安装依赖，请进入插件管理功能，选中该插件，运行一次\"安装依赖\"功能"
@@ -2205,7 +2205,7 @@ function comfyui_extension_install()
             comfyui_extension_dep_notice="检测到该插件需要安装依赖，请进入插件管理功能，选中该插件，运行一次\"安装依赖\"功能"
         fi
 
-        if [ $? = "0" ];then
+        if [ $git_req = "0" ];then
             dialog --clear --title "插件管理" --msgbox "安装成功\n$comfyui_extension_dep_notice" 20 60
         else
             dialog --clear --title "插件管理" --msgbox "安装失败" 20 60
