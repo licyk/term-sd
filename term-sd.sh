@@ -1461,12 +1461,14 @@ function a1111_sd_webui_extension_option()
 function comfyui_extension_option()
 {
     #清除插件选择
+    echo
 }
 
 #comfyui自定义节点选择
 function comfyui_custom_node_option()
 {
     #清除自定义节点选择
+    echo
 }
 
 #安装前确认界面
