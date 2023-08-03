@@ -190,11 +190,13 @@ function comfyui_option()
             "1" "更新" \
             "2" "卸载" \
             "3" "修复" \
-            "4" "切换版本" \
-            "5" "启动" \
-            "6" "重新安装" \
-            "7" "重新安装pytorch" \
-            "8" "重新生成venv虚拟环境" \
+            "4" "自定义节点管理" \
+            "5" "插件管理" \
+            "6" "切换版本" \
+            "7" "启动" \
+            "8" "重新安装" \
+            "9" "重新安装pytorch" \
+            "10" "重新生成venv虚拟环境" \
             "0" "返回" \
             3>&1 1>&2 2>&3)
 
@@ -227,11 +229,21 @@ function comfyui_option()
             fi
 
             if [ "${final_comfyui_option}" == '4' ]; then
+                cd custom_nodes
+                comfyui_custom_node_methon
+            fi
+
+            if [ "${final_comfyui_option}" == '5' ]; then
+                cd web/extensions
+                comfyui_extension_methon
+            fi
+            
+            if [ "${final_comfyui_option}" == '6' ]; then
                 git_checkout_manager
                 comfyui_option
             fi
 
-            if [ "${final_comfyui_option}" == '5' ]; then
+            if [ "${final_comfyui_option}" == '7' ]; then
                 if [ -f "./term-sd-launch.conf" ]; then #找到启动脚本
                     if (dialog --clear --title "ComfyUI启动选择" --yes-label "启动" --no-label "修改参数" --yesno "选择直接启动/修改启动参数" 20 60) then
                         term_sd_launch
@@ -248,7 +260,7 @@ function comfyui_option()
                 fi    
             fi
 
-            if [ "${final_comfyui_option}" == '6' ]; then
+            if [ "${final_comfyui_option}" == '8' ]; then
                 if (dialog --clear --title "ComfyUI管理" --yesno "是否重新安装ComfyUI" 20 60) then
                     cd "$start_path"
                     exit_venv
@@ -257,12 +269,12 @@ function comfyui_option()
                 fi
             fi
 
-            if [ "${final_comfyui_option}" == '7' ]; then
+            if [ "${final_comfyui_option}" == '9' ]; then
                 pytorch_reinstall
                 comfyui_option
             fi
 
-            if [ "${final_comfyui_option}" == '8' ]; then
+            if [ "${final_comfyui_option}" == '10' ]; then
                 venv_generate
                 comfyui_option
             fi
@@ -900,7 +912,7 @@ function term_sd_extension()
         term_sd_extension_1="OFF"
     fi
 
-    if [ -f "./sd-webui-gui-launch.sh" ];then
+    if [ -f "./comfyui-extension.sh" ];then
         term_sd_extension_2="ON"
     else
         term_sd_extension_2="OFF"
@@ -949,17 +961,17 @@ function term_sd_extension()
         fi
 
         if [ $term_sd_extension_option_2 = "1" ];then
-            aria2c $term_sd_extension_proxy/https://raw.githubusercontent.com/licyk/sd-webui-script/main/other/sd-webui-gui-launch.sh -d ./term-sd-update-tmp/ -o sd-webui-gui-launch.sh
+            aria2c $term_sd_extension_proxy/https://raw.githubusercontent.com/licyk/sd-webui-script/main/other/comfyui-extension.sh -d ./term-sd-update-tmp/ -o comfyui-extension.sh
             if [ $? = 0 ];then
                 term_sd_extension_info_2="下载成功"
-                cp -fv ./term-sd-update-tmp/sd-webui-gui-launch.sh ./
-                chmod +x ./sd-webui-gui-launch.sh
+                cp -fv ./term-sd-update-tmp/comfyui-extension.sh ./
+                chmod +x ./comfyui-extension.sh
                 rm -rfv ./term-sd-update-tmp/
             else
                 term_sd_extension_info_2="下载失败"
             fi
         else
-            rm -rfv ./sd-webui-gui-launch.sh
+            rm -rfv ./comfyui-extension.sh
             term_sd_extension_info_2="已删除"
         fi
 
@@ -1142,10 +1154,13 @@ function python_dep_install()
         "4" "Torch 2.0.1(CUDA11.8)+xFormers 0.020" \
         "5" "Torch 2.0.1+RoCM 5.4.2" \
         "6" "Torch 2.0.1+CPU" \
+        "7" "Torch-Directml" \
         "0" "跳过安装" \
         3>&1 1>&2 2>&3)
 
-    if [ "${final_python_dep_install}" == '1' ]; then
+    if [ "${final_python_dep_install}" == '0' ]; then
+        ins_pytorch=""
+    elif [ "${final_python_dep_install}" == '1' ]; then
         ins_pytorch="torch==1.12.1+cu113 torchvision==0.13.1+cu113 xformers==0.0.14"
     elif [ "${final_python_dep_install}" == '2' ]; then
         ins_pytorch="torch==1.13.1+cu117 torchvision==0.14.1+cu117 xformers==0.0.16"
@@ -1157,8 +1172,8 @@ function python_dep_install()
         ins_pytorch="torch==2.0.1+rocm5.4.2 torchvision==0.15.2+rocm5.4.2"
     elif [ "${final_python_dep_install}" == '6' ]; then
         ins_pytorch="torch==2.0.1+cpu torchvision==0.15.2+cpu"
-    elif [ "${final_python_dep_install}" == '0' ]; then
-        ins_pytorch=""
+    elif [ "${final_python_dep_install}" == '7' ]; then
+        ins_pytorch="torch-directml"
     fi
 }
 
@@ -1859,7 +1874,9 @@ function pytorch_reinstall()
 
 ###############################################################################
 
-#插件管理部分(目前只有a1111-sd-webui用到)
+#插件管理部分
+
+#a1111-sd-webui
 
 #插件的安装或管理选项(该部分最先被调用)
 function extension_methon()
@@ -1873,20 +1890,20 @@ function extension_methon()
         "4" "返回" \
         3>&1 1>&2 2>&3 )
 
-        if [ $? = 0 ];then
-            if [ "${final_extension_methon}" == '1' ]; then #选择安装
-                extension_install
-                extension_methon
-            elif [ "${final_extension_methon}" == '2' ]; then #选择管理
-                extension_manager
-                extension_methon
-            elif [ "${final_extension_methon}" == '3' ]; then #选择更新全部插件
-                extension_all_update
-                extension_methon
-            elif [ "${final_extension_methon}" == '4' ]; then #选择返回
-                echo
-            fi
+    if [ $? = 0 ];then
+        if [ "${final_extension_methon}" == '1' ]; then #选择安装
+            extension_install
+            extension_methon
+        elif [ "${final_extension_methon}" == '2' ]; then #选择管理
+            extension_manager
+            extension_methon
+        elif [ "${final_extension_methon}" == '3' ]; then #选择更新全部插件
+            extension_all_update
+            extension_methon
+        elif [ "${final_extension_methon}" == '4' ]; then #选择返回
+            echo
         fi
+    fi
 }
 
 #插件管理界面
@@ -1920,10 +1937,6 @@ function extension_install()
     if [ $? = 0 ]; then
         git clone $extension_address
         if [ $? = "0" ];then
-            extension_dep_notice=""
-            if [ -f "./$(awk -F "/" '{print $NF}' <<< "$extension_address")/requirements.txt" ];then
-                extension_dep_notice="检测到该插件需要安装依赖，请运行一次\"安装插件依赖\"功能"
-            fi
             dialog --clear --title "插件管理" --msgbox "安装成功\n$extension_dep_notice" 20 60
         else
             dialog --clear --title "插件管理" --msgbox "安装失败" 20 60
@@ -1971,6 +1984,264 @@ function operate_extension()
         cd ..
     fi
 }
+
+#comfyui
+#comfyui的扩展分为两种，一种是前端节点，另一种是后端扩展 详见：https://github.com/comfyanonymous/ComfyUI/discussions/631
+
+#comfyui前端节点管理
+#自定义节点的安装或管理选项(该部分最先被调用)
+function comfyui_custom_node_methon()
+{
+    #功能选择界面
+    final_comfyui_custom_node_methon=$(
+        dialog --clear --title "自定义节点管理" --menu "请使用方向键和回车键进行操作" 20 60 10 \
+        "1" "安装" \
+        "2" "管理" \
+        "3" "更新全部自定义节点" \
+        "4" "返回" \
+        3>&1 1>&2 2>&3 )
+
+    if [ $? = 0 ];then
+        if [ "${final_comfyui_custom_node_methon}" == '1' ]; then #选择安装
+            comfyui_custom_node_install
+            comfyui_custom_node_methon
+        elif [ "${final_comfyui_custom_node_methon}" == '2' ]; then #选择管理
+            comfyui_custom_node_manager
+            comfyui_custom_node_methon
+        elif [ "${final_comfyui_custom_node_methon}" == '3' ]; then #选择更新全部自定义节点
+            extension_all_update
+            comfyui_custom_node_methon
+        elif [ "${final_comfyui_custom_node_methon}" == '4' ]; then #选择返回
+            echo
+        fi
+    fi
+}
+
+#自定义节点管理界面
+function comfyui_custom_node_manager()
+{
+    dir_list=$(ls -l  | awk -F ' ' ' { print $9 " " $6 $7 } ') #当前目录文件和文件夹信息
+
+    comfyui_custom_node_selection=$(
+        dialog --clear --title "自定义节点管理" \
+        --menu "使用上下键选择要操作的插件并回车确认" 20 60 10 \
+        $dir_list \
+        3>&1 1>&2 2>&3)
+    if [ $? = 0 ];then
+        if [[ -d "$comfyui_custom_node_selection" ]]; then  # 选择文件夹
+            cd "$comfyui_custom_node_selection"
+            operate_comfyui_custom_node #调用operate_extension函数处理插件
+            comfyui_custom_node_manager
+        elif [[ -f "$extension_selection" ]]; then
+            comfyui_custom_node_manager #留在当前目录
+        else
+            comfyui_custom_node_manager #留在当前目录
+        fi
+    fi
+}
+
+#自定义节点安装模块
+function comfyui_custom_node_install()
+{
+    comfyui_custom_node_address=$(dialog --clear --title "自定义节点安装" --inputbox "输入自定义节点的github或其他下载地址" 20 60 3>&1 1>&2 2>&3)
+
+    if [ $? = 0 ]; then
+        git clone $comfyui_custom_node_address
+        if [ $? = "0" ];then
+            dialog --clear --title "自定义节点管理" --msgbox "安装成功" 20 60
+        else
+            dialog --clear --title "自定义节点管理" --msgbox "安装失败" 20 60
+        fi
+    fi
+}
+
+#自定义节点处理模块
+function operate_comfyui_custom_node() 
+{
+    final_operate_comfyui_custom_node=$(
+        dialog --clear --title "操作选择" --menu "请使用方向键和回车键选择对该自定义节点进行的操作" 20 60 10 \
+        "1" "更新" \
+        "2" "安装依赖" \
+        "3" "卸载" \
+        "4" "修复" \
+        "5" "版本切换" \
+        "6" "返回" \
+        3>&1 1>&2 2>&3)
+    if [ $? = 0 ];then
+        if [ "${final_operate_comfyui_custom_node}" == '1' ]; then
+            echo "更新"$comfyui_custom_node_selection"中"
+            git pull
+            if [ $? = "0" ];then
+                dialog --clear --title "自定义节点管理" --msgbox "更新成功" 20 60
+            else
+                dialog --clear --title "自定义节点管理" --msgbox "更新失败" 20 60
+            fi
+            cd ..
+        elif [ "${final_operate_comfyui_extension}" == '2' ]; then #comfyui并不像a1111-sd-webui自动为插件安装依赖，所以只能手动装
+            cd "$start_path"/ComfyUI
+            enter_venv
+            cd -
+            if [ -f "./install.py" ];then
+                if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
+                    python install.py
+                else
+                    python3 install.py
+                fi
+            fi
+
+            if [ -f "./requirements.txt" ];then
+                pip install -r requirements.txt
+            fi
+            exit_venv
+        elif [ "${final_operate_comfyui_custom_node}" == '3' ]; then
+            if (dialog --clear --title "删除选项" --yes-label "是" --no-label "否" --yesno "是否删除该自定义节点" 20 60) then
+                echo "删除"$comfyui_custom_node_selection"自定义节点中"
+                cd ..
+                rm -rfv ./$comfyui_custom_node_selection
+            fi
+        elif [ "${final_operate_comfyui_custom_node}" == '4' ]; then
+            echo "修复中"
+            git reset --hard HEAD
+            cd ..
+        elif [ "${final_operate_comfyui_custom_node}" == '5' ]; then
+            git_checkout_manager
+        elif [ "${final_operate_comfyui_custom_node}" == '6' ]; then
+            cd ..
+        fi
+    else
+        cd ..
+    fi
+}
+
+#comfyui后端插件管理
+#插件的安装或管理选项(该部分最先被调用)
+function comfyui_extension_methon()
+{
+    #功能选择界面
+    final_comfyui_extension_methon=$(
+        dialog --clear --title "插件管理" --menu "请使用方向键和回车键进行操作" 20 60 10 \
+        "1" "安装" \
+        "2" "管理" \
+        "3" "更新全部插件" \
+        "4" "返回" \
+        3>&1 1>&2 2>&3 )
+
+    if [ $? = 0 ];then
+        if [ "${final_comfyui_extension_methon}" == '1' ]; then #选择安装
+            comfyui_extension_install
+            comfyui_extension_methon
+        elif [ "${final_comfyui_extension_methon}" == '2' ]; then #选择管理
+            comfyui_extension_manager
+            comfyui_extension_methon
+        elif [ "${final_comfyui_extension_methon}" == '3' ]; then #选择更新全部插件
+            extension_all_update
+            comfyui_extension_methon
+        elif [ "${final_comfyui_extension_methon}" == '4' ]; then #选择返回
+            echo
+        fi
+    fi
+}
+
+#插件管理界面
+function comfyui_extension_manager()
+{
+    dir_list=$(ls -l  | awk -F ' ' ' { print $9 " " $6 $7 } ') #当前目录文件和文件夹信息
+
+    comfyui_extension_selection=$(
+        dialog --clear --title "插件管理" \
+        --menu "使用上下键选择要操作的插件并回车确认" 20 60 10 \
+        $dir_list \
+        3>&1 1>&2 2>&3)
+    if [ $? = 0 ];then
+        if [[ -d "$comfyui_extension_selection" ]]; then  # 选择文件夹
+            cd "$comfyui_extension_selection"
+            operate_comfyui_extension #调用operate_extension函数处理插件
+            comfyui_extension_manager
+        elif [[ -f "$extension_selection" ]]; then
+            comfyui_extension_manager #留在当前目录
+        else
+            comfyui_extension_manager #留在当前目录
+        fi
+    fi
+}
+
+#插件安装模块
+function comfyui_extension_install()
+{
+    comfyui_extension_address=$(dialog --clear --title "插件安装" --inputbox "输入插件的github或其他下载地址" 20 60 3>&1 1>&2 2>&3)
+
+    if [ $? = 0 ]; then
+        git clone $comfyui_extension_address
+        if [ $? = "0" ];then
+            dialog --clear --title "插件管理" --msgbox "安装成功" 20 60
+        else
+            dialog --clear --title "插件管理" --msgbox "安装失败" 20 60
+        fi
+    fi
+}
+
+#插件处理模块
+function operate_comfyui_extension() 
+{
+    final_operate_comfyui_extension=$(
+        dialog --clear --title "操作选择" --menu "请使用方向键和回车键选择对该插件进行的操作" 20 60 10 \
+        "1" "更新" \
+        "2" "安装依赖" \
+        "3" "卸载" \
+        "4" "修复" \
+        "5" "版本切换" \
+        "6" "返回" \
+        3>&1 1>&2 2>&3)
+
+    if [ $? = 0 ];then
+        if [ "${final_operate_comfyui_extension}" == '1' ]; then
+            echo "更新"$comfyui_extension_selection"中"
+            git pull
+            if [ $? = "0" ];then
+                dialog --clear --title "插件管理" --msgbox "更新成功" 20 60
+            else
+                dialog --clear --title "插件管理" --msgbox "更新失败" 20 60
+            fi
+            cd ..
+        elif [ "${final_operate_comfyui_extension}" == '2' ]; then #comfyui并不像a1111-sd-webui自动为插件安装依赖，所以只能手动装
+            cd "$start_path"/ComfyUI
+            enter_venv
+            cd -
+            if [ -f "./install.py" ];then
+                if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
+                    python install.py
+                else
+                    python3 install.py
+                fi
+            fi
+
+            if [ -f "./requirements.txt" ];then
+                pip install -r requirements.txt
+            fi
+            exit_venv
+        elif [ "${final_operate_comfyui_extension}" == '3' ]; then
+            if (dialog --clear --title "删除选项" --yes-label "是" --no-label "否" --yesno "是否删除该插件" 20 60) then
+                echo "删除"$comfyui_extension_selection"插件中"
+                cd ..
+                rm -rfv ./$comfyui_extension_selection
+            fi
+        elif [ "${final_operate_comfyui_extension}" == '4' ]; then
+            echo "修复中"
+            git reset --hard HEAD
+            cd ..
+        elif [ "${final_operate_comfyui_extension}" == '5' ]; then
+            git_checkout_manager
+        elif [ "${final_operate_comfyui_extension}" == '6' ]; then
+            cd ..
+        fi
+    else
+        cd ..
+    fi
+}
+
+###############################################################################
+
+#这些功能在a1111-sd-webui,comfyui,lora-script中共用的
 
 #版本切换模块
 function git_checkout_manager()
