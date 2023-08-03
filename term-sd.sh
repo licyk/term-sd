@@ -1020,6 +1020,7 @@ Ctrl+C可中断指令的运行 \n
 6、建议保持启用虚拟环境，因为不同项目对软件包的版本要求不同\n
 7、若没有设置过python镜像源，推荐在\"python镜像源\"为系统设置python镜像源\n
 8、AUTOMATIC1111-stable-diffusion-webui安装好后，可以使用秋叶aaaki制作的启动器来启动sd-webui。将秋叶的启动器放入stable-diffusion-webui文件夹中，双击启动（仅限windows,因为秋叶的启动器只有window的版本）\n
+9、ComfyUI安装插件后，推荐运行一次“安装依赖”功能\n
 \n
 该脚本的编写参考了https://gitee.com/skymysky/linux \n
 脚本在理论上支持全平台(Windows平台需安装msys2,Android平台需要安装Termux)\n
@@ -1530,10 +1531,11 @@ function comfyui_custom_node_option()
     comfyui_custom_node_35=""
     comfyui_custom_node_36=""
     comfyui_custom_node_37=""
+    comfyui_custom_node_38=""
 
     final_comfyui_custom_node_option=$(
         dialog --separate-output --notags --yes-label "确认" --no-cancel --checklist "ComfyUi自定义节点选择" 20 60 10 \
-        "1" "was-node-suite-comfyui" OFF \
+        "1" "was-node-suite-comfyui" ON \
         "2" "ComfyUI_Cutoff" OFF \
         "3" "ComfyUI_TiledKSampler" OFF \
         "4" "ComfyUI_ADV_CLIP_emb" OFF \
@@ -1570,6 +1572,7 @@ function comfyui_custom_node_option()
         "35" "ComfyUI-Disco-Diffusion" OFF \
         "36" "ComfyUI-Waveform-Extensions" OFF \
         "37" "ComfyUI_Custom_Nodes_AlekPet" OFF \
+        "38" "comfy_controlnet_preprocessors" ON \
         3>&1 1>&2 2>&3)
 
         if [ -z "$final_comfyui_custom_node_option" ]; then
@@ -1687,6 +1690,9 @@ function comfyui_custom_node_option()
         ;;
         "37")
         comfyui_custom_node_37="https://github.com/AlekPet/ComfyUI_Custom_Nodes_AlekPet"
+        ;;
+        "38")
+        comfyui_custom_node_38="https://github.com/Fannovel16/comfy_controlnet_preprocessors"
         ;;
         *)
         exit 1
@@ -2050,165 +2056,215 @@ function process_install_comfyui()
 
     echo "安装插件中"
     if [ ! $comfyui_extension_1 = "" ];then
-        git clone "$github_proxy"$comfyui_extension_1 .//ComfyUI/web/extensions/ComfyUI-extensions
+        git clone "$github_proxy"$comfyui_extension_1 ./ComfyUI/web/extensions/ComfyUI-extensions
     fi
 
     if [ ! $comfyui_extension_2 = "" ];then
-        git clone "$github_proxy"$comfyui_extension_2 .//ComfyUI/web/extensions/graphNavigator
+        git clone "$github_proxy"$comfyui_extension_2 ./ComfyUI/web/extensions/graphNavigator
     fi
 
     echo "安装自定义节点中"
 
     if [ ! $comfyui_custom_node_1 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_1 .//ComfyUI/custom_nodes/was-node-suite-comfyui
+        git clone "$github_proxy"$comfyui_custom_node_1 ./ComfyUI/custom_nodes/was-node-suite-comfyui
     fi
 
     if [ ! $comfyui_custom_node_2 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_2 .//ComfyUI/custom_nodes/ComfyUI_Cutoff
+        git clone "$github_proxy"$comfyui_custom_node_2 ./ComfyUI/custom_nodes/ComfyUI_Cutoff
     fi
 
     if [ ! $comfyui_custom_node_3 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_3 .//ComfyUI/custom_nodes/ComfyUI_TiledKSampler
+        git clone "$github_proxy"$comfyui_custom_node_3 ./ComfyUI/custom_nodes/ComfyUI_TiledKSampler
     fi
 
     if [ ! $comfyui_custom_node_4 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_4 .//ComfyUI/custom_nodes/ComfyUI_ADV_CLIP_emb
+        git clone "$github_proxy"$comfyui_custom_node_4 ./ComfyUI/custom_nodes/ComfyUI_ADV_CLIP_emb
     fi
 
     if [ ! $comfyui_custom_node_5 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_5 .//ComfyUI/custom_nodes/ComfyUI_Noise
+        git clone "$github_proxy"$comfyui_custom_node_5 ./ComfyUI/custom_nodes/ComfyUI_Noise
     fi
 
     if [ ! $comfyui_custom_node_6 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_6 .//ComfyUI/custom_nodes/ComfyUI_Dave_CustomNode
+        git clone "$github_proxy"$comfyui_custom_node_6 ./ComfyUI/custom_nodes/ComfyUI_Dave_CustomNode
     fi
 
     if [ ! $comfyui_custom_node_7 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_7 .//ComfyUI/custom_nodes/ComfyUI-Impact-Pack
+        git clone "$github_proxy"$comfyui_custom_node_7 ./ComfyUI/custom_nodes/ComfyUI-Impact-Pack
     fi
 
     if [ ! $comfyui_custom_node_8 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_8 .//ComfyUI/custom_nodes/ComfyUI-Manager
+        git clone "$github_proxy"$comfyui_custom_node_8 ./ComfyUI/custom_nodes/ComfyUI-Manager
     fi
 
     if [ ! $comfyui_custom_node_9 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_9 .//ComfyUI/custom_nodes/ComfyUI-Custom-Nodes
+        git clone "$github_proxy"$comfyui_custom_node_9 ./ComfyUI/custom_nodes/ComfyUI-Custom-Nodes
     fi
 
     if [ ! $comfyui_custom_node_10 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_10 .//ComfyUI/custom_nodesComfyUI-Custom-Scripts
+        git clone "$github_proxy"$comfyui_custom_node_10 ./ComfyUI/custom_nodesComfyUI-Custom-Scripts
     fi
 
     if [ ! $comfyui_custom_node_11 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_11 .//ComfyUI/custom_nodes/NodeGPT
+        git clone "$github_proxy"$comfyui_custom_node_11 ./ComfyUI/custom_nodes/NodeGPT
     fi
 
     if [ ! $comfyui_custom_node_12 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_12 .//ComfyUI/custom_nodes/Derfuu_ComfyUI_ModdedNodes
+        git clone "$github_proxy"$comfyui_custom_node_12 ./ComfyUI/custom_nodes/Derfuu_ComfyUI_ModdedNodes
     fi
 
     if [ ! $comfyui_custom_node_13 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_13 .//ComfyUI/custom_nodes/efficiency-nodes-comfyui
+        git clone "$github_proxy"$comfyui_custom_node_13 ./ComfyUI/custom_nodes/efficiency-nodes-comfyui
     fi
 
     if [ ! $comfyui_custom_node_14 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_14 .//ComfyUI/custom_nodes/ComfyUI_node_Lilly
+        git clone "$github_proxy"$comfyui_custom_node_14 ./ComfyUI/custom_nodes/ComfyUI_node_Lilly
     fi
 
     if [ ! $comfyui_custom_node_15 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_15 .//ComfyUI/custom_nodes/ComfyUI-nodes-hnmr
+        git clone "$github_proxy"$comfyui_custom_node_15 ./ComfyUI/custom_nodes/ComfyUI-nodes-hnmr
     fi
 
     if [ ! $comfyui_custom_node_16 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_16 .//ComfyUI/custom_nodes/ComfyUI-Vextra-Nodes
+        git clone "$github_proxy"$comfyui_custom_node_16 ./ComfyUI/custom_nodes/ComfyUI-Vextra-Nodes
     fi
 
     if [ ! $comfyui_custom_node_17 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_17 .//ComfyUI/custom_nodes/ComfyUI-QualityOfLifeSuit_Omar92
+        git clone "$github_proxy"$comfyui_custom_node_17 ./ComfyUI/custom_nodes/ComfyUI-QualityOfLifeSuit_Omar92
     fi
 
     if [ ! $comfyui_custom_node_18 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_18 .//ComfyUI/custom_nodes/FN16-ComfyUI-nodes
+        git clone "$github_proxy"$comfyui_custom_node_18 ./ComfyUI/custom_nodes/FN16-ComfyUI-nodes
     fi
 
     if [ ! $comfyui_custom_node_19 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_19 .//ComfyUI/custom_nodes/masquerade-nodes-comfyui
+        git clone "$github_proxy"$comfyui_custom_node_19 ./ComfyUI/custom_nodes/masquerade-nodes-comfyui
     fi
 
     if [ ! $comfyui_custom_node_20 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_20 .//ComfyUI/custom_nodes/ComfyUI-post-processing-nodes
+        git clone "$github_proxy"$comfyui_custom_node_20 ./ComfyUI/custom_nodes/ComfyUI-post-processing-nodes
     fi
 
     if [ ! $comfyui_custom_node_21 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_21 .//ComfyUI/custom_nodes/images-grid-comfy-plugin
+        git clone "$github_proxy"$comfyui_custom_node_21 ./ComfyUI/custom_nodes/images-grid-comfy-plugin
     fi
 
     if [ ! $comfyui_custom_node_22 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_22 .//ComfyUI/custom_nodes/ComfyUI-CLIPSeg
+        git clone "$github_proxy"$comfyui_custom_node_22 ./ComfyUI/custom_nodes/ComfyUI-CLIPSeg
     fi
 
     if [ ! $comfyui_custom_node_23 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_23 .//ComfyUI/custom_nodes/rembg-comfyui-node
+        git clone "$github_proxy"$comfyui_custom_node_23 ./ComfyUI/custom_nodes/rembg-comfyui-node
     fi
 
     if [ ! $comfyui_custom_node_24 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_24 .//ComfyUI/custom_nodes/ComfyUI_tinyterraNodes
+        git clone "$github_proxy"$comfyui_custom_node_24 ./ComfyUI/custom_nodes/ComfyUI_tinyterraNodes
     fi
 
     if [ ! $comfyui_custom_node_25 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_25 .//ComfyUI/custom_nodes/yk-node-suite-comfyui
+        git clone "$github_proxy"$comfyui_custom_node_25 ./ComfyUI/custom_nodes/yk-node-suite-comfyui
     fi
 
     if [ ! $comfyui_custom_node_26 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_26 .//ComfyUI/custom_nodes/ComfyUI_experiments
+        git clone "$github_proxy"$comfyui_custom_node_26 ./ComfyUI/custom_nodes/ComfyUI_experiments
     fi
 
     if [ ! $comfyui_custom_node_27 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_27 .//ComfyUI/custom_nodes/ComfyUI_tagger
+        git clone "$github_proxy"$comfyui_custom_node_27 ./ComfyUI/custom_nodes/ComfyUI_tagger
     fi
 
     if [ ! $comfyui_custom_node_28 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_28 .//ComfyUI/custom_nodes/MergeBlockWeighted_fo_ComfyUI
+        git clone "$github_proxy"$comfyui_custom_node_28 ./ComfyUI/custom_nodes/MergeBlockWeighted_fo_ComfyUI
     fi
 
     if [ ! $comfyui_custom_node_29 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_29 .//ComfyUI/custom_nodes/ComfyUI-Saveaswebp
+        git clone "$github_proxy"$comfyui_custom_node_29 ./ComfyUI/custom_nodes/ComfyUI-Saveaswebp
     fi
 
     if [ ! $comfyui_custom_node_30 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_30 .//ComfyUI/custom_nodes/trNodes
+        git clone "$github_proxy"$comfyui_custom_node_30 ./ComfyUI/custom_nodes/trNodes
     fi
 
     if [ ! $comfyui_custom_node_31 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_31 .//ComfyUI/custom_nodes/ComfyUI_NetDist
+        git clone "$github_proxy"$comfyui_custom_node_31 ./ComfyUI/custom_nodes/ComfyUI_NetDist
     fi
 
     if [ ! $comfyui_custom_node_32 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_32 .//ComfyUI/custom_nodes/ComfyUI-Image-Selector
+        git clone "$github_proxy"$comfyui_custom_node_32 ./ComfyUI/custom_nodes/ComfyUI-Image-Selector
     fi
 
     if [ ! $comfyui_custom_node_33 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_33 .//ComfyUI/custom_nodes/ComfyUI-Strimmlarns-Aesthetic-Score
+        git clone "$github_proxy"$comfyui_custom_node_33 ./ComfyUI/custom_nodes/ComfyUI-Strimmlarns-Aesthetic-Score
     fi
 
     if [ ! $comfyui_custom_node_34 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_34 .//ComfyUI/custom_nodes/ComfyUI_UltimateSDUpscale
+        git clone "$github_proxy"$comfyui_custom_node_34 ./ComfyUI/custom_nodes/ComfyUI_UltimateSDUpscale
     fi
 
     if [ ! $comfyui_custom_node_35 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_35 .//ComfyUI/custom_nodes/ComfyUI-Disco-Diffusion
+        git clone "$github_proxy"$comfyui_custom_node_35 ./ComfyUI/custom_nodes/ComfyUI-Disco-Diffusion
     fi
 
     if [ ! $comfyui_custom_node_36 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_36 .//ComfyUI/custom_nodes/ComfyUI-Waveform-Extensions
+        git clone "$github_proxy"$comfyui_custom_node_36 ./ComfyUI/custom_nodes/ComfyUI-Waveform-Extensions
     fi
 
     if [ ! $comfyui_custom_node_37 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_37 .//ComfyUI/custom_nodes/ComfyUI_Custom_Nodes_AlekPet
+        git clone "$github_proxy"$comfyui_custom_node_37 ./ComfyUI/custom_nodes/ComfyUI_Custom_Nodes_AlekPet
     fi
 
+    if [ ! $comfyui_custom_node_38 = "" ];then
+        git clone "$github_proxy"$comfyui_custom_node_38 ./ComfyUI/custom_nodes/comfy_controlnet_preprocessors
+    fi
+
+    echo "下载模型中"
     #aria2c https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt -d ./ComfyUI/models/checkpoints/ -o sd-v1-4.ckpt
     aria2c https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./ComfyUI/models/checkpoints/ -o sd-v1-5.ckpt
+
+    if [ ! $comfyui_custom_node_38 = "" ];then
+        echo "下载controlnet模型中"
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11e_sd15_ip2p_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11e_sd15_ip2p_fp16.safetensors
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11e_sd15_shuffle_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11e_sd15_shuffle_fp16.safetensors
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_canny_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11p_sd15_canny_fp16.safetensors
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11f1p_sd15_depth_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11f1p_sd15_depth_fp16.safetensors
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_inpaint_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11p_sd15_inpaint_fp16.safetensors
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_lineart_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11p_sd15_lineart_fp16.safetensors
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_mlsd_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11p_sd15_mlsd_fp16.safetensors
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_normalbae_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11p_sd15_normalbae_fp16.safetensors
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_openpose_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11p_sd15_openpose_fp16.safetensors
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_scribble_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11p_sd15_scribble_fp16.safetensors
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_seg_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11p_sd15_seg_fp16.safetensors
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_softedge_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11p_sd15_softedge_fp16.safetensors
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15s2_lineart_anime_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11p_sd15s2_lineart_anime_fp16.safetensors
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11f1e_sd15_tile_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11f1e_sd15_tile_fp16.safetensors
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11e_sd15_ip2p_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11e_sd15_ip2p_fp16.yaml
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11e_sd15_shuffle_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11e_sd15_shuffle_fp16.yaml
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11p_sd15_canny_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11p_sd15_canny_fp16.yaml
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11f1p_sd15_depth_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11f1p_sd15_depth_fp16.yaml
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11p_sd15_inpaint_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11p_sd15_inpaint_fp16.yaml
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11p_sd15_lineart_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11p_sd15_lineart_fp16.yaml
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11p_sd15_mlsd_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11p_sd15_mlsd_fp16.yaml
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11p_sd15_normalbae_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11p_sd15_normalbae_fp16.yaml
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11p_sd15_openpose_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11p_sd15_openpose_fp16.yaml
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11p_sd15_scribble_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11p_sd15_scribble_fp16.yaml
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11p_sd15_seg_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11p_sd15_seg_fp16.yaml
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11p_sd15_softedge_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11p_sd15_softedge_fp16.yaml
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11p_sd15s2_lineart_anime_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11p_sd15s2_lineart_anime_fp16.yaml
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11f1e_sd15_tile_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11f1e_sd15_tile_fp16.yaml
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_style_sd14v1.pth -d ./ComfyUI/models/controlnet -o t2iadapter_style_sd14v1.pth
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_sketch_sd14v1.pth -d ./ComfyUI/models/controlnet -o t2iadapter_sketch_sd14v1.pth
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_seg_sd14v1.pth -d ./ComfyUI/models/controlnet -o t2iadapter_seg_sd14v1.pth
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_openpose_sd14v1.pth -d ./ComfyUI/models/controlnet -o t2iadapter_openpose_sd14v1.pth
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_keypose_sd14v1.pth -d ./ComfyUI/models/controlnet -o t2iadapter_keypose_sd14v1.pth
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_depth_sd14v1.pth -d ./ComfyUI/models/controlnet -o t2iadapter_depth_sd14v1.pth
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_color_sd14v1.pth -d ./ComfyUI/models/controlnet -o t2iadapter_color_sd14v1.pth
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_canny_sd14v1.pth -d ./ComfyUI/models/controlnet -o t2iadapter_canny_sd14v1.pth
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_canny_sd15v2.pth -d ./ComfyUI/models/controlnet -o t2iadapter_canny_sd15v2.pth
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_depth_sd15v2.pth -d ./ComfyUI/models/controlnet -o t2iadapter_depth_sd15v2.pth
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_sketch_sd15v2.pth -d ./ComfyUI/models/controlnet -o t2iadapter_sketch_sd15v2.pth
+        aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_zoedepth_sd15v1.pth -d ./ComfyUI/models/controlnet -o t2iadapter_zoedepth_sd15v1.pth
+    fi
+
     exit_venv
 }
 
