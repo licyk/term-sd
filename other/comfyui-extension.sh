@@ -40,6 +40,7 @@ function proxy_option()
         esac
         done
     fi
+    process_install_comfyui
 }
 
 #comfyui插件选择
@@ -290,7 +291,6 @@ function comfyui_custom_node_option()
 function process_install_comfyui()
 {
     #安装前的准备
-    proxy_option #代理选择
     comfyui_extension_option #comfyui插件选择
     comfyui_custom_node_option #comfyui自定义节点选择
 
@@ -501,10 +501,11 @@ function process_install_comfyui()
         aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_sketch_sd15v2.pth -d ./ComfyUI/models/controlnet -o t2iadapter_sketch_sd15v2.pth
         aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_zoedepth_sd15v1.pth -d ./ComfyUI/models/controlnet -o t2iadapter_zoedepth_sd15v1.pth
     fi
+    process_install_comfyui
 }
 
 if [ -d "./ComfyUI" ];then
-    process_install_comfyui
+    proxy_option
 else
     echo "未找到ComfyUI文件夹"
 fi
