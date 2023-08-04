@@ -120,7 +120,7 @@ function comfyui_custom_node_option()
 
     final_comfyui_custom_node_option=$(
         dialog --separate-output --notags --yes-label "确认" --no-cancel --checklist "ComfyUi自定义节点选择" 20 60 10 \
-        "1" "was-node-suite-comfyui" ON \
+        "1" "was-node-suite-comfyui" OFF \
         "2" "ComfyUI_Cutoff" OFF \
         "3" "ComfyUI_TiledKSampler" OFF \
         "4" "ComfyUI_ADV_CLIP_emb" OFF \
@@ -157,7 +157,7 @@ function comfyui_custom_node_option()
         "35" "ComfyUI-Disco-Diffusion" OFF \
         "36" "ComfyUI-Waveform-Extensions" OFF \
         "37" "ComfyUI_Custom_Nodes_AlekPet" OFF \
-        "38" "comfy_controlnet_preprocessors" ON \
+        "38" "comfy_controlnet_preprocessors" OFF \
         3>&1 1>&2 2>&3)
 
         if [ -z "$final_comfyui_custom_node_option" ]; then
