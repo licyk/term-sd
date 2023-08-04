@@ -506,7 +506,7 @@ function process_install_comfyui()
     fi
 }
 
-if [ -f "./ComfyUI" ];then
+if [ -d "./ComfyUI" ];then
     process_install_comfyui
 else
     echo "未找到ComfyUI文件夹"
