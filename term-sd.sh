@@ -102,6 +102,8 @@ function a1111_sd_webui_option()
                     exit_venv
                     cd ..
                     rm -rfv ./stable-diffusion-webui
+                else
+                    a1111_sd_webui_option
                 fi
             elif [ "${final_a1111_sd_webui_option}" == '3' ]; then
                 echo "修复中"
@@ -191,10 +193,12 @@ function comfyui_option()
                 comfyui_option
             elif [ "${final_comfyui_option}" == '2' ]; then
                 if (dialog --clear --title "删除选项" --yes-label "是" --no-label "否" --yesno "是否删除ComfyUI" 20 60) then
-                echo "删除ComfyUI中"
-                exit_venv
-                cd ..
-                rm -rfv ./ComfyUI
+                    echo "删除ComfyUI中"
+                    exit_venv
+                    cd ..
+                    rm -rfv ./ComfyUI
+                else
+                    comfyui_option
                 fi
             elif [ "${final_comfyui_option}" == '3' ]; then
                 echo "修复中"
@@ -286,6 +290,8 @@ function invokeai_option()
                         exit_venv
                         cd ..
                         rm -rfv ./InvokeAI
+                    else
+                        invokeai_option
                     fi
                 elif [ "${final_invokeai_option}" == '3' ]; then
                     generate_invokeai_launch
@@ -356,6 +362,8 @@ function lora_scripts_option()
                     exit_venv
                     cd ..
                     rm -rfv ./lora-scripts
+                else
+                    lora_scripts_option
                 fi
             elif [ "${final_lora_scripts_option}" == '3' ]; then
                 echo "修复中"
@@ -2332,6 +2340,8 @@ function operate_extension()
                 echo "删除"$extension_selection"插件中"
                 cd ..
                 rm -rfv ./$extension_selection
+            else
+                cd ..
             fi
         elif [ "${final_operate_extension}" == '3' ]; then
             echo "修复中"
@@ -2473,6 +2483,8 @@ function operate_comfyui_custom_node()
                 echo "删除"$comfyui_custom_node_selection"自定义节点中"
                 cd ..
                 rm -rfv ./$comfyui_custom_node_selection
+            else
+                cd ..
             fi
         elif [ "${final_operate_comfyui_custom_node}" == '4' ]; then
             echo "修复中"
@@ -2612,6 +2624,8 @@ function operate_comfyui_extension()
                 echo "删除"$comfyui_extension_selection"插件中"
                 cd ..
                 rm -rfv ./$comfyui_extension_selection
+            else
+                cd ..
             fi
         elif [ "${final_operate_comfyui_extension}" == '4' ]; then
             echo "修复中"
