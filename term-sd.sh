@@ -83,11 +83,10 @@ function a1111_sd_webui_option()
             "7" "重新安装" \
             "8" "重新安装pytorch" \
             "9" "重新生成venv虚拟环境" \
-            "0" "返回" \
+            "10" "返回" \
             3>&1 1>&2 2>&3)
 
         if [ $? = 0 ];then
-
             if [ "${final_a1111_sd_webui_option}" == '1' ]; then
                 echo "更新A1111-Stable-Diffusion-Webui中"
                 git pull
@@ -97,36 +96,26 @@ function a1111_sd_webui_option()
                     dialog --clear --title "A1111-SD-Webui管理" --msgbox "更新失败" 20 60
                 fi
                 a1111_sd_webui_option
-            fi
-
-            if [ "${final_a1111_sd_webui_option}" == '2' ]; then
+            elif [ "${final_a1111_sd_webui_option}" == '2' ]; then
                 if (dialog --clear --title "删除选项" --yesno "是否删除A1111-Stable-Diffusion-Webui" 20 60) then
                     echo "删除A1111-Stable-Diffusion-Webui中"
                     exit_venv
                     cd ..
                     rm -rfv ./stable-diffusion-webui
                 fi
-            fi
-
-            if [ "${final_a1111_sd_webui_option}" == '3' ]; then
+            elif [ "${final_a1111_sd_webui_option}" == '3' ]; then
                 echo "修复中"
                 git checkout master
                 git reset --hard HEAD
                 a1111_sd_webui_option
-            fi
-
-            if [ "${final_a1111_sd_webui_option}" == '4' ]; then
+            elif [ "${final_a1111_sd_webui_option}" == '4' ]; then
                 cd extensions
                 extension_methon
                 a1111_sd_webui_option
-            fi
-
-            if [ "${final_a1111_sd_webui_option}" == '5' ]; then
+            elif [ "${final_a1111_sd_webui_option}" == '5' ]; then
                 git_checkout_manager
                 a1111_sd_webui_option
-            fi
-
-            if [ "${final_a1111_sd_webui_option}" == '6' ]; then
+            elif [ "${final_a1111_sd_webui_option}" == '6' ]; then
                 if [ -f "./term-sd-launch.conf" ]; then #找到启动脚本
                     if (dialog --clear --title "stable-diffusion-webui管理" --yes-label "启动" --no-label "修改参数" --yesno "选择直接启动/修改启动参数" 20 60) then
                         term_sd_launch
@@ -141,33 +130,23 @@ function a1111_sd_webui_option()
                 term_sd_launch
                 a1111_sd_webui_option
                 fi
-            fi
-
-            if [ "${final_a1111_sd_webui_option}" == '7' ]; then
+            elif [ "${final_a1111_sd_webui_option}" == '7' ]; then
                 if (dialog --clear --title "A1111-SD-Webui管理" --yesno "是否重新安装A1111-Stable-Diffusion-Webui" 20 60) then
                 cd "$start_path"
                 exit_venv
                 process_install_a1111_sd_webui
                 a1111_sd_webui_option
                 fi
-            fi
-
-            if [ "${final_a1111_sd_webui_option}" == '8' ]; then
+            elif [ "${final_a1111_sd_webui_option}" == '8' ]; then
                 pytorch_reinstall
                 a1111_sd_webui_option
-            fi
-
-            if [ "${final_a1111_sd_webui_option}" == '9' ]; then
+            elif [ "${final_a1111_sd_webui_option}" == '9' ]; then
                 venv_generate
                 a1111_sd_webui_option
-            fi
-
-            if [ "${final_a1111_sd_webui_option}" == '0' ]; then
+            elif [ "${final_a1111_sd_webui_option}" == '10' ]; then
                 mainmenu #回到主界面
             fi
-
         fi
-
     else #找不到stable-diffusion-webui目录
         if (dialog --clear --title "A1111-SD-Webui管理" --yesno "检测到当前未安装A1111-Stable-Diffusion-Webui,是否进行安装" 20 60) then
             process_install_a1111_sd_webui
@@ -197,11 +176,10 @@ function comfyui_option()
             "8" "重新安装" \
             "9" "重新安装pytorch" \
             "10" "重新生成venv虚拟环境" \
-            "0" "返回" \
+            "11" "返回" \
             3>&1 1>&2 2>&3)
 
         if [ $? = 0 ];then
-
             if [ "${final_comfyui_option}" == '1' ]; then
                 echo "更新ComfyUI中"
                 git pull
@@ -211,41 +189,29 @@ function comfyui_option()
                     dialog --clear --title "A1111-SD-Webui管理" --msgbox "更新失败" 20 60
                 fi
                 comfyui_option
-            fi
-
-            if [ "${final_comfyui_option}" == '2' ]; then
+            elif [ "${final_comfyui_option}" == '2' ]; then
                 if (dialog --clear --title "删除选项" --yes-label "是" --no-label "否" --yesno "是否删除ComfyUI" 20 60) then
                 echo "删除ComfyUI中"
                 exit_venv
                 cd ..
                 rm -rfv ./ComfyUI
                 fi
-            fi
-
-            if [ "${final_comfyui_option}" == '3' ]; then
+            elif [ "${final_comfyui_option}" == '3' ]; then
                 echo "修复中"
                 git reset --hard HEAD
                 comfyui_option
-            fi
-
-            if [ "${final_comfyui_option}" == '4' ]; then
+            elif [ "${final_comfyui_option}" == '4' ]; then
                 cd custom_nodes
                 comfyui_custom_node_methon
                 comfyui_option
-            fi
-
-            if [ "${final_comfyui_option}" == '5' ]; then
+            elif [ "${final_comfyui_option}" == '5' ]; then
                 cd web/extensions
                 comfyui_extension_methon
                 comfyui_option
-            fi
-
-            if [ "${final_comfyui_option}" == '6' ]; then
+            elif [ "${final_comfyui_option}" == '6' ]; then
                 git_checkout_manager
                 comfyui_option
-            fi
-
-            if [ "${final_comfyui_option}" == '7' ]; then
+            elif [ "${final_comfyui_option}" == '7' ]; then
                 if [ -f "./term-sd-launch.conf" ]; then #找到启动脚本
                     if (dialog --clear --title "ComfyUI启动选择" --yes-label "启动" --no-label "修改参数" --yesno "选择直接启动/修改启动参数" 20 60) then
                         term_sd_launch
@@ -260,33 +226,23 @@ function comfyui_option()
                     term_sd_launch
                     comfyui_option
                 fi    
-            fi
-
-            if [ "${final_comfyui_option}" == '8' ]; then
+            elif [ "${final_comfyui_option}" == '8' ]; then
                 if (dialog --clear --title "ComfyUI管理" --yesno "是否重新安装ComfyUI" 20 60) then
                     cd "$start_path"
                     exit_venv
                     process_install_comfyui
                     comfyui_option
                 fi
-            fi
-
-            if [ "${final_comfyui_option}" == '9' ]; then
+            elif [ "${final_comfyui_option}" == '9' ]; then
                 pytorch_reinstall
                 comfyui_option
-            fi
-
-            if [ "${final_comfyui_option}" == '10' ]; then
+            elif [ "${final_comfyui_option}" == '10' ]; then
                 venv_generate
                 comfyui_option
-            fi
-
-            if [ "${final_comfyui_option}" == '0' ]; then
+            elif [ "${final_comfyui_option}" == '11' ]; then
                 mainmenu #回到主界面
             fi
-
         fi
-
     else
         if (dialog --clear --title "ComfyUI管理" --yesno "检测到当前未安装ComfyUI,是否进行安装" 20 60) then
             process_install_comfyui
@@ -313,11 +269,10 @@ function invokeai_option()
                 "3" "启动" \
                 "4" "重新安装" \
                 "5" "重新安装pytorch" \
-                "0" "返回" \
+                "6" "返回" \
                 3>&1 1>&2 2>&3)
 
             if [ $? = 0 ];then
-
                 if [ "${final_invokeai_option}" == '1' ]; then
                     proxy_option #代理选择
                     pip_install_methon #安装方式选择
@@ -325,42 +280,30 @@ function invokeai_option()
                     echo "更新InvokeAI中"
                     pip install $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --upgrade invokeai --default-timeout=100 --retries 5
                     invokeai_option
-                fi
-
-                if [ "${final_invokeai_option}" == '2' ]; then
+                elif [ "${final_invokeai_option}" == '2' ]; then
                     if (dialog --clear --title "删除选项" --yes-label "是" --no-label "否" --yesno "是否删除InvokeAI" 20 60) then
                         echo "删除InvokeAI中"
                         exit_venv
                         cd ..
                         rm -rfv ./InvokeAI
                     fi
-                fi
-
-                if [ "${final_invokeai_option}" == '3' ]; then
+                elif [ "${final_invokeai_option}" == '3' ]; then
                     generate_invokeai_launch
                     invokeai_option
-                fi
-
-                if [ "${final_invokeai_option}" == '4' ]; then
+                elif [ "${final_invokeai_option}" == '4' ]; then
                     if (dialog --clear --title "InvokeAI管理" --yesno "是否重新安装InvokeAI" 20 60) then
                         cd "$start_path"
                         exit_venv
                         process_install_invokeai
                         invokeai_option
                     fi
-                fi
-
-                if [ "${final_invokeai_option}" == '5' ]; then
+                elif [ "${final_invokeai_option}" == '5' ]; then
                     pytorch_reinstall
                     invokeai_option
-                fi
-
-                if [ "${final_invokeai_option}" == '0' ]; then
+                elif [ "${final_invokeai_option}" == '6' ]; then
                     mainmenu #回到主界面
                 fi
-
             fi
-
         else 
             if (dialog --clear --title "InvokeAI管理" --yesno "检测到当前未安装InvokeAI,是否进行安装" 20 60) then
                 cd "$start_path"
@@ -394,11 +337,10 @@ function lora_scripts_option()
             "6" "重新安装" \
             "7" "重新安装pytorch" \
             "8" "重新生成venv虚拟环境" \
-            "0" "返回" \
+            "9" "返回" \
             3>&1 1>&2 2>&3)
 
         if [ $? = 0 ];then
-
             if [ "${final_lora_scripts_option}" == '1' ]; then
                 echo "更新lora-scripts中"
                 git pull
@@ -408,29 +350,21 @@ function lora_scripts_option()
                     dialog --clear --title "A1111-SD-Webui管理" --msgbox "更新失败" 20 60
                 fi
                 lora_scripts_option
-            fi
-
-            if [ "${final_lora_scripts_option}" == '2' ]; then
+            elif [ "${final_lora_scripts_option}" == '2' ]; then
                 if (dialog --clear --title "删除选项" --yes-label "是" --no-label "否" --yesno "是否删除lora-scripts" 20 60) then
                     echo "删除lora-scripts中"
                     exit_venv
                     cd ..
                     rm -rfv ./lora-scripts
                 fi
-            fi
-
-            if [ "${final_lora_scripts_option}" == '3' ]; then
+            elif [ "${final_lora_scripts_option}" == '3' ]; then
                 echo "修复中"
                 git reset --hard HEAD
                 lora_scripts_option
-            fi
-
-            if [ "${final_lora_scripts_option}" == '4' ]; then
+            elif [ "${final_lora_scripts_option}" == '4' ]; then
                 git_checkout_manager
                 lora_scripts_option
-            fi
-
-            if [ "${final_lora_scripts_option}" == '5' ]; then
+            elif [ "${final_lora_scripts_option}" == '5' ]; then
                 enter_venv
                 export HF_HOME=huggingface
                 export PYTHONUTF8=1
@@ -440,33 +374,23 @@ function lora_scripts_option()
                     python3 ./gui.py
                 fi
                 lora_scripts_option
-            fi
-
-            if [ "${final_lora_scripts_option}" == '6' ]; then
+            elif [ "${final_lora_scripts_option}" == '6' ]; then
                 if (dialog --clear --title "lora-scripts管理" --yesno "是否重新安装lora_scripts" 20 60) then
                     cd "$start_path"
                     exit_venv
                     process_install_lora_scripts
                     lora_scripts_option
                 fi
-            fi
-
-            if [ "${final_lora_scripts_option}" == '7' ]; then
+            elif [ "${final_lora_scripts_option}" == '7' ]; then
                 pytorch_reinstall
                 lora_scripts_option
-            fi
-
-            if [ "${final_lora_scripts_option}" == '8' ]; then
+            elif [ "${final_lora_scripts_option}" == '8' ]; then
                 venv_generate
                 lora_scripts_option
-            fi
-
-            if [ "${final_lora_scripts_option}" == '0' ]; then
+            elif [ "${final_lora_scripts_option}" == '9' ]; then
                 mainmenu #回到主界面
             fi
-        
         fi
-
     else
         if (dialog --clear --title "lora-scripts管理" --yesno "检测到当前未安装lora_scripts,是否进行安装" 20 60) then
             process_install_lora_scripts
@@ -544,10 +468,7 @@ function generate_a1111_sd_webui_launch()
 
     #根据菜单得到的数据设置变量
     if [ $? = 0 ];then
-
-        if [ -z "$final_generate_a1111_sd_webui_launch_" ]; then
-            echo "不选择启动参数"
-        else
+        if [ ! -z "$final_generate_a1111_sd_webui_launch_" ]; then
             for final_generate_a1111_sd_webui_launch in $final_generate_a1111_sd_webui_launch_; do
             case "$final_generate_a1111_sd_webui_launch" in
             "1")
@@ -681,10 +602,7 @@ function generate_comfyui_launch()
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
-
-        if [ -z "$final_generate_comfyui_launch_" ]; then
-            echo "不选择启动参数"
-        else
+        if [ ! -z "$final_generate_comfyui_launch_" ]; then
             for final_generate_comfyui_launch in $final_generate_comfyui_launch_; do
             case "$final_generate_comfyui_launch" in
             "1")
@@ -747,7 +665,6 @@ function generate_comfyui_launch()
 #invokeai启动脚本生成部分
 function generate_invokeai_launch()
 {
-
     invokeai_launch_option=$(
         dialog --clear --title "InvokeAI启动选项" --menu "请使用方向键和回车键选择启动参数" 20 60 10 \
         "1" "invokeai-configure" \
@@ -756,10 +673,9 @@ function generate_invokeai_launch()
         "4" "invokeai-ti --gui" \
         "5" "invokeai-merge --gui" \
         "6" "自定义启动参数" \
-        "0" "返回" \
+        "7" "返回" \
         3>&1 1>&2 2>&3 )
     if [ $? = 0 ];then
-    
         if [ "${invokeai_launch_option}" == '1' ]; then 
             invokeai-configure
         elif [ "${invokeai_launch_option}" == '2' ]; then 
@@ -801,9 +717,7 @@ function generate_invokeai_launch()
 
             if [ $? = 0 ];then
 
-                if [ -z "$final_invokeai_launch_option_" ]; then
-                    echo "不选择启动参数"
-                else
+                if [ ! -z "$final_invokeai_launch_option_" ]; then
                     for final_invokeai_launch_option in $final_invokeai_launch_option_; do
                     case "$final_invokeai_launch_option" in
                     "1")
@@ -848,8 +762,7 @@ function generate_invokeai_launch()
                 echo "设置启动参数 $cust_invokeai_launch_option_1 $cust_invokeai_launch_option_2 $cust_invokeai_launch_option_3 $cust_invokeai_launch_option_4 $cust_invokeai_launch_option_5 $cust_invokeai_launch_option_6 $cust_invokeai_launch_option_7 $cust_invokeai_launch_option_8 $cust_invokeai_launch_option_9 $cust_invokeai_launch_option_10 $cust_invokeai_launch_option_11"
                 invokeai $cust_invokeai_launch_option_1 $cust_invokeai_launch_option_2 $cust_invokeai_launch_option_3 $cust_invokeai_launch_option_4 $cust_invokeai_launch_option_5 $cust_invokeai_launch_option_6 $cust_invokeai_launch_option_7 $cust_invokeai_launch_option_8 $cust_invokeai_launch_option_9 $cust_invokeai_launch_option_10 $cust_invokeai_launch_option_11
             fi
-
-        elif [ "${invokeai_launch_option}" == '0' ]; then 
+        elif [ "${invokeai_launch_option}" == '7' ]; then 
             mainmenu
         fi
     fi
@@ -928,7 +841,6 @@ function term_sd_extension()
             3>&1 1>&2 2>&3)
         
     if [ $? = 0 ];then
-
         for term_sd_extension_select in $term_sd_extension_select_;do
         case "$term_sd_extension_select" in
         "1")
@@ -1117,9 +1029,7 @@ function proxy_option()
         "2" "启用github代理" ON \
         "3" "强制使用pip" OFF 3>&1 1>&2 2>&3)
 
-    if [ -z "$final_proxy_options" ]; then
-        echo
-    else
+    if [ ! -z "$final_proxy_options" ]; then
         for final_proxy_option in $final_proxy_options; do
         case "$final_proxy_option" in
         "1")
@@ -1195,7 +1105,7 @@ function pip_install_methon()
     if [ $final_pip_install_methon = "1" ];then
         pip_install_methon_select=""
         final_install_check_pip_methon="常规安装(setup.py)"
-    else
+    elif [ $final_pip_install_methon = "2" ];then
         pip_install_methon_select="--use-pep517"
         final_install_check_pip_methon="标准构建安装(--use-pep517)"
     fi
@@ -1304,9 +1214,7 @@ function a1111_sd_webui_extension_option()
         "47" "sd-webui-memory-release" ON \
         3>&1 1>&2 2>&3)
 
-    if [ -z "$final_extension_options" ]; then
-        echo
-    else
+    if [ ! -z "$final_extension_options" ]; then
         for final_extension_option in $final_extension_options; do
         case "$final_extension_option" in
         "1")
@@ -1471,9 +1379,7 @@ function comfyui_extension_option()
         "2" "graphNavigator" OFF \
         3>&1 1>&2 2>&3)
 
-    if [ -z "$final_comfyui_extension_option" ]; then
-        echo
-    else
+    if [ ! -z "$final_comfyui_extension_option" ]; then
         for final_comfyui_extension_option_ in $final_comfyui_extension_option; do
         case "$final_comfyui_extension_option_" in
         "1")
@@ -1575,9 +1481,7 @@ function comfyui_custom_node_option()
         "38" "comfy_controlnet_preprocessors" ON \
         3>&1 1>&2 2>&3)
 
-        if [ -z "$final_comfyui_custom_node_option" ]; then
-        echo
-    else
+    if [ ! -z "$final_comfyui_custom_node_option" ]; then
         for final_comfyui_custom_node_option_ in $final_comfyui_custom_node_option; do
         case "$final_comfyui_custom_node_option_" in
         "1")
@@ -1705,14 +1609,14 @@ function comfyui_custom_node_option()
 #安装前确认界面
 function final_install_check()
 {
-    if ( dialog --clear --title "安装确认" --yes-label "是" --no-label "否" --yesno "是否进行安装? \n
+    if (dialog --clear --title "安装确认" --yes-label "是" --no-label "否" --yesno "是否进行安装? \n
 python镜像源:$final_install_check_python \n
 github代理:$final_install_check_github\n
 强制使用pip:$final_install_check_force_pip\n
 pytorch:$ins_pytorch\n
 pip安装方式:$final_install_check_pip_methon\n
 " 20 60);then
-        echo
+        echo "安装参数设置完成"
     else
         mainmenu
     fi
@@ -1967,7 +1871,7 @@ function process_install_a1111_sd_webui()
     rm -rf ./stable-diffusion-webui/models/Lora/positive/.git
     rm -rf ./stable-diffusion-webui/models/Lora/positive/.gitattributes
 
-    if [ "$extension_34" = "https://github.com/Mikubill/sd-webui-controlnet" ]; then #安装controlnet时再下载相关模型
+    if [ ! $extension_34 = "" ];then #安装controlnet时再下载相关模型
         aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11e_sd15_ip2p_fp16.safetensors -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11e_sd15_ip2p_fp16.safetensors
         aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11e_sd15_shuffle_fp16.safetensors -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11e_sd15_shuffle_fp16.safetensors
         aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_canny_fp16.safetensors -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11p_sd15_canny_fp16.safetensors
@@ -2010,7 +1914,7 @@ function process_install_a1111_sd_webui()
         aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_zoedepth_sd15v1.pth -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o t2iadapter_zoedepth_sd15v1.pth
     fi
 
-    if [ "$extension_42" = "https://github.com/Bing-su/adetailer" ];then #安装adetailer插件相关模型
+    if [ ! $extension_42 = "" ];then #安装adetailer插件相关模型
         aria2c https://huggingface.co/Bingsu/adetailer/resolve/main/deepfashion2_yolov8s-seg.pt -d ./stable-diffusion-webui/models/adetailer -o deepfashion2_yolov8s-seg.pt
         aria2c https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8m.pt -d ./stable-diffusion-webui/models/adetailer -o face_yolov8m.pt
         aria2c https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8n.pt -d ./stable-diffusion-webui/models/adetailer -o face_yolov8n.pt
@@ -2023,7 +1927,7 @@ function process_install_a1111_sd_webui()
         aria2c https://huggingface.co/Bingsu/adetailer/resolve/main/person_yolov8s-seg.pt -d ./stable-diffusion-webui/models/adetailer -o person_yolov8s-seg.pt
     fi
 
-    if [ "$extension_44" = "https://github.com/ClockZinc/sd-webui-IS-NET-pro" ];then #安装sd-webui-IS-NET-pro插件相关模型
+    if [ ! $extension_44 = "" ];then #安装sd-webui-IS-NET-pro插件相关模型
         aria2c https://huggingface.co/ClockZinc/IS-NET_pth/resolve/main/isnet-general-use.pth -d ./stable-diffusion-webui/extensions/sd-webui-IS-NET-pro/saved_models/IS-Net -o isnet-general-use.pth
     fi
 
@@ -2285,7 +2189,6 @@ function process_install_invokeai()
     enter_venv
     pip install invokeai $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
     exit_venv
-
 }
 
 #lora-scipts安装处理部分
@@ -2368,7 +2271,7 @@ function extension_methon()
 #插件管理界面
 function extension_manager()
 {
-    dir_list=$(ls -l  | awk -F ' ' ' { print $9 " " $6 $7 } ') #当前目录文件和文件夹信息
+    dir_list=$(ls -l --time-style=+"%Y-%m-%d"  | awk -F ' ' ' { print $7 " " $6 } ') #当前目录文件和文件夹信息
 
     extension_selection=$(
         dialog --clear --title "插件管理" \
@@ -2483,7 +2386,7 @@ function comfyui_custom_node_methon()
 #自定义节点管理界面
 function comfyui_custom_node_manager()
 {
-    dir_list=$(ls -l  | awk -F ' ' ' { print $9 " " $6 $7 } ') #当前目录文件和文件夹信息
+    dir_list=$(ls -l --time-style=+"%Y-%m-%d" | awk -F ' ' ' { print $7 " " $6 } ') #当前目录文件和文件夹信息
 
     comfyui_custom_node_selection=$(
         dialog --clear --title "自定义节点管理" \
@@ -2621,7 +2524,7 @@ function comfyui_extension_methon()
 #插件管理界面
 function comfyui_extension_manager()
 {
-    dir_list=$(ls -l  | awk -F ' ' ' { print $9 " " $6 $7 } ') #当前目录文件和文件夹信息
+    dir_list=$(ls -l --time-style=+"%Y-%m-%d" | awk -F ' ' ' { print $7 " " $6 } ') #当前目录文件和文件夹信息
 
     comfyui_extension_selection=$(
         dialog --clear --title "插件管理" \
@@ -2791,7 +2694,7 @@ function extension_all_update()
 
 #启动程序部分
 
-term_sd_version_="0.2.9"
+term_sd_version_="0.3.0"
 
 if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
     test_python="python"

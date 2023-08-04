@@ -1,5 +1,47 @@
 #/bin/bash
 
+#安装前代理选择
+function proxy_option()
+{
+    python_proxy="-i https://pypi.python.org/simple"
+    extra_python_proxy="-f https://download.pytorch.org/whl"
+    github_proxy=""
+    force_pip=""
+    final_install_check_python="禁用"
+    final_install_check_github="禁用"
+    final_install_check_force_pip="禁用"
+
+    final_proxy_options=$(
+        dialog --clear --separate-output --notags --title "代理选择" --yes-label "确认" --no-cancel --checklist "请选择代理，强制使用pip一般情况下不选" 20 60 10 \
+        "1" "启用python镜像源" ON \
+        "2" "启用github代理" ON \
+        "3" "强制使用pip" OFF 3>&1 1>&2 2>&3)
+
+    if [ ! -z "$final_proxy_options" ]; then
+        for final_proxy_option in $final_proxy_options; do
+        case "$final_proxy_option" in
+        "1")
+        #python_proxy="-i https://mirror.sjtu.edu.cn/pypi/web/simple" #上海交大的镜像源有点问题，在安装invokeai时会报错，可能是软件包版本的问题
+        python_proxy="-i https://mirrors.bfsu.edu.cn/pypi/web/simple"
+        extra_python_proxy="-f https://mirror.sjtu.edu.cn/pytorch-wheels"
+        final_install_check_python="启用"
+        ;;
+        "2")
+        github_proxy="https://ghproxy.com/"
+        final_install_check_github="启用"
+        ;;
+        "3")
+        force_pip="--break-system-packages"
+        final_install_check_force_pip="启用"
+        ;;
+        *)
+        exit 1
+        ;;
+        esac
+        done
+    fi
+}
+
 #comfyui插件选择
 function comfyui_extension_option()
 {
@@ -249,23 +291,8 @@ function process_install_comfyui()
 {
     #安装前的准备
     proxy_option #代理选择
-    python_dep_install #pytorch选择
     comfyui_extension_option #comfyui插件选择
     comfyui_custom_node_option #comfyui自定义节点选择
-    pip_install_methon #安装方式选择
-    final_install_check #安装前确认
-
-    #开始安装comfyui
-    echo "开始安装comfyui"
-    git clone "$github_proxy"https://github.com/comfyanonymous/ComfyUI.git
-    cd ./ComfyUI
-    venv_generate
-    enter_venv
-    cd ..
-    pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
-    cd ./ComfyUI
-    pip install -r requirements.txt  --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
-    cd ..
 
     echo "安装插件中"
     if [ ! $comfyui_extension_1 = "" ];then
@@ -478,3 +505,9 @@ function process_install_comfyui()
         aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_zoedepth_sd15v1.pth -d ./ComfyUI/models/controlnet -o t2iadapter_zoedepth_sd15v1.pth
     fi
 }
+
+if [ -f "./ComfyUI" ];then
+    process_install_comfyui
+else
+    echo "未找到ComfyUI文件夹"
+fi
