@@ -33,9 +33,10 @@ function mainmenu()
         "4" "lora-scripts" \
         "5" "更新脚本" \
         "6" "扩展脚本" \
-        "7" "python镜像源" \
-        "8" "关于" \
-        "9" "退出" \
+        "7" "pip镜像源" \
+        "8" "pip缓存清理" \
+        "9" "关于" \
+        "10" "退出" \
         3>&1 1>&2 2>&3 )
 
     if [ $? = 0  ];then #选择确认
@@ -53,11 +54,13 @@ function mainmenu()
             update_option
         elif [ "${mainmenu_select}" == '6' ]; then #选择扩展脚本
             term_sd_extension
-        elif [ "${mainmenu_select}" == '7' ]; then #选择python镜像源
+        elif [ "${mainmenu_select}" == '7' ]; then #选择pip镜像源
             set_proxy_option
-        elif [ "${mainmenu_select}" == '8' ]; then #选择关于
+        elif [ "${mainmenu_select}" == '8' ]; then #选择pip缓存清理
+            pip_cache_clean
+        elif [ "${mainmenu_select}" == '9' ]; then #选择关于
             info_option
-        elif [ "${mainmenu_select}" == '9' ]; then #选择退出
+        elif [ "${mainmenu_select}" == '10' ]; then #选择退出
             exit
         fi
     else #选择取消
@@ -904,16 +907,26 @@ function term_sd_extension()
     fi
 }
 
-#python镜像源选项
+#pip镜像源选项
 function set_proxy_option()
 {
-    if (dialog --clear --title "python镜像源选项" --yes-label "是" --no-label "否" --yesno "是否启用python镜像源" 20 60) then
+    if (dialog --clear --title "pip镜像源选项" --yes-label "是" --no-label "否" --yesno "是否启用pip镜像源" 20 60) then
         #pip config set global.index-url "https://mirror.sjtu.edu.cn/pypi/web/simple"
         pip config set global.index-url "https://mirrors.bfsu.edu.cn/pypi/web/simple"
         pip config set global.extra-index-url "https://mirror.sjtu.edu.cn/pytorch-wheels"
     else
         pip config unset global.index-url
         pip config unset global.extra-index-url
+    fi
+    mainmenu
+}
+
+#pip缓存清理功能
+function pip_cache_clean()
+{
+    echo "统计pip缓存信息中"
+    if (dialog --clear --title "pip缓存清理" --yes-label "是" --no-label "否" --yesno "pip缓存信息:\npip缓存路径:$(pip cache dir)\n包索引页面缓存大小:$(pip cache info |awk NR==2 | awk -F ':'  '{print $2 $3 $4}')\n本地构建的wheel包大小:$(pip cache info |awk NR==5 | awk -F ':'  '{print $2 $3 $4}')\n是否删除pip缓存?" 20 60);then
+        pip cache purge
     fi
     mainmenu
 }
@@ -1033,7 +1046,7 @@ function proxy_option()
 
     final_proxy_options=$(
         dialog --clear --separate-output --notags --title "代理选择" --yes-label "确认" --no-cancel --checklist "请选择代理，强制使用pip一般情况下不选" 20 60 10 \
-        "1" "启用python镜像源" ON \
+        "1" "启用pip镜像源" ON \
         "2" "启用github代理" ON \
         "3" "强制使用pip" OFF 3>&1 1>&2 2>&3)
 
@@ -2238,7 +2251,7 @@ function pytorch_reinstall()
     #开始安装pytorch
     venv_generate
     enter_venv
-    pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+    pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --force-reinstall --default-timeout=100 --retries 5
     exit_venv
 }
 
