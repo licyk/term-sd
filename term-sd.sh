@@ -1685,7 +1685,7 @@ function process_install_a1111_sd_webui()
 
     cd ./stable-diffusion-webui/repositories/CodeFormer/
     pip install -r requirements.txt --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
-    cd "$start_path"/stable-diffusion-webui
+    cd "$start_path/stable-diffusion-webui"
     pip install -r requirements_versions.txt --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5 #安装stable-diffusion-webui的依赖
     cd ..
     
