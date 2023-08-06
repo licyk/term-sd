@@ -1631,7 +1631,7 @@ function comfyui_custom_node_option()
 function final_install_check()
 {
     if (dialog --clear --title "安装确认" --yes-label "是" --no-label "否" --yesno "是否进行安装? \n
-python镜像源:$final_install_check_python \n
+pip镜像源:$final_install_check_python \n
 github代理:$final_install_check_github\n
 强制使用pip:$final_install_check_force_pip\n
 pytorch:$ins_pytorch\n
