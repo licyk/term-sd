@@ -52,60 +52,60 @@ function a1111_sd_webui_extension_option()
     extension_44=""
     extension_45=""
     extension_46=""
+    extension_47=""
 
     final_extension_options=$(
-        dialog --separate-output --notags --checklist "A1111-Stable-Diffusion-Webui插件选择" 20 60 10 \
+        dialog --separate-output --notags --yes-label "确认" --no-cancel --checklist "A1111-Stable-Diffusion-Webui插件选择" 20 60 10 \
         "1" "kohya-config-webui" OFF \
-        "2" "sd-webui-additional-networks" OFF \
-        "3" "a1111-sd-webui-tagcomplete" OFF \
-        "4" "multidiffusion-upscaler-for-automatic1111" OFF \
-        "5" "sd-dynamic-thresholding" OFF \
-        "6" "sd-webui-cutoff" OFF \
+        "2" "sd-webui-additional-networks" ON \
+        "3" "a1111-sd-webui-tagcomplete" ON \
+        "4" "multidiffusion-upscaler-for-automatic1111" ON \
+        "5" "sd-dynamic-thresholding" ON \
+        "6" "sd-webui-cutoff" ON \
         "7" "sd-webui-model-converter" OFF \
         "8" "sd-webui-supermerger" OFF \
-        "9" "stable-diffusion-webui-localization-zh_CN" OFF \
-        "10" "stable-diffusion-webui-wd14-tagger" OFF \
-        "11" "sd-webui-regional-prompter" OFF \
-        "12" "stable-diffusion-webui-baidu-netdisk" OFF \
-        "13" "stable-diffusion-webui-anti-burn" OFF \
+        "9" "stable-diffusion-webui-localization-zh_Hans" ON \
+        "10" "stable-diffusion-webui-wd14-tagger" ON \
+        "11" "sd-webui-regional-prompter" ON \
+        "12" "stable-diffusion-webui-baidu-netdisk" ON \
+        "13" "stable-diffusion-webui-anti-burn" ON \
         "14" "loopback_scaler" OFF \
-        "15" "latentcoupleregionmapper" OFF \
-        "16" "ultimate-upscale-for-automatic1111" OFF \
+        "15" "latentcoupleregionmapper" ON \
+        "16" "ultimate-upscale-for-automatic1111" ON \
         "17" "deforum-for-automatic1111" OFF \
-        "18" "stable-diffusion-webui-images-browser" OFF \
+        "18" "stable-diffusion-webui-images-browser" ON \
         "19" "stable-diffusion-webui-huggingface" OFF \
         "20" "sd-civitai-browser" OFF \
         "21" "a1111-stable-diffusion-webui-vram-estimator" OFF \
-        "22" "openpose-editor" OFF \
+        "22" "openpose-editor" ON \
         "23" "sd-webui-depth-lib" OFF \
         "24" "posex" OFF \
         "25" "sd-webui-tunnels" OFF \
         "26" "batchlinks-webui" OFF \
-        "27" "stable-diffusion-webui-catppuccin" OFF \
+        "27" "stable-diffusion-webui-catppuccin" ON \
         "28" "a1111-sd-webui-lycoris" OFF \
-        "29" "stable-diffusion-webui-rembg" OFF \
-        "30" "stable-diffusion-webui-two-shot" OFF \
-        "31" "sd-webui-lora-block-weight" OFF \
+        "29" "stable-diffusion-webui-rembg" ON \
+        "30" "stable-diffusion-webui-two-shot" ON \
+        "31" "sd-webui-lora-block-weight" ON \
         "32" "sd-face-editor" OFF \
         "33" "sd-webui-segment-anything" OFF \
-        "34" "sd-webui-controlnet" OFF \
-        "35" "sd-webui-prompt-all-in-one" OFF \
+        "34" "sd-webui-controlnet" ON \
+        "35" "sd-webui-prompt-all-in-one" ON \
         "36" "sd-webui-comfyui" OFF \
         "37" "a1111-sd-webui-lycoris" OFF \
-        "38" "sd-webui-photopea-embed" OFF \
-        "39" "sd-webui-openpose-editor" OFF \
-        "40" "sd-webui-llul" OFF \
+        "38" "sd-webui-photopea-embed" ON \
+        "39" "sd-webui-openpose-editor" ON \
+        "40" "sd-webui-llul" ON \
         "41" "sd-webui-bilingual-localization" OFF \
-        "42" "adetailer" OFF \
+        "42" "adetailer" ON \
         "43" "sd-webui-mov2mov" OFF \
-        "44" "sd-webui-IS-NET-pro" OFF \
+        "44" "sd-webui-IS-NET-pro" ON \
         "45" "ebsynth_utility" OFF \
         "46" "sd_dreambooth_extension" OFF \
+        "47" "sd-webui-memory-release" ON \
         3>&1 1>&2 2>&3)
-if [ $? = 0 ];then
-    if [ -z "$final_extension_options" ]; then
-        echo
-    else
+
+    if [ ! -z "$final_extension_options" ]; then
         for final_extension_option in $final_extension_options; do
         case "$final_extension_option" in
         "1")
@@ -133,7 +133,7 @@ if [ $? = 0 ];then
         extension_8="https://github.com/hako-mikan/sd-webui-supermerger"
         ;;
         "9")
-        extension_9="https://github.com/dtlnor/stable-diffusion-webui-localization-zh_CN"
+        extension_9="https://github.com/hanamizuki-ai/stable-diffusion-webui-localization-zh_Hans"
         ;;
         "10")
         extension_10="https://github.com/tsukimiya/stable-diffusion-webui-wd14-tagger"
@@ -246,6 +246,9 @@ if [ $? = 0 ];then
         "46")
         extension_46="https://github.com/d8ahazard/sd_dreambooth_extension"
         ;;
+        "47")
+        extension_47="https://github.com/Haoming02/sd-webui-memory-release"
+        ;;
         *)
         exit 1
         ;;
@@ -298,7 +301,7 @@ function process_install_a1111_sd_webui()
     fi
 
     if [ ! $extension_9 = "" ];then
-        git clone "$github_proxy"$extension_9 ./stable-diffusion-webui/extensions/stable-diffusion-webui-localization-zh_CN
+        git clone "$github_proxy"$extension_9 ./stable-diffusion-webui/extensions/stable-diffusion-webui-localization-zh_Hans
     fi
 
     if [ ! $extension_10 = "" ];then
@@ -447,6 +450,10 @@ function process_install_a1111_sd_webui()
 
     if [ ! $extension_46 = "" ];then
         git clone "$github_proxy"$extension_46 ./stable-diffusion-webui/extensions/sd_dreambooth_extension
+    fi
+
+    if [ ! $extension_47 = "" ];then
+        git clone "$github_proxy"$extension_47 ./stable-diffusion-webui/extensions/sd-webui-memory-release
     fi
 
     echo "下载模型中"

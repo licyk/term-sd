@@ -1194,7 +1194,7 @@ function a1111_sd_webui_extension_option()
         "6" "sd-webui-cutoff" ON \
         "7" "sd-webui-model-converter" OFF \
         "8" "sd-webui-supermerger" OFF \
-        "9" "stable-diffusion-webui-localization-zh_CN" ON \
+        "9" "stable-diffusion-webui-localization-zh_Hans" ON \
         "10" "stable-diffusion-webui-wd14-tagger" ON \
         "11" "sd-webui-regional-prompter" ON \
         "12" "stable-diffusion-webui-baidu-netdisk" ON \
@@ -1263,7 +1263,7 @@ function a1111_sd_webui_extension_option()
         extension_8="https://github.com/hako-mikan/sd-webui-supermerger"
         ;;
         "9")
-        extension_9="https://github.com/dtlnor/stable-diffusion-webui-localization-zh_CN"
+        extension_9="https://github.com/hanamizuki-ai/stable-diffusion-webui-localization-zh_Hans"
         ;;
         "10")
         extension_10="https://github.com/tsukimiya/stable-diffusion-webui-wd14-tagger"
@@ -1725,7 +1725,7 @@ function process_install_a1111_sd_webui()
     fi
 
     if [ ! $extension_9 = "" ];then
-        git clone "$github_proxy"$extension_9 ./stable-diffusion-webui/extensions/stable-diffusion-webui-localization-zh_CN
+        git clone "$github_proxy"$extension_9 ./stable-diffusion-webui/extensions/stable-diffusion-webui-localization-zh_Hans
     fi
 
     if [ ! $extension_10 = "" ];then
