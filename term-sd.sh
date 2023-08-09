@@ -1056,7 +1056,7 @@ function proxy_option()
         "1")
         #python_proxy="-i https://mirror.sjtu.edu.cn/pypi/web/simple" #上海交大的镜像源有点问题，在安装invokeai时会报错，可能是软件包版本的问题
         python_proxy="-i https://mirrors.bfsu.edu.cn/pypi/web/simple"
-        extra_python_proxy="-f https://mirror.sjtu.edu.cn/pytorch-wheels"
+        extra_python_proxy="-f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
         final_install_check_python="启用"
         ;;
         "2")
