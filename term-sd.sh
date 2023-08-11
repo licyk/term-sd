@@ -1683,13 +1683,8 @@ function process_install_a1111_sd_webui()
     pip install git+"$github_proxy"https://github.com/openai/CLIP.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
     pip install git+"$github_proxy"https://github.com/mlfoundations/open_clip.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
 
-    cd ./stable-diffusion-webui/repositories/CodeFormer/
-    pip install -r requirements.txt --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
-    cd "$start_path/stable-diffusion-webui"
-    pip install -r requirements_versions.txt --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5 #安装stable-diffusion-webui的依赖
-    cd ..
-    
-    #sed -i -e 's/\"sd_model_checkpoint\"\,/\"sd_model_checkpoint\,sd_vae\,CLIP_stop_at_last_layers\"\,/g' ./stable-diffusion-webui/modules/shared.py
+    pip install -r ./stable-diffusion-webui/repositories/CodeFormer/requirements.txt --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+    pip install -r ./stable-diffusion-webui/requirements.txt --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5 #安装stable-diffusion-webui的依赖
     
     echo "安装插件中"
     if [ ! $extension_1 = "" ];then
@@ -1881,15 +1876,16 @@ function process_install_a1111_sd_webui()
     fi
 
     echo "下载模型中"
-    #aria2c https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt -d ./stable-diffusion-webui/models/Stable-diffusion -o sd-v1-4.ckpt
     aria2c https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./stable-diffusion-webui/models/Stable-diffusion -o sd-v1-5.ckpt
-    aria2c https://huggingface.co/embed/upscale/resolve/main/4x-UltraSharp.pth -d ./stable-diffusion-webui/models/ESRGAN -o 4x-UltraSharp.pth
-    git clone https://huggingface.co/embed/negative ./stable-diffusion-webui/embeddings/negative
-    rm -rf ./stable-diffusion-webui/embeddings/negative/.git
-    rm -rf ./stable-diffusion-webui/embeddings/negative/.gitattributes
-    git clone https://huggingface.co/embed/lora ./stable-diffusion-webui/models/Lora/positive
-    rm -rf ./stable-diffusion-webui/models/Lora/positive/.git
-    rm -rf ./stable-diffusion-webui/models/Lora/positive/.gitattributes
+    aria2c https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x-UltraSharp.pth -d ./stable-diffusion-webui/models/ESRGAN -o 4x-UltraSharp.pth
+    aria2c https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/BSRGAN.pth -d ./stable-diffusion-webui/models/ESRGAN -o BSRGAN.pth
+    aria2c https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/ESRGAN_4x.pth -d ./stable-diffusion-webui/models/ESRGAN -o ESRGAN_4x.pth
+    aria2c https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/GFPGANv1.4.pth -d ./stable-diffusion-webui/models/ESRGAN -o GFPGANv1.4.pth
+    aria2c https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/detection_Resnet50_Final.pth -d ./stable-diffusion-webui/models/ESRGAN -o detection_Resnet50_Final.pth
+    aria2c https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/parsing_bisenet.pth -d ./stable-diffusion-webui/models/ESRGAN -o parsing_bisenet.pth
+    aria2c https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/parsing_parsenet.pth -d ./stable-diffusion-webui/models/ESRGAN -o parsing_parsenet.pth
+    aria2c https://huggingface.co/licyk/sd-upscaler-models/resolve/main/RealESRGAN/RealESRGAN_x4plus.pth -d ./stable-diffusion-webui/models/ESRGAN -o RealESRGAN_x4plus.pth
+    aria2c https://huggingface.co/licyk/sd-upscaler-models/resolve/main/RealESRGAN/RealESRGAN_x4plus_anime_6B.pth -d ./stable-diffusion-webui/models/ESRGAN -o RealESRGAN_x4plus_anime_6B.pth
 
     if [ ! $extension_34 = "" ];then #安装controlnet时再下载相关模型
         aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11e_sd15_ip2p_fp16.safetensors -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11e_sd15_ip2p_fp16.safetensors
@@ -1973,14 +1969,14 @@ function process_install_comfyui()
     #开始安装comfyui
     echo "开始安装comfyui"
     git clone "$github_proxy"https://github.com/comfyanonymous/ComfyUI.git
+
     cd ./ComfyUI
     venv_generate
     enter_venv
     cd ..
+
     pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
-    cd ./ComfyUI
-    pip install -r requirements.txt  --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
-    cd ..
+    pip install -r ./ComfyUI/requirements.txt  --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
 
     echo "安装插件中"
     if [ ! $comfyui_extension_1 = "" ];then
@@ -2146,7 +2142,6 @@ function process_install_comfyui()
     fi
 
     echo "下载模型中"
-    #aria2c https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt -d ./ComfyUI/models/checkpoints/ -o sd-v1-4.ckpt
     aria2c https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./ComfyUI/models/checkpoints/ -o sd-v1-5.ckpt
 
     if [ ! $comfyui_custom_node_38 = "" ];then
@@ -2241,7 +2236,6 @@ function process_install_lora_scripts()
     pip install $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --upgrade -r requirements.txt  --default-timeout=100 --retries 5
     cd ..
     pip install --upgrade $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select lion-pytorch lycoris-lora dadaptation fastapi uvicorn wandb --default-timeout=100 --retries 5
-    #aria2c https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt -d ./sd-models/ -o model.ckpt
     aria2c https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./sd-models/ -o model.ckpt
     exit_venv
 }
@@ -2728,7 +2722,7 @@ function extension_all_update()
 
 #启动程序部分
 
-term_sd_version_="0.3.0"
+term_sd_version_="0.3.1"
 
 if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
     test_python="python"
