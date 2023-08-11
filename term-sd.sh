@@ -1266,7 +1266,7 @@ function a1111_sd_webui_extension_option()
         extension_9="https://github.com/hanamizuki-ai/stable-diffusion-webui-localization-zh_Hans"
         ;;
         "10")
-        extension_10="https://github.com/tsukimiya/stable-diffusion-webui-wd14-tagger"
+        extension_10="https://github.com/picobyte/stable-diffusion-webui-wd14-tagger"
         ;;
         "11")
         extension_11="https://github.com/hako-mikan/sd-webui-regional-prompter"
