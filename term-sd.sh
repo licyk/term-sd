@@ -963,8 +963,8 @@ https://huggingface.co/\n
 https://civitai.com/\n
 https://www.bilibili.com/read/cv22159609\n
 \n
-学习stable-diffusion-webui推荐该系列视频：\n
-https://www.bilibili.com/video/BV1As4y127HW\n
+学习stable-diffusion-webui的教程：\n
+https://licyk.netlify.app/2023/08/01/stable-diffusion-tutorial/\n
 \n
 \n
 " 20 60
