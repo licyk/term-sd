@@ -2486,7 +2486,7 @@ function operate_comfyui_custom_node()
             fi
             cd ..
         elif [ "${final_operate_comfyui_custom_node}" == '2' ]; then #comfyui并不像a1111-sd-webui自动为插件安装依赖，所以只能手动装
-            cd "$start_path"/ComfyUI
+            cd "$start_path/ComfyUI"
             enter_venv
             cd -
             if [ -f "./install.py" ];then
@@ -2627,7 +2627,7 @@ function operate_comfyui_extension()
             fi
             cd ..
         elif [ "${final_operate_comfyui_extension}" == '2' ]; then #comfyui并不像a1111-sd-webui自动为插件安装依赖，所以只能手动装
-            cd "$start_path"/ComfyUI
+            cd "$start_path/ComfyUI"
             enter_venv
             cd -
             if [ -f "./install.py" ];then
@@ -2668,7 +2668,7 @@ function operate_comfyui_extension()
 #comfyui插件/自定义节点依赖安装部分
 function comfyui_extension_dep_install()
 {
-    cd "$start_path"/ComfyUI
+    cd "$start_path/ComfyUI"
     enter_venv
     cd -
     for extension_folder in ./*
