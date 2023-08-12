@@ -1887,6 +1887,16 @@ function process_install_a1111_sd_webui()
     aria2c https://huggingface.co/licyk/sd-upscaler-models/resolve/main/RealESRGAN/RealESRGAN_x4plus.pth -d ./stable-diffusion-webui/models/ESRGAN -o RealESRGAN_x4plus.pth
     aria2c https://huggingface.co/licyk/sd-upscaler-models/resolve/main/RealESRGAN/RealESRGAN_x4plus_anime_6B.pth -d ./stable-diffusion-webui/models/ESRGAN -o RealESRGAN_x4plus_anime_6B.pth
 
+    aria2c https://huggingface.co/licyk/sd-embeddings/resolve/main/EasyNegativeV2.safetensors -d ./stable-diffusion-webui/embeddings/negative -o EasyNegativeV2.safetensors
+    aria2c https://huggingface.co/licyk/sd-embeddings/resolve/main/bad-artist-anime.pt -d ./stable-diffusion-webui/embeddings/negative -o bad-artist-anime.pt
+    aria2c https://huggingface.co/licyk/sd-embeddings/resolve/main/bad-artist.pt -d ./stable-diffusion-webui/embeddings/negative -o bad-artist.pt
+    aria2c https://huggingface.co/licyk/sd-embeddings/resolve/main/bad-hands-5.pt -d ./stable-diffusion-webui/embeddings/negative -o bad-hands-5.pt
+    aria2c https://huggingface.co/licyk/sd-embeddings/resolve/main/bad-image-v2-39000.pt -d ./stable-diffusion-webui/embeddings/negative -o bad-image-v2-39000.pt
+    aria2c https://huggingface.co/licyk/sd-embeddings/resolve/main/bad_prompt_version2.pt -d ./stable-diffusion-webui/embeddings/negative -o bad_prompt_version2.pt
+    aria2c https://huggingface.co/licyk/sd-embeddings/resolve/main/ng_deepnegative_v1_75t.pt -d ./stable-diffusion-webui/embeddings/negative -o ng_deepnegative_v1_75t.pt
+    aria2c https://huggingface.co/licyk/sd-embeddings/resolve/main/verybadimagenegative_v1.3.pt -d ./stable-diffusion-webui/embeddings/negative -o verybadimagenegative_v1.3.pt
+    aria2c https://huggingface.co/licyk/sd-embeddings/resolve/main/yaguru%20magiku.pt -d ./stable-diffusion-webui/embeddings -o yaguru%20magiku.pt
+
     if [ ! $extension_34 = "" ];then #安装controlnet时再下载相关模型
         aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11e_sd15_ip2p_fp16.safetensors -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11e_sd15_ip2p_fp16.safetensors
         aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11e_sd15_shuffle_fp16.safetensors -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11e_sd15_shuffle_fp16.safetensors
