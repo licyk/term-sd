@@ -954,6 +954,8 @@ Ctrl+C可中断指令的运行 \n
 7、若没有设置过python镜像源，推荐在\"python镜像源\"为系统设置python镜像源\n
 8、AUTOMATIC1111-stable-diffusion-webui安装好后，可以使用秋叶aaaki制作的启动器来启动sd-webui。将秋叶的启动器放入stable-diffusion-webui文件夹中，双击启动（仅限windows,因为秋叶的启动器只有window的版本）\n
 9、ComfyUI安装插件后，推荐运行一次“安装依赖”功能\n
+10、有时候在安装sd-webui时选择安装插件，会因为插件兼容问题而导致报错，然后启动失败。一种解决办法是在安装选择时取消所有要安装的插件，然后安装并启动，等能够成功进入sd-weui时再用扩展脚本中的sd-webui-extension.sh来安装脚本\n
+11、torch版本的选择：nvidia显卡选择cuda（Windows，linux平台），amd显卡在linux平台选择rocm，amd显卡和intel显卡在windows平台选择direct-ml\n
 \n
 该脚本的编写参考了https://gitee.com/skymysky/linux \n
 脚本在理论上支持全平台(Windows平台需安装msys2,Android平台需要安装Termux)\n
