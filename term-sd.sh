@@ -1691,9 +1691,9 @@ function process_install_a1111_sd_webui()
     echo "生成配置中"
     echo "{" > config-for-sd-webui.json
     echo "    \"quicksettings_list\": [" >> config-for-sd-webui.json
-    echo "    \"sd_model_checkpoint\"," >> config-for-sd-webui.json
-    echo "    \"sd_vae\"," >> config-for-sd-webui.json
-    echo "    \"CLIP_stop_at_last_layers\"" >> config-for-sd-webui.json   
+    echo "        \"sd_model_checkpoint\"," >> config-for-sd-webui.json
+    echo "        \"sd_vae\"," >> config-for-sd-webui.json
+    echo "        \"CLIP_stop_at_last_layers\"" >> config-for-sd-webui.json   
     echo "    ]," >> config-for-sd-webui.json
     echo "    \"save_to_dirs\": false," >> config-for-sd-webui.json
     echo "    \"grid_save_to_dirs\": false," >> config-for-sd-webui.json
