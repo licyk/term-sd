@@ -450,20 +450,20 @@ function generate_a1111_sd_webui_launch()
     final_generate_a1111_sd_webui_launch_=$(
         dialog --clear --separate-output --notags --checklist "A1111-Stable-Diffusion-Webui启动参数选择" 20 60 10 \
         "1" "skip-torch-cuda-test" OFF \
-        "2" "no-half" ON \
-        "3" "no-half-vae" ON \
+        "2" "no-half" OFF \
+        "3" "no-half-vae" OFF \
         "4" "medvram" OFF \
-        "5" "lowvram" ON \
+        "5" "lowvram" OFF \
         "6" "lowram" OFF \
-        "7" "enable-insecure-extension-access" ON \
+        "7" "enable-insecure-extension-access" OFF \
         "8" "theme dark" ON \
         "9" "autolaunch" ON \
         "10" "xformers" ON \
-        "11" "listen" ON \
-        "12" "precision full" ON \
+        "11" "listen" OFF \
+        "12" "precision full" OFF \
         "13" "force-enable-xformers" OFF \
         "14" "xformers-flash-attention" OFF \
-        "15" "api" ON \
+        "15" "api" OFF \
         "16" "ui-debug-mode" OFF \
         "17" "share" OFF \
         "18" "opt-split-attention-invokeai" OFF \
@@ -473,8 +473,8 @@ function generate_a1111_sd_webui_launch()
         "22" "disable-opt-split-attention" OFF \
         "23" "use-cpu all" OFF \
         "24" "opt-channelslast" OFF \
-        "25" "gradio-queue" OFF \
-        "26" "multiple" OFF \
+        "25" "no-gradio-queue" OFF \
+        "26" "no-hashing" OFF \
         3>&1 1>&2 2>&3)
 
     #根据菜单得到的数据设置变量
@@ -555,10 +555,10 @@ function generate_a1111_sd_webui_launch()
             a1111_launch_option_24="--opt-channelslast"
             ;;
             "25")
-            a1111_launch_option_25="--gradio-queue"
+            a1111_launch_option_25="--no-gradio-queue"
             ;;
             "26")
-            a1111_launch_option_26="--multiple"
+            a1111_launch_option_26="--no-hashing"
             ;;
             *)
             exit 1
@@ -956,6 +956,36 @@ Ctrl+C可中断指令的运行 \n
 9、ComfyUI安装插件后，推荐运行一次“安装依赖”功能\n
 10、有时候在安装sd-webui时选择安装插件，会因为插件兼容问题而导致报错，然后启动失败。一种解决办法是在安装选择时取消所有要安装的插件，然后安装并启动，等能够成功进入sd-weui时再用扩展脚本中的sd-webui-extension.sh来安装脚本\n
 11、torch版本的选择：nvidia显卡选择cuda（Windows，linux平台），amd显卡在linux平台选择rocm，amd显卡和intel显卡在windows平台选择direct-ml\n
+\n
+\n
+stable diffusion webui的启动参数：\n
+skip-torch-cuda-test:不检查CUDA是否正常工作\n
+no-half:不将模型切换为16位浮点数\n
+no-half-vae:不将VAE模型切换为16位浮点数\n
+medvram:启用稳定扩散模型优化,以牺牲速度换取低VRAM使用\n
+lowvram:启用稳定扩散模型优化,大幅牺牲速度换取极低VRAM使用\n
+lowram:将稳定扩散检查点权重加载到VRAM而不是RAM中\n
+enable-insecure-extension-access:启用不安全的扩展访问\n
+theme dark:启用黑色主题\n
+autolaunch:自动启动浏览器打开webui界面\n
+xformers:使用的xFormers加速\n
+listen:允许局域网的设备进行访问\n
+precision-full:全精度\n
+force-enable-xformers:强制启用xformers加速\n
+xformers-flash-attention:启用具有Flash Attention的xformer以提高再现性\n
+api:启动API服务器\n
+ui-debug-mode:不加载模型而快速启动ui界面\n
+share:为gradio使用share=True,并通过其网站使UI可访问\n
+opt-split-attention-invokeai:在自动选择优化时优先使用InvokeAI的交叉注意力层优化\n
+opt-split-attention-v1:在自动选择优化时优先使用较旧版本的分裂注意力优化\n
+opt-sdp-attention:在自动选择优化时优先使用缩放点积交叉注意力层优化;需要PyTorch 2\n
+opt-sdp-no-mem-attention:在自动选择优化时优先使用不带内存高效注意力的缩放点积交叉注意力层优化,使图像生成确定性;需要PyTorch 2\n
+disable-opt-split-attention:在自动选择优化时优先不使用交叉注意力层优化\n
+use-cpu-all:使用cpu进行图像生成\n
+opt-channelslast:将稳定扩散的内存类型更改为channels last\n
+no-gradio-queue:禁用gradio队列;导致网页使用http请求而不是websocket\n
+no-hashing:禁用检查点的sha256哈希运算,以帮助提高加载性能\n
+\n
 \n
 该脚本的编写参考了https://gitee.com/skymysky/linux \n
 脚本在理论上支持全平台(Windows平台需安装msys2,Android平台需要安装Termux)\n
