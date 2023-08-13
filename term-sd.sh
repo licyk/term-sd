@@ -1687,7 +1687,22 @@ function process_install_a1111_sd_webui()
 
     pip install -r ./stable-diffusion-webui/repositories/CodeFormer/requirements.txt --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
     pip install -r ./stable-diffusion-webui/requirements.txt --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5 #安装stable-diffusion-webui的依赖
-    
+
+    echo "生成配置中"
+    echo "{" > config-for-sd-webui.json
+    echo "    \"quicksettings_list\": [" >> config-for-sd-webui.json
+    echo "    \"sd_model_checkpoint\"," >> config-for-sd-webui.json
+    echo "    \"sd_vae\"," >> config-for-sd-webui.json
+    echo "    \"CLIP_stop_at_last_layers\"" >> config-for-sd-webui.json   
+    echo "    ]," >> config-for-sd-webui.json
+    echo "    \"save_to_dirs\": false," >> config-for-sd-webui.json
+    echo "    \"grid_save_to_dirs\": false," >> config-for-sd-webui.json
+    echo "    \"localization\": \"zh-Hans (Stable)\"," >> config-for-sd-webui.json
+    echo "    \"CLIP_stop_at_last_layers\": 2" >> config-for-sd-webui.json
+    echo "}" >> config-for-sd-webui.json
+    mv -fv config-for-sd-webui.json ./stable-diffusion-webui
+    mv -fv ./stable-diffusion-webui/config-for-sd-webui.json ./stable-diffusion-webui/config.json
+
     echo "安装插件中"
     if [ ! $extension_1 = "" ];then
         git clone "$github_proxy"$extension_1 ./stable-diffusion-webui/extensions/kohya-config-webui
