@@ -1697,7 +1697,6 @@ function process_install_a1111_sd_webui()
     echo "    ]," >> config-for-sd-webui.json
     echo "    \"save_to_dirs\": false," >> config-for-sd-webui.json
     echo "    \"grid_save_to_dirs\": false," >> config-for-sd-webui.json
-    echo "    \"localization\": \"zh-Hans (Stable)\"," >> config-for-sd-webui.json
     echo "    \"CLIP_stop_at_last_layers\": 2" >> config-for-sd-webui.json
     echo "}" >> config-for-sd-webui.json
     mv -fv config-for-sd-webui.json ./stable-diffusion-webui
