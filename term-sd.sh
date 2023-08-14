@@ -2329,7 +2329,9 @@ function process_install_invokeai()
     cd ./InvokeAI
     venv_generate
     enter_venv
-    mkdir ./invokeai
+    if [ -d "./invokeai" ;then]
+        mkdir ./invokeai
+    fi
     pip install invokeai $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
     pip install git+"$github_proxy"https://github.com/invoke-ai/PyPatchMatch --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
     aria2c "$github_proxy"https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth -d ./invokeai/models/core/upscaling/realesrgan -o RealESRGAN_x4plus.pth
