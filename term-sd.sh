@@ -1088,11 +1088,9 @@ function venv_generate()
 {
     if [ "$venv_active" = "enable" ];then
         if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
-            echo "系统为windows"
             echo "创建venv虚拟环境"
             python -m venv venv
         else
-            echo "系统为$(uname -o)"
             echo "创建venv虚拟环境"
             python3 -m venv venv
         fi
@@ -1105,11 +1103,9 @@ function enter_venv()
 {
     if [ "$venv_active" = "enable" ];then
         if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
-            echo "系统为windows"
             echo "进入venv虚拟环境"
             source ./venv/Scripts/activate
         else
-            echo "系统为$(uname -o)"
             echo "进入venv虚拟环境"
             source ./venv/bin/activate
         fi
