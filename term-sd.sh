@@ -9,7 +9,7 @@ echo "   ##    ######## ##     ## ##     ##     ######  ########  "
 #使用figlet制作
 
 echo "Term-SD初始化中......"
-#################################################
+###############################################################################
 
 #主界面部分
 
@@ -445,6 +445,8 @@ function generate_a1111_sd_webui_launch()
     a1111_launch_option_24=""
     a1111_launch_option_25=""
     a1111_launch_option_26=""
+    a1111_launch_option_27=""
+    a1111_launch_option_28=""
 
     #展示启动参数选项
     final_generate_a1111_sd_webui_launch_=$(
@@ -475,6 +477,8 @@ function generate_a1111_sd_webui_launch()
         "24" "opt-channelslast" OFF \
         "25" "no-gradio-queue" OFF \
         "26" "no-hashing" OFF \
+        "27" "backend directml" OFF \
+        "28" "opt-sub-quad-attention" OFF \
         3>&1 1>&2 2>&3)
 
     #根据菜单得到的数据设置变量
@@ -560,6 +564,12 @@ function generate_a1111_sd_webui_launch()
             "26")
             a1111_launch_option_26="--no-hashing"
             ;;
+            "27")
+            a1111_launch_option_27="--backend directml"
+            ;;
+            "28")
+            a1111_launch_option_28="--opt-sub-quad-attention"
+            ;;
             *)
             exit 1
             ;;    
@@ -571,8 +581,8 @@ function generate_a1111_sd_webui_launch()
         if [ -f "./term-sd-launch.conf" ];then
             rm -v ./term-sd-launch.conf
         fi
-        echo "设置启动参数" "$a1111_launch_option_1" "$a1111_launch_option_2" "$a1111_launch_option_3" "$a1111_launch_option_4" "$a1111_launch_option_5" "$a1111_launch_option_6" "$a1111_launch_option_7" "$a1111_launch_option_8" "$a1111_launch_option_9" "$a1111_launch_option_10" "$a1111_launch_option_11" "$a1111_launch_option_12" "$a1111_launch_option_13" "$a1111_launch_option_14" "$a1111_launch_option_15" "$a1111_launch_option_16" "$a1111_launch_option_17" "$a1111_launch_option_18" "$a1111_launch_option_19" "$a1111_launch_option_20" "$a1111_launch_option_21" "$a1111_launch_option_22" "$a1111_launch_option_23" "$a1111_launch_option_24" "$a1111_launch_option_25" "$a1111_launch_option_26"
-        echo "launch.py "$a1111_launch_option_1" "$a1111_launch_option_2" "$a1111_launch_option_3" "$a1111_launch_option_4" "$a1111_launch_option_5" "$a1111_launch_option_6" "$a1111_launch_option_7" "$a1111_launch_option_8" "$a1111_launch_option_9" "$a1111_launch_option_10" "$a1111_launch_option_11" "$a1111_launch_option_12" "$a1111_launch_option_13" "$a1111_launch_option_14" "$a1111_launch_option_15" "$a1111_launch_option_16" "$a1111_launch_option_17" "$a1111_launch_option_18" "$a1111_launch_option_19" "$a1111_launch_option_20" "$a1111_launch_option_21" "$a1111_launch_option_22" "$a1111_launch_option_23" "$a1111_launch_option_24" "$a1111_launch_option_25" "$a1111_launch_option_26"" >term-sd-launch.conf
+        echo "设置启动参数" "$a1111_launch_option_1" "$a1111_launch_option_2" "$a1111_launch_option_3" "$a1111_launch_option_4" "$a1111_launch_option_5" "$a1111_launch_option_6" "$a1111_launch_option_7" "$a1111_launch_option_8" "$a1111_launch_option_9" "$a1111_launch_option_10" "$a1111_launch_option_11" "$a1111_launch_option_12" "$a1111_launch_option_13" "$a1111_launch_option_14" "$a1111_launch_option_15" "$a1111_launch_option_16" "$a1111_launch_option_17" "$a1111_launch_option_18" "$a1111_launch_option_19" "$a1111_launch_option_20" "$a1111_launch_option_21" "$a1111_launch_option_22" "$a1111_launch_option_23" "$a1111_launch_option_24" "$a1111_launch_option_25" "$a1111_launch_option_26" "$a1111_launch_option_27" "$a1111_launch_option_28"
+        echo "launch.py "$a1111_launch_option_1" "$a1111_launch_option_2" "$a1111_launch_option_3" "$a1111_launch_option_4" "$a1111_launch_option_5" "$a1111_launch_option_6" "$a1111_launch_option_7" "$a1111_launch_option_8" "$a1111_launch_option_9" "$a1111_launch_option_10" "$a1111_launch_option_11" "$a1111_launch_option_12" "$a1111_launch_option_13" "$a1111_launch_option_14" "$a1111_launch_option_15" "$a1111_launch_option_16" "$a1111_launch_option_17" "$a1111_launch_option_18" "$a1111_launch_option_19" "$a1111_launch_option_20" "$a1111_launch_option_21" "$a1111_launch_option_22" "$a1111_launch_option_23" "$a1111_launch_option_24" "$a1111_launch_option_25" "$a1111_launch_option_26" "$a1111_launch_option_27" "$a1111_launch_option_28" " >term-sd-launch.conf
     fi
 }
 
@@ -593,6 +603,7 @@ function generate_comfyui_launch()
     comfyui_launch_option_12=""
     comfyui_launch_option_13=""
     comfyui_launch_option_14=""
+    comfyui_launch_option_15=""
 
     final_generate_comfyui_launch_=$(
         dialog --clear --separate-output --notags --yes-label "确认" --no-cancel --checklist "ComfyUI启动参数选择" 20 60 10 \
@@ -610,6 +621,7 @@ function generate_comfyui_launch()
         "12" "novram" OFF \
         "13" "cpu" OFF \
         "14" "quick-test-for-ci" OFF \
+        "15" "directml" OFF \
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
@@ -658,6 +670,9 @@ function generate_comfyui_launch()
             "14")
             comfyui_launch_option_14="--quick-test-for-ci"
             ;;
+            "15")
+            comfyui_launch_option_15="--directml"
+            ;;
             *)
             exit 1
             ;;    
@@ -668,8 +683,8 @@ function generate_comfyui_launch()
         if [ -f "./term-sd-launch.conf" ];then
             rm -v ./term-sd-launch.conf
         fi
-        echo "设置启动参数" "$comfyui_launch_option_1" "$comfyui_launch_option_2" "$comfyui_launch_option_3" "$comfyui_launch_option_4" "$comfyui_launch_option_5" "$comfyui_launch_option_6" "$comfyui_launch_option_7" "$comfyui_launch_option_8" "$comfyui_launch_option_9" "$comfyui_launch_option_10" "$comfyui_launch_option_11" "$comfyui_launch_option_12" "$comfyui_launch_option_13" "$comfyui_launch_option_14"
-        echo "main.py "$comfyui_launch_option_1" "$comfyui_launch_option_2" "$comfyui_launch_option_3" "$comfyui_launch_option_4" "$comfyui_launch_option_5" "$comfyui_launch_option_6" "$comfyui_launch_option_7" "$comfyui_launch_option_8" "$comfyui_launch_option_9" "$comfyui_launch_option_10" "$comfyui_launch_option_11" "$comfyui_launch_option_12" "$comfyui_launch_option_13" "$comfyui_launch_option_14"" >term-sd-launch.conf
+        echo "设置启动参数" "$comfyui_launch_option_1" "$comfyui_launch_option_2" "$comfyui_launch_option_3" "$comfyui_launch_option_4" "$comfyui_launch_option_5" "$comfyui_launch_option_6" "$comfyui_launch_option_7" "$comfyui_launch_option_8" "$comfyui_launch_option_9" "$comfyui_launch_option_10" "$comfyui_launch_option_11" "$comfyui_launch_option_12" "$comfyui_launch_option_13" "$comfyui_launch_option_14" "$comfyui_launch_option_15"
+        echo "main.py "$comfyui_launch_option_1" "$comfyui_launch_option_2" "$comfyui_launch_option_3" "$comfyui_launch_option_4" "$comfyui_launch_option_5" "$comfyui_launch_option_6" "$comfyui_launch_option_7" "$comfyui_launch_option_8" "$comfyui_launch_option_9" "$comfyui_launch_option_10" "$comfyui_launch_option_11" "$comfyui_launch_option_12" "$comfyui_launch_option_13" "$comfyui_launch_option_14" "$comfyui_launch_option_15"" >term-sd-launch.conf
     fi
 }
 
@@ -1013,6 +1028,8 @@ use-cpu-all:使用cpu进行图像生成\n
 opt-channelslast:将稳定扩散的内存类型更改为channels last\n
 no-gradio-queue:禁用gradio队列;导致网页使用http请求而不是websocket\n
 no-hashing:禁用检查点的sha256哈希运算,以帮助提高加载性能\n
+backend directml:使用directml运行torch,解决amd显卡和intel显卡无法使用ai画图的问题\n
+opt-sub-quad-attention:优先考虑内存高效的次二次复杂度交叉注意力层优化,用于自动选择\n
 \n
 ComfyUI启动参数:\n
 listen:允许局域网的设备访问\n
@@ -1029,6 +1046,7 @@ lowvram:拆分unet以使用更少的显存\n
 novram:当 lowvram 不足时使用\n
 cpu:对所有内容使用 CPU(缓慢)\n
 quick-test-for-ci:为 CI 快速测试\n
+directml:使用directml运行torch,解决amd显卡和intel显卡无法使用ai画图的问题\n
 \n
 InvokeAI启动参数：\n
 invokeai-configure:参数配置\n
@@ -1199,7 +1217,7 @@ function python_dep_install()
     elif [ "${final_python_dep_install}" == '6' ]; then
         ins_pytorch="torch==2.0.1+cpu torchvision==0.15.2+cpu"
     elif [ "${final_python_dep_install}" == '7' ]; then
-        ins_pytorch="torch-directml"
+        ins_pytorch="torch==2.0.0 torchvision==0.15.1 torch-directml"
     fi
 }
 
