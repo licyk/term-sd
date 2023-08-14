@@ -25,7 +25,7 @@ function mainmenu()
     cd "$start_path" #回到最初路径
     exit_venv 2> /dev/null #确保进行下一步操作前已退出其他虚拟环境
     mainmenu_select=$(
-        dialog --clear --title "Term-SD" --menu "请使用方向键和回车键进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')\n当前虚拟环境状态:"$venv_info"" 20 60 10 \
+        dialog --clear --title "Term-SD" --yes-label "确认" --no-label "取消" --menu "请使用方向键和回车键进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')\n当前虚拟环境状态:"$venv_info"" 20 60 10 \
         "0" "venv虚拟环境" \
         "1" "AUTOMATIC1111-stable-diffusion-webui" \
         "2" "ComfyUI" \
@@ -76,7 +76,7 @@ function a1111_sd_webui_option()
     if [ -d "stable-diffusion-webui" ];then #找到stable-diffusion-webui目录
         cd stable-diffusion-webui
         final_a1111_sd_webui_option=$(
-            dialog --clear --title "A1111-SD-Webui管理" --menu "请使用方向键和回车键对A1111-Stable-Diffusion-Webui进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 20 60 10 \
+            dialog --clear --title "A1111-SD-Webui管理" --yes-label "确认" --no-label "取消" --menu "请使用方向键和回车键对A1111-Stable-Diffusion-Webui进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 20 60 10 \
             "1" "更新" \
             "2" "卸载" \
             "3" "修复" \
@@ -170,7 +170,7 @@ function comfyui_option()
     if [ -d "ComfyUI" ];then
         cd ComfyUI
         final_comfyui_option=$(
-            dialog --clear --title "ComfyUI管理" --menu "请使用方向键和回车键对ComfyUI进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 20 60 10 \
+            dialog --clear --title "ComfyUI管理" --yes-label "确认" --no-label "取消" --menu "请使用方向键和回车键对ComfyUI进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 20 60 10 \
             "1" "更新" \
             "2" "卸载" \
             "3" "修复" \
@@ -270,7 +270,7 @@ function invokeai_option()
         enter_venv #进入环境
         if which invokeai > /dev/null ;then #查找环境中有没有invokeai
             final_invokeai_option=$(
-                dialog --clear --title "InvokeAI管理" --menu "请使用方向键和回车键对InvokeAI进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 20 60 10 \
+                dialog --clear --title "InvokeAI管理" --yes-label "确认" --no-label "取消" --menu "请使用方向键和回车键对InvokeAI进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 20 60 10 \
                 "1" "更新" \
                 "2" "卸载" \
                 "3" "启动" \
@@ -337,7 +337,7 @@ function lora_scripts_option()
     if [ -d "./lora-scripts" ];then
         cd lora-scripts
         final_lora_scripts_option=$(
-            dialog --clear --title "lora-scripts管理" --menu "请使用方向键和回车键对lora-scripts进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 20 60 10 \
+            dialog --clear --title "lora-scripts管理" --yes-label "确认" --no-label "取消" --menu "请使用方向键和回车键对lora-scripts进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 20 60 10 \
             "1" "更新" \
             "2" "卸载" \
             "3" "修复" \
@@ -448,7 +448,7 @@ function generate_a1111_sd_webui_launch()
 
     #展示启动参数选项
     final_generate_a1111_sd_webui_launch_=$(
-        dialog --clear --separate-output --notags --checklist "A1111-Stable-Diffusion-Webui启动参数选择" 20 60 10 \
+        dialog --clear --separate-output --notags --yes-label "确认" --no-cancel --checklist "A1111-Stable-Diffusion-Webui启动参数选择" 20 60 10 \
         "1" "skip-torch-cuda-test" OFF \
         "2" "no-half" OFF \
         "3" "no-half-vae" OFF \
@@ -595,7 +595,7 @@ function generate_comfyui_launch()
     comfyui_launch_option_14=""
 
     final_generate_comfyui_launch_=$(
-        dialog --clear --separate-output --notags --checklist "ComfyUI启动参数选择" 20 60 10 \
+        dialog --clear --separate-output --notags --yes-label "确认" --no-cancel --checklist "ComfyUI启动参数选择" 20 60 10 \
         "1" "listen" OFF \
         "2" "auto-launch" OFF \
         "3" "dont-upcast-attention" OFF \
@@ -677,7 +677,7 @@ function generate_comfyui_launch()
 function generate_invokeai_launch()
 {
     invokeai_launch_option=$(
-        dialog --clear --title "InvokeAI启动选项" --menu "请使用方向键和回车键选择启动参数" 20 60 10 \
+        dialog --clear --title "InvokeAI启动选项" --yes-label "确认" --no-label "取消" --menu "请使用方向键和回车键选择启动参数" 20 60 10 \
         "1" "invokeai-configure" \
         "2" "invokeai" \
         "3" "invokeai --web" \
@@ -688,93 +688,120 @@ function generate_invokeai_launch()
         3>&1 1>&2 2>&3 )
     if [ $? = 0 ];then
         if [ "${invokeai_launch_option}" == '1' ]; then 
-            invokeai-configure
+            invokeai-configure --root ./invokeai
         elif [ "${invokeai_launch_option}" == '2' ]; then 
-            invokeai
+            invokeai --root ./invokeai
         elif [ "${invokeai_launch_option}" == '3' ]; then 
-            invokeai --web
+            invokeai --web --root ./invokeai
         elif [ "${invokeai_launch_option}" == '4' ]; then 
-            invokeai-ti --gui
+            invokeai-ti --gui --root ./invokeai
         elif [ "${invokeai_launch_option}" == '5' ]; then 
-            invokeai-merge --gui
+            invokeai-merge --gui --root ./invokeai
         elif [ "${invokeai_launch_option}" == '6' ]; then 
-
-            cust_invokeai_launch_option_1=""
-            cust_invokeai_launch_option_2=""
-            cust_invokeai_launch_option_3=""
-            cust_invokeai_launch_option_4=""
-            cust_invokeai_launch_option_5=""
-            cust_invokeai_launch_option_6=""
-            cust_invokeai_launch_option_7=""
-            cust_invokeai_launch_option_8=""
-            cust_invokeai_launch_option_9=""
-            cust_invokeai_launch_option_10=""
-            cust_invokeai_launch_option_11=""
-
-            final_invokeai_launch_option_=$(
-                dialog --clear --separate-output --notags --checklist "InvokeAI启动参数选择" 20 60 10 \
-                "1" "web" ON \
-                "2" "free_gpu_mem" ON \
-                "3" "precision auto" ON \
-                "4" "precision fp32" OFF\
-                "5" "precision fp16" OFF \
-                "6" "--no-xformers" OFF \
-                "7" "xformers" ON \
-                "8" "no-patchmatch" OFF \
-                "9" "autoconvert" OFF \
-                "10" "ckpt_convert" OFF \
-                "11" "safety-checker" OFF \
-                3>&1 1>&2 2>&3)
-
-            if [ $? = 0 ];then
-
-                if [ ! -z "$final_invokeai_launch_option_" ]; then
-                    for final_invokeai_launch_option in $final_invokeai_launch_option_; do
-                    case "$final_invokeai_launch_option" in
-                    "1")
-                    cust_invokeai_launch_option_1="--web"
-                    ;;
-                    "2")
-                    cust_invokeai_launch_option_2="--free_gpu_mem"
-                    ;;
-                    "3")
-                    cust_invokeai_launch_option_3="--precision auto"
-                    ;;
-                    "4")
-                    cust_invokeai_launch_option_4="--precision fp32"
-                    ;;
-                    "5")
-                    cust_invokeai_launch_option_5="--precision fp16"
-                    ;;
-                    "6")
-                    cust_invokeai_launch_option_6="--no-xformers"
-                    ;;
-                    "7")
-                    cust_invokeai_launch_option_7="--xformers"
-                    ;;
-                    "8")
-                    cust_invokeai_launch_option_8="--no-patchmatch"
-                    ;;
-                    "9")
-                    cust_invokeai_launch_option_9="--autoconvert"
-                    ;;    
-                    "10")
-                    cust_invokeai_launch_option_10="--ckpt_convert"
-                    ;;
-                    "11")
-                    cust_invokeai_launch_option_11="--safety-checker"
-                    ;;
-                    *)
-                    exit 1
-                    ;;    
-                    esac
-                    done
+            if [ -f "./term-sd-launch.conf" ];then
+                if (dialog --clear --title "InvokeAI启动选择" --yes-label "启动" --no-label "修改参数" --yesno "选择直接启动/修改启动参数" 20 60) then
+                    term_sd_launch_info=$(cat ./term-sd-launch.conf)
+                    invokeai $term_sd_launch_info
+                else
+                    generate_invokeai_launch_cust
+                    term_sd_launch_info=$(cat ./term-sd-launch.conf)
+                    invokeai $term_sd_launch_info
                 fi
-                echo "设置启动参数 $cust_invokeai_launch_option_1 $cust_invokeai_launch_option_2 $cust_invokeai_launch_option_3 $cust_invokeai_launch_option_4 $cust_invokeai_launch_option_5 $cust_invokeai_launch_option_6 $cust_invokeai_launch_option_7 $cust_invokeai_launch_option_8 $cust_invokeai_launch_option_9 $cust_invokeai_launch_option_10 $cust_invokeai_launch_option_11"
-                invokeai $cust_invokeai_launch_option_1 $cust_invokeai_launch_option_2 $cust_invokeai_launch_option_3 $cust_invokeai_launch_option_4 $cust_invokeai_launch_option_5 $cust_invokeai_launch_option_6 $cust_invokeai_launch_option_7 $cust_invokeai_launch_option_8 $cust_invokeai_launch_option_9 $cust_invokeai_launch_option_10 $cust_invokeai_launch_option_11
+            else #找不到启动配置
+                generate_invokeai_launch_cust
+                term_sd_launch_info=$(cat ./term-sd-launch.conf)
+                invokeai $term_sd_launch_info
             fi
         elif [ "${invokeai_launch_option}" == '7' ]; then 
             mainmenu
+        fi
+    fi
+}
+
+#invokeai自定义启动参数生成
+function generate_invokeai_launch_cust()
+{
+    cust_invokeai_launch_option_1=""
+    cust_invokeai_launch_option_2=""
+    cust_invokeai_launch_option_3=""
+    cust_invokeai_launch_option_4=""
+    cust_invokeai_launch_option_5=""
+    cust_invokeai_launch_option_6=""
+    cust_invokeai_launch_option_7=""
+    cust_invokeai_launch_option_8=""
+    cust_invokeai_launch_option_9=""
+    cust_invokeai_launch_option_10=""
+    cust_invokeai_launch_option_11=""
+    cust_invokeai_launch_option_12=""
+
+    final_invokeai_launch_option_=$(
+        dialog --clear --separate-output --notags --yes-label "确认" --no-cancel --checklist "InvokeAI启动参数选择" 20 60 10 \
+        "1" "web" ON \
+        "2" "free_gpu_mem" OFF \
+        "3" "precision auto" ON \
+        "4" "precision fp32" OFF\
+        "5" "precision fp16" OFF \
+        "6" "no-xformers_enabled" OFF \
+        "7" "xformers_enabled" ON \
+        "8" "no-patchmatch" OFF \
+        "9" "always_use_cpu" OFF \
+        "10" "no-esrgan" OFF \
+        "11" "no-internet_available" OFF \
+        "12" "host" OFF \
+        3>&1 1>&2 2>&3)
+
+    if [ $? = 0 ];then
+        if [ ! -z "$final_invokeai_launch_option_" ]; then
+            for final_invokeai_launch_option in $final_invokeai_launch_option_; do
+            case "$final_invokeai_launch_option" in
+            "1")
+            cust_invokeai_launch_option_1="--web"
+            ;;
+            "2")
+            cust_invokeai_launch_option_2="--free_gpu_mem"
+            ;;
+            "3")
+            cust_invokeai_launch_option_3="--precision auto"
+            ;;
+            "4")
+            cust_invokeai_launch_option_4="--precision fp32"
+            ;;
+            "5")
+            cust_invokeai_launch_option_5="--precision fp16"
+            ;;
+            "6")
+            cust_invokeai_launch_option_6="--no-xformers_enabled"
+            ;;
+            "7")
+            cust_invokeai_launch_option_7="--xformers_enabled"
+            ;;
+            "8")
+            cust_invokeai_launch_option_8="--no-patchmatch"
+            ;;
+            "9")
+            cust_invokeai_launch_option_9="--always_use_cpu"
+            ;;
+            "10")
+            cust_invokeai_launch_option_10="--no-esrgan"
+            ;;
+            "11")
+            cust_invokeai_launch_option_11="--no-internet_available"
+            ;;
+            "12")
+            cust_invokeai_launch_option_12="--host 0.0.0.0"
+            ;;
+            *)
+            exit 1
+            ;;    
+            esac
+            done
+
+            #生成启动脚本
+            if [ -f "./term-sd-launch.conf" ];then
+                rm -v ./term-sd-launch.conf
+            fi
+            echo "设置启动参数 $cust_invokeai_launch_option_1 $cust_invokeai_launch_option_2 $cust_invokeai_launch_option_3 $cust_invokeai_launch_option_4 $cust_invokeai_launch_option_5 $cust_invokeai_launch_option_6 $cust_invokeai_launch_option_7 $cust_invokeai_launch_option_8 $cust_invokeai_launch_option_9 $cust_invokeai_launch_option_10 $cust_invokeai_launch_option_11 $cust_invokeai_launch_option_12"
+            echo "--root ./invokeai $cust_invokeai_launch_option_1 $cust_invokeai_launch_option_2 $cust_invokeai_launch_option_3 $cust_invokeai_launch_option_4 $cust_invokeai_launch_option_5 $cust_invokeai_launch_option_6 $cust_invokeai_launch_option_7 $cust_invokeai_launch_option_8 $cust_invokeai_launch_option_9 $cust_invokeai_launch_option_10 $cust_invokeai_launch_option_11 $cust_invokeai_launch_option_12" > term-sd-launch.conf
         fi
     fi
 }
@@ -969,7 +996,7 @@ enable-insecure-extension-access:启用不安全的扩展访问\n
 theme dark:启用黑色主题\n
 autolaunch:自动启动浏览器打开webui界面\n
 xformers:使用的xFormers加速\n
-listen:允许局域网的设备进行访问\n
+listen:允许局域网的设备访问\n
 precision-full:全精度\n
 force-enable-xformers:强制启用xformers加速\n
 xformers-flash-attention:启用具有Flash Attention的xformer以提高再现性\n
@@ -985,6 +1012,42 @@ use-cpu-all:使用cpu进行图像生成\n
 opt-channelslast:将稳定扩散的内存类型更改为channels last\n
 no-gradio-queue:禁用gradio队列;导致网页使用http请求而不是websocket\n
 no-hashing:禁用检查点的sha256哈希运算,以帮助提高加载性能\n
+\n
+ComfyUI启动参数:\n
+listen:允许局域网的设备访问\n
+auto-launch:自动在默认浏览器中启动 ComfyUI\n
+dont-upcast-attention:禁用对注意力机制的提升转换。可提升速度，但增加图片变黑的概率\n
+force-fp32:强制使用 fp32\n
+use-split-cross-attention:使用分割交叉注意力优化。使用 xformers 时忽略此选项\n
+use-pytorch-cross-attention:使用新的 pytorch 2.0 交叉注意力功能\n
+disable-xformers:禁用 xformers加速\n
+gpu-only:将所有内容(文本编码器/CLIP 模型等)存储和运行在 GPU 上\n
+highvram:默认情况下,模型使用后会被卸载到 CPU内存。此选项使它们保留在 GPU 内存中\n
+normalvram:当 lowvram 被自动启用时,强制使用普通vram用法\n
+lowvram:拆分unet以使用更少的显存\n
+novram:当 lowvram 不足时使用\n
+cpu:对所有内容使用 CPU(缓慢)\n
+quick-test-for-ci:为 CI 快速测试\n
+\n
+InvokeAI启动参数：\n
+invokeai-configure:参数配置\n
+invokeai：无参数启动\n
+invokeai --web：启用webui界面\n
+invokeai-ti --gui:使用终端界面\n
+invokeai-merge --gui：启动模型合并\n
+其他的自定义参数：\n
+web:启用webui界面\n
+free_gpu_mem：每次操作后积极释放 GPU 内存;这将允许您在低VRAM环境中运行，但会降低一些性能\n
+precision auto：自动选择浮点精度\n
+precision fp32：使用fp32浮点精度\n
+precision fp16：使用fp16浮点精度\n
+no-xformers_enabled：禁用xformers加速\n
+xformers_enabled：启用xformers加速\n
+no-patchmatch：禁用“补丁匹配”算法\n
+always_use_cpu:使用cpu进行图片生成\n
+no-esrgan:不使用esrgan进行图片高清修复\n
+no-internet_available：禁用联网下载资源\n
+host:允许局域网的设备访问\n
 \n
 \n
 该脚本的编写参考了https://gitee.com/skymysky/linux \n
@@ -2266,7 +2329,13 @@ function process_install_invokeai()
     cd ./InvokeAI
     venv_generate
     enter_venv
+    mkdir ./invokeai
     pip install invokeai $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+    pip install git+"$github_proxy"https://github.com/invoke-ai/PyPatchMatch --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+    aria2c "$github_proxy"https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth -d ./invokeai/models/core/upscaling/realesrgan -o RealESRGAN_x4plus.pth
+    aria2c "$github_proxy"https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.2.4/RealESRGAN_x4plus_anime_6B.pth -d ./invokeai/models/core/upscaling/realesrgan -o RealESRGAN_x4plus_anime_6B.pth
+    aria2c "$github_proxy"https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.1/ESRGAN_SRx4_DF2KOST_official-ff704c30.pth -d ./invokeai/models/core/upscaling/realesrgan -o ESRGAN_SRx4_DF2KOST_official-ff704c30.pth
+    aria2c "$github_proxy"https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.1/RealESRGAN_x2plus.pth -d ./invokeai/models/core/upscaling/realesrgan -o RealESRGAN_x2plus.pth
     exit_venv
 }
 
@@ -2323,7 +2392,7 @@ function extension_methon()
 {
     #功能选择界面
     final_extension_methon=$(
-        dialog --clear --title "插件管理" --menu "请使用方向键和回车键进行操作" 20 60 10 \
+        dialog --clear --title "插件管理" --yes-label "确认" --no-label "取消" --menu "请使用方向键和回车键进行操作" 20 60 10 \
         "1" "安装" \
         "2" "管理" \
         "3" "更新全部插件" \
@@ -2352,7 +2421,7 @@ function extension_manager()
     dir_list=$(ls -l --time-style=+"%Y-%m-%d"  | awk -F ' ' ' { print $7 " " $6 } ') #当前目录文件和文件夹信息
 
     extension_selection=$(
-        dialog --clear --title "插件管理" \
+        dialog --clear --yes-label "确认" --no-label "取消" --title "插件管理" \
         --menu "使用上下键选择要操作的插件并回车确认" 20 60 10 \
         $dir_list \
         3>&1 1>&2 2>&3)
@@ -2372,7 +2441,7 @@ function extension_manager()
 #插件安装模块
 function extension_install()
 {
-    extension_address=$(dialog --clear --title "插件安装" --inputbox "输入插件的github或其他下载地址" 20 60 3>&1 1>&2 2>&3)
+    extension_address=$(dialog --clear --title "插件安装" --yes-label "确认" --no-label "取消" --inputbox "输入插件的github或其他下载地址" 20 60 3>&1 1>&2 2>&3)
 
     if [ $? = 0 ]; then
         git clone $extension_address
@@ -2388,7 +2457,7 @@ function extension_install()
 function operate_extension() 
 {
     final_operate_extension=$(
-        dialog --clear --title "操作选择" --menu "请使用方向键和回车键选择对该插件进行的操作" 20 60 10 \
+        dialog --clear --title "操作选择" --yes-label "确认" --no-label "取消" --menu "请使用方向键和回车键选择对该插件进行的操作" 20 60 10 \
         "1" "更新" \
         "2" "卸载" \
         "3" "修复" \
@@ -2436,7 +2505,7 @@ function comfyui_custom_node_methon()
 {
     #功能选择界面
     final_comfyui_custom_node_methon=$(
-        dialog --clear --title "自定义节点管理" --menu "请使用方向键和回车键进行操作" 20 60 10 \
+        dialog --clear --title "自定义节点管理" --yes-label "确认" --no-label "取消" --menu "请使用方向键和回车键进行操作" 20 60 10 \
         "1" "安装" \
         "2" "管理" \
         "3" "更新全部自定义节点" \
@@ -2469,7 +2538,7 @@ function comfyui_custom_node_manager()
     dir_list=$(ls -l --time-style=+"%Y-%m-%d" | awk -F ' ' ' { print $7 " " $6 } ') #当前目录文件和文件夹信息
 
     comfyui_custom_node_selection=$(
-        dialog --clear --title "自定义节点管理" \
+        dialog --clear --yes-label "确认" --no-label "取消" --title "自定义节点管理" \
         --menu "使用上下键选择要操作的插件并回车确认" 20 60 10 \
         $dir_list \
         3>&1 1>&2 2>&3)
@@ -2489,7 +2558,7 @@ function comfyui_custom_node_manager()
 #自定义节点安装模块
 function comfyui_custom_node_install()
 {
-    comfyui_custom_node_address=$(dialog --clear --title "自定义节点安装" --inputbox "输入自定义节点的github或其他下载地址" 20 60 3>&1 1>&2 2>&3)
+    comfyui_custom_node_address=$(dialog --clear --title "自定义节点安装" --yes-label "确认" --no-label "取消" --inputbox "输入自定义节点的github或其他下载地址" 20 60 3>&1 1>&2 2>&3)
 
     if [ $? = 0 ]; then
         git clone $comfyui_custom_node_address
@@ -2513,7 +2582,7 @@ function comfyui_custom_node_install()
 function operate_comfyui_custom_node() 
 {
     final_operate_comfyui_custom_node=$(
-        dialog --clear --title "操作选择" --menu "请使用方向键和回车键选择对该自定义节点进行的操作" 20 60 10 \
+        dialog --clear --title "操作选择" --yes-label "确认" --no-label "取消" --menu "请使用方向键和回车键选择对该自定义节点进行的操作" 20 60 10 \
         "1" "更新" \
         "2" "安装依赖" \
         "3" "卸载" \
@@ -2576,7 +2645,7 @@ function comfyui_extension_methon()
 {
     #功能选择界面
     final_comfyui_extension_methon=$(
-        dialog --clear --title "插件管理" --menu "请使用方向键和回车键进行操作" 20 60 10 \
+        dialog --clear --title "插件管理" --yes-label "确认" --no-label "取消" --menu "请使用方向键和回车键进行操作" 20 60 10 \
         "1" "安装" \
         "2" "管理" \
         "3" "更新全部插件" \
@@ -2609,7 +2678,7 @@ function comfyui_extension_manager()
     dir_list=$(ls -l --time-style=+"%Y-%m-%d" | awk -F ' ' ' { print $7 " " $6 } ') #当前目录文件和文件夹信息
 
     comfyui_extension_selection=$(
-        dialog --clear --title "插件管理" \
+        dialog --clear --yes-label "确认" --no-label "取消" --title "插件管理" \
         --menu "使用上下键选择要操作的插件并回车确认" 20 60 10 \
         $dir_list \
         3>&1 1>&2 2>&3)
@@ -2629,7 +2698,7 @@ function comfyui_extension_manager()
 #插件安装模块
 function comfyui_extension_install()
 {
-    comfyui_extension_address=$(dialog --clear --title "插件安装" --inputbox "输入插件的github或其他下载地址" 20 60 3>&1 1>&2 2>&3)
+    comfyui_extension_address=$(dialog --clear --title "插件安装" --yes-label "确认" --no-label "取消" --inputbox "输入插件的github或其他下载地址" 20 60 3>&1 1>&2 2>&3)
 
     if [ $? = 0 ]; then
         git clone $comfyui_extension_address
@@ -2653,7 +2722,7 @@ function comfyui_extension_install()
 function operate_comfyui_extension() 
 {
     final_operate_comfyui_extension=$(
-        dialog --clear --title "操作选择" --menu "请使用方向键和回车键选择对该插件进行的操作" 20 60 10 \
+        dialog --clear --title "操作选择" --yes-label "确认" --no-label "取消" --menu "请使用方向键和回车键选择对该插件进行的操作" 20 60 10 \
         "1" "更新" \
         "2" "安装依赖" \
         "3" "卸载" \
@@ -2749,7 +2818,7 @@ function git_checkout_manager()
     commit_lists=$(git log --date=short --pretty=format:"%H %cd" | awk -F  ' ' ' {print $1 " " $2} ')
 
     commit_selection=$(
-        dialog --clear --title "版本管理" \
+        dialog --clear --yes-label "确认" --no-label "取消" --title "版本管理" \
         --menu "使用上下键选择要切换的版本并回车确认" 20 60 10 \
         $commit_lists \
         3>&1 1>&2 2>&3)
@@ -2778,7 +2847,7 @@ function extension_all_update()
 
 #启动程序部分
 
-term_sd_version_="0.3.1"
+term_sd_version_="0.3.2"
 
 if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
     test_python="python"
