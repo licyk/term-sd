@@ -2322,11 +2322,13 @@ function process_install_invokeai()
 
     #开始安装invokeai
     echo "开始安装invokeai"
-    mkdir InvokeAI
+    if [ ! -d "./InvokeAI" ];then
+        mkdir InvokeAI
+    fi
     cd ./InvokeAI
     venv_generate
     enter_venv
-    if [ -d "./invokeai" ];then
+    if [ ! -d "./invokeai" ];then
         mkdir ./invokeai
     fi
     pip install invokeai $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
