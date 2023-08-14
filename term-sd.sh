@@ -982,7 +982,8 @@ Ctrl+C可中断指令的运行 \n
 8、AUTOMATIC1111-stable-diffusion-webui安装好后，可以使用秋叶aaaki制作的启动器来启动sd-webui。将秋叶的启动器放入stable-diffusion-webui文件夹中，双击启动（仅限windows,因为秋叶的启动器只有window的版本）\n
 9、ComfyUI安装插件后，推荐运行一次“安装依赖”功能\n
 10、有时候在安装sd-webui时选择安装插件，会因为插件兼容问题而导致报错，然后启动失败。一种解决办法是在安装选择时取消所有要安装的插件，然后安装并启动，等能够成功进入sd-weui时再用扩展脚本中的sd-webui-extension.sh来安装脚本\n
-11、torch版本的选择：nvidia显卡选择cuda（Windows，linux平台），amd显卡在linux平台选择rocm，amd显卡和intel显卡在windows平台选择direct-ml\n
+11、torch版本的选择：nvidia显卡选择cuda（Windows，linux平台），amd显卡在linux平台选择rocm，amd显卡和intel显卡在windows平台选择directml\n
+12、InvokeAI在安装好后，要运行一次invokeai-configure，到\"install stable diffusion models\"界面时，可以把所有的模型取消勾选，因为有的模型是从civitai下载的，如果没有科学上网会导致下载失败\n
 \n
 \n
 stable diffusion webui的启动参数：\n
@@ -2329,11 +2330,10 @@ function process_install_invokeai()
         mkdir ./invokeai
     fi
     pip install invokeai $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
-    pip install git+"$github_proxy"https://github.com/invoke-ai/PyPatchMatch --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
-    aria2c "$github_proxy"https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth -d ./invokeai/models/core/upscaling/realesrgan -o RealESRGAN_x4plus.pth
-    aria2c "$github_proxy"https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.2.4/RealESRGAN_x4plus_anime_6B.pth -d ./invokeai/models/core/upscaling/realesrgan -o RealESRGAN_x4plus_anime_6B.pth
-    aria2c "$github_proxy"https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.1/ESRGAN_SRx4_DF2KOST_official-ff704c30.pth -d ./invokeai/models/core/upscaling/realesrgan -o ESRGAN_SRx4_DF2KOST_official-ff704c30.pth
-    aria2c "$github_proxy"https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.1/RealESRGAN_x2plus.pth -d ./invokeai/models/core/upscaling/realesrgan -o RealESRGAN_x2plus.pth
+    aria2c https://huggingface.co/licyk/sd-upscaler-models/resolve/main/invokeai/RealESRGAN_x4plus.pth -d ./invokeai/models/core/upscaling/realesrgan -o RealESRGAN_x4plus.pth
+    aria2c https://huggingface.co/licyk/sd-upscaler-models/resolve/main/invokeai/RealESRGAN_x4plus_anime_6B.pth -d ./invokeai/models/core/upscaling/realesrgan -o RealESRGAN_x4plus_anime_6B.pth
+    aria2c https://huggingface.co/licyk/sd-upscaler-models/resolve/main/invokeai/ESRGAN_SRx4_DF2KOST_official-ff704c30.pth -d ./invokeai/models/core/upscaling/realesrgan -o ESRGAN_SRx4_DF2KOST_official-ff704c30.pth
+    aria2c https://huggingface.co/licyk/sd-upscaler-models/resolve/main/invokeai/RealESRGAN_x2plus.pth -d ./invokeai/models/core/upscaling/realesrgan -o RealESRGAN_x2plus.pth
     echo "安装结束"
     exit_venv
 }
