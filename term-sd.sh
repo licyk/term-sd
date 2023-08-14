@@ -713,7 +713,7 @@ function generate_invokeai_launch()
                 invokeai $term_sd_launch_info
             fi
         elif [ "${invokeai_launch_option}" == '7' ]; then 
-            mainmenu
+            echo
         fi
     fi
 }
