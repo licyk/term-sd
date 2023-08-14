@@ -268,7 +268,7 @@ function invokeai_option()
         cd InvokeAI
         venv_generate #尝试重新生成虚拟环境,解决因为路径移动导致虚拟环境无法进入，然后检测不到invokeai
         enter_venv #进入环境
-        if which invokeai > /dev/null ;then #查找环境中有没有invokeai
+        if which invokeai 2> /dev/null ;then #查找环境中有没有invokeai
             final_invokeai_option=$(
                 dialog --clear --title "InvokeAI管理" --yes-label "确认" --no-label "取消" --menu "请使用方向键和回车键对InvokeAI进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 20 60 10 \
                 "1" "更新" \
@@ -2306,7 +2306,7 @@ function process_install_comfyui()
         aria2c https://huggingface.co/monster-labs/control_v1p_sd15_qrcode_monster/resolve/main/control_v1p_sd15_qrcode_monster.safetensors -d ./ComfyUI/models/controlnet -o control_v1p_sd15_qrcode_monster.safetensors
         aria2c https://huggingface.co/monster-labs/control_v1p_sd15_qrcode_monster/resolve/main/control_v1p_sd15_qrcode_monster.yaml -d ./ComfyUI/models/controlnet -o control_v1p_sd15_qrcode_monster.yaml
     fi
-
+    echo "安装结束"
     exit_venv
 }
 
@@ -2334,6 +2334,7 @@ function process_install_invokeai()
     aria2c "$github_proxy"https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.2.4/RealESRGAN_x4plus_anime_6B.pth -d ./invokeai/models/core/upscaling/realesrgan -o RealESRGAN_x4plus_anime_6B.pth
     aria2c "$github_proxy"https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.1/ESRGAN_SRx4_DF2KOST_official-ff704c30.pth -d ./invokeai/models/core/upscaling/realesrgan -o ESRGAN_SRx4_DF2KOST_official-ff704c30.pth
     aria2c "$github_proxy"https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.1/RealESRGAN_x2plus.pth -d ./invokeai/models/core/upscaling/realesrgan -o RealESRGAN_x2plus.pth
+    echo "安装结束"
     exit_venv
 }
 
@@ -2360,6 +2361,7 @@ function process_install_lora_scripts()
     cd ..
     pip install --upgrade $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select lion-pytorch lycoris-lora dadaptation fastapi uvicorn wandb --default-timeout=100 --retries 5
     aria2c https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./sd-models/ -o model.ckpt
+    echo "安装结束"
     exit_venv
 }
 
