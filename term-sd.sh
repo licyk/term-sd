@@ -2369,18 +2369,17 @@ function process_install_lora_scripts()
 
     #参考lora-scripts里的install.bash写的
     echo "开始安装lora-scipts"
-    git clone "$github_proxy"https://github.com/Akegarasu/lora-scripts.git
-    git clone "$github_proxy"https://github.com/kohya-ss/sd-scripts.git ./lora-scripts/sd-scripts
-    git clone "$github_proxy"https://github.com/hanamizuki-ai/lora-gui-dist ./lora-scripts/frontend
+    git clone "$github_proxy"https://github.com/Akegarasu/lora-scripts.git #lora-scripts本体
+    git clone "$github_proxy"https://github.com/kohya-ss/sd-scripts.git ./lora-scripts/sd-scripts #lora-scripts后端
+    git clone "$github_proxy"https://github.com/hanamizuki-ai/lora-gui-dist ./lora-scripts/frontend #lora-scripts前端
     cd ./lora-scripts
     venv_generate
     enter_venv
     pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
     cd ./sd-scripts
-    pip install $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --upgrade -r requirements.txt  --default-timeout=100 --retries 5
-    cd ..
-    pip install --upgrade $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select lion-pytorch lycoris-lora dadaptation fastapi uvicorn wandb --default-timeout=100 --retries 5
-    aria2c https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./sd-models/ -o model.ckpt
+    pip install $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --upgrade -r requirements.txt  --default-timeout=100 --retries 5 #sd-scripts目录下还有个_typos.toml，在安装requirements.txt里的依赖时会指向这个文件
+    cd ../..
+    aria2c https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./lora-scripts/sd-models/ -o model.ckpt
     echo "安装结束"
     exit_venv
 }
