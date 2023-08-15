@@ -390,11 +390,13 @@ function lora_scripts_option()
                 git reset --hard HEAD
                 cd ..
                 git submodule update
+                git submodule
                 lora_scripts_option
             elif [ "${final_lora_scripts_option}" == '4' ]; then
                 git_checkout_manager
                 cd "$start_path/lora-scripts"
                 git submodule update
+                git submodule
                 lora_scripts_option
             elif [ "${final_lora_scripts_option}" == '5' ]; then
                 enter_venv
@@ -2397,6 +2399,7 @@ function process_install_lora_scripts()
     git clone "$github_proxy"https://github.com/hanamizuki-ai/lora-gui-dist ./lora-scripts/frontend #lora-scripts前端
     cd ./lora-scripts
     git submodule update
+    git submodule
     venv_generate
     enter_venv
     pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
