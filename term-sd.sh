@@ -79,7 +79,7 @@ function a1111_sd_webui_option()
             dialog --clear --title "A1111-SD-Webui管理" --yes-label "确认" --no-label "取消" --menu "请使用方向键和回车键对A1111-Stable-Diffusion-Webui进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 20 60 10 \
             "1" "更新" \
             "2" "卸载" \
-            "3" "修复" \
+            "3" "修复更新" \
             "4" "管理插件" \
             "5" "切换版本" \
             "6" "启动" \
@@ -109,7 +109,7 @@ function a1111_sd_webui_option()
                     a1111_sd_webui_option
                 fi
             elif [ "${final_a1111_sd_webui_option}" == '3' ]; then
-                echo "修复中"
+                echo "修复更新中"
                 git checkout master
                 git reset --hard HEAD
                 a1111_sd_webui_option
@@ -173,7 +173,7 @@ function comfyui_option()
             dialog --clear --title "ComfyUI管理" --yes-label "确认" --no-label "取消" --menu "请使用方向键和回车键对ComfyUI进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 20 60 10 \
             "1" "更新" \
             "2" "卸载" \
-            "3" "修复" \
+            "3" "修复更新" \
             "4" "自定义节点管理" \
             "5" "插件管理" \
             "6" "切换版本" \
@@ -204,7 +204,7 @@ function comfyui_option()
                     comfyui_option
                 fi
             elif [ "${final_comfyui_option}" == '3' ]; then
-                echo "修复中"
+                echo "修复更新中"
                 git reset --hard HEAD
                 comfyui_option
             elif [ "${final_comfyui_option}" == '4' ]; then
@@ -340,7 +340,7 @@ function lora_scripts_option()
             dialog --clear --title "lora-scripts管理" --yes-label "确认" --no-label "取消" --menu "请使用方向键和回车键对lora-scripts进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 20 60 10 \
             "1" "更新" \
             "2" "卸载" \
-            "3" "修复" \
+            "3" "修复更新" \
             "4" "版本切换" \
             "5" "启动" \
             "6" "重新安装" \
@@ -352,11 +352,18 @@ function lora_scripts_option()
         if [ $? = 0 ];then
             if [ "${final_lora_scripts_option}" == '1' ]; then
                 echo "更新lora-scripts中"
+                test_num=1
                 git pull
-                if [ $? = "0" ];then
-                    dialog --clear --title "A1111-SD-Webui管理" --msgbox "更新成功" 20 60
+                if [ $? = 0 ];then
+                    test_num=0
+                fi
+                git pull ./sd-scripts
+                git pull ./frontend
+                git submodule update
+                if [ test_num = "0" ];then
+                    dialog --clear --title "lora-scripts管理" --msgbox "更新成功" 20 60
                 else
-                    dialog --clear --title "A1111-SD-Webui管理" --msgbox "更新失败" 20 60
+                    dialog --clear --title "lora-scripts管理" --msgbox "更新失败" 20 60
                 fi
                 lora_scripts_option
             elif [ "${final_lora_scripts_option}" == '2' ]; then
@@ -369,11 +376,19 @@ function lora_scripts_option()
                     lora_scripts_option
                 fi
             elif [ "${final_lora_scripts_option}" == '3' ]; then
-                echo "修复中"
+                echo "修复更新中"
                 git reset --hard HEAD
+                cd ./sd-scripts
+                git reset --hard HEAD
+                cd ./../frontend
+                git reset --hard HEAD
+                cd ..
+                git submodule update
                 lora_scripts_option
             elif [ "${final_lora_scripts_option}" == '4' ]; then
                 git_checkout_manager
+                cd "$start_path/lora-scripts"
+                git submodule update
                 lora_scripts_option
             elif [ "${final_lora_scripts_option}" == '5' ]; then
                 enter_venv
@@ -2373,6 +2388,7 @@ function process_install_lora_scripts()
     git clone "$github_proxy"https://github.com/kohya-ss/sd-scripts.git ./lora-scripts/sd-scripts
     git clone "$github_proxy"https://github.com/hanamizuki-ai/lora-gui-dist ./lora-scripts/frontend
     cd ./lora-scripts
+    git submodule upda
     venv_generate
     enter_venv
     pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
@@ -2480,7 +2496,7 @@ function operate_extension()
         dialog --clear --title "操作选择" --yes-label "确认" --no-label "取消" --menu "请使用方向键和回车键选择对该插件进行的操作" 20 60 10 \
         "1" "更新" \
         "2" "卸载" \
-        "3" "修复" \
+        "3" "修复更新" \
         "4" "版本切换" \
         "5" "返回" \
         3>&1 1>&2 2>&3)
@@ -2503,7 +2519,7 @@ function operate_extension()
                 cd ..
             fi
         elif [ "${final_operate_extension}" == '3' ]; then
-            echo "修复中"
+            echo "修复更新中"
             git reset --hard HEAD
             cd ..
         elif [ "${final_operate_extension}" == '4' ]; then
@@ -2606,7 +2622,7 @@ function operate_comfyui_custom_node()
         "1" "更新" \
         "2" "安装依赖" \
         "3" "卸载" \
-        "4" "修复" \
+        "4" "修复更新" \
         "5" "版本切换" \
         "6" "返回" \
         3>&1 1>&2 2>&3)
@@ -2646,7 +2662,7 @@ function operate_comfyui_custom_node()
                 cd ..
             fi
         elif [ "${final_operate_comfyui_custom_node}" == '4' ]; then
-            echo "修复中"
+            echo "修复更新中"
             git reset --hard HEAD
             cd ..
         elif [ "${final_operate_comfyui_custom_node}" == '5' ]; then
@@ -2746,7 +2762,7 @@ function operate_comfyui_extension()
         "1" "更新" \
         "2" "安装依赖" \
         "3" "卸载" \
-        "4" "修复" \
+        "4" "修复更新" \
         "5" "版本切换" \
         "6" "返回" \
         3>&1 1>&2 2>&3)
@@ -2787,7 +2803,7 @@ function operate_comfyui_extension()
                 cd ..
             fi
         elif [ "${final_operate_comfyui_extension}" == '4' ]; then
-            echo "修复中"
+            echo "修复更新中"
             git reset --hard HEAD
             cd ..
         elif [ "${final_operate_comfyui_extension}" == '5' ]; then
