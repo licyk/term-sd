@@ -1022,6 +1022,7 @@ Ctrl+C可中断指令的运行 \n
 10、有时候在安装sd-webui时选择安装插件，会因为插件兼容问题而导致报错，然后启动失败。一种解决办法是在安装选择时取消所有要安装的插件，然后安装并启动，等能够成功进入sd-weui时再用扩展脚本中的sd-webui-extension.sh来安装脚本\n
 11、torch版本的选择：nvidia显卡选择cuda（Windows，linux平台），amd显卡在linux平台选择rocm，amd显卡和intel显卡在windows平台选择directml\n
 12、InvokeAI在安装好后，要运行一次invokeai-configure，到\"install stable diffusion models\"界面时，可以把所有的模型取消勾选，因为有的模型是从civitai下载的，如果没有科学上网会导致下载失败\n
+13、在更新或者切换版本失败时可以使用“更新修复”解决\n
 \n
 \n
 stable diffusion webui的启动参数：\n
@@ -2866,7 +2867,7 @@ function git_checkout_manager()
 
     commit_selection=$(
         dialog --clear --yes-label "确认" --no-label "取消" --title "版本管理" \
-        --menu "使用上下键选择要切换的版本并回车确认" 20 60 10 \
+        --menu "使用上下键选择要切换的版本并回车确认\n当前版本$(git show -s --format="%H %cd" --date=format:"%Y-%m-%d %H:%M:%S")" 20 60 10 \
         $commit_lists \
         3>&1 1>&2 2>&3)
 
