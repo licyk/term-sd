@@ -2388,7 +2388,7 @@ function process_install_lora_scripts()
     git clone "$github_proxy"https://github.com/kohya-ss/sd-scripts.git ./lora-scripts/sd-scripts #lora-scripts后端
     git clone "$github_proxy"https://github.com/hanamizuki-ai/lora-gui-dist ./lora-scripts/frontend #lora-scripts前端
     cd ./lora-scripts
-    git submodule upda
+    git submodule update
     venv_generate
     enter_venv
     pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
