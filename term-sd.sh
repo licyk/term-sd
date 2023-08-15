@@ -205,6 +205,7 @@ function comfyui_option()
                 fi
             elif [ "${final_comfyui_option}" == '3' ]; then
                 echo "修复更新中"
+                git checkout master
                 git reset --hard HEAD
                 comfyui_option
             elif [ "${final_comfyui_option}" == '4' ]; then
@@ -365,7 +366,7 @@ function lora_scripts_option()
                 git pull ./sd-scripts
                 git pull ./frontend
                 git submodule init
-                git submodule update #版本不对应，有时慧=会出现各种奇怪的报错
+                git submodule update #版本不对应，有时会出现各种奇怪的报错
                 git submodule
                 if [ $test_num = "0" ];then
                     dialog --clear --title "lora-scripts管理" --msgbox "更新成功" 20 60
@@ -385,13 +386,13 @@ function lora_scripts_option()
             elif [ "${final_lora_scripts_option}" == '3' ]; then
                 echo "修复更新中"
                 git checkout main
-                git reset --hard HEAD
+                git reset --hard HEAD #修复lora-scripts
                 cd ./sd-scripts
                 git checkout main
-                git reset --hard HEAD
+                git reset --hard HEAD #修复kohya-ss训练模块
                 cd ./../frontend
                 git checkout master
-                git reset --hard HEAD
+                git reset --hard HEAD #修复lora-gui-dist
                 cd ..
                 git submodule init
                 git submodule update
@@ -1028,7 +1029,7 @@ Ctrl+C可中断指令的运行 \n
 10、有时候在安装sd-webui时选择安装插件，会因为插件兼容问题而导致报错，然后启动失败。一种解决办法是在安装选择时取消所有要安装的插件，然后安装并启动，等能够成功进入sd-weui时再用扩展脚本中的sd-webui-extension.sh来安装脚本\n
 11、torch版本的选择：nvidia显卡选择cuda（Windows，linux平台），amd显卡在linux平台选择rocm，amd显卡和intel显卡在windows平台选择directml\n
 12、InvokeAI在安装好后，要运行一次invokeai-configure，到\"install stable diffusion models\"界面时，可以把所有的模型取消勾选，因为有的模型是从civitai下载的，如果没有科学上网会导致下载失败\n
-13、在更新或者切换版本失败时可以使用“更新修复”解决\n
+13、在更新或者切换版本失败时可以使用“更新修复”解决，然后再点一次“更新”\n
 \n
 \n
 stable diffusion webui的启动参数：\n
