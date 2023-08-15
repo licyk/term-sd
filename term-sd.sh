@@ -364,7 +364,8 @@ function lora_scripts_option()
                 fi
                 git pull ./sd-scripts
                 git pull ./frontend
-                git submodule update
+                git submodule init
+                git submodule update #版本不对应，有时慧=会出现各种奇怪的报错
                 git submodule
                 if [ $test_num = "0" ];then
                     dialog --clear --title "lora-scripts管理" --msgbox "更新成功" 20 60
@@ -383,18 +384,23 @@ function lora_scripts_option()
                 fi
             elif [ "${final_lora_scripts_option}" == '3' ]; then
                 echo "修复更新中"
+                git checkout main
                 git reset --hard HEAD
                 cd ./sd-scripts
+                git checkout main
                 git reset --hard HEAD
                 cd ./../frontend
+                git checkout master
                 git reset --hard HEAD
                 cd ..
+                git submodule init
                 git submodule update
                 git submodule
                 lora_scripts_option
             elif [ "${final_lora_scripts_option}" == '4' ]; then
                 git_checkout_manager
                 cd "$start_path/lora-scripts"
+                git submodule init
                 git submodule update
                 git submodule
                 lora_scripts_option
@@ -2399,6 +2405,7 @@ function process_install_lora_scripts()
     git clone "$github_proxy"https://github.com/kohya-ss/sd-scripts.git ./lora-scripts/sd-scripts #lora-scripts后端
     git clone "$github_proxy"https://github.com/hanamizuki-ai/lora-gui-dist ./lora-scripts/frontend #lora-scripts前端
     cd ./lora-scripts
+    git submodule init
     git submodule update
     git submodule
     venv_generate
