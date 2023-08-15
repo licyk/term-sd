@@ -2863,18 +2863,18 @@ function comfyui_extension_dep_install()
 #版本切换模块
 function git_checkout_manager()
 {
-    commit_lists=$(git log --date=short --pretty=format:"%H %cd" | awk -F  ' ' ' {print $1 " " $2} ')
+    commit_lists=$(git log --date=short --pretty=format:"%H %cd" --date=format:"%Y-%m-%d|%H:%M:%S" | awk -F  ' ' ' {print $1 " " $2} ')
 
     commit_selection=$(
         dialog --clear --yes-label "确认" --no-label "取消" --title "版本管理" \
-        --menu "使用上下键选择要切换的版本并回车确认\n当前版本$(git show -s --format="%H %cd" --date=format:"%Y-%m-%d %H:%M:%S")" 20 60 10 \
+        --menu "使用上下键选择要切换的版本并回车确认\n当前版本:\n$(git show -s --format="%H %cd" --date=format:"%Y-%m-%d %H:%M:%S")" 20 70 10 \
         $commit_lists \
         3>&1 1>&2 2>&3)
 
     if [ "$?" = "0" ];then
         git checkout $commit_selection
-        cd ..
     fi
+    cd ..
 }
 
 #一键更新全部插件功能
