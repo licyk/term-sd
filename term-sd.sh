@@ -365,7 +365,8 @@ function lora_scripts_option()
                 git pull ./sd-scripts
                 git pull ./frontend
                 git submodule update
-                if [ test_num = "0" ];then
+                git submodule
+                if [ $test_num = "0" ];then
                     dialog --clear --title "lora-scripts管理" --msgbox "更新成功" 20 60
                 else
                     dialog --clear --title "lora-scripts管理" --msgbox "更新失败" 20 60
