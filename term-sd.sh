@@ -189,9 +189,9 @@ function comfyui_option()
                 echo "更新ComfyUI中"
                 git pull
                 if [ $? = "0" ];then
-                    dialog --clear --title "A1111-SD-Webui管理" --msgbox "更新成功" 20 60
+                    dialog --clear --title "ComfyUI管理" --msgbox "更新成功" 20 60
                 else
-                    dialog --clear --title "A1111-SD-Webui管理" --msgbox "更新失败" 20 60
+                    dialog --clear --title "ComfyUI管理" --msgbox "更新失败" 20 60
                 fi
                 comfyui_option
             elif [ "${final_comfyui_option}" == '2' ]; then
@@ -286,6 +286,11 @@ function invokeai_option()
                     final_install_check #安装前确认
                     echo "更新InvokeAI中"
                     pip install $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --upgrade invokeai --default-timeout=100 --retries 5
+                    if [ $? = "0" ];then
+                        dialog --clear --title "InvokeAI管理" --msgbox "更新成功" 20 60
+                    else
+                        dialog --clear --title "InvokeAI管理" --msgbox "更新失败" 20 60
+                    fi
                     invokeai_option
                 elif [ "${final_invokeai_option}" == '2' ]; then
                     if (dialog --clear --title "删除选项" --yes-label "是" --no-label "否" --yesno "是否删除InvokeAI" 20 60) then
@@ -2882,7 +2887,7 @@ function extension_all_update()
 
 #启动程序部分
 
-term_sd_version_="0.3.2"
+term_sd_version_="0.3.3"
 
 if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
     test_python="python"
@@ -2914,31 +2919,31 @@ test_num=0
 if which dialog > /dev/null ;then
     test_num=$(( $test_num + 1 ))
 else
-    echo "未安装dialog,请安装后重试"
+    echo "未安装dialog"
 fi
 
 if which aria2c > /dev/null ;then
     test_num=$(( $test_num + 1 ))
 else
-    echo "未安装aria2,请安装后重试"
+    echo "未安装aria2"
 fi
 
 if which $test_python > /dev/null;then
     test_num=$(( $test_num + 1 ))
 else
-    echo "未安装python,请安装后重试"
+    echo "未安装python"
 fi
 
 if which pip >/dev/null;then
     test_num=$(( $test_num + 1 ))
 else
-    echo "未安装git,请安装后重试"
+    echo "未安装pip"
 fi
 
 if which git > /dev/null;then
     test_num=$(( $test_num + 1 ))
 else
-    echo "未安装git,请安装后重试"
+    echo "未安装git"
 fi
 
 
@@ -2949,6 +2954,6 @@ if [ $test_num -ge 5 ];then
     echo "启动Term-SD中"
     term_sd_version
 else
-    echo "未满足依赖要求，正在退出"
+    echo "未满足依赖要求,请安装后重试"
     exit
 fi
