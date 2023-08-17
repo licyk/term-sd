@@ -2671,17 +2671,41 @@ function operate_comfyui_custom_node()
             cd "$start_path/ComfyUI"
             enter_venv
             cd -
+
             if [ -f "./install.py" ];then
+                echo "安装"$extension_folder"依赖"
+                dep_info_="$dep_info_\n "$extension_folder"插件:\n" #作为显示安装结果信息
+            elif [ -f "./requirements.txt" ];then
+                echo "安装"$extension_folder"依赖"
+                dep_info_="$dep_info_\n "$extension_folder"插件:\n" #作为显示安装结果信息
+            fi
+
+            if [ -f "./install.py" ];then #找到install.py文件
                 if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
                     python install.py
                 else
                     python3 install.py
                 fi
+                if [ $? = 0 ];then #记录退出状态
+                    dep_info="    run install.py:成功\n"
+                    dep_info_="$dep_info_ $dep_info"
+                else
+                    dep_info="    run install.py:失败\n"
+                    dep_info_="$dep_info_ $dep_info"
+                fi
             fi
 
-            if [ -f "./requirements.txt" ];then
+            if [ -f "./requirements.txt" ];then #找到requirement.txt文件
                 pip install -r requirements.txt
+                if [ $? = 0 ];then #记录退出状态
+                    dep_info="    run install.py:成功\n"
+                    dep_info_="$dep_info_ $dep_info"
+                else
+                    dep_info="    run install.py:失败\n"
+                    dep_info_="$dep_info_ $dep_info"
+                fi
             fi
+
             exit_venv
             cd ..
         elif [ "${final_operate_comfyui_custom_node}" == '3' ]; then
@@ -2812,17 +2836,41 @@ function operate_comfyui_extension()
             cd "$start_path/ComfyUI"
             enter_venv
             cd -
+
             if [ -f "./install.py" ];then
+                echo "安装"$extension_folder"依赖"
+                dep_info_="$dep_info_\n "$extension_folder"插件:\n" #作为显示安装结果信息
+            elif [ -f "./requirements.txt" ];then
+                echo "安装"$extension_folder"依赖"
+                dep_info_="$dep_info_\n "$extension_folder"插件:\n" #作为显示安装结果信息
+            fi
+
+            if [ -f "./install.py" ];then #找到install.py文件
                 if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
                     python install.py
                 else
                     python3 install.py
                 fi
+                if [ $? = 0 ];then #记录退出状态
+                    dep_info="    run install.py:成功\n"
+                    dep_info_="$dep_info_ $dep_info"
+                else
+                    dep_info="    run install.py:失败\n"
+                    dep_info_="$dep_info_ $dep_info"
+                fi
             fi
 
-            if [ -f "./requirements.txt" ];then
+            if [ -f "./requirements.txt" ];then #找到requirement.txt文件
                 pip install -r requirements.txt
+                if [ $? = 0 ];then #记录退出状态
+                    dep_info="    run install.py:成功\n"
+                    dep_info_="$dep_info_ $dep_info"
+                else
+                    dep_info="    run install.py:失败\n"
+                    dep_info_="$dep_info_ $dep_info"
+                fi
             fi
+
             exit_venv
             cd ..
         elif [ "${final_operate_comfyui_extension}" == '3' ]; then
@@ -2847,34 +2895,55 @@ function operate_comfyui_extension()
     fi
 }
 
-#comfyui插件/自定义节点依赖安装部分
+#comfyui插件/自定义节点依赖一键安装部分
 function comfyui_extension_dep_install()
 {
     cd "$start_path/ComfyUI"
     enter_venv
     cd -
+    unset dep_info_ #清除上次运行结果
+    unset dep_info
     for extension_folder in ./*
     do
         [ -f "$extension_folder" ] && continue #排除文件
         cd $extension_folder
         if [ -f "./install.py" ];then
             echo "安装"$extension_folder"依赖"
+            dep_info_="$dep_info_\n "$extension_folder"插件:\n" #作为显示安装结果信息
+        elif [ -f "./requirements.txt" ];then
+            echo "安装"$extension_folder"依赖"
+            dep_info_="$dep_info_\n "$extension_folder"插件:\n" #作为显示安装结果信息
+        fi
+
+        if [ -f "./install.py" ];then #找到install.py文件
             if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
                 python install.py
             else
                 python3 install.py
             fi
-            echo $?
-            read
+            if [ $? = 0 ];then #记录退出状态
+                dep_info="    run install.py:成功\n"
+                dep_info_="$dep_info_ $dep_info"
+            else
+                dep_info="    run install.py:失败\n"
+                dep_info_="$dep_info_ $dep_info"
+            fi
         fi
 
-        if [ -f "./requirements.txt" ];then
-            echo "安装"$extension_folder"依赖"
+        if [ -f "./requirements.txt" ];then #找到requirement.txt文件
             pip install -r requirements.txt
+            if [ $? = 0 ];then #记录退出状态
+                dep_info="    install requirements.txt:成功\n"
+                dep_info_="$dep_info_ $dep_info"
+            else
+                dep_info="    install requirements.txt:失败\n"
+                dep_info_="$dep_info_ $dep_info"
+            fi
         fi
         cd ..
     done
     exit_venv
+    dialog --clear --title "依赖安装状态" --msgbox "当前依赖的安装情况列表\n--------------------------------------------------------$dep_info_\n--------------------------------------------------------" 20 60
 }
 
 ###############################################################################
