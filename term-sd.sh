@@ -2710,6 +2710,7 @@ function operate_comfyui_custom_node()
 
             exit_venv
             cd ..
+            dialog --clear --title "依赖安装状态" --msgbox "当前依赖的安装情况列表\n--------------------------------------------------------$dep_info_\n--------------------------------------------------------" 20 60
         elif [ "${final_operate_comfyui_custom_node}" == '3' ]; then
             if (dialog --clear --title "删除选项" --yes-label "是" --no-label "否" --yesno "是否删除该自定义节点" 20 60) then
                 echo "删除"$comfyui_custom_node_selection"自定义节点中"
@@ -2875,6 +2876,7 @@ function operate_comfyui_extension()
 
             exit_venv
             cd ..
+            dialog --clear --title "依赖安装状态" --msgbox "当前依赖的安装情况列表\n--------------------------------------------------------$dep_info_\n--------------------------------------------------------" 20 60
         elif [ "${final_operate_comfyui_extension}" == '3' ]; then
             if (dialog --clear --title "删除选项" --yes-label "是" --no-label "否" --yesno "是否删除该插件" 20 60) then
                 echo "删除"$comfyui_extension_selection"插件中"
@@ -3050,13 +3052,15 @@ fi
 #启动term-sd
 
 if [ $test_num -ge 5 ];then
-    if [ $1 = "--dev" ];then
-        term_sd_branch=dev
-        echo "将term-sd自身下载源切换到dev版本"
-    else
-        echo "输入参数有误"
-        echo "若将term-sd的下载源切换到dev版本，请使用“--dev”参数"
-        echo "使用term-sd默认下载源"
+    if [ ! $1 = "" ];then
+        if [ $1 = "--dev" ];then
+            term_sd_branch=dev
+            echo "将term-sd自身下载源切换到dev版本"
+        else
+            echo "输入参数有误"
+            echo "若将term-sd的下载源切换到dev版本，请使用“--dev”参数"
+            echo "使用term-sd默认下载源"
+        fi
     fi
     echo "初始化Term-SD完成"
     echo "启动Term-SD中"
