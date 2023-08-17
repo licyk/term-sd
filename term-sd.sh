@@ -1603,6 +1603,7 @@ function comfyui_custom_node_option()
     comfyui_custom_node_36=""
     comfyui_custom_node_37=""
     comfyui_custom_node_38=""
+    comfyui_custom_node_39=""
 
     final_comfyui_custom_node_option=$(
         dialog --separate-output --notags --yes-label "确认" --no-cancel --checklist "ComfyUi自定义节点选择" 20 60 10 \
@@ -1644,6 +1645,7 @@ function comfyui_custom_node_option()
         "36" "ComfyUI-Waveform-Extensions" OFF \
         "37" "ComfyUI_Custom_Nodes_AlekPet" OFF \
         "38" "comfy_controlnet_preprocessors" ON \
+        “39” “AIGODLIKE-COMFYUI-TRANSLATION” ON \
         3>&1 1>&2 2>&3)
 
     if [ ! -z "$final_comfyui_custom_node_option" ]; then
@@ -1762,6 +1764,9 @@ function comfyui_custom_node_option()
         ;;
         "38")
         comfyui_custom_node_38="https://github.com/Fannovel16/comfy_controlnet_preprocessors"
+        ;;
+        "39")
+        comfyui_custom_node_39="https://github.com/AIGODLIKE/AIGODLIKE-COMFYUI-TRANSLATION"
         ;;
         *)
         exit 1
@@ -2309,6 +2314,10 @@ function process_install_comfyui()
         git clone "$github_proxy"$comfyui_custom_node_38 ./ComfyUI/custom_nodes/comfy_controlnet_preprocessors
     fi
 
+    if [ ! $comfyui_custom_node_39 = "" ];then
+        git clone "$github_proxy"$comfyui_custom_node_39 ./ComfyUI/custom_nodes/AIGODLIKE-COMFYUI-TRANSLATION
+    fi
+
     echo "下载模型中"
     aria2c https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./ComfyUI/models/checkpoints/ -o sd-v1-5.ckpt
 
@@ -2422,7 +2431,7 @@ function process_install_lora_scripts()
     aria2c https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./lora-scripts/sd-models/ -o model.ckpt
     echo "安装结束"
     exit_venv
-}
+} 
 
 #选择重新安装pytorch
 function pytorch_reinstall()
