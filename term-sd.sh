@@ -1645,7 +1645,7 @@ function comfyui_custom_node_option()
         "36" "ComfyUI-Waveform-Extensions" OFF \
         "37" "ComfyUI_Custom_Nodes_AlekPet" OFF \
         "38" "comfy_controlnet_preprocessors" ON \
-        “39” “AIGODLIKE-COMFYUI-TRANSLATION” ON \
+        "39" "AIGODLIKE-COMFYUI-TRANSLATION" ON \
         3>&1 1>&2 2>&3)
 
     if [ ! -z "$final_comfyui_custom_node_option" ]; then
