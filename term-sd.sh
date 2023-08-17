@@ -2431,7 +2431,7 @@ function process_install_lora_scripts()
     aria2c https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./lora-scripts/sd-models/ -o model.ckpt
     echo "安装结束"
     exit_venv
-} 
+}
 
 #选择重新安装pytorch
 function pytorch_reinstall()
