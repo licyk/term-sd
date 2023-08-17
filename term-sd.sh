@@ -13,6 +13,8 @@ echo "Term-SD初始化中......"
 
 #主界面部分
 
+#term-sd分支设置
+term_sd_branch=main
 #设置启动时脚本路径
 start_path=$(pwd)
 #设置虚拟环境
@@ -870,7 +872,7 @@ function term_sd_launch()
 function update_option()
 {
     if (dialog --clear --title "更新选项" --yes-label "是" --no-label "否" --yesno "更新时是否选择代理" 20 60) then
-        aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/sd-webui-script/main/term-sd.sh -d ./term-sd-update-tmp/
+        aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/sd-webui-script/$term_sd_branch/term-sd.sh -d ./term-sd-update-tmp/
         if [ "$?"="0" ];then
             cp -fv ./term-sd-update-tmp/term-sd.sh ./
             rm -rfv ./term-sd-update-tmp
@@ -882,7 +884,7 @@ function update_option()
             dialog --clear --title "更新选项" --msgbox "更新失败，请重试" 20 60
         fi
     else
-        aria2c https://raw.githubusercontent.com/licyk/sd-webui-script/main/term-sd.sh -d ./term-sd-update-tmp/
+        aria2c https://raw.githubusercontent.com/licyk/sd-webui-script/$term_sd_branch/term-sd.sh -d ./term-sd-update-tmp/
         if [ "$?"="0" ];then
             cp -fv ./term-sd-update-tmp/term-sd.sh ./
             rm -rfv ./term-sd-update-tmp
@@ -942,7 +944,7 @@ function term_sd_extension()
         done
 
         if [ $term_sd_extension_option_1 = "1" ];then
-            aria2c $term_sd_extension_proxy/https://raw.githubusercontent.com/licyk/sd-webui-script/main/other/sd-webui-extension.sh -d ./term-sd-update-tmp/ -o sd-webui-extension.sh
+            aria2c $term_sd_extension_proxy/https://raw.githubusercontent.com/licyk/sd-webui-script/$term_sd_branch/other/sd-webui-extension.sh -d ./term-sd-update-tmp/ -o sd-webui-extension.sh
             
             if [ $? = 0 ];then
                 term_sd_extension_info_1="下载成功"
@@ -958,7 +960,7 @@ function term_sd_extension()
         fi
 
         if [ $term_sd_extension_option_2 = "1" ];then
-            aria2c $term_sd_extension_proxy/https://raw.githubusercontent.com/licyk/sd-webui-script/main/other/comfyui-extension.sh -d ./term-sd-update-tmp/ -o comfyui-extension.sh
+            aria2c $term_sd_extension_proxy/https://raw.githubusercontent.com/licyk/sd-webui-script/$term_sd_branch/other/comfyui-extension.sh -d ./term-sd-update-tmp/ -o comfyui-extension.sh
             if [ $? = 0 ];then
                 term_sd_extension_info_2="下载成功"
                 cp -fv ./term-sd-update-tmp/comfyui-extension.sh ./
@@ -1019,17 +1021,16 @@ function info_option()
 Ctrl+C可中断指令的运行 \n
 2、安装项目的路径和Term-SD脚本所在路径相同，方便管理\n
 3、若项目使用了venv虚拟环境，移动项目到新的路径后需要使用Term-SD的“重新生成venv虚拟环境”功能，才能使venv虚拟环境正常工作\n
-4、若更新项目或者插件失败时，可使用“修复”功能，再重新更新\n
+4、在更新或者切换版本失败时可以使用“更新修复”解决，然后再点一次“更新”\n
 5、Term-SD只能实现简单的安装，管理功能，若要导入模型等操作需手动在文件管理器上操作\n
 5、如果没有质量较好的科学上网工具，建议在安装时使用git代理和python镜像源\n
 6、建议保持启用虚拟环境，因为不同项目对软件包的版本要求不同\n
 7、若没有设置过python镜像源，推荐在\"python镜像源\"为系统设置python镜像源\n
 8、AUTOMATIC1111-stable-diffusion-webui安装好后，可以使用秋叶aaaki制作的启动器来启动sd-webui。将秋叶的启动器放入stable-diffusion-webui文件夹中，双击启动（仅限windows,因为秋叶的启动器只有window的版本）\n
-9、ComfyUI安装插件后，推荐运行一次“安装依赖”功能\n
+9、ComfyUI安装插件或者自定义节点后后，推荐运行一次“安装依赖”功能，有些依赖下载源是在github上的，无法下载时请使用科学上网\n
 10、有时候在安装sd-webui时选择安装插件，会因为插件兼容问题而导致报错(玄学)，然后启动失败。一种解决办法是在安装选择时取消所有要安装的插件，然后安装并启动，等能够成功进入sd-weui时再用扩展脚本中的sd-webui-extension.sh来安装脚本\n
 11、torch版本的选择：nvidia显卡选择cuda（Windows，linux平台），amd显卡在linux平台选择rocm，amd显卡和intel显卡在windows平台选择directml\n
 12、InvokeAI在安装好后，要运行一次invokeai-configure，到\"install stable diffusion models\"界面时，可以把所有的模型取消勾选，因为有的模型是从civitai下载的，如果没有科学上网会导致下载失败\n
-13、在更新或者切换版本失败时可以使用“更新修复”解决，然后再点一次“更新”\n
 \n
 \n
 stable diffusion webui的启动参数：\n
@@ -2672,19 +2673,44 @@ function operate_comfyui_custom_node()
             cd "$start_path/ComfyUI"
             enter_venv
             cd -
+
             if [ -f "./install.py" ];then
+                echo "安装"$extension_folder"依赖"
+                dep_info_="$dep_info_\n "$extension_folder"插件:\n" #作为显示安装结果信息
+            elif [ -f "./requirements.txt" ];then
+                echo "安装"$extension_folder"依赖"
+                dep_info_="$dep_info_\n "$extension_folder"插件:\n" #作为显示安装结果信息
+            fi
+
+            if [ -f "./install.py" ];then #找到install.py文件
                 if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
                     python install.py
                 else
                     python3 install.py
                 fi
+                if [ $? = 0 ];then #记录退出状态
+                    dep_info="    run install.py:成功\n"
+                    dep_info_="$dep_info_ $dep_info"
+                else
+                    dep_info="    run install.py:失败\n"
+                    dep_info_="$dep_info_ $dep_info"
+                fi
             fi
 
-            if [ -f "./requirements.txt" ];then
+            if [ -f "./requirements.txt" ];then #找到requirement.txt文件
                 pip install -r requirements.txt
+                if [ $? = 0 ];then #记录退出状态
+                    dep_info="    run install.py:成功\n"
+                    dep_info_="$dep_info_ $dep_info"
+                else
+                    dep_info="    run install.py:失败\n"
+                    dep_info_="$dep_info_ $dep_info"
+                fi
             fi
+
             exit_venv
             cd ..
+            dialog --clear --title "依赖安装状态" --msgbox "当前依赖的安装情况列表\n--------------------------------------------------------$dep_info_\n--------------------------------------------------------" 20 60
         elif [ "${final_operate_comfyui_custom_node}" == '3' ]; then
             if (dialog --clear --title "删除选项" --yes-label "是" --no-label "否" --yesno "是否删除该自定义节点" 20 60) then
                 echo "删除"$comfyui_custom_node_selection"自定义节点中"
@@ -2813,19 +2839,44 @@ function operate_comfyui_extension()
             cd "$start_path/ComfyUI"
             enter_venv
             cd -
+
             if [ -f "./install.py" ];then
+                echo "安装"$extension_folder"依赖"
+                dep_info_="$dep_info_\n "$extension_folder"插件:\n" #作为显示安装结果信息
+            elif [ -f "./requirements.txt" ];then
+                echo "安装"$extension_folder"依赖"
+                dep_info_="$dep_info_\n "$extension_folder"插件:\n" #作为显示安装结果信息
+            fi
+
+            if [ -f "./install.py" ];then #找到install.py文件
                 if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
                     python install.py
                 else
                     python3 install.py
                 fi
+                if [ $? = 0 ];then #记录退出状态
+                    dep_info="    run install.py:成功\n"
+                    dep_info_="$dep_info_ $dep_info"
+                else
+                    dep_info="    run install.py:失败\n"
+                    dep_info_="$dep_info_ $dep_info"
+                fi
             fi
 
-            if [ -f "./requirements.txt" ];then
+            if [ -f "./requirements.txt" ];then #找到requirement.txt文件
                 pip install -r requirements.txt
+                if [ $? = 0 ];then #记录退出状态
+                    dep_info="    run install.py:成功\n"
+                    dep_info_="$dep_info_ $dep_info"
+                else
+                    dep_info="    run install.py:失败\n"
+                    dep_info_="$dep_info_ $dep_info"
+                fi
             fi
+
             exit_venv
             cd ..
+            dialog --clear --title "依赖安装状态" --msgbox "当前依赖的安装情况列表\n--------------------------------------------------------$dep_info_\n--------------------------------------------------------" 20 60
         elif [ "${final_operate_comfyui_extension}" == '3' ]; then
             if (dialog --clear --title "删除选项" --yes-label "是" --no-label "否" --yesno "是否删除该插件" 20 60) then
                 echo "删除"$comfyui_extension_selection"插件中"
@@ -2848,32 +2899,55 @@ function operate_comfyui_extension()
     fi
 }
 
-#comfyui插件/自定义节点依赖安装部分
+#comfyui插件/自定义节点依赖一键安装部分
 function comfyui_extension_dep_install()
 {
     cd "$start_path/ComfyUI"
     enter_venv
     cd -
+    unset dep_info_ #清除上次运行结果
+    unset dep_info
     for extension_folder in ./*
     do
         [ -f "$extension_folder" ] && continue #排除文件
         cd $extension_folder
         if [ -f "./install.py" ];then
             echo "安装"$extension_folder"依赖"
+            dep_info_="$dep_info_\n "$extension_folder"插件:\n" #作为显示安装结果信息
+        elif [ -f "./requirements.txt" ];then
+            echo "安装"$extension_folder"依赖"
+            dep_info_="$dep_info_\n "$extension_folder"插件:\n" #作为显示安装结果信息
+        fi
+
+        if [ -f "./install.py" ];then #找到install.py文件
             if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
                 python install.py
             else
                 python3 install.py
             fi
+            if [ $? = 0 ];then #记录退出状态
+                dep_info="    run install.py:成功\n"
+                dep_info_="$dep_info_ $dep_info"
+            else
+                dep_info="    run install.py:失败\n"
+                dep_info_="$dep_info_ $dep_info"
+            fi
         fi
 
-        if [ -f "./requirements.txt" ];then
-            echo "安装"$extension_folder"依赖"
+        if [ -f "./requirements.txt" ];then #找到requirement.txt文件
             pip install -r requirements.txt
+            if [ $? = 0 ];then #记录退出状态
+                dep_info="    install requirements.txt:成功\n"
+                dep_info_="$dep_info_ $dep_info"
+            else
+                dep_info="    install requirements.txt:失败\n"
+                dep_info_="$dep_info_ $dep_info"
+            fi
         fi
         cd ..
     done
     exit_venv
+    dialog --clear --title "依赖安装状态" --msgbox "当前依赖的安装情况列表\n--------------------------------------------------------$dep_info_\n--------------------------------------------------------" 20 60
 }
 
 ###############################################################################
@@ -2937,7 +3011,7 @@ dialog:$(dialog --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
 提示: \n
 使用方向键、Tab键、Enter进行选择，Space键勾选或取消选项 \n
 Ctrl+C可中断指令的运行 \n
-第一次使用Term-SD时先在主界面选择“关于”查看使用说明" 20 60
+第一次使用Term-SD时先在主界面选择“关于”查看使用说明，参数说明和注意的地方,内容不定期更新" 20 60
     mainmenu
 }
 
@@ -2978,6 +3052,16 @@ fi
 #启动term-sd
 
 if [ $test_num -ge 5 ];then
+    if [ ! $1 = "" ];then
+        if [ $1 = "--dev" ];then
+            term_sd_branch=dev
+            echo "将term-sd自身下载源切换到dev版本"
+        else
+            echo "输入参数有误"
+            echo "若将term-sd的下载源切换到dev版本，请使用“--dev”参数"
+            echo "使用term-sd默认下载源"
+        fi
+    fi
     echo "初始化Term-SD完成"
     echo "启动Term-SD中"
     term_sd_version
