@@ -13,6 +13,8 @@ echo "Term-SD初始化中......"
 
 #主界面部分
 
+#term-sd分支设置
+term_sd_branch=main
 #设置启动时脚本路径
 start_path=$(pwd)
 #设置虚拟环境
@@ -870,7 +872,7 @@ function term_sd_launch()
 function update_option()
 {
     if (dialog --clear --title "更新选项" --yes-label "是" --no-label "否" --yesno "更新时是否选择代理" 20 60) then
-        aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/sd-webui-script/main/term-sd.sh -d ./term-sd-update-tmp/
+        aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/sd-webui-script/$term_sd_branch/term-sd.sh -d ./term-sd-update-tmp/
         if [ "$?"="0" ];then
             cp -fv ./term-sd-update-tmp/term-sd.sh ./
             rm -rfv ./term-sd-update-tmp
@@ -882,7 +884,7 @@ function update_option()
             dialog --clear --title "更新选项" --msgbox "更新失败，请重试" 20 60
         fi
     else
-        aria2c https://raw.githubusercontent.com/licyk/sd-webui-script/main/term-sd.sh -d ./term-sd-update-tmp/
+        aria2c https://raw.githubusercontent.com/licyk/sd-webui-script/$term_sd_branch/term-sd.sh -d ./term-sd-update-tmp/
         if [ "$?"="0" ];then
             cp -fv ./term-sd-update-tmp/term-sd.sh ./
             rm -rfv ./term-sd-update-tmp
@@ -942,7 +944,7 @@ function term_sd_extension()
         done
 
         if [ $term_sd_extension_option_1 = "1" ];then
-            aria2c $term_sd_extension_proxy/https://raw.githubusercontent.com/licyk/sd-webui-script/main/other/sd-webui-extension.sh -d ./term-sd-update-tmp/ -o sd-webui-extension.sh
+            aria2c $term_sd_extension_proxy/https://raw.githubusercontent.com/licyk/sd-webui-script/$term_sd_branch/other/sd-webui-extension.sh -d ./term-sd-update-tmp/ -o sd-webui-extension.sh
             
             if [ $? = 0 ];then
                 term_sd_extension_info_1="下载成功"
@@ -958,7 +960,7 @@ function term_sd_extension()
         fi
 
         if [ $term_sd_extension_option_2 = "1" ];then
-            aria2c $term_sd_extension_proxy/https://raw.githubusercontent.com/licyk/sd-webui-script/main/other/comfyui-extension.sh -d ./term-sd-update-tmp/ -o comfyui-extension.sh
+            aria2c $term_sd_extension_proxy/https://raw.githubusercontent.com/licyk/sd-webui-script/$term_sd_branch/other/comfyui-extension.sh -d ./term-sd-update-tmp/ -o comfyui-extension.sh
             if [ $? = 0 ];then
                 term_sd_extension_info_2="下载成功"
                 cp -fv ./term-sd-update-tmp/comfyui-extension.sh ./
@@ -3048,6 +3050,14 @@ fi
 #启动term-sd
 
 if [ $test_num -ge 5 ];then
+    if [ $1 = "--dev" ];then
+        term_sd_branch=dev
+        echo "将term-sd自身下载源切换到dev版本"
+    else
+        echo "输入参数有误"
+        echo "若将term-sd的下载源切换到dev版本，请使用“--dev”参数"
+        echo "使用term-sd默认下载源"
+    fi
     echo "初始化Term-SD完成"
     echo "启动Term-SD中"
     term_sd_version
