@@ -2989,7 +2989,7 @@ function extension_all_update()
 
 #启动程序部分
 
-term_sd_version_="0.3.3"
+term_sd_version_="0.3.4"
 
 if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
     test_python="python"
@@ -3060,6 +3060,7 @@ if [ $test_num -ge 5 ];then
             echo "输入参数有误"
             echo "若将term-sd的下载源切换到dev版本，请使用“--dev”参数"
             echo "使用term-sd默认下载源"
+            sleep 1
         fi
     fi
     echo "初始化Term-SD完成"
