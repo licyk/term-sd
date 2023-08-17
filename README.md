@@ -1,7 +1,7 @@
 # term-sd
 
 基于dialog实现界面显示的管理器，支持安装，管理A1111-SD-Webui,ComfyUI.InvokeAI,lora-scripts  
-理论上可实现全平台(Windows平台需安装msys2,Android平台需要安装Termux)  
+支持全平台(Windows平台需安装msys2)  
 需安装aria2,python,pip,git,dialog，python推荐使用3.10的版本  
 使用term-sd前先配置好环境  
 
