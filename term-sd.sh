@@ -1629,7 +1629,7 @@ function comfyui_custom_node_option()
         "20" "ComfyUI-post-processing-nodes" OFF \
         "21" "images-grid-comfy-plugin" OFF \
         "22" "ComfyUI-CLIPSeg" OFF \
-        "23" rembg-comfyui-node"" OFF \
+        "23" "rembg-comfyui-node" OFF \
         "24" "ComfyUI_tinyterraNodes" OFF \
         "25" "yk-node-suite-comfyui" OFF \
         "26" "ComfyUI_experiments" OFF \
