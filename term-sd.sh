@@ -1019,17 +1019,16 @@ function info_option()
 Ctrl+C可中断指令的运行 \n
 2、安装项目的路径和Term-SD脚本所在路径相同，方便管理\n
 3、若项目使用了venv虚拟环境，移动项目到新的路径后需要使用Term-SD的“重新生成venv虚拟环境”功能，才能使venv虚拟环境正常工作\n
-4、若更新项目或者插件失败时，可使用“修复”功能，再重新更新\n
+4、在更新或者切换版本失败时可以使用“更新修复”解决，然后再点一次“更新”\n
 5、Term-SD只能实现简单的安装，管理功能，若要导入模型等操作需手动在文件管理器上操作\n
 5、如果没有质量较好的科学上网工具，建议在安装时使用git代理和python镜像源\n
 6、建议保持启用虚拟环境，因为不同项目对软件包的版本要求不同\n
 7、若没有设置过python镜像源，推荐在\"python镜像源\"为系统设置python镜像源\n
 8、AUTOMATIC1111-stable-diffusion-webui安装好后，可以使用秋叶aaaki制作的启动器来启动sd-webui。将秋叶的启动器放入stable-diffusion-webui文件夹中，双击启动（仅限windows,因为秋叶的启动器只有window的版本）\n
-9、ComfyUI安装插件后，推荐运行一次“安装依赖”功能\n
+9、ComfyUI安装插件或者自定义节点后后，推荐运行一次“安装依赖”功能，有些依赖下载源是在github上的，无法下载时请使用科学上网\n
 10、有时候在安装sd-webui时选择安装插件，会因为插件兼容问题而导致报错(玄学)，然后启动失败。一种解决办法是在安装选择时取消所有要安装的插件，然后安装并启动，等能够成功进入sd-weui时再用扩展脚本中的sd-webui-extension.sh来安装脚本\n
 11、torch版本的选择：nvidia显卡选择cuda（Windows，linux平台），amd显卡在linux平台选择rocm，amd显卡和intel显卡在windows平台选择directml\n
 12、InvokeAI在安装好后，要运行一次invokeai-configure，到\"install stable diffusion models\"界面时，可以把所有的模型取消勾选，因为有的模型是从civitai下载的，如果没有科学上网会导致下载失败\n
-13、在更新或者切换版本失败时可以使用“更新修复”解决，然后再点一次“更新”\n
 \n
 \n
 stable diffusion webui的启动参数：\n
@@ -2865,6 +2864,8 @@ function comfyui_extension_dep_install()
             else
                 python3 install.py
             fi
+            echo $?
+            read
         fi
 
         if [ -f "./requirements.txt" ];then
@@ -2937,7 +2938,7 @@ dialog:$(dialog --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
 提示: \n
 使用方向键、Tab键、Enter进行选择，Space键勾选或取消选项 \n
 Ctrl+C可中断指令的运行 \n
-第一次使用Term-SD时先在主界面选择“关于”查看使用说明" 20 60
+第一次使用Term-SD时先在主界面选择“关于”查看使用说明，参数说明和注意的地方,内容不定期更新" 20 60
     mainmenu
 }
 
