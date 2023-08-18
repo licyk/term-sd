@@ -2673,6 +2673,8 @@ function operate_comfyui_custom_node()
             cd "$start_path/ComfyUI"
             enter_venv
             cd -
+            unset dep_info_ #清除上次运行结果
+            unset dep_info
 
             if [ -f "./install.py" ];then
                 echo "安装"$extension_folder"依赖"
@@ -2839,6 +2841,8 @@ function operate_comfyui_extension()
             cd "$start_path/ComfyUI"
             enter_venv
             cd -
+            unset dep_info_ #清除上次运行结果
+            unset dep_info
 
             if [ -f "./install.py" ];then
                 echo "安装"$extension_folder"依赖"
@@ -2975,14 +2979,26 @@ function git_checkout_manager()
 function extension_all_update()
 {
     echo "更新插件"
+    unset extension_folder #清除上次运行结果
+    unset update_info_
+    unset update_info
     for extension_folder in ./*
     do
         [ -f "$extension_folder" ] && continue #排除文件
         cd "$extension_folder"
         echo "更新"$extension_folder"插件中"
+        update_info_="$update_info_"$extension_folder"插件:"
         git pull
+        if [ $? = 0 ];then
+            update_info="更新成功\n"
+            update_info_="$update_info_ $update_info"
+        else
+            update_info="更新失败\n"
+            update_info_="$update_info_ $update_info"
+        fi
         cd ..
     done
+    dialog --clear --title "更新状态" --msgbox "当前插件/自定义节点的更新情况列表\n--------------------------------------------------------$dep_info_\n--------------------------------------------------------" 20 60
 }
 
 ###############################################################################
