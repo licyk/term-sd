@@ -2673,15 +2673,15 @@ function operate_comfyui_custom_node()
             cd "$start_path/ComfyUI"
             enter_venv
             cd -
-            unset dep_info_ #清除上次运行结果
-            unset dep_info
+            unset dep_info #清除上次运行结果
+            unset extension_folder
 
             if [ -f "./install.py" ];then
                 echo "安装"$extension_folder"依赖"
-                dep_info_="$dep_info_\n "$extension_folder"插件:\n" #作为显示安装结果信息
+                dep_info="$dep_info\n "$extension_folder"插件:\n" #作为显示安装结果信息
             elif [ -f "./requirements.txt" ];then
                 echo "安装"$extension_folder"依赖"
-                dep_info_="$dep_info_\n "$extension_folder"插件:\n" #作为显示安装结果信息
+                dep_info="$dep_info\n "$extension_folder"插件:\n" #作为显示安装结果信息
             fi
 
             if [ -f "./install.py" ];then #找到install.py文件
@@ -2691,22 +2691,18 @@ function operate_comfyui_custom_node()
                     python3 install.py
                 fi
                 if [ $? = 0 ];then #记录退出状态
-                    dep_info="    run install.py:成功\n"
-                    dep_info_="$dep_info_ $dep_info"
+                    dep_info="$dep_info "    run install.py:成功\n""
                 else
-                    dep_info="    run install.py:失败\n"
-                    dep_info_="$dep_info_ $dep_info"
+                    dep_info="$dep_info "    run install.py:失败\n""
                 fi
             fi
 
             if [ -f "./requirements.txt" ];then #找到requirement.txt文件
                 pip install -r requirements.txt
                 if [ $? = 0 ];then #记录退出状态
-                    dep_info="    run install.py:成功\n"
-                    dep_info_="$dep_info_ $dep_info"
+                    dep_info="$dep_info "    run install.py:成功\n""
                 else
-                    dep_info="    run install.py:失败\n"
-                    dep_info_="$dep_info_ $dep_info"
+                    dep_info="$dep_info "    run install.py:失败\n""
                 fi
             fi
 
@@ -2841,15 +2837,15 @@ function operate_comfyui_extension()
             cd "$start_path/ComfyUI"
             enter_venv
             cd -
-            unset dep_info_ #清除上次运行结果
-            unset dep_info
+            unset dep_info #清除上次运行结果
+            unset extension_folder
 
             if [ -f "./install.py" ];then
                 echo "安装"$extension_folder"依赖"
-                dep_info_="$dep_info_\n "$extension_folder"插件:\n" #作为显示安装结果信息
+                dep_info="$dep_info\n "$extension_folder"插件:\n" #作为显示安装结果信息
             elif [ -f "./requirements.txt" ];then
                 echo "安装"$extension_folder"依赖"
-                dep_info_="$dep_info_\n "$extension_folder"插件:\n" #作为显示安装结果信息
+                dep_info="$dep_info\n "$extension_folder"插件:\n" #作为显示安装结果信息
             fi
 
             if [ -f "./install.py" ];then #找到install.py文件
@@ -2859,28 +2855,24 @@ function operate_comfyui_extension()
                     python3 install.py
                 fi
                 if [ $? = 0 ];then #记录退出状态
-                    dep_info="    run install.py:成功\n"
-                    dep_info_="$dep_info_ $dep_info"
+                    dep_info="$dep_info "    run install.py:成功\n""
                 else
-                    dep_info="    run install.py:失败\n"
-                    dep_info_="$dep_info_ $dep_info"
+                    dep_info="$dep_info "    run install.py:失败\n""
                 fi
             fi
 
             if [ -f "./requirements.txt" ];then #找到requirement.txt文件
                 pip install -r requirements.txt
                 if [ $? = 0 ];then #记录退出状态
-                    dep_info="    run install.py:成功\n"
-                    dep_info_="$dep_info_ $dep_info"
+                    dep_info="$dep_info "    run install.py:成功\n""
                 else
-                    dep_info="    run install.py:失败\n"
-                    dep_info_="$dep_info_ $dep_info"
+                    dep_info="$dep_info "    run install.py:失败\n""
                 fi
             fi
 
             exit_venv
             cd ..
-            dialog --clear --title "依赖安装状态" --msgbox "当前依赖的安装情况列表\n--------------------------------------------------------$dep_info_\n--------------------------------------------------------" 20 60
+            dialog --clear --title "依赖安装状态" --msgbox "当前依赖的安装情况列表\n--------------------------------------------------------$dep_info\n--------------------------------------------------------" 20 60
         elif [ "${final_operate_comfyui_extension}" == '3' ]; then
             if (dialog --clear --title "删除选项" --yes-label "是" --no-label "否" --yesno "是否删除该插件" 20 60) then
                 echo "删除"$comfyui_extension_selection"插件中"
@@ -2909,18 +2901,18 @@ function comfyui_extension_dep_install()
     cd "$start_path/ComfyUI"
     enter_venv
     cd -
-    unset dep_info_ #清除上次运行结果
-    unset dep_info
+    unset extension_folder
+    unset dep_info #清除上次运行结果
     for extension_folder in ./*
     do
         [ -f "$extension_folder" ] && continue #排除文件
         cd $extension_folder
         if [ -f "./install.py" ];then
             echo "安装"$extension_folder"依赖"
-            dep_info_="$dep_info_\n "$extension_folder"插件:\n" #作为显示安装结果信息
+            dep_info="$dep_info\n "$extension_folder"插件:\n" #作为显示安装结果信息
         elif [ -f "./requirements.txt" ];then
             echo "安装"$extension_folder"依赖"
-            dep_info_="$dep_info_\n "$extension_folder"插件:\n" #作为显示安装结果信息
+            dep_info="$dep_info\n "$extension_folder"插件:\n" #作为显示安装结果信息
         fi
 
         if [ -f "./install.py" ];then #找到install.py文件
@@ -2930,28 +2922,24 @@ function comfyui_extension_dep_install()
                 python3 install.py
             fi
             if [ $? = 0 ];then #记录退出状态
-                dep_info="    run install.py:成功\n"
-                dep_info_="$dep_info_ $dep_info"
+                dep_info="$dep_info "    run install.py:成功\n""
             else
-                dep_info="    run install.py:失败\n"
-                dep_info_="$dep_info_ $dep_info"
+                dep_info="$dep_info "    run install.py:失败\n""
             fi
         fi
 
         if [ -f "./requirements.txt" ];then #找到requirement.txt文件
             pip install -r requirements.txt
             if [ $? = 0 ];then #记录退出状态
-                dep_info="    install requirements.txt:成功\n"
-                dep_info_="$dep_info_ $dep_info"
+                dep_info="$dep_info "    install requirements.txt:成功\n""
             else
-                dep_info="    install requirements.txt:失败\n"
-                dep_info_="$dep_info_ $dep_info"
+                dep_info="$dep_info "    install requirements.txt:失败\n""
             fi
         fi
         cd ..
     done
     exit_venv
-    dialog --clear --title "依赖安装状态" --msgbox "当前依赖的安装情况列表\n--------------------------------------------------------$dep_info_\n--------------------------------------------------------" 20 60
+    dialog --clear --title "依赖安装状态" --msgbox "当前依赖的安装情况列表\n--------------------------------------------------------$dep_info\n--------------------------------------------------------" 20 60
 }
 
 ###############################################################################
@@ -2980,25 +2968,22 @@ function extension_all_update()
 {
     echo "更新插件"
     unset extension_folder #清除上次运行结果
-    unset update_info_
     unset update_info
     for extension_folder in ./*
     do
         [ -f "$extension_folder" ] && continue #排除文件
         cd "$extension_folder"
         echo "更新"$extension_folder"插件中"
-        update_info_="$update_info_"$extension_folder"插件:"
+        update_info="$update_info "$extension_folder"插件:"
         git pull
         if [ $? = 0 ];then
-            update_info="更新成功\n"
-            update_info_="$update_info_ $update_info"
+            update_info="$update_info "更新成功\n""
         else
-            update_info="更新失败\n"
-            update_info_="$update_info_ $update_info"
+            update_info="$update_info "更新失败\n""
         fi
         cd ..
     done
-    dialog --clear --title "更新状态" --msgbox "当前插件/自定义节点的更新情况列表\n--------------------------------------------------------$update_info_\n--------------------------------------------------------" 20 60
+    dialog --clear --title "更新状态" --msgbox "当前插件/自定义节点的更新情况列表\n--------------------------------------------------------$update_info\n--------------------------------------------------------" 20 60
 }
 
 ###############################################################################
@@ -3033,56 +3018,59 @@ Ctrl+C可中断指令的运行 \n
 
 #判断系统是否安装必须使用的软件
 echo "检测依赖软件是否安装"
+unset missing_dep
 test_num=0
 if which dialog > /dev/null ;then
     test_num=$(( $test_num + 1 ))
 else
-    echo "未安装dialog"
+    missing_dep="$missing_dep dialog\n"
 fi
 
 if which aria2c > /dev/null ;then
     test_num=$(( $test_num + 1 ))
 else
-    echo "未安装aria2"
+    missing_dep="$missing_dep aria2\n"
 fi
 
 if which $test_python > /dev/null;then
     test_num=$(( $test_num + 1 ))
 else
-    echo "未安装python"
+    missing_dep="$missing_dep python\n"
 fi
 
 if which pip >/dev/null;then
     test_num=$(( $test_num + 1 ))
 else
-    echo "未安装pip"
+    missing_dep="$missing_dep pip\n"
 fi
 
 if which git > /dev/null;then
     test_num=$(( $test_num + 1 ))
 else
-    echo "未安装git"
+    missing_dep="$missing_dep git\n"
 fi
 
 
 #启动term-sd
 
 if [ $test_num -ge 5 ];then
-    if [ ! $1 = "" ];then
-        if [ $1 = "--dev" ];then
-            term_sd_branch=dev
-            echo "将term-sd自身下载源切换到dev版本"
-        else
-            echo "输入参数有误"
-            echo "若将term-sd的下载源切换到dev版本，请使用“--dev”参数"
-            echo "使用term-sd默认下载源"
-            sleep 1
-        fi
-    fi
+    term_sd_launch_input_="$1 $2 $3 $4 $5 $6 $7 $8 $9"
+    for term_sd_launch_input in $term_sd_launch_input_ ;do
+    case $term_sd_launch_input in
+    "--dev")
+    echo "将term-sd更新源切换到dev分支"
+    term_sd_branch=dev
+    ;;
+    *)
+    exit 1
+    ;;
+    esac
+    done
+
     echo "初始化Term-SD完成"
     echo "启动Term-SD中"
     term_sd_version
 else
-    echo "未满足依赖要求,请安装后重试"
+    echo "缺少以下依赖\n--------------------\n$missing_dep\n --------------------\n请安装后重试"
     exit
 fi
