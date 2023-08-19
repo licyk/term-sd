@@ -3061,9 +3061,6 @@ if [ $test_num -ge 5 ];then
     echo "将term-sd更新源切换到dev分支"
     term_sd_branch=dev
     ;;
-    *)
-    exit 1
-    ;;
     esac
     done
 
