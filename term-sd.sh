@@ -2691,18 +2691,18 @@ function operate_comfyui_custom_node()
                     python3 install.py
                 fi
                 if [ $? = 0 ];then #记录退出状态
-                    dep_info="$dep_info "    run install.py:成功\n""
+                    dep_info="$dep_info "    run install.py:成功"\n"
                 else
-                    dep_info="$dep_info "    run install.py:失败\n""
+                    dep_info="$dep_info "    run install.py:失败"\n"
                 fi
             fi
 
             if [ -f "./requirements.txt" ];then #找到requirement.txt文件
                 pip install -r requirements.txt
                 if [ $? = 0 ];then #记录退出状态
-                    dep_info="$dep_info "    run install.py:成功\n""
+                    dep_info="$dep_info "    run install.py:成功"\n"
                 else
-                    dep_info="$dep_info "    run install.py:失败\n""
+                    dep_info="$dep_info "    run install.py:失败"\n"
                 fi
             fi
 
@@ -2855,18 +2855,18 @@ function operate_comfyui_extension()
                     python3 install.py
                 fi
                 if [ $? = 0 ];then #记录退出状态
-                    dep_info="$dep_info "    run install.py:成功\n""
+                    dep_info="$dep_info "    run install.py:成功"\n"
                 else
-                    dep_info="$dep_info "    run install.py:失败\n""
+                    dep_info="$dep_info "    run install.py:失败"\n"
                 fi
             fi
 
             if [ -f "./requirements.txt" ];then #找到requirement.txt文件
                 pip install -r requirements.txt
                 if [ $? = 0 ];then #记录退出状态
-                    dep_info="$dep_info "    run install.py:成功\n""
+                    dep_info="$dep_info "    run install.py:成功"\n"
                 else
-                    dep_info="$dep_info "    run install.py:失败\n""
+                    dep_info="$dep_info "    run install.py:失败"\n"
                 fi
             fi
 
@@ -2922,18 +2922,18 @@ function comfyui_extension_dep_install()
                 python3 install.py
             fi
             if [ $? = 0 ];then #记录退出状态
-                dep_info="$dep_info "    run install.py:成功\n""
+                dep_info="$dep_info "    run install.py:成功"\n"
             else
-                dep_info="$dep_info "    run install.py:失败\n""
+                dep_info="$dep_info "    run install.py:失败"\n"
             fi
         fi
 
         if [ -f "./requirements.txt" ];then #找到requirement.txt文件
             pip install -r requirements.txt
             if [ $? = 0 ];then #记录退出状态
-                dep_info="$dep_info "    install requirements.txt:成功\n""
+                dep_info="$dep_info "    install requirements.txt:成功"\n"
             else
-                dep_info="$dep_info "    install requirements.txt:失败\n""
+                dep_info="$dep_info "    install requirements.txt:失败"\n"
             fi
         fi
         cd ..
@@ -2977,9 +2977,9 @@ function extension_all_update()
         update_info="$update_info "$extension_folder"插件:"
         git pull
         if [ $? = 0 ];then
-            update_info="$update_info "更新成功\n""
+            update_info="$update_info "更新成功"\n"
         else
-            update_info="$update_info "更新失败\n""
+            update_info="$update_info "更新失败"\n"
         fi
         cd ..
     done
