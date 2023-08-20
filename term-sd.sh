@@ -451,37 +451,10 @@ function lora_scripts_option()
 function generate_a1111_sd_webui_launch()
 {
     #清空启动参数
-    a1111_launch_option_1=""
-    a1111_launch_option_2=""
-    a1111_launch_option_3=""
-    a1111_launch_option_4=""
-    a1111_launch_option_5=""
-    a1111_launch_option_6=""
-    a1111_launch_option_7=""
-    a1111_launch_option_8=""
-    a1111_launch_option_9=""
-    a1111_launch_option_10=""
-    a1111_launch_option_11=""
-    a1111_launch_option_12=""
-    a1111_launch_option_13=""
-    a1111_launch_option_14=""
-    a1111_launch_option_15=""
-    a1111_launch_option_16=""
-    a1111_launch_option_17=""
-    a1111_launch_option_18=""
-    a1111_launch_option_19=""
-    a1111_launch_option_20=""
-    a1111_launch_option_21=""
-    a1111_launch_option_22=""
-    a1111_launch_option_23=""
-    a1111_launch_option_24=""
-    a1111_launch_option_25=""
-    a1111_launch_option_26=""
-    a1111_launch_option_27=""
-    a1111_launch_option_28=""
+    unset a1111_launch_option
 
     #展示启动参数选项
-    final_generate_a1111_sd_webui_launch_=$(
+    a1111_launch_option_select=$(
         dialog --clear --separate-output --notags --yes-label "确认" --no-cancel --checklist "A1111-Stable-Diffusion-Webui启动参数选择" 20 60 10 \
         "1" "skip-torch-cuda-test" OFF \
         "2" "no-half" OFF \
@@ -515,92 +488,92 @@ function generate_a1111_sd_webui_launch()
 
     #根据菜单得到的数据设置变量
     if [ $? = 0 ];then
-        if [ ! -z "$final_generate_a1111_sd_webui_launch_" ]; then
-            for final_generate_a1111_sd_webui_launch in $final_generate_a1111_sd_webui_launch_; do
-            case "$final_generate_a1111_sd_webui_launch" in
+        if [ ! -z "$a1111_launch_option_select" ]; then
+            for a1111_launch_option_select_ in $a1111_launch_option_select; do
+            case "$a1111_launch_option_select_" in
             "1")
-            a1111_launch_option_1="--skip-torch-cuda-test"
+            a1111_launch_option="--skip-torch-cuda-test $a1111_launch_option"
             ;;
             "2")
-            a1111_launch_option_2="--no-half"
+            a1111_launch_option="--no-half $a1111_launch_option"
             ;;
             "3")
-            a1111_launch_option_3="--no-half-vae"
+            a1111_launch_option="--no-half-vae $a1111_launch_option"
             ;;
             "4")
-            a1111_launch_option_4="--medvram"
+            a1111_launch_option="--medvram $a1111_launch_option"
             ;;
             "5")
-            a1111_launch_option_5="--lowvram"
+            a1111_launch_option="--lowvram $a1111_launch_option"
             ;;
             "6")
-            a1111_launch_option_6="--lowram"
+            a1111_launch_option="--lowram $a1111_launch_option"
             ;;
             "7")
-            a1111_launch_option_7="--enable-insecure-extension-access"
+            a1111_launch_option="--enable-insecure-extension-access $a1111_launch_option"
             ;;
             "8")
-            a1111_launch_option_8="--theme dark"
+            a1111_launch_option="--theme dark $a1111_launch_option"
             ;;
             "9")
-            a1111_launch_option_9="--autolaunch"
+            a1111_launch_option="--autolaunch $a1111_launch_option"
             ;;
             "10")
-            a1111_launch_option_10="--xformers"
+            a1111_launch_option="--xformers $a1111_launch_option"
             ;;
             "11")
-            a1111_launch_option_11="--listen"
+            a1111_launch_option="--listen $a1111_launch_option"
             ;;
             "12")
-            a1111_launch_option_12="--precision full"
+            a1111_launch_option="--precision full $a1111_launch_option"
             ;;
             "13")
-            a1111_launch_option_13="--force-enable-xformers"
+            a1111_launch_option="--force-enable-xformers $a1111_launch_option"
             ;;
             "14")
-            a1111_launch_option_14="--xformers-flash-attention"
+            a1111_launch_option="--xformers-flash-attention $a1111_launch_option"
             ;;
             "15")
-            a1111_launch_option_15="--api"
+            a1111_launch_option="--api $a1111_launch_option"
             ;;
             "16")
-            a1111_launch_option_16="--ui-debug-mode"
+            a1111_launch_option="--ui-debug-mode $a1111_launch_option"
             ;;
             "17")
-            a1111_launch_option_17="--share"
+            a1111_launch_option="--share $a1111_launch_option"
             ;;
             "18")
-            a1111_launch_option_18="--opt-split-attention-invokeai"
+            a1111_launch_option="--opt-split-attention-invokeai $a1111_launch_option"
             ;;
             "19")
-            a1111_launch_option_19="--opt-split-attention-v1"
+            a1111_launch_option="--opt-split-attention-v1 $a1111_launch_option"
             ;;
             "20")
-            a1111_launch_option_20="--opt-sdp-attention"
+            a1111_launch_option="--opt-sdp-attention $a1111_launch_option"
             ;;
             "21")
-            a1111_launch_option_21="--opt-sdp-no-mem-attention"
+            a1111_launch_option="--opt-sdp-no-mem-attention $a1111_launch_option"
             ;;
             "22")
-            a1111_launch_option_22="--disable-opt-split-attention"
+            a1111_launch_option="--disable-opt-split-attention $a1111_launch_option"
             ;;
             "23")
-            a1111_launch_option_23="--use-cpu all"
+            a1111_launch_option="--use-cpu all $a1111_launch_option"
             ;;
             "24")
-            a1111_launch_option_24="--opt-channelslast"
+            a1111_launch_option="--opt-channelslast $a1111_launch_option"
             ;;
             "25")
-            a1111_launch_option_25="--no-gradio-queue"
+            a1111_launch_option="--no-gradio-queue $a1111_launch_option"
             ;;
             "26")
-            a1111_launch_option_26="--no-hashing"
+            a1111_launch_option="--no-hashing $a1111_launch_option"
             ;;
             "27")
-            a1111_launch_option_27="--backend directml"
+            a1111_launch_option="--backend directml $a1111_launch_option"
             ;;
             "28")
-            a1111_launch_option_28="--opt-sub-quad-attention"
+            a1111_launch_option="--opt-sub-quad-attention $a1111_launch_option"
             ;;
             *)
             exit 1
@@ -613,31 +586,17 @@ function generate_a1111_sd_webui_launch()
         if [ -f "./term-sd-launch.conf" ];then
             rm -v ./term-sd-launch.conf
         fi
-        echo "设置启动参数" "$a1111_launch_option_1" "$a1111_launch_option_2" "$a1111_launch_option_3" "$a1111_launch_option_4" "$a1111_launch_option_5" "$a1111_launch_option_6" "$a1111_launch_option_7" "$a1111_launch_option_8" "$a1111_launch_option_9" "$a1111_launch_option_10" "$a1111_launch_option_11" "$a1111_launch_option_12" "$a1111_launch_option_13" "$a1111_launch_option_14" "$a1111_launch_option_15" "$a1111_launch_option_16" "$a1111_launch_option_17" "$a1111_launch_option_18" "$a1111_launch_option_19" "$a1111_launch_option_20" "$a1111_launch_option_21" "$a1111_launch_option_22" "$a1111_launch_option_23" "$a1111_launch_option_24" "$a1111_launch_option_25" "$a1111_launch_option_26" "$a1111_launch_option_27" "$a1111_launch_option_28"
-        echo "launch.py "$a1111_launch_option_1" "$a1111_launch_option_2" "$a1111_launch_option_3" "$a1111_launch_option_4" "$a1111_launch_option_5" "$a1111_launch_option_6" "$a1111_launch_option_7" "$a1111_launch_option_8" "$a1111_launch_option_9" "$a1111_launch_option_10" "$a1111_launch_option_11" "$a1111_launch_option_12" "$a1111_launch_option_13" "$a1111_launch_option_14" "$a1111_launch_option_15" "$a1111_launch_option_16" "$a1111_launch_option_17" "$a1111_launch_option_18" "$a1111_launch_option_19" "$a1111_launch_option_20" "$a1111_launch_option_21" "$a1111_launch_option_22" "$a1111_launch_option_23" "$a1111_launch_option_24" "$a1111_launch_option_25" "$a1111_launch_option_26" "$a1111_launch_option_27" "$a1111_launch_option_28" " >term-sd-launch.conf
+        echo "设置启动参数 $a1111_launch_option"
+        echo "launch.py $a1111_launch_option" >term-sd-launch.conf
     fi
 }
 
 #comfyui启动脚本生成部分
 function generate_comfyui_launch()
 {
-    comfyui_launch_option_1=""
-    comfyui_launch_option_2=""
-    comfyui_launch_option_3=""
-    comfyui_launch_option_4=""
-    comfyui_launch_option_5=""
-    comfyui_launch_option_6=""
-    comfyui_launch_option_7=""
-    comfyui_launch_option_8=""
-    comfyui_launch_option_9=""
-    comfyui_launch_option_10=""
-    comfyui_launch_option_11=""
-    comfyui_launch_option_12=""
-    comfyui_launch_option_13=""
-    comfyui_launch_option_14=""
-    comfyui_launch_option_15=""
+    unset comfyui_launch_option
 
-    final_generate_comfyui_launch_=$(
+    comfyui_launch_option_select=$(
         dialog --clear --separate-output --notags --yes-label "确认" --no-cancel --checklist "ComfyUI启动参数选择" 20 60 10 \
         "1" "listen" OFF \
         "2" "auto-launch" OFF \
@@ -657,53 +616,53 @@ function generate_comfyui_launch()
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
-        if [ ! -z "$final_generate_comfyui_launch_" ]; then
-            for final_generate_comfyui_launch in $final_generate_comfyui_launch_; do
-            case "$final_generate_comfyui_launch" in
+        if [ ! -z "$comfyui_launch_option_select" ]; then
+            for comfyui_launch_option_select_ in $comfyui_launch_option_select; do
+            case "$comfyui_launch_option_select_" in
             "1")
-            comfyui_launch_option_1="--listen"
+            comfyui_launch_option="--listen"
             ;;
             "2")    
-            comfyui_launch_option_2="--auto-launch"
+            comfyui_launch_option="--auto-launch"
             ;;
             "3")
-            comfyui_launch_option_3="--dont-upcast-attention"
+            comfyui_launch_option="--dont-upcast-attention"
             ;;
             "4")
-            comfyui_launch_option_4="--force-fp32"
+            comfyui_launch_option="--force-fp32"
             ;;
             "5")
-            comfyui_launch_option_5="--use-split-cross-attention"
+            comfyui_launch_option="--use-split-cross-attention"
             ;;
             "6")
-            comfyui_launch_option_6="--use-pytorch-cross-attention"
+            comfyui_launch_option="--use-pytorch-cross-attention"
             ;;
             "7")
-            comfyui_launch_option_7="--disable-xformers"
+            comfyui_launch_option="--disable-xformers"
             ;;
             "8")
-            comfyui_launch_option_8="--gpu-only"
+            comfyui_launch_option="--gpu-only"
             ;;
             "9")
-            comfyui_launch_option_9="--highvram"
+            comfyui_launch_option="--highvram"
             ;;
             "10")
-            comfyui_launch_option_10="--normalvram"
+            comfyui_launch_option="--normalvram"
             ;;
             "11")
-            comfyui_launch_option_11="--lowvram"
+            comfyui_launch_option="--lowvram"
             ;;
             "12")
-            comfyui_launch_option_12="--novram"
+            comfyui_launch_option="--novram"
             ;;
             "13")
-            comfyui_launch_option_13="--cpu"
+            comfyui_launch_option="--cpu"
             ;;
             "14")
-            comfyui_launch_option_14="--quick-test-for-ci"
+            comfyui_launch_option="--quick-test-for-ci"
             ;;
             "15")
-            comfyui_launch_option_15="--directml"
+            comfyui_launch_option="--directml"
             ;;
             *)
             exit 1
@@ -715,8 +674,8 @@ function generate_comfyui_launch()
         if [ -f "./term-sd-launch.conf" ];then
             rm -v ./term-sd-launch.conf
         fi
-        echo "设置启动参数" "$comfyui_launch_option_1" "$comfyui_launch_option_2" "$comfyui_launch_option_3" "$comfyui_launch_option_4" "$comfyui_launch_option_5" "$comfyui_launch_option_6" "$comfyui_launch_option_7" "$comfyui_launch_option_8" "$comfyui_launch_option_9" "$comfyui_launch_option_10" "$comfyui_launch_option_11" "$comfyui_launch_option_12" "$comfyui_launch_option_13" "$comfyui_launch_option_14" "$comfyui_launch_option_15"
-        echo "main.py "$comfyui_launch_option_1" "$comfyui_launch_option_2" "$comfyui_launch_option_3" "$comfyui_launch_option_4" "$comfyui_launch_option_5" "$comfyui_launch_option_6" "$comfyui_launch_option_7" "$comfyui_launch_option_8" "$comfyui_launch_option_9" "$comfyui_launch_option_10" "$comfyui_launch_option_11" "$comfyui_launch_option_12" "$comfyui_launch_option_13" "$comfyui_launch_option_14" "$comfyui_launch_option_15"" >term-sd-launch.conf
+        echo "设置启动参数 $comfyui_launch_option"
+        echo "main.py $comfyui_launch_option" > term-sd-launch.conf
     fi
 }
 
@@ -747,17 +706,14 @@ function generate_invokeai_launch()
         elif [ "${invokeai_launch_option}" == '6' ]; then 
             if [ -f "./term-sd-launch.conf" ];then
                 if (dialog --clear --title "InvokeAI启动选择" --yes-label "启动" --no-label "修改参数" --yesno "选择直接启动/修改启动参数" 20 60) then
-                    term_sd_launch_info=$(cat ./term-sd-launch.conf)
-                    invokeai $term_sd_launch_info
+                    invokeai $(cat ./term-sd-launch.conf)
                 else
                     generate_invokeai_launch_cust
-                    term_sd_launch_info=$(cat ./term-sd-launch.conf)
-                    invokeai $term_sd_launch_info
+                    invokeai $(cat ./term-sd-launch.conf)
                 fi
             else #找不到启动配置
                 generate_invokeai_launch_cust
-                term_sd_launch_info=$(cat ./term-sd-launch.conf)
-                invokeai $term_sd_launch_info
+                invokeai $(cat ./term-sd-launch.conf)
             fi
         elif [ "${invokeai_launch_option}" == '7' ]; then 
             echo
@@ -768,20 +724,9 @@ function generate_invokeai_launch()
 #invokeai自定义启动参数生成
 function generate_invokeai_launch_cust()
 {
-    cust_invokeai_launch_option_1=""
-    cust_invokeai_launch_option_2=""
-    cust_invokeai_launch_option_3=""
-    cust_invokeai_launch_option_4=""
-    cust_invokeai_launch_option_5=""
-    cust_invokeai_launch_option_6=""
-    cust_invokeai_launch_option_7=""
-    cust_invokeai_launch_option_8=""
-    cust_invokeai_launch_option_9=""
-    cust_invokeai_launch_option_10=""
-    cust_invokeai_launch_option_11=""
-    cust_invokeai_launch_option_12=""
+    unset cust_invokeai_launch_option
 
-    final_invokeai_launch_option_=$(
+    cust_invokeai_launch_option_select=$(
         dialog --clear --separate-output --notags --yes-label "确认" --no-cancel --checklist "InvokeAI启动参数选择" 20 60 10 \
         "1" "web" ON \
         "2" "free_gpu_mem" OFF \
@@ -798,44 +743,44 @@ function generate_invokeai_launch_cust()
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
-        if [ ! -z "$final_invokeai_launch_option_" ]; then
-            for final_invokeai_launch_option in $final_invokeai_launch_option_; do
-            case "$final_invokeai_launch_option" in
+        if [ ! -z "$cust_invokeai_launch_option_select" ]; then
+            for cust_invokeai_launch_option_select_ in $cust_invokeai_launch_option_select; do
+            case "$cust_invokeai_launch_option_select_" in
             "1")
-            cust_invokeai_launch_option_1="--web"
+            cust_invokeai_launch_option="--web $cust_invokeai_launch_option"
             ;;
             "2")
-            cust_invokeai_launch_option_2="--free_gpu_mem"
+            cust_invokeai_launch_option="--free_gpu_mem $cust_invokeai_launch_option"
             ;;
             "3")
-            cust_invokeai_launch_option_3="--precision auto"
+            cust_invokeai_launch_option="--precision auto $cust_invokeai_launch_option"
             ;;
             "4")
-            cust_invokeai_launch_option_4="--precision fp32"
+            cust_invokeai_launch_option="--precision fp32 $cust_invokeai_launch_option"
             ;;
             "5")
-            cust_invokeai_launch_option_5="--precision fp16"
+            cust_invokeai_launch_option="--precision fp16 $cust_invokeai_launch_option"
             ;;
             "6")
-            cust_invokeai_launch_option_6="--no-xformers_enabled"
+            cust_invokeai_launch_option="--no-xformers_enabled $cust_invokeai_launch_option"
             ;;
             "7")
-            cust_invokeai_launch_option_7="--xformers_enabled"
+            cust_invokeai_launch_option="--xformers_enabled $cust_invokeai_launch_option"
             ;;
             "8")
-            cust_invokeai_launch_option_8="--no-patchmatch"
+            cust_invokeai_launch_option="--no-patchmatch $cust_invokeai_launch_option"
             ;;
             "9")
-            cust_invokeai_launch_option_9="--always_use_cpu"
+            cust_invokeai_launch_option="--always_use_cpu $cust_invokeai_launch_option"
             ;;
             "10")
-            cust_invokeai_launch_option_10="--no-esrgan"
+            cust_invokeai_launch_option="--no-esrgan $cust_invokeai_launch_option"
             ;;
             "11")
-            cust_invokeai_launch_option_11="--no-internet_available"
+            cust_invokeai_launch_option="--no-internet_available $cust_invokeai_launch_option"
             ;;
             "12")
-            cust_invokeai_launch_option_12="--host 0.0.0.0"
+            cust_invokeai_launch_option="--host 0.0.0.0 $cust_invokeai_launch_option"
             ;;
             *)
             exit 1
@@ -847,8 +792,8 @@ function generate_invokeai_launch_cust()
             if [ -f "./term-sd-launch.conf" ];then
                 rm -v ./term-sd-launch.conf
             fi
-            echo "设置启动参数 $cust_invokeai_launch_option_1 $cust_invokeai_launch_option_2 $cust_invokeai_launch_option_3 $cust_invokeai_launch_option_4 $cust_invokeai_launch_option_5 $cust_invokeai_launch_option_6 $cust_invokeai_launch_option_7 $cust_invokeai_launch_option_8 $cust_invokeai_launch_option_9 $cust_invokeai_launch_option_10 $cust_invokeai_launch_option_11 $cust_invokeai_launch_option_12"
-            echo "--root ./invokeai $cust_invokeai_launch_option_1 $cust_invokeai_launch_option_2 $cust_invokeai_launch_option_3 $cust_invokeai_launch_option_4 $cust_invokeai_launch_option_5 $cust_invokeai_launch_option_6 $cust_invokeai_launch_option_7 $cust_invokeai_launch_option_8 $cust_invokeai_launch_option_9 $cust_invokeai_launch_option_10 $cust_invokeai_launch_option_11 $cust_invokeai_launch_option_12" > term-sd-launch.conf
+            echo "设置启动参数 $cust_invokeai_launch_option"
+            echo "--root ./invokeai $cust_invokeai_launch_option" > term-sd-launch.conf
         fi
     fi
 }
@@ -856,11 +801,10 @@ function generate_invokeai_launch_cust()
 function term_sd_launch()
 {
     enter_venv
-    term_sd_launch_info=$(cat ./term-sd-launch.conf)
     if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
-        python $term_sd_launch_info
+        python $(cat ./term-sd-launch.conf)
     else
-        python3 $term_sd_launch_info
+        python3 $(cat ./term-sd-launch.conf)
     fi
 }
 
@@ -1281,55 +1225,13 @@ function pip_install_methon()
 function a1111_sd_webui_extension_option()
 {
     #清空插件选择
-    extension_1=""
-    extension_2=""
-    extension_3=""
-    extension_4="" 
-    extension_5="" 
-    extension_6="" 
-    extension_7=""
-    extension_8="" 
-    extension_9="" 
-    extension_10="" 
-    extension_11="" 
-    extension_12=""
-    extension_13=""
-    extension_14="" 
-    extension_15="" 
-    extension_16=""
-    extension_17=""
-    extension_18=""
-    extension_19=""
-    extension_20=""
-    extension_21=""
-    extension_22=""
-    extension_23=""
-    extension_24=""
-    extension_25=""
-    extension_26=""
-    extension_27=""
-    extension_28="" 
-    extension_29=""
-    extension_30=""
-    extension_31=""
-    extension_32=""
-    extension_33=""
-    extension_34=""
-    extension_35=""
-    extension_36=""
-    extension_37=""
-    extension_38=""
-    extension_39=""
-    extension_40=""
-    extension_41=""
-    extension_42=""
-    extension_43=""
-    extension_44=""
-    extension_45=""
-    extension_46=""
-    extension_47=""
+    unset extension_install_list
+    unset extension_model_1
+    unset extension_model_2
+    unset extension_model_3
 
-    final_extension_options=$(
+    #插件选择，并输出插件对应的数字
+    extension_list=$(
         dialog --separate-output --notags --yes-label "确认" --no-cancel --checklist "A1111-Stable-Diffusion-Webui插件选择" 20 60 10 \
         "1" "kohya-config-webui" OFF \
         "2" "sd-webui-additional-networks" ON \
@@ -1380,149 +1282,152 @@ function a1111_sd_webui_extension_option()
         "47" "sd-webui-memory-release" ON \
         3>&1 1>&2 2>&3)
 
-    if [ ! -z "$final_extension_options" ]; then
-        for final_extension_option in $final_extension_options; do
-        case "$final_extension_option" in
+    if [ ! -z "$extension_list" ]; then
+        for extension_list_ in $extension_list; do #从extension_list读取数字，通过数字对应插件链接，传递给extension_install_list
+        case "$extension_list_" in
         "1")
-        extension_1="https://github.com/WSH032/kohya-config-webui"
+        extension_install_list="https://github.com/WSH032/kohya-config-webui $extension_install_list"
         ;;
         "2")
-        extension_2="https://github.com/kohya-ss/sd-webui-additional-networks"
+        extension_install_list="https://github.com/kohya-ss/sd-webui-additional-networks $extension_install_list"
         ;;
         "3")
-        extension_3="https://github.com/DominikDoom/a1111-sd-webui-tagcomplete"
+        extension_install_list="https://github.com/DominikDoom/a1111-sd-webui-tagcomplete $extension_install_list"
         ;;
         "4")
-        extension_4="https://github.com/pkuliyi2015/multidiffusion-upscaler-for-automatic1111"
+        extension_install_list="https://github.com/pkuliyi2015/multidiffusion-upscaler-for-automatic1111 $extension_install_list"
         ;;
         "5")
-        extension_5="https://github.com/mcmonkeyprojects/sd-dynamic-thresholding"
+        extension_install_list="https://github.com/mcmonkeyprojects/sd-dynamic-thresholding $extension_install_list"
         ;;
         "6")
-        extension_6="https://github.com/hnmr293/sd-webui-cutoff"
+        extension_install_list="https://github.com/hnmr293/sd-webui-cutoff $extension_install_list"
         ;;
         "7")
-        extension_7="https://github.com/Akegarasu/sd-webui-model-converter"
+        extension_install_list="https://github.com/Akegarasu/sd-webui-model-converter $extension_install_list"
         ;;
         "8")
-        extension_8="https://github.com/hako-mikan/sd-webui-supermerger"
+        extension_install_list="https://github.com/hako-mikan/sd-webui-supermerger $extension_install_list"
         ;;
         "9")
-        extension_9="https://github.com/hanamizuki-ai/stable-diffusion-webui-localization-zh_Hans"
+        extension_install_list="https://github.com/hanamizuki-ai/stable-diffusion-webui-localization-zh_Hans $extension_install_list"
         ;;
         "10")
-        extension_10="https://github.com/picobyte/stable-diffusion-webui-wd14-tagger"
+        extension_install_list="https://github.com/picobyte/stable-diffusion-webui-wd14-tagger $extension_install_list"
         ;;
         "11")
-        extension_11="https://github.com/hako-mikan/sd-webui-regional-prompter"
+        extension_install_list="https://github.com/hako-mikan/sd-webui-regional-prompter $extension_install_list"
         ;;
         "12")
-        extension_12="https://github.com/zanllp/stable-diffusion-webui-baidu-netdisk"
+        extension_install_list="https://github.com/zanllp/stable-diffusion-webui-baidu-netdisk $extension_install_list"
         ;;
         "13")
-        extension_13="https://github.com/klimaleksus/stable-diffusion-webui-anti-burn"
+        extension_install_list="https://github.com/klimaleksus/stable-diffusion-webui-anti-burn $extension_install_list"
         ;;
         "14")
-        extension_14="https://github.com/Elldreth/loopback_scaler"
+        extension_install_list="https://github.com/Elldreth/loopback_scaler $extension_install_list"
         ;;
         "15")
-        extension_15="https://github.com/CodeZombie/latentcoupleregionmapper"
+        extension_install_list="https://github.com/CodeZombie/latentcoupleregionmapper $extension_install_list"
         ;;
         "16")
-        extension_16="https://github.com/Coyote-A/ultimate-upscale-for-automatic1111"
+        extension_install_list="https://github.com/Coyote-A/ultimate-upscale-for-automatic1111 $extension_install_list"
         ;;
         "17")
-        extension_17="https://github.com/deforum-art/deforum-for-automatic1111-webui"
+        extension_install_list="https://github.com/deforum-art/deforum-for-automatic1111-webui $extension_install_list"
         ;;
         "18")
-        extension_18="https://github.com/AlUlkesh/stable-diffusion-webui-images-browser"
+        extension_install_list="https://github.com/AlUlkesh/stable-diffusion-webui-images-browser $extension_install_list"
         ;;
         "19")
-        extension_19="https://github.com/camenduru/stable-diffusion-webui-huggingface"
+        extension_install_list="https://github.com/camenduru/stable-diffusion-webui-huggingface $extension_install_list"
         ;;
         "20")
-        extension_20="https://github.com/camenduru/sd-civitai-browser"
+        extension_install_list="https://github.com/camenduru/sd-civitai-browser $extension_install_list"
         ;;
         "21")
-        extension_21="https://github.com/space-nuko/a1111-stable-diffusion-webui-vram-estimator"
+        extension_install_list="https://github.com/space-nuko/a1111-stable-diffusion-webui-vram-estimator $extension_install_list"
         ;;
         "22")
-        extension_22="https://github.com/camenduru/openpose-editor"
+        extension_install_list="https://github.com/camenduru/openpose-editor $extension_install_list"
         ;;
         "23")
-        extension_23="https://github.com/jexom/sd-webui-depth-lib"
+        extension_install_list="https://github.com/jexom/sd-webui-depth-lib $extension_install_list"
         ;;
         "24")
-        extension_24="https://github.com/hnmr293/posex"
+        extension_install_list="https://github.com/hnmr293/posex $extension_install_list"
         ;;
         "25")
-        extension_25="https://github.com/camenduru/sd-webui-tunnels"
+        extension_install_list="https://github.com/camenduru/sd-webui-tunnels $extension_install_list"
         ;;
         "26")
-        extension_26="https://github.com/etherealxx/batchlinks-webui"
+        extension_install_list="https://github.com/etherealxx/batchlinks-webui $extension_install_list"
         ;;
         "27")
-        extension_27="https://github.com/camenduru/stable-diffusion-webui-catppuccin"
+        extension_install_list="https://github.com/camenduru/stable-diffusion-webui-catppuccin $extension_install_list"
         ;;
         "28")
-        extension_28="https://github.com/KohakuBlueleaf/a1111-sd-webui-lycoris"
+        extension_install_list="https://github.com/KohakuBlueleaf/a1111-sd-webui-lycoris $extension_install_list"
         ;;
         "29")
-        extension_29="https://github.com/AUTOMATIC1111/stable-diffusion-webui-rembg"
+        extension_install_list="https://github.com/AUTOMATIC1111/stable-diffusion-webui-rembg $extension_install_list"
         ;;
         "30")
-        extension_30="https://github.com/ashen-sensored/stable-diffusion-webui-two-shot"
+        extension_install_list="https://github.com/ashen-sensored/stable-diffusion-webui-two-shot $extension_install_list"
         ;;
         "31")
-        extension_31="https://github.com/hako-mikan/sd-webui-lora-block-weight"
+        extension_install_list="https://github.com/hako-mikan/sd-webui-lora-block-weight $extension_install_list"
         ;;
         "32")
-        extension_32="https://github.com/ototadana/sd-face-editor"
+        extension_install_list="https://github.com/ototadana/sd-face-editor $extension_install_list"
         ;;
         "33")
-        extension_33="https://github.com/continue-revolution/sd-webui-segment-anything"
+        extension_install_list="https://github.com/continue-revolution/sd-webui-segment-anything $extension_install_list"
         ;;
         "34")
-        extension_34="https://github.com/Mikubill/sd-webui-controlnet"
+        extension_install_list="https://github.com/Mikubill/sd-webui-controlnet $extension_install_list"
+        extension_model_1=0
         ;;
         "35")
-        extension_35="https://github.com/Physton/sd-webui-prompt-all-in-one"
+        extension_install_list="https://github.com/Physton/sd-webui-prompt-all-in-one $extension_install_list"
         ;;
         "36")
-        extension_36="https://github.com/ModelSurge/sd-webui-comfyui"
+        extension_install_list="https://github.com/ModelSurge/sd-webui-comfyui $extension_install_list"
         ;;
         "37")
-        extension_37="https://github.com/KohakuBlueleaf/a1111-sd-webui-lycoris"
+        extension_install_list="https://github.com/KohakuBlueleaf/a1111-sd-webui-lycoris $extension_install_list"
         ;;
         "38")
-        extension_38="https://github.com/yankooliveira/sd-webui-photopea-embed"
+        extension_install_list="https://github.com/yankooliveira/sd-webui-photopea-embed $extension_install_list"
         ;;
         "39")
-        extension_39="https://github.com/huchenlei/sd-webui-openpose-editor"
+        extension_install_list="https://github.com/huchenlei/sd-webui-openpose-editor $extension_install_list"
         ;;
         "40")
-        extension_40="https://github.com/hnmr293/sd-webui-llul"
+        extension_install_list="https://github.com/hnmr293/sd-webui-llul $extension_install_list"
         ;;
         "41")
-        extension_41="https://github.com/journey-ad/sd-webui-bilingual-localization"
+        extension_install_list="https://github.com/journey-ad/sd-webui-bilingual-localization $extension_install_list"
         ;;
         "42")
-        extension_42="https://github.com/Bing-su/adetailer"
+        extension_install_list="https://github.com/Bing-su/adetailer $extension_install_list"
+        extension_model_2=0
         ;;
         "43")
-        extension_43="https://github.com/Scholar01/sd-webui-mov2mov"
+        extension_install_list="https://github.com/Scholar01/sd-webui-mov2mov $extension_install_list"
         ;;
         "44")
-        extension_44="https://github.com/ClockZinc/sd-webui-IS-NET-pro"
+        extension_install_list="https://github.com/ClockZinc/sd-webui-IS-NET-pro $extension_install_list"
+        extension_model_3=0
         ;;
         "45")
-        extension_45="https://github.com/s9roll7/ebsynth_utility"
+        extension_install_list="https://github.com/s9roll7/ebsynth_utility $extension_install_list"
         ;;
         "46")
-        extension_46="https://github.com/d8ahazard/sd_dreambooth_extension"
+        extension_install_list="https://github.com/d8ahazard/sd_dreambooth_extension $extension_install_list"
         ;;
         "47")
-        extension_47="https://github.com/Haoming02/sd-webui-memory-release"
+        extension_install_list="https://github.com/Haoming02/sd-webui-memory-release $extension_install_list"
         ;;
         *)
         exit 1
@@ -1535,24 +1440,23 @@ function a1111_sd_webui_extension_option()
 #comfyui插件选择
 function comfyui_extension_option()
 {
-    #清除插件选择
-    comfyui_extension_1=""
-    comfyui_extension_2=""
+    #清空插件选择
+    unset extension_install_list
 
-    final_comfyui_extension_option=$(
+    extension_list=$(
         dialog --separate-output --notags --yes-label "确认" --no-cancel --checklist "ComfyUI插件选择" 20 60 10 \
         "1" "ComfyUI-extensions" OFF \
         "2" "graphNavigator" OFF \
         3>&1 1>&2 2>&3)
 
-    if [ ! -z "$final_comfyui_extension_option" ]; then
-        for final_comfyui_extension_option_ in $final_comfyui_extension_option; do
-        case "$final_comfyui_extension_option_" in
+    if [ ! -z "$extension_list" ]; then
+        for extension_list_ in $extension_list; do
+        case "$extension_list_" in
         "1")
-        comfyui_extension_1="https://github.com/diffus3/ComfyUI-extensions"
+        extension_install_list="https://github.com/diffus3/ComfyUI-extensions $extension_install_list"
         ;;
         "2")
-        comfyui_extension_2="https://github.com/rock-land/graphNavigator"
+        extension_install_list="https://github.com/rock-land/graphNavigator $extension_install_list"
         ;;
         *)
         exit 1
@@ -1565,48 +1469,11 @@ function comfyui_extension_option()
 #comfyui自定义节点选择
 function comfyui_custom_node_option()
 {
-    #清除自定义节点选择
-    comfyui_custom_node_1=""
-    comfyui_custom_node_2=""
-    comfyui_custom_node_3=""
-    comfyui_custom_node_4=""
-    comfyui_custom_node_5=""
-    comfyui_custom_node_6=""
-    comfyui_custom_node_7=""
-    comfyui_custom_node_8=""
-    comfyui_custom_node_9=""
-    comfyui_custom_node_10=""
-    comfyui_custom_node_11=""
-    comfyui_custom_node_12=""
-    comfyui_custom_node_13=""
-    comfyui_custom_node_14=""
-    comfyui_custom_node_15=""
-    comfyui_custom_node_16=""
-    comfyui_custom_node_17=""
-    comfyui_custom_node_18=""
-    comfyui_custom_node_19=""
-    comfyui_custom_node_20=""
-    comfyui_custom_node_21=""
-    comfyui_custom_node_22=""
-    comfyui_custom_node_23=""
-    comfyui_custom_node_24=""
-    comfyui_custom_node_25=""
-    comfyui_custom_node_26=""
-    comfyui_custom_node_27=""
-    comfyui_custom_node_28=""
-    comfyui_custom_node_29=""
-    comfyui_custom_node_30=""
-    comfyui_custom_node_31=""
-    comfyui_custom_node_32=""
-    comfyui_custom_node_33=""
-    comfyui_custom_node_34=""
-    comfyui_custom_node_35=""
-    comfyui_custom_node_36=""
-    comfyui_custom_node_37=""
-    comfyui_custom_node_38=""
-    comfyui_custom_node_39=""
+    #清空插件选择
+    unset custom_node_install_list
+    unset extension_model_1
 
-    final_comfyui_custom_node_option=$(
+    extension_list=$(
         dialog --separate-output --notags --yes-label "确认" --no-cancel --checklist "ComfyUi自定义节点选择" 20 60 10 \
         "1" "was-node-suite-comfyui" ON \
         "2" "ComfyUI_Cutoff" OFF \
@@ -1649,125 +1516,126 @@ function comfyui_custom_node_option()
         "39" "AIGODLIKE-COMFYUI-TRANSLATION" ON \
         3>&1 1>&2 2>&3)
 
-    if [ ! -z "$final_comfyui_custom_node_option" ]; then
-        for final_comfyui_custom_node_option_ in $final_comfyui_custom_node_option; do
-        case "$final_comfyui_custom_node_option_" in
+    if [ ! -z "$extension_list" ]; then
+        for extension_list_ in $extension_list; do
+        case "$extension_list_" in
         "1")
-        comfyui_custom_node_1="https://github.com/WASasquatch/was-node-suite-comfyui"
+        custom_node_install_list="https://github.com/WASasquatch/was-node-suite-comfyui $custom_node_install_list"
         ;;
         "2")
-        comfyui_custom_node_2="https://github.com/BlenderNeko/ComfyUI_Cutoff"
+        custom_node_install_list="https://github.com/BlenderNeko/ComfyUI_Cutoff $custom_node_install_list"
         ;;
         "3")
-        comfyui_custom_node_3="https://github.com/BlenderNeko/ComfyUI_TiledKSampler"
+        custom_node_install_list="https://github.com/BlenderNeko/ComfyUI_TiledKSampler $custom_node_install_list"
         ;;
         "4")
-        comfyui_custom_node_4="https://github.com/BlenderNeko/ComfyUI_ADV_CLIP_emb"
+        custom_node_install_list="https://github.com/BlenderNeko/ComfyUI_ADV_CLIP_emb $custom_node_install_list"
         ;;
         "5")
-        comfyui_custom_node_5="https://github.com/BlenderNeko/ComfyUI_Noise"
+        custom_node_install_list="https://github.com/BlenderNeko/ComfyUI_Noise $custom_node_install_list"
         ;;
         "6")
-        comfyui_custom_node_6="https://github.com/Davemane42/ComfyUI_Dave_CustomNode"
+        custom_node_install_list="https://github.com/Davemane42/ComfyUI_Dave_CustomNode $custom_node_install_list"
         ;;
         "7")
-        comfyui_custom_node_7="https://github.com/ltdrdata/ComfyUI-Impact-Pack"
+        custom_node_install_list="https://github.com/ltdrdata/ComfyUI-Impact-Pack $custom_node_install_list"
         ;;
         "8")
-        comfyui_custom_node_8="https://github.com/ltdrdata/ComfyUI-Manager"
+        custom_node_install_list="https://github.com/ltdrdata/ComfyUI-Manager $custom_node_install_list"
         ;;
         "9")
-        comfyui_custom_node_9="https://github.com/Zuellni/ComfyUI-Custom-Nodes"
+        custom_node_install_list="https://github.com/Zuellni/ComfyUI-Custom-Nodes $custom_node_install_list"
         ;;
         "10")
-        comfyui_custom_node_10="https://github.com/pythongosssss/ComfyUI-Custom-Scripts"
+        custom_node_install_list="https://github.com/pythongosssss/ComfyUI-Custom-Scripts $custom_node_install_list"
         ;;
         "11")
-        comfyui_custom_node_11="https://github.com/xXAdonesXx/NodeGPT"
+        custom_node_install_list="https://github.com/xXAdonesXx/NodeGPT $custom_node_install_list"
         ;;
         "12")
-        comfyui_custom_node_12="https://github.com/Derfuu/Derfuu_ComfyUI_ModdedNodes"
+        custom_node_install_list="https://github.com/Derfuu/Derfuu_ComfyUI_ModdedNodes $custom_node_install_list"
         ;;
         "13")
-        comfyui_custom_node_13="https://github.com/LucianoCirino/efficiency-nodes-comfyui"
+        custom_node_install_list="https://github.com/LucianoCirino/efficiency-nodes-comfyui $custom_node_install_list"
         ;;
         "14")
-        comfyui_custom_node_14="https://github.com/lilly1987/ComfyUI_node_Lilly"
+        custom_node_install_list="https://github.com/lilly1987/ComfyUI_node_Lilly $custom_node_install_list"
         ;;
         "15")
-        comfyui_custom_node_15="https://github.com/hnmr293/ComfyUI-nodes-hnmr"
+        custom_node_install_list="https://github.com/hnmr293/ComfyUI-nodes-hnmr $custom_node_install_list"
         ;;
         "16")
-        comfyui_custom_node_16="https://github.com/diontimmer/ComfyUI-Vextra-Nodes"
+        custom_node_install_list="https://github.com/diontimmer/ComfyUI-Vextra-Nodes $custom_node_install_list"
         ;;
         "17")
-        comfyui_custom_node_17="https://github.com/omar92/ComfyUI-QualityOfLifeSuit_Omar92"
+        custom_node_install_list="https://github.com/omar92/ComfyUI-QualityOfLifeSuit_Omar92 $custom_node_install_list"
         ;;
         "18")
-        comfyui_custom_node_18="https://github.com/Fannovel16/FN16-ComfyUI-nodes"
+        custom_node_install_list="https://github.com/Fannovel16/FN16-ComfyUI-nodes $custom_node_install_list"
         ;;
         "19")
-        comfyui_custom_node_19="https://github.com/BadCafeCode/masquerade-nodes-comfyui"
+        custom_node_install_list="https://github.com/BadCafeCode/masquerade-nodes-comfyui $custom_node_install_list"
         ;;
         "20")
-        comfyui_custom_node_20="https://github.com/EllangoK/ComfyUI-post-processing-nodes"
+        custom_node_install_list="https://github.com/EllangoK/ComfyUI-post-processing-nodes $custom_node_install_list"
         ;;
         "21")
-        comfyui_custom_node_21="https://github.com/LEv145/images-grid-comfy-plugin"
+        custom_node_install_list="https://github.com/LEv145/images-grid-comfy-plugin $custom_node_install_list"
         ;;
         "22")
-        comfyui_custom_node_22="https://github.com/biegert/ComfyUI-CLIPSeg"
+        custom_node_install_list="https://github.com/biegert/ComfyUI-CLIPSeg $custom_node_install_list"
         ;;
         "23")
-        comfyui_custom_node_23="https://github.com/Jcd1230/rembg-comfyui-node"
+        custom_node_install_list="https://github.com/Jcd1230/rembg-comfyui-node $custom_node_install_list"
         ;;
         "24")
-        comfyui_custom_node_24="https://github.com/TinyTerra/ComfyUI_tinyterraNodes"
+        custom_node_install_list="https://github.com/TinyTerra/ComfyUI_tinyterraNodes $custom_node_install_list"
         ;;
         "25")
-        comfyui_custom_node_25="https://github.com/guoyk93/yk-node-suite-comfyui"
+        custom_node_install_list="https://github.com/guoyk93/yk-node-suite-comfyui $custom_node_install_list"
         ;;
         "26")
-        comfyui_custom_node_26="https://github.com/comfyanonymous/ComfyUI_experiments"
+        custom_node_install_list="https://github.com/comfyanonymous/ComfyUI_experiments $custom_node_install_list"
         ;;
         "27")
-        comfyui_custom_node_27="https://github.com/gamert/ComfyUI_tagger"
+        custom_node_install_list="https://github.com/gamert/ComfyUI_tagger $custom_node_install_list"
         ;;
         "28")
-        comfyui_custom_node_28="https://github.com/YinBailiang/MergeBlockWeighted_fo_ComfyUI"
+        custom_node_install_list="https://github.com/YinBailiang/MergeBlockWeighted_fo_ComfyUI $custom_node_install_list"
         ;;
         "29")
-        comfyui_custom_node_29="https://github.com/Kaharos94/ComfyUI-Saveaswebp"
+        custom_node_install_list="https://github.com/Kaharos94/ComfyUI-Saveaswebp $custom_node_install_list"
         ;;
         "30")
-        comfyui_custom_node_30="https://github.com/trojblue/trNodes"
+        custom_node_install_list="https://github.com/trojblue/trNodes $custom_node_install_list"
         ;;
         "31")
-        comfyui_custom_node_31="https://github.com/city96/ComfyUI_NetDist"
+        custom_node_install_list="https://github.com/city96/ComfyUI_NetDist $custom_node_install_list"
         ;;
         "32")
-        comfyui_custom_node_32="https://github.com/SLAPaper/ComfyUI-Image-Selector"
+        custom_node_install_list="https://github.com/SLAPaper/ComfyUI-Image-Selector $custom_node_install_list"
         ;;
         "33")
-        comfyui_custom_node_33="https://github.com/strimmlarn/ComfyUI-Strimmlarns-Aesthetic-Score"
+        custom_node_install_list="https://github.com/strimmlarn/ComfyUI-Strimmlarns-Aesthetic-Score $custom_node_install_list"
         ;;
         "34")
-        comfyui_custom_node_34="https://github.com/ssitu/ComfyUI_UltimateSDUpscale"
+        custom_node_install_list="https://github.com/ssitu/ComfyUI_UltimateSDUpscale $custom_node_install_list"
         ;;
         "35")
-        comfyui_custom_node_35="https://github.com/space-nuko/ComfyUI-Disco-Diffusion"
+        custom_node_install_list="https://github.com/space-nuko/ComfyUI-Disco-Diffusion $custom_node_install_list"
         ;;
         "36")
-        comfyui_custom_node_36="https://github.com/Bikecicle/ComfyUI-Waveform-Extensions"
+        custom_node_install_list="https://github.com/Bikecicle/ComfyUI-Waveform-Extensions $custom_node_install_list"
         ;;
         "37")
-        comfyui_custom_node_37="https://github.com/AlekPet/ComfyUI_Custom_Nodes_AlekPet"
+        custom_node_install_list="https://github.com/AlekPet/ComfyUI_Custom_Nodes_AlekPet $custom_node_install_list"
         ;;
         "38")
-        comfyui_custom_node_38="https://github.com/Fannovel16/comfy_controlnet_preprocessors"
+        custom_node_install_list="https://github.com/Fannovel16/comfy_controlnet_preprocessors $custom_node_install_list"
+        extension_model_1=0
         ;;
         "39")
-        comfyui_custom_node_39="https://github.com/AIGODLIKE/AIGODLIKE-COMFYUI-TRANSLATION"
+        custom_node_install_list="https://github.com/AIGODLIKE/AIGODLIKE-COMFYUI-TRANSLATION $custom_node_install_list"
         ;;
         *)
         exit 1
@@ -1851,193 +1719,9 @@ function process_install_a1111_sd_webui()
     mv -fv ./stable-diffusion-webui/config-for-sd-webui.json ./stable-diffusion-webui/config.json
 
     echo "安装插件中"
-    if [ ! $extension_1 = "" ];then
-        git clone "$github_proxy"$extension_1 ./stable-diffusion-webui/extensions/kohya-config-webui
-    fi
-
-    if [ ! $extension_2 = "" ];then
-        git clone "$github_proxy"$extension_2 ./stable-diffusion-webui/extensions/sd-webui-additional-networks
-    fi
-
-    if [ ! $extension_3 = "" ];then
-        git clone "$github_proxy"$extension_3 ./stable-diffusion-webui/extensions/a1111-sd-webui-tagcomplete
-    fi
-
-    if [ ! $extension_4 = "" ];then
-        git clone "$github_proxy"$extension_4 ./stable-diffusion-webui/extensions/multidiffusion-upscaler-for-automatic1111
-    fi
-
-    if [ ! $extension_5 = "" ];then
-        git clone "$github_proxy"$extension_5 ./stable-diffusion-webui/extensions/sd-dynamic-thresholding
-    fi
-
-    if [ ! $extension_6 = "" ];then
-        git clone "$github_proxy"$extension_6 ./stable-diffusion-webui/extensions/sd-webui-cutoff
-    fi
-
-    if [ ! $extension_7 = "" ];then
-        git clone "$github_proxy"$extension_7 ./stable-diffusion-webui/extensions/sd-webui-model-converter
-    fi
-
-    if [ ! $extension_8 = "" ];then
-        git clone "$github_proxy"$extension_8 ./stable-diffusion-webui/extensions/sd-webui-supermerger
-    fi
-
-    if [ ! $extension_9 = "" ];then
-        git clone "$github_proxy"$extension_9 ./stable-diffusion-webui/extensions/stable-diffusion-webui-localization-zh_Hans
-    fi
-
-    if [ ! $extension_10 = "" ];then
-        git clone "$github_proxy"$extension_10 ./stable-diffusion-webui/extensions/stable-diffusion-webui-wd14-tagger
-    fi
-
-    if [ ! $extension_11 = "" ];then
-        git clone "$github_proxy"$extension_11 ./stable-diffusion-webui/extensions/sd-webui-regional-prompter
-    fi
-
-    if [ ! $extension_12 = "" ];then
-        git clone "$github_proxy"$extension_12 ./stable-diffusion-webui/extensions/stable-diffusion-webui-baidu-netdisk
-    fi
-
-    if [ ! $extension_13 = "" ];then
-        git clone "$github_proxy"$extension_13 ./stable-diffusion-webui/extensions/stable-diffusion-webui-anti-burn
-    fi
-
-    if [ ! $extension_14 = "" ];then
-        git clone "$github_proxy"$extension_14 ./stable-diffusion-webui/extensions/loopback_scaler
-    fi
-
-    if [ ! $extension_15 = "" ];then
-        git clone "$github_proxy"$extension_15 ./stable-diffusion-webui/extensions/latentcoupleregionmapper
-    fi
-
-    if [ ! $extension_16 = "" ];then
-        git clone "$github_proxy"$extension_16 ./stable-diffusion-webui/extensions/ultimate-upscale-for-automatic1111
-    fi
-
-    if [ ! $extension_17 = "" ];then
-        git clone "$github_proxy"$extension_17 ./stable-diffusion-webui/extensions/deforum-for-automatic1111-webui
-    fi
-
-    if [ ! $extension_18 = "" ];then
-        git clone "$github_proxy"$extension_18 ./stable-diffusion-webui/extensions/stable-diffusion-webui-images-browser
-    fi
-
-    if [ ! $extension_19 = "" ];then
-        git clone "$github_proxy"$extension_19 ./stable-diffusion-webui/extensions/stable-diffusion-webui-huggingface
-    fi
-
-    if [ ! $extension_20 = "" ];then
-        git clone "$github_proxy"$extension_20 ./stable-diffusion-webui/extensions/sd-civitai-browser
-    fi
-
-    if [ ! $extension_21 = "" ];then
-        git clone "$github_proxy"$extension_21 ./stable-diffusion-webui/extensions/a1111-stable-diffusion-webui-vram-estimator
-    fi
-
-    if [ ! $extension_22 = "" ];then
-        git clone "$github_proxy"$extension_22 ./stable-diffusion-webui/extensions/openpose-editor
-    fi
-
-    if [ ! $extension_23 = "" ];then
-        git clone "$github_proxy"$extension_23 ./stable-diffusion-webui/extensions/sd-webui-depth-lib
-    fi
-
-    if [ ! $extension_24 = "" ];then
-        git clone "$github_proxy"$extension_24 ./stable-diffusion-webui/extensions/posex
-    fi
-
-    if [ ! $extension_25 = "" ];then
-        git clone "$github_proxy"$extension_25 ./stable-diffusion-webui/extensions/sd-webui-tunnels
-    fi
-
-    if [ ! $extension_26 = "" ];then
-        git clone "$github_proxy"$extension_26 ./stable-diffusion-webui/extensions/batchlinks-webui
-    fi
-
-    if [ ! $extension_27 = "" ];then
-        git clone "$github_proxy"$extension_27 ./stable-diffusion-webui/extensions/stable-diffusion-webui-catppuccin
-    fi
-
-    if [ ! $extension_28 = "" ];then
-        git clone "$github_proxy"$extension_28 ./stable-diffusion-webui/extensions/a1111-sd-webui-lycoris
-    fi
-
-    if [ ! $extension_29 = "" ];then
-        git clone "$github_proxy"$extension_29 ./stable-diffusion-webui/extensions/stable-diffusion-webui-rembg
-    fi
-
-    if [ ! $extension_30 = "" ];then
-        git clone "$github_proxy"$extension_30 ./stable-diffusion-webui/extensions/stable-diffusion-webui-two-shot
-    fi
-
-    if [ ! $extension_31 = "" ];then
-        git clone "$github_proxy"$extension_31 ./stable-diffusion-webui/extensions/sd-webui-lora-block-weight
-    fi
-
-    if [ ! $extension_32 = "" ];then
-        git clone "$github_proxy"$extension_32 ./stable-diffusion-webui/extensions/sd-face-editor
-    fi
-
-    if [ ! $extension_33 = "" ];then
-        git clone "$github_proxy"$extension_33 ./stable-diffusion-webui/extensions/sd-webui-segment-anything
-    fi
-
-    if [ ! $extension_34 = "" ];then
-        git clone "$github_proxy"$extension_34 ./stable-diffusion-webui/extensions/sd-webui-controlnet
-    fi
-
-    if [ ! $extension_35 = "" ];then
-        git clone "$github_proxy"$extension_35 ./stable-diffusion-webui/extensions/sd-webui-prompt-all-in-one
-    fi
-
-    if [ ! $extension_36 = "" ];then
-        git clone "$github_proxy"$extension_36 ./stable-diffusion-webui/extensions/sd-webui-comfyui
-    fi
-
-    if [ ! $extension_37 = "" ];then
-        git clone "$github_proxy"$extension_37 ./stable-diffusion-webui/extensions/a1111-sd-webui-lycoris
-    fi
-
-    if [ ! $extension_38 = "" ];then
-        git clone "$github_proxy"$extension_38 ./stable-diffusion-webui/extensions/sd-webui-photopea-embed
-    fi
-
-    if [ ! $extension_39 = "" ];then
-        git clone "$github_proxy"$extension_39 ./stable-diffusion-webui/extensions/sd-webui-openpose-editor
-    fi
-
-    if [ ! $extension_40 = "" ];then
-        git clone "$github_proxy"$extension_40 ./stable-diffusion-webui/extensions/sd-webui-llul
-    fi
-
-    if [ ! $extension_41 = "" ];then
-        git clone "$github_proxy"$extension_41 ./stable-diffusion-webui/extensions/sd-webui-bilingual-localization
-    fi
-
-    if [ ! $extension_42 = "" ];then
-        git clone "$github_proxy"$extension_42 ./stable-diffusion-webui/extensions/adetailer
-    fi
-
-    if [ ! $extension_43 = "" ];then
-        git clone "$github_proxy"$extension_43 ./stable-diffusion-webui/extensions/sd-webui-mov2mov
-    fi
-
-    if [ ! $extension_44 = "" ];then
-        git clone "$github_proxy"$extension_44 ./stable-diffusion-webui/extensions/sd-webui-IS-NET-pro
-    fi
-
-    if [ ! $extension_45 = "" ];then
-        git clone "$github_proxy"$extension_45 ./stable-diffusion-webui/extensions/ebsynth_utility
-    fi
-
-    if [ ! $extension_46 = "" ];then
-        git clone "$github_proxy"$extension_46 ./stable-diffusion-webui/extensions/sd_dreambooth_extension
-    fi
-
-    if [ ! $extension_47 = "" ];then
-        git clone "$github_proxy"$extension_47 ./stable-diffusion-webui/extensions/sd-webui-memory-release
-    fi
+    for  extension_install_list_ in $extension_install_list ;do
+        git clone "$github_proxy"$extension_install_list_ ./stable-diffusion-webui/extensions/$(echo $extension_install_list_ | awk -F'/' '{print $NF}')
+    done
 
     echo "下载模型中"
     aria2c https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./stable-diffusion-webui/models/Stable-diffusion -o sd-v1-5.ckpt
@@ -2050,7 +1734,6 @@ function process_install_a1111_sd_webui()
     aria2c https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/parsing_parsenet.pth -d ./stable-diffusion-webui/models/ESRGAN -o parsing_parsenet.pth
     aria2c https://huggingface.co/licyk/sd-upscaler-models/resolve/main/RealESRGAN/RealESRGAN_x4plus.pth -d ./stable-diffusion-webui/models/ESRGAN -o RealESRGAN_x4plus.pth
     aria2c https://huggingface.co/licyk/sd-upscaler-models/resolve/main/RealESRGAN/RealESRGAN_x4plus_anime_6B.pth -d ./stable-diffusion-webui/models/ESRGAN -o RealESRGAN_x4plus_anime_6B.pth
-
     aria2c https://huggingface.co/licyk/sd-embeddings/resolve/main/EasyNegativeV2.safetensors -d ./stable-diffusion-webui/embeddings/negative -o EasyNegativeV2.safetensors
     aria2c https://huggingface.co/licyk/sd-embeddings/resolve/main/bad-artist-anime.pt -d ./stable-diffusion-webui/embeddings/negative -o bad-artist-anime.pt
     aria2c https://huggingface.co/licyk/sd-embeddings/resolve/main/bad-artist.pt -d ./stable-diffusion-webui/embeddings/negative -o bad-artist.pt
@@ -2061,7 +1744,7 @@ function process_install_a1111_sd_webui()
     aria2c https://huggingface.co/licyk/sd-embeddings/resolve/main/verybadimagenegative_v1.3.pt -d ./stable-diffusion-webui/embeddings/negative -o verybadimagenegative_v1.3.pt
     aria2c https://huggingface.co/licyk/sd-embeddings/resolve/main/yaguru%20magiku.pt -d ./stable-diffusion-webui/embeddings -o yaguru_magiku.pt
 
-    if [ ! $extension_34 = "" ];then #安装controlnet时再下载相关模型
+    if [ $extension_model_1 = 0 ];then #安装controlnet时再下载相关模型
         aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11e_sd15_ip2p_fp16.safetensors -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11e_sd15_ip2p_fp16.safetensors
         aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11e_sd15_shuffle_fp16.safetensors -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11e_sd15_shuffle_fp16.safetensors
         aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_canny_fp16.safetensors -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11p_sd15_canny_fp16.safetensors
@@ -2108,7 +1791,7 @@ function process_install_a1111_sd_webui()
         aria2c https://huggingface.co/monster-labs/control_v1p_sd15_qrcode_monster/resolve/main/control_v1p_sd15_qrcode_monster.yaml -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v1p_sd15_qrcode_monster.yaml
     fi
 
-    if [ ! $extension_42 = "" ];then #安装adetailer插件相关模型
+    if [ $extension_model_2 = 0 ];then #安装adetailer插件相关模型
         aria2c https://huggingface.co/Bingsu/adetailer/resolve/main/deepfashion2_yolov8s-seg.pt -d ./stable-diffusion-webui/models/adetailer -o deepfashion2_yolov8s-seg.pt
         aria2c https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8m.pt -d ./stable-diffusion-webui/models/adetailer -o face_yolov8m.pt
         aria2c https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8n.pt -d ./stable-diffusion-webui/models/adetailer -o face_yolov8n.pt
@@ -2121,7 +1804,7 @@ function process_install_a1111_sd_webui()
         aria2c https://huggingface.co/Bingsu/adetailer/resolve/main/person_yolov8s-seg.pt -d ./stable-diffusion-webui/models/adetailer -o person_yolov8s-seg.pt
     fi
 
-    if [ ! $extension_44 = "" ];then #安装sd-webui-IS-NET-pro插件相关模型
+    if [ $extension_model_3 = 0 ];then #安装sd-webui-IS-NET-pro插件相关模型
         aria2c https://huggingface.co/ClockZinc/IS-NET_pth/resolve/main/isnet-general-use.pth -d ./stable-diffusion-webui/extensions/sd-webui-IS-NET-pro/saved_models/IS-Net -o isnet-general-use.pth
     fi
 
@@ -2153,176 +1836,19 @@ function process_install_comfyui()
     pip install -r ./ComfyUI/requirements.txt  --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
 
     echo "安装插件中"
-    if [ ! $comfyui_extension_1 = "" ];then
-        git clone "$github_proxy"$comfyui_extension_1 ./ComfyUI/web/extensions/ComfyUI-extensions
-    fi
-
-    if [ ! $comfyui_extension_2 = "" ];then
-        git clone "$github_proxy"$comfyui_extension_2 ./ComfyUI/web/extensions/graphNavigator
-    fi
+    for  extension_install_list_ in $extension_install_list ;do
+        git clone "$github_proxy"$extension_install_list_ ./ComfyUI/web/extensions/$(echo $extension_install_list_ | awk -F'/' '{print $NF}')
+    done
 
     echo "安装自定义节点中"
-
-    if [ ! $comfyui_custom_node_1 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_1 ./ComfyUI/custom_nodes/was-node-suite-comfyui
-    fi
-
-    if [ ! $comfyui_custom_node_2 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_2 ./ComfyUI/custom_nodes/ComfyUI_Cutoff
-    fi
-
-    if [ ! $comfyui_custom_node_3 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_3 ./ComfyUI/custom_nodes/ComfyUI_TiledKSampler
-    fi
-
-    if [ ! $comfyui_custom_node_4 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_4 ./ComfyUI/custom_nodes/ComfyUI_ADV_CLIP_emb
-    fi
-
-    if [ ! $comfyui_custom_node_5 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_5 ./ComfyUI/custom_nodes/ComfyUI_Noise
-    fi
-
-    if [ ! $comfyui_custom_node_6 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_6 ./ComfyUI/custom_nodes/ComfyUI_Dave_CustomNode
-    fi
-
-    if [ ! $comfyui_custom_node_7 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_7 ./ComfyUI/custom_nodes/ComfyUI-Impact-Pack
-    fi
-
-    if [ ! $comfyui_custom_node_8 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_8 ./ComfyUI/custom_nodes/ComfyUI-Manager
-    fi
-
-    if [ ! $comfyui_custom_node_9 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_9 ./ComfyUI/custom_nodes/ComfyUI-Custom-Nodes
-    fi
-
-    if [ ! $comfyui_custom_node_10 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_10 ./ComfyUI/custom_nodesComfyUI-Custom-Scripts
-    fi
-
-    if [ ! $comfyui_custom_node_11 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_11 ./ComfyUI/custom_nodes/NodeGPT
-    fi
-
-    if [ ! $comfyui_custom_node_12 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_12 ./ComfyUI/custom_nodes/Derfuu_ComfyUI_ModdedNodes
-    fi
-
-    if [ ! $comfyui_custom_node_13 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_13 ./ComfyUI/custom_nodes/efficiency-nodes-comfyui
-    fi
-
-    if [ ! $comfyui_custom_node_14 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_14 ./ComfyUI/custom_nodes/ComfyUI_node_Lilly
-    fi
-
-    if [ ! $comfyui_custom_node_15 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_15 ./ComfyUI/custom_nodes/ComfyUI-nodes-hnmr
-    fi
-
-    if [ ! $comfyui_custom_node_16 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_16 ./ComfyUI/custom_nodes/ComfyUI-Vextra-Nodes
-    fi
-
-    if [ ! $comfyui_custom_node_17 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_17 ./ComfyUI/custom_nodes/ComfyUI-QualityOfLifeSuit_Omar92
-    fi
-
-    if [ ! $comfyui_custom_node_18 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_18 ./ComfyUI/custom_nodes/FN16-ComfyUI-nodes
-    fi
-
-    if [ ! $comfyui_custom_node_19 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_19 ./ComfyUI/custom_nodes/masquerade-nodes-comfyui
-    fi
-
-    if [ ! $comfyui_custom_node_20 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_20 ./ComfyUI/custom_nodes/ComfyUI-post-processing-nodes
-    fi
-
-    if [ ! $comfyui_custom_node_21 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_21 ./ComfyUI/custom_nodes/images-grid-comfy-plugin
-    fi
-
-    if [ ! $comfyui_custom_node_22 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_22 ./ComfyUI/custom_nodes/ComfyUI-CLIPSeg
-    fi
-
-    if [ ! $comfyui_custom_node_23 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_23 ./ComfyUI/custom_nodes/rembg-comfyui-node
-    fi
-
-    if [ ! $comfyui_custom_node_24 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_24 ./ComfyUI/custom_nodes/ComfyUI_tinyterraNodes
-    fi
-
-    if [ ! $comfyui_custom_node_25 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_25 ./ComfyUI/custom_nodes/yk-node-suite-comfyui
-    fi
-
-    if [ ! $comfyui_custom_node_26 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_26 ./ComfyUI/custom_nodes/ComfyUI_experiments
-    fi
-
-    if [ ! $comfyui_custom_node_27 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_27 ./ComfyUI/custom_nodes/ComfyUI_tagger
-    fi
-
-    if [ ! $comfyui_custom_node_28 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_28 ./ComfyUI/custom_nodes/MergeBlockWeighted_fo_ComfyUI
-    fi
-
-    if [ ! $comfyui_custom_node_29 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_29 ./ComfyUI/custom_nodes/ComfyUI-Saveaswebp
-    fi
-
-    if [ ! $comfyui_custom_node_30 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_30 ./ComfyUI/custom_nodes/trNodes
-    fi
-
-    if [ ! $comfyui_custom_node_31 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_31 ./ComfyUI/custom_nodes/ComfyUI_NetDist
-    fi
-
-    if [ ! $comfyui_custom_node_32 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_32 ./ComfyUI/custom_nodes/ComfyUI-Image-Selector
-    fi
-
-    if [ ! $comfyui_custom_node_33 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_33 ./ComfyUI/custom_nodes/ComfyUI-Strimmlarns-Aesthetic-Score
-    fi
-
-    if [ ! $comfyui_custom_node_34 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_34 ./ComfyUI/custom_nodes/ComfyUI_UltimateSDUpscale
-    fi
-
-    if [ ! $comfyui_custom_node_35 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_35 ./ComfyUI/custom_nodes/ComfyUI-Disco-Diffusion
-    fi
-
-    if [ ! $comfyui_custom_node_36 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_36 ./ComfyUI/custom_nodes/ComfyUI-Waveform-Extensions
-    fi
-
-    if [ ! $comfyui_custom_node_37 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_37 ./ComfyUI/custom_nodes/ComfyUI_Custom_Nodes_AlekPet
-    fi
-
-    if [ ! $comfyui_custom_node_38 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_38 ./ComfyUI/custom_nodes/comfy_controlnet_preprocessors
-    fi
-
-    if [ ! $comfyui_custom_node_39 = "" ];then
-        git clone "$github_proxy"$comfyui_custom_node_39 ./ComfyUI/custom_nodes/AIGODLIKE-COMFYUI-TRANSLATION
-    fi
+    for  custom_node_install_list_ in $custom_node_install_list ;do
+        git clone "$github_proxy"$custom_node_install_list_ ./ComfyUI/custom_nodes/$(echo $custom_node_install_list_ | awk -F'/' '{print $NF}')
+    done
 
     echo "下载模型中"
     aria2c https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./ComfyUI/models/checkpoints/ -o sd-v1-5.ckpt
 
-    if [ ! $comfyui_custom_node_38 = "" ];then
+    if [ $extension_model_1 = 0 ];then
         echo "下载controlnet模型中"
         aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11e_sd15_ip2p_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11e_sd15_ip2p_fp16.safetensors
         aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11e_sd15_shuffle_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11e_sd15_shuffle_fp16.safetensors
@@ -2990,7 +2516,7 @@ function extension_all_update()
 
 #启动程序部分
 
-term_sd_version_="0.3.4"
+term_sd_version_="0.3.5"
 
 if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
     test_python="python"
