@@ -1718,7 +1718,7 @@ function process_install_a1111_sd_webui()
     mv -fv config-for-sd-webui.json ./stable-diffusion-webui
     mv -fv ./stable-diffusion-webui/config-for-sd-webui.json ./stable-diffusion-webui/config.json
 
-    if [ ! -z $extension_install_list ];then
+    if [ ! -z "$extension_install_list" ];then
         echo "安装插件中"
         for  extension_install_list_ in $extension_install_list ;do
             git clone "$github_proxy"$extension_install_list_ ./stable-diffusion-webui/extensions/$(echo $extension_install_list_ | awk -F'/' '{print $NF}')
@@ -1837,14 +1837,14 @@ function process_install_comfyui()
     pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
     pip install -r ./ComfyUI/requirements.txt  --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
 
-    if [ ! -z $extension_install_list ];then
+    if [ ! -z "$extension_install_list" ];then
         echo "安装插件中"
         for extension_install_list_ in $extension_install_list ;do
             git clone "$github_proxy"$extension_install_list_ ./ComfyUI/web/extensions/$(echo $extension_install_list_ | awk -F'/' '{print $NF}')
         done
     fi
 
-    if [ ! -z $custom_node_install_list ];then
+    if [ ! -z "$custom_node_install_list" ];then
         echo "安装自定义节点中"
         for custom_node_install_list_ in $custom_node_install_list ;do
             git clone "$github_proxy"$custom_node_install_list_ ./ComfyUI/custom_nodes/$(echo $custom_node_install_list_ | awk -F'/' '{print $NF}')
