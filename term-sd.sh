@@ -2580,7 +2580,8 @@ fi
 #启动term-sd
 
 if [ $test_num -ge 5 ];then
-    for term_sd_launch_input in "$1 $2 $3 $4 $5 $6 $7 $8 $9" ;do
+    term_sd_launch_input_="$1 $2 $3 $4 $5 $6 $7 $8 $9"
+    for term_sd_launch_input in $term_sd_launch_input_ ;do
     case $term_sd_launch_input in
     "--dev")
     echo "将term-sd更新源切换到dev分支"
