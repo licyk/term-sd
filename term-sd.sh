@@ -1837,12 +1837,12 @@ function process_install_comfyui()
 
     echo "安装插件中"
     for  extension_install_list_ in $extension_install_list ;do
-        git clone "$github_proxy"$extension_install_list_ ./stable-diffusion-webui/extensions/$(echo $extension_install_list_ | awk -F'/' '{print $NF}')
+        git clone "$github_proxy"$extension_install_list_ ./ComfyUI/web/extensions/$(echo $extension_install_list_ | awk -F'/' '{print $NF}')
     done
 
     echo "安装自定义节点中"
     for  custom_node_install_list_ in $custom_node_install_list ;do
-        git clone "$github_proxy"$custom_node_install_list_ ./stable-diffusion-webui/extensions/$(echo $custom_node_install_list_ | awk -F'/' '{print $NF}')
+        git clone "$github_proxy"$custom_node_install_list_ ./ComfyUI/custom_nodes/$(echo $custom_node_install_list_ | awk -F'/' '{print $NF}')
     done
 
     echo "下载模型中"
