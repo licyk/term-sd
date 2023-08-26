@@ -386,6 +386,12 @@ function pip_cache_clean()
 ###############################################################################
 #启动部分
 
+if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
+    test_python="python"
+else
+    test_python="python3"
+fi
+
 #判断系统是否安装必须使用的软件
 echo "检测依赖软件是否安装"
 unset missing_dep
@@ -393,30 +399,34 @@ test_num=0
 if which dialog > /dev/null ;then
     test_num=$(( $test_num + 1 ))
 else
-    missing_dep="$missing_dep dialog\n"
+    missing_dep="$missing_dep dialog,"
 fi
 
 if which $test_python > /dev/null;then
     test_num=$(( $test_num + 1 ))
 else
-    missing_dep="$missing_dep python\n"
+    missing_dep="$missing_dep python,"
 fi
 
 if which pip >/dev/null;then
     test_num=$(( $test_num + 1 ))
 else
-    missing_dep="$missing_dep pip\n"
+    missing_dep="$missing_dep pip,"
 fi
 
 if which git > /dev/null;then
     test_num=$(( $test_num + 1 ))
 else
-    missing_dep="$missing_dep git\n"
+    missing_dep="$missing_dep git,"
 fi
 
 if [ $test_num -ge 4 ];then
     mainmenu
 else
-    echo "缺少以下依赖\n--------------------\n$missing_dep\n --------------------\n请安装后重试"
+    echo "缺少以下依赖"
+    echo "--------------------"
+    echo $missing_dep
+    echo "--------------------"
+    echo "请安装后重试"
     exit
 fi
