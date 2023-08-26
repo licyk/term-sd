@@ -35,6 +35,7 @@ function mainmenu()
         elif [ $mainmenu_ = 7 ];then
             exit 1
         fi
+    fi
 }
 
 #a1111_sd_webui_option选项
@@ -47,6 +48,8 @@ function a1111_sd_webui_option()
         if (dialog --clear --title "A1111-SD-Webui管理" --yes-label "是" --no-label "否" --yesno "是否重建A1111-SD-Webui的虚拟环境" 20 60);then
             a1111_sd_webui_venv_rebuild
         fi
+    else
+        dialog --clear --title "A1111-SD-Webui管理" --msgbox "当前目录下未找到A1111-SD-Webui" 20 60
     fi
     mainmenu
 }
@@ -61,6 +64,8 @@ function comfyui_option()
         if (dialog --clear --title "ComfyUI管理" --yes-label "是" --no-label "否" --yesno "是否重建ComfyUI的虚拟环境" 20 60);then
             comfyui_venv_rebuild
         fi
+    else
+        dialog --clear --title "ComfyUI管理" --msgbox "当前目录下未找到ComfyUI" 20 60
     fi
     mainmenu
 }
@@ -75,6 +80,8 @@ function invokeai_option()
         if (dialog --clear --title "InvokeAI管理" --yes-label "是" --no-label "否" --yesno "是否重建InvokeAI的虚拟环境" 20 60);then
             invokeai_venv_rebuild
         fi
+    else
+        dialog --clear --title "InvokeAI管理" --msgbox "当前目录下未找到InvokeAI" 20 60
     fi
     mainmenu
 }
@@ -89,6 +96,8 @@ function lora_scripts_option()
         if (dialog --clear --title "lora-scripts管理" --yes-label "是" --no-label "否" --yesno "是否重建lora-scripts的虚拟环境" 20 60);then
             lora_scripts_venv_rebuild
         fi
+    else
+        dialog --clear --title "lora-scripts管理" --msgbox "当前目录下未找到lora-scripts" 20 60
     fi
     mainmenu
 }
