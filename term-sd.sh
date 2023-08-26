@@ -2547,7 +2547,7 @@ function extension_all_update()
 
 #启动程序部分
 
-term_sd_version_="0.3.5"
+term_sd_version_="0.3.6"
 
 if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
     test_python="python"
