@@ -849,6 +849,7 @@ function term_sd_extension()
     term_sd_extension_proxy=""
     term_sd_extension_option_1="0"
     term_sd_extension_option_2="0"
+    term_sd_extension_option_3="0"
 
     if [ -f "./sd-webui-extension.sh" ];then
         term_sd_extension_1="ON"
@@ -862,11 +863,18 @@ function term_sd_extension()
         term_sd_extension_2="OFF"
     fi
 
+    if [ -f "./venv-rebuild.sh" ];then
+        term_sd_extension_3="ON"
+    else
+        term_sd_extension_3="OFF"
+    fi
+
     term_sd_extension_select_=$(
         dialog --clear --separate-output --notags --checklist "term-sd扩展脚本列表\n勾选以下载,如果脚本已下载，则会执行更更新；取消勾选以删除\n下载的脚本将会放在term-sd脚本所在目录下\n推荐勾选\"下载代理\"" 20 60 10 \
             "1" "下载代理" ON \
             "2" "sd-webui-extension" "$term_sd_extension_1" \
             "3" "comfyui-extension" "$term_sd_extension_2" \
+            "4" "venv-rebuild" "$term_sd_extension_3" \
             3>&1 1>&2 2>&3)
         
     if [ $? = 0 ];then
@@ -880,6 +888,9 @@ function term_sd_extension()
         ;;
         "3")
         term_sd_extension_option_2="1"
+        ;;
+        "4")
+        term_sd_extension_option_3="1"
         ;;
         *)
         exit 1
@@ -918,7 +929,22 @@ function term_sd_extension()
             term_sd_extension_info_2="已删除"
         fi
 
-        dialog --clear --title "扩展脚本" --msgbox "扩展插件状态：\nsd-webui-extension:$term_sd_extension_info_1\nsd-webui-gui-launch:$term_sd_extension_info_2" 20 60
+        if [ $term_sd_extension_option_3 = "1" ];then
+            aria2c $term_sd_extension_proxy/https://raw.githubusercontent.com/licyk/sd-webui-script/$term_sd_branch/other/venv-rebuild.sh -d ./term-sd-update-tmp/ -o venv-rebuild.sh
+            if [ $? = 0 ];then
+                term_sd_extension_info_3="下载成功"
+                cp -fv ./term-sd-update-tmp/venv-rebuild.sh ./
+                chmod +x ./venv-rebuild.sh
+                rm -rfv ./term-sd-update-tmp/
+            else
+                term_sd_extension_info_3="下载失败"
+            fi
+        else
+            rm -rfv ./venv-rebuild.sh
+            term_sd_extension_info_3="已删除"
+        fi
+
+        dialog --clear --title "扩展脚本" --msgbox "扩展插件状态：\nsd-webui-extension:$term_sd_extension_info_1\ncomfyui-extension:$term_sd_extension_info_2\nvenv-rebuild:$term_sd_extension_info_3" 20 60
         term_sd_extension
     else
         mainmenu
@@ -1666,7 +1692,6 @@ pip安装方式:$final_install_check_pip_methon\n
 #a1111-sd-webui安装处理部分
 function process_install_a1111_sd_webui()
 {
-
     #安装前的准备
     proxy_option #代理选择
     python_dep_install #pytorch选择
@@ -2586,8 +2611,7 @@ fi
 #启动term-sd
 
 if [ $test_num -ge 5 ];then
-    term_sd_launch_input_="$1 $2 $3 $4 $5 $6 $7 $8 $9"
-    for term_sd_launch_input in $term_sd_launch_input_ ;do
+    for term_sd_launch_input in $(echo "$1 $2 $3 $4 $5 $6 $7 $8 $9") ;do
     case $term_sd_launch_input in
     "--dev")
     echo "将term-sd更新源切换到dev分支"
