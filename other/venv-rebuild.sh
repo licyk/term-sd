@@ -110,7 +110,7 @@ function lora_scripts_option()
 function proxy_option()
 {
     python_proxy="-i https://pypi.python.org/simple"
-    extra_python_proxy="-f https://download.pytorch.org/whl"
+    extra_python_proxy="--extra-index-url https://download.pytorch.org/whl/"
     github_proxy=""
     force_pip=""
     final_install_check_python="禁用"
