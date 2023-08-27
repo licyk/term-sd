@@ -957,7 +957,8 @@ function set_proxy_option()
     if (dialog --clear --title "pip镜像源选项" --yes-label "是" --no-label "否" --yesno "是否启用pip镜像源" 20 60) then
         #pip config set global.index-url "https://mirror.sjtu.edu.cn/pypi/web/simple"
         pip config set global.index-url "https://mirrors.bfsu.edu.cn/pypi/web/simple"
-        pip config set global.extra-index-url "https://mirror.sjtu.edu.cn/pytorch-wheels"
+        #pip config set global.extra-index-url "https://mirror.sjtu.edu.cn/pytorch-wheels"
+        pip config set global.extra-index-url "https://mirrors.aliyun.com/pytorch-wheels"
     else
         pip config unset global.index-url
         pip config unset global.extra-index-url
@@ -1168,7 +1169,8 @@ function proxy_option()
         "1")
         #python_proxy="-i https://mirror.sjtu.edu.cn/pypi/web/simple" #上海交大的镜像源有点问题，在安装invokeai时会报错，可能是软件包版本的问题
         python_proxy="-i https://mirrors.bfsu.edu.cn/pypi/web/simple"
-        extra_python_proxy="-f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
+        #extra_python_proxy="-f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
+        extra_python_proxy="-f https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html"
         final_install_check_python="启用"
         ;;
         "2")
