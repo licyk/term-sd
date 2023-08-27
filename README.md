@@ -23,6 +23,8 @@ windows系统安装配置环境的方法：
     C:\msys64\mingw64\bin
     C:\msys64\usr\bin
 
+>`C:\msys64`指msys2安装路径,要根据msys2实际的安装路径进行修改
+
 2、安装git，dialog  
 安装好后在windows的开始菜单里找到`MSYS2 MINGW64`，打开  
 在msys终端输入  
