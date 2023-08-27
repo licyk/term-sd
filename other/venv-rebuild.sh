@@ -35,6 +35,8 @@ function mainmenu()
         elif [ $mainmenu_ = 7 ];then
             exit 1
         fi
+    else
+        exit 1
     fi
 }
 
@@ -423,6 +425,7 @@ else
 fi
 
 if [ $test_num -ge 4 ];then
+    echo "启动中"
     mainmenu
 else
     echo "缺少以下依赖"
