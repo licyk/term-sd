@@ -870,7 +870,7 @@ function term_sd_extension()
     fi
 
     term_sd_extension_select_=$(
-        dialog --clear --separate-output --notags --checklist "term-sd扩展脚本列表\n勾选以下载,如果脚本已下载，则会执行更更新；取消勾选以删除\n下载的脚本将会放在term-sd脚本所在目录下\n推荐勾选\"下载代理\"" 20 60 10 \
+        dialog --clear --separate-output --notags --checklist "term-sd扩展脚本列表\n勾选以下载,如果脚本已下载，则会执行更新；取消勾选以删除\n下载的脚本将会放在term-sd脚本所在目录下\n推荐勾选\"下载代理\"" 20 60 10 \
             "1" "下载代理" ON \
             "2" "sd-webui-extension" "$term_sd_extension_1" \
             "3" "comfyui-extension" "$term_sd_extension_2" \
