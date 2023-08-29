@@ -269,7 +269,7 @@ function invokeai_option()
     exit_venv 2> /dev/null #确保进行下一步操作前已退出其他虚拟环境
     if [ -d "InvokeAI" ];then #找到invokeai文件夹
         cd InvokeAI
-        venv_generate #尝试重新生成虚拟环境,解决因为路径移动导致虚拟环境无法进入，然后检测不到invokeai
+        venv_generate #尝试重新生成虚拟环境,解决因为路径移动导致虚拟环境无法进入,然后检测不到invokeai
         enter_venv #进入环境
         if which invokeai 2> /dev/null ;then #查找环境中有没有invokeai
             final_invokeai_option=$(
@@ -368,7 +368,7 @@ function lora_scripts_option()
                 git pull ./sd-scripts
                 git pull ./frontend
                 git submodule init
-                git submodule update #版本不对应，有时会出现各种奇怪的报错
+                git submodule update #版本不对应,有时会出现各种奇怪的报错
                 git submodule
                 if [ $test_num = "0" ];then
                     dialog --clear --title "lora-scripts管理" --msgbox "更新成功" 20 60
@@ -825,7 +825,7 @@ function update_option()
                 source ./term-sd.sh
             fi
         else
-            dialog --clear --title "更新选项" --msgbox "更新失败，请重试" 20 60
+            dialog --clear --title "更新选项" --msgbox "更新失败,请重试" 20 60
         fi
     else
         aria2c https://raw.githubusercontent.com/licyk/sd-webui-script/$term_sd_branch/term-sd.sh -d ./term-sd-update-tmp/
@@ -837,7 +837,7 @@ function update_option()
                 source ./term-sd.sh
             fi
         else
-            dialog --clear --title "更新选项" --msgbox "更新失败，请重试" 20 60
+            dialog --clear --title "更新选项" --msgbox "更新失败,请重试" 20 60
         fi
     fi
     mainmenu
@@ -870,7 +870,7 @@ function term_sd_extension()
     fi
 
     term_sd_extension_select_=$(
-        dialog --clear --separate-output --notags --checklist "term-sd扩展脚本列表\n勾选以下载,如果脚本已下载，则会执行更新；取消勾选以删除\n下载的脚本将会放在term-sd脚本所在目录下\n推荐勾选\"下载代理\"" 20 60 10 \
+        dialog --clear --separate-output --notags --checklist "term-sd扩展脚本列表\n勾选以下载,如果脚本已下载,则会执行更新；取消勾选以删除\n下载的脚本将会放在term-sd脚本所在目录下\n推荐勾选\"下载代理\"" 20 60 10 \
             "1" "下载代理" ON \
             "2" "sd-webui-extension" "$term_sd_extension_1" \
             "3" "comfyui-extension" "$term_sd_extension_2" \
@@ -944,7 +944,7 @@ function term_sd_extension()
             term_sd_extension_info_3="已删除"
         fi
 
-        dialog --clear --title "扩展脚本" --msgbox "扩展插件状态：\nsd-webui-extension:$term_sd_extension_info_1\ncomfyui-extension:$term_sd_extension_info_2\nvenv-rebuild:$term_sd_extension_info_3" 20 60
+        dialog --clear --title "扩展脚本" --msgbox "扩展插件状态:\nsd-webui-extension:$term_sd_extension_info_1\ncomfyui-extension:$term_sd_extension_info_2\nvenv-rebuild:$term_sd_extension_info_3" 20 60
         term_sd_extension
     else
         mainmenu
@@ -987,24 +987,24 @@ function info_option()
 4、lora-scripts \n
 (项目都主要基于stable-diffusion)\n
 \n
-使用说明：\n
-1、使用方向键、Tab键、Enter进行选择，Space键勾选或取消选项 \n
+使用说明:\n
+1、使用方向键、Tab键、Enter进行选择,Space键勾选或取消选项 \n
 Ctrl+C可中断指令的运行 \n
-2、安装项目的路径和Term-SD脚本所在路径相同，方便管理\n
-3、若项目使用了venv虚拟环境，移动项目到新的路径后需要使用Term-SD的“重新生成venv虚拟环境”功能，才能使venv虚拟环境正常工作\n
-4、在更新或者切换版本失败时可以使用“更新修复”解决，然后再点一次“更新”\n
-5、Term-SD只能实现简单的安装，管理功能，若要导入模型等操作需手动在文件管理器上操作\n
-5、如果没有质量较好的科学上网工具，建议在安装时使用git代理和python镜像源\n
-6、建议保持启用虚拟环境，因为不同项目对软件包的版本要求不同\n
-7、若没有设置过python镜像源，推荐在\"python镜像源\"为系统设置python镜像源\n
-8、AUTOMATIC1111-stable-diffusion-webui安装好后，可以使用秋叶aaaki制作的启动器来启动sd-webui。将秋叶的启动器放入stable-diffusion-webui文件夹中，双击启动（仅限windows,因为秋叶的启动器只有window的版本）\n
-9、ComfyUI安装插件或者自定义节点后后，推荐运行一次“安装依赖”功能，有些依赖下载源是在github上的，无法下载时请使用科学上网\n
-10、有时候在安装sd-webui时选择安装插件，会因为插件兼容问题而导致报错(玄学)，然后启动失败。一种解决办法是在安装选择时取消所有要安装的插件，然后安装并启动，等能够成功进入sd-weui时再用扩展脚本中的sd-webui-extension.sh来安装脚本\n
-11、torch版本的选择：nvidia显卡选择cuda（Windows，linux平台），amd显卡在linux平台选择rocm，amd显卡和intel显卡在windows平台选择directml\n
-12、InvokeAI在安装好后，要运行一次invokeai-configure，到\"install stable diffusion models\"界面时，可以把所有的模型取消勾选，因为有的模型是从civitai下载的，如果没有科学上网会导致下载失败\n
+2、安装项目的路径和Term-SD脚本所在路径相同,方便管理\n
+3、若项目使用了venv虚拟环境,移动项目到新的路径后需要使用Term-SD的“重新生成venv虚拟环境”功能,才能使venv虚拟环境正常工作\n
+4、在更新或者切换版本失败时可以使用“更新修复”解决,然后再点一次“更新”\n
+5、Term-SD只能实现简单的安装,管理功能,若要导入模型等操作需手动在文件管理器上操作\n
+5、如果没有质量较好的科学上网工具,建议在安装时使用git代理和python镜像源\n
+6、建议保持启用虚拟环境,因为不同项目对软件包的版本要求不同\n
+7、若没有设置过python镜像源,推荐在\"python镜像源\"为系统设置python镜像源\n
+8、AUTOMATIC1111-stable-diffusion-webui安装好后,可以使用秋叶aaaki制作的启动器来启动sd-webui。将秋叶的启动器放入stable-diffusion-webui文件夹中,双击启动（仅限windows,因为秋叶的启动器只有window的版本）\n
+9、ComfyUI安装插件或者自定义节点后后,推荐运行一次“安装依赖”功能,有些依赖下载源是在github上的,无法下载时请使用科学上网\n
+10、有时候在安装sd-webui时选择安装插件,会因为插件兼容问题而导致报错(玄学),然后启动失败。一种解决办法是在安装选择时取消所有要安装的插件,然后安装并启动,等能够成功进入sd-weui时再用扩展脚本中的sd-webui-extension.sh来安装脚本\n
+11、torch版本的选择:nvidia显卡选择cuda（Windows,linux平台）,amd显卡在linux平台选择rocm,amd显卡和intel显卡在windows平台选择directml\n
+12、InvokeAI在安装好后,要运行一次invokeai-configure,到\"install stable diffusion models\"界面时,可以把所有的模型取消勾选,因为有的模型是从civitai下载的,如果没有科学上网会导致下载失败\n
 \n
 \n
-stable diffusion webui的启动参数：\n
+stable diffusion webui的启动参数:\n
 skip-torch-cuda-test:不检查CUDA是否正常工作\n
 no-half:不将模型切换为16位浮点数\n
 no-half-vae:不将VAE模型切换为16位浮点数\n
@@ -1037,7 +1037,7 @@ opt-sub-quad-attention:优先考虑内存高效的次二次复杂度交叉注意
 ComfyUI启动参数:\n
 listen:允许局域网的设备访问\n
 auto-launch:自动在默认浏览器中启动 ComfyUI\n
-dont-upcast-attention:禁用对注意力机制的提升转换。可提升速度，但增加图片变黑的概率\n
+dont-upcast-attention:禁用对注意力机制的提升转换。可提升速度,但增加图片变黑的概率\n
 force-fp32:强制使用 fp32\n
 use-split-cross-attention:使用分割交叉注意力优化。使用 xformers 时忽略此选项\n
 use-pytorch-cross-attention:使用新的 pytorch 2.0 交叉注意力功能\n
@@ -1051,36 +1051,36 @@ cpu:对所有内容使用 CPU(缓慢)\n
 quick-test-for-ci:为 CI 快速测试\n
 directml:使用directml运行torch,解决amd显卡和intel显卡无法使用ai画图的问题\n
 \n
-InvokeAI启动参数：\n
+InvokeAI启动参数:\n
 invokeai-configure:参数配置\n
-invokeai：无参数启动\n
-invokeai --web：启用webui界面\n
+invokeai:无参数启动\n
+invokeai --web:启用webui界面\n
 invokeai-ti --gui:使用终端界面\n
-invokeai-merge --gui：启动模型合并\n
-其他的自定义参数：\n
+invokeai-merge --gui:启动模型合并\n
+其他的自定义参数:\n
 web:启用webui界面\n
-free_gpu_mem：每次操作后积极释放 GPU 内存;这将允许您在低VRAM环境中运行，但会降低一些性能\n
-precision auto：自动选择浮点精度\n
-precision fp32：使用fp32浮点精度\n
-precision fp16：使用fp16浮点精度\n
-no-xformers_enabled：禁用xformers加速\n
-xformers_enabled：启用xformers加速\n
-no-patchmatch：禁用“补丁匹配”算法\n
+free_gpu_mem:每次操作后积极释放 GPU 内存;这将允许您在低VRAM环境中运行,但会降低一些性能\n
+precision auto:自动选择浮点精度\n
+precision fp32:使用fp32浮点精度\n
+precision fp16:使用fp16浮点精度\n
+no-xformers_enabled:禁用xformers加速\n
+xformers_enabled:启用xformers加速\n
+no-patchmatch:禁用“补丁匹配”算法\n
 always_use_cpu:使用cpu进行图片生成\n
 no-esrgan:不使用esrgan进行图片高清修复\n
-no-internet_available：禁用联网下载资源\n
+no-internet_available:禁用联网下载资源\n
 host:允许局域网的设备访问\n
 \n
 \n
 该脚本的编写参考了https://gitee.com/skymysky/linux \n
-脚本在理论上支持全平台(Windows平台需安装msys2,Android平台需要安装Termux)\n
+脚本支持Windows,Linux,MacOS(Windows平台需安装msys2,MacOS需要安装homebrew)\n
 \n
-stable-diffusion相关链接：\n
+stable-diffusion相关链接:\n
 https://huggingface.co/\n
 https://civitai.com/\n
 https://www.bilibili.com/read/cv22159609\n
 \n
-学习stable-diffusion-webui的教程：\n
+学习stable-diffusion-webui的教程:\n
 https://licyk.netlify.app/2023/08/01/stable-diffusion-tutorial/\n
 \n
 \n
@@ -1151,6 +1151,7 @@ function proxy_option()
 {
     python_proxy="-i https://pypi.python.org/simple"
     extra_python_proxy="-f https://download.pytorch.org/whl/torch_stable.html"
+    #extra_python_proxy="--extra-index-url https://download.pytorch.org/whl"
     github_proxy=""
     force_pip=""
     final_install_check_python="禁用"
@@ -1158,7 +1159,7 @@ function proxy_option()
     final_install_check_force_pip="禁用"
 
     final_proxy_options=$(
-        dialog --clear --separate-output --notags --title "代理选择" --yes-label "确认" --no-cancel --checklist "请选择代理，强制使用pip一般情况下不选" 20 60 10 \
+        dialog --clear --separate-output --notags --title "代理选择" --yes-label "确认" --no-cancel --checklist "请选择代理,强制使用pip一般情况下不选" 20 60 10 \
         "1" "启用pip镜像源" ON \
         "2" "启用github代理" ON \
         "3" "强制使用pip" OFF 3>&1 1>&2 2>&3)
@@ -1167,7 +1168,7 @@ function proxy_option()
         for final_proxy_option in $final_proxy_options; do
         case "$final_proxy_option" in
         "1")
-        #python_proxy="-i https://mirror.sjtu.edu.cn/pypi/web/simple" #上海交大的镜像源有点问题，在安装invokeai时会报错，可能是软件包版本的问题
+        #python_proxy="-i https://mirror.sjtu.edu.cn/pypi/web/simple" #上海交大的镜像源有点问题,在安装invokeai时会报错,可能是软件包版本的问题
         python_proxy="-i https://mirrors.bfsu.edu.cn/pypi/web/simple"
         #extra_python_proxy="-f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
         extra_python_proxy="-f https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html"
@@ -1258,7 +1259,7 @@ function a1111_sd_webui_extension_option()
     unset extension_model_2
     unset extension_model_3
 
-    #插件选择，并输出插件对应的数字
+    #插件选择,并输出插件对应的数字
     extension_list=$(
         dialog --separate-output --notags --yes-label "确认" --no-cancel --checklist "A1111-Stable-Diffusion-Webui插件选择" 20 60 10 \
         "1" "kohya-config-webui" OFF \
@@ -1311,7 +1312,7 @@ function a1111_sd_webui_extension_option()
         3>&1 1>&2 2>&3)
 
     if [ ! -z "$extension_list" ]; then
-        for extension_list_ in $extension_list; do #从extension_list读取数字，通过数字对应插件链接，传递给extension_install_list
+        for extension_list_ in $extension_list; do #从extension_list读取数字,通过数字对应插件链接,传递给extension_install_list
         case "$extension_list_" in
         "1")
         extension_install_list="https://github.com/WSH032/kohya-config-webui $extension_install_list"
@@ -1983,7 +1984,7 @@ function process_install_lora_scripts()
     enter_venv
     pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
     cd ./sd-scripts
-    pip install $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --upgrade -r requirements.txt --default-timeout=100 --retries 5 #sd-scripts目录下还有个_typos.toml，在安装requirements.txt里的依赖时会指向这个文件
+    pip install $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --upgrade -r requirements.txt --default-timeout=100 --retries 5 #sd-scripts目录下还有个_typos.toml,在安装requirements.txt里的依赖时会指向这个文件
     cd ..
     pip install $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --upgrade lion-pytorch dadaptation prodigyopt lycoris-lora fastapi uvicorn wandb scipy --default-timeout=100 --retries 5
     pip install $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --upgrade -r requirements.txt --default-timeout=100 --retries 5 #lora-scripts安装依赖
@@ -2125,7 +2126,7 @@ function operate_extension()
 }
 
 #comfyui
-#comfyui的扩展分为两种，一种是前端节点，另一种是后端扩展 详见：https://github.com/comfyanonymous/ComfyUI/discussions/631
+#comfyui的扩展分为两种,一种是前端节点,另一种是后端扩展.详见:https://github.com/comfyanonymous/ComfyUI/discussions/631
 
 #comfyui前端节点管理
 #自定义节点的安装或管理选项(该部分最先被调用)
@@ -2193,9 +2194,9 @@ function comfyui_custom_node_install()
         git_req=$?
         comfyui_custom_node_dep_notice=""
         if [ -f "./$(awk -F "/" '{print $NF}' <<< "$comfyui_custom_node_address")/requirements.txt" ];then
-            comfyui_custom_node_dep_notice="检测到该自定义节点需要安装依赖，请进入自定义节点管理功能，选中该自定义节点，运行一次\"安装依赖\"功能"
+            comfyui_custom_node_dep_notice="检测到该自定义节点需要安装依赖,请进入自定义节点管理功能,选中该自定义节点,运行一次\"安装依赖\"功能"
         elif [ -f "./$(awk -F "/" '{print $NF}' <<< "$comfyui_custom_node_address")/install.py" ];then
-            comfyui_custom_node_dep_notice="检测到该自定义节点需要安装依赖，请进入自定义节点管理功能，选中该自定义节点，运行一次\"安装依赖\"功能"
+            comfyui_custom_node_dep_notice="检测到该自定义节点需要安装依赖,请进入自定义节点管理功能,选中该自定义节点,运行一次\"安装依赖\"功能"
         fi
 
         if [ $git_req = "0" ];then
@@ -2228,7 +2229,7 @@ function operate_comfyui_custom_node()
                 dialog --clear --title "自定义节点管理" --msgbox "更新失败" 20 60
             fi
             cd ..
-        elif [ "${final_operate_comfyui_custom_node}" == '2' ]; then #comfyui并不像a1111-sd-webui自动为插件安装依赖，所以只能手动装
+        elif [ "${final_operate_comfyui_custom_node}" == '2' ]; then #comfyui并不像a1111-sd-webui自动为插件安装依赖,所以只能手动装
             cd "$start_path/ComfyUI"
             enter_venv
             cd -
@@ -2356,9 +2357,9 @@ function comfyui_extension_install()
         git_req=$?
         comfyui_extension_dep_notice=""
         if [ -f "./$(awk -F "/" '{print $NF}' <<< "$comfyui_extension_address")/requirements.txt" ];then
-            comfyui_extension_dep_notice="检测到该插件需要安装依赖，请进入插件管理功能，选中该插件，运行一次\"安装依赖\"功能"
+            comfyui_extension_dep_notice="检测到该插件需要安装依赖,请进入插件管理功能,选中该插件,运行一次\"安装依赖\"功能"
         elif [ -f "./$(awk -F "/" '{print $NF}' <<< "$comfyui_extension_address")/install.py" ];then
-            comfyui_extension_dep_notice="检测到该插件需要安装依赖，请进入插件管理功能，选中该插件，运行一次\"安装依赖\"功能"
+            comfyui_extension_dep_notice="检测到该插件需要安装依赖,请进入插件管理功能,选中该插件,运行一次\"安装依赖\"功能"
         fi
 
         if [ $git_req = "0" ];then
@@ -2392,7 +2393,7 @@ function operate_comfyui_extension()
                 dialog --clear --title "插件管理" --msgbox "更新失败" 20 60
             fi
             cd ..
-        elif [ "${final_operate_comfyui_extension}" == '2' ]; then #comfyui并不像a1111-sd-webui自动为插件安装依赖，所以只能手动装
+        elif [ "${final_operate_comfyui_extension}" == '2' ]; then #comfyui并不像a1111-sd-webui自动为插件安装依赖,所以只能手动装
             cd "$start_path/ComfyUI"
             enter_venv
             cd -
@@ -2569,9 +2570,9 @@ git:$(git --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ') \n
 dialog:$(dialog --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
 \n
 提示: \n
-使用方向键、Tab键、Enter进行选择，Space键勾选或取消选项 \n
+使用方向键、Tab键、Enter进行选择,Space键勾选或取消选项 \n
 Ctrl+C可中断指令的运行 \n
-第一次使用Term-SD时先在主界面选择“关于”查看使用说明，参数说明和注意的地方,内容不定期更新" 20 60
+第一次使用Term-SD时先在主界面选择“关于”查看使用说明,参数说明和注意的地方,内容不定期更新" 20 60
     mainmenu
 }
 
