@@ -113,6 +113,7 @@ function proxy_option()
 {
     python_proxy="-i https://pypi.python.org/simple"
     extra_python_proxy="-f https://download.pytorch.org/whl/torch_stable.html"
+    #extra_python_proxy="--extra-index-url https://download.pytorch.org/whl"
     github_proxy=""
     force_pip=""
     final_install_check_python="禁用"
@@ -120,7 +121,7 @@ function proxy_option()
     final_install_check_force_pip="禁用"
 
     final_proxy_options=$(
-        dialog --clear --separate-output --notags --title "代理选择" --yes-label "确认" --no-cancel --checklist "请选择代理，强制使用pip一般情况下不选" 20 60 10 \
+        dialog --clear --separate-output --notags --title "代理选择" --yes-label "确认" --no-cancel --checklist "请选择代理,强制使用pip一般情况下不选" 20 60 10 \
         "1" "启用pip镜像源" ON \
         "2" "启用github代理" ON \
         "3" "强制使用pip" OFF 3>&1 1>&2 2>&3)
@@ -129,7 +130,7 @@ function proxy_option()
         for final_proxy_option in $final_proxy_options; do
         case "$final_proxy_option" in
         "1")
-        #python_proxy="-i https://mirror.sjtu.edu.cn/pypi/web/simple" #上海交大的镜像源有点问题，在安装invokeai时会报错，可能是软件包版本的问题
+        #python_proxy="-i https://mirror.sjtu.edu.cn/pypi/web/simple" #上海交大的镜像源有点问题,在安装invokeai时会报错,可能是软件包版本的问题
         python_proxy="-i https://mirrors.bfsu.edu.cn/pypi/web/simple"
         #extra_python_proxy="-f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
         extra_python_proxy="-f https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html"
@@ -369,10 +370,11 @@ function set_proxy_option()
         #pip config set global.index-url "https://mirror.sjtu.edu.cn/pypi/web/simple"
         pip config set global.index-url "https://mirrors.bfsu.edu.cn/pypi/web/simple"
         #pip config set global.extra-index-url "https://mirror.sjtu.edu.cn/pytorch-wheels"
-        pip config set global.extra-index-url "https://mirrors.aliyun.com/pytorch-wheels"
+        #pip config set global.extra-index-url "https://mirrors.aliyun.com/pytorch-wheels"
+        pip config set global.find-links "https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html"
     else
         pip config unset global.index-url
-        pip config unset global.extra-index-url
+        pip config unset global.find-links
     fi
     mainmenu
 }
