@@ -101,7 +101,8 @@ brew install git aria2 dialog python
 
 ***
 
-# sd-webui-for-colab
+# sd-webui-for-colab(停更)
+### 推荐使用 https://github.com/Van-wise/sd-colab
 
 脚本修改自https://github.com/camenduru/stable-diffusion-webui-colab  
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/licyk/sd-webui-scipt/blob/main/stable_diffusion_webui_colab.ipynb)(stable)  
