@@ -25,7 +25,7 @@ windows系统安装配置环境的方法：
 
 >`C:\msys64`指msys2安装路径,要根据msys2实际的安装路径进行修改
 
-2、安装git，dialog，aria2  
+2、安装git，dialog  
 安装好后在windows的开始菜单里找到`MSYS2 MINGW64`，打开  
 在msys终端输入  
 
@@ -34,7 +34,7 @@ windows系统安装配置环境的方法：
 
 然后输入  
 
-    pacman -S dialog git mingw-w64-x86_64-aria2
+    pacman -S dialog git
 
 输入y，回车，等待安装完成  
 
@@ -45,7 +45,17 @@ windows系统安装配置环境的方法：
 安装结束前先不要关闭安装界面，先点击`Disable path length limit`，再退出  
 >python安装器在安装python时同时安装pip,一般不需要手动再去安装pip
 
-4、配置Windows终端  
+4、安装aria2  
+前往[aira2官网下载](http://aria2.github.io/)，点击`Download version`进入下载页面，找到`aria2-xx版本-win-64bit-build1.zip`点击下载，解压得到`aria2c.exe`
+在系统的某个位置创建一个文件夹，得到一个路径，比如D:\Program Files\aria2，记下来，将aria2c.exe放入文件夹  
+按下“win+R”快捷键，打开运行对话框，输入指令：  
+
+    sysdm.cpl  
+
+打开`系统属性`窗体后，依次点击选项卡`高级`->`环境变量`  
+在`系统变量`部分点双击`Path`，点击`新建`，把刚刚记下来的路径粘贴上去，然后一直点确定直至完成  
+
+5、配置Windows终端  
 >Windows10需在开始菜单中找到`micorsoft store`,搜索`Windows Terminal`进行安装
 
 右键桌面或者文件管理器空的位置，点击`在终端中打开`，在标题栏点击向下的箭头，打开Windows终端设置，点击`添加新配置文件`  
@@ -76,7 +86,7 @@ Macos配置环境方法：
 1、安装homebrew  
 打开macos终端，输入以下指令，根据提示安装homebrew
 ```
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
 2、安装git，aria2，dialog，python
