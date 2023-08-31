@@ -815,8 +815,7 @@ function term_sd_launch()
 #term-sd更新选项
 function update_option()
 {
-    dialog --clear --title "更新选项" --yes-label "是" --no-label "否" --extra-button --extra-label "返回" --yesno "更新时是否选择代理" 20 60
-    if [ $? = 0 ];then
+    if (dialog --clear --title "更新选项" --yes-label "是" --no-label "否" --yesno "更新时是否选择代理" 20 60) then
         aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/sd-webui-script/$term_sd_branch/term-sd.sh -d ./term-sd-update-tmp/
         if [ "$?"="0" ];then
             cp -fv ./term-sd-update-tmp/term-sd.sh ./
@@ -828,7 +827,7 @@ function update_option()
         else
             dialog --clear --title "更新选项" --msgbox "更新失败,请重试" 20 60
         fi
-    elif [ $? = 1 ];then
+    else
         aria2c https://raw.githubusercontent.com/licyk/sd-webui-script/$term_sd_branch/term-sd.sh -d ./term-sd-update-tmp/
         if [ "$?"="0" ];then
             cp -fv ./term-sd-update-tmp/term-sd.sh ./
@@ -955,15 +954,13 @@ function term_sd_extension()
 #pip镜像源选项
 function set_proxy_option()
 {
-    echo "获取pip全局配置"
-    dialog --clear --title "pip镜像源选项" --yes-label "是" --no-label "否" --extra-button --extra-label "返回" --yesno "pip全局配置:\n$(pip config list)\n是否启用pip镜像源?" 20 60
-    if [ $? = 0 ];then
+    if (dialog --clear --title "pip镜像源选项" --yes-label "是" --no-label "否" --yesno "是否启用pip镜像源" 20 60) then
         #pip config set global.index-url "https://mirror.sjtu.edu.cn/pypi/web/simple"
         pip config set global.index-url "https://mirrors.bfsu.edu.cn/pypi/web/simple"
         #pip config set global.extra-index-url "https://mirror.sjtu.edu.cn/pytorch-wheels"
         #pip config set global.extra-index-url "https://mirrors.aliyun.com/pytorch-wheels"
         pip config set global.find-links "https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html"
-    elif [ $? = 1 ];then
+    else
         pip config unset global.index-url
         pip config unset global.find-links
     fi
@@ -1100,11 +1097,10 @@ https://licyk.netlify.app/2023/08/01/stable-diffusion-tutorial/\n
 
 function venv_option()
 {
-    dialog --clear --title "venv虚拟环境" --yes-label "启用" --no-label "禁用" --extra-button --extra-label "返回" --yesno "是否启用venv虚拟环境,默认为启用状态,推荐启用" 20 60
-    if [ $? = 0 ];then
+    if (dialog --clear --title "venv虚拟环境" --yes-label "启用" --no-label "禁用" --yesno "是否启用venv虚拟环境,默认为启用状态,推荐启用" 20 60) then
         venv_active="enable"
         venv_info="启用"
-    elif [ $? = 1 ];then
+    else
         venv_active="disable"
         venv_info="禁用"
     fi
