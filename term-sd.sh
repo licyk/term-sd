@@ -954,7 +954,7 @@ function term_sd_extension()
 #pip镜像源选项
 function set_proxy_option()
 {
-    if (dialog --clear --title "pip镜像源选项" --yes-label "是" --no-label "否" --yesno "是否启用pip镜像源" 20 60) then
+    if (dialog --clear --title "pip镜像源选项" --yes-label "是" --no-label "否" --yesno "pip全局配置:\n$(pip config list)\n是否启用pip镜像源" 20 60) then
         #pip config set global.index-url "https://mirror.sjtu.edu.cn/pypi/web/simple"
         pip config set global.index-url "https://mirrors.bfsu.edu.cn/pypi/web/simple"
         #pip config set global.extra-index-url "https://mirror.sjtu.edu.cn/pytorch-wheels"
