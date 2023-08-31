@@ -27,7 +27,7 @@ function mainmenu()
     cd "$start_path" #回到最初路径
     exit_venv 2> /dev/null #确保进行下一步操作前已退出其他虚拟环境
     mainmenu_select=$(
-        dialog --clear --title "Term-SD" --yes-label "确认" --no-label "取消" --menu "请使用方向键和回车键进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')\n当前虚拟环境状态:"$venv_info"" 20 60 10 \
+        dialog --clear --title "Term-SD" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')\n当前虚拟环境状态:"$venv_info"" 20 60 10 \
         "0" "venv虚拟环境" \
         "1" "AUTOMATIC1111-stable-diffusion-webui" \
         "2" "ComfyUI" \
@@ -78,7 +78,7 @@ function a1111_sd_webui_option()
     if [ -d "stable-diffusion-webui" ];then #找到stable-diffusion-webui目录
         cd stable-diffusion-webui
         final_a1111_sd_webui_option=$(
-            dialog --clear --title "A1111-SD-Webui管理" --yes-label "确认" --no-label "取消" --menu "请使用方向键和回车键对A1111-Stable-Diffusion-Webui进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 20 60 10 \
+            dialog --clear --title "A1111-SD-Webui管理" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键对A1111-Stable-Diffusion-Webui进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 20 60 10 \
             "1" "更新" \
             "2" "卸载" \
             "3" "修复更新" \
@@ -172,7 +172,7 @@ function comfyui_option()
     if [ -d "ComfyUI" ];then
         cd ComfyUI
         final_comfyui_option=$(
-            dialog --clear --title "ComfyUI管理" --yes-label "确认" --no-label "取消" --menu "请使用方向键和回车键对ComfyUI进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 20 60 10 \
+            dialog --clear --title "ComfyUI管理" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键对ComfyUI进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 20 60 10 \
             "1" "更新" \
             "2" "卸载" \
             "3" "修复更新" \
@@ -273,7 +273,7 @@ function invokeai_option()
         enter_venv #进入环境
         if which invokeai 2> /dev/null ;then #查找环境中有没有invokeai
             final_invokeai_option=$(
-                dialog --clear --title "InvokeAI管理" --yes-label "确认" --no-label "取消" --menu "请使用方向键和回车键对InvokeAI进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 20 60 10 \
+                dialog --clear --title "InvokeAI管理" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键对InvokeAI进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 20 60 10 \
                 "1" "更新" \
                 "2" "卸载" \
                 "3" "启动" \
@@ -345,7 +345,7 @@ function lora_scripts_option()
     if [ -d "./lora-scripts" ];then
         cd lora-scripts
         final_lora_scripts_option=$(
-            dialog --clear --title "lora-scripts管理" --yes-label "确认" --no-label "取消" --menu "请使用方向键和回车键对lora-scripts进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 20 60 10 \
+            dialog --clear --title "lora-scripts管理" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键对lora-scripts进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 20 60 10 \
             "1" "更新" \
             "2" "卸载" \
             "3" "修复更新" \
@@ -455,7 +455,7 @@ function generate_a1111_sd_webui_launch()
 
     #展示启动参数选项
     a1111_launch_option_select=$(
-        dialog --clear --separate-output --notags --yes-label "确认" --no-cancel --checklist "A1111-Stable-Diffusion-Webui启动参数选择" 20 60 10 \
+        dialog --clear --separate-output --notags --ok-label "确认" --no-cancel --checklist "A1111-Stable-Diffusion-Webui启动参数选择" 20 60 10 \
         "1" "skip-torch-cuda-test" OFF \
         "2" "no-half" OFF \
         "3" "no-half-vae" OFF \
@@ -597,7 +597,7 @@ function generate_comfyui_launch()
     unset comfyui_launch_option
 
     comfyui_launch_option_select=$(
-        dialog --clear --separate-output --notags --yes-label "确认" --no-cancel --checklist "ComfyUI启动参数选择" 20 60 10 \
+        dialog --clear --separate-output --notags --ok-label "确认" --no-cancel --checklist "ComfyUI启动参数选择" 20 60 10 \
         "1" "listen" OFF \
         "2" "auto-launch" OFF \
         "3" "dont-upcast-attention" OFF \
@@ -683,7 +683,7 @@ function generate_comfyui_launch()
 function generate_invokeai_launch()
 {
     invokeai_launch_option=$(
-        dialog --clear --title "InvokeAI启动选项" --yes-label "确认" --no-label "取消" --menu "请使用方向键和回车键选择启动参数" 20 60 10 \
+        dialog --clear --title "InvokeAI启动选项" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键选择启动参数" 20 60 10 \
         "1" "invokeai-configure" \
         "2" "invokeai" \
         "3" "invokeai --web" \
@@ -727,7 +727,7 @@ function generate_invokeai_launch_cust()
     unset cust_invokeai_launch_option
 
     cust_invokeai_launch_option_select=$(
-        dialog --clear --separate-output --notags --yes-label "确认" --no-cancel --checklist "InvokeAI启动参数选择" 20 60 10 \
+        dialog --clear --separate-output --notags --ok-label "确认" --no-cancel --checklist "InvokeAI启动参数选择" 20 60 10 \
         "1" "web" ON \
         "2" "free_gpu_mem" OFF \
         "3" "precision auto" ON \
@@ -815,7 +815,8 @@ function term_sd_launch()
 #term-sd更新选项
 function update_option()
 {
-    if (dialog --clear --title "更新选项" --yes-label "是" --no-label "否" --yesno "更新时是否选择代理" 20 60) then
+    dialog --clear --title "更新选项" --yes-label "是" --no-label "否" --extra-button --extra-label "返回" --yesno "更新时是否选择代理" 20 60
+    if [ $? = 0 ];then
         aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/sd-webui-script/$term_sd_branch/term-sd.sh -d ./term-sd-update-tmp/
         if [ "$?"="0" ];then
             cp -fv ./term-sd-update-tmp/term-sd.sh ./
@@ -827,7 +828,7 @@ function update_option()
         else
             dialog --clear --title "更新选项" --msgbox "更新失败,请重试" 20 60
         fi
-    else
+    elif [ $? = 1 ];then
         aria2c https://raw.githubusercontent.com/licyk/sd-webui-script/$term_sd_branch/term-sd.sh -d ./term-sd-update-tmp/
         if [ "$?"="0" ];then
             cp -fv ./term-sd-update-tmp/term-sd.sh ./
@@ -870,7 +871,7 @@ function term_sd_extension()
     fi
 
     term_sd_extension_select_=$(
-        dialog --clear --separate-output --notags --checklist "term-sd扩展脚本列表\n勾选以下载,如果脚本已下载,则会执行更新；取消勾选以删除\n下载的脚本将会放在term-sd脚本所在目录下\n推荐勾选\"下载代理\"" 20 60 10 \
+        dialog --clear --separate-output --ok-label "确认" --notags --checklist "term-sd扩展脚本列表\n勾选以下载,如果脚本已下载,则会执行更新；取消勾选以删除\n下载的脚本将会放在term-sd脚本所在目录下\n推荐勾选\"下载代理\"" 20 60 10 \
             "1" "下载代理" ON \
             "2" "sd-webui-extension" "$term_sd_extension_1" \
             "3" "comfyui-extension" "$term_sd_extension_2" \
@@ -954,13 +955,15 @@ function term_sd_extension()
 #pip镜像源选项
 function set_proxy_option()
 {
-    if (dialog --clear --title "pip镜像源选项" --yes-label "是" --no-label "否" --yesno "是否启用pip镜像源" 20 60) then
+    echo "获取pip全局配置"
+    dialog --clear --title "pip镜像源选项" --yes-label "是" --no-label "否" --extra-button --extra-label "返回" --yesno "pip全局配置:\n$(pip config list)\n是否启用pip镜像源?" 20 60
+    if [ $? = 0 ];then
         #pip config set global.index-url "https://mirror.sjtu.edu.cn/pypi/web/simple"
         pip config set global.index-url "https://mirrors.bfsu.edu.cn/pypi/web/simple"
         #pip config set global.extra-index-url "https://mirror.sjtu.edu.cn/pytorch-wheels"
         #pip config set global.extra-index-url "https://mirrors.aliyun.com/pytorch-wheels"
         pip config set global.find-links "https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html"
-    else
+    elif [ $? = 1 ];then
         pip config unset global.index-url
         pip config unset global.find-links
     fi
@@ -1097,10 +1100,11 @@ https://licyk.netlify.app/2023/08/01/stable-diffusion-tutorial/\n
 
 function venv_option()
 {
-    if (dialog --clear --title "venv虚拟环境" --yes-label "启用" --no-label "禁用" --yesno "是否启用venv虚拟环境,默认为启用状态,推荐启用" 20 60) then
+    dialog --clear --title "venv虚拟环境" --yes-label "启用" --no-label "禁用" --extra-button --extra-label "返回" --yesno "是否启用venv虚拟环境,默认为启用状态,推荐启用" 20 60
+    if [ $? = 0 ];then
         venv_active="enable"
         venv_info="启用"
-    else
+    elif [ $? = 1 ];then
         venv_active="disable"
         venv_info="禁用"
     fi
@@ -1160,7 +1164,7 @@ function proxy_option()
     final_install_check_force_pip="禁用"
 
     final_proxy_options=$(
-        dialog --clear --separate-output --notags --title "代理选择" --yes-label "确认" --no-cancel --checklist "请选择代理,强制使用pip一般情况下不选" 20 60 10 \
+        dialog --clear --separate-output --notags --title "代理选择" --ok-label "确认" --no-cancel --checklist "请选择代理,强制使用pip一般情况下不选" 20 60 10 \
         "1" "启用pip镜像源" ON \
         "2" "启用github代理" ON \
         "3" "强制使用pip" OFF 3>&1 1>&2 2>&3)
@@ -1197,7 +1201,7 @@ function python_dep_install()
     ins_pytorch=""
 
     final_python_dep_install=$(
-        dialog --clear --title "pytorch安装" --yes-label "确认" --no-cancel --menu "请使用方向键和回车键选择安装的pytorch版本" 20 60 10 \
+        dialog --clear --title "pytorch安装" --ok-label "确认" --no-cancel --menu "请使用方向键和回车键选择安装的pytorch版本" 20 60 10 \
         "1" "Torch 1.12.1(CUDA11.3)+xFormers 0.014" \
         "2" "Torch 1.13.1(CUDA11.7)+xFormers 0.016" \
         "3" "Torch 2.0.0(CUDA11.8)+xFormers 0.018" \
@@ -1237,7 +1241,7 @@ function pip_install_methon()
     final_install_check_pip_methon="常规安装(setup.py)"
 
     final_pip_install_methon=$(
-        dialog --clear --title "pip安装模式选择" --yes-label "确认" --no-cancel --menu "选择pip安装方式\n1、常规安装可能会有问题,但速度较快\n2、标准构建安装可解决一些报错问题,但速度较慢" 20 60 10 \
+        dialog --clear --title "pip安装模式选择" --ok-label "确认" --no-cancel --menu "选择pip安装方式\n1、常规安装可能会有问题,但速度较快\n2、标准构建安装可解决一些报错问题,但速度较慢" 20 60 10 \
         "1" "常规安装(setup.py)" \
         "2" "标准构建安装(--use-pep517)" \
         3>&1 1>&2 2>&3 )
@@ -1262,7 +1266,7 @@ function a1111_sd_webui_extension_option()
 
     #插件选择,并输出插件对应的数字
     extension_list=$(
-        dialog --separate-output --notags --yes-label "确认" --no-cancel --checklist "A1111-Stable-Diffusion-Webui插件选择" 20 60 10 \
+        dialog --separate-output --notags --ok-label "确认" --no-cancel --checklist "A1111-Stable-Diffusion-Webui插件选择" 20 60 10 \
         "1" "kohya-config-webui" OFF \
         "2" "sd-webui-additional-networks" ON \
         "3" "a1111-sd-webui-tagcomplete" ON \
@@ -1474,7 +1478,7 @@ function comfyui_extension_option()
     unset extension_install_list
 
     extension_list=$(
-        dialog --separate-output --notags --yes-label "确认" --no-cancel --checklist "ComfyUI插件选择" 20 60 10 \
+        dialog --separate-output --notags --ok-label "确认" --no-cancel --checklist "ComfyUI插件选择" 20 60 10 \
         "1" "ComfyUI-extensions" OFF \
         "2" "graphNavigator" OFF \
         3>&1 1>&2 2>&3)
@@ -1504,7 +1508,7 @@ function comfyui_custom_node_option()
     unset extension_model_1
 
     extension_list=$(
-        dialog --separate-output --notags --yes-label "确认" --no-cancel --checklist "ComfyUi自定义节点选择" 20 60 10 \
+        dialog --separate-output --notags --ok-label "确认" --no-cancel --checklist "ComfyUi自定义节点选择" 20 60 10 \
         "1" "was-node-suite-comfyui" ON \
         "2" "ComfyUI_Cutoff" OFF \
         "3" "ComfyUI_TiledKSampler" OFF \
@@ -2022,7 +2026,7 @@ function extension_methon()
 {
     #功能选择界面
     final_extension_methon=$(
-        dialog --clear --title "插件管理" --yes-label "确认" --no-label "取消" --menu "请使用方向键和回车键进行操作" 20 60 10 \
+        dialog --clear --title "插件管理" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键进行操作" 20 60 10 \
         "1" "安装" \
         "2" "管理" \
         "3" "更新全部插件" \
@@ -2051,7 +2055,7 @@ function extension_manager()
     dir_list=$(ls -l --time-style=+"%Y-%m-%d"  | awk -F ' ' ' { print $7 " " $6 } ') #当前目录文件和文件夹信息
 
     extension_selection=$(
-        dialog --clear --yes-label "确认" --no-label "取消" --title "插件管理" \
+        dialog --clear --ok-label "确认" --cancel-label "取消" --title "插件管理" \
         --menu "使用上下键选择要操作的插件并回车确认" 20 60 10 \
         $dir_list \
         3>&1 1>&2 2>&3)
@@ -2087,7 +2091,7 @@ function extension_install()
 function operate_extension() 
 {
     final_operate_extension=$(
-        dialog --clear --title "操作选择" --yes-label "确认" --no-label "取消" --menu "请使用方向键和回车键选择对该插件进行的操作" 20 60 10 \
+        dialog --clear --title "操作选择" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键选择对该插件进行的操作" 20 60 10 \
         "1" "更新" \
         "2" "卸载" \
         "3" "修复更新" \
@@ -2135,7 +2139,7 @@ function comfyui_custom_node_methon()
 {
     #功能选择界面
     final_comfyui_custom_node_methon=$(
-        dialog --clear --title "自定义节点管理" --yes-label "确认" --no-label "取消" --menu "请使用方向键和回车键进行操作" 20 60 10 \
+        dialog --clear --title "自定义节点管理" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键进行操作" 20 60 10 \
         "1" "安装" \
         "2" "管理" \
         "3" "更新全部自定义节点" \
@@ -2212,7 +2216,7 @@ function comfyui_custom_node_install()
 function operate_comfyui_custom_node() 
 {
     final_operate_comfyui_custom_node=$(
-        dialog --clear --title "操作选择" --yes-label "确认" --no-label "取消" --menu "请使用方向键和回车键选择对该自定义节点进行的操作" 20 60 10 \
+        dialog --clear --title "操作选择" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键选择对该自定义节点进行的操作" 20 60 10 \
         "1" "更新" \
         "2" "安装依赖" \
         "3" "卸载" \
@@ -2298,7 +2302,7 @@ function comfyui_extension_methon()
 {
     #功能选择界面
     final_comfyui_extension_methon=$(
-        dialog --clear --title "插件管理" --yes-label "确认" --no-label "取消" --menu "请使用方向键和回车键进行操作" 20 60 10 \
+        dialog --clear --title "插件管理" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键进行操作" 20 60 10 \
         "1" "安装" \
         "2" "管理" \
         "3" "更新全部插件" \
@@ -2331,7 +2335,7 @@ function comfyui_extension_manager()
     dir_list=$(ls -l --time-style=+"%Y-%m-%d" | awk -F ' ' ' { print $7 " " $6 } ') #当前目录文件和文件夹信息
 
     comfyui_extension_selection=$(
-        dialog --clear --yes-label "确认" --no-label "取消" --title "插件管理" \
+        dialog --clear --ok-label "确认" --cancel-label "取消" --title "插件管理" \
         --menu "使用上下键选择要操作的插件并回车确认" 20 60 10 \
         $dir_list \
         3>&1 1>&2 2>&3)
@@ -2375,7 +2379,7 @@ function comfyui_extension_install()
 function operate_comfyui_extension() 
 {
     final_operate_comfyui_extension=$(
-        dialog --clear --title "操作选择" --yes-label "确认" --no-label "取消" --menu "请使用方向键和回车键选择对该插件进行的操作" 20 60 10 \
+        dialog --clear --title "操作选择" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键选择对该插件进行的操作" 20 60 10 \
         "1" "更新" \
         "2" "安装依赖" \
         "3" "卸载" \
@@ -2510,10 +2514,11 @@ function comfyui_extension_dep_install()
 #版本切换模块
 function git_checkout_manager()
 {
+    echo "获取版本信息"
     commit_lists=$(git log --date=short --pretty=format:"%H %cd" --date=format:"%Y-%m-%d|%H:%M:%S" | awk -F  ' ' ' {print $1 " " $2} ')
 
     commit_selection=$(
-        dialog --clear --yes-label "确认" --no-label "取消" --title "版本管理" \
+        dialog --clear --ok-label "确认" --cancel-label "取消" --title "版本管理" \
         --menu "使用上下键选择要切换的版本并回车确认\n当前版本:\n$(git show -s --format="%H %cd" --date=format:"%Y-%m-%d %H:%M:%S")" 20 70 10 \
         $commit_lists \
         3>&1 1>&2 2>&3)
@@ -2551,7 +2556,7 @@ function extension_all_update()
 
 #启动程序部分
 
-term_sd_version_="0.3.6"
+term_sd_version_="0.3.7"
 
 if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
     test_python="python"
