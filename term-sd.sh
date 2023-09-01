@@ -1081,7 +1081,7 @@ function info_option_2()
 6、建议保持启用虚拟环境,因为不同项目对软件包的版本要求不同,关闭后易导致不同的项目出现依赖问题\n
 7、若没有设置过python镜像源,推荐在\"python镜像源\"为系统设置python镜像源,加快python软件包的下载速度\n
 8、AUTOMATIC1111-stable-diffusion-webui安装好后,可以使用秋叶aaaki制作的启动器来启动sd-webui。将秋叶的启动器放入stable-diffusion-webui文件夹中,双击启动(仅限windows,因为秋叶的启动器只有windows的版本)\n
-9、ComfyUI安装插件或者自定义节点后后,推荐运行一次“安装依赖”功能,有些依赖下载源是在github上的,无法下载时请使用科学上网\n
+9、ComfyUI目前并没有自动为插件或者自定义节点安装依赖的功能,所以安装插件或者自定义节点后后,推荐运行一次“安装依赖”功能,有些依赖下载源是在github上的,无法下载时请使用科学上网(已知问题:因为一些插件/自定义节点的安装依赖方式并不统一,term-sd的依赖安装功能可能没有用,需要手动进行安装依赖)\n
 10、InvokeAI在安装好后,要运行一次invokeai-configure,到\"install stable diffusion models\"界面时,可以把所有的模型取消勾选,因为有的模型是从civitai下载的,如果没有科学上网会导致下载失败\n
 \n
 \n
@@ -1270,11 +1270,11 @@ venv-rebuild:重建项目的venv虚拟环境\n
 function info_option_6()
 {
     dialog --clear --title "tern-sd帮助" --msgbox "AUTOMATIC1111-stable-diffusion-webui插件说明:\n
-注:有些插件因为年久失修,可能会出现兼容性问题\n
+注:有些插件因为年久失修,可能会出现兼容性问题。具体介绍请在github上搜索项目\n
 \n
 kohya-config-webui: 一个用于生成kohya-ss训练脚本使用的toml配置文件的WebUI   \n
 sd-webui-additional-networks:将 LoRA 等模型添加到stable diffusion以生成图像的扩展   \n
-a1111-sd-webui-tagcomplete:输入Tag时提供booru风格（如Danbooru）的TAG自动补全   \n
+a1111-sd-webui-tagcomplete:输入Tag时提供booru风格(如Danbooru)的TAG自动补全   \n
 multidiffusion-upscaler-for-automatic1111:在有限的显存中进行大型图像绘制,提供图片区域控制   \n
 sd-dynamic-thresholding:解决使用更高的 CFG Scale 而出现颜色问题   \n
 sd-webui-cutoff:解决tag污染   \n
@@ -1294,7 +1294,7 @@ stable-diffusion-webui-huggingface:huggingface模型下载扩展   \n
 sd-civitai-browser:civitai模型下载扩展   \n
 a1111-stable-diffusion-webui-vram-estimator:显存占用评估   \n
 openpose-editor:openpose姿势编辑   \n
-sd-webui-depth-lib:深度图库，用于Automatic1111/stable-diffusion-webui的controlnet扩展   \n
+sd-webui-depth-lib:深度图库,用于Automatic1111/stable-diffusion-webui的controlnet扩展   \n
 posex:openpose姿势编辑   \n
 sd-webui-tunnels:WEBUI端口映射扩展   \n
 batchlinks-webui:批处理链接下载器   \n
@@ -1329,6 +1329,52 @@ stable-diffusion-webui-dataset-tag-editor:训练集打标和处理扩展   \n
 function info_option_7()
 {
     dialog --clear --title "tern-sd帮助" --msgbox "ComfyUI插件/自定义节点说明:\n
+注:具体介绍请在github上搜索项目\n
+\n
+插件:\n
+ComfyUI-extensions:ComfyUI插件扩展   \n
+graphNavigator:节点辅助插件   \n
+\n
+节点:\n
+was-node-suite-comfyui:适用于 ComfyUI 的广泛节点套件，包含 190 多个新节点   \n
+ComfyUI_Cutoff:解决tag污染   \n
+ComfyUI_TiledKSampler:ComfyUI 的平铺采样器   \n
+ComfyUI_ADV_CLIP_emb:高级剪辑文本编码,可让您选择解释提示权重的方式   \n
+ComfyUI_Noise:噪声控制   \n
+ComfyUI_Dave_CustomNode:图片区域控制   \n
+ComfyUI-Impact-Pack:通过检测器、细节器、升频器、管道等方便地增强图像   \n
+ComfyUI-Manager:用户界面管理器   \n
+ComfyUI-Custom-Nodes:ComfyUI的自定义节点   \n
+ComfyUI-Custom-Scripts:ComfyUI的增强功能   \n
+NodeGPT:使用GPT辅助生图   \n
+Derfuu_ComfyUI_ModdedNodes:方程式节点   \n
+efficiency-nodes-comfyui:ComfyUI 的效率节点   \n
+ComfyUI_node_Lilly:通配符文本工具   \n
+ComfyUI-nodes-hnmr:包含X/Y/Z-plot X/Y/Z,合并,潜在可视化,采样等节点   \n
+ComfyUI-Vextra-Nodes:包含像素排序,交换颜色模式,拼合颜色等节点   \n
+ComfyUI-QualityOfLifeSuit_Omar92:包含GPT辅助标签生成,字符串操作,latentTools等节点   \n
+FN16-ComfyUI-nodes:ComfyUI自定义节点集合   \n
+masquerade-nodes-comfyui:ComfyUI 掩码相关节点   \n
+ComfyUI-post-processing-nodes:ComfyUI的后处理节点集合,可实现各种酷炫的图像效果   \n
+images-grid-comfy-plugin:XYZPlot图生成   \n
+ComfyUI-CLIPSeg:利用 CLIPSeg 模型根据文本提示为图像修复任务生成蒙版   \n
+rembg-comfyui-node:背景去除   \n
+ComfyUI_tinyterraNodes:ComfyUI的自定义节点   \n
+yk-node-suite-comfyui:ComfyUI的自定义节点   \n
+ComfyUI_experiments:ComfyUI 的一些实验性自定义节点   \n
+ComfyUI_tagger:图片tag反推   \n
+MergeBlockWeighted_fo_ComfyUI:权重合并   \n
+ComfyUI-Saveaswebp:将生成的图片保存为webp格式   \n
+trNodes:通过蒙版混合两个图像   \n
+ComfyUI_NetDist:在多个本地 GPU/联网机器上运行 ComfyUI 工作流程   \n
+ComfyUI-Image-Selector:从批处理中选择一个或多个图像   \n
+ComfyUI-Strimmlarns-Aesthetic-Score:图片美学评分   \n
+ComfyUI_UltimateSDUpscale:图片放大   \n
+ComfyUI-Disco-Diffusion:Disco Diffusion模块   \n
+ComfyUI-Waveform-Extensions:一些额外的音频工具,用于示例扩散ComfyUI扩展   \n
+ComfyUI_Custom_Nodes_AlekPet:包括姿势,翻译等节点   \n
+comfy_controlnet_preprocessors:ComfyUI的ControlNet辅助预处理器   \n
+AIGODLIKE-COMFYUI-TRANSLATION:ComfyUI的翻译扩展   \n
 \n
 \n
 " 20 60
@@ -1791,7 +1837,7 @@ function comfyui_custom_node_option()
         "35" "ComfyUI-Disco-Diffusion" OFF \
         "36" "ComfyUI-Waveform-Extensions" OFF \
         "37" "ComfyUI_Custom_Nodes_AlekPet" OFF \
-        "38" "comfy_controlnet_preprocessors" ON \
+        "38" "comfyui_controlnet_aux" ON \
         "39" "AIGODLIKE-COMFYUI-TRANSLATION" ON \
         3>&1 1>&2 2>&3)
 
@@ -1910,7 +1956,7 @@ function comfyui_custom_node_option()
         custom_node_install_list="https://github.com/AlekPet/ComfyUI_Custom_Nodes_AlekPet $custom_node_install_list"
         ;;
         "38")
-        custom_node_install_list="https://github.com/Fannovel16/comfy_controlnet_preprocessors $custom_node_install_list"
+        custom_node_install_list="https://github.com/Fannovel16/comfyui_controlnet_aux $custom_node_install_list"
         extension_model_1=0
         ;;
         "39")
