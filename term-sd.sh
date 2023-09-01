@@ -37,7 +37,7 @@ function mainmenu()
         "6" "扩展脚本" \
         "7" "pip镜像源" \
         "8" "pip缓存清理" \
-        "9" "关于" \
+        "9" "帮助" \
         "10" "退出" \
         3>&1 1>&2 2>&3 )
 
@@ -60,7 +60,7 @@ function mainmenu()
             set_proxy_option
         elif [ "${mainmenu_select}" == '8' ]; then #选择pip缓存清理
             pip_cache_clean
-        elif [ "${mainmenu_select}" == '9' ]; then #选择关于
+        elif [ "${mainmenu_select}" == '9' ]; then #选择帮助
             info_option
         elif [ "${mainmenu_select}" == '10' ]; then #选择退出
             exit
@@ -978,34 +978,101 @@ function pip_cache_clean()
     mainmenu
 }
 
-#term-sd版本信息
+###############################################################################
+
+#term-sd帮助功能
+
+#帮助选择
 function info_option()
 {
-    dialog --clear --title "关于" --msgbox "Term-SD是基于终端显示的管理器,可以对项目进行简单的管理  \n
+    info_option_select=$(dialog --clear --title "tern-sd帮助" --ok-label "确认" --cancel-label "取消" --menu "tern-sd的帮助列表,请使用方向键和回车键进行操作" 20 60 10 \
+        "1" "关于term-sd" \
+        "2" "使用说明" \
+        "3" "启动参数说明" \
+        "4" "目录说明" \
+        "5" "扩展脚本说明" \
+        "6" "返回" \
+        3>&1 1>&2 2>&3 )
+
+    if [ $? = 0 ];then
+        if [ $info_option_select = 1 ];then
+            info_option_1
+            info_option
+        elif [ $info_option_select = 2 ];then
+            info_option_2
+            info_option
+        elif [ $info_option_select = 3 ];then
+            info_option_3
+            info_option
+        elif [ $info_option_select = 4 ];then
+            info_option_4
+            info_option
+        elif [ $info_option_select = 5 ];then
+            info_option_5
+            info_option
+        elif [ $info_option_select = 6 ];then
+            mainmenu
+        fi
+    else
+        mainmenu
+    fi
+}
+
+#关于term-sd
+function info_option_1()
+{
+    dialog --clear --title "tern-sd帮助" --msgbox "关于term-sd:\n
+Term-SD是基于终端显示的管理器,可以对项目进行简单的管理  \n
 支持的项目如下: \n
 1、AUTOMATIC1111-stable-diffusion-webui \n
 2、ComfyUI \n
 3、InvokeAI \n
 4、lora-scripts \n
-(项目都主要基于stable-diffusion)\n
+(项目都基于stable-diffusion)\n
 \n
-使用说明:\n
+\n
+该脚本的编写参考了https://gitee.com/skymysky/linux \n
+脚本支持Windows,Linux,MacOS(Windows平台需安装msys2,MacOS需要安装homebrew)\n
+\n
+stable-diffusion相关链接:\n
+https://huggingface.co/\n
+https://civitai.com/\n
+https://www.bilibili.com/read/cv22159609\n
+\n
+学习stable-diffusion-webui的教程:\n
+https://licyk.netlify.app/2023/08/01/stable-diffusion-tutorial/\n
+\n
+\n
+" 20 60
+}
+
+#使用说明
+function info_option_2()
+{
+    dialog --clear --title "tern-sd帮助" --msgbox "使用说明:\n
 1、使用方向键、Tab键、Enter进行选择,Space键勾选或取消选项 \n
 Ctrl+C可中断指令的运行 \n
 2、安装项目的路径和Term-SD脚本所在路径相同,方便管理\n
 3、若项目使用了venv虚拟环境,移动项目到新的路径后需要使用Term-SD的“重新生成venv虚拟环境”功能,才能使venv虚拟环境正常工作\n
 4、在更新或者切换版本失败时可以使用“更新修复”解决,然后再点一次“更新”\n
-5、Term-SD只能实现简单的安装,管理功能,若要导入模型等操作需手动在文件管理器上操作\n
+5、Term-SD只有简单的安装,管理功能,若要导入模型等操作需手动在文件管理器上操作\n
 5、如果没有质量较好的科学上网工具,建议在安装时使用git代理和python镜像源\n
-6、建议保持启用虚拟环境,因为不同项目对软件包的版本要求不同\n
-7、若没有设置过python镜像源,推荐在\"python镜像源\"为系统设置python镜像源\n
-8、AUTOMATIC1111-stable-diffusion-webui安装好后,可以使用秋叶aaaki制作的启动器来启动sd-webui。将秋叶的启动器放入stable-diffusion-webui文件夹中,双击启动（仅限windows,因为秋叶的启动器只有window的版本）\n
+6、建议保持启用虚拟环境,因为不同项目对软件包的版本要求不同,关闭后易导致不同的项目出现依赖问题\n
+7、若没有设置过python镜像源,推荐在\"python镜像源\"为系统设置python镜像源,加快python软件包的下载速度\n
+8、AUTOMATIC1111-stable-diffusion-webui安装好后,可以使用秋叶aaaki制作的启动器来启动sd-webui。将秋叶的启动器放入stable-diffusion-webui文件夹中,双击启动(仅限windows,因为秋叶的启动器只有window的版本)\n
 9、ComfyUI安装插件或者自定义节点后后,推荐运行一次“安装依赖”功能,有些依赖下载源是在github上的,无法下载时请使用科学上网\n
 10、有时候在安装sd-webui时选择安装插件,会因为插件兼容问题而导致报错(玄学),然后启动失败。一种解决办法是在安装选择时取消所有要安装的插件,然后安装并启动,等能够成功进入sd-weui时再用扩展脚本中的sd-webui-extension.sh来安装脚本\n
-11、torch版本的选择:nvidia显卡选择cuda（Windows,linux平台）,amd显卡在linux平台选择rocm,amd显卡和intel显卡在windows平台选择directml\n
+11、torch版本的选择:nvidia显卡选择cuda(Windows,linux平台),amd显卡在linux平台选择rocm,amd显卡和intel显卡在windows平台选择directml\n
 12、InvokeAI在安装好后,要运行一次invokeai-configure,到\"install stable diffusion models\"界面时,可以把所有的模型取消勾选,因为有的模型是从civitai下载的,如果没有科学上网会导致下载失败\n
 \n
 \n
+" 20 60
+}
+
+#启动参数说明
+function info_option_3()
+{
+    dialog --clear --title "tern-sd帮助" --msgbox "启动参数说明:\n
 stable diffusion webui的启动参数:\n
 skip-torch-cuda-test:不检查CUDA是否正常工作\n
 no-half:不将模型切换为16位浮点数\n
@@ -1074,22 +1141,108 @@ no-internet_available:禁用联网下载资源\n
 host:允许局域网的设备访问\n
 \n
 \n
-该脚本的编写参考了https://gitee.com/skymysky/linux \n
-脚本支持Windows,Linux,MacOS(Windows平台需安装msys2,MacOS需要安装homebrew)\n
+" 20 60
+}
+
+#目录说明
+function info_option_4()
+{
+    dialog --clear --title "tern-sd帮助" --msgbox "目录说明:\n
+在启用venv虚拟环境后,在安装时项目的目录下会产生venv文件夹,这个是python软件包安装的目录\n
 \n
-stable-diffusion相关链接:\n
-https://huggingface.co/\n
-https://civitai.com/\n
-https://www.bilibili.com/read/cv22159609\n
 \n
-学习stable-diffusion-webui的教程:\n
-https://licyk.netlify.app/2023/08/01/stable-diffusion-tutorial/\n
+stable diffusion webui目录的说明(只列举比较重要的):\n
+stable-diffusion-webui   \n
+├── embeddings   embeddings模型存放位置   \n
+├── extensions   插件存放位置   \n
+├── launch.py    term-sd启动sd-webui的方法   \n
+├── outputs   生成图片的保存位置   \n
+└── models    模型存放目录   \n
+    ├── ESRGAN    放大模型存放位置   \n
+    ├── GFPGAN    放大模型存放位置   \n
+    ├── hypernetworks    hypernetworks模型存放位置   \n
+    ├── Lora    Lora模型存放位置   \n
+    ├── RealESRGAN    放大模型存放位置   \n
+    ├── Stable-diffusion    大模型存放位置   \n
+    └── VAE    VAE模型存放位置   \n
+\n
+\n
+ComfyUI目录的部分说明(只列举比较重要的):\n
+ComfyUI   \n
+├── custom_nodes   自定义节点存放位置   \n
+├── main.py        term-sd启动ComfyUI的方法   \n
+├── models         模型存放位置   \n
+│   ├── checkpoints    大模型存放位置   \n
+│   ├── controlnet   controlnet模型存放位置   \n
+│   ├── embeddings   embeddings模型存放位置   \n
+│   ├── hypernetworks   hypernetworks模型存放位置   \n
+│   ├── loras   Lora模型存放位置   \n
+│   ├── upscale_models   放大模型存放位置   \n
+│   └── vae   VAE模型存放位置   \n
+├── output   生成图片的保存位置   \n
+└── web   \n
+    └── extensions   插件存放位置   \n
+InvokeAI目录的部分说明(只列举比较重要的):\n
+├── configs   配置文件存放目录   \n
+├── invokeai.yaml   主要配置文件   \n
+├── models   模型存放位置   \n
+│   ├── core   \n
+│   │   └── upscaling   \n
+│   │       └── realesrgan   放大模型存放位置   \n
+│   ├── sd-1   sd1.5模型的存放位置   \n
+│   │   ├── controlnet   controlnet模型存放位置   \n
+│   │   ├── embedding   embeddings模型存放位置   \n
+│   │   ├── lora   Lora模型存放位置   \n
+│   │   ├── main   \n
+│   │   ├── onnx   \n
+│   │   └── vae   VAE模型存放位置   \n
+│   ├── sd-2   \n
+│   │   ├── controlnet   \n
+│   │   ├── embedding   \n
+│   │   ├── lora   \n
+│   │   ├── main   \n
+│   │   ├── onnx   \n
+│   │   └── vae   \n
+│   ├── sdxl   \n
+│   │   ├── controlnet   \n
+│   │   ├── embedding   \n
+│   │   ├── lora   \n
+│   │   ├── main   \n
+│   │   ├── onnx   \n
+│   │   └── vae   \n
+│   └── sdxl-refiner   \n
+│       ├── controlnet   \n
+│       ├── embedding   \n
+│       ├── lora   \n
+│       ├── main   \n
+│       ├── onnx   \n
+│       └── vae   \n
+└── outputs   生成图片的存放位置   \n
+\n
+\n
+lora-scripts目录的部分说明(只列举比较重要的):\n
+lora-scripts   \n
+├── gui.py   term-sd启动lora-scripts的方法   \n
+├── logs   日志存放位置   \n
+├── output   训练得到的模型存放位置   \n
+├── sd-models   训练所用的底模存放位置   \n
+└── toml   保存的训练参数存放位置   \n
 \n
 \n
 " 20 60
+}
 
-    #返回主菜单  
-    mainmenu
+#扩展插件说明
+function info_option_5()
+{
+    dialog --clear --title "tern-sd帮助" --msgbox "扩展脚本说明:\n
+扩展脚本可从主界面的"扩展脚本"下载和更新,启动方式和term-sd相同\n
+sd-webui-extension:安装sd-webui的插件\n
+comfyui-extension:安装ComfyUI的插件\n
+venv-rebuild:重建项目的venv虚拟环境\n
+\n
+\n
+" 20 60
 }
 
 ###############################################################################
@@ -1731,9 +1884,9 @@ function process_install_a1111_sd_webui()
 
     pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5 #"--default-timeout=100 --retries 5"在网络差导致下载中断时重试下载
     #pip install git+"$github_proxy"https://github.com/crowsonkb/k-diffusion.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
-    pip install git+"$github_proxy"https://github.com/TencentARC/GFPGAN.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+    #pip install git+"$github_proxy"https://github.com/TencentARC/GFPGAN.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
     pip install git+"$github_proxy"https://github.com/openai/CLIP.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
-    pip install git+"$github_proxy"https://github.com/mlfoundations/open_clip.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+    #pip install git+"$github_proxy"https://github.com/mlfoundations/open_clip.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
 
     pip install -r ./stable-diffusion-webui/repositories/CodeFormer/requirements.txt --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
     pip install -r ./stable-diffusion-webui/requirements.txt --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5 #安装stable-diffusion-webui的依赖
@@ -2557,7 +2710,7 @@ function extension_all_update()
 
 #启动程序部分
 
-term_sd_version_="0.3.7"
+term_sd_version_="0.3.8"
 
 if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
     test_python="python"
@@ -2579,7 +2732,7 @@ dialog:$(dialog --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
 提示: \n
 使用方向键、Tab键、Enter进行选择,Space键勾选或取消选项 \n
 Ctrl+C可中断指令的运行 \n
-第一次使用Term-SD时先在主界面选择“关于”查看使用说明,参数说明和注意的地方,内容不定期更新" 20 60
+第一次使用Term-SD时先在主界面选择“帮助”查看使用说明,参数说明和注意的地方,内容不定期更新" 20 60
     mainmenu
 }
 
