@@ -18,8 +18,13 @@ term_sd_branch=main
 #设置启动时脚本路径
 start_path=$(pwd)
 #设置虚拟环境
-venv_active="enable"
-venv_info="启用"
+if [ -f ./term-sd-venv-disable.lock ];then #找到term-sd-venv-disable.lock文件,禁用虚拟环境
+    venv_active="disable"
+    venv_info="禁用"
+else
+    venv_active="enable"
+    venv_info="启用"
+fi
 
 #主界面
 function mainmenu()
@@ -991,7 +996,9 @@ function info_option()
         "3" "启动参数说明" \
         "4" "目录说明" \
         "5" "扩展脚本说明" \
-        "6" "返回" \
+        "6" "sd-webui插件说明" \
+        "7" "ComfyUI插件/自定义节点说明" \
+        "8" "返回" \
         3>&1 1>&2 2>&3 )
 
     if [ $? = 0 ];then
@@ -1011,6 +1018,12 @@ function info_option()
             info_option_5
             info_option
         elif [ $info_option_select = 6 ];then
+            info_option_6
+            info_option
+        elif [ $info_option_select = 7 ];then
+            info_option_7
+            info_option
+        elif [ $info_option_select = 8 ];then
             mainmenu
         fi
     else
@@ -1050,20 +1063,26 @@ https://licyk.netlify.app/2023/08/01/stable-diffusion-tutorial/\n
 function info_option_2()
 {
     dialog --clear --title "tern-sd帮助" --msgbox "使用说明:\n
-1、使用方向键、Tab键、Enter进行选择,Space键勾选或取消选项 \n
-Ctrl+C可中断指令的运行 \n
-2、安装项目的路径和Term-SD脚本所在路径相同,方便管理\n
-3、若项目使用了venv虚拟环境,移动项目到新的路径后需要使用Term-SD的“重新生成venv虚拟环境”功能,才能使venv虚拟环境正常工作\n
-4、在更新或者切换版本失败时可以使用“更新修复”解决,然后再点一次“更新”\n
-5、Term-SD只有简单的安装,管理功能,若要导入模型等操作需手动在文件管理器上操作\n
+1、使用方向键、Tab键、Enter进行选择,Space键勾选或取消选项,Ctrl+C可中断指令的运行 \n
+2、初次使用时,如果之前没有使用过python的pip模块,建议在主界面先选择"pip镜像源",设置pip的国内镜像源,加快安装时下载python软件包的速度。主界面显示的"虚拟环境"保持启用就行,无需禁用\n
+3、主界面总共有四个ai项目可选(AUTOMATIC1111-stable-diffusion-webui,ComfyUI,InvokeAI,lora-scripts),回车选中后,如果在脚本的当前目录未找选中的项目,term-sd会提示你进行安装。\n
+4、安装前将会提示你进行安装准备,首先是"代理选择",有三个选项可选(启用pip镜像源,启用github代理,强制使用pip),前两个选项默认勾选,如果没有质量较好的科学上网工具,不建议勾选。"强制使用pip"只有禁用了虚拟环境时才建议勾选(在Linux中,如果不在虚拟环境中安装python软件包,pip模块会警告"error: externally-managed-environment",只有使用"--break-system-packages"才能进行安装)\n
+5、然后是"pytorch安装",pytorch版本的选择:nvidia显卡选择cuda(Windows,linux平台),amd显卡在linux平台选择rocm,amd显卡和intel显卡在windows平台选择directml,macos选择不带cuda,rocm,directml的版本,如果想要在cpu上进行跑图,选择cpu版本\n
+6、AUTOMATIC1111-stable-diffusion-webui,ComfyUI会有额外的插件/自定义节点选择,默认勾选一些比较实用的,可根据需要勾选额外,插件/自定义节点的介绍在帮助中查询。(项目在安装好后,如果在插件安装列表有想要安装的,可使用"扩展脚本"中的"extension"脚本进行安装)
+7、安装前的准备完成后,将会弹出安装确认界面,选择"是"开始安装\n
+8、安装结束后,会自动进入盖项目的管理界面,在该界面中可以对项目进行更新,卸载,启动等操作\n
+9、在安装之后,pip模块会产生大量的缓存,可使用主界面的"pip缓存清理"进行删除\n
+注意事项:\n
+1、安装项目的路径和Term-SD脚本所在路径相同,方便管理\n
+2、若项目使用了venv虚拟环境,移动项目到新的路径后需要使用Term-SD的“重新生成venv虚拟环境”功能,才能使venv虚拟环境正常工作\n
+3、在更新或者切换版本失败时可以使用“更新修复”解决,然后再点一次“更新”\n
+4、Term-SD只有简单的安装,管理功能,若要导入模型等操作需手动在文件管理器上操作\n
 5、如果没有质量较好的科学上网工具,建议在安装时使用git代理和python镜像源\n
 6、建议保持启用虚拟环境,因为不同项目对软件包的版本要求不同,关闭后易导致不同的项目出现依赖问题\n
 7、若没有设置过python镜像源,推荐在\"python镜像源\"为系统设置python镜像源,加快python软件包的下载速度\n
-8、AUTOMATIC1111-stable-diffusion-webui安装好后,可以使用秋叶aaaki制作的启动器来启动sd-webui。将秋叶的启动器放入stable-diffusion-webui文件夹中,双击启动(仅限windows,因为秋叶的启动器只有window的版本)\n
+8、AUTOMATIC1111-stable-diffusion-webui安装好后,可以使用秋叶aaaki制作的启动器来启动sd-webui。将秋叶的启动器放入stable-diffusion-webui文件夹中,双击启动(仅限windows,因为秋叶的启动器只有windows的版本)\n
 9、ComfyUI安装插件或者自定义节点后后,推荐运行一次“安装依赖”功能,有些依赖下载源是在github上的,无法下载时请使用科学上网\n
-10、有时候在安装sd-webui时选择安装插件,会因为插件兼容问题而导致报错(玄学),然后启动失败。一种解决办法是在安装选择时取消所有要安装的插件,然后安装并启动,等能够成功进入sd-weui时再用扩展脚本中的sd-webui-extension.sh来安装脚本\n
-11、torch版本的选择:nvidia显卡选择cuda(Windows,linux平台),amd显卡在linux平台选择rocm,amd显卡和intel显卡在windows平台选择directml\n
-12、InvokeAI在安装好后,要运行一次invokeai-configure,到\"install stable diffusion models\"界面时,可以把所有的模型取消勾选,因为有的模型是从civitai下载的,如果没有科学上网会导致下载失败\n
+10、InvokeAI在安装好后,要运行一次invokeai-configure,到\"install stable diffusion models\"界面时,可以把所有的模型取消勾选,因为有的模型是从civitai下载的,如果没有科学上网会导致下载失败\n
 \n
 \n
 " 20 60
@@ -1182,6 +1201,8 @@ ComfyUI   \n
 ├── output   生成图片的保存位置   \n
 └── web   \n
     └── extensions   插件存放位置   \n
+\n
+\n
 InvokeAI目录的部分说明(只列举比较重要的):\n
 ├── configs   配置文件存放目录   \n
 ├── invokeai.yaml   主要配置文件   \n
@@ -1245,6 +1266,24 @@ venv-rebuild:重建项目的venv虚拟环境\n
 " 20 60
 }
 
+#AUTOMATIC1111-stable-diffusion-webui插件说明
+function info_option_6()
+{
+    dialog --clear --title "tern-sd帮助" --msgbox "AUTOMATIC1111-stable-diffusion-webui插件说明:\n
+\n
+\n
+" 20 60
+}
+
+#ComfyUI插件/自定义节点说明
+function info_option_7()
+{
+    dialog --clear --title "tern-sd帮助" --msgbox "ComfyUI插件/自定义节点说明:\n
+\n
+\n
+" 20 60
+}
+
 ###############################################################################
 
 #venv虚拟环境处理
@@ -1254,9 +1293,11 @@ function venv_option()
     if (dialog --clear --title "venv虚拟环境" --yes-label "启用" --no-label "禁用" --yesno "是否启用venv虚拟环境,默认为启用状态,推荐启用" 20 60) then
         venv_active="enable"
         venv_info="启用"
+        rm -rfv ./term-sd-venv-disable.lock
     else
         venv_active="disable"
         venv_info="禁用"
+        touch ./term-sd-venv-disable.lock
     fi
     mainmenu
 }
