@@ -1311,6 +1311,7 @@ function a1111_sd_webui_extension_option()
         "45" "ebsynth_utility" OFF \
         "46" "sd_dreambooth_extension" OFF \
         "47" "sd-webui-memory-release" ON \
+        "48" "stable-diffusion-webui-dataset-tag-editor" OFF \
         3>&1 1>&2 2>&3)
 
     if [ ! -z "$extension_list" ]; then
@@ -1459,6 +1460,9 @@ function a1111_sd_webui_extension_option()
         ;;
         "47")
         extension_install_list="https://github.com/Haoming02/sd-webui-memory-release $extension_install_list"
+        ;;
+        "48")
+        extension_install_list="https://github.com/toshiaki1729/stable-diffusion-webui-dataset-tag-editor $extension_install_list"
         ;;
         *)
         exit 1
