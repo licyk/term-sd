@@ -1469,7 +1469,7 @@ function a1111_sd_webui_extension_option()
         "9" "stable-diffusion-webui-localization-zh_Hans" ON \
         "10" "stable-diffusion-webui-wd14-tagger" ON \
         "11" "sd-webui-regional-prompter" ON \
-        "12" "stable-diffusion-webui-baidu-netdisk" ON \
+        "12" "sd-webui-infinite-image-browsing" ON \
         "13" "stable-diffusion-webui-anti-burn" ON \
         "14" "loopback_scaler" OFF \
         "15" "latentcoupleregionmapper" ON \
@@ -1545,7 +1545,7 @@ function a1111_sd_webui_extension_option()
         extension_install_list="https://github.com/hako-mikan/sd-webui-regional-prompter $extension_install_list"
         ;;
         "12")
-        extension_install_list="https://github.com/zanllp/stable-diffusion-webui-baidu-netdisk $extension_install_list"
+        extension_install_list="https://github.com/zanllp/sd-webui-infinite-image-browsing $extension_install_list"
         ;;
         "13")
         extension_install_list="https://github.com/klimaleksus/stable-diffusion-webui-anti-burn $extension_install_list"
