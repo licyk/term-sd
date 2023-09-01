@@ -1253,7 +1253,7 @@ lora-scripts   \n
 " 20 60
 }
 
-#扩展插件说明
+#扩展脚本说明
 function info_option_5()
 {
     dialog --clear --title "tern-sd帮助" --msgbox "扩展脚本说明:\n
@@ -1270,6 +1270,56 @@ venv-rebuild:重建项目的venv虚拟环境\n
 function info_option_6()
 {
     dialog --clear --title "tern-sd帮助" --msgbox "AUTOMATIC1111-stable-diffusion-webui插件说明:\n
+注:有些插件因为年久失修,可能会出现兼容性问题\n
+\n
+kohya-config-webui: 一个用于生成kohya-ss训练脚本使用的toml配置文件的WebUI   \n
+sd-webui-additional-networks:将 LoRA 等模型添加到stable diffusion以生成图像的扩展   \n
+a1111-sd-webui-tagcomplete:输入Tag时提供booru风格（如Danbooru）的TAG自动补全   \n
+multidiffusion-upscaler-for-automatic1111:在有限的显存中进行大型图像绘制,提供图片区域控制   \n
+sd-dynamic-thresholding:解决使用更高的 CFG Scale 而出现颜色问题   \n
+sd-webui-cutoff:解决tag污染   \n
+sd-webui-model-converter:模型转换扩展   \n
+sd-webui-supermerger:模型合并扩展   \n
+stable-diffusion-webui-localization-zh_Hans:WEBUI中文扩展   \n
+stable-diffusion-webui-wd14-tagger:图片tag反推   \n
+sd-webui-regional-prompter:图片区域分割   \n
+stable-diffusion-webui-baidu-netdisk:强大的图像管理器   \n
+stable-diffusion-webui-anti-burn:通过跳过最后几个步骤并将它们之前的一些图像平均在一起来平滑生成的图像,加快点击停止生成图像后WEBUI的响应速度   \n
+loopback_scaler:使用迭代过程增强图像分辨率和质量   \n
+latentcoupleregionmapper:控制绘制和定义区域   \n
+ultimate-upscale-for-automatic1111:图片放大工具   \n
+deforum-for-automatic1111:视频生成插件   \n
+stable-diffusion-webui-images-browser:图像管理器   \n
+stable-diffusion-webui-huggingface:huggingface模型下载扩展   \n
+sd-civitai-browser:civitai模型下载扩展   \n
+a1111-stable-diffusion-webui-vram-estimator:显存占用评估   \n
+openpose-editor:openpose姿势编辑   \n
+sd-webui-depth-lib:深度图库，用于Automatic1111/stable-diffusion-webui的controlnet扩展   \n
+posex:openpose姿势编辑   \n
+sd-webui-tunnels:WEBUI端口映射扩展   \n
+batchlinks-webui:批处理链接下载器   \n
+stable-diffusion-webui-catppuccin:WEBUI主题   \n
+a1111-sd-webui-lycoris:添加lycoris模型支持   \n
+stable-diffusion-webui-rembg:人物背景去除   \n
+stable-diffusion-webui-two-shot:图片区域分割和控制   \n
+sd-webui-lora-block-weight:lora分层扩展   \n
+sd-face-editor:面部编辑器   \n
+sd-webui-segment-anything:图片语义分割   \n
+sd-webui-controlnet:图片生成控制   \n
+sd-webui-prompt-all-in-one:tag翻译和管理插件   \n
+sd-webui-comfyui:在WEBUI添加ComfyUI界面   \n
+sd-webui-animatediff:GIF生成扩展   \n
+sd-webui-photopea-embed:在WEBUI界面添加ps功能   \n
+sd-webui-openpose-editor:ControlNet的pose编辑器   \n
+sd-webui-llul:给图片的选定区域增加细节   \n
+sd-webui-bilingual-localization:WEBUI双语对照翻译插件   \n
+adetailer:图片细节修复扩展   \n
+sd-webui-mov2mov:视频逐帧处理插件   \n
+sd-webui-IS-NET-pro:人物抠图   \n
+ebsynth_utility:视频处理扩展   \n
+sd_dreambooth_extension:dreambooth模型训练   \n
+sd-webui-memory-release:显存释放扩展   \n
+stable-diffusion-webui-dataset-tag-editor:训练集打标和处理扩展   \n
 \n
 \n
 " 20 60
@@ -1494,7 +1544,7 @@ function a1111_sd_webui_extension_option()
         "34" "sd-webui-controlnet" ON \
         "35" "sd-webui-prompt-all-in-one" ON \
         "36" "sd-webui-comfyui" OFF \
-        "37" "a1111-sd-webui-lycoris" OFF \
+        "37" "sd-webui-animatediff" OFF \
         "38" "sd-webui-photopea-embed" ON \
         "39" "sd-webui-openpose-editor" ON \
         "40" "sd-webui-llul" ON \
@@ -1575,7 +1625,7 @@ function a1111_sd_webui_extension_option()
         extension_install_list="https://github.com/space-nuko/a1111-stable-diffusion-webui-vram-estimator $extension_install_list"
         ;;
         "22")
-        extension_install_list="https://github.com/camenduru/openpose-editor $extension_install_list"
+        extension_install_list="https://github.com/fkunn1326/openpose-editor $extension_install_list"
         ;;
         "23")
         extension_install_list="https://github.com/jexom/sd-webui-depth-lib $extension_install_list"
@@ -1621,7 +1671,7 @@ function a1111_sd_webui_extension_option()
         extension_install_list="https://github.com/ModelSurge/sd-webui-comfyui $extension_install_list"
         ;;
         "37")
-        extension_install_list="https://github.com/KohakuBlueleaf/a1111-sd-webui-lycoris $extension_install_list"
+        extension_install_list="https://github.com/continue-revolution/sd-webui-animatediff $extension_install_list"
         ;;
         "38")
         extension_install_list="https://github.com/yankooliveira/sd-webui-photopea-embed $extension_install_list"
