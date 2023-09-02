@@ -99,8 +99,17 @@ function a1111_sd_webui_option()
         if [ $? = 0 ];then
             if [ "${final_a1111_sd_webui_option}" == '1' ]; then
                 echo "更新A1111-Stable-Diffusion-Webui中"
+                test_num=1
                 git pull
-                if [ $? = "0" ];then
+                if [ $? = 0 ];then
+                    test_num=0
+                fi
+                git pull ./repositories/BLIP
+                git pull ./repositories/CodeFormer
+                git pull ./repositories/generative-models
+                git pull ./repositories/k-diffusion
+                git pull ./repositories/stable-diffusion-stability-ai
+                if [ $test_num = "0" ];then
                     dialog --clear --title "A1111-SD-Webui管理" --msgbox "更新成功" 20 60
                 else
                     dialog --clear --title "A1111-SD-Webui管理" --msgbox "更新失败" 20 60
