@@ -456,7 +456,7 @@ function lora_scripts_option()
 function generate_a1111_sd_webui_launch()
 {
     #清空启动参数
-    unset a1111_launch_option
+    a1111_launch_option=""
 
     #展示启动参数选项
     a1111_launch_option_select=$(
@@ -599,7 +599,7 @@ function generate_a1111_sd_webui_launch()
 #comfyui启动脚本生成部分
 function generate_comfyui_launch()
 {
-    unset comfyui_launch_option
+    comfyui_launch_option=""
 
     comfyui_launch_option_select=$(
         dialog --clear --separate-output --notags --ok-label "确认" --no-cancel --checklist "ComfyUI启动参数选择" 20 60 10 \
@@ -729,7 +729,7 @@ function generate_invokeai_launch()
 #invokeai自定义启动参数生成
 function generate_invokeai_launch_cust()
 {
-    unset cust_invokeai_launch_option
+    cust_invokeai_launch_option=""
 
     cust_invokeai_launch_option_select=$(
         dialog --clear --separate-output --notags --ok-label "确认" --no-cancel --checklist "InvokeAI启动参数选择" 20 60 10 \
@@ -1083,6 +1083,7 @@ function info_option_2()
 8、AUTOMATIC1111-stable-diffusion-webui安装好后,可以使用秋叶aaaki制作的启动器来启动sd-webui。将秋叶的启动器放入stable-diffusion-webui文件夹中,双击启动(仅限windows,因为秋叶的启动器只有windows的版本)\n
 9、ComfyUI目前并没有自动为插件或者自定义节点安装依赖的功能,所以安装插件或者自定义节点后后,推荐运行一次“安装依赖”功能,有些依赖下载源是在github上的,无法下载时请使用科学上网(已知问题:因为一些插件/自定义节点的安装依赖方式并不统一,term-sd的依赖安装功能可能没有用,需要手动进行安装依赖)\n
 10、InvokeAI在安装好后,要运行一次invokeai-configure,到\"install stable diffusion models\"界面时,可以把所有的模型取消勾选,因为有的模型是从civitai下载的,如果没有科学上网会导致下载失败\n
+11、在插件/自定义节点的管理功能中没有"更新","切换版本","修复更新"这些按钮,是因为这些插件/自定义节点的文件夹内没有".git"文件夹,如果是从github上直接下载压缩包再解压安装的就会有这种情况\n
 \n
 \n
 " 20 60
@@ -1260,7 +1261,7 @@ function info_option_5()
 扩展脚本可从主界面的"扩展脚本"下载和更新,启动方式和term-sd相同\n
 sd-webui-extension:安装sd-webui的插件\n
 comfyui-extension:安装ComfyUI的插件\n
-venv-rebuild:重建项目的venv虚拟环境\n
+venv-rebuild:重建项目的venv虚拟环境,当启动项目时出现大量的报错,使用脚本重建虚拟环境,大概率解决这种问题(如果解决不了,可能是插件不兼容,模型损坏,WEBUI设置的参数有误等)\n
 \n
 \n
 " 20 60
@@ -1546,10 +1547,10 @@ function pip_install_methon()
 function a1111_sd_webui_extension_option()
 {
     #清空插件选择
-    unset extension_install_list
-    unset extension_model_1
-    unset extension_model_2
-    unset extension_model_3
+    extension_install_list=""
+    extension_model_1=""
+    extension_model_2=""
+    extension_model_3=""
 
     #插件选择,并输出插件对应的数字
     extension_list=$(
@@ -1766,7 +1767,7 @@ function a1111_sd_webui_extension_option()
 function comfyui_extension_option()
 {
     #清空插件选择
-    unset extension_install_list
+    extension_install_list=""
 
     extension_list=$(
         dialog --separate-output --notags --ok-label "确认" --no-cancel --checklist "ComfyUI插件选择" 20 60 10 \
@@ -1795,8 +1796,8 @@ function comfyui_extension_option()
 function comfyui_custom_node_option()
 {
     #清空插件选择
-    unset custom_node_install_list
-    unset extension_model_1
+    custom_node_install_list=""
+    extension_model_1=""
 
     extension_list=$(
         dialog --separate-output --notags --ok-label "确认" --no-cancel --checklist "ComfyUi自定义节点选择" 20 60 10 \
@@ -2381,12 +2382,22 @@ function extension_install()
 #插件处理模块
 function operate_extension() 
 {
+    #当git在子文件夹中找不到.git文件夹时,将会自动在父文件夹中寻找,以此类推,直到找到.git文件夹。用户的安装方式可能是直接下载源码压缩包,导致安装后的文件夹没有.git文件夹,直接执行git会导致不良的后果
+    dialog_button_1=""
+    dialog_button_2=""
+    dialog_button_3=""
+    if [ -d "./.git" ];then #检测目录中是否有.git文件夹
+        dialog_button_1=""1" "更新""
+        dialog_button_2=""3" "修复更新""
+        dialog_button_3=""4" "版本切换""    
+    fi
+
     final_operate_extension=$(
         dialog --clear --title "操作选择" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键选择对该插件进行的操作" 20 60 10 \
-        "1" "更新" \
+        $dialog_button_1 \
         "2" "卸载" \
-        "3" "修复更新" \
-        "4" "版本切换" \
+        $dialog_button_2 \
+        $dialog_button_3 \
         "5" "返回" \
         3>&1 1>&2 2>&3)
     if [ $? = 0 ];then
@@ -2506,13 +2517,23 @@ function comfyui_custom_node_install()
 #自定义节点处理模块
 function operate_comfyui_custom_node() 
 {
+    #当git在子文件夹中找不到.git文件夹时,将会自动在父文件夹中寻找,以此类推,直到找到.git文件夹。用户的安装方式可能是直接下载源码压缩包,导致安装后的文件夹没有.git文件夹,直接执行git会导致不良的后果   
+    dialog_button_1=""
+    dialog_button_2=""
+    dialog_button_3=""
+    if [ -d "./.git" ];then #检测目录中是否有.git文件夹
+        dialog_button_1=""1" "更新""
+        dialog_button_2=""4" "修复更新""
+        dialog_button_3=""5" "版本切换""    
+    fi
+
     final_operate_comfyui_custom_node=$(
         dialog --clear --title "操作选择" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键选择对该自定义节点进行的操作" 20 60 10 \
-        "1" "更新" \
+        $dialog_button_1 \
         "2" "安装依赖" \
         "3" "卸载" \
-        "4" "修复更新" \
-        "5" "版本切换" \
+        $dialog_button_2 \
+        $dialog_button_3 \
         "6" "返回" \
         3>&1 1>&2 2>&3)
     if [ $? = 0 ];then
@@ -2529,8 +2550,8 @@ function operate_comfyui_custom_node()
             cd "$start_path/ComfyUI"
             enter_venv
             cd -
-            unset dep_info #清除上次运行结果
-            unset extension_folder
+            dep_info="" #清除上次运行结果
+            extension_folder=""
 
             if [ -f "./install.py" ];then
                 echo "安装"$extension_folder"依赖"
@@ -2669,13 +2690,23 @@ function comfyui_extension_install()
 #插件处理模块
 function operate_comfyui_extension() 
 {
+    #当git在子文件夹中找不到.git文件夹时,将会自动在父文件夹中寻找,以此类推,直到找到.git文件夹。用户的安装方式可能是直接下载源码压缩包,导致安装后的文件夹没有.git文件夹,直接执行git会导致不良的后果   
+    dialog_button_1=""
+    dialog_button_2=""
+    dialog_button_3=""
+    if [ -d "./.git" ];then #检测目录中是否有.git文件夹
+        dialog_button_1=""1" "更新""
+        dialog_button_2=""4" "修复更新""
+        dialog_button_3=""5" "版本切换""    
+    fi
+
     final_operate_comfyui_extension=$(
         dialog --clear --title "操作选择" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键选择对该插件进行的操作" 20 60 10 \
-        "1" "更新" \
+        $dialog_button_1 \
         "2" "安装依赖" \
         "3" "卸载" \
-        "4" "修复更新" \
-        "5" "版本切换" \
+        $dialog_button_2 \
+        $dialog_button_3 \
         "6" "返回" \
         3>&1 1>&2 2>&3)
 
@@ -2693,8 +2724,8 @@ function operate_comfyui_extension()
             cd "$start_path/ComfyUI"
             enter_venv
             cd -
-            unset dep_info #清除上次运行结果
-            unset extension_folder
+            dep_info="" #清除上次运行结果
+            extension_folder=""
 
             if [ -f "./install.py" ];then
                 echo "安装"$extension_folder"依赖"
@@ -2757,8 +2788,8 @@ function comfyui_extension_dep_install()
     cd "$start_path/ComfyUI"
     enter_venv
     cd -
-    unset extension_folder
-    unset dep_info #清除上次运行结果
+    extension_folder=""
+    dep_info="" #清除上次运行结果
     for extension_folder in ./*
     do
         [ -f "$extension_folder" ] && continue #排除文件
@@ -2824,19 +2855,22 @@ function git_checkout_manager()
 function extension_all_update()
 {
     echo "更新插件中"
-    unset extension_folder #清除上次运行结果
-    unset update_info
+    extension_folder="" #清除上次运行结果
+    update_info=""
     for extension_folder in ./*
     do
         [ -f "$extension_folder" ] && continue #排除文件
         cd "$extension_folder"
-        echo "更新"$extension_folder"插件中"
-        update_info="$update_info"$extension_folder"插件:"
-        git pull
-        if [ $? = 0 ];then
-            update_info="$update_info"更新成功"\n"
-        else
-            update_info="$update_info"更新失败"\n"
+        if [ -d "./.git" ];then #检测到目录中包含.git文件夹再执行更新操作
+            echo "更新"$extension_folder"插件中"
+            update_info="$update_info"$extension_folder"插件:"
+            git pull
+        
+            if [ $? = 0 ];then
+                update_info="$update_info"更新成功"\n"
+            else
+                update_info="$update_info"更新失败"\n"
+            fi
         fi
         cd ..
     done
@@ -2847,7 +2881,7 @@ function extension_all_update()
 
 #启动程序部分
 
-term_sd_version_="0.3.8"
+term_sd_version_="0.3.9"
 
 if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
     test_python="python"
@@ -2875,7 +2909,7 @@ Ctrl+C可中断指令的运行 \n
 
 #判断系统是否安装必须使用的软件
 echo "检测依赖软件是否安装"
-unset missing_dep
+missing_dep=""
 test_num=0
 if which dialog > /dev/null ;then
     test_num=$(( $test_num + 1 ))
@@ -2915,9 +2949,12 @@ if [ $test_num -ge 5 ];then
     case $term_sd_launch_input in
     "--help")
     echo
-    echo "可用启动参数"
-    echo "--dev 将term-sd更新源切换到dev分支"
-    echo "--multi-threaded-download 安装过程中启用多线程下载模型"
+    echo "启动参数使用方法:"
+    echo "  term-sd.sh [--help] [--dev] [--multi-threaded-download]"
+    echo "选项:"
+    echo "  --help\n        显示启动参数帮助"
+    echo "  --dev\n        将term-sd更新源切换到dev分支"
+    echo "  --multi-threaded-download\n        安装过程中启用多线程下载模型"
     exit 1
     ;;
     "--dev")
