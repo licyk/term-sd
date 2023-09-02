@@ -104,6 +104,7 @@ function a1111_sd_webui_option()
                 if [ $? = 0 ];then
                     test_num=0
                 fi
+                echo "更新A1111-Stable-Diffusion-Webui组件中"
                 git pull ./repositories/BLIP
                 git pull ./repositories/CodeFormer
                 git pull ./repositories/generative-models
