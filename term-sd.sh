@@ -104,12 +104,6 @@ function a1111_sd_webui_option()
                 if [ $? = 0 ];then
                     test_num=0
                 fi
-                echo "更新A1111-Stable-Diffusion-Webui组件中"
-                git pull ./repositories/BLIP
-                git pull ./repositories/CodeFormer
-                git pull ./repositories/generative-models
-                git pull ./repositories/k-diffusion
-                git pull ./repositories/stable-diffusion-stability-ai
                 if [ $test_num = "0" ];then
                     dialog --clear --title "A1111-SD-Webui管理" --msgbox "更新成功" 20 60
                 else
@@ -2022,8 +2016,6 @@ function process_install_a1111_sd_webui()
     if [ ! -d "./stable-diffusion-webui/repositories" ];then
         mkdir ./stable-diffusion-webui/repositories
     fi
-    #git clone "$github_proxy"https://github.com/CompVis/stable-diffusion.git ./stable-diffusion-webui/repositories/stable-diffusion
-    #git clone "$github_proxy"https://github.com/CompVis/taming-transformers.git ./stable-diffusion-webui/repositories/taming-transformers
     git clone "$github_proxy"https://github.com/sczhou/CodeFormer.git ./stable-diffusion-webui/repositories/CodeFormer
     git clone "$github_proxy"https://github.com/salesforce/BLIP.git ./stable-diffusion-webui/repositories/BLIP
     git clone "$github_proxy"https://github.com/Stability-AI/stablediffusion.git/ ./stable-diffusion-webui/repositories/stable-diffusion-stability-ai
@@ -2031,10 +2023,7 @@ function process_install_a1111_sd_webui()
     git clone "$github_proxy"https://github.com/crowsonkb/k-diffusion.git ./stable-diffusion-webui/repositories/k-diffusion
 
     pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5 #"--default-timeout=100 --retries 5"在网络差导致下载中断时重试下载
-    #pip install git+"$github_proxy"https://github.com/crowsonkb/k-diffusion.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
-    #pip install git+"$github_proxy"https://github.com/TencentARC/GFPGAN.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
     pip install git+"$github_proxy"https://github.com/openai/CLIP.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
-    #pip install git+"$github_proxy"https://github.com/mlfoundations/open_clip.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
 
     pip install -r ./stable-diffusion-webui/repositories/CodeFormer/requirements.txt --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
     pip install -r ./stable-diffusion-webui/requirements.txt --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5 #安装stable-diffusion-webui的依赖
