@@ -2551,7 +2551,6 @@ function operate_comfyui_custom_node()
             enter_venv
             cd -
             dep_info="" #清除上次运行结果
-            extension_folder=""
 
             if [ -f "./install.py" ];then
                 echo "安装"$extension_folder"依赖"
@@ -2725,7 +2724,6 @@ function operate_comfyui_extension()
             enter_venv
             cd -
             dep_info="" #清除上次运行结果
-            extension_folder=""
 
             if [ -f "./install.py" ];then
                 echo "安装"$extension_folder"依赖"
