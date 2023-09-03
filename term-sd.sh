@@ -30,7 +30,7 @@ fi
 function mainmenu()
 {
     cd "$start_path" #回到最初路径
-    exit_venv 2> /dev/null #确保进行下一步操作前已退出其他虚拟环境
+    exit_venv #确保进行下一步操作前已退出其他虚拟环境
     mainmenu_select=$(
         dialog --clear --title "Term-SD" --backtitle "主界面" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的功能\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')\n当前虚拟环境状态:"$venv_info"" 20 60 10 \
         "0" "venv虚拟环境" \
@@ -79,7 +79,7 @@ function mainmenu()
 function a1111_sd_webui_option()
 {
     cd "$start_path" #回到最初路径
-    exit_venv 2> /dev/null #确保进行下一步操作前已退出其他虚拟环境
+    exit_venv #确保进行下一步操作前已退出其他虚拟环境
     if [ -d "stable-diffusion-webui" ];then #找到stable-diffusion-webui目录
         cd stable-diffusion-webui
         final_a1111_sd_webui_option=$(
@@ -177,7 +177,7 @@ function a1111_sd_webui_option()
 function comfyui_option()
 {
     cd "$start_path" #回到最初路径
-    exit_venv 2> /dev/null #确保进行下一步操作前已退出其他虚拟环境
+    exit_venv #确保进行下一步操作前已退出其他虚拟环境
     if [ -d "ComfyUI" ];then
         cd ComfyUI
         final_comfyui_option=$(
@@ -275,7 +275,7 @@ function comfyui_option()
 function invokeai_option()
 {
     cd "$start_path" #回到最初路径
-    exit_venv 2> /dev/null #确保进行下一步操作前已退出其他虚拟环境
+    exit_venv #确保进行下一步操作前已退出其他虚拟环境
     if [ -d "InvokeAI" ];then #找到invokeai文件夹
         cd InvokeAI
         venv_generate #尝试重新生成虚拟环境,解决因为路径移动导致虚拟环境无法进入,然后检测不到invokeai
@@ -350,7 +350,7 @@ function invokeai_option()
 function lora_scripts_option()
 {
     cd "$start_path" #回到最初路径
-    exit_venv 2> /dev/null #确保进行下一步操作前已退出其他虚拟环境
+    exit_venv #确保进行下一步操作前已退出其他虚拟环境
     if [ -d "./lora-scripts" ];then
         cd lora-scripts
         final_lora_scripts_option=$(
@@ -1431,7 +1431,7 @@ function enter_venv()
 
 function exit_venv()
 {
-    if which deactivate > /dev/null ;then #检测到未退出虚拟环境
+    if which deactivate 2> /dev/null ;then #检测到未退出虚拟环境
         echo "退出venv虚拟环境"
         deactivate
     fi
