@@ -19,10 +19,10 @@ term_sd_branch=main
 start_path=$(pwd)
 #设置虚拟环境
 if [ -f ./term-sd-venv-disable.lock ];then #找到term-sd-venv-disable.lock文件,禁用虚拟环境
-    venv_active="disable"
+    venv_active="1"
     venv_info="禁用"
 else
-    venv_active="enable"
+    venv_active="0"
     venv_info="启用"
 fi
 
@@ -856,9 +856,9 @@ function update_option()
 function term_sd_extension()
 {
     term_sd_extension_proxy=""
-    term_sd_extension_option_1="0"
-    term_sd_extension_option_2="0"
-    term_sd_extension_option_3="0"
+    term_sd_extension_option_1="1"
+    term_sd_extension_option_2="1"
+    term_sd_extension_option_3="1"
 
     if [ -f "./sd-webui-extension.sh" ];then
         term_sd_extension_1="ON"
@@ -893,13 +893,13 @@ function term_sd_extension()
         term_sd_extension_proxy="https://ghproxy.com"
         ;;
         "2")
-        term_sd_extension_option_1="1"
+        term_sd_extension_option_1="0"
         ;;
         "3")
-        term_sd_extension_option_2="1"
+        term_sd_extension_option_2="0"
         ;;
         "4")
-        term_sd_extension_option_3="1"
+        term_sd_extension_option_3="0"
         ;;
         *)
         exit 1
@@ -907,7 +907,7 @@ function term_sd_extension()
         esac
         done
 
-        if [ $term_sd_extension_option_1 = "1" ];then
+        if [ $term_sd_extension_option_1 = "0" ];then
             aria2c $term_sd_extension_proxy/https://raw.githubusercontent.com/licyk/sd-webui-script/$term_sd_branch/other/sd-webui-extension.sh -d ./term-sd-update-tmp/ -o sd-webui-extension.sh
             
             if [ $? = 0 ];then
@@ -923,7 +923,7 @@ function term_sd_extension()
             term_sd_extension_info_1="已删除"
         fi
 
-        if [ $term_sd_extension_option_2 = "1" ];then
+        if [ $term_sd_extension_option_2 = "0" ];then
             aria2c $term_sd_extension_proxy/https://raw.githubusercontent.com/licyk/sd-webui-script/$term_sd_branch/other/comfyui-extension.sh -d ./term-sd-update-tmp/ -o comfyui-extension.sh
             if [ $? = 0 ];then
                 term_sd_extension_info_2="下载成功"
@@ -938,7 +938,7 @@ function term_sd_extension()
             term_sd_extension_info_2="已删除"
         fi
 
-        if [ $term_sd_extension_option_3 = "1" ];then
+        if [ $term_sd_extension_option_3 = "0" ];then
             aria2c $term_sd_extension_proxy/https://raw.githubusercontent.com/licyk/sd-webui-script/$term_sd_branch/other/venv-rebuild.sh -d ./term-sd-update-tmp/ -o venv-rebuild.sh
             if [ $? = 0 ];then
                 term_sd_extension_info_3="下载成功"
@@ -1392,11 +1392,11 @@ AIGODLIKE-COMFYUI-TRANSLATION:ComfyUI的翻译扩展   \n
 function venv_option()
 {
     if (dialog --clear --title "venv虚拟环境" --yes-label "启用" --no-label "禁用" --yesno "是否启用venv虚拟环境,默认为启用状态,推荐启用" 20 60) then
-        venv_active="enable"
+        venv_active="0"
         venv_info="启用"
         rm -rfv ./term-sd-venv-disable.lock
     else
-        venv_active="disable"
+        venv_active="1"
         venv_info="禁用"
         touch ./term-sd-venv-disable.lock
     fi
@@ -1405,7 +1405,7 @@ function venv_option()
 
 function venv_generate()
 {
-    if [ "$venv_active" = "enable" ];then
+    if [ "$venv_active" = "0" ];then
         if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
             echo "创建venv虚拟环境"
             python -m venv venv
@@ -1420,7 +1420,7 @@ function venv_generate()
 
 function enter_venv()
 {
-    if [ "$venv_active" = "enable" ];then
+    if [ "$venv_active" = "0" ];then
         if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
             echo "进入venv虚拟环境"
             source ./venv/Scripts/activate
