@@ -1067,7 +1067,7 @@ https://licyk.netlify.app/2023/08/01/stable-diffusion-tutorial/\n
 function info_option_2()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --msgbox "Term-SD使用说明:\n
-1、使用方向键、Tab键、Enter进行选择,Space键勾选或取消选项,Ctrl+C可中断指令的运行 \n
+1、使用方向键、Tab键移动光标,Enter进行选择,Space键勾选或取消勾选,(已勾选显示[*]),Ctrl+C可中断指令的运行 \n
 2、初次使用时,如果之前没有使用过python的pip模块,建议在主界面先选择"pip镜像源",设置pip的国内镜像源,加快安装时下载python软件包的速度。主界面显示的"虚拟环境"保持启用就行,无需禁用\n
 3、主界面总共有四个ai项目可选(AUTOMATIC1111-stable-diffusion-webui,ComfyUI,InvokeAI,lora-scripts),回车选中后,如果在脚本的当前目录未找选中的项目,term-sd会提示你进行安装。\n
 4、安装前将会提示你进行安装准备,首先是"代理选择",有三个选项可选(启用pip镜像源,启用github代理,强制使用pip),前两个选项默认勾选,如果没有质量较好的科学上网工具,不建议勾选。"强制使用pip"只有禁用了虚拟环境时才建议勾选(在Linux中,如果不在虚拟环境中安装python软件包,pip模块会警告\"error: externally-managed-environment\",只有使用"--break-system-packages"才能进行安装)\n
@@ -1172,7 +1172,7 @@ host:允许局域网的设备访问\n
 function info_option_4()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --msgbox "项目的目录说明:\n
-在启用venv虚拟环境后,在安装时项目的目录下会产生venv文件夹,这个是python软件包安装的目录\n
+在启用venv虚拟环境后,在安装时项目的目录下会产生venv文件夹,这个是python软件包安装的目录,更换cudnn可在该文件夹中操作\n
 \n
 \n
 stable diffusion webui目录的说明(只列举比较重要的):\n
@@ -1413,8 +1413,6 @@ function venv_generate()
             echo "创建venv虚拟环境"
             python3 -m venv venv
         fi
-    else
-        echo "忽略创建venv虚拟环境"
     fi
 }
 
@@ -1428,15 +1426,15 @@ function enter_venv()
             echo "进入venv虚拟环境"
             source ./venv/bin/activate
         fi
-    else
-        echo "忽略进入venv虚拟环境"
     fi
 }
 
 function exit_venv()
 {
-    echo "退出venv虚拟环境"
-    deactivate
+    if which deactivate > /dev/null ;then #检测到未退出虚拟环境
+        echo "退出venv虚拟环境"
+        deactivate
+    fi
 }
 
 ###############################################################################
@@ -2880,7 +2878,7 @@ function extension_all_update()
 
 #启动程序部分
 
-term_sd_version_="0.3.9"
+term_sd_version_="0.3.10"
 
 if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
     test_python="python"
@@ -2901,8 +2899,7 @@ git:$(git --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ') \n
 dialog:$(dialog --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
 \n
 提示: \n
-使用方向键、Tab键、Enter进行选择,Space键勾选或取消选项 \n
-Ctrl+C可中断指令的运行 \n
+使用方向键、Tab键移动光标,Enter进行选择,Space键勾选或取消勾选,(已勾选显示[*]),Ctrl+C可中断指令的运行 \n
 第一次使用Term-SD时先在主界面选择“帮助”查看使用说明,参数说明和注意的地方,内容不定期更新" 20 60
     mainmenu
 }
