@@ -6,458 +6,235 @@
 function a1111_sd_webui_extension_option()
 {
     #清空插件选择
-    extension_1=""
-    extension_2=""
-    extension_3=""
-    extension_4="" 
-    extension_5="" 
-    extension_6="" 
-    extension_7=""
-    extension_8="" 
-    extension_9="" 
-    extension_10="" 
-    extension_11="" 
-    extension_12=""
-    extension_13=""
-    extension_14="" 
-    extension_15="" 
-    extension_16=""
-    extension_17=""
-    extension_18=""
-    extension_19=""
-    extension_20=""
-    extension_21=""
-    extension_22=""
-    extension_23=""
-    extension_24=""
-    extension_25=""
-    extension_26=""
-    extension_27=""
-    extension_28="" 
-    extension_29=""
-    extension_30=""
-    extension_31=""
-    extension_32=""
-    extension_33=""
-    extension_34=""
-    extension_35=""
-    extension_36=""
-    extension_37=""
-    extension_38=""
-    extension_39=""
-    extension_40=""
-    extension_41=""
-    extension_42=""
-    extension_43=""
-    extension_44=""
-    extension_45=""
-    extension_46=""
-    extension_47=""
+    extension_install_list=""
+    extension_model_1="1"
+    extension_model_2="1"
+    extension_model_3="1"
 
-    final_extension_options=$(
-        dialog --separate-output --notags --yes-label "确认" --no-cancel --checklist "A1111-Stable-Diffusion-Webui插件选择" 20 60 10 \
+    #插件选择,并输出插件对应的数字
+    extension_list=$(
+        dialog --clear --title "Term-SD" --backtitle "A1111-SD-Webui插件安装选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "请选择要安装的A1111-Stable-Diffusion-Webui插件" 20 60 10 \
         "1" "kohya-config-webui" OFF \
-        "2" "sd-webui-additional-networks" OFF \
-        "3" "a1111-sd-webui-tagcomplete" OFF \
-        "4" "multidiffusion-upscaler-for-automatic1111" OFF \
-        "5" "sd-dynamic-thresholding" OFF \
-        "6" "sd-webui-cutoff" OFF \
+        "2" "sd-webui-additional-networks" OFF\
+        "3" "a1111-sd-webui-tagcomplete" OFF\
+        "4" "multidiffusion-upscaler-for-automatic1111" OFF\
+        "5" "sd-dynamic-thresholding" OFF\
+        "6" "sd-webui-cutoff" OFF\
         "7" "sd-webui-model-converter" OFF \
         "8" "sd-webui-supermerger" OFF \
-        "9" "stable-diffusion-webui-localization-zh_Hans" OFF \
-        "10" "stable-diffusion-webui-wd14-tagger" OFF \
-        "11" "sd-webui-regional-prompter" OFF \
-        "12" "stable-diffusion-webui-baidu-netdisk" OFF \
-        "13" "stable-diffusion-webui-anti-burn" OFF \
+        "9" "stable-diffusion-webui-localization-zh_Hans" OFF\
+        "10" "stable-diffusion-webui-wd14-tagger" OFF\
+        "11" "sd-webui-regional-prompter" OFF\
+        "12" "sd-webui-infinite-image-browsing" OFF\
+        "13" "stable-diffusion-webui-anti-burn" OFF\
         "14" "loopback_scaler" OFF \
-        "15" "latentcoupleregionmapper" OFF \
-        "16" "ultimate-upscale-for-automatic1111" OFF \
+        "15" "latentcoupleregionmapper" OFF\
+        "16" "ultimate-upscale-for-automatic1111" OFF\
         "17" "deforum-for-automatic1111" OFF \
-        "18" "stable-diffusion-webui-images-browser" OFF \
+        "18" "stable-diffusion-webui-images-browser" OFF\
         "19" "stable-diffusion-webui-huggingface" OFF \
         "20" "sd-civitai-browser" OFF \
         "21" "a1111-stable-diffusion-webui-vram-estimator" OFF \
-        "22" "openpose-editor" OFF \
+        "22" "openpose-editor" OFF\
         "23" "sd-webui-depth-lib" OFF \
         "24" "posex" OFF \
         "25" "sd-webui-tunnels" OFF \
         "26" "batchlinks-webui" OFF \
-        "27" "stable-diffusion-webui-catppuccin" OFF \
+        "27" "stable-diffusion-webui-catppuccin" OFF\
         "28" "a1111-sd-webui-lycoris" OFF \
-        "29" "stable-diffusion-webui-rembg" OFF \
-        "30" "stable-diffusion-webui-two-shot" OFF \
-        "31" "sd-webui-lora-block-weight" OFF \
+        "29" "stable-diffusion-webui-rembg" OFF\
+        "30" "stable-diffusion-webui-two-shot" OFF\
+        "31" "sd-webui-lora-block-weight" OFF\
         "32" "sd-face-editor" OFF \
         "33" "sd-webui-segment-anything" OFF \
-        "34" "sd-webui-controlnet" OFF \
-        "35" "sd-webui-prompt-all-in-one" OFF \
+        "34" "sd-webui-controlnet" OFF\
+        "35" "sd-webui-prompt-all-in-one" OFF\
         "36" "sd-webui-comfyui" OFF \
-        "37" "a1111-sd-webui-lycoris" OFF \
-        "38" "sd-webui-photopea-embed" OFF \
-        "39" "sd-webui-openpose-editor" OFF \
-        "40" "sd-webui-llul" OFF \
+        "37" "sd-webui-animatediff" OFF \
+        "38" "sd-webui-photopea-embed" OFF\
+        "39" "sd-webui-openpose-editor" OFF\
+        "40" "sd-webui-llul" OFF\
         "41" "sd-webui-bilingual-localization" OFF \
-        "42" "adetailer" OFF \
+        "42" "adetailer" OFF\
         "43" "sd-webui-mov2mov" OFF \
-        "44" "sd-webui-IS-NET-pro" OFF \
+        "44" "sd-webui-IS-NET-pro" OFF\
         "45" "ebsynth_utility" OFF \
         "46" "sd_dreambooth_extension" OFF \
-        "47" "sd-webui-memory-release" OFF \
+        "47" "sd-webui-memory-release" OFF\
+        "48" "stable-diffusion-webui-dataset-tag-editor" OFF \
         3>&1 1>&2 2>&3)
 
-    if [ ! -z "$final_extension_options" ]; then
-        for final_extension_option in $final_extension_options; do
-        case "$final_extension_option" in
+    if [ ! -z "$extension_list" ]; then
+        for extension_list_ in $extension_list; do #从extension_list读取数字,通过数字对应插件链接,传递给extension_install_list
+        case "$extension_list_" in
         "1")
-        extension_1="https://github.com/WSH032/kohya-config-webui"
+        extension_install_list="https://github.com/WSH032/kohya-config-webui $extension_install_list"
         ;;
         "2")
-        extension_2="https://github.com/kohya-ss/sd-webui-additional-networks"
+        extension_install_list="https://github.com/kohya-ss/sd-webui-additional-networks $extension_install_list"
         ;;
         "3")
-        extension_3="https://github.com/DominikDoom/a1111-sd-webui-tagcomplete"
+        extension_install_list="https://github.com/DominikDoom/a1111-sd-webui-tagcomplete $extension_install_list"
         ;;
         "4")
-        extension_4="https://github.com/pkuliyi2015/multidiffusion-upscaler-for-automatic1111"
+        extension_install_list="https://github.com/pkuliyi2015/multidiffusion-upscaler-for-automatic1111 $extension_install_list"
         ;;
         "5")
-        extension_5="https://github.com/mcmonkeyprojects/sd-dynamic-thresholding"
+        extension_install_list="https://github.com/mcmonkeyprojects/sd-dynamic-thresholding $extension_install_list"
         ;;
         "6")
-        extension_6="https://github.com/hnmr293/sd-webui-cutoff"
+        extension_install_list="https://github.com/hnmr293/sd-webui-cutoff $extension_install_list"
         ;;
         "7")
-        extension_7="https://github.com/Akegarasu/sd-webui-model-converter"
+        extension_install_list="https://github.com/Akegarasu/sd-webui-model-converter $extension_install_list"
         ;;
         "8")
-        extension_8="https://github.com/hako-mikan/sd-webui-supermerger"
+        extension_install_list="https://github.com/hako-mikan/sd-webui-supermerger $extension_install_list"
         ;;
         "9")
-        extension_9="https://github.com/hanamizuki-ai/stable-diffusion-webui-localization-zh_Hans"
+        extension_install_list="https://github.com/hanamizuki-ai/stable-diffusion-webui-localization-zh_Hans $extension_install_list"
         ;;
         "10")
-        extension_10="https://github.com/picobyte/stable-diffusion-webui-wd14-tagger"
+        extension_install_list="https://github.com/picobyte/stable-diffusion-webui-wd14-tagger $extension_install_list"
         ;;
         "11")
-        extension_11="https://github.com/hako-mikan/sd-webui-regional-prompter"
+        extension_install_list="https://github.com/hako-mikan/sd-webui-regional-prompter $extension_install_list"
         ;;
         "12")
-        extension_12="https://github.com/zanllp/stable-diffusion-webui-baidu-netdisk"
+        extension_install_list="https://github.com/zanllp/sd-webui-infinite-image-browsing $extension_install_list"
         ;;
         "13")
-        extension_13="https://github.com/klimaleksus/stable-diffusion-webui-anti-burn"
+        extension_install_list="https://github.com/klimaleksus/stable-diffusion-webui-anti-burn $extension_install_list"
         ;;
         "14")
-        extension_14="https://github.com/Elldreth/loopback_scaler"
+        extension_install_list="https://github.com/Elldreth/loopback_scaler $extension_install_list"
         ;;
         "15")
-        extension_15="https://github.com/CodeZombie/latentcoupleregionmapper"
+        extension_install_list="https://github.com/CodeZombie/latentcoupleregionmapper $extension_install_list"
         ;;
         "16")
-        extension_16="https://github.com/Coyote-A/ultimate-upscale-for-automatic1111"
+        extension_install_list="https://github.com/Coyote-A/ultimate-upscale-for-automatic1111 $extension_install_list"
         ;;
         "17")
-        extension_17="https://github.com/deforum-art/deforum-for-automatic1111-webui"
+        extension_install_list="https://github.com/deforum-art/deforum-for-automatic1111-webui $extension_install_list"
         ;;
         "18")
-        extension_18="https://github.com/AlUlkesh/stable-diffusion-webui-images-browser"
+        extension_install_list="https://github.com/AlUlkesh/stable-diffusion-webui-images-browser $extension_install_list"
         ;;
         "19")
-        extension_19="https://github.com/camenduru/stable-diffusion-webui-huggingface"
+        extension_install_list="https://github.com/camenduru/stable-diffusion-webui-huggingface $extension_install_list"
         ;;
         "20")
-        extension_20="https://github.com/camenduru/sd-civitai-browser"
+        extension_install_list="https://github.com/camenduru/sd-civitai-browser $extension_install_list"
         ;;
         "21")
-        extension_21="https://github.com/space-nuko/a1111-stable-diffusion-webui-vram-estimator"
+        extension_install_list="https://github.com/space-nuko/a1111-stable-diffusion-webui-vram-estimator $extension_install_list"
         ;;
         "22")
-        extension_22="https://github.com/camenduru/openpose-editor"
+        extension_install_list="https://github.com/fkunn1326/openpose-editor $extension_install_list"
         ;;
         "23")
-        extension_23="https://github.com/jexom/sd-webui-depth-lib"
+        extension_install_list="https://github.com/jexom/sd-webui-depth-lib $extension_install_list"
         ;;
         "24")
-        extension_24="https://github.com/hnmr293/posex"
+        extension_install_list="https://github.com/hnmr293/posex $extension_install_list"
         ;;
         "25")
-        extension_25="https://github.com/camenduru/sd-webui-tunnels"
+        extension_install_list="https://github.com/camenduru/sd-webui-tunnels $extension_install_list"
         ;;
         "26")
-        extension_26="https://github.com/etherealxx/batchlinks-webui"
+        extension_install_list="https://github.com/etherealxx/batchlinks-webui $extension_install_list"
         ;;
         "27")
-        extension_27="https://github.com/camenduru/stable-diffusion-webui-catppuccin"
+        extension_install_list="https://github.com/camenduru/stable-diffusion-webui-catppuccin $extension_install_list"
         ;;
         "28")
-        extension_28="https://github.com/KohakuBlueleaf/a1111-sd-webui-lycoris"
+        extension_install_list="https://github.com/KohakuBlueleaf/a1111-sd-webui-lycoris $extension_install_list"
         ;;
         "29")
-        extension_29="https://github.com/AUTOMATIC1111/stable-diffusion-webui-rembg"
+        extension_install_list="https://github.com/AUTOMATIC1111/stable-diffusion-webui-rembg $extension_install_list"
         ;;
         "30")
-        extension_30="https://github.com/ashen-sensored/stable-diffusion-webui-two-shot"
+        extension_install_list="https://github.com/ashen-sensored/stable-diffusion-webui-two-shot $extension_install_list"
         ;;
         "31")
-        extension_31="https://github.com/hako-mikan/sd-webui-lora-block-weight"
+        extension_install_list="https://github.com/hako-mikan/sd-webui-lora-block-weight $extension_install_list"
         ;;
         "32")
-        extension_32="https://github.com/ototadana/sd-face-editor"
+        extension_install_list="https://github.com/ototadana/sd-face-editor $extension_install_list"
         ;;
         "33")
-        extension_33="https://github.com/continue-revolution/sd-webui-segment-anything"
+        extension_install_list="https://github.com/continue-revolution/sd-webui-segment-anything $extension_install_list"
         ;;
         "34")
-        extension_34="https://github.com/Mikubill/sd-webui-controlnet"
+        extension_install_list="https://github.com/Mikubill/sd-webui-controlnet $extension_install_list"
+        extension_model_1=0
         ;;
         "35")
-        extension_35="https://github.com/Physton/sd-webui-prompt-all-in-one"
+        extension_install_list="https://github.com/Physton/sd-webui-prompt-all-in-one $extension_install_list"
         ;;
         "36")
-        extension_36="https://github.com/ModelSurge/sd-webui-comfyui"
+        extension_install_list="https://github.com/ModelSurge/sd-webui-comfyui $extension_install_list"
         ;;
         "37")
-        extension_37="https://github.com/KohakuBlueleaf/a1111-sd-webui-lycoris"
+        extension_install_list="https://github.com/continue-revolution/sd-webui-animatediff $extension_install_list"
         ;;
         "38")
-        extension_38="https://github.com/yankooliveira/sd-webui-photopea-embed"
+        extension_install_list="https://github.com/yankooliveira/sd-webui-photopea-embed $extension_install_list"
         ;;
         "39")
-        extension_39="https://github.com/huchenlei/sd-webui-openpose-editor"
+        extension_install_list="https://github.com/huchenlei/sd-webui-openpose-editor $extension_install_list"
         ;;
         "40")
-        extension_40="https://github.com/hnmr293/sd-webui-llul"
+        extension_install_list="https://github.com/hnmr293/sd-webui-llul $extension_install_list"
         ;;
         "41")
-        extension_41="https://github.com/journey-ad/sd-webui-bilingual-localization"
+        extension_install_list="https://github.com/journey-ad/sd-webui-bilingual-localization $extension_install_list"
         ;;
         "42")
-        extension_42="https://github.com/Bing-su/adetailer"
+        extension_install_list="https://github.com/Bing-su/adetailer $extension_install_list"
+        extension_model_2=0
         ;;
         "43")
-        extension_43="https://github.com/Scholar01/sd-webui-mov2mov"
+        extension_install_list="https://github.com/Scholar01/sd-webui-mov2mov $extension_install_list"
         ;;
         "44")
-        extension_44="https://github.com/ClockZinc/sd-webui-IS-NET-pro"
+        extension_install_list="https://github.com/ClockZinc/sd-webui-IS-NET-pro $extension_install_list"
+        extension_model_3=0
         ;;
         "45")
-        extension_45="https://github.com/s9roll7/ebsynth_utility"
+        extension_install_list="https://github.com/s9roll7/ebsynth_utility $extension_install_list"
         ;;
         "46")
-        extension_46="https://github.com/d8ahazard/sd_dreambooth_extension"
+        extension_install_list="https://github.com/d8ahazard/sd_dreambooth_extension $extension_install_list"
         ;;
         "47")
-        extension_47="https://github.com/Haoming02/sd-webui-memory-release"
+        extension_install_list="https://github.com/Haoming02/sd-webui-memory-release $extension_install_list"
+        ;;
+        "48")
+        extension_install_list="https://github.com/toshiaki1729/stable-diffusion-webui-dataset-tag-editor $extension_install_list"
         ;;
         *)
         exit 1
         ;;
         esac
-    done
+        done
+    fi
     process_install_a1111_sd_webui
-else
-    exit
-fi
-    
 }
 
 #a1111-sd-webui安装处理部分
 function process_install_a1111_sd_webui()
 {
-
-
-    echo "安装插件中"
-    if [ ! $extension_1 = "" ];then
-        git clone "$github_proxy"$extension_1 ./stable-diffusion-webui/extensions/kohya-config-webui
-    fi
-
-    if [ ! $extension_2 = "" ];then
-        git clone "$github_proxy"$extension_2 ./stable-diffusion-webui/extensions/sd-webui-additional-networks
-    fi
-
-    if [ ! $extension_3 = "" ];then
-        git clone "$github_proxy"$extension_3 ./stable-diffusion-webui/extensions/a1111-sd-webui-tagcomplete
-    fi
-
-    if [ ! $extension_4 = "" ];then
-        git clone "$github_proxy"$extension_4 ./stable-diffusion-webui/extensions/multidiffusion-upscaler-for-automatic1111
-    fi
-
-    if [ ! $extension_5 = "" ];then
-        git clone "$github_proxy"$extension_5 ./stable-diffusion-webui/extensions/sd-dynamic-thresholding
-    fi
-
-    if [ ! $extension_6 = "" ];then
-        git clone "$github_proxy"$extension_6 ./stable-diffusion-webui/extensions/sd-webui-cutoff
-    fi
-
-    if [ ! $extension_7 = "" ];then
-        git clone "$github_proxy"$extension_7 ./stable-diffusion-webui/extensions/sd-webui-model-converter
-    fi
-
-    if [ ! $extension_8 = "" ];then
-        git clone "$github_proxy"$extension_8 ./stable-diffusion-webui/extensions/sd-webui-supermerger
-    fi
-
-    if [ ! $extension_9 = "" ];then
-        git clone "$github_proxy"$extension_9 ./stable-diffusion-webui/extensions/stable-diffusion-webui-localization-zh_Hans
-    fi
-
-    if [ ! $extension_10 = "" ];then
-        git clone "$github_proxy"$extension_10 ./stable-diffusion-webui/extensions/stable-diffusion-webui-wd14-tagger
-    fi
-
-    if [ ! $extension_11 = "" ];then
-        git clone "$github_proxy"$extension_11 ./stable-diffusion-webui/extensions/sd-webui-regional-prompter
-    fi
-
-    if [ ! $extension_12 = "" ];then
-        git clone "$github_proxy"$extension_12 ./stable-diffusion-webui/extensions/stable-diffusion-webui-baidu-netdisk
-    fi
-
-    if [ ! $extension_13 = "" ];then
-        git clone "$github_proxy"$extension_13 ./stable-diffusion-webui/extensions/stable-diffusion-webui-anti-burn
-    fi
-
-    if [ ! $extension_14 = "" ];then
-        git clone "$github_proxy"$extension_14 ./stable-diffusion-webui/extensions/loopback_scaler
-    fi
-
-    if [ ! $extension_15 = "" ];then
-        git clone "$github_proxy"$extension_15 ./stable-diffusion-webui/extensions/latentcoupleregionmapper
-    fi
-
-    if [ ! $extension_16 = "" ];then
-        git clone "$github_proxy"$extension_16 ./stable-diffusion-webui/extensions/ultimate-upscale-for-automatic1111
-    fi
-
-    if [ ! $extension_17 = "" ];then
-        git clone "$github_proxy"$extension_17 ./stable-diffusion-webui/extensions/deforum-for-automatic1111-webui
-    fi
-
-    if [ ! $extension_18 = "" ];then
-        git clone "$github_proxy"$extension_18 ./stable-diffusion-webui/extensions/stable-diffusion-webui-images-browser
-    fi
-
-    if [ ! $extension_19 = "" ];then
-        git clone "$github_proxy"$extension_19 ./stable-diffusion-webui/extensions/stable-diffusion-webui-huggingface
-    fi
-
-    if [ ! $extension_20 = "" ];then
-        git clone "$github_proxy"$extension_20 ./stable-diffusion-webui/extensions/sd-civitai-browser
-    fi
-
-    if [ ! $extension_21 = "" ];then
-        git clone "$github_proxy"$extension_21 ./stable-diffusion-webui/extensions/a1111-stable-diffusion-webui-vram-estimator
-    fi
-
-    if [ ! $extension_22 = "" ];then
-        git clone "$github_proxy"$extension_22 ./stable-diffusion-webui/extensions/openpose-editor
-    fi
-
-    if [ ! $extension_23 = "" ];then
-        git clone "$github_proxy"$extension_23 ./stable-diffusion-webui/extensions/sd-webui-depth-lib
-    fi
-
-    if [ ! $extension_24 = "" ];then
-        git clone "$github_proxy"$extension_24 ./stable-diffusion-webui/extensions/posex
-    fi
-
-    if [ ! $extension_25 = "" ];then
-        git clone "$github_proxy"$extension_25 ./stable-diffusion-webui/extensions/sd-webui-tunnels
-    fi
-
-    if [ ! $extension_26 = "" ];then
-        git clone "$github_proxy"$extension_26 ./stable-diffusion-webui/extensions/batchlinks-webui
-    fi
-
-    if [ ! $extension_27 = "" ];then
-        git clone "$github_proxy"$extension_27 ./stable-diffusion-webui/extensions/stable-diffusion-webui-catppuccin
-    fi
-
-    if [ ! $extension_28 = "" ];then
-        git clone "$github_proxy"$extension_28 ./stable-diffusion-webui/extensions/a1111-sd-webui-lycoris
-    fi
-
-    if [ ! $extension_29 = "" ];then
-        git clone "$github_proxy"$extension_29 ./stable-diffusion-webui/extensions/stable-diffusion-webui-rembg
-    fi
-
-    if [ ! $extension_30 = "" ];then
-        git clone "$github_proxy"$extension_30 ./stable-diffusion-webui/extensions/stable-diffusion-webui-two-shot
-    fi
-
-    if [ ! $extension_31 = "" ];then
-        git clone "$github_proxy"$extension_31 ./stable-diffusion-webui/extensions/sd-webui-lora-block-weight
-    fi
-
-    if [ ! $extension_32 = "" ];then
-        git clone "$github_proxy"$extension_32 ./stable-diffusion-webui/extensions/sd-face-editor
-    fi
-
-    if [ ! $extension_33 = "" ];then
-        git clone "$github_proxy"$extension_33 ./stable-diffusion-webui/extensions/sd-webui-segment-anything
-    fi
-
-    if [ ! $extension_34 = "" ];then
-        git clone "$github_proxy"$extension_34 ./stable-diffusion-webui/extensions/sd-webui-controlnet
-    fi
-
-    if [ ! $extension_35 = "" ];then
-        git clone "$github_proxy"$extension_35 ./stable-diffusion-webui/extensions/sd-webui-prompt-all-in-one
-    fi
-
-    if [ ! $extension_36 = "" ];then
-        git clone "$github_proxy"$extension_36 ./stable-diffusion-webui/extensions/sd-webui-comfyui
-    fi
-
-    if [ ! $extension_37 = "" ];then
-        git clone "$github_proxy"$extension_37 ./stable-diffusion-webui/extensions/a1111-sd-webui-lycoris
-    fi
-
-    if [ ! $extension_38 = "" ];then
-        git clone "$github_proxy"$extension_38 ./stable-diffusion-webui/extensions/sd-webui-photopea-embed
-    fi
-
-    if [ ! $extension_39 = "" ];then
-        git clone "$github_proxy"$extension_39 ./stable-diffusion-webui/extensions/sd-webui-openpose-editor
-    fi
-
-    if [ ! $extension_40 = "" ];then
-        git clone "$github_proxy"$extension_40 ./stable-diffusion-webui/extensions/sd-webui-llul
-    fi
-
-    if [ ! $extension_41 = "" ];then
-        git clone "$github_proxy"$extension_41 ./stable-diffusion-webui/extensions/sd-webui-bilingual-localization
-    fi
-
-    if [ ! $extension_42 = "" ];then
-        git clone "$github_proxy"$extension_42 ./stable-diffusion-webui/extensions/adetailer
-    fi
-
-    if [ ! $extension_43 = "" ];then
-        git clone "$github_proxy"$extension_43 ./stable-diffusion-webui/extensions/sd-webui-mov2mov
-    fi
-
-    if [ ! $extension_44 = "" ];then
-        git clone "$github_proxy"$extension_44 ./stable-diffusion-webui/extensions/sd-webui-IS-NET-pro
-    fi
-
-    if [ ! $extension_45 = "" ];then
-        git clone "$github_proxy"$extension_45 ./stable-diffusion-webui/extensions/ebsynth_utility
-    fi
-
-    if [ ! $extension_46 = "" ];then
-        git clone "$github_proxy"$extension_46 ./stable-diffusion-webui/extensions/sd_dreambooth_extension
-    fi
-
-    if [ ! $extension_47 = "" ];then
-        git clone "$github_proxy"$extension_47 ./stable-diffusion-webui/extensions/sd-webui-memory-release
+    if [ ! -z "$extension_install_list" ];then
+        echo "安装插件中"
+        for  extension_install_list_ in $extension_install_list ;do
+            git clone "$github_proxy"$extension_install_list_ ./stable-diffusion-webui/extensions/$(echo $extension_install_list_ | awk -F'/' '{print $NF}')
+        done
     fi
 
     echo "下载模型中"
-
-    if [ "$extension_34" = "https://github.com/Mikubill/sd-webui-controlnet" ]; then #安装controlnet时再下载相关模型
+    if [ $extension_model_1 = 0 ];then #安装controlnet时再下载相关模型
         aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11e_sd15_ip2p_fp16.safetensors -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11e_sd15_ip2p_fp16.safetensors
         aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11e_sd15_shuffle_fp16.safetensors -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11e_sd15_shuffle_fp16.safetensors
         aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_canny_fp16.safetensors -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11p_sd15_canny_fp16.safetensors
@@ -498,9 +275,13 @@ function process_install_a1111_sd_webui()
         aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_depth_sd15v2.pth -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o t2iadapter_depth_sd15v2.pth
         aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_sketch_sd15v2.pth -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o t2iadapter_sketch_sd15v2.pth
         aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_zoedepth_sd15v1.pth -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o t2iadapter_zoedepth_sd15v1.pth
+        aria2c https://huggingface.co/ioclab/ioc-controlnet/resolve/main/models/control_v1p_sd15_brightness.safetensors -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v1p_sd15_brightness.safetensors
+        aria2c https://huggingface.co/ioclab/ioc-controlnet/resolve/main/models/control_v1p_sd15_illumination.safetensors -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v1p_sd15_illumination.safetensors
+        aria2c https://huggingface.co/monster-labs/control_v1p_sd15_qrcode_monster/resolve/main/control_v1p_sd15_qrcode_monster.safetensors -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v1p_sd15_qrcode_monster.safetensors
+        aria2c https://huggingface.co/monster-labs/control_v1p_sd15_qrcode_monster/resolve/main/control_v1p_sd15_qrcode_monster.yaml -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v1p_sd15_qrcode_monster.yaml
     fi
 
-    if [ "$extension_42" = "https://github.com/Bing-su/adetailer" ];then #安装adetailer插件相关模型
+    if [ $extension_model_2 = 0 ];then #安装adetailer插件相关模型
         aria2c https://huggingface.co/Bingsu/adetailer/resolve/main/deepfashion2_yolov8s-seg.pt -d ./stable-diffusion-webui/models/adetailer -o deepfashion2_yolov8s-seg.pt
         aria2c https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8m.pt -d ./stable-diffusion-webui/models/adetailer -o face_yolov8m.pt
         aria2c https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8n.pt -d ./stable-diffusion-webui/models/adetailer -o face_yolov8n.pt
@@ -513,12 +294,9 @@ function process_install_a1111_sd_webui()
         aria2c https://huggingface.co/Bingsu/adetailer/resolve/main/person_yolov8s-seg.pt -d ./stable-diffusion-webui/models/adetailer -o person_yolov8s-seg.pt
     fi
 
-    if [ "$extension_44" = "https://github.com/ClockZinc/sd-webui-IS-NET-pro" ];then #安装sd-webui-IS-NET-pro插件相关模型
+    if [ $extension_model_3 = 0 ];then #安装sd-webui-IS-NET-pro插件相关模型
         aria2c https://huggingface.co/ClockZinc/IS-NET_pth/resolve/main/isnet-general-use.pth -d ./stable-diffusion-webui/extensions/sd-webui-IS-NET-pro/saved_models/IS-Net -o isnet-general-use.pth
     fi
-
-a1111_sd_webui_extension_option
-
 }
 
 #安装前代理选择
@@ -568,6 +346,7 @@ function proxy_option()
 
 if [ -d "./stable-diffusion-webui" ];then
     proxy_option
+    echo "完成"
 else
     echo "当前目录未检测到stable-diffusion-webui文件夹"
 fi

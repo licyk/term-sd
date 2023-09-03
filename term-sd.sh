@@ -1492,35 +1492,38 @@ function python_dep_install()
 
     final_python_dep_install=$(
         dialog --clear --title "Term-SD" --backtitle "pytorch安装版本选项" --ok-label "确认" --no-cancel --menu "请选择要安装的pytorch版本" 20 60 10 \
-        "1" "Torch 1.12.1(CUDA11.3)+xFormers 0.014" \
-        "2" "Torch 1.13.1(CUDA11.7)+xFormers 0.016" \
-        "3" "Torch 2.0.0(CUDA11.8)+xFormers 0.018" \
-        "4" "Torch 2.0.1(CUDA11.8)+xFormers 0.020" \
-        "5" "Torch 2.0.1+RoCM 5.4.2" \
-        "6" "Torch 2.0.1+CPU" \
-        "7" "Torch 2.0.0+Torch-Directml" \
-        "8" "Torch 2.0.1" \
+        "1" "Torch 2.0.1" \
+        "2" "Torch 2.0.1+CPU" \
+        "3" "Torch 2.0.0+Torch-Directml" \
+        "4" "Torch 2.0.1+RoCM 5.4.2" \
+        "5" "Torch 1.12.1(CUDA11.3)+xFormers 0.014" \
+        "6" "Torch 1.13.1(CUDA11.7)+xFormers 0.016" \
+        "7" "Torch 2.0.0(CUDA11.8)+xFormers 0.018" \
+        "8" "Torch 2.0.1(CUDA11.8)+xFormers 0.020" \
+        "9" "Torch 2.0.1(CUDA11.8)+xFormers 0.021" \
         "0" "跳过安装" \
         3>&1 1>&2 2>&3)
 
     if [ "${final_python_dep_install}" == '0' ]; then
         ins_pytorch=""
     elif [ "${final_python_dep_install}" == '1' ]; then
-        ins_pytorch="torch==1.12.1+cu113 torchvision==0.13.1+cu113 xformers==0.0.14"
-    elif [ "${final_python_dep_install}" == '2' ]; then
-        ins_pytorch="torch==1.13.1+cu117 torchvision==0.14.1+cu117 xformers==0.0.16"
-    elif [ "${final_python_dep_install}" == '3' ]; then
-        ins_pytorch="torch==2.0.0+cu118 torchvision==0.15.1+cu118 xformers==0.0.18"
-    elif [ "${final_python_dep_install}" == '4' ]; then
-        ins_pytorch="torch==2.0.1+cu118 torchvision==0.15.2+cu118 xformers==0.0.20"
-    elif [ "${final_python_dep_install}" == '5' ]; then
-        ins_pytorch="torch==2.0.1+rocm5.4.2 torchvision==0.15.2+rocm5.4.2"
-    elif [ "${final_python_dep_install}" == '6' ]; then
-        ins_pytorch="torch==2.0.1+cpu torchvision==0.15.2+cpu"
-    elif [ "${final_python_dep_install}" == '7' ]; then
-        ins_pytorch="torch==2.0.0 torchvision==0.15.1 torch-directml"
-    elif [ "${final_python_dep_install}" == '8' ]; then
         ins_pytorch="torch==2.0.1 torchvision==0.15.2"
+    elif [ "${final_python_dep_install}" == '2' ]; then
+        ins_pytorch="torch==2.0.1+cpu torchvision==0.15.2+cpu"
+    elif [ "${final_python_dep_install}" == '3' ]; then
+        ins_pytorch="torch==2.0.0 torchvision==0.15.1 torch-directml"
+    elif [ "${final_python_dep_install}" == '4' ]; then
+        ins_pytorch="torch==2.0.1+rocm5.4.2 torchvision==0.15.2+rocm5.4.2"
+    elif [ "${final_python_dep_install}" == '5' ]; then
+        ins_pytorch="torch==1.12.1+cu113 torchvision==0.13.1+cu113 xformers==0.0.14"
+    elif [ "${final_python_dep_install}" == '6' ]; then
+        ins_pytorch="torch==1.13.1+cu117 torchvision==0.14.1+cu117 xformers==0.0.16"
+    elif [ "${final_python_dep_install}" == '7' ]; then
+        ins_pytorch="torch==2.0.0+cu118 torchvision==0.15.1+cu118 xformers==0.0.18"
+    elif [ "${final_python_dep_install}" == '8' ]; then
+        ins_pytorch="torch==2.0.1+cu118 torchvision==0.15.2+cu118 xformers==0.0.20"
+    elif [ "${final_python_dep_install}" == '9' ]; then
+        ins_pytorch="torch==2.0.1+cu118 torchvision==0.15.2+cu118 xformers==0.0.21"
     fi
 }
 
@@ -1550,9 +1553,9 @@ function a1111_sd_webui_extension_option()
 {
     #清空插件选择
     extension_install_list=""
-    extension_model_1=""
-    extension_model_2=""
-    extension_model_3=""
+    extension_model_1="1"
+    extension_model_2="1"
+    extension_model_3="1"
 
     #插件选择,并输出插件对应的数字
     extension_list=$(
@@ -1799,7 +1802,7 @@ function comfyui_custom_node_option()
 {
     #清空插件选择
     custom_node_install_list=""
-    extension_model_1=""
+    extension_model_1="1"
 
     extension_list=$(
         dialog --clear --title "Term-SD" --backtitle "ComfyUI自定义节点安装选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "请选择要安装的ComfyUI自定义节点" 20 60 10 \
