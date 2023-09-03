@@ -32,7 +32,7 @@ function mainmenu()
     cd "$start_path" #回到最初路径
     exit_venv 2> /dev/null #确保进行下一步操作前已退出其他虚拟环境
     mainmenu_select=$(
-        dialog --clear --title "Term-SD" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')\n当前虚拟环境状态:"$venv_info"" 20 60 10 \
+        dialog --clear --title "Term-SD" --backtitle "主界面" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')\n当前虚拟环境状态:"$venv_info"" 20 60 10 \
         "0" "venv虚拟环境" \
         "1" "AUTOMATIC1111-stable-diffusion-webui" \
         "2" "ComfyUI" \
@@ -83,7 +83,7 @@ function a1111_sd_webui_option()
     if [ -d "stable-diffusion-webui" ];then #找到stable-diffusion-webui目录
         cd stable-diffusion-webui
         final_a1111_sd_webui_option=$(
-            dialog --clear --title "A1111-SD-Webui管理" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键对A1111-Stable-Diffusion-Webui进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 20 60 10 \
+            dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui管理选项" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键对A1111-Stable-Diffusion-Webui进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 20 60 10 \
             "1" "更新" \
             "2" "卸载" \
             "3" "修复更新" \
@@ -105,13 +105,13 @@ function a1111_sd_webui_option()
                     test_num=0
                 fi
                 if [ $test_num = "0" ];then
-                    dialog --clear --title "A1111-SD-Webui管理" --msgbox "更新成功" 20 60
+                    dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui更新结果" --msgbox "更新成功" 20 60
                 else
-                    dialog --clear --title "A1111-SD-Webui管理" --msgbox "更新失败" 20 60
+                    dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui更新结果" --msgbox "更新失败" 20 60
                 fi
                 a1111_sd_webui_option
             elif [ "${final_a1111_sd_webui_option}" == '2' ]; then
-                if (dialog --clear --title "删除选项" --yesno "是否删除A1111-Stable-Diffusion-Webui" 20 60) then
+                if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui删除选项" --yesno "是否删除A1111-Stable-Diffusion-Webui" 20 60) then
                     echo "删除A1111-Stable-Diffusion-Webui中"
                     exit_venv
                     cd ..
@@ -133,7 +133,7 @@ function a1111_sd_webui_option()
                 a1111_sd_webui_option
             elif [ "${final_a1111_sd_webui_option}" == '6' ]; then
                 if [ -f "./term-sd-launch.conf" ]; then #找到启动脚本
-                    if (dialog --clear --title "stable-diffusion-webui管理" --yes-label "启动" --no-label "修改参数" --yesno "选择直接启动/修改启动参数" 20 60) then
+                    if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui启动选项" --yes-label "启动" --no-label "修改参数" --yesno "选择直接启动/修改启动参数" 20 60) then
                         term_sd_launch
                         a1111_sd_webui_option
                     else #修改启动脚本
@@ -147,7 +147,7 @@ function a1111_sd_webui_option()
                 a1111_sd_webui_option
                 fi
             elif [ "${final_a1111_sd_webui_option}" == '7' ]; then
-                if (dialog --clear --title "A1111-SD-Webui管理" --yesno "是否重新安装A1111-Stable-Diffusion-Webui" 20 60) then
+                if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui重新安装选项" --yesno "是否重新安装A1111-Stable-Diffusion-Webui" 20 60) then
                 cd "$start_path"
                 exit_venv
                 process_install_a1111_sd_webui
@@ -164,7 +164,7 @@ function a1111_sd_webui_option()
             fi
         fi
     else #找不到stable-diffusion-webui目录
-        if (dialog --clear --title "A1111-SD-Webui管理" --yesno "检测到当前未安装A1111-Stable-Diffusion-Webui,是否进行安装" 20 60) then
+        if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui安装选项" --yesno "检测到当前未安装A1111-Stable-Diffusion-Webui,是否进行安装" 20 60) then
             process_install_a1111_sd_webui
             a1111_sd_webui_option
         fi
@@ -181,7 +181,7 @@ function comfyui_option()
     if [ -d "ComfyUI" ];then
         cd ComfyUI
         final_comfyui_option=$(
-            dialog --clear --title "ComfyUI管理" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键对ComfyUI进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 20 60 10 \
+            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI管理选项" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键对ComfyUI进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 20 60 10 \
             "1" "更新" \
             "2" "卸载" \
             "3" "修复更新" \
@@ -200,13 +200,13 @@ function comfyui_option()
                 echo "更新ComfyUI中"
                 git pull
                 if [ $? = "0" ];then
-                    dialog --clear --title "ComfyUI管理" --msgbox "更新成功" 20 60
+                    dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI更新结果" --msgbox "更新成功" 20 60
                 else
-                    dialog --clear --title "ComfyUI管理" --msgbox "更新失败" 20 60
+                    dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI更新结果" --msgbox "更新失败" 20 60
                 fi
                 comfyui_option
             elif [ "${final_comfyui_option}" == '2' ]; then
-                if (dialog --clear --title "删除选项" --yes-label "是" --no-label "否" --yesno "是否删除ComfyUI" 20 60) then
+                if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI删除选项" --yes-label "是" --no-label "否" --yesno "是否删除ComfyUI" 20 60) then
                     echo "删除ComfyUI中"
                     exit_venv
                     cd ..
@@ -232,7 +232,7 @@ function comfyui_option()
                 comfyui_option
             elif [ "${final_comfyui_option}" == '7' ]; then
                 if [ -f "./term-sd-launch.conf" ]; then #找到启动脚本
-                    if (dialog --clear --title "ComfyUI启动选择" --yes-label "启动" --no-label "修改参数" --yesno "选择直接启动/修改启动参数" 20 60) then
+                    if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI启动选项" --yes-label "启动" --no-label "修改参数" --yesno "选择直接启动/修改启动参数" 20 60) then
                         term_sd_launch
                         comfyui_option
                     else
@@ -246,7 +246,7 @@ function comfyui_option()
                     comfyui_option
                 fi    
             elif [ "${final_comfyui_option}" == '8' ]; then
-                if (dialog --clear --title "ComfyUI管理" --yesno "是否重新安装ComfyUI" 20 60) then
+                if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI重新安装选项" --yesno "是否重新安装ComfyUI" 20 60) then
                     cd "$start_path"
                     exit_venv
                     process_install_comfyui
@@ -263,7 +263,7 @@ function comfyui_option()
             fi
         fi
     else
-        if (dialog --clear --title "ComfyUI管理" --yesno "检测到当前未安装ComfyUI,是否进行安装" 20 60) then
+        if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI安装选项" --yesno "检测到当前未安装ComfyUI,是否进行安装" 20 60) then
             process_install_comfyui
             comfyui_option
         fi
@@ -282,7 +282,7 @@ function invokeai_option()
         enter_venv #进入环境
         if which invokeai 2> /dev/null ;then #查找环境中有没有invokeai
             final_invokeai_option=$(
-                dialog --clear --title "InvokeAI管理" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键对InvokeAI进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 20 60 10 \
+                dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI管理选项" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键对InvokeAI进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 20 60 10 \
                 "1" "更新" \
                 "2" "卸载" \
                 "3" "启动" \
@@ -299,13 +299,13 @@ function invokeai_option()
                     echo "更新InvokeAI中"
                     pip install $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --upgrade invokeai --default-timeout=100 --retries 5
                     if [ $? = "0" ];then
-                        dialog --clear --title "InvokeAI管理" --msgbox "更新成功" 20 60
+                        dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI更新结果" --msgbox "更新成功" 20 60
                     else
-                        dialog --clear --title "InvokeAI管理" --msgbox "更新失败" 20 60
+                        dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI更新结果" --msgbox "更新失败" 20 60
                     fi
                     invokeai_option
                 elif [ "${final_invokeai_option}" == '2' ]; then
-                    if (dialog --clear --title "删除选项" --yes-label "是" --no-label "否" --yesno "是否删除InvokeAI" 20 60) then
+                    if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI删除选项" --yes-label "是" --no-label "否" --yesno "是否删除InvokeAI" 20 60) then
                         echo "删除InvokeAI中"
                         exit_venv
                         cd ..
@@ -317,7 +317,7 @@ function invokeai_option()
                     generate_invokeai_launch
                     invokeai_option
                 elif [ "${final_invokeai_option}" == '4' ]; then
-                    if (dialog --clear --title "InvokeAI管理" --yesno "是否重新安装InvokeAI" 20 60) then
+                    if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI重新安装选项" --yesno "是否重新安装InvokeAI" 20 60) then
                         cd "$start_path"
                         exit_venv
                         process_install_invokeai
@@ -331,14 +331,14 @@ function invokeai_option()
                 fi
             fi
         else 
-            if (dialog --clear --title "InvokeAI管理" --yesno "检测到当前未安装InvokeAI,是否进行安装" 20 60) then
+            if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI安装选项" --yesno "检测到当前未安装InvokeAI,是否进行安装" 20 60) then
                 cd "$start_path"
                 process_install_invokeai
                 invokeai_option
             fi
         fi
     else
-        if (dialog --clear --title "InvokeAI管理" --yesno "检测到当前未安装InvokeAI,是否进行安装" 20 60) then
+        if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI安装选项" --yesno "检测到当前未安装InvokeAI,是否进行安装" 20 60) then
           process_install_invokeai
           invokeai_option
         fi
@@ -354,7 +354,7 @@ function lora_scripts_option()
     if [ -d "./lora-scripts" ];then
         cd lora-scripts
         final_lora_scripts_option=$(
-            dialog --clear --title "lora-scripts管理" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键对lora-scripts进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 20 60 10 \
+            dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts管理选项" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键对lora-scripts进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 20 60 10 \
             "1" "更新" \
             "2" "卸载" \
             "3" "修复更新" \
@@ -380,13 +380,13 @@ function lora_scripts_option()
                 git submodule update #版本不对应,有时会出现各种奇怪的报错
                 git submodule
                 if [ $test_num = "0" ];then
-                    dialog --clear --title "lora-scripts管理" --msgbox "更新成功" 20 60
+                    dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts更新结果" --msgbox "更新成功" 20 60
                 else
-                    dialog --clear --title "lora-scripts管理" --msgbox "更新失败" 20 60
+                    dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts更新结果" --msgbox "更新失败" 20 60
                 fi
                 lora_scripts_option
             elif [ "${final_lora_scripts_option}" == '2' ]; then
-                if (dialog --clear --title "删除选项" --yes-label "是" --no-label "否" --yesno "是否删除lora-scripts" 20 60) then
+                if (dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts删除选项" --yes-label "是" --no-label "否" --yesno "是否删除lora-scripts" 20 60) then
                     echo "删除lora-scripts中"
                     exit_venv
                     cd ..
@@ -427,7 +427,7 @@ function lora_scripts_option()
                 fi
                 lora_scripts_option
             elif [ "${final_lora_scripts_option}" == '6' ]; then
-                if (dialog --clear --title "lora-scripts管理" --yesno "是否重新安装lora_scripts" 20 60) then
+                if (dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts重新安装选项" --yesno "是否重新安装lora_scripts" 20 60) then
                     cd "$start_path"
                     exit_venv
                     process_install_lora_scripts
@@ -444,7 +444,7 @@ function lora_scripts_option()
             fi
         fi
     else
-        if (dialog --clear --title "lora-scripts管理" --yesno "检测到当前未安装lora_scripts,是否进行安装" 20 60) then
+        if (dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts安装选项" --yesno "检测到当前未安装lora_scripts,是否进行安装" 20 60) then
             process_install_lora_scripts
             lora_scripts_option
         fi
@@ -464,7 +464,7 @@ function generate_a1111_sd_webui_launch()
 
     #展示启动参数选项
     a1111_launch_option_select=$(
-        dialog --clear --separate-output --notags --ok-label "确认" --no-cancel --checklist "A1111-Stable-Diffusion-Webui启动参数选择" 20 60 10 \
+        dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui启动参数选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "A1111-Stable-Diffusion-Webui启动参数选择" 20 60 10 \
         "1" "skip-torch-cuda-test" OFF \
         "2" "no-half" OFF \
         "3" "no-half-vae" OFF \
@@ -606,7 +606,7 @@ function generate_comfyui_launch()
     comfyui_launch_option=""
 
     comfyui_launch_option_select=$(
-        dialog --clear --separate-output --notags --ok-label "确认" --no-cancel --checklist "ComfyUI启动参数选择" 20 60 10 \
+        dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI启动参数选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "ComfyUI启动参数选择" 20 60 10 \
         "1" "listen" OFF \
         "2" "auto-launch" OFF \
         "3" "dont-upcast-attention" OFF \
@@ -692,7 +692,7 @@ function generate_comfyui_launch()
 function generate_invokeai_launch()
 {
     invokeai_launch_option=$(
-        dialog --clear --title "InvokeAI启动选项" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键选择启动参数" 20 60 10 \
+        dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI启动参数选项" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键选择启动参数" 20 60 10 \
         "1" "invokeai-configure" \
         "2" "invokeai" \
         "3" "invokeai --web" \
@@ -714,7 +714,7 @@ function generate_invokeai_launch()
             invokeai-merge --gui --root ./invokeai
         elif [ "${invokeai_launch_option}" == '6' ]; then 
             if [ -f "./term-sd-launch.conf" ];then
-                if (dialog --clear --title "InvokeAI启动选择" --yes-label "启动" --no-label "修改参数" --yesno "选择直接启动/修改启动参数" 20 60) then
+                if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI启动选项" --yes-label "启动" --no-label "修改参数" --yesno "选择直接启动/修改启动参数" 20 60) then
                     invokeai $(cat ./term-sd-launch.conf)
                 else
                     generate_invokeai_launch_cust
@@ -736,7 +736,7 @@ function generate_invokeai_launch_cust()
     cust_invokeai_launch_option=""
 
     cust_invokeai_launch_option_select=$(
-        dialog --clear --separate-output --notags --ok-label "确认" --no-cancel --checklist "InvokeAI启动参数选择" 20 60 10 \
+        dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI自定义启动参数选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "InvokeAI启动参数选择" 20 60 10 \
         "1" "web" ON \
         "2" "free_gpu_mem" OFF \
         "3" "precision auto" ON \
@@ -824,17 +824,17 @@ function term_sd_launch()
 #term-sd更新选项
 function update_option()
 {
-    if (dialog --clear --title "更新选项" --yes-label "是" --no-label "否" --yesno "更新时是否选择代理" 20 60) then
+    if (dialog --clear --title "Term-SD" --backtitle "Term-SD更新选项" --yes-label "是" --no-label "否" --yesno "更新时是否选择代理" 20 60) then
         aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/sd-webui-script/$term_sd_branch/term-sd.sh -d ./term-sd-update-tmp/
         if [ "$?"="0" ];then
             cp -fv ./term-sd-update-tmp/term-sd.sh ./
             rm -rfv ./term-sd-update-tmp
             chmod u+x term-sd.sh
-            if (dialog --clear --title "更新选项" --msgbox "更新成功" 20 60);then
+            if (dialog --clear --title "Term-SD" --backtitle "Term-SD更新结果" --msgbox "更新成功" 20 60);then
                 source ./term-sd.sh
             fi
         else
-            dialog --clear --title "更新选项" --msgbox "更新失败,请重试" 20 60
+            dialog --clear --title "Term-SD" --backtitle "Term-SD更新结果" --msgbox "更新失败,请重试" 20 60
         fi
     else
         aria2c https://raw.githubusercontent.com/licyk/sd-webui-script/$term_sd_branch/term-sd.sh -d ./term-sd-update-tmp/
@@ -842,11 +842,11 @@ function update_option()
             cp -fv ./term-sd-update-tmp/term-sd.sh ./
             rm -rfv ./term-sd-update-tmp
             chmod u+x term-sd.sh
-            if (dialog --clear --title "更新选项" --msgbox "更新成功" 20 60);then
+            if (dialog --clear --title "Term-SD" --backtitle "Term-SD更新结果" --msgbox "更新成功" 20 60);then
                 source ./term-sd.sh
             fi
         else
-            dialog --clear --title "更新选项" --msgbox "更新失败,请重试" 20 60
+            dialog --clear --title "Term-SD" --backtitle "Term-SD更新结果" --msgbox "更新失败,请重试" 20 60
         fi
     fi
     mainmenu
@@ -879,7 +879,7 @@ function term_sd_extension()
     fi
 
     term_sd_extension_select_=$(
-        dialog --clear --separate-output --ok-label "确认" --notags --checklist "term-sd扩展脚本列表\n勾选以下载,如果脚本已下载,则会执行更新；取消勾选以删除\n下载的脚本将会放在term-sd脚本所在目录下\n推荐勾选\"下载代理\"" 20 60 10 \
+        dialog --clear --title "Term-SD" --backtitle "Term-SD扩展脚本选项" --separate-output --ok-label "确认" --notags --checklist "term-sd扩展脚本列表\n勾选以下载,如果脚本已下载,则会执行更新；取消勾选以删除\n下载的脚本将会放在term-sd脚本所在目录下\n推荐勾选\"下载代理\"" 20 60 10 \
             "1" "下载代理" ON \
             "2" "sd-webui-extension" "$term_sd_extension_1" \
             "3" "comfyui-extension" "$term_sd_extension_2" \
@@ -953,7 +953,7 @@ function term_sd_extension()
             term_sd_extension_info_3="已删除"
         fi
 
-        dialog --clear --title "扩展脚本" --msgbox "扩展插件状态:\nsd-webui-extension:$term_sd_extension_info_1\ncomfyui-extension:$term_sd_extension_info_2\nvenv-rebuild:$term_sd_extension_info_3" 20 60
+        dialog --clear --title "Term-SD" --backtitle "Term-SD扩展脚本选项" --msgbox "扩展插件状态:\nsd-webui-extension:$term_sd_extension_info_1\ncomfyui-extension:$term_sd_extension_info_2\nvenv-rebuild:$term_sd_extension_info_3" 20 60
         term_sd_extension
     else
         mainmenu
@@ -964,7 +964,7 @@ function term_sd_extension()
 function set_proxy_option()
 {
     echo "获取pip全局配置"
-    if (dialog --clear --title "pip镜像源选项" --yes-label "是" --no-label "否" --yesno "pip全局配置:\n$(pip config list)\n是否启用pip镜像源" 20 60) then
+    if (dialog --clear --title "Term-SD" --backtitle "pip镜像源选项" --yes-label "是" --no-label "否" --yesno "pip全局配置:\n$(pip config list)\n是否启用pip镜像源" 20 60) then
         #pip config set global.index-url "https://mirror.sjtu.edu.cn/pypi/web/simple"
         pip config set global.index-url "https://mirrors.bfsu.edu.cn/pypi/web/simple"
         #pip config set global.extra-index-url "https://mirror.sjtu.edu.cn/pytorch-wheels"
@@ -981,7 +981,7 @@ function set_proxy_option()
 function pip_cache_clean()
 {
     echo "统计pip缓存信息中"
-    if (dialog --clear --title "pip缓存清理" --yes-label "是" --no-label "否" --yesno "pip缓存信息:\npip缓存路径:$(pip cache dir)\n包索引页面缓存大小:$(pip cache info |awk NR==2 | awk -F ':'  '{print $2 $3 $4}')\n本地构建的wheel包大小:$(pip cache info |awk NR==5 | awk -F ':'  '{print $2 $3 $4}')\n是否删除pip缓存?" 20 60);then
+    if (dialog --clear --title "Term-SD" --backtitle "pip缓存清理选项" --yes-label "是" --no-label "否" --yesno "pip缓存信息:\npip缓存路径:$(pip cache dir)\n包索引页面缓存大小:$(pip cache info |awk NR==2 | awk -F ':'  '{print $2 $3 $4}')\n本地构建的wheel包大小:$(pip cache info |awk NR==5 | awk -F ':'  '{print $2 $3 $4}')\n是否删除pip缓存?" 20 60);then
         pip cache purge
     fi
     mainmenu
@@ -994,7 +994,7 @@ function pip_cache_clean()
 #帮助选择
 function info_option()
 {
-    info_option_select=$(dialog --clear --title "tern-sd帮助" --ok-label "确认" --cancel-label "取消" --menu "tern-sd的帮助列表,请使用方向键和回车键进行操作" 20 60 10 \
+    info_option_select=$(dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --cancel-label "取消" --menu "tern-sd的帮助列表,请使用方向键和回车键进行操作" 20 60 10 \
         "1" "关于term-sd" \
         "2" "使用说明" \
         "3" "启动参数说明" \
@@ -1038,7 +1038,7 @@ function info_option()
 #关于term-sd
 function info_option_1()
 {
-    dialog --clear --title "tern-sd帮助" --msgbox "关于term-sd:\n
+    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --msgbox "关于term-sd:\n
 Term-SD是基于终端显示的管理器,可以对项目进行简单的管理  \n
 支持的项目如下: \n
 1、AUTOMATIC1111-stable-diffusion-webui \n
@@ -1066,7 +1066,7 @@ https://licyk.netlify.app/2023/08/01/stable-diffusion-tutorial/\n
 #使用说明
 function info_option_2()
 {
-    dialog --clear --title "tern-sd帮助" --msgbox "使用说明:\n
+    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --msgbox "使用说明:\n
 1、使用方向键、Tab键、Enter进行选择,Space键勾选或取消选项,Ctrl+C可中断指令的运行 \n
 2、初次使用时,如果之前没有使用过python的pip模块,建议在主界面先选择"pip镜像源",设置pip的国内镜像源,加快安装时下载python软件包的速度。主界面显示的"虚拟环境"保持启用就行,无需禁用\n
 3、主界面总共有四个ai项目可选(AUTOMATIC1111-stable-diffusion-webui,ComfyUI,InvokeAI,lora-scripts),回车选中后,如果在脚本的当前目录未找选中的项目,term-sd会提示你进行安装。\n
@@ -1096,7 +1096,7 @@ function info_option_2()
 #启动参数说明
 function info_option_3()
 {
-    dialog --clear --title "tern-sd帮助" --msgbox "启动参数说明:\n
+    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --msgbox "启动参数说明:\n
 stable diffusion webui的启动参数:\n
 skip-torch-cuda-test:不检查CUDA是否正常工作\n
 no-half:不将模型切换为16位浮点数\n
@@ -1171,7 +1171,7 @@ host:允许局域网的设备访问\n
 #目录说明
 function info_option_4()
 {
-    dialog --clear --title "tern-sd帮助" --msgbox "目录说明:\n
+    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --msgbox "目录说明:\n
 在启用venv虚拟环境后,在安装时项目的目录下会产生venv文件夹,这个是python软件包安装的目录\n
 \n
 \n
@@ -1261,7 +1261,7 @@ lora-scripts   \n
 #扩展脚本说明
 function info_option_5()
 {
-    dialog --clear --title "tern-sd帮助" --msgbox "扩展脚本说明:\n
+    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --msgbox "扩展脚本说明:\n
 扩展脚本可从主界面的"扩展脚本"下载和更新,启动方式和term-sd相同\n
 sd-webui-extension:安装sd-webui的插件\n
 comfyui-extension:安装ComfyUI的插件\n
@@ -1274,7 +1274,7 @@ venv-rebuild:重建项目的venv虚拟环境,当启动项目时出现大量的�
 #AUTOMATIC1111-stable-diffusion-webui插件说明
 function info_option_6()
 {
-    dialog --clear --title "tern-sd帮助" --msgbox "AUTOMATIC1111-stable-diffusion-webui插件说明:\n
+    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --msgbox "AUTOMATIC1111-stable-diffusion-webui插件说明:\n
 注:有些插件因为年久失修,可能会出现兼容性问题。具体介绍请在github上搜索项目\n
 \n
 kohya-config-webui: 一个用于生成kohya-ss训练脚本使用的toml配置文件的WebUI   \n
@@ -1333,7 +1333,7 @@ stable-diffusion-webui-dataset-tag-editor:训练集打标和处理扩展   \n
 #ComfyUI插件/自定义节点说明
 function info_option_7()
 {
-    dialog --clear --title "tern-sd帮助" --msgbox "ComfyUI插件/自定义节点说明:\n
+    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --msgbox "ComfyUI插件/自定义节点说明:\n
 注:具体介绍请在github上搜索项目\n
 \n
 插件:\n
@@ -1391,7 +1391,7 @@ AIGODLIKE-COMFYUI-TRANSLATION:ComfyUI的翻译扩展   \n
 
 function venv_option()
 {
-    if (dialog --clear --title "venv虚拟环境" --yes-label "启用" --no-label "禁用" --yesno "是否启用venv虚拟环境,默认为启用状态,推荐启用" 20 60) then
+    if (dialog --clear --title "Term-SD" --backtitle "venv虚拟环境选项" --yes-label "启用" --no-label "禁用" --yesno "是否启用venv虚拟环境,默认为启用状态,推荐启用" 20 60) then
         venv_active="0"
         venv_info="启用"
         rm -rfv ./term-sd-venv-disable.lock
@@ -1456,7 +1456,7 @@ function proxy_option()
     final_install_check_force_pip="禁用"
 
     final_proxy_options=$(
-        dialog --clear --separate-output --notags --title "代理选择" --ok-label "确认" --no-cancel --checklist "请选择代理,强制使用pip一般情况下不选" 20 60 10 \
+        dialog --clear --title "Term-SD" --backtitle "安装代理选项" --separate-output --notags --title "代理选择" --ok-label "确认" --no-cancel --checklist "请选择代理,强制使用pip一般情况下不选" 20 60 10 \
         "1" "启用pip镜像源" ON \
         "2" "启用github代理" ON \
         "3" "强制使用pip" OFF 3>&1 1>&2 2>&3)
@@ -1493,7 +1493,7 @@ function python_dep_install()
     ins_pytorch=""
 
     final_python_dep_install=$(
-        dialog --clear --title "pytorch安装" --ok-label "确认" --no-cancel --menu "请使用方向键和回车键选择安装的pytorch版本" 20 60 10 \
+        dialog --clear --title "Term-SD" --backtitle "pytorch安装版本选项" --ok-label "确认" --no-cancel --menu "请使用方向键和回车键选择安装的pytorch版本" 20 60 10 \
         "1" "Torch 1.12.1(CUDA11.3)+xFormers 0.014" \
         "2" "Torch 1.13.1(CUDA11.7)+xFormers 0.016" \
         "3" "Torch 2.0.0(CUDA11.8)+xFormers 0.018" \
@@ -1533,7 +1533,7 @@ function pip_install_methon()
     final_install_check_pip_methon="常规安装(setup.py)"
 
     final_pip_install_methon=$(
-        dialog --clear --title "pip安装模式选择" --ok-label "确认" --no-cancel --menu "选择pip安装方式\n1、常规安装可能会有问题,但速度较快\n2、标准构建安装可解决一些报错问题,但速度较慢" 20 60 10 \
+        dialog --clear --title "Term-SD" --backtitle "pip安装模式选项" --ok-label "确认" --no-cancel --menu "选择pip安装方式\n1、常规安装可能会有问题,但速度较快\n2、标准构建安装可解决一些报错问题,但速度较慢" 20 60 10 \
         "1" "常规安装(setup.py)" \
         "2" "标准构建安装(--use-pep517)" \
         3>&1 1>&2 2>&3 )
@@ -1558,7 +1558,7 @@ function a1111_sd_webui_extension_option()
 
     #插件选择,并输出插件对应的数字
     extension_list=$(
-        dialog --separate-output --notags --ok-label "确认" --no-cancel --checklist "A1111-Stable-Diffusion-Webui插件选择" 20 60 10 \
+        dialog --clear --title "Term-SD" --backtitle "A1111-SD-Webui插件安装选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "A1111-Stable-Diffusion-Webui插件选择" 20 60 10 \
         "1" "kohya-config-webui" OFF \
         "2" "sd-webui-additional-networks" ON \
         "3" "a1111-sd-webui-tagcomplete" ON \
@@ -1774,7 +1774,7 @@ function comfyui_extension_option()
     extension_install_list=""
 
     extension_list=$(
-        dialog --separate-output --notags --ok-label "确认" --no-cancel --checklist "ComfyUI插件选择" 20 60 10 \
+        dialog --clear --title "Term-SD" --backtitle "ComfyUI插件安装选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "ComfyUI插件选择" 20 60 10 \
         "1" "ComfyUI-extensions" OFF \
         "2" "graphNavigator" OFF \
         3>&1 1>&2 2>&3)
@@ -1804,7 +1804,7 @@ function comfyui_custom_node_option()
     extension_model_1=""
 
     extension_list=$(
-        dialog --separate-output --notags --ok-label "确认" --no-cancel --checklist "ComfyUi自定义节点选择" 20 60 10 \
+        dialog --clear --title "Term-SD" --backtitle "ComfyUI自定义节点安装选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "ComfyUi自定义节点选择" 20 60 10 \
         "1" "was-node-suite-comfyui" ON \
         "2" "ComfyUI_Cutoff" OFF \
         "3" "ComfyUI_TiledKSampler" OFF \
@@ -1978,7 +1978,7 @@ function comfyui_custom_node_option()
 #安装前确认界面
 function final_install_check()
 {
-    if (dialog --clear --title "安装确认" --yes-label "是" --no-label "否" --yesno "是否进行安装? \n
+    if (dialog --clear --title "Term-SD" --backtitle "安装确认选项" --yes-label "是" --no-label "否" --yesno "是否进行安装? \n
 pip镜像源:$final_install_check_python \n
 github代理:$final_install_check_github\n
 强制使用pip:$final_install_check_force_pip\n
@@ -2317,7 +2317,7 @@ function extension_methon()
 {
     #功能选择界面
     final_extension_methon=$(
-        dialog --clear --title "插件管理" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键进行操作" 20 60 10 \
+        dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键进行操作" 20 60 10 \
         "1" "安装" \
         "2" "管理" \
         "3" "更新全部插件" \
@@ -2346,7 +2346,7 @@ function extension_manager()
     dir_list=$(ls -l --time-style=+"%Y-%m-%d"  | awk -F ' ' ' { print $7 " " $6 } ') #当前目录文件和文件夹信息
 
     extension_selection=$(
-        dialog --clear --ok-label "确认" --cancel-label "取消" --title "插件管理" \
+        dialog --clear --ok-label "确认" --cancel-label "取消" --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件列表" \
         --menu "使用上下键选择要操作的插件并回车确认" 20 60 10 \
         $dir_list \
         3>&1 1>&2 2>&3)
@@ -2366,14 +2366,14 @@ function extension_manager()
 #插件安装模块
 function extension_install()
 {
-    extension_address=$(dialog --clear --title "插件安装" --yes-label "确认" --no-label "取消" --inputbox "输入插件的github或其他下载地址" 20 60 3>&1 1>&2 2>&3)
+    extension_address=$(dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件安装选项" --yes-label "确认" --no-label "取消" --inputbox "输入插件的github或其他下载地址" 20 60 3>&1 1>&2 2>&3)
 
     if [ $? = 0 ]; then
         git clone $extension_address
         if [ $? = "0" ];then
-            dialog --clear --title "插件管理" --msgbox "安装成功\n$extension_dep_notice" 20 60
+            dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件安装结果" --msgbox "安装成功" 20 60
         else
-            dialog --clear --title "插件管理" --msgbox "安装失败" 20 60
+            dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件安装结果" --msgbox "安装失败" 20 60
         fi
     fi
 }
@@ -2392,7 +2392,7 @@ function operate_extension()
     fi
 
     final_operate_extension=$(
-        dialog --clear --title "操作选择" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键选择对该插件进行的操作" 20 60 10 \
+        dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键选择对该插件进行的操作" 20 60 10 \
         $dialog_button_1 \
         "2" "卸载" \
         $dialog_button_2 \
@@ -2404,13 +2404,13 @@ function operate_extension()
             echo "更新"$extension_selection"中"
             git pull
             if [ $? = "0" ];then
-                dialog --clear --title "插件管理" --msgbox "更新成功" 20 60
+                dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件更新结果" --msgbox ""$extension_selection"插件更新成功" 20 60
             else
-                dialog --clear --title "插件管理" --msgbox "更新失败" 20 60
+                dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件更新结果" --msgbox ""$extension_selection"插件更新失败" 20 60
             fi
             cd ..
         elif [ "${final_operate_extension}" == '2' ]; then
-            if (dialog --clear --title "删除选项" --yes-label "是" --no-label "否" --yesno "是否删除该插件" 20 60) then
+            if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件删除选项" --yes-label "是" --no-label "否" --yesno "是否删除"$extension_selection"插件" 20 60) then
                 echo "删除"$extension_selection"插件中"
                 cd ..
                 rm -rfv ./$extension_selection
@@ -2440,7 +2440,7 @@ function comfyui_custom_node_methon()
 {
     #功能选择界面
     final_comfyui_custom_node_methon=$(
-        dialog --clear --title "自定义节点管理" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键进行操作" 20 60 10 \
+        dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI自定义节点管理选项" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键进行操作" 20 60 10 \
         "1" "安装" \
         "2" "管理" \
         "3" "更新全部自定义节点" \
@@ -2473,7 +2473,7 @@ function comfyui_custom_node_manager()
     dir_list=$(ls -l --time-style=+"%Y-%m-%d" | awk -F ' ' ' { print $7 " " $6 } ') #当前目录文件和文件夹信息
 
     comfyui_custom_node_selection=$(
-        dialog --clear --yes-label "确认" --no-label "取消" --title "自定义节点管理" \
+        dialog --clear --yes-label "确认" --no-label "取消" --title "ComfyUI管理" --backtitle "ComfyUI自定义节点列表" \
         --menu "使用上下键选择要操作的插件并回车确认" 20 60 10 \
         $dir_list \
         3>&1 1>&2 2>&3)
@@ -2493,7 +2493,7 @@ function comfyui_custom_node_manager()
 #自定义节点安装模块
 function comfyui_custom_node_install()
 {
-    comfyui_custom_node_address=$(dialog --clear --title "自定义节点安装" --yes-label "确认" --no-label "取消" --inputbox "输入自定义节点的github或其他下载地址" 20 60 3>&1 1>&2 2>&3)
+    comfyui_custom_node_address=$(dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI自定义节点安装选项" --yes-label "确认" --no-label "取消" --inputbox "输入自定义节点的github或其他下载地址" 20 60 3>&1 1>&2 2>&3)
 
     if [ $? = 0 ]; then
         git clone $comfyui_custom_node_address
@@ -2506,9 +2506,9 @@ function comfyui_custom_node_install()
         fi
 
         if [ $git_req = "0" ];then
-            dialog --clear --title "自定义节点管理" --msgbox "安装成功\n$comfyui_custom_node_dep_notice" 20 60
+            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI自定义节点安装结果" --msgbox "安装成功\n$comfyui_custom_node_dep_notice" 20 60
         else
-            dialog --clear --title "自定义节点管理" --msgbox "安装失败" 20 60
+            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI自定义节点安装结果" --msgbox "安装失败" 20 60
         fi
     fi
 }
@@ -2527,7 +2527,7 @@ function operate_comfyui_custom_node()
     fi
 
     final_operate_comfyui_custom_node=$(
-        dialog --clear --title "操作选择" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键选择对该自定义节点进行的操作" 20 60 10 \
+        dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点管理选项" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键选择对该自定义节点进行的操作" 20 60 10 \
         $dialog_button_1 \
         "2" "安装依赖" \
         "3" "卸载" \
@@ -2540,9 +2540,9 @@ function operate_comfyui_custom_node()
             echo "更新"$comfyui_custom_node_selection"中"
             git pull
             if [ $? = "0" ];then
-                dialog --clear --title "自定义节点管理" --msgbox "更新成功" 20 60
+                dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点更新结果" --msgbox ""$comfyui_custom_node_selection"自定义节点更新成功" 20 60
             else
-                dialog --clear --title "自定义节点管理" --msgbox "更新失败" 20 60
+                dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点更新结果" --msgbox ""$comfyui_custom_node_selection"自定义节点更新失败" 20 60
             fi
             cd ..
         elif [ "${final_operate_comfyui_custom_node}" == '2' ]; then #comfyui并不像a1111-sd-webui自动为插件安装依赖,所以只能手动装
@@ -2584,9 +2584,9 @@ function operate_comfyui_custom_node()
 
             exit_venv
             cd ..
-            dialog --clear --title "依赖安装状态" --msgbox "当前依赖的安装情况列表\n--------------------------------------------------------$dep_info\n--------------------------------------------------------" 20 60
+            dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点依赖安装结果" --msgbox "当前依赖的安装情况列表\n--------------------------------------------------------$dep_info\n--------------------------------------------------------" 20 60
         elif [ "${final_operate_comfyui_custom_node}" == '3' ]; then
-            if (dialog --clear --title "删除选项" --yes-label "是" --no-label "否" --yesno "是否删除该自定义节点" 20 60) then
+            if (dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点删除选项" --yes-label "是" --no-label "否" --yesno "是否删除"$comfyui_custom_node_selection"自定义节点" 20 60) then
                 echo "删除"$comfyui_custom_node_selection"自定义节点中"
                 cd ..
                 rm -rfv ./$comfyui_custom_node_selection
@@ -2613,7 +2613,7 @@ function comfyui_extension_methon()
 {
     #功能选择界面
     final_comfyui_extension_methon=$(
-        dialog --clear --title "插件管理" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键进行操作" 20 60 10 \
+        dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键进行操作" 20 60 10 \
         "1" "安装" \
         "2" "管理" \
         "3" "更新全部插件" \
@@ -2646,7 +2646,7 @@ function comfyui_extension_manager()
     dir_list=$(ls -l --time-style=+"%Y-%m-%d" | awk -F ' ' ' { print $7 " " $6 } ') #当前目录文件和文件夹信息
 
     comfyui_extension_selection=$(
-        dialog --clear --ok-label "确认" --cancel-label "取消" --title "插件管理" \
+        dialog --clear --ok-label "确认" --cancel-label "取消" --title "ComfyUI管理" --backtitle "ComfyUI插件列表" \
         --menu "使用上下键选择要操作的插件并回车确认" 20 60 10 \
         $dir_list \
         3>&1 1>&2 2>&3)
@@ -2666,7 +2666,7 @@ function comfyui_extension_manager()
 #插件安装模块
 function comfyui_extension_install()
 {
-    comfyui_extension_address=$(dialog --clear --title "插件安装" --yes-label "确认" --no-label "取消" --inputbox "输入插件的github或其他下载地址" 20 60 3>&1 1>&2 2>&3)
+    comfyui_extension_address=$(dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件安装选项" --yes-label "确认" --no-label "取消" --inputbox "输入插件的github或其他下载地址" 20 60 3>&1 1>&2 2>&3)
 
     if [ $? = 0 ]; then
         git clone $comfyui_extension_address
@@ -2679,9 +2679,9 @@ function comfyui_extension_install()
         fi
 
         if [ $git_req = "0" ];then
-            dialog --clear --title "插件管理" --msgbox "安装成功\n$comfyui_extension_dep_notice" 20 60
+            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件安装结果" --msgbox "安装成功\n$comfyui_extension_dep_notice" 20 60
         else
-            dialog --clear --title "插件管理" --msgbox "安装失败" 20 60
+            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件安装结果" --msgbox "安装失败" 20 60
         fi
     fi
 }
@@ -2700,7 +2700,7 @@ function operate_comfyui_extension()
     fi
 
     final_operate_comfyui_extension=$(
-        dialog --clear --title "操作选择" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键选择对该插件进行的操作" 20 60 10 \
+        dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请使用方向键和回车键选择对该插件进行的操作" 20 60 10 \
         $dialog_button_1 \
         "2" "安装依赖" \
         "3" "卸载" \
@@ -2714,9 +2714,9 @@ function operate_comfyui_extension()
             echo "更新"$comfyui_extension_selection"中"
             git pull
             if [ $? = "0" ];then
-                dialog --clear --title "插件管理" --msgbox "更新成功" 20 60
+                dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件更新结果" --msgbox ""$comfyui_extension_selection"插件更新成功" 20 60
             else
-                dialog --clear --title "插件管理" --msgbox "更新失败" 20 60
+                dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件更新结果" --msgbox ""$comfyui_extension_selection"插件更新失败" 20 60
             fi
             cd ..
         elif [ "${final_operate_comfyui_extension}" == '2' ]; then #comfyui并不像a1111-sd-webui自动为插件安装依赖,所以只能手动装
@@ -2758,9 +2758,9 @@ function operate_comfyui_extension()
 
             exit_venv
             cd ..
-            dialog --clear --title "依赖安装状态" --msgbox "当前依赖的安装情况列表\n--------------------------------------------------------$dep_info\n--------------------------------------------------------" 20 60
+            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件依赖安装结果" --msgbox "当前依赖的安装情况列表\n--------------------------------------------------------$dep_info\n--------------------------------------------------------" 20 60
         elif [ "${final_operate_comfyui_extension}" == '3' ]; then
-            if (dialog --clear --title "删除选项" --yes-label "是" --no-label "否" --yesno "是否删除该插件" 20 60) then
+            if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件删除选项" --yes-label "是" --no-label "否" --yesno "是否删除"$comfyui_extension_selection"插件" 20 60) then
                 echo "删除"$comfyui_extension_selection"插件中"
                 cd ..
                 rm -rfv ./$comfyui_extension_selection
@@ -2825,7 +2825,7 @@ function comfyui_extension_dep_install()
         cd ..
     done
     exit_venv
-    dialog --clear --title "依赖安装状态" --msgbox "当前依赖的安装情况列表\n--------------------------------------------------------$dep_info\n--------------------------------------------------------" 20 60
+    dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件/自定义节点依赖安装结果" --msgbox "当前依赖的安装情况列表\n--------------------------------------------------------$dep_info\n--------------------------------------------------------" 20 60
 }
 
 ###############################################################################
@@ -2839,7 +2839,7 @@ function git_checkout_manager()
     commit_lists=$(git log --date=short --pretty=format:"%H %cd" --date=format:"%Y-%m-%d|%H:%M:%S" | awk -F  ' ' ' {print $1 " " $2} ')
 
     commit_selection=$(
-        dialog --clear --ok-label "确认" --cancel-label "取消" --title "版本管理" \
+        dialog --clear --title "Term-SD" --backtitle "项目切换版本选项" --ok-label "确认" --cancel-label "取消" \
         --menu "使用上下键选择要切换的版本并回车确认\n当前版本:\n$(git show -s --format="%H %cd" --date=format:"%Y-%m-%d %H:%M:%S")" 20 70 10 \
         $commit_lists \
         3>&1 1>&2 2>&3)
@@ -2873,7 +2873,7 @@ function extension_all_update()
         fi
         cd ..
     done
-    dialog --clear --title "更新状态" --msgbox "当前插件/自定义节点的更新情况列表\n--------------------------------------------------------$update_info\n--------------------------------------------------------" 20 60
+    dialog --clear --title "Term-SD" --backtitle "插件/自定义节点更新结果" --msgbox "当前插件/自定义节点的更新情况列表\n--------------------------------------------------------$update_info\n--------------------------------------------------------" 20 60
 }
 
 ###############################################################################
@@ -2891,7 +2891,8 @@ fi
 #显示版本信息
 function term_sd_version()
 {
-    dialog --clear --title "版本信息" --msgbox "系统:$(uname -o) \n
+    dialog --clear --title "Term-SD" --backtitle "Term-SD开始界面" --msgbox "版本信息:\n\n
+系统:$(uname -o) \n
 Term-SD:"$term_sd_version_" \n
 python:$($test_python --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
 pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
