@@ -68,9 +68,11 @@ function mainmenu()
         elif [ "${mainmenu_select}" == '9' ]; then #选择帮助
             info_option
         elif [ "${mainmenu_select}" == '10' ]; then #选择退出
-            exit
+            echo "退出Term-SD"
+            exit 1
         fi
     else #选择取消
+        echo "退出Term-SD"
         exit 1
     fi
 }
@@ -2553,11 +2555,11 @@ function operate_comfyui_custom_node()
             dep_info="" #清除上次运行结果
 
             if [ -f "./install.py" ];then
-                echo "安装"$extension_folder"依赖"
-                dep_info="$dep_info\n "$extension_folder"插件:\n" #作为显示安装结果信息
+                echo "安装"$comfyui_custom_node_selection"依赖"
+                dep_info="$dep_info\n "$comfyui_custom_node_selection"插件:\n" #作为显示安装结果信息
             elif [ -f "./requirements.txt" ];then
-                echo "安装"$extension_folder"依赖"
-                dep_info="$dep_info\n "$extension_folder"插件:\n" #作为显示安装结果信息
+                echo "安装"$comfyui_custom_node_selection"依赖"
+                dep_info="$dep_info\n "$comfyui_custom_node_selection"插件:\n" #作为显示安装结果信息
             fi
 
             if [ -f "./install.py" ];then #找到install.py文件
@@ -2726,11 +2728,11 @@ function operate_comfyui_extension()
             dep_info="" #清除上次运行结果
 
             if [ -f "./install.py" ];then
-                echo "安装"$extension_folder"依赖"
-                dep_info="$dep_info\n "$extension_folder"插件:\n" #作为显示安装结果信息
+                echo "安装"$comfyui_extension_selection"依赖"
+                dep_info="$dep_info\n "$comfyui_extension_selection"插件:\n" #作为显示安装结果信息
             elif [ -f "./requirements.txt" ];then
-                echo "安装"$extension_folder"依赖"
-                dep_info="$dep_info\n "$extension_folder"插件:\n" #作为显示安装结果信息
+                echo "安装"$comfyui_extension_selection"依赖"
+                dep_info="$dep_info\n "$comfyui_extension_selection"插件:\n" #作为显示安装结果信息
             fi
 
             if [ -f "./install.py" ];then #找到install.py文件
