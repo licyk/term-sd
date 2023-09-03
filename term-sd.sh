@@ -71,7 +71,7 @@ function mainmenu()
             exit
         fi
     else #选择取消
-        exit
+        exit 1
     fi
 }
 
