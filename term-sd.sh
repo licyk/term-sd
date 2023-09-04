@@ -495,6 +495,7 @@ function generate_a1111_sd_webui_launch()
         "26" "no-hashing" OFF \
         "27" "backend directml" OFF \
         "28" "opt-sub-quad-attention" OFF \
+        "29" "medvram-sdxl" OFF \
         3>&1 1>&2 2>&3)
 
     #根据菜单得到的数据设置变量
@@ -585,6 +586,9 @@ function generate_a1111_sd_webui_launch()
             ;;
             "28")
             a1111_launch_option="--opt-sub-quad-attention $a1111_launch_option"
+            ;;
+            "29")
+            a1111_launch_option="--medvram-sdxl $a1111_launch_option"
             ;;
             *)
             exit 1
@@ -1105,8 +1109,8 @@ stable diffusion webui的启动参数:\n
 skip-torch-cuda-test:不检查CUDA是否正常工作\n
 no-half:不将模型切换为16位浮点数\n
 no-half-vae:不将VAE模型切换为16位浮点数\n
-medvram:启用稳定扩散模型优化,以牺牲速度换取低VRAM使用\n
-lowvram:启用稳定扩散模型优化,大幅牺牲速度换取极低VRAM使用\n
+medvram:启用稳定扩散模型优化(6g显存时使用),以牺牲速度换取低VRAM使用\n
+lowvram:启用稳定扩散模型优化(4g显存时使用),大幅牺牲速度换取极低VRAM使用\n
 lowram:将稳定扩散检查点权重加载到VRAM而不是RAM中\n
 enable-insecure-extension-access:启用不安全的扩展访问\n
 theme dark:启用黑色主题\n
@@ -1130,6 +1134,7 @@ no-gradio-queue:禁用gradio队列;导致网页使用http请求而不是websocke
 no-hashing:禁用检查点的sha256哈希运算,以帮助提高加载性能\n
 backend directml:使用directml运行torch,解决amd显卡和intel显卡无法使用ai画图的问题\n
 opt-sub-quad-attention:优先考虑内存高效的次二次复杂度交叉注意力层优化,用于自动选择\n
+medvram-sdxl:仅在SDXL模型上启用稳定扩散模型优化(8g显存时使用),以牺牲速度换取低VRAM使用\n
 \n
 ComfyUI启动参数:\n
 listen:允许局域网的设备访问\n
@@ -2031,7 +2036,7 @@ function process_install_a1111_sd_webui()
     fi
     git clone "$github_proxy"https://github.com/sczhou/CodeFormer.git ./stable-diffusion-webui/repositories/CodeFormer
     git clone "$github_proxy"https://github.com/salesforce/BLIP.git ./stable-diffusion-webui/repositories/BLIP
-    git clone "$github_proxy"https://github.com/Stability-AI/stablediffusion.git/ ./stable-diffusion-webui/repositories/stable-diffusion-stability-ai
+    git clone "$github_proxy"https://github.com/Stability-AI/stablediffusion.git ./stable-diffusion-webui/repositories/stable-diffusion-stability-ai
     git clone "$github_proxy"https://github.com/Stability-AI/generative-models.git ./stable-diffusion-webui/repositories/generative-models
     git clone "$github_proxy"https://github.com/crowsonkb/k-diffusion.git ./stable-diffusion-webui/repositories/k-diffusion
 

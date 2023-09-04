@@ -17,7 +17,7 @@ function proxy_option()
     final_proxy_options=$(
         dialog --clear --title "Term-SD" --backtitle "安装代理选项" --separate-output --notags --title "代理选择" --ok-label "确认" --no-cancel --checklist "请选择代理(强制使用pip一般情况下不选)" 20 60 10 \
         "1" "启用pip镜像源" OFF \
-        "2" "启用github代理" OFF \
+        "2" "启用github代理" ON \
         "3" "强制使用pip" OFF 3>&1 1>&2 2>&3)
 
     if [ ! -z "$final_proxy_options" ]; then
