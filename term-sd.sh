@@ -1090,6 +1090,8 @@ function info_option_2()
 9、ComfyUI目前并没有自动为插件或者自定义节点安装依赖的功能,所以安装插件或者自定义节点后后,推荐运行一次“安装依赖”功能,有些依赖下载源是在github上的,无法下载时请使用科学上网(已知问题:因为一些插件/自定义节点的安装依赖方式并不统一,term-sd的依赖安装功能可能没有用,需要手动进行安装依赖)\n
 10、InvokeAI在安装好后,要运行一次invokeai-configure,到\"install stable diffusion models\"界面时,可以把所有的模型取消勾选,因为有的模型是从civitai下载的,如果没有科学上网会导致下载失败\n
 11、在插件/自定义节点的管理功能中没有"更新","切换版本","修复更新"这些按钮,是因为这些插件/自定义节点的文件夹内没有".git"文件夹,如果是从github上直接下载压缩包再解压安装的就会有这种情况\n
+12、A1111-SD-Webui设置界面语言:点击"Settings"-->"User interface"-->"Localization",点击右边的刷新按钮,再选择(防止不显示出来),在列表中选择zh-Hans(stable)(Term-SD在安装时默认下载了中文插件),在点击上面的"Apply settings",最后点击"Reload UI"生效\n
+13、ComfyUI设置界面语言:点击右上角的齿轮图标,找到"AGLTranslation-langualge",选择"中文",ComfyUi将会自动切换中文\n
 \n
 \n
 " 20 60
@@ -1610,6 +1612,8 @@ function a1111_sd_webui_extension_option()
         "46" "sd_dreambooth_extension" OFF \
         "47" "sd-webui-memory-release" ON \
         "48" "stable-diffusion-webui-dataset-tag-editor" OFF \
+        "49" "sd-webui-stablesr" OFF \
+        "50" "sd-webui-deoldify" OFF \
         3>&1 1>&2 2>&3)
 
     if [ ! -z "$extension_list" ]; then
@@ -1761,6 +1765,12 @@ function a1111_sd_webui_extension_option()
         ;;
         "48")
         extension_install_list="https://github.com/toshiaki1729/stable-diffusion-webui-dataset-tag-editor $extension_install_list"
+        ;;
+        "49")
+        extension_install_list="https://github.com/pkuliyi2015/sd-webui-stablesr $extension_install_list"
+        ;;
+        "50")
+        extension_install_list="https://github.com/SpenserCai/sd-webui-deoldify $extension_install_list"
         ;;
         *)
         exit 1
@@ -2040,6 +2050,7 @@ function process_install_a1111_sd_webui()
     echo "    ]," >> config-for-sd-webui.json
     echo "    \"save_to_dirs\": false," >> config-for-sd-webui.json
     echo "    \"grid_save_to_dirs\": false," >> config-for-sd-webui.json
+    echo "    \"hires_fix_show_sampler\": true," >> config-for-sd-webui.json
     echo "    \"CLIP_stop_at_last_layers\": 2" >> config-for-sd-webui.json
     echo "}" >> config-for-sd-webui.json
     mv -fv config-for-sd-webui.json ./stable-diffusion-webui
