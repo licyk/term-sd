@@ -159,7 +159,7 @@ function a1111_sd_webui_option()
                 pytorch_reinstall
                 a1111_sd_webui_option
             elif [ "${final_a1111_sd_webui_option}" == '9' ]; then
-                venv_generate
+                create_venv
                 a1111_sd_webui_option
             elif [ "${final_a1111_sd_webui_option}" == '10' ]; then
                 mainmenu #回到主界面
@@ -258,7 +258,7 @@ function comfyui_option()
                 pytorch_reinstall
                 comfyui_option
             elif [ "${final_comfyui_option}" == '10' ]; then
-                venv_generate
+                create_venv
                 comfyui_option
             elif [ "${final_comfyui_option}" == '11' ]; then
                 mainmenu #回到主界面
@@ -280,7 +280,7 @@ function invokeai_option()
     exit_venv #确保进行下一步操作前已退出其他虚拟环境
     if [ -d "InvokeAI" ];then #找到invokeai文件夹
         cd InvokeAI
-        venv_generate #尝试重新生成虚拟环境,解决因为路径移动导致虚拟环境无法进入,然后检测不到invokeai
+        create_venv #尝试重新生成虚拟环境,解决因为路径移动导致虚拟环境无法进入,然后检测不到invokeai
         enter_venv #进入环境
         if which invokeai 2> /dev/null ;then #查找环境中有没有invokeai
             final_invokeai_option=$(
@@ -439,7 +439,7 @@ function lora_scripts_option()
                 pytorch_reinstall
                 lora_scripts_option
             elif [ "${final_lora_scripts_option}" == '8' ]; then
-                venv_generate
+                create_venv
                 lora_scripts_option
             elif [ "${final_lora_scripts_option}" == '9' ]; then
                 mainmenu #回到主界面
@@ -1412,7 +1412,7 @@ function venv_option()
     mainmenu
 }
 
-function venv_generate()
+function create_venv()
 {
     if [ "$venv_active" = "0" ];then
         if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
@@ -2026,7 +2026,7 @@ function process_install_a1111_sd_webui()
     git clone "$github_proxy"https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
 
     cd ./stable-diffusion-webui
-    venv_generate
+    create_venv
     enter_venv
     cd ..
 
@@ -2175,7 +2175,7 @@ function process_install_comfyui()
     git clone "$github_proxy"https://github.com/comfyanonymous/ComfyUI.git
 
     cd ./ComfyUI
-    venv_generate
+    create_venv
     enter_venv
     cd ..
 
@@ -2265,7 +2265,7 @@ function process_install_invokeai()
         mkdir InvokeAI
     fi
     cd ./InvokeAI
-    venv_generate
+    create_venv
     enter_venv
     if [ ! -d "./invokeai" ];then
         mkdir ./invokeai
@@ -2297,7 +2297,7 @@ function process_install_lora_scripts()
     git submodule init
     git submodule update
     git submodule
-    venv_generate
+    create_venv
     enter_venv
     pip install $ins_pytorch $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
     cd ./sd-scripts
@@ -2321,7 +2321,7 @@ function pytorch_reinstall()
     final_install_check #安装前确认
 
     #开始安装pytorch
-    venv_generate
+    create_venv
     enter_venv
     pip install $ins_pytorch $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --force-reinstall --default-timeout=100 --retries 5
     exit_venv
