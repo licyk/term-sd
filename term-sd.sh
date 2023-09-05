@@ -128,7 +128,7 @@ function a1111_sd_webui_option()
                 a1111_sd_webui_option
             elif [ "${final_a1111_sd_webui_option}" == '4' ]; then
                 cd extensions
-                extension_methon
+                a1111_sd_webui_extension_methon
                 a1111_sd_webui_option
             elif [ "${final_a1111_sd_webui_option}" == '5' ]; then
                 git_checkout_manager
@@ -1561,7 +1561,7 @@ function pip_install_methon()
 function a1111_sd_webui_extension_option()
 {
     #清空插件选择
-    extension_install_list=""
+    a1111_sd_webui_extension_install_list=""
     extension_model_1="1"
     extension_model_2="1"
     extension_model_3="1"
@@ -1622,160 +1622,160 @@ function a1111_sd_webui_extension_option()
         3>&1 1>&2 2>&3)
 
     if [ ! -z "$extension_list" ]; then
-        for extension_list_ in $extension_list; do #从extension_list读取数字,通过数字对应插件链接,传递给extension_install_list
+        for extension_list_ in $extension_list; do #从extension_list读取数字,通过数字对应插件链接,传递给a1111_sd_webui_extension_install_list
         case "$extension_list_" in
         "1")
-        extension_install_list="https://github.com/WSH032/kohya-config-webui $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/WSH032/kohya-config-webui $a1111_sd_webui_extension_install_list"
         ;;
         "2")
-        extension_install_list="https://github.com/kohya-ss/sd-webui-additional-networks $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/kohya-ss/sd-webui-additional-networks $a1111_sd_webui_extension_install_list"
         ;;
         "3")
-        extension_install_list="https://github.com/DominikDoom/a1111-sd-webui-tagcomplete $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/DominikDoom/a1111-sd-webui-tagcomplete $a1111_sd_webui_extension_install_list"
         ;;
         "4")
-        extension_install_list="https://github.com/pkuliyi2015/multidiffusion-upscaler-for-automatic1111 $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/pkuliyi2015/multidiffusion-upscaler-for-automatic1111 $a1111_sd_webui_extension_install_list"
         ;;
         "5")
-        extension_install_list="https://github.com/mcmonkeyprojects/sd-dynamic-thresholding $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/mcmonkeyprojects/sd-dynamic-thresholding $a1111_sd_webui_extension_install_list"
         ;;
         "6")
-        extension_install_list="https://github.com/hnmr293/sd-webui-cutoff $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/hnmr293/sd-webui-cutoff $a1111_sd_webui_extension_install_list"
         ;;
         "7")
-        extension_install_list="https://github.com/Akegarasu/sd-webui-model-converter $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/Akegarasu/sd-webui-model-converter $a1111_sd_webui_extension_install_list"
         ;;
         "8")
-        extension_install_list="https://github.com/hako-mikan/sd-webui-supermerger $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/hako-mikan/sd-webui-supermerger $a1111_sd_webui_extension_install_list"
         ;;
         "9")
-        extension_install_list="https://github.com/hanamizuki-ai/stable-diffusion-webui-localization-zh_Hans $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/hanamizuki-ai/stable-diffusion-webui-localization-zh_Hans $a1111_sd_webui_extension_install_list"
         ;;
         "10")
-        extension_install_list="https://github.com/picobyte/stable-diffusion-webui-wd14-tagger $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/picobyte/stable-diffusion-webui-wd14-tagger $a1111_sd_webui_extension_install_list"
         ;;
         "11")
-        extension_install_list="https://github.com/hako-mikan/sd-webui-regional-prompter $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/hako-mikan/sd-webui-regional-prompter $a1111_sd_webui_extension_install_list"
         ;;
         "12")
-        extension_install_list="https://github.com/zanllp/sd-webui-infinite-image-browsing $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/zanllp/sd-webui-infinite-image-browsing $a1111_sd_webui_extension_install_list"
         ;;
         "13")
-        extension_install_list="https://github.com/klimaleksus/stable-diffusion-webui-anti-burn $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/klimaleksus/stable-diffusion-webui-anti-burn $a1111_sd_webui_extension_install_list"
         ;;
         "14")
-        extension_install_list="https://github.com/Elldreth/loopback_scaler $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/Elldreth/loopback_scaler $a1111_sd_webui_extension_install_list"
         ;;
         "15")
-        extension_install_list="https://github.com/CodeZombie/latentcoupleregionmapper $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/CodeZombie/latentcoupleregionmapper $a1111_sd_webui_extension_install_list"
         ;;
         "16")
-        extension_install_list="https://github.com/Coyote-A/ultimate-upscale-for-automatic1111 $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/Coyote-A/ultimate-upscale-for-automatic1111 $a1111_sd_webui_extension_install_list"
         ;;
         "17")
-        extension_install_list="https://github.com/deforum-art/deforum-for-automatic1111-webui $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/deforum-art/deforum-for-automatic1111-webui $a1111_sd_webui_extension_install_list"
         ;;
         "18")
-        extension_install_list="https://github.com/AlUlkesh/stable-diffusion-webui-images-browser $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/AlUlkesh/stable-diffusion-webui-images-browser $a1111_sd_webui_extension_install_list"
         ;;
         "19")
-        extension_install_list="https://github.com/camenduru/stable-diffusion-webui-huggingface $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/camenduru/stable-diffusion-webui-huggingface $a1111_sd_webui_extension_install_list"
         ;;
         "20")
-        extension_install_list="https://github.com/camenduru/sd-civitai-browser $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/camenduru/sd-civitai-browser $a1111_sd_webui_extension_install_list"
         ;;
         "21")
-        extension_install_list="https://github.com/space-nuko/a1111-stable-diffusion-webui-vram-estimator $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/space-nuko/a1111-stable-diffusion-webui-vram-estimator $a1111_sd_webui_extension_install_list"
         ;;
         "22")
-        extension_install_list="https://github.com/fkunn1326/openpose-editor $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/fkunn1326/openpose-editor $a1111_sd_webui_extension_install_list"
         ;;
         "23")
-        extension_install_list="https://github.com/jexom/sd-webui-depth-lib $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/jexom/sd-webui-depth-lib $a1111_sd_webui_extension_install_list"
         ;;
         "24")
-        extension_install_list="https://github.com/hnmr293/posex $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/hnmr293/posex $a1111_sd_webui_extension_install_list"
         ;;
         "25")
-        extension_install_list="https://github.com/camenduru/sd-webui-tunnels $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/camenduru/sd-webui-tunnels $a1111_sd_webui_extension_install_list"
         ;;
         "26")
-        extension_install_list="https://github.com/etherealxx/batchlinks-webui $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/etherealxx/batchlinks-webui $a1111_sd_webui_extension_install_list"
         ;;
         "27")
-        extension_install_list="https://github.com/camenduru/stable-diffusion-webui-catppuccin $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/camenduru/stable-diffusion-webui-catppuccin $a1111_sd_webui_extension_install_list"
         ;;
         "28")
-        extension_install_list="https://github.com/KohakuBlueleaf/a1111-sd-webui-lycoris $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/KohakuBlueleaf/a1111-sd-webui-lycoris $a1111_sd_webui_extension_install_list"
         ;;
         "29")
-        extension_install_list="https://github.com/AUTOMATIC1111/stable-diffusion-webui-rembg $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/AUTOMATIC1111/stable-diffusion-webui-rembg $a1111_sd_webui_extension_install_list"
         ;;
         "30")
-        extension_install_list="https://github.com/ashen-sensored/stable-diffusion-webui-two-shot $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/ashen-sensored/stable-diffusion-webui-two-shot $a1111_sd_webui_extension_install_list"
         ;;
         "31")
-        extension_install_list="https://github.com/hako-mikan/sd-webui-lora-block-weight $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/hako-mikan/sd-webui-lora-block-weight $a1111_sd_webui_extension_install_list"
         ;;
         "32")
-        extension_install_list="https://github.com/ototadana/sd-face-editor $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/ototadana/sd-face-editor $a1111_sd_webui_extension_install_list"
         ;;
         "33")
-        extension_install_list="https://github.com/continue-revolution/sd-webui-segment-anything $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/continue-revolution/sd-webui-segment-anything $a1111_sd_webui_extension_install_list"
         ;;
         "34")
-        extension_install_list="https://github.com/Mikubill/sd-webui-controlnet $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/Mikubill/sd-webui-controlnet $a1111_sd_webui_extension_install_list"
         extension_model_1=0
         ;;
         "35")
-        extension_install_list="https://github.com/Physton/sd-webui-prompt-all-in-one $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/Physton/sd-webui-prompt-all-in-one $a1111_sd_webui_extension_install_list"
         ;;
         "36")
-        extension_install_list="https://github.com/ModelSurge/sd-webui-comfyui $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/ModelSurge/sd-webui-comfyui $a1111_sd_webui_extension_install_list"
         ;;
         "37")
-        extension_install_list="https://github.com/continue-revolution/sd-webui-animatediff $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/continue-revolution/sd-webui-animatediff $a1111_sd_webui_extension_install_list"
         ;;
         "38")
-        extension_install_list="https://github.com/yankooliveira/sd-webui-photopea-embed $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/yankooliveira/sd-webui-photopea-embed $a1111_sd_webui_extension_install_list"
         ;;
         "39")
-        extension_install_list="https://github.com/huchenlei/sd-webui-openpose-editor $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/huchenlei/sd-webui-openpose-editor $a1111_sd_webui_extension_install_list"
         ;;
         "40")
-        extension_install_list="https://github.com/hnmr293/sd-webui-llul $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/hnmr293/sd-webui-llul $a1111_sd_webui_extension_install_list"
         ;;
         "41")
-        extension_install_list="https://github.com/journey-ad/sd-webui-bilingual-localization $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/journey-ad/sd-webui-bilingual-localization $a1111_sd_webui_extension_install_list"
         ;;
         "42")
-        extension_install_list="https://github.com/Bing-su/adetailer $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/Bing-su/adetailer $a1111_sd_webui_extension_install_list"
         extension_model_2=0
         ;;
         "43")
-        extension_install_list="https://github.com/Scholar01/sd-webui-mov2mov $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/Scholar01/sd-webui-mov2mov $a1111_sd_webui_extension_install_list"
         ;;
         "44")
-        extension_install_list="https://github.com/ClockZinc/sd-webui-IS-NET-pro $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/ClockZinc/sd-webui-IS-NET-pro $a1111_sd_webui_extension_install_list"
         extension_model_3=0
         ;;
         "45")
-        extension_install_list="https://github.com/s9roll7/ebsynth_utility $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/s9roll7/ebsynth_utility $a1111_sd_webui_extension_install_list"
         ;;
         "46")
-        extension_install_list="https://github.com/d8ahazard/sd_dreambooth_extension $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/d8ahazard/sd_dreambooth_extension $a1111_sd_webui_extension_install_list"
         ;;
         "47")
-        extension_install_list="https://github.com/Haoming02/sd-webui-memory-release $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/Haoming02/sd-webui-memory-release $a1111_sd_webui_extension_install_list"
         ;;
         "48")
-        extension_install_list="https://github.com/toshiaki1729/stable-diffusion-webui-dataset-tag-editor $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/toshiaki1729/stable-diffusion-webui-dataset-tag-editor $a1111_sd_webui_extension_install_list"
         ;;
         "49")
-        extension_install_list="https://github.com/pkuliyi2015/sd-webui-stablesr $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/pkuliyi2015/sd-webui-stablesr $a1111_sd_webui_extension_install_list"
         ;;
         "50")
-        extension_install_list="https://github.com/SpenserCai/sd-webui-deoldify $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/SpenserCai/sd-webui-deoldify $a1111_sd_webui_extension_install_list"
         ;;
         *)
         exit 1
@@ -1789,22 +1789,22 @@ function a1111_sd_webui_extension_option()
 function comfyui_extension_option()
 {
     #清空插件选择
-    extension_install_list=""
+    comfyui_extension_install_list=""
 
-    extension_list=$(
+    comfyui_extension_list=$(
         dialog --clear --title "Term-SD" --backtitle "ComfyUI插件安装选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "请选择要安装的ComfyUI插件" 20 60 10 \
         "1" "ComfyUI-extensions" OFF \
         "2" "graphNavigator" OFF \
         3>&1 1>&2 2>&3)
 
-    if [ ! -z "$extension_list" ]; then
-        for extension_list_ in $extension_list; do
-        case "$extension_list_" in
+    if [ ! -z "$comfyui_extension_list" ]; then
+        for comfyui_extension_list_ in $comfyui_extension_list; do
+        case "$comfyui_extension_list_" in
         "1")
-        extension_install_list="https://github.com/diffus3/ComfyUI-extensions $extension_install_list"
+        comfyui_extension_install_list="https://github.com/diffus3/ComfyUI-extensions $comfyui_extension_install_list"
         ;;
         "2")
-        extension_install_list="https://github.com/rock-land/graphNavigator $extension_install_list"
+        comfyui_extension_install_list="https://github.com/rock-land/graphNavigator $comfyui_extension_install_list"
         ;;
         *)
         exit 1
@@ -1818,10 +1818,10 @@ function comfyui_extension_option()
 function comfyui_custom_node_option()
 {
     #清空插件选择
-    custom_node_install_list=""
+    comfyui_custom_node_install_list=""
     extension_model_1="1"
 
-    extension_list=$(
+    comfyui_custom_node_list=$(
         dialog --clear --title "Term-SD" --backtitle "ComfyUI自定义节点安装选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "请选择要安装的ComfyUI自定义节点" 20 60 10 \
         "1" "was-node-suite-comfyui" ON \
         "2" "ComfyUI_Cutoff" OFF \
@@ -1864,126 +1864,126 @@ function comfyui_custom_node_option()
         "39" "AIGODLIKE-COMFYUI-TRANSLATION" ON \
         3>&1 1>&2 2>&3)
 
-    if [ ! -z "$extension_list" ]; then
-        for extension_list_ in $extension_list; do
-        case "$extension_list_" in
+    if [ ! -z "$comfyui_custom_node_list" ]; then
+        for comfyui_custom_node_list_ in $comfyui_custom_node_list; do
+        case "$comfyui_custom_node_list_" in
         "1")
-        custom_node_install_list="https://github.com/WASasquatch/was-node-suite-comfyui $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/WASasquatch/was-node-suite-comfyui $comfyui_custom_node_install_list"
         ;;
         "2")
-        custom_node_install_list="https://github.com/BlenderNeko/ComfyUI_Cutoff $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/BlenderNeko/ComfyUI_Cutoff $comfyui_custom_node_install_list"
         ;;
         "3")
-        custom_node_install_list="https://github.com/BlenderNeko/ComfyUI_TiledKSampler $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/BlenderNeko/ComfyUI_TiledKSampler $comfyui_custom_node_install_list"
         ;;
         "4")
-        custom_node_install_list="https://github.com/BlenderNeko/ComfyUI_ADV_CLIP_emb $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/BlenderNeko/ComfyUI_ADV_CLIP_emb $comfyui_custom_node_install_list"
         ;;
         "5")
-        custom_node_install_list="https://github.com/BlenderNeko/ComfyUI_Noise $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/BlenderNeko/ComfyUI_Noise $comfyui_custom_node_install_list"
         ;;
         "6")
-        custom_node_install_list="https://github.com/Davemane42/ComfyUI_Dave_CustomNode $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/Davemane42/ComfyUI_Dave_CustomNode $comfyui_custom_node_install_list"
         ;;
         "7")
-        custom_node_install_list="https://github.com/ltdrdata/ComfyUI-Impact-Pack $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/ltdrdata/ComfyUI-Impact-Pack $comfyui_custom_node_install_list"
         ;;
         "8")
-        custom_node_install_list="https://github.com/ltdrdata/ComfyUI-Manager $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/ltdrdata/ComfyUI-Manager $comfyui_custom_node_install_list"
         ;;
         "9")
-        custom_node_install_list="https://github.com/Zuellni/ComfyUI-Custom-Nodes $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/Zuellni/ComfyUI-Custom-Nodes $comfyui_custom_node_install_list"
         ;;
         "10")
-        custom_node_install_list="https://github.com/pythongosssss/ComfyUI-Custom-Scripts $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/pythongosssss/ComfyUI-Custom-Scripts $comfyui_custom_node_install_list"
         ;;
         "11")
-        custom_node_install_list="https://github.com/xXAdonesXx/NodeGPT $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/xXAdonesXx/NodeGPT $comfyui_custom_node_install_list"
         ;;
         "12")
-        custom_node_install_list="https://github.com/Derfuu/Derfuu_ComfyUI_ModdedNodes $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/Derfuu/Derfuu_ComfyUI_ModdedNodes $comfyui_custom_node_install_list"
         ;;
         "13")
-        custom_node_install_list="https://github.com/LucianoCirino/efficiency-nodes-comfyui $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/LucianoCirino/efficiency-nodes-comfyui $comfyui_custom_node_install_list"
         ;;
         "14")
-        custom_node_install_list="https://github.com/lilly1987/ComfyUI_node_Lilly $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/lilly1987/ComfyUI_node_Lilly $comfyui_custom_node_install_list"
         ;;
         "15")
-        custom_node_install_list="https://github.com/hnmr293/ComfyUI-nodes-hnmr $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/hnmr293/ComfyUI-nodes-hnmr $comfyui_custom_node_install_list"
         ;;
         "16")
-        custom_node_install_list="https://github.com/diontimmer/ComfyUI-Vextra-Nodes $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/diontimmer/ComfyUI-Vextra-Nodes $comfyui_custom_node_install_list"
         ;;
         "17")
-        custom_node_install_list="https://github.com/omar92/ComfyUI-QualityOfLifeSuit_Omar92 $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/omar92/ComfyUI-QualityOfLifeSuit_Omar92 $comfyui_custom_node_install_list"
         ;;
         "18")
-        custom_node_install_list="https://github.com/Fannovel16/FN16-ComfyUI-nodes $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/Fannovel16/FN16-ComfyUI-nodes $comfyui_custom_node_install_list"
         ;;
         "19")
-        custom_node_install_list="https://github.com/BadCafeCode/masquerade-nodes-comfyui $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/BadCafeCode/masquerade-nodes-comfyui $comfyui_custom_node_install_list"
         ;;
         "20")
-        custom_node_install_list="https://github.com/EllangoK/ComfyUI-post-processing-nodes $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/EllangoK/ComfyUI-post-processing-nodes $comfyui_custom_node_install_list"
         ;;
         "21")
-        custom_node_install_list="https://github.com/LEv145/images-grid-comfy-plugin $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/LEv145/images-grid-comfy-plugin $comfyui_custom_node_install_list"
         ;;
         "22")
-        custom_node_install_list="https://github.com/biegert/ComfyUI-CLIPSeg $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/biegert/ComfyUI-CLIPSeg $comfyui_custom_node_install_list"
         ;;
         "23")
-        custom_node_install_list="https://github.com/Jcd1230/rembg-comfyui-node $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/Jcd1230/rembg-comfyui-node $comfyui_custom_node_install_list"
         ;;
         "24")
-        custom_node_install_list="https://github.com/TinyTerra/ComfyUI_tinyterraNodes $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/TinyTerra/ComfyUI_tinyterraNodes $comfyui_custom_node_install_list"
         ;;
         "25")
-        custom_node_install_list="https://github.com/guoyk93/yk-node-suite-comfyui $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/guoyk93/yk-node-suite-comfyui $comfyui_custom_node_install_list"
         ;;
         "26")
-        custom_node_install_list="https://github.com/comfyanonymous/ComfyUI_experiments $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/comfyanonymous/ComfyUI_experiments $comfyui_custom_node_install_list"
         ;;
         "27")
-        custom_node_install_list="https://github.com/gamert/ComfyUI_tagger $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/gamert/ComfyUI_tagger $comfyui_custom_node_install_list"
         ;;
         "28")
-        custom_node_install_list="https://github.com/YinBailiang/MergeBlockWeighted_fo_ComfyUI $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/YinBailiang/MergeBlockWeighted_fo_ComfyUI $comfyui_custom_node_install_list"
         ;;
         "29")
-        custom_node_install_list="https://github.com/Kaharos94/ComfyUI-Saveaswebp $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/Kaharos94/ComfyUI-Saveaswebp $comfyui_custom_node_install_list"
         ;;
         "30")
-        custom_node_install_list="https://github.com/trojblue/trNodes $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/trojblue/trNodes $comfyui_custom_node_install_list"
         ;;
         "31")
-        custom_node_install_list="https://github.com/city96/ComfyUI_NetDist $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/city96/ComfyUI_NetDist $comfyui_custom_node_install_list"
         ;;
         "32")
-        custom_node_install_list="https://github.com/SLAPaper/ComfyUI-Image-Selector $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/SLAPaper/ComfyUI-Image-Selector $comfyui_custom_node_install_list"
         ;;
         "33")
-        custom_node_install_list="https://github.com/strimmlarn/ComfyUI-Strimmlarns-Aesthetic-Score $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/strimmlarn/ComfyUI-Strimmlarns-Aesthetic-Score $comfyui_custom_node_install_list"
         ;;
         "34")
-        custom_node_install_list="https://github.com/ssitu/ComfyUI_UltimateSDUpscale $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/ssitu/ComfyUI_UltimateSDUpscale $comfyui_custom_node_install_list"
         ;;
         "35")
-        custom_node_install_list="https://github.com/space-nuko/ComfyUI-Disco-Diffusion $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/space-nuko/ComfyUI-Disco-Diffusion $comfyui_custom_node_install_list"
         ;;
         "36")
-        custom_node_install_list="https://github.com/Bikecicle/ComfyUI-Waveform-Extensions $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/Bikecicle/ComfyUI-Waveform-Extensions $comfyui_custom_node_install_list"
         ;;
         "37")
-        custom_node_install_list="https://github.com/AlekPet/ComfyUI_Custom_Nodes_AlekPet $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/AlekPet/ComfyUI_Custom_Nodes_AlekPet $comfyui_custom_node_install_list"
         ;;
         "38")
-        custom_node_install_list="https://github.com/Fannovel16/comfyui_controlnet_aux $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/Fannovel16/comfyui_controlnet_aux $comfyui_custom_node_install_list"
         extension_model_1=0
         ;;
         "39")
-        custom_node_install_list="https://github.com/AIGODLIKE/AIGODLIKE-COMFYUI-TRANSLATION $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/AIGODLIKE/AIGODLIKE-COMFYUI-TRANSLATION $comfyui_custom_node_install_list"
         ;;
         *)
         exit 1
@@ -2061,10 +2061,10 @@ function process_install_a1111_sd_webui()
     mv -fv config-for-sd-webui.json ./stable-diffusion-webui
     mv -fv ./stable-diffusion-webui/config-for-sd-webui.json ./stable-diffusion-webui/config.json
 
-    if [ ! -z "$extension_install_list" ];then
+    if [ ! -z "$a1111_sd_webui_extension_install_list" ];then
         echo "安装插件中"
-        for  extension_install_list_ in $extension_install_list ;do
-            git clone "$github_proxy"$extension_install_list_ ./stable-diffusion-webui/extensions/$(echo $extension_install_list_ | awk -F'/' '{print $NF}')
+        for  a1111_sd_webui_extension_install_list_ in $a1111_sd_webui_extension_install_list ;do
+            git clone "$github_proxy"$a1111_sd_webui_extension_install_list_ ./stable-diffusion-webui/extensions/$(echo $a1111_sd_webui_extension_install_list_ | awk -F'/' '{print $NF}')
         done
     fi
 
@@ -2182,17 +2182,17 @@ function process_install_comfyui()
     pip install $ins_pytorch $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
     pip install -r ./ComfyUI/requirements.txt  --prefer-binary $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
 
-    if [ ! -z "$extension_install_list" ];then
+    if [ ! -z "$comfyui_extension_install_list" ];then
         echo "安装插件中"
-        for extension_install_list_ in $extension_install_list ;do
-            git clone "$github_proxy"$extension_install_list_ ./ComfyUI/web/extensions/$(echo $extension_install_list_ | awk -F'/' '{print $NF}')
+        for comfyui_extension_install_list_ in $comfyui_extension_install_list ;do
+            git clone "$github_proxy"$comfyui_extension_install_list_ ./ComfyUI/web/extensions/$(echo $comfyui_extension_install_list_ | awk -F'/' '{print $NF}')
         done
     fi
 
-    if [ ! -z "$custom_node_install_list" ];then
+    if [ ! -z "$comfyui_custom_node_install_list" ];then
         echo "安装自定义节点中"
-        for custom_node_install_list_ in $custom_node_install_list ;do
-            git clone "$github_proxy"$custom_node_install_list_ ./ComfyUI/custom_nodes/$(echo $custom_node_install_list_ | awk -F'/' '{print $NF}')
+        for comfyui_custom_node_install_list_ in $comfyui_custom_node_install_list ;do
+            git clone "$github_proxy"$comfyui_custom_node_install_list_ ./ComfyUI/custom_nodes/$(echo $comfyui_custom_node_install_list_ | awk -F'/' '{print $NF}')
         done
     fi
 
@@ -2334,10 +2334,10 @@ function pytorch_reinstall()
 #a1111-sd-webui
 
 #插件的安装或管理选项(该部分最先被调用)
-function extension_methon()
+function a1111_sd_webui_extension_methon()
 {
     #功能选择界面
-    final_extension_methon=$(
+    final_a1111_sd_webui_extension_methon=$(
         dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择A1111-SD-Webui插件管理选项的功能" 20 60 10 \
         "1" "安装" \
         "2" "管理" \
@@ -2346,16 +2346,16 @@ function extension_methon()
         3>&1 1>&2 2>&3 )
 
     if [ $? = 0 ];then
-        if [ "${final_extension_methon}" == '1' ]; then #选择安装
-            extension_install
-            extension_methon
-        elif [ "${final_extension_methon}" == '2' ]; then #选择管理
+        if [ "${final_a1111_sd_webui_extension_methon}" == '1' ]; then #选择安装
+            a1111_sd_webui_extension_install
+            a1111_sd_webui_extension_methon
+        elif [ "${final_a1111_sd_webui_extension_methon}" == '2' ]; then #选择管理
             extension_manager
-            extension_methon
-        elif [ "${final_extension_methon}" == '3' ]; then #选择更新全部插件
+            a1111_sd_webui_extension_methon
+        elif [ "${final_a1111_sd_webui_extension_methon}" == '3' ]; then #选择更新全部插件
             extension_all_update
-            extension_methon
-        elif [ "${final_extension_methon}" == '4' ]; then #选择返回
+            a1111_sd_webui_extension_methon
+        elif [ "${final_a1111_sd_webui_extension_methon}" == '4' ]; then #选择返回
             echo
         fi
     fi
@@ -2385,7 +2385,7 @@ function extension_manager()
 }
 
 #插件安装模块
-function extension_install()
+function a1111_sd_webui_extension_install()
 {
     extension_address=$(dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件安装选项" --yes-label "确认" --no-label "取消" --inputbox "请输入插件的github地址或其他下载地址" 20 60 3>&1 1>&2 2>&3)
 
