@@ -1562,9 +1562,9 @@ function a1111_sd_webui_extension_option()
 {
     #清空插件选择
     a1111_sd_webui_extension_install_list=""
-    extension_model_1="1"
-    extension_model_2="1"
-    extension_model_3="1"
+    a1111_sd_webui_extension_model_1="1"
+    a1111_sd_webui_extension_model_2="1"
+    a1111_sd_webui_extension_model_3="1"
 
     #插件选择,并输出插件对应的数字
     extension_list=$(
@@ -1725,7 +1725,7 @@ function a1111_sd_webui_extension_option()
         ;;
         "34")
         a1111_sd_webui_extension_install_list="https://github.com/Mikubill/sd-webui-controlnet $a1111_sd_webui_extension_install_list"
-        extension_model_1=0
+        a1111_sd_webui_extension_model_1=0
         ;;
         "35")
         a1111_sd_webui_extension_install_list="https://github.com/Physton/sd-webui-prompt-all-in-one $a1111_sd_webui_extension_install_list"
@@ -1750,14 +1750,14 @@ function a1111_sd_webui_extension_option()
         ;;
         "42")
         a1111_sd_webui_extension_install_list="https://github.com/Bing-su/adetailer $a1111_sd_webui_extension_install_list"
-        extension_model_2=0
+        a1111_sd_webui_extension_model_2=0
         ;;
         "43")
         a1111_sd_webui_extension_install_list="https://github.com/Scholar01/sd-webui-mov2mov $a1111_sd_webui_extension_install_list"
         ;;
         "44")
         a1111_sd_webui_extension_install_list="https://github.com/ClockZinc/sd-webui-IS-NET-pro $a1111_sd_webui_extension_install_list"
-        extension_model_3=0
+        a1111_sd_webui_extension_model_3=0
         ;;
         "45")
         a1111_sd_webui_extension_install_list="https://github.com/s9roll7/ebsynth_utility $a1111_sd_webui_extension_install_list"
@@ -1819,7 +1819,7 @@ function comfyui_custom_node_option()
 {
     #清空插件选择
     comfyui_custom_node_install_list=""
-    extension_model_1="1"
+    comfyui_custom_node_extension_model_1="1"
 
     comfyui_custom_node_list=$(
         dialog --clear --title "Term-SD" --backtitle "ComfyUI自定义节点安装选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "请选择要安装的ComfyUI自定义节点" 20 60 10 \
@@ -1980,7 +1980,7 @@ function comfyui_custom_node_option()
         ;;
         "38")
         comfyui_custom_node_install_list="https://github.com/Fannovel16/comfyui_controlnet_aux $comfyui_custom_node_install_list"
-        extension_model_1=0
+        comfyui_custom_node_extension_model_1=0
         ;;
         "39")
         comfyui_custom_node_install_list="https://github.com/AIGODLIKE/AIGODLIKE-COMFYUI-TRANSLATION $comfyui_custom_node_install_list"
@@ -2091,7 +2091,7 @@ function process_install_a1111_sd_webui()
     aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/verybadimagenegative_v1.3.pt -d ./stable-diffusion-webui/embeddings/negative -o verybadimagenegative_v1.3.pt
     aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/yaguru%20magiku.pt -d ./stable-diffusion-webui/embeddings -o yaguru_magiku.pt
 
-    if [ $extension_model_1 = 0 ];then #安装controlnet时再下载相关模型
+    if [ $a1111_sd_webui_extension_model_1 = 0 ];then #安装controlnet时再下载相关模型
         aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11e_sd15_ip2p_fp16.safetensors -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11e_sd15_ip2p_fp16.safetensors
         aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11e_sd15_shuffle_fp16.safetensors -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11e_sd15_shuffle_fp16.safetensors
         aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_canny_fp16.safetensors -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11p_sd15_canny_fp16.safetensors
@@ -2138,7 +2138,7 @@ function process_install_a1111_sd_webui()
         aria2c $aria2_multi_threaded https://huggingface.co/monster-labs/control_v1p_sd15_qrcode_monster/resolve/main/control_v1p_sd15_qrcode_monster.yaml -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v1p_sd15_qrcode_monster.yaml
     fi
 
-    if [ $extension_model_2 = 0 ];then #安装adetailer插件相关模型
+    if [ $a1111_sd_webui_extension_model_2 = 0 ];then #安装adetailer插件相关模型
         aria2c $aria2_multi_threaded https://huggingface.co/Bingsu/adetailer/resolve/main/deepfashion2_yolov8s-seg.pt -d ./stable-diffusion-webui/models/adetailer -o deepfashion2_yolov8s-seg.pt
         aria2c $aria2_multi_threaded https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8m.pt -d ./stable-diffusion-webui/models/adetailer -o face_yolov8m.pt
         aria2c $aria2_multi_threaded https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8n.pt -d ./stable-diffusion-webui/models/adetailer -o face_yolov8n.pt
@@ -2151,7 +2151,7 @@ function process_install_a1111_sd_webui()
         aria2c $aria2_multi_threaded https://huggingface.co/Bingsu/adetailer/resolve/main/person_yolov8s-seg.pt -d ./stable-diffusion-webui/models/adetailer -o person_yolov8s-seg.pt
     fi
 
-    if [ $extension_model_3 = 0 ];then #安装sd-webui-IS-NET-pro插件相关模型
+    if [ $a1111_sd_webui_extension_model_3 = 0 ];then #安装sd-webui-IS-NET-pro插件相关模型
         aria2c $aria2_multi_threaded https://huggingface.co/ClockZinc/IS-NET_pth/resolve/main/isnet-general-use.pth -d ./stable-diffusion-webui/extensions/sd-webui-IS-NET-pro/saved_models/IS-Net -o isnet-general-use.pth
     fi
 
@@ -2199,7 +2199,7 @@ function process_install_comfyui()
     echo "下载模型中"
     aria2c https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./ComfyUI/models/checkpoints/ -o sd-v1-5.ckpt
 
-    if [ $extension_model_1 = 0 ];then
+    if [ $comfyui_custom_node_extension_model_1 = 0 ];then
         echo "下载controlnet模型中"
         aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11e_sd15_ip2p_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11e_sd15_ip2p_fp16.safetensors
         aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11e_sd15_shuffle_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11e_sd15_shuffle_fp16.safetensors
@@ -2350,7 +2350,7 @@ function a1111_sd_webui_extension_methon()
             a1111_sd_webui_extension_install
             a1111_sd_webui_extension_methon
         elif [ "${final_a1111_sd_webui_extension_methon}" == '2' ]; then #选择管理
-            extension_manager
+            a1111_sd_webui_extension_manager
             a1111_sd_webui_extension_methon
         elif [ "${final_a1111_sd_webui_extension_methon}" == '3' ]; then #选择更新全部插件
             extension_all_update
@@ -2362,7 +2362,7 @@ function a1111_sd_webui_extension_methon()
 }
 
 #插件管理界面
-function extension_manager()
+function a1111_sd_webui_extension_manager()
 {
     dir_list=$(ls -l --time-style=+"%Y-%m-%d"  | awk -F ' ' ' { print $7 " " $6 } ') #当前目录文件和文件夹信息
 
@@ -2374,12 +2374,12 @@ function extension_manager()
     if [ $? = 0 ];then
         if [[ -d "$extension_selection" ]]; then  # 选择文件夹
             cd "$extension_selection"
-            operate_extension #调用operate_extension函数处理插件
-            extension_manager
+            a1111_sd_webui_operate_extension #调用a1111_sd_webui_operate_extension函数处理插件
+            a1111_sd_webui_extension_manager
         elif [[ -f "$extension_selection" ]]; then
-            extension_manager #留在当前目录
+            a1111_sd_webui_extension_manager #留在当前目录
         else
-            extension_manager #留在当前目录
+            a1111_sd_webui_extension_manager #留在当前目录
         fi
     fi
 }
@@ -2400,7 +2400,7 @@ function a1111_sd_webui_extension_install()
 }
 
 #插件处理模块
-function operate_extension() 
+function a1111_sd_webui_operate_extension() 
 {
     #当git在子文件夹中找不到.git文件夹时,将会自动在父文件夹中寻找,以此类推,直到找到.git文件夹。用户的安装方式可能是直接下载源码压缩包,导致安装后的文件夹没有.git文件夹,直接执行git会导致不良的后果
     dialog_button_1=""
@@ -2412,7 +2412,7 @@ function operate_extension()
         dialog_button_3=""4" "版本切换""    
     fi
 
-    final_operate_extension=$(
+    final_a1111_sd_webui_operate_extension=$(
         dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择对"$extension_selection"插件的管理功能" 20 60 10 \
         $dialog_button_1 \
         "2" "卸载" \
@@ -2421,7 +2421,7 @@ function operate_extension()
         "5" "返回" \
         3>&1 1>&2 2>&3)
     if [ $? = 0 ];then
-        if [ "${final_operate_extension}" == '1' ]; then
+        if [ "${final_a1111_sd_webui_operate_extension}" == '1' ]; then
             echo "更新"$extension_selection"中"
             git pull
             if [ $? = "0" ];then
@@ -2430,7 +2430,7 @@ function operate_extension()
                 dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件更新结果" --msgbox ""$extension_selection"插件更新失败" 20 60
             fi
             cd ..
-        elif [ "${final_operate_extension}" == '2' ]; then
+        elif [ "${final_a1111_sd_webui_operate_extension}" == '2' ]; then
             if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件删除选项" --yes-label "是" --no-label "否" --yesno "是否删除"$extension_selection"插件?" 20 60) then
                 echo "删除"$extension_selection"插件中"
                 cd ..
@@ -2438,13 +2438,13 @@ function operate_extension()
             else
                 cd ..
             fi
-        elif [ "${final_operate_extension}" == '3' ]; then
+        elif [ "${final_a1111_sd_webui_operate_extension}" == '3' ]; then
             echo "修复更新中"
             git reset --hard HEAD
             cd ..
-        elif [ "${final_operate_extension}" == '4' ]; then
+        elif [ "${final_a1111_sd_webui_operate_extension}" == '4' ]; then
             git_checkout_manager
-        elif [ "${final_operate_extension}" == '5' ]; then
+        elif [ "${final_a1111_sd_webui_operate_extension}" == '5' ]; then
             cd ..
         fi
     else
@@ -2673,7 +2673,7 @@ function comfyui_extension_manager()
     if [ $? = 0 ];then
         if [[ -d "$comfyui_extension_selection" ]]; then  # 选择文件夹
             cd "$comfyui_extension_selection"
-            operate_comfyui_extension #调用operate_extension函数处理插件
+            operate_comfyui_extension #调用operate_comfyui_extension函数处理插件
             comfyui_extension_manager
         elif [[ -f "$extension_selection" ]]; then
             comfyui_extension_manager #留在当前目录
