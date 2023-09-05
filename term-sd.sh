@@ -66,7 +66,7 @@ function mainmenu()
         elif [ "${mainmenu_select}" == '8' ]; then #选择pip缓存清理
             pip_cache_clean
         elif [ "${mainmenu_select}" == '9' ]; then #选择帮助
-            info_option
+            help_option
         elif [ "${mainmenu_select}" == '10' ]; then #选择退出
             echo "退出Term-SD"
             exit 1
@@ -998,9 +998,9 @@ function pip_cache_clean()
 #term-sd帮助功能
 
 #帮助选择
-function info_option()
+function help_option()
 {
-    info_option_select=$(dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --cancel-label "取消" --menu "请选择帮助" 20 60 10 \
+    help_option_select=$(dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --cancel-label "取消" --menu "请选择帮助" 20 60 10 \
         "1" "关于term-sd" \
         "2" "使用说明" \
         "3" "启动参数说明" \
@@ -1012,28 +1012,28 @@ function info_option()
         3>&1 1>&2 2>&3 )
 
     if [ $? = 0 ];then
-        if [ $info_option_select = 1 ];then
-            info_option_1
-            info_option
-        elif [ $info_option_select = 2 ];then
-            info_option_2
-            info_option
-        elif [ $info_option_select = 3 ];then
-            info_option_3
-            info_option
-        elif [ $info_option_select = 4 ];then
-            info_option_4
-            info_option
-        elif [ $info_option_select = 5 ];then
-            info_option_5
-            info_option
-        elif [ $info_option_select = 6 ];then
-            info_option_6
-            info_option
-        elif [ $info_option_select = 7 ];then
-            info_option_7
-            info_option
-        elif [ $info_option_select = 8 ];then
+        if [ $help_option_select = 1 ];then
+            help_option_1
+            help_option
+        elif [ $help_option_select = 2 ];then
+            help_option_2
+            help_option
+        elif [ $help_option_select = 3 ];then
+            help_option_3
+            help_option
+        elif [ $help_option_select = 4 ];then
+            help_option_4
+            help_option
+        elif [ $help_option_select = 5 ];then
+            help_option_5
+            help_option
+        elif [ $help_option_select = 6 ];then
+            help_option_6
+            help_option
+        elif [ $help_option_select = 7 ];then
+            help_option_7
+            help_option
+        elif [ $help_option_select = 8 ];then
             mainmenu
         fi
     else
@@ -1042,7 +1042,7 @@ function info_option()
 }
 
 #关于term-sd
-function info_option_1()
+function help_option_1()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --msgbox "关于Term-SD:\n
 Term-SD是基于终端显示的管理器,可以对项目进行简单的管理  \n
@@ -1070,7 +1070,7 @@ https://licyk.netlify.app/2023/08/01/stable-diffusion-tutorial/\n
 }
 
 #使用说明
-function info_option_2()
+function help_option_2()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --msgbox "Term-SD使用说明:\n
 1、使用方向键、Tab键移动光标,Enter进行选择,Space键勾选或取消勾选,(已勾选显示[*]),Ctrl+C可中断指令的运行 \n
@@ -1102,7 +1102,7 @@ function info_option_2()
 }
 
 #启动参数说明
-function info_option_3()
+function help_option_3()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --msgbox "A1111-SD-Webui启动参数说明:\n
 stable diffusion webui的启动参数:\n
@@ -1178,7 +1178,7 @@ host:允许局域网的设备访问\n
 }
 
 #目录说明
-function info_option_4()
+function help_option_4()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --msgbox "项目的目录说明:\n
 在启用venv虚拟环境后,在安装时项目的目录下会产生venv文件夹,这个是python软件包安装的目录,更换cudnn可在该文件夹中操作\n
@@ -1268,7 +1268,7 @@ lora-scripts   \n
 }
 
 #扩展脚本说明
-function info_option_5()
+function help_option_5()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --msgbox "Term-SD扩展脚本说明:\n
 扩展脚本可从主界面的"扩展脚本"下载和更新,启动方式和term-sd相同\n
@@ -1281,7 +1281,7 @@ venv-rebuild:重建项目的venv虚拟环境,当启动项目时出现大量的�
 }
 
 #AUTOMATIC1111-stable-diffusion-webui插件说明
-function info_option_6()
+function help_option_6()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --msgbox "AUTOMATIC1111-stable-diffusion-webui插件说明:\n
 注:有些插件因为年久失修,可能会出现兼容性问题。具体介绍请在github上搜索项目\n
@@ -1340,7 +1340,7 @@ stable-diffusion-webui-dataset-tag-editor:训练集打标和处理扩展   \n
 }
 
 #ComfyUI插件/自定义节点说明
-function info_option_7()
+function help_option_7()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --msgbox "ComfyUI插件/自定义节点说明:\n
 注:具体介绍请在github上搜索项目\n
