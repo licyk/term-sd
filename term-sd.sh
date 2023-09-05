@@ -299,7 +299,7 @@ function invokeai_option()
                     pip_install_methon #安装方式选择
                     final_install_check #安装前确认
                     echo "更新InvokeAI中"
-                    pip install $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --upgrade invokeai --default-timeout=100 --retries 5
+                    pip install $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --upgrade invokeai --default-timeout=100 --retries 5
                     if [ $? = "0" ];then
                         dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI更新结果" --msgbox "InvokeAI更新成功" 20 60
                     else
@@ -1453,9 +1453,9 @@ function exit_venv()
 #安装前代理选择
 function proxy_option()
 {
-    python_proxy="-i https://pypi.python.org/simple"
-    extra_python_proxy="-f https://download.pytorch.org/whl/torch_stable.html"
-    #extra_python_proxy="--extra-index-url https://download.pytorch.org/whl"
+    pip_mirror="-i https://pypi.python.org/simple"
+    extra_pip_mirror="-f https://download.pytorch.org/whl/torch_stable.html"
+    #extra_pip_mirror="--extra-index-url https://download.pytorch.org/whl"
     github_proxy=""
     force_pip=""
     final_install_check_python="禁用"
@@ -1472,10 +1472,10 @@ function proxy_option()
         for final_proxy_option in $final_proxy_options; do
         case "$final_proxy_option" in
         "1")
-        #python_proxy="-i https://mirror.sjtu.edu.cn/pypi/web/simple" #上海交大的镜像源有点问题,在安装invokeai时会报错,可能是软件包版本的问题
-        python_proxy="-i https://mirrors.bfsu.edu.cn/pypi/web/simple"
-        #extra_python_proxy="-f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
-        extra_python_proxy="-f https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html"
+        #pip_mirror="-i https://mirror.sjtu.edu.cn/pypi/web/simple" #上海交大的镜像源有点问题,在安装invokeai时会报错,可能是软件包版本的问题
+        pip_mirror="-i https://mirrors.bfsu.edu.cn/pypi/web/simple"
+        #extra_pip_mirror="-f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
+        extra_pip_mirror="-f https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html"
         final_install_check_python="启用"
         ;;
         "2")
@@ -2040,11 +2040,11 @@ function process_install_a1111_sd_webui()
     git clone "$github_proxy"https://github.com/Stability-AI/generative-models.git ./stable-diffusion-webui/repositories/generative-models
     git clone "$github_proxy"https://github.com/crowsonkb/k-diffusion.git ./stable-diffusion-webui/repositories/k-diffusion
 
-    pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5 #"--default-timeout=100 --retries 5"在网络差导致下载中断时重试下载
-    pip install git+"$github_proxy"https://github.com/openai/CLIP.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+    pip install $ins_pytorch $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5 #"--default-timeout=100 --retries 5"在网络差导致下载中断时重试下载
+    pip install git+"$github_proxy"https://github.com/openai/CLIP.git --prefer-binary $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
 
-    pip install -r ./stable-diffusion-webui/repositories/CodeFormer/requirements.txt --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
-    pip install -r ./stable-diffusion-webui/requirements.txt --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5 #安装stable-diffusion-webui的依赖
+    pip install -r ./stable-diffusion-webui/repositories/CodeFormer/requirements.txt --prefer-binary $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+    pip install -r ./stable-diffusion-webui/requirements.txt --prefer-binary $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5 #安装stable-diffusion-webui的依赖
 
     echo "生成配置中"
     echo "{" > config-for-sd-webui.json
@@ -2179,8 +2179,8 @@ function process_install_comfyui()
     enter_venv
     cd ..
 
-    pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
-    pip install -r ./ComfyUI/requirements.txt  --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+    pip install $ins_pytorch $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+    pip install -r ./ComfyUI/requirements.txt  --prefer-binary $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
 
     if [ ! -z "$extension_install_list" ];then
         echo "安装插件中"
@@ -2270,7 +2270,7 @@ function process_install_invokeai()
     if [ ! -d "./invokeai" ];then
         mkdir ./invokeai
     fi
-    pip install invokeai $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+    pip install invokeai $ins_pytorch $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
     aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-upscaler-models/resolve/main/invokeai/RealESRGAN_x4plus.pth -d ./invokeai/models/core/upscaling/realesrgan -o RealESRGAN_x4plus.pth
     aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-upscaler-models/resolve/main/invokeai/RealESRGAN_x4plus_anime_6B.pth -d ./invokeai/models/core/upscaling/realesrgan -o RealESRGAN_x4plus_anime_6B.pth
     aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-upscaler-models/resolve/main/invokeai/ESRGAN_SRx4_DF2KOST_official-ff704c30.pth -d ./invokeai/models/core/upscaling/realesrgan -o ESRGAN_SRx4_DF2KOST_official-ff704c30.pth
@@ -2299,12 +2299,12 @@ function process_install_lora_scripts()
     git submodule
     venv_generate
     enter_venv
-    pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+    pip install $ins_pytorch $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
     cd ./sd-scripts
-    pip install $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --upgrade -r requirements.txt --default-timeout=100 --retries 5 #sd-scripts目录下还有个_typos.toml,在安装requirements.txt里的依赖时会指向这个文件
+    pip install $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --upgrade -r requirements.txt --default-timeout=100 --retries 5 #sd-scripts目录下还有个_typos.toml,在安装requirements.txt里的依赖时会指向这个文件
     cd ..
-    pip install $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --upgrade lion-pytorch dadaptation prodigyopt lycoris-lora fastapi uvicorn wandb scipy --default-timeout=100 --retries 5
-    pip install $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --upgrade -r requirements.txt --default-timeout=100 --retries 5 #lora-scripts安装依赖
+    pip install $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --upgrade lion-pytorch dadaptation prodigyopt lycoris-lora fastapi uvicorn wandb scipy --default-timeout=100 --retries 5
+    pip install $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --upgrade -r requirements.txt --default-timeout=100 --retries 5 #lora-scripts安装依赖
     cd ..
     aria2c $aria2_multi_threaded https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./lora-scripts/sd-models/ -o model.ckpt
     echo "安装结束"
@@ -2323,7 +2323,7 @@ function pytorch_reinstall()
     #开始安装pytorch
     venv_generate
     enter_venv
-    pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --force-reinstall --default-timeout=100 --retries 5
+    pip install $ins_pytorch $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --force-reinstall --default-timeout=100 --retries 5
     exit_venv
 }
 
