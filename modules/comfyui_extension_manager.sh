@@ -163,7 +163,7 @@ function operate_comfyui_custom_node()
             fi
         elif [ "${final_operate_comfyui_custom_node}" == '4' ]; then
             echo "修复更新中"
-            git reset --hard HEAD
+            term_sd_fix_pointer_offset
             cd ..
         elif [ "${final_operate_comfyui_custom_node}" == '5' ]; then
             git_checkout_manager
@@ -336,7 +336,7 @@ function operate_comfyui_extension()
             fi
         elif [ "${final_operate_comfyui_extension}" == '4' ]; then
             echo "修复更新中"
-            git reset --hard HEAD
+            term_sd_fix_pointer_offset
             cd ..
         elif [ "${final_operate_comfyui_extension}" == '5' ]; then
             git_checkout_manager

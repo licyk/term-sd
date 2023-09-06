@@ -13,11 +13,10 @@ function mainmenu()
         "3" "InvokeAI" \
         "4" "lora-scripts" \
         "5" "更新脚本" \
-        "6" "扩展脚本" \
-        "7" "pip镜像源" \
-        "8" "pip缓存清理" \
-        "9" "帮助" \
-        "10" "退出" \
+        "6" "pip镜像源" \
+        "7" "pip缓存清理" \
+        "8" "帮助" \
+        "9" "退出" \
         3>&1 1>&2 2>&3 )
 
     if [ $? = 0  ];then #选择确认
@@ -32,16 +31,14 @@ function mainmenu()
         elif [ "${mainmenu_select}" == '4' ]; then #选择lora-scripts
             lora_scripts_option
         elif [ "${mainmenu_select}" == '5' ]; then #选择更新脚本
-            update_option
-        elif [ "${mainmenu_select}" == '6' ]; then #选择扩展脚本
-            term_sd_extension
-        elif [ "${mainmenu_select}" == '7' ]; then #选择pip镜像源
+            term_sd_update_option
+        elif [ "${mainmenu_select}" == '6' ]; then #选择pip镜像源
             set_proxy_option
-        elif [ "${mainmenu_select}" == '8' ]; then #选择pip缓存清理
+        elif [ "${mainmenu_select}" == '7' ]; then #选择pip缓存清理
             pip_cache_clean
-        elif [ "${mainmenu_select}" == '9' ]; then #选择帮助
+        elif [ "${mainmenu_select}" == '8' ]; then #选择帮助
             help_option
-        elif [ "${mainmenu_select}" == '10' ]; then #选择退出
+        elif [ "${mainmenu_select}" == '9' ]; then #选择退出
             echo "退出Term-SD"
             exit 1
         fi
@@ -62,10 +59,17 @@ function term_sd_launch()
     fi
 }
 
+#项目更新失败修复功能
+function term_sd_fix_pointer_offset()
+{
+    git checkout $(git branch -a | grep HEAD | awk -F'/' '{print $NF}') #查询当前主分支并重新切换过去
+    git reset --hard HEAD #回退版本,解决git pull异常
+}
+
 #显示版本信息
 function term_sd_version()
 {
-    dialog --clear --title "Term-SD" --backtitle "Term-SD开始界面" --msgbox "版本信息:\n\n
+    dialog --clear --title "Term-SD" --backtitle "Term-SD开始界面"  --ok-label "确定" --msgbox "版本信息:\n\n
 系统:$(uname -o) \n
 Term-SD:"$term_sd_version_" \n
 python:$($test_python --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n

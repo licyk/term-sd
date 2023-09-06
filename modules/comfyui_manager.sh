@@ -43,8 +43,7 @@ function comfyui_option()
                 fi
             elif [ "${final_comfyui_option}" == '3' ]; then
                 echo "修复更新中"
-                git checkout master
-                git reset --hard HEAD
+                term_sd_fix_pointer_offset
                 comfyui_option
             elif [ "${final_comfyui_option}" == '4' ]; then
                 cd custom_nodes

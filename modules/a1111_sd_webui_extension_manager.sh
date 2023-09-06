@@ -108,7 +108,7 @@ function a1111_sd_webui_operate_extension()
             fi
         elif [ "${final_a1111_sd_webui_operate_extension}" == '3' ]; then
             echo "修复更新中"
-            git reset --hard HEAD
+            term_sd_fix_pointer_offset
             cd ..
         elif [ "${final_a1111_sd_webui_operate_extension}" == '4' ]; then
             git_checkout_manager

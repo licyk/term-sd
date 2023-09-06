@@ -46,8 +46,7 @@ function a1111_sd_webui_option()
                 fi
             elif [ "${final_a1111_sd_webui_option}" == '3' ]; then
                 echo "修复更新中"
-                git checkout master
-                git reset --hard HEAD
+                term_sd_fix_pointer_offset
                 a1111_sd_webui_option
             elif [ "${final_a1111_sd_webui_option}" == '4' ]; then
                 cd extensions

@@ -50,14 +50,11 @@ function lora_scripts_option()
                 fi
             elif [ "${final_lora_scripts_option}" == '3' ]; then
                 echo "修复更新中"
-                git checkout main
-                git reset --hard HEAD #修复lora-scripts
+                term_sd_fix_pointer_offset #修复lora-scripts
                 cd ./sd-scripts
-                git checkout main
-                git reset --hard HEAD #修复kohya-ss训练模块
+                term_sd_fix_pointer_offset #修复kohya-ss训练模块
                 cd ./../frontend
-                git checkout master
-                git reset --hard HEAD #修复lora-gui-dist
+                term_sd_fix_pointer_offset #修复lora-gui-dist
                 cd ..
                 git submodule init
                 git submodule update
