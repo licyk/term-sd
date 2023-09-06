@@ -12,10 +12,10 @@ function term_sd_update_option()
 
     if [ $? = 0 ];then
         if [ $term_sd_update_option_ = 1 ];then
-            git pull ./term-sd
-            if [ $? = 0];then
+            git --git-dir="./term-sd/.git" pull
+            if [ $? = 0 ];then
                 cp -fv ./term-sd/term-sd.sh .
-                dialog --clear --title "Term-SD" --backtitle "Term-SD更新结果" --ok-label "确定" --msgbox "Term-SD更新成功,选择确定后重启"
+                dialog --clear --title "Term-SD" --backtitle "Term-SD更新结果" --ok-label "确定" --msgbox "Term-SD更新成功,选择确定后重启" 20 60
                 source ./term-sd/modules/init.sh
             else
                 dialog --clear --title "Term-SD" --backtitle "Term-SD更新结果" --ok-label "确定" --msgbox "Term-SD更新失败"
