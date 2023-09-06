@@ -44,7 +44,7 @@ function lora_scripts_option()
                     echo "删除lora-scripts中"
                     exit_venv
                     cd ..
-                    rm -rfv ./lora-scripts
+                    rm -rf ./lora-scripts
                 else
                     lora_scripts_option
                 fi

@@ -40,7 +40,7 @@ function a1111_sd_webui_option()
                     echo "删除A1111-Stable-Diffusion-Webui中"
                     exit_venv
                     cd ..
-                    rm -rfv ./stable-diffusion-webui
+                    rm -rf ./stable-diffusion-webui
                 else
                     a1111_sd_webui_option
                 fi

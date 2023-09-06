@@ -157,7 +157,7 @@ function operate_comfyui_custom_node()
             if (dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点删除选项" --yes-label "是" --no-label "否" --yesno "是否删除"$comfyui_custom_node_selection"自定义节点?" 20 60) then
                 echo "删除"$comfyui_custom_node_selection"自定义节点中"
                 cd ..
-                rm -rfv ./$comfyui_custom_node_selection
+                rm -rf ./$comfyui_custom_node_selection
             else
                 cd ..
             fi
@@ -330,7 +330,7 @@ function operate_comfyui_extension()
             if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件删除选项" --yes-label "是" --no-label "否" --yesno "是否删除"$comfyui_extension_selection"插件?" 20 60) then
                 echo "删除"$comfyui_extension_selection"插件中"
                 cd ..
-                rm -rfv ./$comfyui_extension_selection
+                rm -rf ./$comfyui_extension_selection
             else
                 cd ..
             fi

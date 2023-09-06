@@ -38,7 +38,7 @@ function invokeai_option()
                         echo "删除InvokeAI中"
                         exit_venv
                         cd ..
-                        rm -rfv ./InvokeAI
+                        rm -rf ./InvokeAI
                     else
                         invokeai_option
                     fi

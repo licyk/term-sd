@@ -102,7 +102,7 @@ function a1111_sd_webui_operate_extension()
             if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件删除选项" --yes-label "是" --no-label "否" --yesno "是否删除"$extension_selection"插件?" 20 60) then
                 echo "删除"$extension_selection"插件中"
                 cd ..
-                rm -rfv ./$extension_selection
+                rm -rf ./$extension_selection
             else
                 cd ..
             fi

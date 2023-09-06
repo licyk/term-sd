@@ -37,7 +37,7 @@ function comfyui_option()
                     echo "删除ComfyUI中"
                     exit_venv
                     cd ..
-                    rm -rfv ./ComfyUI
+                    rm -rf ./ComfyUI
                 else
                     comfyui_option
                 fi

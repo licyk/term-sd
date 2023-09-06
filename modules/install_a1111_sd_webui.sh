@@ -47,8 +47,8 @@ function process_install_a1111_sd_webui()
     echo "    \"hires_fix_show_sampler\": true," >> config-for-sd-webui.json
     echo "    \"CLIP_stop_at_last_layers\": 2" >> config-for-sd-webui.json
     echo "}" >> config-for-sd-webui.json
-    mv -fv config-for-sd-webui.json ./stable-diffusion-webui
-    mv -fv ./stable-diffusion-webui/config-for-sd-webui.json ./stable-diffusion-webui/config.json
+    mv -f config-for-sd-webui.json ./stable-diffusion-webui
+    mv -f ./stable-diffusion-webui/config-for-sd-webui.json ./stable-diffusion-webui/config.json
 
     if [ ! -z "$a1111_sd_webui_extension_install_list" ];then
         echo "安装插件中"
