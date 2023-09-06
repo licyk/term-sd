@@ -190,7 +190,7 @@ function term_sd_reinstall()
         echo "是否重新安装Term-SD(yes/no)?"
         echo "提示:输入yes或no后回车"
         read -p "==>" term_sd_install_option
-        if [ ! -z $term_sd_install_option];then
+        if [ ! -z $term_sd_install_option ];then
             if [ $term_sd_install_option = yes ] || [ $term_sd_install_option = y ] || [ $term_sd_install_option = YES ] || [ $term_sd_install_option = Y ];then
                 term_sd_install_mirror_select
                 echo "清除term-sd文件"
