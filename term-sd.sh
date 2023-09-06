@@ -17,7 +17,7 @@ function term_sd_process_user_input()
         echo "  --multi-threaded-download"
         echo "        安装过程中启用多线程下载模型"
         echo "  --enable-auto-update"
-        echo "        启动Term-SD自动检查更新功能"
+        echo "        启用Term-SD自动检查更新功能"
         echo "  --disable-auto-update"
         echo "        禁用Term-SD自动检查更新功能"
         echo "  --reinstall-term-sd"
@@ -27,18 +27,21 @@ function term_sd_process_user_input()
         exit 1
         ;;
         "--multi-threaded-download")
+        echo "安装过程中启用多线程下载模型"
         aria2_multi_threaded="-x 8"
         ;;
         "--enable-auto-update")
+        echo "启用Term-SD自动检查更新功能"
         touch ./term-sd/term-sd-auto-update.lock
         ;;
         "--disable-auto-update")
-        rm -rfv ./term-sd/term-sd-auto-update.lock
+        echo "禁用Term-SD自动检查更新功能"
+        rm -rf ./term-sd/term-sd-auto-update.lock
         ;;
         "--remove-term-sd")
         echo "开始卸载Term-SD"
-        rm -rfv ./term-sd
-        rm -rfv ./term-sd.sh
+        rm -rf ./term-sd
+        rm -rf ./term-sd.sh
         echo "Term-SD卸载完成"
         ;;
         "--extra")
@@ -77,6 +80,7 @@ function term_sd_extra_scripts()
 #term-sd自动更新功能
 function term_sd_auto_update()
 {
+    echo "检查更新中"
     term_sd_local_branch=$(git --git-dir="./term-sd/.git" branch -a | grep HEAD | awk -F'/' '{print $NF}') #term-sd主分支
     term_sd_local_hash=$(git --git-dir="./term-sd/.git" rev-parse HEAD) #term-sd本地hash
     term_Sd_remote_hash=$(git --git-dir="./term-sd/.git" ls-remote origin refs/remotes/origin/$term_sd_local_branch $term_sd_local_branch | awk '{print $1}') #term-sd远程hash
@@ -93,6 +97,8 @@ function term_sd_auto_update()
                     term_sd_update_fix
                 fi
             fi
+        else
+            echo "已经是最新版本"
         fi
     fi
 }
@@ -126,7 +132,7 @@ function term_sd_install()
             term_sd_install_mirror_select
             git clone $term_sd_install_mirror
             if [ $? = 0 ];then
-                cp -fv ./term-sd/term-sd.sh .
+                cp -f ./term-sd/term-sd.sh .
                 echo "安装成功"
             else
                 echo "安装失败"
@@ -142,11 +148,11 @@ function term_sd_install()
         if [ $term_sd_install_option = yes ] || [ $term_sd_install_option = y ] || [ $term_sd_install_option = YES ] || [ $term_sd_install_option = Y ];then
             term_sd_install_mirror_select
             echo "清除term-sd文件"
-            rm -rfv ./term-sd
+            rm -rf ./term-sd
             echo "清除完成,开始安装"
             git clone $term_sd_install_mirror
             if [ $? = 0 ];then
-                cp -fv ./term-sd/term-sd.sh .
+                cp -f ./term-sd/term-sd.sh .
                 echo "安装成功"
             else
                 echo "安装失败"
@@ -169,11 +175,11 @@ function term_sd_reinstall()
         if [ $term_sd_install_option = yes ] || [ $term_sd_install_option = y ] || [ $term_sd_install_option = YES ] || [ $term_sd_install_option = Y ];then
             term_sd_install_mirror_select
             echo "清除term-sd文件"
-            rm -rfv ./term-sd
+            rm -rf ./term-sd
             echo "清除完成,开始安装"
             git clone $term_sd_install_mirror
             if [ $? = 0 ];then
-                cp -fv ./term-sd/term-sd.sh .
+                cp -f ./term-sd/term-sd.sh .
                 echo "安装成功"
             else
                 echo "安装失败"
@@ -267,9 +273,10 @@ if [ $test_num -ge 5 ];then
     term_sd_install
     if [ -d "./term-sd/modules" ];then #找到目录后才启动
         if [ -f "./term-sd/term-sd-auto-update.lock" ];then
-            term_sd_auto_update
-        fi
-        term_sd_process_user_input $(echo "$1 $2 $3 $4 $5 $6 $7 $8 $9")
+            if [ -d "./term-sd/.git" ];then
+                term_sd_auto_update
+            fi
+            term_sd_process_user_input $(echo "$1 $2 $3 $4 $5 $6 $7 $8 $9")
     else
         echo "term-sd模块丢失,\"输入./term-sd.sh --reinstall-term-sd\"重新安装Term-SD"
     fi
