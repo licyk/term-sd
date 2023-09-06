@@ -277,6 +277,7 @@ if [ $test_num -ge 5 ];then
                 term_sd_auto_update
             fi
             term_sd_process_user_input $(echo "$1 $2 $3 $4 $5 $6 $7 $8 $9")
+        fi
     else
         echo "term-sd模块丢失,\"输入./term-sd.sh --reinstall-term-sd\"重新安装Term-SD"
     fi
