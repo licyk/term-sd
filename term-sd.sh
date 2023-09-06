@@ -10,12 +10,18 @@ function term_sd_process_user_input()
         echo "启动参数使用方法:"
         echo "  term-sd.sh [--help] [--extra] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd]"
         echo "选项:"
-        echo "  --help\n        显示启动参数帮助"
-        echo "  --extra\n        启动扩展脚本"
-        echo "  --multi-threaded-download\n        安装过程中启用多线程下载模型"
-        echo "  --enable-auto-update\n        启动Term-SD自动检查更新功能"
-        echo "  --disable-auto-update\n        禁用Term-SD自动检查更新功能"
-        echo "  --reinstall-term-sd\n        重新安装Term-SD"
+        echo "  --help"
+        echo "        显示启动参数帮助"
+        echo "  --extra"
+        echo "        启动扩展脚本"
+        echo "  --multi-threaded-download"
+        echo "        安装过程中启用多线程下载模型"
+        echo "  --enable-auto-update"
+        echo "        启动Term-SD自动检查更新功能"
+        echo "  --disable-auto-update"
+        echo "        禁用Term-SD自动检查更新功能"
+        echo "  --reinstall-term-sd"
+        echo "        重新安装Term-SD"
         exit 1
         ;;
         "--multi-threaded-download")
@@ -68,6 +74,7 @@ function term_sd_auto_update()
     term_Sd_remote_hash=$(git --git-dir="./term-sd/.git" ls-remote origin refs/remotes/origin/$term_sd_local_branch $term_sd_local_branch | awk '{print $1}') #term-sd远程hash
     if git --git-dir="./term-sd/.git" ls-remote origin refs/remotes/origin/$term_sd_local_branch $term_sd_local_branch 2> /dev/null 1> /dev/null ;then #网络连接正常时再进行更新
         if [ ! $term_sd_local_hash = $term_Sd_remote_hash ];then
+            term_sd_install_option=""
             echo "检测到term-sd有新版本"
             echo "是否选择更新(yes/no)?"
             echo "提示:输入yes或no后回车"
@@ -85,9 +92,10 @@ function term_sd_auto_update()
 #修复更新功能
 function term_sd_update_fix()
 {
+    term_sd_auto_update_option=""
     echo "是否修复更新(yes/no)?"
     echo "提示:输入yes或no后回车"
-    read -p "==>" term_sd_auto_update_option_1
+    read -p "==>" term_sd_auto_update_option
     if [ $term_sd_auto_update_option = yes ] || [ $term_sd_auto_update_option = y ] || [ $term_sd_auto_update_option = YES ] || [ $term_sd_auto_update_option = Y ];then
         git --git-dir="./term-sd/.git" checkout $term_sd_local_branch
         git --git-dir="./term-sd/.git" reset --hard HEAD
@@ -101,11 +109,12 @@ function term_sd_update_fix()
 #term-sd安装功能
 function term_sd_install()
 {
+    term_sd_install_option=""
     if [ ! -d "./term-sd" ];then
         echo "检测到term-sd未安装,是否进行安装(yes/no)?"
         echo "提示:输入yes或no后回车"
-        read -p "==>" term_sd_install_option_1
-        if [ $term_sd_install_option_1 = yes ] || if [ $term_sd_install_option_1 = y ] || if [ $term_sd_install_option_1 = YES ] || if [ $term_sd_install_option_1 = Y ];then
+        read -p "==>" term_sd_install_option
+        if [ $term_sd_install_option = yes ] || [ $term_sd_install_option = y ] || [ $term_sd_install_option = YES ] || [ $term_sd_install_option = Y ];then
             term_sd_install_mirror_select
             git clone $term_sd_install_mirror
             if [ $? = 0 ];then
@@ -119,11 +128,10 @@ function term_sd_install()
             exit 1
         fi
     elif [ ! -d "./term-sd/.git" ];then
-        if [ -d "./term-sd" ];then
         echo "检测到term-sd的.git目录不存在,将会影响term-sd组件的更新,是否重新安装(yes/no)?"
         echo "提示:输入yes或no后回车"
-        read -p "==>" term_sd_install_option_1
-        if [ $term_sd_install_option_1 = yes ] || if [ $term_sd_install_option_1 = y ] || if [ $term_sd_install_option_1 = YES ] || if [ $term_sd_install_option_1 = Y ];then
+        read -p "==>" term_sd_install_option
+        if [ $term_sd_install_option = yes ] || [ $term_sd_install_option = y ] || [ $term_sd_install_option = YES ] || [ $term_sd_install_option = Y ];then
             term_sd_install_mirror_select
             echo "清除term-sd文件"
             rm -rfv ./term-sd
@@ -143,13 +151,14 @@ function term_sd_install()
 #term-sd重新安装功能
 function term_sd_reinstall()
 {
+    term_sd_install_option=""
     for term_sd_launch_input in $(echo "$1 $2 $3 $4 $5 $6 $7 $8 $9") ;do
         case $term_sd_launch_input in
         "--reinstall-term-sd")
         echo "是否重新安装Term-SD(yes/no)?"
         echo "提示:输入yes或no后回车"
-        read -p "==>" term_sd_install_option_3
-        if [ $term_sd_install_option_3 = yes ] || if [ $term_sd_install_option_3 = y ] || if [ $term_sd_install_option_3 = YES ] || if [ $term_sd_install_option_3 = Y ];then
+        read -p "==>" term_sd_install_option
+        if [ $term_sd_install_option = yes ] || [ $term_sd_install_option = y ] || [ $term_sd_install_option = YES ] || [ $term_sd_install_option = Y ];then
             term_sd_install_mirror_select
             git clone $term_sd_install_mirror
             if [ $? = 0 ];then
@@ -182,7 +191,7 @@ function term_sd_install_mirror_select()
     elif [ $term_sd_install_option_2 = 2 ];then
         echo "选择gitee源"
         term_sd_install_mirror=""
-    if [ $term_sd_install_option_2 = 3 ];then
+    elif [ $term_sd_install_option_2 = 3 ];then
         echo "选择代理源(ghproxy.com)"
         term_sd_install_mirror=""
     else

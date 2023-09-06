@@ -22,9 +22,10 @@ function term_sd_update_option()
                 term_sd_update_option
             fi
         elif [ $term_sd_update_option_ = 2 ];then
-
+            term_sd_remote
+            term_sd_update_option
         elif [ $term_sd_update_option_ = 3 ];then
-            ls
+            term_sd_branch
         elif [ $term_sd_update_option_ = 4 ];then
             mainmenu
         fi
@@ -71,7 +72,7 @@ function term_sd_branch()
             echo "即将重启Term-SD"
             sleep 1
             source ./term-sd/modules/init.sh
-        else [ $term_sd_branch_ = 2 ];then
+        elif [ $term_sd_branch_ = 2 ];then
             git --git-dir="./term-sd/.git" checkout dev
             cp -fv ./term-sd/term-sd.sh .
             echo "切换到测试分支"
