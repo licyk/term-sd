@@ -1,5 +1,6 @@
 #/bin/bash
 
+#term-sd更新功能
 function term_sd_update_option()
 {
     term_sd_update_option_=$(dialog --clear --title "Term-SD" --backtitle "Term-SD更新选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的更新源\n当前Term-SD更新源:$(git --git-dir="./term-sd/.git" remote get-url origin)\n当前Term-SD分支:$(git --git-dir="./term-sd/.git" branch | grep \* | awk -F "* " '{print $NF}')" 20 60 10 \
@@ -32,6 +33,7 @@ function term_sd_update_option()
     fi
 }
 
+#term-sd更新源切换功能
 function term_sd_remote()
 {
     term_sd_remote_=$(dialog --clear --title "Term-SD" --backtitle "Term-SD分支切换界面" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的分支\n当前Term-SD更新源:$(git --git-dir="./term-sd/.git" remote get-url origin)" 20 60 10 \
@@ -52,6 +54,7 @@ function term_sd_remote()
     term_sd_update_option
 }
 
+#term-sd分支切换
 function term_sd_branch()
 {
     term_sd_branch_=$(dialog --clear --title "Term-SD" --backtitle "Term-SD分支切换界面" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的分支\n当前Term-SD分支:$(git --git-dir="./term-sd/.git" branch | grep \* | awk -F "* " '{print $NF}')" 20 60 10 \

@@ -65,18 +65,20 @@ function term_sd_auto_update()
     term_sd_local_branch=$(git --git-dir="./term-sd/.git" branch -a | grep HEAD | awk -F'/' '{print $NF}') #term-sd主分支
     term_sd_local_hash=$(git --git-dir="./term-sd/.git" rev-parse HEAD) #term-sd本地hash
     term_Sd_remote_hash=$(git --git-dir="./term-sd/.git" ls-remote origin refs/remotes/origin/$term_sd_local_branch $term_sd_local_branch | awk '{print $1}') #term-sd远程hash
-    if [ ! $term_sd_local_hash = $term_Sd_remote_hash ];then
-        echo "检测到term-sd有新版本"
-        echo "是否选择更新(yes/no)?"
-        echo "提示:输入yes或no后回车"
-        read -p "==>" term_sd_auto_update_option
-        if [ $term_sd_auto_update_option = yes ] || [ $term_sd_auto_update_option = y ] || [ $term_sd_auto_update_option = YES ] || [ $term_sd_auto_update_option = Y ];then
-            git --git-dir="./term-sd/.git" pull
-            if [ ! $? = 0 ];then
-                term_sd_update_fix
+    if git --git-dir="./term-sd/.git" ls-remote origin refs/remotes/origin/$term_sd_local_branch $term_sd_local_branch 2> /dev/null 1> /dev/null ;then #网络连接正常时再进行更新
+        if [ ! $term_sd_local_hash = $term_Sd_remote_hash ];then
+            echo "检测到term-sd有新版本"
+            echo "是否选择更新(yes/no)?"
+            echo "提示:输入yes或no后回车"
+            read -p "==>" term_sd_auto_update_option
+            if [ $term_sd_auto_update_option = yes ] || [ $term_sd_auto_update_option = y ] || [ $term_sd_auto_update_option = YES ] || [ $term_sd_auto_update_option = Y ];then
+                git --git-dir="./term-sd/.git" pull
+                if [ ! $? = 0 ];then
+                    term_sd_update_fix
+                fi
             fi
         fi
-    fi  
+    fi
 }
 
 #修复更新功能
@@ -98,7 +100,7 @@ function term_sd_update_fix()
 #term-sd安装功能
 function term_sd_install()
 {
-    if [ -d "./term-sd" ];then
+    if [ ! -d "./term-sd" ];then
         echo "检测到term-sd未安装,是否进行安装(yes/no)?"
         echo "提示:输入yes或no后回车"
         read -p "==>" term_sd_install_option_1
@@ -112,8 +114,10 @@ function term_sd_install()
                 echo "安装失败"
                 exit 1
             fi
+        else
+            exit 1
         fi
-    elif [ -d "./term-sd/.git" ];then
+    elif [ ! -d "./term-sd/.git" ];then
         if [ -d "./term-sd" ];then
         echo "检测到term-sd的.git目录不存在,将会影响term-sd组件的更新,是否重新安装(yes/no)?"
         echo "提示:输入yes或no后回车"
@@ -132,9 +136,10 @@ function term_sd_install()
                 exit 1
             fi
         fi
-            
+    fi
 }
 
+#term-sd下载源选择
 function term_sd_install_mirror_select()
 {
     echo "请选择下载源"
@@ -156,8 +161,8 @@ function term_sd_install_mirror_select()
         echo "输入有误,请重试"
         term_sd_install_mirror_select
     fi
-        
 }
+
 echo "Term-SD初始化中......"
 
 if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
@@ -202,10 +207,10 @@ fi
 
 #启动terrm-sd
 if [ $test_num -ge 5 ];then
-    echo "完成"
+    echo "检测完成"
     term_sd_install
     if [ -d "./term-sd/modules" ];then #找到目录后才启动
-        if [  -f "./term-sd/term-sd-auto-update.lock" ];then
+        if [ -f "./term-sd/term-sd-auto-update.lock" ];then
             term_sd_auto_update
         fi
         term_sd_process_user_input $(echo "$1 $2 $3 $4 $5 $6 $7 $8 $9")
