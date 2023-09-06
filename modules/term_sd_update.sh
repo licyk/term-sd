@@ -13,6 +13,7 @@ function term_sd_update_option()
         if [ $term_sd_update_option_ = 1 ];then
             git pull ./term-sd
             if [ $? = 0];then
+                cp -fv ./term-sd/term-sd.sh .
                 dialog --clear --title "Term-SD" --backtitle "Term-SD更新结果" --ok-label "确定" --msgbox "Term-SD更新成功,选择确定后重启"
                 source ./term-sd/modules/init.sh
             else
@@ -62,12 +63,14 @@ function term_sd_branch()
     if [ $? = 0 ];then
         if [ $term_sd_branch_ = 1 ];then
             git --git-dir="./term-sd/.git" checkout main
+            cp -fv ./term-sd/term-sd.sh .
             echo "切换到主分支"
             echo "即将重启Term-SD"
             sleep 1
             source ./term-sd/modules/init.sh
         else [ $term_sd_branch_ = 2 ];then
             git --git-dir="./term-sd/.git" checkout dev
+            cp -fv ./term-sd/term-sd.sh .
             echo "切换到测试分支"
             echo "即将重启Term-SD"
             sleep 1

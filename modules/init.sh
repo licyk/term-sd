@@ -29,7 +29,7 @@ else
     venv_info="启用"
 fi
 
-term_sd_version_="0.3.10"
+term_sd_version_="0.4.0"
 
 #初始化功能
 term_sd_init

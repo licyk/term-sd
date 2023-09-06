@@ -8,11 +8,13 @@ function term_sd_process_user_input()
         "--help")
         echo
         echo "启动参数使用方法:"
-        echo "  term-sd.sh [--help] [--extra] [--multi-threaded-download]"
+        echo "  term-sd.sh [--help] [--extra] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update]"
         echo "选项:"
         echo "  --help\n        显示启动参数帮助"
         echo "  --extra\n        启动扩展脚本"
         echo "  --multi-threaded-download\n        安装过程中启用多线程下载模型"
+        echo "  --enable-auto-update\n        启动Term-SD自动检查更新功能"
+        echo "  --disable-auto-update\n        禁用Term-SD自动检查更新功能"
         exit 1
         ;;
         "--multi-threaded-download")
@@ -62,10 +64,10 @@ function term_sd_auto_update()
 {
     term_sd_local_branch=$(git --git-dir="./term-sd/.git" branch -a | grep HEAD | awk -F'/' '{print $NF}') #term-sd主分支
     term_sd_local_hash=$(git --git-dir="./term-sd/.git" rev-parse HEAD) #term-sd本地hash
-    term_Sd_remote_hash=$(git ls-remote origin refs/remotes/origin/$term_sd_local_branch $term_sd_local_branch | awk '{print $1}') #term-sd远程hash
+    term_Sd_remote_hash=$(git --git-dir="./term-sd/.git" ls-remote origin refs/remotes/origin/$term_sd_local_branch $term_sd_local_branch | awk '{print $1}') #term-sd远程hash
     if [ ! $term_sd_local_hash = $term_Sd_remote_hash ];then
         echo "检测到term-sd有新版本"
-        echo "是否选择更新(yes/no)"
+        echo "是否选择更新(yes/no)?"
         echo "提示:输入yes或no后回车"
         read -p "==>" term_sd_auto_update_option
         if [ $term_sd_auto_update_option = yes ] || [ $term_sd_auto_update_option = y ] || [ $term_sd_auto_update_option = YES ] || [ $term_sd_auto_update_option = Y ];then
@@ -77,9 +79,10 @@ function term_sd_auto_update()
     fi  
 }
 
+#修复更新功能
 function term_sd_update_fix()
 {
-    echo "是否修复更新(yes/no)"
+    echo "是否修复更新(yes/no)?"
     echo "提示:输入yes或no后回车"
     read -p "==>" term_sd_auto_update_option_1
     if [ $term_sd_auto_update_option = yes ] || [ $term_sd_auto_update_option = y ] || [ $term_sd_auto_update_option = YES ] || [ $term_sd_auto_update_option = Y ];then
@@ -92,6 +95,69 @@ function term_sd_update_fix()
     fi
 }
 
+#term-sd安装功能
+function term_sd_install()
+{
+    if [ -d "./term-sd" ];then
+        echo "检测到term-sd未安装,是否进行安装(yes/no)?"
+        echo "提示:输入yes或no后回车"
+        read -p "==>" term_sd_install_option_1
+        if [ $term_sd_install_option_1 = yes ] || if [ $term_sd_install_option_1 = y ] || if [ $term_sd_install_option_1 = YES ] || if [ $term_sd_install_option_1 = Y ];then
+            term_sd_install_mirror_select
+            git clone $term_sd_install_mirror
+            if [ $? = 0 ];then
+                cp -fv ./term-sd/term-sd.sh .
+                echo "安装成功"
+            else
+                echo "安装失败"
+                exit 1
+            fi
+        fi
+    elif [ -d "./term-sd/.git" ];then
+        if [ -d "./term-sd" ];then
+        echo "检测到term-sd的.git目录不存在,将会影响term-sd组件的更新,是否重新安装(yes/no)?"
+        echo "提示:输入yes或no后回车"
+        read -p "==>" term_sd_install_option_1
+        if [ $term_sd_install_option_1 = yes ] || if [ $term_sd_install_option_1 = y ] || if [ $term_sd_install_option_1 = YES ] || if [ $term_sd_install_option_1 = Y ];then
+            term_sd_install_mirror_select
+            echo "清除term-sd文件"
+            rm -rfv ./term-sd
+            echo "清除完成,开始安装"
+            git clone $term_sd_install_mirror
+            if [ $? = 0 ];then
+                cp -fv ./term-sd/term-sd.sh .
+                echo "安装成功"
+            else
+                echo "安装失败"
+                exit 1
+            fi
+        fi
+            
+}
+
+function term_sd_install_mirror_select()
+{
+    echo "请选择下载源"
+    echo "1、github源"
+    echo "2、gitee源"
+    echo "3、代理源(ghproxy.com)"
+    echo "输入数字后回车"
+    read -p "==>" term_sd_install_option_2
+    if [ $term_sd_install_option_2 = 1 ];then
+        echo "选择github源"
+        term_sd_install_mirror=""
+    elif [ $term_sd_install_option_2 = 2 ];then
+        echo "选择gitee源"
+        term_sd_install_mirror=""
+    if [ $term_sd_install_option_2 = 3 ];then
+        echo "选择代理源(ghproxy.com)"
+        term_sd_install_mirror=""
+    else
+        echo "输入有误,请重试"
+        term_sd_install_mirror_select
+    fi
+        
+}
 echo "Term-SD初始化中......"
 
 if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
@@ -137,10 +203,15 @@ fi
 #启动terrm-sd
 if [ $test_num -ge 5 ];then
     echo "完成"
-    if [  -f "./term-sd/term-sd-auto-update.lock" ];then
-        term_sd_auto_update
+    term_sd_install
+    if [ -d "./term-sd/modules" ];then #找到目录后才启动
+        if [  -f "./term-sd/term-sd-auto-update.lock" ];then
+            term_sd_auto_update
+        fi
+        term_sd_process_user_input $(echo "$1 $2 $3 $4 $5 $6 $7 $8 $9")
+    else
+        echo "term-sd模块丢失,退出"
     fi
-    term_sd_process_user_input $(echo "$1 $2 $3 $4 $5 $6 $7 $8 $9")
 else
     echo "缺少以下依赖"
     echo "--------------------"
