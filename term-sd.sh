@@ -8,13 +8,14 @@ function term_sd_process_user_input()
         "--help")
         echo
         echo "启动参数使用方法:"
-        echo "  term-sd.sh [--help] [--extra] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update]"
+        echo "  term-sd.sh [--help] [--extra] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd]"
         echo "选项:"
         echo "  --help\n        显示启动参数帮助"
         echo "  --extra\n        启动扩展脚本"
         echo "  --multi-threaded-download\n        安装过程中启用多线程下载模型"
         echo "  --enable-auto-update\n        启动Term-SD自动检查更新功能"
         echo "  --disable-auto-update\n        禁用Term-SD自动检查更新功能"
+        echo "  --reinstall-term-sd\n        重新安装Term-SD"
         exit 1
         ;;
         "--multi-threaded-download")
@@ -139,6 +140,33 @@ function term_sd_install()
     fi
 }
 
+#term-sd重新安装功能
+function term_sd_reinstall()
+{
+    for term_sd_launch_input in $(echo "$1 $2 $3 $4 $5 $6 $7 $8 $9") ;do
+        case $term_sd_launch_input in
+        "--reinstall-term-sd")
+        echo "是否重新安装Term-SD(yes/no)?"
+        echo "提示:输入yes或no后回车"
+        read -p "==>" term_sd_install_option_3
+        if [ $term_sd_install_option_3 = yes ] || if [ $term_sd_install_option_3 = y ] || if [ $term_sd_install_option_3 = YES ] || if [ $term_sd_install_option_3 = Y ];then
+            term_sd_install_mirror_select
+            git clone $term_sd_install_mirror
+            if [ $? = 0 ];then
+                cp -fv ./term-sd/term-sd.sh .
+                echo "安装成功"
+            else
+                echo "安装失败"
+                exit 1
+            fi
+        else
+            exit 1
+        fi
+        ;;
+        esac
+    done
+}
+
 #term-sd下载源选择
 function term_sd_install_mirror_select()
 {
@@ -162,6 +190,8 @@ function term_sd_install_mirror_select()
         term_sd_install_mirror_select
     fi
 }
+
+#################################################
 
 echo "Term-SD初始化中......"
 
@@ -208,6 +238,7 @@ fi
 #启动terrm-sd
 if [ $test_num -ge 5 ];then
     echo "检测完成"
+    term_sd_reinstall $(echo "$1 $2 $3 $4 $5 $6 $7 $8 $9")
     term_sd_install
     if [ -d "./term-sd/modules" ];then #找到目录后才启动
         if [ -f "./term-sd/term-sd-auto-update.lock" ];then
@@ -223,5 +254,5 @@ else
     echo $missing_dep
     echo "--------------------"
     echo "请安装后重试"
-    exit
+    exit 1
 fi

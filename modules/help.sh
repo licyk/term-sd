@@ -87,6 +87,17 @@ function help_option_2()
 7、安装前的准备完成后,将会弹出安装确认界面,选择"是"开始安装\n
 8、安装结束后,会自动进入盖项目的管理界面,在该界面中可以对项目进行更新,卸载,启动等操作\n
 9、在安装之后,pip模块会产生大量的缓存,可使用主界面的"pip缓存清理"进行删除\n
+10、使用\"./term-sd\"命令启动时可在命令后面添加参数\n
+参数使用方法:\n
+  term-sd.sh [--help] [--extra] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd]\n
+参数功能:\n
+help:显示启动参数帮助\n
+extra:启动扩展脚本\n
+multi-threaded-download:安装过程中启用多线程下载模型\n
+enable-auto-update:启动Term-SD自动检查更新功能\n
+disable-auto-update:禁用Term-SD自动检查更新功能\n
+reinstall-term-sd:重新安装Term-SD\n
+\n
 注意事项:\n
 1、安装项目的路径和Term-SD脚本所在路径相同,方便管理\n
 2、若项目使用了venv虚拟环境,移动项目到新的路径后需要使用Term-SD的“重新生成venv虚拟环境”功能,才能使venv虚拟环境正常工作\n
