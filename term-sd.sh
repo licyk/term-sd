@@ -187,13 +187,13 @@ function term_sd_install_mirror_select()
     read -p "==>" term_sd_install_option_2
     if [ $term_sd_install_option_2 = 1 ];then
         echo "选择github源"
-        term_sd_install_mirror=""
+        term_sd_install_mirror="https://github.com/licyk/term-sd.git"
     elif [ $term_sd_install_option_2 = 2 ];then
         echo "选择gitee源"
-        term_sd_install_mirror=""
+        term_sd_install_mirror="https://gitee.com/four-dishes/term-sd.git"
     elif [ $term_sd_install_option_2 = 3 ];then
         echo "选择代理源(ghproxy.com)"
-        term_sd_install_mirror=""
+        term_sd_install_mirror="https://ghproxy.com/https://github.com/licyk/term-sd.git"
     else
         echo "输入有误,请重试"
         term_sd_install_mirror_select
