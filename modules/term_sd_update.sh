@@ -13,9 +13,11 @@ function term_sd_update_option()
     if [ $? = 0 ];then
         if [ $term_sd_update_option_ = 1 ];then
             cd ./term-sd
+            git_pull_info=""
             git pull
+            git_pull_info=$?
             cd ..
-            if [ $? = 0 ];then
+            if [ $git_pull_info = 0 ];then
                 cp -fv ./term-sd/term-sd.sh .
                 dialog --clear --title "Term-SD" --backtitle "Term-SD更新结果" --ok-label "确定" --msgbox "Term-SD更新成功,选择确定后重启" 20 60
                 source ./term-sd/modules/init.sh

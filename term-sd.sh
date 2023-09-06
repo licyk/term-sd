@@ -93,9 +93,11 @@ function term_sd_auto_update()
             read -p "==>" term_sd_auto_update_option
             if [ $term_sd_auto_update_option = yes ] || [ $term_sd_auto_update_option = y ] || [ $term_sd_auto_update_option = YES ] || [ $term_sd_auto_update_option = Y ];then
                 cd ./term-sd
+                git_pull_info=""
                 git pull
+                git_pull_info=$?
                 cd ..
-                if [ ! $? = 0 ];then
+                if [ ! $git_pull_info = 0 ];then
                     term_sd_update_fix
                 fi
             fi
@@ -116,9 +118,13 @@ function term_sd_update_fix()
         cd ./term-sd
         git checkout $term_sd_local_branch
         git reset --hard HEAD
+        git_pull_info=""
         git pull
+        git_pull_info=$?
         cd ..
-        if [ ! $? = 0 ];then
+        if [ $git_pull_info = 0 ];then
+            echo "更新成功"
+        else
             echo "如果出错的可能是网络原因导致无法连接到更新源,可通过更换更新源解决"
         fi
     fi
