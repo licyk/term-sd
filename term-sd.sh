@@ -113,7 +113,7 @@ function term_sd_update_fix()
     if [ $term_sd_auto_update_option = yes ] || [ $term_sd_auto_update_option = y ] || [ $term_sd_auto_update_option = YES ] || [ $term_sd_auto_update_option = Y ];then
         git --git-dir="./term-sd/.git" checkout $term_sd_local_branch
         git --git-dir="./term-sd/.git" reset --hard HEAD
-        git --git-dir="./term-sd/.git" pull
+        git --git-dir="./term-sd/.git" pull ./term-sd
         if [ ! $? = 0 ];then
             echo "如果出错的可能是网络原因导致无法连接到更新源,可通过更换更新源解决"
         fi
@@ -275,9 +275,9 @@ if [ $test_num -ge 5 ];then
         if [ -f "./term-sd/term-sd-auto-update.lock" ];then
             if [ -d "./term-sd/.git" ];then
                 term_sd_auto_update
-            fi
-            term_sd_process_user_input $(echo "$1 $2 $3 $4 $5 $6 $7 $8 $9")
+            fi    
         fi
+        term_sd_process_user_input $(echo "$1 $2 $3 $4 $5 $6 $7 $8 $9")
     else
         echo "term-sd模块丢失,\"输入./term-sd.sh --reinstall-term-sd\"重新安装Term-SD"
     fi
