@@ -92,7 +92,9 @@ function term_sd_auto_update()
             echo "提示:输入yes或no后回车"
             read -p "==>" term_sd_auto_update_option
             if [ $term_sd_auto_update_option = yes ] || [ $term_sd_auto_update_option = y ] || [ $term_sd_auto_update_option = YES ] || [ $term_sd_auto_update_option = Y ];then
-                git --git-dir="./term-sd/.git" pull
+                cd ./term-sd
+                git pull
+                cd ..
                 if [ ! $? = 0 ];then
                     term_sd_update_fix
                 fi
@@ -111,9 +113,11 @@ function term_sd_update_fix()
     echo "提示:输入yes或no后回车"
     read -p "==>" term_sd_auto_update_option
     if [ $term_sd_auto_update_option = yes ] || [ $term_sd_auto_update_option = y ] || [ $term_sd_auto_update_option = YES ] || [ $term_sd_auto_update_option = Y ];then
-        git --git-dir="./term-sd/.git" checkout $term_sd_local_branch
-        git --git-dir="./term-sd/.git" reset --hard HEAD
-        git --git-dir="./term-sd/.git" pull ./term-sd
+        cd ./term-sd
+        git checkout $term_sd_local_branch
+        git reset --hard HEAD
+        git pull
+        cd ..
         if [ ! $? = 0 ];then
             echo "如果出错的可能是网络原因导致无法连接到更新源,可通过更换更新源解决"
         fi
