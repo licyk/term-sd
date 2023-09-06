@@ -91,14 +91,18 @@ function term_sd_auto_update()
             echo "是否选择更新(yes/no)?"
             echo "提示:输入yes或no后回车"
             read -p "==>" term_sd_auto_update_option
-            if [ $term_sd_auto_update_option = yes ] || [ $term_sd_auto_update_option = y ] || [ $term_sd_auto_update_option = YES ] || [ $term_sd_auto_update_option = Y ];then
-                cd ./term-sd
-                git_pull_info=""
-                git pull
-                git_pull_info=$?
-                cd ..
-                if [ ! $git_pull_info = 0 ];then
-                    term_sd_update_fix
+            if [ ! -z $term_sd_auto_update_option ];then
+                if [ $term_sd_auto_update_option = yes ] || [ $term_sd_auto_update_option = y ] || [ $term_sd_auto_update_option = YES ] || [ $term_sd_auto_update_option = Y ];then
+                    cd ./term-sd
+                    git_pull_info=""
+                    git pull
+                    git_pull_info=$?
+                    cd ..
+                    if [ $git_pull_info = 0 ];then
+                        echo "更新成功"
+                    else
+                        term_sd_update_fix
+                    fi
                 fi
             fi
         else
@@ -138,35 +142,39 @@ function term_sd_install()
         echo "检测到term-sd未安装,是否进行安装(yes/no)?"
         echo "提示:输入yes或no后回车"
         read -p "==>" term_sd_install_option
-        if [ $term_sd_install_option = yes ] || [ $term_sd_install_option = y ] || [ $term_sd_install_option = YES ] || [ $term_sd_install_option = Y ];then
-            term_sd_install_mirror_select
-            git clone $term_sd_install_mirror
-            if [ $? = 0 ];then
-                cp -f ./term-sd/term-sd.sh .
-                echo "安装成功"
+        if [ ! -z $term_sd_install_option ];then
+            if [ $term_sd_install_option = yes ] || [ $term_sd_install_option = y ] || [ $term_sd_install_option = YES ] || [ $term_sd_install_option = Y ];then
+                term_sd_install_mirror_select
+                git clone $term_sd_install_mirror
+                if [ $? = 0 ];then
+                    cp -f ./term-sd/term-sd.sh .
+                    echo "安装成功"
+                else
+                    echo "安装失败"
+                    exit 1
+                fi
             else
-                echo "安装失败"
                 exit 1
             fi
-        else
-            exit 1
         fi
     elif [ ! -d "./term-sd/.git" ];then
         echo "检测到term-sd的.git目录不存在,将会影响term-sd组件的更新,是否重新安装(yes/no)?"
         echo "提示:输入yes或no后回车"
         read -p "==>" term_sd_install_option
-        if [ $term_sd_install_option = yes ] || [ $term_sd_install_option = y ] || [ $term_sd_install_option = YES ] || [ $term_sd_install_option = Y ];then
-            term_sd_install_mirror_select
-            echo "清除term-sd文件"
-            rm -rf ./term-sd
-            echo "清除完成,开始安装"
-            git clone $term_sd_install_mirror
-            if [ $? = 0 ];then
-                cp -f ./term-sd/term-sd.sh .
-                echo "安装成功"
-            else
-                echo "安装失败"
-                exit 1
+        if [ ! -z $term_sd_install_option ];then
+            if [ $term_sd_install_option = yes ] || [ $term_sd_install_option = y ] || [ $term_sd_install_option = YES ] || [ $term_sd_install_option = Y ];then
+                term_sd_install_mirror_select
+                echo "清除term-sd文件"
+                rm -rf ./term-sd
+                echo "清除完成,开始安装"
+                git clone $term_sd_install_mirror
+                if [ $? = 0 ];then
+                    cp -f ./term-sd/term-sd.sh .
+                    echo "安装成功"
+                else
+                    echo "安装失败"
+                    exit 1
+                fi
             fi
         fi
     fi
@@ -182,17 +190,21 @@ function term_sd_reinstall()
         echo "是否重新安装Term-SD(yes/no)?"
         echo "提示:输入yes或no后回车"
         read -p "==>" term_sd_install_option
-        if [ $term_sd_install_option = yes ] || [ $term_sd_install_option = y ] || [ $term_sd_install_option = YES ] || [ $term_sd_install_option = Y ];then
-            term_sd_install_mirror_select
-            echo "清除term-sd文件"
-            rm -rf ./term-sd
-            echo "清除完成,开始安装"
-            git clone $term_sd_install_mirror
-            if [ $? = 0 ];then
-                cp -f ./term-sd/term-sd.sh .
-                echo "安装成功"
+        if [ ! -z $term_sd_install_option];then
+            if [ $term_sd_install_option = yes ] || [ $term_sd_install_option = y ] || [ $term_sd_install_option = YES ] || [ $term_sd_install_option = Y ];then
+                term_sd_install_mirror_select
+                echo "清除term-sd文件"
+                rm -rf ./term-sd
+                echo "清除完成,开始安装"
+                git clone $term_sd_install_mirror
+                if [ $? = 0 ];then
+                    cp -f ./term-sd/term-sd.sh .
+                    echo "安装成功"
+                else
+                    echo "安装失败"
+                    exit 1
+                fi
             else
-                echo "安装失败"
                 exit 1
             fi
         else
@@ -214,20 +226,25 @@ function term_sd_install_mirror_select()
     echo "4、代理源(ghproxy.com)"
     echo "输入数字后回车"
     read -p "==>" term_sd_install_option
-    if [ $term_sd_install_option = 1 ];then
-        echo "选择github源"
-        term_sd_install_mirror="https://github.com/licyk/term-sd.git"
-    elif [ $term_sd_install_option = 2 ];then
-        echo "选择gitlab源"
-        term_sd_install_mirror="https://gitlab.com/licyk/term-sd.git"
-    elif [ $term_sd_install_option = 3 ];then
-        echo "选择gitee源"
-        term_sd_install_mirror="https://gitee.com/four-dishes/term-sd.git"
-    elif [ $term_sd_install_option = 4 ];then
-        echo "选择代理源(ghproxy.com)"
-        term_sd_install_mirror="https://ghproxy.com/https://github.com/licyk/term-sd.git"
+    if [ ! -z $term_sd_install_option ];then
+        if [ $term_sd_install_option = 1 ];then
+            echo "选择github源"
+            term_sd_install_mirror="https://github.com/licyk/term-sd.git"
+        elif [ $term_sd_install_option = 2 ];then
+            echo "选择gitlab源"
+            term_sd_install_mirror="https://gitlab.com/licyk/term-sd.git"
+        elif [ $term_sd_install_option = 3 ];then
+            echo "选择gitee源"
+            term_sd_install_mirror="https://gitee.com/four-dishes/term-sd.git"
+        elif [ $term_sd_install_option = 4 ];then
+            echo "选择代理源(ghproxy.com)"
+            term_sd_install_mirror="https://ghproxy.com/https://github.com/licyk/term-sd.git"
+        else
+            echo "输入有误,请重试"
+            term_sd_install_mirror_select
+        fi
     else
-        echo "输入有误,请重试"
+        echo "未输入,请重试"
         term_sd_install_mirror_select
     fi
 }
