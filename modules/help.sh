@@ -97,6 +97,7 @@ multi-threaded-download:安装过程中启用多线程下载模型\n
 enable-auto-update:启动Term-SD自动检查更新功能\n
 disable-auto-update:禁用Term-SD自动检查更新功能\n
 reinstall-term-sd:重新安装Term-SD\n
+remove-term-sd:卸载Term-SD\n
 \n
 注意事项:\n
 1、安装项目的路径和Term-SD脚本所在路径相同,方便管理\n

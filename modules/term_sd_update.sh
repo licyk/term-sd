@@ -39,16 +39,19 @@ function term_sd_remote()
 {
     term_sd_remote_=$(dialog --clear --title "Term-SD" --backtitle "Term-SD分支切换界面" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的分支\n当前Term-SD更新源:$(git --git-dir="./term-sd/.git" remote get-url origin)" 20 60 10 \
         "1" "github源" \
-        "2" "gitee源" \
-        "3" "代理源(ghproxy.com)" \
+        "2" "gitlab源" \
+        "3" "gitee源" \
+        "4" "代理源(ghproxy.com)" \
         3>&1 1>&2 2>&3)
     
     if [ $? = 0 ];then
         if [ $term_sd_remote_ = 1 ];then
             git --git-dir="./term-sd/.git" remote set-url origin "https://github.com/licyk/term-sd.git"
-        elif [ $term_sd_remote_ = 2 ];then
-            git --git-dir="./term-sd/.git" remote set-url origin "https://gitee.com/four-dishes/term-sd.git"
         elif [ $term_sd_remote_ = 3 ];then
+            git --git-dir="./term-sd/.git" remote set-url origin "https://gitlab.com/licyk/term-sd.git"
+        elif [ $term_sd_remote_ = 3 ];then
+            git --git-dir="./term-sd/.git" remote set-url origin "https://gitee.com/four-dishes/term-sd.git"
+        elif [ $term_sd_remote_ = 4 ];then
             git --git-dir="./term-sd/.git" remote set-url origin "https://ghproxy.com/https://github.com/licyk/term-sd.git"
         fi
     fi
