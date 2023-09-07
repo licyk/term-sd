@@ -126,6 +126,7 @@ function term_sd_auto_update()
                     git_pull_info=$?
                     cd ..
                     if [ $git_pull_info = 0 ];then
+                        cp -f ./term-sd/term-sd.sh .
                         echo "更新成功"
                     else
                         term_sd_update_fix
@@ -160,6 +161,7 @@ function term_sd_update_fix()
             git_pull_info=$?
             cd ..
             if [ $git_pull_info = 0 ];then
+                cp -f ./term-sd/term-sd.sh .
                 echo "更新成功"
             else
                 echo "如果出错的可能是网络原因导致无法连接到更新源,可通过更换更新源或使用科学上网解决"
