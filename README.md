@@ -109,6 +109,8 @@ brew install git aria2 dialog python
 
     ./term-sd.sh
 
+启动后按照提示安装ter-sd组件后即可正常使用
+
 ***
 
 # sd-webui-for-colab(停更)

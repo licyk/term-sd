@@ -127,6 +127,7 @@ function term_sd_auto_update()
                     cd ..
                     if [ $git_pull_info = 0 ];then
                         cp -f ./term-sd/term-sd.sh .
+                        chmod +x ./term-sd.sh
                         echo "更新成功"
                     else
                         term_sd_update_fix
@@ -162,6 +163,7 @@ function term_sd_update_fix()
             cd ..
             if [ $git_pull_info = 0 ];then
                 cp -f ./term-sd/term-sd.sh .
+                chmod +x ./term-sd.sh
                 echo "更新成功"
             else
                 echo "如果出错的可能是网络原因导致无法连接到更新源,可通过更换更新源或使用科学上网解决"
@@ -184,6 +186,7 @@ function term_sd_install()
                 git clone $term_sd_install_mirror
                 if [ $? = 0 ];then
                     cp -f ./term-sd/term-sd.sh .
+                    chmod +x ./term-sd.sh
                     echo "安装成功"
                 else
                     echo "安装失败"
@@ -208,6 +211,7 @@ function term_sd_install()
                 git clone $term_sd_install_mirror
                 if [ $? = 0 ];then
                     cp -f ./term-sd/term-sd.sh .
+                    chmod +x ./term-sd.sh
                     echo "安装成功"
                 else
                     echo "安装失败"
@@ -237,6 +241,7 @@ function term_sd_reinstall()
                 git clone $term_sd_install_mirror
                 if [ $? = 0 ];then
                     cp -f ./term-sd/term-sd.sh .
+                    chmod +x ./term-sd.sh
                     echo "安装成功"
                 else
                     echo "安装失败"

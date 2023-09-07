@@ -19,7 +19,8 @@ function term_sd_update_option()
             git_pull_info=$?
             cd ..
             if [ $git_pull_info = 0 ];then
-                cp -fv ./term-sd/term-sd.sh .
+                cp -f ./term-sd/term-sd.sh .
+                chmod +x ./term-sd.sh
                 dialog --clear --title "Term-SD" --backtitle "Term-SD更新结果" --ok-label "确定" --msgbox "Term-SD更新成功,选择确定后重启" 20 60
                 source ./term-sd/modules/init.sh
             else
@@ -77,7 +78,8 @@ function term_sd_branch()
             cd ./term-sd
             git checkout main
             cd ..
-            cp -fv ./term-sd/term-sd.sh .
+            cp -f ./term-sd/term-sd.sh .
+            chmod +x ./term-sd.sh
             echo "切换到主分支"
             echo "即将重启Term-SD"
             sleep 1
@@ -86,7 +88,8 @@ function term_sd_branch()
             cd ./term-sd
             git checkout dev
             cd ..
-            cp -fv ./term-sd/term-sd.sh .
+            cp -f ./term-sd/term-sd.sh .
+            chmod +x ./term-sd.sh
             echo "切换到测试分支"
             echo "即将重启Term-SD"
             sleep 1
