@@ -292,6 +292,8 @@ function help_option_5()
 sd-webui-extension:安装sd-webui的插件\n
 comfyui-extension:安装ComfyUI的插件\n
 venv-rebuild:重建项目的venv虚拟环境,当启动项目时出现大量的报错,使用脚本重建虚拟环境,大概率解决这种问题(如果解决不了,可能是插件不兼容,模型损坏,WEBUI设置的参数有误等)\n
+sd-webui-repo:修改a1111-sd-webui主体和组件的更新源\n
+install-term-sd-to-shell:将Term-SD快捷启动指令安装到shell中,在shell中直接输入\"termsd\"即可启动Term-SD\n
 \n
 \n
 " 20 60
