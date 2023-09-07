@@ -37,6 +37,7 @@ function term_sd_process_user_input()
         "--disable-auto-update")
         echo "禁用Term-SD自动检查更新功能"
         rm -rf ./term-sd/term-sd-auto-update.lock
+        rm -rf ./term-sd/term-sd-auto-update-time.conf
         ;;
         "--remove-term-sd")
         echo "开始卸载Term-SD"
@@ -77,6 +78,32 @@ function term_sd_extra_scripts()
     exit 1
 }
 
+#自动更新触发功能
+function term_sd_auto_update_trigger()
+{
+    if [ -f "./term-sd/term-sd-auto-update.lock" ];then #找到自动更新配置
+        if [ -d "./term-sd/.git" ];then #检测到有.git文件夹
+            if [ -f "./term-sd/term-sd-auto-update-time.conf" ];then #有上次运行记录
+                term_sd_start_time=`date +'%Y-%m-%d %H:%M:%S'` #查看当前时间
+                term_sd_end_time=$(cat ./term-sd/term-sd-auto-update-time.conf) #获取上次更新时间
+                term_sd_start_time_seconds=$(date --date="$term_sd_start_time" +%s) #转换时间单位
+                term_sd_end_time_seconds=$(date --date="$term_sd_end_time" +%s)
+                term_sd_auto_update_time_span=$(( $term_sd_end_time_seconds - $term_sd_start_time_seconds )) #计算相隔时间
+                term_sd_auto_update_time_set=3600 #检查更新时间间隔
+                if [ $term_sd_auto_update_time_span -ge $term_sd_auto_update_time_set ];then #判断时间间隔
+                    term_sd_auto_update
+                fi
+                date +'%Y-%m-%d %H:%M:%S' > term-sd-auto-update-time.conf #记录自动更新功能的启动时间
+                mv ./term-sd-auto-update-time.conf ./term-sd
+            else #没有时直接执行
+                term_sd_auto_update
+                date +'%Y-%m-%d %H:%M:%S' > term-sd-auto-update-time.conf #记录自动更新功能的启动时间
+                mv ./term-sd-auto-update-time.conf ./term-sd
+            fi
+        fi    
+    fi
+}
+
 #term-sd自动更新功能
 function term_sd_auto_update()
 {
@@ -108,6 +135,9 @@ function term_sd_auto_update()
         else
             echo "已经是最新版本"
         fi
+    else
+        echo "连接更新源失败,跳过更新"
+        echo "提示:请检查网络连接是否正常,若网络正常,可尝试更换更新源或使用科学上网解决"
     fi
 }
 
@@ -118,18 +148,20 @@ function term_sd_update_fix()
     echo "是否修复更新(yes/no)?"
     echo "提示:输入yes或no后回车"
     read -p "==>" term_sd_auto_update_option
-    if [ $term_sd_auto_update_option = yes ] || [ $term_sd_auto_update_option = y ] || [ $term_sd_auto_update_option = YES ] || [ $term_sd_auto_update_option = Y ];then
-        cd ./term-sd
-        git checkout $term_sd_local_branch
-        git reset --hard HEAD
-        git_pull_info=""
-        git pull
-        git_pull_info=$?
-        cd ..
-        if [ $git_pull_info = 0 ];then
-            echo "更新成功"
-        else
-            echo "如果出错的可能是网络原因导致无法连接到更新源,可通过更换更新源解决"
+    if [ ! -z $term_sd_auto_update_option ];then
+        if [ $term_sd_auto_update_option = yes ] || [ $term_sd_auto_update_option = y ] || [ $term_sd_auto_update_option = YES ] || [ $term_sd_auto_update_option = Y ];then
+            cd ./term-sd
+            git checkout $term_sd_local_branch
+            git reset --hard HEAD
+            git_pull_info=""
+            git pull
+            git_pull_info=$?
+            cd ..
+            if [ $git_pull_info = 0 ];then
+                echo "更新成功"
+            else
+                echo "如果出错的可能是网络原因导致无法连接到更新源,可通过更换更新源或使用科学上网解决"
+            fi
         fi
     fi
 }
@@ -156,6 +188,8 @@ function term_sd_install()
             else
                 exit 1
             fi
+        else
+            exit 1
         fi
     elif [ ! -d "./term-sd/.git" ];then
         echo "检测到term-sd的.git目录不存在,将会影响term-sd组件的更新,是否重新安装(yes/no)?"
@@ -299,11 +333,7 @@ if [ $test_num -ge 5 ];then
     term_sd_reinstall $(echo "$1 $2 $3 $4 $5 $6 $7 $8 $9")
     term_sd_install
     if [ -d "./term-sd/modules" ];then #找到目录后才启动
-        if [ -f "./term-sd/term-sd-auto-update.lock" ];then
-            if [ -d "./term-sd/.git" ];then
-                term_sd_auto_update
-            fi    
-        fi
+        term_sd_auto_update_trigger
         term_sd_process_user_input $(echo "$1 $2 $3 $4 $5 $6 $7 $8 $9")
     else
         echo "term-sd模块丢失,\"输入./term-sd.sh --reinstall-term-sd\"重新安装Term-SD"
