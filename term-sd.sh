@@ -108,11 +108,11 @@ function term_sd_auto_update_trigger()
 function term_sd_auto_update()
 {
     echo "检查更新中"
-    term_sd_local_branch=$(git --git-dir="./term-sd/.git" branch -a | grep HEAD | awk -F'/' '{print $NF}') #term-sd主分支
+    term_sd_local_branch=$(git --git-dir="./term-sd/.git" branch | grep \* | awk -F "* " '{print $NF}') #term-sd分支
     term_sd_local_hash=$(git --git-dir="./term-sd/.git" rev-parse HEAD) #term-sd本地hash
-    term_Sd_remote_hash=$(git --git-dir="./term-sd/.git" ls-remote origin refs/remotes/origin/$term_sd_local_branch $term_sd_local_branch | awk '{print $1}') #term-sd远程hash
+    term_sd_remote_hash=$(git --git-dir="./term-sd/.git" ls-remote origin refs/remotes/origin/$term_sd_local_branch $term_sd_local_branch | awk '{print $1}') #term-sd远程hash
     if git --git-dir="./term-sd/.git" ls-remote origin refs/remotes/origin/$term_sd_local_branch $term_sd_local_branch 2> /dev/null 1> /dev/null ;then #网络连接正常时再进行更新
-        if [ ! $term_sd_local_hash = $term_Sd_remote_hash ];then
+        if [ ! $term_sd_local_hash = $term_sd_remote_hash ];then
             term_sd_auto_update_option=""
             echo "检测到term-sd有新版本"
             echo "是否选择更新(yes/no)?"
@@ -142,6 +142,7 @@ function term_sd_auto_update()
 }
 
 #修复更新功能
+#修复后term-sd会切换到主分支
 function term_sd_update_fix()
 {
     term_sd_auto_update_option=""
@@ -151,7 +152,8 @@ function term_sd_update_fix()
     if [ ! -z $term_sd_auto_update_option ];then
         if [ $term_sd_auto_update_option = yes ] || [ $term_sd_auto_update_option = y ] || [ $term_sd_auto_update_option = YES ] || [ $term_sd_auto_update_option = Y ];then
             cd ./term-sd
-            git checkout $term_sd_local_branch
+            term_sd_local_main_branch=$(git branch -a | grep HEAD | awk -F'/' '{print $NF}') #term-sd主分支
+            git checkout $term_sd_local_main_branch
             git reset --hard HEAD
             git_pull_info=""
             git pull

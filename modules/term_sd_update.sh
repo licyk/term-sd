@@ -14,7 +14,8 @@ function term_sd_update_option()
         if [ $term_sd_update_option_ = 1 ];then
             cd ./term-sd
             git_pull_info=""
-            git pull
+            git fetch --all
+            git pull --all
             git_pull_info=$?
             cd ..
             if [ $git_pull_info = 0 ];then
