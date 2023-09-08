@@ -89,9 +89,9 @@ function term_sd_auto_update_trigger()
                 term_sd_auto_update_time_set=3600 #检查更新时间间隔
                 if [ $term_sd_auto_update_time_span -ge $term_sd_auto_update_time_set ];then #判断时间间隔
                     term_sd_auto_update
+                    date +'%Y-%m-%d %H:%M:%S' > term-sd-auto-update-time.conf #记录自动更新功能的启动时间
+                    mv -f ./term-sd-auto-update-time.conf ./term-sd
                 fi
-                date +'%Y-%m-%d %H:%M:%S' > term-sd-auto-update-time.conf #记录自动更新功能的启动时间
-                mv -f ./term-sd-auto-update-time.conf ./term-sd
             else #没有时直接执行
                 term_sd_auto_update
                 date +'%Y-%m-%d %H:%M:%S' > term-sd-auto-update-time.conf #记录自动更新功能的启动时间
