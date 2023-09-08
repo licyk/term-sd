@@ -112,7 +112,7 @@ remove-term-sd:卸载Term-SD\n
 10、在插件/自定义节点的管理功能中没有"更新","切换版本","修复更新"这些按钮,是因为这些插件/自定义节点的文件夹内没有".git"文件夹,如果是从github上直接下载压缩包再解压安装的就会有这种情况\n
 11、A1111-SD-Webui设置界面语言:点击\"Settings\"-->\"User interface\"-->\"Localization\",点击右边的刷新按钮,再选择(防止不显示出来),在列表中选择zh-Hans(stable)(Term-SD在安装时默认下载了中文插件),在点击上面的\"Apply settings\",最后点击\"Reload UI\"生效\n
 12、ComfyUI设置界面语言:点击右上角的齿轮图标,找到\"AGLTranslation-langualge\",选择\"中文\",ComfyUi将会自动切换中文\n
-\n
+13、在启动a1111-sd-webui前开启了代理软件,可能会导致a1111-sd-webui界面报错,无法使用(貌似只有a1111-sd-webui有这种问题),推荐在a1111-sd-webui启动完成后再开启代理软件\n
 \n
 " 20 60
 }
