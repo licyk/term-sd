@@ -78,7 +78,7 @@ https://licyk.netlify.app/2023/08/01/stable-diffusion-tutorial/\n
 function help_option_2()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --msgbox "Term-SD使用说明:\n
-1、使用方向键、Tab键移动光标,Enter进行选择,Space键勾选或取消勾选,(已勾选显示[*]),Ctrl+C可中断指令的运行 \n
+1、使用方向键、Tab键移动光标,Enter进行选择,Space键勾选或取消勾选,(已勾选时显示[*]),Ctrl+C可中断指令的运行 \n
 2、初次使用时,如果之前没有使用过python的pip模块,建议在主界面先选择"pip镜像源",设置pip的国内镜像源,加快安装时下载python软件包的速度。主界面显示的"虚拟环境"保持启用就行,无需禁用\n
 3、主界面总共有四个ai项目可选(AUTOMATIC1111-stable-diffusion-webui,ComfyUI,InvokeAI,lora-scripts),回车选中后,如果在脚本的当前目录未找选中的项目,term-sd会提示你进行安装。\n
 4、安装前将会提示你进行安装准备,首先是"代理选择",有三个选项可选(启用pip镜像源,启用github代理,强制使用pip),前两个选项默认勾选,如果没有质量较好的科学上网工具,不建议勾选。"强制使用pip"只有禁用了虚拟环境时才建议勾选(在Linux中,如果不在虚拟环境中安装python软件包,pip模块会警告\"error: externally-managed-environment\",只有使用"--break-system-packages"才能进行安装)\n
@@ -89,7 +89,7 @@ function help_option_2()
 9、在安装之后,pip模块会产生大量的缓存,可使用主界面的"pip缓存清理"进行删除\n
 10、使用\"./term-sd\"命令启动时可在命令后面添加参数\n
 参数使用方法:\n
-  term-sd.sh [--help] [--extra] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd]\n
+  term-sd.sh [--help] [--extra] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd]\n
 参数功能:\n
 help:显示启动参数帮助\n
 extra:启动扩展脚本\n
@@ -106,13 +106,12 @@ remove-term-sd:卸载Term-SD\n
 4、Term-SD只有简单的安装,管理功能,若要导入模型等操作需手动在文件管理器上操作\n
 5、如果没有质量较好的科学上网工具,建议在安装时使用git代理和python镜像源\n
 6、建议保持启用虚拟环境,因为不同项目对软件包的版本要求不同,关闭后易导致不同的项目出现依赖问题\n
-7、若没有设置过python镜像源,推荐在\"python镜像源\"为系统设置python镜像源,加快python软件包的下载速度\n
-8、AUTOMATIC1111-stable-diffusion-webui安装好后,可以使用秋叶aaaki制作的启动器来启动sd-webui。将秋叶的启动器放入stable-diffusion-webui文件夹中,双击启动(仅限windows,因为秋叶的启动器只有windows的版本)\n
-9、ComfyUI目前并没有自动为插件或者自定义节点安装依赖的功能,所以安装插件或者自定义节点后后,推荐运行一次“安装依赖”功能,有些依赖下载源是在github上的,无法下载时请使用科学上网(已知问题:因为一些插件/自定义节点的安装依赖方式并不统一,term-sd的依赖安装功能可能没有用,需要手动进行安装依赖)\n
-10、InvokeAI在安装好后,要运行一次invokeai-configure,到\"install stable diffusion models\"界面时,可以把所有的模型取消勾选,因为有的模型是从civitai下载的,如果没有科学上网会导致下载失败\n
-11、在插件/自定义节点的管理功能中没有"更新","切换版本","修复更新"这些按钮,是因为这些插件/自定义节点的文件夹内没有".git"文件夹,如果是从github上直接下载压缩包再解压安装的就会有这种情况\n
-12、A1111-SD-Webui设置界面语言:点击\"Settings\"-->\"User interface\"-->\"Localization\",点击右边的刷新按钮,再选择(防止不显示出来),在列表中选择zh-Hans(stable)(Term-SD在安装时默认下载了中文插件),在点击上面的\"Apply settings\",最后点击\"Reload UI\"生效\n
-13、ComfyUI设置界面语言:点击右上角的齿轮图标,找到\"AGLTranslation-langualge\",选择\"中文\",ComfyUi将会自动切换中文\n
+7、AUTOMATIC1111-stable-diffusion-webui安装好后,可以使用秋叶aaaki制作的启动器来启动sd-webui。将秋叶的启动器放入stable-diffusion-webui文件夹中,双击启动(仅限windows,因为秋叶的启动器只有windows的版本)\n
+8、ComfyUI目前并没有自动为插件或者自定义节点安装依赖的功能,所以安装插件或者自定义节点后后,推荐运行一次“安装依赖”功能,有些依赖下载源是在github上的,无法下载时请使用科学上网(已知问题:因为一些插件/自定义节点的安装依赖方式并不统一,term-sd的依赖安装功能可能没有用,需要手动进行安装依赖)\n
+9、InvokeAI在安装好后,要运行一次invokeai-configure,到\"install stable diffusion models\"界面时,可以把所有的模型取消勾选,因为有的模型是从civitai下载的,如果没有科学上网会导致下载失败\n
+10、在插件/自定义节点的管理功能中没有"更新","切换版本","修复更新"这些按钮,是因为这些插件/自定义节点的文件夹内没有".git"文件夹,如果是从github上直接下载压缩包再解压安装的就会有这种情况\n
+11、A1111-SD-Webui设置界面语言:点击\"Settings\"-->\"User interface\"-->\"Localization\",点击右边的刷新按钮,再选择(防止不显示出来),在列表中选择zh-Hans(stable)(Term-SD在安装时默认下载了中文插件),在点击上面的\"Apply settings\",最后点击\"Reload UI\"生效\n
+12、ComfyUI设置界面语言:点击右上角的齿轮图标,找到\"AGLTranslation-langualge\",选择\"中文\",ComfyUi将会自动切换中文\n
 \n
 \n
 " 20 60
