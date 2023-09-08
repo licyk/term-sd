@@ -62,7 +62,7 @@ function a1111_sd_webui_extension_option()
         "48" "stable-diffusion-webui-dataset-tag-editor" OFF \
         "49" "sd-webui-stablesr" OFF \
         "50" "sd-webui-deoldify" OFF \
-        "51" "stable-diffusion-webui-model-toolkit" OFF \
+        "51" "stable-diffusion-webui-model-toolkit" ON \
         3>&1 1>&2 2>&3)
 
     if [ ! -z "$extension_list" ]; then
