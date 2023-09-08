@@ -5,9 +5,9 @@
 #安装前代理选择
 function proxy_option()
 {
-    python_proxy="-i https://pypi.python.org/simple"
-    extra_python_proxy="-f https://download.pytorch.org/whl/torch_stable.html"
-    #extra_python_proxy="--extra-index-url https://download.pytorch.org/whl"
+    pip_mirror="-i https://pypi.python.org/simple"
+    extra_pip_mirror="-f https://download.pytorch.org/whl/torch_stable.html"
+    #extra_pip_mirror="--extra-index-url https://download.pytorch.org/whl"
     github_proxy=""
     force_pip=""
     final_install_check_python="禁用"
@@ -24,10 +24,10 @@ function proxy_option()
         for final_proxy_option in $final_proxy_options; do
         case "$final_proxy_option" in
         "1")
-        #python_proxy="-i https://mirror.sjtu.edu.cn/pypi/web/simple" #上海交大的镜像源有点问题,在安装invokeai时会报错,可能是软件包版本的问题
-        python_proxy="-i https://mirrors.bfsu.edu.cn/pypi/web/simple"
-        #extra_python_proxy="-f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
-        extra_python_proxy="-f https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html"
+        #pip_mirror="-i https://mirror.sjtu.edu.cn/pypi/web/simple" #上海交大的镜像源有点问题,在安装invokeai时会报错,可能是软件包版本的问题
+        pip_mirror="-i https://mirrors.bfsu.edu.cn/pypi/web/simple"
+        #extra_pip_mirror="-f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
+        extra_pip_mirror="-f https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html"
         final_install_check_python="启用"
         ;;
         "2")
@@ -50,10 +50,10 @@ function proxy_option()
 function a1111_sd_webui_extension_option()
 {
     #清空插件选择
-    extension_install_list=""
-    extension_model_1="1"
-    extension_model_2="1"
-    extension_model_3="1"
+    a1111_sd_webui_extension_install_list=""
+    a1111_sd_webui_extension_model_1="1"
+    a1111_sd_webui_extension_model_2="1"
+    a1111_sd_webui_extension_model_3="1"
 
     #插件选择,并输出插件对应的数字
     extension_list=$(
@@ -111,160 +111,160 @@ function a1111_sd_webui_extension_option()
         3>&1 1>&2 2>&3)
 
     if [ ! -z "$extension_list" ]; then
-        for extension_list_ in $extension_list; do #从extension_list读取数字,通过数字对应插件链接,传递给extension_install_list
+        for extension_list_ in $extension_list; do #从extension_list读取数字,通过数字对应插件链接,传递给a1111_sd_webui_extension_install_list
         case "$extension_list_" in
         "1")
-        extension_install_list="https://github.com/WSH032/kohya-config-webui $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/WSH032/kohya-config-webui $a1111_sd_webui_extension_install_list"
         ;;
         "2")
-        extension_install_list="https://github.com/kohya-ss/sd-webui-additional-networks $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/kohya-ss/sd-webui-additional-networks $a1111_sd_webui_extension_install_list"
         ;;
         "3")
-        extension_install_list="https://github.com/DominikDoom/a1111-sd-webui-tagcomplete $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/DominikDoom/a1111-sd-webui-tagcomplete $a1111_sd_webui_extension_install_list"
         ;;
         "4")
-        extension_install_list="https://github.com/pkuliyi2015/multidiffusion-upscaler-for-automatic1111 $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/pkuliyi2015/multidiffusion-upscaler-for-automatic1111 $a1111_sd_webui_extension_install_list"
         ;;
         "5")
-        extension_install_list="https://github.com/mcmonkeyprojects/sd-dynamic-thresholding $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/mcmonkeyprojects/sd-dynamic-thresholding $a1111_sd_webui_extension_install_list"
         ;;
         "6")
-        extension_install_list="https://github.com/hnmr293/sd-webui-cutoff $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/hnmr293/sd-webui-cutoff $a1111_sd_webui_extension_install_list"
         ;;
         "7")
-        extension_install_list="https://github.com/Akegarasu/sd-webui-model-converter $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/Akegarasu/sd-webui-model-converter $a1111_sd_webui_extension_install_list"
         ;;
         "8")
-        extension_install_list="https://github.com/hako-mikan/sd-webui-supermerger $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/hako-mikan/sd-webui-supermerger $a1111_sd_webui_extension_install_list"
         ;;
         "9")
-        extension_install_list="https://github.com/hanamizuki-ai/stable-diffusion-webui-localization-zh_Hans $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/hanamizuki-ai/stable-diffusion-webui-localization-zh_Hans $a1111_sd_webui_extension_install_list"
         ;;
         "10")
-        extension_install_list="https://github.com/picobyte/stable-diffusion-webui-wd14-tagger $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/picobyte/stable-diffusion-webui-wd14-tagger $a1111_sd_webui_extension_install_list"
         ;;
         "11")
-        extension_install_list="https://github.com/hako-mikan/sd-webui-regional-prompter $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/hako-mikan/sd-webui-regional-prompter $a1111_sd_webui_extension_install_list"
         ;;
         "12")
-        extension_install_list="https://github.com/zanllp/sd-webui-infinite-image-browsing $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/zanllp/sd-webui-infinite-image-browsing $a1111_sd_webui_extension_install_list"
         ;;
         "13")
-        extension_install_list="https://github.com/klimaleksus/stable-diffusion-webui-anti-burn $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/klimaleksus/stable-diffusion-webui-anti-burn $a1111_sd_webui_extension_install_list"
         ;;
         "14")
-        extension_install_list="https://github.com/Elldreth/loopback_scaler $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/Elldreth/loopback_scaler $a1111_sd_webui_extension_install_list"
         ;;
         "15")
-        extension_install_list="https://github.com/CodeZombie/latentcoupleregionmapper $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/CodeZombie/latentcoupleregionmapper $a1111_sd_webui_extension_install_list"
         ;;
         "16")
-        extension_install_list="https://github.com/Coyote-A/ultimate-upscale-for-automatic1111 $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/Coyote-A/ultimate-upscale-for-automatic1111 $a1111_sd_webui_extension_install_list"
         ;;
         "17")
-        extension_install_list="https://github.com/deforum-art/deforum-for-automatic1111-webui $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/deforum-art/deforum-for-automatic1111-webui $a1111_sd_webui_extension_install_list"
         ;;
         "18")
-        extension_install_list="https://github.com/AlUlkesh/stable-diffusion-webui-images-browser $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/AlUlkesh/stable-diffusion-webui-images-browser $a1111_sd_webui_extension_install_list"
         ;;
         "19")
-        extension_install_list="https://github.com/camenduru/stable-diffusion-webui-huggingface $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/camenduru/stable-diffusion-webui-huggingface $a1111_sd_webui_extension_install_list"
         ;;
         "20")
-        extension_install_list="https://github.com/camenduru/sd-civitai-browser $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/camenduru/sd-civitai-browser $a1111_sd_webui_extension_install_list"
         ;;
         "21")
-        extension_install_list="https://github.com/space-nuko/a1111-stable-diffusion-webui-vram-estimator $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/space-nuko/a1111-stable-diffusion-webui-vram-estimator $a1111_sd_webui_extension_install_list"
         ;;
         "22")
-        extension_install_list="https://github.com/fkunn1326/openpose-editor $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/fkunn1326/openpose-editor $a1111_sd_webui_extension_install_list"
         ;;
         "23")
-        extension_install_list="https://github.com/jexom/sd-webui-depth-lib $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/jexom/sd-webui-depth-lib $a1111_sd_webui_extension_install_list"
         ;;
         "24")
-        extension_install_list="https://github.com/hnmr293/posex $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/hnmr293/posex $a1111_sd_webui_extension_install_list"
         ;;
         "25")
-        extension_install_list="https://github.com/camenduru/sd-webui-tunnels $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/camenduru/sd-webui-tunnels $a1111_sd_webui_extension_install_list"
         ;;
         "26")
-        extension_install_list="https://github.com/etherealxx/batchlinks-webui $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/etherealxx/batchlinks-webui $a1111_sd_webui_extension_install_list"
         ;;
         "27")
-        extension_install_list="https://github.com/camenduru/stable-diffusion-webui-catppuccin $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/camenduru/stable-diffusion-webui-catppuccin $a1111_sd_webui_extension_install_list"
         ;;
         "28")
-        extension_install_list="https://github.com/KohakuBlueleaf/a1111-sd-webui-lycoris $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/KohakuBlueleaf/a1111-sd-webui-lycoris $a1111_sd_webui_extension_install_list"
         ;;
         "29")
-        extension_install_list="https://github.com/AUTOMATIC1111/stable-diffusion-webui-rembg $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/AUTOMATIC1111/stable-diffusion-webui-rembg $a1111_sd_webui_extension_install_list"
         ;;
         "30")
-        extension_install_list="https://github.com/ashen-sensored/stable-diffusion-webui-two-shot $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/ashen-sensored/stable-diffusion-webui-two-shot $a1111_sd_webui_extension_install_list"
         ;;
         "31")
-        extension_install_list="https://github.com/hako-mikan/sd-webui-lora-block-weight $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/hako-mikan/sd-webui-lora-block-weight $a1111_sd_webui_extension_install_list"
         ;;
         "32")
-        extension_install_list="https://github.com/ototadana/sd-face-editor $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/ototadana/sd-face-editor $a1111_sd_webui_extension_install_list"
         ;;
         "33")
-        extension_install_list="https://github.com/continue-revolution/sd-webui-segment-anything $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/continue-revolution/sd-webui-segment-anything $a1111_sd_webui_extension_install_list"
         ;;
         "34")
-        extension_install_list="https://github.com/Mikubill/sd-webui-controlnet $extension_install_list"
-        extension_model_1=0
+        a1111_sd_webui_extension_install_list="https://github.com/Mikubill/sd-webui-controlnet $a1111_sd_webui_extension_install_list"
+        a1111_sd_webui_extension_model_1=0
         ;;
         "35")
-        extension_install_list="https://github.com/Physton/sd-webui-prompt-all-in-one $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/Physton/sd-webui-prompt-all-in-one $a1111_sd_webui_extension_install_list"
         ;;
         "36")
-        extension_install_list="https://github.com/ModelSurge/sd-webui-comfyui $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/ModelSurge/sd-webui-comfyui $a1111_sd_webui_extension_install_list"
         ;;
         "37")
-        extension_install_list="https://github.com/continue-revolution/sd-webui-animatediff $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/continue-revolution/sd-webui-animatediff $a1111_sd_webui_extension_install_list"
         ;;
         "38")
-        extension_install_list="https://github.com/yankooliveira/sd-webui-photopea-embed $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/yankooliveira/sd-webui-photopea-embed $a1111_sd_webui_extension_install_list"
         ;;
         "39")
-        extension_install_list="https://github.com/huchenlei/sd-webui-openpose-editor $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/huchenlei/sd-webui-openpose-editor $a1111_sd_webui_extension_install_list"
         ;;
         "40")
-        extension_install_list="https://github.com/hnmr293/sd-webui-llul $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/hnmr293/sd-webui-llul $a1111_sd_webui_extension_install_list"
         ;;
         "41")
-        extension_install_list="https://github.com/journey-ad/sd-webui-bilingual-localization $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/journey-ad/sd-webui-bilingual-localization $a1111_sd_webui_extension_install_list"
         ;;
         "42")
-        extension_install_list="https://github.com/Bing-su/adetailer $extension_install_list"
-        extension_model_2=0
+        a1111_sd_webui_extension_install_list="https://github.com/Bing-su/adetailer $a1111_sd_webui_extension_install_list"
+        a1111_sd_webui_extension_model_2=0
         ;;
         "43")
-        extension_install_list="https://github.com/Scholar01/sd-webui-mov2mov $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/Scholar01/sd-webui-mov2mov $a1111_sd_webui_extension_install_list"
         ;;
         "44")
-        extension_install_list="https://github.com/ClockZinc/sd-webui-IS-NET-pro $extension_install_list"
-        extension_model_3=0
+        a1111_sd_webui_extension_install_list="https://github.com/ClockZinc/sd-webui-IS-NET-pro $a1111_sd_webui_extension_install_list"
+        a1111_sd_webui_extension_model_3=0
         ;;
         "45")
-        extension_install_list="https://github.com/s9roll7/ebsynth_utility $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/s9roll7/ebsynth_utility $a1111_sd_webui_extension_install_list"
         ;;
         "46")
-        extension_install_list="https://github.com/d8ahazard/sd_dreambooth_extension $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/d8ahazard/sd_dreambooth_extension $a1111_sd_webui_extension_install_list"
         ;;
         "47")
-        extension_install_list="https://github.com/Haoming02/sd-webui-memory-release $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/Haoming02/sd-webui-memory-release $a1111_sd_webui_extension_install_list"
         ;;
         "48")
-        extension_install_list="https://github.com/toshiaki1729/stable-diffusion-webui-dataset-tag-editor $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/toshiaki1729/stable-diffusion-webui-dataset-tag-editor $a1111_sd_webui_extension_install_list"
         ;;
         "49")
-        extension_install_list="https://github.com/pkuliyi2015/sd-webui-stablesr $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/pkuliyi2015/sd-webui-stablesr $a1111_sd_webui_extension_install_list"
         ;;
         "50")
-        extension_install_list="https://github.com/SpenserCai/sd-webui-deoldify $extension_install_list"
+        a1111_sd_webui_extension_install_list="https://github.com/SpenserCai/sd-webui-deoldify $a1111_sd_webui_extension_install_list"
         ;;
         *)
         exit 1
@@ -277,14 +277,14 @@ function a1111_sd_webui_extension_option()
 #a1111-sd-webui安装处理部分
 function process_install_a1111_sd_webui()
 {
-    if [ ! -z "$extension_install_list" ];then
+    if [ ! -z "$a1111_sd_webui_extension_install_list" ];then
         echo "安装插件中"
-        for  extension_install_list_ in $extension_install_list ;do
-            git clone "$github_proxy"$extension_install_list_ ./stable-diffusion-webui/extensions/$(echo $extension_install_list_ | awk -F'/' '{print $NF}')
+        for  a1111_sd_webui_extension_install_list_ in $a1111_sd_webui_extension_install_list ;do
+            git clone "$github_proxy"$a1111_sd_webui_extension_install_list_ ./stable-diffusion-webui/extensions/$(echo $a1111_sd_webui_extension_install_list_ | awk -F'/' '{print $NF}')
         done
     fi
 
-    if [ $extension_model_1 = 0 ];then #安装controlnet时再下载相关模型
+    if [ $a1111_sd_webui_extension_model_1 = 0 ];then #安装controlnet时再下载相关模型
         aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11e_sd15_ip2p_fp16.safetensors -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11e_sd15_ip2p_fp16.safetensors
         aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11e_sd15_shuffle_fp16.safetensors -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11e_sd15_shuffle_fp16.safetensors
         aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_canny_fp16.safetensors -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11p_sd15_canny_fp16.safetensors
@@ -331,7 +331,7 @@ function process_install_a1111_sd_webui()
         aria2c $aria2_multi_threaded https://huggingface.co/monster-labs/control_v1p_sd15_qrcode_monster/resolve/main/control_v1p_sd15_qrcode_monster.yaml -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v1p_sd15_qrcode_monster.yaml
     fi
 
-    if [ $extension_model_2 = 0 ];then #安装adetailer插件相关模型
+    if [ $a1111_sd_webui_extension_model_2 = 0 ];then #安装adetailer插件相关模型
         aria2c $aria2_multi_threaded https://huggingface.co/Bingsu/adetailer/resolve/main/deepfashion2_yolov8s-seg.pt -d ./stable-diffusion-webui/models/adetailer -o deepfashion2_yolov8s-seg.pt
         aria2c $aria2_multi_threaded https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8m.pt -d ./stable-diffusion-webui/models/adetailer -o face_yolov8m.pt
         aria2c $aria2_multi_threaded https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8n.pt -d ./stable-diffusion-webui/models/adetailer -o face_yolov8n.pt
@@ -344,7 +344,7 @@ function process_install_a1111_sd_webui()
         aria2c $aria2_multi_threaded https://huggingface.co/Bingsu/adetailer/resolve/main/person_yolov8s-seg.pt -d ./stable-diffusion-webui/models/adetailer -o person_yolov8s-seg.pt
     fi
 
-    if [ $extension_model_3 = 0 ];then #安装sd-webui-IS-NET-pro插件相关模型
+    if [ $a1111_sd_webui_extension_model_3 = 0 ];then #安装sd-webui-IS-NET-pro插件相关模型
         aria2c $aria2_multi_threaded https://huggingface.co/ClockZinc/IS-NET_pth/resolve/main/isnet-general-use.pth -d ./stable-diffusion-webui/extensions/sd-webui-IS-NET-pro/saved_models/IS-Net -o isnet-general-use.pth
     fi
 }

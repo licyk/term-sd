@@ -8,10 +8,10 @@ function mainmenu()
     mainmenu_select=$(
         dialog --clear --title "Term-SD" --backtitle "主界面" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的功能\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')\n当前虚拟环境状态:"$venv_info"" 20 60 10 \
         "0" "venv虚拟环境" \
-        "1" "AUTOMATIC1111-stable-diffusion-webui" \
-        "2" "ComfyUI" \
-        "3" "InvokeAI" \
-        "4" "lora-scripts" \
+        "1" "AUTOMATIC1111-stable-diffusion-webui管理" \
+        "2" "ComfyUI管理" \
+        "3" "InvokeAI管理" \
+        "4" "lora-scripts管理" \
         "5" "更新脚本" \
         "6" "pip镜像源" \
         "7" "pip缓存清理" \

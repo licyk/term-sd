@@ -9,11 +9,11 @@ function mainmenu()
     cd "$start_path" #回到最初路径
     exit_venv 2> /dev/null #确保进行下一步操作前已退出其他虚拟环境
 
-    mainmenu_=$(dialog --clear --title "Term-SD" --yes-label "确认" --no-label "取消" --menu "请使用方向键和回车键进行操作\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 20 60 10 \
-        "1" "AUTOMATIC1111-stable-diffusion-webui" \
-        "2" "ComfyUI" \
-        "3" "InvokeAI" \
-        "4" "lora-scripts" \
+    mainmenu_=$(dialog --clear --title "Term-SD" --backtitle "主界面" --yes-label "确认" --no-label "取消" --menu "请选择Term-SD的功能\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 20 60 10 \
+        "1" "AUTOMATIC1111-stable-diffusion-webui管理" \
+        "2" "ComfyUI管理" \
+        "3" "InvokeAI管理" \
+        "4" "lora-scripts管理" \
         "5" "pip镜像源" \
         "6" "pip缓存清理" \
         "7" "退出" \
@@ -22,7 +22,7 @@ function mainmenu()
     if [ $? = 0 ];then
         if [ $mainmenu_ = 1 ];then
             a1111_sd_webui_option
-        elif [ $mainmenu_  = 2 ];then
+        elif [ $mainmenu_ = 2 ];then
             comfyui_option
         elif [ $mainmenu_ = 3 ];then
             invokeai_option
@@ -47,11 +47,11 @@ function a1111_sd_webui_option()
     exit_venv 2> /dev/null #确保进行下一步操作前已退出其他虚拟环境
     if [ -d "stable-diffusion-webui" ];then #找到stable-diffusion-webui目录
         cd stable-diffusion-webui
-        if (dialog --clear --title "A1111-SD-Webui管理" --yes-label "是" --no-label "否" --yesno "是否重建A1111-SD-Webui的虚拟环境" 20 60);then
+        if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建A1111-SD-Webui的虚拟环境" 20 60);then
             a1111_sd_webui_venv_rebuild
         fi
     else
-        dialog --clear --title "A1111-SD-Webui管理" --msgbox "当前目录下未找到A1111-SD-Webui" 20 60
+        dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui虚拟环境重建选项" --msgbox "当前目录下未找到A1111-SD-Webui" 20 60
     fi
     mainmenu
 }
@@ -63,11 +63,11 @@ function comfyui_option()
     exit_venv 2> /dev/null #确保进行下一步操作前已退出其他虚拟环境
     if [ -d "ComfyUI" ];then
         cd ComfyUI
-        if (dialog --clear --title "ComfyUI管理" --yes-label "是" --no-label "否" --yesno "是否重建ComfyUI的虚拟环境" 20 60);then
+        if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建ComfyUI的虚拟环境" 20 60);then
             comfyui_venv_rebuild
         fi
     else
-        dialog --clear --title "ComfyUI管理" --msgbox "当前目录下未找到ComfyUI" 20 60
+        dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI虚拟环境重建选项" --msgbox "当前目录下未找到ComfyUI" 20 60
     fi
     mainmenu
 }
@@ -79,11 +79,11 @@ function invokeai_option()
     exit_venv 2> /dev/null #确保进行下一步操作前已退出其他虚拟环境
     if [ -d "InvokeAI" ];then
         cd InvokeAI
-        if (dialog --clear --title "InvokeAI管理" --yes-label "是" --no-label "否" --yesno "是否重建InvokeAI的虚拟环境" 20 60);then
+        if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建InvokeAI的虚拟环境" 20 60);then
             invokeai_venv_rebuild
         fi
     else
-        dialog --clear --title "InvokeAI管理" --msgbox "当前目录下未找到InvokeAI" 20 60
+        dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI虚拟环境重建选项" --msgbox "当前目录下未找到InvokeAI" 20 60
     fi
     mainmenu
 }
@@ -95,11 +95,11 @@ function lora_scripts_option()
     exit_venv 2> /dev/null #确保进行下一步操作前已退出其他虚拟环境
     if [ -d "lora-scripts" ];then
         cd lora-scripts
-        if (dialog --clear --title "lora-scripts管理" --yes-label "是" --no-label "否" --yesno "是否重建lora-scripts的虚拟环境" 20 60);then
+        if (dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建lora-scripts的虚拟环境" 20 60);then
             lora_scripts_venv_rebuild
         fi
     else
-        dialog --clear --title "lora-scripts管理" --msgbox "当前目录下未找到lora-scripts" 20 60
+        dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts虚拟环境重建选项" --msgbox "当前目录下未找到lora-scripts" 20 60
     fi
     mainmenu
 }
@@ -111,9 +111,9 @@ function lora_scripts_option()
 #安装前代理选择
 function proxy_option()
 {
-    python_proxy="-i https://pypi.python.org/simple"
-    extra_python_proxy="-f https://download.pytorch.org/whl/torch_stable.html"
-    #extra_python_proxy="--extra-index-url https://download.pytorch.org/whl"
+    pip_mirror="-i https://pypi.python.org/simple"
+    extra_pip_mirror="-f https://download.pytorch.org/whl/torch_stable.html"
+    #extra_pip_mirror="--extra-index-url https://download.pytorch.org/whl"
     github_proxy=""
     force_pip=""
     final_install_check_python="禁用"
@@ -121,7 +121,7 @@ function proxy_option()
     final_install_check_force_pip="禁用"
 
     final_proxy_options=$(
-        dialog --clear --separate-output --notags --title "代理选择" --yes-label "确认" --no-cancel --checklist "请选择代理,强制使用pip一般情况下不选" 20 60 10 \
+        dialog --clear --title "Term-SD" --backtitle "安装代理选项" --separate-output --notags --title "代理选择" --ok-label "确认" --no-cancel --checklist "请选择代理(强制使用pip一般情况下不选)" 20 60 10 \
         "1" "启用pip镜像源" ON \
         "2" "启用github代理" ON \
         "3" "强制使用pip" OFF 3>&1 1>&2 2>&3)
@@ -130,10 +130,10 @@ function proxy_option()
         for final_proxy_option in $final_proxy_options; do
         case "$final_proxy_option" in
         "1")
-        #python_proxy="-i https://mirror.sjtu.edu.cn/pypi/web/simple" #上海交大的镜像源有点问题,在安装invokeai时会报错,可能是软件包版本的问题
-        python_proxy="-i https://mirrors.bfsu.edu.cn/pypi/web/simple"
-        #extra_python_proxy="-f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
-        extra_python_proxy="-f https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html"
+        #pip_mirror="-i https://mirror.sjtu.edu.cn/pypi/web/simple" #上海交大的镜像源有点问题,在安装invokeai时会报错,可能是软件包版本的问题
+        pip_mirror="-i https://mirrors.bfsu.edu.cn/pypi/web/simple"
+        #extra_pip_mirror="-f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
+        extra_pip_mirror="-f https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html"
         final_install_check_python="启用"
         ;;
         "2")
@@ -153,11 +153,11 @@ function proxy_option()
 }
 
 #pytorch安装选择
-function python_dep_install()
+function pytorch_version_select()
 {
-    ins_pytorch=""
+    pytorch_install_version=""
 
-    final_python_dep_install=$(
+    final_pytorch_version_select=$(
         dialog --clear --title "Term-SD" --backtitle "pytorch安装版本选项" --ok-label "确认" --no-cancel --menu "请选择要安装的pytorch版本" 20 60 10 \
         "1" "Torch 2.0.1" \
         "2" "Torch 2.0.1+CPU" \
@@ -171,26 +171,26 @@ function python_dep_install()
         "0" "跳过安装" \
         3>&1 1>&2 2>&3)
 
-    if [ "${final_python_dep_install}" == '0' ]; then
-        ins_pytorch=""
-    elif [ "${final_python_dep_install}" == '1' ]; then
-        ins_pytorch="torch==2.0.1 torchvision==0.15.2"
-    elif [ "${final_python_dep_install}" == '2' ]; then
-        ins_pytorch="torch==2.0.1+cpu torchvision==0.15.2+cpu"
-    elif [ "${final_python_dep_install}" == '3' ]; then
-        ins_pytorch="torch==2.0.0 torchvision==0.15.1 torch-directml"
-    elif [ "${final_python_dep_install}" == '4' ]; then
-        ins_pytorch="torch==2.0.1+rocm5.4.2 torchvision==0.15.2+rocm5.4.2"
-    elif [ "${final_python_dep_install}" == '5' ]; then
-        ins_pytorch="torch==1.12.1+cu113 torchvision==0.13.1+cu113 xformers==0.0.14"
-    elif [ "${final_python_dep_install}" == '6' ]; then
-        ins_pytorch="torch==1.13.1+cu117 torchvision==0.14.1+cu117 xformers==0.0.16"
-    elif [ "${final_python_dep_install}" == '7' ]; then
-        ins_pytorch="torch==2.0.0+cu118 torchvision==0.15.1+cu118 xformers==0.0.18"
-    elif [ "${final_python_dep_install}" == '8' ]; then
-        ins_pytorch="torch==2.0.1+cu118 torchvision==0.15.2+cu118 xformers==0.0.20"
-    elif [ "${final_python_dep_install}" == '9' ]; then
-        ins_pytorch="torch==2.0.1+cu118 torchvision==0.15.2+cu118 xformers==0.0.21"
+    if [ "${final_pytorch_version_select}" == '0' ]; then
+        pytorch_install_version=""
+    elif [ "${final_pytorch_version_select}" == '1' ]; then
+        pytorch_install_version="torch==2.0.1 torchvision==0.15.2"
+    elif [ "${final_pytorch_version_select}" == '2' ]; then
+        pytorch_install_version="torch==2.0.1+cpu torchvision==0.15.2+cpu"
+    elif [ "${final_pytorch_version_select}" == '3' ]; then
+        pytorch_install_version="torch==2.0.0 torchvision==0.15.1 torch-directml"
+    elif [ "${final_pytorch_version_select}" == '4' ]; then
+        pytorch_install_version="torch==2.0.1+rocm5.4.2 torchvision==0.15.2+rocm5.4.2"
+    elif [ "${final_pytorch_version_select}" == '5' ]; then
+        pytorch_install_version="torch==1.12.1+cu113 torchvision==0.13.1+cu113 xformers==0.0.14"
+    elif [ "${final_pytorch_version_select}" == '6' ]; then
+        pytorch_install_version="torch==1.13.1+cu117 torchvision==0.14.1+cu117 xformers==0.0.16"
+    elif [ "${final_pytorch_version_select}" == '7' ]; then
+        pytorch_install_version="torch==2.0.0+cu118 torchvision==0.15.1+cu118 xformers==0.0.18"
+    elif [ "${final_pytorch_version_select}" == '8' ]; then
+        pytorch_install_version="torch==2.0.1+cu118 torchvision==0.15.2+cu118 xformers==0.0.20"
+    elif [ "${final_pytorch_version_select}" == '9' ]; then
+        pytorch_install_version="torch==2.0.1+cu118 torchvision==0.15.2+cu118 xformers==0.0.21"
     fi
 }
 
@@ -201,7 +201,7 @@ function pip_install_methon()
     final_install_check_pip_methon="常规安装(setup.py)"
 
     final_pip_install_methon=$(
-        dialog --clear --title "pip安装模式选择" --yes-label "确认" --no-cancel --menu "选择pip安装方式\n1、常规安装可能会有问题,但速度较快\n2、标准构建安装可解决一些报错问题,但速度较慢" 20 60 10 \
+        dialog --clear --title "Term-SD" --backtitle "pip安装模式选项" --ok-label "确认" --no-cancel --menu "请选择pip安装方式\n1、常规安装可能会有问题,但速度较快\n2、标准构建安装可解决一些报错问题,但速度较慢" 20 60 10 \
         "1" "常规安装(setup.py)" \
         "2" "标准构建安装(--use-pep517)" \
         3>&1 1>&2 2>&3 )
@@ -215,14 +215,14 @@ function pip_install_methon()
     fi
 }
 
-#重构前确认界面
+#安装前确认界面
 function final_install_check()
 {
-    if (dialog --clear --title "安装确认" --yes-label "是" --no-label "否" --yesno "是否进行安装? \n
+    if (dialog --clear --title "Term-SD" --backtitle "安装确认选项" --yes-label "是" --no-label "否" --yesno "是否进行安装? \n
 pip镜像源:$final_install_check_python \n
 github代理:$final_install_check_github\n
 强制使用pip:$final_install_check_force_pip\n
-pytorch:$ins_pytorch\n
+pytorch:$pytorch_install_version\n
 pip安装方式:$final_install_check_pip_methon\n
 " 20 60);then
         echo "安装参数设置完成"
@@ -230,6 +230,7 @@ pip安装方式:$final_install_check_pip_methon\n
         mainmenu
     fi
 }
+
 ###############################################################################
 
 #重构功能部分
@@ -239,7 +240,7 @@ function a1111_sd_webui_venv_rebuild()
 {
     #安装前的准备
     proxy_option #代理选择
-    python_dep_install #pytorch选择
+    pytorch_version_select #pytorch选择
     pip_install_methon #安装方式选择
     final_install_check #安装前确认
     echo "开始重构虚拟环境"
@@ -249,12 +250,12 @@ function a1111_sd_webui_venv_rebuild()
     venv_generate
     enter_venv
 
-    pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5 #"--default-timeout=100 --retries 5"在网络差导致下载中断时重试下载
-    pip install git+"$github_proxy"https://github.com/TencentARC/GFPGAN.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
-    pip install git+"$github_proxy"https://github.com/openai/CLIP.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
-    pip install git+"$github_proxy"https://github.com/mlfoundations/open_clip.git --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
-    pip install -r ./repositories/CodeFormer/requirements.txt --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
-    pip install -r ./requirements.txt --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5 #安装stable-diffusion-webui的依赖
+    pip install $pytorch_install_version $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5 #"--default-timeout=100 --retries 5"在网络差导致下载中断时重试下载
+    pip install git+"$github_proxy"https://github.com/TencentARC/GFPGAN.git --prefer-binary $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+    pip install git+"$github_proxy"https://github.com/openai/CLIP.git --prefer-binary $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+    pip install git+"$github_proxy"https://github.com/mlfoundations/open_clip.git --prefer-binary $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+    pip install -r ./repositories/CodeFormer/requirements.txt --prefer-binary $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+    pip install -r ./requirements.txt --prefer-binary $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5 #安装stable-diffusion-webui的依赖
 
     echo "重构结束"
     exit_venv
@@ -265,7 +266,7 @@ function comfyui_venv_rebuild()
 {
     #安装前的准备
     proxy_option #代理选择
-    python_dep_install #pytorch选择
+    pytorch_version_select #pytorch选择
     pip_install_methon #安装方式选择
     final_install_check #安装前确认
     echo "开始重构虚拟环境"
@@ -275,8 +276,8 @@ function comfyui_venv_rebuild()
     venv_generate
     enter_venv
 
-    pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
-    pip install -r ./requirements.txt  --prefer-binary $python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+    pip install $pytorch_install_version $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+    pip install -r ./requirements.txt  --prefer-binary $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
 
     echo "重构结束"
     exit_venv
@@ -287,7 +288,7 @@ function invokeai_venv_rebuild()
 {
     #安装前的准备
     proxy_option #代理选择
-    python_dep_install #pytorch选择
+    pytorch_version_select #pytorch选择
     pip_install_methon #安装方式选择
     final_install_check #安装前确认
     echo "开始重构虚拟环境"
@@ -297,7 +298,7 @@ function invokeai_venv_rebuild()
     venv_generate
     enter_venv
 
-    pip install invokeai $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+    pip install invokeai $pytorch_install_version $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
 
     echo "重构结束"
     exit_venv
@@ -308,7 +309,7 @@ function lora_scripts_venv_rebuild()
 {
     #安装前的准备
     proxy_option #代理选择
-    python_dep_install #pytorch选择
+    pytorch_version_select #pytorch选择
     pip_install_methon #安装方式选择
     final_install_check #安装前确认
     echo "开始重构虚拟环境"
@@ -318,12 +319,12 @@ function lora_scripts_venv_rebuild()
     venv_generate
     enter_venv
 
-    pip install $ins_pytorch $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+    pip install $pytorch_install_version $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
     cd ./sd-scripts
-    pip install $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --upgrade -r requirements.txt --default-timeout=100 --retries 5 #sd-scripts目录下还有个_typos.toml，在安装requirements.txt里的依赖时会指向这个文件
+    pip install $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --upgrade -r requirements.txt --default-timeout=100 --retries 5 #sd-scripts目录下还有个_typos.toml，在安装requirements.txt里的依赖时会指向这个文件
     cd ..
-    pip install $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --upgrade lion-pytorch dadaptation prodigyopt lycoris-lora fastapi uvicorn wandb scipy --default-timeout=100 --retries 5
-    pip install $python_proxy $extra_python_proxy $force_pip $pip_install_methon_select --upgrade -r requirements.txt --default-timeout=100 --retries 5 #lora-scripts安装依赖
+    pip install $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --upgrade lion-pytorch dadaptation prodigyopt lycoris-lora fastapi uvicorn wandb scipy --default-timeout=100 --retries 5
+    pip install $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --upgrade -r requirements.txt --default-timeout=100 --retries 5 #lora-scripts安装依赖
 
     echo "重构结束"
     exit_venv
@@ -369,7 +370,8 @@ function exit_venv()
 #pip镜像源选项
 function set_proxy_option()
 {
-    if (dialog --clear --title "pip镜像源选项" --yes-label "是" --no-label "否" --yesno "是否启用pip镜像源" 20 60) then
+    echo "获取pip全局配置"
+    if (dialog --clear --title "Term-SD" --backtitle "pip镜像源选项" --yes-label "是" --no-label "否" --yesno "pip全局配置:\n$(pip config list)\n是否启用pip镜像源?" 20 60) then
         #pip config set global.index-url "https://mirror.sjtu.edu.cn/pypi/web/simple"
         pip config set global.index-url "https://mirrors.bfsu.edu.cn/pypi/web/simple"
         #pip config set global.extra-index-url "https://mirror.sjtu.edu.cn/pytorch-wheels"
@@ -386,7 +388,7 @@ function set_proxy_option()
 function pip_cache_clean()
 {
     echo "统计pip缓存信息中"
-    if (dialog --clear --title "pip缓存清理" --yes-label "是" --no-label "否" --yesno "pip缓存信息:\npip缓存路径:$(pip cache dir)\n包索引页面缓存大小:$(pip cache info |awk NR==2 | awk -F ':'  '{print $2 $3 $4}')\n本地构建的wheel包大小:$(pip cache info |awk NR==5 | awk -F ':'  '{print $2 $3 $4}')\n是否删除pip缓存?" 20 60);then
+    if (dialog --clear --title "Term-SD" --backtitle "pip缓存清理选项" --yes-label "是" --no-label "否" --yesno "pip缓存信息:\npip缓存路径:$(pip cache dir)\n包索引页面缓存大小:$(pip cache info |awk NR==2 | awk -F ':'  '{print $2 $3 $4}')\n本地构建的wheel包大小:$(pip cache info |awk NR==5 | awk -F ':'  '{print $2 $3 $4}')\n是否删除pip缓存?" 20 60);then
         pip cache purge
     fi
     mainmenu
@@ -395,48 +397,4 @@ function pip_cache_clean()
 ###############################################################################
 #启动部分
 
-if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
-    test_python="python"
-else
-    test_python="python3"
-fi
-
-#判断系统是否安装必须使用的软件
-echo "检测依赖软件是否安装"
-unset missing_dep
-test_num=0
-if which dialog > /dev/null ;then
-    test_num=$(( $test_num + 1 ))
-else
-    missing_dep="$missing_dep dialog,"
-fi
-
-if which $test_python > /dev/null;then
-    test_num=$(( $test_num + 1 ))
-else
-    missing_dep="$missing_dep python,"
-fi
-
-if which pip >/dev/null;then
-    test_num=$(( $test_num + 1 ))
-else
-    missing_dep="$missing_dep pip,"
-fi
-
-if which git > /dev/null;then
-    test_num=$(( $test_num + 1 ))
-else
-    missing_dep="$missing_dep git,"
-fi
-
-if [ $test_num -ge 4 ];then
-    echo "启动中"
-    mainmenu
-else
-    echo "缺少以下依赖"
-    echo "--------------------"
-    echo $missing_dep
-    echo "--------------------"
-    echo "请安装后重试"
-    exit
-fi
+mainmenu

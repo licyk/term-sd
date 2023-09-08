@@ -3,9 +3,9 @@
 #安装前代理选择
 function proxy_option()
 {
-    python_proxy="-i https://pypi.python.org/simple"
-    extra_python_proxy="-f https://download.pytorch.org/whl/torch_stable.html"
-    #extra_python_proxy="--extra-index-url https://download.pytorch.org/whl"
+    pip_mirror="-i https://pypi.python.org/simple"
+    extra_pip_mirror="-f https://download.pytorch.org/whl/torch_stable.html"
+    #extra_pip_mirror="--extra-index-url https://download.pytorch.org/whl"
     github_proxy=""
     force_pip=""
     final_install_check_python="禁用"
@@ -22,10 +22,10 @@ function proxy_option()
         for final_proxy_option in $final_proxy_options; do
         case "$final_proxy_option" in
         "1")
-        #python_proxy="-i https://mirror.sjtu.edu.cn/pypi/web/simple" #上海交大的镜像源有点问题,在安装invokeai时会报错,可能是软件包版本的问题
-        python_proxy="-i https://mirrors.bfsu.edu.cn/pypi/web/simple"
-        #extra_python_proxy="-f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
-        extra_python_proxy="-f https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html"
+        #pip_mirror="-i https://mirror.sjtu.edu.cn/pypi/web/simple" #上海交大的镜像源有点问题,在安装invokeai时会报错,可能是软件包版本的问题
+        pip_mirror="-i https://mirrors.bfsu.edu.cn/pypi/web/simple"
+        #extra_pip_mirror="-f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
+        extra_pip_mirror="-f https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html"
         final_install_check_python="启用"
         ;;
         "2")
@@ -48,22 +48,22 @@ function proxy_option()
 function comfyui_extension_option()
 {
     #清空插件选择
-    extension_install_list=""
+    comfyui_extension_install_list=""
 
-    extension_list=$(
+    comfyui_extension_list=$(
         dialog --clear --title "Term-SD" --backtitle "ComfyUI插件安装选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "请选择要安装的ComfyUI插件" 20 60 10 \
         "1" "ComfyUI-extensions" OFF \
         "2" "graphNavigator" OFF \
         3>&1 1>&2 2>&3)
 
-    if [ ! -z "$extension_list" ]; then
-        for extension_list_ in $extension_list; do
-        case "$extension_list_" in
+    if [ ! -z "$comfyui_extension_list" ]; then
+        for comfyui_extension_list_ in $comfyui_extension_list; do
+        case "$comfyui_extension_list_" in
         "1")
-        extension_install_list="https://github.com/diffus3/ComfyUI-extensions $extension_install_list"
+        comfyui_extension_install_list="https://github.com/diffus3/ComfyUI-extensions $comfyui_extension_install_list"
         ;;
         "2")
-        extension_install_list="https://github.com/rock-land/graphNavigator $extension_install_list"
+        comfyui_extension_install_list="https://github.com/rock-land/graphNavigator $comfyui_extension_install_list"
         ;;
         *)
         exit 1
@@ -77,10 +77,10 @@ function comfyui_extension_option()
 function comfyui_custom_node_option()
 {
     #清空插件选择
-    custom_node_install_list=""
-    extension_model_1="1"
+    comfyui_custom_node_install_list=""
+    comfyui_custom_node_extension_model_1="1"
 
-    extension_list=$(
+    comfyui_custom_node_list=$(
         dialog --clear --title "Term-SD" --backtitle "ComfyUI自定义节点安装选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "请选择要安装的ComfyUI自定义节点" 20 60 10 \
         "1" "was-node-suite-comfyui" OFF \
         "2" "ComfyUI_Cutoff" OFF \
@@ -123,126 +123,126 @@ function comfyui_custom_node_option()
         "39" "AIGODLIKE-COMFYUI-TRANSLATION" OFF \
         3>&1 1>&2 2>&3)
 
-    if [ ! -z "$extension_list" ]; then
-        for extension_list_ in $extension_list; do
-        case "$extension_list_" in
+    if [ ! -z "$comfyui_custom_node_list" ]; then
+        for comfyui_custom_node_list_ in $comfyui_custom_node_list; do
+        case "$comfyui_custom_node_list_" in
         "1")
-        custom_node_install_list="https://github.com/WASasquatch/was-node-suite-comfyui $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/WASasquatch/was-node-suite-comfyui $comfyui_custom_node_install_list"
         ;;
         "2")
-        custom_node_install_list="https://github.com/BlenderNeko/ComfyUI_Cutoff $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/BlenderNeko/ComfyUI_Cutoff $comfyui_custom_node_install_list"
         ;;
         "3")
-        custom_node_install_list="https://github.com/BlenderNeko/ComfyUI_TiledKSampler $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/BlenderNeko/ComfyUI_TiledKSampler $comfyui_custom_node_install_list"
         ;;
         "4")
-        custom_node_install_list="https://github.com/BlenderNeko/ComfyUI_ADV_CLIP_emb $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/BlenderNeko/ComfyUI_ADV_CLIP_emb $comfyui_custom_node_install_list"
         ;;
         "5")
-        custom_node_install_list="https://github.com/BlenderNeko/ComfyUI_Noise $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/BlenderNeko/ComfyUI_Noise $comfyui_custom_node_install_list"
         ;;
         "6")
-        custom_node_install_list="https://github.com/Davemane42/ComfyUI_Dave_CustomNode $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/Davemane42/ComfyUI_Dave_CustomNode $comfyui_custom_node_install_list"
         ;;
         "7")
-        custom_node_install_list="https://github.com/ltdrdata/ComfyUI-Impact-Pack $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/ltdrdata/ComfyUI-Impact-Pack $comfyui_custom_node_install_list"
         ;;
         "8")
-        custom_node_install_list="https://github.com/ltdrdata/ComfyUI-Manager $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/ltdrdata/ComfyUI-Manager $comfyui_custom_node_install_list"
         ;;
         "9")
-        custom_node_install_list="https://github.com/Zuellni/ComfyUI-Custom-Nodes $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/Zuellni/ComfyUI-Custom-Nodes $comfyui_custom_node_install_list"
         ;;
         "10")
-        custom_node_install_list="https://github.com/pythongosssss/ComfyUI-Custom-Scripts $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/pythongosssss/ComfyUI-Custom-Scripts $comfyui_custom_node_install_list"
         ;;
         "11")
-        custom_node_install_list="https://github.com/xXAdonesXx/NodeGPT $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/xXAdonesXx/NodeGPT $comfyui_custom_node_install_list"
         ;;
         "12")
-        custom_node_install_list="https://github.com/Derfuu/Derfuu_ComfyUI_ModdedNodes $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/Derfuu/Derfuu_ComfyUI_ModdedNodes $comfyui_custom_node_install_list"
         ;;
         "13")
-        custom_node_install_list="https://github.com/LucianoCirino/efficiency-nodes-comfyui $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/LucianoCirino/efficiency-nodes-comfyui $comfyui_custom_node_install_list"
         ;;
         "14")
-        custom_node_install_list="https://github.com/lilly1987/ComfyUI_node_Lilly $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/lilly1987/ComfyUI_node_Lilly $comfyui_custom_node_install_list"
         ;;
         "15")
-        custom_node_install_list="https://github.com/hnmr293/ComfyUI-nodes-hnmr $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/hnmr293/ComfyUI-nodes-hnmr $comfyui_custom_node_install_list"
         ;;
         "16")
-        custom_node_install_list="https://github.com/diontimmer/ComfyUI-Vextra-Nodes $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/diontimmer/ComfyUI-Vextra-Nodes $comfyui_custom_node_install_list"
         ;;
         "17")
-        custom_node_install_list="https://github.com/omar92/ComfyUI-QualityOfLifeSuit_Omar92 $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/omar92/ComfyUI-QualityOfLifeSuit_Omar92 $comfyui_custom_node_install_list"
         ;;
         "18")
-        custom_node_install_list="https://github.com/Fannovel16/FN16-ComfyUI-nodes $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/Fannovel16/FN16-ComfyUI-nodes $comfyui_custom_node_install_list"
         ;;
         "19")
-        custom_node_install_list="https://github.com/BadCafeCode/masquerade-nodes-comfyui $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/BadCafeCode/masquerade-nodes-comfyui $comfyui_custom_node_install_list"
         ;;
         "20")
-        custom_node_install_list="https://github.com/EllangoK/ComfyUI-post-processing-nodes $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/EllangoK/ComfyUI-post-processing-nodes $comfyui_custom_node_install_list"
         ;;
         "21")
-        custom_node_install_list="https://github.com/LEv145/images-grid-comfy-plugin $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/LEv145/images-grid-comfy-plugin $comfyui_custom_node_install_list"
         ;;
         "22")
-        custom_node_install_list="https://github.com/biegert/ComfyUI-CLIPSeg $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/biegert/ComfyUI-CLIPSeg $comfyui_custom_node_install_list"
         ;;
         "23")
-        custom_node_install_list="https://github.com/Jcd1230/rembg-comfyui-node $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/Jcd1230/rembg-comfyui-node $comfyui_custom_node_install_list"
         ;;
         "24")
-        custom_node_install_list="https://github.com/TinyTerra/ComfyUI_tinyterraNodes $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/TinyTerra/ComfyUI_tinyterraNodes $comfyui_custom_node_install_list"
         ;;
         "25")
-        custom_node_install_list="https://github.com/guoyk93/yk-node-suite-comfyui $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/guoyk93/yk-node-suite-comfyui $comfyui_custom_node_install_list"
         ;;
         "26")
-        custom_node_install_list="https://github.com/comfyanonymous/ComfyUI_experiments $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/comfyanonymous/ComfyUI_experiments $comfyui_custom_node_install_list"
         ;;
         "27")
-        custom_node_install_list="https://github.com/gamert/ComfyUI_tagger $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/gamert/ComfyUI_tagger $comfyui_custom_node_install_list"
         ;;
         "28")
-        custom_node_install_list="https://github.com/YinBailiang/MergeBlockWeighted_fo_ComfyUI $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/YinBailiang/MergeBlockWeighted_fo_ComfyUI $comfyui_custom_node_install_list"
         ;;
         "29")
-        custom_node_install_list="https://github.com/Kaharos94/ComfyUI-Saveaswebp $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/Kaharos94/ComfyUI-Saveaswebp $comfyui_custom_node_install_list"
         ;;
         "30")
-        custom_node_install_list="https://github.com/trojblue/trNodes $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/trojblue/trNodes $comfyui_custom_node_install_list"
         ;;
         "31")
-        custom_node_install_list="https://github.com/city96/ComfyUI_NetDist $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/city96/ComfyUI_NetDist $comfyui_custom_node_install_list"
         ;;
         "32")
-        custom_node_install_list="https://github.com/SLAPaper/ComfyUI-Image-Selector $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/SLAPaper/ComfyUI-Image-Selector $comfyui_custom_node_install_list"
         ;;
         "33")
-        custom_node_install_list="https://github.com/strimmlarn/ComfyUI-Strimmlarns-Aesthetic-Score $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/strimmlarn/ComfyUI-Strimmlarns-Aesthetic-Score $comfyui_custom_node_install_list"
         ;;
         "34")
-        custom_node_install_list="https://github.com/ssitu/ComfyUI_UltimateSDUpscale $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/ssitu/ComfyUI_UltimateSDUpscale $comfyui_custom_node_install_list"
         ;;
         "35")
-        custom_node_install_list="https://github.com/space-nuko/ComfyUI-Disco-Diffusion $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/space-nuko/ComfyUI-Disco-Diffusion $comfyui_custom_node_install_list"
         ;;
         "36")
-        custom_node_install_list="https://github.com/Bikecicle/ComfyUI-Waveform-Extensions $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/Bikecicle/ComfyUI-Waveform-Extensions $comfyui_custom_node_install_list"
         ;;
         "37")
-        custom_node_install_list="https://github.com/AlekPet/ComfyUI_Custom_Nodes_AlekPet $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/AlekPet/ComfyUI_Custom_Nodes_AlekPet $comfyui_custom_node_install_list"
         ;;
         "38")
-        custom_node_install_list="https://github.com/Fannovel16/comfyui_controlnet_aux $custom_node_install_list"
-        extension_model_1=0
+        comfyui_custom_node_install_list="https://github.com/Fannovel16/comfyui_controlnet_aux $comfyui_custom_node_install_list"
+        comfyui_custom_node_extension_model_1=0
         ;;
         "39")
-        custom_node_install_list="https://github.com/AIGODLIKE/AIGODLIKE-COMFYUI-TRANSLATION $custom_node_install_list"
+        comfyui_custom_node_install_list="https://github.com/AIGODLIKE/AIGODLIKE-COMFYUI-TRANSLATION $comfyui_custom_node_install_list"
         ;;
         *)
         exit 1
@@ -255,21 +255,21 @@ function comfyui_custom_node_option()
 #comfyui安装处理部分
 function process_install_comfyui()
 {
-    if [ ! -z "$extension_install_list" ];then
+    if [ ! -z "$comfyui_extension_install_list" ];then
         echo "安装插件中"
-        for extension_install_list_ in $extension_install_list ;do
-            git clone "$github_proxy"$extension_install_list_ ./ComfyUI/web/extensions/$(echo $extension_install_list_ | awk -F'/' '{print $NF}')
+        for comfyui_extension_install_list_ in $comfyui_extension_install_list ;do
+            git clone "$github_proxy"$comfyui_extension_install_list_ ./ComfyUI/web/extensions/$(echo $comfyui_extension_install_list_ | awk -F'/' '{print $NF}')
         done
     fi
 
-    if [ ! -z "$custom_node_install_list" ];then
+    if [ ! -z "$comfyui_custom_node_install_list" ];then
         echo "安装自定义节点中"
-        for custom_node_install_list_ in $custom_node_install_list ;do
-            git clone "$github_proxy"$custom_node_install_list_ ./ComfyUI/custom_nodes/$(echo $custom_node_install_list_ | awk -F'/' '{print $NF}')
+        for comfyui_custom_node_install_list_ in $comfyui_custom_node_install_list ;do
+            git clone "$github_proxy"$comfyui_custom_node_install_list_ ./ComfyUI/custom_nodes/$(echo $comfyui_custom_node_install_list_ | awk -F'/' '{print $NF}')
         done
     fi
 
-    if [ $extension_model_1 = 0 ];then
+    if [ $comfyui_custom_node_extension_model_1 = 0 ];then
         echo "下载controlnet模型中"
         aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11e_sd15_ip2p_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11e_sd15_ip2p_fp16.safetensors
         aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11e_sd15_shuffle_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11e_sd15_shuffle_fp16.safetensors
@@ -311,6 +311,10 @@ function process_install_comfyui()
         aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_depth_sd15v2.pth -d ./ComfyUI/models/controlnet -o t2iadapter_depth_sd15v2.pth
         aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_sketch_sd15v2.pth -d ./ComfyUI/models/controlnet -o t2iadapter_sketch_sd15v2.pth
         aria2c https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_zoedepth_sd15v1.pth -d ./ComfyUI/models/controlnet -o t2iadapter_zoedepth_sd15v1.pth
+        aria2c https://huggingface.co/ioclab/ioc-controlnet/resolve/main/models/control_v1p_sd15_brightness.safetensors -d ./ComfyUI/models/controlnet -o control_v1p_sd15_brightness.safetensors
+        aria2c https://huggingface.co/ioclab/ioc-controlnet/resolve/main/models/control_v1p_sd15_illumination.safetensors -d ./ComfyUI/models/controlnet -o control_v1p_sd15_illumination.safetensors
+        aria2c https://huggingface.co/monster-labs/control_v1p_sd15_qrcode_monster/resolve/main/control_v1p_sd15_qrcode_monster.safetensors -d ./ComfyUI/models/controlnet -o control_v1p_sd15_qrcode_monster.safetensors
+        aria2c https://huggingface.co/monster-labs/control_v1p_sd15_qrcode_monster/resolve/main/control_v1p_sd15_qrcode_monster.yaml -d ./ComfyUI/models/controlnet -o control_v1p_sd15_qrcode_monster.yaml
     fi
 }
 

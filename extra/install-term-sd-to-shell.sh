@@ -67,7 +67,7 @@ term_sd_shell_config="termsd(){ user_input_for_term_sd=$(echo \"\$1 \$2 \$3 \$4 
 
 user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') #读取用户所使用的shell
 
-if [ $user_shell = bash ] | [ $user_shell = zsh ];then
+if [ $user_shell = bash ] || [ $user_shell = zsh ];then
     mainmenu
 else
     echo "不支持该shell"
