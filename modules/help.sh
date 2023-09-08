@@ -352,6 +352,9 @@ ebsynth_utility:视频处理扩展   \n
 sd_dreambooth_extension:dreambooth模型训练   \n
 sd-webui-memory-release:显存释放扩展   \n
 stable-diffusion-webui-dataset-tag-editor:训练集打标和处理扩展   \n
+sd-webui-stablesr:图片放大\n
+sd-webui-deoldify:黑白图片上色\n
+stable-diffusion-webui-model-toolkit:大模型数据查看\n
 \n
 \n
 " 20 60

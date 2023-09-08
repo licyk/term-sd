@@ -18,7 +18,7 @@ function a1111_sd_webui_extension_option()
         "4" "multidiffusion-upscaler-for-automatic1111" ON \
         "5" "sd-dynamic-thresholding" ON \
         "6" "sd-webui-cutoff" ON \
-        "7" "sd-webui-model-converter" OFF \
+        "7" "sd-webui-model-converter" ON \
         "8" "sd-webui-supermerger" OFF \
         "9" "stable-diffusion-webui-localization-zh_Hans" ON \
         "10" "stable-diffusion-webui-wd14-tagger" ON \
@@ -62,6 +62,7 @@ function a1111_sd_webui_extension_option()
         "48" "stable-diffusion-webui-dataset-tag-editor" OFF \
         "49" "sd-webui-stablesr" OFF \
         "50" "sd-webui-deoldify" OFF \
+        "51" "stable-diffusion-webui-model-toolkit" OFF \
         3>&1 1>&2 2>&3)
 
     if [ ! -z "$extension_list" ]; then
@@ -219,6 +220,9 @@ function a1111_sd_webui_extension_option()
         ;;
         "50")
         a1111_sd_webui_extension_install_list="https://github.com/SpenserCai/sd-webui-deoldify $a1111_sd_webui_extension_install_list"
+        ;;
+        "51")
+        a1111_sd_webui_extension_install_list="https://github.com/arenasys/stable-diffusion-webui-model-toolkit $a1111_sd_webui_extension_install_list"
         ;;
         *)
         exit 1
