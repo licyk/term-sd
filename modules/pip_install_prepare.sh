@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 #安装前代理选择
 function proxy_option()

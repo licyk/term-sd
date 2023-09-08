@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 #lora-scripts选项
 function lora_scripts_option()

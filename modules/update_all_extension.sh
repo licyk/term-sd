@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 #该功能在a1111-sd-webui,comfyui中共用的
 #一键更新全部插件功能

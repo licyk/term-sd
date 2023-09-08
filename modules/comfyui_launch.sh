@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 #comfyui启动脚本生成部分
 function generate_comfyui_launch()

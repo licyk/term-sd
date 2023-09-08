@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 #这个脚本是从term-sd中独立出来的，用来安装插件
 

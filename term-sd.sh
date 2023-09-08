@@ -26,6 +26,9 @@ function term_sd_process_user_input()
         echo "        卸载Term-SD"
         exit 1
         ;;
+        "--remove-term-sd")
+        remove_term_sd
+        ;;
         "--multi-threaded-download")
         echo "安装过程中启用多线程下载模型"
         aria2_multi_threaded="-x 8"
@@ -38,12 +41,6 @@ function term_sd_process_user_input()
         echo "禁用Term-SD自动检查更新功能"
         rm -rf ./term-sd/term-sd-auto-update.lock
         rm -rf ./term-sd/term-sd-auto-update-time.conf
-        ;;
-        "--remove-term-sd")
-        echo "开始卸载Term-SD"
-        rm -rf ./term-sd
-        rm -rf ./term-sd.sh
-        echo "Term-SD卸载完成"
         ;;
         "--extra")
         term_sd_extra_scripts
@@ -290,6 +287,24 @@ function term_sd_install_mirror_select()
         echo "未输入,请重试"
         term_sd_install_mirror_select
     fi
+}
+
+#term-sd卸载功能
+function remove_term_sd()
+{
+    remove_term_sd_option=""
+    echo "是否卸载Term-SD"
+    echo "提示:输入yes或no后回车"
+    read -p "==>" remove_term_sd_option
+    if [ ! -z  $remove_term_sd_option ];then
+        if [ $remove_term_sd_option = yes ] | [ $remove_term_sd_option = y ] | [ $remove_term_sd_option = YES ] | [ $remove_term_sd_option = Y ] ;then
+            echo "开始卸载Term-SD"
+            rm -rf ./term-sd
+            rm -rf ./term-sd.sh
+            echo "Term-SD卸载完成"
+        fi
+    fi
+    exit 1
 }
 
 #################################################

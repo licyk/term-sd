@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 #term-sd更新功能
 function term_sd_update_option()

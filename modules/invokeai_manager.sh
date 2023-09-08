@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 #InvokeAI选项
 function invokeai_option()

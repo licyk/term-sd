@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 #invokeai启动脚本生成部分
 function generate_invokeai_launch()

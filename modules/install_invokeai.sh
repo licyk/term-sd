@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 #invokeai安装处理部分
 function process_install_invokeai()

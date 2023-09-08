@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 #term-sd初始化部分
 function term_sd_init()

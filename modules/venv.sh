@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 #venv虚拟环境处理
 

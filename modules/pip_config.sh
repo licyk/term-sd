@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 #pip镜像源选项
 function set_proxy_option()

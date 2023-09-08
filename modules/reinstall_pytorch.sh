@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 #选择重新安装pytorch
 function pytorch_reinstall()

@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 #a1111-sd-webui启动脚本生成部分
 function generate_a1111_sd_webui_launch()

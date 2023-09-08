@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 #lora-scipts安装处理部分
 function process_install_lora_scripts()

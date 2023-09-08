@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 #a1111-sd-webui
 #插件的安装或管理选项(该部分最先被调用)

@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 #automatic1111-webui插件选择
 function a1111_sd_webui_extension_option()

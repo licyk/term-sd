@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 #主界面
 function mainmenu()

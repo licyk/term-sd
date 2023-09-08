@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 #comfyui
 #comfyui的扩展分为两种,一种是前端节点,另一种是后端扩展.详见:https://github.com/comfyanonymous/ComfyUI/discussions/631

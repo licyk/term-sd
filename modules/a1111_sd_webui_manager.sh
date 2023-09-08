@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 #a1111_sd_webui_option选项
 function a1111_sd_webui_option()

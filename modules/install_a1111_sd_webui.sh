@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 #a1111-sd-webui安装处理部分
 function process_install_a1111_sd_webui()

@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 #comfyui插件选择
 function comfyui_extension_option()

@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 #comfyui选项
 function comfyui_option()

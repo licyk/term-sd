@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 #设置启动时脚本路径
 start_path=$(pwd)

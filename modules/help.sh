@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 #term-sd帮助功能
 

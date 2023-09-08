@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 #该功能在a1111-sd-webui,comfyui,lora-script中共用的
 #版本切换模块
