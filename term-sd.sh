@@ -297,7 +297,7 @@ function remove_term_sd()
     echo "提示:输入yes或no后回车"
     read -p "==>" remove_term_sd_option
     if [ ! -z  $remove_term_sd_option ];then
-        if [ $remove_term_sd_option = yes ] | [ $remove_term_sd_option = y ] | [ $remove_term_sd_option = YES ] | [ $remove_term_sd_option = Y ] ;then
+        if [ $remove_term_sd_option = yes ] || [ $remove_term_sd_option = y ] || [ $remove_term_sd_option = YES ] || [ $remove_term_sd_option = Y ];then
             echo "开始卸载Term-SD"
             rm -rf ./term-sd
             rm -rf ./term-sd.sh
