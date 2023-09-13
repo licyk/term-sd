@@ -120,10 +120,7 @@ function operate_comfyui_custom_node()
             cd -
             dep_info="" #清除上次运行结果
 
-            if [ -f "./install.py" ];then
-                echo "安装"$comfyui_custom_node_selection"依赖"
-                dep_info="$dep_info\n "$comfyui_custom_node_selection"插件:\n" #作为显示安装结果信息
-            elif [ -f "./requirements.txt" ];then
+            if [ -f "./install.py" ] || [ -f "./requirements.txt" ];then
                 echo "安装"$comfyui_custom_node_selection"依赖"
                 dep_info="$dep_info\n "$comfyui_custom_node_selection"插件:\n" #作为显示安装结果信息
             fi
@@ -293,10 +290,7 @@ function operate_comfyui_extension()
             cd -
             dep_info="" #清除上次运行结果
 
-            if [ -f "./install.py" ];then
-                echo "安装"$comfyui_extension_selection"依赖"
-                dep_info="$dep_info\n "$comfyui_extension_selection"插件:\n" #作为显示安装结果信息
-            elif [ -f "./requirements.txt" ];then
+            if [ -f "./install.py" ] || [ -f "./requirements.txt" ];then
                 echo "安装"$comfyui_extension_selection"依赖"
                 dep_info="$dep_info\n "$comfyui_extension_selection"插件:\n" #作为显示安装结果信息
             fi
@@ -360,10 +354,7 @@ function comfyui_extension_dep_install()
     do
         [ -f "$extension_folder" ] && continue #排除文件
         cd $extension_folder
-        if [ -f "./install.py" ];then
-            echo "安装"$extension_folder"依赖"
-            dep_info="$dep_info\n "$extension_folder"插件:\n" #作为显示安装结果信息
-        elif [ -f "./requirements.txt" ];then
+        if [ -f "./install.py" ] || [ -f "./requirements.txt" ];then
             echo "安装"$extension_folder"依赖"
             dep_info="$dep_info\n "$extension_folder"插件:\n" #作为显示安装结果信息
         fi
