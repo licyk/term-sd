@@ -348,14 +348,24 @@ function comfyui_extension_dep_install()
     cd "$start_path/ComfyUI"
     enter_venv
     cd -
-    extension_folder=""
     dep_info="" #清除上次运行结果
+    extension_dep_to_install="0"
+    extension_dep_to_install_="0"
+
+    for extension_folder in ./* ;do #统计需要安装的依赖
+        [ -f "$extension_folder" ] && continue #排除文件
+        if [ -f "./$extension_folder/install.py" ] || [ -f "./$extension_folder/requirements.txt" ];then
+            extension_dep_to_install=$(( $extension_dep_to_install + 1 ))
+        fi
+    done
+
     for extension_folder in ./*
     do
         [ -f "$extension_folder" ] && continue #排除文件
         cd $extension_folder
         if [ -f "./install.py" ] || [ -f "./requirements.txt" ];then
-            echo "安装"$extension_folder"依赖"
+            extension_dep_to_install_=$(( $extension_dep_to_install_ + 1 ))
+            echo "[$extension_dep_to_install_/$extension_dep_to_install] 安装"$extension_folder"依赖"
             dep_info="$dep_info\n "$extension_folder"插件:\n" #作为显示安装结果信息
         fi
 
