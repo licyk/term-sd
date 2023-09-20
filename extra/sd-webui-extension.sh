@@ -109,6 +109,8 @@ function a1111_sd_webui_extension_option()
         "49" "sd-webui-stablesr" OFF \
         "50" "sd-webui-deoldify" OFF \
         "51" "stable-diffusion-webui-model-toolkit" OFF \
+        "52" "sd-webui-oldsix-prompt-dynamic" OFF \
+        "53" "sd-webui-fastblend" OFF \
         3>&1 1>&2 2>&3)
 
     if [ ! -z "$extension_list" ]; then
@@ -269,6 +271,12 @@ function a1111_sd_webui_extension_option()
         ;;
         "51")
         a1111_sd_webui_extension_install_list="https://github.com/arenasys/stable-diffusion-webui-model-toolkit $a1111_sd_webui_extension_install_list"
+        ;;
+        "52")
+        a1111_sd_webui_extension_install_list="https://github.com/Bobo-1125/sd-webui-oldsix-prompt-dynamic $a1111_sd_webui_extension_install_list"
+        ;;
+        "53")
+        a1111_sd_webui_extension_install_list="https://github.com/Artiprocher/sd-webui-fastblend $a1111_sd_webui_extension_install_list"
         ;;
         *)
         exit 1
