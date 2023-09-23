@@ -45,7 +45,7 @@ function comfyui_custom_node_option()
         "5" "ComfyUI_Noise" OFF \
         "6" "ComfyUI_Dave_CustomNode" OFF \
         "7" "ComfyUI-Impact-Pack" OFF \
-        "8" "ComfyUI-Manager" OFF \
+        "8" "ComfyUI-Manager" ON \
         "9" "ComfyUI-Custom-Nodes" OFF \
         "10" "ComfyUI-Custom-Scripts" OFF \
         "11" "NodeGPT" OFF \
