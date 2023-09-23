@@ -357,6 +357,8 @@ sd-webui-deoldify:黑白图片上色\n
 stable-diffusion-webui-model-toolkit:大模型数据查看\n
 sd-webui-oldsix-prompt-dynamic:动态提示词\n
 sd-webui-fastblend:ai视频平滑\n
+StyleSelectorXL:选择SDXL模型画风\n
+sd-dynamic-prompts:动态提示词\n
 \n
 \n
 " 20 60
