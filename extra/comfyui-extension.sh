@@ -121,6 +121,7 @@ function comfyui_custom_node_option()
         "37" "ComfyUI_Custom_Nodes_AlekPet" OFF \
         "38" "comfyui_controlnet_aux" OFF \
         "39" "AIGODLIKE-COMFYUI-TRANSLATION" OFF \
+        "40" "stability-ComfyUI-nodes" OFF \
         3>&1 1>&2 2>&3)
 
     if [ ! -z "$comfyui_custom_node_list" ]; then
@@ -243,6 +244,9 @@ function comfyui_custom_node_option()
         ;;
         "39")
         comfyui_custom_node_install_list="https://github.com/AIGODLIKE/AIGODLIKE-COMFYUI-TRANSLATION $comfyui_custom_node_install_list"
+        ;;
+        "40")
+        comfyui_custom_node_install_list="https://github.com/Stability-AI/stability-ComfyUI-nodes $comfyui_custom_node_install_list"
         ;;
         *)
         exit 1

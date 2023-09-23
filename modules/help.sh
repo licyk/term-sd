@@ -355,6 +355,8 @@ stable-diffusion-webui-dataset-tag-editor:训练集打标和处理扩展   \n
 sd-webui-stablesr:图片放大\n
 sd-webui-deoldify:黑白图片上色\n
 stable-diffusion-webui-model-toolkit:大模型数据查看\n
+sd-webui-oldsix-prompt-dynamic:动态提示词\n
+sd-webui-fastblend:ai视频平滑\n
 \n
 \n
 " 20 60
@@ -410,6 +412,7 @@ ComfyUI-Waveform-Extensions:一些额外的音频工具,用于示例扩散ComfyU
 ComfyUI_Custom_Nodes_AlekPet:包括姿势,翻译等节点   \n
 comfy_controlnet_preprocessors:ComfyUI的ControlNet辅助预处理器   \n
 AIGODLIKE-COMFYUI-TRANSLATION:ComfyUI的翻译扩展   \n
+stability-ComfyUI-nodes:Stability-AI自定义节点支持   \n
 \n
 \n
 " 20 60
