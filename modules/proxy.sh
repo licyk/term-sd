@@ -16,8 +16,8 @@ function set_proxy_option()
             if [ $? = 0 ];then
                 export http_proxy="http://$proxy_config"
                 export https_proxy="http://$proxy_config"
-                echo "http://$proxy_config" > proxy.config
-                mv -f ./proxy.config ./term-sd/
+                echo "http://$proxy_config" > proxy.conf
+                mv -f ./proxy.conf ./term-sd/
             fi
             set_proxy_option
         elif [ $set_proxy_option_ = 2 ];then
@@ -25,8 +25,8 @@ function set_proxy_option()
             if [ $? = 0 ];then
                 export http_proxy="socks://$proxy_config"
                 export https_proxy="socks://$proxy_config"
-                echo "socks://$proxy_config" > proxy.config
-                mv -f ./proxy.config ./term-sd/
+                echo "socks://$proxy_config" > proxy.conf
+                mv -f ./proxy.conf ./term-sd/
             fi
             set_proxy_option
         elif [ $set_proxy_option_ = 3 ];then
@@ -34,12 +34,12 @@ function set_proxy_option()
             if [ $? = 0 ];then
                 export http_proxy="socks5://$proxy_config"
                 export https_proxy="socks5://$proxy_config"
-                echo "socks5://$proxy_config" > proxy.config
-                mv -f ./proxy.config ./term-sd/
+                echo "socks5://$proxy_config" > proxy.conf
+                mv -f ./proxy.conf ./term-sd/
             fi
             set_proxy_option
         elif [ $set_proxy_option_ = 4 ];then
-            rm -rf ./term-sd/proxy.config
+            rm -rf ./term-sd/proxy.conf
             export http_proxy=""
             export https_proxy=""
             set_proxy_option

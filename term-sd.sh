@@ -330,10 +330,10 @@ else
     test_python="python3"
 fi
 
-if [ -f "./term-sd/proxy.config" ];then #读取代理设置并设置代理
-    export http_proxy=$(cat ./term-sd/proxy.config)
-    export https_proxy=$(cat ./term-sd/proxy.config)
-    #export all_proxy=$(cat ./term-sd/proxy.config)
+if [ -f "./term-sd/proxy.conf" ];then #读取代理设置并设置代理
+    export http_proxy=$(cat ./term-sd/proxy.conf)
+    export https_proxy=$(cat ./term-sd/proxy.conf)
+    #export all_proxy=$(cat ./term-sd/proxy.conf)
     #代理变量的说明:https://blog.csdn.net/Dancen/article/details/128045261
 fi
 
