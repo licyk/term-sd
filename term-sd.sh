@@ -46,7 +46,11 @@ function term_sd_process_user_input()
         ;;
         "--test-proxy")
         if which curl > /dev/null;then
+            echo "------------------------------"
+            echo "测试网络环境"
             curl ipinfo.io
+            ; echo
+            echo "------------------------------"
         else
             echo "未安装curl,无法测试代理"
         fi
@@ -380,9 +384,9 @@ if [ $test_num -ge 5 ];then
     fi
 else
     echo "缺少以下依赖"
-    echo "--------------------"
+    echo "------------------------------"
     echo $missing_dep
-    echo "--------------------"
+    echo "------------------------------"
     echo "请安装后重试"
     exit 1
 fi
