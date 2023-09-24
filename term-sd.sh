@@ -313,8 +313,8 @@ function remove_term_sd()
             echo "开始卸载Term-SD"
             rm -rf ./term-sd
             rm -rf ./term-sd.sh
+            user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') #读取用户所使用的shell
             if [ $user_shell = bash ] || [ $user_shell = zsh ];then
-                user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') #读取用户所使用的shell
                 cd ~
                 sed -i '/termsd(){/d' ."$user_shell"rc
                 cd - > /dev/null
