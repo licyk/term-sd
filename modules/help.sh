@@ -359,6 +359,7 @@ sd-webui-oldsix-prompt-dynamic:动态提示词\n
 sd-webui-fastblend:ai视频平滑\n
 StyleSelectorXL:选择SDXL模型画风\n
 sd-dynamic-prompts:动态提示词\n
+LightDiffusionFlow:保存工作流\n
 \n
 \n
 " 20 60

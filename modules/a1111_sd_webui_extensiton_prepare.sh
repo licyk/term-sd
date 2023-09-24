@@ -67,6 +67,7 @@ function a1111_sd_webui_extension_option()
         "53" "sd-webui-fastblend" OFF \
         "54" "StyleSelectorXL" OFF \
         "55" "sd-dynamic-prompts" OFF \
+        "56" "LightDiffusionFlow" OFF \
         3>&1 1>&2 2>&3)
 
     if [ ! -z "$extension_list" ]; then
@@ -239,6 +240,9 @@ function a1111_sd_webui_extension_option()
         ;;
         "55")
         a1111_sd_webui_extension_install_list="https://github.com/adieyal/sd-dynamic-prompts $a1111_sd_webui_extension_install_list"
+        ;;
+        "56")
+        a1111_sd_webui_extension_install_list="https://github.com/Tencent/LightDiffusionFlow $a1111_sd_webui_extension_install_list"
         ;;
         *)
         exit 1
