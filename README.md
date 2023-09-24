@@ -109,7 +109,7 @@ brew install git aria2 dialog python
 
     ./term-sd.sh
 
-启动后按照提示安装ter-sd组件后即可正常使用
+启动后按照提示安装term-sd组件后即可正常使用
 
 ***
 
