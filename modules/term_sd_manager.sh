@@ -6,7 +6,7 @@ function mainmenu()
     cd "$start_path" #回到最初路径
     exit_venv #确保进行下一步操作前已退出其他虚拟环境
     mainmenu_select=$(
-        dialog --clear --title "Term-SD" --backtitle "主界面" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的功能\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')\n当前虚拟环境状态:"$venv_info"" 20 60 10 \
+        dialog --clear --title "Term-SD" --backtitle "主界面" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的功能\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')\n当前虚拟环境状态:"$venv_info"\n当前代理:"$http_proxy"" 20 60 10 \
         "0" "venv虚拟环境" \
         "1" "AUTOMATIC1111-stable-diffusion-webui管理" \
         "2" "ComfyUI管理" \
@@ -15,8 +15,9 @@ function mainmenu()
         "5" "更新脚本" \
         "6" "pip镜像源" \
         "7" "pip缓存清理" \
-        "8" "帮助" \
-        "9" "退出" \
+        "8" "代理设置" \
+        "9" "帮助" \
+        "10" "退出" \
         3>&1 1>&2 2>&3 )
 
     if [ $? = 0  ];then #选择确认
@@ -33,12 +34,14 @@ function mainmenu()
         elif [ "${mainmenu_select}" == '5' ]; then #选择更新脚本
             term_sd_update_option
         elif [ "${mainmenu_select}" == '6' ]; then #选择pip镜像源
-            set_proxy_option
+            set_pip_mirrors_option
         elif [ "${mainmenu_select}" == '7' ]; then #选择pip缓存清理
             pip_cache_clean
-        elif [ "${mainmenu_select}" == '8' ]; then #选择帮助
+        elif [ "${mainmenu_select}" == '8' ]; then #选择代理选项
+            set_proxy_option
+        elif [ "${mainmenu_select}" == '9' ]; then #选择帮助
             help_option
-        elif [ "${mainmenu_select}" == '9' ]; then #选择退出
+        elif [ "${mainmenu_select}" == '10' ]; then #选择退出
             echo "退出Term-SD"
             exit 1
         fi

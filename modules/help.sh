@@ -98,6 +98,7 @@ enable-auto-update:启动Term-SD自动检查更新功能\n
 disable-auto-update:禁用Term-SD自动检查更新功能\n
 reinstall-term-sd:重新安装Term-SD\n
 remove-term-sd:卸载Term-SD\n
+test-proxy:测试网络环境,用于测试代理是否可用\n
 \n
 注意事项:\n
 1、安装项目的路径和Term-SD脚本所在路径相同,方便管理\n
@@ -113,6 +114,7 @@ remove-term-sd:卸载Term-SD\n
 11、A1111-SD-Webui设置界面语言:点击\"Settings\"-->\"User interface\"-->\"Localization\",点击右边的刷新按钮,再选择(防止不显示出来),在列表中选择zh-Hans(stable)(Term-SD在安装时默认下载了中文插件),在点击上面的\"Apply settings\",最后点击\"Reload UI\"生效\n
 12、ComfyUI设置界面语言:点击右上角的齿轮图标,找到\"AGLTranslation-langualge\",选择\"中文\",ComfyUi将会自动切换中文\n
 13、在启动a1111-sd-webui前开启了代理软件,可能会导致a1111-sd-webui界面报错,无法使用(貌似只有a1111-sd-webui有这种问题),推荐在a1111-sd-webui启动完成后再开启代理软件\n
+14、如遇到网络问题,比如下载模型失败等,可设置代理,代理参数的格式为\"ip:port\",例子:\"127.0.0.1:10808\",ip、port、代理协议需查看用户使用的代理软件配置(在终端环境中,除了有驱动模式或者TUN模式的代理软件,一般没办法为终端设置代理,所以可以使用该功能为终端环境设置代理)\n
 \n
 " 20 60
 }

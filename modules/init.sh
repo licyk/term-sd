@@ -19,7 +19,8 @@ function term_sd_init()
 }
 
 #设置启动时脚本路径
-start_path=$(pwd)
+export start_path=$(pwd)
+
 #设置虚拟环境
 if [ -f ./term-sd/term-sd-venv-disable.lock ];then #找到term-sd-venv-disable.lock文件,禁用虚拟环境
     venv_active="1"

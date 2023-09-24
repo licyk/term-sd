@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #设置启动时脚本路径
-start_path=$(pwd)
+export start_path=$(pwd)
 
 #主界面
 function mainmenu()
@@ -29,7 +29,7 @@ function mainmenu()
         elif [ $mainmenu_ = 4 ];then
             lora_scripts_option
         elif [ $mainmenu_ = 5 ];then
-            set_proxy_option
+            set_pip_mirrors_option
         elif [ $mainmenu_ = 6 ];then
             pip_cache_clean
         elif [ $mainmenu_ = 7 ];then
@@ -368,7 +368,7 @@ function exit_venv()
 #其他功能
 
 #pip镜像源选项
-function set_proxy_option()
+function set_pip_mirrors_option()
 {
     echo "获取pip全局配置"
     if (dialog --clear --title "Term-SD" --backtitle "pip镜像源选项" --yes-label "是" --no-label "否" --yesno "pip全局配置:\n$(pip config list)\n是否启用pip镜像源?" 20 60) then

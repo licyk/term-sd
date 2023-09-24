@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #pip镜像源选项
-function set_proxy_option()
+function set_pip_mirrors_option()
 {
     echo "获取pip全局配置"
     if (dialog --clear --title "Term-SD" --backtitle "pip镜像源选项" --yes-label "是" --no-label "否" --yesno "pip全局配置:\n$(pip config list)\n是否启用pip镜像源?" 20 60) then

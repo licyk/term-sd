@@ -24,6 +24,8 @@ function term_sd_process_user_input()
         echo "        重新安装Term-SD"
         echo "  --remove-term-sd"
         echo "        卸载Term-SD"
+        echo "  --test-proxy"
+        echo "        测试网络环境,用于测试代理是否可用"
         exit 1
         ;;
         "--remove-term-sd")
@@ -31,7 +33,7 @@ function term_sd_process_user_input()
         ;;
         "--multi-threaded-download")
         echo "安装过程中启用多线程下载模型"
-        aria2_multi_threaded="-x 8"
+        export aria2_multi_threaded="-x 8"
         ;;
         "--enable-auto-update")
         echo "启用Term-SD自动检查更新功能"
@@ -41,6 +43,13 @@ function term_sd_process_user_input()
         echo "禁用Term-SD自动检查更新功能"
         rm -rf ./term-sd/term-sd-auto-update.lock
         rm -rf ./term-sd/term-sd-auto-update-time.conf
+        ;;
+        "--test-proxy")
+        if which curl > /dev/null;then
+            curl ipinfo.io
+        else
+            echo "未安装curl,无法测试代理"
+        fi
         ;;
         "--extra")
         term_sd_extra_scripts
@@ -315,6 +324,13 @@ if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
     test_python="python"
 else
     test_python="python3"
+fi
+
+if [ -f "./term-sd/proxy.config" ];then #读取代理设置并设置代理
+    export http_proxy=$(cat ./term-sd/proxy.config)
+    export https_proxy=$(cat ./term-sd/proxy.config)
+    #export all_proxy=$(cat ./term-sd/proxy.config)
+    #代理变量的说明:https://blog.csdn.net/Dancen/article/details/128045261
 fi
 
 #判断系统是否安装必须使用的软件
