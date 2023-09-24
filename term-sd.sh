@@ -48,8 +48,7 @@ function term_sd_process_user_input()
         if which curl > /dev/null;then
             echo "------------------------------"
             echo "测试网络环境"
-            curl ipinfo.io
-            ; echo
+            curl ipinfo.io ; echo
             echo "------------------------------"
         else
             echo "未安装curl,无法测试代理"
