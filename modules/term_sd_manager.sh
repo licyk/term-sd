@@ -13,7 +13,7 @@ function mainmenu()
         "3" "InvokeAI管理" \
         "4" "lora-scripts管理" \
         "5" "更新脚本" \
-        "6" "pip镜像源" \
+        "6" "pip镜像源设置" \
         "7" "pip缓存清理" \
         "8" "代理设置" \
         "9" "帮助" \

@@ -11,7 +11,7 @@ function invokeai_option()
         enter_venv #进入环境
         if which invokeai 2> /dev/null ;then #查找环境中有没有invokeai
             final_invokeai_option=$(
-                dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择InvokeAI管理选项的功能\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 20 60 10 \
+                dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择InvokeAI管理选项的功能" 20 60 10 \
                 "1" "更新" \
                 "2" "卸载" \
                 "3" "启动" \

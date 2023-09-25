@@ -109,7 +109,8 @@ brew install git aria2 dialog python
 
     ./term-sd.sh
 
-启动后按照提示安装term-sd组件后即可正常使用
+启动后按照提示安装term-sd组件后即可正常使用  
+>huggingface目前在大陆网络环境无法访问，需要在term-sd中配置好代理参数，保证能够正常下载模型
 
 ***
 

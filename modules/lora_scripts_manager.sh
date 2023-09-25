@@ -8,7 +8,7 @@ function lora_scripts_option()
     if [ -d "./lora-scripts" ];then
         cd lora-scripts
         final_lora_scripts_option=$(
-            dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择lora-scripts管理选项的功能\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 20 60 10 \
+            dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择lora-scripts管理选项的功能" 20 60 10 \
             "1" "更新" \
             "2" "卸载" \
             "3" "修复更新" \
