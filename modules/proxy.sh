@@ -2,7 +2,7 @@
 
 function set_proxy_option()
 {
-    set_proxy_option_=$(dialog --clear --title "Term-SD" --backtitle "代理设置界面" --ok-label "确认" --cancel-label "取消" --menu "请选择设置代理协议\n当前代理:"$http_proxy"" 20 60 10 \
+    set_proxy_option_=$(dialog --clear --title "Term-SD" --backtitle "代理设置界面" --ok-label "确认" --cancel-label "取消" --menu "请选择设置代理协议\n当前代理设置:$(if [ -z $http_proxy ];then ; echo "无" ; else ; echo $http_proxy ; fi)" 20 60 10 \
         "1" "http" \
         "2" "socks" \
         "3" "socks5" \
