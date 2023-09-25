@@ -23,11 +23,9 @@ export start_path=$(pwd)
 
 #设置虚拟环境
 if [ -f ./term-sd/term-sd-venv-disable.lock ];then #找到term-sd-venv-disable.lock文件,禁用虚拟环境
-    venv_active="1"
-    venv_info="禁用"
+    export venv_active="1"
 else
-    venv_active="0"
-    venv_info="启用"
+    export venv_active="0"
 fi
 
 term_sd_version_="0.4.1"
