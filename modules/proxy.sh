@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#配置代理界面
 function set_proxy_option()
 {
     set_proxy_option_=$(dialog --clear --title "Term-SD" --backtitle "代理设置界面" --ok-label "确认" --cancel-label "取消" --menu "请选择设置代理协议\n当前代理设置:$([ -z $http_proxy ] && echo "无" || echo $http_proxy)" 22 70 12 \
@@ -48,5 +49,30 @@ function set_proxy_option()
         fi
     else
         mainmenu
+    fi
+}
+
+#在安装过程中,只有huggingface的访问有问题,若全程保持代理,可能会导致安装速度下降,因为python软件包的下载没必要走代理
+#临时取消代理配置
+function tmp_disable_proxy()
+{
+    if [ $only_hugggingface_proxy = 0 ];then
+        echo "临时取消代理配置"
+        proxy_address_1=$http_proxy #将代理配置储存到临时变量
+        proxy_address_2=$https_proxy
+        http_proxy="" #将代理配置删除
+        https_proxy=""
+    fi
+}
+
+#恢复原有代理配置
+function tmp_enable_proxy()
+{
+    if [ $only_hugggingface_proxy = 0 ];then
+        echo "恢复代理配置"
+        http_proxy=$proxy_address_1 #从临时变量恢复代理配置
+        https_proxy=$proxy_address_2
+        proxy_address_1=""
+        proxy_address_2=""
     fi
 }

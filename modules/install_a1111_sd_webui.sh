@@ -12,6 +12,7 @@ function process_install_a1111_sd_webui()
 
     #开始安装
     echo "开始安装stable-diffusion-webui"
+    tmp_disable_proxy #临时取消代理,避免一些不必要的网络减速
     git clone "$github_proxy"https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
 
     cd ./stable-diffusion-webui
@@ -58,6 +59,7 @@ function process_install_a1111_sd_webui()
     fi
 
     echo "下载模型中"
+    tmp_enable_proxy #恢复原有的代理,保证能从huggingface下载模型
     aria2c $aria2_multi_threaded https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./stable-diffusion-webui/models/Stable-diffusion -o sd-v1-5.ckpt
     aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x-UltraSharp.pth -d ./stable-diffusion-webui/models/ESRGAN -o 4x-UltraSharp.pth
     aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/BSRGAN.pth -d ./stable-diffusion-webui/models/ESRGAN -o BSRGAN.pth

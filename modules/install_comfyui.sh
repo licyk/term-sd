@@ -13,6 +13,7 @@ function process_install_comfyui()
 
     #开始安装comfyui
     echo "开始安装comfyui"
+    tmp_disable_proxy #临时取消代理,避免一些不必要的网络减速
     git clone "$github_proxy"https://github.com/comfyanonymous/ComfyUI.git
 
     cd ./ComfyUI
@@ -38,6 +39,7 @@ function process_install_comfyui()
     fi
 
     echo "下载模型中"
+    tmp_enable_proxy #恢复原有的代理,保证能从huggingface下载模型
     aria2c https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./ComfyUI/models/checkpoints/ -o sd-v1-5.ckpt
 
     if [ $comfyui_custom_node_extension_model_1 = 0 ];then

@@ -11,6 +11,7 @@ function process_install_lora_scripts()
 
     #参考lora-scripts里的install.bash写的
     echo "开始安装lora-scipts"
+    tmp_disable_proxy #临时取消代理,避免一些不必要的网络减速
     git clone "$github_proxy"https://github.com/Akegarasu/lora-scripts.git #lora-scripts本体
     git clone "$github_proxy"https://github.com/kohya-ss/sd-scripts.git ./lora-scripts/sd-scripts #lora-scripts后端
     git clone "$github_proxy"https://github.com/hanamizuki-ai/lora-gui-dist ./lora-scripts/frontend #lora-scripts前端
@@ -27,6 +28,7 @@ function process_install_lora_scripts()
     pip install $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --upgrade lion-pytorch dadaptation prodigyopt lycoris-lora fastapi uvicorn wandb scipy --default-timeout=100 --retries 5
     pip install $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --upgrade -r requirements.txt --default-timeout=100 --retries 5 #lora-scripts安装依赖
     cd ..
+    tmp_enable_proxy #恢复原有的代理,保证能从huggingface下载模型
     aria2c $aria2_multi_threaded https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./lora-scripts/sd-models/ -o model.ckpt
     echo "安装结束"
     exit_venv

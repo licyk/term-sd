@@ -81,7 +81,7 @@ function help_option_2()
 1、使用方向键、Tab键移动光标,Enter进行选择,Space键勾选或取消勾选,(已勾选时显示[*]),Ctrl+C可中断指令的运行 \n
 2、初次使用时,如果之前没有使用过python的pip模块,建议在主界面先选择"pip镜像源",设置pip的国内镜像源,加快安装时下载python软件包的速度。主界面显示的"虚拟环境"保持启用就行,无需禁用\n
 3、主界面总共有四个ai项目可选(AUTOMATIC1111-stable-diffusion-webui,ComfyUI,InvokeAI,lora-scripts),回车选中后,如果在脚本的当前目录未找选中的项目,term-sd会提示你进行安装。\n
-4、安装前将会提示你进行安装准备,首先是"代理选择",有三个选项可选(启用pip镜像源,启用github代理,强制使用pip),前两个选项默认勾选,如果没有质量较好的科学上网工具,不建议勾选。"强制使用pip"只有禁用了虚拟环境时才建议勾选(在Linux中,如果不在虚拟环境中安装python软件包,pip模块会警告\"error: externally-managed-environment\",只有使用"--break-system-packages"才能进行安装)\n
+4、安装前将会提示你进行安装准备,首先是"代理选择",有四个选项可选(启用pip镜像源,启用github代理,强制使用pip,huggingface独占代理),\"启用pip镜像源,启用github代理,huggingface独占代理\"选项默认勾选,如果没有质量较好的科学上网工具,不建议勾选。"强制使用pip"只有禁用了虚拟环境时才建议勾选(在Linux中,如果不在虚拟环境中安装python软件包,pip模块会警告\"error: externally-managed-environment\",只有使用"--break-system-packages"才能进行安装)\n
 5、然后是"pytorch安装",pytorch版本的选择:nvidia显卡选择cuda(Windows,linux平台),amd显卡在linux平台选择rocm,amd显卡和intel显卡在windows平台选择directml,macos选择不带cuda,rocm,directml的版本,如果想要在cpu上进行跑图,选择cpu版本\n
 6、AUTOMATIC1111-stable-diffusion-webui,ComfyUI会有额外的插件/自定义节点选择,默认勾选一些比较实用的,可根据需要勾选额外,插件/自定义节点的介绍在帮助中查询。(项目在安装好后,如果在插件安装列表有想要安装的,可使用"扩展脚本"中的"extension"脚本进行安装)\n
 7、安装前的准备完成后,将会弹出安装确认界面,选择"是"开始安装\n
@@ -115,6 +115,7 @@ test-proxy:测试网络环境,用于测试代理是否可用\n
 12、ComfyUI设置界面语言:点击右上角的齿轮图标,找到\"AGLTranslation-langualge\",选择\"中文\",ComfyUi将会自动切换中文\n
 13、在启动a1111-sd-webui前开启了代理软件,可能会导致a1111-sd-webui界面报错,无法使用(貌似只有a1111-sd-webui有这种问题),推荐在a1111-sd-webui启动完成后再开启代理软件\n
 14、如遇到网络问题,比如下载模型失败等,可设置代理,代理参数的格式为\"ip:port\",例子:\"127.0.0.1:10808\",ip、port、代理协议需查看用户使用的代理软件配置(在终端环境中,除了有驱动模式或者TUN模式的代理软件,一般没办法为终端设置代理,所以可以使用该功能为终端环境设置代理)\n
+15、在代理选项中\"huggingface独占代理\"可在安装过程中单独为从huggingface中下载模型时单独启用代理,保证安装速度,因为除了从huggingface下载模型的过程之外,可以不走代理\n
 \n
 " 22 70
 }

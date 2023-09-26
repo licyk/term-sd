@@ -46,5 +46,4 @@ function exit_venv()
         echo "退出venv虚拟环境"
         deactivate
     fi
-    echo
 }

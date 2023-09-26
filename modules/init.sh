@@ -28,7 +28,7 @@ else
     export venv_active="0"
 fi
 
-term_sd_version_="0.4.1"
+term_sd_version_="0.4.2"
 
 #初始化功能
 term_sd_init
