@@ -8,7 +8,7 @@ function comfyui_option()
     if [ -d "ComfyUI" ];then
         cd ComfyUI
         final_comfyui_option=$(
-            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择ComfyUI管理选项的功能" 20 60 10 \
+            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择ComfyUI管理选项的功能" 22 70 12 \
             "1" "更新" \
             "2" "卸载" \
             "3" "修复更新" \
@@ -27,13 +27,13 @@ function comfyui_option()
                 echo "更新ComfyUI中"
                 git pull
                 if [ $? = "0" ];then
-                    dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI更新结果" --msgbox "ComfyUI更新成功" 20 60
+                    dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI更新结果" --msgbox "ComfyUI更新成功" 22 70
                 else
-                    dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI更新结果" --msgbox "ComfyUI更新失败" 20 60
+                    dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI更新结果" --msgbox "ComfyUI更新失败" 22 70
                 fi
                 comfyui_option
             elif [ "${final_comfyui_option}" == '2' ]; then
-                if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI删除选项" --yes-label "是" --no-label "否" --yesno "是否删除ComfyUI?" 20 60) then
+                if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI删除选项" --yes-label "是" --no-label "否" --yesno "是否删除ComfyUI?" 22 70) then
                     echo "删除ComfyUI中"
                     exit_venv
                     cd ..
@@ -58,7 +58,7 @@ function comfyui_option()
                 comfyui_option
             elif [ "${final_comfyui_option}" == '7' ]; then
                 if [ -f "./term-sd-launch.conf" ]; then #找到启动脚本
-                    if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI启动选项" --yes-label "启动" --no-label "修改参数" --yesno "请选择启动ComfyUI/修改ComfyUI启动参数\n当前启动参数:\npython $(cat ./term-sd-launch.conf)" 20 60) then
+                    if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI启动选项" --yes-label "启动" --no-label "修改参数" --yesno "请选择启动ComfyUI/修改ComfyUI启动参数\n当前启动参数:\npython $(cat ./term-sd-launch.conf)" 22 70) then
                         term_sd_launch
                         comfyui_option
                     else
@@ -72,7 +72,7 @@ function comfyui_option()
                     comfyui_option
                 fi    
             elif [ "${final_comfyui_option}" == '8' ]; then
-                if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI重新安装选项" --yesno "是否重新安装ComfyUI?" 20 60) then
+                if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI重新安装选项" --yesno "是否重新安装ComfyUI?" 22 70) then
                     cd "$start_path"
                     exit_venv
                     process_install_comfyui
@@ -89,7 +89,7 @@ function comfyui_option()
             fi
         fi
     else
-        if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI安装选项" --yesno "检测到当前未安装ComfyUI,是否进行安装?" 20 60) then
+        if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI安装选项" --yesno "检测到当前未安装ComfyUI,是否进行安装?" 22 70) then
             process_install_comfyui
             comfyui_option
         fi

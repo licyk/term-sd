@@ -4,7 +4,7 @@
 
 function venv_option()
 {
-    if (dialog --clear --title "Term-SD" --backtitle "venv虚拟环境选项" --yes-label "启用" --no-label "禁用" --yesno "是否启用venv虚拟环境?(推荐启用)\n当前虚拟环境状态:$([ $venv_active = 0 ] && echo "启用" || echo "禁用")" 20 60) then
+    if (dialog --clear --title "Term-SD" --backtitle "venv虚拟环境选项" --yes-label "启用" --no-label "禁用" --yesno "是否启用venv虚拟环境?(推荐启用)\n当前虚拟环境状态:$([ $venv_active = 0 ] && echo "启用" || echo "禁用")" 22 70) then
         export venv_active="0"
         rm -rf ./term-sd/term-sd-venv-disable.lock
     else

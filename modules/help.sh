@@ -5,7 +5,7 @@
 #帮助选择
 function help_option()
 {
-    help_option_select=$(dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --cancel-label "取消" --menu "请选择帮助" 20 60 10 \
+    help_option_select=$(dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --cancel-label "取消" --menu "请选择帮助" 22 70 12 \
         "1" "关于term-sd" \
         "2" "使用说明" \
         "3" "启动参数说明" \
@@ -71,7 +71,7 @@ https://www.bilibili.com/read/cv22159609\n
 https://licyk.netlify.app/2023/08/01/stable-diffusion-tutorial/\n
 \n
 \n
-" 20 60
+" 22 70
 }
 
 #使用说明
@@ -116,7 +116,7 @@ test-proxy:测试网络环境,用于测试代理是否可用\n
 13、在启动a1111-sd-webui前开启了代理软件,可能会导致a1111-sd-webui界面报错,无法使用(貌似只有a1111-sd-webui有这种问题),推荐在a1111-sd-webui启动完成后再开启代理软件\n
 14、如遇到网络问题,比如下载模型失败等,可设置代理,代理参数的格式为\"ip:port\",例子:\"127.0.0.1:10808\",ip、port、代理协议需查看用户使用的代理软件配置(在终端环境中,除了有驱动模式或者TUN模式的代理软件,一般没办法为终端设置代理,所以可以使用该功能为终端环境设置代理)\n
 \n
-" 20 60
+" 22 70
 }
 
 #启动参数说明
@@ -192,7 +192,7 @@ no-internet_available:禁用联网下载资源\n
 host:允许局域网的设备访问\n
 \n
 \n
-" 20 60
+" 22 70
 }
 
 #目录说明
@@ -282,7 +282,7 @@ lora-scripts   \n
 └── toml   保存的训练参数存放位置   \n
 \n
 \n
-" 20 60
+" 22 70
 }
 
 #扩展脚本说明
@@ -297,7 +297,7 @@ sd-webui-repo:修改a1111-sd-webui主体和组件的更新源\n
 install-term-sd-to-shell:将Term-SD快捷启动指令安装到shell中,在shell中直接输入\"termsd\"即可启动Term-SD\n
 \n
 \n
-" 20 60
+" 22 70
 }
 
 #AUTOMATIC1111-stable-diffusion-webui插件说明
@@ -364,7 +364,7 @@ sd-dynamic-prompts:动态提示词\n
 LightDiffusionFlow:保存工作流\n
 \n
 \n
-" 20 60
+" 22 70
 }
 
 #ComfyUI插件/自定义节点说明
@@ -420,5 +420,5 @@ AIGODLIKE-COMFYUI-TRANSLATION:ComfyUI的翻译扩展   \n
 stability-ComfyUI-nodes:Stability-AI自定义节点支持   \n
 \n
 \n
-" 20 60
+" 22 70
 }

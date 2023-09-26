@@ -8,7 +8,7 @@ function a1111_sd_webui_option()
     if [ -d "stable-diffusion-webui" ];then #找到stable-diffusion-webui目录
         cd stable-diffusion-webui
         final_a1111_sd_webui_option=$(
-            dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择A1111-SD-Webui管理选项的功能" 20 60 10 \
+            dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择A1111-SD-Webui管理选项的功能" 22 70 12 \
             "1" "更新" \
             "2" "卸载" \
             "3" "修复更新" \
@@ -30,13 +30,13 @@ function a1111_sd_webui_option()
                     test_num=0
                 fi
                 if [ $test_num = "0" ];then
-                    dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui更新结果" --msgbox "A1111-SD-Webui更新成功" 20 60
+                    dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui更新结果" --msgbox "A1111-SD-Webui更新成功" 22 70
                 else
-                    dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui更新结果" --msgbox "A1111-SD-Webui更新失败" 20 60
+                    dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui更新结果" --msgbox "A1111-SD-Webui更新失败" 22 70
                 fi
                 a1111_sd_webui_option
             elif [ "${final_a1111_sd_webui_option}" == '2' ]; then
-                if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui删除选项" --yesno "是否删除A1111-Stable-Diffusion-Webui?" 20 60) then
+                if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui删除选项" --yesno "是否删除A1111-Stable-Diffusion-Webui?" 22 70) then
                     echo "删除A1111-Stable-Diffusion-Webui中"
                     exit_venv
                     cd ..
@@ -57,7 +57,7 @@ function a1111_sd_webui_option()
                 a1111_sd_webui_option
             elif [ "${final_a1111_sd_webui_option}" == '6' ]; then
                 if [ -f "./term-sd-launch.conf" ]; then #找到启动脚本
-                    if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui启动选项" --yes-label "启动" --no-label "修改参数" --yesno "请选择启动A1111-SD-Webui/修改A1111-SD-Webui启动参数\n当前启动参数:\npython $(cat ./term-sd-launch.conf)" 20 60) then
+                    if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui启动选项" --yes-label "启动" --no-label "修改参数" --yesno "请选择启动A1111-SD-Webui/修改A1111-SD-Webui启动参数\n当前启动参数:\npython $(cat ./term-sd-launch.conf)" 22 70) then
                         term_sd_launch
                         a1111_sd_webui_option
                     else #修改启动脚本
@@ -71,7 +71,7 @@ function a1111_sd_webui_option()
                 a1111_sd_webui_option
                 fi
             elif [ "${final_a1111_sd_webui_option}" == '7' ]; then
-                if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui重新安装选项" --yesno "是否重新安装A1111-Stable-Diffusion-Webui?" 20 60) then
+                if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui重新安装选项" --yesno "是否重新安装A1111-Stable-Diffusion-Webui?" 22 70) then
                 cd "$start_path"
                 exit_venv
                 process_install_a1111_sd_webui
@@ -88,7 +88,7 @@ function a1111_sd_webui_option()
             fi
         fi
     else #找不到stable-diffusion-webui目录
-        if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui安装选项" --yesno "检测到当前未安装A1111-Stable-Diffusion-Webui,是否进行安装?" 20 60) then
+        if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui安装选项" --yesno "检测到当前未安装A1111-Stable-Diffusion-Webui,是否进行安装?" 22 70) then
             process_install_a1111_sd_webui
             a1111_sd_webui_option
         fi

@@ -4,7 +4,7 @@
 function set_pip_mirrors_option()
 {
     echo "获取pip全局配置"
-    if (dialog --clear --title "Term-SD" --backtitle "pip镜像源选项" --yes-label "是" --no-label "否" --yesno "pip全局配置:\n$(pip config list)\n是否启用pip镜像源?" 20 60) then
+    if (dialog --clear --title "Term-SD" --backtitle "pip镜像源选项" --yes-label "是" --no-label "否" --yesno "pip全局配置:\n$(pip config list)\n是否启用pip镜像源?" 22 70) then
         #pip config set global.index-url "https://mirror.sjtu.edu.cn/pypi/web/simple"
         pip config set global.index-url "https://mirrors.bfsu.edu.cn/pypi/web/simple"
         #pip config set global.extra-index-url "https://mirror.sjtu.edu.cn/pytorch-wheels"
@@ -21,7 +21,7 @@ function set_pip_mirrors_option()
 function pip_cache_clean()
 {
     echo "统计pip缓存信息中"
-    if (dialog --clear --title "Term-SD" --backtitle "pip缓存清理选项" --yes-label "是" --no-label "否" --yesno "pip缓存信息:\npip缓存路径:$(pip cache dir)\n包索引页面缓存大小:$(pip cache info |awk NR==2 | awk -F ':'  '{print $2 $3 $4}')\n本地构建的wheel包大小:$(pip cache info |awk NR==5 | awk -F ':'  '{print $2 $3 $4}')\n是否删除pip缓存?" 20 60);then
+    if (dialog --clear --title "Term-SD" --backtitle "pip缓存清理选项" --yes-label "是" --no-label "否" --yesno "pip缓存信息:\npip缓存路径:$(pip cache dir)\n包索引页面缓存大小:$(pip cache info |awk NR==2 | awk -F ':'  '{print $2 $3 $4}')\n本地构建的wheel包大小:$(pip cache info |awk NR==5 | awk -F ':'  '{print $2 $3 $4}')\n是否删除pip缓存?" 22 70);then
         pip cache purge
     fi
     mainmenu

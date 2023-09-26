@@ -8,7 +8,7 @@ function lora_scripts_option()
     if [ -d "./lora-scripts" ];then
         cd lora-scripts
         final_lora_scripts_option=$(
-            dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择lora-scripts管理选项的功能" 20 60 10 \
+            dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择lora-scripts管理选项的功能" 22 70 12 \
             "1" "更新" \
             "2" "卸载" \
             "3" "修复更新" \
@@ -34,13 +34,13 @@ function lora_scripts_option()
                 git submodule update #版本不对应,有时会出现各种奇怪的报错
                 git submodule
                 if [ $test_num = "0" ];then
-                    dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts更新结果" --msgbox "lora-scripts更新成功" 20 60
+                    dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts更新结果" --msgbox "lora-scripts更新成功" 22 70
                 else
-                    dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts更新结果" --msgbox "lora-scripts更新失败" 20 60
+                    dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts更新结果" --msgbox "lora-scripts更新失败" 22 70
                 fi
                 lora_scripts_option
             elif [ "${final_lora_scripts_option}" == '2' ]; then
-                if (dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts删除选项" --yes-label "是" --no-label "否" --yesno "是否删除lora-scripts?" 20 60) then
+                if (dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts删除选项" --yes-label "是" --no-label "否" --yesno "是否删除lora-scripts?" 22 70) then
                     echo "删除lora-scripts中"
                     exit_venv
                     cd ..
@@ -78,7 +78,7 @@ function lora_scripts_option()
                 fi
                 lora_scripts_option
             elif [ "${final_lora_scripts_option}" == '6' ]; then
-                if (dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts重新安装选项" --yesno "是否重新安装lora_scripts?" 20 60) then
+                if (dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts重新安装选项" --yesno "是否重新安装lora_scripts?" 22 70) then
                     cd "$start_path"
                     exit_venv
                     process_install_lora_scripts
@@ -95,7 +95,7 @@ function lora_scripts_option()
             fi
         fi
     else
-        if (dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts安装选项" --yesno "检测到当前未安装lora_scripts,是否进行安装?" 20 60) then
+        if (dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts安装选项" --yesno "检测到当前未安装lora_scripts,是否进行安装?" 22 70) then
             process_install_lora_scripts
             lora_scripts_option
         fi

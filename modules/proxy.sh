@@ -2,7 +2,7 @@
 
 function set_proxy_option()
 {
-    set_proxy_option_=$(dialog --clear --title "Term-SD" --backtitle "代理设置界面" --ok-label "确认" --cancel-label "取消" --menu "请选择设置代理协议\n当前代理设置:$([ -z $http_proxy ] && echo "无" || echo $http_proxy)" 20 60 10 \
+    set_proxy_option_=$(dialog --clear --title "Term-SD" --backtitle "代理设置界面" --ok-label "确认" --cancel-label "取消" --menu "请选择设置代理协议\n当前代理设置:$([ -z $http_proxy ] && echo "无" || echo $http_proxy)" 22 70 12 \
         "1" "http" \
         "2" "socks" \
         "3" "socks5" \
@@ -12,7 +12,7 @@ function set_proxy_option()
 
     if [ $? = 0 ];then
         if [ $set_proxy_option_ = 1 ];then
-            proxy_config=$(dialog --clear --title "Term-SD" --backtitle "代理参数设置界面" --yes-label "确认" --no-label "取消" --inputbox "请输入代理地址\n格式:<ip>:<port>" 20 60 3>&1 1>&2 2>&3)
+            proxy_config=$(dialog --clear --title "Term-SD" --backtitle "代理参数设置界面" --yes-label "确认" --no-label "取消" --inputbox "请输入代理地址\n格式:<ip>:<port>" 22 70 3>&1 1>&2 2>&3)
             if [ $? = 0 ];then
                 export http_proxy="http://$proxy_config"
                 export https_proxy="http://$proxy_config"
@@ -21,7 +21,7 @@ function set_proxy_option()
             fi
             set_proxy_option
         elif [ $set_proxy_option_ = 2 ];then
-            proxy_config=$(dialog --clear --title "Term-SD" --backtitle "代理参数设置界面" --yes-label "确认" --no-label "取消" --inputbox "请输入代理地址\n格式:<ip>:<port>" 20 60 3>&1 1>&2 2>&3)
+            proxy_config=$(dialog --clear --title "Term-SD" --backtitle "代理参数设置界面" --yes-label "确认" --no-label "取消" --inputbox "请输入代理地址\n格式:<ip>:<port>" 22 70 3>&1 1>&2 2>&3)
             if [ $? = 0 ];then
                 export http_proxy="socks://$proxy_config"
                 export https_proxy="socks://$proxy_config"
@@ -30,7 +30,7 @@ function set_proxy_option()
             fi
             set_proxy_option
         elif [ $set_proxy_option_ = 3 ];then
-            proxy_config=$(dialog --clear --title "Term-SD" --backtitle "代理参数设置界面" --yes-label "确认" --no-label "取消" --inputbox "请输入代理地址\n格式:<ip>:<port>" 20 60 3>&1 1>&2 2>&3)
+            proxy_config=$(dialog --clear --title "Term-SD" --backtitle "代理参数设置界面" --yes-label "确认" --no-label "取消" --inputbox "请输入代理地址\n格式:<ip>:<port>" 22 70 3>&1 1>&2 2>&3)
             if [ $? = 0 ];then
                 export http_proxy="socks5://$proxy_config"
                 export https_proxy="socks5://$proxy_config"

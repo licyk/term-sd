@@ -9,7 +9,7 @@ function git_checkout_manager()
 
     commit_selection=$(
         dialog --clear --title "Term-SD" --backtitle "项目切换版本选项" --ok-label "确认" --cancel-label "取消" \
-        --menu "请选择要切换的版本\n当前版本:\n$(git show -s --format="%H %cd" --date=format:"%Y-%m-%d %H:%M:%S")" 20 70 10 \
+        --menu "请选择要切换的版本\n当前版本:\n$(git show -s --format="%H %cd" --date=format:"%Y-%m-%d %H:%M:%S")" 22 70 12 \
         $commit_lists \
         3>&1 1>&2 2>&3)
 

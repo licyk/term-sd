@@ -6,7 +6,7 @@ function generate_comfyui_launch()
     comfyui_launch_option=""
 
     comfyui_launch_option_select=$(
-        dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI启动参数选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "请选择ComfyUI启动参数" 20 60 10 \
+        dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI启动参数选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "请选择ComfyUI启动参数" 22 70 12 \
         "1" "listen" OFF \
         "2" "auto-launch" OFF \
         "3" "dont-upcast-attention" OFF \

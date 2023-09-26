@@ -3,7 +3,7 @@
 #term-sd更新功能
 function term_sd_update_option()
 {
-    term_sd_update_option_=$(dialog --clear --title "Term-SD" --backtitle "Term-SD更新选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的更新源\n当前Term-SD更新源:$(git --git-dir="./term-sd/.git" remote get-url origin)\n当前Term-SD分支:$(git --git-dir="./term-sd/.git" branch | grep \* | awk -F "* " '{print $NF}')" 20 60 10 \
+    term_sd_update_option_=$(dialog --clear --title "Term-SD" --backtitle "Term-SD更新选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的更新源\n当前Term-SD更新源:$(git --git-dir="./term-sd/.git" remote get-url origin)\n当前Term-SD分支:$(git --git-dir="./term-sd/.git" branch | grep \* | awk -F "* " '{print $NF}')" 22 70 12 \
         "1" "更新" \
         "2" "切换更新源" \
         "3" "切换分支" \
@@ -21,7 +21,7 @@ function term_sd_update_option()
             if [ $git_pull_info = 0 ];then
                 cp -f ./term-sd/term-sd.sh .
                 chmod +x ./term-sd.sh
-                dialog --clear --title "Term-SD" --backtitle "Term-SD更新结果" --ok-label "确定" --msgbox "Term-SD更新成功,选择确定后重启" 20 60
+                dialog --clear --title "Term-SD" --backtitle "Term-SD更新结果" --ok-label "确定" --msgbox "Term-SD更新成功,选择确定后重启" 22 70
                 source ./term-sd/modules/init.sh
             else
                 dialog --clear --title "Term-SD" --backtitle "Term-SD更新结果" --ok-label "确定" --msgbox "Term-SD更新失败"
@@ -43,7 +43,7 @@ function term_sd_update_option()
 #term-sd更新源切换功能
 function term_sd_remote()
 {
-    term_sd_remote_=$(dialog --clear --title "Term-SD" --backtitle "Term-SD分支切换界面" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的分支\n当前Term-SD更新源:$(git --git-dir="./term-sd/.git" remote get-url origin)" 20 60 10 \
+    term_sd_remote_=$(dialog --clear --title "Term-SD" --backtitle "Term-SD分支切换界面" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的分支\n当前Term-SD更新源:$(git --git-dir="./term-sd/.git" remote get-url origin)" 22 70 12 \
         "1" "github源" \
         "2" "gitlab源" \
         "3" "gitee源" \
@@ -67,7 +67,7 @@ function term_sd_remote()
 #term-sd分支切换
 function term_sd_branch()
 {
-    term_sd_branch_=$(dialog --clear --title "Term-SD" --backtitle "Term-SD分支切换界面" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的分支\n当前Term-SD分支:$(git --git-dir="./term-sd/.git" branch | grep \* | awk -F "* " '{print $NF}')" 20 60 10 \
+    term_sd_branch_=$(dialog --clear --title "Term-SD" --backtitle "Term-SD分支切换界面" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的分支\n当前Term-SD分支:$(git --git-dir="./term-sd/.git" branch | grep \* | awk -F "* " '{print $NF}')" 22 70 12 \
         "1" "主分支" \
         "2" "测试分支" \
         "3" "返回" \

@@ -9,7 +9,7 @@ function mainmenu()
     cd "$start_path" #回到最初路径
     exit_venv 2> /dev/null #确保进行下一步操作前已退出其他虚拟环境
 
-    mainmenu_=$(dialog --clear --title "Term-SD" --backtitle "主界面" --yes-label "确认" --no-label "取消" --menu "请选择Term-SD的功能\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 20 60 10 \
+    mainmenu_=$(dialog --clear --title "Term-SD" --backtitle "主界面" --yes-label "确认" --no-label "取消" --menu "请选择Term-SD的功能\n当前目录可用空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')" 22 70 12 \
         "1" "AUTOMATIC1111-stable-diffusion-webui管理" \
         "2" "ComfyUI管理" \
         "3" "InvokeAI管理" \
@@ -47,11 +47,11 @@ function a1111_sd_webui_option()
     exit_venv 2> /dev/null #确保进行下一步操作前已退出其他虚拟环境
     if [ -d "stable-diffusion-webui" ];then #找到stable-diffusion-webui目录
         cd stable-diffusion-webui
-        if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建A1111-SD-Webui的虚拟环境" 20 60);then
+        if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建A1111-SD-Webui的虚拟环境" 22 70);then
             a1111_sd_webui_venv_rebuild
         fi
     else
-        dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui虚拟环境重建选项" --msgbox "当前目录下未找到A1111-SD-Webui" 20 60
+        dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui虚拟环境重建选项" --msgbox "当前目录下未找到A1111-SD-Webui" 22 70
     fi
     mainmenu
 }
@@ -63,11 +63,11 @@ function comfyui_option()
     exit_venv 2> /dev/null #确保进行下一步操作前已退出其他虚拟环境
     if [ -d "ComfyUI" ];then
         cd ComfyUI
-        if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建ComfyUI的虚拟环境" 20 60);then
+        if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建ComfyUI的虚拟环境" 22 70);then
             comfyui_venv_rebuild
         fi
     else
-        dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI虚拟环境重建选项" --msgbox "当前目录下未找到ComfyUI" 20 60
+        dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI虚拟环境重建选项" --msgbox "当前目录下未找到ComfyUI" 22 70
     fi
     mainmenu
 }
@@ -79,11 +79,11 @@ function invokeai_option()
     exit_venv 2> /dev/null #确保进行下一步操作前已退出其他虚拟环境
     if [ -d "InvokeAI" ];then
         cd InvokeAI
-        if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建InvokeAI的虚拟环境" 20 60);then
+        if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建InvokeAI的虚拟环境" 22 70);then
             invokeai_venv_rebuild
         fi
     else
-        dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI虚拟环境重建选项" --msgbox "当前目录下未找到InvokeAI" 20 60
+        dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI虚拟环境重建选项" --msgbox "当前目录下未找到InvokeAI" 22 70
     fi
     mainmenu
 }
@@ -95,11 +95,11 @@ function lora_scripts_option()
     exit_venv 2> /dev/null #确保进行下一步操作前已退出其他虚拟环境
     if [ -d "lora-scripts" ];then
         cd lora-scripts
-        if (dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建lora-scripts的虚拟环境" 20 60);then
+        if (dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建lora-scripts的虚拟环境" 22 70);then
             lora_scripts_venv_rebuild
         fi
     else
-        dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts虚拟环境重建选项" --msgbox "当前目录下未找到lora-scripts" 20 60
+        dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts虚拟环境重建选项" --msgbox "当前目录下未找到lora-scripts" 22 70
     fi
     mainmenu
 }
@@ -121,7 +121,7 @@ function proxy_option()
     final_install_check_force_pip="禁用"
 
     final_proxy_options=$(
-        dialog --clear --title "Term-SD" --backtitle "安装代理选项" --separate-output --notags --title "代理选择" --ok-label "确认" --no-cancel --checklist "请选择代理(强制使用pip一般情况下不选)" 20 60 10 \
+        dialog --clear --title "Term-SD" --backtitle "安装代理选项" --separate-output --notags --title "代理选择" --ok-label "确认" --no-cancel --checklist "请选择代理(强制使用pip一般情况下不选)" 22 70 12 \
         "1" "启用pip镜像源" ON \
         "2" "启用github代理" ON \
         "3" "强制使用pip" OFF 3>&1 1>&2 2>&3)
@@ -158,7 +158,7 @@ function pytorch_version_select()
     pytorch_install_version=""
 
     final_pytorch_version_select=$(
-        dialog --clear --title "Term-SD" --backtitle "pytorch安装版本选项" --ok-label "确认" --no-cancel --menu "请选择要安装的pytorch版本" 20 60 10 \
+        dialog --clear --title "Term-SD" --backtitle "pytorch安装版本选项" --ok-label "确认" --no-cancel --menu "请选择要安装的pytorch版本" 22 70 12 \
         "1" "Torch 2.0.1" \
         "2" "Torch 2.0.1+CPU" \
         "3" "Torch 2.0.0+Torch-Directml" \
@@ -201,7 +201,7 @@ function pip_install_methon()
     final_install_check_pip_methon="常规安装(setup.py)"
 
     final_pip_install_methon=$(
-        dialog --clear --title "Term-SD" --backtitle "pip安装模式选项" --ok-label "确认" --no-cancel --menu "请选择pip安装方式\n1、常规安装可能会有问题,但速度较快\n2、标准构建安装可解决一些报错问题,但速度较慢" 20 60 10 \
+        dialog --clear --title "Term-SD" --backtitle "pip安装模式选项" --ok-label "确认" --no-cancel --menu "请选择pip安装方式\n1、常规安装可能会有问题,但速度较快\n2、标准构建安装可解决一些报错问题,但速度较慢" 22 70 12 \
         "1" "常规安装(setup.py)" \
         "2" "标准构建安装(--use-pep517)" \
         3>&1 1>&2 2>&3 )
@@ -224,7 +224,7 @@ github代理:$final_install_check_github\n
 强制使用pip:$final_install_check_force_pip\n
 pytorch:$pytorch_install_version\n
 pip安装方式:$final_install_check_pip_methon\n
-" 20 60);then
+" 22 70);then
         echo "安装参数设置完成"
     else
         mainmenu
@@ -371,7 +371,7 @@ function exit_venv()
 function set_pip_mirrors_option()
 {
     echo "获取pip全局配置"
-    if (dialog --clear --title "Term-SD" --backtitle "pip镜像源选项" --yes-label "是" --no-label "否" --yesno "pip全局配置:\n$(pip config list)\n是否启用pip镜像源?" 20 60) then
+    if (dialog --clear --title "Term-SD" --backtitle "pip镜像源选项" --yes-label "是" --no-label "否" --yesno "pip全局配置:\n$(pip config list)\n是否启用pip镜像源?" 22 70) then
         #pip config set global.index-url "https://mirror.sjtu.edu.cn/pypi/web/simple"
         pip config set global.index-url "https://mirrors.bfsu.edu.cn/pypi/web/simple"
         #pip config set global.extra-index-url "https://mirror.sjtu.edu.cn/pytorch-wheels"
@@ -388,7 +388,7 @@ function set_pip_mirrors_option()
 function pip_cache_clean()
 {
     echo "统计pip缓存信息中"
-    if (dialog --clear --title "Term-SD" --backtitle "pip缓存清理选项" --yes-label "是" --no-label "否" --yesno "pip缓存信息:\npip缓存路径:$(pip cache dir)\n包索引页面缓存大小:$(pip cache info |awk NR==2 | awk -F ':'  '{print $2 $3 $4}')\n本地构建的wheel包大小:$(pip cache info |awk NR==5 | awk -F ':'  '{print $2 $3 $4}')\n是否删除pip缓存?" 20 60);then
+    if (dialog --clear --title "Term-SD" --backtitle "pip缓存清理选项" --yes-label "是" --no-label "否" --yesno "pip缓存信息:\npip缓存路径:$(pip cache dir)\n包索引页面缓存大小:$(pip cache info |awk NR==2 | awk -F ':'  '{print $2 $3 $4}')\n本地构建的wheel包大小:$(pip cache info |awk NR==5 | awk -F ':'  '{print $2 $3 $4}')\n是否删除pip缓存?" 22 70);then
         pip cache purge
     fi
     mainmenu

@@ -4,7 +4,7 @@
 function generate_invokeai_launch()
 {
     invokeai_launch_option=$(
-        dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI启动参数选项" --ok-label "确认" --cancel-label "取消" --menu "请选择InvokeAI启动参数" 20 60 10 \
+        dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI启动参数选项" --ok-label "确认" --cancel-label "取消" --menu "请选择InvokeAI启动参数" 22 70 12 \
         "1" "invokeai-configure" \
         "2" "invokeai" \
         "3" "invokeai --web" \
@@ -26,7 +26,7 @@ function generate_invokeai_launch()
             invokeai-merge --gui --root ./invokeai
         elif [ "${invokeai_launch_option}" == '6' ]; then 
             if [ -f "./term-sd-launch.conf" ];then
-                if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI启动选项" --yes-label "启动" --no-label "修改参数" --yesno "请选择启动ComfyUI/修改ComfyUI启动参数\n当前启动参数:\ninvokeai $(cat ./term-sd-launch.conf)" 20 60) then
+                if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI启动选项" --yes-label "启动" --no-label "修改参数" --yesno "请选择启动ComfyUI/修改ComfyUI启动参数\n当前启动参数:\ninvokeai $(cat ./term-sd-launch.conf)" 22 70) then
                     invokeai $(cat ./term-sd-launch.conf)
                 else
                     generate_invokeai_launch_cust
@@ -48,7 +48,7 @@ function generate_invokeai_launch_cust()
     cust_invokeai_launch_option=""
 
     cust_invokeai_launch_option_select=$(
-        dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI自定义启动参数选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "请选择InvokeAI启动参数" 20 60 10 \
+        dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI自定义启动参数选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "请选择InvokeAI启动参数" 22 70 12 \
         "1" "web" ON \
         "2" "free_gpu_mem" OFF \
         "3" "precision auto" ON \

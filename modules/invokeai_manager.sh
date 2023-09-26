@@ -11,7 +11,7 @@ function invokeai_option()
         enter_venv #进入环境
         if which invokeai 2> /dev/null ;then #查找环境中有没有invokeai
             final_invokeai_option=$(
-                dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择InvokeAI管理选项的功能" 20 60 10 \
+                dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择InvokeAI管理选项的功能" 22 70 12 \
                 "1" "更新" \
                 "2" "卸载" \
                 "3" "启动" \
@@ -28,13 +28,13 @@ function invokeai_option()
                     echo "更新InvokeAI中"
                     pip install $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --upgrade invokeai --default-timeout=100 --retries 5
                     if [ $? = "0" ];then
-                        dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI更新结果" --msgbox "InvokeAI更新成功" 20 60
+                        dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI更新结果" --msgbox "InvokeAI更新成功" 22 70
                     else
-                        dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI更新结果" --msgbox "InvokeAI更新失败" 20 60
+                        dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI更新结果" --msgbox "InvokeAI更新失败" 22 70
                     fi
                     invokeai_option
                 elif [ "${final_invokeai_option}" == '2' ]; then
-                    if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI删除选项" --yes-label "是" --no-label "否" --yesno "是否删除InvokeAI?" 20 60) then
+                    if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI删除选项" --yes-label "是" --no-label "否" --yesno "是否删除InvokeAI?" 22 70) then
                         echo "删除InvokeAI中"
                         exit_venv
                         cd ..
@@ -46,7 +46,7 @@ function invokeai_option()
                     generate_invokeai_launch
                     invokeai_option
                 elif [ "${final_invokeai_option}" == '4' ]; then
-                    if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI重新安装选项" --yesno "是否重新安装InvokeAI?" 20 60) then
+                    if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI重新安装选项" --yesno "是否重新安装InvokeAI?" 22 70) then
                         cd "$start_path"
                         exit_venv
                         process_install_invokeai
@@ -60,14 +60,14 @@ function invokeai_option()
                 fi
             fi
         else 
-            if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI安装选项" --yesno "检测到当前未安装InvokeAI,是否进行安装?" 20 60) then
+            if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI安装选项" --yesno "检测到当前未安装InvokeAI,是否进行安装?" 22 70) then
                 cd "$start_path"
                 process_install_invokeai
                 invokeai_option
             fi
         fi
     else
-        if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI安装选项" --yesno "检测到当前未安装InvokeAI,是否进行安装?" 20 60) then
+        if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI安装选项" --yesno "检测到当前未安装InvokeAI,是否进行安装?" 22 70) then
           process_install_invokeai
           invokeai_option
         fi
