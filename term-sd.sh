@@ -46,10 +46,10 @@ function term_sd_process_user_input()
         ;;
         "--test-proxy")
         if which curl > /dev/null;then
-            echo "------------------------------"
+            echo "-------------------------------------------"
             echo "测试网络环境"
             curl ipinfo.io ; echo
-            echo "------------------------------"
+            echo "-------------------------------------------"
         else
             echo "未安装curl,无法测试代理"
         fi
@@ -336,6 +336,7 @@ temr_sd_depend="git aria2c dialog pip" #term-sd依赖软件包
 
 #检测可用的python命令
 if python3 --version > /dev/null 2> /dev/null || python --version > /dev/null 2> /dev/null ;then #判断是否有可用的python
+    test_num=$(( $test_num + 1 ))
     python_cmd_test_1=$(python3 --version)
     python_cmd_test_2=$(python --version)
 
@@ -345,7 +346,6 @@ if python3 --version > /dev/null 2> /dev/null || python --version > /dev/null 2>
         export python_cmd="python"
     fi
 else
-    test_num=$(( $test_num + 1 ))
     missing_dep="$missing_dep python,"
 fi
 
@@ -354,7 +354,7 @@ for term_sd_depend_ in $temr_sd_depend ; do
     if which $term_sd_depend_ > /dev/null ;then
         test_num=$(( $test_num + 1 ))
     else
-        missing_dep="$missing_dep $term_sd_depend_"
+        missing_dep="$missing_dep $term_sd_depend_,"
     fi
 done
 
@@ -378,9 +378,9 @@ if [ $test_num -ge 5 ];then
     fi
 else
     echo "缺少以下依赖"
-    echo "------------------------------"
+    echo "-------------------------------------------"
     echo $missing_dep
-    echo "------------------------------"
+    echo "-------------------------------------------"
     echo "请安装后重试"
     exit 1
 fi
