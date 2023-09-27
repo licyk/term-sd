@@ -87,7 +87,8 @@ function help_option_2()
 7、安装前的准备完成后,将会弹出安装确认界面,选择"是"开始安装\n
 8、安装结束后,会自动进入盖项目的管理界面,在该界面中可以对项目进行更新,卸载,启动等操作\n
 9、在安装之后,pip模块会产生大量的缓存,可使用主界面的"pip缓存清理"进行删除\n
-10、使用\"./term-sd\"命令启动时可在命令后面添加参数\n
+10、使用install-term-sd-to-shell脚本安装启动命令后,可使用\"termsd\"或者\"tsd\"启动Term-SD\n
+11、使用\"./term-sd\"命令启动时可在命令后面添加参数\n
 参数使用方法:\n
   term-sd.sh [--help] [--extra] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd]\n
 参数功能:\n
@@ -115,7 +116,7 @@ test-proxy:测试网络环境,用于测试代理是否可用\n
 12、ComfyUI设置界面语言:点击右上角的齿轮图标,找到\"AGLTranslation-langualge\",选择\"中文\",ComfyUi将会自动切换中文\n
 13、在启动a1111-sd-webui前开启了代理软件,可能会导致a1111-sd-webui界面报错,无法使用(貌似只有a1111-sd-webui有这种问题),推荐在a1111-sd-webui启动完成后再开启代理软件\n
 14、如遇到网络问题,比如下载模型失败等,可设置代理,代理参数的格式为\"ip:port\",例子:\"127.0.0.1:10808\",ip、port、代理协议需查看用户使用的代理软件配置(在终端环境中,除了有驱动模式或者TUN模式的代理软件,一般没办法为终端设置代理,所以可以使用该功能为终端环境设置代理)\n
-15、在代理选项中\"huggingface独占代理\"可在安装过程中单独为从huggingface中下载模型时单独启用代理,保证安装速度,因为除了从huggingface下载模型的过程之外,可以不走代理\n
+15、在代理选项中\"huggingface独占代理\"可在安装过程中单独为从huggingface中下载模型时单独启用代理,保证安装速度,因为除了从huggingface下载模型的过程之外,其他下载过程可以不走代理进行下载(注:在使用驱动模式或者TUN模式的代理软件时,该功能无效,因为代理软件会强制让所有网络流量走代理)\n
 \n
 " 22 70
 }

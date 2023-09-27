@@ -37,6 +37,7 @@ function install_config_to_shell()
             echo "配置已存在,添加前请删除原有配置"
         else
             echo $term_sd_shell_config >> .bashrc
+            echo "alias tsd='termsd'" >> .bashrc
             echo "配置添加完成,重启shell以生效"
         fi
     elif [ $user_shell = zsh ];then
@@ -44,6 +45,7 @@ function install_config_to_shell()
             echo "配置已存在,添加前请删除原有配置"
         else
             echo $term_sd_shell_config >> .zshrc
+            echo "alias tsd='termsd'" >> .bashrc
             echo "配置添加完成,重启shell以生效"
         fi
     fi
@@ -54,6 +56,7 @@ function remove_config_from_shell()
 {
     cd ~
     sed -i '/termsd(){/d' ."$user_shell"rc
+    sed -i '/alias tsd='termsd'/d' ."$user_shell"rc
     echo "配置已删除,重启shell以生效"
     cd - > /dev/null
 }

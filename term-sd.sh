@@ -317,6 +317,7 @@ function remove_term_sd()
             if [ $user_shell = bash ] || [ $user_shell = zsh ];then
                 cd ~
                 sed -i '/termsd(){/d' ."$user_shell"rc
+                sed -i '/alias tsd='termsd'/d' ."$user_shell"rc
                 cd - > /dev/null
             fi
             echo "Term-SD卸载完成"
