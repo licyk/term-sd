@@ -24,8 +24,8 @@ function extension_all_update()
         if [ -d "./$extension_folder/.git" ];then #检测到目录中包含.git文件夹再执行更新操作
             cd "$extension_folder"
             extension_to_update_=$(( $extension_to_update_ + 1 ))
-            echo "[$extension_to_update_/$extension_to_update] 更新"$extension_folder"插件中"
-            update_info="$update_info"$extension_folder"插件:"
+            echo "[$extension_to_update_/$extension_to_update] 更新$(echo $extension_folder | awk -F "/" '{print $NF}')插件中"
+            update_info="$update_info$(echo $extension_folder | awk -F "/" '{print $NF}')插件:"
             git pull
         
             if [ $? = 0 ];then
@@ -36,5 +36,5 @@ function extension_all_update()
             cd ..
         fi
     done
-    dialog --clear --title "Term-SD" --backtitle "插件/自定义节点更新结果" --msgbox "当前插件/自定义节点的更新情况列表\n--------------------------------------------------------$update_info\n--------------------------------------------------------" 22 70
+    dialog --clear --title "Term-SD" --backtitle "插件/自定义节点更新结果" --msgbox "当前插件/自定义节点的更新情况列表\n--------------------------------------------------------\n$update_info\n--------------------------------------------------------" 22 70
 }

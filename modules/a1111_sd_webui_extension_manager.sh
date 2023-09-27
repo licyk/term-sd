@@ -90,7 +90,7 @@ function a1111_sd_webui_operate_extension()
         3>&1 1>&2 2>&3)
     if [ $? = 0 ];then
         if [ "${final_a1111_sd_webui_operate_extension}" == '1' ]; then
-            echo "更新"$extension_selection"中"
+            echo "更新$(echo $extension_selection | awk -F "/" '{print $NF}')插件中"
             git pull
             if [ $? = "0" ];then
                 dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件更新结果" --msgbox ""$extension_selection"插件更新成功" 22 70
@@ -100,7 +100,7 @@ function a1111_sd_webui_operate_extension()
             cd ..
         elif [ "${final_a1111_sd_webui_operate_extension}" == '2' ]; then
             if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件删除选项" --yes-label "是" --no-label "否" --yesno "是否删除"$extension_selection"插件?" 22 70) then
-                echo "删除"$extension_selection"插件中"
+                echo "删除$(echo $extension_selection | awk -F "/" '{print $NF}')插件中"
                 cd ..
                 rm -rf ./$extension_selection
             else

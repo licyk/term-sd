@@ -106,7 +106,7 @@ function operate_comfyui_custom_node()
         3>&1 1>&2 2>&3)
     if [ $? = 0 ];then
         if [ "${final_operate_comfyui_custom_node}" == '1' ]; then
-            echo "更新"$comfyui_custom_node_selection"中"
+            echo "更新$(echo $comfyui_custom_node_selection | awk -F "/" '{print $NF}')自定义节点中"
             git pull
             if [ $? = "0" ];then
                 dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点更新结果" --msgbox ""$comfyui_custom_node_selection"自定义节点更新成功" 22 70
@@ -121,8 +121,8 @@ function operate_comfyui_custom_node()
             dep_info="" #清除上次运行结果
 
             if [ -f "./install.py" ] || [ -f "./requirements.txt" ];then
-                echo "安装"$comfyui_custom_node_selection"依赖"
-                dep_info="$dep_info\n "$comfyui_custom_node_selection"插件:\n" #作为显示安装结果信息
+                echo "安装$(echo $comfyui_custom_node_selection | awk -F "/" '{print $NF}')自定义节点依赖"
+                dep_info="$dep_info\n $(echo $comfyui_custom_node_selection | awk -F "/" '{print $NF}')自定义节点:\n" #作为显示安装结果信息
             fi
 
             if [ -f "./install.py" ];then #找到install.py文件
@@ -148,7 +148,7 @@ function operate_comfyui_custom_node()
             dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点依赖安装结果" --msgbox "当前依赖的安装情况列表\n--------------------------------------------------------$dep_info\n--------------------------------------------------------" 22 70
         elif [ "${final_operate_comfyui_custom_node}" == '3' ]; then
             if (dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点删除选项" --yes-label "是" --no-label "否" --yesno "是否删除"$comfyui_custom_node_selection"自定义节点?" 22 70) then
-                echo "删除"$comfyui_custom_node_selection"自定义节点中"
+                echo "删除$(echo $comfyui_custom_node_selection | awk -F "/" '{print $NF}')自定义节点中"
                 cd ..
                 rm -rf ./$comfyui_custom_node_selection
             else
@@ -287,8 +287,8 @@ function operate_comfyui_extension()
             dep_info="" #清除上次运行结果
 
             if [ -f "./install.py" ] || [ -f "./requirements.txt" ];then
-                echo "安装"$comfyui_extension_selection"依赖"
-                dep_info="$dep_info\n "$comfyui_extension_selection"插件:\n" #作为显示安装结果信息
+                echo "安装$(echo $comfyui_extension_selection | awk -F "/" '{print $NF}')插件依赖"
+                dep_info="$dep_info\n $(echo $comfyui_extension_selection | awk -F "/" '{print $NF}')插件:\n" #作为显示安装结果信息
             fi
 
             if [ -f "./install.py" ];then #找到install.py文件
@@ -314,7 +314,7 @@ function operate_comfyui_extension()
             dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件依赖安装结果" --msgbox "当前依赖的安装情况列表\n--------------------------------------------------------$dep_info\n--------------------------------------------------------" 22 70
         elif [ "${final_operate_comfyui_extension}" == '3' ]; then
             if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件删除选项" --yes-label "是" --no-label "否" --yesno "是否删除"$comfyui_extension_selection"插件?" 22 70) then
-                echo "删除"$comfyui_extension_selection"插件中"
+                echo "删除$(echo $comfyui_extension_selection | awk -F "/" '{print $NF}')插件中"
                 cd ..
                 rm -rf ./$comfyui_extension_selection
             else
@@ -357,8 +357,8 @@ function comfyui_extension_dep_install()
         cd $extension_folder
         if [ -f "./install.py" ] || [ -f "./requirements.txt" ];then
             extension_dep_to_install_=$(( $extension_dep_to_install_ + 1 ))
-            echo "[$extension_dep_to_install_/$extension_dep_to_install] 安装"$extension_folder"依赖"
-            dep_info="$dep_info\n "$extension_folder"插件:\n" #作为显示安装结果信息
+            echo "[$extension_dep_to_install_/$extension_dep_to_install] 安装$(echo $extension_folder | awk -F "/" '{print $NF}')依赖"
+            dep_info="$dep_info\n $(echo $extension_folder | awk -F "/" '{print $NF}'):\n" #作为显示安装结果信息
         fi
 
         if [ -f "./install.py" ];then #找到install.py文件
@@ -381,5 +381,5 @@ function comfyui_extension_dep_install()
         cd ..
     done
     exit_venv
-    dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件/自定义节点依赖安装结果" --msgbox "当前依赖的安装情况列表\n--------------------------------------------------------$dep_info\n--------------------------------------------------------" 22 70
+    dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件/自定义节点依赖安装结果" --msgbox "当前依赖的安装情况列表\n--------------------------------------------------------\n$dep_info\n--------------------------------------------------------" 22 70
 }
