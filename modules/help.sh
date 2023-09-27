@@ -387,7 +387,7 @@ ComfyUI_ADV_CLIP_emb:高级剪辑文本编码,可让您选择解释提示权重�
 ComfyUI_Noise:噪声控制   \n
 ComfyUI_Dave_CustomNode:图片区域控制   \n
 ComfyUI-Impact-Pack:通过检测器、细节器、升频器、管道等方便地增强图像   \n
-ComfyUI-Manager:用户界面管理器   \n
+ComfyUI-Manager:自定义节点/插件管理器   \n
 ComfyUI-Custom-Nodes:ComfyUI的自定义节点   \n
 ComfyUI-Custom-Scripts:ComfyUI的增强功能   \n
 NodeGPT:使用GPT辅助生图   \n
