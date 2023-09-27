@@ -58,11 +58,7 @@ function mainmenu()
 function term_sd_launch()
 {
     enter_venv
-    if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
-        python $(cat ./term-sd-launch.conf)
-    else
-        python3 $(cat ./term-sd-launch.conf)
-    fi
+    $python_cmd $(cat ./term-sd-launch.conf)
 }
 
 #项目更新失败修复功能

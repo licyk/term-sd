@@ -71,11 +71,7 @@ function lora_scripts_option()
                 enter_venv
                 export HF_HOME=huggingface
                 export PYTHONUTF8=1
-                if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
-                    python ./gui.py
-                else
-                    python3 ./gui.py
-                fi
+                $python_cmd ./gui.py
                 lora_scripts_option
             elif [ "${final_lora_scripts_option}" == '6' ]; then
                 if (dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts重新安装选项" --yesno "是否重新安装lora_scripts?" 22 70) then

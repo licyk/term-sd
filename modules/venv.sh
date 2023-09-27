@@ -17,24 +17,18 @@ function venv_option()
 function create_venv()
 {
     if [ "$venv_active" = "0" ];then
-        if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
-            echo "创建venv虚拟环境"
-            python -m venv venv
-        else
-            echo "创建venv虚拟环境"
-            python3 -m venv venv
-        fi
+        echo "创建venv虚拟环境"
+        $python_cmd -m venv venv
     fi
 }
 
 function enter_venv()
 {
     if [ "$venv_active" = "0" ];then
-        if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
-            echo "进入venv虚拟环境"
+        echo "进入venv虚拟环境"
+        if [ -f "./venv/Scripts/activate" ];then #在Windows端的venv目录结构和linux,macos的不同
             source ./venv/Scripts/activate
-        else
-            echo "进入venv虚拟环境"
+        elif [ -f "./venv/bin/activate" ];then
             source ./venv/bin/activate
         fi
     fi

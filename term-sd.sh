@@ -329,52 +329,40 @@ function remove_term_sd()
 #################################################
 
 echo "Term-SD初始化中......"
+echo "检测依赖软件是否安装"
+missing_dep=""
+test_num=0
+temr_sd_depend="git aria2c dialog pip" #term-sd依赖软件包
 
-if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
-    test_python="python"
+#检测可用的python命令
+if python3 --version > /dev/null 2> /dev/null || python --version > /dev/null 2> /dev/null ;then #判断是否有可用的python
+    python_cmd_test_1=$(python3 --version)
+    python_cmd_test_2=$(python --version)
+
+    if [ ! -z "$python_cmd_test_1" ];then
+        export python_cmd="python3"
+    elif [ ! -z "$python_cmd_test_2" ];then
+        export python_cmd="python"
+    fi
 else
-    test_python="python3"
+    test_num=$(( $test_num + 1 ))
+    missing_dep="$missing_dep python,"
 fi
+
+#判断系统是否安装必须使用的软件
+for term_sd_depend_ in $temr_sd_depend ; do
+    if which $term_sd_depend_ > /dev/null ;then
+        test_num=$(( $test_num + 1 ))
+    else
+        missing_dep="$missing_dep $term_sd_depend_"
+    fi
+done
 
 if [ -f "./term-sd/proxy.conf" ];then #读取代理设置并设置代理
     export http_proxy=$(cat ./term-sd/proxy.conf)
     export https_proxy=$(cat ./term-sd/proxy.conf)
     #export all_proxy=$(cat ./term-sd/proxy.conf)
     #代理变量的说明:https://blog.csdn.net/Dancen/article/details/128045261
-fi
-
-#判断系统是否安装必须使用的软件
-echo "检测依赖软件是否安装"
-missing_dep=""
-test_num=0
-if which dialog > /dev/null ;then
-    test_num=$(( $test_num + 1 ))
-else
-    missing_dep="$missing_dep dialog,"
-fi
-
-if which aria2c > /dev/null ;then
-    test_num=$(( $test_num + 1 ))
-else
-    missing_dep="$missing_dep aria2,"
-fi
-
-if which $test_python > /dev/null;then
-    test_num=$(( $test_num + 1 ))
-else
-    missing_dep="$missing_dep python,"
-fi
-
-if which pip >/dev/null;then
-    test_num=$(( $test_num + 1 ))
-else
-    missing_dep="$missing_dep pip,"
-fi
-
-if which git > /dev/null;then
-    test_num=$(( $test_num + 1 ))
-else
-    missing_dep="$missing_dep git,"
 fi
 
 #启动terrm-sd

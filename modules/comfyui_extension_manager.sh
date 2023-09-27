@@ -126,11 +126,7 @@ function operate_comfyui_custom_node()
             fi
 
             if [ -f "./install.py" ];then #找到install.py文件
-                if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
-                    python install.py
-                else
-                    python3 install.py
-                fi
+                $python_cmd install.py
                 if [ $? = 0 ];then #记录退出状态
                     dep_info="$dep_info     run install.py:成功\n"
                 else
@@ -296,11 +292,7 @@ function operate_comfyui_extension()
             fi
 
             if [ -f "./install.py" ];then #找到install.py文件
-                if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
-                    python install.py
-                else
-                    python3 install.py
-                fi
+                $python_cmd install.py
                 if [ $? = 0 ];then #记录退出状态
                     dep_info="$dep_info     run install.py:成功\n"
                 else
@@ -370,11 +362,7 @@ function comfyui_extension_dep_install()
         fi
 
         if [ -f "./install.py" ];then #找到install.py文件
-            if [ $(uname -o) = "Msys" ];then #为了兼容windows系统
-                python install.py
-            else
-                python3 install.py
-            fi
+            $python_cmd install.py
             if [ $? = 0 ];then #记录退出状态
                 dep_info="$dep_info     run install.py:成功\n"
             else
