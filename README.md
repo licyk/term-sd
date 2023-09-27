@@ -1,9 +1,9 @@
 # term-sd
 
 基于dialog实现界面显示的管理器，支持安装，管理A1111-SD-Webui,ComfyUI.InvokeAI,lora-scripts  
-支持Linux，Windows，Macos(Windows平台需安装msys2,MacOS需要安装homebrew)  
-需安装aria2,python(推荐使用3.10的版本),pip,git,dialog  
-使用term-sd前先配置好环境  
+term-sd支持在Linux，Windows，MacOS上运行(Windows平台需安装msys2,MacOS需要安装homebrew)  
+使用前需安装aria2,python(推荐使用3.10的版本),pip,git,dialog  
+在使用term-sd前先配置好环境  
 
 ***
 
@@ -23,7 +23,11 @@ windows系统安装配置环境的方法：
     C:\msys64\mingw64\bin
     C:\msys64\usr\bin
 
->`C:\msys64`指msys2安装路径,要根据msys2实际的安装路径进行修改
+>`C:\msys64`指msys2安装路径,要根据msys2实际的安装路径进行修改  
+如果把msys2安装在`D:\Program Files\MSYS2`路径中,上面的路径就改为  
+`D:\Program Files\MSYS2\mingw64\bin`  
+`D:\Program Files\MSYS2\usr\bin`  
+下面配置Windows终端时同理
 
 2、安装git，dialog  
 安装好后在windows的开始菜单里找到`MSYS2 MINGW64`，打开  
@@ -50,7 +54,7 @@ windows系统安装配置环境的方法：
 在系统的某个位置创建一个文件夹，得到一个路径，比如D:\Program Files\aria2，记下来，将aria2c.exe放入文件夹  
 按下“win+R”快捷键，打开运行对话框，输入指令：  
 
-    sysdm.cpl  
+    sysdm.cpl
 
 打开`系统属性`窗体后，依次点击选项卡`高级`->`环境变量`  
 在`系统变量`部分点双击`Path`，点击`新建`，把刚刚记下来的路径粘贴上去，然后一直点确定直至完成  
@@ -109,8 +113,8 @@ brew install git aria2 dialog python
 
     ./term-sd.sh
 
-启动后按照提示安装term-sd组件后即可正常使用  
->huggingface目前在大陆网络环境无法访问，需要在term-sd中配置好代理参数，保证能够正常下载模型
+启动后按照提示安装term-sd组件后即可正常使用,在term-sd的帮助功能中可以查看详细的使用方法  
+>huggingface目前在大陆网络环境无法访问，需要使用带有TUN模式或者驱动模式的代理软件(如果开启代理软件后还会出现下载失败的问题,需在term-sd中配置好代理参数)，保证能够正常下载模型
 
 ***
 
