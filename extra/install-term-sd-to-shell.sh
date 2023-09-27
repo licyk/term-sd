@@ -56,7 +56,7 @@ function remove_config_from_shell()
 {
     cd ~
     sed -i '/termsd(){/d' ."$user_shell"rc
-    sed -i '/alias tsd='termsd'/d' ."$user_shell"rc
+    sed -i '/alias tsd/d' ."$user_shell"rc
     echo "配置已删除,重启shell以生效"
     cd - > /dev/null
 }
