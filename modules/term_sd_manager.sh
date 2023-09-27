@@ -74,7 +74,7 @@ function term_sd_version()
     dialog --clear --title "Term-SD" --backtitle "Term-SD开始界面"  --ok-label "确定" --msgbox "版本信息:\n\n
 系统:$(uname -o) \n
 Term-SD:"$term_sd_version_" \n
-python:$($test_python --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
+python:$($python_cmd --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
 pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
 aria2:$(aria2c --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ') \n
 git:$(git --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ') \n
