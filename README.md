@@ -1,6 +1,6 @@
 # term-sd
 
-基于dialog实现界面显示的管理器，支持安装，管理A1111-SD-Webui,ComfyUI.InvokeAI,lora-scripts  
+基于dialog实现界面显示的AI管理器，支持安装，管理A1111-SD-Webui,ComfyUI.InvokeAI,lora-scripts  
 term-sd支持在Linux，Windows，MacOS上运行(Windows平台需安装msys2,MacOS需要安装homebrew)  
 使用前需安装aria2,python(推荐使用3.10的版本),pip,git,dialog  
 在使用term-sd前先配置好环境  
@@ -88,7 +88,7 @@ ArchLinux系：
 MacOS配置环境方法：
 
 1、安装homebrew  
-打开macos终端，输入以下指令，根据提示安装homebrew
+打开MacOS终端，输入以下指令，根据提示安装homebrew
 ```
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```

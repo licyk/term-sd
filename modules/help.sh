@@ -50,16 +50,16 @@ function help_option()
 function help_option_1()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --msgbox "关于Term-SD:\n
-Term-SD是基于终端显示的管理器,可以对项目进行简单的管理  \n
-支持的项目如下: \n
+Term-SD是基于终端显示的AI管理器,可以对AI软件进行简单的管理  \n
+支持的AI软件如下: \n
 1、AUTOMATIC1111-stable-diffusion-webui \n
 2、ComfyUI \n
 3、InvokeAI \n
 4、lora-scripts \n
-(项目都基于stable-diffusion)\n
+(AI软件都基于stable-diffusion)\n
 \n
 \n
-该脚本的编写参考了https://gitee.com/skymysky/linux \n
+该脚本的编写参考了https://gitee.com/skymysky/linux\n
 脚本支持Windows,Linux,MacOS(Windows平台需安装msys2,MacOS需要安装homebrew)\n
 \n
 stable-diffusion相关链接:\n
@@ -80,15 +80,15 @@ function help_option_2()
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --msgbox "Term-SD使用说明:\n
 1、使用方向键、Tab键移动光标,Enter进行选择,Space键勾选或取消勾选,(已勾选时显示[*]),Ctrl+C可中断指令的运行 \n
 2、初次使用时,如果之前没有使用过python的pip模块,建议在主界面先选择"pip镜像源",设置pip的国内镜像源,加快安装时下载python软件包的速度。主界面显示的"虚拟环境"保持启用就行,无需禁用\n
-3、主界面总共有四个ai项目可选(AUTOMATIC1111-stable-diffusion-webui,ComfyUI,InvokeAI,lora-scripts),回车选中后,如果在脚本的当前目录未找选中的项目,term-sd会提示你进行安装。\n
-4、安装前将会提示你进行安装准备,首先是"代理选择",有四个选项可选(启用pip镜像源,启用github代理,强制使用pip,huggingface独占代理),前3个选项选项默认勾选,如果没有质量较好的代理工具,不建议取消勾选。"强制使用pip"只有禁用了虚拟环境时才建议勾选(在Linux中,如果不在虚拟环境中安装python软件包,pip模块会警告\"error: externally-managed-environment\",只有使用"--break-system-packages"参数才能进行安装)\n
+3、主界面总共有四个AI软件可选(AUTOMATIC1111-stable-diffusion-webui,ComfyUI,InvokeAI,lora-scripts),回车选中后,如果在脚本的当前目录未找选中的AI软件,term-sd会提示你进行安装。\n
+4、安装前将会提示你进行安装准备,首先是"代理选择",有4个选项可选(启用pip镜像源,启用github代理,强制使用pip,huggingface独占代理),前3个选项选项默认勾选,如果没有质量较好的代理工具,不建议取消勾选。"强制使用pip"只有禁用了虚拟环境时才建议勾选(在Linux中,如果不在虚拟环境中安装python软件包,pip模块会警告\"error: externally-managed-environment\",只有使用"--break-system-packages"参数才能进行安装)\n
 5、然后是"pytorch安装",pytorch版本的选择:nvidia显卡选择cuda(Windows,linux平台),amd显卡在linux平台选择rocm,amd显卡和intel显卡在windows平台选择directml,macos选择不带cuda,rocm,directml的版本,如果想要在cpu上进行跑图,选择cpu版本\n
-6、AUTOMATIC1111-stable-diffusion-webui,ComfyUI会有额外的插件/自定义节点选择,默认勾选一些比较实用的,可根据需要勾选额外,插件/自定义节点的介绍在帮助中查询。(项目在安装好后,如果在插件安装列表有想要安装的,可使用"扩展脚本"中的"extension"脚本进行安装)\n
+6、AUTOMATIC1111-stable-diffusion-webui,ComfyUI会有额外的插件/自定义节点选择,默认勾选一些比较实用的,可根据需要勾选额外的,插件/自定义节点的介绍在帮助中查询。(AI软件在安装好后,如果在插件安装列表有想要安装的,可使用扩展脚本中带有"extension"名字的脚本进行安装)\n
 7、安装前的准备完成后,将会弹出安装确认界面,选择"是"开始安装\n
-8、安装结束后,会自动进入该项目的管理界面,在该界面中可以对项目进行更新,卸载,启动等操作\n
+8、安装结束后,会自动进入该AI软件的管理界面,在该界面中可以对AI软件进行更新,卸载,启动等操作\n
 9、在安装之后,pip模块会产生大量的缓存,可使用主界面的"pip缓存清理"进行删除\n
 10、使用install-term-sd-to-shell脚本安装启动命令后,可使用\"termsd\"或者\"tsd\"命令启动Term-SD\n
-11、使用\"./term-sd.sh\"命令启动时可在命令后面添加参数\n
+11、使用\"./term-sd.sh\"命令启动时可在命令后面添加参数(使用install-term-sd-to-shell脚本进行命令安装后可使用\"termsd\"或者\"tsd\"命令启动Term-SD)\n
 参数使用方法:\n
   term-sd.sh [--help] [--extra] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd]\n
 参数功能:\n
@@ -103,27 +103,27 @@ test-proxy:测试网络环境,用于测试代理是否可用\n
 12、Term-SD的功能(除了安装,更新,启动,卸载):\n
 主界面:\n
 Term-SD更新管理:对本脚本进行更新,更换更新源,切换版本分支\n
-venv虚拟环境设置:启用/禁用venv环境,默认保持启用,防止不同项目因软件包版本不同造成互相干扰\n
+venv虚拟环境设置:启用/禁用venv环境,默认保持启用,防止不同AI软件因软件包版本不同造成互相干扰\n
 pip镜像源设置:设置pip的下载源,解决国内网络环境访问pip软件源速度慢的问题\n
 pip缓存清理:清理pip在安装软件包后产生的缓存\n
-代理设置:为Term-SD访问网络设置代理,一般用在代理软件开启后,Term-SD安装项目时依然出现无法访问huggingface等资源的问题(如果代理软件有驱动模式或者TUN模式时则不会有这种问题,就不需要使用\"代理设置\"进行配置代理)\n
-空间占用分析:显示Term-SD管理的项目的所占空间\n
+代理设置:为Term-SD访问网络设置代理,一般用在代理软件开启后,Term-SD安装AI软件时依然出现无法访问huggingface等资源的问题(如果代理软件有驱动模式或者TUN模式时则不会有这种问题,就不需要使用\"代理设置\"进行配置代理)\n
+空间占用分析:显示Term-SD管理的AI软件的所占空间\n
 管理功能:\n
-修复更新:在更新项目时出现更新失败,可使用该功能进行修复\n
-切换版本:对项目的版本进行切换\n
-管理插件/自定义节点:对项目的插件/自定义节点进行管理\n
-重新安装:重新执行一次项目的安装\n
+修复更新:在更新AI软件时出现更新失败时,可使用该功能进行修复\n
+切换版本:对AI软件的版本进行切换\n
+管理插件/自定义节点:对AI软件的插件/自定义节点进行管理\n
+重新安装:重新执行一次AI软件的安装\n
 重新安装pytorch:用于切换pytorch版本(pytorch为ai的框架,为ai提供大量功能)\n
-重新生成venv虚拟环境:在移动项目的文件夹后,venv会出现路径问题而导致运行异常,该功能可修复该问题\n
-重新构建venv虚拟环境:venv出现比较严重的软件包版本问题,导致项目运行异常,此时可使用该功能进行修复(该功能同时会运行\"重新生成venv虚拟环境\"功能)\n
+重新生成venv虚拟环境:在移动AI软件的文件夹后,venv会出现路径问题而导致运行异常,该功能可修复该问题\n
+重新构建venv虚拟环境:venv出现比较严重的软件包版本问题,导致AI软件运行异常,此时可使用该功能进行修复(该功能同时会运行\"重新生成venv虚拟环境\"功能)\n
 \n
 注意事项:\n
-1、安装项目的路径和Term-SD脚本所在路径相同,方便管理\n
-2、若项目使用了venv虚拟环境,移动项目到新的路径后需要使用Term-SD的“重新生成venv虚拟环境”功能,才能使venv虚拟环境正常工作\n
+1、安装AI软件的路径和Term-SD脚本所在路径相同,方便管理\n
+2、若AI软件使用了venv虚拟环境,移动AI软件到新的路径后需要使用Term-SD的“重新生成venv虚拟环境”功能,才能使venv虚拟环境正常工作\n
 3、在更新或者切换版本失败时可以使用“更新修复”解决,然后再点一次“更新”\n
 4、Term-SD只有简单的安装,管理功能,若要导入模型等操作需手动在文件管理器上操作\n
 5、如果没有质量较好的代理工具,建议在安装时使用git代理和python镜像源\n
-6、建议保持启用虚拟环境,因为不同项目对软件包的版本要求不同,关闭后易导致不同的项目出现依赖问题\n
+6、建议保持启用虚拟环境,因为不同AI软件对软件包的版本要求不同,关闭后易导致不同的AI软件出现依赖问题\n
 7、AUTOMATIC1111-stable-diffusion-webui安装好后,可以使用秋叶aaaki制作的启动器来启动sd-webui。将秋叶的启动器放入stable-diffusion-webui文件夹中,双击启动(仅限windows,因为秋叶的启动器只有windows的版本)\n
 8、ComfyUI目前并没有自动为插件或者自定义节点安装依赖的功能,所以安装插件或者自定义节点后后,推荐运行一次“安装依赖”功能,有些依赖下载源是在github上的,无法下载时请使用代理工具(已知问题:因为一些插件/自定义节点的安装依赖方式并不统一,term-sd的依赖安装功能可能没有用,需要手动进行安装依赖)\n
 9、InvokeAI在安装好后,要运行一次invokeai-configure,到\"install stable diffusion models\"界面时,可以把所有的模型取消勾选,因为有的模型是从civitai下载的,如果没有开启代理会导致下载失败\n
@@ -216,8 +216,8 @@ host:允许局域网的设备访问\n
 #目录说明
 function help_option_4()
 {
-    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --msgbox "项目的目录说明:\n
-在启用venv虚拟环境后,在安装时项目的目录下会产生venv文件夹,这个是python软件包安装的目录,更换cudnn可在该文件夹中操作\n
+    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --msgbox "AI软件的目录说明:\n
+在启用venv虚拟环境后,在安装时AI软件的目录下会产生venv文件夹,这个是python软件包安装的目录,更换cudnn可在该文件夹中操作\n
 \n
 \n
 stable diffusion webui目录的说明(只列举比较重要的):\n
