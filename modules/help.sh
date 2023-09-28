@@ -100,7 +100,6 @@ disable-auto-update:禁用Term-SD自动检查更新功能\n
 reinstall-term-sd:重新安装Term-SD\n
 remove-term-sd:卸载Term-SD\n
 test-proxy:测试网络环境,用于测试代理是否可用\n
-\n
 12、Term-SD的功能(除了安装,更新,启动,卸载):\n
 主界面:\n
 Term-SD更新管理:对本脚本进行更新,更换更新源,切换版本分支\n
