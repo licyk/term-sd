@@ -30,10 +30,12 @@ function enter_venv()
 {
     if [ "$venv_active" = "0" ];then
         echo "进入venv虚拟环境"
-        if [ -f "./venv/Scripts/activate" ];then #在Windows端的venv目录结构和linux,macos的不同
+        if [ -f "./venv/Scripts/activate" ];then #在Windows端的venv目录结构和linux,macos的不同,所以进入虚拟环境的方式有区别
             source ./venv/Scripts/activate
         elif [ -f "./venv/bin/activate" ];then
             source ./venv/bin/activate
+        else
+            echo "虚拟环境文件损坏"
         fi
     fi
 }
