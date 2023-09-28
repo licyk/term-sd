@@ -17,8 +17,9 @@ function a1111_sd_webui_option()
             "6" "启动" \
             "7" "重新安装" \
             "8" "重新安装pytorch" \
-            "9" "重新生成venv虚拟环境" \
-            "10" "返回" \
+            $dialog_button_4 \
+            $dialog_button_5 \
+            "20" "返回" \
             3>&1 1>&2 2>&3)
 
         if [ $? = 0 ];then
@@ -80,10 +81,15 @@ function a1111_sd_webui_option()
             elif [ "${final_a1111_sd_webui_option}" == '8' ]; then
                 pytorch_reinstall
                 a1111_sd_webui_option
-            elif [ "${final_a1111_sd_webui_option}" == '9' ]; then
+            elif [ "${final_a1111_sd_webui_option}" == '10' ]; then
                 create_venv
                 a1111_sd_webui_option
-            elif [ "${final_a1111_sd_webui_option}" == '10' ]; then
+            elif [ "${final_a1111_sd_webui_option}" == '11' ]; then
+                if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建A1111-SD-Webui的虚拟环境" 22 70);then
+                    a1111_sd_webui_venv_rebuild
+                fi
+                a1111_sd_webui_option
+            elif [ "${final_a1111_sd_webui_option}" == '20' ]; then
                 mainmenu #回到主界面
             fi
         fi

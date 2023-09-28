@@ -6,9 +6,13 @@ function venv_option()
 {
     if (dialog --clear --title "Term-SD" --backtitle "venv虚拟环境选项" --yes-label "启用" --no-label "禁用" --yesno "是否启用venv虚拟环境?(推荐启用)\n当前虚拟环境状态:$([ $venv_active = 0 ] && echo "启用" || echo "禁用")" 22 70) then
         export venv_active="0"
+        export dialog_button_4=""10" "重新生成venv虚拟环境"" #在启用venv后显示这些dialog按钮
+        export dialog_button_5=""11" "重新构建venv虚拟环境""
         rm -rf ./term-sd/term-sd-venv-disable.lock
     else
         export venv_active="1"
+        export dialog_button_4=""
+        export dialog_button_5=""
         touch ./term-sd/term-sd-venv-disable.lock
     fi
     mainmenu
