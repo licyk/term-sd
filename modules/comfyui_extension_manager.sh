@@ -145,7 +145,7 @@ function operate_comfyui_custom_node()
 
             exit_venv
             cd ..
-            dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点依赖安装结果" --msgbox "当前依赖的安装情况列表\n--------------------------------------------------------$dep_info\n--------------------------------------------------------" 22 70
+            dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点依赖安装结果" --msgbox "当前依赖的安装情况列表\n------------------------------------------------------------------\n$dep_info------------------------------------------------------------------" 22 70
         elif [ "${final_operate_comfyui_custom_node}" == '3' ]; then
             if (dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点删除选项" --yes-label "是" --no-label "否" --yesno "是否删除"$comfyui_custom_node_selection"自定义节点?" 22 70) then
                 echo "删除$(echo $comfyui_custom_node_selection | awk -F "/" '{print $NF}')自定义节点中"
@@ -311,7 +311,7 @@ function operate_comfyui_extension()
 
             exit_venv
             cd ..
-            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件依赖安装结果" --msgbox "当前依赖的安装情况列表\n--------------------------------------------------------$dep_info\n--------------------------------------------------------" 22 70
+            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件依赖安装结果" --msgbox "当前依赖的安装情况列表\n------------------------------------------------------------------\n$dep_info------------------------------------------------------------------" 22 70
         elif [ "${final_operate_comfyui_extension}" == '3' ]; then
             if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件删除选项" --yes-label "是" --no-label "否" --yesno "是否删除"$comfyui_extension_selection"插件?" 22 70) then
                 echo "删除$(echo $comfyui_extension_selection | awk -F "/" '{print $NF}')插件中"
@@ -381,5 +381,5 @@ function comfyui_extension_dep_install()
         cd ..
     done
     exit_venv
-    dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件/自定义节点依赖安装结果" --msgbox "当前依赖的安装情况列表\n--------------------------------------------------------\n$dep_info\n--------------------------------------------------------" 22 70
+    dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件/自定义节点依赖安装结果" --msgbox "当前依赖的安装情况列表\n------------------------------------------------------------------\n$dep_info------------------------------------------------------------------" 22 70
 }

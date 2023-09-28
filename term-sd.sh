@@ -208,7 +208,7 @@ function term_sd_install()
             exit 1
         fi
     elif [ ! -d "./term-sd/.git" ];then
-        echo "检测到term-sd的.git目录不存在,将会影响term-sd组件的更新,是否重新安装(yes/no)?"
+        echo "检测到term-sd的.git目录不存在,将会导致Term-SD无法更新,是否重新安装(yes/no)?"
         echo "提示:输入yes或no后回车"
         read -p "==>" term_sd_install_option
         if [ ! -z $term_sd_install_option ];then

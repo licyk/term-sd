@@ -3,39 +3,44 @@
 #term-sd更新功能
 function term_sd_update_option()
 {
-    term_sd_update_option_=$(dialog --clear --title "Term-SD" --backtitle "Term-SD更新选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的更新源\n当前Term-SD更新源:$(git --git-dir="./term-sd/.git" remote get-url origin)\n当前Term-SD分支:$(git --git-dir="./term-sd/.git" branch | grep \* | awk -F "* " '{print $NF}')" 22 70 12 \
-        "1" "更新" \
-        "2" "切换更新源" \
-        "3" "切换分支" \
-        "4" "返回" \
-        3>&1 1>&2 2>&3)
+    if [ -d "./term-sd/.git" ];then #检测目录中是否有.git文件夹
+        term_sd_update_option_=$(dialog --clear --title "Term-SD" --backtitle "Term-SD更新选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的更新源\n当前Term-SD更新源:$(git --git-dir="./term-sd/.git" remote get-url origin)\n当前Term-SD分支:$(git --git-dir="./term-sd/.git" branch | grep \* | awk -F "* " '{print $NF}')" 22 70 12 \
+            "1" "更新" \
+            "2" "切换更新源" \
+            "3" "切换分支" \
+            "4" "返回" \
+            3>&1 1>&2 2>&3)
 
-    if [ $? = 0 ];then
-        if [ $term_sd_update_option_ = 1 ];then
-            cd ./term-sd
-            git_pull_info=""
-            git fetch --all
-            git pull --all
-            git_pull_info=$?
-            cd ..
-            if [ $git_pull_info = 0 ];then
-                cp -f ./term-sd/term-sd.sh .
-                chmod +x ./term-sd.sh
-                dialog --clear --title "Term-SD" --backtitle "Term-SD更新结果" --ok-label "确定" --msgbox "Term-SD更新成功,选择确定后重启" 22 70
-                source ./term-sd/modules/init.sh
-            else
-                dialog --clear --title "Term-SD" --backtitle "Term-SD更新结果" --ok-label "确定" --msgbox "Term-SD更新失败"
+        if [ $? = 0 ];then
+            if [ $term_sd_update_option_ = 1 ];then
+                cd ./term-sd
+                git_pull_info=""
+                git fetch --all
+                git pull --all
+                git_pull_info=$?
+                cd ..
+                if [ $git_pull_info = 0 ];then
+                    cp -f ./term-sd/term-sd.sh .
+                    chmod +x ./term-sd.sh
+                    dialog --clear --title "Term-SD" --backtitle "Term-SD更新结果" --ok-label "确定" --msgbox "Term-SD更新成功,选择确定后重启" 22 70
+                    source ./term-sd/modules/init.sh
+                else
+                    dialog --clear --title "Term-SD" --backtitle "Term-SD更新结果" --ok-label "确定" --msgbox "Term-SD更新失败"
+                    term_sd_update_option
+                fi
+            elif [ $term_sd_update_option_ = 2 ];then
+                term_sd_remote
                 term_sd_update_option
+            elif [ $term_sd_update_option_ = 3 ];then
+                term_sd_branch
+            elif [ $term_sd_update_option_ = 4 ];then
+                mainmenu
             fi
-        elif [ $term_sd_update_option_ = 2 ];then
-            term_sd_remote
-            term_sd_update_option
-        elif [ $term_sd_update_option_ = 3 ];then
-            term_sd_branch
-        elif [ $term_sd_update_option_ = 4 ];then
+        else
             mainmenu
         fi
-    else
+    else #检测到没有该文件夹,无法进行更新,提示用户修复
+        dialog --clear --title "Term-SD" --backtitle "Term-SD更新选项" --ok-label "确定" --msgbox "Term-SD文件损坏,无法进行更新,请重启Term-SD并按提示修复问题" 22 70
         mainmenu
     fi
 }
