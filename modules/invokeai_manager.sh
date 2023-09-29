@@ -52,7 +52,6 @@ function invokeai_option()
                         cd "$start_path"
                         exit_venv
                         process_install_invokeai
-                        invokeai_option
                     fi
                 elif [ "${final_invokeai_option}" == '5' ]; then
                     pytorch_reinstall
@@ -70,13 +69,11 @@ function invokeai_option()
             if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI安装选项" --yesno "检测到当前未安装InvokeAI,是否进行安装?" 22 70) then
                 cd "$start_path"
                 process_install_invokeai
-                invokeai_option
             fi
         fi
     else
         if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI安装选项" --yesno "检测到当前未安装InvokeAI,是否进行安装?" 22 70) then
           process_install_invokeai
-          invokeai_option
         fi
     fi
     mainmenu #处理完后返回主界面界面

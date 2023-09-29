@@ -84,7 +84,6 @@ function lora_scripts_option()
                     cd "$start_path"
                     exit_venv
                     process_install_lora_scripts
-                    lora_scripts_option
                 fi
             elif [ "${final_lora_scripts_option}" == '8' ]; then
                 pytorch_reinstall
@@ -104,7 +103,6 @@ function lora_scripts_option()
     else
         if (dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts安装选项" --yesno "检测到当前未安装lora_scripts,是否进行安装?" 22 70) then
             process_install_lora_scripts
-            lora_scripts_option
         fi
     fi
     mainmenu #处理完后返回主界面界面

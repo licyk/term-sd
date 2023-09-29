@@ -9,24 +9,29 @@ function process_install_invokeai()
     pip_install_methon #安装方式选择
     final_install_check #安装前确认
 
-    #开始安装invokeai
-    echo "开始安装invokeai"
-    tmp_disable_proxy #临时取消代理,避免一些不必要的网络减速
-    if [ ! -d "./InvokeAI" ];then
-        mkdir InvokeAI
+    if [ $final_install_check_exec = 0 ];then
+        #开始安装invokeai
+        echo "开始安装invokeai"
+        tmp_disable_proxy #临时取消代理,避免一些不必要的网络减速
+        if [ ! -d "./InvokeAI" ];then
+            mkdir InvokeAI
+        fi
+        cd ./InvokeAI
+        create_venv
+        enter_venv
+        if [ ! -d "./invokeai" ];then
+            mkdir ./invokeai
+        fi
+        pip install invokeai $pytorch_install_version $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+        tmp_enable_proxy #恢复原有的代理,保证能从huggingface下载模型
+        aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-upscaler-models/resolve/main/invokeai/RealESRGAN_x4plus.pth -d ./invokeai/models/core/upscaling/realesrgan -o RealESRGAN_x4plus.pth
+        aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-upscaler-models/resolve/main/invokeai/RealESRGAN_x4plus_anime_6B.pth -d ./invokeai/models/core/upscaling/realesrgan -o RealESRGAN_x4plus_anime_6B.pth
+        aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-upscaler-models/resolve/main/invokeai/ESRGAN_SRx4_DF2KOST_official-ff704c30.pth -d ./invokeai/models/core/upscaling/realesrgan -o ESRGAN_SRx4_DF2KOST_official-ff704c30.pth
+        aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-upscaler-models/resolve/main/invokeai/RealESRGAN_x2plus.pth -d ./invokeai/models/core/upscaling/realesrgan -o RealESRGAN_x2plus.pth
+        echo "安装结束"
+        exit_venv
+        invokeai_option
+    else
+        mainmenu
     fi
-    cd ./InvokeAI
-    create_venv
-    enter_venv
-    if [ ! -d "./invokeai" ];then
-        mkdir ./invokeai
-    fi
-    pip install invokeai $pytorch_install_version $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
-    tmp_enable_proxy #恢复原有的代理,保证能从huggingface下载模型
-    aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-upscaler-models/resolve/main/invokeai/RealESRGAN_x4plus.pth -d ./invokeai/models/core/upscaling/realesrgan -o RealESRGAN_x4plus.pth
-    aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-upscaler-models/resolve/main/invokeai/RealESRGAN_x4plus_anime_6B.pth -d ./invokeai/models/core/upscaling/realesrgan -o RealESRGAN_x4plus_anime_6B.pth
-    aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-upscaler-models/resolve/main/invokeai/ESRGAN_SRx4_DF2KOST_official-ff704c30.pth -d ./invokeai/models/core/upscaling/realesrgan -o ESRGAN_SRx4_DF2KOST_official-ff704c30.pth
-    aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-upscaler-models/resolve/main/invokeai/RealESRGAN_x2plus.pth -d ./invokeai/models/core/upscaling/realesrgan -o RealESRGAN_x2plus.pth
-    echo "安装结束"
-    exit_venv
 }

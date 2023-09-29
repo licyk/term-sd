@@ -82,7 +82,6 @@ function comfyui_option()
                     cd "$start_path"
                     exit_venv
                     process_install_comfyui
-                    comfyui_option
                 fi
             elif [ "${final_comfyui_option}" == '10' ]; then
                 pytorch_reinstall
@@ -102,7 +101,6 @@ function comfyui_option()
     else
         if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI安装选项" --yesno "检测到当前未安装ComfyUI,是否进行安装?" 22 70) then
             process_install_comfyui
-            comfyui_option
         fi
     fi
     mainmenu #处理完后返回主界面界面

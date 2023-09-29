@@ -124,7 +124,8 @@ pytorch:$pytorch_install_version\n
 pip安装方式:$final_install_check_pip_methon\n
 " 22 70);then
         echo "安装参数设置完成"
+        export final_install_check_exec=0
     else
-        mainmenu
+        export final_install_check_exec=1
     fi
 }
