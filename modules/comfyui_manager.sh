@@ -82,6 +82,8 @@ function comfyui_option()
                     cd "$start_path"
                     exit_venv
                     process_install_comfyui
+                else
+                    comfyui_option
                 fi
             elif [ "${final_comfyui_option}" == '10' ]; then
                 pytorch_reinstall

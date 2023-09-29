@@ -84,6 +84,8 @@ function lora_scripts_option()
                     cd "$start_path"
                     exit_venv
                     process_install_lora_scripts
+                else
+                    lora_scripts_option
                 fi
             elif [ "${final_lora_scripts_option}" == '8' ]; then
                 pytorch_reinstall

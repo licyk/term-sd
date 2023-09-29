@@ -52,6 +52,8 @@ function invokeai_option()
                         cd "$start_path"
                         exit_venv
                         process_install_invokeai
+                    else
+                        invokeai_option
                     fi
                 elif [ "${final_invokeai_option}" == '5' ]; then
                     pytorch_reinstall

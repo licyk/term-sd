@@ -71,15 +71,17 @@ function a1111_sd_webui_option()
                         a1111_sd_webui_option
                     fi
                 else #找不到启动脚本,并启动脚本生成界面
-                generate_a1111_sd_webui_launch
-                term_sd_launch
-                a1111_sd_webui_option
+                    generate_a1111_sd_webui_launch
+                    term_sd_launch
+                    a1111_sd_webui_option
                 fi
             elif [ "${final_a1111_sd_webui_option}" == '8' ]; then
                 if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui重新安装选项" --yesno "是否重新安装A1111-Stable-Diffusion-Webui?" 22 70) then
-                cd "$start_path"
-                exit_venv
-                process_install_a1111_sd_webui
+                    cd "$start_path"
+                    exit_venv
+                    process_install_a1111_sd_webui
+                else
+                    a1111_sd_webui_option
                 fi
             elif [ "${final_a1111_sd_webui_option}" == '9' ]; then
                 pytorch_reinstall
