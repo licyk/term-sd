@@ -216,7 +216,7 @@ function comfyui_extension_manager()
         3>&1 1>&2 2>&3)
     if [ $? = 0 ];then
         if [ -d "$comfyui_extension_selection" ]; then  # 选择文件夹
-            if [ ! -d "$comfyui_extension_selection" ];then #排除掉core文件夹
+            if [ ! "$comfyui_extension_selection" = "core" ];then #排除掉core文件夹
                 cd "$comfyui_extension_selection"
                 operate_comfyui_extension #调用operate_comfyui_extension函数处理插件
             fi

@@ -71,7 +71,7 @@ function lora_scripts_option()
                 git submodule
                 lora_scripts_option
             elif [ "${final_lora_scripts_option}" == '5' ]; then
-                select_repo
+                lora_scripts_change_repo
                 lora_scripts_option
             elif [ "${final_lora_scripts_option}" == '6' ]; then
                 enter_venv
