@@ -3,6 +3,7 @@
 #InvokeAI选项
 function invokeai_option()
 {
+    export term_sd_manager_info="InvokeAI"
     cd "$start_path" #回到最初路径
     exit_venv #确保进行下一步操作前已退出其他虚拟环境
     if [ -d "InvokeAI" ];then #找到invokeai文件夹
@@ -17,7 +18,7 @@ function invokeai_option()
                 "3" "启动" \
                 "4" "重新安装" \
                 "5" "重新安装pytorch" \
-                $dialog_button_5 \
+                $dialog_button_6 \
                 "20" "返回" \
                 3>&1 1>&2 2>&3)
 
@@ -56,7 +57,7 @@ function invokeai_option()
                 elif [ "${final_invokeai_option}" == '5' ]; then
                     pytorch_reinstall
                     invokeai_option
-                elif [ "${final_invokeai_option}" == '11' ]; then
+                elif [ "${final_invokeai_option}" == '19' ]; then
                     if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建InvokeAI的虚拟环境" 22 70);then
                         invokeai_venv_rebuild
                     fi

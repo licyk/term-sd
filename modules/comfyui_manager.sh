@@ -3,6 +3,7 @@
 #comfyui选项
 function comfyui_option()
 {
+    export term_sd_manager_info="ComfyUI"
     cd "$start_path" #回到最初路径
     exit_venv #确保进行下一步操作前已退出其他虚拟环境
     if [ -d "ComfyUI" ];then
@@ -15,11 +16,12 @@ function comfyui_option()
             "4" "自定义节点管理" \
             "5" "插件管理" \
             "6" "切换版本" \
-            "7" "启动" \
-            "8" "重新安装" \
-            "9" "重新安装pytorch" \
-            $dialog_button_4 \
+            "7" "更新源切换" \
+            "8" "启动" \
+            "9" "重新安装" \
+            "10" "重新安装pytorch" \
             $dialog_button_5 \
+            $dialog_button_6 \
             "20" "返回" \
             3>&1 1>&2 2>&3)
 
@@ -58,6 +60,9 @@ function comfyui_option()
                 git_checkout_manager
                 comfyui_option
             elif [ "${final_comfyui_option}" == '7' ]; then
+                comfyui_change_repo
+                comfyui_option
+            elif [ "${final_comfyui_option}" == '8' ]; then
                 if [ -f "./term-sd-launch.conf" ]; then #找到启动脚本
                     if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI启动选项" --yes-label "启动" --no-label "修改参数" --yesno "请选择启动ComfyUI/修改ComfyUI启动参数\n当前启动参数:\npython $(cat ./term-sd-launch.conf)" 22 70) then
                         term_sd_launch
@@ -72,20 +77,20 @@ function comfyui_option()
                     term_sd_launch
                     comfyui_option
                 fi    
-            elif [ "${final_comfyui_option}" == '8' ]; then
+            elif [ "${final_comfyui_option}" == '9' ]; then
                 if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI重新安装选项" --yesno "是否重新安装ComfyUI?" 22 70) then
                     cd "$start_path"
                     exit_venv
                     process_install_comfyui
                     comfyui_option
                 fi
-            elif [ "${final_comfyui_option}" == '9' ]; then
+            elif [ "${final_comfyui_option}" == '10' ]; then
                 pytorch_reinstall
                 comfyui_option
-            elif [ "${final_comfyui_option}" == '10' ]; then
+            elif [ "${final_comfyui_option}" == '18' ]; then
                 create_venv
                 comfyui_option
-            elif [ "${final_comfyui_option}" == '11' ]; then
+            elif [ "${final_comfyui_option}" == '19' ]; then
                 if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建ComfyUI的虚拟环境" 22 70);then
                     comfyui_venv_rebuild
                 fi

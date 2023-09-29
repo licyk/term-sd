@@ -24,12 +24,12 @@ export start_path=$(pwd)
 #设置虚拟环境
 if [ -f ./term-sd/term-sd-venv-disable.lock ];then #找到term-sd-venv-disable.lock文件,禁用虚拟环境
     export venv_active="1"
-    export dialog_button_4=""
     export dialog_button_5=""
+    export dialog_button_6=""
 else
     export venv_active="0"
-    export dialog_button_4=""10" "重新生成venv虚拟环境"" #在启用venv后显示这些dialog按钮
-    export dialog_button_5=""11" "重新构建venv虚拟环境""
+    export dialog_button_5=""18" "重新生成venv虚拟环境"" #在启用venv后显示这些dialog按钮
+    export dialog_button_6=""19" "重新构建venv虚拟环境""
 fi
 
 term_sd_version_="0.4.3"
