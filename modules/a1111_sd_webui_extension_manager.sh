@@ -34,7 +34,6 @@ function a1111_sd_webui_extension_methon()
 function a1111_sd_webui_extension_manager()
 {
     cd "$start_path/stable-diffusion-webui/extensions" #回到最初路径
-    export term_sd_manager_info="a1111_sd_webui_extension_option"
     dir_list=$(ls -l --time-style=+"%Y-%m-%d"  | awk -F ' ' ' { print $7 " " $6 } ') #当前目录文件和文件夹信息
 
     extension_selection=$(
@@ -87,7 +86,7 @@ function a1111_sd_webui_operate_extension()
     fi
 
     final_a1111_sd_webui_operate_extension=$(
-        dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择对"$extension_selection"插件的管理功能" 22 70 12 \
+        dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择对"$extension_selection"插件的管理功能\n当前更新源:$([ -d "./.git" ] && git remote -v | awk 'NR==1' | awk '{print $2}' || echo "无")" 22 70 12 \
         $dialog_button_1 \
         "2" "卸载" \
         $dialog_button_2 \

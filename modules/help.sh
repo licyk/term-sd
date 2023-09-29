@@ -87,10 +87,10 @@ function help_option_2()
 7、安装前的准备完成后,将会弹出安装确认界面,选择"是"开始安装\n
 8、安装结束后,会自动进入该AI软件的管理界面,在该界面中可以对AI软件进行更新,卸载,启动等操作\n
 9、在安装之后,pip模块会产生大量的缓存,可使用主界面的"pip缓存清理"进行删除\n
-10、使用install-term-sd-to-shell脚本安装启动命令后,可使用\"termsd\"或者\"tsd\"命令启动Term-SD\n
-11、使用\"./term-sd.sh\"命令启动时可在命令后面添加参数(使用install-term-sd-to-shell脚本进行命令安装后可使用\"termsd\"或者\"tsd\"命令启动Term-SD)\n
+10、使用quick-cmd启动参数安装快捷启动命令后,可使用\"termsd\"或者\"tsd\"命令启动Term-SD\n
+11、使用\"./term-sd.sh\"命令启动时可在命令后面添加参数(使用quick-cmd启动参数安装快捷启动命令后可使用\"termsd\"或者\"tsd\"命令替换\"./term-sd.sh\"命令)\n
 参数使用方法:\n
-  term-sd.sh [--help] [--extra] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd]\n
+  term-sd.sh [--help] [--extra] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-proxy] [--quick-cmd]\n
 参数功能:\n
 help:显示启动参数帮助\n
 extra:启动扩展脚本\n
@@ -100,6 +100,7 @@ disable-auto-update:禁用Term-SD自动检查更新功能\n
 reinstall-term-sd:重新安装Term-SD\n
 remove-term-sd:卸载Term-SD\n
 test-proxy:测试网络环境,用于测试代理是否可用\n
+quick-cmd:将Term-SD快捷启动指令安装到shell中,在shell中直接输入\"termsd\"即可启动Term-SD\n
 12、Term-SD的功能(除了安装,更新,启动,卸载):\n
 主界面:\n
 Term-SD更新管理:对本脚本进行更新,更换更新源,切换版本分支\n
@@ -311,8 +312,6 @@ function help_option_5()
 扩展脚本可从主界面的"扩展脚本"下载和更新,启动方式和term-sd相同\n
 sd-webui-extension:安装sd-webui的插件\n
 comfyui-extension:安装ComfyUI的插件\n
-sd-webui-repo:修改a1111-sd-webui主体和组件的更新源\n
-install-term-sd-to-shell:将Term-SD快捷启动指令安装到shell中,在shell中直接输入\"termsd\"即可启动Term-SD\n
 \n
 \n
 " 22 70

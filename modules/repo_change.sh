@@ -48,7 +48,7 @@ function select_repo()
         return_dialog_panel="mainmenu"
     fi
 
-    select_repo_=$(dialog --clear --title "Term-SD" --backtitle "更新源选择界面" --ok-label "确认" --cancel-label "取消" --menu "选择要修改成的更新源\n当前将要修改的AI软件:$term_sd_manager_info" 22 70 12 \
+    select_repo_=$(dialog --clear --title "Term-SD" --backtitle "更新源选择界面" --ok-label "确认" --cancel-label "取消" --menu "选择要修改成的更新源\n当前将要修改更新源的AI软件:$term_sd_manager_info" 22 70 12 \
         "1" "官方源" \
         "2" "镜像源" \
         "3" "返回" \
@@ -70,7 +70,7 @@ function select_repo()
 #镜像源选择界面(针对单个插件/自定义节点),并立即处理
 function select_repo_single()
 {
-    select_repo_single_=$(dialog --clear --title "Term-SD" --backtitle "更新源选择界面" --ok-label "确认" --cancel-label "取消" --menu "选择要修改成的更新源\n当前将要修改的AI软件:$term_sd_manager_info" 22 70 12 \
+    select_repo_single_=$(dialog --clear --title "Term-SD" --backtitle "更新源选择界面" --ok-label "确认" --cancel-label "取消" --menu "选择要修改成的更新源\n当前更新源:$(git remote -v | awk 'NR==1' | awk '{print $2}')" 22 70 12 \
         "1" "官方源" \
         "2" "镜像源" \
         "3" "返回" \

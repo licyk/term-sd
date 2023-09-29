@@ -8,7 +8,7 @@ function term_sd_process_user_input()
         "--help")
         echo
         echo "启动参数使用方法:"
-        echo "  term-sd.sh [--help] [--extra] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd]"
+        echo "  term-sd.sh [--help] [--extra] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-proxy] [--quick-cmd]"
         echo "选项:"
         echo "  --help"
         echo "        显示启动参数帮助"
@@ -26,10 +26,16 @@ function term_sd_process_user_input()
         echo "        卸载Term-SD"
         echo "  --test-proxy"
         echo "        测试网络环境,用于测试代理是否可用"
+        echo "  --quick-cmd"
+        echo "        添加Term-SD快捷启动命令到shell"
         exit 1
         ;;
         "--remove-term-sd")
         remove_term_sd
+        ;;
+        "--quick-cmd")
+        install_cmd_to_shell
+        exit 1
         ;;
         "--multi-threaded-download")
         echo "安装过程中启用多线程下载模型"
@@ -326,6 +332,72 @@ function remove_term_sd()
     exit 1
 }
 
+#添加快捷命令功能
+function install_cmd_to_shell()
+{
+    if [ $user_shell = bash ] || [ $user_shell = zsh ];then
+        echo "是否将快捷指令添加到shell环境中?"
+        echo "添加后可使用\"termsd\"指令启动Term-SD"
+        echo "1、添加"
+        echo "2、删除"
+        echo "3、退出"
+        echo "提示:输入数字后回车"
+        read -p "==>" install_to_shell_option
+
+        if [ ! -z $install_to_shell_option ];then
+            if [ $install_to_shell_option = 1 ];then
+                install_config_to_shell
+            elif [ $install_to_shell_option = 2 ];then
+                remove_config_from_shell
+            elif [ $install_to_shell_option = 3 ];then
+                exit 1
+            else
+                echo "输入有误,请重试"
+                install_cmd_to_shell
+            fi
+        else
+            echo "未输入,请重试"
+            install_cmd_to_shell
+        fi
+    else
+        echo "不支持该shell"
+    fi
+}
+
+#快捷命令安装功能
+function install_config_to_shell()
+{
+    cd ~
+    if [ $user_shell = bash ];then
+        if cat ./.bashrc | grep termsd > /dev/null ;then
+            echo "配置已存在,添加前请删除原有配置"
+        else
+            echo $term_sd_shell_config >> .bashrc
+            echo "alias tsd='termsd'" >> .bashrc
+            echo "配置添加完成,重启shell以生效"
+        fi
+    elif [ $user_shell = zsh ];then
+        if cat ./.zshrc | grep termsd > /dev/null ;then
+            echo "配置已存在,添加前请删除原有配置"
+        else
+            echo $term_sd_shell_config >> .zshrc
+            echo "alias tsd='termsd'" >> .zshrc
+            echo "配置添加完成,重启shell以生效"
+        fi
+    fi
+    cd - > /dev/null
+}
+
+#快捷命卸载功能
+function remove_config_from_shell()
+{
+    cd ~
+    sed -i '/termsd(){/d' ."$user_shell"rc
+    sed -i '/alias tsd/d' ."$user_shell"rc
+    echo "配置已删除,重启shell以生效"
+    cd - > /dev/null
+}
+
 #################################################
 
 echo "Term-SD初始化中......"
@@ -333,6 +405,12 @@ echo "检测依赖软件是否安装"
 missing_dep=""
 test_num=0
 temr_sd_depend="git aria2c dialog pip" #term-sd依赖软件包
+term_sd_install_path=$(pwd) #读取term-sd安装位置
+
+#将要向.bashrc写入的配置
+term_sd_shell_config="termsd(){ user_input_for_term_sd=$(echo \"\$1 \$2 \$3 \$4 \$5 \$6 \$7 \$8 \$9\") ; term_sd_start_path=\$(pwd) ; cd \"$term_sd_install_path\" ; ./term-sd.sh \$user_input_for_term_sd ; cd \"\$term_sd_start_path\" > /dev/null ; }"
+
+user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') #读取用户所使用的shell
 
 #检测可用的python命令
 if python3 --version > /dev/null 2> /dev/null || python --version > /dev/null 2> /dev/null ;then #判断是否有可用的python

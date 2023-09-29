@@ -41,7 +41,6 @@ function comfyui_custom_node_methon()
 function comfyui_custom_node_manager()
 {
     cd "$start_path/ComfyUI/custom_nodes" #回到最初路径
-    export term_sd_manager_info="ComfyUI_custom_node"
     dir_list=$(ls -l --time-style=+"%Y-%m-%d" | awk -F ' ' ' { print $7 " " $6 } ') #当前目录文件和文件夹信息
 
     comfyui_custom_node_selection=$(
@@ -103,7 +102,7 @@ function operate_comfyui_custom_node()
     fi
 
     final_operate_comfyui_custom_node=$(
-        dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择对"$comfyui_custom_node_selection"自定义节点的管理功能" 22 70 12 \
+        dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择对"$comfyui_custom_node_selection"自定义节点的管理功能\n当前更新源:$([ -d "./.git" ] && git remote -v | awk 'NR==1' | awk '{print $2}' || echo "无")" 22 70 12 \
         $dialog_button_1 \
         "2" "安装依赖" \
         "3" "卸载" \
@@ -208,7 +207,6 @@ function comfyui_extension_methon()
 function comfyui_extension_manager()
 {
     cd "$start_path/ComfyUI/web/extensions" #回到最初路径
-    export term_sd_manager_info="ComfyUI_extension"
     dir_list=$(ls -l --time-style=+"%Y-%m-%d" | awk -F ' ' ' { print $7 " " $6 } ') #当前目录文件和文件夹信息
 
     comfyui_extension_selection=$(
@@ -271,7 +269,7 @@ function operate_comfyui_extension()
     fi
 
     final_operate_comfyui_extension=$(
-        dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择对"$comfyui_extension_selection"自定义节点的管理功能" 22 70 12 \
+        dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择对"$comfyui_extension_selection"自定义节点的管理功能\n当前更新源:$([ -d "./.git" ] && git remote -v | awk 'NR==1' | awk '{print $2}' || echo "无")" 22 70 12 \
         $dialog_button_1 \
         "2" "安装依赖" \
         "3" "卸载" \
