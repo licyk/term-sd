@@ -1,10 +1,5 @@
 #!/bin/bash
 
-#在使用http_proxy变量后,会出现ValueError: When localhost is not accessible, a shareable link must be created. Please set share=True
-#导致启动异常
-#需要设置no_proxy让localhost,127.0.0.1,::1避开http_proxy
-#详见https://github.com/microsoft/TaskMatrix/issues/250
-
 #配置代理界面
 function set_proxy_option()
 {
@@ -23,7 +18,6 @@ function set_proxy_option()
             if [ ! -z $proxy_config ];then
                 export http_proxy="http://$proxy_config"
                 export https_proxy="http://$proxy_config"
-                export no_proxy="localhost,127.0.0.1,::1"
                 echo "http://$proxy_config" > proxy.conf
                 mv -f ./proxy.conf ./term-sd/
             fi
@@ -34,7 +28,6 @@ function set_proxy_option()
             if [ ! -z $proxy_config ];then
                 export http_proxy="socks://$proxy_config"
                 export https_proxy="socks://$proxy_config"
-                export no_proxy="localhost,127.0.0.1,::1"
                 echo "socks://$proxy_config" > proxy.conf
                 mv -f ./proxy.conf ./term-sd/
             fi
@@ -45,7 +38,6 @@ function set_proxy_option()
             if [ ! -z $proxy_config ];then
                 export http_proxy="socks5://$proxy_config"
                 export https_proxy="socks5://$proxy_config"
-                export no_proxy="localhost,127.0.0.1,::1"
                 echo "socks5://$proxy_config" > proxy.conf
                 mv -f ./proxy.conf ./term-sd/
             fi
@@ -54,7 +46,6 @@ function set_proxy_option()
             rm -rf ./term-sd/proxy.conf
             export http_proxy=""
             export https_proxy=""
-            export no_proxy=""
             set_proxy_option
         elif [ $set_proxy_option_ = 5 ];then
             mainmenu
@@ -64,7 +55,7 @@ function set_proxy_option()
     fi
 }
 
-#在安装过程中,只有huggingface的访问有问题,若全程保持代理,可能会导致安装速度下降,因为python软件包的下载没必要走代理
+#在安装过程中,只有huggingface的访问有问题,若全程保持代理,可能会导致安装速度下降,因为python软件包的下载没必要走代理,走代理后代理的速度可能比镜像源的速度慢
 #临时取消代理配置
 function tmp_disable_proxy()
 {

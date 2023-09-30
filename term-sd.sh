@@ -517,10 +517,15 @@ for term_sd_depend_ in $temr_sd_depend ; do
     fi
 done
 
+#在使用http_proxy变量后,会出现ValueError: When localhost is not accessible, a shareable link must be created. Please set share=True
+#导致启动异常
+#需要设置no_proxy让localhost,127.0.0.1,::1避开http_proxy
+#详见https://github.com/microsoft/TaskMatrix/issues/250
+export no_proxy="localhost,127.0.0.1,::1" #除了避免http_proxy变量的影响,也避免了代理软件的影响(在a1111-sd-webui中,开启代理软件可能会导致webui无法生图,并报错,设置该变量后完美解决该问题)
+
 if [ -f "./term-sd/proxy.conf" ];then #读取代理设置并设置代理
     export http_proxy=$(cat ./term-sd/proxy.conf)
     export https_proxy=$(cat ./term-sd/proxy.conf)
-    export no_proxy="localhost,127.0.0.1,::1"
     #export all_proxy=$(cat ./term-sd/proxy.conf)
     #代理变量的说明:https://blog.csdn.net/Dancen/article/details/128045261
 fi

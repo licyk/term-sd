@@ -9,7 +9,7 @@ function term_sd_init()
         [ $term_sd_modules = "./term-sd/modules/init.sh" ] && continue
         term_sd_init_bar_1="$term_sd_modules_number_/$term_sd_modules_number"
         term_sd_init_bar_2=$(echo $term_sd_modules | awk -F'/' '{print $NF}')
-        printf "[$term_sd_init_bar_1] 加载 ${term_sd_init_bar_2}                               \r"
+        printf "[$term_sd_init_bar_1] 加载> ${term_sd_init_bar_2}                              \r"
         term_sd_modules_number_=$(( $term_sd_modules_number_ + 1 ))
         source $term_sd_modules
     done
