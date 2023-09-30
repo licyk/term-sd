@@ -11,9 +11,12 @@ function pytorch_reinstall()
 
     if [ $final_install_check_exec = 0 ];then
         #开始安装pytorch
+        print_word_to_shell="pytorch安装"
+        print_line_to_shell
         create_venv
         enter_venv
         pip install $pytorch_install_version $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --force-reinstall --default-timeout=100 --retries 5
         exit_venv
+        print_line_to_shell
     fi
 }

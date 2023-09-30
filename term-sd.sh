@@ -52,10 +52,11 @@ function term_sd_process_user_input()
         ;;
         "--test-proxy")
         if which curl > /dev/null;then
-            echo "-------------------------------------------"
-            echo "测试网络环境"
+            print_line_to_shell
+            print_word_to_shell="测试网络环境"
             curl ipinfo.io ; echo
-            echo "-------------------------------------------"
+            print_line_to_shell
+            sleep 1
         else
             echo "未安装curl,无法测试代理"
         fi
@@ -398,7 +399,86 @@ function remove_config_from_shell()
     cd - > /dev/null
 }
 
+#终端横线显示功能
+function print_line_to_shell()
+{
+    if [ -z "$print_word_to_shell" ];then
+        print_line_methon=1
+        print_line_to_shell_methon
+    else
+        shellwidth=$(stty size | awk '{print $2}') #获取终端宽度
+        print_word_to_shell=$(echo "$print_word_to_shell" | awk '{gsub(/ /,"-")}1') #将空格转换为"-"
+        shell_word_width=$(( $(echo "$print_word_to_shell" | wc -c) - 1 )) #总共的字符长度
+        shell_word_width_zh_cn=$(( $(echo "$print_word_to_shell" | awk '{gsub(/[a-zA-Z]/, "")}1' | awk '{gsub(/[0-9]/, "")}1' | awk '{gsub(/-/,"")}1' | wc -c) - 1 )) #计算中文字符的长度
+        shell_word_width=$(( $shell_word_width - $shell_word_width_zh_cn )) #除去中文之后的长度
+        #中文的字符长度为3,但终端中只占2个字符位
+        shell_word_width_zh_cn=$(( $shell_word_width_zh_cn / 3 * 2 )) #转换中文在终端占用的实际字符长度
+        shell_word_width=$(( $shell_word_width + $shell_word_width_zh_cn )) #最终显示文字的长度
+
+        #横线输出长度的计算
+        shellwidth=$(( $shellwidth - $shell_word_width )) #除去输出字符后的横线宽度
+        shellwidth=$(( $shellwidth / 2 )) #半边的宽度
+
+        #判断终端宽度大小是否是单双数
+        origin_num=$shellwidth
+        singular_and_plural_calculate
+        print_line_info=$calculate_num_result
+        #判断字符宽度大小是否是单双数
+        origin_num=$shell_word_width
+        singular_and_plural_calculate
+        print_word_info=$calculate_num_result
+        
+        if [ $print_line_info = 1 ];then #如果终端宽度大小是双数
+            if [ $print_word_info = 1 ];then #如果字符宽度大小是双数
+                print_line_methon=2
+            elif [ $print_word_info = 2 ];then #如果字符宽度大小是单数
+                print_line_methon=3
+            fi
+        elif [ $print_line_info = 2 ];then #如果终端宽度大小是单数数
+            if [ $print_word_info = 1 ];then
+                print_line_methon=2
+            elif [ $print_word_info = 2 ];then
+                print_line_methon=3
+            fi
+        fi
+
+        print_line_to_shell_methon
+    fi
+}
+
+#判断数字是否单双数的功能
+function singular_and_plural_calculate()
+{
+    if [ ! -z "$origin_num" ];then
+        calculate_num_1=$(( $origin_num / 2 )) # 5/2 -> 2 | 4/2 -> 2
+        calculate_num_2=$(( $origin_num + 3 )) # 5+3 -> 8 | 4+3 -> 7
+        calculate_num_3=$(( $calculate_num_2 / 2 )) # 8/2 -> 4 | 7/2 -> 3
+        calculate_num_result=$(( $calculate_num_3 - $calculate_num_1 )) # 4-2 -> 2 | 3-2 -> 1 按上述算法得到的结果,如果是1,则为双数;如果是2,则为单数
+        origin_num=""
+        calculate_num_1=""
+        calculate_num_2=""
+        calculate_num_3=""
+    fi
+}
+
+#输出终端横线方法
+function print_line_to_shell_methon()
+{
+    if [ $print_line_methon = 1 ];then
+        shellwidth=$(stty size | awk '{print $2}') #获取终端宽度
+        yes "-" | sed $shellwidth'q' | tr -d '\n' #输出横杠
+    elif [ $print_line_methon = 2 ];then #解决显示字符为单数时少显示一个字符导致不对成的问题
+        echo "$(yes "-" | sed $shellwidth'q' | tr -d '\n')$print_word_to_shell$(yes "-" | sed $shellwidth'q' | tr -d '\n')"
+    elif [ $print_line_methon = 3 ];then
+        echo "$(yes "-" | sed $shellwidth'q' | tr -d '\n')$print_word_to_shell$(yes "-" | sed $(( $shellwidth + 1 ))'q' | tr -d '\n')"
+    fi
+    print_word_to_shell="" #清除已输出的内容
+}
+
 #################################################
+
+print_word_to_shell="Term-SD"
+print_line_to_shell
 
 echo "Term-SD初始化中......"
 echo "检测依赖软件是否安装"
@@ -455,10 +535,10 @@ if [ $test_num -ge 5 ];then
         echo "term-sd模块丢失,\"输入./term-sd.sh --reinstall-term-sd\"重新安装Term-SD"
     fi
 else
-    echo "缺少以下依赖"
-    echo "-------------------------------------------"
+    print_word_to_shell="缺少以下依赖"
+    print_line_to_shell
     echo $missing_dep
-    echo "-------------------------------------------"
-    echo "请安装后重试"
+    print_line_to_shell
+    echo "请安装缺少的依赖后重试"
     exit 1
 fi

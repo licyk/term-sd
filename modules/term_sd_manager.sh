@@ -23,29 +23,29 @@ function mainmenu()
         3>&1 1>&2 2>&3 )
 
     if [ $? = 0  ];then #选择确认
-        if [ "${mainmenu_}" == '0' ]; then #选择Term-SD更新
+        if [ $mainmenu_ = 0 ]; then #选择Term-SD更新
             term_sd_update_option
-        elif [ "${mainmenu_}" == '1' ]; then #选择AUTOMATIC1111-stable-diffusion-webui
+        elif [ $mainmenu_ = 1 ]; then #选择AUTOMATIC1111-stable-diffusion-webui
             a1111_sd_webui_option
-        elif [ "${mainmenu_}" == '2' ]; then #选择ComfyUI
+        elif [ $mainmenu_ = 2 ]; then #选择ComfyUI
             comfyui_option
-        elif [ "${mainmenu_}" == '3' ]; then #选择InvokeAI
+        elif [ $mainmenu_ = 3 ]; then #选择InvokeAI
             invokeai_option
-        elif [ "${mainmenu_}" == '4' ]; then #选择lora-scripts
+        elif [ $mainmenu_ = 4 ]; then #选择lora-scripts
             lora_scripts_option
-        elif [ "${mainmenu_}" == '5' ]; then #选择venv虚拟环境配置
+        elif [ $mainmenu_ = 5 ]; then #选择venv虚拟环境配置
             venv_option
-        elif [ "${mainmenu_}" == '6' ]; then #选择pip镜像源
+        elif [ $mainmenu_ = 6 ]; then #选择pip镜像源
             set_pip_mirrors_option
-        elif [ "${mainmenu_}" == '7' ]; then #选择pip缓存清理
+        elif [ $mainmenu_ = 7 ]; then #选择pip缓存清理
             pip_cache_clean
-        elif [ "${mainmenu_}" == '8' ]; then #选择代理选项
+        elif [ $mainmenu_ == 8 ]; then #选择代理选项
             set_proxy_option
-        elif [ "${mainmenu_}" == '9' ]; then #选择代理选项
+        elif [ $mainmenu_ = 9 ]; then #选择代理选项
             disk_space_stat
-        elif [ "${mainmenu_}" == '10' ]; then #选择帮助
+        elif [ $mainmenu_ = 10 ]; then #选择帮助
             help_option
-        elif [ "${mainmenu_}" == '11' ]; then #选择退出
+        elif [ $mainmenu_ = 11 ]; then #选择退出
             echo "退出Term-SD"
             exit 1
         fi
@@ -58,8 +58,11 @@ function mainmenu()
 #启动项目功能
 function term_sd_launch()
 {
+    print_word_to_shell="$term_sd_manager_info 启动"
+    print_line_to_shell
     enter_venv
     $python_cmd $(cat ./term-sd-launch.conf)
+    print_line_to_shell
 }
 
 #项目更新失败修复功能
@@ -72,7 +75,7 @@ function term_sd_fix_pointer_offset()
 #显示版本信息
 function term_sd_version()
 {
-    dialog --clear --title "Term-SD" --backtitle "Term-SD开始界面"  --ok-label "确定" --msgbox "版本信息:\n\n
+    dialog --clear --title "Term-SD" --backtitle "Term-SD开始界面" --ok-label "确认" --msgbox "版本信息:\n\n
 系统:$(uname -o) \n
 Term-SD:"$term_sd_version_" \n
 python:$($python_cmd --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n

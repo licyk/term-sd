@@ -13,7 +13,7 @@ function git_checkout_manager()
         $commit_lists \
         3>&1 1>&2 2>&3)
 
-    if [ "$?" = "0" ];then
+    if [ $? = 0 ];then
         git checkout $commit_selection
     fi
     cd ..

@@ -18,24 +18,24 @@ function invokeai_option()
                 "3" "启动" \
                 "4" "重新安装" \
                 "5" "重新安装pytorch" \
-                $dialog_button_6 \
+                $dialog_rebuild_venv_button \
                 "20" "返回" \
                 3>&1 1>&2 2>&3)
 
             if [ $? = 0 ];then
-                if [ "${final_invokeai_option}" == '1' ]; then
+                if [ $final_invokeai_option = 1 ]; then
                     proxy_option #代理选择
                     pip_install_methon #安装方式选择
                     final_install_check #安装前确认
                     echo "更新InvokeAI中"
                     pip install $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --upgrade invokeai --default-timeout=100 --retries 5
-                    if [ $? = "0" ];then
-                        dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI更新结果" --msgbox "InvokeAI更新成功" 22 70
+                    if [ $? = 0 ];then
+                        dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI更新结果" --ok-label "确认" --msgbox "InvokeAI更新成功" 22 70
                     else
-                        dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI更新结果" --msgbox "InvokeAI更新失败" 22 70
+                        dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI更新结果" --ok-label "确认" --msgbox "InvokeAI更新失败" 22 70
                     fi
                     invokeai_option
-                elif [ "${final_invokeai_option}" == '2' ]; then
+                elif [ $final_invokeai_option = 2 ]; then
                     if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI删除选项" --yes-label "是" --no-label "否" --yesno "是否删除InvokeAI?" 22 70) then
                         echo "删除InvokeAI中"
                         exit_venv
@@ -44,37 +44,37 @@ function invokeai_option()
                     else
                         invokeai_option
                     fi
-                elif [ "${final_invokeai_option}" == '3' ]; then
+                elif [ $final_invokeai_option = 3 ]; then
                     generate_invokeai_launch
                     invokeai_option
-                elif [ "${final_invokeai_option}" == '4' ]; then
-                    if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI重新安装选项" --yesno "是否重新安装InvokeAI?" 22 70) then
+                elif [ $final_invokeai_option = 4 ]; then
+                    if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装InvokeAI?" 22 70) then
                         cd "$start_path"
                         exit_venv
                         process_install_invokeai
                     else
                         invokeai_option
                     fi
-                elif [ "${final_invokeai_option}" == '5' ]; then
+                elif [ $final_invokeai_option = 5 ]; then
                     pytorch_reinstall
                     invokeai_option
-                elif [ "${final_invokeai_option}" == '19' ]; then
+                elif [ $final_invokeai_option = 19 ]; then
                     if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建InvokeAI的虚拟环境" 22 70);then
                         invokeai_venv_rebuild
                     fi
                     invokeai_option
-                elif [ "${final_invokeai_option}" == '20' ]; then
+                elif [ $final_invokeai_option = 20 ]; then
                     mainmenu #回到主界面
                 fi
             fi
         else 
-            if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI安装选项" --yesno "检测到当前未安装InvokeAI,是否进行安装?" 22 70) then
+            if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI安装选项" --yes-label "是" --no-label "否" --yesno "检测到当前未安装InvokeAI,是否进行安装?" 22 70) then
                 cd "$start_path"
                 process_install_invokeai
             fi
         fi
     else
-        if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI安装选项" --yesno "检测到当前未安装InvokeAI,是否进行安装?" 22 70) then
+        if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI安装选项" --yes-label "是" --no-label "否" --yesno "检测到当前未安装InvokeAI,是否进行安装?" 22 70) then
           process_install_invokeai
         fi
     fi

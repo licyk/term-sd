@@ -49,7 +49,7 @@ function help_option()
 #关于term-sd
 function help_option_1()
 {
-    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --msgbox "关于Term-SD:\n
+    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "关于Term-SD:\n
 Term-SD是基于终端显示的AI管理器,可以对AI软件进行简单的管理  \n
 支持的AI软件如下: \n
 1、AUTOMATIC1111-stable-diffusion-webui \n
@@ -77,7 +77,7 @@ https://licyk.netlify.app/2023/08/01/stable-diffusion-tutorial/\n
 #使用说明
 function help_option_2()
 {
-    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --msgbox "Term-SD使用说明:\n
+    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "Term-SD使用说明:\n
 1、使用方向键、Tab键移动光标,Enter进行选择,Space键勾选或取消勾选,(已勾选时显示[*]),Ctrl+C可中断指令的运行 \n
 2、初次使用时,如果之前没有使用过python的pip模块,建议在主界面先选择"pip镜像源",设置pip的国内镜像源,加快安装时下载python软件包的速度。主界面显示的"虚拟环境"保持启用就行,无需禁用\n
 3、主界面总共有四个AI软件可选(AUTOMATIC1111-stable-diffusion-webui,ComfyUI,InvokeAI,lora-scripts),回车选中后,如果在脚本的当前目录未找选中的AI软件,term-sd会提示你进行安装。\n
@@ -142,7 +142,7 @@ pip缓存清理:清理pip在安装软件包后产生的缓存\n
 #启动参数说明
 function help_option_3()
 {
-    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --msgbox "A1111-SD-Webui启动参数说明:\n
+    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "A1111-SD-Webui启动参数说明:\n
 stable diffusion webui的启动参数:\n
 skip-torch-cuda-test:不检查CUDA是否正常工作\n
 no-half:不将模型切换为16位浮点数\n
@@ -218,7 +218,7 @@ host:允许局域网的设备访问\n
 #目录说明
 function help_option_4()
 {
-    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --msgbox "AI软件的目录说明:\n
+    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "AI软件的目录说明:\n
 在启用venv虚拟环境后,在安装时AI软件的目录下会产生venv文件夹,这个是python软件包安装的目录,更换cudnn可在该文件夹中操作\n
 \n
 \n
@@ -308,7 +308,7 @@ lora-scripts   \n
 #扩展脚本说明
 function help_option_5()
 {
-    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --msgbox "Term-SD扩展脚本说明:\n
+    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "Term-SD扩展脚本说明:\n
 扩展脚本可从主界面的"扩展脚本"下载和更新,启动方式和term-sd相同\n
 sd-webui-extension:安装sd-webui的插件\n
 comfyui-extension:安装ComfyUI的插件\n
@@ -320,7 +320,7 @@ comfyui-extension:安装ComfyUI的插件\n
 #AUTOMATIC1111-stable-diffusion-webui插件说明
 function help_option_6()
 {
-    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --msgbox "AUTOMATIC1111-stable-diffusion-webui插件说明:\n
+    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "AUTOMATIC1111-stable-diffusion-webui插件说明:\n
 注:有些插件因为年久失修,可能会出现兼容性问题。具体介绍请在github上搜索项目\n
 \n
 kohya-config-webui: 一个用于生成kohya-ss训练脚本使用的toml配置文件的WebUI   \n
@@ -387,7 +387,7 @@ LightDiffusionFlow:保存工作流\n
 #ComfyUI插件/自定义节点说明
 function help_option_7()
 {
-    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --msgbox "ComfyUI插件/自定义节点说明:\n
+    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "ComfyUI插件/自定义节点说明:\n
 注:具体介绍请在github上搜索项目\n
 \n
 插件:\n

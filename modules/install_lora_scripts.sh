@@ -11,6 +11,8 @@ function process_install_lora_scripts()
 
     if [ $final_install_check_exec = 0 ];then
         #参考lora-scripts里的install.bash写的
+        print_word_to_shell="lora-scipts安装"
+        print_line_to_shell
         echo "开始安装lora-scipts"
         tmp_disable_proxy #临时取消代理,避免一些不必要的网络减速
         git clone "$github_proxy"https://github.com/Akegarasu/lora-scripts.git #lora-scripts本体
@@ -33,6 +35,7 @@ function process_install_lora_scripts()
         aria2c $aria2_multi_threaded https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./lora-scripts/sd-models/ -o model.ckpt
         echo "安装结束"
         exit_venv
+        print_line_to_shell
         lora_scripts_option
     else
         mainmenu

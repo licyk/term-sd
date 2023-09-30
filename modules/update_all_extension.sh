@@ -4,6 +4,8 @@
 #一键更新全部插件功能
 function extension_all_update()
 {
+    print_word_to_shell="插件一键更新"
+    print_line_to_shell
     echo "更新插件中"
     extension_folder="" #清除上次运行结果
     update_info=""
@@ -36,5 +38,6 @@ function extension_all_update()
             cd ..
         fi
     done
-    dialog --clear --title "Term-SD" --backtitle "插件/自定义节点更新结果" --msgbox "当前插件/自定义节点的更新情况列表\n------------------------------------------------------------------\n$update_info------------------------------------------------------------------" 22 70
+    print_line_to_shell
+    dialog --clear --title "Term-SD" --backtitle "插件/自定义节点更新结果" --ok-label "确认" --msgbox "当前插件/自定义节点的更新情况列表\n------------------------------------------------------------------\n$update_info------------------------------------------------------------------" 22 70
 }
