@@ -46,10 +46,12 @@ function mainmenu()
         elif [ $mainmenu_ = 10 ]; then #选择帮助
             help_option
         elif [ $mainmenu_ = 11 ]; then #选择退出
+            print_line_to_shell
             echo "退出Term-SD"
             exit 1
         fi
     else #选择取消
+        print_line_to_shell
         echo "退出Term-SD"
         exit 1
     fi

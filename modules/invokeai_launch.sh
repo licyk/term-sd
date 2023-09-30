@@ -134,7 +134,7 @@ function generate_invokeai_launch_custom()
             if [ -f "./term-sd-launch.conf" ];then
                 rm -v ./term-sd-launch.conf
             fi
-            echo "设置启动参数 $cust_invokeai_launch_option"
+            echo "设置启动参数> $cust_invokeai_launch_option"
             echo "--root ./invokeai $cust_invokeai_launch_option" > term-sd-launch.conf
         fi
     fi

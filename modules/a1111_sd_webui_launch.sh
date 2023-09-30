@@ -143,7 +143,7 @@ function generate_a1111_sd_webui_launch()
         if [ -f "./term-sd-launch.conf" ];then
             rm -v ./term-sd-launch.conf
         fi
-        echo "设置启动参数 $a1111_launch_option"
+        echo "设置启动参数> $a1111_launch_option"
         echo "launch.py $a1111_launch_option" >term-sd-launch.conf
     fi
 }

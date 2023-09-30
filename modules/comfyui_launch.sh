@@ -83,7 +83,7 @@ function generate_comfyui_launch()
         if [ -f "./term-sd-launch.conf" ];then
             rm -v ./term-sd-launch.conf
         fi
-        echo "设置启动参数 $comfyui_launch_option"
+        echo "设置启动参数> $comfyui_launch_option"
         echo "main.py $comfyui_launch_option" > term-sd-launch.conf
     fi
 }
