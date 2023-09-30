@@ -15,8 +15,8 @@ function process_install_lora_scripts()
         print_line_to_shell
         echo "开始安装lora-scipts"
         tmp_disable_proxy #临时取消代理,避免一些不必要的网络减速
-        git clone "$github_proxy"https://github.com/Akegarasu/lora-scripts.git #lora-scripts本体
-        git clone "$github_proxy"https://github.com/kohya-ss/sd-scripts.git ./lora-scripts/sd-scripts #lora-scripts后端
+        git clone "$github_proxy"https://github.com/Akegarasu/lora-scripts #lora-scripts本体
+        git clone "$github_proxy"https://github.com/kohya-ss/sd-scripts ./lora-scripts/sd-scripts #lora-scripts后端
         git clone "$github_proxy"https://github.com/hanamizuki-ai/lora-gui-dist ./lora-scripts/frontend #lora-scripts前端
         cd ./lora-scripts
         git submodule init

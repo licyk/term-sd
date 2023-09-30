@@ -17,7 +17,7 @@ function process_install_comfyui()
         print_line_to_shell
         echo "开始安装ComfyUI"
         tmp_disable_proxy #临时取消代理,避免一些不必要的网络减速
-        git clone "$github_proxy"https://github.com/comfyanonymous/ComfyUI.git
+        git clone "$github_proxy"https://github.com/comfyanonymous/ComfyUI
 
         cd ./ComfyUI
         create_venv

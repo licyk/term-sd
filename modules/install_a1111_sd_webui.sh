@@ -16,7 +16,7 @@ function process_install_a1111_sd_webui()
         print_line_to_shell
         echo "开始安装stable-diffusion-webui"
         tmp_disable_proxy #临时取消代理,避免一些不必要的网络减速
-        git clone "$github_proxy"https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
+        git clone "$github_proxy"https://github.com/AUTOMATIC1111/stable-diffusion-webui
 
         cd ./stable-diffusion-webui
         create_venv
@@ -27,14 +27,14 @@ function process_install_a1111_sd_webui()
         if [ ! -d "./stable-diffusion-webui/repositories" ];then
             mkdir ./stable-diffusion-webui/repositories
         fi
-        git clone "$github_proxy"https://github.com/sczhou/CodeFormer.git ./stable-diffusion-webui/repositories/CodeFormer
-        git clone "$github_proxy"https://github.com/salesforce/BLIP.git ./stable-diffusion-webui/repositories/BLIP
-        git clone "$github_proxy"https://github.com/Stability-AI/stablediffusion.git ./stable-diffusion-webui/repositories/stable-diffusion-stability-ai
-        git clone "$github_proxy"https://github.com/Stability-AI/generative-models.git ./stable-diffusion-webui/repositories/generative-models
-        git clone "$github_proxy"https://github.com/crowsonkb/k-diffusion.git ./stable-diffusion-webui/repositories/k-diffusion
+        git clone "$github_proxy"https://github.com/sczhou/CodeFormer ./stable-diffusion-webui/repositories/CodeFormer
+        git clone "$github_proxy"https://github.com/salesforce/BLIP ./stable-diffusion-webui/repositories/BLIP
+        git clone "$github_proxy"https://github.com/Stability-AI/stablediffusion ./stable-diffusion-webui/repositories/stable-diffusion-stability-ai
+        git clone "$github_proxy"https://github.com/Stability-AI/generative-models ./stable-diffusion-webui/repositories/generative-models
+        git clone "$github_proxy"https://github.com/crowsonkb/k-diffusion ./stable-diffusion-webui/repositories/k-diffusion
 
         pip install $pytorch_install_version $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5 #"--default-timeout=100 --retries 5"在网络差导致下载中断时重试下载
-        pip install git+"$github_proxy"https://github.com/openai/CLIP.git --prefer-binary $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+        pip install git+"$github_proxy"https://github.com/openai/CLIP --prefer-binary $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
 
         pip install -r ./stable-diffusion-webui/repositories/CodeFormer/requirements.txt --prefer-binary $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
         pip install -r ./stable-diffusion-webui/requirements.txt --prefer-binary $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5 #安装stable-diffusion-webui的依赖
