@@ -66,7 +66,8 @@ function comfyui_custom_node_install()
 {
     comfyui_custom_node_address=$(dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI自定义节点安装选项" --ok-label "确认" --cancel-label "取消" --inputbox "输入自定义节点的github地址或其他下载地址" 22 70 3>&1 1>&2 2>&3)
 
-    if [ $? = 0 ]; then
+    if [ ! -z $comfyui_custom_node_address ]; then
+        echo "安装$(echo $comfyui_custom_node_address | awk -F'/' '{print $NF}')中"
         git clone $comfyui_custom_node_address
         git_req=$?
         comfyui_custom_node_dep_notice=""
@@ -77,9 +78,9 @@ function comfyui_custom_node_install()
         fi
 
         if [ $git_req = 0 ];then
-            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI自定义节点安装结果" --ok-label "确认" --msgbox "ComfyUI自定义节点安装成功\n$comfyui_custom_node_dep_notice" 22 70
+            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI自定义节点安装结果" --ok-label "确认" --msgbox "$(echo $comfyui_custom_node_address | awk -F'/' '{print $NF}')自定义节点安装成功\n$comfyui_custom_node_dep_notice" 22 70
         else
-            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI自定义节点安装结果" --ok-label "确认" --msgbox "ComfyUI自定义节点安装失败" 22 70
+            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI自定义节点安装结果" --ok-label "确认" --msgbox "$(echo $comfyui_custom_node_address | awk -F'/' '{print $NF}')自定义节点安装失败" 22 70
         fi
     fi
 }
@@ -235,7 +236,8 @@ function comfyui_extension_install()
 {
     comfyui_extension_address=$(dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件安装选项" --ok-label "确认" --cancel-label "取消" --inputbox "输入插件的github地址或其他下载地址" 22 70 3>&1 1>&2 2>&3)
 
-    if [ $? = 0 ]; then
+    if [ ! -z $comfyui_extension_address ]; then
+        echo "安装$(echo $comfyui_extension_address | awk -F'/' '{print $NF}')中"
         git clone $comfyui_extension_address
         git_req=$?
         comfyui_extension_dep_notice=""
@@ -246,9 +248,9 @@ function comfyui_extension_install()
         fi
 
         if [ $git_req = 0 ];then
-            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件安装结果" --ok-label "确认" --msgbox "ComfyUI插件安装成功\n$comfyui_extension_dep_notice" 22 70
+            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件安装结果" --ok-label "确认" --msgbox "$(echo $comfyui_extension_address | awk -F'/' '{print $NF}')插件安装成功\n$comfyui_extension_dep_notice" 22 70
         else
-            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件安装结果" --ok-label "确认" --msgbox "ComfyUI插件安装失败" 22 70
+            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件安装结果" --ok-label "确认" --msgbox "$(echo $comfyui_extension_address | awk -F'/' '{print $NF}')插件安装失败" 22 70
         fi
     fi
 }

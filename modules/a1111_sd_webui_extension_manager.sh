@@ -59,12 +59,13 @@ function a1111_sd_webui_extension_install()
 {
     extension_address=$(dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件安装选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入插件的github地址或其他下载地址" 22 70 3>&1 1>&2 2>&3)
 
-    if [ $? = 0 ]; then
+    if [ ! -z $extension_address ]; then
+        echo "安装$(echo $extension_address | awk -F'/' '{print $NF}')中"
         git clone $extension_address
         if [ $? = 0 ];then
-            dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件安装结果" --ok-label "确认" --msgbox "A1111-SD-Webui插件安装成功" 22 70
+            dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件安装结果" --ok-label "确认" --msgbox "$(echo $extension_address | awk -F'/' '{print $NF}')插件安装成功" 22 70
         else
-            dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件安装结果" --ok-label "确认" --msgbox "A1111-SD-Webui插件安装失败" 22 70
+            dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件安装结果" --ok-label "确认" --msgbox "$(echo $extension_address | awk -F'/' '{print $NF}')插件安装失败" 22 70
         fi
     fi
 }

@@ -408,9 +408,9 @@ function print_line_to_shell()
         print_line_to_shell_methon
     else
         shellwidth=$(stty size | awk '{print $2}') #获取终端宽度
-        print_word_to_shell=$(echo "$print_word_to_shell" | awk '{gsub(/ /,"-")}1') #将空格转换为"-"
-        shell_word_width=$(( $(echo "$print_word_to_shell" | wc -c) - 1 )) #总共的字符长度
-        shell_word_width_zh_cn=$(( $(echo "$print_word_to_shell" | awk '{gsub(/[a-zA-Z]/, "")}1' | awk '{gsub(/[0-9]/, "")}1' | awk '{gsub(/-/,"")}1' | wc -c) - 1 )) #计算中文字符的长度
+        print_word_to_shell_=$(echo "$print_word_to_shell" | awk '{gsub(/ /,"-")}1') #将空格转换为"-"
+        shell_word_width=$(( $(echo "$print_word_to_shell_" | wc -c) - 1 )) #总共的字符长度
+        shell_word_width_zh_cn=$(( $(echo "$print_word_to_shell_" | awk '{gsub(/[a-zA-Z]/, "")}1' | awk '{gsub(/[0-9]/, "")}1' | awk '{gsub(/-/,"")}1' | wc -c) - 1 )) #计算中文字符的长度
         shell_word_width=$(( $shell_word_width - $shell_word_width_zh_cn )) #除去中文之后的长度
         #中文的字符长度为3,但终端中只占2个字符位
         shell_word_width_zh_cn=$(( $shell_word_width_zh_cn / 3 * 2 )) #转换中文在终端占用的实际字符长度
@@ -469,9 +469,9 @@ function print_line_to_shell_methon()
         shellwidth=$(stty size | awk '{print $2}') #获取终端宽度
         yes "-" | sed $shellwidth'q' | tr -d '\n' #输出横杠
     elif [ $print_line_methon = 2 ];then #解决显示字符为单数时少显示一个字符导致不对成的问题
-        echo "$(yes "-" | sed $shellwidth'q' | tr -d '\n')$print_word_to_shell$(yes "-" | sed $shellwidth'q' | tr -d '\n')"
+        echo "$(yes "-" | sed $shellwidth'q' | tr -d '\n')"$print_word_to_shell"$(yes "-" | sed $shellwidth'q' | tr -d '\n')"
     elif [ $print_line_methon = 3 ];then
-        echo "$(yes "-" | sed $shellwidth'q' | tr -d '\n')$print_word_to_shell$(yes "-" | sed $(( $shellwidth + 1 ))'q' | tr -d '\n')"
+        echo "$(yes "-" | sed $shellwidth'q' | tr -d '\n')"$print_word_to_shell"$(yes "-" | sed $(( $shellwidth + 1 ))'q' | tr -d '\n')"
     fi
     print_word_to_shell="" #清除已输出的内容
 }
