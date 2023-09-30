@@ -35,7 +35,9 @@ function term_sd_update_option()
             elif [ $term_sd_update_option_ = 3 ];then
                 term_sd_branch
             elif [ $term_sd_update_option_ = 4 ];then
+                cd ./term-sd
                 term_sd_fix_pointer_offset
+                cd ..
                 term_sd_update_option
             elif [ $term_sd_update_option_ = 5 ];then
                 mainmenu
