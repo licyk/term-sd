@@ -28,6 +28,7 @@ function term_sd_process_user_input()
         echo "        测试网络环境,用于测试代理是否可用"
         echo "  --quick-cmd"
         echo "        添加Term-SD快捷启动命令到shell"
+        print_line_to_shell
         exit 1
         ;;
         "--remove-term-sd")
@@ -52,8 +53,8 @@ function term_sd_process_user_input()
         ;;
         "--test-proxy")
         if which curl > /dev/null;then
-            print_line_to_shell
             print_word_to_shell="测试网络环境"
+            print_line_to_shell
             curl ipinfo.io ; echo
             print_line_to_shell
             sleep 1
@@ -519,6 +520,7 @@ done
 if [ -f "./term-sd/proxy.conf" ];then #读取代理设置并设置代理
     export http_proxy=$(cat ./term-sd/proxy.conf)
     export https_proxy=$(cat ./term-sd/proxy.conf)
+    export no_proxy="localhost,127.0.0.1,::1"
     #export all_proxy=$(cat ./term-sd/proxy.conf)
     #代理变量的说明:https://blog.csdn.net/Dancen/article/details/128045261
 fi
