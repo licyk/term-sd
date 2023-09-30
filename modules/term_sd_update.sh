@@ -8,7 +8,8 @@ function term_sd_update_option()
             "1" "更新" \
             "2" "切换更新源" \
             "3" "切换分支" \
-            "4" "返回" \
+            "4" "修复更新" \
+            "5" "返回" \
             3>&1 1>&2 2>&3)
 
         if [ $? = 0 ];then
@@ -34,6 +35,9 @@ function term_sd_update_option()
             elif [ $term_sd_update_option_ = 3 ];then
                 term_sd_branch
             elif [ $term_sd_update_option_ = 4 ];then
+                term_sd_fix_pointer_offset
+                term_sd_update_option
+            elif [ $term_sd_update_option_ = 5 ];then
                 mainmenu
             fi
         else
