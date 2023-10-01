@@ -11,7 +11,7 @@ function process_install_invokeai()
 
     if [ $final_install_check_exec = 0 ];then
         #开始安装invokeai
-        print_word_to_shell="invokeai安装"
+        print_word_to_shell="invokeai 安装"
         print_line_to_shell
         echo "开始安装invokeai"
         tmp_disable_proxy #临时取消代理,避免一些不必要的网络减速

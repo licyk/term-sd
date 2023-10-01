@@ -12,6 +12,7 @@ function a1111_sd_webui_venv_rebuild()
     if [ $final_install_check_exec = 0 ];then
         print_word_to_shell="$term_sd_manager_info 虚拟环境重建"
         print_line_to_shell
+        tmp_disable_proxy
         echo "开始重构虚拟环境"
         echo "删除原有虚拟环境中"
         rm -rf ./venv
@@ -26,6 +27,7 @@ function a1111_sd_webui_venv_rebuild()
 
         echo "重构结束"
         exit_venv
+        tmp_enable_proxy
         print_line_to_shell
     fi
 }
@@ -42,6 +44,7 @@ function comfyui_venv_rebuild()
     if [ $final_install_check_exec = 0 ];then
         print_word_to_shell="$term_sd_manager_info 虚拟环境重建"
         print_line_to_shell
+        tmp_disable_proxy
         echo "开始重构虚拟环境"
         echo "删除原有虚拟环境中"
         rm -rf ./venv
@@ -54,6 +57,7 @@ function comfyui_venv_rebuild()
 
         echo "重构结束"
         exit_venv
+        tmp_enable_proxy
         print_line_to_shell
     fi
 }
@@ -70,6 +74,7 @@ function invokeai_venv_rebuild()
     if [ $final_install_check_exec = 0 ];then
         print_word_to_shell="$term_sd_manager_info 虚拟环境重建"
         print_line_to_shell
+        tmp_disable_proxy
         echo "开始重构虚拟环境"
         echo "删除原有虚拟环境中"
         rm -rf ./venv
@@ -81,6 +86,7 @@ function invokeai_venv_rebuild()
 
         echo "重构结束"
         exit_venv
+        tmp_enable_proxy
         print_line_to_shell
     fi
 }
@@ -97,6 +103,7 @@ function lora_scripts_venv_rebuild()
     if [ $final_install_check_exec = 0 ];then
         print_word_to_shell="$term_sd_manager_info 虚拟环境重建"
         print_line_to_shell
+        tmp_disable_proxy
         echo "开始重构虚拟环境"
         echo "删除原有虚拟环境中"
         rm -rf ./venv
@@ -113,6 +120,7 @@ function lora_scripts_venv_rebuild()
 
         echo "重构结束"
         exit_venv
+        tmp_enable_proxy
         print_line_to_shell
     fi
 }

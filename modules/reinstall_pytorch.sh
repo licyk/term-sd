@@ -13,10 +13,12 @@ function pytorch_reinstall()
         #开始安装pytorch
         print_word_to_shell="pytorch安装"
         print_line_to_shell
+        tmp_disable_proxy
         create_venv
         enter_venv
         pip install $pytorch_install_version $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --force-reinstall --default-timeout=100 --retries 5
         exit_venv
+        tmp_enable_proxy
         print_line_to_shell
     fi
 }

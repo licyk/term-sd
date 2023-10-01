@@ -12,7 +12,7 @@ function process_install_a1111_sd_webui()
 
     if [ $final_install_check_exec = 0 ];then
         #开始安装
-        print_word_to_shell="stable-diffusion-webui安装"
+        print_word_to_shell="stable-diffusion-webui 安装"
         print_line_to_shell
         echo "开始安装stable-diffusion-webui"
         tmp_disable_proxy #临时取消代理,避免一些不必要的网络减速
