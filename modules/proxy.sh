@@ -60,7 +60,7 @@ function set_proxy_option()
 function tmp_disable_proxy()
 {
     if [ $only_hugggingface_proxy = 0 ];then
-        echo "临时取消代理配置"
+        echo "huggingface独占代理已启用,临时取消代理配置"
         proxy_address_1=$http_proxy #将代理配置储存到临时变量
         proxy_address_2=$https_proxy
         http_proxy="" #将代理配置删除

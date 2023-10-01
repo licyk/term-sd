@@ -24,7 +24,10 @@ function process_install_invokeai()
         if [ ! -d "./invokeai" ];then
             mkdir ./invokeai
         fi
-        pip install invokeai $pytorch_install_version $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+        if [ ! -z $pytorch_install_version ];then
+            pip install $pytorch_install_version $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+        fi
+        pip install invokeai $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
         tmp_enable_proxy #恢复原有的代理,保证能从huggingface下载模型
         aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-upscaler-models/resolve/main/invokeai/RealESRGAN_x4plus.pth -d ./invokeai/models/core/upscaling/realesrgan -o RealESRGAN_x4plus.pth
         aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-upscaler-models/resolve/main/invokeai/RealESRGAN_x4plus_anime_6B.pth -d ./invokeai/models/core/upscaling/realesrgan -o RealESRGAN_x4plus_anime_6B.pth
