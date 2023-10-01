@@ -55,7 +55,10 @@ function generate_invokeai_launch()
                 fi
             else #找不到启动配置
                 generate_invokeai_launch_custom
+                print_word_to_shell="$term_sd_manager_info 启动"
+                print_line_to_shell
                 invokeai $(cat ./term-sd-launch.conf)
+                print_line_to_shell
             fi
         elif [ $invokeai_launch_option = 7 ]; then 
             echo
