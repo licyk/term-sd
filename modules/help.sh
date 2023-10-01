@@ -311,7 +311,7 @@ lora-scripts\n
 function help_option_5()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "Term-SD扩展脚本说明:\n
-扩展脚本可从主界面的"扩展脚本"下载和更新,启动方式和term-sd相同\n
+扩展脚本列表(启动Term-SD时加入\"--extra\"启动参数即可使用扩展脚本):\n
 sd-webui-extension:安装sd-webui的插件\n
 comfyui-extension:安装ComfyUI的插件\n
 \n

@@ -1,8 +1,8 @@
 # term-sd
 
-基于dialog实现界面显示的AI管理器，支持安装，管理A1111-SD-Webui,ComfyUI.InvokeAI,lora-scripts  
-term-sd支持在Linux，Windows，MacOS上运行(Windows平台需安装msys2,MacOS需要安装homebrew)  
-使用前需安装aria2,python(推荐使用3.10的版本),pip,git,dialog  
+基于dialog实现界面显示的AI管理器，支持安装，管理A1111-SD-Webui，ComfyUI.InvokeAI，lora-scripts  
+term-sd支持在Linux，Windows，MacOS上运行(Windows平台需安装msys2，MacOS需要安装homebrew)  
+使用前需安装aria2，python(3.9~3.11的版本)，pip，git，dialog  
 在使用term-sd前先配置好环境  
 
 ***
@@ -18,13 +18,13 @@ windows系统安装配置环境的方法：
     sysdm.cpl
 
 打开【系统属性】窗口后，依次点击选项卡【高级】、【环境变量】按钮  
-在“系统变量”部分点双击“Path”，点击新建，输入以下路径,分别创建两条环境变量  
+在“系统变量”部分点双击“Path”，点击新建，输入以下路径，分别创建两条环境变量  
 
     C:\msys64\mingw64\bin
     C:\msys64\usr\bin
 
->`C:\msys64`指msys2安装路径,要根据msys2实际的安装路径进行修改  
-如果把msys2安装在`D:\Program Files\MSYS2`路径中,上面的路径就改为  
+>`C:\msys64`指msys2安装路径，要根据msys2实际的安装路径进行修改  
+如果把msys2安装在`D:\Program Files\MSYS2`路径中，上面的路径就改为  
 `D:\Program Files\MSYS2\mingw64\bin`  
 `D:\Program Files\MSYS2\usr\bin`  
 下面配置Windows终端时同理
@@ -42,12 +42,12 @@ windows系统安装配置环境的方法：
 
 输入y，回车，等待安装完成  
 
-3、安装python,pip  
+3、安装python，pip  
 进入python官网下载python，[python3.10下载](https://www.python.org/downloads/release/python-31011/)  
 在python3.10的页面找到`Windows installer (64-bit)`，点击下载  
-打开python安装包，在安装界面点击`customize installation`，然后点击`next`,勾选`Add Python to environment variables`，再点击`browse`,自己选择要安装的位置，选择好后点击`install`，等待安装完成  
+打开python安装包，在安装界面点击`customize installation`，然后点击`next`，勾选`Add Python to environment variables`，再点击`browse`，自己选择要安装的位置，选择好后点击`install`，等待安装完成  
 安装结束前先不要关闭安装界面，先点击`Disable path length limit`，再退出  
->python安装器在安装python时同时安装pip,一般不需要手动再去安装pip
+>python安装器在安装python时同时安装pip，一般不需要手动再去安装pip
 
 4、安装aria2  
 前往[aira2官网下载](http://aria2.github.io/)，点击`Download version`进入下载页面，找到`aria2-xx版本-win-64bit-build1.zip`点击下载，解压得到`aria2c.exe`
@@ -60,7 +60,7 @@ windows系统安装配置环境的方法：
 在`系统变量`部分点双击`Path`，点击`新建`，把刚刚记下来的路径粘贴上去，然后一直点确定直至完成  
 
 5、配置Windows终端  
->Windows10需在开始菜单中找到`micorsoft store`,搜索`Windows Terminal`进行安装
+>Windows10需在开始菜单中找到`micorsoft store`，搜索`Windows Terminal`进行安装
 
 右键桌面或者文件管理器空的位置，点击`在终端中打开`，在标题栏点击向下的箭头，打开Windows终端设置，点击`添加新配置文件`  
 在`名称`中填入`MinGW64`  
@@ -72,7 +72,7 @@ C:\msys64\msys2_shell.cmd -defterm -no-start -use-full-path -here -mingw64
 在`启动目录`勾选`使用父进程目录`  
 在`图标`填入`C:\msys64\mingw64.ico`  
 （`C:\msys64`为安装目录，根据具体安装的目录修改）  
-保存后生效，在标题栏点击向下的箭头就可以看到`MinGW64`,打开后就可以下载和运行term-sd
+保存后生效，在标题栏点击向下的箭头就可以看到`MinGW64`，打开后就可以下载和运行term-sd
 >Windows终端默认启动powershell，如果想要启动时直接启动MinGW64，可以在Windows终端设置，`启动`->`默认配置文件`，将`Windows Powershell`改成`MinGW64`
 
 Linux配置环境方法：
@@ -113,8 +113,8 @@ brew install git aria2 dialog python
 
     ./term-sd.sh
 
-启动后按照提示安装term-sd组件后即可正常使用,在term-sd的帮助功能中可以查看详细的使用方法  
->huggingface目前在大陆网络环境无法访问，需要使用带有TUN模式或者驱动模式的代理软件(如果开启代理软件后还会出现下载失败的问题,需在term-sd中配置好代理参数)，保证能够正常下载模型
+启动后按照提示安装term-sd组件后即可正常使用，在term-sd的帮助功能中可以查看详细的使用方法  
+>huggingface目前在大陆网络环境无法访问，需要使用带有TUN模式或者驱动模式的代理软件(如果开启代理软件后还会出现下载失败的问题，需在term-sd中配置好代理参数)，保证能够正常下载模型
 
 ***
 
