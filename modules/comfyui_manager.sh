@@ -64,14 +64,8 @@ function comfyui_option()
                 comfyui_option
             elif [ $final_comfyui_option = 8 ]; then
                 if [ -f "./term-sd-launch.conf" ]; then #找到启动脚本
-                    if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI启动选项" --yes-label "启动" --no-label "修改参数" --yesno "请选择启动ComfyUI/修改ComfyUI启动参数\n当前启动参数:\npython $(cat ./term-sd-launch.conf)" 22 70) then
-                        term_sd_launch
-                        comfyui_option
-                    else
-                        generate_comfyui_launch
-                        term_sd_launch
-                        comfyui_option
-                    fi
+                    comfyui_launch
+                    comfyui_option
                 else #找不到启动脚本,并启动脚本生成界面
                     generate_comfyui_launch
                     term_sd_launch
@@ -97,7 +91,7 @@ function comfyui_option()
                 fi
                 comfyui_option
             elif [ $final_comfyui_option = 20 ]; then
-                mainmenu #回到主界面
+                echo #回到主界面
             fi
         fi
     else

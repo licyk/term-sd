@@ -58,14 +58,8 @@ function a1111_sd_webui_option()
                 a1111_sd_webui_option
             elif [ $final_a1111_sd_webui_option = 7 ]; then
                 if [ -f "./term-sd-launch.conf" ]; then #找到启动脚本
-                    if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui启动选项" --yes-label "启动" --no-label "修改参数" --yesno "请选择启动A1111-SD-Webui/修改A1111-SD-Webui启动参数\n当前启动参数:\npython $(cat ./term-sd-launch.conf)" 22 70) then
-                        term_sd_launch
-                        a1111_sd_webui_option
-                    else #修改启动脚本
-                        generate_a1111_sd_webui_launch
-                        term_sd_launch
-                        a1111_sd_webui_option
-                    fi
+                    a1111_sd_webui_launch
+                    a1111_sd_webui_option
                 else #找不到启动脚本,并启动脚本生成界面
                     generate_a1111_sd_webui_launch
                     term_sd_launch
@@ -91,7 +85,7 @@ function a1111_sd_webui_option()
                 fi
                 a1111_sd_webui_option
             elif [ $final_a1111_sd_webui_option = 20 ]; then
-                mainmenu #回到主界面
+                echo #回到主界面
             fi
         fi
     else #找不到stable-diffusion-webui目录

@@ -66,7 +66,7 @@ function invokeai_option()
                     fi
                     invokeai_option
                 elif [ $final_invokeai_option = 20 ]; then
-                    mainmenu #回到主界面
+                    echo #回到主界面
                 fi
             fi
         else 

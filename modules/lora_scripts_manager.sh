@@ -102,7 +102,7 @@ function lora_scripts_option()
                 fi
                 lora_scripts_option
             elif [ $final_lora_scripts_option = 20 ]; then
-                mainmenu #回到主界面
+                echo #回到主界面
             fi
         fi
     else

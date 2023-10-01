@@ -496,8 +496,8 @@ user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') #读取用户所使用的sh
 #检测可用的python命令
 if python3 --version > /dev/null 2> /dev/null || python --version > /dev/null 2> /dev/null ;then #判断是否有可用的python
     test_num=$(( $test_num + 1 ))
-    python_cmd_test_1=$(python3 --version)
-    python_cmd_test_2=$(python --version)
+    python3 --version > /dev/null 2> /dev/null && python_cmd_test_1=$(python3 --version)
+    python --version > /dev/null 2> /dev/null && python_cmd_test_2=$(python --version)
 
     if [ ! -z "$python_cmd_test_1" ];then
         export python_cmd="python3"
