@@ -24,8 +24,8 @@ function process_install_comfyui()
         enter_venv
         cd ..
 
-        pip install $pytorch_install_version $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
-        pip install -r ./ComfyUI/requirements.txt  --prefer-binary $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+        pip install $pytorch_install_version $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+        pip install -r ./ComfyUI/requirements.txt  --prefer-binary $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
 
         if [ ! -z "$comfyui_extension_install_list" ];then
             echo "安装插件中"
