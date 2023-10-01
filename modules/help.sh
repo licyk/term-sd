@@ -81,7 +81,7 @@ function help_option_2()
 1、使用方向键、Tab键移动光标,Enter进行选择,Space键勾选或取消勾选,(已勾选时显示[*]),Ctrl+Shift+V粘贴文本,Ctrl+C可中断指令的运行 \n
 2、初次使用时,建议在主界面先选择"pip镜像源",设置pip的镜像源为国内镜像源,加快安装时下载python软件包的速度。主界面显示的"虚拟环境"保持启用就行,无需禁用\n
 3、主界面总共有四个AI软件可选(AUTOMATIC1111-stable-diffusion-webui,ComfyUI,InvokeAI,lora-scripts),回车选中后,如果在脚本的当前目录未找选中的AI软件,term-sd会提示你进行安装。\n
-4、安装前将会提示你进行安装准备,首先是"代理选择",有4个选项可选(启用pip镜像源,启用github代理,强制使用pip,huggingface独占代理),前3个选项选项默认勾选,如果没有质量较好的代理工具,不建议取消勾选。"强制使用pip"只有禁用了虚拟环境时才建议勾选(在Linux中,如果不在虚拟环境中安装python软件包,pip模块会警告\"error: externally-managed-environment\",只有使用"--break-system-packages"参数才能进行安装)\n
+4、安装前将会提示你进行安装准备,首先是"代理选择",有4个选项可选(启用pip镜像源,启用github代理,强制使用pip,huggingface独占代理),前3个选项选项默认勾选(\"huggingface独占代理\"仅在设置代理参数后才会启动),如果没有质量较好的代理工具,不建议取消勾选。"强制使用pip"只有禁用了虚拟环境时才建议勾选(在Linux中,如果不在虚拟环境中安装python软件包,pip模块会警告\"error: externally-managed-environment\",只有使用"--break-system-packages"参数才能进行安装)\n
 5、然后是"pytorch安装",pytorch版本的选择:nvidia显卡选择cuda(Windows,linux平台),amd显卡在linux平台选择rocm,amd显卡和intel显卡在windows平台选择directml,macos选择不带cuda,rocm,directml的版本,如果想要在cpu上进行跑图,选择cpu版本\n
 6、AUTOMATIC1111-stable-diffusion-webui,ComfyUI会有额外的插件/自定义节点选择,默认勾选一些比较实用的,可根据需要勾选额外的,插件/自定义节点的介绍在帮助中查询。(AI软件在安装好后,如果在插件安装列表有想要安装的,可使用扩展脚本中带有"extension"名字的脚本进行安装)\n
 7、安装前的准备完成后,将会弹出安装确认界面,选择"是"开始安装\n
