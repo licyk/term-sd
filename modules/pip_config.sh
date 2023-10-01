@@ -7,7 +7,8 @@ function set_pip_mirrors_option()
     set_pip_mirrors_option_=$(dialog --clear --title "Term-SD" --backtitle "pip镜像源选项" --ok-label "确认" --cancel-label "取消" --menu "请选择设置的pip镜像源\n当前pip全局配置:\n$(pip config list | sed 's/.\{70\}/&\n/')" 22 70 12 \
         "1" "官方源" \
         "2" "国内镜像源" \
-        "3" "返回" \
+        "3" "删除镜像源配置" \
+        "4" "返回" \
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
@@ -25,6 +26,11 @@ function set_pip_mirrors_option()
             #pip config set global.extra-index-url "https://mirrors.aliyun.com/pytorch-wheels"
             pip config set global.extra-index-url "https://pypi.tuna.tsinghua.edu.cn/simple https://mirrors.pku.edu.cn/pypi/web/simple https://mirrors.bfsu.edu.cn/pypi/web/simple"
             pip config set global.find-links "https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html"
+            set_pip_mirrors_option
+        elif [ $set_pip_mirrors_option_ = 3 ];then
+            pip config unset global.extra-index-url
+            pip config unset global.index-url
+            pip config unset global.find-links
             set_pip_mirrors_option
         else
             mainmenu
