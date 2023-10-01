@@ -6,7 +6,7 @@ function set_pip_mirrors_option()
     echo "获取pip全局配置"
     set_pip_mirrors_option_=$(dialog --clear --title "Term-SD" --backtitle "pip镜像源选项" --ok-label "确认" --cancel-label "取消" --menu "请选择设置的pip镜像源\n当前pip全局配置:\n$(pip config list | sed 's/.\{70\}/&\n/')" 22 70 12 \
         "1" "官方源" \
-        "2" "镜像源" \
+        "2" "国内镜像源" \
         "3" "返回" \
         3>&1 1>&2 2>&3)
 
