@@ -24,7 +24,7 @@ function process_install_invokeai()
         if [ ! -d "./invokeai" ];then
             mkdir ./invokeai
         fi
-        if [ ! -z $(echo $pytorch_install_version | awk '{gsub(/[=+]/, "")}1') ];then
+        if [ ! -z "$(echo $pytorch_install_version | awk '{gsub(/[=+]/, "")}1')" ];then
             pip install $pytorch_install_version $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
         fi
         pip install invokeai $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
