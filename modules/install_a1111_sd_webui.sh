@@ -33,7 +33,7 @@ function process_install_a1111_sd_webui()
         git clone "$github_proxy"https://github.com/Stability-AI/generative-models ./stable-diffusion-webui/repositories/generative-models
         git clone "$github_proxy"https://github.com/crowsonkb/k-diffusion ./stable-diffusion-webui/repositories/k-diffusion
 
-        if [ ! -z "$pytorch_install_version" ];then
+        if [ ! -z $(echo $pytorch_install_version | awk '{gsub(/[=+]/, "")}1') ];then
             pip install $pytorch_install_version $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5 #"--default-timeout=100 --retries 5"在网络差导致下载中断时重试下载
         fi
         pip install git+"$github_proxy"https://github.com/openai/CLIP --prefer-binary $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
