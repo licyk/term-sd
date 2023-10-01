@@ -26,7 +26,7 @@ function term_sd_update_option()
                     dialog --clear --title "Term-SD" --backtitle "Term-SD更新结果" --ok-label "确定" --msgbox "Term-SD更新成功,选择确定后重启" 22 70
                     source ./term-sd/modules/init.sh
                 else
-                    dialog --clear --title "Term-SD" --backtitle "Term-SD更新结果" --ok-label "确定" --msgbox "Term-SD更新失败"
+                    dialog --clear --title "Term-SD" --backtitle "Term-SD更新结果" --ok-label "确定" --msgbox "Term-SD更新失败" 22 70
                     term_sd_update_option
                 fi
             elif [ $term_sd_update_option_ = 2 ];then
