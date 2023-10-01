@@ -63,13 +63,13 @@ function term_sd_remote()
     
     if [ $? = 0 ];then
         if [ $term_sd_remote_ = 1 ];then
-            git --git-dir="./term-sd/.git" remote set-url origin "https://github.com/licyk/term-sd.git"
+            git --git-dir="./term-sd/.git" remote set-url origin "https://github.com/licyk/term-sd"
         elif [ $term_sd_remote_ = 3 ];then
-            git --git-dir="./term-sd/.git" remote set-url origin "https://gitlab.com/licyk/term-sd.git"
+            git --git-dir="./term-sd/.git" remote set-url origin "https://gitlab.com/licyk/term-sd"
         elif [ $term_sd_remote_ = 3 ];then
-            git --git-dir="./term-sd/.git" remote set-url origin "https://gitee.com/four-dishes/term-sd.git"
+            git --git-dir="./term-sd/.git" remote set-url origin "https://gitee.com/four-dishes/term-sd"
         elif [ $term_sd_remote_ = 4 ];then
-            git --git-dir="./term-sd/.git" remote set-url origin "https://ghproxy.com/https://github.com/licyk/term-sd.git"
+            git --git-dir="./term-sd/.git" remote set-url origin "https://ghproxy.com/https://github.com/licyk/term-sd"
         fi
     fi
     term_sd_update_option
