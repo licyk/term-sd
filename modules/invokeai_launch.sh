@@ -41,18 +41,7 @@ function generate_invokeai_launch()
             print_line_to_shell
         elif [ $invokeai_launch_option = 6 ]; then
             if [ -f "./term-sd-launch.conf" ];then
-                if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI启动选项" --yes-label "启动" --no-label "修改参数" --yesno "请选择启动ComfyUI/修改ComfyUI启动参数\n当前启动参数:\ninvokeai $(cat ./term-sd-launch.conf)" 22 70) then
-                    print_word_to_shell="$term_sd_manager_info 启动"
-                    print_line_to_shell
-                    invokeai $(cat ./term-sd-launch.conf)
-                    print_line_to_shell
-                else
-                    generate_invokeai_launch_custom
-                    print_word_to_shell="$term_sd_manager_info 启动"
-                    print_line_to_shell
-                    invokeai $(cat ./term-sd-launch.conf)
-                    print_line_to_shell
-                fi
+                invokeai_launch
             else #找不到启动配置
                 generate_invokeai_launch_custom
                 print_word_to_shell="$term_sd_manager_info 启动"
@@ -139,6 +128,30 @@ function generate_invokeai_launch_custom()
             fi
             echo "设置启动参数> $cust_invokeai_launch_option"
             echo "--root ./invokeai $cust_invokeai_launch_option" > term-sd-launch.conf
+        fi
+    fi
+}
+
+function invokeai_launch()
+{
+    invokeai_launch_=$(dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动ComfyUI/修改ComfyUI启动参数\n当前启动参数:\ninvokeai $(cat ./term-sd-launch.conf)" 22 70 12 \
+        "1" "启动" \
+        "2" "修改启动参数" \
+        "5" "返回" \
+        3>&1 1>&2 2>&3)
+
+    if [ $? = 0 ];then
+        if [ $invokeai_launch_ = 1 ];then
+            print_word_to_shell="$term_sd_manager_info 启动"
+            print_line_to_shell
+            invokeai $(cat ./term-sd-launch.conf)
+            print_line_to_shell
+        elif [ $invokeai_launch_ = 2 ];then
+            generate_invokeai_launch_custom
+            print_word_to_shell="$term_sd_manager_info 启动"
+            print_line_to_shell
+            invokeai $(cat ./term-sd-launch.conf)
+            print_line_to_shell
         fi
     fi
 }

@@ -88,6 +88,7 @@ function generate_comfyui_launch()
     fi
 }
 
+#comfyui启动界面
 function comfyui_launch()
 {
     comfyui_launch_=$(dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动ComfyUI/修改ComfyUI启动参数\n当前启动参数:\npython $(cat ./term-sd-launch.conf)" 22 70 12 \
@@ -96,10 +97,12 @@ function comfyui_launch()
         "5" "返回" \
         3>&1 1>&2 2>&3)
 
-    if [ $comfyui_launch_ = 1 ];then
-        term_sd_launch
-    elif [ $comfyui_launch_ = 2 ];then
-        generate_comfyui_launch
-        term_sd_launch
+    if [ $? = 0 ];then
+        if [ $comfyui_launch_ = 1 ];then
+            term_sd_launch
+        elif [ $comfyui_launch_ = 2 ];then
+            generate_comfyui_launch
+            term_sd_launch
+        fi
     fi
 }
