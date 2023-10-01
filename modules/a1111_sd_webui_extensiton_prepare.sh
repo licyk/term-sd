@@ -67,7 +67,7 @@ function a1111_sd_webui_extension_option()
         "53" "sd-webui-fastblend" OFF \
         "54" "StyleSelectorXL" OFF \
         "55" "sd-dynamic-prompts" OFF \
-        "56" "LightDiffusionFlow" OFF \
+        "56" "LightDiffusionFlow" ON \
         3>&1 1>&2 2>&3)
 
     if [ ! -z "$extension_list" ]; then

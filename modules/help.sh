@@ -68,7 +68,7 @@ https://civitai.com/\n
 https://www.bilibili.com/read/cv22159609\n
 \n
 学习stable-diffusion-webui的教程:\n
-https://licyk.netlify.app/2023/08/01/stable-diffusion-tutorial/\n
+https://licyk.netlify.app/2023/08/01/stable-diffusion-tutorial\n
 \n
 \n
 " 22 70
@@ -127,13 +127,15 @@ pip缓存清理:清理pip在安装软件包后产生的缓存\n
 5、如果没有质量较好的代理工具,建议在安装时使用git代理和python镜像源\n
 6、建议保持启用虚拟环境,因为不同AI软件对软件包的版本要求不同,关闭后易导致不同的AI软件出现依赖问题\n
 7、AUTOMATIC1111-stable-diffusion-webui安装好后,可以使用秋叶aaaki制作的启动器来启动sd-webui。将秋叶的启动器放入stable-diffusion-webui文件夹中,双击启动(仅限windows,因为秋叶的启动器只有windows的版本)\n
-8、ComfyUI目前并没有自动为插件或者自定义节点安装依赖的功能,所以安装插件或者自定义节点后后,推荐运行一次“安装依赖”功能,有些依赖下载源是在github上的,无法下载时请使用代理工具(已知问题:因为一些插件/自定义节点的安装依赖方式并不统一,term-sd的依赖安装功能可能没有用,需要手动进行安装依赖)\n
-9、InvokeAI在安装好后,要运行一次invokeai-configure,到\"install stable diffusion models\"界面时,可以把所有的模型取消勾选,因为有的模型是从civitai下载的,如果没有开启代理会导致下载失败\n
-10、在插件/自定义节点的管理功能中没有"更新","切换版本","修复更新"这些按钮,是因为这些插件/自定义节点的文件夹内没有".git"文件夹,如果是从github上直接下载压缩包再解压安装的就会有这种情况\n
-11、A1111-SD-Webui设置界面语言:点击\"Settings\"-->\"User interface\"-->\"Localization\",点击右边的刷新按钮,再选择(防止不显示出来),在列表中选择zh-Hans(stable)(Term-SD在安装时默认下载了中文插件),在点击上面的\"Apply settings\",最后点击\"Reload UI\"生效\n
-12、ComfyUI设置界面语言:点击右上角的齿轮图标,找到\"AGLTranslation-langualge\",选择\"中文\",ComfyUi将会自动切换中文\n
-13、如遇到网络问题,比如下载模型失败等,且在开启代理后依然无法解决问题时,可设置代理。代理参数的格式为\"ip:port\",参数例子:\"127.0.0.1:10808\",ip、port、代理协议需查看用户使用的代理软件配置(在终端环境中,除了有驱动模式或者TUN模式的代理软件,一般没办法为终端设置代理,所以可以使用该功能为终端环境设置代理)\n
-14、在代理选项中\"huggingface独占代理\"可在安装过程中单独为从huggingface中下载模型时单独启用代理,保证安装速度,因为除了从huggingface下载模型的过程之外,其他下载过程可以不走代理进行下载(注:在使用驱动模式或者TUN模式的代理软件时,该功能无效,因为代理软件会强制让所有网络流量走代理)\n
+8、ComfyUI目前并没有自动为插件或者自定义节点安装依赖的功能,所以安装插件或者自定义节点后后,推荐运行一次\"安装依赖\"功能,有些依赖下载源是在github上的,无法下载时请使用代理工具(已知问题:因为一些插件/自定义节点的安装依赖方式并不统一,term-sd的依赖安装功能可能没有用,需要手动进行安装依赖)\n
+9、启动ComfyUI时,在\"Import times for custom nodes:\"过程如果出现\"IMPORT FAILED\",则找到对应自定义节点,运行一次\"安装依赖\"功能,或者使用\"安装全部自定义节点依赖\"功能进行依赖安装\n
+10、InvokeAI在安装好后,要运行一次invokeai-configure,到\"install stable diffusion models\"界面时,可以把所有的模型取消勾选,因为有的模型是从civitai下载的,如果没有开启代理会导致下载失败\n
+11、在插件/自定义节点的管理功能中没有"更新","切换版本","修复更新"这些按钮,是因为这些插件/自定义节点的文件夹内没有".git"文件夹,如果是从github上直接下载压缩包再解压安装的就会有这种情况\n
+12、A1111-SD-Webui设置界面语言:点击\"Settings\"-->\"User interface\"-->\"Localization\",点击右边的刷新按钮,再选择(防止不显示出来),在列表中选择zh-Hans(stable)(Term-SD在安装时默认下载了中文插件),在点击上面的\"Apply settings\",最后点击\"Reload UI\"生效\n
+13、ComfyUI设置界面语言:点击右上角的齿轮图标,找到\"AGLTranslation-langualge\",选择\"中文\",ComfyUi将会自动切换中文\n
+14、InvokeAI设置界面语言:点击右上角的三条横杠的图标,然后点击Settings,然后找到Language选项,点击文字下方的选项框,找到简体中文并选中即可\n
+15、如遇到网络问题,比如下载模型失败等,且在开启代理后依然无法解决问题时,可设置代理。代理参数的格式为\"ip:port\",参数例子:\"127.0.0.1:10808\",ip、port、代理协议需查看用户使用的代理软件配置(在终端环境中,除了有驱动模式或者TUN模式的代理软件,一般没办法为终端设置代理,所以可以使用该功能为终端环境设置代理)\n
+16、在代理选项中\"huggingface独占代理\"可在安装过程中单独为从huggingface中下载模型时单独启用代理,保证安装速度,因为除了从huggingface下载模型的过程之外,其他下载过程可以不走代理进行下载(注:在使用驱动模式或者TUN模式的代理软件时,该功能无效,因为代理软件会强制让所有网络流量走代理)\n
 \n
 " 22 70
 }
@@ -222,83 +224,84 @@ function help_option_4()
 \n
 \n
 stable diffusion webui目录的说明(只列举比较重要的):\n
-stable-diffusion-webui   \n
-├── embeddings   embeddings模型存放位置   \n
-├── extensions   插件存放位置   \n
-├── launch.py    term-sd启动sd-webui的方法   \n
-├── outputs   生成图片的保存位置   \n
-└── models    模型存放目录   \n
-    ├── ESRGAN    放大模型存放位置   \n
-    ├── GFPGAN    放大模型存放位置   \n
-    ├── hypernetworks    hypernetworks模型存放位置   \n
-    ├── Lora    Lora模型存放位置   \n
-    ├── RealESRGAN    放大模型存放位置   \n
-    ├── Stable-diffusion    大模型存放位置   \n
-    └── VAE    VAE模型存放位置   \n
+stable-diffusion-webui\n
+├── embeddings   embeddings模型存放位置\n
+├── extensions   插件存放位置\n
+├── launch.py    term-sd启动sd-webui的方法\n
+├── config.json  stable-diffusion-webui的配置文件,需要重置设置时删除该文件即可\n
+├── outputs   生成图片的保存位置\n
+└── models    模型存放目录\n
+    ├── ESRGAN    放大模型存放位置\n
+    ├── GFPGAN    放大模型存放位置\n
+    ├── hypernetworks    hypernetworks模型存放位置\n
+    ├── Lora    Lora模型存放位置\n
+    ├── RealESRGAN    放大模型存放位置\n
+    ├── Stable-diffusion    大模型存放位置\n
+    └── VAE    VAE模型存放位置\n
 \n
 \n
 ComfyUI目录的部分说明(只列举比较重要的):\n
-ComfyUI   \n
-├── custom_nodes   自定义节点存放位置   \n
-├── main.py        term-sd启动ComfyUI的方法   \n
-├── models         模型存放位置   \n
-│   ├── checkpoints    大模型存放位置   \n
-│   ├── controlnet   controlnet模型存放位置   \n
-│   ├── embeddings   embeddings模型存放位置   \n
-│   ├── hypernetworks   hypernetworks模型存放位置   \n
-│   ├── loras   Lora模型存放位置   \n
-│   ├── upscale_models   放大模型存放位置   \n
-│   └── vae   VAE模型存放位置   \n
-├── output   生成图片的保存位置   \n
-└── web   \n
-    └── extensions   插件存放位置   \n
+ComfyUI\n
+├── custom_nodes   自定义节点存放位置\n
+├── main.py        term-sd启动ComfyUI的方法\n
+├── models         模型存放位置\n
+│   ├── checkpoints    大模型存放位置\n
+│   ├── controlnet   controlnet模型存放位置\n
+│   ├── embeddings   embeddings模型存放位置\n
+│   ├── hypernetworks   hypernetworks模型存放位置\n
+│   ├── loras   Lora模型存放位置\n
+│   ├── upscale_models   放大模型存放位置\n
+│   └── vae   VAE模型存放位置\n
+├── output   生成图片的保存位置\n
+└── web\n
+    └── extensions   插件存放位置\n
 \n
 \n
 InvokeAI目录的部分说明(只列举比较重要的):\n
-├── configs   配置文件存放目录   \n
-├── invokeai.yaml   主要配置文件   \n
-├── models   模型存放位置   \n
-│   ├── core   \n
-│   │   └── upscaling   \n
-│   │       └── realesrgan   放大模型存放位置   \n
-│   ├── sd-1   sd1.5模型的存放位置   \n
-│   │   ├── controlnet   controlnet模型存放位置   \n
-│   │   ├── embedding   embeddings模型存放位置   \n
-│   │   ├── lora   Lora模型存放位置   \n
-│   │   ├── main   \n
-│   │   ├── onnx   \n
-│   │   └── vae   VAE模型存放位置   \n
-│   ├── sd-2   \n
-│   │   ├── controlnet   \n
-│   │   ├── embedding   \n
-│   │   ├── lora   \n
-│   │   ├── main   \n
-│   │   ├── onnx   \n
-│   │   └── vae   \n
-│   ├── sdxl   \n
-│   │   ├── controlnet   \n
-│   │   ├── embedding   \n
-│   │   ├── lora   \n
-│   │   ├── main   \n
-│   │   ├── onnx   \n
-│   │   └── vae   \n
-│   └── sdxl-refiner   \n
-│       ├── controlnet   \n
-│       ├── embedding   \n
-│       ├── lora   \n
-│       ├── main   \n
-│       ├── onnx   \n
-│       └── vae   \n
-└── outputs   生成图片的存放位置   \n
+├── configs   配置文件存放目录\n
+├── invokeai.yaml   主要配置文件,需要重置设置时删除该文件即可\n
+├── models   模型存放位置\n
+│   ├── core\n
+│   │   └── upscaling\n
+│   │       └── realesrgan   放大模型存放位置\n
+│   ├── sd-1   sd1.5模型的存放位置\n
+│   │   ├── controlnet   controlnet模型存放位置\n
+│   │   ├── embedding   embeddings模型存放位置\n
+│   │   ├── lora   Lora模型存放位置\n
+│   │   ├── main\n
+│   │   ├── onnx\n
+│   │   └── vae   VAE模型存放位置\n
+│   ├── sd-2\n
+│   │   ├── controlnet\n
+│   │   ├── embedding\n
+│   │   ├── lora\n
+│   │   ├── main\n
+│   │   ├── onnx\n
+│   │   └── vae\n
+│   ├── sdxl\n
+│   │   ├── controlnet\n
+│   │   ├── embedding\n
+│   │   ├── lora\n
+│   │   ├── main\n
+│   │   ├── onnx\n
+│   │   └── vae\n
+│   └── sdxl-refiner\n
+│       ├── controlnet\n
+│       ├── embedding\n
+│       ├── lora\n
+│       ├── main\n
+│       ├── onnx\n
+│       └── vae\n
+└── outputs   生成图片的存放位置\n
 \n
 \n
 lora-scripts目录的部分说明(只列举比较重要的):\n
-lora-scripts   \n
-├── gui.py   term-sd启动lora-scripts的方法   \n
-├── logs   日志存放位置   \n
-├── output   训练得到的模型存放位置   \n
-├── sd-models   训练所用的底模存放位置   \n
-└── toml   保存的训练参数存放位置   \n
+lora-scripts\n
+├── gui.py   term-sd启动lora-scripts的方法\n
+├── logs   日志存放位置\n
+├── output   训练得到的模型存放位置\n
+├── sd-models   训练所用的底模存放位置\n
+└── toml   保存的训练参数存放位置\n
 \n
 \n
 " 22 70
@@ -322,54 +325,54 @@ function help_option_6()
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "AUTOMATIC1111-stable-diffusion-webui插件说明:\n
 注:有些插件因为年久失修,可能会出现兼容性问题。具体介绍请在github上搜索项目\n
 \n
-kohya-config-webui: 一个用于生成kohya-ss训练脚本使用的toml配置文件的WebUI   \n
-sd-webui-additional-networks:将 LoRA 等模型添加到stable diffusion以生成图像的扩展   \n
-a1111-sd-webui-tagcomplete:输入Tag时提供booru风格(如Danbooru)的TAG自动补全   \n
-multidiffusion-upscaler-for-automatic1111:在有限的显存中进行大型图像绘制,提供图片区域控制   \n
-sd-dynamic-thresholding:解决使用更高的 CFG Scale 而出现颜色问题   \n
-sd-webui-cutoff:解决tag污染   \n
-sd-webui-model-converter:模型转换扩展   \n
-sd-webui-supermerger:模型合并扩展   \n
-stable-diffusion-webui-localization-zh_Hans:WEBUI中文扩展   \n
-stable-diffusion-webui-wd14-tagger:图片tag反推   \n
-sd-webui-regional-prompter:图片区域分割   \n
-stable-diffusion-webui-baidu-netdisk:强大的图像管理器   \n
-stable-diffusion-webui-anti-burn:通过跳过最后几个步骤并将它们之前的一些图像平均在一起来平滑生成的图像,加快点击停止生成图像后WEBUI的响应速度   \n
-loopback_scaler:使用迭代过程增强图像分辨率和质量   \n
-latentcoupleregionmapper:控制绘制和定义区域   \n
-ultimate-upscale-for-automatic1111:图片放大工具   \n
-deforum-for-automatic1111:视频生成插件   \n
-stable-diffusion-webui-images-browser:图像管理器   \n
-stable-diffusion-webui-huggingface:huggingface模型下载扩展   \n
-sd-civitai-browser:civitai模型下载扩展   \n
-a1111-stable-diffusion-webui-vram-estimator:显存占用评估   \n
-openpose-editor:openpose姿势编辑   \n
-sd-webui-depth-lib:深度图库,用于Automatic1111/stable-diffusion-webui的controlnet扩展   \n
-posex:openpose姿势编辑   \n
-sd-webui-tunnels:WEBUI端口映射扩展   \n
-batchlinks-webui:批处理链接下载器   \n
-stable-diffusion-webui-catppuccin:WEBUI主题   \n
-a1111-sd-webui-lycoris:添加lycoris模型支持   \n
-stable-diffusion-webui-rembg:人物背景去除   \n
-stable-diffusion-webui-two-shot:图片区域分割和控制   \n
-sd-webui-lora-block-weight:lora分层扩展   \n
-sd-face-editor:面部编辑器   \n
-sd-webui-segment-anything:图片语义分割   \n
-sd-webui-controlnet:图片生成控制   \n
-sd-webui-prompt-all-in-one:tag翻译和管理插件   \n
-sd-webui-comfyui:在WEBUI添加ComfyUI界面   \n
-sd-webui-animatediff:GIF生成扩展   \n
-sd-webui-photopea-embed:在WEBUI界面添加ps功能   \n
-sd-webui-openpose-editor:ControlNet的pose编辑器   \n
-sd-webui-llul:给图片的选定区域增加细节   \n
-sd-webui-bilingual-localization:WEBUI双语对照翻译插件   \n
-adetailer:图片细节修复扩展   \n
-sd-webui-mov2mov:视频逐帧处理插件   \n
-sd-webui-IS-NET-pro:人物抠图   \n
-ebsynth_utility:视频处理扩展   \n
-sd_dreambooth_extension:dreambooth模型训练   \n
-sd-webui-memory-release:显存释放扩展   \n
-stable-diffusion-webui-dataset-tag-editor:训练集打标和处理扩展   \n
+kohya-config-webui: 一个用于生成kohya-ss训练脚本使用的toml配置文件的WebUI\n
+sd-webui-additional-networks:将 LoRA 等模型添加到stable diffusion以生成图像的扩展\n
+a1111-sd-webui-tagcomplete:输入Tag时提供booru风格(如Danbooru)的TAG自动补全\n
+multidiffusion-upscaler-for-automatic1111:在有限的显存中进行大型图像绘制,提供图片区域控制\n
+sd-dynamic-thresholding:解决使用更高的 CFG Scale 而出现颜色问题\n
+sd-webui-cutoff:解决tag污染\n
+sd-webui-model-converter:模型转换扩展\n
+sd-webui-supermerger:模型合并扩展\n
+stable-diffusion-webui-localization-zh_Hans:WEBUI中文扩展\n
+stable-diffusion-webui-wd14-tagger:图片tag反推\n
+sd-webui-regional-prompter:图片区域分割\n
+stable-diffusion-webui-baidu-netdisk:强大的图像管理器\n
+stable-diffusion-webui-anti-burn:通过跳过最后几个步骤并将它们之前的一些图像平均在一起来平滑生成的图像,加快点击停止生成图像后WEBUI的响应速度\n
+loopback_scaler:使用迭代过程增强图像分辨率和质量\n
+latentcoupleregionmapper:控制绘制和定义区域\n
+ultimate-upscale-for-automatic1111:图片放大工具\n
+deforum-for-automatic1111:视频生成插件\n
+stable-diffusion-webui-images-browser:图像管理器\n
+stable-diffusion-webui-huggingface:huggingface模型下载扩展\n
+sd-civitai-browser:civitai模型下载扩展\n
+a1111-stable-diffusion-webui-vram-estimator:显存占用评估\n
+openpose-editor:openpose姿势编辑\n
+sd-webui-depth-lib:深度图库,用于Automatic1111/stable-diffusion-webui的controlnet扩展\n
+posex:openpose姿势编辑\n
+sd-webui-tunnels:WEBUI端口映射扩展\n
+batchlinks-webui:批处理链接下载器\n
+stable-diffusion-webui-catppuccin:WEBUI主题\n
+a1111-sd-webui-lycoris:添加lycoris模型支持\n
+stable-diffusion-webui-rembg:人物背景去除\n
+stable-diffusion-webui-two-shot:图片区域分割和控制\n
+sd-webui-lora-block-weight:lora分层扩展\n
+sd-face-editor:面部编辑器\n
+sd-webui-segment-anything:图片语义分割\n
+sd-webui-controlnet:图片生成控制\n
+sd-webui-prompt-all-in-one:tag翻译和管理插件\n
+sd-webui-comfyui:在WEBUI添加ComfyUI界面\n
+sd-webui-animatediff:GIF生成扩展\n
+sd-webui-photopea-embed:在WEBUI界面添加ps功能\n
+sd-webui-openpose-editor:ControlNet的pose编辑器\n
+sd-webui-llul:给图片的选定区域增加细节\n
+sd-webui-bilingual-localization:WEBUI双语对照翻译插件\n
+adetailer:图片细节修复扩展\n
+sd-webui-mov2mov:视频逐帧处理插件\n
+sd-webui-IS-NET-pro:人物抠图\n
+ebsynth_utility:视频处理扩展\n
+sd_dreambooth_extension:dreambooth模型训练\n
+sd-webui-memory-release:显存释放扩展\n
+stable-diffusion-webui-dataset-tag-editor:训练集打标和处理扩展\n
 sd-webui-stablesr:图片放大\n
 sd-webui-deoldify:黑白图片上色\n
 stable-diffusion-webui-model-toolkit:大模型数据查看\n
@@ -390,50 +393,50 @@ function help_option_7()
 注:具体介绍请在github上搜索项目\n
 \n
 插件:\n
-ComfyUI-extensions:ComfyUI插件扩展   \n
-graphNavigator:节点辅助插件   \n
+ComfyUI-extensions:ComfyUI插件扩展\n
+graphNavigator:节点辅助插件\n
 \n
 节点:\n
-was-node-suite-comfyui:适用于 ComfyUI 的广泛节点套件，包含 190 多个新节点   \n
-ComfyUI_Cutoff:解决tag污染   \n
-ComfyUI_TiledKSampler:ComfyUI 的平铺采样器   \n
-ComfyUI_ADV_CLIP_emb:高级剪辑文本编码,可让您选择解释提示权重的方式   \n
-ComfyUI_Noise:噪声控制   \n
-ComfyUI_Dave_CustomNode:图片区域控制   \n
-ComfyUI-Impact-Pack:通过检测器、细节器、升频器、管道等方便地增强图像   \n
-ComfyUI-Manager:自定义节点/插件管理器   \n
-ComfyUI-Custom-Nodes:ComfyUI的自定义节点   \n
-ComfyUI-Custom-Scripts:ComfyUI的增强功能   \n
-NodeGPT:使用GPT辅助生图   \n
-Derfuu_ComfyUI_ModdedNodes:方程式节点   \n
-efficiency-nodes-comfyui:ComfyUI 的效率节点   \n
-ComfyUI_node_Lilly:通配符文本工具   \n
-ComfyUI-nodes-hnmr:包含X/Y/Z-plot X/Y/Z,合并,潜在可视化,采样等节点   \n
-ComfyUI-Vextra-Nodes:包含像素排序,交换颜色模式,拼合颜色等节点   \n
-ComfyUI-QualityOfLifeSuit_Omar92:包含GPT辅助标签生成,字符串操作,latentTools等节点   \n
-FN16-ComfyUI-nodes:ComfyUI自定义节点集合   \n
-masquerade-nodes-comfyui:ComfyUI 掩码相关节点   \n
-ComfyUI-post-processing-nodes:ComfyUI的后处理节点集合,可实现各种酷炫的图像效果   \n
-images-grid-comfy-plugin:XYZPlot图生成   \n
-ComfyUI-CLIPSeg:利用 CLIPSeg 模型根据文本提示为图像修复任务生成蒙版   \n
-rembg-comfyui-node:背景去除   \n
-ComfyUI_tinyterraNodes:ComfyUI的自定义节点   \n
-yk-node-suite-comfyui:ComfyUI的自定义节点   \n
-ComfyUI_experiments:ComfyUI 的一些实验性自定义节点   \n
-ComfyUI_tagger:图片tag反推   \n
-MergeBlockWeighted_fo_ComfyUI:权重合并   \n
-ComfyUI-Saveaswebp:将生成的图片保存为webp格式   \n
-trNodes:通过蒙版混合两个图像   \n
-ComfyUI_NetDist:在多个本地 GPU/联网机器上运行 ComfyUI 工作流程   \n
-ComfyUI-Image-Selector:从批处理中选择一个或多个图像   \n
-ComfyUI-Strimmlarns-Aesthetic-Score:图片美学评分   \n
-ComfyUI_UltimateSDUpscale:图片放大   \n
-ComfyUI-Disco-Diffusion:Disco Diffusion模块   \n
-ComfyUI-Waveform-Extensions:一些额外的音频工具,用于示例扩散ComfyUI扩展   \n
-ComfyUI_Custom_Nodes_AlekPet:包括姿势,翻译等节点   \n
-comfy_controlnet_preprocessors:ComfyUI的ControlNet辅助预处理器   \n
-AIGODLIKE-COMFYUI-TRANSLATION:ComfyUI的翻译扩展   \n
-stability-ComfyUI-nodes:Stability-AI自定义节点支持   \n
+was-node-suite-comfyui:适用于 ComfyUI 的广泛节点套件，包含 190 多个新节点\n
+ComfyUI_Cutoff:解决tag污染\n
+ComfyUI_TiledKSampler:ComfyUI 的平铺采样器\n
+ComfyUI_ADV_CLIP_emb:高级剪辑文本编码,可让您选择解释提示权重的方式\n
+ComfyUI_Noise:噪声控制\n
+ComfyUI_Dave_CustomNode:图片区域控制\n
+ComfyUI-Impact-Pack:通过检测器、细节器、升频器、管道等方便地增强图像\n
+ComfyUI-Manager:自定义节点/插件管理器\n
+ComfyUI-Custom-Nodes:ComfyUI的自定义节点\n
+ComfyUI-Custom-Scripts:ComfyUI的增强功能\n
+NodeGPT:使用GPT辅助生图\n
+Derfuu_ComfyUI_ModdedNodes:方程式节点\n
+efficiency-nodes-comfyui:ComfyUI 的效率节点\n
+ComfyUI_node_Lilly:通配符文本工具\n
+ComfyUI-nodes-hnmr:包含X/Y/Z-plot X/Y/Z,合并,潜在可视化,采样等节点\n
+ComfyUI-Vextra-Nodes:包含像素排序,交换颜色模式,拼合颜色等节点\n
+ComfyUI-QualityOfLifeSuit_Omar92:包含GPT辅助标签生成,字符串操作,latentTools等节点\n
+FN16-ComfyUI-nodes:ComfyUI自定义节点集合\n
+masquerade-nodes-comfyui:ComfyUI 掩码相关节点\n
+ComfyUI-post-processing-nodes:ComfyUI的后处理节点集合,可实现各种酷炫的图像效果\n
+images-grid-comfy-plugin:XYZPlot图生成\n
+ComfyUI-CLIPSeg:利用 CLIPSeg 模型根据文本提示为图像修复任务生成蒙版\n
+rembg-comfyui-node:背景去除\n
+ComfyUI_tinyterraNodes:ComfyUI的自定义节点\n
+yk-node-suite-comfyui:ComfyUI的自定义节点\n
+ComfyUI_experiments:ComfyUI 的一些实验性自定义节点\n
+ComfyUI_tagger:图片tag反推\n
+MergeBlockWeighted_fo_ComfyUI:权重合并\n
+ComfyUI-Saveaswebp:将生成的图片保存为webp格式\n
+trNodes:通过蒙版混合两个图像\n
+ComfyUI_NetDist:在多个本地 GPU/联网机器上运行 ComfyUI 工作流程\n
+ComfyUI-Image-Selector:从批处理中选择一个或多个图像\n
+ComfyUI-Strimmlarns-Aesthetic-Score:图片美学评分\n
+ComfyUI_UltimateSDUpscale:图片放大\n
+ComfyUI-Disco-Diffusion:Disco Diffusion模块\n
+ComfyUI-Waveform-Extensions:一些额外的音频工具,用于示例扩散ComfyUI扩展\n
+ComfyUI_Custom_Nodes_AlekPet:包括姿势,翻译等节点\n
+comfy_controlnet_preprocessors:ComfyUI的ControlNet辅助预处理器\n
+AIGODLIKE-COMFYUI-TRANSLATION:ComfyUI的翻译扩展\n
+stability-ComfyUI-nodes:Stability-AI自定义节点支持\n
 \n
 \n
 " 22 70

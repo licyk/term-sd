@@ -27,12 +27,14 @@ function invokeai_option()
                     proxy_option #代理选择
                     pip_install_methon #安装方式选择
                     final_install_check #安装前确认
-                    echo "更新InvokeAI中"
-                    pip install $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --upgrade invokeai --default-timeout=100 --retries 5
-                    if [ $? = 0 ];then
-                        dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI更新结果" --ok-label "确认" --msgbox "InvokeAI更新成功" 22 70
-                    else
-                        dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI更新结果" --ok-label "确认" --msgbox "InvokeAI更新失败" 22 70
+                    if [ $final_install_check_exec = 0 ];then
+                        echo "更新InvokeAI中"
+                        pip install $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --upgrade invokeai --default-timeout=100 --retries 5
+                        if [ $? = 0 ];then
+                            dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI更新结果" --ok-label "确认" --msgbox "InvokeAI更新成功" 22 70
+                        else
+                            dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI更新结果" --ok-label "确认" --msgbox "InvokeAI更新失败" 22 70
+                        fi
                     fi
                     invokeai_option
                 elif [ $final_invokeai_option = 2 ]; then
