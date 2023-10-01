@@ -17,8 +17,9 @@ function a1111_sd_webui_option()
             "5" "切换版本" \
             "6" "更新源替换" \
             "7" "启动" \
-            "8" "重新安装" \
-            "9" "重新安装pytorch" \
+            "8" "更新依赖" \
+            "9" "重新安装" \
+            "10" "重新安装pytorch" \
             $dialog_recreate_venv_button \
             $dialog_rebuild_venv_button \
             "20" "返回" \
@@ -59,13 +60,15 @@ function a1111_sd_webui_option()
             elif [ $final_a1111_sd_webui_option = 7 ]; then
                 if [ -f "./term-sd-launch.conf" ]; then #找到启动脚本
                     a1111_sd_webui_launch
-                    a1111_sd_webui_option
                 else #找不到启动脚本,并启动脚本生成界面
                     generate_a1111_sd_webui_launch
                     term_sd_launch
-                    a1111_sd_webui_option
                 fi
+                a1111_sd_webui_option
             elif [ $final_a1111_sd_webui_option = 8 ]; then
+                a1111_sd_webui_update_depend
+                a1111_sd_webui_option
+            elif [ $final_a1111_sd_webui_option = 9 ]; then
                 if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装A1111-Stable-Diffusion-Webui?" 22 70) then
                     cd "$start_path"
                     exit_venv
@@ -73,7 +76,7 @@ function a1111_sd_webui_option()
                 else
                     a1111_sd_webui_option
                 fi
-            elif [ $final_a1111_sd_webui_option = 9 ]; then
+            elif [ $final_a1111_sd_webui_option = 10 ]; then
                 pytorch_reinstall
                 a1111_sd_webui_option
             elif [ $final_a1111_sd_webui_option = 18 ]; then
@@ -94,4 +97,29 @@ function a1111_sd_webui_option()
         fi
     fi
     mainmenu #处理完后返回主界面
+}
+
+#a1111-sd-webui依赖更新功能
+function a1111_sd_webui_update_depend()
+{
+    if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui依赖更新选项" --yes-label "是" --no-label "否" --yesno "是否更新A1111-Stable-Diffusion-Webui的依赖?" 22 70);then
+        #更新前的准备
+        proxy_option #代理选择
+        pip_install_methon #安装方式选择
+        final_install_check #安装前确认
+
+        if [ $final_install_check_exec = 0 ];then
+            print_word_to_shell="A1111-SD-Webui依赖更新"
+            print_line_to_shell
+            echo "更新A1111-SD-Webui依赖中"
+            tmp_disable_proxy
+            create_venv
+            enter_venv
+            pip install -r ./repositories/CodeFormer/requirements.txt --prefer-binary --upgrade $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+            pip install -r ./requirements.txt --prefer-binary --upgrade $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+            exit_venv
+            tmp_enable_proxy
+            print_line_to_shell
+        fi
+    fi
 }
