@@ -83,15 +83,14 @@ function term_sd_extra_scripts()
     if [ $? = 0 ];then
         if [ $extra_script_dir_list_ = "term-sd" ];then
             source ./term-sd/modules/init.sh
-            exit 1
         elif [ $extra_script_dir_list_ = "退出" ];then
             exit 1
+        else
+            source ./term-sd/extra/$extra_script_dir_list_
         fi
     else
-        exit 1
+        
     fi
-
-    source ./term-sd/extra/$extra_script_dir_list_
     exit 1
 }
 
@@ -370,27 +369,19 @@ function install_cmd_to_shell()
 function install_config_to_shell()
 {
     cd ~
-    if [ $user_shell = bash ];then
-        if cat ./.bashrc | grep termsd > /dev/null ;then
+    if [ $user_shell = bash ] || [ $user_shell = zsh ];then
+        if cat ./."$user_shell"rc | grep termsd > /dev/null ;then
             echo "配置已存在,添加前请删除原有配置"
         else
-            echo $term_sd_shell_config >> .bashrc
-            echo "alias tsd='termsd'" >> .bashrc
-            echo "配置添加完成,重启shell以生效"
-        fi
-    elif [ $user_shell = zsh ];then
-        if cat ./.zshrc | grep termsd > /dev/null ;then
-            echo "配置已存在,添加前请删除原有配置"
-        else
-            echo $term_sd_shell_config >> .zshrc
-            echo "alias tsd='termsd'" >> .zshrc
+            echo $term_sd_shell_config >> ."$user_shell"rc
+            echo "alias tsd='termsd'" >> ."$user_shell"rc
             echo "配置添加完成,重启shell以生效"
         fi
     fi
     cd - > /dev/null
 }
 
-#快捷命卸载功能
+#快捷命令卸载功能
 function remove_config_from_shell()
 {
     cd ~
