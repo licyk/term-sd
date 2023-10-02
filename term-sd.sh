@@ -88,8 +88,6 @@ function term_sd_extra_scripts()
         else
             source ./term-sd/extra/$extra_script_dir_list_
         fi
-    else
-        
     fi
     exit 1
 }
