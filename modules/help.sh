@@ -82,7 +82,7 @@ https://licyk.netlify.app/2023/08/01/stable-diffusion-tutorial\n
 function help_option_2()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "Term-SD使用说明:\n
-1、使用方向键、Tab键移动光标,Enter进行选择,Space键勾选或取消勾选,(已勾选时显示[*]),Ctrl+Shift+V粘贴文本,Ctrl+C可中断指令的运行 \n
+1、使用方向键、Tab键移动光标,方向键翻页(鼠标滚轮无法翻页),Enter进行选择,Space键勾选或取消勾选,(已勾选时显示[*]),Ctrl+Shift+V粘贴文本,Ctrl+C可中断指令的运行,鼠标左键可点击按钮(右键无效)\n
 2、初次使用时,建议在主界面先选择"pip镜像源",设置pip的镜像源为国内镜像源,加快安装时下载python软件包的速度。主界面显示的"虚拟环境"保持启用就行,无需禁用\n
 3、主界面总共有四个AI软件可选(AUTOMATIC1111-stable-diffusion-webui,ComfyUI,InvokeAI,lora-scripts),回车选中后,如果在脚本的当前目录未找选中的AI软件,term-sd会提示你进行安装。\n
 4、安装前将会提示你进行安装准备,首先是"代理选择",有4个选项可选(启用pip镜像源,启用github代理,强制使用pip,huggingface独占代理),前3个选项选项默认勾选(\"huggingface独占代理\"仅在设置代理参数后才会启动),如果没有质量较好的代理工具,不建议取消勾选。"强制使用pip"只有禁用了虚拟环境时才建议勾选(在Linux中,如果不在虚拟环境中安装python软件包,pip模块会警告\"error: externally-managed-environment\",只有使用"--break-system-packages"参数才能进行安装)\n

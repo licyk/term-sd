@@ -122,7 +122,7 @@ function final_install_check()
 pip镜像源:$final_install_check_python \n
 github代理:$final_install_check_github\n
 强制使用pip:$final_install_check_force_pip\n
-pytorch:$pytorch_install_version\n
+pytorch:$([ ! -z $pytorch_install_version ] && echo $pytorch_install_version || echo "无")\n
 pip安装方式:$final_install_check_pip_methon\n
 " 22 70);then
         echo "安装参数设置完成"
