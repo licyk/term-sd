@@ -72,10 +72,11 @@ C:\msys64\msys2_shell.cmd -defterm -no-start -use-full-path -here -mingw64
 在`启动目录`勾选`使用父进程目录`  
 在`图标`填入`C:\msys64\mingw64.ico`  
 （`C:\msys64`为安装目录，根据具体安装的目录修改）  
-保存后生效，在标题栏点击向下的箭头就可以看到`MinGW64`，打开后就可以下载和运行term-sd
->Windows终端默认启动powershell，如果想要启动时直接启动MinGW64，可以在Windows终端设置，`启动`->`默认配置文件`，将`Windows Powershell`改成`MinGW64`
+保存后生效，在标题栏点击向下的箭头就可以看到`MinGW64`，打开后就可以下载和运行term-sd(每次运行term-sd都需要打开MinGW64)
+>Windows终端默认启动powershell，如果想要启动时直接启动MinGW64，可以在Windows终端设置，`启动`->`默认配置文件`，将`Windows Powershell`改成`MinGW64`，这样每次打开Windows终端时默认就会打开MinGW64
 
-Linux配置环境方法：
+Linux配置环境方法：  
+在终端输入下面的命令  
 
 Debian系：  
 
