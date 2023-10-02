@@ -510,7 +510,7 @@ fi
 
 #判断系统是否安装必须使用的软件
 for term_sd_depend_ in $temr_sd_depend ; do
-    if which $term_sd_depend_ > /dev/null ;then
+    if which $term_sd_depend_ > /dev/null 2> /dev/null ;then
         test_num=$(( $test_num + 1 ))
     else
         missing_dep="$missing_dep $term_sd_depend_,"
