@@ -496,8 +496,8 @@ user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') #读取用户所使用的sh
 #检测可用的python命令
 if python3 --version > /dev/null 2> /dev/null || python --version > /dev/null 2> /dev/null ;then #判断是否有可用的python
     test_num=$(( $test_num + 1 ))
-    python3 --version > /dev/null 2> /dev/null && python_cmd_test_1=$(python3 --version)
-    python --version > /dev/null 2> /dev/null && python_cmd_test_2=$(python --version)
+    python_cmd_test_1=$(python3 --version 2> /dev/null)
+    python_cmd_test_2=$(python --version 2> /dev/null)
 
     if [ ! -z "$python_cmd_test_1" ];then
         export python_cmd="python3"
@@ -521,7 +521,7 @@ done
 #导致启动异常
 #需要设置no_proxy让localhost,127.0.0.1,::1避开http_proxy
 #详见https://github.com/microsoft/TaskMatrix/issues/250
-export no_proxy="localhost,127.0.0.1,::1" #除了避免http_proxy变量的影响,也避免了代理软件的影响(在a1111-sd-webui中,开启代理软件可能会导致webui无法生图,并报错,设置该变量后完美解决该问题)
+export no_proxy="localhost,127.0.0.1,::1" #除了避免http_proxy变量的影响,也避免了代理软件的影响(在启动a1111-sd-webui前开启代理软件可能会导致webui无法生图(启动后再开启没有影响),并报错,设置该变量后完美解决该问题)
 
 if [ -f "./term-sd/proxy.conf" ];then #读取代理设置并设置代理
     export http_proxy=$(cat ./term-sd/proxy.conf)

@@ -71,7 +71,7 @@ function tmp_disable_proxy()
 #恢复原有代理配置
 function tmp_enable_proxy()
 {
-    if [ ! -z $http_proxy ] && [ $only_hugggingface_proxy = 0 ];then
+    if [ ! -z $proxy_address_1 ] && [ $only_hugggingface_proxy = 0 ];then
         echo "恢复代理配置"
         http_proxy=$proxy_address_1 #从临时变量恢复代理配置
         https_proxy=$proxy_address_2

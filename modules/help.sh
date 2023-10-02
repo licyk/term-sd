@@ -6,14 +6,15 @@
 function help_option()
 {
     help_option_select=$(dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --cancel-label "取消" --menu "请选择帮助" 22 70 12 \
-        "1" "关于term-sd" \
+        "1" "关于Term-SD" \
         "2" "使用说明" \
-        "3" "启动参数说明" \
-        "4" "目录说明" \
-        "5" "扩展脚本说明" \
-        "6" "sd-webui插件说明" \
-        "7" "ComfyUI插件/自定义节点说明" \
-        "8" "返回" \
+        "3" "Term-SD功能说明" \
+        "4" "启动参数说明" \
+        "5" "目录说明" \
+        "6" "扩展脚本说明" \
+        "7" "sd-webui插件说明" \
+        "8" "ComfyUI插件/自定义节点说明" \
+        "9" "返回" \
         3>&1 1>&2 2>&3 )
 
     if [ $? = 0 ];then
@@ -39,6 +40,9 @@ function help_option()
             help_option_7
             help_option
         elif [ $help_option_select = 8 ];then
+            help_option_8
+            help_option
+        elif [ $help_option_select = 9 ];then
             mainmenu
         fi
     else
@@ -88,37 +92,7 @@ function help_option_2()
 8、安装结束后,会自动进入该AI软件的管理界面,在该界面中可以对AI软件进行更新,卸载,启动等操作\n
 9、在安装之后,pip模块会产生大量的缓存,可使用主界面的"pip缓存清理"进行删除\n
 10、使用quick-cmd启动参数安装快捷启动命令后,可使用\"termsd\"或者\"tsd\"命令启动Term-SD\n
-11、使用\"./term-sd.sh\"命令启动时可在命令后面添加参数(使用quick-cmd启动参数安装快捷启动命令后可使用\"termsd\"或者\"tsd\"命令替换\"./term-sd.sh\"命令)\n
-参数使用方法:\n
-  term-sd.sh [--help] [--extra] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-proxy] [--quick-cmd]\n
-参数功能:\n
-help:显示启动参数帮助\n
-extra:启动扩展脚本\n
-multi-threaded-download:安装过程中启用多线程下载模型\n
-enable-auto-update:启动Term-SD自动检查更新功能\n
-disable-auto-update:禁用Term-SD自动检查更新功能\n
-reinstall-term-sd:重新安装Term-SD\n
-remove-term-sd:卸载Term-SD\n
-test-proxy:测试网络环境,用于测试代理是否可用\n
-quick-cmd:将Term-SD快捷启动指令安装到shell中,在shell中直接输入\"termsd\"即可启动Term-SD\n
-12、Term-SD的功能(除了安装,更新,启动,卸载):\n
-主界面:\n
-Term-SD更新管理:对本脚本进行更新,更换更新源,切换版本分支\n
-venv虚拟环境设置:启用/禁用venv环境,默认保持启用,防止不同AI软件因软件包版本不同造成互相干扰\n
-pip镜像源设置:设置pip的下载源,解决国内网络环境访问pip软件源速度慢的问题\n
-pip缓存清理:清理pip在安装软件包后产生的缓存\n
-代理设置:为Term-SD访问网络设置代理,一般用在代理软件开启后,Term-SD安装AI软件时依然出现无法访问huggingface等资源的问题(如果代理软件有驱动模式或者TUN模式时则不会有这种问题,就不需要使用\"代理设置\"进行配置代理)\n
-空间占用分析:显示Term-SD管理的AI软件的所占空间\n
-管理功能:\n
-修复更新:在更新AI软件时出现更新失败时,可使用该功能进行修复\n
-切换版本:对AI软件的版本进行切换\n
-更新源切换:切换AI软件的更新源,解决国内网络下载慢的问题\n
-管理插件/自定义节点:对AI软件的插件/自定义节点进行管理\n
-更新依赖:更新ai的python包依赖,一般情况下不需要用到\n
-重新安装:重新执行一次AI软件的安装\n
-重新安装pytorch:用于切换pytorch版本(pytorch为ai的框架,为ai提供大量功能)\n
-重新生成venv虚拟环境:在移动AI软件的文件夹后,venv会出现路径问题而导致运行异常,该功能可修复该问题\n
-重新构建venv虚拟环境:venv出现比较严重的软件包版本问题,导致AI软件运行异常,此时可使用该功能进行修复(该功能同时会运行\"重新生成venv虚拟环境\"功能)\n
+11、使用\"./term-sd.sh\"命令启动时可在命令后面添加启动参数(使用quick-cmd启动参数安装快捷启动命令后可使用\"termsd\"或者\"tsd\"命令替换\"./term-sd.sh\"命令)\n
 \n
 注意事项:\n
 1、安装AI软件的路径和Term-SD脚本所在路径相同,方便管理\n
@@ -141,8 +115,55 @@ pip缓存清理:清理pip在安装软件包后产生的缓存\n
 " 22 70
 }
 
-#启动参数说明
+#term-sd功能介绍
 function help_option_3()
+{
+    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "Term-SD功能说明:\n
+参数使用方法(设置快捷启动命令后可将\"./term-sd.sh\"替换成\"termsd\"或者\"tsd\"):\n
+  ./term-sd.sh [--help] [--extra] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-proxy] [--quick-cmd]\n
+参数功能:\n
+help:显示启动参数帮助\n
+extra:启动扩展脚本\n
+multi-threaded-download:安装过程中启用多线程下载模型\n
+enable-auto-update:启动Term-SD自动检查更新功能\n
+disable-auto-update:禁用Term-SD自动检查更新功能\n
+reinstall-term-sd:重新安装Term-SD\n
+remove-term-sd:卸载Term-SD\n
+test-proxy:测试网络环境,用于测试代理是否可用\n
+quick-cmd:将Term-SD快捷启动指令安装到shell中,在shell中直接输入\"termsd\"即可启动Term-SD\n
+\n
+Term-SD的功能(除了安装,更新,启动,卸载):\n
+主界面:\n
+Term-SD更新管理:对本脚本进行更新,更换更新源,切换版本分支\n
+venv虚拟环境设置:启用/禁用venv环境,默认保持启用,防止不同AI软件因软件包版本不同造成互相干扰\n
+pip镜像源设置:设置pip的下载源,解决国内网络环境访问pip软件源速度慢的问题\n
+pip缓存清理:清理pip在安装软件包后产生的缓存\n
+代理设置:为Term-SD访问网络设置代理,一般用在代理软件开启后,Term-SD安装AI软件时依然出现无法访问huggingface等资源的问题(如果代理软件有驱动模式或者TUN模式时则不会有这种问题,就不需要使用\"代理设置\"进行配置代理)\n
+空间占用分析:显示Term-SD管理的AI软件的所占空间\n
+管理功能:\n
+修复更新:在更新AI软件时出现更新失败时,可使用该功能进行修复\n
+切换版本:对AI软件的版本进行切换\n
+更新源切换:切换AI软件的更新源,解决国内网络下载慢的问题\n
+管理插件/自定义节点:对AI软件的插件/自定义节点进行管理\n
+更新依赖:更新ai的python包依赖,一般情况下不需要用到\n
+重新安装:重新执行一次AI软件的安装\n
+重新安装pytorch:用于切换pytorch版本(pytorch为ai的框架,为ai提供大量功能)\n
+重新生成venv虚拟环境:在移动AI软件的文件夹后,venv会出现路径问题而导致运行异常,该功能可修复该问题\n
+重新构建venv虚拟环境:venv出现比较严重的软件包版本问题,导致AI软件运行异常,此时可使用该功能进行修复(该功能同时会运行\"重新生成venv虚拟环境\"功能)\n
+安装准备功能:\n
+启用pip镜像源:使用国内镜像源下载python软件包\n
+启用github代理:使用github代理站下载github上的软件\n
+huggingface独占代理:仅在下载huggingface上的模型时使用代理,且只在配置代理设置后才会生效(注:在使用驱动模式或者TUN模式的代理软件时,该功能无效,因为代理软件会强制让所有网络流量走代理)\n
+强制使用pip:忽略系统警告强制使用pip包管理器下载软件包,一般用不到,只有在Linux系统中,禁用虚拟环境后才需要使用(不推荐禁用虚拟环境)\n
+常规安装(setup.py):使用常规安装方式\n
+标准构建安装(--use-pep517):使用编译安装方式(有时可以解决python软件包安装失败的问题。在InvokeAI官方文档中,安装时推荐使用该模式,实际上用常规安装也可以)\n
+\n
+\n
+" 22 70
+}
+
+#启动参数说明
+function help_option_4()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "A1111-SD-Webui启动参数说明:\n
 stable diffusion webui的启动参数:\n
@@ -218,7 +239,7 @@ host:允许局域网的设备访问\n
 }
 
 #目录说明
-function help_option_4()
+function help_option_5()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "AI软件的目录说明:\n
 在启用venv虚拟环境后,在安装时AI软件的目录下会产生venv文件夹,这个是python软件包安装的目录,更换cudnn可在该文件夹中操作\n
@@ -309,7 +330,7 @@ lora-scripts\n
 }
 
 #扩展脚本说明
-function help_option_5()
+function help_option_6()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "Term-SD扩展脚本说明:\n
 扩展脚本列表(启动Term-SD时加入\"--extra\"启动参数即可使用扩展脚本):\n
@@ -321,7 +342,7 @@ comfyui-extension:安装ComfyUI的插件\n
 }
 
 #AUTOMATIC1111-stable-diffusion-webui插件说明
-function help_option_6()
+function help_option_7()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "AUTOMATIC1111-stable-diffusion-webui插件说明:\n
 注:有些插件因为年久失修,可能会出现兼容性问题。具体介绍请在github上搜索项目\n
@@ -388,7 +409,7 @@ LightDiffusionFlow:保存工作流\n
 }
 
 #ComfyUI插件/自定义节点说明
-function help_option_7()
+function help_option_8()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "ComfyUI插件/自定义节点说明:\n
 注:具体介绍请在github上搜索项目\n
