@@ -1,6 +1,6 @@
 # term-sd
 
-基于dialog实现界面显示的AI管理器，支持安装，管理A1111-SD-Webui，ComfyUI.InvokeAI，lora-scripts  
+基于dialog实现界面显示的AI管理器，支持安装，管理[AUTOMATIC1111-stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui)，[ComfyUI](https://github.com/comfyanonymous/ComfyUI)，[InvokeAI](https://github.com/invoke-ai/InvokeAI)，[lora-scripts](https://github.com/Akegarasu/lora-scripts)  
 term-sd支持在Linux，Windows，MacOS上运行(Windows平台需安装msys2，MacOS需要安装homebrew)  
 使用前需安装aria2，python(3.9~3.11的版本)，pip，git，dialog  
 在使用term-sd前先配置好环境  
