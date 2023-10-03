@@ -17,7 +17,7 @@ windows系统安装配置环境的方法：
 
     sysdm.cpl
 
-打开【系统属性】窗口后，依次点击选项卡【高级】、【环境变量】按钮  
+打开`系统属性`窗口后，依次点击选项卡`高级`、`环境变量`按钮  
 在“系统变量”部分点双击“Path”，点击新建，输入以下路径，分别创建两条环境变量  
 
     C:\msys64\mingw64\bin
@@ -72,8 +72,9 @@ C:\msys64\msys2_shell.cmd -defterm -no-start -use-full-path -here -mingw64
 在`启动目录`勾选`使用父进程目录`  
 在`图标`填入`C:\msys64\mingw64.ico`  
 （`C:\msys64`为安装目录，根据具体安装的目录修改）  
-保存后生效，在标题栏点击向下的箭头就可以看到`MinGW64`，打开后就可以下载和运行term-sd(每次运行term-sd都需要打开MinGW64)
->Windows终端默认启动powershell，如果想要启动时直接启动MinGW64，可以在Windows终端设置，`启动`->`默认配置文件`，将`Windows Powershell`改成`MinGW64`，这样每次打开Windows终端时默认就会打开MinGW64
+保存后生效，在标题栏点击向下的箭头就可以看到`MinGW64`，打开后就可以下载和运行term-sd(一定要用在`Windows终端`配置好的`MinGW64`运行term-sd)
+>Windows终端默认启动powershell，如果想要启动时直接启动MinGW64，可以在Windows终端设置，`启动`->`默认配置文件`，将`Windows Powershell`改成`MinGW64`，这样每次打开Windows终端时默认就会打开MinGW64  
+如果要用msys2安装程序安装的`MSYS2 MINGW64`终端也可以，使用前需要手动编辑`/etc/profile`文件里的`MSYS2_PATH`变量，将aria2c，python添加进去，因为`MSYS2 MINGW64`终端并不会读取`系统属性`里设置的变量
 
 Linux配置环境方法：  
 在终端输入下面的命令  
