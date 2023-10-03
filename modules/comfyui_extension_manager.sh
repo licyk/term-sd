@@ -344,49 +344,59 @@ function operate_comfyui_extension()
 #comfyui插件/自定义节点依赖一键安装部分
 function comfyui_extension_dep_install()
 {
-    cd "$start_path/ComfyUI"
-    enter_venv
-    cd -
-    dep_info="" #清除上次运行结果
-    extension_dep_to_install="0"
-    extension_dep_to_install_="0"
+    proxy_option #代理选择
+    pip_install_methon #安装方式选择
+    final_install_check #安装前确认
+    if [ $final_install_check_exec = 0 ];then
+        print_word_to_shell="$term_sd_manager_info 插件/自定义节点依赖一键安装"
+        print_line_to_shell
+        tmp_disable_proxy
+        cd "$start_path/ComfyUI"
+        enter_venv
+        cd -
+        dep_info="" #清除上次运行结果
+        extension_dep_to_install="0"
+        extension_dep_to_install_="0"
 
-    for extension_folder in ./* ;do #统计需要安装的依赖
-        [ -f "$extension_folder" ] && continue #排除文件
-        if [ -f "./$extension_folder/install.py" ] || [ -f "./$extension_folder/requirements.txt" ];then
-            extension_dep_to_install=$(( $extension_dep_to_install + 1 ))
-        fi
-    done
-
-    for extension_folder in ./*
-    do
-        [ -f "$extension_folder" ] && continue #排除文件
-        cd $extension_folder
-        if [ -f "./install.py" ] || [ -f "./requirements.txt" ];then
-            extension_dep_to_install_=$(( $extension_dep_to_install_ + 1 ))
-            echo "[$extension_dep_to_install_/$extension_dep_to_install] 安装$(echo $extension_folder | awk -F "/" '{print $NF}')依赖"
-            dep_info="$dep_info\n $(echo $extension_folder | awk -F "/" '{print $NF}'):\n" #作为显示安装结果信息
-        fi
-
-        if [ -f "./install.py" ];then #找到install.py文件
-            $python_cmd install.py
-            if [ $? = 0 ];then #记录退出状态
-                dep_info="$dep_info     run install.py:成功\n"
-            else
-                dep_info="$dep_info     run install.py:失败\n"
+        for extension_folder in ./* ;do #统计需要安装的依赖
+            [ -f "$extension_folder" ] && continue #排除文件
+            if [ -f "./$extension_folder/install.py" ] || [ -f "./$extension_folder/requirements.txt" ];then
+                extension_dep_to_install=$(( $extension_dep_to_install + 1 ))
             fi
-        fi
+        done
 
-        if [ -f "./requirements.txt" ];then #找到requirement.txt文件
-            pip install -r requirements.txt
-            if [ $? = 0 ];then #记录退出状态
-                dep_info="$dep_info     install requirements.txt:成功\n"
-            else
-                dep_info="$dep_info     install requirements.txt:失败\n"
+        for extension_folder in ./*
+        do
+            [ -f "$extension_folder" ] && continue #排除文件
+            cd $extension_folder
+            if [ -f "./install.py" ] || [ -f "./requirements.txt" ];then
+                extension_dep_to_install_=$(( $extension_dep_to_install_ + 1 ))
+                echo "[$extension_dep_to_install_/$extension_dep_to_install] 安装$(echo $extension_folder | awk -F "/" '{print $NF}')依赖"
+                dep_info="$dep_info $(echo $extension_folder | awk -F "/" '{print $NF}'):\n" #作为显示安装结果信息
             fi
-        fi
-        cd ..
-    done
-    exit_venv
-    dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件/自定义节点依赖安装结果" --ok-label "确认" --msgbox "当前依赖的安装情况列表\n------------------------------------------------------------------\n$dep_info------------------------------------------------------------------" 22 70
+
+            if [ -f "./install.py" ];then #找到install.py文件
+                $python_cmd install.py
+                if [ $? = 0 ];then #记录退出状态
+                    dep_info="$dep_info     run install.py:成功\n"
+                else
+                    dep_info="$dep_info     run install.py:失败\n"
+                fi
+            fi
+
+            if [ -f "./requirements.txt" ];then #找到requirement.txt文件
+                pip install -r requirements.txt
+                if [ $? = 0 ];then #记录退出状态
+                    dep_info="$dep_info     install requirements.txt:成功\n"
+                else
+                    dep_info="$dep_info     install requirements.txt:失败\n"
+                fi
+            fi
+            cd ..
+        done
+        exit_venv
+        tmp_enable_proxy
+        print_line_to_shell
+        dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件/自定义节点依赖安装结果" --ok-label "确认" --msgbox "当前依赖的安装情况列表\n------------------------------------------------------------------\n$dep_info------------------------------------------------------------------" 22 70
+    fi
 }
