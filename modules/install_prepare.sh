@@ -12,6 +12,7 @@ function proxy_option()
     only_hugggingface_proxy=1
     final_install_check_python="禁用"
     final_install_check_github="禁用"
+    only_hugggingface_proxy_info="禁用"
     final_install_check_force_pip="禁用"
 
     final_proxy_options=$(
@@ -39,6 +40,7 @@ function proxy_option()
         ;;
         "3")
         only_hugggingface_proxy=0
+        only_hugggingface_proxy_info="启用"
         ;;
         "4")
         force_pip="--break-system-packages"
@@ -121,6 +123,7 @@ function final_install_check()
     if (dialog --clear --title "Term-SD" --backtitle "安装确认选项" --yes-label "是" --no-label "否" --yesno "是否进行安装? \n
 pip镜像源:$final_install_check_python \n
 github代理:$final_install_check_github\n
+huggingface独占代理:$only_hugggingface_proxy_info\n
 强制使用pip:$final_install_check_force_pip\n
 pytorch:$([ ! -z "$(echo $pytorch_install_version | awk '{gsub(/[=+]/, "")}1')" ] && echo $pytorch_install_version || echo "无")\n
 pip安装方式:$final_install_check_pip_methon\n
