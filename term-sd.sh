@@ -389,6 +389,7 @@ function remove_config_from_shell()
     cd - > /dev/null
 }
 
+
 #终端横线显示功能
 function print_line_to_shell()
 {
@@ -471,6 +472,17 @@ print_word_to_shell="Term-SD"
 print_line_to_shell
 
 echo "Term-SD初始化中......"
+
+#目录结构检测,防止用户直接运行Term-SD目录内的term-sd.sh
+if [ ! -d "./term-sd" ] && [ -d "./.git" ] && [ -d "./modules" ] && [ -f "./modules/init.sh" ] && [ -d "./extra" ] && [ -d "./other" ];then
+    echo "检测到目录错误"
+    echo "禁止用户直接在Term-SD目录里运行Term-SD"
+    echo "请将term-sd.sh文件复制到Term-SD目录外面(和Term-SD目录放在一起)"
+    echo "再运行目录外面的term-sd.sh"
+    echo "退出Term-SD"
+    exit 1
+fi
+
 echo "检测依赖软件是否安装"
 missing_dep=""
 test_num=0
