@@ -74,7 +74,7 @@ function term_sd_process_user_input()
 function term_sd_extra_scripts()
 {
     extra_script_dir_list=$(ls -l "./term-sd/extra" --time-style=+"%Y-%m-%d" | awk -F ' ' ' { print $7 " " $6 } ')
-    extra_script_dir_list_=$(dialog --clear --title "Term-SD" --backtitle "扩展脚本选项" --ok-label "确认" --cancel-label "取消" --menu "请选择要启动的脚本" 22 70 12 \
+    extra_script_dir_list_=$(dialog --clear --title "Term-SD" --backtitle "扩展脚本选项" --ok-label "确认" --cancel-label "取消" --menu "请选择要启动的脚本" 23 70 12 \
         "term-sd" "<------------" \
         $extra_script_dir_list \
         "退出" "<------------" \

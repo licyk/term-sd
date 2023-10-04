@@ -16,7 +16,7 @@ function proxy_option()
     final_install_check_force_pip="禁用"
 
     final_proxy_options=$(
-        dialog --clear --title "Term-SD" --backtitle "安装代理选项" --separate-output --notags --title "代理选择" --ok-label "确认" --no-cancel --checklist "请选择代理(强制使用pip一般情况下不选)" 22 70 12 \
+        dialog --clear --title "Term-SD" --backtitle "安装代理选项" --separate-output --notags --title "代理选择" --ok-label "确认" --no-cancel --checklist "请选择代理(强制使用pip一般情况下不选)" 23 70 12 \
         "1" "启用pip镜像源" ON \
         "2" "启用github代理" ON \
         "3" "huggingface独占代理" ON \
@@ -60,7 +60,7 @@ function pytorch_version_select()
     pytorch_install_version=""
 
     final_pytorch_version_select=$(
-        dialog --clear --title "Term-SD" --backtitle "pytorch安装版本选项" --ok-label "确认" --no-cancel --menu "请选择要安装的pytorch版本" 22 70 12 \
+        dialog --clear --title "Term-SD" --backtitle "pytorch安装版本选项" --ok-label "确认" --no-cancel --menu "请选择要安装的pytorch版本" 23 70 12 \
         "1" "Torch 2.0.1" \
         "2" "Torch 2.0.1+CPU" \
         "3" "Torch 2.0.0+Torch-Directml" \
@@ -103,7 +103,7 @@ function pip_install_methon()
     final_install_check_pip_methon="常规安装(setup.py)"
 
     final_pip_install_methon=$(
-        dialog --clear --title "Term-SD" --backtitle "pip安装模式选项" --ok-label "确认" --no-cancel --menu "请选择pip安装方式\n1、常规安装可能会有问题,但速度较快\n2、标准构建安装可解决一些报错问题,但速度较慢" 22 70 12 \
+        dialog --clear --title "Term-SD" --backtitle "pip安装模式选项" --ok-label "确认" --no-cancel --menu "请选择pip安装方式\n1、常规安装可能会有问题,但速度较快\n2、标准构建安装可解决一些报错问题,但速度较慢" 23 70 12 \
         "1" "常规安装(setup.py)" \
         "2" "标准构建安装(--use-pep517)" \
         3>&1 1>&2 2>&3 )
@@ -127,7 +127,7 @@ huggingface独占代理:$only_hugggingface_proxy_info\n
 强制使用pip:$final_install_check_force_pip\n
 pytorch:$([ ! -z "$(echo $pytorch_install_version | awk '{gsub(/[=+]/, "")}1')" ] && echo $pytorch_install_version || echo "无")\n
 pip安装方式:$final_install_check_pip_methon\n
-" 22 70);then
+" 23 70);then
         echo "安装参数设置完成"
         export final_install_check_exec=0
     else

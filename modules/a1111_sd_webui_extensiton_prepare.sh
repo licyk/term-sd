@@ -12,7 +12,7 @@ function a1111_sd_webui_extension_option()
 
     #插件选择,并输出插件对应的数字
     extension_list=$(
-        dialog --clear --title "Term-SD" --backtitle "A1111-SD-Webui插件安装选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "请选择要安装的A1111-Stable-Diffusion-Webui插件" 22 70 12 \
+        dialog --clear --title "Term-SD" --backtitle "A1111-SD-Webui插件安装选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "请选择要安装的A1111-Stable-Diffusion-Webui插件" 23 70 12 \
         "1" "kohya-config-webui" OFF \
         "2" "sd-webui-additional-networks" ON \
         "3" "a1111-sd-webui-tagcomplete" ON \

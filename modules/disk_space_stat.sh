@@ -9,6 +9,6 @@ stable-diffusion-webui:$([ -d "./stable-diffusion-webui" ] && du -sh ./stable-di
 ComfyUI:$([ -d "./ComfyUI" ] && du -sh ./ComfyUI | awk -F ' ' ' {print $1} ' || echo "未安装")\n
 InvokeAI:$([ -d "./InvokeAI" ] && du -sh ./InvokeAI | awk -F ' ' ' {print $1} ' || echo "未安装")\n
 lora-scripts:$([ -d "./lora-scripts" ] && du -sh ./lora-scripts | awk -F ' ' ' {print $1} ' || echo "未安装")\n
-" 22 70
+" 23 70
     mainmenu
 }

@@ -8,7 +8,7 @@ function generate_a1111_sd_webui_launch()
 
     #展示启动参数选项
     a1111_launch_option_select=$(
-        dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui启动参数选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "请选择A1111-Stable-Diffusion-Webui启动参数" 22 70 12 \
+        dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui启动参数选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "请选择A1111-Stable-Diffusion-Webui启动参数" 23 70 12 \
         "1" "skip-torch-cuda-test" OFF \
         "2" "no-half" OFF \
         "3" "no-half-vae" OFF \
@@ -151,7 +151,7 @@ function generate_a1111_sd_webui_launch()
 #a1111-sd-webui启动界面
 function a1111_sd_webui_launch()
 {
-    a1111_sd_webui_launch_=$(dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动A1111-SD-Webui/修改A1111-SD-Webui启动参数\n当前启动参数:\n$python_cmd $(cat ./term-sd-launch.conf)" 22 70 12 \
+    a1111_sd_webui_launch_=$(dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动A1111-SD-Webui/修改A1111-SD-Webui启动参数\n当前启动参数:\n$python_cmd $(cat ./term-sd-launch.conf)" 23 70 12 \
         "1" "启动" \
         "2" "修改启动参数" \
         "5" "返回" \

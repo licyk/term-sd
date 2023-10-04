@@ -5,7 +5,7 @@
 #帮助选择
 function help_option()
 {
-    help_option_select=$(dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --cancel-label "取消" --menu "请选择帮助" 22 70 12 \
+    help_option_select=$(dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --cancel-label "取消" --menu "请选择帮助" 23 70 12 \
         "1" "关于Term-SD" \
         "2" "使用说明" \
         "3" "Term-SD功能说明" \
@@ -75,7 +75,7 @@ https://www.bilibili.com/read/cv22159609\n
 https://licyk.netlify.app/2023/08/01/stable-diffusion-tutorial\n
 \n
 \n
-" 22 70
+" 23 70
 }
 
 #使用说明
@@ -112,7 +112,7 @@ function help_option_2()
 15、如遇到网络问题,比如下载模型失败等,且在开启代理后依然无法解决问题时,可设置代理。代理参数的格式为\"ip:port\",参数例子:\"127.0.0.1:10808\",ip、port、代理协议需查看用户使用的代理软件配置(在终端环境中,除了有驱动模式或者TUN模式的代理软件,一般没办法为终端设置代理,所以可以使用该功能为终端环境设置代理)\n
 16、在代理选项中\"huggingface独占代理\"可在安装过程中单独为从huggingface中下载模型时单独启用代理,保证安装速度,因为除了从huggingface下载模型的过程之外,其他下载过程可以不走代理进行下载(注:在使用驱动模式或者TUN模式的代理软件时,该功能无效,因为代理软件会强制让所有网络流量走代理)\n
 \n
-" 22 70
+" 23 70
 }
 
 #term-sd功能介绍
@@ -159,7 +159,7 @@ huggingface独占代理:仅在下载huggingface上的模型时使用代理,且�
 标准构建安装(--use-pep517):使用编译安装方式(有时可以解决python软件包安装失败的问题。在InvokeAI官方文档中,安装时推荐使用该模式,实际上用常规安装也可以)\n
 \n
 \n
-" 22 70
+" 23 70
 }
 
 #启动参数说明
@@ -235,7 +235,7 @@ no-internet_available:禁用联网下载资源\n
 host:允许局域网的设备访问\n
 \n
 \n
-" 22 70
+" 23 70
 }
 
 #目录说明
@@ -326,7 +326,7 @@ lora-scripts\n
 └── toml   保存的训练参数存放位置\n
 \n
 \n
-" 22 70
+" 23 70
 }
 
 #扩展脚本说明
@@ -338,7 +338,7 @@ sd-webui-extension:安装sd-webui的插件\n
 comfyui-extension:安装ComfyUI的插件\n
 \n
 \n
-" 22 70
+" 23 70
 }
 
 #AUTOMATIC1111-stable-diffusion-webui插件说明
@@ -405,7 +405,7 @@ sd-dynamic-prompts:动态提示词\n
 LightDiffusionFlow:保存工作流\n
 \n
 \n
-" 22 70
+" 23 70
 }
 
 #ComfyUI插件/自定义节点说明
@@ -461,5 +461,5 @@ AIGODLIKE-COMFYUI-TRANSLATION:ComfyUI的翻译扩展\n
 stability-ComfyUI-nodes:Stability-AI自定义节点支持\n
 \n
 \n
-" 22 70
+" 23 70
 }
