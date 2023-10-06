@@ -55,9 +55,23 @@ function term_sd_process_user_input()
         if which curl > /dev/null;then
             print_word_to_shell="测试网络环境"
             print_line_to_shell
-            curl ipinfo.io ; echo
+            echo "获取网络信息"
+            curl ipinfo.io
+            if [ $? = 0 ];then
+                echo
+                echo "网络连接正常"
+                echo "测试google访问情况"
+                curl google.com
+                if [ $? = 0 ];then
+                    echo "访问正常"
+                else
+                    echo "无法访问"
+                fi
+	    else
+                echo "网络连接异常"
+            fi
             print_line_to_shell
-            sleep 1
+            sleep 3
         else
             echo "未安装curl,无法测试代理"
         fi
