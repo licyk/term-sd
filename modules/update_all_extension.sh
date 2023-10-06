@@ -28,7 +28,7 @@ function extension_all_update()
             extension_to_update_=$(( $extension_to_update_ + 1 ))
             echo "[$extension_to_update_/$extension_to_update] 更新$(echo $extension_folder | awk -F "/" '{print $NF}')插件中"
             update_info="$update_info$(echo $extension_folder | awk -F "/" '{print $NF}')插件:"
-            git pull
+            git pull --recurse-submodules
         
             if [ $? = 0 ];then
                 update_info="$update_info"更新成功"\n"

@@ -61,7 +61,7 @@ function a1111_sd_webui_extension_install()
 
     if [ ! -z $extension_address ]; then
         echo "安装$(echo $extension_address | awk -F'/' '{print $NF}')中"
-        git clone $extension_address
+        git clone --recurse-submodules $extension_address
         if [ $? = 0 ];then
             dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件安装结果" --ok-label "确认" --msgbox "$(echo $extension_address | awk -F'/' '{print $NF}')插件安装成功" 23 70
         else
@@ -98,7 +98,7 @@ function a1111_sd_webui_operate_extension()
     if [ $? = 0 ];then
         if [ $final_a1111_sd_webui_operate_extension = 1 ]; then
             echo "更新$(echo $extension_selection | awk -F "/" '{print $NF}')插件中"
-            git pull
+            git pull --recurse-submodules
             if [ $? = 0 ];then
                 dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件更新结果" --ok-label "确认" --msgbox ""$extension_selection"插件更新成功" 23 70
             else

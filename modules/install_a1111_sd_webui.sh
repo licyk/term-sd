@@ -59,7 +59,7 @@ function process_install_a1111_sd_webui()
         if [ ! -z "$a1111_sd_webui_extension_install_list" ];then
             echo "安装插件中"
             for  a1111_sd_webui_extension_install_list_ in $a1111_sd_webui_extension_install_list ;do
-                git clone "$github_proxy"$a1111_sd_webui_extension_install_list_ ./stable-diffusion-webui/extensions/$(echo $a1111_sd_webui_extension_install_list_ | awk -F'/' '{print $NF}')
+                git clone --recurse-submodules "$github_proxy"$a1111_sd_webui_extension_install_list_ ./stable-diffusion-webui/extensions/$(echo $a1111_sd_webui_extension_install_list_ | awk -F'/' '{print $NF}')
             done
         fi
 

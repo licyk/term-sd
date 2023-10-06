@@ -114,6 +114,8 @@ function a1111_sd_webui_extension_option()
         "54" "StyleSelectorXL" OFF \
         "55" "sd-dynamic-prompts" OFF \
         "56" "LightDiffusionFlow" OFF \
+        "57" "sd-webui-workspace" OFF \
+        "58" "openOutpaint-webUI-extension" OFF \
         3>&1 1>&2 2>&3)
 
     if [ ! -z "$extension_list" ]; then
@@ -290,6 +292,12 @@ function a1111_sd_webui_extension_option()
         ;;
         "56")
         a1111_sd_webui_extension_install_list="https://github.com/Tencent/LightDiffusionFlow $a1111_sd_webui_extension_install_list"
+        ;;
+        "57")
+        a1111_sd_webui_extension_install_list="https://github.com/Scholar01/sd-webui-workspace $a1111_sd_webui_extension_install_list"
+	    ;;
+        "58")
+        a1111_sd_webui_extension_install_list="https://github.com/zero01101/openOutpaint-webUI-extension $a1111_sd_webui_extension_install_list"
         ;;
         *)
         exit 1

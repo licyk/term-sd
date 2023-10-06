@@ -68,7 +68,7 @@ function comfyui_custom_node_install()
 
     if [ ! -z $comfyui_custom_node_address ]; then
         echo "安装$(echo $comfyui_custom_node_address | awk -F'/' '{print $NF}')中"
-        git clone $comfyui_custom_node_address
+        git clone --recurse-submodules $comfyui_custom_node_address
         git_req=$?
         comfyui_custom_node_dep_notice=""
         if [ -f "./$(awk -F "/" '{print $NF}' <<< "$comfyui_custom_node_address")/requirements.txt" ];then
@@ -115,7 +115,7 @@ function operate_comfyui_custom_node()
     if [ $? = 0 ];then
         if [ $final_operate_comfyui_custom_node = 1 ]; then
             echo "更新$(echo $comfyui_custom_node_selection | awk -F "/" '{print $NF}')自定义节点中"
-            git pull
+            git pull --recurse-submodules
             if [ $? = "0" ];then
                 dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点更新结果" --ok-label "确认" --msgbox ""$comfyui_custom_node_selection"自定义节点更新成功" 23 70
             else
@@ -238,7 +238,7 @@ function comfyui_extension_install()
 
     if [ ! -z $comfyui_extension_address ]; then
         echo "安装$(echo $comfyui_extension_address | awk -F'/' '{print $NF}')中"
-        git clone $comfyui_extension_address
+        git clone --recurse-submodules $comfyui_extension_address
         git_req=$?
         comfyui_extension_dep_notice=""
         if [ -f "./$(awk -F "/" '{print $NF}' <<< "$comfyui_extension_address")/requirements.txt" ];then
@@ -285,7 +285,7 @@ function operate_comfyui_extension()
     if [ $? = 0 ];then
         if [ $final_operate_comfyui_extension = 1 ]; then
             echo "更新"$comfyui_extension_selection"中"
-            git pull
+            git pull --recurse-submodules
             if [ $? = 0 ];then
                 dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件更新结果" --ok-label "确认" --msgbox ""$comfyui_extension_selection"插件更新成功" 23 70
             else

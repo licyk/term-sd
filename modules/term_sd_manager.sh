@@ -71,7 +71,7 @@ function term_sd_launch()
 function term_sd_fix_pointer_offset()
 {
     git checkout $(git branch -a | grep HEAD | awk -F'/' '{print $NF}') #查询当前主分支并重新切换过去
-    git reset --hard HEAD #回退版本,解决git pull异常
+    git reset --recurse-submodules --hard HEAD #回退版本,解决git pull异常
 }
 
 #显示版本信息
