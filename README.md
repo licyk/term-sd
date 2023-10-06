@@ -7,7 +7,7 @@ term-sd支持在Linux，Windows，MacOS上运行(Windows平台需安装msys2，M
 
 ***
 
-## Windows系统安装配置环境的方法：  
+## Windows系统配置Term-SD运行环境的方法：  
 
 ### [图文教程(Windows平台)](https://github.com/licyk/README-collection/blob/main/term-sd/README_config_env.md)
 
@@ -98,7 +98,7 @@ brew install git aria2 dialog python
 ***
 
 ## 配置完环境后使用term-sd的方法：  
-### 1、下载term-sd
+### 1、下载term-sd  
 
     aria2c https://raw.githubusercontent.com/licyk/sd-webui-script/main/term-sd.sh && chmod +x term-sd.sh
 
@@ -106,12 +106,15 @@ brew install git aria2 dialog python
 
     aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/sd-webui-script/main/term-sd.sh && chmod +x term-sd.sh
 
-### 2、启动term-sd
+### 2、启动term-sd  
 
     ./term-sd.sh
 
 启动后按照提示安装term-sd组件后即可正常使用，如果下载失败就更换其他下载源  
-在term-sd的帮助功能中可以查看详细的使用方法  
+
+### ！操作Term-SD界面前请阅读[Term-SD界面操作方法](https://github.com/licyk/README-collection/blob/main/term-sd/README_how_to_use_dialog.md)  
+### Term-SD的使用方法请阅读[如何使用Term-SD](https://github.com/licyk/README-collection/blob/main/term-sd/README_how_to_use_term_sd.md)（待完成）  
+
 >huggingface目前在大陆网络环境无法访问，需要使用带有TUN模式或者驱动模式的代理软件(如果开启代理软件后还会出现下载失败的问题，需在term-sd中配置好代理参数)，保证能够正常下载模型
 
 ***
