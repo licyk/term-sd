@@ -61,26 +61,29 @@ function pytorch_version_select()
 
     final_pytorch_version_select=$(
         dialog --clear --title "Term-SD" --backtitle "pytorch安装版本选项" --ok-label "确认" --no-cancel --menu "请选择要安装的pytorch版本" 23 70 12 \
-        "1" "Torch 2.0.1" \
-        "2" "Torch 2.0.1+CPU" \
-        "3" "Torch 2.0.0+Torch-Directml" \
+        "0" "Torch+xformers" \
+        "1" "Torch" \
+        "2" "Torch 2.0.0+Torch-Directml" \
+        "3" "Torch 2.0.1+CPU" \
         "4" "Torch 2.0.1+RoCM 5.4.2" \
         "5" "Torch 1.12.1(CUDA11.3)+xFormers 0.014" \
         "6" "Torch 1.13.1(CUDA11.7)+xFormers 0.016" \
         "7" "Torch 2.0.0(CUDA11.8)+xFormers 0.018" \
-        "8" "Torch 2.0.1(CUDA11.8)+xFormers 0.020" \
-        "9" "Torch 2.0.1(CUDA11.8)+xFormers 0.021" \
-        "0" "跳过安装" \
+        "8" "Torch 2.0.1(CUDA11.8)+xFormers 0.021" \
+        "9" "Torch 2.1.0(CUDA12.1)+xFormers 0.022" \
+        "20" "跳过安装" \
         3>&1 1>&2 2>&3)
 
-    if [ $final_pytorch_version_select = 0 ]; then
+    if [ $final_pytorch_version_select = 20 ]; then
         pytorch_install_version=""
+    elif [ $final_pytorch_version_select = 0 ]; then
+        pytorch_install_version="torch torchvision xformers"
     elif [ $final_pytorch_version_select = 1 ]; then
-        pytorch_install_version="torch==2.0.1 torchvision==0.15.2"
+        pytorch_install_version="torch torchvision"
     elif [ $final_pytorch_version_select = 2 ]; then
-        pytorch_install_version="torch==2.0.1+cpu torchvision==0.15.2+cpu"
-    elif [ $final_pytorch_version_select = 3 ]; then
         pytorch_install_version="torch==2.0.0 torchvision==0.15.1 torch-directml"
+    elif [ $final_pytorch_version_select = 3 ]; then
+        pytorch_install_version="torch==2.0.1+cpu torchvision==0.15.2+cpu"
     elif [ $final_pytorch_version_select = 4 ]; then
         pytorch_install_version="torch==2.0.1+rocm5.4.2 torchvision==0.15.2+rocm5.4.2"
     elif [ $final_pytorch_version_select = 5 ]; then
@@ -90,9 +93,9 @@ function pytorch_version_select()
     elif [ $final_pytorch_version_select = 7 ]; then
         pytorch_install_version="torch==2.0.0+cu118 torchvision==0.15.1+cu118 xformers==0.0.18"
     elif [ $final_pytorch_version_select = 8 ]; then
-        pytorch_install_version="torch==2.0.1+cu118 torchvision==0.15.2+cu118 xformers==0.0.20"
-    elif [ $final_pytorch_version_select = 9 ]; then
         pytorch_install_version="torch==2.0.1+cu118 torchvision==0.15.2+cu118 xformers==0.0.21"
+    elif [ $final_pytorch_version_select = 9 ]; then
+        pytorch_install_version="torch==2.1.0+cu121 torchvision==0.16.0+cu121 xformers==0.0.22"
     fi
 }
 

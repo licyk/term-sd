@@ -86,7 +86,7 @@ function help_option_2()
 2、初次使用时,建议在主界面先选择"pip镜像源",设置pip的镜像源为国内镜像源,加快安装时下载python软件包的速度。主界面显示的"虚拟环境"保持启用就行,无需禁用\n
 3、主界面总共有四个AI软件可选(AUTOMATIC1111-stable-diffusion-webui,ComfyUI,InvokeAI,lora-scripts),回车选中后,如果在脚本的当前目录未找选中的AI软件,term-sd会提示你进行安装。\n
 4、安装前将会提示你进行安装准备,首先是"代理选择",有4个选项可选(启用pip镜像源,启用github代理,强制使用pip,huggingface独占代理),前3个选项选项默认勾选(\"huggingface独占代理\"仅在设置代理参数后才会启动),如果没有质量较好的代理工具,不建议取消勾选。"强制使用pip"只有禁用了虚拟环境时才建议勾选(在Linux中,如果不在虚拟环境中安装python软件包,pip模块会警告\"error: externally-managed-environment\",只有使用"--break-system-packages"参数才能进行安装)\n
-5、然后是"pytorch安装",pytorch版本的选择:nvidia显卡选择cuda(Windows,linux平台),amd显卡在linux平台选择rocm,amd显卡和intel显卡在windows平台选择directml,macos选择不带cuda,rocm,directml的版本,如果想要在cpu上进行跑图,选择cpu版本\n
+5、然后是"pytorch安装",pytorch版本的选择:nvidia显卡选择cuda(Windows,linux平台),amd显卡在linux平台选择rocm,amd显卡和intel显卡在windows平台选择directml,macos选择不带cuda,rocm,directml的版本,如果想要在cpu上进行跑图,选择cpu版本(不知道选版本号时,英伟达显卡直接选\"Torch+xformers\"(Windows平台,Linux平台),AMD显卡和Intel显卡直接选\"Torch\"(仅限Linux平台,在Windows平台上选\"Torch 2.0.0+Torch-Directml\"),pip包管理器应该会自动选择相应的版本)\n
 6、AUTOMATIC1111-stable-diffusion-webui,ComfyUI会有额外的插件/自定义节点选择,默认勾选一些比较实用的,可根据需要勾选额外的,插件/自定义节点的介绍在帮助中查询。(AI软件在安装好后,如果在插件安装列表有想要安装的,可使用扩展脚本中带有"extension"名字的脚本进行安装)\n
 7、安装前的准备完成后,将会弹出安装确认界面,选择"是"开始安装\n
 8、安装结束后,会自动进入该AI软件的管理界面,在该界面中可以对AI软件进行更新,卸载,启动等操作\n
@@ -111,6 +111,7 @@ function help_option_2()
 14、InvokeAI设置界面语言:点击右上角的三条横杠的图标,然后点击Settings,然后找到Language选项,点击文字下方的选项框,找到简体中文并选中即可\n
 15、如遇到网络问题,比如下载模型失败等,且在开启代理后依然无法解决问题时,可设置代理。代理参数的格式为\"ip:port\",参数例子:\"127.0.0.1:10808\",ip、port、代理协议需查看用户使用的代理软件配置(在终端环境中,除了有驱动模式或者TUN模式的代理软件,一般没办法为终端设置代理,所以可以使用该功能为终端环境设置代理)\n
 16、在代理选项中\"huggingface独占代理\"可在安装过程中单独为从huggingface中下载模型时单独启用代理,保证安装速度,因为除了从huggingface下载模型的过程之外,其他下载过程可以不走代理进行下载(注:在使用驱动模式或者TUN模式的代理软件时,该功能无效,因为代理软件会强制让所有网络流量走代理)\n
+17、一般在安装时,一路回车保持默认值也可以安装\n
 \n
 " 23 70
 }
