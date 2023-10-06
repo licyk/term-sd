@@ -9,7 +9,7 @@ term-sd支持在Linux，Windows，MacOS上运行(Windows平台需安装msys2，M
 
 ## Windows系统安装配置环境的方法：  
 
-### [图文教程(Windows平台)](https://github.com/licyk/README-collection/blob/main/term-sd/README.md)
+### [图文教程(Windows平台)](https://github.com/licyk/README-collection/blob/main/term-sd/README_config_env.md)
 
 ### 1、安装msys2  
 进入[msys2官网](https://www.msys2.org/)  
