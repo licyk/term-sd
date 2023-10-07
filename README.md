@@ -112,8 +112,8 @@ brew install git aria2 dialog python
 
 启动后按照提示安装term-sd组件后即可正常使用，如果下载失败就更换其他下载源  
 
-### ！操作Term-SD界面前请阅读[Term-SD界面操作方法](https://github.com/licyk/README-collection/blob/main/term-sd/README_how_to_use_dialog.md)  
-### Term-SD的使用方法请阅读[如何使用Term-SD](https://github.com/licyk/README-collection/blob/main/term-sd/README_how_to_use_term_sd.md)（待完成）  
+### ！操作Term-SD界面前请阅读[《Term-SD界面操作方法》](https://github.com/licyk/README-collection/blob/main/term-sd/README_how_to_use_dialog.md)  
+### Term-SD的使用方法请阅读[《如何使用Term-SD》](https://github.com/licyk/README-collection/blob/main/term-sd/README_how_to_use_term_sd.md)（待完成）  
 
 >huggingface目前在大陆网络环境无法访问，需要使用带有TUN模式或者驱动模式的代理软件(如果开启代理软件后还会出现下载失败的问题，需在term-sd中配置好代理参数)，保证能够正常下载模型
 
