@@ -8,7 +8,7 @@ function term_sd_process_user_input()
         "--help")
         echo
         echo "启动参数使用方法:"
-        echo "  term-sd.sh [--help] [--extra] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-proxy] [--quick-cmd]"
+        echo "  term-sd.sh [--help] [--extra] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-proxy] [--quick-cmd] [--set-python-path] [--set-pip-path] [--unset-python-path] [--unset-pip-path]"
         echo "选项:"
         echo "  --help"
         echo "        显示启动参数帮助"
@@ -28,6 +28,14 @@ function term_sd_process_user_input()
         echo "        测试网络环境,用于测试代理是否可用"
         echo "  --quick-cmd"
         echo "        添加Term-SD快捷启动命令到shell"
+        echo "  --set-python-path"
+        echo "        手动指定python解释器路径"
+        echo "  --set-pip-path"
+        echo "        手动指定pip路径"
+        echo "  --unset-python-path"
+        echo "        删除自定义python解释器路径配置"
+        echo "  --unset-pip-path"
+        echo "        删除自定义pip解释器路径配置"
         print_line_to_shell
         exit 1
         ;;
@@ -548,13 +556,13 @@ user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') #读取用户所使用的sh
 #检测用户是否进行指定python运行路径
 for term_sd_launch_input in $(echo "$1 $2 $3 $4 $5 $6 $7 $8 $9") ;do
     case $term_sd_launch_input in
-    "--set-python")
+    "--set-python-path")
     set_python_path
     ;;
     "--set-pip-path")
     set_pip_path
     ;;
-    "--unset-python")
+    "--unset-python-path")
     rm -f ./term-sd/python-path.conf
     echo "已删除自定义python解释器路径配置"
     ;;
