@@ -121,7 +121,7 @@ function comfyui_update_depend()
             tmp_disable_proxy
             create_venv
             enter_venv
-            pip install -r ./requirements.txt --prefer-binary --upgrade $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+            "$pip_cmd" install -r ./requirements.txt --prefer-binary --upgrade $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
             exit_venv
             tmp_enable_proxy
             print_line_to_shell

@@ -480,6 +480,44 @@ function print_line_to_shell_methon()
     print_word_to_shell="" #清除已输出的内容
 }
 
+#手动指定python路径功能
+function set_python_path()
+{
+    echo "请输入python解释器的路径"
+    echo "提示:输入完后请回车保存"
+    read -p "==>" set_python_path_option
+    if [ -z "$set_python_path_option" ];then
+        echo "未输入，请重试"
+        set_python_path
+    elif [ "$set_python_path_option" = "exit" ];then
+        echo "退出python路径指定功能"
+    else
+        python_path="$set_python_path_option"
+        echo $python_path > python-path.conf
+        mv -f ./python-path.conf ./term-sd/
+        echo "python解释器路径指定完成"
+    fi
+}
+
+#手动指定python路径功能
+function set_pip_path()
+{
+    echo "请输入python解释器的路径"
+    echo "提示:输入完后请回车保存,或者输入exit退出"
+    read -p "==>" set_pip_path_option
+    if [ -z "$set_pip_path_option" ];then
+        echo "未输入，请重试"
+        set_pip_path
+    elif [ "$set_pip_path_option" = "exit" ];then
+        echo "退出pip路径指定功能"
+    else
+        pip_path="$set_pip_path_option"
+        echo $pip_path > pip-path.conf
+        mv -f ./pip-path.conf ./term-sd/
+        echo "pip解释器路径指定完成"
+    fi
+}
+
 #################################################
 
 print_word_to_shell="Term-SD"
@@ -500,7 +538,7 @@ fi
 echo "检测依赖软件是否安装"
 missing_dep=""
 test_num=0
-temr_sd_depend="git aria2c dialog pip" #term-sd依赖软件包
+temr_sd_depend="git aria2c dialog" #term-sd依赖软件包
 term_sd_install_path=$(pwd) #读取term-sd安装位置
 
 #将要向.bashrc写入的配置
@@ -508,19 +546,59 @@ term_sd_shell_config="termsd(){ user_input_for_term_sd=$(echo \"\$1 \$2 \$3 \$4 
 
 user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') #读取用户所使用的shell
 
-#检测可用的python命令
-if python3 --version > /dev/null 2> /dev/null || python --version > /dev/null 2> /dev/null ;then #判断是否有可用的python
-    test_num=$(( $test_num + 1 ))
-    python_cmd_test_1=$(python3 --version 2> /dev/null)
-    python_cmd_test_2=$(python --version 2> /dev/null)
+#检测用户是否进行指定python运行路径
+for term_sd_launch_input in $(echo "$1 $2 $3 $4 $5 $6 $7 $8 $9") ;do
+    case $term_sd_launch_input in
+    "--set-python")
+    set_python_path
+    ;;
+    "--set-pip-path")
+    set_pip_path
+    ;;
+    esac
+done
 
-    if [ ! -z "$python_cmd_test_1" ];then
-        export python_cmd="python3"
-    elif [ ! -z "$python_cmd_test_2" ];then
-        export python_cmd="python"
+#检测可用的python命令,并检测是否手动指定python路径
+if [ -z "$python_path" ];then
+    if python3 --version > /dev/null 2> /dev/null || python --version > /dev/null 2> /dev/null ;then #判断是否有可用的python
+        test_num=$(( $test_num + 1 ))
+        python_cmd_test_1=$(python3 --version 2> /dev/null)
+        python_cmd_test_2=$(python --version 2> /dev/null)
+
+        if [ ! -z "$python_cmd_test_1" ];then
+            export python_cmd="python3"
+        elif [ ! -z "$python_cmd_test_2" ];then
+            export python_cmd="python"
+        fi
+    else
+        missing_dep="$missing_dep python,"
+    fi  
+else
+    export python_cmd="$python_path"
+    if which "$python_cmd" > /dev/null 2> /dev/null ;then
+        test_num=$(( $test_num + 1 ))
+    else
+        echo "手动指定的python路径错误"
+        missing_dep="$missing_dep python,"
+    fi
+fi
+
+#检测可用的pip命令,并检测是否手动指定pip路径
+if [ -z "$pip_path" ];then
+    if which pip > /dev/null 2> /dev/null ;then
+        test_num=$(( $test_num + 1 ))
+        export pip_cmd="pip"
+    else
+        missing_dep="$missing_dep pip,"
     fi
 else
-    missing_dep="$missing_dep python,"
+    export pip_cmd="$pip_path"
+    if which "$pip_path" > /dev/null 2> /dev/null ;then
+        test_num=$(( $test_num + 1 ))
+    else
+        echo "手动指定的pip路径错误"
+        missing_dep="$missing_dep pip,"
+    fi
 fi
 
 #判断系统是否安装必须使用的软件

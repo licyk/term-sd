@@ -29,7 +29,7 @@ function invokeai_option()
                     final_install_check #安装前确认
                     if [ $final_install_check_exec = 0 ];then
                         echo "更新InvokeAI中"
-                        pip install $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --prefer-binary --upgrade invokeai --default-timeout=100 --retries 5
+                        "$pip_cmd" install $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --prefer-binary --upgrade invokeai --default-timeout=100 --retries 5
                         if [ $? = 0 ];then
                             dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI更新结果" --ok-label "确认" --msgbox "InvokeAI更新成功" 23 70
                         else

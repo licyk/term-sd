@@ -63,7 +63,7 @@ function term_sd_launch()
     print_word_to_shell="$term_sd_manager_info 启动"
     print_line_to_shell
     enter_venv
-    $python_cmd $(cat ./term-sd-launch.conf)
+    "$python_cmd" $(cat ./term-sd-launch.conf)
     print_line_to_shell
 }
 
@@ -80,8 +80,8 @@ function term_sd_version()
     dialog --clear --title "Term-SD" --backtitle "Term-SD开始界面" --ok-label "确认" --msgbox "版本信息:\n\n
 系统:$(uname -o) \n
 Term-SD:"$term_sd_version_" \n
-python:$($python_cmd --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
-pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
+python:$("$python_cmd" --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
+pip:$("$pip_cmd" --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
 aria2:$(aria2c --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ') \n
 git:$(git --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ') \n
 dialog:$(dialog --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n

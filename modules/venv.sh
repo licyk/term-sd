@@ -22,7 +22,7 @@ function create_venv()
 {
     if [ $venv_active = 0 ];then
         echo "创建venv虚拟环境"
-        $python_cmd -m venv venv 2> /dev/null > /dev/null
+        "$python_cmd" -m venv venv 2> /dev/null > /dev/null
     fi
 }
 
