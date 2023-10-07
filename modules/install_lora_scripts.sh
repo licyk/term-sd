@@ -11,8 +11,7 @@ function process_install_lora_scripts()
 
     if [ $final_install_check_exec = 0 ];then
         #参考lora-scripts里的install.bash写的
-        print_word_to_shell="lora-scipts 安装"
-        print_line_to_shell
+        print_line_to_shell "lora-scipts 安装"
         echo "开始安装lora-scipts"
         tmp_disable_proxy #临时取消代理,避免一些不必要的网络减速
         git clone "$github_proxy"https://github.com/Akegarasu/lora-scripts #lora-scripts本体

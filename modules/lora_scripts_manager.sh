@@ -76,8 +76,7 @@ function lora_scripts_option()
                 lora_scripts_option
             elif [ $final_lora_scripts_option = 6 ]; then
                 enter_venv
-                print_word_to_shell="$term_sd_manager_info 启动"
-                print_line_to_shell
+                print_line_to_shell "$term_sd_manager_info 启动"
                 export HF_HOME=huggingface
                 export PYTHONUTF8=1
                 "$python_cmd" ./gui.py
@@ -127,8 +126,7 @@ function lora_scripts_update_depend()
         final_install_check #安装前确认
 
         if [ $final_install_check_exec = 0 ];then
-            print_word_to_shell="lora-scripts依赖更新"
-            print_line_to_shell
+            print_line_to_shell "lora-scripts依赖更新"
             echo "更新lora-scripts依赖中"
             tmp_disable_proxy
             create_venv

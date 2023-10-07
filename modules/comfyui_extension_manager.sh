@@ -348,8 +348,7 @@ function comfyui_extension_dep_install()
     pip_install_methon #安装方式选择
     final_install_check #安装前确认
     if [ $final_install_check_exec = 0 ];then
-        print_word_to_shell="$term_sd_manager_info 插件/自定义节点依赖一键安装"
-        print_line_to_shell
+        print_line_to_shell "$term_sd_manager_info 插件/自定义节点依赖一键安装"
         tmp_disable_proxy
         cd "$start_path/ComfyUI"
         enter_venv

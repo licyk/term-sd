@@ -53,8 +53,7 @@ function term_sd_process_user_input()
         ;;
         "--test-proxy")
         if which curl > /dev/null;then
-            print_word_to_shell="测试网络环境"
-            print_line_to_shell
+            print_line_to_shell "测试网络环境"
             echo "获取网络信息"
             curl ipinfo.io
             if [ $? = 0 ];then
@@ -407,10 +406,11 @@ function remove_config_from_shell()
 #终端横线显示功能
 function print_line_to_shell()
 {
-    if [ -z "$print_word_to_shell" ];then
+    if [ -z "$1" ];then
         print_line_methon=1
         print_line_to_shell_methon
     else
+        print_word_to_shell="$1"
         shellwidth=$(stty size | awk '{print $2}') #获取终端宽度
         print_word_to_shell_=$(echo "$print_word_to_shell" | awk '{gsub(/ /,"-")}1') #将空格转换为"-"
         shell_word_width=$(( $(echo "$print_word_to_shell_" | wc -c) - 1 )) #总共的字符长度
@@ -520,8 +520,7 @@ function set_pip_path()
 
 #################################################
 
-print_word_to_shell="Term-SD"
-print_line_to_shell
+print_line_to_shell "Term-SD"
 
 echo "Term-SD初始化中......"
 
@@ -555,8 +554,26 @@ for term_sd_launch_input in $(echo "$1 $2 $3 $4 $5 $6 $7 $8 $9") ;do
     "--set-pip-path")
     set_pip_path
     ;;
+    "--unset-python")
+    rm -f ./term-sd/python-path.conf
+    echo "已删除自定义python解释器路径配置"
+    ;;
+    "--unset-pip-path")
+    rm -f ./term-sd/pip-path.conf
+    echo "已删除自定义pip解释器路径配置"
+    ;;
     esac
 done
+
+#存在python自定义路径配置文件时自动读取到变量中
+if [ -f "./term-sd/python-path.conf" ];then
+    python_path=$(cat ./term-sd/python-path.conf)
+fi
+
+#存在pip自定义路径配置文件时自动读取到变量中
+if [ -f "./term-sd/pip-path.conf" ];then
+    pip_path=$(cat ./term-sd/pip-path.conf)
+fi
 
 #检测可用的python命令,并检测是否手动指定python路径
 if [ -z "$python_path" ];then
@@ -635,8 +652,7 @@ if [ $test_num -ge 5 ];then
         echo "term-sd模块丢失,\"输入./term-sd.sh --reinstall-term-sd\"重新安装Term-SD"
     fi
 else
-    print_word_to_shell="缺少以下依赖"
-    print_line_to_shell
+    print_line_to_shell "缺少以下依赖"
     echo $missing_dep
     print_line_to_shell
     echo "请安装缺少的依赖后重试"

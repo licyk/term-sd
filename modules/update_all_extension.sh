@@ -4,8 +4,7 @@
 #一键更新全部插件功能
 function extension_all_update()
 {
-    print_word_to_shell="$term_sd_manager_info 插件一键更新"
-    print_line_to_shell
+    print_line_to_shell "$term_sd_manager_info 插件一键更新"
     echo "更新插件中"
     extension_folder="" #清除上次运行结果
     update_info=""

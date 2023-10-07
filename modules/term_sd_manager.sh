@@ -60,8 +60,7 @@ function mainmenu()
 #启动项目功能
 function term_sd_launch()
 {
-    print_word_to_shell="$term_sd_manager_info 启动"
-    print_line_to_shell
+    print_line_to_shell "$term_sd_manager_info 启动"
     enter_venv
     "$python_cmd" $(cat ./term-sd-launch.conf)
     print_line_to_shell

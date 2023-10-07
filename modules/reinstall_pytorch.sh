@@ -11,8 +11,7 @@ function pytorch_reinstall()
 
     if [ $final_install_check_exec = 0 ];then
         #开始安装pytorch
-        print_word_to_shell="pytorch安装"
-        print_line_to_shell
+        print_line_to_shell "pytorch安装"
         tmp_disable_proxy
         create_venv
         enter_venv

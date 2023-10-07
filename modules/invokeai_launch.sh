@@ -15,28 +15,23 @@ function generate_invokeai_launch()
         3>&1 1>&2 2>&3 )
     if [ $? = 0 ];then
         if [ $invokeai_launch_option = 1 ]; then
-            print_word_to_shell="$term_sd_manager_info 启动"
-            print_line_to_shell
+            print_line_to_shell "$term_sd_manager_info 启动"
             invokeai-configure --root ./invokeai
             print_line_to_shell
         elif [ $invokeai_launch_option = 2 ]; then
-            print_word_to_shell="$term_sd_manager_info 启动"
-            print_line_to_shell
+            print_line_to_shell "$term_sd_manager_info 启动"
             invokeai --root ./invokeai
             print_line_to_shell
         elif [ $invokeai_launch_option = 3 ]; then
-            print_word_to_shell="$term_sd_manager_info 启动"
-            print_line_to_shell
+            print_line_to_shell "$term_sd_manager_info 启动"
             invokeai --web --root ./invokeai
             print_line_to_shell
         elif [ $invokeai_launch_option = 4 ]; then
-            print_word_to_shell="$term_sd_manager_info 启动"
-            print_line_to_shell
+            print_line_to_shell "$term_sd_manager_info 启动"
             invokeai-ti --gui --root ./invokeai
             print_line_to_shell
         elif [ $invokeai_launch_option = 5 ]; then
-            print_word_to_shell="$term_sd_manager_info 启动"
-            print_line_to_shell
+            print_line_to_shell "$term_sd_manager_info 启动"
             invokeai-merge --gui --root ./invokeai
             print_line_to_shell
         elif [ $invokeai_launch_option = 6 ]; then
@@ -44,8 +39,7 @@ function generate_invokeai_launch()
                 invokeai_launch
             else #找不到启动配置
                 generate_invokeai_launch_custom
-                print_word_to_shell="$term_sd_manager_info 启动"
-                print_line_to_shell
+                print_line_to_shell "$term_sd_manager_info 启动"
                 invokeai $(cat ./term-sd-launch.conf)
                 print_line_to_shell
             fi
@@ -142,14 +136,12 @@ function invokeai_launch()
 
     if [ $? = 0 ];then
         if [ $invokeai_launch_ = 1 ];then
-            print_word_to_shell="$term_sd_manager_info 启动"
-            print_line_to_shell
+            print_line_to_shell "$term_sd_manager_info 启动"
             invokeai $(cat ./term-sd-launch.conf)
             print_line_to_shell
         elif [ $invokeai_launch_ = 2 ];then
             generate_invokeai_launch_custom
-            print_word_to_shell="$term_sd_manager_info 启动"
-            print_line_to_shell
+            print_line_to_shell "$term_sd_manager_info 启动"
             invokeai $(cat ./term-sd-launch.conf)
             print_line_to_shell
         fi

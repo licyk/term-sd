@@ -71,12 +71,10 @@ function select_repo()
 
     if [ $? = 0 ];then
         if [ $select_repo_ = 1 ];then
-            print_word_to_shell="更新源一键替换"
-            print_line_to_shell
+            print_line_to_shell "更新源一键替换"
             export change_repo_cmd="change_repo_to_origin"
         elif [ $select_repo_ = 2 ];then
-            print_word_to_shell="更新源一键替换"
-            print_line_to_shell
+            print_line_to_shell "更新源一键替换"
             export change_repo_cmd="change_repo_to_proxy"
         elif [ $select_repo_ = 3 ];then
             select_repo_exec=1

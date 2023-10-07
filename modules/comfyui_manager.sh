@@ -115,8 +115,7 @@ function comfyui_update_depend()
         final_install_check #安装前确认
 
         if [ $final_install_check_exec = 0 ];then
-            print_word_to_shell="ComfyUI依赖更新"
-            print_line_to_shell
+            print_line_to_shell "ComfyUI依赖更新"
             echo "更新ComfyUI依赖中"
             tmp_disable_proxy
             create_venv

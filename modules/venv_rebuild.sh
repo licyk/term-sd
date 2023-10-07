@@ -10,8 +10,7 @@ function a1111_sd_webui_venv_rebuild()
     final_install_check #安装前确认
 
     if [ $final_install_check_exec = 0 ];then
-        print_word_to_shell="$term_sd_manager_info 虚拟环境重建"
-        print_line_to_shell
+        print_line_to_shell "$term_sd_manager_info 虚拟环境重建"
         tmp_disable_proxy
         echo "开始重构虚拟环境"
         echo "删除原有虚拟环境中"
@@ -42,8 +41,7 @@ function comfyui_venv_rebuild()
     final_install_check #安装前确认
 
     if [ $final_install_check_exec = 0 ];then
-        print_word_to_shell="$term_sd_manager_info 虚拟环境重建"
-        print_line_to_shell
+        print_line_to_shell "$term_sd_manager_info 虚拟环境重建"
         tmp_disable_proxy
         echo "开始重构虚拟环境"
         echo "删除原有虚拟环境中"
@@ -72,8 +70,7 @@ function invokeai_venv_rebuild()
     final_install_check #安装前确认
 
     if [ $final_install_check_exec = 0 ];then
-        print_word_to_shell="$term_sd_manager_info 虚拟环境重建"
-        print_line_to_shell
+        print_line_to_shell "$term_sd_manager_info 虚拟环境重建"
         tmp_disable_proxy
         echo "开始重构虚拟环境"
         echo "删除原有虚拟环境中"
@@ -101,8 +98,7 @@ function lora_scripts_venv_rebuild()
     final_install_check #安装前确认
 
     if [ $final_install_check_exec = 0 ];then
-        print_word_to_shell="$term_sd_manager_info 虚拟环境重建"
-        print_line_to_shell
+        print_line_to_shell "$term_sd_manager_info 虚拟环境重建"
         tmp_disable_proxy
         echo "开始重构虚拟环境"
         echo "删除原有虚拟环境中"
