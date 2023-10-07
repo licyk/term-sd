@@ -492,7 +492,7 @@ function print_line_to_shell_methon()
 function set_python_path()
 {
     echo "请输入python解释器的路径"
-    echo "提示:输入完后请回车保存"
+    echo "提示:输入完后请回车保存,或者输入exit退出"
     read -p "==>" set_python_path_option
     if [ -z "$set_python_path_option" ];then
         echo "未输入，请重试"
