@@ -121,7 +121,7 @@ function help_option_3()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "Term-SD功能说明:\n
 参数使用方法(设置快捷启动命令后可将\"./term-sd.sh\"替换成\"termsd\"或者\"tsd\"):\n
-  ./term-sd.sh [--help] [--extra] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-proxy] [--quick-cmd]\n
+  ./term-sd.sh [--help] [--extra] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-proxy] [--quick-cmd] [--set-python-path] [--set-pip-path] [--unset-python-path] [--unset-pip-path]\n
 参数功能:\n
 help:显示启动参数帮助\n
 extra:启动扩展脚本\n
@@ -132,6 +132,10 @@ reinstall-term-sd:重新安装Term-SD\n
 remove-term-sd:卸载Term-SD\n
 test-proxy:测试网络环境,用于测试代理是否可用\n
 quick-cmd:将Term-SD快捷启动指令安装到shell中,在shell中直接输入\"termsd\"即可启动Term-SD\n
+set-python-path:手动指定python解释器路径\n
+set-pip-path:手动指定pip路径\n
+unset-python-path:删除自定义python解释器路径配置\n
+unset-pip-path:删除自定义pip解释器路径配置\n
 \n
 Term-SD的功能(除了安装,更新,启动,卸载):\n
 主界面:\n
