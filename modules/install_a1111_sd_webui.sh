@@ -16,7 +16,7 @@ function process_install_a1111_sd_webui()
         echo "开始安装stable-diffusion-webui"
         tmp_disable_proxy #临时取消代理,避免一些不必要的网络减速
         git clone "$github_proxy"https://github.com/AUTOMATIC1111/stable-diffusion-webui
-
+        [ ! -d "./$term_sd_manager_info" ] && echo "检测到"$term_sd_manager_info"框架安装失败,已终止安装进程" && sleep 3 && return 1 #防止继续进行安装导致文件散落,造成目录混乱
         cd ./stable-diffusion-webui
         create_venv
         enter_venv

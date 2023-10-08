@@ -15,6 +15,7 @@ function process_install_lora_scripts()
         echo "开始安装lora-scipts"
         tmp_disable_proxy #临时取消代理,避免一些不必要的网络减速
         git clone "$github_proxy"https://github.com/Akegarasu/lora-scripts #lora-scripts本体
+        [ ! -d "./$term_sd_manager_info" ] && echo "检测到"$term_sd_manager_info"框架安装失败,已终止安装进程" && sleep 3 && return 1 #防止继续进行安装导致文件散落,造成目录混乱
         git clone "$github_proxy"https://github.com/kohya-ss/sd-scripts ./lora-scripts/sd-scripts #lora-scripts后端
         git clone "$github_proxy"https://github.com/hanamizuki-ai/lora-gui-dist ./lora-scripts/frontend #lora-scripts前端
         cd ./lora-scripts
