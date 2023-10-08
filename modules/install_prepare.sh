@@ -16,7 +16,7 @@ function proxy_option()
     final_install_check_force_pip="禁用"
 
     final_proxy_options=$(
-        dialog --clear --title "Term-SD" --backtitle "安装代理选项" --separate-output --notags --title "代理选择" --ok-label "确认" --no-cancel --checklist "请选择代理(强制使用pip一般情况下不选)" 23 70 12 \
+        dialog --clear --title "Term-SD" --backtitle "安装代理选项" --separate-output --notags --title "Term-SD" --ok-label "确认" --no-cancel --checklist "请选择代理(强制使用pip一般情况下不选)" 23 70 12 \
         "1" "启用pip镜像源" ON \
         "2" "启用github代理" ON \
         "3" "huggingface独占代理" ON \

@@ -116,6 +116,7 @@ function a1111_sd_webui_extension_option()
         "56" "LightDiffusionFlow" OFF \
         "57" "sd-webui-workspace" OFF \
         "58" "openOutpaint-webUI-extension" OFF \
+        "59" "sd-webui-EasyPhoto" OFF \
         3>&1 1>&2 2>&3)
 
     if [ ! -z "$extension_list" ]; then
@@ -298,6 +299,9 @@ function a1111_sd_webui_extension_option()
 	    ;;
         "58")
         a1111_sd_webui_extension_install_list="https://github.com/zero01101/openOutpaint-webUI-extension $a1111_sd_webui_extension_install_list"
+        ;;
+        "59")
+        a1111_sd_webui_extension_install_list="https://github.com/aigc-apps/sd-webui-EasyPhoto $a1111_sd_webui_extension_install_list"
         ;;
         *)
         exit 1

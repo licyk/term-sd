@@ -408,6 +408,9 @@ sd-webui-fastblend:ai视频平滑\n
 StyleSelectorXL:选择SDXL模型画风\n
 sd-dynamic-prompts:动态提示词\n
 LightDiffusionFlow:保存工作流\n
+sd-webui-workspace:保存webui生图的参数\n
+openOutpaint-webUI-extension:提供类似InvokeAI的统一画布的功能\n
+sd-webui-EasyPhoto:以简单的操作生成自己的ai人像\n
 \n
 \n
 " 23 70

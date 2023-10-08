@@ -6,8 +6,8 @@ function process_install_a1111_sd_webui()
     #安装前的准备
     proxy_option #代理选择
     pytorch_version_select #pytorch选择
-    a1111_sd_webui_extension_option #插件选择
     pip_install_methon #安装方式选择
+    a1111_sd_webui_extension_option #插件选择
     final_install_check #安装前确认
 
     if [ $final_install_check_exec = 0 ];then
