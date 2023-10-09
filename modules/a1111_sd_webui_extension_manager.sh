@@ -6,7 +6,7 @@ function a1111_sd_webui_extension_methon()
 {
     cd "$start_path/stable-diffusion-webui/extensions" #回到最初路径
     #功能选择界面
-    final_a1111_sd_webui_extension_methon=$(
+    a1111_sd_webui_extension_methon_dialog=$(
         dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择A1111-SD-Webui插件管理选项的功能" 23 70 12 \
         "1" "安装" \
         "2" "管理" \
@@ -15,16 +15,16 @@ function a1111_sd_webui_extension_methon()
         3>&1 1>&2 2>&3 )
 
     if [ $? = 0 ];then
-        if [ $final_a1111_sd_webui_extension_methon = 1 ]; then #选择安装
+        if [ $a1111_sd_webui_extension_methon_dialog = 1 ]; then #选择安装
             a1111_sd_webui_extension_install
             a1111_sd_webui_extension_methon
-        elif [ $final_a1111_sd_webui_extension_methon = 2 ]; then #选择管理
+        elif [ $a1111_sd_webui_extension_methon_dialog = 2 ]; then #选择管理
             a1111_sd_webui_extension_manager
             a1111_sd_webui_extension_methon
-        elif [ $final_a1111_sd_webui_extension_methon = 3 ]; then #选择更新全部插件
+        elif [ $a1111_sd_webui_extension_methon_dialog = 3 ]; then #选择更新全部插件
             extension_all_update
             a1111_sd_webui_extension_methon
-        elif [ $final_a1111_sd_webui_extension_methon = 4 ]; then #选择返回
+        elif [ $a1111_sd_webui_extension_methon_dialog = 4 ]; then #选择返回
             echo
         fi
     fi
@@ -86,7 +86,7 @@ function a1111_sd_webui_operate_extension()
         dialog_update_remote_checkout_button=""
     fi
 
-    final_a1111_sd_webui_operate_extension=$(
+    a1111_sd_webui_operate_extension_dialog=$(
         dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择对"$extension_selection"插件的管理功能\n当前更新源:$([ -d "./.git" ] && git remote -v | awk 'NR==1' | awk '{print $2}' || echo "无")" 23 70 12 \
         $dialog_update_button \
         "2" "卸载" \
@@ -96,7 +96,7 @@ function a1111_sd_webui_operate_extension()
         "6" "返回" \
         3>&1 1>&2 2>&3)
     if [ $? = 0 ];then
-        if [ $final_a1111_sd_webui_operate_extension = 1 ]; then
+        if [ $a1111_sd_webui_operate_extension_dialog = 1 ]; then
             echo "更新$(echo $extension_selection | awk -F "/" '{print $NF}')插件中"
             git pull --recurse-submodules
             if [ $? = 0 ];then
@@ -104,20 +104,20 @@ function a1111_sd_webui_operate_extension()
             else
                 dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件更新结果" --ok-label "确认" --msgbox ""$extension_selection"插件更新失败" 23 70
             fi
-        elif [ "${final_a1111_sd_webui_operate_extension}" == '2' ]; then
+        elif [ "${a1111_sd_webui_operate_extension_dialog}" == '2' ]; then
             if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件删除选项" --yes-label "是" --no-label "否" --yesno "是否删除"$extension_selection"插件?" 23 70) then
                 echo "删除$(echo $extension_selection | awk -F "/" '{print $NF}')插件中"
                 cd ..
                 rm -rf ./$extension_selection
             fi
-        elif [ $final_a1111_sd_webui_operate_extension = 3 ]; then
+        elif [ $a1111_sd_webui_operate_extension_dialog = 3 ]; then
             echo "修复更新中"
             term_sd_fix_pointer_offset
-        elif [ $final_a1111_sd_webui_operate_extension = 4 ]; then
+        elif [ $a1111_sd_webui_operate_extension_dialog = 4 ]; then
             git_checkout_manager
-        elif [ $final_a1111_sd_webui_operate_extension = 5 ]; then
+        elif [ $a1111_sd_webui_operate_extension_dialog = 5 ]; then
             select_repo_single
-        elif [ $final_a1111_sd_webui_operate_extension = 6 ]; then
+        elif [ $a1111_sd_webui_operate_extension_dialog = 6 ]; then
             cd ..
         fi
     fi

@@ -4,7 +4,7 @@
 function set_pip_mirrors_option()
 {
     echo "获取pip全局配置"
-    set_pip_mirrors_option_=$(dialog --clear --title "Term-SD" --backtitle "pip镜像源选项" --ok-label "确认" --cancel-label "取消" --menu "请选择设置的pip镜像源\n当前pip全局配置:\n$("$pip_cmd" config list | sed 's/.\{70\}/&\n/')" 23 70 12 \
+    set_pip_mirrors_option_dialog=$(dialog --clear --title "Term-SD" --backtitle "pip镜像源选项" --ok-label "确认" --cancel-label "取消" --menu "请选择设置的pip镜像源\n当前pip全局配置:\n$("$pip_cmd" config list | sed 's/.\{70\}/&\n/')" 23 70 12 \
         "1" "官方源" \
         "2" "国内镜像源" \
         "3" "删除镜像源配置" \
@@ -12,14 +12,14 @@ function set_pip_mirrors_option()
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
-        if [ $set_pip_mirrors_option_ = 1 ];then
+        if [ $set_pip_mirrors_option_dialog = 1 ];then
             #pip config unset global.index-url
             #pip config unset global.find-links
             "$pip_cmd" config set global.index-url "https://pypi.python.org/simple"
             "$pip_cmd" config unset global.extra-index-url
             "$pip_cmd" config set global.find-links "https://download.pytorch.org/whl/torch_stable.html"
             set_pip_mirrors_option
-        elif [ $set_pip_mirrors_option_ = 2 ];then
+        elif [ $set_pip_mirrors_option_dialog = 2 ];then
             #pip config set global.index-url "https://mirror.sjtu.edu.cn/pypi/web/simple"
             "$pip_cmd" config set global.index-url "https://pypi.python.org/simple"
             #pip config set global.extra-index-url "https://mirror.sjtu.edu.cn/pytorch-wheels"
@@ -27,7 +27,7 @@ function set_pip_mirrors_option()
             "$pip_cmd" config set global.extra-index-url "https://mirrors.bfsu.edu.cn/pypi/web/simple https://pypi.tuna.tsinghua.edu.cn/simple https://mirrors.pku.edu.cn/pypi/web/simple"
             "$pip_cmd" config set global.find-links "https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html"
             set_pip_mirrors_option
-        elif [ $set_pip_mirrors_option_ = 3 ];then
+        elif [ $set_pip_mirrors_option_dialog = 3 ];then
             "$pip_cmd" config unset global.extra-index-url
             "$pip_cmd" config unset global.index-url
             "$pip_cmd" config unset global.find-links

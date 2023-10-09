@@ -8,7 +8,7 @@ function comfyui_option()
     exit_venv #确保进行下一步操作前已退出其他虚拟环境
     if [ -d "ComfyUI" ];then
         cd ComfyUI
-        final_comfyui_option=$(
+        comfyui_option_dialog=$(
             dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择ComfyUI管理选项的功能\n当前更新源:$(git remote -v | awk 'NR==1' | awk '{print $2}')" 23 70 12 \
             "1" "更新" \
             "2" "卸载" \
@@ -27,7 +27,7 @@ function comfyui_option()
             3>&1 1>&2 2>&3)
 
         if [ $? = 0 ];then
-            if [ $final_comfyui_option = 1 ]; then
+            if [ $comfyui_option_dialog = 1 ]; then
                 echo "更新ComfyUI中"
                 git pull
                 if [ $? = 0 ];then
@@ -36,7 +36,7 @@ function comfyui_option()
                     dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI更新结果" --ok-label "确认" --msgbox "ComfyUI更新失败" 23 70
                 fi
                 comfyui_option
-            elif [ $final_comfyui_option = 2 ]; then
+            elif [ $comfyui_option_dialog = 2 ]; then
                 if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI删除选项" --yes-label "是" --no-label "否" --yesno "是否删除ComfyUI?" 23 70) then
                     echo "删除ComfyUI中"
                     exit_venv
@@ -45,25 +45,27 @@ function comfyui_option()
                 else
                     comfyui_option
                 fi
-            elif [ $final_comfyui_option = 3 ]; then
+            elif [ $comfyui_option_dialog = 3 ]; then
                 echo "修复更新中"
                 term_sd_fix_pointer_offset
                 comfyui_option
-            elif [ $final_comfyui_option = 4 ]; then
+            elif [ $comfyui_option_dialog = 4 ]; then
+                export comfyui_extension_info_display=1 #1代表自定义节点，其他数字代表插件
                 cd custom_nodes
                 comfyui_custom_node_methon
                 comfyui_option
-            elif [ $final_comfyui_option = 5 ]; then
+            elif [ $comfyui_option_dialog = 5 ]; then
+                export comfyui_extension_info_display=2
                 cd web/extensions
                 comfyui_extension_methon
                 comfyui_option
-            elif [ $final_comfyui_option = 6 ]; then
+            elif [ $comfyui_option_dialog = 6 ]; then
                 git_checkout_manager
                 comfyui_option
-            elif [ $final_comfyui_option = 7 ]; then
+            elif [ $comfyui_option_dialog = 7 ]; then
                 comfyui_change_repo
                 comfyui_option
-            elif [ $final_comfyui_option = 8 ]; then
+            elif [ $comfyui_option_dialog = 8 ]; then
                 if [ -f "./term-sd-launch.conf" ]; then #找到启动脚本
                     comfyui_launch
                 else #找不到启动脚本,并启动脚本生成界面
@@ -71,10 +73,10 @@ function comfyui_option()
                     term_sd_launch
                 fi
                 comfyui_option
-            elif [ $final_comfyui_option = 9 ]; then
+            elif [ $comfyui_option_dialog = 9 ]; then
                 comfyui_update_depend
                 comfyui_option
-            elif [ $final_comfyui_option = 10 ]; then
+            elif [ $comfyui_option_dialog = 10 ]; then
                 if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装ComfyUI?" 23 70) then
                     cd "$start_path"
                     exit_venv
@@ -82,18 +84,18 @@ function comfyui_option()
                 else
                     comfyui_option
                 fi
-            elif [ $final_comfyui_option = 11 ]; then
+            elif [ $comfyui_option_dialog = 11 ]; then
                 pytorch_reinstall
                 comfyui_option
-            elif [ $final_comfyui_option = 18 ]; then
+            elif [ $comfyui_option_dialog = 18 ]; then
                 create_venv
                 comfyui_option
-            elif [ $final_comfyui_option = 19 ]; then
+            elif [ $comfyui_option_dialog = 19 ]; then
                 if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建ComfyUI的虚拟环境" 23 70);then
                     comfyui_venv_rebuild
                 fi
                 comfyui_option
-            elif [ $final_comfyui_option = 20 ]; then
+            elif [ $comfyui_option_dialog = 20 ]; then
                 echo #回到主界面
             fi
         fi

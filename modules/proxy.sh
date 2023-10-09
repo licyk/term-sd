@@ -3,7 +3,7 @@
 #配置代理界面
 function set_proxy_option()
 {
-    set_proxy_option_=$(dialog --clear --title "Term-SD" --backtitle "代理设置界面" --ok-label "确认" --cancel-label "取消" --menu "请选择设置代理协议\n当前代理设置:$([ -z $http_proxy ] && echo "无" || echo $http_proxy)" 23 70 12 \
+    set_proxy_option_dialog=$(dialog --clear --title "Term-SD" --backtitle "代理设置界面" --ok-label "确认" --cancel-label "取消" --menu "请选择设置代理协议\n当前代理设置:$([ -z $http_proxy ] && echo "无" || echo $http_proxy)" 23 70 12 \
         "1" "http" \
         "2" "socks" \
         "3" "socks5" \
@@ -12,7 +12,7 @@ function set_proxy_option()
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
-        if [ $set_proxy_option_ = 1 ];then
+        if [ $set_proxy_option_dialog = 1 ];then
             proxy_config=$(dialog --clear --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入代理地址\n格式:<ip>:<port>" 23 70 "$(echo $http_proxy | awk -F'/' '{print $NF}')" 3>&1 1>&2 2>&3)
             proxy_config=$(echo $proxy_config | awk '{sub("：",":")}1') #防止用户输入中文冒号后导致错误
             if [ ! -z $proxy_config ];then
@@ -22,7 +22,7 @@ function set_proxy_option()
                 mv -f ./proxy.conf ./term-sd/
             fi
             set_proxy_option
-        elif [ $set_proxy_option_ = 2 ];then
+        elif [ $set_proxy_option_dialog = 2 ];then
             proxy_config=$(dialog --clear --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入代理地址\n格式:<ip>:<port>" 23 70 "$(echo $http_proxy | awk -F'/' '{print $NF}')" 3>&1 1>&2 2>&3)
             proxy_config=$(echo $proxy_config | awk '{sub("：",":")}1') #防止用户输入中文冒号后导致错误
             if [ ! -z $proxy_config ];then
@@ -32,7 +32,7 @@ function set_proxy_option()
                 mv -f ./proxy.conf ./term-sd/
             fi
             set_proxy_option
-        elif [ $set_proxy_option_ = 3 ];then
+        elif [ $set_proxy_option_dialog = 3 ];then
             proxy_config=$(dialog --clear --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入代理地址\n格式:<ip>:<port>" 23 70 "$(echo $http_proxy | awk -F'/' '{print $NF}')" 3>&1 1>&2 2>&3)
             proxy_config=$(echo $proxy_config | awk '{sub("：",":")}1') #防止用户输入中文冒号后导致错误
             if [ ! -z $proxy_config ];then
@@ -42,12 +42,12 @@ function set_proxy_option()
                 mv -f ./proxy.conf ./term-sd/
             fi
             set_proxy_option
-        elif [ $set_proxy_option_ = 4 ];then
+        elif [ $set_proxy_option_dialog = 4 ];then
             rm -rf ./term-sd/proxy.conf
             export http_proxy=""
             export https_proxy=""
             set_proxy_option
-        elif [ $set_proxy_option_ = 5 ];then
+        elif [ $set_proxy_option_dialog = 5 ];then
             mainmenu
         fi
     else

@@ -8,7 +8,7 @@ function a1111_sd_webui_option()
     exit_venv #确保进行下一步操作前已退出其他虚拟环境
     if [ -d "stable-diffusion-webui" ];then #找到stable-diffusion-webui目录
         cd stable-diffusion-webui
-        final_a1111_sd_webui_option=$(
+        a1111_sd_webui_option_dialog=$(
             dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择A1111-SD-Webui管理选项的功能\n当前更新源:$(git remote -v | awk 'NR==1' | awk '{print $2}')" 23 70 12 \
             "1" "更新" \
             "2" "卸载" \
@@ -26,7 +26,7 @@ function a1111_sd_webui_option()
             3>&1 1>&2 2>&3)
 
         if [ $? = 0 ];then
-            if [ $final_a1111_sd_webui_option = 1 ]; then
+            if [ $a1111_sd_webui_option_dialog = 1 ]; then
                 echo "更新A1111-Stable-Diffusion-Webui中"
                 git pull
                 if [ $? = 0 ];then
@@ -35,7 +35,7 @@ function a1111_sd_webui_option()
                     dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui更新结果" --ok-label "确认" --msgbox "A1111-SD-Webui更新失败" 23 70
                 fi
                 a1111_sd_webui_option
-            elif [ $final_a1111_sd_webui_option = 2 ]; then
+            elif [ $a1111_sd_webui_option_dialog = 2 ]; then
                 if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui删除选项" --yes-label "是" --no-label "否" --yesno "是否删除A1111-Stable-Diffusion-Webui?" 23 70) then
                     echo "删除A1111-Stable-Diffusion-Webui中"
                     exit_venv
@@ -44,20 +44,20 @@ function a1111_sd_webui_option()
                 else
                     a1111_sd_webui_option
                 fi
-            elif [ $final_a1111_sd_webui_option = 3 ]; then
+            elif [ $a1111_sd_webui_option_dialog = 3 ]; then
                 echo "修复更新中"
                 term_sd_fix_pointer_offset
                 a1111_sd_webui_option
-            elif [ $final_a1111_sd_webui_option = 4 ]; then
+            elif [ $a1111_sd_webui_option_dialog = 4 ]; then
                 a1111_sd_webui_extension_methon
                 a1111_sd_webui_option
-            elif [ $final_a1111_sd_webui_option = 5 ]; then
+            elif [ $a1111_sd_webui_option_dialog = 5 ]; then
                 git_checkout_manager
                 a1111_sd_webui_option
-            elif [ $final_a1111_sd_webui_option = 6 ]; then
+            elif [ $a1111_sd_webui_option_dialog = 6 ]; then
                 a1111_sd_webui_change_repo
                 a1111_sd_webui_option
-            elif [ $final_a1111_sd_webui_option = 7 ]; then
+            elif [ $a1111_sd_webui_option_dialog = 7 ]; then
                 if [ -f "./term-sd-launch.conf" ]; then #找到启动脚本
                     a1111_sd_webui_launch
                 else #找不到启动脚本,并启动脚本生成界面
@@ -65,10 +65,10 @@ function a1111_sd_webui_option()
                     term_sd_launch
                 fi
                 a1111_sd_webui_option
-            elif [ $final_a1111_sd_webui_option = 8 ]; then
+            elif [ $a1111_sd_webui_option_dialog = 8 ]; then
                 a1111_sd_webui_update_depend
                 a1111_sd_webui_option
-            elif [ $final_a1111_sd_webui_option = 9 ]; then
+            elif [ $a1111_sd_webui_option_dialog = 9 ]; then
                 if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装A1111-Stable-Diffusion-Webui?" 23 70) then
                     cd "$start_path"
                     exit_venv
@@ -76,18 +76,18 @@ function a1111_sd_webui_option()
                 else
                     a1111_sd_webui_option
                 fi
-            elif [ $final_a1111_sd_webui_option = 10 ]; then
+            elif [ $a1111_sd_webui_option_dialog = 10 ]; then
                 pytorch_reinstall
                 a1111_sd_webui_option
-            elif [ $final_a1111_sd_webui_option = 18 ]; then
+            elif [ $a1111_sd_webui_option_dialog = 18 ]; then
                 create_venv
                 a1111_sd_webui_option
-            elif [ $final_a1111_sd_webui_option = 19 ]; then
+            elif [ $a1111_sd_webui_option_dialog = 19 ]; then
                 if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建A1111-SD-Webui的虚拟环境" 23 70);then
                     a1111_sd_webui_venv_rebuild
                 fi
                 a1111_sd_webui_option
-            elif [ $final_a1111_sd_webui_option = 20 ]; then
+            elif [ $a1111_sd_webui_option_dialog = 20 ]; then
                 echo #回到主界面
             fi
         fi

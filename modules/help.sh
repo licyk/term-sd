@@ -5,7 +5,7 @@
 #帮助选择
 function help_option()
 {
-    help_option_select=$(dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --cancel-label "取消" --menu "请选择帮助" 23 70 12 \
+    help_option_dialog=$(dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --cancel-label "取消" --menu "请选择帮助" 23 70 12 \
         "1" "关于Term-SD" \
         "2" "使用说明" \
         "3" "Term-SD功能说明" \
@@ -18,31 +18,31 @@ function help_option()
         3>&1 1>&2 2>&3 )
 
     if [ $? = 0 ];then
-        if [ $help_option_select = 1 ];then
+        if [ $help_option_dialog = 1 ];then
             help_option_1
             help_option
-        elif [ $help_option_select = 2 ];then
+        elif [ $help_option_dialog = 2 ];then
             help_option_2
             help_option
-        elif [ $help_option_select = 3 ];then
+        elif [ $help_option_dialog = 3 ];then
             help_option_3
             help_option
-        elif [ $help_option_select = 4 ];then
+        elif [ $help_option_dialog = 4 ];then
             help_option_4
             help_option
-        elif [ $help_option_select = 5 ];then
+        elif [ $help_option_dialog = 5 ];then
             help_option_5
             help_option
-        elif [ $help_option_select = 6 ];then
+        elif [ $help_option_dialog = 6 ];then
             help_option_6
             help_option
-        elif [ $help_option_select = 7 ];then
+        elif [ $help_option_dialog = 7 ];then
             help_option_7
             help_option
-        elif [ $help_option_select = 8 ];then
+        elif [ $help_option_dialog = 8 ];then
             help_option_8
             help_option
-        elif [ $help_option_select = 9 ];then
+        elif [ $help_option_dialog = 9 ];then
             mainmenu
         fi
     else

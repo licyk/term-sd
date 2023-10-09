@@ -6,7 +6,7 @@ function mainmenu()
     export term_sd_manager_info=""
     cd "$start_path" #回到最初路径
     exit_venv #确保进行下一步操作前已退出其他虚拟环境
-    mainmenu_=$(
+    mainmenu_dialog=$(
         dialog --clear --title "Term-SD" --backtitle "主界面" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的功能\n当前虚拟环境状态:$([ $venv_active = 0 ] && echo "启用" || echo "禁用")\n当前代理设置:$([ -z $http_proxy ] && echo "无" || echo $http_proxy)" 23 70 12 \
         "0" "Term-SD更新管理" \
         "1" "AUTOMATIC1111-stable-diffusion-webui管理" \
@@ -23,29 +23,29 @@ function mainmenu()
         3>&1 1>&2 2>&3 )
 
     if [ $? = 0  ];then #选择确认
-        if [ $mainmenu_ = 0 ]; then #选择Term-SD更新
+        if [ $mainmenu_dialog = 0 ]; then #选择Term-SD更新
             term_sd_update_option
-        elif [ $mainmenu_ = 1 ]; then #选择AUTOMATIC1111-stable-diffusion-webui
+        elif [ $mainmenu_dialog = 1 ]; then #选择AUTOMATIC1111-stable-diffusion-webui
             a1111_sd_webui_option
-        elif [ $mainmenu_ = 2 ]; then #选择ComfyUI
+        elif [ $mainmenu_dialog = 2 ]; then #选择ComfyUI
             comfyui_option
-        elif [ $mainmenu_ = 3 ]; then #选择InvokeAI
+        elif [ $mainmenu_dialog = 3 ]; then #选择InvokeAI
             invokeai_option
-        elif [ $mainmenu_ = 4 ]; then #选择lora-scripts
+        elif [ $mainmenu_dialog = 4 ]; then #选择lora-scripts
             lora_scripts_option
-        elif [ $mainmenu_ = 5 ]; then #选择venv虚拟环境配置
+        elif [ $mainmenu_dialog = 5 ]; then #选择venv虚拟环境配置
             venv_option
-        elif [ $mainmenu_ = 6 ]; then #选择pip镜像源
+        elif [ $mainmenu_dialog = 6 ]; then #选择pip镜像源
             set_pip_mirrors_option
-        elif [ $mainmenu_ = 7 ]; then #选择pip缓存清理
+        elif [ $mainmenu_dialog = 7 ]; then #选择pip缓存清理
             pip_cache_clean
-        elif [ $mainmenu_ == 8 ]; then #选择代理选项
+        elif [ $mainmenu_dialog == 8 ]; then #选择代理选项
             set_proxy_option
-        elif [ $mainmenu_ = 9 ]; then #选择代理选项
+        elif [ $mainmenu_dialog = 9 ]; then #选择代理选项
             disk_space_stat
-        elif [ $mainmenu_ = 10 ]; then #选择帮助
+        elif [ $mainmenu_dialog = 10 ]; then #选择帮助
             help_option
-        elif [ $mainmenu_ = 11 ]; then #选择退出
+        elif [ $mainmenu_dialog = 11 ]; then #选择退出
             print_line_to_shell
             echo "退出Term-SD"
             exit 1

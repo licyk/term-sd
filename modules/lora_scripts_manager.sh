@@ -8,7 +8,7 @@ function lora_scripts_option()
     exit_venv #确保进行下一步操作前已退出其他虚拟环境
     if [ -d "./lora-scripts" ];then
         cd lora-scripts
-        final_lora_scripts_option=$(
+        lora_scripts_option_dialog=$(
             dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择lora-scripts管理选项的功能\n当前更新源:$(git remote -v | awk 'NR==1' | awk '{print $2}')" 23 70 12 \
             "1" "更新" \
             "2" "卸载" \
@@ -25,7 +25,7 @@ function lora_scripts_option()
             3>&1 1>&2 2>&3)
 
         if [ $? = 0 ];then
-            if [ $final_lora_scripts_option = 1 ]; then
+            if [ $lora_scripts_option_dialog = 1 ]; then
                 echo "更新lora-scripts中"
                 test_num=1
                 git pull
@@ -43,7 +43,7 @@ function lora_scripts_option()
                     dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts更新结果" --ok-label "确认" --msgbox "lora-scripts更新失败" 23 70
                 fi
                 lora_scripts_option
-            elif [ $final_lora_scripts_option = 2 ]; then
+            elif [ $lora_scripts_option_dialog = 2 ]; then
                 if (dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts删除选项" --yes-label "是" --no-label "否" --yesno "是否删除lora-scripts?" 23 70) then
                     echo "删除lora-scripts中"
                     exit_venv
@@ -52,7 +52,7 @@ function lora_scripts_option()
                 else
                     lora_scripts_option
                 fi
-            elif [ $final_lora_scripts_option = 3 ]; then
+            elif [ $lora_scripts_option_dialog = 3 ]; then
                 echo "修复更新中"
                 term_sd_fix_pointer_offset #修复lora-scripts
                 cd ./sd-scripts
@@ -64,17 +64,17 @@ function lora_scripts_option()
                 git submodule update
                 git submodule
                 lora_scripts_option
-            elif [ $final_lora_scripts_option = 4 ]; then
+            elif [ $lora_scripts_option_dialog = 4 ]; then
                 git_checkout_manager
                 cd "$start_path/lora-scripts"
                 git submodule init
                 git submodule update
                 git submodule
                 lora_scripts_option
-            elif [ $final_lora_scripts_option = 5 ]; then
+            elif [ $lora_scripts_option_dialog = 5 ]; then
                 lora_scripts_change_repo
                 lora_scripts_option
-            elif [ $final_lora_scripts_option = 6 ]; then
+            elif [ $lora_scripts_option_dialog = 6 ]; then
                 enter_venv
                 print_line_to_shell "$term_sd_manager_info 启动"
                 export HF_HOME=huggingface
@@ -82,10 +82,10 @@ function lora_scripts_option()
                 "$python_cmd" ./gui.py
                 print_line_to_shell
                 lora_scripts_option
-            elif [ $final_lora_scripts_option = 7 ]; then
+            elif [ $lora_scripts_option_dialog = 7 ]; then
                 lora_scripts_update_depend
                 lora_scripts_option
-            elif [ $final_lora_scripts_option = 8 ]; then
+            elif [ $lora_scripts_option_dialog = 8 ]; then
                 if (dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装lora_scripts?" 23 70) then
                     cd "$start_path"
                     exit_venv
@@ -93,18 +93,18 @@ function lora_scripts_option()
                 else
                     lora_scripts_option
                 fi
-            elif [ $final_lora_scripts_option = 9 ]; then
+            elif [ $lora_scripts_option_dialog = 9 ]; then
                 pytorch_reinstall
                 lora_scripts_option
-            elif [ $final_lora_scripts_option = 18 ]; then
+            elif [ $lora_scripts_option_dialog = 18 ]; then
                 create_venv
                 lora_scripts_option
-            elif [ $final_lora_scripts_option = 19 ]; then
+            elif [ $lora_scripts_option_dialog = 19 ]; then
                 if (dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建lora-scripts的虚拟环境" 23 70);then
                     lora_scripts_venv_rebuild
                 fi
                 lora_scripts_option
-            elif [ $final_lora_scripts_option = 20 ]; then
+            elif [ $lora_scripts_option_dialog = 20 ]; then
                 echo #回到主界面
             fi
         fi
