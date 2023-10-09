@@ -20,6 +20,7 @@ function a1111_sd_webui_option()
             "8" "更新依赖" \
             "9" "重新安装" \
             "10" "重新安装pytorch" \
+            "11" "pip软件包重装" \
             $dialog_recreate_venv_button \
             $dialog_rebuild_venv_button \
             "20" "返回" \
@@ -78,6 +79,9 @@ function a1111_sd_webui_option()
                 fi
             elif [ $a1111_sd_webui_option_dialog = 10 ]; then
                 pytorch_reinstall
+                a1111_sd_webui_option
+            elif [ $a1111_sd_webui_option_dialog = 11 ]; then
+                reinstall_python_packages
                 a1111_sd_webui_option
             elif [ $a1111_sd_webui_option_dialog = 18 ]; then
                 create_venv

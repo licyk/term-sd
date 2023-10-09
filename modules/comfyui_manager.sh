@@ -21,6 +21,7 @@ function comfyui_option()
             "9" "更新依赖" \
             "10" "重新安装" \
             "11" "重新安装pytorch" \
+            "12" "pip软件包重装" \
             $dialog_recreate_venv_button \
             $dialog_rebuild_venv_button \
             "20" "返回" \
@@ -86,6 +87,9 @@ function comfyui_option()
                 fi
             elif [ $comfyui_option_dialog = 11 ]; then
                 pytorch_reinstall
+                comfyui_option
+            elif [ $comfyui_option_dialog = 12 ]; then
+                reinstall_python_packages
                 comfyui_option
             elif [ $comfyui_option_dialog = 18 ]; then
                 create_venv

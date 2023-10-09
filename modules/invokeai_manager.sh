@@ -18,6 +18,7 @@ function invokeai_option()
                 "3" "启动" \
                 "4" "重新安装" \
                 "5" "重新安装pytorch" \
+                "6" "pip软件包重装" \
                 $dialog_rebuild_venv_button \
                 "20" "返回" \
                 3>&1 1>&2 2>&3)
@@ -59,6 +60,9 @@ function invokeai_option()
                     fi
                 elif [ $invokeai_option_dialog = 5 ]; then
                     pytorch_reinstall
+                    invokeai_option
+                elif [ $invokeai_option_dialog = 6 ]; then
+                    reinstall_python_packages
                     invokeai_option
                 elif [ $invokeai_option_dialog = 19 ]; then
                     if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建InvokeAI的虚拟环境" 23 70);then

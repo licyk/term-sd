@@ -19,6 +19,7 @@ function lora_scripts_option()
             "7" "更新依赖" \
             "8" "重新安装" \
             "9" "重新安装pytorch" \
+            "10" "pip软件包重装" \
             $dialog_recreate_venv_button \
             $dialog_rebuild_venv_button \
             "20" "返回" \
@@ -95,6 +96,9 @@ function lora_scripts_option()
                 fi
             elif [ $lora_scripts_option_dialog = 9 ]; then
                 pytorch_reinstall
+                lora_scripts_option
+            elif [ $lora_scripts_option_dialog = 10 ]; then
+                reinstall_python_packages
                 lora_scripts_option
             elif [ $lora_scripts_option_dialog = 18 ]; then
                 create_venv
