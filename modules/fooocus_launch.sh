@@ -6,7 +6,7 @@ function generate_fooocus_launch()
     fooocus_launch_option=""
 
     fooocus_launch_option_dialog=$(
-        dialog --clear --title "Fooocus管理" --backtitle "Fooocus启动参数选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "请选择Fooocus启动参数" 23 70 12 \
+        dialog --clear --title "Fooocus管理" --backtitle "Fooocus启动参数选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "请选择Fooocus启动参数" 25 70 10 \
         "1" "listen" OFF \
         "2" "directml" OFF \
         3>&1 1>&2 2>&3)
@@ -39,7 +39,7 @@ function generate_fooocus_launch()
 #fooocus启动界面
 function fooocus_launch()
 {
-    fooocus_launch_dialog=$(dialog --clear --title "Fooocus管理" --backtitle "Fooocus启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动Fooocus/修改Fooocus启动参数\n当前启动参数:\n"$python_cmd" $(cat ./term-sd-launch.conf)" 23 70 12 \
+    fooocus_launch_dialog=$(dialog --clear --title "Fooocus管理" --backtitle "Fooocus启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动Fooocus/修改Fooocus启动参数\n当前启动参数:\n"$python_cmd" $(cat ./term-sd-launch.conf)" 25 70 10 \
         "1" "启动" \
         "2" "修改启动参数" \
         "3" "自定义启动参数" \
@@ -62,7 +62,7 @@ function fooocus_launch()
 #fooocus手动输入启动参数界面
 function fooocus_manual_launch()
 {
-    fooocus_manual_launch_parameter=$(dialog --clear --title "Fooocus管理" --backtitle "Fooocus自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入Fooocus启动参数" 23 70 3>&1 1>&2 2>&3)
+    fooocus_manual_launch_parameter=$(dialog --clear --title "Fooocus管理" --backtitle "Fooocus自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入Fooocus启动参数" 25 70 3>&1 1>&2 2>&3)
 
     if [ -z $fooocus_manual_launch_parameter ];then
         term_sd_notice "设置启动参数> $fooocus_manual_launch_parameter"

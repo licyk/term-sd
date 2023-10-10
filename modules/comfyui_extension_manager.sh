@@ -10,7 +10,7 @@ function comfyui_custom_node_methon()
     cd "$start_path/ComfyUI/custom_nodes" #回到最初路径
     #功能选择界面
     comfyui_custom_node_methon_dialog=$(
-        dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI自定义节点管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择ComfyUI自定义节点管理选项的功能" 23 70 12 \
+        dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI自定义节点管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择ComfyUI自定义节点管理选项的功能" 25 70 10 \
         "1" "安装" \
         "2" "管理" \
         "3" "更新全部自定义节点" \
@@ -45,7 +45,7 @@ function comfyui_custom_node_manager()
 
     comfyui_custom_node_selection=$(
         dialog --clear --yes-label "确认" --no-label "取消" --title "ComfyUI管理" --backtitle "ComfyUI自定义节点列表" \
-        --menu "使用上下键选择要操作的插件并回车确认" 23 70 12 \
+        --menu "使用上下键选择要操作的插件并回车确认" 25 70 10 \
         $dir_list \
         3>&1 1>&2 2>&3)
     if [ $? = 0 ];then
@@ -64,7 +64,7 @@ function comfyui_custom_node_manager()
 #自定义节点安装模块
 function comfyui_custom_node_install()
 {
-    comfyui_custom_node_address=$(dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI自定义节点安装选项" --ok-label "确认" --cancel-label "取消" --inputbox "输入自定义节点的github地址或其他下载地址" 23 70 3>&1 1>&2 2>&3)
+    comfyui_custom_node_address=$(dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI自定义节点安装选项" --ok-label "确认" --cancel-label "取消" --inputbox "输入自定义节点的github地址或其他下载地址" 25 70 3>&1 1>&2 2>&3)
 
     if [ ! -z $comfyui_custom_node_address ]; then
         term_sd_notice "安装$(echo $comfyui_custom_node_address | awk -F'/' '{print $NF}')中"
@@ -76,9 +76,9 @@ function comfyui_custom_node_install()
         fi
 
         if [ $git_req = 0 ];then
-            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI自定义节点安装结果" --ok-label "确认" --msgbox "$(echo $comfyui_custom_node_address | awk -F'/' '{print $NF}')自定义节点安装成功\n$comfyui_custom_node_dep_notice" 23 70
+            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI自定义节点安装结果" --ok-label "确认" --msgbox "$(echo $comfyui_custom_node_address | awk -F'/' '{print $NF}')自定义节点安装成功\n$comfyui_custom_node_dep_notice" 25 70
         else
-            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI自定义节点安装结果" --ok-label "确认" --msgbox "$(echo $comfyui_custom_node_address | awk -F'/' '{print $NF}')自定义节点安装失败" 23 70
+            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI自定义节点安装结果" --ok-label "确认" --msgbox "$(echo $comfyui_custom_node_address | awk -F'/' '{print $NF}')自定义节点安装失败" 25 70
         fi
     fi
 }
@@ -101,7 +101,7 @@ function operate_comfyui_custom_node()
     fi
 
     operate_comfyui_custom_node_dialog=$(
-        dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择对"$comfyui_custom_node_selection"自定义节点的管理功能\n当前更新源:$([ -d "./.git" ] && git remote -v | awk 'NR==1' | awk '{print $2}' || echo "无")" 23 70 12 \
+        dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择对"$comfyui_custom_node_selection"自定义节点的管理功能\n当前更新源:$([ -d "./.git" ] && git remote -v | awk 'NR==1' | awk '{print $2}' || echo "无")" 25 70 10 \
         $dialog_update_button \
         "2" "安装依赖" \
         "3" "卸载" \
@@ -115,14 +115,14 @@ function operate_comfyui_custom_node()
             term_sd_notice "更新$(echo $comfyui_custom_node_selection | awk -F "/" '{print $NF}')自定义节点中"
             git pull --recurse-submodules
             if [ $? = "0" ];then
-                dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点更新结果" --ok-label "确认" --msgbox ""$comfyui_custom_node_selection"自定义节点更新成功" 23 70
+                dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点更新结果" --ok-label "确认" --msgbox ""$comfyui_custom_node_selection"自定义节点更新成功" 25 70
             else
-                dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点更新结果" --ok-label "确认" --msgbox ""$comfyui_custom_node_selection"自定义节点更新失败" 23 70
+                dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点更新结果" --ok-label "确认" --msgbox ""$comfyui_custom_node_selection"自定义节点更新失败" 25 70
             fi
         elif [ $operate_comfyui_custom_node_dialog = 2 ]; then #comfyui并不像a1111-sd-webui自动为插件安装依赖,所以只能手动装
             comfyui_extension_depend_install_single
         elif [ $operate_comfyui_custom_node_dialog = 3 ]; then
-            if (dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点删除选项" --yes-label "是" --no-label "否" --yesno "是否删除"$comfyui_custom_node_selection"自定义节点?" 23 70) then
+            if (dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点删除选项" --yes-label "是" --no-label "否" --yesno "是否删除"$comfyui_custom_node_selection"自定义节点?" 25 70) then
                 term_sd_notice "删除$(echo $comfyui_custom_node_selection | awk -F "/" '{print $NF}')自定义节点中"
                 cd ..
                 rm -rf ./$comfyui_custom_node_selection
@@ -147,7 +147,7 @@ function comfyui_extension_methon()
     cd "$start_path/ComfyUI/web/extensions" #回到最初路径
     #功能选择界面
     comfyui_extension_methon_dialog=$(
-        dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择ComfyUI插件管理选项的功能" 23 70 12 \
+        dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择ComfyUI插件管理选项的功能" 25 70 10 \
         "1" "安装" \
         "2" "管理" \
         "3" "更新全部插件" \
@@ -180,7 +180,7 @@ function comfyui_extension_manager()
 
     comfyui_extension_selection=$(
         dialog --clear --ok-label "确认" --cancel-label "取消" --title "ComfyUI管理" --backtitle "ComfyUI插件列表" \
-        --menu "使用上下键选择要操作的插件并回车确认" 23 70 12 \
+        --menu "使用上下键选择要操作的插件并回车确认" 25 70 10 \
         $dir_list \
         3>&1 1>&2 2>&3)
     if [ $? = 0 ];then
@@ -201,7 +201,7 @@ function comfyui_extension_manager()
 #插件安装模块
 function comfyui_extension_install()
 {
-    comfyui_extension_address=$(dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件安装选项" --ok-label "确认" --cancel-label "取消" --inputbox "输入插件的github地址或其他下载地址" 23 70 3>&1 1>&2 2>&3)
+    comfyui_extension_address=$(dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件安装选项" --ok-label "确认" --cancel-label "取消" --inputbox "输入插件的github地址或其他下载地址" 25 70 3>&1 1>&2 2>&3)
 
     if [ ! -z $comfyui_extension_address ]; then
         term_sd_notice "安装$(echo $comfyui_extension_address | awk -F'/' '{print $NF}')中"
@@ -213,9 +213,9 @@ function comfyui_extension_install()
         fi
 
         if [ $git_req = 0 ];then
-            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件安装结果" --ok-label "确认" --msgbox "$(echo $comfyui_extension_address | awk -F'/' '{print $NF}')插件安装成功\n$comfyui_extension_dep_notice" 23 70
+            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件安装结果" --ok-label "确认" --msgbox "$(echo $comfyui_extension_address | awk -F'/' '{print $NF}')插件安装成功\n$comfyui_extension_dep_notice" 25 70
         else
-            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件安装结果" --ok-label "确认" --msgbox "$(echo $comfyui_extension_address | awk -F'/' '{print $NF}')插件安装失败" 23 70
+            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件安装结果" --ok-label "确认" --msgbox "$(echo $comfyui_extension_address | awk -F'/' '{print $NF}')插件安装失败" 25 70
         fi
     fi
 }
@@ -237,7 +237,7 @@ function operate_comfyui_extension()
     fi
 
     operate_comfyui_extension_dialog=$(
-        dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择对"$comfyui_extension_selection"自定义节点的管理功能\n当前更新源:$([ -d "./.git" ] && git remote -v | awk 'NR==1' | awk '{print $2}' || echo "无")" 23 70 12 \
+        dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择对"$comfyui_extension_selection"自定义节点的管理功能\n当前更新源:$([ -d "./.git" ] && git remote -v | awk 'NR==1' | awk '{print $2}' || echo "无")" 25 70 10 \
         $dialog_update_button \
         "2" "安装依赖" \
         "3" "卸载" \
@@ -252,14 +252,14 @@ function operate_comfyui_extension()
             term_sd_notice "更新"$comfyui_extension_selection"中"
             git pull --recurse-submodules
             if [ $? = 0 ];then
-                dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件更新结果" --ok-label "确认" --msgbox ""$comfyui_extension_selection"插件更新成功" 23 70
+                dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件更新结果" --ok-label "确认" --msgbox ""$comfyui_extension_selection"插件更新成功" 25 70
             else
-                dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件更新结果" --ok-label "确认" --msgbox ""$comfyui_extension_selection"插件更新失败" 23 70
+                dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件更新结果" --ok-label "确认" --msgbox ""$comfyui_extension_selection"插件更新失败" 25 70
             fi
         elif [ $operate_comfyui_extension_dialog = 2 ]; then #comfyui并不像a1111-sd-webui自动为插件安装依赖,所以只能手动装
             comfyui_extension_depend_install_single
         elif [ $operate_comfyui_extension_dialog = 3 ]; then
-            if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件删除选项" --yes-label "是" --no-label "否" --yesno "是否删除"$comfyui_extension_selection"插件?" 23 70) then
+            if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件删除选项" --yes-label "是" --no-label "否" --yesno "是否删除"$comfyui_extension_selection"插件?" 25 70) then
                 term_sd_notice "删除$(echo $comfyui_extension_selection | awk -F "/" '{print $NF}')插件中"
                 cd ..
                 rm -rf ./$comfyui_extension_selection
@@ -344,7 +344,7 @@ function comfyui_extension_depend_install_process()
     exit_venv
     tmp_enable_proxy
     print_line_to_shell
-    dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI"$comfyui_extension_info_display"依赖安装结果" --ok-label "确认" --msgbox "当前依赖的安装情况列表\n------------------------------------------------------------------\n$dep_info------------------------------------------------------------------" 23 70
+    dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI"$comfyui_extension_info_display"依赖安装结果" --ok-label "确认" --msgbox "当前依赖的安装情况列表\n------------------------------------------------------------------\n$dep_info------------------------------------------------------------------" 25 70
 }
 
 #单独为插件/自定义节点安装依赖的功能
@@ -385,5 +385,5 @@ function comfyui_extension_depend_install_single()
     fi
 
     exit_venv
-    dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI"$comfyui_extension_info_display"依赖安装结果" --ok-label "确认" --msgbox "当前依赖的安装情况列表\n------------------------------------------------------------------\n$dep_info------------------------------------------------------------------" 23 70
+    dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI"$comfyui_extension_info_display"依赖安装结果" --ok-label "确认" --msgbox "当前依赖的安装情况列表\n------------------------------------------------------------------\n$dep_info------------------------------------------------------------------" 25 70
 }

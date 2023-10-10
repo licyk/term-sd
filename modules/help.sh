@@ -5,7 +5,7 @@
 #帮助选择
 function help_option()
 {
-    help_option_dialog=$(dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --cancel-label "取消" --menu "请选择帮助" 23 70 12 \
+    help_option_dialog=$(dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --cancel-label "取消" --menu "请选择帮助" 25 70 10 \
         "1" "关于Term-SD" \
         "2" "使用说明" \
         "3" "Term-SD功能说明" \
@@ -75,7 +75,7 @@ https://www.bilibili.com/read/cv22159609\n
 https://licyk.netlify.app/2023/08/01/stable-diffusion-tutorial\n
 \n
 \n
-" 23 70
+" 25 70
 }
 
 #使用说明
@@ -113,7 +113,7 @@ function help_option_2()
 16、在代理选项中\"huggingface独占代理\"可在安装过程中单独为从huggingface中下载模型时单独启用代理,保证安装速度,因为除了从huggingface下载模型的过程之外,其他下载过程可以不走代理进行下载(注:在使用驱动模式或者TUN模式的代理软件时,该功能无效,因为代理软件会强制让所有网络流量走代理)\n
 17、一般在安装时,一路回车保持默认值也可以安装\n
 \n
-" 23 70
+" 25 70
 }
 
 #term-sd功能介绍
@@ -164,7 +164,7 @@ huggingface独占代理:仅在下载huggingface上的模型时使用代理,且�
 标准构建安装(--use-pep517):使用编译安装方式(有时可以解决python软件包安装失败的问题。在InvokeAI官方文档中,安装时推荐使用该模式,实际上用常规安装也可以)\n
 \n
 \n
-" 23 70
+" 25 70
 }
 
 #启动参数说明
@@ -240,7 +240,7 @@ no-internet_available:禁用联网下载资源\n
 host:允许局域网的设备访问\n
 \n
 \n
-" 23 70
+" 25 70
 }
 
 #目录说明
@@ -331,7 +331,7 @@ lora-scripts\n
 └── toml   保存的训练参数存放位置\n
 \n
 \n
-" 23 70
+" 25 70
 }
 
 #扩展脚本说明
@@ -343,7 +343,7 @@ sd-webui-extension:安装sd-webui的插件\n
 comfyui-extension:安装ComfyUI的插件\n
 \n
 \n
-" 23 70
+" 25 70
 }
 
 #AUTOMATIC1111-stable-diffusion-webui插件说明
@@ -413,7 +413,7 @@ openOutpaint-webUI-extension:提供类似InvokeAI的统一画布的功能\n
 sd-webui-EasyPhoto:以简单的操作生成自己的ai人像\n
 \n
 \n
-" 23 70
+" 25 70
 }
 
 #ComfyUI插件/自定义节点说明
@@ -469,5 +469,5 @@ AIGODLIKE-COMFYUI-TRANSLATION:ComfyUI的翻译扩展\n
 stability-ComfyUI-nodes:Stability-AI自定义节点支持\n
 \n
 \n
-" 23 70
+" 25 70
 }

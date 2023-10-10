@@ -8,7 +8,7 @@ function generate_sd_webui_directml_launch()
 
     #展示启动参数选项
     sd_webui_directml_launch_option_dialog=$(
-        dialog --clear --title "A1111-SD-Webui管理" --backtitle "SD-Webui-DirectML启动参数选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "请选择SD-Webui-DirectML启动参数" 23 70 12 \
+        dialog --clear --title "A1111-SD-Webui管理" --backtitle "SD-Webui-DirectML启动参数选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "请选择SD-Webui-DirectML启动参数" 25 70 10 \
         "1" "skip-torch-cuda-test" OFF \
         "2" "no-half" OFF \
         "3" "no-half-vae" OFF \
@@ -148,7 +148,7 @@ function generate_sd_webui_directml_launch()
 #a1111-sd-webui启动界面
 function sd_webui_directml_launch()
 {
-    sd_webui_directml_launch_dialog=$(dialog --clear --title "A1111-SD-Webui管理" --backtitle "SD-Webui-DirectML启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动SD-Webui-DirectML/修改SD-Webui-DirectML启动参数\n当前启动参数:\n"$python_cmd" $(cat ./term-sd-launch.conf)" 23 70 12 \
+    sd_webui_directml_launch_dialog=$(dialog --clear --title "A1111-SD-Webui管理" --backtitle "SD-Webui-DirectML启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动SD-Webui-DirectML/修改SD-Webui-DirectML启动参数\n当前启动参数:\n"$python_cmd" $(cat ./term-sd-launch.conf)" 25 70 10 \
         "1" "启动" \
         "2" "修改启动参数" \
         "3" "自定义启动参数" \
@@ -171,7 +171,7 @@ function sd_webui_directml_launch()
 #a1111-sd-webui手动输入启动参数界面
 function sd_webui_directml_manual_launch()
 {
-    sd_webui_directml_manual_launch_parameter=$(dialog --clear --title "A1111-SD-Webui管理" --backtitle "SD-Webui-DirectML自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入SD-Webui-DirectML启动参数" 23 70 "$(cat ./term-sd-launch.conf)" 3>&1 1>&2 2>&3)
+    sd_webui_directml_manual_launch_parameter=$(dialog --clear --title "A1111-SD-Webui管理" --backtitle "SD-Webui-DirectML自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入SD-Webui-DirectML启动参数" 25 70 "$(cat ./term-sd-launch.conf)" 3>&1 1>&2 2>&3)
 
     if [ -z $sd_webui_directml_manual_launch_parameter ];then
         term_sd_notice "设置启动参数> $sd_webui_directml_manual_launch_parameter"

@@ -9,7 +9,7 @@ function fooocus_option()
     if [ -d "./Fooocus" ];then
         cd Fooocus
         fooocus_option_dialog=$(
-            dialog --clear --title "Fooocus管理" --backtitle "Fooocus管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Fooocus管理选项的功能\n当前更新源:$(git remote -v | awk 'NR==1' | awk '{print $2}')" 23 70 12 \
+            dialog --clear --title "Fooocus管理" --backtitle "Fooocus管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Fooocus管理选项的功能\n当前更新源:$(git remote -v | awk 'NR==1' | awk '{print $2}')" 25 70 10 \
             "1" "更新" \
             "2" "卸载" \
             "3" "修复更新" \
@@ -35,13 +35,13 @@ function fooocus_option()
                 fi
                 git pull ./repositories/ComfyUI-from-StabilityAI-Official
                 if [ $test_num = "0" ];then
-                    dialog --clear --title "Fooocus管理" --backtitle "Fooocus更新结果" --ok-label "确认" --msgbox "Fooocus更新成功" 23 70
+                    dialog --clear --title "Fooocus管理" --backtitle "Fooocus更新结果" --ok-label "确认" --msgbox "Fooocus更新成功" 25 70
                 else
-                    dialog --clear --title "Fooocus管理" --backtitle "Fooocus更新结果" --ok-label "确认" --msgbox "Fooocus更新失败" 23 70
+                    dialog --clear --title "Fooocus管理" --backtitle "Fooocus更新结果" --ok-label "确认" --msgbox "Fooocus更新失败" 25 70
                 fi
                 fooocus_option
             elif [ $fooocus_option_dialog = 2 ]; then
-                if (dialog --clear --title "Fooocus管理" --backtitle "Fooocus删除选项" --yes-label "是" --no-label "否" --yesno "是否删除Fooocus?" 23 70) then
+                if (dialog --clear --title "Fooocus管理" --backtitle "Fooocus删除选项" --yes-label "是" --no-label "否" --yesno "是否删除Fooocus?" 25 70) then
                     term_sd_notice "删除Fooocus中"
                     exit_venv
                     cd ..
@@ -74,7 +74,7 @@ function fooocus_option()
                 fooocus_update_depend
                 fooocus_option
             elif [ $fooocus_option_dialog = 8 ]; then
-                if (dialog --clear --title "Fooocus管理" --backtitle "Fooocus重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装Fooocus?" 23 70) then
+                if (dialog --clear --title "Fooocus管理" --backtitle "Fooocus重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装Fooocus?" 25 70) then
                     cd "$start_path"
                     exit_venv
                     process_install_fooocus
@@ -91,14 +91,14 @@ function fooocus_option()
                 create_venv
                 fooocus_option
             elif [ $fooocus_option_dialog = 19 ]; then
-                if (dialog --clear --title "Fooocus管理" --backtitle "Fooocus虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建Fooocus的虚拟环境" 23 70);then
+                if (dialog --clear --title "Fooocus管理" --backtitle "Fooocus虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建Fooocus的虚拟环境" 25 70);then
                     fooocus_venv_rebuild
                 fi
                 fooocus_option
             fi
         fi
     else
-        if (dialog --clear --title "Fooocus管理" --backtitle "Fooocus安装选项" --yes-label "是" --no-label "否" --yesno "检测到当前未安装Fooocus,是否进行安装?" 23 70) then
+        if (dialog --clear --title "Fooocus管理" --backtitle "Fooocus安装选项" --yes-label "是" --no-label "否" --yesno "检测到当前未安装Fooocus,是否进行安装?" 25 70) then
             process_install_fooocus
         fi
     fi
@@ -108,7 +108,7 @@ function fooocus_option()
 #fooocus依赖更新
 function fooocus_update_depend()
 {
-    if (dialog --clear --title "fooocus_option管理" --backtitle "fooocus_option依赖更新选项" --yes-label "是" --no-label "否" --yesno "是否更新fooocus_option的依赖?" 23 70);then
+    if (dialog --clear --title "fooocus_option管理" --backtitle "fooocus_option依赖更新选项" --yes-label "是" --no-label "否" --yesno "是否更新fooocus_option的依赖?" 25 70);then
         #更新前的准备
         proxy_option #代理选择
         pip_install_methon #安装方式选择

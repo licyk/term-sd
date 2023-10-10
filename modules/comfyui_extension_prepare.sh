@@ -7,7 +7,7 @@ function comfyui_extension_option()
     comfyui_extension_install_list=""
 
     comfyui_extension_list=$(
-        dialog --clear --title "Term-SD" --backtitle "ComfyUI插件安装选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "请选择要安装的ComfyUI插件" 23 70 12 \
+        dialog --clear --title "Term-SD" --backtitle "ComfyUI插件安装选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "请选择要安装的ComfyUI插件" 25 70 10 \
         "1" "ComfyUI-extensions" OFF \
         "2" "graphNavigator" OFF \
         3>&1 1>&2 2>&3)
@@ -37,7 +37,7 @@ function comfyui_custom_node_option()
     comfyui_custom_node_extension_model_1="1"
 
     comfyui_custom_node_list=$(
-        dialog --clear --title "Term-SD" --backtitle "ComfyUI自定义节点安装选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "请选择要安装的ComfyUI自定义节点" 23 70 12 \
+        dialog --clear --title "Term-SD" --backtitle "ComfyUI自定义节点安装选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "请选择要安装的ComfyUI自定义节点" 25 70 10 \
         "1" "was-node-suite-comfyui" ON \
         "2" "ComfyUI_Cutoff" OFF \
         "3" "ComfyUI_TiledKSampler" OFF \

@@ -9,7 +9,7 @@ function comfyui_option()
     if [ -d "ComfyUI" ];then
         cd ComfyUI
         comfyui_option_dialog=$(
-            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择ComfyUI管理选项的功能\n当前更新源:$(git remote -v | awk 'NR==1' | awk '{print $2}')" 23 70 12 \
+            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择ComfyUI管理选项的功能\n当前更新源:$(git remote -v | awk 'NR==1' | awk '{print $2}')" 25 70 10 \
             "1" "更新" \
             "2" "卸载" \
             "3" "修复更新" \
@@ -32,13 +32,13 @@ function comfyui_option()
                 term_sd_notice "更新ComfyUI中"
                 git pull
                 if [ $? = 0 ];then
-                    dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI更新结果" --ok-label "确认" --msgbox "ComfyUI更新成功" 23 70
+                    dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI更新结果" --ok-label "确认" --msgbox "ComfyUI更新成功" 25 70
                 else
-                    dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI更新结果" --ok-label "确认" --msgbox "ComfyUI更新失败" 23 70
+                    dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI更新结果" --ok-label "确认" --msgbox "ComfyUI更新失败" 25 70
                 fi
                 comfyui_option
             elif [ $comfyui_option_dialog = 2 ]; then
-                if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI删除选项" --yes-label "是" --no-label "否" --yesno "是否删除ComfyUI?" 23 70) then
+                if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI删除选项" --yes-label "是" --no-label "否" --yesno "是否删除ComfyUI?" 25 70) then
                     term_sd_notice "删除ComfyUI中"
                     exit_venv
                     cd ..
@@ -78,7 +78,7 @@ function comfyui_option()
                 comfyui_update_depend
                 comfyui_option
             elif [ $comfyui_option_dialog = 10 ]; then
-                if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装ComfyUI?" 23 70) then
+                if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装ComfyUI?" 25 70) then
                     cd "$start_path"
                     exit_venv
                     process_install_comfyui
@@ -95,14 +95,14 @@ function comfyui_option()
                 create_venv
                 comfyui_option
             elif [ $comfyui_option_dialog = 19 ]; then
-                if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建ComfyUI的虚拟环境" 23 70);then
+                if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建ComfyUI的虚拟环境" 25 70);then
                     comfyui_venv_rebuild
                 fi
                 comfyui_option
             fi
         fi
     else
-        if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI安装选项" --yes-label "是" --no-label "否" --yesno "检测到当前未安装ComfyUI,是否进行安装?" 23 70) then
+        if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI安装选项" --yes-label "是" --no-label "否" --yesno "检测到当前未安装ComfyUI,是否进行安装?" 25 70) then
             process_install_comfyui
         fi
     fi
@@ -112,7 +112,7 @@ function comfyui_option()
 #comfyui依赖更新功能
 function comfyui_update_depend()
 {
-    if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI依赖更新选项" --yes-label "是" --no-label "否" --yesno "是否更新ComfyUI的依赖?" 23 70);then
+    if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI依赖更新选项" --yes-label "是" --no-label "否" --yesno "是否更新ComfyUI的依赖?" 25 70);then
         #更新前的准备
         proxy_option #代理选择
         pip_install_methon #安装方式选择
