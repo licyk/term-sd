@@ -529,7 +529,7 @@ function set_pip_path()
 #term-sd格式输出信息
 function term_sd_notice()
 {
-    echo "[Term-SD]:: $1 $2 $3 $4 $5 $6 $7 $8 $9"
+    echo "[$(date "+%Y-%m-%d %H:%M:%S")][Term-SD]:: $1 $2 $3 $4 $5 $6 $7 $8 $9"
 }
 
 #终端大小检测

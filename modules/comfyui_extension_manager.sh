@@ -294,6 +294,7 @@ function comfyui_extension_depend_install()
     fi
 }
 
+#comfyui插件/自定义节点依赖一键安装
 function comfyui_extension_depend_install_process()
 {
     print_line_to_shell "$term_sd_manager_info "$comfyui_extension_info_display"依赖一键安装"

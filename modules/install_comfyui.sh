@@ -44,7 +44,7 @@ function process_install_comfyui()
 
         term_sd_notice "下载模型中"
         tmp_enable_proxy #恢复原有的代理,保证能从huggingface下载模型
-        aria2c https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./ComfyUI/models/checkpoints/ -o sd-v1-5.ckpt
+        aria2c $aria2_multi_threaded https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./ComfyUI/models/checkpoints/ -o sd-v1-5.ckpt
 
         if [ $comfyui_custom_node_extension_model_1 = 0 ];then
             term_sd_notice "下载controlnet模型中"

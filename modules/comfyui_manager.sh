@@ -51,12 +51,12 @@ function comfyui_option()
                 term_sd_fix_pointer_offset
                 comfyui_option
             elif [ $comfyui_option_dialog = 4 ]; then
-                export comfyui_extension_info_display=1 #1代表自定义节点，其他数字代表插件
+                export comfyui_extension_info=1 #1代表自定义节点，其他数字代表插件
                 cd custom_nodes
                 comfyui_custom_node_methon
                 comfyui_option
             elif [ $comfyui_option_dialog = 5 ]; then
-                export comfyui_extension_info_display=2
+                export comfyui_extension_info=2
                 cd web/extensions
                 comfyui_extension_methon
                 comfyui_option

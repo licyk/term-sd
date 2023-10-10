@@ -7,8 +7,7 @@ function reinstall_python_packages()
     pip_install_methon #安装方式选择
 
     reinstall_python_packages_names=$(dialog --clear --title "Term-SD" --backtitle ""$term_sd_manager_info" pip软件包重装选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入需要重装的pip软件包名" 23 70 3>&1 1>&2 2>&3)
-
-    if [ ! -z "$(echo $install_python_packages_names | awk '{gsub(/[=+<>]/, "")}1')" ];then
+    if [ ! -z "$(echo $reinstall_python_packages_names | awk '{gsub(/[=+<>]/, "")}1')" ];then
         print_line_to_shell "pip软件包安装"
         enter_venv
         "$pip_cmd" install $reinstall_python_packages_names $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --force-reinstall --default-timeout=100 --retries 5

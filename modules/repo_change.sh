@@ -200,3 +200,18 @@ function lora_scripts_change_repo()
         dialog --clear --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$change_repo_return------------------------------------------------------------------" 23 70
     fi
 }
+
+#Fooocus切换更新源功能
+function fooocus_change_repo()
+{
+    select_repo #选择更新源
+
+    if [ $select_repo_exec = 0 ];then
+        $change_repo_cmd
+        cd "$start_path/Fooocus/repositories/ComfyUI-from-StabilityAI-Official"
+        $change_repo_cmd
+        term_sd_notice "替换结束"
+        print_line_to_shell
+        dialog --clear --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$change_repo_return------------------------------------------------------------------" 23 70
+    fi
+}

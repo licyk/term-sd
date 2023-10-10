@@ -87,7 +87,7 @@ function lora_scripts_option()
                 lora_scripts_update_depend
                 lora_scripts_option
             elif [ $lora_scripts_option_dialog = 8 ]; then
-                if (dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装lora_scripts?" 23 70) then
+                if (dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装lora-scripts?" 23 70) then
                     cd "$start_path"
                     exit_venv
                     process_install_lora_scripts

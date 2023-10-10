@@ -13,9 +13,9 @@ function term_sd_init()
         term_sd_modules_number_=$(( $term_sd_modules_number_ + 1 ))
         source $term_sd_modules
     done
-    printf "[Term-SD]:: 初始化Term-SD完成                               \n"
+    printf "[$(date "+%Y-%m-%d %H:%M:%S")][Term-SD]:: 初始化Term-SD完成                               \n"
     print_line_to_shell
-    echo "[Term-SD]:: 启动Term-SD中"
+    echo "[$(date "+%Y-%m-%d %H:%M:%S")][Term-SD]:: 启动Term-SD中"
     term_sd_version
 }
 

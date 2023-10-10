@@ -118,9 +118,9 @@ function comfyui_manual_launch()
 
     if [ -z $comfyui_manual_launch_parameter ];then
         term_sd_notice "设置启动参数> $comfyui_manual_launch_parameter"
-        echo "launch.py $comfyui_manual_launch_parameter" > term-sd-launch.conf
+        echo "main.py $comfyui_manual_launch_parameter" > term-sd-launch.conf
     else
         term_sd_notice "未输入启动参数,使用默认值>"
-        echo "launch.py" > term-sd-launch.conf
+        echo "main.py" > term-sd-launch.conf
     fi
 }
