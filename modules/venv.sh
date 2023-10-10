@@ -21,7 +21,7 @@ function venv_option()
 function create_venv()
 {
     if [ $venv_active = 0 ];then
-        echo "创建venv虚拟环境"
+        term_sd_notice "创建venv虚拟环境"
         "$python_cmd" -m venv venv 2> /dev/null > /dev/null
     fi
 }
@@ -29,13 +29,13 @@ function create_venv()
 function enter_venv()
 {
     if [ $venv_active = 0 ];then
-        echo "进入venv虚拟环境"
+        term_sd_notice "进入venv虚拟环境"
         if [ -f "./venv/Scripts/activate" ];then #在Windows端的venv目录结构和linux,macos的不同,所以进入虚拟环境的方式有区别
             source ./venv/Scripts/activate > /dev/null
         elif [ -f "./venv/bin/activate" ];then
             source ./venv/bin/activate > /dev/null
         else
-            echo "虚拟环境文件损坏"
+            term_sd_notice "虚拟环境文件损坏"
         fi
     fi
 }
@@ -43,7 +43,7 @@ function enter_venv()
 function exit_venv()
 {
     if which deactivate 2> /dev/null ;then #检测到未退出虚拟环境
-        echo "退出venv虚拟环境"
+        term_sd_notice "退出venv虚拟环境"
         deactivate > /dev/null
     fi
 }
