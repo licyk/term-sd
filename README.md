@@ -139,3 +139,5 @@ update.sh为一键更新sd-webui脚本，用于更新stable diffusion本体和�
 # TODO
 加入fooocus支持  
 加入sd-webui分支切换  
+加入termsd notice
+加入分辨率检测
