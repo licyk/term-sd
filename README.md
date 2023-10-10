@@ -135,6 +135,3 @@ stable diffusion本地部署脚本
 stable-diffusion-webui-install.sh为无github代理的版本  
 stable-diffusion-webui-install-proxy.sh添加了github代理，在国内环境下载更快  
 update.sh为一键更新sd-webui脚本，用于更新stable diffusion本体和插件，请将该脚本放入stable-diffusion-webui目录下再运行
-
-# TODO
-加入sd-webui分支切换  

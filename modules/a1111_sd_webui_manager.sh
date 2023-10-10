@@ -16,11 +16,12 @@ function a1111_sd_webui_option()
             "4" "管理插件" \
             "5" "切换版本" \
             "6" "更新源替换" \
-            "7" "启动" \
-            "8" "更新依赖" \
-            "9" "重新安装" \
-            "10" "重新安装pytorch" \
-            "11" "pip软件包重装" \
+            "7" "分支切换" \
+            "8" "启动" \
+            "9" "更新依赖" \
+            "10" "重新安装" \
+            "11" "重新安装pytorch" \
+            "12" "pip软件包重装" \
             $dialog_recreate_venv_button \
             $dialog_rebuild_venv_button \
             "20" "返回" \
@@ -58,18 +59,23 @@ function a1111_sd_webui_option()
             elif [ $a1111_sd_webui_option_dialog = 6 ]; then
                 a1111_sd_webui_change_repo
                 a1111_sd_webui_option
-            elif [ $a1111_sd_webui_option_dialog = 7 ]; then
-                if [ -f "./term-sd-launch.conf" ]; then #找到启动脚本
-                    a1111_sd_webui_launch
-                else #找不到启动脚本,并启动脚本生成界面
-                    generate_a1111_sd_webui_launch
-                    term_sd_launch
+            elif [ $a1111_sd_webui_option_dialog = 6 ]; then
+                if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui分支切换选项" --yes-label "是" --no-label "否" --yesno "是否切换Stable-Diffusion-Webui分支?" 23 70) then
+                    sd_webui_branch_switch
                 fi
                 a1111_sd_webui_option
             elif [ $a1111_sd_webui_option_dialog = 8 ]; then
-                a1111_sd_webui_update_depend
+                if [ -f "./term-sd-launch.conf" ]; then #找到启动脚本
+                    sd_webui_launch
+                else #找不到启动脚本,并启动脚本生成界面
+                    generate_sd_webui_launch
+                    term_sd_launch
+                fi
                 a1111_sd_webui_option
             elif [ $a1111_sd_webui_option_dialog = 9 ]; then
+                a1111_sd_webui_update_depend
+                a1111_sd_webui_option
+            elif [ $a1111_sd_webui_option_dialog = 10 ]; then
                 if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装A1111-Stable-Diffusion-Webui?" 23 70) then
                     cd "$start_path"
                     exit_venv
@@ -77,10 +83,10 @@ function a1111_sd_webui_option()
                 else
                     a1111_sd_webui_option
                 fi
-            elif [ $a1111_sd_webui_option_dialog = 10 ]; then
+            elif [ $a1111_sd_webui_option_dialog = 11 ]; then
                 pytorch_reinstall
                 a1111_sd_webui_option
-            elif [ $a1111_sd_webui_option_dialog = 11 ]; then
+            elif [ $a1111_sd_webui_option_dialog = 12 ]; then
                 reinstall_python_packages
                 a1111_sd_webui_option
             elif [ $a1111_sd_webui_option_dialog = 18 ]; then
