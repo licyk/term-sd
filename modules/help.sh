@@ -59,7 +59,8 @@ Term-SD是基于终端显示的AI管理器,可以对AI软件进行简单的管�
 1、AUTOMATIC1111-stable-diffusion-webui \n
 2、ComfyUI \n
 3、InvokeAI \n
-4、lora-scripts \n
+4、Fooocus \n
+5、lora-scripts \n
 (AI软件都基于stable-diffusion)\n
 \n
 \n
@@ -148,6 +149,7 @@ pip缓存清理:清理pip在安装软件包后产生的缓存\n
 管理功能:\n
 修复更新:在更新AI软件时出现更新失败时,可使用该功能进行修复\n
 切换版本:对AI软件的版本进行切换\n
+分支切换:切换ai软件的版本分支\n
 更新源切换:切换AI软件的更新源,解决国内网络下载慢的问题\n
 管理插件/自定义节点:对AI软件的插件/自定义节点进行管理\n
 更新依赖:更新ai的python包依赖,一般情况下不需要用到\n
@@ -322,6 +324,20 @@ InvokeAI目录的部分说明(只列举比较重要的):\n
 └── outputs   生成图片的存放位置\n
 \n
 \n
+Fooocus目录的部分说明(只列举比较重要的):\n
+Fooocus\n
+├── launch.py        term-sd启动Fooocus的方法\n
+├── models         模型存放位置\n
+│   ├── checkpoints    大模型存放位置\n
+│   ├── controlnet   controlnet模型存放位置\n
+│   ├── embeddings   embeddings模型存放位置\n
+│   ├── hypernetworks   hypernetworks模型存放位置\n
+│   ├── loras   Lora模型存放位置\n
+│   ├── upscale_models   放大模型存放位置\n
+│   └── vae   VAE模型存放位置\n
+├── output   生成图片的保存位置\n
+\n
+\n
 lora-scripts目录的部分说明(只列举比较重要的):\n
 lora-scripts\n
 ├── gui.py   term-sd启动lora-scripts的方法\n
@@ -467,6 +483,7 @@ ComfyUI_Custom_Nodes_AlekPet:包括姿势,翻译等节点\n
 comfy_controlnet_preprocessors:ComfyUI的ControlNet辅助预处理器\n
 AIGODLIKE-COMFYUI-TRANSLATION:ComfyUI的翻译扩展\n
 stability-ComfyUI-nodes:Stability-AI自定义节点支持\n
+ComfyUI_Fooocus_KSampler:添加fooocus噪声生成器支持\n
 \n
 \n
 " 25 70

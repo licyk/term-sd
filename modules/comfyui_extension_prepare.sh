@@ -78,6 +78,7 @@ function comfyui_custom_node_option()
         "38" "comfyui_controlnet_aux" ON \
         "39" "AIGODLIKE-COMFYUI-TRANSLATION" ON \
         "40" "stability-ComfyUI-nodes" ON \
+        "41" "ComfyUI_Fooocus_KSampler" ON \
         3>&1 1>&2 2>&3)
 
     if [ ! -z "$comfyui_custom_node_list" ]; then
@@ -203,6 +204,9 @@ function comfyui_custom_node_option()
         ;;
         "40")
         comfyui_custom_node_install_list="https://github.com/Stability-AI/stability-ComfyUI-nodes $comfyui_custom_node_install_list"
+        ;;
+        "41")
+        comfyui_custom_node_install_list="https://github.com/hustille/ComfyUI_Fooocus_KSampler $comfyui_custom_node_install_list"
         ;;
         *)
         exit 1

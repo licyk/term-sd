@@ -12,14 +12,15 @@ function mainmenu()
         "1" "AUTOMATIC1111-stable-diffusion-webui管理" \
         "2" "ComfyUI管理" \
         "3" "InvokeAI管理" \
-        "4" "lora-scripts管理" \
-        "5" "venv虚拟环境设置" \
-        "6" "pip镜像源设置" \
-        "7" "pip缓存清理" \
-        "8" "代理设置" \
-        "9" "空间占用分析" \
-        "10" "帮助" \
-        "11" "退出" \
+        "4" "Fooocus管理" \
+        "5" "lora-scripts管理" \
+        "6" "venv虚拟环境设置" \
+        "7" "pip镜像源设置" \
+        "8" "pip缓存清理" \
+        "9" "代理设置" \
+        "10" "空间占用分析" \
+        "11" "帮助" \
+        "12" "退出" \
         3>&1 1>&2 2>&3 )
 
     if [ $? = 0  ];then #选择确认
@@ -31,21 +32,23 @@ function mainmenu()
             comfyui_option
         elif [ $mainmenu_dialog = 3 ]; then #选择InvokeAI
             invokeai_option
-        elif [ $mainmenu_dialog = 4 ]; then #选择lora-scripts
+        elif [ $mainmenu_dialog = 4 ]; then #选择fooocus
+            fooocus_option
+        elif [ $mainmenu_dialog = 5 ]; then #选择lora-scripts
             lora_scripts_option
-        elif [ $mainmenu_dialog = 5 ]; then #选择venv虚拟环境配置
+        elif [ $mainmenu_dialog = 6 ]; then #选择venv虚拟环境配置
             venv_option
-        elif [ $mainmenu_dialog = 6 ]; then #选择pip镜像源
+        elif [ $mainmenu_dialog = 7 ]; then #选择pip镜像源
             set_pip_mirrors_option
-        elif [ $mainmenu_dialog = 7 ]; then #选择pip缓存清理
+        elif [ $mainmenu_dialog = 8 ]; then #选择pip缓存清理
             pip_cache_clean
-        elif [ $mainmenu_dialog == 8 ]; then #选择代理选项
-            set_proxy_option
         elif [ $mainmenu_dialog = 9 ]; then #选择代理选项
+            set_proxy_option
+        elif [ $mainmenu_dialog = 10 ]; then #选择代理选项
             disk_space_stat
-        elif [ $mainmenu_dialog = 10 ]; then #选择帮助
+        elif [ $mainmenu_dialog = 11 ]; then #选择帮助
             help_option
-        elif [ $mainmenu_dialog = 11 ]; then #选择退出
+        elif [ $mainmenu_dialog = 12 ]; then #选择退出
             print_line_to_shell
             term_sd_notice "退出Term-SD"
             exit 1

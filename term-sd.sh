@@ -526,7 +526,7 @@ function set_pip_path()
     fi
 }
 
-#term-sd格式输出信息
+#term-sd格式化输出信息
 function term_sd_notice()
 {
     echo "[$(date "+%Y-%m-%d %H:%M:%S")][Term-SD]:: $1 $2 $3 $4 $5 $6 $7 $8 $9"
@@ -538,7 +538,7 @@ function terminal_size_test()
     shellwidth=$(stty size | awk '{print $2}') #获取终端宽度，推荐85
     shellheight=$(stty size | awk '{print $1}') #获取终端高度，推荐35
     term_sd_notice "当前终端大小: $shellheight x $shellwidth"
-    if [ $shellheight -lt 35 ] || [ $shellwidth -lt 85 ];then
+    if [ $shellheight -lt 30 ] || [ $shellwidth -lt 75 ];then
         term_sd_notice "检测到终端大小过小"
         term_sd_notice "为了防止界面显示不全,建议调大终端大小"
         sleep 3
