@@ -6,7 +6,7 @@ function change_repo_to_proxy()
     repo_remote_address=$(git remote -v | awk 'NR==1' | awk '{print $2}') #获取项目远程地址
     if [ ! -z $(echo $repo_remote_address | grep github.com) ];then #检测到属于github的地址再执行操作
         if [ -z $(echo $repo_remote_address | grep ghproxy.com) ];then
-            echo "替换$(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源为镜像源"
+            term_sd_notice "替换$(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源为镜像源"
             repo_remote_address="https://ghproxy.com/$repo_remote_address"
             git remote set-url origin $repo_remote_address
             if [ $? = 0 ];then
@@ -15,11 +15,11 @@ function change_repo_to_proxy()
                 change_repo_return="$change_repo_return $(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源替换失败\n"
             fi
         else
-            echo "$(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源无需替换"
+            term_sd_notice "$(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源无需替换"
             change_repo_return="$change_repo_return $(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源无需替换\n"
         fi
     else
-        echo "$(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源非github地址,不执行替换"
+        term_sd_notice "$(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源非github地址,不执行替换"
         change_repo_return="$change_repo_return $(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源非github地址,无需替换\n"
     fi
 }
@@ -30,7 +30,7 @@ function change_repo_to_origin()
     repo_remote_address=$(git remote -v | awk 'NR==1' | awk '{print $2}') #获取项目远程地址
     if [ ! -z $(echo $repo_remote_address | grep github.com) ];then
         if [ ! -z $(echo $repo_remote_address | grep ghproxy.com) ];then
-            echo "替换$(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源为官方源"
+            term_sd_notice "替换$(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源为官方源"
             repo_remote_address=$(echo $repo_remote_address | awk '{sub("https://ghproxy.com/","")}1') #使用awk的替换功能将"https://ghproxy.com/"字段替换成空字符
             git remote set-url origin $repo_remote_address
             if [ $? = 0 ];then
@@ -39,11 +39,11 @@ function change_repo_to_origin()
                 change_repo_return="$change_repo_return $(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源替换失败\n"
             fi
         else
-            echo "$(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源无需替换"
+            term_sd_notice "$(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源无需替换"
             change_repo_return="$change_repo_return $(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源无需替换\n"
         fi
     else
-        echo "$(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源非github地址,不执行替换"
+        term_sd_notice "$(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源非github地址,不执行替换"
         change_repo_return="$change_repo_return $(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源非github地址,无需替换\n"
     fi
 }
@@ -63,7 +63,7 @@ function select_repo()
         return_dialog_panel="mainmenu"
     fi
 
-    select_repo_=$(dialog --clear --title "Term-SD" --backtitle "更新源选择界面" --ok-label "确认" --cancel-label "取消" --menu "选择要修改成的更新源\n当前将要修改更新源的AI软件:$term_sd_manager_info" 23 70 12 \
+    select_repo_=$(dialog --clear --title "Term-SD" --backtitle "更新源选择界面" --ok-label "确认" --cancel-label "取消" --menu "选择要修改成的更新源\n当前将要修改更新源的AI软件:$term_sd_manager_info" 25 70 10 \
         "1" "官方源" \
         "2" "镜像源" \
         "3" "返回" \
@@ -88,7 +88,7 @@ function select_repo()
 function select_repo_single()
 {
     change_repo_return="" #清除上次运行结果
-    select_repo_single_=$(dialog --clear --title "Term-SD" --backtitle "更新源选择界面" --ok-label "确认" --cancel-label "取消" --menu "选择要修改成的更新源\n当前更新源:$(git remote -v | awk 'NR==1' | awk '{print $2}')" 23 70 12 \
+    select_repo_single_=$(dialog --clear --title "Term-SD" --backtitle "更新源选择界面" --ok-label "确认" --cancel-label "取消" --menu "选择要修改成的更新源\n当前更新源:$(git remote -v | awk 'NR==1' | awk '{print $2}')" 25 70 10 \
         "1" "官方源" \
         "2" "镜像源" \
         "3" "返回" \
@@ -97,10 +97,10 @@ function select_repo_single()
     if [ $? = 0 ];then
         if [ $select_repo_single_ = 1 ];then
             change_repo_to_origin
-            dialog --clear --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$change_repo_return------------------------------------------------------------------" 23 70
+            dialog --clear --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$change_repo_return------------------------------------------------------------------" 25 70
         elif [ $select_repo_single_ = 2 ];then
             change_repo_to_proxy
-            dialog --clear --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$change_repo_return------------------------------------------------------------------" 23 70
+            dialog --clear --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$change_repo_return------------------------------------------------------------------" 25 70
         fi
     fi
 }
@@ -137,9 +137,9 @@ function a1111_sd_webui_change_repo()
             fi
         done
 
-        echo "替换结束"
+        term_sd_notice "替换结束"
         print_line_to_shell
-        dialog --clear --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$change_repo_return------------------------------------------------------------------" 23 70
+        dialog --clear --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$change_repo_return------------------------------------------------------------------" 25 70
     fi
 }
 
@@ -177,9 +177,9 @@ function comfyui_change_repo()
             fi
         done
 
-        echo "替换结束"
+        term_sd_notice "替换结束"
         print_line_to_shell
-        dialog --clear --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$change_repo_return------------------------------------------------------------------" 23 70
+        dialog --clear --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$change_repo_return------------------------------------------------------------------" 25 70
     fi
 
 }
@@ -195,8 +195,23 @@ function lora_scripts_change_repo()
         $change_repo_cmd
         cd "$start_path/lora-scripts/sd-scripts"
         $change_repo_cmd
-        echo "替换结束"
+        term_sd_notice "替换结束"
         print_line_to_shell
-        dialog --clear --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$change_repo_return------------------------------------------------------------------" 23 70
+        dialog --clear --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$change_repo_return------------------------------------------------------------------" 25 70
+    fi
+}
+
+#Fooocus切换更新源功能
+function fooocus_change_repo()
+{
+    select_repo #选择更新源
+
+    if [ $select_repo_exec = 0 ];then
+        $change_repo_cmd
+        cd "$start_path/Fooocus/repositories/ComfyUI-from-StabilityAI-Official"
+        $change_repo_cmd
+        term_sd_notice "替换结束"
+        print_line_to_shell
+        dialog --clear --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$change_repo_return------------------------------------------------------------------" 25 70
     fi
 }

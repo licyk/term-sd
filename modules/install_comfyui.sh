@@ -14,10 +14,10 @@ function process_install_comfyui()
     if [ $final_install_check_exec = 0 ];then
         #开始安装comfyui
         print_line_to_shell "ComfyUI 安装"
-        echo "开始安装ComfyUI"
+        term_sd_notice "开始安装ComfyUI"
         tmp_disable_proxy #临时取消代理,避免一些不必要的网络减速
         git clone "$github_proxy"https://github.com/comfyanonymous/ComfyUI
-        [ ! -d "./$term_sd_manager_info" ] && echo "检测到"$term_sd_manager_info"框架安装失败,已终止安装进程" && sleep 3 && return 1 #防止继续进行安装导致文件散落,造成目录混乱
+        [ ! -d "./$term_sd_manager_info" ] && term_sd_notice "检测到"$term_sd_manager_info"框架安装失败,已终止安装进程" && sleep 3 && return 1 #防止继续进行安装导致文件散落,造成目录混乱
         cd ./ComfyUI
         create_venv
         enter_venv
@@ -29,25 +29,25 @@ function process_install_comfyui()
         "$pip_cmd" install -r ./ComfyUI/requirements.txt  --prefer-binary $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
 
         if [ ! -z "$comfyui_extension_install_list" ];then
-            echo "安装插件中"
+            term_sd_notice "安装插件中"
             for comfyui_extension_install_list_ in $comfyui_extension_install_list ;do
                 git clone --recurse-submodules "$github_proxy"$comfyui_extension_install_list_ ./ComfyUI/web/extensions/$(echo $comfyui_extension_install_list_ | awk -F'/' '{print $NF}')
             done
         fi
 
         if [ ! -z "$comfyui_custom_node_install_list" ];then
-            echo "安装自定义节点中"
+            term_sd_notice "安装自定义节点中"
             for comfyui_custom_node_install_list_ in $comfyui_custom_node_install_list ;do
                 git clone --recurse-submodules "$github_proxy"$comfyui_custom_node_install_list_ ./ComfyUI/custom_nodes/$(echo $comfyui_custom_node_install_list_ | awk -F'/' '{print $NF}')
             done
         fi
 
-        echo "下载模型中"
+        term_sd_notice "下载模型中"
         tmp_enable_proxy #恢复原有的代理,保证能从huggingface下载模型
-        aria2c https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./ComfyUI/models/checkpoints/ -o sd-v1-5.ckpt
+        aria2c $aria2_multi_threaded https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./ComfyUI/models/checkpoints/ -o sd-v1-5.ckpt
 
         if [ $comfyui_custom_node_extension_model_1 = 0 ];then
-            echo "下载controlnet模型中"
+            term_sd_notice "下载controlnet模型中"
             aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11e_sd15_ip2p_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11e_sd15_ip2p_fp16.safetensors
             aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11e_sd15_shuffle_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11e_sd15_shuffle_fp16.safetensors
             aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_canny_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11p_sd15_canny_fp16.safetensors
@@ -97,7 +97,7 @@ function process_install_comfyui()
             aria2c $aria2_multi_threaded https://huggingface.co/h94/IP-Adapter/resolve/main/models/ip-adapter_sd15.bin -d ./ComfyUI/models/controlnet -o ip-adapter_sd15.pth
             aria2c $aria2_multi_threaded https://huggingface.co/h94/IP-Adapter/resolve/main/models/ip-adapter_sd15_light.bin -d ./ComfyUI/models/controlnet -o ip-adapter_sd15_light.pth
         fi
-        echo "安装结束"
+        term_sd_notice "安装结束"
         exit_venv
         print_line_to_shell
         comfyui_option

@@ -5,7 +5,7 @@
 #帮助选择
 function help_option()
 {
-    help_option_select=$(dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --cancel-label "取消" --menu "请选择帮助" 23 70 12 \
+    help_option_dialog=$(dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --cancel-label "取消" --menu "请选择帮助" 25 70 10 \
         "1" "关于Term-SD" \
         "2" "使用说明" \
         "3" "Term-SD功能说明" \
@@ -18,31 +18,31 @@ function help_option()
         3>&1 1>&2 2>&3 )
 
     if [ $? = 0 ];then
-        if [ $help_option_select = 1 ];then
+        if [ $help_option_dialog = 1 ];then
             help_option_1
             help_option
-        elif [ $help_option_select = 2 ];then
+        elif [ $help_option_dialog = 2 ];then
             help_option_2
             help_option
-        elif [ $help_option_select = 3 ];then
+        elif [ $help_option_dialog = 3 ];then
             help_option_3
             help_option
-        elif [ $help_option_select = 4 ];then
+        elif [ $help_option_dialog = 4 ];then
             help_option_4
             help_option
-        elif [ $help_option_select = 5 ];then
+        elif [ $help_option_dialog = 5 ];then
             help_option_5
             help_option
-        elif [ $help_option_select = 6 ];then
+        elif [ $help_option_dialog = 6 ];then
             help_option_6
             help_option
-        elif [ $help_option_select = 7 ];then
+        elif [ $help_option_dialog = 7 ];then
             help_option_7
             help_option
-        elif [ $help_option_select = 8 ];then
+        elif [ $help_option_dialog = 8 ];then
             help_option_8
             help_option
-        elif [ $help_option_select = 9 ];then
+        elif [ $help_option_dialog = 9 ];then
             mainmenu
         fi
     else
@@ -59,7 +59,8 @@ Term-SD是基于终端显示的AI管理器,可以对AI软件进行简单的管�
 1、AUTOMATIC1111-stable-diffusion-webui \n
 2、ComfyUI \n
 3、InvokeAI \n
-4、lora-scripts \n
+4、Fooocus \n
+5、lora-scripts \n
 (AI软件都基于stable-diffusion)\n
 \n
 \n
@@ -75,7 +76,7 @@ https://www.bilibili.com/read/cv22159609\n
 https://licyk.netlify.app/2023/08/01/stable-diffusion-tutorial\n
 \n
 \n
-" 23 70
+" 25 70
 }
 
 #使用说明
@@ -113,7 +114,7 @@ function help_option_2()
 16、在代理选项中\"huggingface独占代理\"可在安装过程中单独为从huggingface中下载模型时单独启用代理,保证安装速度,因为除了从huggingface下载模型的过程之外,其他下载过程可以不走代理进行下载(注:在使用驱动模式或者TUN模式的代理软件时,该功能无效,因为代理软件会强制让所有网络流量走代理)\n
 17、一般在安装时,一路回车保持默认值也可以安装\n
 \n
-" 23 70
+" 25 70
 }
 
 #term-sd功能介绍
@@ -148,6 +149,7 @@ pip缓存清理:清理pip在安装软件包后产生的缓存\n
 管理功能:\n
 修复更新:在更新AI软件时出现更新失败时,可使用该功能进行修复\n
 切换版本:对AI软件的版本进行切换\n
+分支切换:切换ai软件的版本分支\n
 更新源切换:切换AI软件的更新源,解决国内网络下载慢的问题\n
 管理插件/自定义节点:对AI软件的插件/自定义节点进行管理\n
 更新依赖:更新ai的python包依赖,一般情况下不需要用到\n
@@ -164,7 +166,7 @@ huggingface独占代理:仅在下载huggingface上的模型时使用代理,且�
 标准构建安装(--use-pep517):使用编译安装方式(有时可以解决python软件包安装失败的问题。在InvokeAI官方文档中,安装时推荐使用该模式,实际上用常规安装也可以)\n
 \n
 \n
-" 23 70
+" 25 70
 }
 
 #启动参数说明
@@ -240,7 +242,7 @@ no-internet_available:禁用联网下载资源\n
 host:允许局域网的设备访问\n
 \n
 \n
-" 23 70
+" 25 70
 }
 
 #目录说明
@@ -322,6 +324,20 @@ InvokeAI目录的部分说明(只列举比较重要的):\n
 └── outputs   生成图片的存放位置\n
 \n
 \n
+Fooocus目录的部分说明(只列举比较重要的):\n
+Fooocus\n
+├── launch.py        term-sd启动Fooocus的方法\n
+├── models         模型存放位置\n
+│   ├── checkpoints    大模型存放位置\n
+│   ├── controlnet   controlnet模型存放位置\n
+│   ├── embeddings   embeddings模型存放位置\n
+│   ├── hypernetworks   hypernetworks模型存放位置\n
+│   ├── loras   Lora模型存放位置\n
+│   ├── upscale_models   放大模型存放位置\n
+│   └── vae   VAE模型存放位置\n
+├── output   生成图片的保存位置\n
+\n
+\n
 lora-scripts目录的部分说明(只列举比较重要的):\n
 lora-scripts\n
 ├── gui.py   term-sd启动lora-scripts的方法\n
@@ -331,7 +347,7 @@ lora-scripts\n
 └── toml   保存的训练参数存放位置\n
 \n
 \n
-" 23 70
+" 25 70
 }
 
 #扩展脚本说明
@@ -343,7 +359,7 @@ sd-webui-extension:安装sd-webui的插件\n
 comfyui-extension:安装ComfyUI的插件\n
 \n
 \n
-" 23 70
+" 25 70
 }
 
 #AUTOMATIC1111-stable-diffusion-webui插件说明
@@ -413,7 +429,7 @@ openOutpaint-webUI-extension:提供类似InvokeAI的统一画布的功能\n
 sd-webui-EasyPhoto:以简单的操作生成自己的ai人像\n
 \n
 \n
-" 23 70
+" 25 70
 }
 
 #ComfyUI插件/自定义节点说明
@@ -467,7 +483,8 @@ ComfyUI_Custom_Nodes_AlekPet:包括姿势,翻译等节点\n
 comfy_controlnet_preprocessors:ComfyUI的ControlNet辅助预处理器\n
 AIGODLIKE-COMFYUI-TRANSLATION:ComfyUI的翻译扩展\n
 stability-ComfyUI-nodes:Stability-AI自定义节点支持\n
+ComfyUI_Fooocus_KSampler:添加fooocus噪声生成器支持\n
 \n
 \n
-" 23 70
+" 25 70
 }

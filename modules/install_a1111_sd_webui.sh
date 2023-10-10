@@ -13,10 +13,10 @@ function process_install_a1111_sd_webui()
     if [ $final_install_check_exec = 0 ];then
         #开始安装
         print_line_to_shell "stable-diffusion-webui 安装"
-        echo "开始安装stable-diffusion-webui"
+        term_sd_notice "开始安装stable-diffusion-webui"
         tmp_disable_proxy #临时取消代理,避免一些不必要的网络减速
         git clone "$github_proxy"https://github.com/AUTOMATIC1111/stable-diffusion-webui
-        [ ! -d "./$term_sd_manager_info" ] && echo "检测到"$term_sd_manager_info"框架安装失败,已终止安装进程" && sleep 3 && return 1 #防止继续进行安装导致文件散落,造成目录混乱
+        [ ! -d "./$term_sd_manager_info" ] && term_sd_notice "检测到"$term_sd_manager_info"框架安装失败,已终止安装进程" && sleep 3 && return 1 #防止继续进行安装导致文件散落,造成目录混乱
         cd ./stable-diffusion-webui
         create_venv
         enter_venv
@@ -40,7 +40,7 @@ function process_install_a1111_sd_webui()
         "$pip_cmd" install -r ./stable-diffusion-webui/repositories/CodeFormer/requirements.txt --prefer-binary $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
         "$pip_cmd" install -r ./stable-diffusion-webui/requirements.txt --prefer-binary $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5 #安装stable-diffusion-webui的依赖
 
-        echo "生成配置中"
+        term_sd_notice "生成配置中"
         echo "{" > config-for-sd-webui.json
         echo "    \"quicksettings_list\": [" >> config-for-sd-webui.json
         echo "        \"sd_model_checkpoint\"," >> config-for-sd-webui.json
@@ -56,13 +56,13 @@ function process_install_a1111_sd_webui()
         mv -f ./stable-diffusion-webui/config-for-sd-webui.json ./stable-diffusion-webui/config.json
 
         if [ ! -z "$a1111_sd_webui_extension_install_list" ];then
-            echo "安装插件中"
+            term_sd_notice "安装插件中"
             for  a1111_sd_webui_extension_install_list_ in $a1111_sd_webui_extension_install_list ;do
                 git clone --recurse-submodules "$github_proxy"$a1111_sd_webui_extension_install_list_ ./stable-diffusion-webui/extensions/$(echo $a1111_sd_webui_extension_install_list_ | awk -F'/' '{print $NF}')
             done
         fi
 
-        echo "下载模型中"
+        term_sd_notice "下载模型中"
         tmp_enable_proxy #恢复原有的代理,保证能从huggingface下载模型
         aria2c $aria2_multi_threaded https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./stable-diffusion-webui/models/Stable-diffusion -o sd-v1-5.ckpt
         aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x-UltraSharp.pth -d ./stable-diffusion-webui/models/ESRGAN -o 4x-UltraSharp.pth
@@ -158,7 +158,7 @@ function process_install_a1111_sd_webui()
             aria2c $aria2_multi_threaded https://huggingface.co/guoyww/animatediff/resolve/main/mm_sd_v15_v2.ckpt -d ./stable-diffusion-webui/extensions/sd-webui-animatediff/model -o mm_sd_v15_v2.ckpt
         fi
 
-        echo "安装结束"
+        term_sd_notice "安装结束"
         exit_venv
         print_line_to_shell
         a1111_sd_webui_option

@@ -6,53 +6,56 @@ function mainmenu()
     export term_sd_manager_info=""
     cd "$start_path" #回到最初路径
     exit_venv #确保进行下一步操作前已退出其他虚拟环境
-    mainmenu_=$(
-        dialog --clear --title "Term-SD" --backtitle "主界面" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的功能\n当前虚拟环境状态:$([ $venv_active = 0 ] && echo "启用" || echo "禁用")\n当前代理设置:$([ -z $http_proxy ] && echo "无" || echo $http_proxy)" 23 70 12 \
+    mainmenu_dialog=$(
+        dialog --clear --title "Term-SD" --backtitle "主界面" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的功能\n当前虚拟环境状态:$([ $venv_active = 0 ] && echo "启用" || echo "禁用")\n当前代理设置:$([ -z $http_proxy ] && echo "无" || echo $http_proxy)" 25 70 10 \
         "0" "Term-SD更新管理" \
         "1" "AUTOMATIC1111-stable-diffusion-webui管理" \
         "2" "ComfyUI管理" \
         "3" "InvokeAI管理" \
-        "4" "lora-scripts管理" \
-        "5" "venv虚拟环境设置" \
-        "6" "pip镜像源设置" \
-        "7" "pip缓存清理" \
-        "8" "代理设置" \
-        "9" "空间占用分析" \
-        "10" "帮助" \
-        "11" "退出" \
+        "4" "Fooocus管理" \
+        "5" "lora-scripts管理" \
+        "6" "venv虚拟环境设置" \
+        "7" "pip镜像源设置" \
+        "8" "pip缓存清理" \
+        "9" "代理设置" \
+        "10" "空间占用分析" \
+        "11" "帮助" \
+        "12" "退出" \
         3>&1 1>&2 2>&3 )
 
     if [ $? = 0  ];then #选择确认
-        if [ $mainmenu_ = 0 ]; then #选择Term-SD更新
+        if [ $mainmenu_dialog = 0 ]; then #选择Term-SD更新
             term_sd_update_option
-        elif [ $mainmenu_ = 1 ]; then #选择AUTOMATIC1111-stable-diffusion-webui
+        elif [ $mainmenu_dialog = 1 ]; then #选择AUTOMATIC1111-stable-diffusion-webui
             a1111_sd_webui_option
-        elif [ $mainmenu_ = 2 ]; then #选择ComfyUI
+        elif [ $mainmenu_dialog = 2 ]; then #选择ComfyUI
             comfyui_option
-        elif [ $mainmenu_ = 3 ]; then #选择InvokeAI
+        elif [ $mainmenu_dialog = 3 ]; then #选择InvokeAI
             invokeai_option
-        elif [ $mainmenu_ = 4 ]; then #选择lora-scripts
+        elif [ $mainmenu_dialog = 4 ]; then #选择fooocus
+            fooocus_option
+        elif [ $mainmenu_dialog = 5 ]; then #选择lora-scripts
             lora_scripts_option
-        elif [ $mainmenu_ = 5 ]; then #选择venv虚拟环境配置
+        elif [ $mainmenu_dialog = 6 ]; then #选择venv虚拟环境配置
             venv_option
-        elif [ $mainmenu_ = 6 ]; then #选择pip镜像源
+        elif [ $mainmenu_dialog = 7 ]; then #选择pip镜像源
             set_pip_mirrors_option
-        elif [ $mainmenu_ = 7 ]; then #选择pip缓存清理
+        elif [ $mainmenu_dialog = 8 ]; then #选择pip缓存清理
             pip_cache_clean
-        elif [ $mainmenu_ == 8 ]; then #选择代理选项
+        elif [ $mainmenu_dialog = 9 ]; then #选择代理选项
             set_proxy_option
-        elif [ $mainmenu_ = 9 ]; then #选择代理选项
+        elif [ $mainmenu_dialog = 10 ]; then #选择代理选项
             disk_space_stat
-        elif [ $mainmenu_ = 10 ]; then #选择帮助
+        elif [ $mainmenu_dialog = 11 ]; then #选择帮助
             help_option
-        elif [ $mainmenu_ = 11 ]; then #选择退出
+        elif [ $mainmenu_dialog = 12 ]; then #选择退出
             print_line_to_shell
-            echo "退出Term-SD"
+            term_sd_notice "退出Term-SD"
             exit 1
         fi
     else #选择取消
         print_line_to_shell
-        echo "退出Term-SD"
+        term_sd_notice "退出Term-SD"
         exit 1
     fi
 }
@@ -87,6 +90,6 @@ dialog:$(dialog --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
 \n
 提示: \n
 使用方向键、Tab键移动光标,方向键翻页(鼠标滚轮无法翻页),Enter进行选择,Space键勾选或取消勾选,(已勾选时显示[*]),Ctrl+Shift+V粘贴文本,Ctrl+C可中断指令的运行,鼠标左键可点击按钮(右键无效)\n
-第一次使用Term-SD时先在主界面选择“帮助”查看使用说明,参数说明和注意的地方,内容不定期更新" 23 70
+第一次使用Term-SD时先在主界面选择“帮助”查看使用说明,参数说明和注意的地方,内容不定期更新" 25 70
     mainmenu
 }
