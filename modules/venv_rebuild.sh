@@ -12,10 +12,10 @@ function a1111_sd_webui_venv_rebuild()
     if [ $final_install_check_exec = 0 ];then
         print_line_to_shell "$term_sd_manager_info 虚拟环境重建"
         tmp_disable_proxy
-        echo "开始重构虚拟环境"
-        echo "删除原有虚拟环境中"
+        term_sd_notice "开始重构虚拟环境"
+        term_sd_notice "删除原有虚拟环境中"
         rm -rf ./venv
-        echo "删除完成"
+        term_sd_notice "删除完成"
         create_venv
         enter_venv
 
@@ -24,7 +24,7 @@ function a1111_sd_webui_venv_rebuild()
         "$pip_cmd" install -r ./repositories/CodeFormer/requirements.txt --prefer-binary $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
         "$pip_cmd" install -r ./requirements.txt --prefer-binary $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5 #安装stable-diffusion-webui的依赖
 
-        echo "重构结束"
+        term_sd_notice "重构结束"
         exit_venv
         tmp_enable_proxy
         print_line_to_shell
@@ -43,17 +43,17 @@ function comfyui_venv_rebuild()
     if [ $final_install_check_exec = 0 ];then
         print_line_to_shell "$term_sd_manager_info 虚拟环境重建"
         tmp_disable_proxy
-        echo "开始重构虚拟环境"
-        echo "删除原有虚拟环境中"
+        term_sd_notice "开始重构虚拟环境"
+        term_sd_notice "删除原有虚拟环境中"
         rm -rf ./venv
-        echo "删除完成"
+        term_sd_notice "删除完成"
         create_venv
         enter_venv
 
         "$pip_cmd" install $pytorch_install_version $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
         "$pip_cmd" install -r ./requirements.txt  --prefer-binary $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
 
-        echo "重构结束"
+        term_sd_notice "重构结束"
         exit_venv
         tmp_enable_proxy
         print_line_to_shell
@@ -72,16 +72,16 @@ function invokeai_venv_rebuild()
     if [ $final_install_check_exec = 0 ];then
         print_line_to_shell "$term_sd_manager_info 虚拟环境重建"
         tmp_disable_proxy
-        echo "开始重构虚拟环境"
-        echo "删除原有虚拟环境中"
+        term_sd_notice "开始重构虚拟环境"
+        term_sd_notice "删除原有虚拟环境中"
         rm -rf ./venv
-        echo "删除完成"
+        term_sd_notice "删除完成"
         create_venv
         enter_venv
 
         "$pip_cmd" install invokeai $pytorch_install_version $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
 
-        echo "重构结束"
+        term_sd_notice "重构结束"
         exit_venv
         tmp_enable_proxy
         print_line_to_shell
@@ -100,10 +100,10 @@ function lora_scripts_venv_rebuild()
     if [ $final_install_check_exec = 0 ];then
         print_line_to_shell "$term_sd_manager_info 虚拟环境重建"
         tmp_disable_proxy
-        echo "开始重构虚拟环境"
-        echo "删除原有虚拟环境中"
+        term_sd_notice "开始重构虚拟环境"
+        term_sd_notice "删除原有虚拟环境中"
         rm -rf ./venv
-        echo "删除完成"
+        term_sd_notice "删除完成"
         create_venv
         enter_venv
 
@@ -114,7 +114,7 @@ function lora_scripts_venv_rebuild()
         "$pip_cmd" install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --upgrade lion-pytorch dadaptation prodigyopt lycoris-lora fastapi uvicorn wandb scipy --default-timeout=100 --retries 5
         "$pip_cmd" install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --upgrade -r requirements.txt --default-timeout=100 --retries 5 #lora-scripts安装依赖
 
-        echo "重构结束"
+        term_sd_notice "重构结束"
         exit_venv
         tmp_enable_proxy
         print_line_to_shell

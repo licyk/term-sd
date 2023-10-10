@@ -7,7 +7,7 @@ function term_sd_process_user_input()
         case $term_sd_launch_input in
         "--help")
         echo
-        echo "启动参数使用方法:"
+        term_sd_notice "启动参数使用方法:"
         echo "  term-sd.sh [--help] [--extra] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-proxy] [--quick-cmd] [--set-python-path] [--set-pip-path] [--unset-python-path] [--unset-pip-path]"
         echo "选项:"
         echo "  --help"
@@ -47,40 +47,40 @@ function term_sd_process_user_input()
         exit 1
         ;;
         "--multi-threaded-download")
-        echo "安装过程中启用多线程下载模型"
+        term_sd_notice "安装过程中启用多线程下载模型"
         export aria2_multi_threaded="-x 8"
         ;;
         "--enable-auto-update")
-        echo "启用Term-SD自动检查更新功能"
+        term_sd_notice "启用Term-SD自动检查更新功能"
         touch ./term-sd/term-sd-auto-update.lock
         ;;
         "--disable-auto-update")
-        echo "禁用Term-SD自动检查更新功能"
+        term_sd_notice "禁用Term-SD自动检查更新功能"
         rm -rf ./term-sd/term-sd-auto-update.lock
         rm -rf ./term-sd/term-sd-auto-update-time.conf
         ;;
         "--test-proxy")
         if which curl > /dev/null;then
             print_line_to_shell "测试网络环境"
-            echo "获取网络信息"
+            term_sd_notice "获取网络信息"
             curl ipinfo.io
             if [ $? = 0 ];then
                 echo
-                echo "网络连接正常"
-                echo "测试google访问情况"
+                term_sd_notice "网络连接正常"
+                term_sd_notice "测试google访问情况"
                 curl google.com
                 if [ $? = 0 ];then
-                    echo "访问正常"
+                    term_sd_notice "访问正常"
                 else
-                    echo "无法访问"
+                    term_sd_notice "无法访问"
                 fi
 	    else
-                echo "网络连接异常"
+                term_sd_notice "网络连接异常"
             fi
             print_line_to_shell
             sleep 3
         else
-            echo "未安装curl,无法测试代理"
+            term_sd_notice "未安装curl,无法测试代理"
         fi
         ;;
         "--extra")
@@ -142,15 +142,15 @@ function term_sd_auto_update_trigger()
 #term-sd自动更新功能
 function term_sd_auto_update()
 {
-    echo "检查更新中"
+    term_sd_notice "检查更新中"
     term_sd_local_branch=$(git --git-dir="./term-sd/.git" branch | grep \* | awk -F "* " '{print $NF}') #term-sd分支
     term_sd_local_hash=$(git --git-dir="./term-sd/.git" rev-parse HEAD) #term-sd本地hash
     term_sd_remote_hash=$(git --git-dir="./term-sd/.git" ls-remote origin refs/remotes/origin/$term_sd_local_branch $term_sd_local_branch | awk '{print $1}') #term-sd远程hash
     if git --git-dir="./term-sd/.git" ls-remote origin refs/remotes/origin/$term_sd_local_branch $term_sd_local_branch 2> /dev/null 1> /dev/null ;then #网络连接正常时再进行更新
         if [ ! $term_sd_local_hash = $term_sd_remote_hash ];then
             term_sd_auto_update_option=""
-            echo "检测到term-sd有新版本"
-            echo "是否选择更新(yes/no)?"
+            term_sd_notice "检测到term-sd有新版本"
+            term_sd_notice "是否选择更新(yes/no)?"
             echo "提示:输入yes或no后回车"
             read -p "==>" term_sd_auto_update_option
             if [ ! -z $term_sd_auto_update_option ];then
@@ -163,17 +163,17 @@ function term_sd_auto_update()
                     if [ $git_pull_info = 0 ];then
                         cp -f ./term-sd/term-sd.sh .
                         chmod +x ./term-sd.sh
-                        echo "更新成功"
+                        term_sd_notice "更新成功"
                     else
                         term_sd_update_fix
                     fi
                 fi
             fi
         else
-            echo "已经是最新版本"
+            term_sd_notice "已经是最新版本"
         fi
     else
-        echo "连接更新源失败,跳过更新"
+        term_sd_notice "连接更新源失败,跳过更新"
         echo "提示:请检查网络连接是否正常,若网络正常,可尝试更换更新源或使用科学上网解决"
     fi
 }
@@ -183,7 +183,7 @@ function term_sd_auto_update()
 function term_sd_update_fix()
 {
     term_sd_auto_update_option=""
-    echo "是否修复更新(yes/no)?"
+    term_sd_notice "是否修复更新(yes/no)?"
     echo "提示:输入yes或no后回车"
     read -p "==>" term_sd_auto_update_option
     if [ ! -z $term_sd_auto_update_option ];then
@@ -199,9 +199,9 @@ function term_sd_update_fix()
             if [ $git_pull_info = 0 ];then
                 cp -f ./term-sd/term-sd.sh .
                 chmod +x ./term-sd.sh
-                echo "更新成功"
+                term_sd_notice "更新成功"
             else
-                echo "如果出错的可能是网络原因导致无法连接到更新源,可通过更换更新源或使用科学上网解决"
+                term_sd_notice "如果出错的可能是网络原因导致无法连接到更新源,可通过更换更新源或使用科学上网解决"
             fi
         fi
     fi
@@ -212,7 +212,7 @@ function term_sd_install()
 {
     term_sd_install_option=""
     if [ ! -d "./term-sd" ];then
-        echo "检测到term-sd未安装,是否进行安装(yes/no)?"
+        term_sd_notice "检测到term-sd未安装,是否进行安装(yes/no)?"
         echo "提示:输入yes或no后回车"
         read -p "==>" term_sd_install_option
         if [ ! -z $term_sd_install_option ];then
@@ -222,9 +222,9 @@ function term_sd_install()
                 if [ $? = 0 ];then
                     cp -f ./term-sd/term-sd.sh .
                     chmod +x ./term-sd.sh
-                    echo "安装成功"
+                    term_sd_notice "安装成功"
                 else
-                    echo "安装失败"
+                    term_sd_notice "安装失败"
                     exit 1
                 fi
             else
@@ -234,22 +234,22 @@ function term_sd_install()
             exit 1
         fi
     elif [ ! -d "./term-sd/.git" ];then
-        echo "检测到term-sd的.git目录不存在,将会导致Term-SD无法更新,是否重新安装(yes/no)?"
+        term_sd_notice "检测到term-sd的.git目录不存在,将会导致Term-SD无法更新,是否重新安装(yes/no)?"
         echo "提示:输入yes或no后回车"
         read -p "==>" term_sd_install_option
         if [ ! -z $term_sd_install_option ];then
             if [ $term_sd_install_option = yes ] || [ $term_sd_install_option = y ] || [ $term_sd_install_option = YES ] || [ $term_sd_install_option = Y ];then
                 term_sd_install_mirror_select
-                echo "清除term-sd文件"
+                term_sd_notice "清除term-sd文件"
                 rm -rf ./term-sd
-                echo "清除完成,开始安装"
+                term_sd_notice "清除完成,开始安装"
                 git clone $term_sd_install_mirror
                 if [ $? = 0 ];then
                     cp -f ./term-sd/term-sd.sh .
                     chmod +x ./term-sd.sh
-                    echo "安装成功"
+                    term_sd_notice "安装成功"
                 else
-                    echo "安装失败"
+                    term_sd_notice "安装失败"
                     exit 1
                 fi
             fi
@@ -264,22 +264,22 @@ function term_sd_reinstall()
     for term_sd_launch_input in $(echo "$1 $2 $3 $4 $5 $6 $7 $8 $9") ;do
         case $term_sd_launch_input in
         "--reinstall-term-sd")
-        echo "是否重新安装Term-SD(yes/no)?"
+        term_sd_notice "是否重新安装Term-SD(yes/no)?"
         echo "提示:输入yes或no后回车"
         read -p "==>" term_sd_install_option
         if [ ! -z $term_sd_install_option ];then
             if [ $term_sd_install_option = yes ] || [ $term_sd_install_option = y ] || [ $term_sd_install_option = YES ] || [ $term_sd_install_option = Y ];then
                 term_sd_install_mirror_select
-                echo "清除term-sd文件"
+                term_sd_notice "清除term-sd文件"
                 rm -rf ./term-sd
-                echo "清除完成,开始安装"
+                term_sd_notice "清除完成,开始安装"
                 git clone $term_sd_install_mirror
                 if [ $? = 0 ];then
                     cp -f ./term-sd/term-sd.sh .
                     chmod +x ./term-sd.sh
-                    echo "安装成功"
+                    term_sd_notice "安装成功"
                 else
-                    echo "安装失败"
+                    term_sd_notice "安装失败"
                     exit 1
                 fi
             else
@@ -297,7 +297,7 @@ function term_sd_reinstall()
 function term_sd_install_mirror_select()
 {
     term_sd_install_option=""
-    echo "请选择下载源"
+    term_sd_notice "请选择下载源"
     echo "1、github源"
     echo "2、gitlab源"
     echo "3、gitee源"
@@ -306,23 +306,23 @@ function term_sd_install_mirror_select()
     read -p "==>" term_sd_install_option
     if [ ! -z $term_sd_install_option ];then
         if [ $term_sd_install_option = 1 ];then
-            echo "选择github源"
+            term_sd_notice "选择github源"
             term_sd_install_mirror="https://github.com/licyk/term-sd"
         elif [ $term_sd_install_option = 2 ];then
-            echo "选择gitlab源"
+            term_sd_notice "选择gitlab源"
             term_sd_install_mirror="https://gitlab.com/licyk/term-sd"
         elif [ $term_sd_install_option = 3 ];then
-            echo "选择gitee源"
+            term_sd_notice "选择gitee源"
             term_sd_install_mirror="https://gitee.com/four-dishes/term-sd"
         elif [ $term_sd_install_option = 4 ];then
-            echo "选择代理源(ghproxy.com)"
+            term_sd_notice "选择代理源(ghproxy.com)"
             term_sd_install_mirror="https://ghproxy.com/https://github.com/licyk/term-sd"
         else
-            echo "输入有误,请重试"
+            term_sd_notice "输入有误,请重试"
             term_sd_install_mirror_select
         fi
     else
-        echo "未输入,请重试"
+        term_sd_notice "未输入,请重试"
         term_sd_install_mirror_select
     fi
 }
@@ -331,12 +331,12 @@ function term_sd_install_mirror_select()
 function remove_term_sd()
 {
     remove_term_sd_option=""
-    echo "是否卸载Term-SD"
+    term_sd_notice "是否卸载Term-SD"
     echo "提示:输入yes或no后回车"
     read -p "==>" remove_term_sd_option
     if [ ! -z  $remove_term_sd_option ];then
         if [ $remove_term_sd_option = yes ] || [ $remove_term_sd_option = y ] || [ $remove_term_sd_option = YES ] || [ $remove_term_sd_option = Y ];then
-            echo "开始卸载Term-SD"
+            term_sd_notice "开始卸载Term-SD"
             rm -rf ./term-sd
             rm -rf ./term-sd.sh
             user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') #读取用户所使用的shell
@@ -346,7 +346,7 @@ function remove_term_sd()
                 sed -i '/alias tsd/d' ."$user_shell"rc
                 cd - > /dev/null
             fi
-            echo "Term-SD卸载完成"
+            term_sd_notice "Term-SD卸载完成"
         fi
     fi
     exit 1
@@ -356,7 +356,7 @@ function remove_term_sd()
 function install_cmd_to_shell()
 {
     if [ $user_shell = bash ] || [ $user_shell = zsh ];then
-        echo "是否将快捷指令添加到shell环境中?"
+        term_sd_notice "是否将快捷指令添加到shell环境中?"
         echo "添加后可使用\"termsd\"指令启动Term-SD"
         echo "1、添加"
         echo "2、删除"
@@ -372,15 +372,15 @@ function install_cmd_to_shell()
             elif [ $install_to_shell_option = 3 ];then
                 exit 1
             else
-                echo "输入有误,请重试"
+                term_sd_notice "输入有误,请重试"
                 install_cmd_to_shell
             fi
         else
-            echo "未输入,请重试"
+            term_sd_notice "未输入,请重试"
             install_cmd_to_shell
         fi
     else
-        echo "不支持该shell"
+        term_sd_notice "不支持该shell"
     fi
 }
 
@@ -390,11 +390,11 @@ function install_config_to_shell()
     cd ~
     if [ $user_shell = bash ] || [ $user_shell = zsh ];then
         if cat ./."$user_shell"rc | grep termsd > /dev/null ;then
-            echo "配置已存在,添加前请删除原有配置"
+            term_sd_notice "配置已存在,添加前请删除原有配置"
         else
             echo $term_sd_shell_config >> ."$user_shell"rc
             echo "alias tsd='termsd'" >> ."$user_shell"rc
-            echo "配置添加完成,重启shell以生效"
+            term_sd_notice "配置添加完成,重启shell以生效"
         fi
     fi
     cd - > /dev/null
@@ -406,7 +406,7 @@ function remove_config_from_shell()
     cd ~
     sed -i '/termsd(){/d' ."$user_shell"rc
     sed -i '/alias tsd/d' ."$user_shell"rc
-    echo "配置已删除,重启shell以生效"
+    term_sd_notice "配置已删除,重启shell以生效"
     cd - > /dev/null
 }
 
@@ -491,58 +491,63 @@ function print_line_to_shell_methon()
 #手动指定python路径功能
 function set_python_path()
 {
-    echo "请输入python解释器的路径"
+    term_sd_notice "请输入python解释器的路径"
     echo "提示:输入完后请回车保存,或者输入exit退出"
     read -p "==>" set_python_path_option
     if [ -z "$set_python_path_option" ];then
-        echo "未输入，请重试"
+        term_sd_notice "未输入，请重试"
         set_python_path
     elif [ "$set_python_path_option" = "exit" ];then
-        echo "退出python路径指定功能"
+        term_sd_notice "退出python路径指定功能"
     else
         python_path="$set_python_path_option"
         echo $python_path > python-path.conf
         mv -f ./python-path.conf ./term-sd/
-        echo "python解释器路径指定完成"
+        term_sd_notice "python解释器路径指定完成"
     fi
 }
 
 #手动指定python路径功能
 function set_pip_path()
 {
-    echo "请输入python解释器的路径"
+    term_sd_notice "请输入python解释器的路径"
     echo "提示:输入完后请回车保存,或者输入exit退出"
     read -p "==>" set_pip_path_option
     if [ -z "$set_pip_path_option" ];then
-        echo "未输入，请重试"
+        term_sd_notice "未输入，请重试"
         set_pip_path
     elif [ "$set_pip_path_option" = "exit" ];then
-        echo "退出pip路径指定功能"
+        term_sd_notice "退出pip路径指定功能"
     else
         pip_path="$set_pip_path_option"
         echo $pip_path > pip-path.conf
         mv -f ./pip-path.conf ./term-sd/
-        echo "pip解释器路径指定完成"
+        term_sd_notice "pip解释器路径指定完成"
     fi
+}
+
+function term_sd_notice()
+{
+    echo "[Term-SD]:: $1 $2 $3 $4 $5 $6 $7 $8 $9"
 }
 
 #################################################
 
 print_line_to_shell "Term-SD"
 
-echo "Term-SD初始化中......"
+term_sd_notice "Term-SD初始化中"
 
 #目录结构检测,防止用户直接运行Term-SD目录内的term-sd.sh
 if [ ! -d "./term-sd" ] && [ -d "./.git" ] && [ -d "./modules" ] && [ -f "./modules/init.sh" ] && [ -d "./extra" ] && [ -d "./other" ];then
-    echo "检测到目录错误"
-    echo "禁止用户直接在Term-SD目录里运行Term-SD"
-    echo "请将term-sd.sh文件复制到Term-SD目录外面(和Term-SD目录放在一起)"
-    echo "再运行目录外面的term-sd.sh"
-    echo "退出Term-SD"
+    term_sd_notice "检测到目录错误"
+    term_sd_notice "禁止用户直接在Term-SD目录里运行Term-SD"
+    term_sd_notice "请将term-sd.sh文件复制到Term-SD目录外面(和Term-SD目录放在一起)"
+    term_sd_notice "再运行目录外面的term-sd.sh"
+    term_sd_notice "退出Term-SD"
     exit 1
 fi
 
-echo "检测依赖软件是否安装"
+term_sd_notice "检测依赖软件是否安装"
 missing_dep=""
 test_num=0
 temr_sd_depend="git aria2c dialog" #term-sd依赖软件包
@@ -564,11 +569,11 @@ for term_sd_launch_input in $(echo "$1 $2 $3 $4 $5 $6 $7 $8 $9") ;do
     ;;
     "--unset-python-path")
     rm -f ./term-sd/python-path.conf
-    echo "已删除自定义python解释器路径配置"
+    term_sd_notice "已删除自定义python解释器路径配置"
     ;;
     "--unset-pip-path")
     rm -f ./term-sd/pip-path.conf
-    echo "已删除自定义pip解释器路径配置"
+    term_sd_notice "已删除自定义pip解释器路径配置"
     ;;
     esac
 done
@@ -603,7 +608,7 @@ else
     if which "$python_cmd" > /dev/null 2> /dev/null ;then
         test_num=$(( $test_num + 1 ))
     else
-        echo "手动指定的python路径错误"
+        term_sd_notice "手动指定的python路径错误"
         missing_dep="$missing_dep python,"
     fi
 fi
@@ -621,7 +626,7 @@ else
     if which "$pip_path" > /dev/null 2> /dev/null ;then
         test_num=$(( $test_num + 1 ))
     else
-        echo "手动指定的pip路径错误"
+        term_sd_notice "手动指定的pip路径错误"
         missing_dep="$missing_dep pip,"
     fi
 fi
@@ -650,19 +655,19 @@ fi
 
 #启动terrm-sd
 if [ $test_num -ge 5 ];then
-    echo "检测完成"
+    term_sd_notice "检测完成"
     term_sd_reinstall $(echo "$1 $2 $3 $4 $5 $6 $7 $8 $9")
     term_sd_install
     if [ -d "./term-sd/modules" ];then #找到目录后才启动
         term_sd_auto_update_trigger
         term_sd_process_user_input $(echo "$1 $2 $3 $4 $5 $6 $7 $8 $9")
     else
-        echo "term-sd模块丢失,\"输入./term-sd.sh --reinstall-term-sd\"重新安装Term-SD"
+        term_sd_notice "term-sd模块丢失,\"输入./term-sd.sh --reinstall-term-sd\"重新安装Term-SD"
     fi
 else
     print_line_to_shell "缺少以下依赖"
     echo $missing_dep
     print_line_to_shell
-    echo "请安装缺少的依赖后重试"
+    term_sd_notice "请安装缺少的依赖后重试"
     exit 1
 fi

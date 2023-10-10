@@ -29,7 +29,7 @@ function invokeai_option()
                     pip_install_methon #安装方式选择
                     final_install_check #安装前确认
                     if [ $final_install_check_exec = 0 ];then
-                        echo "更新InvokeAI中"
+                        term_sd_notice "更新InvokeAI中"
                         "$pip_cmd" install $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --prefer-binary --upgrade invokeai --default-timeout=100 --retries 5
                         if [ $? = 0 ];then
                             dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI更新结果" --ok-label "确认" --msgbox "InvokeAI更新成功" 23 70
@@ -40,7 +40,7 @@ function invokeai_option()
                     invokeai_option
                 elif [ $invokeai_option_dialog = 2 ]; then
                     if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI删除选项" --yes-label "是" --no-label "否" --yesno "是否删除InvokeAI?" 23 70) then
-                        echo "删除InvokeAI中"
+                        term_sd_notice "删除InvokeAI中"
                         exit_venv
                         cd ..
                         rm -rf ./InvokeAI
@@ -69,8 +69,6 @@ function invokeai_option()
                         invokeai_venv_rebuild
                     fi
                     invokeai_option
-                elif [ $invokeai_option_dialog = 20 ]; then
-                    echo #回到主界面
                 fi
             fi
         else 

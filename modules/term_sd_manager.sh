@@ -47,12 +47,12 @@ function mainmenu()
             help_option
         elif [ $mainmenu_dialog = 11 ]; then #选择退出
             print_line_to_shell
-            echo "退出Term-SD"
+            term_sd_notice "退出Term-SD"
             exit 1
         fi
     else #选择取消
         print_line_to_shell
-        echo "退出Term-SD"
+        term_sd_notice "退出Term-SD"
         exit 1
     fi
 }

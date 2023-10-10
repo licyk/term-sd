@@ -5,7 +5,7 @@
 function extension_all_update()
 {
     print_line_to_shell "$term_sd_manager_info 插件一键更新"
-    echo "更新插件中"
+    term_sd_notice "更新插件中"
     extension_folder="" #清除上次运行结果
     update_info=""
     all_extension_folder=""
@@ -25,7 +25,7 @@ function extension_all_update()
         if [ -d "./$extension_folder/.git" ];then #检测到目录中包含.git文件夹再执行更新操作
             cd "$extension_folder"
             extension_to_update_=$(( $extension_to_update_ + 1 ))
-            echo "[$extension_to_update_/$extension_to_update] 更新$(echo $extension_folder | awk -F "/" '{print $NF}')插件中"
+            term_sd_notice "[$extension_to_update_/$extension_to_update] 更新$(echo $extension_folder | awk -F "/" '{print $NF}')插件中"
             update_info="$update_info$(echo $extension_folder | awk -F "/" '{print $NF}')插件:"
             git pull --recurse-submodules
         

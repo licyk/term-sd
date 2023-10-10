@@ -29,7 +29,7 @@ function comfyui_option()
 
         if [ $? = 0 ];then
             if [ $comfyui_option_dialog = 1 ]; then
-                echo "更新ComfyUI中"
+                term_sd_notice "更新ComfyUI中"
                 git pull
                 if [ $? = 0 ];then
                     dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI更新结果" --ok-label "确认" --msgbox "ComfyUI更新成功" 23 70
@@ -39,7 +39,7 @@ function comfyui_option()
                 comfyui_option
             elif [ $comfyui_option_dialog = 2 ]; then
                 if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI删除选项" --yes-label "是" --no-label "否" --yesno "是否删除ComfyUI?" 23 70) then
-                    echo "删除ComfyUI中"
+                    term_sd_notice "删除ComfyUI中"
                     exit_venv
                     cd ..
                     rm -rf ./ComfyUI
@@ -47,7 +47,7 @@ function comfyui_option()
                     comfyui_option
                 fi
             elif [ $comfyui_option_dialog = 3 ]; then
-                echo "修复更新中"
+                term_sd_notice "修复更新中"
                 term_sd_fix_pointer_offset
                 comfyui_option
             elif [ $comfyui_option_dialog = 4 ]; then
@@ -99,8 +99,6 @@ function comfyui_option()
                     comfyui_venv_rebuild
                 fi
                 comfyui_option
-            elif [ $comfyui_option_dialog = 20 ]; then
-                echo #回到主界面
             fi
         fi
     else
@@ -122,7 +120,7 @@ function comfyui_update_depend()
 
         if [ $final_install_check_exec = 0 ];then
             print_line_to_shell "ComfyUI依赖更新"
-            echo "更新ComfyUI依赖中"
+            term_sd_notice "更新ComfyUI依赖中"
             tmp_disable_proxy
             create_venv
             enter_venv

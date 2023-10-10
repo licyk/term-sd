@@ -12,10 +12,10 @@ function process_install_lora_scripts()
     if [ $final_install_check_exec = 0 ];then
         #参考lora-scripts里的install.bash写的
         print_line_to_shell "lora-scipts 安装"
-        echo "开始安装lora-scipts"
+        term_sd_notice "开始安装lora-scipts"
         tmp_disable_proxy #临时取消代理,避免一些不必要的网络减速
         git clone "$github_proxy"https://github.com/Akegarasu/lora-scripts #lora-scripts本体
-        [ ! -d "./$term_sd_manager_info" ] && echo "检测到"$term_sd_manager_info"框架安装失败,已终止安装进程" && sleep 3 && return 1 #防止继续进行安装导致文件散落,造成目录混乱
+        [ ! -d "./$term_sd_manager_info" ] && term_sd_notice "检测到"$term_sd_manager_info"框架安装失败,已终止安装进程" && sleep 3 && return 1 #防止继续进行安装导致文件散落,造成目录混乱
         git clone "$github_proxy"https://github.com/kohya-ss/sd-scripts ./lora-scripts/sd-scripts #lora-scripts后端
         git clone "$github_proxy"https://github.com/hanamizuki-ai/lora-gui-dist ./lora-scripts/frontend #lora-scripts前端
         cd ./lora-scripts
@@ -35,7 +35,7 @@ function process_install_lora_scripts()
         cd ..
         tmp_enable_proxy #恢复原有的代理,保证能从huggingface下载模型
         aria2c $aria2_multi_threaded https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./lora-scripts/sd-models/ -o model.ckpt
-        echo "安装结束"
+        term_sd_notice "安装结束"
         exit_venv
         print_line_to_shell
         lora_scripts_option

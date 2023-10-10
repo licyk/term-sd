@@ -3,7 +3,7 @@
 #pip镜像源选项
 function set_pip_mirrors_option()
 {
-    echo "获取pip全局配置"
+    term_sd_notice "获取pip全局配置"
     set_pip_mirrors_option_dialog=$(dialog --clear --title "Term-SD" --backtitle "pip镜像源选项" --ok-label "确认" --cancel-label "取消" --menu "请选择设置的pip镜像源\n当前pip全局配置:\n$("$pip_cmd" config list | sed 's/.\{70\}/&\n/')" 23 70 12 \
         "1" "官方源" \
         "2" "国内镜像源" \
@@ -43,7 +43,7 @@ function set_pip_mirrors_option()
 #pip缓存清理功能
 function pip_cache_clean()
 {
-    echo "统计pip缓存信息中"
+    term_sd_notice "统计pip缓存信息中"
     if (dialog --clear --title "Term-SD" --backtitle "pip缓存清理选项" --yes-label "是" --no-label "否" --yesno "pip缓存信息:\npip缓存路径:$("$pip_cmd" cache dir)\n包索引页面缓存大小:$("$pip_cmd" cache info |awk NR==2 | awk -F ':'  '{print $2 $3 $4}')\n本地构建的wheel包大小:$("$pip_cmd" cache info |awk NR==5 | awk -F ':'  '{print $2 $3 $4}')\n是否删除pip缓存?" 23 70);then
         "$pip_cmd" cache purge
     fi

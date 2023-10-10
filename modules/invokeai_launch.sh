@@ -120,7 +120,7 @@ function generate_invokeai_launch_custom()
             if [ -f "./term-sd-launch.conf" ];then
                 rm -v ./term-sd-launch.conf
             fi
-            echo "设置启动参数> $custom_invokeai_launch_option"
+            term_sd_notice "设置启动参数> $custom_invokeai_launch_option"
             echo "--root ./invokeai $custom_invokeai_launch_option" > term-sd-launch.conf
         fi
     fi
@@ -161,10 +161,10 @@ function invokeai_manual_launch()
     invokeai_manual_launch_parameter=$(dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入InvokeAI启动参数" 23 70 3>&1 1>&2 2>&3)
 
     if [ -z $invokeai_manual_launch_parameter ];then
-        echo "设置启动参数> $invokeai_manual_launch_parameter"
-        echo "--root ./invokeai --web" >term-sd-launch.conf
+        term_sd_notice "设置启动参数> $invokeai_manual_launch_parameter"
+        echo "--root ./invokeai --web" > term-sd-launch.conf
     else
-        echo "未输入启动参数,使用默认值>"
-        echo "--root ./invokeai --web" >term-sd-launch.conf
+        term_sd_notice "未输入启动参数,使用默认值> --web"
+        echo "--root ./invokeai --web" > term-sd-launch.conf
     fi
 }

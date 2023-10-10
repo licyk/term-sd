@@ -67,7 +67,7 @@ function comfyui_custom_node_install()
     comfyui_custom_node_address=$(dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI自定义节点安装选项" --ok-label "确认" --cancel-label "取消" --inputbox "输入自定义节点的github地址或其他下载地址" 23 70 3>&1 1>&2 2>&3)
 
     if [ ! -z $comfyui_custom_node_address ]; then
-        echo "安装$(echo $comfyui_custom_node_address | awk -F'/' '{print $NF}')中"
+        term_sd_notice "安装$(echo $comfyui_custom_node_address | awk -F'/' '{print $NF}')中"
         git clone --recurse-submodules $comfyui_custom_node_address
         git_req=$?
         comfyui_custom_node_dep_notice=""
@@ -112,7 +112,7 @@ function operate_comfyui_custom_node()
         3>&1 1>&2 2>&3)
     if [ $? = 0 ];then
         if [ $operate_comfyui_custom_node_dialog = 1 ]; then
-            echo "更新$(echo $comfyui_custom_node_selection | awk -F "/" '{print $NF}')自定义节点中"
+            term_sd_notice "更新$(echo $comfyui_custom_node_selection | awk -F "/" '{print $NF}')自定义节点中"
             git pull --recurse-submodules
             if [ $? = "0" ];then
                 dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点更新结果" --ok-label "确认" --msgbox ""$comfyui_custom_node_selection"自定义节点更新成功" 23 70
@@ -123,12 +123,12 @@ function operate_comfyui_custom_node()
             comfyui_extension_depend_install_single
         elif [ $operate_comfyui_custom_node_dialog = 3 ]; then
             if (dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点删除选项" --yes-label "是" --no-label "否" --yesno "是否删除"$comfyui_custom_node_selection"自定义节点?" 23 70) then
-                echo "删除$(echo $comfyui_custom_node_selection | awk -F "/" '{print $NF}')自定义节点中"
+                term_sd_notice "删除$(echo $comfyui_custom_node_selection | awk -F "/" '{print $NF}')自定义节点中"
                 cd ..
                 rm -rf ./$comfyui_custom_node_selection
             fi
         elif [ $operate_comfyui_custom_node_dialog = 4 ]; then
-            echo "修复更新中"
+            term_sd_notice "修复更新中"
             term_sd_fix_pointer_offset
         elif [ $operate_comfyui_custom_node_dialog = 5 ]; then
             git_checkout_manager
@@ -204,7 +204,7 @@ function comfyui_extension_install()
     comfyui_extension_address=$(dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件安装选项" --ok-label "确认" --cancel-label "取消" --inputbox "输入插件的github地址或其他下载地址" 23 70 3>&1 1>&2 2>&3)
 
     if [ ! -z $comfyui_extension_address ]; then
-        echo "安装$(echo $comfyui_extension_address | awk -F'/' '{print $NF}')中"
+        term_sd_notice "安装$(echo $comfyui_extension_address | awk -F'/' '{print $NF}')中"
         git clone --recurse-submodules $comfyui_extension_address
         git_req=$?
         comfyui_extension_dep_notice=""
@@ -249,7 +249,7 @@ function operate_comfyui_extension()
 
     if [ $? = 0 ];then
         if [ $operate_comfyui_extension_dialog = 1 ]; then
-            echo "更新"$comfyui_extension_selection"中"
+            term_sd_notice "更新"$comfyui_extension_selection"中"
             git pull --recurse-submodules
             if [ $? = 0 ];then
                 dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件更新结果" --ok-label "确认" --msgbox ""$comfyui_extension_selection"插件更新成功" 23 70
@@ -260,12 +260,12 @@ function operate_comfyui_extension()
             comfyui_extension_depend_install_single
         elif [ $operate_comfyui_extension_dialog = 3 ]; then
             if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件删除选项" --yes-label "是" --no-label "否" --yesno "是否删除"$comfyui_extension_selection"插件?" 23 70) then
-                echo "删除$(echo $comfyui_extension_selection | awk -F "/" '{print $NF}')插件中"
+                term_sd_notice "删除$(echo $comfyui_extension_selection | awk -F "/" '{print $NF}')插件中"
                 cd ..
                 rm -rf ./$comfyui_extension_selection
             fi
         elif [ $operate_comfyui_extension_dialog = 4 ]; then
-            echo "修复更新中"
+            term_sd_notice "修复更新中"
             term_sd_fix_pointer_offset
         elif [ $operate_comfyui_extension_dialog = 5 ]; then
             git_checkout_manager
@@ -317,7 +317,7 @@ function comfyui_extension_depend_install_process()
         cd $extension_folder
         if [ -f "./install.py" ] || [ -f "./requirements.txt" ];then
             extension_dep_to_install_=$(( $extension_dep_to_install_ + 1 ))
-            echo "[$extension_dep_to_install_/$extension_dep_to_install] 安装$(echo $extension_folder | awk -F "/" '{print $NF}')"$comfyui_extension_info_display"依赖"
+            term_sd_notice "[$extension_dep_to_install_/$extension_dep_to_install] 安装$(echo $extension_folder | awk -F "/" '{print $NF}')"$comfyui_extension_info_display"依赖"
             dep_info="$dep_info $(echo $extension_folder | awk -F "/" '{print $NF}'):\n" #作为显示安装结果信息
         fi
 
@@ -361,7 +361,7 @@ function comfyui_extension_depend_install_single()
     dep_info="" #清除上次运行结果
 
     if [ -f "./install.py" ] || [ -f "./requirements.txt" ];then
-        echo "安装$(echo $comfyui_custom_node_selection | awk -F "/" '{print $NF}')"$comfyui_extension_info_display"依赖"
+        term_sd_notice "安装$(echo $comfyui_custom_node_selection | awk -F "/" '{print $NF}')"$comfyui_extension_info_display"依赖"
         dep_info="$dep_info\n $(echo $comfyui_custom_node_selection | awk -F "/" '{print $NF}')"$comfyui_extension_info_display":\n" #作为显示安装结果信息
     fi
 

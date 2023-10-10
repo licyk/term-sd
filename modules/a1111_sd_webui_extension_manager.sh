@@ -60,7 +60,7 @@ function a1111_sd_webui_extension_install()
     extension_address=$(dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件安装选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入插件的github地址或其他下载地址" 23 70 3>&1 1>&2 2>&3)
 
     if [ ! -z $extension_address ]; then
-        echo "安装$(echo $extension_address | awk -F'/' '{print $NF}')中"
+        term_sd_notice "安装$(echo $extension_address | awk -F'/' '{print $NF}')中"
         git clone --recurse-submodules $extension_address
         if [ $? = 0 ];then
             dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件安装结果" --ok-label "确认" --msgbox "$(echo $extension_address | awk -F'/' '{print $NF}')插件安装成功" 23 70
@@ -97,7 +97,7 @@ function a1111_sd_webui_operate_extension()
         3>&1 1>&2 2>&3)
     if [ $? = 0 ];then
         if [ $a1111_sd_webui_operate_extension_dialog = 1 ]; then
-            echo "更新$(echo $extension_selection | awk -F "/" '{print $NF}')插件中"
+            term_sd_notice "更新$(echo $extension_selection | awk -F "/" '{print $NF}')插件中"
             git pull --recurse-submodules
             if [ $? = 0 ];then
                 dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件更新结果" --ok-label "确认" --msgbox ""$extension_selection"插件更新成功" 23 70
@@ -106,12 +106,12 @@ function a1111_sd_webui_operate_extension()
             fi
         elif [ "${a1111_sd_webui_operate_extension_dialog}" == '2' ]; then
             if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件删除选项" --yes-label "是" --no-label "否" --yesno "是否删除"$extension_selection"插件?" 23 70) then
-                echo "删除$(echo $extension_selection | awk -F "/" '{print $NF}')插件中"
+                term_sd_notice "删除$(echo $extension_selection | awk -F "/" '{print $NF}')插件中"
                 cd ..
                 rm -rf ./$extension_selection
             fi
         elif [ $a1111_sd_webui_operate_extension_dialog = 3 ]; then
-            echo "修复更新中"
+            term_sd_notice "修复更新中"
             term_sd_fix_pointer_offset
         elif [ $a1111_sd_webui_operate_extension_dialog = 4 ]; then
             git_checkout_manager

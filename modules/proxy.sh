@@ -60,7 +60,7 @@ function set_proxy_option()
 function tmp_disable_proxy()
 {
     if [ ! -z $http_proxy ] && [ $only_hugggingface_proxy = 0 ];then
-        echo "huggingface独占代理已启用,临时取消代理配置"
+        term_sd_notice "huggingface独占代理已启用,临时取消代理配置"
         proxy_address_1=$http_proxy #将代理配置储存到临时变量
         proxy_address_2=$https_proxy
         http_proxy="" #将代理配置删除
@@ -72,7 +72,7 @@ function tmp_disable_proxy()
 function tmp_enable_proxy()
 {
     if [ ! -z $proxy_address_1 ] && [ $only_hugggingface_proxy = 0 ];then
-        echo "恢复代理配置"
+        term_sd_notice "恢复代理配置"
         http_proxy=$proxy_address_1 #从临时变量恢复代理配置
         https_proxy=$proxy_address_2
         proxy_address_1=""

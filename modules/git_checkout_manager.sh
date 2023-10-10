@@ -4,7 +4,7 @@
 #版本切换模块
 function git_checkout_manager()
 {
-    echo "获取版本信息"
+    term_sd_notice "获取版本信息"
     commit_lists=$(git log --date=short --pretty=format:"%H %cd" --date=format:"%Y-%m-%d|%H:%M:%S" | awk -F  ' ' ' {print $1 " " $2} ')
 
     commit_selection=$(

@@ -91,8 +91,8 @@ function term_sd_branch()
             cd ..
             cp -f ./term-sd/term-sd.sh .
             chmod +x ./term-sd.sh
-            echo "切换到主分支"
-            echo "即将重启Term-SD"
+            term_sd_notice "切换到主分支"
+            term_sd_notice "即将重启Term-SD"
             sleep 1
             source ./term-sd/modules/init.sh
         elif [ $term_sd_branch_dialog = 2 ];then
@@ -101,8 +101,8 @@ function term_sd_branch()
             cd ..
             cp -f ./term-sd/term-sd.sh .
             chmod +x ./term-sd.sh
-            echo "切换到测试分支"
-            echo "即将重启Term-SD"
+            term_sd_notice "切换到测试分支"
+            term_sd_notice "即将重启Term-SD"
             sleep 1
             source ./term-sd/modules/init.sh
         elif [ $term_sd_branch_dialog = 3 ];then

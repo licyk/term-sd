@@ -9,13 +9,13 @@ function term_sd_init()
         [ $term_sd_modules = "./term-sd/modules/init.sh" ] && continue
         term_sd_init_bar_1="$term_sd_modules_number_/$term_sd_modules_number"
         term_sd_init_bar_2=$(echo $term_sd_modules | awk -F'/' '{print $NF}')
-        printf "[$term_sd_init_bar_1] 加载> ${term_sd_init_bar_2}                              \r"
+        printf "[Term-SD]:: [$term_sd_init_bar_1] 加载> ${term_sd_init_bar_2}                              \r"
         term_sd_modules_number_=$(( $term_sd_modules_number_ + 1 ))
         source $term_sd_modules
     done
-    printf "初始化Term-SD完成                               \n"
+    printf "[Term-SD]:: 初始化Term-SD完成                               \n"
     print_line_to_shell
-    echo "启动Term-SD中"
+    echo "[Term-SD]:: 启动Term-SD中"
     term_sd_version
 }
 

@@ -131,7 +131,7 @@ huggingface独占代理:$only_hugggingface_proxy_info\n
 pytorch:$([ ! -z "$(echo $pytorch_install_version | awk '{gsub(/[=+]/, "")}1')" ] && echo $pytorch_install_version || echo "无")\n
 pip安装方式:$final_install_check_pip_methon\n
 " 23 70);then
-        echo "安装参数设置完成"
+        term_sd_notice "安装参数设置完成"
         export final_install_check_exec=0
     else
         export final_install_check_exec=1

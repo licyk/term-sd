@@ -27,7 +27,7 @@ function lora_scripts_option()
 
         if [ $? = 0 ];then
             if [ $lora_scripts_option_dialog = 1 ]; then
-                echo "更新lora-scripts中"
+                term_sd_notice "更新lora-scripts中"
                 test_num=1
                 git pull
                 if [ $? = 0 ];then
@@ -46,7 +46,7 @@ function lora_scripts_option()
                 lora_scripts_option
             elif [ $lora_scripts_option_dialog = 2 ]; then
                 if (dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts删除选项" --yes-label "是" --no-label "否" --yesno "是否删除lora-scripts?" 23 70) then
-                    echo "删除lora-scripts中"
+                    term_sd_notice "删除lora-scripts中"
                     exit_venv
                     cd ..
                     rm -rf ./lora-scripts
@@ -54,7 +54,7 @@ function lora_scripts_option()
                     lora_scripts_option
                 fi
             elif [ $lora_scripts_option_dialog = 3 ]; then
-                echo "修复更新中"
+                term_sd_notice "修复更新中"
                 term_sd_fix_pointer_offset #修复lora-scripts
                 cd ./sd-scripts
                 term_sd_fix_pointer_offset #修复kohya-ss训练模块
@@ -108,8 +108,6 @@ function lora_scripts_option()
                     lora_scripts_venv_rebuild
                 fi
                 lora_scripts_option
-            elif [ $lora_scripts_option_dialog = 20 ]; then
-                echo #回到主界面
             fi
         fi
     else
@@ -131,7 +129,7 @@ function lora_scripts_update_depend()
 
         if [ $final_install_check_exec = 0 ];then
             print_line_to_shell "lora-scripts依赖更新"
-            echo "更新lora-scripts依赖中"
+            term_sd_notice "更新lora-scripts依赖中"
             tmp_disable_proxy
             create_venv
             enter_venv

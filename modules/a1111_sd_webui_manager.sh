@@ -28,7 +28,7 @@ function a1111_sd_webui_option()
 
         if [ $? = 0 ];then
             if [ $a1111_sd_webui_option_dialog = 1 ]; then
-                echo "更新A1111-Stable-Diffusion-Webui中"
+                term_sd_notice "更新A1111-Stable-Diffusion-Webui中"
                 git pull
                 if [ $? = 0 ];then
                     dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui更新结果" --ok-label "确认" --msgbox "A1111-SD-Webui更新成功" 23 70
@@ -38,7 +38,7 @@ function a1111_sd_webui_option()
                 a1111_sd_webui_option
             elif [ $a1111_sd_webui_option_dialog = 2 ]; then
                 if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui删除选项" --yes-label "是" --no-label "否" --yesno "是否删除A1111-Stable-Diffusion-Webui?" 23 70) then
-                    echo "删除A1111-Stable-Diffusion-Webui中"
+                    term_sd_notice "删除A1111-Stable-Diffusion-Webui中"
                     exit_venv
                     cd ..
                     rm -rf ./stable-diffusion-webui
@@ -46,7 +46,7 @@ function a1111_sd_webui_option()
                     a1111_sd_webui_option
                 fi
             elif [ $a1111_sd_webui_option_dialog = 3 ]; then
-                echo "修复更新中"
+                term_sd_notice "修复更新中"
                 term_sd_fix_pointer_offset
                 a1111_sd_webui_option
             elif [ $a1111_sd_webui_option_dialog = 4 ]; then
@@ -91,8 +91,6 @@ function a1111_sd_webui_option()
                     a1111_sd_webui_venv_rebuild
                 fi
                 a1111_sd_webui_option
-            elif [ $a1111_sd_webui_option_dialog = 20 ]; then
-                echo #回到主界面
             fi
         fi
     else #找不到stable-diffusion-webui目录
