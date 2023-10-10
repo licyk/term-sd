@@ -90,4 +90,5 @@ function sd_webui_branch_switch()
             git pull --rebase
             print_line_to_shell
         fi
+    fi
 }

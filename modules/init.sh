@@ -33,7 +33,7 @@ else
     export dialog_rebuild_venv_button=""19" "重新构建venv虚拟环境""
 fi
 
-term_sd_version_="0.4.7"
+term_sd_version_="0.5.0"
 
 #初始化功能
 term_sd_init
