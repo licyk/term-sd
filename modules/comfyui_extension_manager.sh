@@ -238,7 +238,7 @@ function operate_comfyui_extension()
     fi
 
     operate_comfyui_extension_dialog=$(
-        dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择对"$comfyui_extension_selection"自定义节点的管理功能\n当前更新源:$([ -d "./.git" ] && git remote -v | awk 'NR==1' | awk '{print $2}' || echo "无")" 25 70 10 \
+        dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择对"$comfyui_extension_selection"插件的管理功能\n当前更新源:$([ -d "./.git" ] && git remote -v | awk 'NR==1' | awk '{print $2}' || echo "无")" 25 70 10 \
         $dialog_update_button \
         "2" "安装依赖" \
         "3" "卸载" \
