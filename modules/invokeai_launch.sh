@@ -151,6 +151,6 @@ function invokeai_manual_launch()
 
     if [ $? = 0 ];then
         term_sd_notice "设置启动参数> $invokeai_manual_launch_parameter"
-        echo "$invokeai_manual_launch_parameter --root ./invokeai" > term-sd-launch.conf
+        echo "--root ./invokeai $invokeai_manual_launch_parameter" > term-sd-launch.conf
     fi
 }

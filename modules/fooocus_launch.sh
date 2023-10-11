@@ -49,12 +49,13 @@ function fooocus_launch()
     if [ $? = 0 ];then
         if [ $fooocus_launch_dialog = 1 ];then
             term_sd_launch
+            fooocus_launch
         elif [ $fooocus_launch_dialog = 2 ];then
             generate_fooocus_launch
-            term_sd_launch
+            fooocus_launch
         elif [ $fooocus_launch_dialog = 3 ];then
             fooocus_manual_launch
-            term_sd_launch
+            fooocus_launch
         fi
     fi
 }
@@ -62,13 +63,10 @@ function fooocus_launch()
 #fooocus手动输入启动参数界面
 function fooocus_manual_launch()
 {
-    fooocus_manual_launch_parameter=$(dialog --clear --title "Fooocus管理" --backtitle "Fooocus自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入Fooocus启动参数" 25 70 3>&1 1>&2 2>&3)
+    fooocus_manual_launch_parameter=$(dialog --clear --title "Fooocus管理" --backtitle "Fooocus自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入Fooocus启动参数" 25 70 "$(cat ./term-sd-launch.conf | awk '{sub("launch.py","")}1')" 3>&1 1>&2 2>&3)
 
     if [ -z $fooocus_manual_launch_parameter ];then
         term_sd_notice "设置启动参数> $fooocus_manual_launch_parameter"
         echo "launch.py $fooocus_manual_launch_parameter" > term-sd-launch.conf
-    else
-        term_sd_notice "未输入启动参数,使用默认值>"
-        echo "launch.py" > term-sd-launch.conf
     fi
 }
