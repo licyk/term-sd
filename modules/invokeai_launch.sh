@@ -125,7 +125,7 @@ function invokeai_launch()
 {
     invokeai_launch_dialog=$(dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动InvokeAI/修改InvokeAI启动参数\n当前启动参数:\ninvokeai $(cat ./term-sd-launch.conf)" 25 70 10 \
         "1" "启动" \
-        "2" "修改启动参数" \
+        "2" "选择预设启动参数" \
         "3" "自定义启动参数" \
         "4" "返回" \
         3>&1 1>&2 2>&3)
