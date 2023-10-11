@@ -35,7 +35,9 @@ function process_install_fooocus()
         aria2c $aria2_multi_threaded https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0_0.9vae.safetensors -d ./Fooocus/models/checkpoints/ -o sd_xl_base_1.0_0.9vae.safetensors
         aria2c $aria2_multi_threaded https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0_0.9vae.safetensors -d ./Fooocus/models/checkpoints/ -o sd_xl_refiner_1.0_0.9vae.safetensors
         aria2c $aria2_multi_threaded https://huggingface.co/lllyasviel/fooocus_inpaint/resolve/main/inpaint.fooocus.patch -d ./Fooocus/models/inpaint/ -o inpaint.fooocus.patch
+        aria2c $aria2_multi_threaded https://huggingface.co/lllyasviel/fooocus_inpaint/resolve/main/fooocus_inpaint_head.pth -d ./Fooocus/models/inpaint/ -o fooocus_inpaint_head.pth
         aria2c $aria2_multi_threaded https://huggingface.co/lllyasviel/misc/resolve/main/fooocus_expansion.bin -d ./Fooocus/models/prompt_expansion/fooocus_expansion/ -o pytorch_model.bin
+        aria2c $aria2_multi_threaded https://huggingface.co/lllyasviel/misc/resolve/main/fooocus_upscaler_s409985e5.bin -d ./Fooocus/models/upscale_models/ -o fooocus_upscaler_s409985e5.bin
 
         term_sd_notice "安装结束"
         exit_venv

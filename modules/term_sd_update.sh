@@ -14,6 +14,7 @@ function term_sd_update_option()
 
         if [ $? = 0 ];then
             if [ $term_sd_update_option_dialog = 1 ];then
+                term_sd_notice "更新Term-SD中"
                 cd ./term-sd
                 git_pull_info=""
                 git fetch --all
