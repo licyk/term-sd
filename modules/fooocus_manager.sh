@@ -63,12 +63,11 @@ function fooocus_option()
                 fooocus_change_repo
                 fooocus_option
             elif [ $fooocus_option_dialog = 6 ]; then
-                if [ -f "./term-sd-launch.conf" ]; then #找到启动脚本
-                    fooocus_launch
-                else #找不到启动脚本,并启动脚本生成界面
-                    generate_fooocus_launch
-                    term_sd_launch
+                if [ ! -f "./term-sd-launch.conf" ]; then #找不到启动配置时默认生成一个
+                    term_sd_notice "未找到启动配置文件,创建中"
+                    echo "launch.py" > term-sd-launch.conf
                 fi
+                fooocus_launch
                 fooocus_option
             elif [ $fooocus_option_dialog = 7 ]; then
                 fooocus_update_depend
