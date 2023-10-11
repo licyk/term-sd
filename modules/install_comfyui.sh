@@ -17,7 +17,7 @@ function process_install_comfyui()
         term_sd_notice "开始安装ComfyUI"
         tmp_disable_proxy #临时取消代理,避免一些不必要的网络减速
         git clone "$github_proxy"https://github.com/comfyanonymous/ComfyUI
-        [ ! -d "./$term_sd_manager_info" ] && term_sd_notice "检测到"$term_sd_manager_info"框架安装失败,已终止安装进程" && sleep 3 && return 1 #防止继续进行安装导致文件散落,造成目录混乱
+        [ ! -d "./$term_sd_manager_info" ] && tmp_enable_proxy && term_sd_notice "检测到"$term_sd_manager_info"框架安装失败,已终止安装进程" && sleep 3 && return 1 #防止继续进行安装导致文件散落,造成目录混乱
         cd ./ComfyUI
         create_venv
         enter_venv

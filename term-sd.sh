@@ -70,9 +70,9 @@ function term_sd_process_user_input()
                 term_sd_notice "测试google访问情况"
                 curl google.com
                 if [ $? = 0 ];then
-                    term_sd_notice "访问正常"
+                    term_sd_notice "google访问正常"
                 else
-                    term_sd_notice "无法访问"
+                    term_sd_notice "google无法访问"
                 fi
 	    else
                 term_sd_notice "网络连接异常"
