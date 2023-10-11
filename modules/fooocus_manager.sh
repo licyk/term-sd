@@ -33,7 +33,8 @@ function fooocus_option()
                 if [ $? = 0 ];then
                     test_num=0
                 fi
-                git pull --rebase ./repositories/ComfyUI-from-StabilityAI-Official
+                cd ./repositories/ComfyUI-from-StabilityAI-Official
+                git pull --rebase
                 if [ $test_num = "0" ];then
                     dialog --clear --title "Fooocus管理" --backtitle "Fooocus更新结果" --ok-label "确认" --msgbox "Fooocus更新成功" 25 70
                 else
