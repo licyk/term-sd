@@ -3,7 +3,7 @@
 #处理用户输入的参数
 function term_sd_process_user_input()
 {
-    for term_sd_launch_input in $(echo "$1 $2 $3 $4 $5 $6 $7 $8 $9") ;do
+    for term_sd_launch_input in $(echo "$@") ;do
         case $term_sd_launch_input in
         "--help")
         echo
@@ -261,7 +261,7 @@ function term_sd_install()
 function term_sd_reinstall()
 {
     term_sd_install_option=""
-    for term_sd_launch_input in $(echo "$1 $2 $3 $4 $5 $6 $7 $8 $9") ;do
+    for term_sd_launch_input in $(echo "$@") ;do
         case $term_sd_launch_input in
         "--reinstall-term-sd")
         term_sd_notice "是否重新安装Term-SD(yes/no)?"
@@ -529,7 +529,7 @@ function set_pip_path()
 #term-sd格式化输出信息
 function term_sd_notice()
 {
-    echo "[$(date "+%Y-%m-%d %H:%M:%S")][Term-SD]:: $1 $2 $3 $4 $5 $6 $7 $8 $9"
+    echo "[$(date "+%Y-%m-%d %H:%M:%S")][Term-SD]:: "$@""
 }
 
 #终端大小检测
@@ -568,12 +568,12 @@ temr_sd_depend="git aria2c dialog" #term-sd依赖软件包
 term_sd_install_path=$(pwd) #读取term-sd安装位置
 
 #将要向.bashrc写入的配置
-term_sd_shell_config="termsd(){ user_input_for_term_sd=$(echo \"\$1 \$2 \$3 \$4 \$5 \$6 \$7 \$8 \$9\") ; term_sd_start_path=\$(pwd) ; cd \"$term_sd_install_path\" ; ./term-sd.sh \$user_input_for_term_sd ; cd \"\$term_sd_start_path\" > /dev/null ; }"
+term_sd_shell_config="termsd(){ user_input_for_term_sd=$(echo \"\$@\") ; term_sd_start_path=\$(pwd) ; cd \"$term_sd_install_path\" ; ./term-sd.sh \$user_input_for_term_sd ; cd \"\$term_sd_start_path\" > /dev/null ; }"
 
 user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') #读取用户所使用的shell
 
 #检测用户是否进行指定python运行路径
-for term_sd_launch_input in $(echo "$1 $2 $3 $4 $5 $6 $7 $8 $9") ;do
+for term_sd_launch_input in $(echo "$@") ;do
     case $term_sd_launch_input in
     "--set-python-path")
     set_python_path
@@ -671,11 +671,11 @@ fi
 if [ $test_num -ge 5 ];then
     term_sd_notice "检测完成"
     terminal_size_test #检测终端大小
-    term_sd_reinstall $(echo "$1 $2 $3 $4 $5 $6 $7 $8 $9")
+    term_sd_reinstall $(echo "$@")
     term_sd_install
     if [ -d "./term-sd/modules" ];then #找到目录后才启动
         term_sd_auto_update_trigger
-        term_sd_process_user_input $(echo "$1 $2 $3 $4 $5 $6 $7 $8 $9")
+        term_sd_process_user_input $(echo "$@")
     else
         term_sd_notice "term-sd模块丢失,\"输入./term-sd.sh --reinstall-term-sd\"重新安装Term-SD"
     fi

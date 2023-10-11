@@ -16,5 +16,4 @@ function git_checkout_manager()
     if [ $? = 0 ];then
         git checkout $commit_selection
     fi
-    cd ..
 }

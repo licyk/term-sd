@@ -31,8 +31,6 @@ function comfyui_custom_node_methon()
         elif [ $comfyui_custom_node_methon_dialog = 4 ]; then #选择安装全部插件依赖
             comfyui_extension_depend_install
             comfyui_custom_node_methon
-        elif [ $comfyui_custom_node_methon_dialog = 5 ]; then #选择返回
-            echo
         fi
     fi
 }
@@ -119,8 +117,10 @@ function operate_comfyui_custom_node()
             else
                 dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点更新结果" --ok-label "确认" --msgbox ""$comfyui_custom_node_selection"自定义节点更新失败" 25 70
             fi
+            operate_comfyui_custom_node
         elif [ $operate_comfyui_custom_node_dialog = 2 ]; then #comfyui并不像a1111-sd-webui自动为插件安装依赖,所以只能手动装
             comfyui_extension_depend_install_single
+            operate_comfyui_custom_node
         elif [ $operate_comfyui_custom_node_dialog = 3 ]; then
             if (dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点删除选项" --yes-label "是" --no-label "否" --yesno "是否删除"$comfyui_custom_node_selection"自定义节点?" 25 70) then
                 term_sd_notice "删除$(echo $comfyui_custom_node_selection | awk -F "/" '{print $NF}')自定义节点中"
@@ -130,12 +130,13 @@ function operate_comfyui_custom_node()
         elif [ $operate_comfyui_custom_node_dialog = 4 ]; then
             term_sd_notice "修复更新中"
             term_sd_fix_pointer_offset
+            operate_comfyui_custom_node
         elif [ $operate_comfyui_custom_node_dialog = 5 ]; then
             git_checkout_manager
+            operate_comfyui_custom_node
         elif [ $operate_comfyui_custom_node_dialog = 6 ]; then
             select_repo_single
-        elif [ $operate_comfyui_custom_node_dialog = 7 ]; then
-            cd ..
+            operate_comfyui_custom_node
         fi
     fi
 }
@@ -256,8 +257,10 @@ function operate_comfyui_extension()
             else
                 dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件更新结果" --ok-label "确认" --msgbox ""$comfyui_extension_selection"插件更新失败" 25 70
             fi
+            operate_comfyui_extension
         elif [ $operate_comfyui_extension_dialog = 2 ]; then #comfyui并不像a1111-sd-webui自动为插件安装依赖,所以只能手动装
             comfyui_extension_depend_install_single
+            operate_comfyui_extension
         elif [ $operate_comfyui_extension_dialog = 3 ]; then
             if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件删除选项" --yes-label "是" --no-label "否" --yesno "是否删除"$comfyui_extension_selection"插件?" 25 70) then
                 term_sd_notice "删除$(echo $comfyui_extension_selection | awk -F "/" '{print $NF}')插件中"
@@ -267,12 +270,13 @@ function operate_comfyui_extension()
         elif [ $operate_comfyui_extension_dialog = 4 ]; then
             term_sd_notice "修复更新中"
             term_sd_fix_pointer_offset
+            operate_comfyui_extension
         elif [ $operate_comfyui_extension_dialog = 5 ]; then
             git_checkout_manager
+            operate_comfyui_extension
         elif [ $operate_comfyui_extension_dialog = 6 ]; then
             select_repo_single
-        elif [ $operate_comfyui_extension_dialog = 7 ]; then
-            cd ..
+            operate_comfyui_extension
         fi
     fi
 }
