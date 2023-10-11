@@ -18,7 +18,7 @@ function generate_sd_webui_directml_launch()
         "7" "enable-insecure-extension-access" OFF \
         "8" "theme dark" ON \
         "9" "autolaunch" ON \
-        "10" "xformers" ON \
+        "10" "xformers" OFF \
         "11" "listen" OFF \
         "12" "precision full" OFF \
         "13" "force-enable-xformers" OFF \
@@ -35,7 +35,7 @@ function generate_sd_webui_directml_launch()
         "24" "opt-channelslast" OFF \
         "25" "no-gradio-queue" OFF \
         "26" "no-hashing" OFF \
-        "27" "backend directml" OFF \
+        "27" "backend directml" ON \
         "28" "opt-sub-quad-attention" OFF \
         "29" "medvram-sdxl" OFF \
         3>&1 1>&2 2>&3)
