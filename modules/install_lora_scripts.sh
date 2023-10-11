@@ -34,6 +34,7 @@ function process_install_lora_scripts()
         "$pip_cmd" install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --upgrade -r requirements.txt --default-timeout=100 --retries 5 #lora-scripts安装依赖
         cd ..
         tmp_enable_proxy #恢复原有的代理,保证能从huggingface下载模型
+        term_sd_notice "下载模型中"
         aria2c $aria2_multi_threaded https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./lora-scripts/sd-models/ -o model.ckpt
         term_sd_notice "安装结束"
         exit_venv
