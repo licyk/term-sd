@@ -19,7 +19,7 @@ function lora_scripts_option()
             "7" "更新依赖" \
             "8" "重新安装" \
             "9" "重新安装pytorch" \
-            "10" "pip软件包重装" \
+            "10" "python软件包重装" \
             $dialog_recreate_venv_button \
             $dialog_rebuild_venv_button \
             "20" "返回" \

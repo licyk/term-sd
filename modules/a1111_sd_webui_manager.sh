@@ -21,7 +21,7 @@ function a1111_sd_webui_option()
             "9" "更新依赖" \
             "10" "重新安装" \
             "11" "重新安装pytorch" \
-            "12" "pip软件包重装" \
+            "12" "python软件包重装" \
             $dialog_recreate_venv_button \
             $dialog_rebuild_venv_button \
             "20" "返回" \

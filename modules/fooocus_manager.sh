@@ -19,7 +19,7 @@ function fooocus_option()
             "7" "更新依赖" \
             "8" "重新安装" \
             "9" "重新安装pytorch" \
-            "10" "pip软件包重装" \
+            "10" "python软件包重装" \
             $dialog_recreate_venv_button \
             $dialog_rebuild_venv_button \
             "20" "返回" \
@@ -33,7 +33,7 @@ function fooocus_option()
                 if [ $? = 0 ];then
                     test_num=0
                 fi
-                git pull ./repositories/ComfyUI-from-StabilityAI-Official
+                git pull --rebase ./repositories/ComfyUI-from-StabilityAI-Official
                 if [ $test_num = "0" ];then
                     dialog --clear --title "Fooocus管理" --backtitle "Fooocus更新结果" --ok-label "确认" --msgbox "Fooocus更新成功" 25 70
                 else
