@@ -65,7 +65,7 @@ function fooocus_manual_launch()
 {
     fooocus_manual_launch_parameter=$(dialog --clear --title "Fooocus管理" --backtitle "Fooocus自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入Fooocus启动参数" 25 70 "$(cat ./term-sd-launch.conf | awk '{sub("launch.py ","")}1')" 3>&1 1>&2 2>&3)
 
-    if [ -z $fooocus_manual_launch_parameter ];then
+    if [ $? = 0 ];then
         term_sd_notice "设置启动参数> $fooocus_manual_launch_parameter"
         echo "launch.py $fooocus_manual_launch_parameter" > term-sd-launch.conf
     fi

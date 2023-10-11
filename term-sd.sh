@@ -151,8 +151,8 @@ function term_sd_auto_update()
             term_sd_auto_update_option=""
             term_sd_notice "检测到term-sd有新版本"
             term_sd_notice "是否选择更新(yes/no)?"
-            echo "提示:输入yes或no后回车"
-            read -p "==>" term_sd_auto_update_option
+            term_sd_notice "提示:输入yes或no后回车"
+            read -p "=============================>" term_sd_auto_update_option
             if [ ! -z $term_sd_auto_update_option ];then
                 if [ $term_sd_auto_update_option = yes ] || [ $term_sd_auto_update_option = y ] || [ $term_sd_auto_update_option = YES ] || [ $term_sd_auto_update_option = Y ];then
                     cd ./term-sd
@@ -174,7 +174,7 @@ function term_sd_auto_update()
         fi
     else
         term_sd_notice "连接更新源失败,跳过更新"
-        echo "提示:请检查网络连接是否正常,若网络正常,可尝试更换更新源或使用科学上网解决"
+        term_sd_notice "提示:请检查网络连接是否正常,若网络正常,可尝试更换更新源或使用科学上网解决"
     fi
 }
 
@@ -184,8 +184,8 @@ function term_sd_update_fix()
 {
     term_sd_auto_update_option=""
     term_sd_notice "是否修复更新(yes/no)?"
-    echo "提示:输入yes或no后回车"
-    read -p "==>" term_sd_auto_update_option
+    term_sd_notice "提示:输入yes或no后回车"
+    read -p "=============================>" term_sd_auto_update_option
     if [ ! -z $term_sd_auto_update_option ];then
         if [ $term_sd_auto_update_option = yes ] || [ $term_sd_auto_update_option = y ] || [ $term_sd_auto_update_option = YES ] || [ $term_sd_auto_update_option = Y ];then
             cd ./term-sd
@@ -213,8 +213,8 @@ function term_sd_install()
     term_sd_install_option=""
     if [ ! -d "./term-sd" ];then
         term_sd_notice "检测到term-sd未安装,是否进行安装(yes/no)?"
-        echo "提示:输入yes或no后回车"
-        read -p "==>" term_sd_install_option
+        term_sd_notice "提示:输入yes或no后回车"
+        read -p "=============================>" term_sd_install_option
         if [ ! -z $term_sd_install_option ];then
             if [ $term_sd_install_option = yes ] || [ $term_sd_install_option = y ] || [ $term_sd_install_option = YES ] || [ $term_sd_install_option = Y ];then
                 term_sd_install_mirror_select
@@ -235,8 +235,8 @@ function term_sd_install()
         fi
     elif [ ! -d "./term-sd/.git" ];then
         term_sd_notice "检测到term-sd的.git目录不存在,将会导致Term-SD无法更新,是否重新安装(yes/no)?"
-        echo "提示:输入yes或no后回车"
-        read -p "==>" term_sd_install_option
+        term_sd_notice "提示:输入yes或no后回车"
+        read -p "=============================>" term_sd_install_option
         if [ ! -z $term_sd_install_option ];then
             if [ $term_sd_install_option = yes ] || [ $term_sd_install_option = y ] || [ $term_sd_install_option = YES ] || [ $term_sd_install_option = Y ];then
                 term_sd_install_mirror_select
@@ -265,8 +265,8 @@ function term_sd_reinstall()
         case $term_sd_launch_input in
         "--reinstall-term-sd")
         term_sd_notice "是否重新安装Term-SD(yes/no)?"
-        echo "提示:输入yes或no后回车"
-        read -p "==>" term_sd_install_option
+        term_sd_notice "提示:输入yes或no后回车"
+        read -p "=============================>" term_sd_install_option
         if [ ! -z $term_sd_install_option ];then
             if [ $term_sd_install_option = yes ] || [ $term_sd_install_option = y ] || [ $term_sd_install_option = YES ] || [ $term_sd_install_option = Y ];then
                 term_sd_install_mirror_select
@@ -298,12 +298,12 @@ function term_sd_install_mirror_select()
 {
     term_sd_install_option=""
     term_sd_notice "请选择下载源"
-    echo "1、github源"
-    echo "2、gitlab源"
-    echo "3、gitee源"
-    echo "4、代理源(ghproxy.com)"
-    echo "输入数字后回车"
-    read -p "==>" term_sd_install_option
+    term_sd_notice "1、github源"
+    term_sd_notice "2、gitlab源"
+    term_sd_notice "3、gitee源"
+    term_sd_notice "4、代理源(ghproxy.com)"
+    term_sd_notice "输入数字后回车"
+    read -p "=============================>" term_sd_install_option
     if [ ! -z $term_sd_install_option ];then
         if [ $term_sd_install_option = 1 ];then
             term_sd_notice "选择github源"
@@ -332,8 +332,8 @@ function remove_term_sd()
 {
     remove_term_sd_option=""
     term_sd_notice "是否卸载Term-SD"
-    echo "提示:输入yes或no后回车"
-    read -p "==>" remove_term_sd_option
+    term_sd_notice "提示:输入yes或no后回车"
+    read -p "=============================>" remove_term_sd_option
     if [ ! -z  $remove_term_sd_option ];then
         if [ $remove_term_sd_option = yes ] || [ $remove_term_sd_option = y ] || [ $remove_term_sd_option = YES ] || [ $remove_term_sd_option = Y ];then
             term_sd_notice "开始卸载Term-SD"
@@ -357,12 +357,12 @@ function install_cmd_to_shell()
 {
     if [ $user_shell = bash ] || [ $user_shell = zsh ];then
         term_sd_notice "是否将快捷指令添加到shell环境中?"
-        echo "添加后可使用\"termsd\"指令启动Term-SD"
-        echo "1、添加"
-        echo "2、删除"
-        echo "3、退出"
-        echo "提示:输入数字后回车"
-        read -p "==>" install_to_shell_option
+        term_sd_notice "添加后可使用\"termsd\"指令启动Term-SD"
+        term_sd_notice "1、添加"
+        term_sd_notice "2、删除"
+        term_sd_notice "3、退出"
+        term_sd_notice "提示:输入数字后回车"
+        read -p "=============================>" install_to_shell_option
 
         if [ ! -z $install_to_shell_option ];then
             if [ $install_to_shell_option = 1 ];then
@@ -492,8 +492,8 @@ function print_line_to_shell_methon()
 function set_python_path()
 {
     term_sd_notice "请输入python解释器的路径"
-    echo "提示:输入完后请回车保存,或者输入exit退出"
-    read -p "==>" set_python_path_option
+    term_sd_notice "提示:输入完后请回车保存,或者输入exit退出"
+    read -p "=============================>" set_python_path_option
     if [ -z "$set_python_path_option" ];then
         term_sd_notice "未输入，请重试"
         set_python_path
@@ -511,8 +511,8 @@ function set_python_path()
 function set_pip_path()
 {
     term_sd_notice "请输入python解释器的路径"
-    echo "提示:输入完后请回车保存,或者输入exit退出"
-    read -p "==>" set_pip_path_option
+    term_sd_notice "提示:输入完后请回车保存,或者输入exit退出"
+    read -p "=============================>" set_pip_path_option
     if [ -z "$set_pip_path_option" ];then
         term_sd_notice "未输入，请重试"
         set_pip_path
