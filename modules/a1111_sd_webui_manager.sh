@@ -67,7 +67,7 @@ function a1111_sd_webui_option()
             elif [ $a1111_sd_webui_option_dialog = 8 ]; then
                 if [ ! -f "./term-sd-launch.conf" ]; then #找不到启动配置时默认生成一个
                     term_sd_notice "未找到启动配置文件,创建中"
-		    echo "launch.py --theme dark --autolaunch --xformers" > term-sd-launch.conf
+                    echo "launch.py --theme dark --autolaunch --xformers" > term-sd-launch.conf
                 fi
                 sd_webui_launch
                 a1111_sd_webui_option

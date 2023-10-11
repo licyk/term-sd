@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#invokeai启动脚本生成部分
+#invokeai启动界面（第一层）
 function generate_invokeai_launch()
 {
     generate_invokeai_launch_dialog=$(
@@ -18,33 +18,30 @@ function generate_invokeai_launch()
             print_line_to_shell "$term_sd_manager_info 启动"
             invokeai-configure --root ./invokeai
             print_line_to_shell
+            generate_invokeai_launch
         elif [ $generate_invokeai_launch_dialog = 2 ]; then
             print_line_to_shell "$term_sd_manager_info 启动"
             invokeai --root ./invokeai
             print_line_to_shell
+            generate_invokeai_launch
         elif [ $generate_invokeai_launch_dialog = 3 ]; then
             print_line_to_shell "$term_sd_manager_info 启动"
             invokeai --web --root ./invokeai
             print_line_to_shell
+            generate_invokeai_launch
         elif [ $generate_invokeai_launch_dialog = 4 ]; then
             print_line_to_shell "$term_sd_manager_info 启动"
             invokeai-ti --gui --root ./invokeai
             print_line_to_shell
+            generate_invokeai_launch
         elif [ $generate_invokeai_launch_dialog = 5 ]; then
             print_line_to_shell "$term_sd_manager_info 启动"
             invokeai-merge --gui --root ./invokeai
             print_line_to_shell
+            generate_invokeai_launch
         elif [ $generate_invokeai_launch_dialog = 6 ]; then
-            if [ -f "./term-sd-launch.conf" ];then
-                invokeai_launch
-            else #找不到启动配置
-                generate_invokeai_launch_custom
-                print_line_to_shell "$term_sd_manager_info 启动"
-                invokeai $(cat ./term-sd-launch.conf)
-                print_line_to_shell
-            fi
-        elif [ $generate_invokeai_launch_dialog = 7 ]; then 
-            echo
+            invokeai_launch
+            generate_invokeai_launch
         fi
     fi
 }
@@ -123,7 +120,7 @@ function generate_invokeai_launch_custom()
     fi
 }
 
-#invokeai启动选项
+#invokeai启动选项（第二层）
 function invokeai_launch()
 {
     invokeai_launch_dialog=$(dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动InvokeAI/修改InvokeAI启动参数\n当前启动参数:\ninvokeai $(cat ./term-sd-launch.conf)" 25 70 10 \
@@ -135,19 +132,14 @@ function invokeai_launch()
 
     if [ $? = 0 ];then
         if [ $invokeai_launch_dialog = 1 ];then
-            print_line_to_shell "$term_sd_manager_info 启动"
-            invokeai $(cat ./term-sd-launch.conf)
-            print_line_to_shell
+            term_sd_launch
+            invokeai_launch
         elif [ $invokeai_launch_dialog = 2 ];then
             generate_invokeai_launch_custom
-            print_line_to_shell "$term_sd_manager_info 启动"
-            invokeai $(cat ./term-sd-launch.conf)
-            print_line_to_shell
+            invokeai_launch
         elif [ $invokeai_launch_dialog = 3 ];then
             invokeai_manual_launch
-            print_line_to_shell "$term_sd_manager_info 启动"
-            invokeai $(cat ./term-sd-launch.conf)
-            print_line_to_shell
+            invokeai_launch
         fi
     fi
 }
@@ -157,11 +149,8 @@ function invokeai_manual_launch()
 {
     invokeai_manual_launch_parameter=$(dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入InvokeAI启动参数" 25 70 "$(cat ./term-sd-launch.conf | awk '{sub("--root ./invokeai --web","")}1')" 3>&1 1>&2 2>&3)
 
-    if [ -z $invokeai_manual_launch_parameter ];then
+    if [ $? = 0 ];then
         term_sd_notice "设置启动参数> $invokeai_manual_launch_parameter"
         echo "--root ./invokeai --web $invokeai_manual_launch_parameter" > term-sd-launch.conf
-    else
-        term_sd_notice "未输入启动参数,使用默认值> --web"
-        echo "--root ./invokeai --web" > term-sd-launch.conf
     fi
 }

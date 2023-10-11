@@ -67,12 +67,11 @@ function comfyui_option()
                 comfyui_change_repo
                 comfyui_option
             elif [ $comfyui_option_dialog = 8 ]; then
-                if [ -f "./term-sd-launch.conf" ]; then #找到启动脚本
-                    comfyui_launch
-                else #找不到启动脚本,并启动脚本生成界面
-                    generate_comfyui_launch
-                    term_sd_launch
+                if [ ! -f "./term-sd-launch.conf" ]; then #找不到启动配置时默认生成一个
+                    term_sd_notice "未找到启动配置文件,创建中"
+                    echo "main.py" > term-sd-launch.conf
                 fi
+                comfyui_launch
                 comfyui_option
             elif [ $comfyui_option_dialog = 9 ]; then
                 comfyui_update_depend

@@ -99,12 +99,13 @@ function comfyui_launch()
     if [ $? = 0 ];then
         if [ $comfyui_launch_dialog = 1 ];then
             term_sd_launch
+            comfyui_launch
         elif [ $comfyui_launch_dialog = 2 ];then
             generate_comfyui_launch
-            term_sd_launch
+            comfyui_launch
         elif [ $comfyui_launch_dialog = 3 ];then
             comfyui_manual_launch
-            term_sd_launch
+            comfyui_launch
         fi
     fi
 }
@@ -114,11 +115,8 @@ function comfyui_manual_launch()
 {
     comfyui_manual_launch_parameter=$(dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入ComfyUI启动参数" 25 70 "$(cat ./term-sd-launch.conf)" 3>&1 1>&2 2>&3)
 
-    if [ -z $comfyui_manual_launch_parameter ];then
+    if [ $? = 0 ];then
         term_sd_notice "设置启动参数> $comfyui_manual_launch_parameter"
         echo "main.py $comfyui_manual_launch_parameter" > term-sd-launch.conf
-    else
-        term_sd_notice "未输入启动参数,使用默认值>"
-        echo "main.py" > term-sd-launch.conf
     fi
 }
