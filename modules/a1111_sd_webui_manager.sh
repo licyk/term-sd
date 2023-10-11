@@ -64,16 +64,12 @@ function a1111_sd_webui_option()
                     sd_webui_branch_switch
                 fi
                 a1111_sd_webui_option
-            elif [ $a1111_sd_webui_option_dialog = 6 ]; then
-                sd_webui_branch_switch
-                a1111_sd_webui_option
             elif [ $a1111_sd_webui_option_dialog = 8 ]; then
-                if [ -f "./term-sd-launch.conf" ]; then #找到启动脚本
-                    sd_webui_launch
-                else #找不到启动脚本,并启动脚本生成界面
-                    generate_sd_webui_launch
-                    term_sd_launch
+                if [ ! -f "./term-sd-launch.conf" ]; then #找不到启动配置时默认生成一个
+                    term_sd_notice "未找到启动配置文件,创建中"
+		    echo "launch.py --theme dark --autolaunch --xformers" > term-sd-launch.conf
                 fi
+                sd_webui_launch
                 a1111_sd_webui_option
             elif [ $a1111_sd_webui_option_dialog = 9 ]; then
                 a1111_sd_webui_update_depend

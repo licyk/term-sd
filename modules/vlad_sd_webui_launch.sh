@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#vlad-sd-webui启动参数生成
 function generate_vlad_sd_webui_launch()
 {
     #清空启动参数
@@ -144,7 +145,7 @@ function generate_vlad_sd_webui_launch()
     fi
 }
 
-#Vlad-sd-webui启动界面
+#vlad-sd-webui启动界面
 function vlad_sd_webui_launch()
 {
     vlad_sd_webui_launch_dialog=$(dialog --clear --title "A1111-SD-Webui管理" --backtitle "Vlad-SD-Webui启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动Vlad-SD-Webui/修改Vlad-SD-Webui启动参数\n当前启动参数:\n"$python_cmd" $(cat ./term-sd-launch.conf)" 25 70 10 \
@@ -157,26 +158,24 @@ function vlad_sd_webui_launch()
     if [ $? = 0 ];then
         if [ $vlad_sd_webui_launch_dialog = 1 ];then
             term_sd_launch
+            vlad_sd_webui_launch
         elif [ $vlad_sd_webui_launch_dialog = 2 ];then
             generate_vlad_sd_webui_launch
-            term_sd_launch
+            vlad_sd_webui_launch
         elif [ $vlad_sd_webui_launch_dialog = 3 ];then
             vlad_sd_webui_manual_launch
-            term_sd_launch
+            vlad_sd_webui_launch
         fi
     fi
 }
 
-#Vlad-sd-webui手动输入启动参数界面
+#vlad-sd-webui手动输入启动参数界面
 function vlad_sd_webui_manual_launch()
 {
     vlad_sd_webui_manual_launch_parameter=$(dialog --clear --title "A1111-SD-Webui管理" --backtitle "Vlad-SD-Webui自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入Vlad-SD-Webui启动参数" 25 70 "$(cat ./term-sd-launch.conf)" 3>&1 1>&2 2>&3)
 
     if [ -z $vlad_sd_webui_manual_launch_parameter ];then
         term_sd_notice "设置启动参数> $vlad_sd_webui_manual_launch_parameter"
-        echo "launch.py $vlad_sd_webui_manual_launch_parameter" > term-sd-launch.conf
-    else
-        term_sd_notice "未输入启动参数,使用默认值> --theme dark --autolaunch --xformers"
-        echo "launch.py --theme dark --autolaunch --xformers" > term-sd-launch.conf
+        echo "launch.py $vlad_sd_webui_manual_launch_parameter" > term-sd-launch.conf 
     fi
 }

@@ -158,12 +158,13 @@ function sd_webui_directml_launch()
     if [ $? = 0 ];then
         if [ $sd_webui_directml_launch_dialog = 1 ];then
             term_sd_launch
+            sd_webui_directml_launch
         elif [ $sd_webui_directml_launch_dialog = 2 ];then
             generate_sd_webui_directml_launch
-            term_sd_launch
+            sd_webui_directml_launch
         elif [ $sd_webui_directml_launch_dialog = 3 ];then
             sd_webui_directml_manual_launch
-            term_sd_launch
+            sd_webui_directml_launch
         fi
     fi
 }
@@ -175,9 +176,6 @@ function sd_webui_directml_manual_launch()
 
     if [ -z $sd_webui_directml_manual_launch_parameter ];then
         term_sd_notice "设置启动参数> $sd_webui_directml_manual_launch_parameter"
-        echo "launch.py $sd_webui_directml_manual_launch_parameter" > term-sd-launch.conf
-    else
-        term_sd_notice "未输入启动参数,使用默认值> --theme dark --autolaunch --xformers"
-        echo "launch.py --theme dark --autolaunch --xformers" > term-sd-launch.conf
+        echo "launch.py $sd_webui_directml_manual_launch_parameter" > term-sd-launch.conf 
     fi
 }

@@ -158,12 +158,13 @@ function a1111_sd_webui_launch()
     if [ $? = 0 ];then
         if [ $a1111_sd_webui_launch_dialog = 1 ];then
             term_sd_launch
+            a1111_sd_webui_launch
         elif [ $a1111_sd_webui_launch_dialog = 2 ];then
             generate_a1111_sd_webui_launch
-            term_sd_launch
+            a1111_sd_webui_launch
         elif [ $a1111_sd_webui_launch_dialog = 3 ];then
             a1111_sd_webui_manual_launch
-            term_sd_launch
+            a1111_sd_webui_launch
         fi
     fi
 }
@@ -173,11 +174,8 @@ function a1111_sd_webui_manual_launch()
 {
     a1111_sd_webui_manual_launch_parameter=$(dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入A1111-SD-Webui启动参数" 25 70 "$(cat ./term-sd-launch.conf)" 3>&1 1>&2 2>&3)
 
-    if [ -z $a1111_sd_webui_manual_launch_parameter ];then
+    if [ $? = 0 ];then
         term_sd_notice "设置启动参数> $a1111_sd_webui_manual_launch_parameter"
         echo "launch.py $a1111_sd_webui_manual_launch_parameter" > term-sd-launch.conf
-    else
-        term_sd_notice "未输入启动参数,使用默认值> --theme dark --autolaunch --xformers"
-        echo "launch.py --theme dark --autolaunch --xformers" > term-sd-launch.conf
     fi
 }
