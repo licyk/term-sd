@@ -8,7 +8,7 @@ function generate_a1111_sd_webui_launch()
 
     #展示启动参数选项
     a1111_sd_webui_launch_option_dialog=$(
-        dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui启动参数选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "请选择A1111-Stable-Diffusion-Webui启动参数" 25 70 10 \
+        dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui启动参数选项" --separate-output --notags --ok-label "确认" --cancel-label "取消" --checklist "请选择A1111-Stable-Diffusion-Webui启动参数" 25 70 10 \
         "1" "skip-torch-cuda-test" OFF \
         "2" "no-half" OFF \
         "3" "no-half-vae" OFF \

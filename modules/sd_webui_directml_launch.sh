@@ -8,7 +8,7 @@ function generate_sd_webui_directml_launch()
 
     #展示启动参数选项
     sd_webui_directml_launch_option_dialog=$(
-        dialog --clear --title "A1111-SD-Webui管理" --backtitle "SD-Webui-DirectML启动参数选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "请选择SD-Webui-DirectML启动参数" 25 70 10 \
+        dialog --clear --title "A1111-SD-Webui管理" --backtitle "SD-Webui-DirectML启动参数选项" --separate-output --notags --ok-label "确认" --cancel-label "取消" --checklist "请选择SD-Webui-DirectML启动参数" 25 70 10 \
         "1" "skip-torch-cuda-test" OFF \
         "2" "no-half" OFF \
         "3" "no-half-vae" OFF \

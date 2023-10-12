@@ -6,7 +6,7 @@ function generate_fooocus_launch()
     fooocus_launch_option=""
 
     fooocus_launch_option_dialog=$(
-        dialog --clear --title "Fooocus管理" --backtitle "Fooocus启动参数选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "请选择Fooocus启动参数" 25 70 10 \
+        dialog --clear --title "Fooocus管理" --backtitle "Fooocus启动参数选项" --separate-output --notags --ok-label "确认" --cancel-label "取消" --checklist "请选择Fooocus启动参数" 25 70 10 \
         "1" "listen" OFF \
         "2" "directml" OFF \
         3>&1 1>&2 2>&3)
@@ -28,9 +28,6 @@ function generate_fooocus_launch()
             done
         fi
 
-        if [ -f "./term-sd-launch.conf" ];then
-            rm -v ./term-sd-launch.conf
-        fi
         term_sd_notice "设置启动参数> $fooocus_launch_option"
         echo "launch.py $fooocus_launch_option" > term-sd-launch.conf
     fi

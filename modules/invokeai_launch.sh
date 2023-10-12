@@ -52,7 +52,7 @@ function generate_invokeai_launch_custom()
     custom_invokeai_launch_option=""
 
     generate_invokeai_launch_custom_dialog=$(
-        dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI自定义启动参数选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "请选择InvokeAI启动参数" 25 70 10 \
+        dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI自定义启动参数选项" --separate-output --notags --ok-label "确认" --cancel-label "取消" --checklist "请选择InvokeAI启动参数" 25 70 10 \
         "1" "web" ON \
         "2" "free_gpu_mem" OFF \
         "3" "precision auto" ON \

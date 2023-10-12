@@ -76,8 +76,8 @@ function lora_scripts_option()
                 lora_scripts_change_repo
                 lora_scripts_option
             elif [ $lora_scripts_option_dialog = 6 ]; then
-                enter_venv
                 print_line_to_shell "$term_sd_manager_info 启动"
+                enter_venv
                 export HF_HOME=huggingface
                 export PYTHONUTF8=1
                 "$python_cmd" ./gui.py
