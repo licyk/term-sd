@@ -149,7 +149,7 @@ function term_sd_auto_update()
     if git --git-dir="./term-sd/.git" ls-remote origin refs/remotes/origin/$term_sd_local_branch $term_sd_local_branch 2> /dev/null 1> /dev/null ;then #网络连接正常时再进行更新
         if [ ! $term_sd_local_hash = $term_sd_remote_hash ];then
             term_sd_auto_update_option=""
-            term_sd_notice "检测到term-sd有新版本"
+            term_sd_notice "检测到Term-SD有新版本"
             term_sd_notice "是否选择更新(yes/no)?"
             term_sd_notice "提示:输入yes或no后回车"
             read -p "===============================> " term_sd_auto_update_option
@@ -163,17 +163,17 @@ function term_sd_auto_update()
                     if [ $git_pull_info = 0 ];then
                         cp -f ./term-sd/term-sd.sh .
                         chmod +x ./term-sd.sh
-                        term_sd_notice "更新成功"
+                        term_sd_notice "Term-SD更新成功"
                     else
                         term_sd_update_fix
                     fi
                 fi
             fi
         else
-            term_sd_notice "已经是最新版本"
+            term_sd_notice "Term-SD已经是最新版本"
         fi
     else
-        term_sd_notice "连接更新源失败,跳过更新"
+        term_sd_notice "Term-SD连接更新源失败,跳过更新"
         term_sd_notice "提示:请检查网络连接是否正常,若网络正常,可尝试更换更新源或使用科学上网解决"
     fi
 }
@@ -183,7 +183,7 @@ function term_sd_auto_update()
 function term_sd_update_fix()
 {
     term_sd_auto_update_option=""
-    term_sd_notice "是否修复更新(yes/no)?"
+    term_sd_notice "是否修复Term-SD的更新(yes/no)?"
     term_sd_notice "提示:输入yes或no后回车"
     read -p "===============================> " term_sd_auto_update_option
     if [ ! -z $term_sd_auto_update_option ];then
@@ -199,7 +199,7 @@ function term_sd_update_fix()
             if [ $git_pull_info = 0 ];then
                 cp -f ./term-sd/term-sd.sh .
                 chmod +x ./term-sd.sh
-                term_sd_notice "更新成功"
+                term_sd_notice "Term-SD更新成功"
             else
                 term_sd_notice "如果出错的可能是网络原因导致无法连接到更新源,可通过更换更新源或使用科学上网解决"
             fi
@@ -212,7 +212,7 @@ function term_sd_install()
 {
     term_sd_install_option=""
     if [ ! -d "./term-sd" ];then
-        term_sd_notice "检测到term-sd未安装,是否进行安装(yes/no)?"
+        term_sd_notice "检测到Term-SD未安装,是否进行安装(yes/no)?"
         term_sd_notice "提示:输入yes或no后回车"
         read -p "===============================> " term_sd_install_option
         if [ ! -z $term_sd_install_option ];then
@@ -222,9 +222,9 @@ function term_sd_install()
                 if [ $? = 0 ];then
                     cp -f ./term-sd/term-sd.sh .
                     chmod +x ./term-sd.sh
-                    term_sd_notice "安装成功"
+                    term_sd_notice "Term-SD安装成功"
                 else
-                    term_sd_notice "安装失败"
+                    term_sd_notice "Term-SD安装失败"
                     exit 1
                 fi
             else
@@ -234,22 +234,22 @@ function term_sd_install()
             exit 1
         fi
     elif [ ! -d "./term-sd/.git" ];then
-        term_sd_notice "检测到term-sd的.git目录不存在,将会导致Term-SD无法更新,是否重新安装(yes/no)?"
+        term_sd_notice "检测到Term-SD的.git目录不存在,将会导致Term-SD无法更新,是否重新安装(yes/no)?"
         term_sd_notice "提示:输入yes或no后回车"
         read -p "===============================> " term_sd_install_option
         if [ ! -z $term_sd_install_option ];then
             if [ $term_sd_install_option = yes ] || [ $term_sd_install_option = y ] || [ $term_sd_install_option = YES ] || [ $term_sd_install_option = Y ];then
                 term_sd_install_mirror_select
-                term_sd_notice "清除term-sd文件"
+                term_sd_notice "清除Term-SD文件中"
                 rm -rf ./term-sd
-                term_sd_notice "清除完成,开始安装"
+                term_sd_notice "清除完成,开始安装Term-SD"
                 git clone $term_sd_install_mirror
                 if [ $? = 0 ];then
                     cp -f ./term-sd/term-sd.sh .
                     chmod +x ./term-sd.sh
-                    term_sd_notice "安装成功"
+                    term_sd_notice "Term-SD安装成功"
                 else
-                    term_sd_notice "安装失败"
+                    term_sd_notice "Term-SD安装失败"
                     exit 1
                 fi
             fi
@@ -270,16 +270,16 @@ function term_sd_reinstall()
         if [ ! -z $term_sd_install_option ];then
             if [ $term_sd_install_option = yes ] || [ $term_sd_install_option = y ] || [ $term_sd_install_option = YES ] || [ $term_sd_install_option = Y ];then
                 term_sd_install_mirror_select
-                term_sd_notice "清除term-sd文件"
+                term_sd_notice "清除Term-SD文件中"
                 rm -rf ./term-sd
-                term_sd_notice "清除完成,开始安装"
+                term_sd_notice "清除完成,开始安装Term-SD"
                 git clone $term_sd_install_mirror
                 if [ $? = 0 ];then
                     cp -f ./term-sd/term-sd.sh .
                     chmod +x ./term-sd.sh
-                    term_sd_notice "安装成功"
+                    term_sd_notice "Term-SD安装成功"
                 else
-                    term_sd_notice "安装失败"
+                    term_sd_notice "Term-SD安装失败"
                     exit 1
                 fi
             else
@@ -297,12 +297,12 @@ function term_sd_reinstall()
 function term_sd_install_mirror_select()
 {
     term_sd_install_option=""
-    term_sd_notice "请选择下载源"
+    term_sd_notice "请选择Term-SD下载源"
     term_sd_notice "1、github源"
     term_sd_notice "2、gitlab源"
     term_sd_notice "3、gitee源"
     term_sd_notice "4、代理源(ghproxy.com)"
-    term_sd_notice "输入数字后回车"
+    term_sd_notice "提示:输入数字后回车"
     read -p "===============================> " term_sd_install_option
     if [ ! -z $term_sd_install_option ];then
         if [ $term_sd_install_option = 1 ];then
@@ -356,7 +356,7 @@ function remove_term_sd()
 function install_cmd_to_shell()
 {
     if [ $user_shell = bash ] || [ $user_shell = zsh ];then
-        term_sd_notice "是否将快捷指令添加到shell环境中?"
+        term_sd_notice "是否将Term-SD快捷启动指令添加到shell环境中?"
         term_sd_notice "添加后可使用\"termsd\"指令启动Term-SD"
         term_sd_notice "1、添加"
         term_sd_notice "2、删除"
@@ -677,7 +677,7 @@ if [ $test_num -ge 5 ];then
         term_sd_auto_update_trigger
         term_sd_process_user_input $(echo "$@")
     else
-        term_sd_notice "term-sd模块丢失,\"输入./term-sd.sh --reinstall-term-sd\"重新安装Term-SD"
+        term_sd_notice "Term-SD模块丢失,\"输入./term-sd.sh --reinstall-term-sd\"重新安装Term-SD"
     fi
 else
     print_line_to_shell "缺少以下依赖"

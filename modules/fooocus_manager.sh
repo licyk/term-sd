@@ -9,7 +9,7 @@ function fooocus_option()
     if [ -d "./Fooocus" ];then
         cd Fooocus
         fooocus_option_dialog=$(
-            dialog --clear --title "Fooocus管理" --backtitle "Fooocus管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Fooocus管理选项的功能\n当前更新源:$(git remote -v | awk 'NR==1' | awk '{print $2}')" 25 70 10 \
+            dialog --clear --title "Fooocus管理" --backtitle "Fooocus管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Fooocus管理选项的功能\n当前更新源:$(git remote -v | awk 'NR==1 {print $2}')" 25 70 10 \
             "1" "更新" \
             "2" "卸载" \
             "3" "修复更新" \
@@ -51,10 +51,9 @@ function fooocus_option()
                     fooocus_option
                 fi
             elif [ $fooocus_option_dialog = 3 ]; then
-                term_sd_notice "修复更新中"
                 term_sd_fix_pointer_offset #修复Fooocus
                 cd ./repositories/ComfyUI-from-StabilityAI-Official
-                term_sd_fix_pointer_offset #修复ComfyUI核心
+                term_sd_fix_pointer_offset #修复Fooocus的核心ComfyUI
                 cd ../..
                 fooocus_option
             elif [ $fooocus_option_dialog = 4 ]; then

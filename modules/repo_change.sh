@@ -3,7 +3,7 @@
 #将远程源替换成代理源
 function change_repo_to_proxy()
 {
-    repo_remote_address=$(git remote -v | awk 'NR==1' | awk '{print $2}') #获取项目远程地址
+    repo_remote_address=$(git remote -v | awk 'NR==1 {print $2}') #获取项目远程地址
     if [ ! -z $(echo $repo_remote_address | grep github.com) ];then #检测到属于github的地址再执行操作
         if [ -z $(echo $repo_remote_address | grep ghproxy.com) ];then
             term_sd_notice "替换$(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源为镜像源"
@@ -27,7 +27,7 @@ function change_repo_to_proxy()
 #恢复原始的远程源
 function change_repo_to_origin()
 {
-    repo_remote_address=$(git remote -v | awk 'NR==1' | awk '{print $2}') #获取项目远程地址
+    repo_remote_address=$(git remote -v | awk 'NR==1 {print $2}') #获取项目远程地址
     if [ ! -z $(echo $repo_remote_address | grep github.com) ];then
         if [ ! -z $(echo $repo_remote_address | grep ghproxy.com) ];then
             term_sd_notice "替换$(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源为官方源"
@@ -88,7 +88,7 @@ function select_repo()
 function select_repo_single()
 {
     change_repo_return="" #清除上次运行结果
-    select_repo_single_=$(dialog --clear --title "Term-SD" --backtitle "更新源选择界面" --ok-label "确认" --cancel-label "取消" --menu "选择要修改成的更新源\n当前更新源:$(git remote -v | awk 'NR==1' | awk '{print $2}')" 25 70 10 \
+    select_repo_single_=$(dialog --clear --title "Term-SD" --backtitle "更新源选择界面" --ok-label "确认" --cancel-label "取消" --menu "选择要修改成的更新源\n当前更新源:$(git remote -v | awk 'NR==1 {print $2}')" 25 70 10 \
         "1" "官方源" \
         "2" "镜像源" \
         "3" "返回" \

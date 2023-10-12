@@ -9,7 +9,7 @@ function a1111_sd_webui_option()
     if [ -d "stable-diffusion-webui" ];then #找到stable-diffusion-webui目录
         cd stable-diffusion-webui
         a1111_sd_webui_option_dialog=$(
-            dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择A1111-SD-Webui管理选项的功能\n当前更新源:$(git remote -v | awk 'NR==1' | awk '{print $2}')" 25 70 10 \
+            dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择A1111-SD-Webui管理选项的功能\n当前更新源:$(git remote -v | awk 'NR==1 {print $2}')" 25 70 10 \
             "1" "更新" \
             "2" "卸载" \
             "3" "修复更新" \
@@ -47,7 +47,6 @@ function a1111_sd_webui_option()
                     a1111_sd_webui_option
                 fi
             elif [ $a1111_sd_webui_option_dialog = 3 ]; then
-                term_sd_notice "修复更新中"
                 term_sd_fix_pointer_offset
                 a1111_sd_webui_option
             elif [ $a1111_sd_webui_option_dialog = 4 ]; then
