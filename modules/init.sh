@@ -18,6 +18,7 @@ function term_sd_init()
     print_line_to_shell
     echo "[$(date "+%Y-%m-%d %H:%M:%S")][Term-SD]:: 启动Term-SD中"
     term_sd_version
+    mainmenu
 }
 
 #设置启动时脚本路径

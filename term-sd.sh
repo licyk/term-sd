@@ -155,6 +155,7 @@ function term_sd_auto_update()
             read -p "===============================> " term_sd_auto_update_option
             if [ ! -z $term_sd_auto_update_option ];then
                 if [ $term_sd_auto_update_option = yes ] || [ $term_sd_auto_update_option = y ] || [ $term_sd_auto_update_option = YES ] || [ $term_sd_auto_update_option = Y ];then
+                    term_sd_notice "更新Term-SD中"
                     cd ./term-sd
                     git_pull_info=""
                     git pull
@@ -188,10 +189,13 @@ function term_sd_update_fix()
     read -p "===============================> " term_sd_auto_update_option
     if [ ! -z $term_sd_auto_update_option ];then
         if [ $term_sd_auto_update_option = yes ] || [ $term_sd_auto_update_option = y ] || [ $term_sd_auto_update_option = YES ] || [ $term_sd_auto_update_option = Y ];then
+            term_sd_notice "修复Term-SD更新中"
             cd ./term-sd
             term_sd_local_main_branch=$(git branch -a | grep HEAD | awk -F'/' '{print $NF}') #term-sd主分支
             git checkout $term_sd_local_main_branch
             git reset --hard HEAD
+            term_sd_notice "修复Term-SD更新完成"
+            term_sd_notice "更新Term-SD中"
             git_pull_info=""
             git pull
             git_pull_info=$?
@@ -218,6 +222,7 @@ function term_sd_install()
         if [ ! -z $term_sd_install_option ];then
             if [ $term_sd_install_option = yes ] || [ $term_sd_install_option = y ] || [ $term_sd_install_option = YES ] || [ $term_sd_install_option = Y ];then
                 term_sd_install_mirror_select
+                term_sd_notice "下载Term-SD中"
                 git clone $term_sd_install_mirror
                 if [ $? = 0 ];then
                     cp -f ./term-sd/term-sd.sh .
