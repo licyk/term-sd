@@ -18,7 +18,7 @@ function invokeai_option()
                 "3" "启动" \
                 "4" "重新安装" \
                 "5" "重新安装pytorch" \
-                "6" "pip软件包重装" \
+                "6" "python软件包重装" \
                 $dialog_rebuild_venv_button \
                 "20" "返回" \
                 3>&1 1>&2 2>&3)
