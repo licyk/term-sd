@@ -1,12 +1,11 @@
 #!/bin/bash
 
-#处理用户输入的参数
-function term_sd_process_user_input()
+#term-sd处理用户输入功能(早期进行配置时使用)
+function term_sd_process_user_input_early()
 {
     for term_sd_launch_input in $(echo "$@") ;do
         case $term_sd_launch_input in
         "--help")
-        echo
         term_sd_notice "启动参数使用方法:"
         echo "  term-sd.sh [--help] [--extra] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-proxy] [--quick-cmd] [--set-python-path] [--set-pip-path] [--unset-python-path] [--unset-pip-path]"
         echo "选项:"
@@ -36,9 +35,45 @@ function term_sd_process_user_input()
         echo "        删除自定义python解释器路径配置"
         echo "  --unset-pip-path"
         echo "        删除自定义pip解释器路径配置"
+        echo "  --update-pip"
+        echo "        进入虚拟环境时更新pip软件包管理器"
         print_line_to_shell
         exit 1
         ;;
+        "--enable-auto-update")
+        term_sd_notice "启用Term-SD自动检查更新功能"
+        touch ./term-sd/term-sd-auto-update.lock
+        ;;
+        "--disable-auto-update")
+        term_sd_notice "禁用Term-SD自动检查更新功能"
+        rm -rf ./term-sd/term-sd-auto-update.lock
+        rm -rf ./term-sd/term-sd-auto-update-time.conf
+        ;;
+        "--set-python-path")
+        set_python_path
+        ;;
+        "--set-pip-path")
+        set_pip_path
+        ;;
+        "--unset-python-path")
+        rm -f ./term-sd/python-path.conf
+        term_sd_notice "已删除自定义python解释器路径配置"
+        ;;
+        "--unset-pip-path")
+        rm -f ./term-sd/pip-path.conf
+        term_sd_notice "已删除自定义pip解释器路径配置"
+        ;;
+        esac
+    done
+}
+
+#处理用户输入的参数(较晚启动)
+function term_sd_process_user_input()
+{
+    export pip_manager_update=1
+    export aria2_multi_threaded=""
+    for term_sd_launch_input in $(echo "$@") ;do
+        case $term_sd_launch_input in
         "--remove-term-sd")
         remove_term_sd
         ;;
@@ -50,14 +85,9 @@ function term_sd_process_user_input()
         term_sd_notice "安装过程中启用多线程下载模型"
         export aria2_multi_threaded="-x 8"
         ;;
-        "--enable-auto-update")
-        term_sd_notice "启用Term-SD自动检查更新功能"
-        touch ./term-sd/term-sd-auto-update.lock
-        ;;
-        "--disable-auto-update")
-        term_sd_notice "禁用Term-SD自动检查更新功能"
-        rm -rf ./term-sd/term-sd-auto-update.lock
-        rm -rf ./term-sd/term-sd-auto-update-time.conf
+        "--update-pip")
+        export pip_manager_update=0
+        term_sd_notice "进入虚拟环境时将更新pip软件包管理器"
         ;;
         "--test-proxy")
         if which curl > /dev/null;then
@@ -505,10 +535,13 @@ function set_python_path()
     elif [ "$set_python_path_option" = "exit" ];then
         term_sd_notice "退出python路径指定功能"
     else
-        python_path="$set_python_path_option"
-        echo $python_path > python-path.conf
+        term_sd_python_path="$set_python_path_option"
+        echo $term_sd_python_path > python-path.conf
         mv -f ./python-path.conf ./term-sd/
         term_sd_notice "python解释器路径指定完成"
+        term_sd_notice "提示:"
+        term_sd_notice "使用--set-pip-path重新设置pip路径"
+        term_sd_notice "使用--unset-pip-path删除pip路径设置"
     fi
 }
 
@@ -524,10 +557,13 @@ function set_pip_path()
     elif [ "$set_pip_path_option" = "exit" ];then
         term_sd_notice "退出pip路径指定功能"
     else
-        pip_path="$set_pip_path_option"
-        echo $pip_path > pip-path.conf
+        term_sd_pip_path="$set_pip_path_option"
+        echo $term_sd_pip_path > pip-path.conf
         mv -f ./pip-path.conf ./term-sd/
-        term_sd_notice "pip解释器路径指定完成"
+        term_sd_notice "python解释器路径指定完成"
+        term_sd_notice "提示:"
+        term_sd_notice "使用--set-python-path重新设置python解释器路径"
+        term_sd_notice "使用--unset-python-path删除python解释器路径设置"
     fi
 }
 
@@ -566,6 +602,8 @@ if [ ! -d "./term-sd" ] && [ -d "./.git" ] && [ -d "./modules" ] && [ -f "./modu
     exit 1
 fi
 
+term_sd_process_user_input_early $@ #处理用户输入
+
 term_sd_notice "检测依赖软件是否安装"
 missing_dep=""
 test_num=0
@@ -599,53 +637,57 @@ done
 
 #存在python自定义路径配置文件时自动读取到变量中
 if [ -f "./term-sd/python-path.conf" ];then
-    python_path=$(cat ./term-sd/python-path.conf)
+    term_sd_python_path=$(cat ./term-sd/python-path.conf)
 fi
 
 #存在pip自定义路径配置文件时自动读取到变量中
 if [ -f "./term-sd/pip-path.conf" ];then
-    pip_path=$(cat ./term-sd/pip-path.conf)
+    term_sd_pip_path=$(cat ./term-sd/pip-path.conf)
 fi
 
 #检测可用的python命令,并检测是否手动指定python路径
-if [ -z "$python_path" ];then
+if [ -z "$term_sd_python_path" ];then
     if python3 --version > /dev/null 2> /dev/null || python --version > /dev/null 2> /dev/null ;then #判断是否有可用的python
         test_num=$(( $test_num + 1 ))
-        python_cmd_test_1=$(python3 --version 2> /dev/null)
-        python_cmd_test_2=$(python --version 2> /dev/null)
 
-        if [ ! -z "$python_cmd_test_1" ];then
-            export python_cmd="python3"
-        elif [ ! -z "$python_cmd_test_2" ];then
-            export python_cmd="python"
+        if [ ! -z "$(python3 --version 2> /dev/null)" ];then
+            export term_sd_python_path="python3"
+        elif [ ! -z "$(python --version 2> /dev/null)" ];then
+            export term_sd_python_path="python"
         fi
     else
         missing_dep="$missing_dep python,"
     fi  
 else
-    export python_cmd="$python_path"
-    if which "$python_cmd" > /dev/null 2> /dev/null ;then
+    if which "$term_sd_python_path" > /dev/null 2> /dev/null ;then
         test_num=$(( $test_num + 1 ))
+        term_sd_notice "使用自定义python解释器路径:$term_sd_python_path"
     else
         term_sd_notice "手动指定的python路径错误"
+        term_sd_notice "提示:"
+        term_sd_notice "使用--set-python-path重新设置python解释器路径"
+        term_sd_notice "使用--unset-python-path删除python解释器路径设置"
         missing_dep="$missing_dep python,"
     fi
 fi
 
 #检测可用的pip命令,并检测是否手动指定pip路径
-if [ -z "$pip_path" ];then
+if [ -z "$term_sd_pip_path" ];then
     if which pip > /dev/null 2> /dev/null ;then
         test_num=$(( $test_num + 1 ))
-        export pip_cmd="pip"
+        export term_sd_pip_path="pip"
     else
         missing_dep="$missing_dep pip,"
     fi
 else
-    export pip_cmd="$pip_path"
-    if which "$pip_path" > /dev/null 2> /dev/null ;then
+    if which "$term_sd_pip_path" > /dev/null 2> /dev/null ;then
         test_num=$(( $test_num + 1 ))
+        term_sd_notice "使用自定义pip路径:$term_sd_pip_path"
     else
         term_sd_notice "手动指定的pip路径错误"
+        term_sd_notice "提示:"
+        term_sd_notice "使用--set-pip-path重新设置pip路径"
+        term_sd_notice "使用--unset-pip-path删除pip路径设置"
         missing_dep="$missing_dep pip,"
     fi
 fi
