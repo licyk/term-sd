@@ -21,7 +21,7 @@ function comfyui_option()
             "9" "更新依赖" \
             "10" "重新安装" \
             "11" "重新安装pytorch" \
-            "12" "python软件包重装" \
+            "12" "python软件包安装/重装/卸载" \
             $dialog_recreate_venv_button \
             $dialog_rebuild_venv_button \
             "20" "返回" \
@@ -87,10 +87,12 @@ function comfyui_option()
                 pytorch_reinstall
                 comfyui_option
             elif [ $comfyui_option_dialog = 12 ]; then
-                reinstall_python_packages
+                manage_python_packages
                 comfyui_option
             elif [ $comfyui_option_dialog = 18 ]; then
-                create_venv
+                if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI虚拟环境修复选项" --yes-label "是" --no-label "否" --yesno "是否修复ComfyUI的虚拟环境" 25 70);then
+                    create_venv --fix
+                fi
                 comfyui_option
             elif [ $comfyui_option_dialog = 19 ]; then
                 if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建ComfyUI的虚拟环境" 25 70);then
@@ -122,7 +124,7 @@ function comfyui_update_depend()
             tmp_disable_proxy
             create_venv
             enter_venv
-            "$pip_cmd" install -r ./requirements.txt --prefer-binary --upgrade $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+            pip_cmd install -r ./requirements.txt --prefer-binary --upgrade $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
             exit_venv
             tmp_enable_proxy
             print_line_to_shell

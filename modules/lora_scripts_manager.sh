@@ -19,7 +19,7 @@ function lora_scripts_option()
             "7" "更新依赖" \
             "8" "重新安装" \
             "9" "重新安装pytorch" \
-            "10" "python软件包重装" \
+            "10" "python软件包安装/重装/卸载" \
             $dialog_recreate_venv_button \
             $dialog_rebuild_venv_button \
             "20" "返回" \
@@ -79,7 +79,7 @@ function lora_scripts_option()
                 enter_venv
                 export HF_HOME=huggingface
                 export PYTHONUTF8=1
-                "$python_cmd" ./gui.py
+                python_cmd ./gui.py
                 print_line_to_shell
                 lora_scripts_option
             elif [ $lora_scripts_option_dialog = 7 ]; then
@@ -97,10 +97,12 @@ function lora_scripts_option()
                 pytorch_reinstall
                 lora_scripts_option
             elif [ $lora_scripts_option_dialog = 10 ]; then
-                reinstall_python_packages
+                manage_python_packages
                 lora_scripts_option
             elif [ $lora_scripts_option_dialog = 18 ]; then
-                create_venv
+                if (dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts虚拟环境修复选项" --yes-label "是" --no-label "否" --yesno "是否修复lora-scripts的虚拟环境" 25 70);then
+                    create_venv --fix
+                fi
                 lora_scripts_option
             elif [ $lora_scripts_option_dialog = 19 ]; then
                 if (dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建lora-scripts的虚拟环境" 25 70);then
@@ -133,10 +135,10 @@ function lora_scripts_update_depend()
             create_venv
             enter_venv
             cd ./sd-scripts
-            "$pip_cmd" install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --prefer-binary --upgrade -r ./requirements.txt --default-timeout=100 --retries 5 #sd-scripts目录下还有个_typos.toml，在安装requirements.txt里的依赖时会指向这个文件
+            pip_cmd install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --prefer-binary --upgrade -r ./requirements.txt --default-timeout=100 --retries 5 #sd-scripts目录下还有个_typos.toml，在安装requirements.txt里的依赖时会指向这个文件
             cd ..
-            "$pip_cmd" install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --prefer-binary --upgrade lion-pytorch dadaptation prodigyopt lycoris-lora fastapi uvicorn wandb scipy --default-timeout=100 --retries 5
-            "$pip_cmd" install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --prefer-binary --upgrade -r ./requirements.txt --default-timeout=100 --retries 5 #lora-scripts安装依赖
+            pip_cmd install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --prefer-binary --upgrade lion-pytorch dadaptation prodigyopt lycoris-lora fastapi uvicorn wandb scipy --default-timeout=100 --retries 5
+            pip_cmd install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --prefer-binary --upgrade -r ./requirements.txt --default-timeout=100 --retries 5 #lora-scripts安装依赖
             exit_venv
             tmp_enable_proxy
             print_line_to_shell

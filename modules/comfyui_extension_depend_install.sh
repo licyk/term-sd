@@ -46,7 +46,7 @@ function comfyui_extension_depend_install_process()
         fi
 
         if [ -f "./install.py" ];then #找到install.py文件
-            "$python_cmd" install.py
+            python_cmd install.py
             if [ $? = 0 ];then #记录退出状态
                 dep_info="$dep_info     run install.py:成功\n"
             else
@@ -55,7 +55,7 @@ function comfyui_extension_depend_install_process()
         fi
 
         if [ -f "./requirements.txt" ];then #找到requirement.txt文件
-            "$pip_cmd" install -r requirements.txt
+            pip_cmd install -r requirements.txt
             if [ $? = 0 ];then #记录退出状态
                 dep_info="$dep_info     install requirements.txt:成功\n"
             else
@@ -90,7 +90,7 @@ function comfyui_extension_depend_install_single()
     fi
 
     if [ -f "./install.py" ];then #找到install.py文件
-        "$python_cmd" install.py
+        python_cmd install.py
         if [ $? = 0 ];then #记录退出状态
             dep_info="$dep_info     run install.py:成功\n"
         else
@@ -99,7 +99,7 @@ function comfyui_extension_depend_install_single()
     fi
 
     if [ -f "./requirements.txt" ];then #找到requirement.txt文件
-        "$pip_cmd" install -r requirements.txt
+        pip_cmd install -r requirements.txt
         if [ $? = 0 ];then #记录退出状态
             dep_info="$dep_info     install requirements.txt:成功\n"
         else

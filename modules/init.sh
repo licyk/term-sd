@@ -31,7 +31,7 @@ if [ -f ./term-sd/term-sd-venv-disable.lock ];then #找到term-sd-venv-disable.l
     export dialog_rebuild_venv_button=""
 else
     export venv_active="0"
-    export dialog_recreate_venv_button=""18" "重新生成venv虚拟环境"" #在启用venv后显示这些dialog按钮
+    export dialog_recreate_venv_button=""18" "修复venv虚拟环境"" #在启用venv后显示这些dialog按钮
     export dialog_rebuild_venv_button=""19" "重新构建venv虚拟环境""
 fi
 

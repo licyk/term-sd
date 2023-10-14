@@ -68,7 +68,8 @@ function term_sd_launch()
         invokeai $(cat ./term-sd-launch.conf)
     else
         enter_venv
-        "$python_cmd" $(cat ./term-sd-launch.conf)
+        pip_cmd list
+        python_cmd $(cat ./term-sd-launch.conf)
     fi
     print_line_to_shell
 }
@@ -84,11 +85,12 @@ function term_sd_fix_pointer_offset()
 #显示版本信息
 function term_sd_version()
 {
+    term_sd_notice "统计版本信息中"
     dialog --clear --title "Term-SD" --backtitle "Term-SD开始界面" --ok-label "确认" --msgbox "版本信息:\n\n
 系统:$(uname -o) \n
 Term-SD:"$term_sd_version_" \n
-python:$("$python_cmd" --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
-pip:$("$pip_cmd" --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
+python:$(python_cmd --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
+pip:$(pip_cmd --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
 aria2:$(aria2c --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ') \n
 git:$(git --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ') \n
 dialog:$(dialog --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n

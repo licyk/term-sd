@@ -18,7 +18,8 @@ function invokeai_option()
                 "3" "启动" \
                 "4" "重新安装" \
                 "5" "重新安装pytorch" \
-                "6" "python软件包重装" \
+                "6" "python软件包安装/重装/卸载" \
+                $dialog_recreate_venv_button \
                 $dialog_rebuild_venv_button \
                 "20" "返回" \
                 3>&1 1>&2 2>&3)
@@ -30,7 +31,7 @@ function invokeai_option()
                     final_install_check #安装前确认
                     if [ $final_install_check_exec = 0 ];then
                         term_sd_notice "更新InvokeAI中"
-                        "$pip_cmd" install $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --prefer-binary --upgrade invokeai --default-timeout=100 --retries 5
+                        pip_cmd install $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --prefer-binary --upgrade invokeai --default-timeout=100 --retries 5
                         if [ $? = 0 ];then
                             dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI更新结果" --ok-label "确认" --msgbox "InvokeAI更新成功" 25 70
                         else
@@ -66,8 +67,15 @@ function invokeai_option()
                     pytorch_reinstall
                     invokeai_option
                 elif [ $invokeai_option_dialog = 6 ]; then
-                    reinstall_python_packages
+                    manage_python_packages
                     invokeai_option
+                elif [ $fooocus_option_dialog = 18 ]; then
+                    if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI虚拟环境修复选项" --yes-label "是" --no-label "否" --yesno "是否修复InvokeAI的虚拟环境" 25 70);then
+                        create_venv --fix
+                        enter_venv
+                        pip freeze | grep -i invokeai | xargs pip install --no-deps --force-reinstall #重新安装invokeai
+                    fi
+                    fooocus_option
                 elif [ $invokeai_option_dialog = 19 ]; then
                     if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建InvokeAI的虚拟环境" 25 70);then
                         invokeai_venv_rebuild

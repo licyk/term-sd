@@ -137,6 +137,7 @@ set-python-path:手动指定python解释器路径\n
 set-pip-path:手动指定pip路径\n
 unset-python-path:删除自定义python解释器路径配置\n
 unset-pip-path:删除自定义pip解释器路径配置\n
+update-pip:进入虚拟环境时更新pip软件包管理器\n
 \n
 Term-SD的功能(除了安装,更新,启动,卸载):\n
 主界面:\n
@@ -155,9 +156,9 @@ pip缓存清理:清理pip在安装软件包后产生的缓存\n
 更新依赖:更新ai的python包依赖,一般情况下不需要用到\n
 重新安装:重新执行一次AI软件的安装\n
 重新安装pytorch:用于切换pytorch版本(pytorch为ai的框架,为ai提供大量功能)\n
-重新生成venv虚拟环境:在移动AI软件的文件夹后,venv会出现路径问题而导致运行异常,该功能可修复该问题\n
-重新构建venv虚拟环境:venv出现比较严重的软件包版本问题,导致AI软件运行异常,此时可使用该功能进行修复(该功能同时会运行\"重新生成venv虚拟环境\"功能)\n
-python软件包重装:安装或者重新安装python软件包,解决某个软件包缺少或者损坏的问题\n
+修复venv虚拟环境:在移动AI软件的文件夹后,venv会出现路径问题而导致运行异常,该功能可修复该问题\n
+重新构建venv虚拟环境:venv出现比较严重的软件包版本问题,导致AI软件运行异常,此时可使用该功能进行修复(该功能同时会运行\"修复venv虚拟环境\"功能);或者在安装ai软件前禁用了虚拟环境,安装后重新启用了虚拟环境,这时也需要运行该功能\n
+pip软件包安装/重装/卸载:安装/重装/卸载python软件包,解决某个软件包缺少或者损坏的问题\n
 安装准备功能:\n
 启用pip镜像源:使用国内镜像源下载python软件包\n
 启用github代理:使用github代理站下载github上的软件\n
@@ -241,6 +242,11 @@ always_use_cpu:使用cpu进行图片生成\n
 no-esrgan:不使用esrgan进行图片高清修复\n
 no-internet_available:禁用联网下载资源\n
 host:允许局域网的设备访问\n
+\n
+\n
+Foooxus启动参数:\n
+listen:允许局域网的设备访问\n
+directml:使用directml运行torch,解决amd显卡和intel显卡无法使用ai画图的问题\n
 \n
 \n
 " 25 70
