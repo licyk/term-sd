@@ -68,7 +68,6 @@ function term_sd_launch()
         invokeai $(cat ./term-sd-launch.conf)
     else
         enter_venv
-        pip_cmd list
         python_cmd $(cat ./term-sd-launch.conf)
     fi
     print_line_to_shell

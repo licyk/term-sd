@@ -148,7 +148,7 @@ function generate_a1111_sd_webui_launch()
 #a1111-sd-webui启动界面
 function a1111_sd_webui_launch()
 {
-    a1111_sd_webui_launch_dialog=$(dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动A1111-SD-Webui/修改A1111-SD-Webui启动参数\n当前启动参数:\n$([ $venv_active = 0 ] && echo python || echo "$python_path") $(cat ./term-sd-launch.conf)" 25 70 10 \
+    a1111_sd_webui_launch_dialog=$(dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动A1111-SD-Webui/修改A1111-SD-Webui启动参数\n当前启动参数:\n$([ $venv_active = 0 ] && echo python || echo "$term_sd_python_path") $(cat ./term-sd-launch.conf)" 25 70 10 \
         "1" "启动" \
         "2" "选择预设启动参数" \
         "3" "自定义启动参数" \
