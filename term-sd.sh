@@ -651,9 +651,9 @@ if [ -z "$term_sd_python_path" ];then
         test_num=$(( $test_num + 1 ))
 
         if [ ! -z "$(python3 --version 2> /dev/null)" ];then
-            export term_sd_python_path="python3"
+            export term_sd_python_path=$(which python3)
         elif [ ! -z "$(python --version 2> /dev/null)" ];then
-            export term_sd_python_path="python"
+            export term_sd_python_path=$(which python)
         fi
     else
         missing_dep="$missing_dep python,"
@@ -675,7 +675,7 @@ fi
 if [ -z "$term_sd_pip_path" ];then
     if which pip > /dev/null 2> /dev/null ;then
         test_num=$(( $test_num + 1 ))
-        export term_sd_pip_path="pip"
+        export term_sd_pip_path=$(which pip)
     else
         missing_dep="$missing_dep pip,"
     fi
