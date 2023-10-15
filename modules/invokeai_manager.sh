@@ -75,7 +75,7 @@ function invokeai_option()
                         enter_venv
                         pip freeze | grep -i invokeai | xargs pip install --no-deps --force-reinstall #重新安装invokeai
                     fi
-                    fooocus_option
+                    invokeai_option
                 elif [ $invokeai_option_dialog = 19 ]; then
                     if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建InvokeAI的虚拟环境" 25 70);then
                         invokeai_venv_rebuild
