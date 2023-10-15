@@ -85,6 +85,7 @@ function enter_venv()
         if [ -f "./venv/Scripts/activate" ];then #在Windows端的venv目录结构和linux,macos的不同,所以进入虚拟环境的方式有区别
             source ./venv/Scripts/activate > /dev/null
             if [ $pip_manager_update = 0 ];then
+                term_sd_notice "开始更新pip包管理器"
                 python_cmd -m pip install --upgrade pip
                 if [ $? = 0 ];then
                     term_sd_notice "pip包管理器更新成功"
