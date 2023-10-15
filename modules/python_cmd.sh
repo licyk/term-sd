@@ -8,13 +8,13 @@ function python_cmd()
         #检测使用哪种命令调用python
         #调用虚拟环境的python
         if [ ! -z "$(python3 --version 2> /dev/null)" ];then
-            python3 $@
+            python3 "$@" #加双引号防止运行报错
         elif [ ! -z "$(python --version 2> /dev/null)" ];then
-            python $@
+            python "$@"
         fi
     else #不在虚拟环境时
         #调用系统中存在的python
-        "$term_sd_python_path" $@
+        "$term_sd_python_path" "$@"
     fi
 }
 
@@ -24,9 +24,9 @@ function pip_cmd()
     #检测是否在虚拟环境中
     if [ ! -z "$VIRTUAL_ENV" ];then
         #调用虚拟环境的pip
-        pip $@
+        pip "$@"
     else
         #调用系统中存在的pip
-        "$term_sd_pip_path" $@
+        "$term_sd_pip_path" "$@"
     fi
 }
