@@ -69,7 +69,7 @@ function invokeai_option()
                 elif [ $invokeai_option_dialog = 6 ]; then
                     manage_python_packages
                     invokeai_option
-                elif [ $fooocus_option_dialog = 18 ]; then
+                elif [ $invokeai_option_dialog = 18 ]; then
                     if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI虚拟环境修复选项" --yes-label "是" --no-label "否" --yesno "是否修复InvokeAI的虚拟环境" 25 70);then
                         create_venv --fix
                         enter_venv
