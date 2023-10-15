@@ -4,10 +4,9 @@
 function python_cmd()
 {
     #检测是否在虚拟环境中
-    if which deactivate 2> /dev/null ;then #当处在虚拟环境时
+    if [ ! -z "$VIRTUAL_ENV" ];then #当处在虚拟环境时
         #检测使用哪种命令调用python
         #调用虚拟环境的python
-        term_sd_notice "调用虚拟环境中的python"
         if [ ! -z "$(python3 --version 2> /dev/null)" ];then
             python3 $@
         elif [ ! -z "$(python --version 2> /dev/null)" ];then
@@ -15,7 +14,6 @@ function python_cmd()
         fi
     else #不在虚拟环境时
         #调用系统中存在的python
-        term_sd_notice "调用系统中的python"
         "$term_sd_python_path" $@
     fi
 }
@@ -24,13 +22,11 @@ function python_cmd()
 function pip_cmd()
 {
     #检测是否在虚拟环境中
-    if which deactivate 2> /dev/null ;then
+    if [ ! -z "$VIRTUAL_ENV" ];then
         #调用虚拟环境的pip
-        term_sd_notice "调用虚拟环境中的pip"
         pip $@
     else
         #调用系统中存在的pip
-        term_sd_notice "调用系统中的pip"
         "$term_sd_pip_path" $@
     fi
 }
