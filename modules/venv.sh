@@ -111,6 +111,7 @@ function enter_venv()
 #退出虚拟环境功能(直接用了python官方的退出脚本)
 function exit_venv(){
     if [ ! -z "$VIRTUAL_ENV" ];then #检测是否在虚拟环境中
+        term_sd_notice "退出venv虚拟环境"
         # reset old environment variables
         if [ -n "${_OLD_VIRTUAL_PATH:-}" ] ; then
             PATH="${_OLD_VIRTUAL_PATH:-}"

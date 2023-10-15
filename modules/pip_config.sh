@@ -21,11 +21,11 @@ function set_pip_mirrors_option()
             set_pip_mirrors_option
         elif [ $set_pip_mirrors_option_dialog = 2 ];then
             #pip config set global.index-url "https://mirror.sjtu.edu.cn/pypi/web/simple"
-            pip_cmd config set global.index-url "https://pypi.python.org/simple"
+            pip_cmd config set global.index-url " https://mirrors.bfsu.edu.cn/pypi/web/simple"
             #pip config set global.extra-index-url "https://mirror.sjtu.edu.cn/pytorch-wheels"
             #pip config set global.extra-index-url "https://mirrors.aliyun.com/pytorch-wheels"
-            pip_cmd config set global.extra-index-url "https://mirrors.bfsu.edu.cn/pypi/web/simple https://pypi.tuna.tsinghua.edu.cn/simple https://mirrors.pku.edu.cn/pypi/web/simple"
-            pip_cmd config set global.find-links "https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html"
+            pip_cmd config set global.extra-index-url "https://pypi.python.org/simple https://pypi.tuna.tsinghua.edu.cn/simple https://mirrors.pku.edu.cn/pypi/web/simple"
+            pip_cmd config set global.find-links "https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
             set_pip_mirrors_option
         elif [ $set_pip_mirrors_option_dialog = 3 ];then
             pip_cmd config unset global.extra-index-url

@@ -29,9 +29,9 @@ function proxy_option()
         "1")
         #pip_mirror="-i https://mirror.sjtu.edu.cn/pypi/web/simple" #上海交大的镜像源有点问题,在安装invokeai时会报错,可能是软件包版本的问题
         #extra_pip_mirror="-f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
-        pip_index_mirror="--index-url https://pypi.python.org/simple"
-        pip_extra_index_mirror="--extra-index-url https://mirrors.bfsu.edu.cn/pypi/web/simple --extra-index-url https://pypi.tuna.tsinghua.edu.cn/simple --extra-index-url https://mirrors.pku.edu.cn/pypi/web/simple"
-        pip_find_mirror="--find-links https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html"
+        pip_index_mirror="--index-url https://mirrors.bfsu.edu.cn/pypi/web/simple"
+        pip_extra_index_mirror="--extra-index-url https://pypi.python.org/simple --extra-index-url https://pypi.tuna.tsinghua.edu.cn/simple --extra-index-url https://mirrors.pku.edu.cn/pypi/web/simple"
+        pip_find_mirror="--find-links https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html --find-links https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
         final_install_check_python="启用"
         ;;
         "2")
@@ -64,8 +64,8 @@ function pytorch_version_select()
         "0" "Torch+xformers" \
         "1" "Torch" \
         "2" "Torch 2.0.0+Torch-Directml" \
-        "3" "Torch 2.0.1+CPU" \
-        "4" "Torch 2.0.1+RoCM 5.4.2" \
+        "3" "Torch 2.1.0+CPU" \
+        "4" "Torch 2.1.0+RoCM 5.6" \
         "5" "Torch 1.12.1(CUDA11.3)+xFormers 0.014" \
         "6" "Torch 1.13.1(CUDA11.7)+xFormers 0.016" \
         "7" "Torch 2.0.0(CUDA11.8)+xFormers 0.018" \
@@ -83,9 +83,9 @@ function pytorch_version_select()
     elif [ $pytorch_version_select_dialog = 2 ]; then
         pytorch_install_version="torch==2.0.0 torchvision==0.15.1 torch-directml"
     elif [ $pytorch_version_select_dialog = 3 ]; then
-        pytorch_install_version="torch==2.0.1+cpu torchvision==0.15.2+cpu"
+        pytorch_install_version="torch==2.1.0+cpu torchvision==0.16.0+cpu"
     elif [ $pytorch_version_select_dialog = 4 ]; then
-        pytorch_install_version="torch==2.0.1+rocm5.4.2 torchvision==0.15.2+rocm5.4.2"
+        pytorch_install_version="torch==2.1.0+rocm5.6 torchvision==0.16.0+rocm5.6"
     elif [ $pytorch_version_select_dialog = 5 ]; then
         pytorch_install_version="torch==1.12.1+cu113 torchvision==0.13.1+cu113 xformers==0.0.14"
     elif [ $pytorch_version_select_dialog = 6 ]; then
@@ -132,7 +132,7 @@ pytorch:$([ ! -z "$(echo $pytorch_install_version | awk '{gsub(/[=+]/, "")}1')" 
 pip安装方式:$final_install_check_pip_methon\n
 " 25 70);then
         term_sd_notice "安装参数设置完成"
-        export final_install_check_exec=0
+        export final_install_check_exec=0 #声明是否进行安装
     else
         export final_install_check_exec=1
     fi
