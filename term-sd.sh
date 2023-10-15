@@ -422,6 +422,8 @@ function install_cmd_to_shell()
 #快捷命令安装功能
 function install_config_to_shell()
 {
+    #将要向.bashrc写入的配置
+    term_sd_shell_config="termsd(){ user_input_for_term_sd=$(echo \"\$@\") ; term_sd_start_path=\$(pwd) ; cd \"$term_sd_install_path\" ; ./term-sd.sh \$user_input_for_term_sd ; cd \"\$term_sd_start_path\" > /dev/null ; }"
     cd ~
     if [ $user_shell = bash ] || [ $user_shell = zsh ];then
         if cat ./."$user_shell"rc | grep termsd > /dev/null ;then
@@ -586,150 +588,159 @@ function terminal_size_test()
     fi
 }
 
-#################################################
+#term-sd准备环境功能
+function term_sd_env_prepare()
+{
+    print_line_to_shell "Term-SD"
 
-print_line_to_shell "Term-SD"
+    #目录结构检测,防止用户直接运行Term-SD目录内的term-sd.sh
+    term_sd_notice "Term-SD初始化中"
+    if [ ! -d "./term-sd" ] && [ -d "./.git" ] && [ -d "./modules" ] && [ -f "./modules/init.sh" ] && [ -d "./extra" ] && [ -d "./other" ];then
+        term_sd_notice "检测到目录错误"
+        term_sd_notice "禁止用户直接在Term-SD目录里运行Term-SD"
+        term_sd_notice "请将term-sd.sh文件复制到Term-SD目录外面(和Term-SD目录放在一起)"
+        term_sd_notice "再运行目录外面的term-sd.sh"
+        term_sd_notice "退出Term-SD"
+        exit 1
+    fi
 
-term_sd_notice "Term-SD初始化中"
+    term_sd_process_user_input_early "$@" #处理用户输入
 
-#目录结构检测,防止用户直接运行Term-SD目录内的term-sd.sh
-if [ ! -d "./term-sd" ] && [ -d "./.git" ] && [ -d "./modules" ] && [ -f "./modules/init.sh" ] && [ -d "./extra" ] && [ -d "./other" ];then
-    term_sd_notice "检测到目录错误"
-    term_sd_notice "禁止用户直接在Term-SD目录里运行Term-SD"
-    term_sd_notice "请将term-sd.sh文件复制到Term-SD目录外面(和Term-SD目录放在一起)"
-    term_sd_notice "再运行目录外面的term-sd.sh"
-    term_sd_notice "退出Term-SD"
-    exit 1
-fi
+    term_sd_notice "检测依赖软件是否安装"
+    missing_dep=""
+    test_num=0
+    temr_sd_depend="git aria2c dialog" #term-sd依赖软件包
+    term_sd_install_path=$(pwd) #读取term-sd安装位置
+    user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') #读取用户所使用的shell
 
-term_sd_process_user_input_early $@ #处理用户输入
+    #检测用户是否进行指定python运行路径
+    for term_sd_launch_input in $(echo "$@") ;do
+        case $term_sd_launch_input in
+        "--set-python-path")
+        set_python_path
+        ;;
+        "--set-pip-path")
+        set_pip_path
+        ;;
+        "--unset-python-path")
+        rm -f ./term-sd/python-path.conf
+        term_sd_notice "已删除自定义python解释器路径配置"
+        ;;
+        "--unset-pip-path")
+        rm -f ./term-sd/pip-path.conf
+        term_sd_notice "已删除自定义pip解释器路径配置"
+        ;;
+        esac
+    done
 
-term_sd_notice "检测依赖软件是否安装"
-missing_dep=""
-test_num=0
-temr_sd_depend="git aria2c dialog" #term-sd依赖软件包
-term_sd_install_path=$(pwd) #读取term-sd安装位置
+    #存在python自定义路径配置文件时自动读取到变量中
+    if [ -f "./term-sd/python-path.conf" ];then
+        term_sd_python_path=$(cat ./term-sd/python-path.conf)
+    fi
 
-#将要向.bashrc写入的配置
-term_sd_shell_config="termsd(){ user_input_for_term_sd=$(echo \"\$@\") ; term_sd_start_path=\$(pwd) ; cd \"$term_sd_install_path\" ; ./term-sd.sh \$user_input_for_term_sd ; cd \"\$term_sd_start_path\" > /dev/null ; }"
+    #存在pip自定义路径配置文件时自动读取到变量中
+    if [ -f "./term-sd/pip-path.conf" ];then
+        term_sd_pip_path=$(cat ./term-sd/pip-path.conf)
+    fi
 
-user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') #读取用户所使用的shell
+    #检测可用的python命令,并检测是否手动指定python路径
+    if [ -z "$term_sd_python_path" ];then
+        if python3 --version > /dev/null 2> /dev/null || python --version > /dev/null 2> /dev/null ;then #判断是否有可用的python
+            test_num=$(( $test_num + 1 ))
 
-#检测用户是否进行指定python运行路径
-for term_sd_launch_input in $(echo "$@") ;do
-    case $term_sd_launch_input in
-    "--set-python-path")
-    set_python_path
-    ;;
-    "--set-pip-path")
-    set_pip_path
-    ;;
-    "--unset-python-path")
-    rm -f ./term-sd/python-path.conf
-    term_sd_notice "已删除自定义python解释器路径配置"
-    ;;
-    "--unset-pip-path")
-    rm -f ./term-sd/pip-path.conf
-    term_sd_notice "已删除自定义pip解释器路径配置"
-    ;;
-    esac
-done
+            if [ ! -z "$(python3 --version 2> /dev/null)" ];then
+                export term_sd_python_path=$(which python3)
+            elif [ ! -z "$(python --version 2> /dev/null)" ];then
+                export term_sd_python_path=$(which python)
+            fi
+        else
+            missing_dep="$missing_dep python,"
+        fi  
+    else
+        if which "$term_sd_python_path" > /dev/null 2> /dev/null ;then
+            test_num=$(( $test_num + 1 ))
+            term_sd_notice "使用自定义python解释器路径:$term_sd_python_path"
+        else
+            term_sd_notice "手动指定的python路径错误"
+            term_sd_notice "提示:"
+            term_sd_notice "使用--set-python-path重新设置python解释器路径"
+            term_sd_notice "使用--unset-python-path删除python解释器路径设置"
+            missing_dep="$missing_dep python,"
+        fi
+    fi
 
-#存在python自定义路径配置文件时自动读取到变量中
-if [ -f "./term-sd/python-path.conf" ];then
-    term_sd_python_path=$(cat ./term-sd/python-path.conf)
-fi
-
-#存在pip自定义路径配置文件时自动读取到变量中
-if [ -f "./term-sd/pip-path.conf" ];then
-    term_sd_pip_path=$(cat ./term-sd/pip-path.conf)
-fi
-
-#检测可用的python命令,并检测是否手动指定python路径
-if [ -z "$term_sd_python_path" ];then
-    if python3 --version > /dev/null 2> /dev/null || python --version > /dev/null 2> /dev/null ;then #判断是否有可用的python
-        test_num=$(( $test_num + 1 ))
-
-        if [ ! -z "$(python3 --version 2> /dev/null)" ];then
-            export term_sd_python_path=$(which python3)
-        elif [ ! -z "$(python --version 2> /dev/null)" ];then
-            export term_sd_python_path=$(which python)
+    #检测可用的pip命令,并检测是否手动指定pip路径
+    if [ -z "$term_sd_pip_path" ];then
+        if which pip > /dev/null 2> /dev/null ;then
+            test_num=$(( $test_num + 1 ))
+            export term_sd_pip_path=$(which pip)
+        else
+            missing_dep="$missing_dep pip,"
         fi
     else
-        missing_dep="$missing_dep python,"
-    fi  
+        if which "$term_sd_pip_path" > /dev/null 2> /dev/null ;then
+            test_num=$(( $test_num + 1 ))
+            term_sd_notice "使用自定义pip路径:$term_sd_pip_path"
+        else
+            term_sd_notice "手动指定的pip路径错误"
+            term_sd_notice "提示:"
+            term_sd_notice "使用--set-pip-path重新设置pip路径"
+            term_sd_notice "使用--unset-pip-path删除pip路径设置"
+            missing_dep="$missing_dep pip,"
+        fi
+    fi
+
+    #判断系统是否安装必须使用的软件
+    for term_sd_depend_ in $temr_sd_depend ; do
+        if which $term_sd_depend_ > /dev/null 2> /dev/null ;then
+            test_num=$(( $test_num + 1 ))
+        else
+            missing_dep="$missing_dep $term_sd_depend_,"
+        fi
+    done
+
+    #在使用http_proxy变量后,会出现ValueError: When localhost is not accessible, a shareable link must be created. Please set share=True
+    #导致启动异常
+    #需要设置no_proxy让localhost,127.0.0.1,::1避开http_proxy
+    #详见https://github.com/microsoft/TaskMatrix/issues/250
+    export no_proxy="localhost,127.0.0.1,::1" #除了避免http_proxy变量的影响,也避免了代理软件的影响(在启动a1111-sd-webui前开启代理软件可能会导致webui无法生图(启动后再开启没有影响),并报错,设置该变量后完美解决该问题)
+
+    if [ -f "./term-sd/proxy.conf" ];then #读取代理设置并设置代理
+        export http_proxy=$(cat ./term-sd/proxy.conf)
+        export https_proxy=$(cat ./term-sd/proxy.conf)
+        #export all_proxy=$(cat ./term-sd/proxy.conf)
+        #代理变量的说明:https://blog.csdn.net/Dancen/article/details/128045261
+    fi
+
+    #启动terrm-sd
+    if [ $test_num -ge 5 ];then
+        term_sd_notice "检测完成"
+        terminal_size_test #检测终端大小
+        term_sd_reinstall $(echo "$@")
+        term_sd_install
+        if [ -d "./term-sd/modules" ];then #找到目录后才启动
+            term_sd_auto_update_trigger
+            export term_sd_env_prepare_info=0 #用于检测term-sd的启动状态
+            term_sd_process_user_input $(echo "$@")
+        else
+            term_sd_notice "Term-SD模块丢失,\"输入./term-sd.sh --reinstall-term-sd\"重新安装Term-SD"
+        fi
+    else
+        print_line_to_shell "缺少以下依赖"
+        echo $missing_dep
+        print_line_to_shell
+        term_sd_notice "请安装缺少的依赖后重试"
+        exit 1
+    fi
+}
+
+#################################################
+
+#判断启动状态(在shell中,新变量的值为空,且不需要定义就可以使用,不像c语言中要求那么严格)
+if [ ! -z $term_sd_env_prepare_info ] && [ $term_sd_env_prepare_info = 0 ];then #检测term-sd是直接启动还是重启
+    term_sd_env_prepare
 else
-    if which "$term_sd_python_path" > /dev/null 2> /dev/null ;then
-        test_num=$(( $test_num + 1 ))
-        term_sd_notice "使用自定义python解释器路径:$term_sd_python_path"
-    else
-        term_sd_notice "手动指定的python路径错误"
-        term_sd_notice "提示:"
-        term_sd_notice "使用--set-python-path重新设置python解释器路径"
-        term_sd_notice "使用--unset-python-path删除python解释器路径设置"
-        missing_dep="$missing_dep python,"
-    fi
-fi
-
-#检测可用的pip命令,并检测是否手动指定pip路径
-if [ -z "$term_sd_pip_path" ];then
-    if which pip > /dev/null 2> /dev/null ;then
-        test_num=$(( $test_num + 1 ))
-        export term_sd_pip_path=$(which pip)
-    else
-        missing_dep="$missing_dep pip,"
-    fi
-else
-    if which "$term_sd_pip_path" > /dev/null 2> /dev/null ;then
-        test_num=$(( $test_num + 1 ))
-        term_sd_notice "使用自定义pip路径:$term_sd_pip_path"
-    else
-        term_sd_notice "手动指定的pip路径错误"
-        term_sd_notice "提示:"
-        term_sd_notice "使用--set-pip-path重新设置pip路径"
-        term_sd_notice "使用--unset-pip-path删除pip路径设置"
-        missing_dep="$missing_dep pip,"
-    fi
-fi
-
-#判断系统是否安装必须使用的软件
-for term_sd_depend_ in $temr_sd_depend ; do
-    if which $term_sd_depend_ > /dev/null 2> /dev/null ;then
-        test_num=$(( $test_num + 1 ))
-    else
-        missing_dep="$missing_dep $term_sd_depend_,"
-    fi
-done
-
-#在使用http_proxy变量后,会出现ValueError: When localhost is not accessible, a shareable link must be created. Please set share=True
-#导致启动异常
-#需要设置no_proxy让localhost,127.0.0.1,::1避开http_proxy
-#详见https://github.com/microsoft/TaskMatrix/issues/250
-export no_proxy="localhost,127.0.0.1,::1" #除了避免http_proxy变量的影响,也避免了代理软件的影响(在启动a1111-sd-webui前开启代理软件可能会导致webui无法生图(启动后再开启没有影响),并报错,设置该变量后完美解决该问题)
-
-if [ -f "./term-sd/proxy.conf" ];then #读取代理设置并设置代理
-    export http_proxy=$(cat ./term-sd/proxy.conf)
-    export https_proxy=$(cat ./term-sd/proxy.conf)
-    #export all_proxy=$(cat ./term-sd/proxy.conf)
-    #代理变量的说明:https://blog.csdn.net/Dancen/article/details/128045261
-fi
-
-#启动terrm-sd
-if [ $test_num -ge 5 ];then
-    term_sd_notice "检测完成"
-    terminal_size_test #检测终端大小
-    term_sd_reinstall $(echo "$@")
-    term_sd_install
-    if [ -d "./term-sd/modules" ];then #找到目录后才启动
-        term_sd_auto_update_trigger
-        term_sd_process_user_input $(echo "$@")
-    else
-        term_sd_notice "Term-SD模块丢失,\"输入./term-sd.sh --reinstall-term-sd\"重新安装Term-SD"
-    fi
-else
-    print_line_to_shell "缺少以下依赖"
-    echo $missing_dep
-    print_line_to_shell
-    term_sd_notice "请安装缺少的依赖后重试"
-    exit 1
+    print_line_to_shell "Term-SD"
+    term_sd_notice "重启Term-SD中"
+    source ./term-sd/modules/init.sh
 fi

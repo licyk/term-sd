@@ -25,7 +25,7 @@ function term_sd_update_option()
                     cp -f ./term-sd/term-sd.sh .
                     chmod +x ./term-sd.sh
                     dialog --clear --title "Term-SD" --backtitle "Term-SD更新结果" --ok-label "确定" --msgbox "Term-SD更新成功,选择确定后重启" 25 70
-                    source ./term-sd/modules/init.sh
+                    source ./term-sd.sh
                 else
                     dialog --clear --title "Term-SD" --backtitle "Term-SD更新结果" --ok-label "确定" --msgbox "Term-SD更新失败" 25 70
                     term_sd_update_option
@@ -95,7 +95,7 @@ function term_sd_branch()
             term_sd_notice "切换到主分支"
             term_sd_notice "即将重启Term-SD"
             sleep 1
-            source ./term-sd/modules/init.sh
+            source ./term-sd.sh
         elif [ $term_sd_branch_dialog = 2 ];then
             cd ./term-sd
             git checkout dev
@@ -105,7 +105,7 @@ function term_sd_branch()
             term_sd_notice "切换到测试分支"
             term_sd_notice "即将重启Term-SD"
             sleep 1
-            source ./term-sd/modules/init.sh
+            source ./term-sd.sh
         elif [ $term_sd_branch_dialog = 3 ];then
             term_sd_update_option
         fi
