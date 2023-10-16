@@ -584,10 +584,10 @@ function term_sd_test_network()
                 term_sd_test_network_4="失败"
             fi
             print_line_to_shell "网络测试结果"
-            term_sd_notice "| 访问google      |-> $term_sd_test_network_1 |"
-            term_sd_notice "| 访问huggingface |-> $term_sd_test_network_2 |"
-            term_sd_notice "| 访问github      |-> $term_sd_test_network_3 |"
-            term_sd_notice "| 访问ghproxy     |-> $term_sd_test_network_4 |"
+            term_sd_notice "访问google: $term_sd_test_network_1"
+            term_sd_notice "访问huggingface: $term_sd_test_network_2"
+            term_sd_notice "访问github: $term_sd_test_network_3"
+            term_sd_notice "访问ghproxy: $term_sd_test_network_4"
             print_line_to_shell
 
 	    else
@@ -596,7 +596,7 @@ function term_sd_test_network()
     else
         term_sd_notice "未安装curl,无法测试网络,请安装后重试"
     fi
-    sleep 3
+    sleep 5
 }
 
 #term-sd准备环境功能
