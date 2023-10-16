@@ -114,26 +114,24 @@ function a1111_sd_webui_change_repo()
         #执行替换功能
         #主体部分
         $change_repo_cmd
-        cd "$start_path/stable-diffusion-webui/repositories/BLIP"
-        $change_repo_cmd
-        cd "$start_path/stable-diffusion-webui/repositories/CodeFormer"
-        $change_repo_cmd
-        cd "$start_path/stable-diffusion-webui/repositories/generative-models"
-        $change_repo_cmd
-        cd "$start_path/stable-diffusion-webui/repositories/k-diffusion"
-        $change_repo_cmd
-        cd "$start_path/stable-diffusion-webui/repositories/stable-diffusion-stability-ai"
-        $change_repo_cmd
+
+        #组件部分
+        cd "$start_path/stable-diffusion-webui/repositories"
+        for repositories_folder in ./* ;do
+            if [ -d "$repositories_folder/.git" ];then
+                cd "./$repositories_folder"
+                $change_repo_cmd
+                cd - > /dev/null
+            fi
+        done
 
         #插件
         cd "$start_path/stable-diffusion-webui/extensions"
         for extension_folder in ./* ;do
-            if [ -d "$extension_folder" ];then
-                if [ -d "$extension_folder/.git" ];then
-                    cd "./$extension_folder"
-                    $change_repo_cmd
-                    cd - > /dev/null
-                fi
+            if [ -d "$extension_folder/.git" ];then
+                cd "./$extension_folder"
+                $change_repo_cmd
+                cd - > /dev/null
             fi
         done
 
