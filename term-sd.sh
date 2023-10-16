@@ -7,7 +7,7 @@ function term_sd_process_user_input_early()
         case $term_sd_launch_input in
         "--help")
         term_sd_notice "启动参数使用方法:"
-        echo "  term-sd.sh [--help] [--extra] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-proxy] [--quick-cmd] [--set-python-path] [--set-pip-path] [--unset-python-path] [--unset-pip-path]"
+        echo "  term-sd.sh [--help] [--extra] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path] [--set-pip-path] [--unset-python-path] [--unset-pip-path]"
         echo "选项:"
         echo "  --help"
         echo "        显示启动参数帮助"
@@ -23,8 +23,8 @@ function term_sd_process_user_input_early()
         echo "        重新安装Term-SD"
         echo "  --remove-term-sd"
         echo "        卸载Term-SD"
-        echo "  --test-proxy"
-        echo "        测试网络环境,用于测试代理是否可用"
+        echo "  --test-network"
+        echo "        测试网络环境,用于测试代理是否可用,需安装curl"
         echo "  --quick-cmd"
         echo "        添加Term-SD快捷启动命令到shell"
         echo "  --set-python-path"
@@ -89,36 +89,14 @@ function term_sd_process_user_input()
         export pip_manager_update=0
         term_sd_notice "进入虚拟环境时将更新pip软件包管理器"
         ;;
-        "--test-proxy")
-        if which curl > /dev/null;then
-            print_line_to_shell "测试网络环境"
-            term_sd_notice "获取网络信息"
-            curl ipinfo.io
-            if [ $? = 0 ];then
-                echo
-                term_sd_notice "网络连接正常"
-                term_sd_notice "测试google访问情况"
-                curl google.com
-                if [ $? = 0 ];then
-                    term_sd_notice "google访问正常"
-                else
-                    term_sd_notice "google无法访问"
-                fi
-	    else
-                term_sd_notice "网络连接异常"
-            fi
-            print_line_to_shell
-            sleep 3
-        else
-            term_sd_notice "未安装curl,无法测试代理"
-        fi
+        "--test-network")
+        term_sd_test_network
         ;;
         "--extra")
         term_sd_extra_scripts
         ;;
         esac
     done
-    source ./term-sd/modules/init.sh
 }
 
 #扩展脚本列表
@@ -387,7 +365,7 @@ function remove_term_sd()
     exit 1
 }
 
-#添加快捷命令功能
+#term-sd添加快捷命令功能
 function install_cmd_to_shell()
 {
     if [ $user_shell = bash ] || [ $user_shell = zsh ];then
@@ -419,7 +397,7 @@ function install_cmd_to_shell()
     fi
 }
 
-#快捷命令安装功能
+#term-sd快捷命令安装功能
 function install_config_to_shell()
 {
     #将要向.bashrc写入的配置
@@ -437,7 +415,7 @@ function install_config_to_shell()
     cd - > /dev/null
 }
 
-#快捷命令卸载功能
+#term-sd快捷命令卸载功能
 function remove_config_from_shell()
 {
     cd ~
@@ -446,7 +424,6 @@ function remove_config_from_shell()
     term_sd_notice "配置已删除,重启shell以生效"
     cd - > /dev/null
 }
-
 
 #终端横线显示功能
 function print_line_to_shell()
@@ -567,6 +544,59 @@ function terminal_size_test()
         term_sd_notice "为了防止界面显示不全,建议调大终端大小"
         sleep 3
     fi
+}
+
+#term-sd网络检测功能(用来检测代理是否可用)
+function term_sd_test_network()
+{
+    if which curl > /dev/null;then
+        print_line_to_shell "测试网络环境"
+        term_sd_notice "获取网络信息"
+        curl ipinfo.io
+        echo
+        print_line_to_shell
+        if [ $? = 0 ];then
+            term_sd_notice "网络连接正常"
+
+            #测试各个网站访问情况
+            term_sd_notice "[1/4] 测试google访问情况"
+            if curl google.com > /dev/null 2> /dev/null;then
+                term_sd_test_network_1="成功"
+            else
+                term_sd_test_network_1="失败"
+            fi
+            term_sd_notice "[2/4] 测试huggingface访问情况"
+            if curl huggingface.co > /dev/null 2> /dev/null;then
+                term_sd_test_network_2="成功"
+            else
+                term_sd_test_network_2="失败"
+            fi
+            term_sd_notice "[3/4] 测试github访问情况"
+            if curl github.com > /dev/null 2> /dev/null;then
+                term_sd_test_network_3="成功"
+            else
+                term_sd_test_network_3="失败"
+            fi
+            term_sd_notice "[4/4] 测试ghproxy访问情况"
+            if curl ghproxy.com > /dev/null 2> /dev/null;then
+                term_sd_test_network_4="成功"
+            else
+                term_sd_test_network_4="失败"
+            fi
+            print_line_to_shell "网络测试结果"
+            term_sd_notice "| 访问google      |-> $term_sd_test_network_1 |"
+            term_sd_notice "| 访问huggingface |-> $term_sd_test_network_2 |"
+            term_sd_notice "| 访问github      |-> $term_sd_test_network_3 |"
+            term_sd_notice "| 访问ghproxy     |-> $term_sd_test_network_4 |"
+            print_line_to_shell
+
+	    else
+            term_sd_notice "网络连接异常"
+        fi
+    else
+        term_sd_notice "未安装curl,无法测试网络,请安装后重试"
+    fi
+    sleep 3
 }
 
 #term-sd准备环境功能
@@ -717,6 +747,7 @@ function term_sd_env_prepare()
             term_sd_auto_update_trigger
             export term_sd_env_prepare_info=0 #用于检测term-sd的启动状态
             term_sd_process_user_input "$@"
+            source ./term-sd/modules/init.sh
         else
             term_sd_notice "Term-SD模块丢失,\"输入./term-sd.sh --reinstall-term-sd\"重新安装Term-SD"
         fi
