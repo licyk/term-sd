@@ -21,21 +21,5 @@ function term_sd_init()
     mainmenu
 }
 
-#设置启动时脚本路径
-export start_path=$(pwd)
-
-#设置虚拟环境
-if [ -f ./term-sd/term-sd-venv-disable.lock ];then #找到term-sd-venv-disable.lock文件,禁用虚拟环境
-    export venv_active="1"
-    export dialog_recreate_venv_button=""
-    export dialog_rebuild_venv_button=""
-else
-    export venv_active="0"
-    export dialog_recreate_venv_button=""18" "修复venv虚拟环境"" #在启用venv后显示这些dialog按钮
-    export dialog_rebuild_venv_button=""19" "重新构建venv虚拟环境""
-fi
-
-term_sd_version_="0.5.4"
-
 #初始化功能
 term_sd_init

@@ -470,44 +470,25 @@ function print_line_to_shell()
         shellwidth=$(( $shellwidth / 2 )) #半边的宽度
 
         #判断终端宽度大小是否是单双数
-        origin_num=$shellwidth
-        singular_and_plural_calculate
-        print_line_info=$calculate_num_result
+        print_line_info=$(( $shellwidth % 2 ))
         #判断字符宽度大小是否是单双数
-        origin_num=$shell_word_width
-        singular_and_plural_calculate
-        print_word_info=$calculate_num_result
+        print_word_info=$(( $shell_word_width % 2 ))
         
-        if [ $print_line_info = 1 ];then #如果终端宽度大小是双数
-            if [ $print_word_info = 1 ];then #如果字符宽度大小是双数
+        if [ $print_line_info = 0 ];then #如果终端宽度大小是双数
+            if [ $print_word_info = 0 ];then #如果字符宽度大小是双数
                 print_line_methon=2
-            elif [ $print_word_info = 2 ];then #如果字符宽度大小是单数
+            elif [ $print_word_info = 1 ];then #如果字符宽度大小是单数
                 print_line_methon=3
             fi
-        elif [ $print_line_info = 2 ];then #如果终端宽度大小是单数数
-            if [ $print_word_info = 1 ];then
+        elif [ $print_line_info = 1 ];then #如果终端宽度大小是单数数
+            if [ $print_word_info = 0 ];then #如果字符宽度大小是双数
                 print_line_methon=2
-            elif [ $print_word_info = 2 ];then
+            elif [ $print_word_info = 1 ];then #如果字符宽度大小是单数
                 print_line_methon=3
             fi
         fi
 
         print_line_to_shell_methon
-    fi
-}
-
-#判断数字是否单双数的功能
-function singular_and_plural_calculate()
-{
-    if [ ! -z "$origin_num" ];then
-        calculate_num_1=$(( $origin_num / 2 )) # 5/2 -> 2 | 4/2 -> 2
-        calculate_num_2=$(( $origin_num + 3 )) # 5+3 -> 8 | 4+3 -> 7
-        calculate_num_3=$(( $calculate_num_2 / 2 )) # 8/2 -> 4 | 7/2 -> 3
-        calculate_num_result=$(( $calculate_num_3 - $calculate_num_1 )) # 4-2 -> 2 | 3-2 -> 1 按上述算法得到的结果,如果是1,则为双数;如果是2,则为单数
-        origin_num=""
-        calculate_num_1=""
-        calculate_num_2=""
-        calculate_num_3=""
     fi
 }
 
@@ -712,6 +693,20 @@ function term_sd_env_prepare()
         #代理变量的说明:https://blog.csdn.net/Dancen/article/details/128045261
     fi
 
+    #设置启动时脚本路径
+    export start_path=$(pwd)
+
+    #设置虚拟环境
+    if [ -f ./term-sd/term-sd-venv-disable.lock ];then #找到term-sd-venv-disable.lock文件,禁用虚拟环境
+        export venv_active="1"
+        export dialog_recreate_venv_button=""
+        export dialog_rebuild_venv_button=""
+    else
+        export venv_active="0"
+        export dialog_recreate_venv_button=""18" "修复venv虚拟环境"" #在启用venv后显示这些dialog按钮
+        export dialog_rebuild_venv_button=""19" "重新构建venv虚拟环境""
+    fi
+
     #启动terrm-sd
     if [ $test_num -ge 5 ];then
         term_sd_notice "检测完成"
@@ -735,6 +730,9 @@ function term_sd_env_prepare()
 }
 
 #################################################
+
+#term-sd版本
+term_sd_version_="0.5.4"
 
 #判断启动状态(在shell中,新变量的值为空,且不需要定义就可以使用,不像c语言中要求那么严格)
 if [ ! -z $term_sd_env_prepare_info ] && [ $term_sd_env_prepare_info = 0 ];then #检测term-sd是直接启动还是重启
