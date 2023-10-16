@@ -3,7 +3,7 @@
 #term-sd处理用户输入功能(早期进行配置时使用)
 function term_sd_process_user_input_early()
 {
-    for term_sd_launch_input in $(echo "$@") ;do
+    for term_sd_launch_input in "$@" ;do
         case $term_sd_launch_input in
         "--help")
         term_sd_notice "启动参数使用方法:"
@@ -72,7 +72,7 @@ function term_sd_process_user_input()
 {
     export pip_manager_update=1
     export aria2_multi_threaded=""
-    for term_sd_launch_input in $(echo "$@") ;do
+    for term_sd_launch_input in "$@" ;do
         case $term_sd_launch_input in
         "--remove-term-sd")
         remove_term_sd
@@ -296,7 +296,7 @@ function term_sd_install()
 function term_sd_reinstall()
 {
     term_sd_install_option=""
-    for term_sd_launch_input in $(echo "$@") ;do
+    for term_sd_launch_input in "$@" ;do
         case $term_sd_launch_input in
         "--reinstall-term-sd")
         term_sd_notice "是否重新安装Term-SD(yes/no)?"
@@ -423,7 +423,7 @@ function install_cmd_to_shell()
 function install_config_to_shell()
 {
     #将要向.bashrc写入的配置
-    term_sd_shell_config="termsd(){ user_input_for_term_sd=$(echo \"\$@\") ; term_sd_start_path=\$(pwd) ; cd \"$term_sd_install_path\" ; ./term-sd.sh \$user_input_for_term_sd ; cd \"\$term_sd_start_path\" > /dev/null ; }"
+    term_sd_shell_config="termsd(){ ; term_sd_start_path=\$(pwd) ; cd \"$term_sd_install_path\" ; ./term-sd.sh \"\$@\" ; cd \"\$term_sd_start_path\" > /dev/null ; }"
     cd ~
     if [ $user_shell = bash ] || [ $user_shell = zsh ];then
         if cat ./."$user_shell"rc | grep termsd > /dev/null ;then
@@ -614,7 +614,7 @@ function term_sd_env_prepare()
     user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') #读取用户所使用的shell
 
     #检测用户是否进行指定python运行路径
-    for term_sd_launch_input in $(echo "$@") ;do
+    for term_sd_launch_input in "$@" ;do
         case $term_sd_launch_input in
         "--set-python-path")
         set_python_path
@@ -716,12 +716,12 @@ function term_sd_env_prepare()
     if [ $test_num -ge 5 ];then
         term_sd_notice "检测完成"
         terminal_size_test #检测终端大小
-        term_sd_reinstall $(echo "$@")
+        term_sd_reinstall "$@"
         term_sd_install
         if [ -d "./term-sd/modules" ];then #找到目录后才启动
             term_sd_auto_update_trigger
             export term_sd_env_prepare_info=0 #用于检测term-sd的启动状态
-            term_sd_process_user_input $(echo "$@")
+            term_sd_process_user_input "$@"
         else
             term_sd_notice "Term-SD模块丢失,\"输入./term-sd.sh --reinstall-term-sd\"重新安装Term-SD"
         fi
@@ -744,5 +744,5 @@ if [ ! -z $term_sd_env_prepare_info ] && [ $term_sd_env_prepare_info = 0 ];then 
     source ./term-sd/modules/init.sh
 else
     #正常启动
-    term_sd_env_prepare
+    term_sd_env_prepare "$@"
 fi
