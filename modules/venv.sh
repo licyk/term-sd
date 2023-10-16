@@ -77,10 +77,10 @@ function fix_venv()
 function enter_venv()
 {
     if [ $venv_active = 0 ];then
-        term_sd_notice "进入venv虚拟环境"
         if [ ! -z "$VIRTUAL_ENV" ];then #检测到未退出虚拟环境
             exit_venv 2> /dev/null
         fi
+        term_sd_notice "进入venv虚拟环境"
 
         if [ -f "./venv/Scripts/activate" ];then #在Windows端的venv目录结构和linux,macos的不同,所以进入虚拟环境的方式有区别
             source ./venv/Scripts/activate > /dev/null
