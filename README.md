@@ -32,9 +32,9 @@ term-sd支持在Linux，Windows，MacOS上运行(Windows平台需安装msys2，M
 点击`Download version`进入下载页面，找到`aria2-xx版本-win-64bit-build1.zip`点击下载，解压得到`aria2c.exe`
 在系统的某个位置创建一个文件夹，得到一个路径，比如D:\Program Files\aria2，记下来，将aria2c.exe放入文件夹  
 按下“win+R”快捷键，打开运行对话框，输入指令：  
-
-    sysdm.cpl
-
+```
+sysdm.cpl
+```
 打开`系统属性`窗体后，依次点击选项卡`高级`->`环境变量`  
 在`系统变量`部分点双击`Path`，点击`新建`，把刚刚记下来的路径粘贴上去，然后一直点确定直至完成  
 
@@ -59,14 +59,14 @@ C:\msys64\msys2_shell.cmd -defterm -no-start -use-full-path -here -mingw64
 
 安装好后在windows的开始菜单里找到`MSYS2 MINGW64`，打开  
 在msys终端输入  
-
-    sed -i "s#https\?://mirror.msys2.org/#https://mirrors.tuna.tsinghua.edu.cn/msys2/#g" /etc/pacman.d/mirrorlist*
-    pacman -Sy
-
+```
+sed -i "s#https\?://mirror.msys2.org/#https://mirrors.tuna.tsinghua.edu.cn/msys2/#g" /etc/pacman.d/mirrorlist*
+pacman -Sy
+```
 ### 7、安装dialog
-
-    pacman -S dialog
-
+```
+pacman -S dialog
+```
 输入y，回车，等待安装完成  
 
 完成上面的步骤后环境就配置好了，可以在下面的步骤下载和启动term-sd  
@@ -74,14 +74,14 @@ C:\msys64\msys2_shell.cmd -defterm -no-start -use-full-path -here -mingw64
 ## Linux系统配置环境方法：  
 在终端输入下面的命令  
 
-Debian系：  
-
-    sudo apt install python3 python3-pip python3-venv git aira2
-
+Debian(Ubuntu)系：  
+```
+sudo apt install python3 python3-pip python3-venv git aira2
+```
 ArchLinux系：  
-
-    sudo pacman -S python3 python3-pip python3-venv git aria2
-
+```
+sudo pacman -S python3 python3-pip python3-venv git aria2
+``` 
 ## MacOS系统配置环境方法：
 
 ### 1、安装homebrew  
@@ -89,14 +89,14 @@ ArchLinux系：
 ```
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
-如果安装下载速度慢，可以参考该文档下载homebrew并配置镜像源 [Homebrew / Linuxbrew 镜像使用帮助](https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/)  
+如果安装下载速度慢，可以参考该文档下载homebrew并配置镜像源 [《清华大学开源软件镜像站 Homebrew/Linuxbrew镜像使用帮助》](https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/)  
 >homebrew在安装完后最好配置好镜像源
 
 检测homebrew是否安装完成  
 ```
-
+brew -v
 ```
-### 2、安装git，aria2，dialog，python rust cmake protobuf wget
+### 2、安装git，aria2，dialog，python，rust，cmake，protobuf，wget
 ```
 brew install git aria2 dialog python@3.10 rust cmake protobuf wget
 ```
