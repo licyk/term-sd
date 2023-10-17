@@ -401,7 +401,7 @@ function install_cmd_to_shell()
 function install_config_to_shell()
 {
     #将要向.bashrc写入的配置
-    term_sd_shell_config="termsd(){ ; term_sd_start_path=\$(pwd) ; cd \"$term_sd_install_path\" ; ./term-sd.sh \"\$@\" ; cd \"\$term_sd_start_path\" > /dev/null ; }"
+    term_sd_shell_config="termsd(){ term_sd_start_path=\$(pwd) ; cd \"$term_sd_install_path\" ; ./term-sd.sh \"\$@\" ; cd \"\$term_sd_start_path\" > /dev/null ; }"
     cd ~
     if [ $user_shell = bash ] || [ $user_shell = zsh ];then
         if cat ./."$user_shell"rc | grep termsd > /dev/null ;then
