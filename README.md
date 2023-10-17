@@ -85,14 +85,20 @@ ArchLinux系：
 ## MacOS系统配置环境方法：
 
 ### 1、安装homebrew  
-打开MacOS终端，输入以下指令，根据提示安装homebrew
+打开MacOS终端，输入以下指令，根据提示安装[homebrew](https://brew.sh/zh-cn/)
 ```
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
+如果安装下载速度慢，可以参考该文档下载homebrew并配置镜像源 [Homebrew / Linuxbrew 镜像使用帮助](https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/)  
+>homebrew在安装完后最好配置好镜像源
 
-### 2、安装git，aria2，dialog，python
+检测homebrew是否安装完成  
 ```
-brew install git aria2 dialog python
+
+```
+### 2、安装git，aria2，dialog，python rust cmake protobuf wget
+```
+brew install git aria2 dialog python@3.10 rust cmake protobuf wget
 ```
 
 ***
@@ -100,18 +106,20 @@ brew install git aria2 dialog python
 ## 配置完环境后使用term-sd的方法：  
 ### 1、下载term-sd  
 打开终端，输入以下命令下载Term-SD
-
-    aria2c https://raw.githubusercontent.com/licyk/sd-webui-script/main/term-sd.sh && chmod +x term-sd.sh
-
-如果下载失败可以打开科学上网，再输入刚才的指令，或者使用github代理下载  
-
-    aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/sd-webui-script/main/term-sd.sh && chmod +x term-sd.sh
+```
+aria2c https://raw.githubusercontent.com/licyk/sd-webui-script/main/term-sd.sh && chmod +x term-sd.sh
+```
+如果下载失败可以打开科学上网，再输入刚才的指令，或者使用github镜像站下载  
+```
+aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/sd-webui-script/main/term-sd.sh && chmod +x term-sd.sh
+```
+>term-sd.sh文件所在位置决定了term-sd安装路径和term-sd安装ai软件的路径，所以要选好一个自己想要安装的路径再下载
 
 ### 2、启动term-sd  
 在终端输入以下命令启动Term-SD
-
-    ./term-sd.sh
-
+```
+./term-sd.sh
+```
 启动后按照提示安装term-sd组件后即可正常使用，如果下载失败就更换其他下载源  
 每次启动一定要在Term-SD所在目录才能启动，除非使用“termsd”命令或者“tsd”命令启动（需要通过--quick-cmd启动参数进行安装）  
 ### ！操作Term-SD界面前请阅读[《Term-SD界面操作方法》](https://github.com/licyk/README-collection/blob/main/term-sd/README_how_to_use_dialog.md)  
