@@ -51,10 +51,16 @@ function pip_install_or_remove_methon()
         pip_install_or_remove_info="安装"
         pip_install_or_remove="1"
     elif [ $pip_install_or_remove_methon_dialog = 2 ];then
-        pip_install_or_remove_info="强制重装"
+        pip_install_or_remove_info="安装(--no-deps)"
         pip_install_or_remove="2"
     elif [ $pip_install_or_remove_methon_dialog = 3 ];then
-        pip_install_or_remove_info="卸载"
+        pip_install_or_remove_info="强制重装(--force-reinstall)"
         pip_install_or_remove="3"
+    elif [ $pip_install_or_remove_methon_dialog = 4 ];then
+        pip_install_or_remove_info="强制重装(--no-deps --force-reinstall)"
+        pip_install_or_remove="4"
+    elif [ $pip_install_or_remove_methon_dialog = 5 ];then
+        pip_install_or_remove_info="卸载"
+        pip_install_or_remove="5"
     fi
 }
