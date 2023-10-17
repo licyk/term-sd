@@ -20,7 +20,7 @@ function a1111_sd_webui_extension_option()
         "5" "sd-dynamic-thresholding" ON \
         "6" "sd-webui-cutoff" ON \
         "7" "sd-webui-model-converter" ON \
-        "8" "sd-webui-supermerger" OFF \
+        "8" "sd-webui-supermerger" ON \
         "9" "stable-diffusion-webui-localization-zh_Hans" ON \
         "10" "stable-diffusion-webui-wd14-tagger" ON \
         "11" "sd-webui-regional-prompter" ON \
@@ -56,7 +56,7 @@ function a1111_sd_webui_extension_option()
         "41" "sd-webui-bilingual-localization" OFF \
         "42" "adetailer" ON \
         "43" "sd-webui-mov2mov" OFF \
-        "44" "sd-webui-IS-NET-pro" ON \
+        "44" "sd-webui-IS-NET-pro" OFF \
         "45" "ebsynth_utility" OFF \
         "46" "sd_dreambooth_extension" OFF \
         "47" "sd-webui-memory-release" ON \
