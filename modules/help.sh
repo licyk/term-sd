@@ -7,14 +7,14 @@ function help_option()
 {
     help_option_dialog=$(dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --cancel-label "取消" --menu "请选择帮助" 25 70 10 \
         "1" "关于Term-SD" \
-        "2" "使用方法" \
-        "3" "使用注意" \
-        "3" "Term-SD功能说明" \
-        "4" "启动参数说明" \
-        "5" "目录说明" \
-        "6" "扩展脚本说明" \
-        "7" "sd-webui插件说明" \
-        "8" "ComfyUI插件/自定义节点说明" \
+        "2" "Term-SD使用方法" \
+        "3" "Term-SD注意事项" \
+        "4" "Term-SD功能说明" \
+        "5" "Term-SD启动参数说明" \
+        "6" "目录说明" \
+        "7" "Term-SD扩展脚本说明" \
+        "8" "sd-webui插件说明" \
+        "9" "ComfyUI插件/自定义节点说明" \
         "10" "返回" \
         3>&1 1>&2 2>&3 )
 
@@ -543,7 +543,7 @@ comfyui-extension：安装ComfyUI的插件\n
 " 25 70
 }
 
-#使用说明
+#注意事项
 function help_option_3()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "Term-SD使用注意:\n
