@@ -9,7 +9,7 @@ function python_package_ver_backup_or_restore()
     fi
 
     enter_venv
-    python_package_ver_backup_or_restore_dialog=$(dialog --clear --title "Term-SD" --backtitle "依赖库版本管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的依赖库版本管理功能\n当前"$term_sd_manager_info"依赖库版本备份情况:$( [ ! -z "$(ls ./term-sd-python-pkg-backup)" ] && echo $( ls -lh ./term-sd-python-pkg-backup --time-style=+"%Y-%m-%d" | awk 'NR==2 {print $7}') || echo "无" )" 25 70 10 \
+    python_package_ver_backup_or_restore_dialog=$(dialog --clear --title "Term-SD" --backtitle "依赖库版本管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的依赖库版本管理功能\n当前"$term_sd_manager_info"依赖库版本备份情况:$( [ ! -z "$(ls ./term-sd-python-pkg-backup)" ] && echo \\n$( ls -lrh ./term-sd-python-pkg-backup --time-style=+"%Y-%m-%d" | awk 'NR==2 {print $7}' ) || echo "无" )" 25 70 10 \
         "1" "备份python依赖库版本" \
         "2" "python依赖库版本管理" \
         "3" "返回" \
@@ -69,7 +69,7 @@ function python_package_ver_backup_list()
 #依赖库备份文件处理选项
 function process_python_package_ver_backup_file()
 {
-    process_python_package_ver_backup_file_dialog=$(dialog --clear --title "Term-SD" --backtitle "依赖库版本记录管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的依赖库版本记录管理功能\n当前版本记录:$(echo $python_package_ver_backup_list_dialog | awk '{sub(".txt","")}1')" 25 70 10 \
+    process_python_package_ver_backup_file_dialog=$(dialog --clear --title "Term-SD" --backtitle "依赖库版本记录管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的依赖库版本记录管理功能\n当前版本记录:\n$(echo $python_package_ver_backup_list_dialog | awk '{sub(".txt","")}1')" 25 70 10 \
         "1" "恢复该版本记录" \
         "2" "删除该版本记录" \
         "3" "返回" \
