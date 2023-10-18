@@ -4,12 +4,12 @@
 function python_package_ver_backup_or_restore()
 {
     #如果没有存放备份文件的文件夹时就创建一个新的
-    if [ -d "./term-sd-python-pkg-backup"];then
+    if [ ! -d "./term-sd-python-pkg-backup" ];then
         mkdir term-sd-python-pkg-backup
     fi
 
     enter_venv
-    python_package_ver_backup_or_restore_dialog=$(dialog --clear --title "Term-SD" --backtitle "依赖库版本管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的依赖库版本管理功能\n当前"$term_sd_manager_info"依赖库版本备份情况:$( [ ! -z "$(ls ./term-sd-python-pkg-backup)" ] && $( ls -lh --time-style=+"%Y-%m-%d" | awk 'NR==2 {print $7}') || echo "无" )" 25 70 10 \
+    python_package_ver_backup_or_restore_dialog=$(dialog --clear --title "Term-SD" --backtitle "依赖库版本管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的依赖库版本管理功能\n当前"$term_sd_manager_info"依赖库版本备份情况:$( [ ! -z "$(ls ./term-sd-python-pkg-backup)" ] && echo $( ls -lh ./term-sd-python-pkg-backup --time-style=+"%Y-%m-%d" | awk 'NR==2 {print $7}') || echo "无" )" 25 70 10 \
         "1" "备份python依赖库版本" \
         "2" "python依赖库版本管理" \
         "3" "返回" \
@@ -49,7 +49,7 @@ function python_package_ver_backup_list()
 {
     python_package_ver_backup_list_dialog=$(dialog --clear --title "Term-SD" --backtitle "依赖库版本记录列表选项" --ok-label "确认" --cancel-label "取消" --menu "请选择依赖库版本记录" 25 70 10 \
         "-->返回<--" "<---" \
-        $(ls -lh "./term-sd-python-pkg-backup" --time-style=+"%Y-%m-%d" | awk '{ print $7 " " $5 }') \
+        $(ls -lrh "./term-sd-python-pkg-backup" --time-style=+"%Y-%m-%d" | awk '{ print $7 " " $5 }') \
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
@@ -101,18 +101,23 @@ function restore_python_package_ver()
     if [ $final_install_check_exec = 0 ];then
         term_sd_notice "开始恢复依赖库版本中,版本$(echo $python_package_ver_backup_list_dialog | awk '{sub(".txt","")}1')"
 
-        cat "./term-sd-python-pkg-backup/$python_package_ver_backup_list_dialog" | awk -F'==' '{print $1}' > tmp-python-pkg-no-vers-bak.txt #生成一份无版本的备份列表
-        pip_cmd freeze > tmp-python-pkg-no-vers.txt #生成一份无版本的现有列表
+        #这里不要用"",不然会出问题
+        cat ./term-sd-python-pkg-backup/$python_package_ver_backup_list_dialog | awk -F'==' '{print $1}' > tmp-python-pkg-no-vers-bak.txt #生成一份无版本的备份列表
+        pip_cmd freeze | awk -F'==' '{print $1}' > tmp-python-pkg-no-vers.txt #生成一份无版本的现有列表
 
         #生成一份软件包卸载名单
         for python_package_need_to_remove in $(cat ./tmp-python-pkg-no-vers-bak.txt); do
-            sed -i '/'$(echo $python_package_need_to_remove)'/d' ./tmp-python-pkg-no-vers.txt #需要卸载的依赖包名单
+            sed -i '/'$python_package_need_to_remove'/d' ./tmp-python-pkg-no-vers.txt 2> /dev/null #需要卸载的依赖包名单
         done
 
         tmp_disable_proxy #临时取消代理,避免一些不必要的网络减速
-        pip_cmd uninstall -y -r ./tmp-python-pkg-no-vers.txt #卸载名单中的依赖包
+        if [ ! -z "$(cat ./tmp-python-pkg-no-vers.txt)" ];then
+            term_sd_notice "卸载多余软件包中"
+            pip_cmd uninstall -y -r ./tmp-python-pkg-no-vers.txt  #卸载名单中的依赖包
+        fi
         rm -rf tmp-python-pkg-no-vers.txt #删除卸载名单列表
         rm -rf tmp-python-pkg-no-vers-bak.txt #删除不需要的包名文件缓存
+        term_sd_notice "恢复依赖库版本中"
         pip_cmd install -r ./term-sd-python-pkg-backup/$python_package_ver_backup_list_dialog --prefer-binary --default-timeout=100 --retries 5 #安装原有版本的依赖包
         tmp_enable_proxy #恢复原有的代理
         term_sd_notice "恢复依赖库版本完成"
