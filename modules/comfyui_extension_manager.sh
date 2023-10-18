@@ -44,9 +44,12 @@ function comfyui_extension_manager()
     comfyui_extension_selection=$(
         dialog --clear --ok-label "确认" --cancel-label "取消" --title "ComfyUI管理" --backtitle "ComfyUI插件列表" \
         --menu "使用上下键选择要操作的插件并回车确认" 25 70 10 \
+        "-->返回<--" "<---------" \
         $dir_list \
         3>&1 1>&2 2>&3)
     if [ $? = 0 ];then
+        if [ $comfyui_extension_selection = "-->返回<--" ];then
+            echo
         if [ -d "$comfyui_extension_selection" ]; then  # 选择文件夹
             if [ ! "$comfyui_extension_selection" = "core" ];then #排除掉core文件夹
                 cd "$comfyui_extension_selection"

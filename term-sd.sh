@@ -135,13 +135,11 @@ function term_sd_auto_update_trigger()
                 term_sd_auto_update_time_set=3600 #检查更新时间间隔
                 if [ $term_sd_auto_update_time_span -ge $term_sd_auto_update_time_set ];then #判断时间间隔
                     term_sd_auto_update
-                    date +'%Y-%m-%d %H:%M:%S' > term-sd-auto-update-time.conf #记录自动更新功能的启动时间
-                    mv -f ./term-sd-auto-update-time.conf ./term-sd
+                    date +'%Y-%m-%d %H:%M:%S' > ./term-sd/term-sd-auto-update-time.conf #记录自动更新功能的启动时间
                 fi
             else #没有时直接执行
                 term_sd_auto_update
-                date +'%Y-%m-%d %H:%M:%S' > term-sd-auto-update-time.conf #记录自动更新功能的启动时间
-                mv -f ./term-sd-auto-update-time.conf ./term-sd
+                date +'%Y-%m-%d %H:%M:%S' > ./term-sd/term-sd-auto-update-time.conf #记录自动更新功能的启动时间
             fi
         fi    
     fi
@@ -354,10 +352,8 @@ function remove_term_sd()
             rm -rf ./term-sd.sh
             user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') #读取用户所使用的shell
             if [ $user_shell = bash ] || [ $user_shell = zsh ];then
-                cd ~
-                sed -i '/termsd(){/d' ."$user_shell"rc
-                sed -i '/alias tsd/d' ."$user_shell"rc
-                cd - > /dev/null
+                sed -i '/termsd(){/d' ~/."$user_shell"rc
+                sed -i '/alias tsd/d' ~/."$user_shell"rc
             fi
             term_sd_notice "Term-SD卸载完成"
         fi
@@ -402,27 +398,23 @@ function install_config_to_shell()
 {
     #将要向.bashrc写入的配置
     term_sd_shell_config="termsd(){ term_sd_start_path=\$(pwd) ; cd \"$term_sd_install_path\" ; ./term-sd.sh \"\$@\" ; cd \"\$term_sd_start_path\" > /dev/null ; }"
-    cd ~
     if [ $user_shell = bash ] || [ $user_shell = zsh ];then
-        if cat ./."$user_shell"rc | grep termsd > /dev/null ;then
+        if cat ~/."$user_shell"rc | grep termsd > /dev/null ;then
             term_sd_notice "配置已存在,添加前请删除原有配置"
         else
-            echo $term_sd_shell_config >> ."$user_shell"rc
-            echo "alias tsd='termsd'" >> ."$user_shell"rc
+            echo $term_sd_shell_config >> ~/."$user_shell"rc
+            echo "alias tsd='termsd'" >> ~/."$user_shell"rc
             term_sd_notice "配置添加完成,重启shell以生效"
         fi
     fi
-    cd - > /dev/null
 }
 
 #term-sd快捷命令卸载功能
 function remove_config_from_shell()
 {
-    cd ~
-    sed -i '/termsd(){/d' ."$user_shell"rc
-    sed -i '/alias tsd/d' ."$user_shell"rc
+    sed -i '/termsd(){/d' ~/."$user_shell"rc
+    sed -i '/alias tsd/d' ~/."$user_shell"rc
     term_sd_notice "配置已删除,重启shell以生效"
-    cd - > /dev/null
 }
 
 #终端横线显示功能
@@ -763,7 +755,7 @@ function term_sd_env_prepare()
 #################################################
 
 #term-sd版本
-term_sd_version_="0.5.4"
+term_sd_version_="0.5.5"
 
 #判断启动状态(在shell中,新变量的值为空,且不需要定义就可以使用,不像c语言中要求那么严格)
 if [ ! -z $term_sd_env_prepare_info ] && [ $term_sd_env_prepare_info = 0 ];then #检测term-sd是直接启动还是重启
