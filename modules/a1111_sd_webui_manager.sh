@@ -22,6 +22,7 @@ function a1111_sd_webui_option()
             "10" "重新安装" \
             "11" "重新安装pytorch" \
             "12" "python软件包安装/重装/卸载" \
+            "13" "依赖库版本管理" \
             $dialog_recreate_venv_button \
             $dialog_rebuild_venv_button \
             "20" "返回" \
@@ -86,6 +87,9 @@ function a1111_sd_webui_option()
                 a1111_sd_webui_option
             elif [ $a1111_sd_webui_option_dialog = 12 ]; then
                 manage_python_packages
+                a1111_sd_webui_option
+            elif [ $a1111_sd_webui_option_dialog = 13 ]; then
+                python_package_ver_backup_or_restore
                 a1111_sd_webui_option
             elif [ $a1111_sd_webui_option_dialog = 18 ]; then
                 if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui虚拟环境修复选项" --yes-label "是" --no-label "否" --yesno "是否修复A1111-SD-Webui的虚拟环境" 25 70);then

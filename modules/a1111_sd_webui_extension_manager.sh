@@ -37,14 +37,17 @@ function a1111_sd_webui_extension_manager()
     extension_selection=$(
         dialog --clear --ok-label "确认" --cancel-label "取消" --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件列表" \
         --menu "请选择A1111-SD-Webui插件" 25 70 10 \
+        "-->返回<--" "<---------" \
         $dir_list \
         3>&1 1>&2 2>&3)
     if [ $? = 0 ];then
-        if [[ -d "$extension_selection" ]]; then  # 选择文件夹
+        if [ $extension_selection = "-->返回<--" ];then
+            echo
+        elif [ -d "$extension_selection" ]; then  # 选择文件夹
             cd "$extension_selection"
             a1111_sd_webui_operate_extension #调用a1111_sd_webui_operate_extension函数处理插件
             a1111_sd_webui_extension_manager
-        elif [[ -f "$extension_selection" ]]; then
+        elif [ -f "$extension_selection" ]; then
             a1111_sd_webui_extension_manager #留在当前目录
         else
             a1111_sd_webui_extension_manager #留在当前目录

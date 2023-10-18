@@ -22,6 +22,7 @@ function comfyui_option()
             "10" "重新安装" \
             "11" "重新安装pytorch" \
             "12" "python软件包安装/重装/卸载" \
+            "13" "依赖库版本管理" \
             $dialog_recreate_venv_button \
             $dialog_rebuild_venv_button \
             "20" "返回" \
@@ -88,6 +89,9 @@ function comfyui_option()
                 comfyui_option
             elif [ $comfyui_option_dialog = 12 ]; then
                 manage_python_packages
+                comfyui_option
+            elif [ $comfyui_option_dialog = 13 ]; then
+                python_package_ver_backup_or_restore
                 comfyui_option
             elif [ $comfyui_option_dialog = 18 ]; then
                 if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI虚拟环境修复选项" --yes-label "是" --no-label "否" --yesno "是否修复ComfyUI的虚拟环境" 25 70);then

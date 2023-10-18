@@ -41,10 +41,13 @@ function comfyui_custom_node_manager()
     comfyui_custom_node_selection=$(
         dialog --clear --yes-label "确认" --no-label "取消" --title "ComfyUI管理" --backtitle "ComfyUI自定义节点列表" \
         --menu "使用上下键选择要操作的插件并回车确认" 25 70 10 \
+        "-->返回<--" "<---------" \
         $dir_list \
         3>&1 1>&2 2>&3)
     if [ $? = 0 ];then
-        if [ -d "$comfyui_custom_node_selection" ]; then  # 选择文件夹
+        if [ $comfyui_custom_node_selection = "-->返回<--" ];then
+            echo
+        elif [ -d "$comfyui_custom_node_selection" ]; then  # 选择文件夹
             cd "$comfyui_custom_node_selection"
             operate_comfyui_custom_node #调用operate_extension函数处理插件
             comfyui_custom_node_manager
