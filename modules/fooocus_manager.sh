@@ -20,6 +20,7 @@ function fooocus_option()
             "8" "重新安装" \
             "9" "重新安装pytorch" \
             "10" "python软件包安装/重装/卸载" \
+            "11" "依赖库版本管理" \
             $dialog_recreate_venv_button \
             $dialog_rebuild_venv_button \
             "20" "返回" \
@@ -85,6 +86,9 @@ function fooocus_option()
                 fooocus_option
             elif [ $fooocus_option_dialog = 10 ]; then
                 manage_python_packages
+                fooocus_option
+            elif [ $fooocus_option_dialog = 11 ]; then
+                python_package_ver_backup_or_restore
                 fooocus_option
             elif [ $fooocus_option_dialog = 18 ]; then
                 if (dialog --clear --title "Fooocus管理" --backtitle "Fooocus虚拟环境修复选项" --yes-label "是" --no-label "否" --yesno "是否修复Fooocus的虚拟环境" 25 70);then

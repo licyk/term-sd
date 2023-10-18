@@ -103,14 +103,18 @@ function restore_python_package_ver()
 
         cat "./term-sd-python-pkg-backup/$python_package_ver_backup_list_dialog" | awk -F'==' '{print $1}' > tmp-python-pkg-no-vers-bak.txt #生成一份无版本的备份列表
         pip_cmd freeze > tmp-python-pkg-no-vers.txt #生成一份无版本的现有列表
-        rm -rf tmp-python-pkg-no-vers-bak.txt #删除不需要的包名文件缓存
+
         #生成一份软件包卸载名单
         for python_package_need_to_remove in $(cat ./tmp-python-pkg-no-vers-bak.txt); do
             sed -i '/'$(echo $python_package_need_to_remove)'/d' ./tmp-python-pkg-no-vers.txt #需要卸载的依赖包名单
         done
 
+        tmp_disable_proxy #临时取消代理,避免一些不必要的网络减速
         pip_cmd uninstall -y -r ./tmp-python-pkg-no-vers.txt #卸载名单中的依赖包
+        rm -rf tmp-python-pkg-no-vers.txt #删除卸载名单列表
+        rm -rf tmp-python-pkg-no-vers-bak.txt #删除不需要的包名文件缓存
         pip_cmd install -r ./term-sd-python-pkg-backup/$python_package_ver_backup_list_dialog --prefer-binary --default-timeout=100 --retries 5 #安装原有版本的依赖包
+        tmp_enable_proxy #恢复原有的代理
         term_sd_notice "恢复依赖库版本完成"
     fi
 }

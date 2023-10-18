@@ -47,16 +47,17 @@ function comfyui_extension_manager()
         "-->返回<--" "<---------" \
         $dir_list \
         3>&1 1>&2 2>&3)
+
     if [ $? = 0 ];then
         if [ $comfyui_extension_selection = "-->返回<--" ];then
             echo
-        if [ -d "$comfyui_extension_selection" ]; then  # 选择文件夹
+        elif [ -d "$comfyui_extension_selection" ];then  # 选择文件夹
             if [ ! "$comfyui_extension_selection" = "core" ];then #排除掉core文件夹
                 cd "$comfyui_extension_selection"
                 operate_comfyui_extension #调用operate_comfyui_extension函数处理插件
             fi
             comfyui_extension_manager
-        elif [ -f "$extension_selection" ]; then
+        elif [ -f "$extension_selection" ];then
             comfyui_extension_manager #留在当前目录
         else
             comfyui_extension_manager #留在当前目录
