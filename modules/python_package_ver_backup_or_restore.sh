@@ -99,6 +99,7 @@ function restore_python_package_ver()
     final_install_check #安装前确认
 
     if [ $final_install_check_exec = 0 ];then
+        print_line_to_shell "python软件包版本恢复"
         term_sd_notice "开始恢复依赖库版本中,版本$(echo $python_package_ver_backup_list_dialog | awk '{sub(".txt","")}1')"
 
         #这里不要用"",不然会出问题
@@ -129,5 +130,6 @@ function restore_python_package_ver()
         pip_cmd install -r ./term-sd-python-pkg-backup/$python_package_ver_backup_list_dialog --prefer-binary --default-timeout=100 --retries 5 #安装原有版本的依赖包
         tmp_enable_proxy #恢复原有的代理
         term_sd_notice "恢复依赖库版本完成"
+        print_line_to_shell
     fi
 }
