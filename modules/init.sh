@@ -42,7 +42,7 @@ function term_sd_process_bar()
 {
     term_sd_modules_number_mark=$(echo $(awk 'BEGIN {print '$term_sd_modules_number' / '$term_sd_modules_number_sum' * 100 }') | awk -F'.' '{print $1}') #加载进度百分比
     term_sd_process_bar_length=$(echo $(awk 'BEGIN {print '$term_sd_modules_number' / '$term_sd_modules_number_sum' * '$term_sd_process_bar_initial_length' }') | awk -F'.' '{print $1}') #进度条已完成的实时长度
-    term_sd_init_bar_display='▇' #已完成的进度显示效果
+    term_sd_init_bar_display='█' #已完成的进度显示效果
     term_sd_init_bar="" #清空进度条
 
     for i in $(seq 1 "${term_sd_process_bar_initial_length}"); do #这个循环将空的进度条填上一堆空格
@@ -51,7 +51,7 @@ function term_sd_process_bar()
         fi
         term_sd_init_bar="${term_sd_init_bar}${term_sd_init_bar_display}" #一开始是空的，通过循环填上一堆空格,然后逐渐减少空格数量,增加方块符号的数量
     done
-    printf "[$(date "+%Y-%m-%d %H:%M:%S")][Term-SD]:: 加载模块中[${term_sd_init_bar}] ${term_sd_modules_number_mark}%%\r"
+    printf "[$(date "+%Y-%m-%d %H:%M:%S")][Term-SD]:: 加载模块中|${term_sd_init_bar}| ${term_sd_modules_number_mark}%%\r"
 }
 
 #初始化功能
