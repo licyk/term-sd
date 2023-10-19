@@ -68,9 +68,11 @@ function term_sd_process_user_input_early()
         term_sd_notice "已删除自定义pip解释器路径配置"
         ;;
         "--enable-new-bar")
+        term_sd_notice "启用新的Term-SD初始化进度条"
         touch ./term-sd/term-sd-new-bar.lock
         ;;
         "--disable-new-bar")
+        term_sd_notice "禁用新的Term-SD初始化进度条"
         rm -rf ./term-sd/term-sd-new-bar.lock
         ;;
         esac
