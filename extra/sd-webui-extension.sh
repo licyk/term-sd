@@ -54,6 +54,7 @@ function a1111_sd_webui_extension_option()
     a1111_sd_webui_extension_model_1="1"
     a1111_sd_webui_extension_model_2="1"
     a1111_sd_webui_extension_model_3="1"
+    a1111_sd_webui_extension_model_4="1"
 
     #插件选择,并输出插件对应的数字
     extension_list=$(

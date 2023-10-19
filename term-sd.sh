@@ -116,9 +116,9 @@ function term_sd_extra_scripts()
 {
     extra_script_dir_list=$(ls -l "./term-sd/extra" --time-style=+"%Y-%m-%d" | awk -F ' ' ' { print $7 " " $6 } ')
     extra_script_dir_list_=$(dialog --clear --title "Term-SD" --backtitle "扩展脚本选项" --ok-label "确认" --cancel-label "取消" --menu "请选择要启动的脚本" 25 70 10 \
-        "term-sd" "<------------" \
+        "Term-SD" "<---------" \
         $extra_script_dir_list \
-        "退出" "<------------" \
+        "退出" "<---------" \
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
@@ -627,26 +627,6 @@ function term_sd_env_prepare()
     temr_sd_depend="git aria2c dialog" #term-sd依赖软件包
     term_sd_install_path=$(pwd) #读取term-sd安装位置
     user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') #读取用户所使用的shell
-
-    #检测用户是否进行指定python运行路径
-    for term_sd_launch_input in "$@" ;do
-        case $term_sd_launch_input in
-        "--set-python-path")
-        set_python_path
-        ;;
-        "--set-pip-path")
-        set_pip_path
-        ;;
-        "--unset-python-path")
-        rm -f ./term-sd/python-path.conf
-        term_sd_notice "已删除自定义python解释器路径配置"
-        ;;
-        "--unset-pip-path")
-        rm -f ./term-sd/pip-path.conf
-        term_sd_notice "已删除自定义pip解释器路径配置"
-        ;;
-        esac
-    done
 
     #存在python自定义路径配置文件时自动读取到变量中
     if [ -f "./term-sd/python-path.conf" ];then
