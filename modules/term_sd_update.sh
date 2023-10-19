@@ -40,15 +40,10 @@ function term_sd_update_option()
                 term_sd_fix_pointer_offset
                 cd ..
                 term_sd_update_option
-            elif [ $term_sd_update_option_dialog = 5 ];then
-                mainmenu
             fi
-        else
-            mainmenu
         fi
     else #检测到没有该文件夹,无法进行更新,提示用户修复
         dialog --clear --title "Term-SD" --backtitle "Term-SD更新选项" --ok-label "确定" --msgbox "Term-SD文件损坏,无法进行更新,请重启Term-SD并按提示修复问题" 25 70
-        mainmenu
     fi
 }
 

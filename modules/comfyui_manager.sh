@@ -110,7 +110,6 @@ function comfyui_option()
             process_install_comfyui
         fi
     fi
-    mainmenu #处理完后返回主界面界面
 }
 
 #comfyui依赖更新功能

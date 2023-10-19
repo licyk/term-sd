@@ -47,8 +47,6 @@ function help_option()
             help_option_9
             help_option
         fi
-    else
-        mainmenu
     fi
 }
 
@@ -477,7 +475,7 @@ comfyui-extension：安装ComfyUI的插件\n
 \n
 #### 启动参数的使用方法\n
 \n
-./term-sd.sh [--help] [--extra] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path] [--set-pip-path] [--unset-python-path] [--unset-pip-path] \n
+./term-sd.sh [--help] [--extra] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path] [--set-pip-path] [--unset-python-path] [--unset-pip-path] [--enable-new-bar] [--disable-new-bar]\n
 \n
 \n
 >中括号“[]”仅用来展示，在使用的时候不要输入进去\n
@@ -540,6 +538,11 @@ comfyui-extension：安装ComfyUI的插件\n
 \n
 13、unset-pip-path\n
 删除自定义pip解释器路径配置\n
+14、enable-new-bar:\n
+启用新的Term-SD初始化进度条\n
+\n
+15、disable-new-bar:\n
+禁用新的Term-SD初始化进度条\n
 \n
 ## 绘世启动器的使用\n
 目前绘世启动器支持启动AUTOMATIC1111-stable-diffusion-webui、ComfyUI。使用Term-SD部署AUTOMATIC1111-stable-diffusion-webui或者ComfyUI后，将绘世启动器放入stable-diffusion-webui文件夹或者ComfyUI文件夹后就可以使用绘世启动器启动对应的ai软件了\n
@@ -575,7 +578,7 @@ function help_option_4()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "Term-SD功能说明:\n
 参数使用方法(设置快捷启动命令后可将\"./term-sd.sh\"替换成\"termsd\"或者\"tsd\"):\n
-  ./term-sd.sh [--help] [--extra] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path] [--set-pip-path] [--unset-python-path] [--unset-pip-path]\n
+  ./term-sd.sh [--help] [--extra] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path] [--set-pip-path] [--unset-python-path] [--unset-pip-path] [--enable-new-bar] [--disable-new-bar]\n
 参数功能:\n
 help:显示启动参数帮助\n
 extra:启动扩展脚本\n
@@ -591,6 +594,8 @@ set-pip-path:手动指定pip路径\n
 unset-python-path:删除自定义python解释器路径配置\n
 unset-pip-path:删除自定义pip解释器路径配置\n
 update-pip:进入虚拟环境时更新pip软件包管理器\n
+enable-new-bar:启用新的Term-SD初始化进度条\n
+disable-new-bar:禁用新的Term-SD初始化进度条\n
 \n
 Term-SD的功能(除了安装,更新,启动,卸载):\n
 主界面:\n

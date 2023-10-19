@@ -166,7 +166,5 @@ function process_install_a1111_sd_webui()
         exit_venv
         print_line_to_shell
         a1111_sd_webui_option
-    else
-        mainmenu
     fi
 }

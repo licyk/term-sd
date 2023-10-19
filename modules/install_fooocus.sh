@@ -43,7 +43,5 @@ function process_install_fooocus()
         exit_venv
         print_line_to_shell
         fooocus_option
-    else
-        mainmenu
     fi
 }

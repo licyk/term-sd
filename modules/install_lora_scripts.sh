@@ -40,7 +40,5 @@ function process_install_lora_scripts()
         exit_venv
         print_line_to_shell
         lora_scripts_option
-    else
-        mainmenu
     fi
 }

@@ -107,7 +107,6 @@ function fooocus_option()
             process_install_fooocus
         fi
     fi
-    mainmenu #处理完后返回主界面界面
 }
 
 #fooocus依赖更新

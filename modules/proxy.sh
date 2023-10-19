@@ -47,11 +47,7 @@ function set_proxy_option()
             export http_proxy=""
             export https_proxy=""
             set_proxy_option
-        elif [ $set_proxy_option_dialog = 5 ];then
-            mainmenu
         fi
-    else
-        mainmenu
     fi
 }
 

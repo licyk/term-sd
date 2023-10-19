@@ -37,7 +37,5 @@ function process_install_invokeai()
         exit_venv
         print_line_to_shell
         invokeai_option
-    else
-        mainmenu
     fi
 }

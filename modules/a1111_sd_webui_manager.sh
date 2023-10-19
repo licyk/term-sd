@@ -108,7 +108,6 @@ function a1111_sd_webui_option()
             process_install_a1111_sd_webui
         fi
     fi
-    mainmenu #处理完后返回主界面
 }
 
 #a1111-sd-webui依赖更新功能

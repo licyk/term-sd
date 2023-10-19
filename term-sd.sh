@@ -7,7 +7,7 @@ function term_sd_process_user_input_early()
         case $term_sd_launch_input in
         "--help")
         term_sd_notice "启动参数使用方法:"
-        echo "  term-sd.sh [--help] [--extra] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path] [--set-pip-path] [--unset-python-path] [--unset-pip-path]"
+        echo "  term-sd.sh [--help] [--extra] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path] [--set-pip-path] [--unset-python-path] [--unset-pip-path] [--enable-new-bar] [--disable-new-bar]"
         echo "选项:"
         echo "  --help"
         echo "        显示启动参数帮助"
@@ -37,6 +37,10 @@ function term_sd_process_user_input_early()
         echo "        删除自定义pip解释器路径配置"
         echo "  --update-pip"
         echo "        进入虚拟环境时更新pip软件包管理器"
+        echo "  --enable-new-bar"
+        echo "        启用新的Term-SD初始化进度条"
+        echo "  --disable-new-bar"
+        echo "        禁用新的Term-SD初始化进度条"
         print_line_to_shell
         exit 1
         ;;
@@ -62,6 +66,12 @@ function term_sd_process_user_input_early()
         "--unset-pip-path")
         rm -f ./term-sd/pip-path.conf
         term_sd_notice "已删除自定义pip解释器路径配置"
+        ;;
+        "--enable-new-bar")
+        touch ./term-sd/term-sd-new-bar.lock
+        ;;
+        "--disable-new-bar")
+        rm -rf ./term-sd/term-sd-new-bar.lock
         ;;
         esac
     done
@@ -763,7 +773,17 @@ if [ ! -z $term_sd_env_prepare_info ] && [ $term_sd_env_prepare_info = 0 ];then 
     print_line_to_shell "Term-SD"
     term_sd_notice "重启Term-SD中"
     source ./term-sd/modules/init.sh
+    term_sd_notice "启动Term-SD中"
+    term_sd_version
+    while : ;do
+        mainmenu
+    done
 else
     #正常启动
     term_sd_env_prepare "$@"
+    term_sd_notice "启动Term-SD中"
+    term_sd_version
+    while : ;do
+        mainmenu
+    done
 fi
