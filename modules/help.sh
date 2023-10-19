@@ -538,6 +538,7 @@ comfyui-extension：安装ComfyUI的插件\n
 \n
 13、unset-pip-path\n
 删除自定义pip解释器路径配置\n
+\n
 14、enable-new-bar\n
 启用新的Term-SD初始化进度条\n
 \n
