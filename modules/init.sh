@@ -14,7 +14,6 @@ function term_sd_init()
     done
     printf "[$(date "+%Y-%m-%d %H:%M:%S")][Term-SD]:: 初始化Term-SD完成                               \n"
     print_line_to_shell
-    term_sd_notice "启动Term-SD中"
 }
 
 #term-sd初始化部分(带进度条)
@@ -35,7 +34,6 @@ function term_sd_init_new()
     echo
     term_sd_notice "初始化Term-SD完成"
     print_line_to_shell
-    term_sd_notice "启动Term-SD中"
 }
 
 #进度条生成功能(开了只会降低加载速度)
