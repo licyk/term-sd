@@ -60,27 +60,6 @@ function mainmenu()
     fi
 }
 
-#启动项目功能
-function term_sd_launch()
-{
-    print_line_to_shell "$term_sd_manager_info 启动"
-    if [ $term_sd_manager_info = "InvokeAI" ];then
-        invokeai $(cat ./term-sd-launch.conf)
-    else
-        enter_venv
-        python_cmd $(cat ./term-sd-launch.conf)
-    fi
-    print_line_to_shell
-}
-
-#项目更新失败修复功能
-function term_sd_fix_pointer_offset()
-{
-    term_sd_notice "修复$(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新中"
-    git checkout $(git branch -a | grep HEAD | awk -F'/' '{print $NF}') #查询当前主分支并重新切换过去
-    git reset --recurse-submodules --hard HEAD #回退版本,解决git pull异常
-}
-
 #显示版本信息
 function term_sd_version()
 {

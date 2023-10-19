@@ -112,11 +112,19 @@ function restore_python_package_ver()
 
         tmp_disable_proxy #临时取消代理,避免一些不必要的网络减速
         if [ ! -z "$(cat ./tmp-python-pkg-no-vers.txt)" ];then
+            print_line_to_shell
+            term_sd_notice "将要卸载的软件包列表"
+            cat ./tmp-python-pkg-no-vers.txt
+            print_line_to_shell
             term_sd_notice "卸载多余软件包中"
             pip_cmd uninstall -y -r ./tmp-python-pkg-no-vers.txt  #卸载名单中的依赖包
         fi
         rm -rf tmp-python-pkg-no-vers.txt #删除卸载名单列表
         rm -rf tmp-python-pkg-no-vers-bak.txt #删除不需要的包名文件缓存
+        print_line_to_shell
+        term_sd_notice "将要安装的软件包列表"
+        cat ./term-sd-python-pkg-backup/$python_package_ver_backup_list_dialog
+        print_line_to_shell
         term_sd_notice "恢复依赖库版本中"
         pip_cmd install -r ./term-sd-python-pkg-backup/$python_package_ver_backup_list_dialog --prefer-binary --default-timeout=100 --retries 5 #安装原有版本的依赖包
         tmp_enable_proxy #恢复原有的代理
