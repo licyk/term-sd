@@ -101,7 +101,5 @@ function process_install_comfyui()
         exit_venv
         print_line_to_shell
         comfyui_option
-    else
-        mainmenu
     fi
 }

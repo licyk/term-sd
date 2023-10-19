@@ -120,7 +120,6 @@ function lora_scripts_option()
             process_install_lora_scripts
         fi
     fi
-    mainmenu #处理完后返回主界面界面
 }
 
 #lora-scripts依赖更新功能

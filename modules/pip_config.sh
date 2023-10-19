@@ -32,11 +32,7 @@ function set_pip_mirrors_option()
             pip_cmd config unset global.index-url
             pip_cmd config unset global.find-links
             set_pip_mirrors_option
-        else
-            mainmenu
         fi
-    else
-        mainmenu
     fi
 }
 
@@ -47,5 +43,4 @@ function pip_cache_clean()
     if (dialog --clear --title "Term-SD" --backtitle "pip缓存清理选项" --yes-label "是" --no-label "否" --yesno "pip缓存信息:\npip缓存路径:$(pip_cmd cache dir)\n包索引页面缓存大小:$(pip_cmd cache info |awk NR==2 | awk -F ':'  '{print $2 $3 $4}')\n本地构建的wheel包大小:$(pip_cmd cache info |awk NR==5 | awk -F ':'  '{print $2 $3 $4}')\n是否删除pip缓存?" 25 70);then
         pip_cmd cache purge
     fi
-    mainmenu
 }

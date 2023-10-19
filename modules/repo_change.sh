@@ -53,15 +53,6 @@ function select_repo()
 {
     select_repo_exec=0
     change_repo_return="" #清除上次运行结果
-    if [ $term_sd_manager_info = "stable-diffusion-webui" ];then #设置点击返回时指定返回的界面
-        return_dialog_panel="a1111_sd_webui_option"
-    elif [ $term_sd_manager_info = "ComfyUI" ];then
-        return_dialog_panel="comfyui_option"
-    elif [ $term_sd_manager_info = "lora-scripts" ];then
-        return_dialog_panel="lora-scripts"
-    else
-        return_dialog_panel="mainmenu"
-    fi
 
     select_repo_=$(dialog --clear --title "Term-SD" --backtitle "更新源选择界面" --ok-label "确认" --cancel-label "取消" --menu "选择要修改成的更新源\n当前将要修改更新源的AI软件:$term_sd_manager_info" 25 70 10 \
         "1" "官方源" \

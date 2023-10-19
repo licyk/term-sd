@@ -16,7 +16,6 @@ function venv_option()
         export dialog_rebuild_venv_button=""
         touch ./term-sd/term-sd-venv-disable.lock
     fi
-    mainmenu
 }
 
 #虚拟环境创建功能

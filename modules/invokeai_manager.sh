@@ -100,5 +100,4 @@ function invokeai_option()
           process_install_invokeai
         fi
     fi
-    mainmenu #处理完后返回主界面界面
 }
