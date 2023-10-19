@@ -23,7 +23,7 @@ function term_sd_init_new()
     term_sd_modules_number=1
     term_sd_modules_number_mark=$(echo $(awk 'BEGIN {print '$term_sd_modules_number' / '$term_sd_modules_number_sum' * 100}') | awk -F'.' '{print $1}') #加载进度百分比
     term_sd_process_bar_length=1 #设置初始进度条(已完成的效果)的长度
-    term_sd_process_bar_initial_length=30 #初始进度条的总长度
+    term_sd_process_bar_initial_length=$(( $shellwidth - 50 )) #初始进度条的总长度
 
     for term_sd_modules in ./term-sd/modules/*.sh ;do
         [ $term_sd_modules = "./term-sd/modules/init.sh" ] && continue #避免重新初始化init.sh脚本
