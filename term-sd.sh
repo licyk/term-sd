@@ -84,7 +84,29 @@ function term_sd_process_user_input()
 {
     export pip_manager_update=1
     export aria2_multi_threaded=""
+    term_sd_input_value_extra=1
+
     for term_sd_launch_input in "$@" ;do
+
+        #直接启动扩展脚本
+        if [ $term_sd_input_value_extra = 0 ];then #检测到有--extra参数
+            term_sd_input_value_extra=1
+            if [ $(option_or_value_test $term_sd_launch_input) = 1 ];then #判断--extra下一个值是参数还是选项
+                term_sd_launch_input=$(echo $term_sd_launch_input | awk '{sub(".sh","")}1') #处理后缀名
+                if [ -f "./term-sd/extra/$term_sd_launch_input.sh" ];then
+                    term_sd_notice "启动"$term_sd_launch_input"脚本中"
+                    source ./term-sd/extra/$term_sd_launch_input.sh
+                    term_sd_notice "退出"$term_sd_launch_input"脚本中"
+                else
+                    term_sd_notice "未找到"$term_sd_launch_input"脚本"
+                    term_sd_notice "退出Term-SD"
+                fi
+                exit 1
+            else
+                term_sd_extra_scripts
+            fi
+        fi
+
         case $term_sd_launch_input in
         "--remove-term-sd")
         remove_term_sd
@@ -105,10 +127,17 @@ function term_sd_process_user_input()
         term_sd_test_network
         ;;
         "--extra")
-        term_sd_extra_scripts
+        term_sd_input_value_extra=0
         ;;
         esac
+
     done
+}
+
+#测试输入值是参数还是选项,选项输出0,参数输出1
+function option_or_value_test()
+{
+    echo $@ | awk -F ' ' '{for (i=1; i<=NF; i++) {if (substr($i, 1, 2) == "--") {print "0"} else {print "1"}}}'
 }
 
 #扩展脚本列表
@@ -730,7 +759,7 @@ function term_sd_env_prepare()
         if [ -d "./term-sd/modules" ];then #找到目录后才启动
             term_sd_auto_update_trigger
             export term_sd_env_prepare_info=0 #用于检测term-sd的启动状态
-            term_sd_process_user_input "$@"
+            term_sd_process_user_input "$@" #处理用户输入
             source ./term-sd/modules/init.sh
         else
             term_sd_notice "Term-SD模块丢失,\"输入./term-sd.sh --reinstall-term-sd\"重新安装Term-SD"
@@ -757,7 +786,7 @@ if [ ! -z $term_sd_env_prepare_info ] && [ $term_sd_env_prepare_info = 0 ];then 
     source ./term-sd/modules/init.sh
     term_sd_notice "启动Term-SD中"
     term_sd_version
-    while : ;do
+    while : ;do #主界面死循环部分,防止运行一次后就直接结束运行
         mainmenu
     done
 else
@@ -765,7 +794,7 @@ else
     term_sd_env_prepare "$@"
     term_sd_notice "启动Term-SD中"
     term_sd_version
-    while : ;do
+    while : ;do #主界面死循环部分,防止运行一次后就直接结束运行
         mainmenu
     done
 fi
