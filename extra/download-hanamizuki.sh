@@ -52,7 +52,7 @@ function download_hanamizuki()
 }
 
 if [ -d "./stable-diffusion-webui" ] || [ -d "./ComfyUI" ];then
-    if [ ! -f "./stable-diffusion-webui/绘世.exe"] || [ ! -f "./ComfyUI/绘世.exe"];then
+    if [ ! -f "./stable-diffusion-webui/绘世.exe"] || [ ! -f "./ComfyUI/绘世.exe" ];then
         download_hanamizuki_info=0
         download_hanamizuki_resource_select
         if [ ! $download_hanamizuki_info = 1 ];then

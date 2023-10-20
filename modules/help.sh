@@ -824,6 +824,7 @@ function help_option_7()
 扩展脚本列表(启动Term-SD时加入\"--extra\"启动参数即可使用扩展脚本):\n
 sd-webui-extension:安装sd-webui的插件\n
 comfyui-extension:安装ComfyUI的插件\n
+download-hanamizuki:下载绘世启动器\n
 \n
 \n
 " 25 70
