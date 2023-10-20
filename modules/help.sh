@@ -469,13 +469,14 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 Term-SD包含了一些扩展脚本，扩充Term-SD的功能\n
 sd-webui-extension：安装AUTOMATIC1111-stable-diffusion-webui的插件\n
 comfyui-extension：安装ComfyUI的插件\n
+download-hanamizuki:下载绘世启动器\n
 \n
 ### 启动参数\n
 在使用命令Term-SD时，可以添加启动参数来使用Term-SD额外的功能\n
 \n
 #### 启动参数的使用方法\n
 \n
-./term-sd.sh [--help] [--extra] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path] [--set-pip-path] [--unset-python-path] [--unset-pip-path] [--enable-new-bar] [--disable-new-bar]\n
+./term-sd.sh [--help] [--extra script_name] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path] [--set-pip-path] [--unset-python-path] [--unset-pip-path] [--enable-new-bar] [--disable-new-bar]\n
 \n
 \n
 >中括号“[]”仅用来展示，在使用的时候不要输入进去\n
@@ -486,7 +487,7 @@ comfyui-extension：安装ComfyUI的插件\n
 显示启动参数帮助\n
 \n
 2、extra\n
-启动扩展脚本显示界面，选中其中一个启动脚本后即可启动\n
+启动扩展脚本显示界面，选中其中一个启动脚本后即可启动，参数后面可接扩展脚本的名字\n
 \n
 3、multi-threaded-download\n
 安装过程中启用多线程下载模型，在调用aria2下载模型时设置下载线程为8\n
@@ -579,10 +580,10 @@ function help_option_4()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "Term-SD功能说明:\n
 参数使用方法(设置快捷启动命令后可将\"./term-sd.sh\"替换成\"termsd\"或者\"tsd\"):\n
-  ./term-sd.sh [--help] [--extra] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path] [--set-pip-path] [--unset-python-path] [--unset-pip-path] [--enable-new-bar] [--disable-new-bar]\n
+  ./term-sd.sh [--help] [--extra script_name] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path] [--set-pip-path] [--unset-python-path] [--unset-pip-path] [--enable-new-bar] [--disable-new-bar]\n
 参数功能:\n
 help:显示启动参数帮助\n
-extra:启动扩展脚本\n
+extra:启动扩展脚本,参数后面可接扩展脚本的名字\n
 multi-threaded-download:安装过程中启用多线程下载模型\n
 enable-auto-update:启动Term-SD自动检查更新功能\n
 disable-auto-update:禁用Term-SD自动检查更新功能\n
