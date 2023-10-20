@@ -138,12 +138,13 @@ function lora_scripts_update_depend()
             create_venv
             enter_venv
             cd ./sd-scripts
-            pip_cmd install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --prefer-binary --upgrade -r ./requirements.txt --default-timeout=100 --retries 5 #sd-scripts目录下还有个_typos.toml，在安装requirements.txt里的依赖时会指向这个文件
+            requirements_python_package_update "./requirements.txt" #sd-scripts目录下还有个_typos.toml，在安装requirements.txt里的依赖时会指向这个文件
             cd ..
             pip_cmd install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --prefer-binary --upgrade lion-pytorch dadaptation prodigyopt lycoris-lora fastapi uvicorn wandb scipy --default-timeout=100 --retries 5
-            pip_cmd install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --prefer-binary --upgrade -r ./requirements.txt --default-timeout=100 --retries 5 #lora-scripts安装依赖
+            requirements_python_package_update "./requirements.txt" #lora-scripts安装依赖
             exit_venv
             tmp_enable_proxy
+            term_sd_notice "更新lora-scripts依赖结束"
             print_line_to_shell
         fi
     fi

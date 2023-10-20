@@ -112,21 +112,22 @@ function fooocus_option()
 #fooocus依赖更新
 function fooocus_update_depend()
 {
-    if (dialog --clear --title "fooocus_option管理" --backtitle "fooocus_option依赖更新选项" --yes-label "是" --no-label "否" --yesno "是否更新fooocus_option的依赖?" 25 70);then
+    if (dialog --clear --title "Fooocus管理" --backtitle "Fooocus依赖更新选项" --yes-label "是" --no-label "否" --yesno "是否更新Fooocus的依赖?" 25 70);then
         #更新前的准备
         proxy_option #代理选择
         pip_install_methon #安装方式选择
         final_install_check #安装前确认
 
         if [ $final_install_check_exec = 0 ];then
-            print_line_to_shell "fooocus_option依赖更新"
-            term_sd_notice "更新fooocus_option依赖中"
+            print_line_to_shell "Fooocus依赖更新"
+            term_sd_notice "更新Fooocus依赖中"
             tmp_disable_proxy
             create_venv
             enter_venv
-            pip_cmd install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --prefer-binary --upgrade -r ./requirements_versions.txt --default-timeout=100 --retries 5
+            requirements_python_package_update "./requirements_versions.txt"
             exit_venv
             tmp_enable_proxy
+            term_sd_notice "更新Fooocus依赖结束"
             print_line_to_shell
         fi
     fi
