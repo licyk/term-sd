@@ -152,8 +152,12 @@ function term_sd_extra_scripts()
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
-        if [ $extra_script_dir_list_ = "term-sd" ];then
+        if [ $extra_script_dir_list_ = "Term-SD" ];then
             source ./term-sd/modules/init.sh
+            term_sd_version
+            while : ;do #主界面死循环部分,防止运行一次后就直接结束运行
+                mainmenu
+            done
         elif [ $extra_script_dir_list_ = "退出" ];then
             exit 1
         else
