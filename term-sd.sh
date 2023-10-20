@@ -86,7 +86,8 @@ function term_sd_process_user_input()
     export aria2_multi_threaded=""
     term_sd_input_value_extra=1
 
-    for term_sd_launch_input in "$@" ;do
+    #加一个--null是为了增加一次循环,让--extra参数能成功运行
+    for term_sd_launch_input in "$@" "--null" ;do
 
         #直接启动扩展脚本
         if [ $term_sd_input_value_extra = 0 ];then #检测到有--extra参数
@@ -776,7 +777,7 @@ function term_sd_env_prepare()
 #################################################
 
 #term-sd版本
-term_sd_version_="0.5.6"
+term_sd_version_="0.5.7"
 
 #判断启动状态(在shell中,新变量的值为空,且不需要定义就可以使用,不像c语言中要求那么严格)
 if [ ! -z $term_sd_env_prepare_info ] && [ $term_sd_env_prepare_info = 0 ];then #检测term-sd是直接启动还是重启
