@@ -121,15 +121,16 @@ function a1111_sd_webui_update_depend()
 
         if [ $final_install_check_exec = 0 ];then
             print_line_to_shell "A1111-SD-Webui依赖更新"
-            echo "更新A1111-SD-Webui依赖中"
+            term_sd_notice "更新A1111-SD-Webui依赖中"
             tmp_disable_proxy
             create_venv
             enter_venv
-            pip_cmd install -r ./repositories/CodeFormer/requirements.txt --prefer-binary --upgrade $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
-            pip_cmd install -r ./requirements.txt --prefer-binary --upgrade $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+            requirements_python_package_update "./repositories/CodeFormer/requirements.txt"
+            requirements_python_package_update "./requirements.txt"
             pip_cmd install git+"$github_proxy"https://github.com/openai/CLIP --prefer-binary $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
             exit_venv
             tmp_enable_proxy
+            term_sd_notice "更新A1111-SD-Webui依赖结束"
             print_line_to_shell
         fi
     fi

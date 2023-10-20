@@ -39,7 +39,7 @@ function manage_python_packages()
 #pip强制重装软件包功能
 function pip_install_or_remove_methon()
 {
-    pip_install_or_remove_methon_dialog=$(dialog --clear --title "Term-SD" --backtitle "pip操作方式选项" --ok-label "确认" --no-cancel --menu "请选择pip操作方式\n1、常规安装用于安装缺失的软件包\n2、强制重装可解决软件包损坏问题,但同时重新安装软件包所需的依赖,速度较慢\n3、卸载软件包\n注:带有\"仅\"的功能是在安装时只安装用户输入的软件包,而不安装这些软件包的依赖\n安装/重装软件包时可以只写包名,也可以指定包名版本,例:\nxformers\nxformers==0.0.21" 25 70 10 \
+    pip_install_or_remove_methon_dialog=$(dialog --clear --title "Term-SD" --backtitle "pip操作方式选项" --ok-label "确认" --no-cancel --menu "请选择pip操作方式\n1、常规安装用于安装缺失的软件包\n2、强制重装可解决软件包损坏问题,但同时重新安装软件包所需的依赖,速度较慢\n3、卸载软件包\n注:带有\"仅\"的功能是在安装时只安装用户输入的软件包,而不安装这些软件包的依赖\n安装/重装软件包时可以只写包名,也可以指定包名版本\n可以输入多个软件包的包名,并使用空格隔开\n例:\nxformers\nxformers==0.0.21\nxformers==0.0.21 numpy" 25 70 10 \
         "1" "常规安装(install)" \
         "2" "仅安装(--no-deps)" \
         "3" "强制重装(--force-reinstall)" \
