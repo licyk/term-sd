@@ -1,18 +1,57 @@
 #!/bin/bash
 
+#测试输入值是参数还是选项,选项输出0,参数输出1(用于实现getopt命令的功能)
+function option_or_value_test()
+{
+    echo $@ | awk -F ' ' '{for (i=1; i<=NF; i++) {if (substr($i, 1, 2) == "--") {print "0"} else {print "1"}}}'
+}
+
 #term-sd处理用户输入功能(早期进行配置时使用)
 function term_sd_process_user_input_early()
 {
-    for term_sd_launch_input in "$@" ;do
+    #重置变量
+    term_sd_input_value_set_python_path=1
+    term_sd_input_value_set_pip_path=1
+
+    #用别的方法实现了getopt命令的功能
+    #加一个--null是为了增加一次循环,保证那些需要参数的选项能成功执行
+    for term_sd_launch_input in "$@" "--null" ;do
+
+        #参数检测部分
+        #检测--set-python-path
+        if [ $term_sd_input_value_set_python_path = 0 ];then #检测到有--set-python-path参数
+            term_sd_input_value_set_python_path=1 #重置状态
+            if [ $(option_or_value_test $term_sd_launch_input) = 1 ];then #测试输入值是参数还是选项
+                #是参数
+                set_python_path_direct "$term_sd_launch_input"
+            else #是选项
+                set_python_path
+            fi
+        fi
+
+        #--set-pip-path
+        if [ $term_sd_input_value_set_pip_path = 0 ];then #检测到有--set-pip-path参数
+            term_sd_input_value_set_pip_path=1 #重置状态
+            if [ $(option_or_value_test $term_sd_launch_input) = 1 ];then #测试输入值是参数还是选项
+                #是参数
+                set_pip_path_direct "$term_sd_launch_input"
+            else #是选项
+                set_pip_path
+            fi
+        fi
+
+        ####################
+
+        #选项检测部分(如果选项要跟参数值,则设置触发获取参数的变量,命名为"term_sd_input_value_"+"选项名",赋值0,触发获取参数的功能后,赋值1)
         case $term_sd_launch_input in
         "--help")
         term_sd_notice "启动参数使用方法:"
-        echo "  term-sd.sh [--help] [--extra] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path] [--set-pip-path] [--unset-python-path] [--unset-pip-path] [--enable-new-bar] [--disable-new-bar]"
+        echo "  term-sd.sh [--help] [--extra script_name] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--enable-new-bar] [--disable-new-bar]"
         echo "选项:"
         echo "  --help"
         echo "        显示启动参数帮助"
-        echo "  --extra"
-        echo "        启动扩展脚本"
+        echo "  --extra script_name"
+        echo "        启动扩展脚本选择列表,当选项后面输入了脚本名,则直接启动指定的脚本"
         echo "  --multi-threaded-download"
         echo "        安装过程中启用多线程下载模型"
         echo "  --enable-auto-update"
@@ -27,10 +66,10 @@ function term_sd_process_user_input_early()
         echo "        测试网络环境,用于测试代理是否可用,需安装curl"
         echo "  --quick-cmd"
         echo "        添加Term-SD快捷启动命令到shell"
-        echo "  --set-python-path"
-        echo "        手动指定python解释器路径"
-        echo "  --set-pip-path"
-        echo "        手动指定pip路径"
+        echo "  --set-python-path python_path"
+        echo "        手动指定python解释器路径,当选项后面输入了路径,则直接使用输入的路径来设置python解释器路径(建议用\"\"把路径括起来),否则启动设置界面"
+        echo "  --set-pip-path pip_path"
+        echo "        手动指定pip路径,当选项后面输入了路径,则直接使用输入的路径来设置pip路径(建议用\"\"把路径括起来),否则启动设置界面"
         echo "  --unset-python-path"
         echo "        删除自定义python解释器路径配置"
         echo "  --unset-pip-path"
@@ -54,10 +93,10 @@ function term_sd_process_user_input_early()
         rm -rf ./term-sd/term-sd-auto-update-time.conf
         ;;
         "--set-python-path")
-        set_python_path
+        term_sd_input_value_set_python_path=0
         ;;
         "--set-pip-path")
-        set_pip_path
+        term_sd_input_value_set_pip_path=0
         ;;
         "--unset-python-path")
         rm -f ./term-sd/python-path.conf
@@ -76,19 +115,22 @@ function term_sd_process_user_input_early()
         rm -rf ./term-sd/term-sd-new-bar.lock
         ;;
         esac
+
     done
 }
 
 #处理用户输入的参数(较晚启动)
 function term_sd_process_user_input()
 {
+    #重置变量
     export pip_manager_update=1
     export aria2_multi_threaded=""
     term_sd_input_value_extra=1
 
-    #加一个--null是为了增加一次循环,让--extra参数能成功运行
+    #加一个--null是为了增加一次循环,保证那些需要参数的选项能成功执行
     for term_sd_launch_input in "$@" "--null" ;do
 
+        #参数检测部分
         #直接启动扩展脚本
         if [ $term_sd_input_value_extra = 0 ];then #检测到有--extra参数
             term_sd_input_value_extra=1
@@ -108,6 +150,9 @@ function term_sd_process_user_input()
             fi
         fi
 
+        ####################
+
+        #选项检测部分(如果选项要跟参数值,则设置触发获取参数的变量,命名为"term_sd_input_value_"+"选项名",赋值0,触发获取参数的功能后,赋值1)
         case $term_sd_launch_input in
         "--remove-term-sd")
         remove_term_sd
@@ -133,12 +178,6 @@ function term_sd_process_user_input()
         esac
 
     done
-}
-
-#测试输入值是参数还是选项,选项输出0,参数输出1
-function option_or_value_test()
-{
-    echo $@ | awk -F ' ' '{for (i=1; i<=NF; i++) {if (substr($i, 1, 2) == "--") {print "0"} else {print "1"}}}'
 }
 
 #扩展脚本列表
@@ -534,19 +573,18 @@ function set_python_path()
         term_sd_notice "退出python路径指定功能"
     else
         term_sd_python_path="$set_python_path_option"
-        echo $term_sd_python_path > python-path.conf
-        mv -f ./python-path.conf ./term-sd/
+        echo $term_sd_python_path > ./term-sd/python-path.conf
         term_sd_notice "python解释器路径指定完成"
         term_sd_notice "提示:"
-        term_sd_notice "使用--set-pip-path重新设置pip路径"
-        term_sd_notice "使用--unset-pip-path删除pip路径设置"
+        term_sd_notice "使用--set-python-path重新设置python解释器路径"
+        term_sd_notice "使用--unset-python-path删除python解释器路径设置"
     fi
 }
 
-#手动指定python路径功能
+#手动指定pip路径功能
 function set_pip_path()
 {
-    term_sd_notice "请输入python解释器的路径"
+    term_sd_notice "请输入pip的路径"
     term_sd_notice "提示:输入完后请回车保存,或者输入exit退出"
     read -p "===============================> " set_pip_path_option
     if [ -z "$set_pip_path_option" ];then
@@ -556,13 +594,35 @@ function set_pip_path()
         term_sd_notice "退出pip路径指定功能"
     else
         term_sd_pip_path="$set_pip_path_option"
-        echo $term_sd_pip_path > pip-path.conf
-        mv -f ./pip-path.conf ./term-sd/
-        term_sd_notice "python解释器路径指定完成"
+        echo $term_sd_pip_path > ./term-sd/pip-path.conf
+        term_sd_notice "pip路径指定完成"
         term_sd_notice "提示:"
-        term_sd_notice "使用--set-python-path重新设置python解释器路径"
-        term_sd_notice "使用--unset-python-path删除python解释器路径设置"
+        term_sd_notice "使用--set-pip-path重新设置pip路径"
+        term_sd_notice "使用--unset-pip-path删除pip路径设置"
     fi
+}
+
+#手动指定python路径功能(直接将选项后面的参数作为路径)
+function set_python_path_direct()
+{
+    term_sd_notice "设置python解释器路径: $@"
+    echo $@ > ./term-sd/python-path.conf
+    term_sd_notice "python解释器路径指定完成"
+    term_sd_notice "提示:"
+    term_sd_notice "使用--set-python-path重新设置python解释器路径"
+    term_sd_notice "使用--unset-python-path删除python解释器路径设置"
+}
+
+
+#手动指定pip路径功能(直接将选项后面的参数作为路径)
+function set_pip_path_direct()
+{
+    term_sd_notice "设置pip路径: $@"
+    echo $@ > ./term-sd/pip-path.conf
+    term_sd_notice "pip路径指定完成"
+    term_sd_notice "提示:"
+    term_sd_notice "使用--set-pip-path重新设置pip路径"
+    term_sd_notice "使用--unset-pip-path删除pip路径设置"
 }
 
 #term-sd格式化输出信息
