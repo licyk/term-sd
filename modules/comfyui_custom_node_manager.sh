@@ -16,19 +16,24 @@ function comfyui_custom_node_methon()
         3>&1 1>&2 2>&3 )
 
     if [ $? = 0 ];then
-        if [ $comfyui_custom_node_methon_dialog = 1 ]; then #选择安装
-            comfyui_custom_node_install
-            comfyui_custom_node_methon
-        elif [ $comfyui_custom_node_methon_dialog = 2 ]; then #选择管理
-            comfyui_custom_node_manager
-            comfyui_custom_node_methon
-        elif [ $comfyui_custom_node_methon_dialog = 3 ]; then #选择更新全部自定义节点
-            extension_all_update
-            comfyui_custom_node_methon
-        elif [ $comfyui_custom_node_methon_dialog = 4 ]; then #选择安装全部插件依赖
-            comfyui_extension_depend_install
-            comfyui_custom_node_methon
-        fi
+        case $comfyui_custom_node_methon_dialog in
+            1) #选择安装
+                comfyui_custom_node_install
+                comfyui_custom_node_methon
+                ;;
+            2) #选择管理
+                comfyui_custom_node_manager
+                comfyui_custom_node_methon
+                ;;
+            3) #选择更新全部自定义节点
+                extension_all_update
+                comfyui_custom_node_methon
+                ;;
+            4) #选择安装全部插件依赖
+                comfyui_extension_depend_install
+                comfyui_custom_node_methon
+                ;;
+        esac
     fi
 }
 
@@ -39,11 +44,11 @@ function comfyui_custom_node_manager()
     dir_list=$(ls -l --time-style=+"%Y-%m-%d" | awk -F ' ' ' { print $7 " " $6 } ') #当前目录文件和文件夹信息
 
     comfyui_custom_node_selection=$(
-        dialog --clear --yes-label "确认" --no-label "取消" --title "ComfyUI管理" --backtitle "ComfyUI自定义节点列表" \
-        --menu "使用上下键选择要操作的插件并回车确认" 25 70 10 \
+        dialog --clear --yes-label "确认" --no-label "取消" --title "ComfyUI管理" --backtitle "ComfyUI自定义节点列表" --menu "使用上下键选择要操作的插件并回车确认" 25 70 10 \
         "-->返回<--" "<---------" \
         $dir_list \
         3>&1 1>&2 2>&3)
+
     if [ $? = 0 ];then
         if [ $comfyui_custom_node_selection = "-->返回<--" ];then
             echo
@@ -108,34 +113,42 @@ function operate_comfyui_custom_node()
         $dialog_update_remote_checkout_button \
         "7" "返回" \
         3>&1 1>&2 2>&3)
+
     if [ $? = 0 ];then
-        if [ $operate_comfyui_custom_node_dialog = 1 ]; then
-            term_sd_notice "更新$(echo $comfyui_custom_node_selection | awk -F "/" '{print $NF}')自定义节点中"
-            git pull --recurse-submodules
-            if [ $? = "0" ];then
-                dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点更新结果" --ok-label "确认" --msgbox ""$comfyui_custom_node_selection"自定义节点更新成功" 25 70
-            else
-                dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点更新结果" --ok-label "确认" --msgbox ""$comfyui_custom_node_selection"自定义节点更新失败" 25 70
-            fi
-            operate_comfyui_custom_node
-        elif [ $operate_comfyui_custom_node_dialog = 2 ]; then #comfyui并不像a1111-sd-webui自动为插件安装依赖,所以只能手动装
-            comfyui_extension_depend_install_single
-            operate_comfyui_custom_node
-        elif [ $operate_comfyui_custom_node_dialog = 3 ]; then
-            if (dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点删除选项" --yes-label "是" --no-label "否" --yesno "是否删除"$comfyui_custom_node_selection"自定义节点?" 25 70) then
-                term_sd_notice "删除$(echo $comfyui_custom_node_selection | awk -F "/" '{print $NF}')自定义节点中"
-                cd ..
-                rm -rf ./$comfyui_custom_node_selection
-            fi
-        elif [ $operate_comfyui_custom_node_dialog = 4 ]; then
-            term_sd_fix_pointer_offset
-            operate_comfyui_custom_node
-        elif [ $operate_comfyui_custom_node_dialog = 5 ]; then
-            git_checkout_manager
-            operate_comfyui_custom_node
-        elif [ $operate_comfyui_custom_node_dialog = 6 ]; then
-            select_repo_single
-            operate_comfyui_custom_node
-        fi
+        case $operate_comfyui_custom_node_dialog in
+            1)
+                term_sd_notice "更新$(echo $comfyui_custom_node_selection | awk -F "/" '{print $NF}')自定义节点中"
+                git pull --recurse-submodules
+                if [ $? = "0" ];then
+                    dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点更新结果" --ok-label "确认" --msgbox ""$comfyui_custom_node_selection"自定义节点更新成功" 25 70
+                else
+                    dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点更新结果" --ok-label "确认" --msgbox ""$comfyui_custom_node_selection"自定义节点更新失败" 25 70
+                fi
+                operate_comfyui_custom_node
+                ;;
+            2) #comfyui并不像a1111-sd-webui自动为插件安装依赖,所以只能手动装
+                comfyui_extension_depend_install_single
+                operate_comfyui_custom_node
+                ;;
+            3)
+                if (dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点删除选项" --yes-label "是" --no-label "否" --yesno "是否删除"$comfyui_custom_node_selection"自定义节点?" 25 70) then
+                    term_sd_notice "删除$(echo $comfyui_custom_node_selection | awk -F "/" '{print $NF}')自定义节点中"
+                    cd ..
+                    rm -rf ./$comfyui_custom_node_selection
+                fi
+                ;;
+            4)
+                term_sd_fix_pointer_offset
+                operate_comfyui_custom_node
+                ;;
+            5)
+                git_checkout_manager
+                operate_comfyui_custom_node
+                ;;
+            6)
+                select_repo_single
+                operate_comfyui_custom_node
+                ;;
+        esac
     fi
 }

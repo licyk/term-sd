@@ -29,20 +29,20 @@ function comfyui_extension_depend_install_process()
     extension_dep_to_install="0"
     extension_dep_to_install_="0"
 
-    for extension_folder in ./* ;do #统计需要安装的依赖
-        [ -f "$extension_folder" ] && continue #排除文件
-        if [ -f "./$extension_folder/install.py" ] || [ -f "./$extension_folder/requirements.txt" ];then
+    for i in ./* ;do #统计需要安装的依赖
+        [ -f "$i" ] && continue #排除文件
+        if [ -f "./$i/install.py" ] || [ -f "./$i/requirements.txt" ];then
             extension_dep_to_install=$(( $extension_dep_to_install + 1 ))
         fi
     done
 
-    for extension_folder in ./*;do
-        [ -f "$extension_folder" ] && continue #排除文件
-        cd $extension_folder
+    for i in ./*;do
+        [ -f "$i" ] && continue #排除文件
+        cd $i
         if [ -f "./install.py" ] || [ -f "./requirements.txt" ];then
             extension_dep_to_install_=$(( $extension_dep_to_install_ + 1 ))
-            term_sd_notice "[$extension_dep_to_install_/$extension_dep_to_install] 安装$(echo $extension_folder | awk -F "/" '{print $NF}')"$comfyui_extension_info_display"依赖"
-            dep_info="$dep_info $(echo $extension_folder | awk -F "/" '{print $NF}'):\n" #作为显示安装结果信息
+            term_sd_notice "[$extension_dep_to_install_/$extension_dep_to_install] 安装$(echo $i | awk -F "/" '{print $NF}')"$comfyui_extension_info_display"依赖"
+            dep_info="$dep_info $(echo $i | awk -F "/" '{print $NF}'):\n" #作为显示安装结果信息
         fi
 
         if [ -f "./install.py" ];then #找到install.py文件

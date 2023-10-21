@@ -107,8 +107,8 @@ function restore_python_package_ver()
         pip_cmd freeze | awk -F'==' '{print $1}' > tmp-python-pkg-no-vers.txt #生成一份无版本的现有列表
 
         #生成一份软件包卸载名单
-        for python_package_need_to_remove in $(cat ./tmp-python-pkg-no-vers-bak.txt); do
-            sed -i '/'$python_package_need_to_remove'/d' ./tmp-python-pkg-no-vers.txt 2> /dev/null #需要卸载的依赖包名单
+        for i in $(cat ./tmp-python-pkg-no-vers-bak.txt); do
+            sed -i '/'$i'/d' ./tmp-python-pkg-no-vers.txt 2> /dev/null #需要卸载的依赖包名单
         done
 
         tmp_disable_proxy #临时取消代理,避免一些不必要的网络减速

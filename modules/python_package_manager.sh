@@ -14,17 +14,24 @@ function manage_python_packages()
         echo $manage_python_packages_names
         print_line_to_shell
         enter_venv
-        if [ $pip_install_or_remove = 1 ];then #常规安装
-            pip_cmd install $manage_python_packages_names $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
-        elif [ $pip_install_or_remove = 2 ];then #仅安装
-            pip_cmd install --no-deps $manage_python_packages_names $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
-        elif [ $pip_install_or_remove = 3 ];then #强制重装
-            pip_cmd install --force-reinstall $manage_python_packages_names $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
-        elif [ $pip_install_or_remove = 4 ];then #仅强制重装
-            pip_cmd install --force-reinstall --no-deps $manage_python_packages_names $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
-        elif [ $pip_install_or_remove = 5 ];then #卸载
-            pip_cmd uninstall -y $manage_python_packages_names
-        fi
+
+        case $pip_install_or_remove in
+            1) #常规安装
+                pip_cmd install $manage_python_packages_names $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+                ;;
+            2) #仅安装
+                pip_cmd install --no-deps $manage_python_packages_names $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+                ;;
+            3) #强制重装
+                pip_cmd install --force-reinstall $manage_python_packages_names $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+                ;;
+            4) #仅强制重装
+                pip_cmd install --force-reinstall --no-deps $manage_python_packages_names $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+                ;;
+            5) #卸载
+                pip_cmd uninstall -y $manage_python_packages_names
+                ;;
+        esac
 
         if [ $? = 0 ];then
             print_line_to_shell
@@ -47,20 +54,28 @@ function pip_install_or_remove_methon()
         "5" "卸载(uninstall)" \
         3>&1 1>&2 2>&3)
 
-    if [ $pip_install_or_remove_methon_dialog = 1 ];then
-        pip_install_or_remove_info="安装"
-        pip_install_or_remove="1"
-    elif [ $pip_install_or_remove_methon_dialog = 2 ];then
-        pip_install_or_remove_info="安装(--no-deps)"
-        pip_install_or_remove="2"
-    elif [ $pip_install_or_remove_methon_dialog = 3 ];then
-        pip_install_or_remove_info="强制重装(--force-reinstall)"
-        pip_install_or_remove="3"
-    elif [ $pip_install_or_remove_methon_dialog = 4 ];then
-        pip_install_or_remove_info="强制重装(--no-deps --force-reinstall)"
-        pip_install_or_remove="4"
-    elif [ $pip_install_or_remove_methon_dialog = 5 ];then
-        pip_install_or_remove_info="卸载"
-        pip_install_or_remove="5"
+    if [ $? = 0 ];then
+        case $pip_install_or_remove_methon_dialog in
+            1)
+                pip_install_or_remove_info="安装"
+                pip_install_or_remove="1"
+                ;;
+            2)
+                pip_install_or_remove_info="安装(--no-deps)"
+                pip_install_or_remove="2"
+                ;;
+            3)
+                pip_install_or_remove_info="强制重装(--force-reinstall)"
+                pip_install_or_remove="3"
+                ;;
+            4)
+                pip_install_or_remove_info="强制重装(--no-deps --force-reinstall)"
+                pip_install_or_remove="4"
+                ;;
+            5)
+                pip_install_or_remove_info="卸载"
+                pip_install_or_remove="5"
+                ;;
+        esac
     fi
 }

@@ -15,16 +15,20 @@ function a1111_sd_webui_extension_methon()
         3>&1 1>&2 2>&3 )
 
     if [ $? = 0 ];then
-        if [ $a1111_sd_webui_extension_methon_dialog = 1 ]; then #选择安装
-            a1111_sd_webui_extension_install
-            a1111_sd_webui_extension_methon
-        elif [ $a1111_sd_webui_extension_methon_dialog = 2 ]; then #选择管理
-            a1111_sd_webui_extension_manager
-            a1111_sd_webui_extension_methon
-        elif [ $a1111_sd_webui_extension_methon_dialog = 3 ]; then #选择更新全部插件
-            extension_all_update
-            a1111_sd_webui_extension_methon
-        fi
+        case $a1111_sd_webui_extension_methon_dialog in
+            1) #选择安装
+                a1111_sd_webui_extension_install
+                a1111_sd_webui_extension_methon
+                ;;
+            2) #选择管理
+                a1111_sd_webui_extension_manager
+                a1111_sd_webui_extension_methon
+                ;;
+            3) #选择更新全部插件
+                extension_all_update
+                a1111_sd_webui_extension_methon
+                ;;
+        esac
     fi
 }
 
@@ -35,11 +39,11 @@ function a1111_sd_webui_extension_manager()
     dir_list=$(ls -l --time-style=+"%Y-%m-%d"  | awk -F ' ' ' { print $7 " " $6 } ') #当前目录文件和文件夹信息
 
     extension_selection=$(
-        dialog --clear --ok-label "确认" --cancel-label "取消" --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件列表" \
-        --menu "请选择A1111-SD-Webui插件" 25 70 10 \
+        dialog --clear --ok-label "确认" --cancel-label "取消" --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件列表" --menu "请选择A1111-SD-Webui插件" 25 70 10 \
         "-->返回<--" "<---------" \
         $dir_list \
         3>&1 1>&2 2>&3)
+
     if [ $? = 0 ];then
         if [ $extension_selection = "-->返回<--" ];then
             echo
@@ -98,30 +102,36 @@ function a1111_sd_webui_operate_extension()
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
-        if [ $a1111_sd_webui_operate_extension_dialog = 1 ]; then
-            term_sd_notice "更新$(echo $extension_selection | awk -F "/" '{print $NF}')插件中"
-            git pull --recurse-submodules
-            if [ $? = 0 ];then
-                dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件更新结果" --ok-label "确认" --msgbox ""$extension_selection"插件更新成功" 25 70
-            else
-                dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件更新结果" --ok-label "确认" --msgbox ""$extension_selection"插件更新失败" 25 70
-            fi
-            a1111_sd_webui_operate_extension
-        elif [ "${a1111_sd_webui_operate_extension_dialog}" == '2' ]; then
-            if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件删除选项" --yes-label "是" --no-label "否" --yesno "是否删除"$extension_selection"插件?" 25 70) then
-                term_sd_notice "删除$(echo $extension_selection | awk -F "/" '{print $NF}')插件中"
-                cd ..
-                rm -rf ./$extension_selection
-            fi
-        elif [ $a1111_sd_webui_operate_extension_dialog = 3 ]; then
-            term_sd_fix_pointer_offset
-            a1111_sd_webui_operate_extension
-        elif [ $a1111_sd_webui_operate_extension_dialog = 4 ]; then
-            git_checkout_manager
-            a1111_sd_webui_operate_extension
-        elif [ $a1111_sd_webui_operate_extension_dialog = 5 ]; then
-            select_repo_single
-            a1111_sd_webui_operate_extension
-        fi
+        case $a1111_sd_webui_operate_extension_dialog in
+            1)
+                term_sd_notice "更新$(echo $extension_selection | awk -F "/" '{print $NF}')插件中"
+                git pull --recurse-submodules
+                if [ $? = 0 ];then
+                    dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件更新结果" --ok-label "确认" --msgbox ""$extension_selection"插件更新成功" 25 70
+                else
+                    dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件更新结果" --ok-label "确认" --msgbox ""$extension_selection"插件更新失败" 25 70
+                fi
+                a1111_sd_webui_operate_extension
+                ;;
+            2)
+                if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件删除选项" --yes-label "是" --no-label "否" --yesno "是否删除"$extension_selection"插件?" 25 70) then
+                    term_sd_notice "删除$(echo $extension_selection | awk -F "/" '{print $NF}')插件中"
+                    cd ..
+                    rm -rf ./$extension_selection
+                fi
+                ;;
+            3)
+                term_sd_fix_pointer_offset
+                a1111_sd_webui_operate_extension
+                ;;
+            4)
+                git_checkout_manager
+                a1111_sd_webui_operate_extension
+                ;;
+            5)
+                select_repo_single
+                a1111_sd_webui_operate_extension
+                ;;
+        esac
     fi
 }

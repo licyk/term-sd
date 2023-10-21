@@ -79,20 +79,23 @@ function select_repo()
 function select_repo_single()
 {
     change_repo_return="" #清除上次运行结果
-    select_repo_single_=$(dialog --clear --title "Term-SD" --backtitle "更新源选择界面" --ok-label "确认" --cancel-label "取消" --menu "选择要修改成的更新源\n当前更新源:$(git remote -v | awk 'NR==1 {print $2}')" 25 70 10 \
+    select_repo_single_dialog=$(dialog --clear --title "Term-SD" --backtitle "更新源选择界面" --ok-label "确认" --cancel-label "取消" --menu "选择要修改成的更新源\n当前更新源:$(git remote -v | awk 'NR==1 {print $2}')" 25 70 10 \
         "1" "官方源" \
         "2" "镜像源" \
         "3" "返回" \
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
-        if [ $select_repo_single_ = 1 ];then
-            change_repo_to_origin
-            dialog --clear --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$change_repo_return------------------------------------------------------------------" 25 70
-        elif [ $select_repo_single_ = 2 ];then
-            change_repo_to_proxy
-            dialog --clear --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$change_repo_return------------------------------------------------------------------" 25 70
-        fi
+        case $select_repo_single_dialog in
+            1)
+                change_repo_to_origin
+                dialog --clear --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$change_repo_return------------------------------------------------------------------" 25 70
+                ;;
+            2)
+                change_repo_to_proxy
+                dialog --clear --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$change_repo_return------------------------------------------------------------------" 25 70
+                ;;
+        esac
     fi
 }
 
@@ -108,9 +111,9 @@ function a1111_sd_webui_change_repo()
 
         #组件部分
         cd "$start_path/stable-diffusion-webui/repositories"
-        for repositories_folder in ./* ;do
-            if [ -d "$repositories_folder/.git" ];then
-                cd "./$repositories_folder"
+        for i in ./* ;do
+            if [ -d "$i/.git" ];then
+                cd "./$i"
                 $change_repo_cmd
                 cd - > /dev/null
             fi
@@ -118,9 +121,9 @@ function a1111_sd_webui_change_repo()
 
         #插件
         cd "$start_path/stable-diffusion-webui/extensions"
-        for extension_folder in ./* ;do
-            if [ -d "$extension_folder/.git" ];then
-                cd "./$extension_folder"
+        for i in ./* ;do
+            if [ -d "$i/.git" ];then
+                cd "./$i"
                 $change_repo_cmd
                 cd - > /dev/null
             fi
@@ -144,10 +147,10 @@ function comfyui_change_repo()
 
         #插件
         cd "$start_path/ComfyUI/web/extensions"
-        for extension_folder in ./* ;do
-            if [ -d "$extension_folder" ];then
-                if [ -d "$extension_folder/.git" ];then
-                    cd "./$extension_folder"
+        for i in ./* ;do
+            if [ -d "$i" ];then
+                if [ -d "$i/.git" ];then
+                    cd "./$i"
                     $change_repo_cmd
                     cd - > /dev/null
                 fi
@@ -156,10 +159,10 @@ function comfyui_change_repo()
 
         #自定义节点
         cd "$start_path/ComfyUI/custom_nodes"
-        for extension_folder in ./* ;do
-            if [ -d "$extension_folder" ];then
-                if [ -d "$extension_folder/.git" ];then
-                    cd "./$extension_folder"
+        for i in ./* ;do
+            if [ -d "$i" ];then
+                if [ -d "$i/.git" ];then
+                    cd "./$i"
                     $change_repo_cmd
                     cd - > /dev/null
                 fi

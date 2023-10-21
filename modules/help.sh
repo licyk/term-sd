@@ -19,34 +19,44 @@ function help_option()
         3>&1 1>&2 2>&3 )
 
     if [ $? = 0 ];then
-        if [ $help_option_dialog = 1 ];then
-            help_option_1
-            help_option
-        elif [ $help_option_dialog = 2 ];then
-            help_option_2
-            help_option
-        elif [ $help_option_dialog = 3 ];then
-            help_option_3
-            help_option
-        elif [ $help_option_dialog = 4 ];then
-            help_option_4
-            help_option
-        elif [ $help_option_dialog = 5 ];then
-            help_option_5
-            help_option
-        elif [ $help_option_dialog = 6 ];then
-            help_option_6
-            help_option
-        elif [ $help_option_dialog = 7 ];then
-            help_option_7
-            help_option
-        elif [ $help_option_dialog = 8 ];then
-            help_option_8
-            help_option
-        elif [ $help_option_dialog = 9 ];then
-            help_option_9
-            help_option
-        fi
+        case $help_option_dialog in
+            1)
+                help_option_1
+                help_option
+                ;;
+            2)
+                help_option_2
+                help_option
+                ;;
+            3)
+                help_option_3
+                help_option
+                ;;
+            4)
+                help_option_4
+                help_option
+                ;;
+            5)
+                help_option_5
+                help_option
+                ;;
+            6)
+                help_option_6
+                help_option
+                ;;
+            7)
+                help_option_7
+                help_option
+                ;;
+            8)
+                help_option_8
+                help_option
+                ;;
+            9)
+                help_option_9
+                help_option
+                ;;
+        esac
     fi
 }
 
@@ -54,26 +64,32 @@ function help_option()
 function help_option_1()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "关于Term-SD:\n
-Term-SD是基于终端显示的AI管理器,可以对AI软件进行简单的管理  \n
-支持的AI软件如下: \n
-1、AUTOMATIC1111-stable-diffusion-webui \n
-2、ComfyUI \n
-3、InvokeAI \n
-4、Fooocus \n
-5、lora-scripts \n
+Term-SD是基于终端显示的AI管理器,可以对AI软件进行简单的管理\n
+支持的AI软件如下:\n
+1、AUTOMATIC1111-stable-diffusion-webui(支持切换成SD.Next/stable-diffusion-webui-directml)\n
+2、ComfyUI\n
+3、InvokeAI\n
+4、Fooocus\n
+5、lora-scripts\n
 (AI软件都基于stable-diffusion)\n
 \n
 \n
 该脚本的编写参考了https://gitee.com/skymysky/linux\n
 脚本支持Windows,Linux,MacOS(Windows平台需安装msys2,MacOS需要安装homebrew)\n
 \n
-stable-diffusion相关链接:\n
+stable-diffusion模型下载:\n
 https://huggingface.co/\n
 https://civitai.com/\n
-https://www.bilibili.com/read/cv22159609\n
+https://www.liblib.ai\n
+https://www.esheep.com\n
 \n
-学习stable-diffusion-webui的教程:\n
+学习stable-diffusion-webui:\n
+https://www.bilibili.com/read/cv22159609\n
 https://licyk.netlify.app/2023/08/01/stable-diffusion-tutorial\n
+https://docs.qq.com/pdf/DR2V2ZlhHbnJUVHBa\n
+https://www.kdocs.cn/l/cre0TwbMkdx3\n
+https://hazn93ygkcs.feishu.cn/wiki/JRydwXpCti1bxJkN6zNc4a8qnAe\n
+https://docs.qq.com/doc/p/230e7ada2a60d8e347d639edd5521f5e62332fe9\n
 \n
 \n
 " 25 70
@@ -476,7 +492,7 @@ download-hanamizuki:下载绘世启动器\n
 \n
 #### 启动参数的使用方法\n
 \n
-./term-sd.sh [--help] [--extra script_name] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path] [--set-pip-path] [--unset-python-path] [--unset-pip-path] [--enable-new-bar] [--disable-new-bar]\n
+./term-sd.sh [--help] [--extra script_name] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--enable-new-bar] [--disable-new-bar]\n
 \n
 \n
 >中括号“[]”仅用来展示，在使用的时候不要输入进去\n
@@ -487,7 +503,7 @@ download-hanamizuki:下载绘世启动器\n
 显示启动参数帮助\n
 \n
 2、extra\n
-启动扩展脚本显示界面，选中其中一个启动脚本后即可启动，参数后面可接扩展脚本的名字\n
+启动扩展脚本显示界面，选中其中一个启动脚本后即可启动，如果参数后面输入扩展脚本的名字，则直接启动指定的扩展脚本\n
 \n
 3、multi-threaded-download\n
 安装过程中启用多线程下载模型，在调用aria2下载模型时设置下载线程为8\n
@@ -511,7 +527,7 @@ download-hanamizuki:下载绘世启动器\n
 将Term-SD快捷启动指令安装到shell中，在shell中直接输入“termsd”或者“tsd”即可启动Term-SD，且不需要在Term-SD所在目录就能启动Term-SD（用“./term-sd.sh”命令启动还是需要在Term-SD所在目录里才能用）。该功能会提示用户选择安装快捷启动命令还是删除快捷启动命令，根据提示进行操作\n
 \n
 10、set-python-path\n
-手动指定python解释器路径（一定是绝对路径）\n
+手动指定python解释器路径（一定是绝对路径）,当选项后面输入了路径,则直接使用输入的路径来设置pip路径(建议用\"\"把路径括起来),否则启动设置界面\n
 路径的参考格式如下：\n
 \n
 /usr/bin/python\n
@@ -523,7 +539,7 @@ download-hanamizuki:下载绘世启动器\n
 >根据自己安装的路径来填，每个文件夹的分隔符不要使用反斜杠，Windows系统中的盘符，如“C:”，“D:”，要改成“/c”，“/d”，因为MingW64不认识这些路径符号\n
 \n
 11、set-pip-path\n
-手动指定pip路径（一定是绝对路径）\n
+手动指定pip路径（一定是绝对路径）,当选项后面输入了路径,则直接使用输入的路径来设置pip路径(建议用\"\"把路径括起来),否则启动设置界面\n
 路径的参考格式如下：\n
 \n
 /usr/bin/pip\n
@@ -580,10 +596,10 @@ function help_option_4()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "Term-SD功能说明:\n
 参数使用方法(设置快捷启动命令后可将\"./term-sd.sh\"替换成\"termsd\"或者\"tsd\"):\n
-  ./term-sd.sh [--help] [--extra script_name] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path] [--set-pip-path] [--unset-python-path] [--unset-pip-path] [--enable-new-bar] [--disable-new-bar]\n
+  ./term-sd.sh [--help] [--extra script_name] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--enable-new-bar] [--disable-new-bar]\n
 参数功能:\n
 help:显示启动参数帮助\n
-extra:启动扩展脚本,参数后面可接扩展脚本的名字\n
+extra:启动扩展脚本选择列表,当选项后面输入了脚本名,则直接启动指定的脚本,否则启动扩展脚本选择界面\n
 multi-threaded-download:安装过程中启用多线程下载模型\n
 enable-auto-update:启动Term-SD自动检查更新功能\n
 disable-auto-update:禁用Term-SD自动检查更新功能\n
@@ -591,8 +607,8 @@ reinstall-term-sd:重新安装Term-SD\n
 remove-term-sd:卸载Term-SD\n
 test-network:测试网络环境,用于测试代理是否可用,需安装curl\n
 quick-cmd:将Term-SD快捷启动指令安装到shell中,在shell中直接输入\"termsd\"即可启动Term-SD\n
-set-python-path:手动指定python解释器路径\n
-set-pip-path:手动指定pip路径\n
+set-python-path:手动指定python解释器路径,当选项后面输入了路径,则直接使用输入的路径来设置python解释器路径(建议用\"\"把路径括起来),否则启动设置界面\n
+set-pip-path:手动指定pip路径,当选项后面输入了路径,则直接使用输入的路径来设置pip路径(建议用\"\"把路径括起来),否则启动设置界面\n
 unset-python-path:删除自定义python解释器路径配置\n
 unset-pip-path:删除自定义pip解释器路径配置\n
 update-pip:进入虚拟环境时更新pip软件包管理器\n
@@ -605,7 +621,7 @@ Term-SD更新管理:对本脚本进行更新,更换更新源,切换版本分支\
 venv虚拟环境设置:启用/禁用venv环境,默认保持启用,防止不同AI软件因软件包版本不同造成互相干扰\n
 pip镜像源设置:设置pip的下载源,解决国内网络环境访问pip软件源速度慢的问题\n
 pip缓存清理:清理pip在安装软件包后产生的缓存\n
-代理设置:为Term-SD访问网络设置代理,一般用在代理软件开启后,Term-SD安装AI软件时依然出现无法访问huggingface等资源的问题(如果代理软件有驱动模式或者TUN模式时则不会有这种问题,就不需要使用\"代理设置\"进行配置代理)\n
+代理设置:为Term-SD访问网络设置代理,一般用在代理软件开启后,Term-SD安装AI软件时依然出现无法访问huggingface等资源的问题(如果代理软件有驱动模式或者TUN模式时则不会有这种问题,就不需要使用\"代理设置\"进行配置代理)。该功能也包含网络测试,用来测试网络的访问情况\n
 空间占用分析:显示Term-SD管理的AI软件的所占空间\n
 管理功能:\n
 修复更新:在更新AI软件时出现更新失败时,可使用该功能进行修复\n

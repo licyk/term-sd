@@ -29,81 +29,97 @@ function comfyui_option()
             3>&1 1>&2 2>&3)
 
         if [ $? = 0 ];then
-            if [ $comfyui_option_dialog = 1 ]; then
-                term_sd_notice "更新ComfyUI中"
-                git pull
-                if [ $? = 0 ];then
-                    dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI更新结果" --ok-label "确认" --msgbox "ComfyUI更新成功" 25 70
-                else
-                    dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI更新结果" --ok-label "确认" --msgbox "ComfyUI更新失败" 25 70
-                fi
-                comfyui_option
-            elif [ $comfyui_option_dialog = 2 ]; then
-                if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI删除选项" --yes-label "是" --no-label "否" --yesno "是否删除ComfyUI?" 25 70) then
-                    term_sd_notice "删除ComfyUI中"
-                    exit_venv
-                    cd ..
-                    rm -rf ./ComfyUI
-                else
+            case $comfyui_option_dialog in
+                1)
+                    term_sd_notice "更新ComfyUI中"
+                    git pull
+                    if [ $? = 0 ];then
+                        dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI更新结果" --ok-label "确认" --msgbox "ComfyUI更新成功" 25 70
+                    else
+                        dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI更新结果" --ok-label "确认" --msgbox "ComfyUI更新失败" 25 70
+                    fi
                     comfyui_option
-                fi
-            elif [ $comfyui_option_dialog = 3 ]; then
-                term_sd_fix_pointer_offset
-                comfyui_option
-            elif [ $comfyui_option_dialog = 4 ]; then
-                export comfyui_extension_info=1 #1代表自定义节点，其他数字代表插件
-                cd custom_nodes
-                comfyui_custom_node_methon
-                comfyui_option
-            elif [ $comfyui_option_dialog = 5 ]; then
-                export comfyui_extension_info=2
-                cd web/extensions
-                comfyui_extension_methon
-                comfyui_option
-            elif [ $comfyui_option_dialog = 6 ]; then
-                git_checkout_manager
-                comfyui_option
-            elif [ $comfyui_option_dialog = 7 ]; then
-                comfyui_change_repo
-                comfyui_option
-            elif [ $comfyui_option_dialog = 8 ]; then
-                if [ ! -f "./term-sd-launch.conf" ]; then #找不到启动配置时默认生成一个
-                    term_sd_notice "未找到启动配置文件,创建中"
-                    echo "main.py " > term-sd-launch.conf
-                fi
-                comfyui_launch
-                comfyui_option
-            elif [ $comfyui_option_dialog = 9 ]; then
-                comfyui_update_depend
-                comfyui_option
-            elif [ $comfyui_option_dialog = 10 ]; then
-                if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装ComfyUI?" 25 70) then
-                    cd "$start_path"
-                    exit_venv
-                    process_install_comfyui
-                else
+                    ;;
+                2)
+                    if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI删除选项" --yes-label "是" --no-label "否" --yesno "是否删除ComfyUI?" 25 70) then
+                        term_sd_notice "删除ComfyUI中"
+                        exit_venv
+                        cd ..
+                        rm -rf ./ComfyUI
+                    else    
+                        comfyui_option
+                    fi
+                    ;;
+                3)
+                    term_sd_fix_pointer_offset
                     comfyui_option
-                fi
-            elif [ $comfyui_option_dialog = 11 ]; then
-                pytorch_reinstall
-                comfyui_option
-            elif [ $comfyui_option_dialog = 12 ]; then
-                manage_python_packages
-                comfyui_option
-            elif [ $comfyui_option_dialog = 13 ]; then
-                python_package_ver_backup_or_restore
-                comfyui_option
-            elif [ $comfyui_option_dialog = 18 ]; then
-                if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI虚拟环境修复选项" --yes-label "是" --no-label "否" --yesno "是否修复ComfyUI的虚拟环境" 25 70);then
-                    create_venv --fix
-                fi
-                comfyui_option
-            elif [ $comfyui_option_dialog = 19 ]; then
-                if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建ComfyUI的虚拟环境" 25 70);then
-                    comfyui_venv_rebuild
-                fi
-                comfyui_option
-            fi
+                    ;;
+                4)
+                    export comfyui_extension_info=1 #1代表自定义节点，其他数字代表插件
+                    cd custom_nodes
+                    comfyui_custom_node_methon
+                    comfyui_option
+                    ;;
+                5)
+                    export comfyui_extension_info=2
+                    cd web/extensions
+                    comfyui_extension_methon
+                    comfyui_option
+                    ;;
+                6)
+                    git_checkout_manager
+                    comfyui_option
+                    ;;
+                7)
+                    comfyui_change_repo
+                    comfyui_option
+                    ;;
+                8)
+                    if [ ! -f "./term-sd-launch.conf" ]; then #找不到启动配置时默认生成一个
+                        term_sd_notice "未找到启动配置文件,创建中"
+                        echo "main.py " > term-sd-launch.conf
+                    fi
+                    comfyui_launch
+                    comfyui_option
+                    ;;
+                9)
+                    comfyui_update_depend
+                    comfyui_option
+                    ;;
+                10)
+                    if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装ComfyUI?" 25 70) then
+                        cd "$start_path"
+                        exit_venv
+                        process_install_comfyui
+                    else
+                        comfyui_option
+                    fi
+                    ;;
+                11)
+                    pytorch_reinstall
+                    comfyui_option
+                    ;;
+                12)
+                    manage_python_packages
+                    comfyui_option
+                    ;;
+                13)
+                    python_package_ver_backup_or_restore
+                    comfyui_option
+                    ;;
+                18)
+                    if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI虚拟环境修复选项" --yes-label "是" --no-label "否" --yesno "是否修复ComfyUI的虚拟环境" 25 70);then
+                        create_venv --fix
+                    fi
+                    comfyui_option
+                    ;;
+                19)
+                    if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建ComfyUI的虚拟环境" 25 70);then
+                        comfyui_venv_rebuild
+                    fi
+                    comfyui_option
+                    ;;
+            esac
         fi
     else
         if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI安装选项" --yes-label "是" --no-label "否" --yesno "检测到当前未安装ComfyUI,是否进行安装?" 25 70) then

@@ -13,36 +13,44 @@ function generate_invokeai_launch()
         "6" "自定义启动参数" \
         "7" "返回" \
         3>&1 1>&2 2>&3 )
+
     if [ $? = 0 ];then
-        if [ $generate_invokeai_launch_dialog = 1 ]; then
-            print_line_to_shell "$term_sd_manager_info 启动"
-            invokeai-configure --root ./invokeai
-            print_line_to_shell
-            generate_invokeai_launch
-        elif [ $generate_invokeai_launch_dialog = 2 ]; then
-            print_line_to_shell "$term_sd_manager_info 启动"
-            invokeai --root ./invokeai
-            print_line_to_shell
-            generate_invokeai_launch
-        elif [ $generate_invokeai_launch_dialog = 3 ]; then
-            print_line_to_shell "$term_sd_manager_info 启动"
-            invokeai --web --root ./invokeai
-            print_line_to_shell
-            generate_invokeai_launch
-        elif [ $generate_invokeai_launch_dialog = 4 ]; then
-            print_line_to_shell "$term_sd_manager_info 启动"
-            invokeai-ti --gui --root ./invokeai
-            print_line_to_shell
-            generate_invokeai_launch
-        elif [ $generate_invokeai_launch_dialog = 5 ]; then
-            print_line_to_shell "$term_sd_manager_info 启动"
-            invokeai-merge --gui --root ./invokeai
-            print_line_to_shell
-            generate_invokeai_launch
-        elif [ $generate_invokeai_launch_dialog = 6 ]; then
-            invokeai_launch
-            generate_invokeai_launch
-        fi
+        case $generate_invokeai_launch_dialog in
+            1)
+                print_line_to_shell "$term_sd_manager_info 启动"
+                invokeai-configure --root ./invokeai
+                print_line_to_shell
+                generate_invokeai_launch
+                ;;
+            2)
+                print_line_to_shell "$term_sd_manager_info 启动"
+                invokeai --root ./invokeai
+                print_line_to_shell
+                generate_invokeai_launch
+                ;;
+            3)
+                print_line_to_shell "$term_sd_manager_info 启动"
+                invokeai --web --root ./invokeai
+                print_line_to_shell
+                generate_invokeai_launch
+                ;;
+            4)
+                print_line_to_shell "$term_sd_manager_info 启动"
+                invokeai-ti --gui --root ./invokeai
+                print_line_to_shell
+                generate_invokeai_launch
+                ;;
+            5)
+                print_line_to_shell "$term_sd_manager_info 启动"
+                invokeai-merge --gui --root ./invokeai
+                print_line_to_shell
+                generate_invokeai_launch
+                ;;
+            6)
+                invokeai_launch
+                generate_invokeai_launch
+                ;;
+        esac
     fi
 }
 
@@ -68,55 +76,50 @@ function generate_invokeai_launch_custom()
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
-        if [ ! -z "$generate_invokeai_launch_custom_dialog" ]; then
-            for generate_invokeai_launch_custom_dialog_ in $generate_invokeai_launch_custom_dialog; do
-            case "$generate_invokeai_launch_custom_dialog_" in
-            "1")
-            custom_invokeai_launch_option="--web $custom_invokeai_launch_option"
-            ;;
-            "2")
-            custom_invokeai_launch_option="--free_gpu_mem $custom_invokeai_launch_option"
-            ;;
-            "3")
-            custom_invokeai_launch_option="--precision auto $custom_invokeai_launch_option"
-            ;;
-            "4")
-            custom_invokeai_launch_option="--precision fp32 $custom_invokeai_launch_option"
-            ;;
-            "5")
-            custom_invokeai_launch_option="--precision fp16 $custom_invokeai_launch_option"
-            ;;
-            "6")
-            custom_invokeai_launch_option="--no-xformers_enabled $custom_invokeai_launch_option"
-            ;;
-            "7")
-            custom_invokeai_launch_option="--xformers_enabled $custom_invokeai_launch_option"
-            ;;
-            "8")
-            custom_invokeai_launch_option="--no-patchmatch $custom_invokeai_launch_option"
-            ;;
-            "9")
-            custom_invokeai_launch_option="--always_use_cpu $custom_invokeai_launch_option"
-            ;;
-            "10")
-            custom_invokeai_launch_option="--no-esrgan $custom_invokeai_launch_option"
-            ;;
-            "11")
-            custom_invokeai_launch_option="--no-internet_available $custom_invokeai_launch_option"
-            ;;
-            "12")
-            custom_invokeai_launch_option="--host 0.0.0.0 $custom_invokeai_launch_option"
-            ;;
-            *)
-            exit 1
-            ;;    
+        for i in $generate_invokeai_launch_custom_dialog; do
+            case $i in
+                1)
+                    custom_invokeai_launch_option="--web $custom_invokeai_launch_option"
+                    ;;
+                2)
+                    custom_invokeai_launch_option="--free_gpu_mem $custom_invokeai_launch_option"
+                    ;;
+                3)
+                    custom_invokeai_launch_option="--precision auto $custom_invokeai_launch_option"
+                    ;;
+                4)
+                    custom_invokeai_launch_option="--precision fp32 $custom_invokeai_launch_option"
+                    ;;
+                5)
+                    custom_invokeai_launch_option="--precision fp16 $custom_invokeai_launch_option"
+                    ;;
+                6)
+                    custom_invokeai_launch_option="--no-xformers_enabled $custom_invokeai_launch_option"
+                    ;;
+                7)
+                    custom_invokeai_launch_option="--xformers_enabled $custom_invokeai_launch_option"
+                    ;;
+                8)
+                    custom_invokeai_launch_option="--no-patchmatch $custom_invokeai_launch_option"
+                    ;;
+                9)
+                    custom_invokeai_launch_option="--always_use_cpu $custom_invokeai_launch_option"
+                    ;;
+                10)
+                    custom_invokeai_launch_option="--no-esrgan $custom_invokeai_launch_option"
+                    ;;
+                11)
+                    custom_invokeai_launch_option="--no-internet_available $custom_invokeai_launch_option"
+                    ;;
+                12)
+                    custom_invokeai_launch_option="--host 0.0.0.0 $custom_invokeai_launch_option"
+                    ;;
             esac
-            done
+        done
 
-            #生成启动脚本
-            term_sd_notice "设置启动参数> $custom_invokeai_launch_option"
-            echo "--root ./invokeai $custom_invokeai_launch_option" > term-sd-launch.conf
-        fi
+        #生成启动脚本
+        term_sd_notice "设置启动参数> $custom_invokeai_launch_option"
+        echo "--root ./invokeai $custom_invokeai_launch_option" > term-sd-launch.conf
     fi
 }
 
@@ -131,16 +134,20 @@ function invokeai_launch()
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
-        if [ $invokeai_launch_dialog = 1 ];then
-            term_sd_launch
-            invokeai_launch
-        elif [ $invokeai_launch_dialog = 2 ];then
-            generate_invokeai_launch_custom
-            invokeai_launch
-        elif [ $invokeai_launch_dialog = 3 ];then
-            invokeai_manual_launch
-            invokeai_launch
-        fi
+        case $invokeai_launch_dialog in
+            1)
+                term_sd_launch
+                invokeai_launch
+                ;;
+            2)
+                generate_invokeai_launch_custom
+                invokeai_launch
+                ;;
+            3)
+                invokeai_manual_launch
+                invokeai_launch
+                ;;
+        esac
     fi
 }
 
