@@ -8,7 +8,8 @@ function set_proxy_option()
         "2" "socks" \
         "3" "socks5" \
         "4" "删除代理参数" \
-        "5" "返回" \
+        "5" "网络测试" \
+        "6" "返回" \
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
@@ -52,8 +53,29 @@ function set_proxy_option()
                 export https_proxy=""
                 set_proxy_option
                 ;;
+            5)
+                term_sd_network_test
+                set_proxy_option
+                ;;
         esac
     fi
+}
+
+function term_sd_network_test()
+{
+    term_sd_notice "测试网络中"
+    dialog --clear --title "Term-SD" --backtitle "Term-SD网络测试" --ok-label "确认" --msgbox "网络测试结果:\n
+------------------------------------------------------------------\n
+网络信息:\n
+$(curl -s ipinfo.io)\n
+------------------------------------------------------------------\n
+网站访问:\n
+google: $(curl google.com > /dev/null 2> /dev/null && echo "成功" || echo "失败")\n
+huggingface: $(curl huggingface.co > /dev/null 2> /dev/null && echo "成功" || echo "失败")\n
+github: $(curl github.com > /dev/null 2> /dev/null && echo "成功" || echo "失败")\n
+ghproxy: $(curl ghproxy.com > /dev/null 2> /dev/null && echo "成功" || echo "失败")\n
+------------------------------------------------------------------\n
+" 25 70
 }
 
 #在安装过程中,只有huggingface的访问有问题,若全程保持代理,可能会导致安装速度下降,因为python软件包的下载没必要走代理,走代理后代理的速度可能比镜像源的速度慢

@@ -1,5 +1,13 @@
 #!/bin/bash
 
+###################
+# 脚本已在Windows,Linux上做过测试,MacOS未做过测试,可能会有问题
+# https://stackoverflow.com/questions/24332942/why-awk-script-does-not-work-on-mac-os-but-works-on-linux
+# 未知MacOS上自带的awk是否会对脚本的运行产生影响
+
+# licyk
+###################
+
 #测试输入值是参数还是选项,选项输出0,参数输出1(用于实现getopt命令的功能)
 function option_or_value_test()
 {
@@ -15,15 +23,15 @@ function term_sd_process_user_input_early()
 
     #用别的方法实现了getopt命令的功能
     #加一个--null是为了增加一次循环,保证那些需要参数的选项能成功执行
-    for term_sd_launch_input in "$@" "--null" ;do
+    for i in "$@" "--null" ;do
 
         #参数检测部分
         #检测--set-python-path
         if [ $term_sd_input_value_set_python_path = 0 ];then #检测到有--set-python-path参数
             term_sd_input_value_set_python_path=1 #重置状态
-            if [ $(option_or_value_test $term_sd_launch_input) = 1 ];then #测试输入值是参数还是选项
+            if [ $(option_or_value_test $i) = 1 ];then #测试输入值是参数还是选项
                 #是参数
-                set_python_path_direct "$term_sd_launch_input"
+                set_python_path_direct "$i"
             else #是选项
                 set_python_path
             fi
@@ -32,9 +40,9 @@ function term_sd_process_user_input_early()
         #--set-pip-path
         if [ $term_sd_input_value_set_pip_path = 0 ];then #检测到有--set-pip-path参数
             term_sd_input_value_set_pip_path=1 #重置状态
-            if [ $(option_or_value_test $term_sd_launch_input) = 1 ];then #测试输入值是参数还是选项
+            if [ $(option_or_value_test $i) = 1 ];then #测试输入值是参数还是选项
                 #是参数
-                set_pip_path_direct "$term_sd_launch_input"
+                set_pip_path_direct "$i"
             else #是选项
                 set_pip_path
             fi
@@ -43,7 +51,7 @@ function term_sd_process_user_input_early()
         ####################
 
         #选项检测部分(如果选项要跟参数值,则设置触发获取参数的变量,命名为"term_sd_input_value_"+"选项名",赋值0,触发获取参数的功能后,赋值1)
-        case $term_sd_launch_input in
+        case $i in
             "--help")
                 term_sd_notice "启动参数使用方法:"
                 echo "  term-sd.sh [--help] [--extra script_name] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--enable-new-bar] [--disable-new-bar]"
@@ -51,7 +59,7 @@ function term_sd_process_user_input_early()
                 echo "  --help"
                 echo "        显示启动参数帮助"
                 echo "  --extra script_name"
-                echo "        启动扩展脚本选择列表,当选项后面输入了脚本名,则直接启动指定的脚本"
+                echo "        启动扩展脚本选择列表,当选项后面输入了脚本名,则直接启动指定的脚本,否则启动扩展脚本选择界面"
                 echo "  --multi-threaded-download"
                 echo "        安装过程中启用多线程下载模型"
                 echo "  --enable-auto-update"
@@ -128,20 +136,20 @@ function term_sd_process_user_input()
     term_sd_input_value_extra=1
 
     #加一个--null是为了增加一次循环,保证那些需要参数的选项能成功执行
-    for term_sd_launch_input in "$@" "--null" ;do
+    for i in "$@" "--null" ;do
 
         #参数检测部分
         #直接启动扩展脚本
         if [ $term_sd_input_value_extra = 0 ];then #检测到有--extra参数
             term_sd_input_value_extra=1
-            if [ $(option_or_value_test $term_sd_launch_input) = 1 ];then #判断--extra下一个值是参数还是选项
-                term_sd_launch_input=$(echo $term_sd_launch_input | awk '{sub(".sh","")}1') #处理后缀名
-                if [ -f "./term-sd/extra/$term_sd_launch_input.sh" ];then
-                    term_sd_notice "启动"$term_sd_launch_input"脚本中"
-                    source ./term-sd/extra/$term_sd_launch_input.sh
-                    term_sd_notice "退出"$term_sd_launch_input"脚本中"
+            if [ $(option_or_value_test $i) = 1 ];then #判断--extra下一个值是参数还是选项
+                i=$(echo $i | awk '{sub(".sh","")}1') #处理后缀名
+                if [ -f "./term-sd/extra/$i.sh" ];then
+                    term_sd_notice "启动"$i"脚本中"
+                    source ./term-sd/extra/$i.sh
+                    term_sd_notice "退出"$i"脚本中"
                 else
-                    term_sd_notice "未找到"$term_sd_launch_input"脚本"
+                    term_sd_notice "未找到"$i"脚本"
                     term_sd_notice "退出Term-SD"
                 fi
                 exit 1
@@ -153,7 +161,7 @@ function term_sd_process_user_input()
         ####################
 
         #选项检测部分(如果选项要跟参数值,则设置触发获取参数的变量,命名为"term_sd_input_value_"+"选项名",赋值0,触发获取参数的功能后,赋值1)
-        case $term_sd_launch_input in
+        case $i in
             "--remove-term-sd")
                 remove_term_sd
                 ;;
@@ -194,9 +202,7 @@ function term_sd_extra_scripts()
         if [ $extra_script_dir_list_ = "Term-SD" ];then
             source ./term-sd/modules/init.sh
             term_sd_version
-            while : ;do #主界面死循环部分,防止运行一次后就直接结束运行
-                mainmenu
-            done
+            _main_
         elif [ $extra_script_dir_list_ = "退出" ];then
             exit 1
         else
@@ -285,6 +291,7 @@ function term_sd_update_fix()
             term_sd_local_main_branch=$(git branch -a | grep HEAD | awk -F'/' '{print $NF}') #term-sd主分支
             git checkout $term_sd_local_main_branch
             git reset --hard HEAD
+            git restore --source=HEAD :/
             term_sd_notice "修复Term-SD更新完成"
             term_sd_notice "更新Term-SD中"
             git_pull_info=""
@@ -357,8 +364,8 @@ function term_sd_install()
 function term_sd_reinstall()
 {
     term_sd_install_option=""
-    for term_sd_launch_input in "$@" ;do
-        case $term_sd_launch_input in
+    for i in "$@" ;do
+        case $i in
         "--reinstall-term-sd")
         term_sd_notice "是否重新安装Term-SD(yes/no)?"
         term_sd_notice "提示:输入yes或no后回车"
@@ -718,6 +725,14 @@ function term_sd_test_network()
     sleep 5
 }
 
+#主程序
+function _main_()
+{
+    while : ;do #主界面死循环部分,防止运行一次后就直接结束运行
+        mainmenu
+    done
+}
+
 #term-sd准备环境功能
 function term_sd_env_prepare()
 {
@@ -738,8 +753,11 @@ function term_sd_env_prepare()
 
     term_sd_notice "检测依赖软件是否安装"
     missing_dep=""
+    missing_dep_macos=""
     test_num=0
-    temr_sd_depend="git aria2c dialog" #term-sd依赖软件包
+    test_num_macos=0
+    term_sd_depend="git aria2c dialog" #term-sd依赖软件包
+    term_sd_depend_macos="wget rustc cmake brew protoc"
     term_sd_install_path=$(pwd) #读取term-sd安装位置
     user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') #读取用户所使用的shell
 
@@ -801,13 +819,45 @@ function term_sd_env_prepare()
     fi
 
     #判断系统是否安装必须使用的软件
-    for term_sd_depend_ in $temr_sd_depend ; do
-        if which $term_sd_depend_ > /dev/null 2> /dev/null ;then
+    for i in $term_sd_depend ; do
+        if which $i > /dev/null 2> /dev/null ;then
             test_num=$(( $test_num + 1 ))
         else
-            missing_dep="$missing_dep $term_sd_depend_,"
+            missing_dep="$missing_dep $i,"
         fi
     done
+
+
+    #依赖检测(MacOS)
+    if [ $(uname) = "Darwin" ];then
+        for i in $term_sd_depend_macos ; do
+            if which $i > /dev/null 2> /dev/null ;then
+                test_num_macos=$(( $test_num_macos + 1 ))
+            else
+                #转换名称
+                case $i in
+                    rustc)
+                        i=rust
+                        ;;
+                    brew)
+                        i=homebrew
+                        ;;
+                    protoc)
+                        i=protobuf
+                        ;;
+                esac
+                missing_dep_macos="$missing_dep_macos $i,"
+            fi
+        done
+
+        if [ $test_num_macos -ge 5 ];then
+            print_line_to_shell "缺少以下依赖"
+            echo $missing_dep_macos
+            print_line_to_shell
+            term_sd_notice "缺少依赖将影响ai软件的安装,请退出Term-SD并使用homebrew(如果没有homebrew,则先安装homebrew,再用homebrew去安装其他缺少依赖)安装缺少的依赖后重试"
+            sleep 5
+        fi
+    fi
 
     #在使用http_proxy变量后,会出现ValueError: When localhost is not accessible, a shareable link must be created. Please set share=True
     #导致启动异常
@@ -862,7 +912,7 @@ function term_sd_env_prepare()
 #################################################
 
 #term-sd版本
-term_sd_version_="0.5.7"
+term_sd_version_="0.6.0"
 
 #判断启动状态(在shell中,新变量的值为空,且不需要定义就可以使用,不像c语言中要求那么严格)
 if [ ! -z $term_sd_env_prepare_info ] && [ $term_sd_env_prepare_info = 0 ];then #检测term-sd是直接启动还是重启
@@ -872,15 +922,11 @@ if [ ! -z $term_sd_env_prepare_info ] && [ $term_sd_env_prepare_info = 0 ];then 
     source ./term-sd/modules/init.sh
     term_sd_notice "启动Term-SD中"
     term_sd_version
-    while : ;do #主界面死循环部分,防止运行一次后就直接结束运行
-        mainmenu
-    done
+    _main_
 else
     #正常启动
     term_sd_env_prepare "$@"
     term_sd_notice "启动Term-SD中"
     term_sd_version
-    while : ;do #主界面死循环部分,防止运行一次后就直接结束运行
-        mainmenu
-    done
+    _main_
 fi
