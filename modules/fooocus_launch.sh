@@ -12,21 +12,16 @@ function generate_fooocus_launch()
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
-        if [ ! -z "$fooocus_launch_option_dialog" ]; then
-            for fooocus_launch_option_dialog_ in $fooocus_launch_option_dialog; do
-            case "$fooocus_launch_option_dialog_" in
-            "1")
-            fooocus_launch_option="--listen"
-            ;;
-            "2")    
-            fooocus_launch_option="--directml"
-            ;;
-            *)
-            exit 1
-            ;;    
+        for i in $fooocus_launch_option_dialog; do
+            case $i in
+                1)
+                    fooocus_launch_option="--listen"
+                    ;;
+                2)    
+                    fooocus_launch_option="--directml"
+                    ;;
             esac
-            done
-        fi
+        done
 
         term_sd_notice "设置启动参数> $fooocus_launch_option"
         echo "launch.py $fooocus_launch_option" > term-sd-launch.conf
@@ -44,16 +39,20 @@ function fooocus_launch()
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
-        if [ $fooocus_launch_dialog = 1 ];then
-            term_sd_launch
-            fooocus_launch
-        elif [ $fooocus_launch_dialog = 2 ];then
-            generate_fooocus_launch
-            fooocus_launch
-        elif [ $fooocus_launch_dialog = 3 ];then
-            fooocus_manual_launch
-            fooocus_launch
-        fi
+        case $fooocus_launch_dialog in
+            1)
+                term_sd_launch
+                fooocus_launch
+                ;;
+            2)
+                generate_fooocus_launch
+                fooocus_launch
+                ;;
+            3)
+                fooocus_manual_launch
+                fooocus_launch
+                ;;
+        esac
     fi
 }
 

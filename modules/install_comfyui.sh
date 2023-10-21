@@ -30,15 +30,15 @@ function process_install_comfyui()
 
         if [ ! -z "$comfyui_extension_install_list" ];then
             term_sd_notice "安装插件中"
-            for comfyui_extension_install_list_ in $comfyui_extension_install_list ;do
-                git clone --recurse-submodules "$github_proxy"$comfyui_extension_install_list_ ./ComfyUI/web/extensions/$(echo $comfyui_extension_install_list_ | awk -F'/' '{print $NF}')
+            for i in $comfyui_extension_install_list ;do
+                git clone --recurse-submodules "$github_proxy"$i ./ComfyUI/web/extensions/$(echo $i | awk -F'/' '{print $NF}')
             done
         fi
 
         if [ ! -z "$comfyui_custom_node_install_list" ];then
             term_sd_notice "安装自定义节点中"
-            for comfyui_custom_node_install_list_ in $comfyui_custom_node_install_list ;do
-                git clone --recurse-submodules "$github_proxy"$comfyui_custom_node_install_list_ ./ComfyUI/custom_nodes/$(echo $comfyui_custom_node_install_list_ | awk -F'/' '{print $NF}')
+            for i in $comfyui_custom_node_install_list ;do
+                git clone --recurse-submodules "$github_proxy"$i ./ComfyUI/custom_nodes/$(echo $i | awk -F'/' '{print $NF}')
             done
         fi
 

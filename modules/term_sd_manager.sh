@@ -24,35 +24,49 @@ function mainmenu()
         3>&1 1>&2 2>&3 )
 
     if [ $? = 0  ];then #选择确认
-        if [ $mainmenu_dialog = 0 ]; then #选择Term-SD更新
-            term_sd_update_option
-        elif [ $mainmenu_dialog = 1 ]; then #选择AUTOMATIC1111-stable-diffusion-webui
-            a1111_sd_webui_option
-        elif [ $mainmenu_dialog = 2 ]; then #选择ComfyUI
-            comfyui_option
-        elif [ $mainmenu_dialog = 3 ]; then #选择InvokeAI
-            invokeai_option
-        elif [ $mainmenu_dialog = 4 ]; then #选择fooocus
-            fooocus_option
-        elif [ $mainmenu_dialog = 5 ]; then #选择lora-scripts
-            lora_scripts_option
-        elif [ $mainmenu_dialog = 6 ]; then #选择venv虚拟环境配置
-            venv_option
-        elif [ $mainmenu_dialog = 7 ]; then #选择pip镜像源
-            set_pip_mirrors_option
-        elif [ $mainmenu_dialog = 8 ]; then #选择pip缓存清理
-            pip_cache_clean
-        elif [ $mainmenu_dialog = 9 ]; then #选择代理选项
-            set_proxy_option
-        elif [ $mainmenu_dialog = 10 ]; then #选择代理选项
-            disk_space_stat
-        elif [ $mainmenu_dialog = 11 ]; then #选择帮助
-            help_option
-        elif [ $mainmenu_dialog = 12 ]; then #选择退出
-            print_line_to_shell
-            term_sd_notice "退出Term-SD"
-            exit 1
-        fi
+        case $mainmenu_dialog in
+            0) #选择Term-SD更新
+                term_sd_update_option
+                ;;
+            1) #选择AUTOMATIC1111-stable-diffusion-webui
+                a1111_sd_webui_option
+                ;;
+            2) #选择ComfyUI
+                comfyui_option
+                ;;
+            3) #选择InvokeAI
+                invokeai_option
+                ;;
+            4) #选择fooocus
+                fooocus_option
+                ;;
+            5) #选择lora-scripts
+                lora_scripts_option
+                ;;
+            6) #选择venv虚拟环境配置
+                venv_option
+                ;;
+            7) #选择pip镜像源
+                set_pip_mirrors_option
+                ;;
+            8) #选择pip缓存清理
+                pip_cache_clean
+                ;;
+            9) #选择代理选项
+                set_proxy_option
+                ;;
+            10) #选择代理选项
+                disk_space_stat
+                ;;
+            11) #选择帮助
+                help_option
+                ;;
+            12) #选择退出
+                print_line_to_shell
+                term_sd_notice "退出Term-SD"
+                exit 1
+                ;;
+        esac
     else #选择取消
         print_line_to_shell
         term_sd_notice "退出Term-SD"

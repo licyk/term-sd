@@ -25,60 +25,55 @@ function generate_comfyui_launch()
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
-        if [ ! -z "$comfyui_launch_option_dialog" ]; then
-            for comfyui_launch_option_dialog_ in $comfyui_launch_option_dialog; do
-            case "$comfyui_launch_option_dialog_" in
-            "1")
-            comfyui_launch_option="--listen"
-            ;;
-            "2")    
-            comfyui_launch_option="--auto-launch"
-            ;;
-            "3")
-            comfyui_launch_option="--dont-upcast-attention"
-            ;;
-            "4")
-            comfyui_launch_option="--force-fp32"
-            ;;
-            "5")
-            comfyui_launch_option="--use-split-cross-attention"
-            ;;
-            "6")
-            comfyui_launch_option="--use-pytorch-cross-attention"
-            ;;
-            "7")
-            comfyui_launch_option="--disable-xformers"
-            ;;
-            "8")
-            comfyui_launch_option="--gpu-only"
-            ;;
-            "9")
-            comfyui_launch_option="--highvram"
-            ;;
-            "10")
-            comfyui_launch_option="--normalvram"
-            ;;
-            "11")
-            comfyui_launch_option="--lowvram"
-            ;;
-            "12")
-            comfyui_launch_option="--novram"
-            ;;
-            "13")
-            comfyui_launch_option="--cpu"
-            ;;
-            "14")
-            comfyui_launch_option="--quick-test-for-ci"
-            ;;
-            "15")
-            comfyui_launch_option="--directml"
-            ;;
-            *)
-            exit 1
-            ;;    
+        for i in $comfyui_launch_option_dialog; do
+            case $i in
+            1)
+                comfyui_launch_option="--listen"
+                ;;
+            2)    
+                comfyui_launch_option="--auto-launch"
+                ;;
+            3)
+                comfyui_launch_option="--dont-upcast-attention"
+                ;;
+            4)
+                comfyui_launch_option="--force-fp32"
+                ;;
+            5)
+                comfyui_launch_option="--use-split-cross-attention"
+                ;;
+            6)
+                comfyui_launch_option="--use-pytorch-cross-attention"
+                ;;
+            7)
+                comfyui_launch_option="--disable-xformers"
+                ;;
+            8)
+                comfyui_launch_option="--gpu-only"
+                ;;
+            9)
+                comfyui_launch_option="--highvram"
+                ;;
+            10)
+                comfyui_launch_option="--normalvram"
+                ;;
+            11)
+                comfyui_launch_option="--lowvram"
+                ;;
+            12)
+                comfyui_launch_option="--novram"
+                ;;
+            13)
+                comfyui_launch_option="--cpu"
+                ;;
+            14)
+                comfyui_launch_option="--quick-test-for-ci"
+                ;;
+            15)
+                comfyui_launch_option="--directml"
+                ;;
             esac
-            done
-        fi
+        done
 
         #生成启动脚本
         term_sd_notice "设置启动参数> $comfyui_launch_option"
@@ -97,16 +92,20 @@ function comfyui_launch()
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
-        if [ $comfyui_launch_dialog = 1 ];then
-            term_sd_launch
-            comfyui_launch
-        elif [ $comfyui_launch_dialog = 2 ];then
-            generate_comfyui_launch
-            comfyui_launch
-        elif [ $comfyui_launch_dialog = 3 ];then
-            comfyui_manual_launch
-            comfyui_launch
-        fi
+        case $comfyui_launch_dialog in
+            1)
+                term_sd_launch
+                comfyui_launch
+                ;;
+            2)
+                generate_comfyui_launch
+                comfyui_launch
+                ;;
+            3)
+                comfyui_manual_launch
+                comfyui_launch
+                ;;
+        esac
     fi
 }
 

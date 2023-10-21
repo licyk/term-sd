@@ -27,80 +27,93 @@ function fooocus_option()
             3>&1 1>&2 2>&3)
 
         if [ $? = 0 ];then
-            if [ $fooocus_option_dialog = 1 ]; then
-                term_sd_notice "更新Fooocus中"
-                test_num=1
-                git pull
-                if [ $? = 0 ];then
-                    test_num=0
-                fi
-                cd ./repositories/ComfyUI-from-StabilityAI-Official
-                git pull --rebase
-                if [ $test_num = "0" ];then
-                    dialog --clear --title "Fooocus管理" --backtitle "Fooocus更新结果" --ok-label "确认" --msgbox "Fooocus更新成功" 25 70
-                else
-                    dialog --clear --title "Fooocus管理" --backtitle "Fooocus更新结果" --ok-label "确认" --msgbox "Fooocus更新失败" 25 70
-                fi
-                fooocus_option
-            elif [ $fooocus_option_dialog = 2 ]; then
-                if (dialog --clear --title "Fooocus管理" --backtitle "Fooocus删除选项" --yes-label "是" --no-label "否" --yesno "是否删除Fooocus?" 25 70) then
-                    term_sd_notice "删除Fooocus中"
-                    exit_venv
-                    cd ..
-                    rm -rf ./Fooocus
-                else
+            case $fooocus_option_dialog in
+                1)
+                    term_sd_notice "更新Fooocus中"
+                    test_num=1
+                    git pull
+                    if [ $? = 0 ];then
+                        test_num=0
+                    fi
+                    cd ./repositories/ComfyUI-from-StabilityAI-Official
+                    git pull --rebase
+                    if [ $test_num = "0" ];then
+                        dialog --clear --title "Fooocus管理" --backtitle "Fooocus更新结果" --ok-label "确认" --msgbox "Fooocus更新成功" 25 70
+                    else
+                        dialog --clear --title "Fooocus管理" --backtitle "Fooocus更新结果" --ok-label "确认" --msgbox "Fooocus更新失败" 25 70
+                    fi
                     fooocus_option
-                fi
-            elif [ $fooocus_option_dialog = 3 ]; then
-                term_sd_fix_pointer_offset #修复Fooocus
-                cd ./repositories/ComfyUI-from-StabilityAI-Official
-                term_sd_fix_pointer_offset #修复Fooocus的核心ComfyUI
-                cd ../..
-                fooocus_option
-            elif [ $fooocus_option_dialog = 4 ]; then
-                git_checkout_manager
-                fooocus_option
-            elif [ $fooocus_option_dialog = 5 ]; then
-                fooocus_change_repo
-                fooocus_option
-            elif [ $fooocus_option_dialog = 6 ]; then
-                if [ ! -f "./term-sd-launch.conf" ]; then #找不到启动配置时默认生成一个
-                    term_sd_notice "未找到启动配置文件,创建中"
-                    echo "launch.py " > term-sd-launch.conf
-                fi
-                fooocus_launch
-                fooocus_option
-            elif [ $fooocus_option_dialog = 7 ]; then
-                fooocus_update_depend
-                fooocus_option
-            elif [ $fooocus_option_dialog = 8 ]; then
-                if (dialog --clear --title "Fooocus管理" --backtitle "Fooocus重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装Fooocus?" 25 70) then
-                    cd "$start_path"
-                    exit_venv
-                    process_install_fooocus
-                else
+                    ;;
+                2)
+                    if (dialog --clear --title "Fooocus管理" --backtitle "Fooocus删除选项" --yes-label "是" --no-label "否" --yesno "是否删除Fooocus?" 25 70) then
+                        term_sd_notice "删除Fooocus中"
+                        exit_venv
+                        cd ..
+                        rm -rf ./Fooocus
+                    else
+                        fooocus_option
+                    fi
+                    ;;
+                3)
+                    term_sd_fix_pointer_offset #修复Fooocus
+                    cd ./repositories/ComfyUI-from-StabilityAI-Official
+                    term_sd_fix_pointer_offset #修复Fooocus的核心ComfyUI
+                    cd ../..
                     fooocus_option
-                fi
-            elif [ $fooocus_option_dialog = 9 ]; then
-                pytorch_reinstall
-                fooocus_option
-            elif [ $fooocus_option_dialog = 10 ]; then
-                manage_python_packages
-                fooocus_option
-            elif [ $fooocus_option_dialog = 11 ]; then
-                python_package_ver_backup_or_restore
-                fooocus_option
-            elif [ $fooocus_option_dialog = 18 ]; then
-                if (dialog --clear --title "Fooocus管理" --backtitle "Fooocus虚拟环境修复选项" --yes-label "是" --no-label "否" --yesno "是否修复Fooocus的虚拟环境" 25 70);then
-                    create_venv --fix
-                fi
-                fooocus_option
-            elif [ $fooocus_option_dialog = 19 ]; then
-                if (dialog --clear --title "Fooocus管理" --backtitle "Fooocus虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建Fooocus的虚拟环境" 25 70);then
-                    fooocus_venv_rebuild
-                fi
-                fooocus_option
-            fi
+                    ;;
+                4)
+                    git_checkout_manager
+                    fooocus_option
+                    ;;
+                5)
+                    fooocus_change_repo
+                    fooocus_option
+                    ;;
+                6)
+                    if [ ! -f "./term-sd-launch.conf" ]; then #找不到启动配置时默认生成一个
+                        term_sd_notice "未找到启动配置文件,创建中"
+                        echo "launch.py " > term-sd-launch.conf
+                    fi
+                    fooocus_launch
+                    fooocus_option
+                    ;;
+                7)
+                    fooocus_update_depend
+                    fooocus_option
+                    ;;
+                8)
+                    if (dialog --clear --title "Fooocus管理" --backtitle "Fooocus重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装Fooocus?" 25 70) then
+                        cd "$start_path"
+                        exit_venv
+                        process_install_fooocus
+                    else
+                        fooocus_option
+                    fi
+                    ;;
+                9)
+                    pytorch_reinstall
+                    fooocus_option
+                    ;;
+                10)
+                    manage_python_packages
+                    fooocus_option
+                    ;;
+                11)
+                    python_package_ver_backup_or_restore
+                    fooocus_option
+                    ;;
+                18)
+                    if (dialog --clear --title "Fooocus管理" --backtitle "Fooocus虚拟环境修复选项" --yes-label "是" --no-label "否" --yesno "是否修复Fooocus的虚拟环境" 25 70);then
+                        create_venv --fix
+                    fi
+                    fooocus_option
+                    ;;
+                19)
+                    if (dialog --clear --title "Fooocus管理" --backtitle "Fooocus虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建Fooocus的虚拟环境" 25 70);then
+                        fooocus_venv_rebuild
+                    fi
+                    fooocus_option
+            esac
         fi
     else
         if (dialog --clear --title "Fooocus管理" --backtitle "Fooocus安装选项" --yes-label "是" --no-label "否" --yesno "检测到当前未安装Fooocus,是否进行安装?" 25 70) then

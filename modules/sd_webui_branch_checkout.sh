@@ -16,54 +16,60 @@ function sd_webui_branch_switch()
             3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
-        if [ $sd_webui_branch_switch_dialog = 1 ];then
-            print_line_to_shell "$term_sd_manager_info 分支切换"
-            term_sd_notice "切换到AUTOMATIC1111/stable-diffusion-webui主分支"
-            git remote set-url origin "$github_proxy"https://github.com/AUTOMATIC1111/stable-diffusion-webui
-            git fetch
-            git checkout master
-            git pull --rebase
-            print_line_to_shell
-        elif [ $sd_webui_branch_switch_dialog = 2 ];then
-            print_line_to_shell "$term_sd_manager_info 分支切换"
-            term_sd_notice "切换到AUTOMATIC1111/stable-diffusion-webui主分支"
-            git remote set-url origin "$github_proxy"https://github.com/AUTOMATIC1111/stable-diffusion-webui
-            git fetch
-            git checkout dev
-            git pull --rebase
-            print_line_to_shell
-        elif [ $sd_webui_branch_switch_dialog = 3 ];then
-            print_line_to_shell "$term_sd_manager_info 分支切换"
-            term_sd_notice "切换到vladmandic/SD.NEXT主分支"
-            git remote set-url origin "$github_proxy"https://github.com/vladmandic/automatic
-            git fetch
-            git checkout master
-            git pull --rebase
-            print_line_to_shell
-        elif [ $sd_webui_branch_switch_dialog = 4 ];then
-            print_line_to_shell "$term_sd_manager_info 分支切换"
-            term_sd_notice "切换到vladmandic/SD.NEXT测试分支"
-            git remote set-url origin "$github_proxy"https://github.com/vladmandic/automatic
-            git fetch
-            git checkout dev
-            git pull --rebase
-            print_line_to_shell
-        elif [ $sd_webui_branch_switch_dialog = 5 ];then
-            print_line_to_shell "$term_sd_manager_info 分支切换"
-            term_sd_notice "切换到lshqqytiger/stable-diffusion-webui-directml主分支"
-            git remote set-url origin "$github_proxy"https://github.com/lshqqytiger/stable-diffusion-webui-directml
-            git fetch
-            git checkout master
-            git pull --rebase
-            print_line_to_shell
-        elif [ $sd_webui_branch_switch_dialog = 6 ];then
-            print_line_to_shell "$term_sd_manager_info 分支切换"
-            term_sd_notice "切换到lshqqytiger/stable-diffusion-webui-directml测试分支"
-            git remote set-url origin "$github_proxy"https://github.com/lshqqytiger/stable-diffusion-webui-directml
-            git fetch
-            git checkout dev
-            git pull --rebase
-            print_line_to_shell
-        fi
+        case $sd_webui_branch_switch_dialog in
+            1)
+                print_line_to_shell "$term_sd_manager_info 分支切换"
+                term_sd_notice "切换到AUTOMATIC1111/stable-diffusion-webui主分支"
+                git remote set-url origin "$github_proxy"https://github.com/AUTOMATIC1111/stable-diffusion-webui
+                git fetch
+                git checkout master
+                git pull --rebase
+                print_line_to_shell
+                ;;
+            2)
+                print_line_to_shell "$term_sd_manager_info 分支切换"
+                term_sd_notice "切换到AUTOMATIC1111/stable-diffusion-webui主分支"
+                git remote set-url origin "$github_proxy"https://github.com/AUTOMATIC1111/stable-diffusion-webui
+                git fetch
+                git checkout dev
+                git pull --rebase
+                print_line_to_shell
+                ;;
+            3)
+                print_line_to_shell "$term_sd_manager_info 分支切换"
+                term_sd_notice "切换到vladmandic/SD.NEXT主分支"
+                git remote set-url origin "$github_proxy"https://github.com/vladmandic/automatic
+                git fetch
+                git checkout master
+                git pull --rebase
+                print_line_to_shell
+                ;;
+            4)
+                print_line_to_shell "$term_sd_manager_info 分支切换"
+                term_sd_notice "切换到vladmandic/SD.NEXT测试分支"
+                git remote set-url origin "$github_proxy"https://github.com/vladmandic/automatic
+                git fetch
+                git checkout dev
+                git pull --rebase
+                print_line_to_shell
+                ;;
+            5)
+                print_line_to_shell "$term_sd_manager_info 分支切换"
+                term_sd_notice "切换到lshqqytiger/stable-diffusion-webui-directml主分支"
+                git remote set-url origin "$github_proxy"https://github.com/lshqqytiger/stable-diffusion-webui-directml
+                git fetch
+                git checkout master
+                git pull --rebase
+                print_line_to_shell
+                ;;
+            6)
+                print_line_to_shell "$term_sd_manager_info 分支切换"
+                term_sd_notice "切换到lshqqytiger/stable-diffusion-webui-directml测试分支"
+                git remote set-url origin "$github_proxy"https://github.com/lshqqytiger/stable-diffusion-webui-directml
+                git fetch
+                git checkout dev
+                git pull --rebase
+                print_line_to_shell
+        esac
     fi
 }

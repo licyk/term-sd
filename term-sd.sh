@@ -44,76 +44,76 @@ function term_sd_process_user_input_early()
 
         #选项检测部分(如果选项要跟参数值,则设置触发获取参数的变量,命名为"term_sd_input_value_"+"选项名",赋值0,触发获取参数的功能后,赋值1)
         case $term_sd_launch_input in
-        "--help")
-        term_sd_notice "启动参数使用方法:"
-        echo "  term-sd.sh [--help] [--extra script_name] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--enable-new-bar] [--disable-new-bar]"
-        echo "选项:"
-        echo "  --help"
-        echo "        显示启动参数帮助"
-        echo "  --extra script_name"
-        echo "        启动扩展脚本选择列表,当选项后面输入了脚本名,则直接启动指定的脚本"
-        echo "  --multi-threaded-download"
-        echo "        安装过程中启用多线程下载模型"
-        echo "  --enable-auto-update"
-        echo "        启用Term-SD自动检查更新功能"
-        echo "  --disable-auto-update"
-        echo "        禁用Term-SD自动检查更新功能"
-        echo "  --reinstall-term-sd"
-        echo "        重新安装Term-SD"
-        echo "  --remove-term-sd"
-        echo "        卸载Term-SD"
-        echo "  --test-network"
-        echo "        测试网络环境,用于测试代理是否可用,需安装curl"
-        echo "  --quick-cmd"
-        echo "        添加Term-SD快捷启动命令到shell"
-        echo "  --set-python-path python_path"
-        echo "        手动指定python解释器路径,当选项后面输入了路径,则直接使用输入的路径来设置python解释器路径(建议用\"\"把路径括起来),否则启动设置界面"
-        echo "  --set-pip-path pip_path"
-        echo "        手动指定pip路径,当选项后面输入了路径,则直接使用输入的路径来设置pip路径(建议用\"\"把路径括起来),否则启动设置界面"
-        echo "  --unset-python-path"
-        echo "        删除自定义python解释器路径配置"
-        echo "  --unset-pip-path"
-        echo "        删除自定义pip解释器路径配置"
-        echo "  --update-pip"
-        echo "        进入虚拟环境时更新pip软件包管理器"
-        echo "  --enable-new-bar"
-        echo "        启用新的Term-SD初始化进度条"
-        echo "  --disable-new-bar"
-        echo "        禁用新的Term-SD初始化进度条"
-        print_line_to_shell
-        exit 1
-        ;;
-        "--enable-auto-update")
-        term_sd_notice "启用Term-SD自动检查更新功能"
-        touch ./term-sd/term-sd-auto-update.lock
-        ;;
-        "--disable-auto-update")
-        term_sd_notice "禁用Term-SD自动检查更新功能"
-        rm -rf ./term-sd/term-sd-auto-update.lock
-        rm -rf ./term-sd/term-sd-auto-update-time.conf
-        ;;
-        "--set-python-path")
-        term_sd_input_value_set_python_path=0
-        ;;
-        "--set-pip-path")
-        term_sd_input_value_set_pip_path=0
-        ;;
-        "--unset-python-path")
-        rm -f ./term-sd/python-path.conf
-        term_sd_notice "已删除自定义python解释器路径配置"
-        ;;
-        "--unset-pip-path")
-        rm -f ./term-sd/pip-path.conf
-        term_sd_notice "已删除自定义pip解释器路径配置"
-        ;;
-        "--enable-new-bar")
-        term_sd_notice "启用新的Term-SD初始化进度条"
-        touch ./term-sd/term-sd-new-bar.lock
-        ;;
-        "--disable-new-bar")
-        term_sd_notice "禁用新的Term-SD初始化进度条"
-        rm -rf ./term-sd/term-sd-new-bar.lock
-        ;;
+            "--help")
+                term_sd_notice "启动参数使用方法:"
+                echo "  term-sd.sh [--help] [--extra script_name] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--enable-new-bar] [--disable-new-bar]"
+                echo "选项:"
+                echo "  --help"
+                echo "        显示启动参数帮助"
+                echo "  --extra script_name"
+                echo "        启动扩展脚本选择列表,当选项后面输入了脚本名,则直接启动指定的脚本"
+                echo "  --multi-threaded-download"
+                echo "        安装过程中启用多线程下载模型"
+                echo "  --enable-auto-update"
+                echo "        启用Term-SD自动检查更新功能"
+                echo "  --disable-auto-update"
+                echo "        禁用Term-SD自动检查更新功能"
+                echo "  --reinstall-term-sd"
+                echo "        重新安装Term-SD"
+                echo "  --remove-term-sd"
+                echo "        卸载Term-SD"
+                echo "  --test-network"
+                echo "        测试网络环境,用于测试代理是否可用,需安装curl"
+                echo "  --quick-cmd"
+                echo "        添加Term-SD快捷启动命令到shell"
+                echo "  --set-python-path python_path"
+                echo "        手动指定python解释器路径,当选项后面输入了路径,则直接使用输入的路径来设置python解释器路径(建议用\"\"把路径括起来),否则启动设置界面"
+                echo "  --set-pip-path pip_path"
+                echo "        手动指定pip路径,当选项后面输入了路径,则直接使用输入的路径来设置pip路径(建议用\"\"把路径括起来),否则启动设置界面"
+                echo "  --unset-python-path"
+                echo "        删除自定义python解释器路径配置"
+                echo "  --unset-pip-path"
+                echo "        删除自定义pip解释器路径配置"
+                echo "  --update-pip"
+                echo "        进入虚拟环境时更新pip软件包管理器"
+                echo "  --enable-new-bar"
+                echo "        启用新的Term-SD初始化进度条"
+                echo "  --disable-new-bar"
+                echo "        禁用新的Term-SD初始化进度条"
+                print_line_to_shell
+                exit 1
+                ;;
+            "--enable-auto-update")
+                term_sd_notice "启用Term-SD自动检查更新功能"
+                touch ./term-sd/term-sd-auto-update.lock
+                ;;
+            "--disable-auto-update")
+                term_sd_notice "禁用Term-SD自动检查更新功能"
+                rm -rf ./term-sd/term-sd-auto-update.lock
+                rm -rf ./term-sd/term-sd-auto-update-time.conf
+                ;;
+            "--set-python-path")
+                term_sd_input_value_set_python_path=0
+                ;;
+            "--set-pip-path")
+                term_sd_input_value_set_pip_path=0
+                ;;
+            "--unset-python-path")
+                rm -f ./term-sd/python-path.conf
+                term_sd_notice "已删除自定义python解释器路径配置"
+                ;;
+            "--unset-pip-path")
+                rm -f ./term-sd/pip-path.conf
+                term_sd_notice "已删除自定义pip解释器路径配置"
+                ;;
+            "--enable-new-bar")
+                term_sd_notice "启用新的Term-SD初始化进度条"
+                touch ./term-sd/term-sd-new-bar.lock
+                ;;
+            "--disable-new-bar")
+                term_sd_notice "禁用新的Term-SD初始化进度条"
+                rm -rf ./term-sd/term-sd-new-bar.lock
+                ;;
         esac
 
     done
@@ -154,27 +154,27 @@ function term_sd_process_user_input()
 
         #选项检测部分(如果选项要跟参数值,则设置触发获取参数的变量,命名为"term_sd_input_value_"+"选项名",赋值0,触发获取参数的功能后,赋值1)
         case $term_sd_launch_input in
-        "--remove-term-sd")
-        remove_term_sd
-        ;;
-        "--quick-cmd")
-        install_cmd_to_shell
-        exit 1
-        ;;
-        "--multi-threaded-download")
-        term_sd_notice "安装过程中启用多线程下载模型"
-        export aria2_multi_threaded="-x 8"
-        ;;
-        "--update-pip")
-        export pip_manager_update=0
-        term_sd_notice "进入虚拟环境时将更新pip软件包管理器"
-        ;;
-        "--test-network")
-        term_sd_test_network
-        ;;
-        "--extra")
-        term_sd_input_value_extra=0
-        ;;
+            "--remove-term-sd")
+                remove_term_sd
+                ;;
+            "--quick-cmd")
+                install_cmd_to_shell
+                exit 1
+                ;;
+            "--multi-threaded-download")
+                term_sd_notice "安装过程中启用多线程下载模型"
+                export aria2_multi_threaded="-x 8"
+                ;;
+            "--update-pip")
+                export pip_manager_update=0
+                term_sd_notice "进入虚拟环境时将更新pip软件包管理器"
+                ;;
+            "--test-network")
+                term_sd_test_network
+                ;;
+            "--extra")
+                term_sd_input_value_extra=0
+                ;;
         esac
 
     done
@@ -401,22 +401,28 @@ function term_sd_install_mirror_select()
     term_sd_notice "提示:输入数字后回车"
     read -p "===============================> " term_sd_install_option
     if [ ! -z $term_sd_install_option ];then
-        if [ $term_sd_install_option = 1 ];then
-            term_sd_notice "选择github源"
-            term_sd_install_mirror="https://github.com/licyk/term-sd"
-        elif [ $term_sd_install_option = 2 ];then
-            term_sd_notice "选择gitlab源"
-            term_sd_install_mirror="https://gitlab.com/licyk/term-sd"
-        elif [ $term_sd_install_option = 3 ];then
-            term_sd_notice "选择gitee源"
-            term_sd_install_mirror="https://gitee.com/four-dishes/term-sd"
-        elif [ $term_sd_install_option = 4 ];then
-            term_sd_notice "选择代理源(ghproxy.com)"
-            term_sd_install_mirror="https://ghproxy.com/https://github.com/licyk/term-sd"
-        else
-            term_sd_notice "输入有误,请重试"
-            term_sd_install_mirror_select
-        fi
+        case $term_sd_install_option in
+            1)
+                term_sd_notice "选择github源"
+                term_sd_install_mirror="https://github.com/licyk/term-sd"
+                ;;
+            2)
+                term_sd_notice "选择gitlab源"
+                term_sd_install_mirror="https://gitlab.com/licyk/term-sd"
+                ;;
+            3)
+                term_sd_notice "选择gitee源"
+                term_sd_install_mirror="https://gitee.com/four-dishes/term-sd"
+                ;;
+            4)
+                term_sd_notice "选择代理源(ghproxy.com)"
+                term_sd_install_mirror="https://ghproxy.com/https://github.com/licyk/term-sd"
+                ;;
+            *)
+                term_sd_notice "输入有误,请重试"
+                term_sd_install_mirror_select
+                ;;
+        esac
     else
         term_sd_notice "未输入,请重试"
         term_sd_install_mirror_select
@@ -459,16 +465,21 @@ function install_cmd_to_shell()
         read -p "===============================> " install_to_shell_option
 
         if [ ! -z $install_to_shell_option ];then
-            if [ $install_to_shell_option = 1 ];then
-                install_config_to_shell
-            elif [ $install_to_shell_option = 2 ];then
-                remove_config_from_shell
-            elif [ $install_to_shell_option = 3 ];then
-                exit 1
-            else
-                term_sd_notice "输入有误,请重试"
-                install_cmd_to_shell
-            fi
+            case $install_to_shell_option in
+                1)
+                    install_config_to_shell
+                    ;;
+                2)
+                    remove_config_from_shell
+                    ;;
+                3)
+                    exit 1
+                    ;;
+                *)
+                    term_sd_notice "输入有误,请重试"
+                    install_cmd_to_shell
+                    ;;
+            esac
         else
             term_sd_notice "未输入,请重试"
             install_cmd_to_shell
@@ -529,17 +540,23 @@ function print_line_to_shell()
         print_word_info=$(( $shell_word_width % 2 ))
         
         if [ $print_line_info = 0 ];then #如果终端宽度大小是双数
-            if [ $print_word_info = 0 ];then #如果字符宽度大小是双数
-                print_line_methon=2
-            elif [ $print_word_info = 1 ];then #如果字符宽度大小是单数
-                print_line_methon=3
-            fi
+            case $print_word_info in
+                0) #如果字符宽度大小是双数
+                    print_line_methon=2
+                    ;;
+                1) #如果字符宽度大小是单数
+                    print_line_methon=3
+                    ;;
+            esac
         elif [ $print_line_info = 1 ];then #如果终端宽度大小是单数数
-            if [ $print_word_info = 0 ];then #如果字符宽度大小是双数
-                print_line_methon=2
-            elif [ $print_word_info = 1 ];then #如果字符宽度大小是单数
-                print_line_methon=3
-            fi
+            case $print_word_info in
+                0) #如果字符宽度大小是双数
+                    print_line_methon=2
+                    ;;
+                1) #如果字符宽度大小是单数
+                    print_line_methon=3
+                    ;;
+            esac
         fi
 
         print_line_to_shell_methon
@@ -549,14 +566,18 @@ function print_line_to_shell()
 #输出终端横线方法
 function print_line_to_shell_methon()
 {
-    if [ $print_line_methon = 1 ];then
-        shellwidth=$(stty size | awk '{print $2}') #获取终端宽度
-        yes "-" | sed $shellwidth'q' | tr -d '\n' #输出横杠
-    elif [ $print_line_methon = 2 ];then #解决显示字符为单数时少显示一个字符导致不对成的问题
-        echo "$(yes "-" | sed $shellwidth'q' | tr -d '\n')"$print_word_to_shell"$(yes "-" | sed $shellwidth'q' | tr -d '\n')"
-    elif [ $print_line_methon = 3 ];then
-        echo "$(yes "-" | sed $shellwidth'q' | tr -d '\n')"$print_word_to_shell"$(yes "-" | sed $(( $shellwidth + 1 ))'q' | tr -d '\n')"
-    fi
+    case $print_line_methon in
+        1)
+            shellwidth=$(stty size | awk '{print $2}') #获取终端宽度
+            yes "-" | sed $shellwidth'q' | tr -d '\n' #输出横杠
+            ;;
+        2) #解决显示字符为单数时少显示一个字符导致不对成的问题
+            echo "$(yes "-" | sed $shellwidth'q' | tr -d '\n')"$print_word_to_shell"$(yes "-" | sed $shellwidth'q' | tr -d '\n')"
+            ;;
+        3)
+            echo "$(yes "-" | sed $shellwidth'q' | tr -d '\n')"$print_word_to_shell"$(yes "-" | sed $(( $shellwidth + 1 ))'q' | tr -d '\n')"
+            ;;
+    esac
     print_word_to_shell="" #清除已输出的内容
 }
 

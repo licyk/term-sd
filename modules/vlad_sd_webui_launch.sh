@@ -42,102 +42,97 @@ function generate_vlad_sd_webui_launch()
 
     #根据菜单得到的数据设置变量
     if [ $? = 0 ];then
-        if [ ! -z "$vlad_sd_webui_launch_option_dialog" ]; then
-            for vlad_sd_webui_launch_option_dialog_ in $vlad_sd_webui_launch_option_dialog; do
-            case "$vlad_sd_webui_launch_option_dialog_" in
-            "1")
-            vlad_sd_webui_launch_option="--skip-torch-cuda-test $vlad_sd_webui_launch_option"
-            ;;
-            "2")
-            vlad_sd_webui_launch_option="--no-half $vlad_sd_webui_launch_option"
-            ;;
-            "3")
-            vlad_sd_webui_launch_option="--no-half-vae $vlad_sd_webui_launch_option"
-            ;;
-            "4")
-            vlad_sd_webui_launch_option="--medvram $vlad_sd_webui_launch_option"
-            ;;
-            "5")
-            vlad_sd_webui_launch_option="--lowvram $vlad_sd_webui_launch_option"
-            ;;
-            "6")
-            vlad_sd_webui_launch_option="--lowram $vlad_sd_webui_launch_option"
-            ;;
-            "7")
-            vlad_sd_webui_launch_option="--enable-insecure-extension-access $vlad_sd_webui_launch_option"
-            ;;
-            "8")
-            vlad_sd_webui_launch_option="--theme dark $vlad_sd_webui_launch_option"
-            ;;
-            "9")
-            vlad_sd_webui_launch_option="--autolaunch $vlad_sd_webui_launch_option"
-            ;;
-            "10")
-            vlad_sd_webui_launch_option="--xformers $vlad_sd_webui_launch_option"
-            ;;
-            "11")
-            vlad_sd_webui_launch_option="--listen $vlad_sd_webui_launch_option"
-            ;;
-            "12")
-            vlad_sd_webui_launch_option="--precision full $vlad_sd_webui_launch_option"
-            ;;
-            "13")
-            vlad_sd_webui_launch_option="--force-enable-xformers $vlad_sd_webui_launch_option"
-            ;;
-            "14")
-            vlad_sd_webui_launch_option="--xformers-flash-attention $vlad_sd_webui_launch_option"
-            ;;
-            "15")
-            vlad_sd_webui_launch_option="--api $vlad_sd_webui_launch_option"
-            ;;
-            "16")
-            vlad_sd_webui_launch_option="--ui-debug-mode $vlad_sd_webui_launch_option"
-            ;;
-            "17")
-            vlad_sd_webui_launch_option="--share $vlad_sd_webui_launch_option"
-            ;;
-            "18")
-            vlad_sd_webui_launch_option="--opt-split-attention-invokeai $vlad_sd_webui_launch_option"
-            ;;
-            "19")
-            vlad_sd_webui_launch_option="--opt-split-attention-v1 $vlad_sd_webui_launch_option"
-            ;;
-            "20")
-            vlad_sd_webui_launch_option="--opt-sdp-attention $vlad_sd_webui_launch_option"
-            ;;
-            "21")
-            vlad_sd_webui_launch_option="--opt-sdp-no-mem-attention $vlad_sd_webui_launch_option"
-            ;;
-            "22")
-            vlad_sd_webui_launch_option="--disable-opt-split-attention $vlad_sd_webui_launch_option"
-            ;;
-            "23")
-            vlad_sd_webui_launch_option="--use-cpu all $vlad_sd_webui_launch_option"
-            ;;
-            "24")
-            vlad_sd_webui_launch_option="--opt-channelslast $vlad_sd_webui_launch_option"
-            ;;
-            "25")
-            vlad_sd_webui_launch_option="--no-gradio-queue $vlad_sd_webui_launch_option"
-            ;;
-            "26")
-            vlad_sd_webui_launch_option="--no-hashing $vlad_sd_webui_launch_option"
-            ;;
-            "27")
-            vlad_sd_webui_launch_option="--backend directml $vlad_sd_webui_launch_option"
-            ;;
-            "28")
-            vlad_sd_webui_launch_option="--opt-sub-quad-attention $vlad_sd_webui_launch_option"
-            ;;
-            "29")
-            vlad_sd_webui_launch_option="--medvram-sdxl $vlad_sd_webui_launch_option"
-            ;;
-            *)
-            exit 1
-            ;;    
+        for i in $vlad_sd_webui_launch_option_dialog; do
+            case $i in
+                1)
+                    vlad_sd_webui_launch_option="--skip-torch-cuda-test $vlad_sd_webui_launch_option"
+                    ;;
+                2)
+                    vlad_sd_webui_launch_option="--no-half $vlad_sd_webui_launch_option"
+                    ;;
+                3)
+                    vlad_sd_webui_launch_option="--no-half-vae $vlad_sd_webui_launch_option"
+                    ;;
+                4)
+                    vlad_sd_webui_launch_option="--medvram $vlad_sd_webui_launch_option"
+                    ;;
+                5)
+                    vlad_sd_webui_launch_option="--lowvram $vlad_sd_webui_launch_option"
+                    ;;
+                6)
+                    vlad_sd_webui_launch_option="--lowram $vlad_sd_webui_launch_option"
+                    ;;
+                7)
+                    vlad_sd_webui_launch_option="--enable-insecure-extension-access $vlad_sd_webui_launch_option"
+                    ;;
+                8)
+                    vlad_sd_webui_launch_option="--theme dark $vlad_sd_webui_launch_option"
+                    ;;
+                9)
+                    vlad_sd_webui_launch_option="--autolaunch $vlad_sd_webui_launch_option"
+                    ;;
+                10)
+                    vlad_sd_webui_launch_option="--xformers $vlad_sd_webui_launch_option"
+                    ;;
+                11)
+                    vlad_sd_webui_launch_option="--listen $vlad_sd_webui_launch_option"
+                    ;;
+                12)
+                    vlad_sd_webui_launch_option="--precision full $vlad_sd_webui_launch_option"
+                    ;;
+                13)
+                    vlad_sd_webui_launch_option="--force-enable-xformers $vlad_sd_webui_launch_option"
+                    ;;
+                14)
+                    vlad_sd_webui_launch_option="--xformers-flash-attention $vlad_sd_webui_launch_option"
+                    ;;
+                15)
+                    vlad_sd_webui_launch_option="--api $vlad_sd_webui_launch_option"
+                    ;;
+                16)
+                    vlad_sd_webui_launch_option="--ui-debug-mode $vlad_sd_webui_launch_option"
+                    ;;
+                17)
+                    vlad_sd_webui_launch_option="--share $vlad_sd_webui_launch_option"
+                    ;;
+                18)
+                    vlad_sd_webui_launch_option="--opt-split-attention-invokeai $vlad_sd_webui_launch_option"
+                    ;;
+                19)
+                    vlad_sd_webui_launch_option="--opt-split-attention-v1 $vlad_sd_webui_launch_option"
+                    ;;
+                20)
+                    vlad_sd_webui_launch_option="--opt-sdp-attention $vlad_sd_webui_launch_option"
+                    ;;
+                21)
+                    vlad_sd_webui_launch_option="--opt-sdp-no-mem-attention $vlad_sd_webui_launch_option"
+                    ;;
+                22)
+                    vlad_sd_webui_launch_option="--disable-opt-split-attention $vlad_sd_webui_launch_option"
+                    ;;
+                23)
+                    vlad_sd_webui_launch_option="--use-cpu all $vlad_sd_webui_launch_option"
+                    ;;
+                24)
+                    vlad_sd_webui_launch_option="--opt-channelslast $vlad_sd_webui_launch_option"
+                    ;;
+                25)
+                    vlad_sd_webui_launch_option="--no-gradio-queue $vlad_sd_webui_launch_option"
+                    ;;
+                26)
+                    vlad_sd_webui_launch_option="--no-hashing $vlad_sd_webui_launch_option"
+                    ;;
+                27)
+                    vlad_sd_webui_launch_option="--backend directml $vlad_sd_webui_launch_option"
+                    ;;
+                28)
+                    vlad_sd_webui_launch_option="--opt-sub-quad-attention $vlad_sd_webui_launch_option"
+                    ;;
+                29)
+                    vlad_sd_webui_launch_option="--medvram-sdxl $vlad_sd_webui_launch_option"
+                    ;;  
             esac
-            done
-        fi
+        done
     
         #生成启动脚本
         term_sd_notice "设置启动参数> $vlad_sd_webui_launch_option"
@@ -156,16 +151,20 @@ function vlad_sd_webui_launch()
         3>&1 1>&2 2>&3)
     
     if [ $? = 0 ];then
-        if [ $vlad_sd_webui_launch_dialog = 1 ];then
-            term_sd_launch
-            vlad_sd_webui_launch
-        elif [ $vlad_sd_webui_launch_dialog = 2 ];then
-            generate_vlad_sd_webui_launch
-            vlad_sd_webui_launch
-        elif [ $vlad_sd_webui_launch_dialog = 3 ];then
-            vlad_sd_webui_manual_launch
-            vlad_sd_webui_launch
-        fi
+        case $vlad_sd_webui_launch_dialog in
+            1)
+                term_sd_launch
+                vlad_sd_webui_launch
+                ;;
+            2)
+                generate_vlad_sd_webui_launch
+                vlad_sd_webui_launch
+                ;;
+            3)
+                vlad_sd_webui_manual_launch
+                vlad_sd_webui_launch
+                ;;
+        esac
     fi
 }
 

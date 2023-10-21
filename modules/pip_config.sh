@@ -12,27 +12,31 @@ function set_pip_mirrors_option()
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
-        if [ $set_pip_mirrors_option_dialog = 1 ];then
-            #pip config unset global.index-url
-            #pip config unset global.find-links
-            pip_cmd config set global.index-url "https://pypi.python.org/simple"
-            pip_cmd config unset global.extra-index-url
-            pip_cmd config set global.find-links "https://download.pytorch.org/whl/torch_stable.html"
-            set_pip_mirrors_option
-        elif [ $set_pip_mirrors_option_dialog = 2 ];then
-            #pip config set global.index-url "https://mirror.sjtu.edu.cn/pypi/web/simple"
-            pip_cmd config set global.index-url " https://mirrors.bfsu.edu.cn/pypi/web/simple"
-            #pip config set global.extra-index-url "https://mirror.sjtu.edu.cn/pytorch-wheels"
-            #pip config set global.extra-index-url "https://mirrors.aliyun.com/pytorch-wheels"
-            pip_cmd config set global.extra-index-url "https://mirrors.hit.edu.cn/pypi/web/simple https://pypi.tuna.tsinghua.edu.cn/simple https://mirrors.pku.edu.cn/pypi/web/simple"
-            pip_cmd config set global.find-links "https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
-            set_pip_mirrors_option
-        elif [ $set_pip_mirrors_option_dialog = 3 ];then
-            pip_cmd config unset global.extra-index-url
-            pip_cmd config unset global.index-url
-            pip_cmd config unset global.find-links
-            set_pip_mirrors_option
-        fi
+        case $set_pip_mirrors_option_dialog in
+            1)
+                #pip config unset global.index-url
+                #pip config unset global.find-links
+                pip_cmd config set global.index-url "https://pypi.python.org/simple"
+                pip_cmd config unset global.extra-index-url
+                pip_cmd config set global.find-links "https://download.pytorch.org/whl/torch_stable.html"
+                set_pip_mirrors_option
+                ;;
+            2)
+                #pip config set global.index-url "https://mirror.sjtu.edu.cn/pypi/web/simple"
+                pip_cmd config set global.index-url " https://mirrors.bfsu.edu.cn/pypi/web/simple"
+                #pip config set global.extra-index-url "https://mirror.sjtu.edu.cn/pytorch-wheels"
+                #pip config set global.extra-index-url "https://mirrors.aliyun.com/pytorch-wheels"
+                pip_cmd config set global.extra-index-url "https://mirrors.hit.edu.cn/pypi/web/simple https://pypi.tuna.tsinghua.edu.cn/simple https://mirrors.pku.edu.cn/pypi/web/simple"
+                pip_cmd config set global.find-links "https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
+                set_pip_mirrors_option
+                ;;
+            3)
+                pip_cmd config unset global.extra-index-url
+                pip_cmd config unset global.index-url
+                pip_cmd config unset global.find-links
+                set_pip_mirrors_option
+                ;;
+        esac
     fi
 }
 

@@ -42,102 +42,97 @@ function generate_sd_webui_directml_launch()
 
     #根据菜单得到的数据设置变量
     if [ $? = 0 ];then
-        if [ ! -z "$sd_webui_directml_launch_option_dialog" ]; then
-            for sd_webui_directml_launch_option_dialog_ in $sd_webui_directml_launch_option_dialog; do
-            case "$sd_webui_directml_launch_option_dialog_" in
-            "1")
-            sd_webui_directml_launch_option="--skip-torch-cuda-test $sd_webui_directml_launch_option"
-            ;;
-            "2")
-            sd_webui_directml_launch_option="--no-half $sd_webui_directml_launch_option"
-            ;;
-            "3")
-            sd_webui_directml_launch_option="--no-half-vae $sd_webui_directml_launch_option"
-            ;;
-            "4")
-            sd_webui_directml_launch_option="--medvram $sd_webui_directml_launch_option"
-            ;;
-            "5")
-            sd_webui_directml_launch_option="--lowvram $sd_webui_directml_launch_option"
-            ;;
-            "6")
-            sd_webui_directml_launch_option="--lowram $sd_webui_directml_launch_option"
-            ;;
-            "7")
-            sd_webui_directml_launch_option="--enable-insecure-extension-access $sd_webui_directml_launch_option"
-            ;;
-            "8")
-            sd_webui_directml_launch_option="--theme dark $sd_webui_directml_launch_option"
-            ;;
-            "9")
-            sd_webui_directml_launch_option="--autolaunch $sd_webui_directml_launch_option"
-            ;;
-            "10")
-            sd_webui_directml_launch_option="--xformers $sd_webui_directml_launch_option"
-            ;;
-            "11")
-            sd_webui_directml_launch_option="--listen $sd_webui_directml_launch_option"
-            ;;
-            "12")
-            sd_webui_directml_launch_option="--precision full $sd_webui_directml_launch_option"
-            ;;
-            "13")
-            sd_webui_directml_launch_option="--force-enable-xformers $sd_webui_directml_launch_option"
-            ;;
-            "14")
-            sd_webui_directml_launch_option="--xformers-flash-attention $sd_webui_directml_launch_option"
-            ;;
-            "15")
-            sd_webui_directml_launch_option="--api $sd_webui_directml_launch_option"
-            ;;
-            "16")
-            sd_webui_directml_launch_option="--ui-debug-mode $sd_webui_directml_launch_option"
-            ;;
-            "17")
-            sd_webui_directml_launch_option="--share $sd_webui_directml_launch_option"
-            ;;
-            "18")
-            sd_webui_directml_launch_option="--opt-split-attention-invokeai $sd_webui_directml_launch_option"
-            ;;
-            "19")
-            sd_webui_directml_launch_option="--opt-split-attention-v1 $sd_webui_directml_launch_option"
-            ;;
-            "20")
-            sd_webui_directml_launch_option="--opt-sdp-attention $sd_webui_directml_launch_option"
-            ;;
-            "21")
-            sd_webui_directml_launch_option="--opt-sdp-no-mem-attention $sd_webui_directml_launch_option"
-            ;;
-            "22")
-            sd_webui_directml_launch_option="--disable-opt-split-attention $sd_webui_directml_launch_option"
-            ;;
-            "23")
-            sd_webui_directml_launch_option="--use-cpu all $sd_webui_directml_launch_option"
-            ;;
-            "24")
-            sd_webui_directml_launch_option="--opt-channelslast $sd_webui_directml_launch_option"
-            ;;
-            "25")
-            sd_webui_directml_launch_option="--no-gradio-queue $sd_webui_directml_launch_option"
-            ;;
-            "26")
-            sd_webui_directml_launch_option="--no-hashing $sd_webui_directml_launch_option"
-            ;;
-            "27")
-            sd_webui_directml_launch_option="--backend directml $sd_webui_directml_launch_option"
-            ;;
-            "28")
-            sd_webui_directml_launch_option="--opt-sub-quad-attention $sd_webui_directml_launch_option"
-            ;;
-            "29")
-            sd_webui_directml_launch_option="--medvram-sdxl $sd_webui_directml_launch_option"
-            ;;
-            *)
-            exit 1
-            ;;    
+        for i in $sd_webui_directml_launch_option_dialog; do
+            case $i in
+                1)
+                    sd_webui_directml_launch_option="--skip-torch-cuda-test $sd_webui_directml_launch_option"
+                    ;;
+                2)
+                    sd_webui_directml_launch_option="--no-half $sd_webui_directml_launch_option"
+                    ;;
+                3)
+                    sd_webui_directml_launch_option="--no-half-vae $sd_webui_directml_launch_option"
+                    ;;
+                4)
+                    sd_webui_directml_launch_option="--medvram $sd_webui_directml_launch_option"
+                    ;;
+                5)
+                    sd_webui_directml_launch_option="--lowvram $sd_webui_directml_launch_option"
+                    ;;
+                6)
+                    sd_webui_directml_launch_option="--lowram $sd_webui_directml_launch_option"
+                    ;;
+                7)
+                    sd_webui_directml_launch_option="--enable-insecure-extension-access $sd_webui_directml_launch_option"
+                    ;;
+                8)
+                    sd_webui_directml_launch_option="--theme dark $sd_webui_directml_launch_option"
+                    ;;
+                9)
+                    sd_webui_directml_launch_option="--autolaunch $sd_webui_directml_launch_option"
+                    ;;
+                10)
+                    sd_webui_directml_launch_option="--xformers $sd_webui_directml_launch_option"
+                    ;;
+                11)
+                    sd_webui_directml_launch_option="--listen $sd_webui_directml_launch_option"
+                    ;;
+                12)
+                    sd_webui_directml_launch_option="--precision full $sd_webui_directml_launch_option"
+                    ;;
+                13)
+                    sd_webui_directml_launch_option="--force-enable-xformers $sd_webui_directml_launch_option"
+                    ;;
+                14)
+                    sd_webui_directml_launch_option="--xformers-flash-attention $sd_webui_directml_launch_option"
+                    ;;
+                15)
+                    sd_webui_directml_launch_option="--api $sd_webui_directml_launch_option"
+                    ;;
+                16)
+                    sd_webui_directml_launch_option="--ui-debug-mode $sd_webui_directml_launch_option"
+                    ;;
+                17)
+                    sd_webui_directml_launch_option="--share $sd_webui_directml_launch_option"
+                    ;;
+                18)
+                    sd_webui_directml_launch_option="--opt-split-attention-invokeai $sd_webui_directml_launch_option"
+                    ;;
+                19)
+                    sd_webui_directml_launch_option="--opt-split-attention-v1 $sd_webui_directml_launch_option"
+                    ;;
+                20)
+                    sd_webui_directml_launch_option="--opt-sdp-attention $sd_webui_directml_launch_option"
+                    ;;
+                21)
+                    sd_webui_directml_launch_option="--opt-sdp-no-mem-attention $sd_webui_directml_launch_option"
+                    ;;
+                22)
+                    sd_webui_directml_launch_option="--disable-opt-split-attention $sd_webui_directml_launch_option"
+                    ;;
+                23)
+                    sd_webui_directml_launch_option="--use-cpu all $sd_webui_directml_launch_option"
+                    ;;
+                24)
+                    sd_webui_directml_launch_option="--opt-channelslast $sd_webui_directml_launch_option"
+                    ;;
+                25)
+                    sd_webui_directml_launch_option="--no-gradio-queue $sd_webui_directml_launch_option"
+                    ;;
+                26)
+                    sd_webui_directml_launch_option="--no-hashing $sd_webui_directml_launch_option"
+                    ;;
+                27)
+                    sd_webui_directml_launch_option="--backend directml $sd_webui_directml_launch_option"
+                    ;;
+                28)
+                    sd_webui_directml_launch_option="--opt-sub-quad-attention $sd_webui_directml_launch_option"
+                    ;;
+                29)
+                    sd_webui_directml_launch_option="--medvram-sdxl $sd_webui_directml_launch_option"
+                    ;;  
             esac
-            done
-        fi
+        done
     
         #生成启动脚本
         term_sd_notice "设置启动参数> $sd_webui_directml_launch_option"
@@ -156,16 +151,20 @@ function sd_webui_directml_launch()
         3>&1 1>&2 2>&3)
     
     if [ $? = 0 ];then
-        if [ $sd_webui_directml_launch_dialog = 1 ];then
-            term_sd_launch
-            sd_webui_directml_launch
-        elif [ $sd_webui_directml_launch_dialog = 2 ];then
-            generate_sd_webui_directml_launch
-            sd_webui_directml_launch
-        elif [ $sd_webui_directml_launch_dialog = 3 ];then
-            sd_webui_directml_manual_launch
-            sd_webui_directml_launch
-        fi
+        case $sd_webui_directml_launch_dialog in
+            1)
+                term_sd_launch
+                sd_webui_directml_launch
+                ;;
+            2)
+                generate_sd_webui_directml_launch
+                sd_webui_directml_launch
+                ;;
+            3)
+                sd_webui_directml_manual_launch
+                sd_webui_directml_launch
+                ;;
+        esac
     fi
 }
 

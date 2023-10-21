@@ -23,33 +23,30 @@ function proxy_option()
         "4" "强制使用pip" OFF \
         3>&1 1>&2 2>&3)
 
-    if [ ! -z "$proxy_option_dialog" ]; then
-        for proxy_option_dialog_ in $proxy_option_dialog; do
-        case "$proxy_option_dialog_" in
-        "1")
-        #pip_mirror="-i https://mirror.sjtu.edu.cn/pypi/web/simple" #上海交大的镜像源有点问题,在安装invokeai时会报错,可能是软件包版本的问题
-        #extra_pip_mirror="-f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
-        pip_index_mirror="--index-url https://mirrors.bfsu.edu.cn/pypi/web/simple"
-        pip_extra_index_mirror="--extra-index-url https://mirrors.hit.edu.cn/pypi/web/simple --extra-index-url https://pypi.tuna.tsinghua.edu.cn/simple --extra-index-url https://mirrors.pku.edu.cn/pypi/web/simple"
-        pip_find_mirror="--find-links https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html --find-links https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
-        final_install_check_python="启用"
-        ;;
-        "2")
-        github_proxy="https://ghproxy.com/"
-        final_install_check_github="启用"
-        ;;
-        "3")
-        only_hugggingface_proxy=0
-        only_hugggingface_proxy_info="启用"
-        ;;
-        "4")
-        force_pip="--break-system-packages"
-        final_install_check_force_pip="启用"
-        ;;
-        *)
-        exit 1
-        ;;
-        esac
+    if [ $? = 0 ]; then
+        for i in $proxy_option_dialog; do
+            case "$i" in
+                1)
+                    #pip_mirror="-i https://mirror.sjtu.edu.cn/pypi/web/simple" #上海交大的镜像源有点问题,在安装invokeai时会报错,可能是软件包版本的问题
+                    #extra_pip_mirror="-f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
+                    pip_index_mirror="--index-url https://mirrors.bfsu.edu.cn/pypi/web/simple"
+                    pip_extra_index_mirror="--extra-index-url https://mirrors.hit.edu.cn/pypi/web/simple --extra-index-url https://pypi.tuna.tsinghua.edu.cn/simple --extra-index-url https://mirrors.pku.edu.cn/pypi/web/simple"
+                    pip_find_mirror="--find-links https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html --find-links https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
+                    final_install_check_python="启用"
+                    ;;
+                2)
+                    github_proxy="https://ghproxy.com/"
+                    final_install_check_github="启用"
+                    ;;
+                3)
+                    only_hugggingface_proxy=0
+                    only_hugggingface_proxy_info="启用"
+                    ;;
+                4)
+                    force_pip="--break-system-packages"
+                    final_install_check_force_pip="启用"
+                    ;;
+            esac
         done
     fi
 }
@@ -61,41 +58,55 @@ function pytorch_version_select()
 
     pytorch_version_select_dialog=$(
         dialog --clear --title "Term-SD" --backtitle "pytorch安装版本选项" --ok-label "确认" --no-cancel --menu "请选择要安装的pytorch版本" 25 70 10 \
-        "0" "Torch+xformers" \
-        "1" "Torch" \
-        "2" "Torch 2.0.0+Torch-Directml" \
-        "3" "Torch 2.1.0+CPU" \
-        "4" "Torch 2.1.0+RoCM 5.6" \
-        "5" "Torch 1.12.1(CUDA11.3)+xFormers 0.014" \
-        "6" "Torch 1.13.1(CUDA11.7)+xFormers 0.016" \
-        "7" "Torch 2.0.0(CUDA11.8)+xFormers 0.018" \
-        "8" "Torch 2.0.1(CUDA11.8)+xFormers 0.022" \
-        "9" "Torch 2.1.0(CUDA12.1)+xFormers 0.022" \
+        "1" "Torch+xformers" \
+        "2" "Torch" \
+        "3" "Torch 2.0.0+Torch-Directml" \
+        "4" "Torch 2.1.0+CPU" \
+        "5" "Torch 2.1.0+RoCM 5.6" \
+        "6" "Torch 1.12.1(CUDA11.3)+xFormers 0.014" \
+        "7" "Torch 1.13.1(CUDA11.7)+xFormers 0.016" \
+        "8" "Torch 2.0.0(CUDA11.8)+xFormers 0.018" \
+        "9" "Torch 2.0.1(CUDA11.8)+xFormers 0.022" \
+        "10" "Torch 2.1.0(CUDA12.1)+xFormers 0.022" \
         "20" "跳过安装" \
         3>&1 1>&2 2>&3)
 
-    if [ $pytorch_version_select_dialog = 20 ]; then
-        pytorch_install_version=""
-    elif [ $pytorch_version_select_dialog = 0 ]; then
-        pytorch_install_version="torch torchvision xformers"
-    elif [ $pytorch_version_select_dialog = 1 ]; then
-        pytorch_install_version="torch torchvision"
-    elif [ $pytorch_version_select_dialog = 2 ]; then
-        pytorch_install_version="torch==2.0.0 torchvision==0.15.1 torch-directml"
-    elif [ $pytorch_version_select_dialog = 3 ]; then
-        pytorch_install_version="torch==2.1.0+cpu torchvision==0.16.0+cpu"
-    elif [ $pytorch_version_select_dialog = 4 ]; then
-        pytorch_install_version="torch==2.1.0+rocm5.6 torchvision==0.16.0+rocm5.6"
-    elif [ $pytorch_version_select_dialog = 5 ]; then
-        pytorch_install_version="torch==1.12.1+cu113 torchvision==0.13.1+cu113 xformers==0.0.14"
-    elif [ $pytorch_version_select_dialog = 6 ]; then
-        pytorch_install_version="torch==1.13.1+cu117 torchvision==0.14.1+cu117 xformers==0.0.16"
-    elif [ $pytorch_version_select_dialog = 7 ]; then
-        pytorch_install_version="torch==2.0.0+cu118 torchvision==0.15.1+cu118 xformers==0.0.18"
-    elif [ $pytorch_version_select_dialog = 8 ]; then
-        pytorch_install_version="torch==2.0.1+cu118 torchvision==0.15.2+cu118 xformers==0.0.22"
-    elif [ $pytorch_version_select_dialog = 9 ]; then
-        pytorch_install_version="torch==2.1.0+cu121 torchvision==0.16.0+cu121 xformers==0.0.22"
+    if [ $? = 0 ];then
+        case $pytorch_version_select_dialog in
+            20)
+                pytorch_install_version=""
+                ;;
+            1)
+                pytorch_install_version="torch torchvision xformers"
+                ;;
+            2)
+                pytorch_install_version="torch torchvision"
+                ;;
+            3)
+                pytorch_install_version="torch==2.0.0 torchvision==0.15.1 torch-directml"
+                ;;
+            4)
+                pytorch_install_version="torch==2.1.0+cpu torchvision==0.16.0+cpu"
+                ;;
+            5)
+                pytorch_install_version="torch==2.1.0+rocm5.6 torchvision==0.16.0+rocm5.6"
+                ;;
+            6)
+                pytorch_install_version="torch==1.12.1+cu113 torchvision==0.13.1+cu113 xformers==0.0.14"
+                ;;
+            7)
+                pytorch_install_version="torch==1.13.1+cu117 torchvision==0.14.1+cu117 xformers==0.0.16"
+                ;;
+            8)
+                pytorch_install_version="torch==2.0.0+cu118 torchvision==0.15.1+cu118 xformers==0.0.18"
+                ;;
+            9)
+                pytorch_install_version="torch==2.0.1+cu118 torchvision==0.15.2+cu118 xformers==0.0.22"
+                ;;
+            10)
+                pytorch_install_version="torch==2.1.0+cu121 torchvision==0.16.0+cu121 xformers==0.0.22"
+                ;;
+        esac
     fi
 }
 
@@ -111,12 +122,17 @@ function pip_install_methon()
         "2" "标准构建安装(--use-pep517)" \
         3>&1 1>&2 2>&3)
 
-    if [ $pip_install_methon_dialog = 1 ];then
-        pip_install_methon_select=""
-        final_install_check_pip_methon="常规安装(setup.py)"
-    elif [ $pip_install_methon_dialog = 2 ];then
-        pip_install_methon_select="--use-pep517"
-        final_install_check_pip_methon="标准构建安装(--use-pep517)"
+    if [ $? = 0 ];then
+        case $pip_install_methon_dialog in
+            1)
+                pip_install_methon_select=""
+                final_install_check_pip_methon="常规安装(setup.py)"
+                ;;
+            2)
+                pip_install_methon_select="--use-pep517"
+                final_install_check_pip_methon="标准构建安装(--use-pep517)"
+                ;;
+        esac
     fi
 }
 
