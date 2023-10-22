@@ -132,7 +132,7 @@ function invokeai_update_depend()
             tmp_disable_proxy
             create_venv
             enter_venv
-            pip_cmd freeze > requirements.txt #生成一个更新列表
+            pip_cmd freeze | awk -F'==' '{print $1}' > requirements.txt #生成一个更新列表
             requirements_python_package_update "./requirements.txt"
             rm -rf ./requirements.txt
             exit_venv
