@@ -91,6 +91,15 @@ https://www.kdocs.cn/l/cre0TwbMkdx3\n
 https://hazn93ygkcs.feishu.cn/wiki/JRydwXpCti1bxJkN6zNc4a8qnAe\n
 https://docs.qq.com/doc/p/230e7ada2a60d8e347d639edd5521f5e62332fe9\n
 \n
+推荐一些up主:\n
+bilibili@秋葉aaaki\n
+bilibili@青龙圣者\n
+bilibili@Nenly同学\n
+bilibili@只剩一瓶辣椒酱\n
+bilibili@大江户战士\n
+bilibili@独立研究员-星空\n
+bilibili@自带马赛克属性的阿尼\n
+\n
 \n
 " 25 70
 }

@@ -127,6 +127,7 @@ function comfyui_custom_node_option()
         "39" "AIGODLIKE-COMFYUI-TRANSLATION" OFF \
         "40" "stability-ComfyUI-nodes" OFF \
         "41" "ComfyUI_Fooocus_KSampler" OFF \
+        "42" "FreeU_Advanced" OFF \
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ]; then
@@ -255,6 +256,9 @@ function comfyui_custom_node_option()
                     ;;
                 41)
                     comfyui_custom_node_install_list="https://github.com/hustille/ComfyUI_Fooocus_KSampler $comfyui_custom_node_install_list"
+                    ;;
+                42)
+                    comfyui_custom_node_install_list="https://github.com/WASasquatch/FreeU_Advanced $comfyui_custom_node_install_list"
                     ;;
             esac
         done
