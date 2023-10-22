@@ -54,22 +54,26 @@ function select_repo()
     select_repo_exec=0
     change_repo_return="" #清除上次运行结果
 
-    select_repo_=$(dialog --clear --title "Term-SD" --backtitle "更新源选择界面" --ok-label "确认" --cancel-label "取消" --menu "选择要修改成的更新源\n当前将要修改更新源的AI软件:$term_sd_manager_info" 25 70 10 \
+    select_repo_dialog=$(dialog --clear --title "Term-SD" --backtitle "更新源选择界面" --ok-label "确认" --cancel-label "取消" --menu "选择要修改成的更新源\n当前将要修改更新源的AI软件:$term_sd_manager_info" 25 70 10 \
         "1" "官方源" \
         "2" "镜像源" \
         "3" "返回" \
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
-        if [ $select_repo_ = 1 ];then
-            print_line_to_shell "更新源一键替换"
-            export change_repo_cmd="change_repo_to_origin"
-        elif [ $select_repo_ = 2 ];then
-            print_line_to_shell "更新源一键替换"
-            export change_repo_cmd="change_repo_to_proxy"
-        elif [ $select_repo_ = 3 ];then
-            select_repo_exec=1
-        fi
+        case $select_repo_dialog in
+            1)
+                print_line_to_shell "更新源一键替换"
+                export change_repo_cmd="change_repo_to_origin"
+                ;;
+            2)
+                print_line_to_shell "更新源一键替换"
+                export change_repo_cmd="change_repo_to_proxy"
+                ;;
+            3)
+                select_repo_exec=1 #不执行替换
+                ;;
+        esac
     else
         select_repo_exec=1
     fi

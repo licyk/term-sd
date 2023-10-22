@@ -41,19 +41,17 @@ function process_install_a1111_sd_webui()
         pip_cmd install -r ./stable-diffusion-webui/requirements.txt --prefer-binary $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5 #安装stable-diffusion-webui的依赖
 
         term_sd_notice "生成配置中"
-        echo "{" > config-for-sd-webui.json
-        echo "    \"quicksettings_list\": [" >> config-for-sd-webui.json
-        echo "        \"sd_model_checkpoint\"," >> config-for-sd-webui.json
-        echo "        \"sd_vae\"," >> config-for-sd-webui.json
-        echo "        \"CLIP_stop_at_last_layers\"" >> config-for-sd-webui.json   
-        echo "    ]," >> config-for-sd-webui.json
-        echo "    \"save_to_dirs\": false," >> config-for-sd-webui.json
-        echo "    \"grid_save_to_dirs\": false," >> config-for-sd-webui.json
-        echo "    \"hires_fix_show_sampler\": true," >> config-for-sd-webui.json
-        echo "    \"CLIP_stop_at_last_layers\": 2" >> config-for-sd-webui.json
-        echo "}" >> config-for-sd-webui.json
-        mv -f config-for-sd-webui.json ./stable-diffusion-webui
-        mv -f ./stable-diffusion-webui/config-for-sd-webui.json ./stable-diffusion-webui/config.json
+        echo "{" > ./stable-diffusion-webui/config.json
+        echo "    \"quicksettings_list\": [" >> ./stable-diffusion-webui/config.json
+        echo "        \"sd_model_checkpoint\"," >> ./stable-diffusion-webui/config.json
+        echo "        \"sd_vae\"," >> ./stable-diffusion-webui/config.json
+        echo "        \"CLIP_stop_at_last_layers\"" >> ./stable-diffusion-webui/config.json   
+        echo "    ]," >> ./stable-diffusion-webui/config.json
+        echo "    \"save_to_dirs\": false," >> ./stable-diffusion-webui/config.json
+        echo "    \"grid_save_to_dirs\": false," >> ./stable-diffusion-webui/config.json
+        echo "    \"hires_fix_show_sampler\": true," >> ./stable-diffusion-webui/config.json
+        echo "    \"CLIP_stop_at_last_layers\": 2" >> ./stable-diffusion-webui/config.json
+        echo "}" >> ./stable-diffusion-webui/config.json
 
         if [ ! -z "$a1111_sd_webui_extension_install_list" ];then
             term_sd_notice "安装插件中"
@@ -64,7 +62,9 @@ function process_install_a1111_sd_webui()
 
         term_sd_notice "下载模型中"
         tmp_enable_proxy #恢复原有的代理,保证能从huggingface下载模型
-        aria2c $aria2_multi_threaded https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./stable-diffusion-webui/models/Stable-diffusion -o sd-v1-5.ckpt
+        aria2c $aria2_multi_threaded https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.safetensors -d ./stable-diffusion-webui/models/Stable-diffusion -o sd-v1-5.safetensors
+        aria2c $aria2_multi_threaded https://huggingface.co/stabilityai/sd-vae-ft-mse-original/resolve/main/vae-ft-mse-840000-ema-pruned.safetensors -d ./stable-diffusion-webui/models/VAE -o vae-ft-mse-840000-ema-pruned.safetensors
+        aria2c $aria2_multi_threaded https://huggingface.co/stabilityai/sd-vae-ft-ema-original/resolve/main/vae-ft-ema-560000-ema-pruned.safetensors -d ./stable-diffusion-webui/models/VAE -o vae-ft-ema-560000-ema-pruned.safetensors
         aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x-UltraSharp.pth -d ./stable-diffusion-webui/models/ESRGAN -o 4x-UltraSharp.pth
         aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/BSRGAN.pth -d ./stable-diffusion-webui/models/ESRGAN -o BSRGAN.pth
         aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/ESRGAN_4x.pth -d ./stable-diffusion-webui/models/ESRGAN -o ESRGAN_4x.pth

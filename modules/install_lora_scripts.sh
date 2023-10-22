@@ -35,7 +35,9 @@ function process_install_lora_scripts()
         cd ..
         tmp_enable_proxy #恢复原有的代理,保证能从huggingface下载模型
         term_sd_notice "下载模型中"
-        aria2c $aria2_multi_threaded https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt -d ./lora-scripts/sd-models/ -o model.ckpt
+        aria2c $aria2_multi_threaded https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.safetensors -d ./lora-scripts/sd-models/ -o model.safetensors
+        aria2c $aria2_multi_threaded https://huggingface.co/stabilityai/sd-vae-ft-mse-original/resolve/main/vae-ft-mse-840000-ema-pruned.safetensors -d ./ComfyUI/models/vae -o vae-ft-mse-840000-ema-pruned.safetensors
+        aria2c $aria2_multi_threaded https://huggingface.co/stabilityai/sd-vae-ft-ema-original/resolve/main/vae-ft-ema-560000-ema-pruned.safetensors -d ./ComfyUI/models/vae -o vae-ft-ema-560000-ema-pruned.safetensors
         term_sd_notice "安装结束"
         exit_venv
         print_line_to_shell
