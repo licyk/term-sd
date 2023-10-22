@@ -163,7 +163,7 @@ function term_sd_process_user_input()
                 if [ -f "./term-sd/extra/$i.sh" ];then
                     term_sd_notice "启动"$i"脚本中"
                     source ./term-sd/extra/$i.sh
-                    term_sd_notice "退出"$i"脚本中"
+                    term_sd_notice "退出"$i"脚本"
                 else
                     term_sd_notice "未找到"$i"脚本"
                     term_sd_notice "退出Term-SD"
@@ -220,11 +220,15 @@ function term_sd_extra_scripts()
             term_sd_version
             _main_
         elif [ $extra_script_dir_list_ = "退出" ];then
+            print_line_to_shell
+            term_sd_notice "退出Term-SD"
             exit 1
         else
             source ./term-sd/extra/$extra_script_dir_list_
         fi
     fi
+    print_line_to_shell
+    term_sd_notice "退出Term-SD"
     exit 1
 }
 

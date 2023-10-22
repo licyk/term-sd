@@ -859,6 +859,7 @@ function help_option_7()
 sd-webui-extension:安装sd-webui的插件\n
 comfyui-extension:安装ComfyUI的插件\n
 download-hanamizuki:下载绘世启动器\n
+list:列出可用的扩展脚本\n
 \n
 \n
 " 25 70
