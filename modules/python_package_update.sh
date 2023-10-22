@@ -4,7 +4,7 @@
 function requirements_python_package_update()
 {
     cat "$@" > tmp-python-package-update-list.txt #生成要更新的软件包名单
-    ignore_update_python_package_list="torch torchvision torchaudio xformers" #忽略更新的软件包名单
+    ignore_update_python_package_list="torch torchvision torchaudio xformers InvokeAI" #忽略更新的软件包名单
     for i in $ignore_update_python_package_list; do
         sed -i '/'$i'/d' ./tmp-python-package-update-list.txt 2> /dev/null  #将忽略的软件包从名单删除
     done

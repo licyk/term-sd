@@ -127,8 +127,8 @@ function restore_python_package_ver()
             term_sd_notice "卸载多余软件包中"
             pip_cmd uninstall -y -r ./tmp-python-pkg-no-vers.txt  #卸载名单中的依赖包
         fi
-        rm -rf tmp-python-pkg-no-vers.txt #删除卸载名单列表
-        rm -rf tmp-python-pkg-no-vers-bak.txt #删除不需要的包名文件缓存
+        rm -rf ./tmp-python-pkg-no-vers.txt #删除卸载名单列表
+        rm -rf ./tmp-python-pkg-no-vers-bak.txt #删除不需要的包名文件缓存
         print_line_to_shell "python软件包安装列表"
         term_sd_notice "将要安装以下python软件包"
         cat ./term-sd-python-pkg-backup/$python_package_ver_backup_list_dialog

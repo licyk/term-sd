@@ -52,9 +52,9 @@ function term_sd_process_user_input_early()
 
         #选项检测部分(如果选项要跟参数值,则设置触发获取参数的变量,命名为"term_sd_input_value_"+"选项名",赋值0,触发获取参数的功能后,赋值1)
         case $i in
-            "--help")
+            --help)
                 term_sd_notice "启动参数使用方法:"
-                echo "  term-sd.sh [--help] [--extra script_name] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--enable-new-bar] [--disable-new-bar]"
+                echo "  term-sd.sh [--help] [--extra script_name] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar]"
                 echo "选项:"
                 echo "  --help"
                 echo "        显示启动参数帮助"
@@ -88,39 +88,54 @@ function term_sd_process_user_input_early()
                 echo "        启用新的Term-SD初始化进度条"
                 echo "  --disable-new-bar"
                 echo "        禁用新的Term-SD初始化进度条"
+                echo "  --enable-bar"
+                echo "        启用Term-SD初始化进度显示(默认)"
+                echo "  --disable-bar"
+                echo "        禁用Term-SD初始化进度显示(加了进度显示只会降低Term-SD初始化速度)"
                 print_line_to_shell
                 exit 1
                 ;;
-            "--enable-auto-update")
+            --reinstall-term-sd)
+                term_sd_reinstall
+                ;;
+            --enable-auto-update)
                 term_sd_notice "启用Term-SD自动检查更新功能"
                 touch ./term-sd/term-sd-auto-update.lock
                 ;;
-            "--disable-auto-update")
+            --disable-auto-update)
                 term_sd_notice "禁用Term-SD自动检查更新功能"
                 rm -rf ./term-sd/term-sd-auto-update.lock
                 rm -rf ./term-sd/term-sd-auto-update-time.conf
                 ;;
-            "--set-python-path")
+            --set-python-path)
                 term_sd_input_value_set_python_path=0
                 ;;
-            "--set-pip-path")
+            --set-pip-path)
                 term_sd_input_value_set_pip_path=0
                 ;;
-            "--unset-python-path")
+            --unset-python-path)
                 rm -f ./term-sd/python-path.conf
                 term_sd_notice "已删除自定义python解释器路径配置"
                 ;;
-            "--unset-pip-path")
+            --unset-pip-path)
                 rm -f ./term-sd/pip-path.conf
                 term_sd_notice "已删除自定义pip解释器路径配置"
                 ;;
-            "--enable-new-bar")
+            --enable-new-bar)
                 term_sd_notice "启用新的Term-SD初始化进度条"
                 touch ./term-sd/term-sd-new-bar.lock
                 ;;
-            "--disable-new-bar")
+            --disable-new-bar)
                 term_sd_notice "禁用新的Term-SD初始化进度条"
                 rm -rf ./term-sd/term-sd-new-bar.lock
+                ;;
+            --enable-bar)
+                rm -f ./term-sd/term-sd-no-bar.lock
+                term_sd_notice "启用Term-SD初始化进度显示(默认)"
+                ;;
+            --disable-bar)
+                touch ./term-sd/term-sd-no-bar.lock
+                term_sd_notice "禁用Term-SD初始化进度显示(加了进度显示只会降低Term-SD初始化速度)"
                 ;;
         esac
 
@@ -162,25 +177,25 @@ function term_sd_process_user_input()
 
         #选项检测部分(如果选项要跟参数值,则设置触发获取参数的变量,命名为"term_sd_input_value_"+"选项名",赋值0,触发获取参数的功能后,赋值1)
         case $i in
-            "--remove-term-sd")
+            --remove-term-sd)
                 remove_term_sd
                 ;;
-            "--quick-cmd")
+            --quick-cmd)
                 install_cmd_to_shell
                 exit 1
                 ;;
-            "--multi-threaded-download")
+            --multi-threaded-download)
                 term_sd_notice "安装过程中启用多线程下载模型"
                 export aria2_multi_threaded="-x 8"
                 ;;
-            "--update-pip")
+            --update-pip)
                 export pip_manager_update=0
                 term_sd_notice "进入虚拟环境时将更新pip软件包管理器"
                 ;;
-            "--test-network")
+            --test-network)
                 term_sd_test_network
                 ;;
-            "--extra")
+            --extra)
                 term_sd_input_value_extra=0
                 ;;
         esac
@@ -364,36 +379,30 @@ function term_sd_install()
 function term_sd_reinstall()
 {
     term_sd_install_option=""
-    for i in "$@" ;do
-        case $i in
-        "--reinstall-term-sd")
-        term_sd_notice "是否重新安装Term-SD(yes/no)?"
-        term_sd_notice "提示:输入yes或no后回车"
-        read -p "===============================> " term_sd_install_option
-        if [ ! -z $term_sd_install_option ];then
-            if [ $term_sd_install_option = yes ] || [ $term_sd_install_option = y ] || [ $term_sd_install_option = YES ] || [ $term_sd_install_option = Y ];then
-                term_sd_install_mirror_select
-                term_sd_notice "清除Term-SD文件中"
-                rm -rf ./term-sd
-                term_sd_notice "清除完成,开始安装Term-SD"
-                git clone $term_sd_install_mirror
-                if [ $? = 0 ];then
-                    cp -f ./term-sd/term-sd.sh .
-                    chmod +x ./term-sd.sh
-                    term_sd_notice "Term-SD安装成功"
-                else
-                    term_sd_notice "Term-SD安装失败"
-                    exit 1
-                fi
+    term_sd_notice "是否重新安装Term-SD(yes/no)?"
+    term_sd_notice "提示:输入yes或no后回车"
+    read -p "===============================> " term_sd_install_option
+    if [ ! -z $term_sd_install_option ];then
+        if [ $term_sd_install_option = yes ] || [ $term_sd_install_option = y ] || [ $term_sd_install_option = YES ] || [ $term_sd_install_option = Y ];then
+            term_sd_install_mirror_select
+            term_sd_notice "清除Term-SD文件中"
+            rm -rf ./term-sd
+            term_sd_notice "清除完成,开始安装Term-SD"
+            git clone $term_sd_install_mirror
+            if [ $? = 0 ];then
+                cp -f ./term-sd/term-sd.sh .
+                chmod +x ./term-sd.sh
+                term_sd_notice "Term-SD安装成功"
             else
+                term_sd_notice "Term-SD安装失败"
                 exit 1
             fi
         else
             exit 1
         fi
-        ;;
-        esac
-    done
+    else
+        exit 1
+    fi
 }
 
 #term-sd下载源选择
@@ -904,7 +913,7 @@ function term_sd_env_prepare()
 #################################################
 
 #term-sd版本
-term_sd_version_="0.6.0"
+term_sd_version_="0.6.1"
 
 #判断启动状态(在shell中,新变量的值为空,且不需要定义就可以使用,不像c语言中要求那么严格)
 if [ ! -z $term_sd_env_prepare_info ] && [ $term_sd_env_prepare_info = 0 ];then #检测term-sd是直接启动还是重启

@@ -16,10 +16,11 @@ function invokeai_option()
                 "1" "更新" \
                 "2" "卸载" \
                 "3" "启动" \
-                "4" "重新安装" \
-                "5" "重新安装pytorch" \
-                "6" "python软件包安装/重装/卸载" \
-                "7" "依赖库版本管理" \
+                "4" "更新依赖" \
+                "5" "重新安装" \
+                "6" "重新安装pytorch" \
+                "7" "python软件包安装/重装/卸载" \
+                "8" "依赖库版本管理" \
                 $dialog_recreate_venv_button \
                 $dialog_rebuild_venv_button \
                 "20" "返回" \
@@ -63,6 +64,10 @@ function invokeai_option()
                         invokeai_option
                         ;;
                     4)
+                        invokeai_update_depend
+                        invokeai_option
+                        ;;
+                    5)
                         if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装InvokeAI?" 25 70) then
                             cd "$start_path"
                             exit_venv
@@ -71,15 +76,15 @@ function invokeai_option()
                             invokeai_option
                         fi
                         ;;
-                    5)
+                    6)
                         pytorch_reinstall
                         invokeai_option
                         ;;
-                    6)
+                    7)
                         manage_python_packages
                         invokeai_option
                         ;;
-                    7)
+                    8)
                         python_package_ver_backup_or_restore
                         invokeai_option
                         ;;
@@ -108,6 +113,32 @@ function invokeai_option()
     else
         if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI安装选项" --yes-label "是" --no-label "否" --yesno "检测到当前未安装InvokeAI,是否进行安装?" 25 70) then
           process_install_invokeai
+        fi
+    fi
+}
+
+#invokeai更新依赖功能
+function invokeai_update_depend()
+{
+    if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI依赖更新选项" --yes-label "是" --no-label "否" --yesno "是否更新InvokeAI的依赖?" 25 70);then
+        #更新前的准备
+        proxy_option #代理选择
+        pip_install_methon #安装方式选择
+        final_install_check #安装前确认
+
+        if [ $final_install_check_exec = 0 ];then
+            print_line_to_shell "InvokeAI依赖更新"
+            term_sd_notice "更新InvokeAI依赖中"
+            tmp_disable_proxy
+            create_venv
+            enter_venv
+            pip_cmd freeze > requirements.txt #生成一个更新列表
+            requirements_python_package_update "./requirements.txt"
+            rm -rf ./requirements.txt
+            exit_venv
+            tmp_enable_proxy
+            term_sd_notice "更新InvokeAI依赖结束"
+            print_line_to_shell
         fi
     fi
 }

@@ -45,8 +45,9 @@ function term_sd_process_bar()
     term_sd_init_bar_display='█' #已完成的进度显示效果
     term_sd_init_bar="" #清空进度条
 
-    for i in $(seq 1 "${term_sd_process_bar_initial_length}"); do #这个循环将空的进度条填上一堆空格
-        if [ $i -gt $term_sd_process_bar_length ] ; then #更换进度条的内容(term_sd_init_bar_display)
+    #这个for嵌套在另一个for里,共用一个i会影响"source $i"的运行
+    for n in $(seq 1 "${term_sd_process_bar_initial_length}"); do #这个循环将空的进度条填上一堆空格
+        if [ $n -gt $term_sd_process_bar_length ] ; then #更换进度条的内容(term_sd_init_bar_display)
             term_sd_init_bar_display=' '
         fi
         term_sd_init_bar="${term_sd_init_bar}${term_sd_init_bar_display}" #一开始是空的，通过循环填上一堆空格,然后逐渐减少空格数量,增加方块符号的数量
@@ -54,9 +55,22 @@ function term_sd_process_bar()
     printf "[$(date "+%Y-%m-%d %H:%M:%S")][Term-SD]:: 加载模块中|${term_sd_init_bar}| ${term_sd_modules_number_mark}%%\r"
 }
 
+#无进度显示的初始化功能(增加进度显示只会降低加载速度)
+function term_sd_init_no_bar()
+{
+    for i in ./term-sd/modules/*.sh ;do
+        [ $i = "./term-sd/modules/init.sh" ] && continue
+        source $i
+    done
+    term_sd_notice "初始化Term-SD完成"
+    print_line_to_shell
+}
+
 #初始化功能
-if [ ! -f "./term-sd/term-sd-new-bar.lock" ];then
-    term_sd_init
-else
+if [ -f "./term-sd/term-sd-no-bar.lock" ];then
+    term_sd_init_no_bar
+elif [ -f "./term-sd/term-sd-new-bar.lock" ];then
     term_sd_init_new
+else
+    term_sd_init
 fi
