@@ -50,8 +50,8 @@ function set_proxy_option()
                     rm -rf ./term-sd/proxy.conf
                     export http_proxy=""
                     export https_proxy=""
-                    set_proxy_option
                 fi
+                set_proxy_option
                 ;;
             5)
                 term_sd_network_test
