@@ -725,14 +725,6 @@ function term_sd_test_network()
     sleep 5
 }
 
-#主程序
-function _main_()
-{
-    while : ;do #主界面死循环部分,防止运行一次后就直接结束运行
-        mainmenu
-    done
-}
-
 #term-sd准备环境功能
 function term_sd_env_prepare()
 {
