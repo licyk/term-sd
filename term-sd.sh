@@ -4,7 +4,7 @@
 # 脚本已在Windows,Linux上做过测试,MacOS未做过测试,可能会有问题
 # https://stackoverflow.com/questions/24332942/why-awk-script-does-not-work-on-mac-os-but-works-on-linux
 # 未知MacOS上自带的awk是否会对脚本的运行产生影响
-# 安装过程使用huggingface下载模型,需要科学上网,国内有modelscope,但是需要使用api或者git来下载模型,所以没考虑
+# 安装过程使用huggingface下载模型,需要科学上网,虽然国内有modelscope,但是需要使用api或者git来下载模型,所以没考虑
 
 # licyk
 ###################
@@ -266,8 +266,8 @@ function term_sd_auto_update()
             term_sd_notice "是否选择更新(yes/no)?"
             term_sd_notice "提示:输入yes或no后回车"
             read -p "===============================> " term_sd_auto_update_option
-            if [ ! -z $term_sd_auto_update_option ];then
-                if [ $term_sd_auto_update_option = yes ] || [ $term_sd_auto_update_option = y ] || [ $term_sd_auto_update_option = YES ] || [ $term_sd_auto_update_option = Y ];then
+            case $term_sd_auto_update_option in
+                yes|y|YES|Y)
                     term_sd_notice "更新Term-SD中"
                     cd ./term-sd
                     git_pull_info=""
@@ -281,8 +281,8 @@ function term_sd_auto_update()
                     else
                         term_sd_update_fix
                     fi
-                fi
-            fi
+                    ;;
+            esac
         else
             term_sd_notice "Term-SD已经是最新版本"
         fi
@@ -300,8 +300,9 @@ function term_sd_update_fix()
     term_sd_notice "是否修复Term-SD的更新(yes/no)?"
     term_sd_notice "提示:输入yes或no后回车"
     read -p "===============================> " term_sd_auto_update_option
-    if [ ! -z $term_sd_auto_update_option ];then
-        if [ $term_sd_auto_update_option = yes ] || [ $term_sd_auto_update_option = y ] || [ $term_sd_auto_update_option = YES ] || [ $term_sd_auto_update_option = Y ];then
+
+    case $term_sd_auto_update_option in
+        yes|y|YES|Y)
             term_sd_notice "修复Term-SD更新中"
             cd ./term-sd
             term_sd_local_main_branch=$(git branch -a | grep HEAD | awk -F'/' '{print $NF}') #term-sd主分支
@@ -321,8 +322,8 @@ function term_sd_update_fix()
             else
                 term_sd_notice "如果出错的可能是网络原因导致无法连接到更新源,可通过更换更新源或使用科学上网解决"
             fi
-        fi
-    fi
+            ;;
+    esac
 }
 
 #term-sd安装功能
@@ -333,8 +334,9 @@ function term_sd_install()
         term_sd_notice "检测到Term-SD未安装,是否进行安装(yes/no)?"
         term_sd_notice "提示:输入yes或no后回车"
         read -p "===============================> " term_sd_install_option
-        if [ ! -z $term_sd_install_option ];then
-            if [ $term_sd_install_option = yes ] || [ $term_sd_install_option = y ] || [ $term_sd_install_option = YES ] || [ $term_sd_install_option = Y ];then
+    
+        case $term_sd_install_option in
+            yes|y|YES|Y)
                 term_sd_install_mirror_select
                 term_sd_notice "下载Term-SD中"
                 git clone $term_sd_install_mirror
@@ -346,18 +348,18 @@ function term_sd_install()
                     term_sd_notice "Term-SD安装失败"
                     exit 1
                 fi
-            else
+                ;;
+            *)
                 exit 1
-            fi
-        else
-            exit 1
-        fi
+                ;;
+        esac
     elif [ ! -d "./term-sd/.git" ];then
         term_sd_notice "检测到Term-SD的.git目录不存在,将会导致Term-SD无法更新,是否重新安装(yes/no)?"
         term_sd_notice "提示:输入yes或no后回车"
         read -p "===============================> " term_sd_install_option
-        if [ ! -z $term_sd_install_option ];then
-            if [ $term_sd_install_option = yes ] || [ $term_sd_install_option = y ] || [ $term_sd_install_option = YES ] || [ $term_sd_install_option = Y ];then
+
+        case $term_sd_install_option in
+            yes|y|YES|Y)
                 term_sd_install_mirror_select
                 term_sd_notice "清除Term-SD文件中"
                 rm -rf ./term-sd
@@ -371,38 +373,40 @@ function term_sd_install()
                     term_sd_notice "Term-SD安装失败"
                     exit 1
                 fi
-            fi
-        fi
+                ;;
+        esac
     fi
 }
 
 #term-sd重新安装功能
 function term_sd_reinstall()
 {
-    term_sd_install_option=""
-    term_sd_notice "是否重新安装Term-SD(yes/no)?"
-    term_sd_notice "提示:输入yes或no后回车"
-    read -p "===============================> " term_sd_install_option
-    if [ ! -z $term_sd_install_option ];then
-        if [ $term_sd_install_option = yes ] || [ $term_sd_install_option = y ] || [ $term_sd_install_option = YES ] || [ $term_sd_install_option = Y ];then
-            term_sd_install_mirror_select
-            term_sd_notice "清除Term-SD文件中"
-            rm -rf ./term-sd
-            term_sd_notice "清除完成,开始安装Term-SD"
-            git clone $term_sd_install_mirror
-            if [ $? = 0 ];then
-                cp -f ./term-sd/term-sd.sh .
-                chmod +x ./term-sd.sh
-                term_sd_notice "Term-SD安装成功"
-            else
-                term_sd_notice "Term-SD安装失败"
+    if which git > /dev/null 2> /dev/null ;then
+        term_sd_install_option=""
+        term_sd_notice "是否重新安装Term-SD(yes/no)?"
+        term_sd_notice "提示:输入yes或no后回车"
+        read -p "===============================> " term_sd_install_option
+
+        case $term_sd_install_option in
+            yes|y|YES|Y)
+                term_sd_install_mirror_select
+                term_sd_notice "清除Term-SD文件中"
+                rm -rf ./term-sd
+                term_sd_notice "清除完成,开始安装Term-SD"
+                git clone $term_sd_install_mirror
+                if [ $? = 0 ];then
+                    cp -f ./term-sd/term-sd.sh .
+                    chmod +x ./term-sd.sh
+                    term_sd_notice "Term-SD安装成功"
+                else
+                    term_sd_notice "Term-SD安装失败"
+                    exit 1
+                fi
+                ;;
+            *)
                 exit 1
-            fi
-        else
-            exit 1
-        fi
-    else
-        exit 1
+                ;;
+        esac
     fi
 }
 
@@ -417,33 +421,29 @@ function term_sd_install_mirror_select()
     term_sd_notice "4、代理源(ghproxy.com)"
     term_sd_notice "提示:输入数字后回车"
     read -p "===============================> " term_sd_install_option
-    if [ ! -z $term_sd_install_option ];then
-        case $term_sd_install_option in
-            1)
-                term_sd_notice "选择github源"
-                term_sd_install_mirror="https://github.com/licyk/term-sd"
-                ;;
-            2)
-                term_sd_notice "选择gitlab源"
-                term_sd_install_mirror="https://gitlab.com/licyk/term-sd"
-                ;;
-            3)
-                term_sd_notice "选择gitee源"
-                term_sd_install_mirror="https://gitee.com/four-dishes/term-sd"
-                ;;
-            4)
-                term_sd_notice "选择代理源(ghproxy.com)"
-                term_sd_install_mirror="https://ghproxy.com/https://github.com/licyk/term-sd"
-                ;;
-            *)
-                term_sd_notice "输入有误,请重试"
-                term_sd_install_mirror_select
-                ;;
-        esac
-    else
-        term_sd_notice "未输入,请重试"
-        term_sd_install_mirror_select
-    fi
+
+    case $term_sd_install_option in
+        1)
+            term_sd_notice "选择github源"
+            term_sd_install_mirror="https://github.com/licyk/term-sd"
+            ;;
+        2)
+            term_sd_notice "选择gitlab源"
+            term_sd_install_mirror="https://gitlab.com/licyk/term-sd"
+            ;;
+        3)
+            term_sd_notice "选择gitee源"
+            term_sd_install_mirror="https://gitee.com/four-dishes/term-sd"
+            ;;
+        4)
+            term_sd_notice "选择代理源(ghproxy.com)"
+            term_sd_install_mirror="https://ghproxy.com/https://github.com/licyk/term-sd"
+            ;;
+        *)
+            term_sd_notice "输入有误,请重试"
+            term_sd_install_mirror_select
+            ;;
+    esac
 }
 
 #term-sd卸载功能
@@ -453,35 +453,37 @@ function remove_term_sd()
     term_sd_notice "是否卸载Term-SD"
     term_sd_notice "提示:输入yes或no后回车"
     read -p "===============================> " remove_term_sd_option
-    if [ ! -z  $remove_term_sd_option ];then
-        if [ $remove_term_sd_option = yes ] || [ $remove_term_sd_option = y ] || [ $remove_term_sd_option = YES ] || [ $remove_term_sd_option = Y ];then
+
+    case $remove_term_sd_option in
+        y|yes|YES|Y)
             term_sd_notice "开始卸载Term-SD"
             rm -rf ./term-sd
             rm -rf ./term-sd.sh
             user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') #读取用户所使用的shell
             if [ $user_shell = bash ] || [ $user_shell = zsh ];then
+                sed -i '/# Term-SD/d' ~/."$user_shell"rc
                 sed -i '/termsd(){/d' ~/."$user_shell"rc
                 sed -i '/alias tsd/d' ~/."$user_shell"rc
             fi
             term_sd_notice "Term-SD卸载完成"
-        fi
-    fi
+            ;;
+    esac
     exit 1
 }
 
 #term-sd添加快捷命令功能
 function install_cmd_to_shell()
 {
-    if [ $user_shell = bash ] || [ $user_shell = zsh ];then
-        term_sd_notice "是否将Term-SD快捷启动指令添加到shell环境中?"
-        term_sd_notice "添加后可使用\"termsd\"指令启动Term-SD"
-        term_sd_notice "1、添加"
-        term_sd_notice "2、删除"
-        term_sd_notice "3、退出"
-        term_sd_notice "提示:输入数字后回车"
-        read -p "===============================> " install_to_shell_option
+    case $user_shell in
+        bash|zsh)
+            term_sd_notice "是否将Term-SD快捷启动指令添加到shell环境中?"
+            term_sd_notice "添加后可使用\"termsd\"指令启动Term-SD"
+            term_sd_notice "1、添加"
+            term_sd_notice "2、删除"
+            term_sd_notice "3、退出"
+            term_sd_notice "提示:输入数字后回车"
+            read -p "===============================> " install_to_shell_option
 
-        if [ ! -z $install_to_shell_option ];then
             case $install_to_shell_option in
                 1)
                     install_config_to_shell
@@ -497,13 +499,11 @@ function install_cmd_to_shell()
                     install_cmd_to_shell
                     ;;
             esac
-        else
-            term_sd_notice "未输入,请重试"
-            install_cmd_to_shell
-        fi
-    else
-        term_sd_notice "不支持该shell"
-    fi
+            ;;
+        *)
+            term_sd_notice "不支持该shell"
+            ;;
+    esac
 }
 
 #term-sd快捷命令安装功能
@@ -511,20 +511,20 @@ function install_config_to_shell()
 {
     #将要向.bashrc写入的配置
     term_sd_shell_config="termsd(){ term_sd_start_path=\$(pwd) ; cd \"$term_sd_install_path\" ; ./term-sd.sh \"\$@\" ; cd \"\$term_sd_start_path\" > /dev/null ; }"
-    if [ $user_shell = bash ] || [ $user_shell = zsh ];then
-        if cat ~/."$user_shell"rc | grep termsd > /dev/null ;then
-            term_sd_notice "配置已存在,添加前请删除原有配置"
-        else
-            echo $term_sd_shell_config >> ~/."$user_shell"rc
-            echo "alias tsd='termsd'" >> ~/."$user_shell"rc
-            term_sd_notice "配置添加完成,重启shell以生效"
-        fi
+    if cat ~/."$user_shell"rc | grep termsd > /dev/null ;then
+        term_sd_notice "配置已存在,添加前请删除原有配置"
+    else
+        echo "# Term-SD" >> ~/."$user_shell"rc
+        echo $term_sd_shell_config >> ~/."$user_shell"rc
+        echo "alias tsd='termsd'" >> ~/."$user_shell"rc
+        term_sd_notice "配置添加完成,重启shell以生效"
     fi
 }
 
 #term-sd快捷命令卸载功能
 function remove_config_from_shell()
 {
+    sed -i '/# Term-SD/d' ~/."$user_shell"rc
     sed -i '/termsd(){/d' ~/."$user_shell"rc
     sed -i '/alias tsd/d' ~/."$user_shell"rc
     term_sd_notice "配置已删除,重启shell以生效"
@@ -556,25 +556,28 @@ function print_line_to_shell()
         #判断字符宽度大小是否是单双数
         print_word_info=$(( $shell_word_width % 2 ))
         
-        if [ $print_line_info = 0 ];then #如果终端宽度大小是双数
-            case $print_word_info in
-                0) #如果字符宽度大小是双数
-                    print_line_methon=2
-                    ;;
-                1) #如果字符宽度大小是单数
-                    print_line_methon=3
-                    ;;
-            esac
-        elif [ $print_line_info = 1 ];then #如果终端宽度大小是单数数
-            case $print_word_info in
-                0) #如果字符宽度大小是双数
-                    print_line_methon=2
-                    ;;
-                1) #如果字符宽度大小是单数
-                    print_line_methon=3
-                    ;;
-            esac
-        fi
+        case $print_line_info in
+            0) #如果终端宽度大小是双数
+                case $print_word_info in
+                    0) #如果字符宽度大小是双数
+                        print_line_methon=2
+                        ;;
+                    1) #如果字符宽度大小是单数
+                        print_line_methon=3
+                        ;;
+                esac
+                ;;
+            1) #如果终端宽度大小是单数数
+                case $print_word_info in
+                    0) #如果字符宽度大小是双数
+                        print_line_methon=2
+                        ;;
+                    1) #如果字符宽度大小是单数
+                        print_line_methon=3
+                        ;;
+                esac
+                ;;
+        esac
 
         print_line_to_shell_methon
     fi
