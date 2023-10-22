@@ -4,6 +4,7 @@
 # 脚本已在Windows,Linux上做过测试,MacOS未做过测试,可能会有问题
 # https://stackoverflow.com/questions/24332942/why-awk-script-does-not-work-on-mac-os-but-works-on-linux
 # 未知MacOS上自带的awk是否会对脚本的运行产生影响
+# 安装过程使用huggingface下载模型,需要科学上网,国内有modelscope,但是需要使用api或者git来下载模型,所以没考虑
 
 # licyk
 ###################
@@ -131,11 +132,11 @@ function term_sd_process_user_input_early()
                 ;;
             --enable-bar)
                 rm -f ./term-sd/term-sd-no-bar.lock
-                term_sd_notice "启用Term-SD初始化进度显示(默认)"
+                term_sd_notice "启用Term-SD初始化进度显示"
                 ;;
             --disable-bar)
                 touch ./term-sd/term-sd-no-bar.lock
-                term_sd_notice "禁用Term-SD初始化进度显示(加了进度显示只会降低Term-SD初始化速度)"
+                term_sd_notice "禁用Term-SD初始化进度显示"
                 ;;
         esac
 
