@@ -891,7 +891,6 @@ function term_sd_env_prepare()
     if [ $test_num -ge 5 ];then
         term_sd_notice "检测完成"
         terminal_size_test #检测终端大小
-        term_sd_reinstall "$@"
         term_sd_install
         if [ -d "./term-sd/modules" ];then #找到目录后才启动
             term_sd_auto_update_trigger
