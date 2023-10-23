@@ -15,6 +15,14 @@ function option_or_value_test()
     echo $@ | awk -F ' ' '{for (i=1; i<=NF; i++) {if (substr($i, 1, 2) == "--") {print "0"} else {print "1"}}}'
 }
 
+#term-sd未知启动参数提醒
+function term_sd_launch_unknown_option_notice()
+{
+    if [ $(option_or_value_test "$i") = 0 ];then #测试输入值是参数还是选项
+        term_sd_notice "未知参数 \"$i\""
+    fi
+}
+
 #term-sd处理用户输入功能(早期进行配置时使用)
 function term_sd_process_user_input_early()
 {
@@ -131,6 +139,9 @@ function term_sd_process_user_input_early()
                 touch ./term-sd/term-sd-no-bar.lock
                 term_sd_notice "禁用Term-SD初始化进度显示"
                 ;;
+            *)
+                term_sd_launch_unknown_option_notice
+                ;;
         esac
 
     done
@@ -186,6 +197,9 @@ function term_sd_process_user_input()
                 ;;
             --extra)
                 term_sd_launch_option="--extra"
+                ;;
+            *)
+                term_sd_launch_unknown_option_notice
                 ;;
         esac
 
