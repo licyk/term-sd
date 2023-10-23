@@ -27,7 +27,7 @@ function set_proxy_option()
                 ;;
             2)
                 proxy_config=$(dialog --clear --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入代理地址\n格式:<ip>:<port>" 25 70 "$(echo $http_proxy | awk -F'://' '{print $NF}')" 3>&1 1>&2 2>&3)
-                proxy_config=$(echo $proxy_config | awk '{gsub(/[：]/, ":")}1') #防止用户输入中文冒号后导致错误
+                proxy_config=$(echo $proxy_config | awk '{gsub(/[：]/, ":")}1' | awk '{gsub(/[。]/, ".")}1') #防止用户输入中文冒号,句号后导致错误
                 if [ ! -z $proxy_config ];then
                     export http_proxy="socks://$proxy_config"
                     export https_proxy="socks://$proxy_config"
@@ -37,7 +37,7 @@ function set_proxy_option()
                 ;;
             3)
                 proxy_config=$(dialog --clear --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入代理地址\n格式:<ip>:<port>" 25 70 "$(echo $http_proxy | awk -F'://' '{print $NF}')" 3>&1 1>&2 2>&3)
-                proxy_config=$(echo $proxy_config | awk '{gsub(/[：]/, ":")}1') #防止用户输入中文冒号后导致错误
+                proxy_config=$(echo $proxy_config | awk '{gsub(/[：]/, ":")}1' | awk '{gsub(/[。]/, ".")}1') #防止用户输入中文冒号,句号后导致错误
                 if [ ! -z $proxy_config ];then
                     export http_proxy="socks5://$proxy_config"
                     export https_proxy="socks5://$proxy_config"

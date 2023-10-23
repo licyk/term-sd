@@ -18,42 +18,35 @@ function option_or_value_test()
 #term-sd处理用户输入功能(早期进行配置时使用)
 function term_sd_process_user_input_early()
 {
-    #重置变量
-    term_sd_input_value_set_python_path=1
-    term_sd_input_value_set_pip_path=1
-
     #用别的方法实现了getopt命令的功能
     #加一个--null是为了增加一次循环,保证那些需要参数的选项能成功执行
     for i in "$@" "--null" ;do
+        term_sd_launch_option_args="$i" #用作判断是参数还是选项
 
         #参数检测部分
-        #检测--set-python-path
-        if [ $term_sd_input_value_set_python_path = 0 ];then #检测到有--set-python-path参数
-            term_sd_input_value_set_python_path=1 #重置状态
-            if [ $(option_or_value_test $i) = 1 ];then #测试输入值是参数还是选项
-                #是参数
-                set_python_path_direct "$i"
-            else #是选项
-                set_python_path
+        if [ ! -z $term_sd_launch_option ];then
+            if [ $(option_or_value_test "$term_sd_launch_option_args") = 0 ];then #测试输入值是参数还是选项
+                term_sd_launch_option_args="" #检测到选项的下一项是选项,直接清除
             fi
-        fi
 
-        #--set-pip-path
-        if [ $term_sd_input_value_set_pip_path = 0 ];then #检测到有--set-pip-path参数
-            term_sd_input_value_set_pip_path=1 #重置状态
-            if [ $(option_or_value_test $i) = 1 ];then #测试输入值是参数还是选项
-                #是参数
-                set_pip_path_direct "$i"
-            else #是选项
-                set_pip_path
-            fi
+            #检测输入的选项
+            case $term_sd_launch_option in
+                --set-python-path)
+                    set_python_path $term_sd_launch_option_args
+                    ;;
+                --set-pip-path)
+                    set_pip_path $term_sd_launch_option_args
+                    ;;
+            esac
+            term_sd_launch_option="" #清除选项,留给下一次判断
         fi
 
         ####################
 
-        #选项检测部分(如果选项要跟参数值,则设置触发获取参数的变量,命名为"term_sd_input_value_"+"选项名",赋值0,触发获取参数的功能后,赋值1)
+        #选项检测部分(如果选项要跟参数值,则将启动选项赋值给term_sd_launch_option)
         case $i in
             --help)
+                print_line_to_shell
                 term_sd_notice "启动参数使用方法:"
                 echo "  term-sd.sh [--help] [--extra script_name] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar]"
                 echo "选项:"
@@ -109,10 +102,10 @@ function term_sd_process_user_input_early()
                 rm -rf ./term-sd/term-sd-auto-update-time.conf
                 ;;
             --set-python-path)
-                term_sd_input_value_set_python_path=0
+                term_sd_launch_option="--set-python-path"
                 ;;
             --set-pip-path)
-                term_sd_input_value_set_pip_path=0
+                term_sd_launch_option="--set-pip-path"
                 ;;
             --unset-python-path)
                 rm -f ./term-sd/python-path.conf
@@ -149,29 +142,24 @@ function term_sd_process_user_input()
     #重置变量
     export pip_manager_update=1
     export aria2_multi_threaded=""
-    term_sd_input_value_extra=1
 
     #加一个--null是为了增加一次循环,保证那些需要参数的选项能成功执行
     for i in "$@" "--null" ;do
+        term_sd_launch_option_args="$i" #用作判断是参数还是选项
 
         #参数检测部分
-        #直接启动扩展脚本
-        if [ $term_sd_input_value_extra = 0 ];then #检测到有--extra参数
-            term_sd_input_value_extra=1
-            if [ $(option_or_value_test $i) = 1 ];then #判断--extra下一个值是参数还是选项
-                i=$(echo $i | awk '{sub(".sh","")}1') #处理后缀名
-                if [ -f "./term-sd/extra/$i.sh" ];then
-                    term_sd_notice "启动"$i"脚本中"
-                    source ./term-sd/extra/$i.sh
-                    term_sd_notice "退出"$i"脚本"
-                else
-                    term_sd_notice "未找到"$i"脚本"
-                    term_sd_notice "退出Term-SD"
-                fi
-                exit 1
-            else
-                term_sd_extra_scripts
+        if [ ! -z $term_sd_launch_option ];then
+            if [ $(option_or_value_test "$term_sd_launch_option_args") = 0 ];then #测试输入值是参数还是选项
+                term_sd_launch_option_args="" #检测到选项的下一项是选项,直接清除
             fi
+
+            #检测输入的选项
+            case $term_sd_launch_option in
+                --extra)
+                    term_sd_extra_scripts_launch $term_sd_launch_option_args
+                    ;;
+            esac
+            term_sd_launch_option="" #清除选项,留给下一次判断
         fi
 
         ####################
@@ -197,11 +185,32 @@ function term_sd_process_user_input()
                 term_sd_test_network
                 ;;
             --extra)
-                term_sd_input_value_extra=0
+                term_sd_launch_option="--extra"
                 ;;
         esac
 
     done
+}
+
+#扩展脚本启动功能
+function term_sd_extra_scripts_launch()
+{
+    if [ -z "$@" ];then
+        term_sd_extra_scripts
+    else
+        if [ -f "./term-sd/extra/$@.sh" ];then
+            term_sd_notice "启动"$@"脚本中"
+            source ./term-sd/extra/$@.sh
+            print_line_to_shell
+            term_sd_notice "退出"$@"脚本"
+            exit 1
+        else
+            print_line_to_shell
+            term_sd_notice "未找到"$@"脚本"
+            term_sd_notice "退出Term-SD"
+            exit 1
+        fi
+    fi
 }
 
 #扩展脚本列表
@@ -608,17 +617,26 @@ function print_line_to_shell_methon()
 #手动指定python路径功能
 function set_python_path()
 {
-    term_sd_notice "请输入python解释器的路径"
-    term_sd_notice "提示:输入完后请回车保存,或者输入exit退出"
-    read -p "===============================> " set_python_path_option
-    if [ -z "$set_python_path_option" ];then
-        term_sd_notice "未输入，请重试"
-        set_python_path
-    elif [ "$set_python_path_option" = "exit" ];then
-        term_sd_notice "退出python路径指定功能"
-    else
-        term_sd_python_path="$set_python_path_option"
-        echo $term_sd_python_path > ./term-sd/python-path.conf
+    if [ -z "$@" ];then
+        term_sd_notice "请输入python解释器的路径"
+        term_sd_notice "提示:输入完后请回车保存,或者输入exit退出"
+        read -p "===============================> " set_python_path_option
+        if [ -z "$set_python_path_option" ];then
+            term_sd_notice "未输入，请重试"
+            set_python_path
+        elif [ "$set_python_path_option" = "exit" ];then
+            term_sd_notice "退出python路径指定功能"
+        else
+            term_sd_python_path="$set_python_path_option"
+            echo $term_sd_python_path > ./term-sd/python-path.conf
+            term_sd_notice "python解释器路径指定完成"
+            term_sd_notice "提示:"
+            term_sd_notice "使用--set-python-path重新设置python解释器路径"
+            term_sd_notice "使用--unset-python-path删除python解释器路径设置"
+        fi
+    else #直接将选项后面的参数作为路径
+        term_sd_notice "设置python解释器路径: $@"
+        echo $@ > ./term-sd/python-path.conf
         term_sd_notice "python解释器路径指定完成"
         term_sd_notice "提示:"
         term_sd_notice "使用--set-python-path重新设置python解释器路径"
@@ -629,45 +647,31 @@ function set_python_path()
 #手动指定pip路径功能
 function set_pip_path()
 {
-    term_sd_notice "请输入pip的路径"
-    term_sd_notice "提示:输入完后请回车保存,或者输入exit退出"
-    read -p "===============================> " set_pip_path_option
-    if [ -z "$set_pip_path_option" ];then
-        term_sd_notice "未输入，请重试"
-        set_pip_path
-    elif [ "$set_pip_path_option" = "exit" ];then
-        term_sd_notice "退出pip路径指定功能"
-    else
-        term_sd_pip_path="$set_pip_path_option"
-        echo $term_sd_pip_path > ./term-sd/pip-path.conf
+    if [ -z "$@" ];then
+        term_sd_notice "请输入pip的路径"
+        term_sd_notice "提示:输入完后请回车保存,或者输入exit退出"
+        read -p "===============================> " set_pip_path_option
+        if [ -z "$set_pip_path_option" ];then
+            term_sd_notice "未输入，请重试"
+            set_pip_path
+        elif [ "$set_pip_path_option" = "exit" ];then
+            term_sd_notice "退出pip路径指定功能"
+        else
+            term_sd_pip_path="$set_pip_path_option"
+            echo $term_sd_pip_path > ./term-sd/pip-path.conf
+            term_sd_notice "pip路径指定完成"
+            term_sd_notice "提示:"
+            term_sd_notice "使用--set-pip-path重新设置pip路径"
+            term_sd_notice "使用--unset-pip-path删除pip路径设置"
+        fi
+    else #直接将选项后面的参数作为路径
+        term_sd_notice "设置pip路径: $@"
+        echo $@ > ./term-sd/pip-path.conf
         term_sd_notice "pip路径指定完成"
         term_sd_notice "提示:"
         term_sd_notice "使用--set-pip-path重新设置pip路径"
         term_sd_notice "使用--unset-pip-path删除pip路径设置"
     fi
-}
-
-#手动指定python路径功能(直接将选项后面的参数作为路径)
-function set_python_path_direct()
-{
-    term_sd_notice "设置python解释器路径: $@"
-    echo $@ > ./term-sd/python-path.conf
-    term_sd_notice "python解释器路径指定完成"
-    term_sd_notice "提示:"
-    term_sd_notice "使用--set-python-path重新设置python解释器路径"
-    term_sd_notice "使用--unset-python-path删除python解释器路径设置"
-}
-
-
-#手动指定pip路径功能(直接将选项后面的参数作为路径)
-function set_pip_path_direct()
-{
-    term_sd_notice "设置pip路径: $@"
-    echo $@ > ./term-sd/pip-path.conf
-    term_sd_notice "pip路径指定完成"
-    term_sd_notice "提示:"
-    term_sd_notice "使用--set-pip-path重新设置pip路径"
-    term_sd_notice "使用--unset-pip-path删除pip路径设置"
 }
 
 #term-sd格式化输出信息
@@ -732,8 +736,7 @@ function term_sd_test_network()
             term_sd_notice "访问github: $term_sd_test_network_3"
             term_sd_notice "访问ghproxy: $term_sd_test_network_4"
             print_line_to_shell
-
-	    else
+        else
             term_sd_notice "网络连接异常"
         fi
     else
@@ -904,7 +907,7 @@ function term_sd_env_prepare()
             term_sd_auto_update_trigger
             export term_sd_env_prepare_info=0 #用于检测term-sd的启动状态
             term_sd_process_user_input "$@" #处理用户输入
-            source ./term-sd/modules/init.sh
+            source ./term-sd/modules/init.sh #加载term-sd模块
         else
             term_sd_notice "Term-SD模块丢失,\"输入./term-sd.sh --reinstall-term-sd\"重新安装Term-SD"
         fi
@@ -920,7 +923,7 @@ function term_sd_env_prepare()
 #################################################
 
 #term-sd版本
-term_sd_version_="0.6.1"
+term_sd_version_="0.6.2"
 
 #判断启动状态(在shell中,新变量的值为空,且不需要定义就可以使用,不像c语言中要求那么严格)
 if [ ! -z $term_sd_env_prepare_info ] && [ $term_sd_env_prepare_info = 0 ];then #检测term-sd是直接启动还是重启
