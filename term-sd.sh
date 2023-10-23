@@ -201,10 +201,14 @@ function term_sd_extra_scripts_launch()
         if [ -f "./term-sd/extra/$@.sh" ];then
             term_sd_notice "启动"$@"脚本中"
             source ./term-sd/extra/$@.sh
+            print_line_to_shell
             term_sd_notice "退出"$@"脚本"
+            exit 1
         else
+            print_line_to_shell
             term_sd_notice "未找到"$@"脚本"
             term_sd_notice "退出Term-SD"
+            exit 1
         fi
     fi
 }
