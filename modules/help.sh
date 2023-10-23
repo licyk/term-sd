@@ -74,12 +74,12 @@ Term-SD是基于终端显示的AI管理器,可以对AI软件进行简单的管�
 (AI软件都基于stable-diffusion)\n
 \n
 \n
-该脚本的编写参考了https://gitee.com/skymysky/linux\n
-脚本支持Windows,Linux,MacOS(Windows平台需安装msys2,MacOS需要安装homebrew)\n
+Term-SD的编写参考了https://gitee.com/skymysky/linux\n
+Term-SD支持在Linux，Windows，MacOS上运行(Windows平台还需要安装msys2，MacOS还需要安装homebrew，rust，cmake，protobuf，wget)\n
 \n
 stable-diffusion模型下载:\n
-https://huggingface.co/\n
-https://civitai.com/\n
+https://huggingface.co\n
+https://civitai.com\n
 https://www.liblib.ai\n
 https://www.esheep.com\n
 \n
@@ -90,6 +90,7 @@ https://docs.qq.com/pdf/DR2V2ZlhHbnJUVHBa\n
 https://www.kdocs.cn/l/cre0TwbMkdx3\n
 https://hazn93ygkcs.feishu.cn/wiki/JRydwXpCti1bxJkN6zNc4a8qnAe\n
 https://docs.qq.com/doc/p/230e7ada2a60d8e347d639edd5521f5e62332fe9\n
+https://ivonblog.com/posts/stable-diffusion-webui-manuals/zh-cn\n
 \n
 推荐一些up主:\n
 bilibili@秋葉aaaki\n
