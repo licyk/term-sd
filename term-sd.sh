@@ -18,10 +18,6 @@ function option_or_value_test()
 #term-sd处理用户输入功能(早期进行配置时使用)
 function term_sd_process_user_input_early()
 {
-    #重置变量
-    term_sd_input_value_set_python_path=1
-    term_sd_input_value_set_pip_path=1
-
     #用别的方法实现了getopt命令的功能
     #加一个--null是为了增加一次循环,保证那些需要参数的选项能成功执行
     for i in "$@" "--null" ;do
@@ -146,7 +142,6 @@ function term_sd_process_user_input()
     #重置变量
     export pip_manager_update=1
     export aria2_multi_threaded=""
-    term_sd_input_value_extra=1
 
     #加一个--null是为了增加一次循环,保证那些需要参数的选项能成功执行
     for i in "$@" "--null" ;do
@@ -190,7 +185,7 @@ function term_sd_process_user_input()
                 term_sd_test_network
                 ;;
             --extra)
-                term_sd_input_value_extra=0
+                term_sd_launch_option="--extra"
                 ;;
         esac
 
