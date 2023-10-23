@@ -18,7 +18,7 @@ function option_or_value_test()
 #term-sd未知启动参数提醒
 function term_sd_launch_unknown_option_notice()
 {
-    if [ $(option_or_value_test "$i") = 0 ];then #测试输入值是参数还是选项
+    if [ $(option_or_value_test "$i") = 0 ] && [ ! $i = "--null" ];then #测试输入值是参数还是选项
         term_sd_notice "未知参数 \"$i\""
     fi
 }
