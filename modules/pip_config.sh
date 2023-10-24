@@ -26,7 +26,7 @@ function set_pip_mirrors_option()
                 pip_cmd config set global.index-url " https://mirrors.bfsu.edu.cn/pypi/web/simple"
                 #pip config set global.extra-index-url "https://mirror.sjtu.edu.cn/pytorch-wheels"
                 #pip config set global.extra-index-url "https://mirrors.aliyun.com/pytorch-wheels"
-                pip_cmd config set global.extra-index-url "https://mirrors.hit.edu.cn/pypi/web/simple https://pypi.tuna.tsinghua.edu.cn/simple https://mirrors.pku.edu.cn/pypi/web/simple"
+                pip_cmd config set global.extra-index-url "https://mirrors.hit.edu.cn/pypi/web/simple https://pypi.tuna.tsinghua.edu.cn/simple https://mirror.nju.edu.cn/pypi/web/simple"
                 pip_cmd config set global.find-links "https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
                 set_pip_mirrors_option
                 ;;
