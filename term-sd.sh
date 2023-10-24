@@ -62,7 +62,7 @@ function term_sd_process_user_input_early()
             --help)
                 print_line_to_shell
                 term_sd_notice "启动参数使用方法:"
-                echo "  term-sd.sh [--help] [--extra script_name] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar]"
+                echo "  term-sd.sh [--help] [--extra script_name] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--update-pip] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar]"
                 echo "选项:"
                 echo "  --help"
                 echo "        显示启动参数帮助"

@@ -194,12 +194,12 @@ Term-SD在使用安装、管理功能时，会使用准备功能来对一些操�
 1、Torch+xformers\n
 2、Torch\n
 3、Torch 2.0.0+Torch-Directml\n
-4、Torch 2.0.1+CPU\n
-5、Torch 2.0.1+RoCM 5.4.2\n
+4、Torch 2.1.0+CPU\n
+5、Torch 2.1.0+RoCM 5.6\n
 6、Torch 1.12.1（CUDA11.3）+xFormers 0.014\n
 7、Torch 1.13.1（CUDA11.7）+xFormers 0.016\n
 8、Torch 2.0.0（CUDA11.8）+xFormers 0.018\n
-9、Torch 2.0.1（CUDA11.8）+xFormers 0.021\n
+9、Torch 2.0.1（CUDA11.8）+xFormers 0.022\n
 10、Torch 2.1.0（CUDA12.1）+xFormers 0.022\n
 \n
 选择版本时需要根据系统类型和显卡选择\n
@@ -277,8 +277,8 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 1、Torch+xformers\n
 2、Torch\n
 3、Torch 2.0.0+Torch-Directml\n
-4、Torch 2.0.1+CPU\n
-5、Torch 2.0.1+RoCM 5.4.2\n
+4、Torch 2.1.0+CPU\n
+5、Torch 2.1.0+RoCM 5.6\n
 6、Torch 1.12.1（CUDA11.3）+xFormers 0.014\n
 7、Torch 1.13.1（CUDA11.7）+xFormers 0.016\n
 8、Torch 2.0.0（CUDA11.8）+xFormers 0.018\n
@@ -502,7 +502,7 @@ download-hanamizuki:下载绘世启动器\n
 \n
 #### 启动参数的使用方法\n
 \n
-./term-sd.sh [--help] [--extra script_name] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar]\n
+./term-sd.sh [--help] [--extra script_name] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--update-pip] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar]\n
 \n
 \n
 >中括号“[]”仅用来展示，在使用的时候不要输入进去\n
@@ -578,6 +578,9 @@ download-hanamizuki:下载绘世启动器\n
 17、disable-bar\n
 禁用Term-SD初始化进度显示(加了进度显示只会降低Term-SD初始化速度)\n
 \n
+18、update-pip\n
+进入虚拟环境时更新pip软件包管理\n
+\n
 ## 绘世启动器的使用\n
 目前绘世启动器支持启动AUTOMATIC1111-stable-diffusion-webui、ComfyUI。使用Term-SD部署AUTOMATIC1111-stable-diffusion-webui或者ComfyUI后，将绘世启动器放入stable-diffusion-webui文件夹或者ComfyUI文件夹后就可以使用绘世启动器启动对应的ai软件了\n
 " 25 70
@@ -612,7 +615,7 @@ function help_option_4()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "Term-SD功能说明:\n
 参数使用方法(设置快捷启动命令后可将\"./term-sd.sh\"替换成\"termsd\"或者\"tsd\"):\n
-  ./term-sd.sh [--help] [--extra script_name] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar]\n
+  ./term-sd.sh [--help] [--extra script_name] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--update-pip] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar]\n
 参数功能:\n
 help:显示启动参数帮助\n
 extra:启动扩展脚本选择列表,当选项后面输入了脚本名,则直接启动指定的脚本,否则启动扩展脚本选择界面\n
