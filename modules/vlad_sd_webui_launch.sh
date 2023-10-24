@@ -171,9 +171,9 @@ function vlad_sd_webui_launch()
 #vlad-sd-webui手动输入启动参数界面
 function vlad_sd_webui_manual_launch()
 {
-    vlad_sd_webui_manual_launch_parameter=$(dialog --clear --title "A1111-SD-Webui管理" --backtitle "Vlad-SD-Webui自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入Vlad-SD-Webui启动参数" 25 70 "$(cat ./term-sd-launch.conf)" 3>&1 1>&2 2>&3)
+    vlad_sd_webui_manual_launch_parameter=$(dialog --clear --title "A1111-SD-Webui管理" --backtitle "Vlad-SD-Webui自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入Vlad-SD-Webui启动参数" 25 70 "$(cat ./term-sd-launch.conf | awk '{sub("launch.py ","")}1')" 3>&1 1>&2 2>&3)
 
-    if [ -z $vlad_sd_webui_manual_launch_parameter ];then
+    if [ $? = 0 ];then
         term_sd_notice "设置启动参数> $vlad_sd_webui_manual_launch_parameter"
         echo "launch.py $vlad_sd_webui_manual_launch_parameter" > term-sd-launch.conf 
     fi
