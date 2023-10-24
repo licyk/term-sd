@@ -18,8 +18,14 @@ function option_or_value_test()
 #term-sd未知启动参数提醒
 function term_sd_launch_unknown_option_notice()
 {
-    if [ $(option_or_value_test "$i") = 0 ] && [ ! $i = "--null" ];then #测试输入值是参数还是选项
-        term_sd_notice "未知参数 \"$i\""
+    if [ $(option_or_value_test "$i") = 0 ];then #测试输入值是参数还是选项
+        case $i in
+		--null|--help|--reinstall-term-sd|--enable-auto-update|--disable-auto-update|--set-python-path|--set-pip-path|--unset-python-path|--unset-pip-path|--enable-new-bar|--disable-new-bar|--enable-bar|--disable-bar|--remove-term-sd|--quick-cmd|--multi-threaded-download|--update-pip|--test-network|--extra) #排除已有参数
+                ;;
+            *)
+                term_sd_notice "未知参数 \"$i\""
+                ;;
+        esac
     fi
 }
 
@@ -212,15 +218,15 @@ function term_sd_extra_scripts_launch()
     if [ -z "$@" ];then
         term_sd_extra_scripts
     else
-        if [ -f "./term-sd/extra/$@.sh" ];then
-            term_sd_notice "启动"$@"脚本中"
-            source ./term-sd/extra/$@.sh
+        if [ -f "./term-sd/extra/$(echo $@ | awk '{sub(".sh","")}1').sh" ];then
+            term_sd_notice "启动$(echo $@ | awk '{sub(".sh","")}1')脚本中"
+            source ./term-sd/extra/$(echo $@ | awk '{sub(".sh","")}1').sh
             print_line_to_shell
-            term_sd_notice "退出"$@"脚本"
+            term_sd_notice "退出$(echo $@ | awk '{sub(".sh","")}1')脚本"
             exit 1
         else
             print_line_to_shell
-            term_sd_notice "未找到"$@"脚本"
+            term_sd_notice "未找到$(echo $@ | awk '{sub(".sh","")}1')脚本"
             term_sd_notice "退出Term-SD"
             exit 1
         fi
