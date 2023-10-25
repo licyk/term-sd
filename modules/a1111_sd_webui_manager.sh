@@ -8,8 +8,21 @@ function a1111_sd_webui_option()
     exit_venv #确保进行下一步操作前已退出其他虚拟环境
     if [ -d "stable-diffusion-webui" ];then #找到stable-diffusion-webui目录
         cd stable-diffusion-webui
+
+        case $(git remote -v | awk 'NR==1 {print $2}' | awk -F'/' '{print $NF}') in #分支判断
+            stable-diffusion-webui)
+                sd_webui_branch_info="AUTOMATIC1111 webui"
+                ;;
+            automatic)
+                sd_webui_branch_info="vladmandic webui"
+                ;;
+            stable-diffusion-webui-directml)
+                sd_webui_branch_info="lshqqytiger webui"
+                ;;
+        esac
+
         a1111_sd_webui_option_dialog=$(
-            dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择A1111-SD-Webui管理选项的功能\n当前更新源:$(git remote -v | awk 'NR==1 {print $2}')" 25 70 10 \
+            dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择A1111-SD-Webui管理选项的功能\n当前更新源:$(git remote -v | awk 'NR==1 {print $2}')\n当前分支:$sd_webui_branch_info" 25 70 10 \
             "1" "更新" \
             "2" "卸载" \
             "3" "修复更新" \

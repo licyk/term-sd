@@ -6,19 +6,19 @@ function generate_fooocus_launch()
     fooocus_launch_option=""
 
     fooocus_launch_option_dialog=$(
-        dialog --clear --title "Fooocus管理" --backtitle "Fooocus启动参数选项" --separate-output --notags --ok-label "确认" --cancel-label "取消" --checklist "请选择Fooocus启动参数" 25 70 10 \
-        "1" "listen" OFF \
-        "2" "directml" OFF \
+        dialog --clear --title "Fooocus管理" --backtitle "Fooocus启动参数选项" --separate-output --notags --ok-label "确认" --cancel-label "取消" --checklist "请选择Fooocus启动参数,确认之后将覆盖原有启动参数配置" 25 70 10 \
+        "1" "(listen)开放远程连接" OFF \
+        "2" "(directml)使用DirectML作为后端进行生图" OFF \
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
         for i in $fooocus_launch_option_dialog; do
             case $i in
                 1)
-                    fooocus_launch_option="--listen"
+                    fooocus_launch_option="--listen $fooocus_launch_option"
                     ;;
                 2)    
-                    fooocus_launch_option="--directml"
+                    fooocus_launch_option="--directml $fooocus_launch_option"
                     ;;
             esac
         done

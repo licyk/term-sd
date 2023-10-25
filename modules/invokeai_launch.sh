@@ -5,13 +5,12 @@ function generate_invokeai_launch()
 {
     generate_invokeai_launch_dialog=$(
         dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI启动参数选项" --ok-label "确认" --cancel-label "取消" --menu "请选择InvokeAI启动参数" 25 70 10 \
-        "1" "invokeai-configure" \
-        "2" "invokeai" \
-        "3" "invokeai --web" \
-        "4" "invokeai-ti --gui" \
-        "5" "invokeai-merge --gui" \
-        "6" "自定义启动参数" \
-        "7" "返回" \
+        "1" "(invokeai-configure)启动配置界面" \
+        "2" "(invokeai --web)启动webui界面" \
+        "3" "invokeai-ti --gui" \
+        "4" "invokeai-merge --gui" \
+        "5" "自定义启动参数" \
+        "6" "返回" \
         3>&1 1>&2 2>&3 )
 
     if [ $? = 0 ];then
@@ -24,29 +23,23 @@ function generate_invokeai_launch()
                 ;;
             2)
                 print_line_to_shell "$term_sd_manager_info 启动"
-                invokeai --root ./invokeai
+                invokeai --web --root ./invokeai
                 print_line_to_shell
                 generate_invokeai_launch
                 ;;
             3)
                 print_line_to_shell "$term_sd_manager_info 启动"
-                invokeai --web --root ./invokeai
+                invokeai-ti --gui --root ./invokeai
                 print_line_to_shell
                 generate_invokeai_launch
                 ;;
             4)
                 print_line_to_shell "$term_sd_manager_info 启动"
-                invokeai-ti --gui --root ./invokeai
-                print_line_to_shell
-                generate_invokeai_launch
-                ;;
-            5)
-                print_line_to_shell "$term_sd_manager_info 启动"
                 invokeai-merge --gui --root ./invokeai
                 print_line_to_shell
                 generate_invokeai_launch
                 ;;
-            6)
+            5)
                 invokeai_launch
                 generate_invokeai_launch
                 ;;
@@ -54,25 +47,26 @@ function generate_invokeai_launch()
     fi
 }
 
+#invokeai命令行参数即将在invokeai3.4中移除
 #invokeai自定义启动参数生成
 function generate_invokeai_launch_custom()
 {
     custom_invokeai_launch_option=""
 
     generate_invokeai_launch_custom_dialog=$(
-        dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI自定义启动参数选项" --separate-output --notags --ok-label "确认" --cancel-label "取消" --checklist "请选择InvokeAI启动参数" 25 70 10 \
-        "1" "web" ON \
-        "2" "free_gpu_mem" OFF \
-        "3" "precision auto" ON \
-        "4" "precision fp32" OFF\
-        "5" "precision fp16" OFF \
-        "6" "no-xformers_enabled" OFF \
-        "7" "xformers_enabled" ON \
-        "8" "no-patchmatch" OFF \
-        "9" "always_use_cpu" OFF \
-        "10" "no-esrgan" OFF \
-        "11" "no-internet_available" OFF \
-        "12" "host" OFF \
+        dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI自定义启动参数选项" --separate-output --notags --ok-label "确认" --cancel-label "取消" --checklist "请选择InvokeAI启动参数,确认之后将覆盖原有启动参数配置" 25 70 10 \
+        "1" "(web)启用webui界面" ON \
+        "2" "(free_gpu_mem)生图完成后释放显存" OFF \
+        "3" "(precision auto)自动设置模型精度" ON \
+        "4" "(precision fp32)强制使用fp32模型精度" OFF\
+        "5" "(precision fp16)强制使用fp16模型精度" OFF \
+        "6" "(no-xformers)禁用xformers优化" OFF \
+        "7" "(xformers)使用xformers优化" ON \
+        "8" "(patchmatch)启用优化补丁" OFF \
+        "9" "(no-patchmatch)禁用优化补丁" OFF \
+        "10" "(safety-checker)启用图像NSFW检查" OFF \
+        "11" "(ckpt_convert)将内存中的模型自动转换为扩散器格式" OFF \
+        "12" "(host)启用远程连接" OFF \
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
@@ -94,22 +88,22 @@ function generate_invokeai_launch_custom()
                     custom_invokeai_launch_option="--precision fp16 $custom_invokeai_launch_option"
                     ;;
                 6)
-                    custom_invokeai_launch_option="--no-xformers_enabled $custom_invokeai_launch_option"
+                    custom_invokeai_launch_option="--no-xformers $custom_invokeai_launch_option"
                     ;;
                 7)
-                    custom_invokeai_launch_option="--xformers_enabled $custom_invokeai_launch_option"
+                    custom_invokeai_launch_option="--xformers $custom_invokeai_launch_option"
                     ;;
                 8)
-                    custom_invokeai_launch_option="--no-patchmatch $custom_invokeai_launch_option"
+                    custom_invokeai_launch_option="--patchmatch $custom_invokeai_launch_option"
                     ;;
                 9)
-                    custom_invokeai_launch_option="--always_use_cpu $custom_invokeai_launch_option"
+                    custom_invokeai_launch_option="--no-patchmatch $custom_invokeai_launch_option"
                     ;;
                 10)
-                    custom_invokeai_launch_option="--no-esrgan $custom_invokeai_launch_option"
+                    custom_invokeai_launch_option="--safety-checker $custom_invokeai_launch_option"
                     ;;
                 11)
-                    custom_invokeai_launch_option="--no-internet_available $custom_invokeai_launch_option"
+                    custom_invokeai_launch_option="--ckpt_convert $custom_invokeai_launch_option"
                     ;;
                 12)
                     custom_invokeai_launch_option="--host 0.0.0.0 $custom_invokeai_launch_option"

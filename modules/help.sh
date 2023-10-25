@@ -10,12 +10,11 @@ function help_option()
         "2" "Term-SD使用方法" \
         "3" "Term-SD注意事项" \
         "4" "Term-SD功能说明" \
-        "5" "Term-SD启动参数说明" \
-        "6" "目录说明" \
-        "7" "Term-SD扩展脚本说明" \
-        "8" "sd-webui插件说明" \
-        "9" "ComfyUI插件/自定义节点说明" \
-        "10" "返回" \
+        "5" "目录说明" \
+        "6" "Term-SD扩展脚本说明" \
+        "7" "sd-webui插件说明" \
+        "8" "ComfyUI插件/自定义节点说明" \
+        "9" "返回" \
         3>&1 1>&2 2>&3 )
 
     if [ $? = 0 ];then
@@ -669,89 +668,8 @@ huggingface独占代理:仅在下载huggingface上的模型时使用代理,且�
 " 25 70
 }
 
-#启动参数说明
-function help_option_5()
-{
-    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "A1111-SD-Webui启动参数说明:\n
-stable diffusion webui的启动参数:\n
-skip-torch-cuda-test:不检查CUDA是否正常工作\n
-no-half:不将模型切换为16位浮点数\n
-no-half-vae:不将VAE模型切换为16位浮点数\n
-medvram:启用稳定扩散模型优化(6g显存时使用),以牺牲速度换取低VRAM使用\n
-lowvram:启用稳定扩散模型优化(4g显存时使用),大幅牺牲速度换取极低VRAM使用\n
-lowram:将稳定扩散检查点权重加载到VRAM而不是RAM中\n
-enable-insecure-extension-access:启用不安全的扩展访问\n
-theme dark:启用黑色主题\n
-autolaunch:自动启动浏览器打开webui界面\n
-xformers:使用的xFormers加速\n
-listen:允许局域网的设备访问\n
-precision-full:全精度\n
-force-enable-xformers:强制启用xformers加速\n
-xformers-flash-attention:启用具有Flash Attention的xformer以提高再现性\n
-api:启动API服务器\n
-ui-debug-mode:不加载模型而快速启动ui界面\n
-share:为gradio使用share=True,并通过其网站使UI可访问\n
-opt-split-attention-invokeai:在自动选择优化时优先使用InvokeAI的交叉注意力层优化\n
-opt-split-attention-v1:在自动选择优化时优先使用较旧版本的分裂注意力优化\n
-opt-sdp-attention:在自动选择优化时优先使用缩放点积交叉注意力层优化;需要PyTorch 2\n
-opt-sdp-no-mem-attention:在自动选择优化时优先使用不带内存高效注意力的缩放点积交叉注意力层优化,使图像生成确定性;需要PyTorch 2\n
-disable-opt-split-attention:在自动选择优化时优先不使用交叉注意力层优化\n
-use-cpu-all:使用cpu进行图像生成\n
-opt-channelslast:将稳定扩散的内存类型更改为channels last\n
-no-gradio-queue:禁用gradio队列;导致网页使用http请求而不是websocket\n
-no-hashing:禁用检查点的sha256哈希运算,以帮助提高加载性能\n
-backend directml:使用directml运行torch,解决amd显卡和intel显卡无法使用ai画图的问题\n
-opt-sub-quad-attention:优先考虑内存高效的次二次复杂度交叉注意力层优化,用于自动选择\n
-medvram-sdxl:仅在SDXL模型上启用稳定扩散模型优化(8g显存时使用),以牺牲速度换取低VRAM使用\n
-\n
-ComfyUI启动参数:\n
-listen:允许局域网的设备访问\n
-auto-launch:自动在默认浏览器中启动 ComfyUI\n
-dont-upcast-attention:禁用对注意力机制的提升转换。可提升速度,但增加图片变黑的概率\n
-force-fp32:强制使用 fp32\n
-use-split-cross-attention:使用分割交叉注意力优化。使用 xformers 时忽略此选项\n
-use-pytorch-cross-attention:使用新的 pytorch 2.0 交叉注意力功能\n
-disable-xformers:禁用 xformers加速\n
-gpu-only:将所有内容(文本编码器/CLIP 模型等)存储和运行在 GPU 上\n
-highvram:默认情况下,模型使用后会被卸载到 CPU内存。此选项使它们保留在 GPU 内存中\n
-normalvram:当 lowvram 被自动启用时,强制使用普通vram用法\n
-lowvram:拆分unet以使用更少的显存\n
-novram:当 lowvram 不足时使用\n
-cpu:对所有内容使用 CPU(缓慢)\n
-quick-test-for-ci:为 CI 快速测试\n
-directml:使用directml运行torch,解决amd显卡和intel显卡无法使用ai画图的问题\n
-\n
-InvokeAI启动参数:\n
-invokeai-configure:参数配置\n
-invokeai:无参数启动\n
-invokeai --web:启用webui界面\n
-invokeai-ti --gui:使用终端界面\n
-invokeai-merge --gui:启动模型合并\n
-其他的自定义参数:\n
-web:启用webui界面\n
-free_gpu_mem:每次操作后积极释放 GPU 内存;这将允许您在低VRAM环境中运行,但会降低一些性能\n
-precision auto:自动选择浮点精度\n
-precision fp32:使用fp32浮点精度\n
-precision fp16:使用fp16浮点精度\n
-no-xformers_enabled:禁用xformers加速\n
-xformers_enabled:启用xformers加速\n
-no-patchmatch:禁用“补丁匹配”算法\n
-always_use_cpu:使用cpu进行图片生成\n
-no-esrgan:不使用esrgan进行图片高清修复\n
-no-internet_available:禁用联网下载资源\n
-host:允许局域网的设备访问\n
-\n
-\n
-Foooxus启动参数:\n
-listen:允许局域网的设备访问\n
-directml:使用directml运行torch,解决amd显卡和intel显卡无法使用ai画图的问题\n
-\n
-\n
-" 25 70
-}
-
 #目录说明
-function help_option_6()
+function help_option_5()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "AI软件的目录说明:\n
 在启用venv虚拟环境后,在安装时AI软件的目录下会产生venv文件夹,这个是python软件包安装的目录,更换cudnn可在该文件夹中操作\n
@@ -856,7 +774,7 @@ lora-scripts\n
 }
 
 #扩展脚本说明
-function help_option_7()
+function help_option_6()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "Term-SD扩展脚本说明:\n
 扩展脚本列表(启动Term-SD时加入\"--extra\"启动参数即可使用扩展脚本):\n
@@ -870,7 +788,7 @@ list:列出可用的扩展脚本\n
 }
 
 #AUTOMATIC1111-stable-diffusion-webui插件说明
-function help_option_8()
+function help_option_7()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "AUTOMATIC1111-stable-diffusion-webui插件说明:\n
 注:有些插件因为年久失修,可能会出现兼容性问题。具体介绍请在github上搜索项目\n
@@ -940,7 +858,7 @@ sd-webui-EasyPhoto:以简单的操作生成自己的ai人像\n
 }
 
 #ComfyUI插件/自定义节点说明
-function help_option_9()
+function help_option_8()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "ComfyUI插件/自定义节点说明:\n
 注:具体介绍请在github上搜索项目\n
