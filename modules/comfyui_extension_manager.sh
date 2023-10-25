@@ -10,7 +10,7 @@ function comfyui_extension_methon()
     cd "$start_path/ComfyUI/web/extensions" #回到最初路径
     #功能选择界面
     comfyui_extension_methon_dialog=$(
-        dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择ComfyUI插件管理选项的功能" 25 70 10 \
+        dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择ComfyUI插件管理选项的功能" 25 80 10 \
         "1" "安装" \
         "2" "管理" \
         "3" "更新全部插件" \
@@ -47,7 +47,7 @@ function comfyui_extension_manager()
     dir_list=$(ls -l --time-style=+"%Y-%m-%d" | awk -F ' ' ' { print $7 " " $6 } ') #当前目录文件和文件夹信息
 
     comfyui_extension_selection=$(
-        dialog --clear --ok-label "确认" --cancel-label "取消" --title "ComfyUI管理" --backtitle "ComfyUI插件列表" --menu "使用上下键选择要操作的插件并回车确认" 25 70 10 \
+        dialog --clear --ok-label "确认" --cancel-label "取消" --title "ComfyUI管理" --backtitle "ComfyUI插件列表" --menu "使用上下键选择要操作的插件并回车确认" 25 80 10 \
         "-->返回<--" "<---------" \
         $dir_list \
         3>&1 1>&2 2>&3)
@@ -72,7 +72,7 @@ function comfyui_extension_manager()
 #插件安装模块
 function comfyui_extension_install()
 {
-    comfyui_extension_address=$(dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件安装选项" --ok-label "确认" --cancel-label "取消" --inputbox "输入插件的github地址或其他下载地址" 25 70 3>&1 1>&2 2>&3)
+    comfyui_extension_address=$(dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件安装选项" --ok-label "确认" --cancel-label "取消" --inputbox "输入插件的github地址或其他下载地址" 25 80 3>&1 1>&2 2>&3)
 
     if [ ! -z $comfyui_extension_address ]; then
         term_sd_notice "安装$(echo $comfyui_extension_address | awk -F'/' '{print $NF}')中"
@@ -84,9 +84,9 @@ function comfyui_extension_install()
         fi
 
         if [ $git_req = 0 ];then
-            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件安装结果" --ok-label "确认" --msgbox "$(echo $comfyui_extension_address | awk -F'/' '{print $NF}')插件安装成功\n$comfyui_extension_dep_notice" 25 70
+            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件安装结果" --ok-label "确认" --msgbox "$(echo $comfyui_extension_address | awk -F'/' '{print $NF}')插件安装成功\n$comfyui_extension_dep_notice" 25 80
         else
-            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件安装结果" --ok-label "确认" --msgbox "$(echo $comfyui_extension_address | awk -F'/' '{print $NF}')插件安装失败" 25 70
+            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件安装结果" --ok-label "确认" --msgbox "$(echo $comfyui_extension_address | awk -F'/' '{print $NF}')插件安装失败" 25 80
         fi
     fi
 }
@@ -108,7 +108,7 @@ function operate_comfyui_extension()
     fi
 
     operate_comfyui_extension_dialog=$(
-        dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择对"$comfyui_extension_selection"插件的管理功能\n当前更新源:$([ -d "./.git" ] && git remote -v | awk 'NR==1 {print $2}' || echo "无")" 25 70 10 \
+        dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择对"$comfyui_extension_selection"插件的管理功能\n当前更新源:$([ -d "./.git" ] && git remote -v | awk 'NR==1 {print $2}' || echo "无")" 25 80 10 \
         $dialog_update_button \
         "2" "安装依赖" \
         "3" "卸载" \
@@ -124,9 +124,9 @@ function operate_comfyui_extension()
                 term_sd_notice "更新"$comfyui_extension_selection"中"
                 git pull --recurse-submodules
                 if [ $? = 0 ];then
-                    dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件更新结果" --ok-label "确认" --msgbox ""$comfyui_extension_selection"插件更新成功" 25 70
+                    dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件更新结果" --ok-label "确认" --msgbox ""$comfyui_extension_selection"插件更新成功" 25 80
                 else
-                    dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件更新结果" --ok-label "确认" --msgbox ""$comfyui_extension_selection"插件更新失败" 25 70
+                    dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件更新结果" --ok-label "确认" --msgbox ""$comfyui_extension_selection"插件更新失败" 25 80
                 fi
                 operate_comfyui_extension
                 ;;
@@ -135,7 +135,7 @@ function operate_comfyui_extension()
                 operate_comfyui_extension
                 ;;
             3)
-                if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件删除选项" --yes-label "是" --no-label "否" --yesno "是否删除"$comfyui_extension_selection"插件?" 25 70) then
+                if (dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI插件删除选项" --yes-label "是" --no-label "否" --yesno "是否删除"$comfyui_extension_selection"插件?" 25 80) then
                     term_sd_notice "删除$(echo $comfyui_extension_selection | awk -F "/" '{print $NF}')插件中"
                     cd ..
                     rm -rf ./$comfyui_extension_selection

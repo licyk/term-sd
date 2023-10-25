@@ -67,7 +67,7 @@ function comfyui_extension_depend_install_process()
     exit_venv
     tmp_enable_proxy
     print_line_to_shell
-    dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI"$comfyui_extension_info_display"依赖安装结果" --ok-label "确认" --msgbox "当前依赖的安装情况列表\n------------------------------------------------------------------\n$dep_info------------------------------------------------------------------" 25 70
+    dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI"$comfyui_extension_info_display"依赖安装结果" --ok-label "确认" --msgbox "当前依赖的安装情况列表\n------------------------------------------------------------------\n$dep_info------------------------------------------------------------------" 25 80
 }
 
 #单独为插件/自定义节点安装依赖的功能
@@ -108,5 +108,5 @@ function comfyui_extension_depend_install_single()
     fi
 
     exit_venv
-    dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI"$comfyui_extension_info_display"依赖安装结果" --ok-label "确认" --msgbox "当前依赖的安装情况列表\n------------------------------------------------------------------\n$dep_info------------------------------------------------------------------" 25 70
+    dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI"$comfyui_extension_info_display"依赖安装结果" --ok-label "确认" --msgbox "当前依赖的安装情况列表\n------------------------------------------------------------------\n$dep_info------------------------------------------------------------------" 25 80
 }

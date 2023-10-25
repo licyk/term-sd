@@ -4,7 +4,7 @@
 function generate_invokeai_launch()
 {
     generate_invokeai_launch_dialog=$(
-        dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI启动参数选项" --ok-label "确认" --cancel-label "取消" --menu "请选择InvokeAI启动参数" 25 70 10 \
+        dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI启动参数选项" --ok-label "确认" --cancel-label "取消" --menu "请选择InvokeAI启动参数" 25 80 10 \
         "1" "(invokeai-configure)启动配置界面" \
         "2" "(invokeai --web)启动webui界面" \
         "3" "invokeai-ti --gui" \
@@ -54,7 +54,7 @@ function generate_invokeai_launch_custom()
     custom_invokeai_launch_option=""
 
     generate_invokeai_launch_custom_dialog=$(
-        dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI自定义启动参数选项" --separate-output --notags --ok-label "确认" --cancel-label "取消" --checklist "请选择InvokeAI启动参数,确认之后将覆盖原有启动参数配置" 25 70 10 \
+        dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI自定义启动参数选项" --separate-output --notags --ok-label "确认" --cancel-label "取消" --checklist "请选择InvokeAI启动参数,确认之后将覆盖原有启动参数配置" 25 80 10 \
         "1" "(web)启用webui界面" ON \
         "2" "(free_gpu_mem)生图完成后释放显存" OFF \
         "3" "(precision auto)自动设置模型精度" ON \
@@ -120,7 +120,7 @@ function generate_invokeai_launch_custom()
 #invokeai启动选项（第二层）
 function invokeai_launch()
 {
-    invokeai_launch_dialog=$(dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动InvokeAI/修改InvokeAI启动参数\n当前启动参数:\ninvokeai $(cat ./term-sd-launch.conf)" 25 70 10 \
+    invokeai_launch_dialog=$(dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动InvokeAI/修改InvokeAI启动参数\n当前启动参数:\ninvokeai $(cat ./term-sd-launch.conf)" 25 80 10 \
         "1" "启动" \
         "2" "选择预设启动参数" \
         "3" "自定义启动参数" \
@@ -148,7 +148,7 @@ function invokeai_launch()
 #invokeai手动输入启动参数界面
 function invokeai_manual_launch()
 {
-    invokeai_manual_launch_parameter=$(dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入InvokeAI启动参数" 25 70 "$(cat ./term-sd-launch.conf | awk '{sub("--root ./invokeai ","")}1')" 3>&1 1>&2 2>&3)
+    invokeai_manual_launch_parameter=$(dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入InvokeAI启动参数" 25 80 "$(cat ./term-sd-launch.conf | awk '{sub("--root ./invokeai ","")}1')" 3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
         term_sd_notice "设置启动参数> $invokeai_manual_launch_parameter"

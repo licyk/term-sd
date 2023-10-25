@@ -8,7 +8,7 @@ function generate_a1111_sd_webui_launch()
 
     #展示启动参数选项
     a1111_sd_webui_launch_option_dialog=$(
-        dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui启动参数选项" --separate-output --notags --ok-label "确认" --cancel-label "取消" --checklist "请选择A1111-Stable-Diffusion-Webui启动参数,确认之后将覆盖原有启动参数配置" 25 70 10 \
+        dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui启动参数选项" --separate-output --notags --ok-label "确认" --cancel-label "取消" --checklist "请选择A1111-Stable-Diffusion-Webui启动参数,确认之后将覆盖原有启动参数配置" 25 80 10 \
         "1" "(update-all-extensions)启动时更新所有扩展" OFF \
         "2" "(skip-python-version-check)跳过检查python版本" OFF \
         "3" "(skip-torch-cuda-test)跳过CUDA可用性检查" OFF \
@@ -276,7 +276,7 @@ function generate_a1111_sd_webui_launch()
 function a1111_sd_webui_launch()
 {
     a1111_sd_webui_launch_dialog=$(
-        dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动A1111-SD-Webui/修改A1111-SD-Webui启动参数\n当前启动参数:\n$([ $venv_active = 0 ] && echo python || echo "$term_sd_python_path") $(cat ./term-sd-launch.conf)" 25 70 10 \
+        dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动A1111-SD-Webui/修改A1111-SD-Webui启动参数\n当前启动参数:\n$([ $venv_active = 0 ] && echo python || echo "$term_sd_python_path") $(cat ./term-sd-launch.conf)" 25 80 10 \
         "1" "启动" \
         "2" "选择预设启动参数" \
         "3" "自定义启动参数" \
@@ -304,7 +304,7 @@ function a1111_sd_webui_launch()
 #a1111-sd-webui手动输入启动参数界面
 function a1111_sd_webui_manual_launch()
 {
-    a1111_sd_webui_manual_launch_parameter=$(dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入A1111-SD-Webui启动参数" 25 70 "$(cat ./term-sd-launch.conf | awk '{sub("launch.py ","")}1')" 3>&1 1>&2 2>&3)
+    a1111_sd_webui_manual_launch_parameter=$(dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入A1111-SD-Webui启动参数" 25 80 "$(cat ./term-sd-launch.conf | awk '{sub("launch.py ","")}1')" 3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
         term_sd_notice "设置启动参数> $a1111_sd_webui_manual_launch_parameter"

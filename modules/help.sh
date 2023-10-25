@@ -5,7 +5,7 @@
 #帮助选择
 function help_option()
 {
-    help_option_dialog=$(dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --cancel-label "取消" --menu "请选择帮助" 25 70 10 \
+    help_option_dialog=$(dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --cancel-label "取消" --menu "请选择帮助" 25 80 10 \
         "1" "关于Term-SD" \
         "2" "Term-SD使用方法" \
         "3" "Term-SD注意事项" \
@@ -101,7 +101,7 @@ bilibili@独立研究员-星空\n
 bilibili@自带马赛克属性的阿尼\n
 \n
 \n
-" 25 70
+" 25 80
 }
 
 #term-sd使用方法
@@ -582,7 +582,7 @@ download-hanamizuki:下载绘世启动器\n
 \n
 ## 绘世启动器的使用\n
 目前绘世启动器支持启动AUTOMATIC1111-stable-diffusion-webui、ComfyUI。使用Term-SD部署AUTOMATIC1111-stable-diffusion-webui或者ComfyUI后，将绘世启动器放入stable-diffusion-webui文件夹或者ComfyUI文件夹后就可以使用绘世启动器启动对应的ai软件了\n
-" 25 70
+" 25 80
 }
 
 #注意事项
@@ -606,7 +606,7 @@ function help_option_3()
 15、如遇到网络问题,比如下载模型失败等,且在开启代理后依然无法解决问题时,可设置代理。代理参数的格式为\"ip:port\",参数例子:\"127.0.0.1:10808\",ip、port、代理协议需查看用户使用的代理软件配置(在终端环境中,除了有驱动模式或者TUN模式的代理软件,一般没办法为终端设置代理,所以可以使用该功能为终端环境设置代理)\n
 16、在代理选项中\"huggingface独占代理\"可在安装过程中单独为从huggingface中下载模型时单独启用代理,保证安装速度,因为除了从huggingface下载模型的过程之外,其他下载过程可以不走代理进行下载(注:在使用驱动模式或者TUN模式的代理软件时,该功能无效,因为代理软件会强制让所有网络流量走代理)\n
 \n
-" 25 70
+" 25 80
 }
 
 #term-sd功能介绍
@@ -665,7 +665,7 @@ huggingface独占代理:仅在下载huggingface上的模型时使用代理,且�
 标准构建安装(--use-pep517):使用编译安装方式(有时可以解决python软件包安装失败的问题。在InvokeAI官方文档中,安装时推荐使用该模式,实际上用常规安装也可以)\n
 \n
 \n
-" 25 70
+" 25 80
 }
 
 #目录说明
@@ -770,7 +770,7 @@ lora-scripts\n
 └── toml   保存的训练参数存放位置\n
 \n
 \n
-" 25 70
+" 25 80
 }
 
 #扩展脚本说明
@@ -784,7 +784,7 @@ download-hanamizuki:下载绘世启动器\n
 list:列出可用的扩展脚本\n
 \n
 \n
-" 25 70
+" 25 80
 }
 
 #AUTOMATIC1111-stable-diffusion-webui插件说明
@@ -854,7 +854,7 @@ openOutpaint-webUI-extension:提供类似InvokeAI的统一画布的功能\n
 sd-webui-EasyPhoto:以简单的操作生成自己的ai人像\n
 \n
 \n
-" 25 70
+" 25 80
 }
 
 #ComfyUI插件/自定义节点说明
@@ -911,5 +911,5 @@ stability-ComfyUI-nodes:Stability-AI自定义节点支持\n
 ComfyUI_Fooocus_KSampler:添加fooocus噪声生成器支持\n
 \n
 \n
-" 25 70
+" 25 80
 }

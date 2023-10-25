@@ -6,7 +6,7 @@ function generate_comfyui_launch()
     comfyui_launch_option=""
 
     comfyui_launch_option_dialog=$(
-        dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI启动参数选项" --separate-output --notags --ok-label "确认" --cancel-label "取消" --checklist "请选择ComfyUI启动参数,确认之后将覆盖原有启动参数配置" 25 70 10 \
+        dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI启动参数选项" --separate-output --notags --ok-label "确认" --cancel-label "取消" --checklist "请选择ComfyUI启动参数,确认之后将覆盖原有启动参数配置" 25 80 10 \
         "1" "(listen)开放远程连接" OFF \
         "2" "(auto-launch)启动webui完成后自动启动浏览器" OFF \
         "3" "(disable-auto-launch)禁用在启动webui完成后自动启动浏览器" OFF \
@@ -148,7 +148,7 @@ function generate_comfyui_launch()
 #comfyui启动界面
 function comfyui_launch()
 {
-    comfyui_launch_dialog=$(dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动ComfyUI/修改ComfyUI启动参数\n当前启动参数:\n$([ $venv_active = 0 ] && echo python || echo "$term_sd_python_path") $(cat ./term-sd-launch.conf)" 25 70 10 \
+    comfyui_launch_dialog=$(dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动ComfyUI/修改ComfyUI启动参数\n当前启动参数:\n$([ $venv_active = 0 ] && echo python || echo "$term_sd_python_path") $(cat ./term-sd-launch.conf)" 25 80 10 \
         "1" "启动" \
         "2" "选择预设启动参数" \
         "3" "自定义启动参数" \
@@ -176,7 +176,7 @@ function comfyui_launch()
 #comfyui手动输入启动参数界面
 function comfyui_manual_launch()
 {
-    comfyui_manual_launch_parameter=$(dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入ComfyUI启动参数" 25 70 "$(cat ./term-sd-launch.conf | awk '{sub("main.py ","")}1')" 3>&1 1>&2 2>&3)
+    comfyui_manual_launch_parameter=$(dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入ComfyUI启动参数" 25 80 "$(cat ./term-sd-launch.conf | awk '{sub("main.py ","")}1')" 3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
         term_sd_notice "设置启动参数> $comfyui_manual_launch_parameter"
