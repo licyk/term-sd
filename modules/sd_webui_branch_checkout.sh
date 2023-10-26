@@ -23,6 +23,7 @@ function sd_webui_branch_switch()
                 git remote set-url origin "$github_proxy"https://github.com/AUTOMATIC1111/stable-diffusion-webui
                 git fetch --recurse-submodules
                 git checkout master
+                git submodule deinit --all
                 git pull --rebase --recurse-submodules
                 mv -f ./repositories/blip ./repositories/BLIP
                 sd_webui_branch_file_restore
@@ -34,6 +35,7 @@ function sd_webui_branch_switch()
                 git remote set-url origin "$github_proxy"https://github.com/AUTOMATIC1111/stable-diffusion-webui
                 git fetch --recurse-submodules
                 git checkout dev
+                git submodule deinit --all
                 git pull --rebase --recurse-submodules
                 mv -f ./repositories/blip ./repositories/BLIP
                 sd_webui_branch_file_restore
@@ -71,6 +73,7 @@ function sd_webui_branch_switch()
                 git remote set-url origin "$github_proxy"https://github.com/lshqqytiger/stable-diffusion-webui-directml
                 git fetch --recurse-submodules
                 git checkout master
+                git submodule deinit --all
                 git pull --rebase --recurse-submodules
                 mv -f ./repositories/blip ./repositories/BLIP
                 sd_webui_branch_file_restore
@@ -82,6 +85,7 @@ function sd_webui_branch_switch()
                 git remote set-url origin "$github_proxy"https://github.com/lshqqytiger/stable-diffusion-webui-directml
                 git fetch --recurse-submodules
                 git checkout dev
+                git submodule deinit --all
                 git pull --rebase --recurse-submodules
                 mv -f ./repositories/blip ./repositories/BLIP
                 sd_webui_branch_file_restore
@@ -93,15 +97,17 @@ function sd_webui_branch_switch()
 #sd-webui分支切换后的重置功能
 function sd_webui_branch_file_restore()
 {
-    cd ./repositories
-    for i in ./* ;do
-        [ ! -d "./$i/.git" ] && continue #排除没有.git文件夹的目录
-        cd $i
-        git reset --recurse-submodules --hard HEAD
-        git restore --recurse-submodules --source=HEAD :/
+    if [ -d "./repositories" ];then
+        cd ./repositories
+        for i in ./* ;do
+            [ ! -d "./$i/.git" ] && continue #排除没有.git文件夹的目录
+            cd $i
+            git reset --recurse-submodules --hard HEAD
+            git restore --recurse-submodules --source=HEAD :/
+            cd ..
+        done
         cd ..
-    done
-    cd ..
+    fi
     rm -rf ./extensions-builtin
     git reset --recurse-submodules --hard HEAD
     git restore --recurse-submodules --source=HEAD :/
