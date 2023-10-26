@@ -77,7 +77,7 @@ function comfyui_option()
                 8)
                     if [ ! -f "./term-sd-launch.conf" ]; then #找不到启动配置时默认生成一个
                         term_sd_notice "未找到启动配置文件,创建中"
-                        echo "main.py " > term-sd-launch.conf
+                        echo "main.py --auto-launch" > term-sd-launch.conf
                     fi
                     comfyui_launch
                     comfyui_option

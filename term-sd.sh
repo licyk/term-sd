@@ -159,6 +159,13 @@ function term_sd_process_user_input_early()
             --set-cmd-daemon-retry)
                 term_sd_launch_option="--set-cmd-daemon-retry"
                 ;;
+            --update-pip)
+                export pip_manager_update=0
+                term_sd_notice "进入虚拟环境时将更新pip软件包管理器"
+                ;;
+            --remove-term-sd)
+                remove_term_sd
+                ;;
             *)
                 term_sd_launch_unknown_option_notice
                 ;;
@@ -196,16 +203,9 @@ function term_sd_process_user_input()
 
         #选项检测部分(如果选项要跟参数值,则设置触发获取参数的变量,命名为"term_sd_input_value_"+"选项名",赋值0,触发获取参数的功能后,赋值1)
         case $i in
-            --remove-term-sd)
-                remove_term_sd
-                ;;
             --quick-cmd)
                 install_cmd_to_shell
                 exit 1
-                ;;
-            --update-pip)
-                export pip_manager_update=0
-                term_sd_notice "进入虚拟环境时将更新pip软件包管理器"
                 ;;
             --test-network)
                 term_sd_test_network

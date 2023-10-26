@@ -8,7 +8,7 @@ function generate_comfyui_launch()
     comfyui_launch_option_dialog=$(
         dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI启动参数选项" --separate-output --notags --ok-label "确认" --cancel-label "取消" --checklist "请选择ComfyUI启动参数,确认之后将覆盖原有启动参数配置" 25 80 10 \
         "1" "(listen)开放远程连接" OFF \
-        "2" "(auto-launch)启动webui完成后自动启动浏览器" OFF \
+        "2" "(auto-launch)启动webui完成后自动启动浏览器" ON \
         "3" "(disable-auto-launch)禁用在启动webui完成后自动启动浏览器" OFF \
         "4" "(cuda-malloc)启用CUDA流顺序内存分配器(Torch2.0+默认启用)" OFF\
         "5" "(disable-cuda-malloc)禁用CUDA流顺序内存分配器" OFF \
