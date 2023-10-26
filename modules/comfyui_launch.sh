@@ -38,104 +38,108 @@ function generate_comfyui_launch()
         "29" "(quick-test-for-ci)快速测试CI" OFF \
         "30" "(windows-standalone-build)启用Windows独占功能" OFF \
         "31" "(disable-metadata)禁用在文件中保存提示元数据" OFF \
+        "32" "(share)通过gradio共享" OFF \
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
         for i in $comfyui_launch_option_dialog; do
             case $i in
-            1)
-                comfyui_launch_option="--listen $comfyui_launch_option"
-                ;;
-            2)    
-                comfyui_launch_option="--auto-launch $comfyui_launch_option"
-                ;;
-            3)
-                comfyui_launch_option="--disable-auto-launch $comfyui_launch_option"
-                ;;
-            4)
-                comfyui_launch_option="--cuda-malloc $comfyui_launch_option"
-                ;;
-            5)
-                comfyui_launch_option="--disable-cuda-malloc $comfyui_launch_option"
-                ;;
-            6)
-                comfyui_launch_option="--dont-upcast-attention $comfyui_launch_option"
-                ;;
-            7)
-                comfyui_launch_option="--force-fp32 $comfyui_launch_option"
-                ;;
-            8)
-                comfyui_launch_option="--force-fp16 $comfyui_launch_option"
-                ;;
-            9)
-                comfyui_launch_option="--bf16-unet $comfyui_launch_option"
-                ;;
-            10)
-                comfyui_launch_option="--fp16-vae $comfyui_launch_option"
-                ;;
-            11)
-                comfyui_launch_option="--fp32-vae $comfyui_launch_option"
-                ;;
-            12)
-                comfyui_launch_option="--bf16-vae $comfyui_launch_option"
-                ;;
-            13)
-                comfyui_launch_option="--disable-ipex-optimize $comfyui_launch_option"
-                ;;
-            14)
-                comfyui_launch_option="--preview-method none $comfyui_launch_option"
-                ;;
-            15)
-                comfyui_launch_option="--preview-method latent2rgb $comfyui_launch_option"
-                ;;
-            16)
-                comfyui_launch_option="--preview-method taesd $comfyui_launch_option"
-                ;;
-            17)
-                comfyui_launch_option="--use-split-cross-attention $comfyui_launch_option"
-                ;;
-            18)
-                comfyui_launch_option="--use-quad-cross-attention $comfyui_launch_option"
-                ;;
-            19)
-                comfyui_launch_option="--use-pytorch-cross-attention $comfyui_launch_option"
-                ;;
-            20)
-                comfyui_launch_option="--disable-xformers $comfyui_launch_option"
-                ;;
-            21)
-                comfyui_launch_option="--gpu-only $comfyui_launch_option"
-                ;;
-            22)
-                comfyui_launch_option="--highvram $comfyui_launch_option"
-                ;;
-            23)
-                comfyui_launch_option="--normalvram $comfyui_launch_option"
-                ;;
-            24)
-                comfyui_launch_option="--lowvram $comfyui_launch_option"
-                ;;
-            25)
-                comfyui_launch_option="--novram $comfyui_launch_option"
-                ;;
-            26)
-                comfyui_launch_option="--cpu $comfyui_launch_option"
-                ;;
-            27)
-                comfyui_launch_option="--disable-smart-memory $comfyui_launch_option"
-                ;;
-            28)
-                comfyui_launch_option="--dont-print-server $comfyui_launch_option"
-                ;;
-            29)
-                comfyui_launch_option="--quick-test-for-ci $comfyui_launch_option"
-                ;;
-            30)
-                comfyui_launch_option="--windows-standalone-build $comfyui_launch_option"
-                ;;
-            31)
-                comfyui_launch_option="--disable-metadata $comfyui_launch_option"
-                ;;
+                1)
+                    comfyui_launch_option="--listen $comfyui_launch_option"
+                    ;;
+                2)    
+                    comfyui_launch_option="--auto-launch $comfyui_launch_option"
+                    ;;
+                3)
+                    comfyui_launch_option="--disable-auto-launch $comfyui_launch_option"
+                    ;;
+                4)
+                    comfyui_launch_option="--cuda-malloc $comfyui_launch_option"
+                    ;;
+                5)
+                    comfyui_launch_option="--disable-cuda-malloc $comfyui_launch_option"
+                    ;;
+                6)
+                    comfyui_launch_option="--dont-upcast-attention $comfyui_launch_option"
+                    ;;
+                7)
+                    comfyui_launch_option="--force-fp32 $comfyui_launch_option"
+                    ;;
+                8)
+                    comfyui_launch_option="--force-fp16 $comfyui_launch_option"
+                    ;;
+                9)
+                    comfyui_launch_option="--bf16-unet $comfyui_launch_option"
+                    ;;
+                10)
+                    comfyui_launch_option="--fp16-vae $comfyui_launch_option"
+                    ;;
+                11)
+                    comfyui_launch_option="--fp32-vae $comfyui_launch_option"
+                    ;;
+                12)
+                    comfyui_launch_option="--bf16-vae $comfyui_launch_option"
+                    ;;
+                13)
+                    comfyui_launch_option="--disable-ipex-optimize $comfyui_launch_option"
+                    ;;
+                14)
+                    comfyui_launch_option="--preview-method none $comfyui_launch_option"
+                    ;;
+                15)
+                    comfyui_launch_option="--preview-method latent2rgb $comfyui_launch_option"
+                    ;;
+                16)
+                    comfyui_launch_option="--preview-method taesd $comfyui_launch_option"
+                    ;;
+                17)
+                    comfyui_launch_option="--use-split-cross-attention $comfyui_launch_option"
+                    ;;
+                18)
+                    comfyui_launch_option="--use-quad-cross-attention $comfyui_launch_option"
+                    ;;
+                19)
+                    comfyui_launch_option="--use-pytorch-cross-attention $comfyui_launch_option"
+                    ;;
+                20)
+                    comfyui_launch_option="--disable-xformers $comfyui_launch_option"
+                    ;;
+                21)
+                    comfyui_launch_option="--gpu-only $comfyui_launch_option"
+                    ;;
+                22)
+                    comfyui_launch_option="--highvram $comfyui_launch_option"
+                    ;;
+                23)
+                    comfyui_launch_option="--normalvram $comfyui_launch_option"
+                    ;;
+                24)
+                    comfyui_launch_option="--lowvram $comfyui_launch_option"
+                    ;;
+                25)
+                    comfyui_launch_option="--novram $comfyui_launch_option"
+                    ;;
+                26)
+                    comfyui_launch_option="--cpu $comfyui_launch_option"
+                    ;;
+                27)
+                    comfyui_launch_option="--disable-smart-memory $comfyui_launch_option"
+                    ;;
+                28)
+                    comfyui_launch_option="--dont-print-server $comfyui_launch_option"
+                    ;;
+                29)
+                    comfyui_launch_option="--quick-test-for-ci $comfyui_launch_option"
+                    ;;
+                30)
+                    comfyui_launch_option="--windows-standalone-build $comfyui_launch_option"
+                    ;;
+                31)
+                    comfyui_launch_option="--disable-metadata $comfyui_launch_option"
+                    ;;
+                32)
+                    comfyui_launch_option="--share $comfyui_launch_option"
+                    ;;
             esac
         done
 
