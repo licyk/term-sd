@@ -5,7 +5,7 @@ function sd_webui_branch_switch()
 {
     proxy_option #切换前前代理选择
     sd_webui_branch_switch_dialog=$(
-        dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui分支切换选项" --ok-label "确认" --cancel-label "取消" --menu "请选择要切换的SD-Webui分支\n当前更新源:$(git remote -v | awk 'NR==1 {print $2}')" 25 70 10 \
+        dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui分支切换选项" --ok-label "确认" --cancel-label "取消" --menu "请选择要切换的SD-Webui分支\n当前更新源:$(git remote -v | awk 'NR==1 {print $2}')" 25 80 10 \
             "1" "AUTOMATIC1111/stable-diffusion-webui主分支" \
             "2" "AUTOMATIC1111/stable-diffusion-webui测试分支" \
             "3" "vladmandic/SD.NEXT主分支" \

@@ -9,7 +9,7 @@ function python_package_ver_backup_or_restore()
     fi
 
     enter_venv
-    python_package_ver_backup_or_restore_dialog=$(dialog --clear --title "Term-SD" --backtitle "依赖库版本管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的依赖库版本管理功能\n当前"$term_sd_manager_info"依赖库版本备份情况:$( [ ! -z "$(ls ./term-sd-python-pkg-backup)" ] && echo \\n$( ls -lrh ./term-sd-python-pkg-backup --time-style=+"%Y-%m-%d" | awk 'NR==2 {print $7}' ) || echo "无" )" 25 70 10 \
+    python_package_ver_backup_or_restore_dialog=$(dialog --clear --title "Term-SD" --backtitle "依赖库版本管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的依赖库版本管理功能\n当前"$term_sd_manager_info"依赖库版本备份情况:$( [ ! -z "$(ls ./term-sd-python-pkg-backup)" ] && echo \\n$( ls -lrh ./term-sd-python-pkg-backup --time-style=+"%Y-%m-%d" | awk 'NR==2 {print $7}' ) || echo "无" )" 25 80 10 \
         "1" "备份python依赖库版本" \
         "2" "python依赖库版本管理" \
         "3" "返回" \
@@ -18,7 +18,7 @@ function python_package_ver_backup_or_restore()
     if [ $? = 0 ];then
         case $python_package_ver_backup_or_restore_dialog in
             1)
-                if (dialog --clear --title "Term-SD" --backtitle "依赖库版本备份选项" --yes-label "是" --no-label "否" --yesno "是否备份"$term_sd_manager_info"依赖库?" 25 70) then
+                if (dialog --clear --title "Term-SD" --backtitle "依赖库版本备份选项" --yes-label "是" --no-label "否" --yesno "是否备份"$term_sd_manager_info"依赖库?" 25 80) then
                     backup_python_package_ver
                 fi
                 python_package_ver_backup_or_restore
@@ -51,7 +51,7 @@ function backup_python_package_ver()
 #备份文件列表展示
 function python_package_ver_backup_list()
 {
-    python_package_ver_backup_list_dialog=$(dialog --clear --title "Term-SD" --backtitle "依赖库版本记录列表选项" --ok-label "确认" --cancel-label "取消" --menu "请选择依赖库版本记录" 25 70 10 \
+    python_package_ver_backup_list_dialog=$(dialog --clear --title "Term-SD" --backtitle "依赖库版本记录列表选项" --ok-label "确认" --cancel-label "取消" --menu "请选择依赖库版本记录" 25 80 10 \
         "-->返回<--" "<---" \
         $(ls -lrh "./term-sd-python-pkg-backup" --time-style=+"%Y-%m-%d" | awk '{ print $7 " " $5 }') \
         3>&1 1>&2 2>&3)
@@ -73,7 +73,7 @@ function python_package_ver_backup_list()
 #依赖库备份文件处理选项
 function process_python_package_ver_backup_file()
 {
-    process_python_package_ver_backup_file_dialog=$(dialog --clear --title "Term-SD" --backtitle "依赖库版本记录管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的依赖库版本记录管理功能\n当前版本记录:\n$(echo $python_package_ver_backup_list_dialog | awk '{sub(".txt","")}1')" 25 70 10 \
+    process_python_package_ver_backup_file_dialog=$(dialog --clear --title "Term-SD" --backtitle "依赖库版本记录管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的依赖库版本记录管理功能\n当前版本记录:\n$(echo $python_package_ver_backup_list_dialog | awk '{sub(".txt","")}1')" 25 80 10 \
         "1" "恢复该版本记录" \
         "2" "删除该版本记录" \
         "3" "返回" \
@@ -82,13 +82,13 @@ function process_python_package_ver_backup_file()
     if [ $? = 0 ];then
         case $process_python_package_ver_backup_file_dialog in
             1)
-                if (dialog --clear --title "Term-SD" --backtitle "依赖库版本恢复确认选项" --yes-label "是" --no-label "否" --yesno "是否恢复该版本记录?" 25 70) then
+                if (dialog --clear --title "Term-SD" --backtitle "依赖库版本恢复确认选项" --yes-label "是" --no-label "否" --yesno "是否恢复该版本记录?" 25 80) then
                     restore_python_package_ver
                 fi
                 process_python_package_ver_backup_file
                 ;;
             2)
-                if (dialog --clear --title "Term-SD" --backtitle "安装确认选项" --yes-label "是" --no-label "否" --yesno "是否删除该版本记录?" 25 70) then
+                if (dialog --clear --title "Term-SD" --backtitle "安装确认选项" --yes-label "是" --no-label "否" --yesno "是否删除该版本记录?" 25 80) then
                     term_sd_notice "删除$(echo $python_package_ver_backup_list_dialog | awk '{sub(".txt","")}1')记录中"
                     rm -rf ./term-sd-python-pkg-backup/$python_package_ver_backup_list_dialog
                 fi

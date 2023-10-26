@@ -5,7 +5,7 @@ function term_sd_update_option()
 {
     if [ -d "./term-sd/.git" ];then #检测目录中是否有.git文件夹
         term_sd_update_option_dialog=$(
-            dialog --clear --title "Term-SD" --backtitle "Term-SD更新选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的更新源\n当前Term-SD更新源:$(git --git-dir="./term-sd/.git" remote get-url origin)\n当前Term-SD分支:$(git --git-dir="./term-sd/.git" branch | grep \* | awk -F "* " '{print $NF}')" 25 70 10 \
+            dialog --clear --title "Term-SD" --backtitle "Term-SD更新选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的更新源\n当前Term-SD更新源:$(git --git-dir="./term-sd/.git" remote get-url origin)\n当前Term-SD分支:$(git --git-dir="./term-sd/.git" branch | grep \* | awk -F "* " '{print $NF}')" 25 80 10 \
             "1" "更新" \
             "2" "切换更新源" \
             "3" "切换分支" \
@@ -26,10 +26,10 @@ function term_sd_update_option()
                     if [ $git_pull_info = 0 ];then
                         cp -f ./term-sd/term-sd.sh .
                         chmod +x ./term-sd.sh
-                        dialog --clear --title "Term-SD" --backtitle "Term-SD更新结果" --ok-label "确定" --msgbox "Term-SD更新成功,选择确定后重启" 25 70
+                        dialog --clear --title "Term-SD" --backtitle "Term-SD更新结果" --ok-label "确定" --msgbox "Term-SD更新成功,选择确定后重启" 25 80
                         source ./term-sd.sh
                     else
-                        dialog --clear --title "Term-SD" --backtitle "Term-SD更新结果" --ok-label "确定" --msgbox "Term-SD更新失败" 25 70
+                        dialog --clear --title "Term-SD" --backtitle "Term-SD更新结果" --ok-label "确定" --msgbox "Term-SD更新失败" 25 80
                         term_sd_update_option
                     fi
                     ;;
@@ -50,7 +50,7 @@ function term_sd_update_option()
             esac
         fi
     else #检测到没有该文件夹,无法进行更新,提示用户修复
-        dialog --clear --title "Term-SD" --backtitle "Term-SD更新选项" --ok-label "确定" --msgbox "Term-SD文件损坏,无法进行更新,请重启Term-SD并按提示修复问题" 25 70
+        dialog --clear --title "Term-SD" --backtitle "Term-SD更新选项" --ok-label "确定" --msgbox "Term-SD文件损坏,无法进行更新,请重启Term-SD并按提示修复问题" 25 80
     fi
 }
 
@@ -58,7 +58,7 @@ function term_sd_update_option()
 function term_sd_remote()
 {
     term_sd_remote_dialog=$(
-        dialog --clear --title "Term-SD" --backtitle "Term-SD分支切换界面" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的分支\n当前Term-SD更新源:$(git --git-dir="./term-sd/.git" remote get-url origin)" 25 70 10 \
+        dialog --clear --title "Term-SD" --backtitle "Term-SD分支切换界面" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的分支\n当前Term-SD更新源:$(git --git-dir="./term-sd/.git" remote get-url origin)" 25 80 10 \
         "1" "github源" \
         "2" "gitlab源" \
         "3" "gitee源" \
@@ -86,7 +86,7 @@ function term_sd_remote()
 #term-sd分支切换
 function term_sd_branch()
 {
-    term_sd_branch_dialog=$(dialog --clear --title "Term-SD" --backtitle "Term-SD分支切换界面" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的分支\n当前Term-SD分支:$(git --git-dir="./term-sd/.git" branch | grep \* | awk -F "* " '{print $NF}')" 25 70 10 \
+    term_sd_branch_dialog=$(dialog --clear --title "Term-SD" --backtitle "Term-SD分支切换界面" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的分支\n当前Term-SD分支:$(git --git-dir="./term-sd/.git" branch | grep \* | awk -F "* " '{print $NF}')" 25 80 10 \
         "1" "主分支" \
         "2" "测试分支" \
         "3" "返回" \

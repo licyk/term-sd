@@ -54,7 +54,7 @@ function select_repo()
     select_repo_exec=0
     change_repo_return="" #清除上次运行结果
 
-    select_repo_dialog=$(dialog --clear --title "Term-SD" --backtitle "更新源选择界面" --ok-label "确认" --cancel-label "取消" --menu "选择要修改成的更新源\n当前将要修改更新源的AI软件:$term_sd_manager_info" 25 70 10 \
+    select_repo_dialog=$(dialog --clear --title "Term-SD" --backtitle "更新源选择界面" --ok-label "确认" --cancel-label "取消" --menu "选择要修改成的更新源\n当前将要修改更新源的AI软件:$term_sd_manager_info" 25 80 10 \
         "1" "官方源" \
         "2" "镜像源" \
         "3" "返回" \
@@ -83,7 +83,7 @@ function select_repo()
 function select_repo_single()
 {
     change_repo_return="" #清除上次运行结果
-    select_repo_single_dialog=$(dialog --clear --title "Term-SD" --backtitle "更新源选择界面" --ok-label "确认" --cancel-label "取消" --menu "选择要修改成的更新源\n当前更新源:$(git remote -v | awk 'NR==1 {print $2}')" 25 70 10 \
+    select_repo_single_dialog=$(dialog --clear --title "Term-SD" --backtitle "更新源选择界面" --ok-label "确认" --cancel-label "取消" --menu "选择要修改成的更新源\n当前更新源:$(git remote -v | awk 'NR==1 {print $2}')" 25 80 10 \
         "1" "官方源" \
         "2" "镜像源" \
         "3" "返回" \
@@ -93,11 +93,11 @@ function select_repo_single()
         case $select_repo_single_dialog in
             1)
                 change_repo_to_origin
-                dialog --clear --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$change_repo_return------------------------------------------------------------------" 25 70
+                dialog --clear --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$change_repo_return------------------------------------------------------------------" 25 80
                 ;;
             2)
                 change_repo_to_proxy
-                dialog --clear --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$change_repo_return------------------------------------------------------------------" 25 70
+                dialog --clear --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$change_repo_return------------------------------------------------------------------" 25 80
                 ;;
         esac
     fi
@@ -135,7 +135,7 @@ function a1111_sd_webui_change_repo()
 
         term_sd_notice "替换结束"
         print_line_to_shell
-        dialog --clear --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$change_repo_return------------------------------------------------------------------" 25 70
+        dialog --clear --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$change_repo_return------------------------------------------------------------------" 25 80
     fi
 }
 
@@ -175,7 +175,7 @@ function comfyui_change_repo()
 
         term_sd_notice "替换结束"
         print_line_to_shell
-        dialog --clear --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$change_repo_return------------------------------------------------------------------" 25 70
+        dialog --clear --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$change_repo_return------------------------------------------------------------------" 25 80
     fi
 
 }
@@ -193,7 +193,7 @@ function lora_scripts_change_repo()
         $change_repo_cmd
         term_sd_notice "替换结束"
         print_line_to_shell
-        dialog --clear --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$change_repo_return------------------------------------------------------------------" 25 70
+        dialog --clear --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$change_repo_return------------------------------------------------------------------" 25 80
     fi
 }
 
@@ -208,6 +208,6 @@ function fooocus_change_repo()
         $change_repo_cmd
         term_sd_notice "替换结束"
         print_line_to_shell
-        dialog --clear --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$change_repo_return------------------------------------------------------------------" 25 70
+        dialog --clear --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$change_repo_return------------------------------------------------------------------" 25 80
     fi
 }

@@ -20,7 +20,7 @@ function term_sd_launch_unknown_option_notice()
 {
     if [ $(option_or_value_test "$i") = 0 ];then #测试输入值是参数还是选项
         case $i in
-		--null|--help|--reinstall-term-sd|--enable-auto-update|--disable-auto-update|--set-python-path|--set-pip-path|--unset-python-path|--unset-pip-path|--enable-new-bar|--disable-new-bar|--enable-bar|--disable-bar|--remove-term-sd|--quick-cmd|--multi-threaded-download|--update-pip|--test-network|--extra) #排除已有参数
+		--null|--help|--reinstall-term-sd|--enable-auto-update|--disable-auto-update|--set-python-path|--set-pip-path|--unset-python-path|--unset-pip-path|--enable-new-bar|--disable-new-bar|--enable-bar|--disable-bar|--remove-term-sd|--quick-cmd|--update-pip|--test-network|--extra|--set-aria2-multi-threaded|--set-cmd-daemon-retry) #排除已有参数
                 ;;
             *)
                 term_sd_notice "未知参数 \"$i\""
@@ -51,6 +51,12 @@ function term_sd_process_user_input_early()
                 --set-pip-path)
                     set_pip_path $term_sd_launch_option_args
                     ;;
+                --set-aria2-multi-threaded)
+                    set_aria2_multi_threaded $term_sd_launch_option_args
+                    ;;
+                --set-cmd-daemon-retry)
+                    set_cmd_daemon_retry $term_sd_launch_option_args
+                    ;;
             esac
             term_sd_launch_option="" #清除选项,留给下一次判断
         fi
@@ -62,14 +68,12 @@ function term_sd_process_user_input_early()
             --help)
                 print_line_to_shell
                 term_sd_notice "启动参数使用方法:"
-                echo "  term-sd.sh [--help] [--extra script_name] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--update-pip] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar]"
+                echo "  term-sd.sh [--help] [--extra script_name] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--update-pip] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar] [--set-aria2-multi-threaded thread_value] [--set-cmd-daemon-retry retry_value]"
                 echo "选项:"
                 echo "  --help"
                 echo "        显示启动参数帮助"
                 echo "  --extra script_name"
                 echo "        启动扩展脚本选择列表,当选项后面输入了脚本名,则直接启动指定的脚本,否则启动扩展脚本选择界面"
-                echo "  --multi-threaded-download"
-                echo "        安装过程中启用多线程下载模型"
                 echo "  --enable-auto-update"
                 echo "        启用Term-SD自动检查更新功能"
                 echo "  --disable-auto-update"
@@ -100,6 +104,10 @@ function term_sd_process_user_input_early()
                 echo "        启用Term-SD初始化进度显示(默认)"
                 echo "  --disable-bar"
                 echo "        禁用Term-SD初始化进度显示(加了进度显示只会降低Term-SD初始化速度)"
+                echo "  --set-aria2-multi-threaded thread_value" 
+                echo "        设置安装ai软件时下载模型的线程数。设置为0时将删除配置"
+                echo "  --set-cmd-daemon-retry retry_value"
+                echo "        设置安装ai软件的命令重试次数。在网络不稳定时可能出现命令执行中断,设置该值可让命令执行中断后再重新执行。设置为0时将删除配置"
                 print_line_to_shell
                 exit 1
                 ;;
@@ -145,6 +153,12 @@ function term_sd_process_user_input_early()
                 touch ./term-sd/term-sd-no-bar.lock
                 term_sd_notice "禁用Term-SD初始化进度显示"
                 ;;
+            --set-aria2-multi-threaded)
+                term_sd_launch_option="--set-aria2-multi-threaded"
+                ;;
+            --set-cmd-daemon-retry)
+                term_sd_launch_option="--set-cmd-daemon-retry"
+                ;;
             *)
                 term_sd_launch_unknown_option_notice
                 ;;
@@ -158,7 +172,6 @@ function term_sd_process_user_input()
 {
     #重置变量
     export pip_manager_update=1
-    export aria2_multi_threaded=""
 
     #加一个--null是为了增加一次循环,保证那些需要参数的选项能成功执行
     for i in "$@" "--null" ;do
@@ -189,10 +202,6 @@ function term_sd_process_user_input()
             --quick-cmd)
                 install_cmd_to_shell
                 exit 1
-                ;;
-            --multi-threaded-download)
-                term_sd_notice "安装过程中启用多线程下载模型"
-                export aria2_multi_threaded="-x 8"
                 ;;
             --update-pip)
                 export pip_manager_update=0
@@ -237,7 +246,7 @@ function term_sd_extra_scripts_launch()
 function term_sd_extra_scripts()
 {
     extra_script_dir_list=$(ls -l "./term-sd/extra" --time-style=+"%Y-%m-%d" | awk -F ' ' ' { print $7 " " $6 } ')
-    extra_script_dir_list_=$(dialog --clear --title "Term-SD" --backtitle "扩展脚本选项" --ok-label "确认" --cancel-label "取消" --menu "请选择要启动的脚本" 25 70 10 \
+    extra_script_dir_list_=$(dialog --clear --title "Term-SD" --backtitle "扩展脚本选项" --ok-label "确认" --cancel-label "取消" --menu "请选择要启动的脚本" 25 80 10 \
         "Term-SD" "<---------" \
         $extra_script_dir_list \
         "退出" "<---------" \
@@ -694,6 +703,51 @@ function set_pip_path()
     fi
 }
 
+#aria线程设置
+function set_aria2_multi_threaded()
+{
+    if [ -z $(echo $@ | awk '{gsub(/[0-9]/, "")}1') ];then
+        if [ ! -z $@ ];then
+            if [ $@ = 0 ];then
+                term_sd_notice "删除下载线程数配置"
+                rm -rf ./term-sd/aria2-thread.conf
+            elif [ $@ -le 16 ];then
+                term_sd_notice "设置安装ai软件时下载模型的线程数: $@"
+                echo "-x $@" > ./term-sd/aria2-thread.conf
+            else
+                term_sd_notice "设置安装ai软件时下载模型的线程数: 16"
+                echo "-x 16" > ./term-sd/aria2-thread.conf
+            fi
+        else
+            term_sd_notice "未指定线程数,使用默认值: 1"
+            echo "-x 1" > ./term-sd/aria2-thread.conf
+        fi
+    else
+        term_sd_notice "输入格式错误,线程数只能为数字且不能为负数"
+    fi
+}
+
+#安装过程的命令重试次数设置
+function set_cmd_daemon_retry()
+{
+    if [ -z $(echo $@ | awk '{gsub(/[0-9]/, "")}1') ];then
+        if [ ! -z $@ ];then
+            if [ $@ = 0 ];then
+                term_sd_notice "删除安装ai软件的命令重试次数配置"
+                rm -rf ./term-sd/cmd-daemon-retry.conf
+            else
+                term_sd_notice "设置安装ai软件的命令重试次数: $@"
+                echo "$@" > ./term-sd/cmd-daemon-retry.conf
+            fi
+        else
+            term_sd_notice "未指定重试次数,使用默认值: 3"
+            echo "3" > ./term-sd/cmd-daemon-retry.conf
+        fi
+    else
+        term_sd_notice "输入格式错误,重试次数只能为数字且不能为负数"
+    fi 
+}
+
 #term-sd格式化输出信息
 function term_sd_notice()
 {
@@ -703,10 +757,10 @@ function term_sd_notice()
 #终端大小检测
 function terminal_size_test()
 {
-    shellwidth=$(stty size | awk '{print $2}') #获取终端宽度，推荐85
+    shellwidth=$(stty size | awk '{print $2}') #获取终端宽度，推荐95
     shellheight=$(stty size | awk '{print $1}') #获取终端高度，推荐35
     term_sd_notice "当前终端大小: $shellheight x $shellwidth"
-    if [ $shellheight -lt 30 ] || [ $shellwidth -lt 75 ];then
+    if [ $shellheight -lt 30 ] || [ $shellwidth -lt 85 ];then
         term_sd_notice "检测到终端大小过小"
         term_sd_notice "为了防止界面显示不全,建议调大终端大小"
         sleep 3
@@ -904,6 +958,20 @@ function term_sd_env_prepare()
         #代理变量的说明:https://blog.csdn.net/Dancen/article/details/128045261
     fi
 
+    #设置安装重试次数
+    if [ -f "./term-sd/cmd-daemon-retry.conf" ];then
+        export cmd_daemon_retry=$(cat ./term-sd/cmd-daemon-retry.conf)
+    else #没有配置文件时使用默认值
+        export cmd_daemon_retry=0
+    fi
+
+    #设置安装ai软件时下载模型的线程数
+    if [ -f "./term-sd/aria2-thread.conf" ];then
+        export aria2_multi_threaded=$(cat ./term-sd/aria2-thread.conf)
+    else
+        export aria2_multi_threaded="-x 1"
+    fi
+
     #设置启动时脚本路径
     export start_path=$(pwd)
 
@@ -943,7 +1011,7 @@ function term_sd_env_prepare()
 #################################################
 
 #term-sd版本
-term_sd_version_="0.6.2"
+term_sd_version_="0.6.5"
 
 #判断启动状态(在shell中,新变量的值为空,且不需要定义就可以使用,不像c语言中要求那么严格)
 if [ ! -z $term_sd_env_prepare_info ] && [ $term_sd_env_prepare_info = 0 ];then #检测term-sd是直接启动还是重启

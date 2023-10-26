@@ -8,8 +8,21 @@ function a1111_sd_webui_option()
     exit_venv #确保进行下一步操作前已退出其他虚拟环境
     if [ -d "stable-diffusion-webui" ];then #找到stable-diffusion-webui目录
         cd stable-diffusion-webui
+
+        case $(git remote -v | awk 'NR==1 {print $2}' | awk -F'/' '{print $NF}') in #分支判断
+            stable-diffusion-webui)
+                sd_webui_branch_info="AUTOMATIC1111 webui"
+                ;;
+            automatic)
+                sd_webui_branch_info="vladmandic webui"
+                ;;
+            stable-diffusion-webui-directml)
+                sd_webui_branch_info="lshqqytiger webui"
+                ;;
+        esac
+
         a1111_sd_webui_option_dialog=$(
-            dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择A1111-SD-Webui管理选项的功能\n当前更新源:$(git remote -v | awk 'NR==1 {print $2}')" 25 70 10 \
+            dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择A1111-SD-Webui管理选项的功能\n当前更新源:$(git remote -v | awk 'NR==1 {print $2}')\n当前分支:$sd_webui_branch_info" 25 80 10 \
             "1" "更新" \
             "2" "卸载" \
             "3" "修复更新" \
@@ -34,14 +47,14 @@ function a1111_sd_webui_option()
                     term_sd_notice "更新A1111-Stable-Diffusion-Webui中"
                     git pull
                     if [ $? = 0 ];then
-                        dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui更新结果" --ok-label "确认" --msgbox "A1111-SD-Webui更新成功" 25 70
+                        dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui更新结果" --ok-label "确认" --msgbox "A1111-SD-Webui更新成功" 25 80
                     else
-                        dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui更新结果" --ok-label "确认" --msgbox "A1111-SD-Webui更新失败" 25 70
+                        dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui更新结果" --ok-label "确认" --msgbox "A1111-SD-Webui更新失败" 25 80
                     fi
                     a1111_sd_webui_option
                     ;;
                 2)
-                    if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui删除选项" --yes-label "是" --no-label "否" --yesno "是否删除A1111-Stable-Diffusion-Webui?" 25 70) then
+                    if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui删除选项" --yes-label "是" --no-label "否" --yesno "是否删除A1111-Stable-Diffusion-Webui?" 25 80) then
                         term_sd_notice "删除A1111-Stable-Diffusion-Webui中"
                         exit_venv
                         cd ..
@@ -67,7 +80,7 @@ function a1111_sd_webui_option()
                     a1111_sd_webui_option
                     ;;
                 7)
-                    if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui分支切换选项" --yes-label "是" --no-label "否" --yesno "是否切换Stable-Diffusion-Webui分支?" 25 70) then
+                    if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui分支切换选项" --yes-label "是" --no-label "否" --yesno "是否切换Stable-Diffusion-Webui分支?" 25 80) then
                         sd_webui_branch_switch
                     fi
                     a1111_sd_webui_option
@@ -85,7 +98,7 @@ function a1111_sd_webui_option()
                     a1111_sd_webui_option
                     ;;
                 10)
-                    if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装A1111-Stable-Diffusion-Webui?" 25 70) then
+                    if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装A1111-Stable-Diffusion-Webui?" 25 80) then
                         cd "$start_path"
                         exit_venv
                         process_install_a1111_sd_webui
@@ -106,13 +119,13 @@ function a1111_sd_webui_option()
                     a1111_sd_webui_option
                     ;;
                 18)
-                    if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui虚拟环境修复选项" --yes-label "是" --no-label "否" --yesno "是否修复A1111-SD-Webui的虚拟环境" 25 70);then
+                    if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui虚拟环境修复选项" --yes-label "是" --no-label "否" --yesno "是否修复A1111-SD-Webui的虚拟环境" 25 80);then
                         create_venv --fix
                     fi
                     a1111_sd_webui_option
                     ;;
                 19)
-                    if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建A1111-SD-Webui的虚拟环境" 25 70);then
+                    if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建A1111-SD-Webui的虚拟环境" 25 80);then
                         a1111_sd_webui_venv_rebuild
                     fi
                     a1111_sd_webui_option
@@ -120,7 +133,7 @@ function a1111_sd_webui_option()
             esac
         fi
     else #找不到stable-diffusion-webui目录
-        if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui安装选项" --yes-label "是" --no-label "否" --yesno "检测到当前未安装A1111-Stable-Diffusion-Webui,是否进行安装?" 25 70) then
+        if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui安装选项" --yes-label "是" --no-label "否" --yesno "检测到当前未安装A1111-Stable-Diffusion-Webui,是否进行安装?" 25 80) then
             process_install_a1111_sd_webui
         fi
     fi
@@ -129,7 +142,7 @@ function a1111_sd_webui_option()
 #a1111-sd-webui依赖更新功能
 function a1111_sd_webui_update_depend()
 {
-    if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui依赖更新选项" --yes-label "是" --no-label "否" --yesno "是否更新A1111-Stable-Diffusion-Webui的依赖?" 25 70);then
+    if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui依赖更新选项" --yes-label "是" --no-label "否" --yesno "是否更新A1111-Stable-Diffusion-Webui的依赖?" 25 80);then
         #更新前的准备
         proxy_option #代理选择
         pip_install_methon #安装方式选择

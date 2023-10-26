@@ -18,7 +18,7 @@ function proxy_option()
     final_install_check_force_pip="禁用"
 
     proxy_option_dialog=$(
-        dialog --clear --title "Term-SD" --backtitle "安装代理选项" --separate-output --notags --title "Term-SD" --ok-label "确认" --no-cancel --checklist "请选择代理(强制使用pip一般情况下不选)" 25 70 10 \
+        dialog --clear --title "Term-SD" --backtitle "安装代理选项" --separate-output --notags --title "Term-SD" --ok-label "确认" --no-cancel --checklist "请选择代理(强制使用pip一般情况下不选)" 25 80 10 \
         "1" "启用pip镜像源" OFF \
         "2" "启用github代理" ON \
         "3" "huggingface独占代理" OFF \
@@ -65,7 +65,7 @@ function a1111_sd_webui_extension_option()
 
     #插件选择,并输出插件对应的数字
     extension_list=$(
-        dialog --clear --title "Term-SD" --backtitle "A1111-SD-Webui插件安装选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "请选择要安装的A1111-Stable-Diffusion-Webui插件" 25 70 10 \
+        dialog --clear --title "Term-SD" --backtitle "A1111-SD-Webui插件安装选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "请选择要安装的A1111-Stable-Diffusion-Webui插件" 25 80 10 \
         "1" "kohya-config-webui" OFF \
         "2" "sd-webui-additional-networks" OFF \
         "3" "a1111-sd-webui-tagcomplete" OFF \

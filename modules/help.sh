@@ -5,17 +5,16 @@
 #帮助选择
 function help_option()
 {
-    help_option_dialog=$(dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --cancel-label "取消" --menu "请选择帮助" 25 70 10 \
+    help_option_dialog=$(dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --cancel-label "取消" --menu "请选择帮助" 25 80 10 \
         "1" "关于Term-SD" \
         "2" "Term-SD使用方法" \
         "3" "Term-SD注意事项" \
         "4" "Term-SD功能说明" \
-        "5" "Term-SD启动参数说明" \
-        "6" "目录说明" \
-        "7" "Term-SD扩展脚本说明" \
-        "8" "sd-webui插件说明" \
-        "9" "ComfyUI插件/自定义节点说明" \
-        "10" "返回" \
+        "5" "目录说明" \
+        "6" "Term-SD扩展脚本说明" \
+        "7" "sd-webui插件说明" \
+        "8" "ComfyUI插件/自定义节点说明" \
+        "9" "返回" \
         3>&1 1>&2 2>&3 )
 
     if [ $? = 0 ];then
@@ -102,7 +101,7 @@ bilibili@独立研究员-星空\n
 bilibili@自带马赛克属性的阿尼\n
 \n
 \n
-" 25 70
+" 25 80
 }
 
 #term-sd使用方法
@@ -502,7 +501,7 @@ download-hanamizuki:下载绘世启动器\n
 \n
 #### 启动参数的使用方法\n
 \n
-./term-sd.sh [--help] [--extra script_name] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--update-pip] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar]\n
+./term-sd.sh [--help] [--extra script_name] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--update-pip] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar] [--set-aria2-multi-threaded thread_value] [--set-cmd-daemon-retry retry_value]\n
 \n
 \n
 >中括号“[]”仅用来展示，在使用的时候不要输入进去\n
@@ -515,28 +514,25 @@ download-hanamizuki:下载绘世启动器\n
 2、extra\n
 启动扩展脚本显示界面，选中其中一个启动脚本后即可启动，如果参数后面输入扩展脚本的名字，则直接启动指定的扩展脚本\n
 \n
-3、multi-threaded-download\n
-安装过程中启用多线程下载模型，在调用aria2下载模型时设置下载线程为8\n
-\n
-4、enable-auto-update\n
+3、enable-auto-update\n
 启动Term-SD自动检查更新功能。启用后在启动Term-SD时将会检查一次更新，如果有更新则会提醒用户是否进行更新（该功能的触发时间间隔为一个小时）
 \n
-5、disable-auto-update\n
+4、disable-auto-update\n
 禁用Term-SD自动检查更新功能\n
 \n
-6、reinstall-term-sd\n
+5、reinstall-term-sd\n
 重新安装Term-SD。Term-SD会提示用户如何重新安装，根据提示操作即可\n
 \n
-7、remove-term-sd\n
+6、remove-term-sd\n
 卸载Term-SD，该功能将会删除Term-SD自身的所有组件和快捷启动命令，只保留已经安装的ai软件\n
 \n
-8、test-network\n
+7、test-network\n
 测试网络环境，用于测试代理是否可用。该功能将会测试网络连接是否正常，并测试google，huggingface，github，ghproxy能否访问，该功能需安装curl\n
 \n
-9、quick-cmd\n
+8、quick-cmd\n
 将Term-SD快捷启动指令安装到shell中，在shell中直接输入“termsd”或者“tsd”即可启动Term-SD，且不需要在Term-SD所在目录就能启动Term-SD（用“./term-sd.sh”命令启动还是需要在Term-SD所在目录里才能用）。该功能会提示用户选择安装快捷启动命令还是删除快捷启动命令，根据提示进行操作\n
 \n
-10、set-python-path\n
+9、set-python-path\n
 手动指定python解释器路径（一定是绝对路径）,当选项后面输入了路径,则直接使用输入的路径来设置pip路径(建议用\"\"把路径括起来),否则启动设置界面\n
 路径的参考格式如下：\n
 \n
@@ -548,7 +544,7 @@ download-hanamizuki:下载绘世启动器\n
 \n
 >根据自己安装的路径来填，每个文件夹的分隔符不要使用反斜杠，Windows系统中的盘符，如“C:”，“D:”，要改成“/c”，“/d”，因为MingW64不认识这些路径符号\n
 \n
-11、set-pip-path\n
+10、set-pip-path\n
 手动指定pip路径（一定是绝对路径）,当选项后面输入了路径,则直接使用输入的路径来设置pip路径(建议用\"\"把路径括起来),否则启动设置界面\n
 路径的参考格式如下：\n
 \n
@@ -560,30 +556,36 @@ download-hanamizuki:下载绘世启动器\n
 \n
 >根据自己安装的路径来填，每个文件夹的分隔符不要使用反斜杠，Windows系统中的盘符，如“C:”，“D:”，要改成“/c”，“/d”，因为MingW64不认识这些路径符号\n
 \n
-12、unset-python-path\n
+11、unset-python-path\n
 删除自定义python解释器路径配置\n
 \n
-13、unset-pip-path\n
+12、unset-pip-path\n
 删除自定义pip解释器路径配置\n
 \n
-14、enable-new-bar\n
+13、enable-new-bar\n
 启用新的Term-SD初始化进度条\n
 \n
-15、disable-new-bar\n
+14、disable-new-bar\n
 禁用新的Term-SD初始化进度条\n
 \n
-16、enable-bar\n
+15、enable-bar\n
 启用Term-SD初始化进度显示(默认)\n
 \n
-17、disable-bar\n
+16、disable-bar\n
 禁用Term-SD初始化进度显示(加了进度显示只会降低Term-SD初始化速度)\n
 \n
-18、update-pip\n
+17、update-pip\n
 进入虚拟环境时更新pip软件包管理\n
+\n
+18、set-aria2-multi-threaded\n
+设置安装ai软件时下载模型的线程数。设置为0时将删除配置\n
+\n
+19、set-cmd-daemon-retry\n
+设置安装ai软件的命令重试次数。在网络不稳定时可能出现命令执行中断,设置该值可让命令执行中断后再重新执行。设置为0时将删除配置\n
 \n
 ## 绘世启动器的使用\n
 目前绘世启动器支持启动AUTOMATIC1111-stable-diffusion-webui、ComfyUI。使用Term-SD部署AUTOMATIC1111-stable-diffusion-webui或者ComfyUI后，将绘世启动器放入stable-diffusion-webui文件夹或者ComfyUI文件夹后就可以使用绘世启动器启动对应的ai软件了\n
-" 25 70
+" 25 80
 }
 
 #注意事项
@@ -607,7 +609,7 @@ function help_option_3()
 15、如遇到网络问题,比如下载模型失败等,且在开启代理后依然无法解决问题时,可设置代理。代理参数的格式为\"ip:port\",参数例子:\"127.0.0.1:10808\",ip、port、代理协议需查看用户使用的代理软件配置(在终端环境中,除了有驱动模式或者TUN模式的代理软件,一般没办法为终端设置代理,所以可以使用该功能为终端环境设置代理)\n
 16、在代理选项中\"huggingface独占代理\"可在安装过程中单独为从huggingface中下载模型时单独启用代理,保证安装速度,因为除了从huggingface下载模型的过程之外,其他下载过程可以不走代理进行下载(注:在使用驱动模式或者TUN模式的代理软件时,该功能无效,因为代理软件会强制让所有网络流量走代理)\n
 \n
-" 25 70
+" 25 80
 }
 
 #term-sd功能介绍
@@ -615,7 +617,7 @@ function help_option_4()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "Term-SD功能说明:\n
 参数使用方法(设置快捷启动命令后可将\"./term-sd.sh\"替换成\"termsd\"或者\"tsd\"):\n
-  ./term-sd.sh [--help] [--extra script_name] [--multi-threaded-download] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--update-pip] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar]\n
+  ./term-sd.sh [--help] [--extra script_name] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--update-pip] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar] [--set-aria2-multi-threaded thread_value] [--set-cmd-daemon-retry retry_value]\n
 参数功能:\n
 help:显示启动参数帮助\n
 extra:启动扩展脚本选择列表,当选项后面输入了脚本名,则直接启动指定的脚本,否则启动扩展脚本选择界面\n
@@ -635,6 +637,8 @@ enable-new-bar:启用新的Term-SD初始化进度条\n
 disable-new-bar:禁用新的Term-SD初始化进度条\n
 enable-bar:启用Term-SD初始化进度显示(默认)\n
 disable-bar:禁用Term-SD初始化进度显示(加了进度显示只会降低Term-SD初始化速度)\n
+set-aria2-multi-threaded:设置安装ai软件时下载模型的线程数。设置为0时将删除配置\n
+set-cmd-daemon-retry:设置安装ai软件的命令重试次数。在网络不稳定时可能出现命令执行中断,设置该值可让命令执行中断后再重新执行。设置为0时将删除配置\n
 \n
 Term-SD的功能(除了安装,更新,启动,卸载):\n
 主界面:\n
@@ -666,92 +670,11 @@ huggingface独占代理:仅在下载huggingface上的模型时使用代理,且�
 标准构建安装(--use-pep517):使用编译安装方式(有时可以解决python软件包安装失败的问题。在InvokeAI官方文档中,安装时推荐使用该模式,实际上用常规安装也可以)\n
 \n
 \n
-" 25 70
-}
-
-#启动参数说明
-function help_option_5()
-{
-    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "A1111-SD-Webui启动参数说明:\n
-stable diffusion webui的启动参数:\n
-skip-torch-cuda-test:不检查CUDA是否正常工作\n
-no-half:不将模型切换为16位浮点数\n
-no-half-vae:不将VAE模型切换为16位浮点数\n
-medvram:启用稳定扩散模型优化(6g显存时使用),以牺牲速度换取低VRAM使用\n
-lowvram:启用稳定扩散模型优化(4g显存时使用),大幅牺牲速度换取极低VRAM使用\n
-lowram:将稳定扩散检查点权重加载到VRAM而不是RAM中\n
-enable-insecure-extension-access:启用不安全的扩展访问\n
-theme dark:启用黑色主题\n
-autolaunch:自动启动浏览器打开webui界面\n
-xformers:使用的xFormers加速\n
-listen:允许局域网的设备访问\n
-precision-full:全精度\n
-force-enable-xformers:强制启用xformers加速\n
-xformers-flash-attention:启用具有Flash Attention的xformer以提高再现性\n
-api:启动API服务器\n
-ui-debug-mode:不加载模型而快速启动ui界面\n
-share:为gradio使用share=True,并通过其网站使UI可访问\n
-opt-split-attention-invokeai:在自动选择优化时优先使用InvokeAI的交叉注意力层优化\n
-opt-split-attention-v1:在自动选择优化时优先使用较旧版本的分裂注意力优化\n
-opt-sdp-attention:在自动选择优化时优先使用缩放点积交叉注意力层优化;需要PyTorch 2\n
-opt-sdp-no-mem-attention:在自动选择优化时优先使用不带内存高效注意力的缩放点积交叉注意力层优化,使图像生成确定性;需要PyTorch 2\n
-disable-opt-split-attention:在自动选择优化时优先不使用交叉注意力层优化\n
-use-cpu-all:使用cpu进行图像生成\n
-opt-channelslast:将稳定扩散的内存类型更改为channels last\n
-no-gradio-queue:禁用gradio队列;导致网页使用http请求而不是websocket\n
-no-hashing:禁用检查点的sha256哈希运算,以帮助提高加载性能\n
-backend directml:使用directml运行torch,解决amd显卡和intel显卡无法使用ai画图的问题\n
-opt-sub-quad-attention:优先考虑内存高效的次二次复杂度交叉注意力层优化,用于自动选择\n
-medvram-sdxl:仅在SDXL模型上启用稳定扩散模型优化(8g显存时使用),以牺牲速度换取低VRAM使用\n
-\n
-ComfyUI启动参数:\n
-listen:允许局域网的设备访问\n
-auto-launch:自动在默认浏览器中启动 ComfyUI\n
-dont-upcast-attention:禁用对注意力机制的提升转换。可提升速度,但增加图片变黑的概率\n
-force-fp32:强制使用 fp32\n
-use-split-cross-attention:使用分割交叉注意力优化。使用 xformers 时忽略此选项\n
-use-pytorch-cross-attention:使用新的 pytorch 2.0 交叉注意力功能\n
-disable-xformers:禁用 xformers加速\n
-gpu-only:将所有内容(文本编码器/CLIP 模型等)存储和运行在 GPU 上\n
-highvram:默认情况下,模型使用后会被卸载到 CPU内存。此选项使它们保留在 GPU 内存中\n
-normalvram:当 lowvram 被自动启用时,强制使用普通vram用法\n
-lowvram:拆分unet以使用更少的显存\n
-novram:当 lowvram 不足时使用\n
-cpu:对所有内容使用 CPU(缓慢)\n
-quick-test-for-ci:为 CI 快速测试\n
-directml:使用directml运行torch,解决amd显卡和intel显卡无法使用ai画图的问题\n
-\n
-InvokeAI启动参数:\n
-invokeai-configure:参数配置\n
-invokeai:无参数启动\n
-invokeai --web:启用webui界面\n
-invokeai-ti --gui:使用终端界面\n
-invokeai-merge --gui:启动模型合并\n
-其他的自定义参数:\n
-web:启用webui界面\n
-free_gpu_mem:每次操作后积极释放 GPU 内存;这将允许您在低VRAM环境中运行,但会降低一些性能\n
-precision auto:自动选择浮点精度\n
-precision fp32:使用fp32浮点精度\n
-precision fp16:使用fp16浮点精度\n
-no-xformers_enabled:禁用xformers加速\n
-xformers_enabled:启用xformers加速\n
-no-patchmatch:禁用“补丁匹配”算法\n
-always_use_cpu:使用cpu进行图片生成\n
-no-esrgan:不使用esrgan进行图片高清修复\n
-no-internet_available:禁用联网下载资源\n
-host:允许局域网的设备访问\n
-\n
-\n
-Foooxus启动参数:\n
-listen:允许局域网的设备访问\n
-directml:使用directml运行torch,解决amd显卡和intel显卡无法使用ai画图的问题\n
-\n
-\n
-" 25 70
+" 25 80
 }
 
 #目录说明
-function help_option_6()
+function help_option_5()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "AI软件的目录说明:\n
 在启用venv虚拟环境后,在安装时AI软件的目录下会产生venv文件夹,这个是python软件包安装的目录,更换cudnn可在该文件夹中操作\n
@@ -852,11 +775,11 @@ lora-scripts\n
 └── toml   保存的训练参数存放位置\n
 \n
 \n
-" 25 70
+" 25 80
 }
 
 #扩展脚本说明
-function help_option_7()
+function help_option_6()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "Term-SD扩展脚本说明:\n
 扩展脚本列表(启动Term-SD时加入\"--extra\"启动参数即可使用扩展脚本):\n
@@ -866,11 +789,11 @@ download-hanamizuki:下载绘世启动器\n
 list:列出可用的扩展脚本\n
 \n
 \n
-" 25 70
+" 25 80
 }
 
 #AUTOMATIC1111-stable-diffusion-webui插件说明
-function help_option_8()
+function help_option_7()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "AUTOMATIC1111-stable-diffusion-webui插件说明:\n
 注:有些插件因为年久失修,可能会出现兼容性问题。具体介绍请在github上搜索项目\n
@@ -936,11 +859,11 @@ openOutpaint-webUI-extension:提供类似InvokeAI的统一画布的功能\n
 sd-webui-EasyPhoto:以简单的操作生成自己的ai人像\n
 \n
 \n
-" 25 70
+" 25 80
 }
 
 #ComfyUI插件/自定义节点说明
-function help_option_9()
+function help_option_8()
 {
     dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "ComfyUI插件/自定义节点说明:\n
 注:具体介绍请在github上搜索项目\n
@@ -993,5 +916,5 @@ stability-ComfyUI-nodes:Stability-AI自定义节点支持\n
 ComfyUI_Fooocus_KSampler:添加fooocus噪声生成器支持\n
 \n
 \n
-" 25 70
+" 25 80
 }
