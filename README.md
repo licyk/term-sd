@@ -151,7 +151,7 @@ aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/sd-webui-scri
 ### ！操作Term-SD界面前请阅读[《Term-SD界面操作方法》](https://github.com/licyk/README-collection/blob/main/term-sd/README_how_to_use_dialog.md)  
 ### ！Term-SD的使用方法请阅读[《如何使用Term-SD》](https://github.com/licyk/README-collection/blob/main/term-sd/README_how_to_use_term_sd.md)  
 
->huggingface目前在大陆网络环境无法访问😭，需要使用带有TUN模式或者驱动模式的代理软件(如果开启代理软件后还会出现下载失败的问题，需在Term-SD中配置好代理参数)，保证能够正常下载模型
+>huggingface目前在大陆网络环境无法访问😭，需要使用带有TUN模式或者驱动模式的代理软件(如果代理软件没有TUN模式或者驱动模式，需在Term-SD中配置好代理参数)，保证能够正常下载模型。Term-SD能否访问huggingface可使用Term-SD主界面的`代理设置`->`网络测试`来测试
 
 ***
 
