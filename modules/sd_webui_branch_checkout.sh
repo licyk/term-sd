@@ -21,55 +21,88 @@ function sd_webui_branch_switch()
                 print_line_to_shell "$term_sd_manager_info 分支切换"
                 term_sd_notice "切换到AUTOMATIC1111/stable-diffusion-webui主分支"
                 git remote set-url origin "$github_proxy"https://github.com/AUTOMATIC1111/stable-diffusion-webui
-                git fetch
+                git fetch --recurse-submodules
                 git checkout master
-                git pull --rebase
+                git pull --rebase --recurse-submodules
+                mv -f ./repositories/blip ./repositories/BLIP
+                sd_webui_branch_file_restore
                 print_line_to_shell
                 ;;
             2)
                 print_line_to_shell "$term_sd_manager_info 分支切换"
                 term_sd_notice "切换到AUTOMATIC1111/stable-diffusion-webui主分支"
                 git remote set-url origin "$github_proxy"https://github.com/AUTOMATIC1111/stable-diffusion-webui
-                git fetch
+                git fetch --recurse-submodules
                 git checkout dev
-                git pull --rebase
+                git pull --rebase --recurse-submodules
+                mv -f ./repositories/blip ./repositories/BLIP
+                sd_webui_branch_file_restore
                 print_line_to_shell
                 ;;
             3)
                 print_line_to_shell "$term_sd_manager_info 分支切换"
                 term_sd_notice "切换到vladmandic/SD.NEXT主分支"
                 git remote set-url origin "$github_proxy"https://github.com/vladmandic/automatic
-                git fetch
+                git fetch --recurse-submodules
                 git checkout master
-                git pull --rebase
+                git submodule init
+                git submodule update
+                git pull --rebase --recurse-submodules
+                mv -f ./repositories/BLIP ./repositories/blip
+                sd_webui_branch_file_restore
                 print_line_to_shell
                 ;;
             4)
                 print_line_to_shell "$term_sd_manager_info 分支切换"
                 term_sd_notice "切换到vladmandic/SD.NEXT测试分支"
                 git remote set-url origin "$github_proxy"https://github.com/vladmandic/automatic
-                git fetch
+                git fetch --recurse-submodules
                 git checkout dev
-                git pull --rebase
+                git submodule init
+                git submodule update
+                git pull --rebase --recurse-submodules
+                mv -f ./repositories/BLIP ./repositories/blip
+                sd_webui_branch_file_restore
                 print_line_to_shell
                 ;;
             5)
                 print_line_to_shell "$term_sd_manager_info 分支切换"
                 term_sd_notice "切换到lshqqytiger/stable-diffusion-webui-directml主分支"
                 git remote set-url origin "$github_proxy"https://github.com/lshqqytiger/stable-diffusion-webui-directml
-                git fetch
+                git fetch --recurse-submodules
                 git checkout master
-                git pull --rebase
+                git pull --rebase --recurse-submodules
+                mv -f ./repositories/blip ./repositories/BLIP
+                sd_webui_branch_file_restore
                 print_line_to_shell
                 ;;
             6)
                 print_line_to_shell "$term_sd_manager_info 分支切换"
                 term_sd_notice "切换到lshqqytiger/stable-diffusion-webui-directml测试分支"
                 git remote set-url origin "$github_proxy"https://github.com/lshqqytiger/stable-diffusion-webui-directml
-                git fetch
+                git fetch --recurse-submodules
                 git checkout dev
-                git pull --rebase
+                git pull --rebase --recurse-submodules
+                mv -f ./repositories/blip ./repositories/BLIP
+                sd_webui_branch_file_restore
                 print_line_to_shell
         esac
     fi
+}
+
+#sd-webui分支切换后的重置功能
+function sd_webui_branch_file_restore()
+{
+    cd ./repositories
+    for i in ./* ;do
+        [ ! -d "./$i/.git" ] && continue #排除没有.git文件夹的目录
+        cd $i
+        git reset --recurse-submodules --hard HEAD
+        git restore --recurse-submodules --source=HEAD :/
+        cd ..
+    done
+    cd ..
+    rm -rf ./extensions-builtin
+    git reset --recurse-submodules --hard HEAD
+    git restore --recurse-submodules --source=HEAD :/
 }
