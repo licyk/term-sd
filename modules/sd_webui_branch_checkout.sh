@@ -22,9 +22,9 @@ function sd_webui_branch_switch()
                 term_sd_notice "切换到AUTOMATIC1111/stable-diffusion-webui主分支"
                 git remote set-url origin "$github_proxy"https://github.com/AUTOMATIC1111/stable-diffusion-webui
                 git submodule deinit --all -f
-                git fetch --recurse-submodules
+                cmd_daemon git fetch --recurse-submodules
                 git checkout master
-                git pull --rebase --recurse-submodules
+                cmd_daemon git pull --rebase --recurse-submodules
                 mv -f ./repositories/blip ./repositories/BLIP
                 sd_webui_branch_file_restore
                 print_line_to_shell
@@ -34,9 +34,9 @@ function sd_webui_branch_switch()
                 term_sd_notice "切换到AUTOMATIC1111/stable-diffusion-webui主分支"
                 git remote set-url origin "$github_proxy"https://github.com/AUTOMATIC1111/stable-diffusion-webui
                 git submodule deinit --all -f
-                git fetch --recurse-submodules
+                cmd_daemon git fetch --recurse-submodules
                 git checkout dev
-                git pull --rebase --recurse-submodules
+                cmd_daemon git pull --rebase --recurse-submodules
                 mv -f ./repositories/blip ./repositories/BLIP
                 sd_webui_branch_file_restore
                 print_line_to_shell
@@ -45,11 +45,11 @@ function sd_webui_branch_switch()
                 print_line_to_shell "$term_sd_manager_info 分支切换"
                 term_sd_notice "切换到vladmandic/SD.NEXT主分支"
                 git remote set-url origin "$github_proxy"https://github.com/vladmandic/automatic
-                git fetch --recurse-submodules
+                cmd_daemon git fetch --recurse-submodules
                 git checkout master
                 git submodule init
                 git submodule update
-                git pull --rebase --recurse-submodules
+                cmd_daemon git pull --rebase --recurse-submodules
                 mv -f ./repositories/BLIP ./repositories/blip
                 sd_webui_branch_file_restore
                 print_line_to_shell
@@ -58,11 +58,11 @@ function sd_webui_branch_switch()
                 print_line_to_shell "$term_sd_manager_info 分支切换"
                 term_sd_notice "切换到vladmandic/SD.NEXT测试分支"
                 git remote set-url origin "$github_proxy"https://github.com/vladmandic/automatic
-                git fetch --recurse-submodules
+                cmd_daemon git fetch --recurse-submodules
                 git checkout dev
                 git submodule init
                 git submodule update
-                git pull --rebase --recurse-submodules
+                cmd_daemon git pull --rebase --recurse-submodules
                 mv -f ./repositories/BLIP ./repositories/blip
                 sd_webui_branch_file_restore
                 print_line_to_shell
@@ -72,9 +72,9 @@ function sd_webui_branch_switch()
                 term_sd_notice "切换到lshqqytiger/stable-diffusion-webui-directml主分支"
                 git remote set-url origin "$github_proxy"https://github.com/lshqqytiger/stable-diffusion-webui-directml
                 git submodule deinit --all -f
-                git fetch --recurse-submodules
+                cmd_daemon git fetch --recurse-submodules
                 git checkout master
-                git pull --rebase --recurse-submodules
+                cmd_daemon git pull --rebase --recurse-submodules
                 mv -f ./repositories/blip ./repositories/BLIP
                 sd_webui_branch_file_restore
                 print_line_to_shell
@@ -84,9 +84,9 @@ function sd_webui_branch_switch()
                 term_sd_notice "切换到lshqqytiger/stable-diffusion-webui-directml测试分支"
                 git remote set-url origin "$github_proxy"https://github.com/lshqqytiger/stable-diffusion-webui-directml
                 git submodule deinit --all -f
-                git fetch --recurse-submodules
+                cmd_daemon git fetch --recurse-submodules
                 git checkout dev
-                git pull --rebase --recurse-submodules
+                cmd_daemon git pull --rebase --recurse-submodules
                 mv -f ./repositories/blip ./repositories/BLIP
                 sd_webui_branch_file_restore
                 print_line_to_shell

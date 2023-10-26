@@ -4,7 +4,7 @@
 function set_pip_mirrors_option()
 {
     term_sd_notice "获取pip全局配置"
-    set_pip_mirrors_option_dialog=$(dialog --clear --title "Term-SD" --backtitle "pip镜像源选项" --ok-label "确认" --cancel-label "取消" --menu "请选择设置的pip镜像源\n当前pip全局配置:\n$(pip_cmd config list | sed 's/.\{70\}/&\n/')" 25 80 10 \
+    set_pip_mirrors_option_dialog=$(dialog --clear --title "Term-SD" --backtitle "pip镜像源选项" --ok-label "确认" --cancel-label "取消" --menu "请选择设置的pip镜像源\n当前pip全局配置:\n$(pip_cmd config list | awk '{print$0}')" 25 80 10 \
         "1" "官方源" \
         "2" "国内镜像源" \
         "3" "删除镜像源配置" \

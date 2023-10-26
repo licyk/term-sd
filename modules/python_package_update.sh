@@ -9,6 +9,6 @@ function requirements_python_package_update()
         sed -i '/'$i'/d' ./tmp-python-package-update-list.txt 2> /dev/null  #将忽略的软件包从名单删除
     done
     #更新依赖
-    pip_cmd install -r ./tmp-python-package-update-list.txt --prefer-binary --upgrade $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+    cmd_daemon pip_cmd install -r ./tmp-python-package-update-list.txt --prefer-binary --upgrade $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
     rm -rf ./tmp-python-package-update-list.txt #删除列表缓存
 }
