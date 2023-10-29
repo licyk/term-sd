@@ -460,7 +460,8 @@ function term_sd_install_mirror_select()
     term_sd_notice "1、github源"
     term_sd_notice "2、gitlab源"
     term_sd_notice "3、gitee源"
-    term_sd_notice "4、代理源(ghproxy.com)"
+    term_sd_notice "4、代理源1(ghproxy.com)"
+    term_sd_notice "5、代理源2(gitclone.com)"
     term_sd_notice "提示:输入数字后回车"
     read -p "===============================> " term_sd_install_option
 
@@ -478,8 +479,12 @@ function term_sd_install_mirror_select()
             term_sd_install_mirror="https://gitee.com/four-dishes/term-sd"
             ;;
         4)
-            term_sd_notice "选择代理源(ghproxy.com)"
-            term_sd_install_mirror="https://ghproxy.com/https://github.com/licyk/term-sd"
+            term_sd_notice "选择代理源1(ghproxy.com)"
+            term_sd_install_mirror="https://ghproxy.com/github.com/licyk/term-sd"
+            ;;
+        5)
+            term_sd_notice "选择代理源2(gitclone.com)"
+            term_sd_install_mirror="https://gitclone.com/github.com/licyk/term-sd"
             ;;
         *)
             term_sd_notice "输入有误,请重试"
@@ -780,35 +785,42 @@ function term_sd_test_network()
             term_sd_notice "网络连接正常"
 
             #测试各个网站访问情况
-            term_sd_notice "[1/4] 测试google访问情况"
+            term_sd_notice "[1/5] 测试google访问情况"
             if curl google.com > /dev/null 2> /dev/null;then
                 term_sd_test_network_1="成功"
             else
                 term_sd_test_network_1="失败"
             fi
-            term_sd_notice "[2/4] 测试huggingface访问情况"
+            term_sd_notice "[2/5] 测试huggingface访问情况"
             if curl huggingface.co > /dev/null 2> /dev/null;then
                 term_sd_test_network_2="成功"
             else
                 term_sd_test_network_2="失败"
             fi
-            term_sd_notice "[3/4] 测试github访问情况"
+            term_sd_notice "[3/5] 测试github访问情况"
             if curl github.com > /dev/null 2> /dev/null;then
                 term_sd_test_network_3="成功"
             else
                 term_sd_test_network_3="失败"
             fi
-            term_sd_notice "[4/4] 测试ghproxy访问情况"
+            term_sd_notice "[4/5] 测试ghproxy访问情况"
             if curl ghproxy.com > /dev/null 2> /dev/null;then
                 term_sd_test_network_4="成功"
             else
                 term_sd_test_network_4="失败"
+            fi
+            term_sd_notice "[5/5] 测试gitclone访问情况"
+            if curl gitclone.com > /dev/null 2> /dev/null;then
+                term_sd_test_network_5="成功"
+            else
+                term_sd_test_network_5="失败"
             fi
             print_line_to_shell "网络测试结果"
             term_sd_notice "访问google: $term_sd_test_network_1"
             term_sd_notice "访问huggingface: $term_sd_test_network_2"
             term_sd_notice "访问github: $term_sd_test_network_3"
             term_sd_notice "访问ghproxy: $term_sd_test_network_4"
+            term_sd_notice "访问gitclone: $term_sd_test_network_5"
             print_line_to_shell
         else
             term_sd_notice "网络连接异常"
@@ -1011,7 +1023,7 @@ function term_sd_env_prepare()
 #################################################
 
 #term-sd版本
-term_sd_version_="0.6.5"
+export term_sd_version_="0.7.0"
 
 #判断启动状态(在shell中,新变量的值为空,且不需要定义就可以使用,不像c语言中要求那么严格)
 if [ ! -z $term_sd_env_prepare_info ] && [ $term_sd_env_prepare_info = 0 ];then #检测term-sd是直接启动还是重启

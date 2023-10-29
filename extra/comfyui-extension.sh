@@ -1,56 +1,5 @@
 #!/bin/bash
 
-#安装前代理选择
-function proxy_option()
-{
-    pip_index_mirror="--index-url https://pypi.python.org/simple"
-    pip_extra_index_mirror=""
-    pip_find_mirror="--find-links https://download.pytorch.org/whl/torch_stable.html"
-    #extra_pip_mirror="--extra-index-url https://download.pytorch.org/whl"
-    github_proxy=""
-    force_pip=""
-    only_hugggingface_proxy=1
-    final_install_check_python="禁用"
-    final_install_check_github="禁用"
-    only_hugggingface_proxy_info="禁用"
-    final_install_check_force_pip="禁用"
-
-    proxy_option_dialog=$(
-        dialog --clear --title "Term-SD" --backtitle "安装代理选项" --separate-output --notags --title "Term-SD" --ok-label "确认" --no-cancel --checklist "请选择代理(强制使用pip一般情况下不选)" 25 80 10 \
-        "1" "启用pip镜像源" OFF \
-        "2" "启用github代理" ON \
-        "3" "huggingface独占代理" OFF \
-        "4" "强制使用pip" OFF \
-        3>&1 1>&2 2>&3)
-
-    if [ $? = 0 ]; then
-        for i in $proxy_option_dialog; do
-            case "$i" in
-                1)
-                    #pip_mirror="-i https://mirror.sjtu.edu.cn/pypi/web/simple" #上海交大的镜像源有点问题,在安装invokeai时会报错,可能是软件包版本的问题
-                    #extra_pip_mirror="-f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
-                    pip_index_mirror="--index-url https://mirrors.bfsu.edu.cn/pypi/web/simple"
-                    pip_extra_index_mirror="--extra-index-url https://mirrors.hit.edu.cn/pypi/web/simple --extra-index-url https://pypi.tuna.tsinghua.edu.cn/simple --extra-index-url https://mirrors.pku.edu.cn/pypi/web/simple"
-                    pip_find_mirror="--find-links https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html --find-links https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
-                    final_install_check_python="启用"
-                    ;;
-                2)
-                    github_proxy="https://ghproxy.com/"
-                    final_install_check_github="启用"
-                    ;;
-                3)
-                    only_hugggingface_proxy=0
-                    only_hugggingface_proxy_info="启用"
-                    ;;
-                4)
-                    force_pip="--break-system-packages"
-                    final_install_check_force_pip="启用"
-                    ;;
-            esac
-        done
-    fi
-}
-
 #comfyui插件选择
 function comfyui_extension_option()
 {
@@ -271,69 +220,222 @@ function process_install_comfyui()
     if [ ! -z "$comfyui_extension_install_list" ];then
         echo "安装插件中"
         for comfyui_extension_install_list_ in $comfyui_extension_install_list ;do
-            git clone "$github_proxy"$comfyui_extension_install_list_ ./ComfyUI/web/extensions/$(echo $comfyui_extension_install_list_ | awk -F'/' '{print $NF}')
+            cmd_daemon git clone --recurse-submodules ${github_proxy}$(echo $i | awk '{sub("https://github.com/","github.com/")}1') ./ComfyUI/web/extensions/$(echo $i | awk -F'/' '{print $NF}')
         done
     fi
 
     if [ ! -z "$comfyui_custom_node_install_list" ];then
         echo "安装自定义节点中"
         for comfyui_custom_node_install_list_ in $comfyui_custom_node_install_list ;do
-            git clone "$github_proxy"$comfyui_custom_node_install_list_ ./ComfyUI/custom_nodes/$(echo $comfyui_custom_node_install_list_ | awk -F'/' '{print $NF}')
+            cmd_daemon git clone --recurse-submodules ${github_proxy}$(echo $i | awk '{sub("https://github.com/","github.com/")}1') ./ComfyUI/custom_nodes/$(echo $i | awk -F'/' '{print $NF}')
         done
     fi
 
-    if [ $comfyui_custom_node_extension_model_1 = 0 ];then
-        echo "下载controlnet模型中"
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11e_sd15_ip2p_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11e_sd15_ip2p_fp16.safetensors
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11e_sd15_shuffle_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11e_sd15_shuffle_fp16.safetensors
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_canny_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11p_sd15_canny_fp16.safetensors
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11f1p_sd15_depth_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11f1p_sd15_depth_fp16.safetensors
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_inpaint_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11p_sd15_inpaint_fp16.safetensors
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_lineart_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11p_sd15_lineart_fp16.safetensors
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_mlsd_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11p_sd15_mlsd_fp16.safetensors
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_normalbae_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11p_sd15_normalbae_fp16.safetensors
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_openpose_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11p_sd15_openpose_fp16.safetensors
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_scribble_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11p_sd15_scribble_fp16.safetensors
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_seg_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11p_sd15_seg_fp16.safetensors
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_softedge_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11p_sd15_softedge_fp16.safetensors
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15s2_lineart_anime_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11p_sd15s2_lineart_anime_fp16.safetensors
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11f1e_sd15_tile_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11f1e_sd15_tile_fp16.safetensors
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11e_sd15_ip2p_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11e_sd15_ip2p_fp16.yaml
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11e_sd15_shuffle_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11e_sd15_shuffle_fp16.yaml
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11p_sd15_canny_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11p_sd15_canny_fp16.yaml
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11f1p_sd15_depth_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11f1p_sd15_depth_fp16.yaml
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11p_sd15_inpaint_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11p_sd15_inpaint_fp16.yaml
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11p_sd15_lineart_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11p_sd15_lineart_fp16.yaml
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11p_sd15_mlsd_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11p_sd15_mlsd_fp16.yaml
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11p_sd15_normalbae_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11p_sd15_normalbae_fp16.yaml
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11p_sd15_openpose_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11p_sd15_openpose_fp16.yaml
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11p_sd15_scribble_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11p_sd15_scribble_fp16.yaml
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11p_sd15_seg_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11p_sd15_seg_fp16.yaml
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11p_sd15_softedge_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11p_sd15_softedge_fp16.yaml
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11p_sd15s2_lineart_anime_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11p_sd15s2_lineart_anime_fp16.yaml
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11f1e_sd15_tile_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11f1e_sd15_tile_fp16.yaml
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_style_sd14v1.pth -d ./ComfyUI/models/controlnet -o t2iadapter_style_sd14v1.pth
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_sketch_sd14v1.pth -d ./ComfyUI/models/controlnet -o t2iadapter_sketch_sd14v1.pth
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_seg_sd14v1.pth -d ./ComfyUI/models/controlnet -o t2iadapter_seg_sd14v1.pth
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_openpose_sd14v1.pth -d ./ComfyUI/models/controlnet -o t2iadapter_openpose_sd14v1.pth
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_keypose_sd14v1.pth -d ./ComfyUI/models/controlnet -o t2iadapter_keypose_sd14v1.pth
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_depth_sd14v1.pth -d ./ComfyUI/models/controlnet -o t2iadapter_depth_sd14v1.pth
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_color_sd14v1.pth -d ./ComfyUI/models/controlnet -o t2iadapter_color_sd14v1.pth
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_canny_sd14v1.pth -d ./ComfyUI/models/controlnet -o t2iadapter_canny_sd14v1.pth
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_canny_sd15v2.pth -d ./ComfyUI/models/controlnet -o t2iadapter_canny_sd15v2.pth
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_depth_sd15v2.pth -d ./ComfyUI/models/controlnet -o t2iadapter_depth_sd15v2.pth
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_sketch_sd15v2.pth -d ./ComfyUI/models/controlnet -o t2iadapter_sketch_sd15v2.pth
-        aria2c $aria2_multi_threaded https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_zoedepth_sd15v1.pth -d ./ComfyUI/models/controlnet -o t2iadapter_zoedepth_sd15v1.pth
-        aria2c $aria2_multi_threaded https://huggingface.co/ioclab/ioc-controlnet/resolve/main/models/control_v1p_sd15_brightness.safetensors -d ./ComfyUI/models/controlnet -o control_v1p_sd15_brightness.safetensors
-        aria2c $aria2_multi_threaded https://huggingface.co/ioclab/ioc-controlnet/resolve/main/models/control_v1p_sd15_illumination.safetensors -d ./ComfyUI/models/controlnet -o control_v1p_sd15_illumination.safetensors
-        aria2c $aria2_multi_threaded https://huggingface.co/monster-labs/control_v1p_sd15_qrcode_monster/resolve/main/control_v1p_sd15_qrcode_monster.safetensors -d ./ComfyUI/models/controlnet -o control_v1p_sd15_qrcode_monster.safetensors
-        aria2c $aria2_multi_threaded https://huggingface.co/monster-labs/control_v1p_sd15_qrcode_monster/resolve/main/control_v1p_sd15_qrcode_monster.yaml -d ./ComfyUI/models/controlnet -o control_v1p_sd15_qrcode_monster.yaml
-        aria2c $aria2_multi_threaded https://huggingface.co/h94/IP-Adapter/resolve/main/models/ip-adapter-plus-face_sd15.bin -d ./ComfyUI/models/controlnet -o ip-adapter-plus-face_sd15.pth
-        aria2c $aria2_multi_threaded https://huggingface.co/h94/IP-Adapter/resolve/main/models/ip-adapter-plus_sd15.bin -d ./ComfyUI/models/controlnet -o ip-adapter-plus_sd15.pth
-        aria2c $aria2_multi_threaded https://huggingface.co/h94/IP-Adapter/resolve/main/models/ip-adapter_sd15.bin -d ./ComfyUI/models/controlnet -o ip-adapter_sd15.pth
-        aria2c $aria2_multi_threaded https://huggingface.co/h94/IP-Adapter/resolve/main/models/ip-adapter_sd15_light.bin -d ./ComfyUI/models/controlnet -o ip-adapter_sd15_light.pth
-    fi
+    if [ $use_modelscope_model = 1 ];then #使用huggingface下载模型
+            tmp_enable_proxy #恢复原有的代理,保证能从huggingface下载模型
+
+            if [ $comfyui_custom_node_extension_model_1 = 0 ];then
+                term_sd_notice "下载controlnet模型中"
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/cldm_v15.yaml -d ./ComfyUI/models/controlnet -o cldm_v15.yaml
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/cldm_v21.yaml -d ./ComfyUI/models/controlnet -o cldm_v21.yaml
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_sd15_canny.yaml -d ./ComfyUI/models/controlnet -o control_sd15_canny.yaml
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_sd15_depth.yaml -d ./ComfyUI/models/controlnet -o control_sd15_depth.yaml
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_sd15_hed.yaml -d ./ComfyUI/models/controlnet -o control_sd15_hed.yaml
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_sd15_mlsd.yaml -d ./ComfyUI/models/controlnet -o control_sd15_mlsd.yaml
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_sd15_normal.yaml -d ./ComfyUI/models/controlnet -o control_sd15_normal.yaml
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_sd15_openpose.yaml -d ./ComfyUI/models/controlnet -o control_sd15_openpose.yaml
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_sd15_scribble.yaml -d ./ComfyUI/models/controlnet -o control_sd15_scribble.yaml
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_sd15_seg.yaml -d ./ComfyUI/models/controlnet -o control_sd15_seg.yaml
+
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11e_sd15_ip2p_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11e_sd15_ip2p_fp16.safetensors
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11e_sd15_ip2p_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11e_sd15_ip2p_fp16.yaml
+
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11e_sd15_shuffle_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11e_sd15_shuffle_fp16.safetensors
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11e_sd15_shuffle_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11e_sd15_shuffle_fp16.yaml
+
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11f1e_sd15_tile_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11f1e_sd15_tile_fp16.safetensors
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11f1e_sd15_tile_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11f1e_sd15_tile_fp16.yaml
+
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11f1p_sd15_depth_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11f1p_sd15_depth_fp16.safetensors
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11f1p_sd15_depth_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11f1p_sd15_depth_fp16.yaml
+
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11p_sd15_canny_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11p_sd15_canny_fp16.safetensors
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11p_sd15_canny_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11p_sd15_canny_fp16.yaml
+
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11p_sd15_inpaint_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11p_sd15_inpaint_fp16.safetensors
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11p_sd15_inpaint_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11p_sd15_inpaint_fp16.yaml
+
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11p_sd15_lineart_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11p_sd15_lineart_fp16.safetensors
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11p_sd15_lineart_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11p_sd15_lineart_fp16.yaml
+
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11p_sd15_mlsd_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11p_sd15_mlsd_fp16.safetensors
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11p_sd15_mlsd_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11p_sd15_mlsd_fp16.yaml
+
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11p_sd15_normalbae_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11p_sd15_normalbae_fp16.safetensors
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11p_sd15_normalbae_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11p_sd15_normalbae_fp16.yaml
+
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11p_sd15_openpose_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11p_sd15_openpose_fp16.safetensors
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11p_sd15_openpose_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11p_sd15_openpose_fp16.yaml
+
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11p_sd15_scribble_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11p_sd15_scribble_fp16.safetensors
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11p_sd15_scribble_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11p_sd15_scribble_fp16.yaml
+
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11p_sd15_seg_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11p_sd15_seg_fp16.safetensors
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11p_sd15_seg_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11p_sd15_seg_fp16.yaml
+
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11p_sd15_softedge_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11p_sd15_softedge_fp16.safetensors
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11p_sd15_softedge_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11p_sd15_softedge_fp16.yaml
+
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11p_sd15s2_lineart_anime_fp16.safetensors -d ./ComfyUI/models/controlnet -o control_v11p_sd15s2_lineart_anime_fp16.safetensors
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11p_sd15s2_lineart_anime_fp16.yaml -d ./ComfyUI/models/controlnet -o control_v11p_sd15s2_lineart_anime_fp16.yaml
+
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v1p_sd15_brightness.safetensors -d ./ComfyUI/models/controlnet -o control_v1p_sd15_brightness.safetensors
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v1p_sd15_illumination.safetensors -d ./ComfyUI/models/controlnet -o control_v1p_sd15_illumination.safetensors
+
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v1p_sd15_qrcode_monster.safetensors -d ./ComfyUI/models/controlnet -o control_v1p_sd15_qrcode_monster.safetensors
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v1p_sd15_qrcode_monster.yaml -d ./ComfyUI/models/controlnet -o control_v1p_sd15_qrcode_monster.yaml
+
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/t2iadapter_canny_sd15v2.pth -d ./ComfyUI/models/controlnet -o t2iadapter_canny_sd15v2.pth
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/t2iadapter_canny_sd15v2.yaml -d ./ComfyUI/models/controlnet -o t2iadapter_canny_sd15v2.yaml
+
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/t2iadapter_color_sd14v1.pth -d ./ComfyUI/models/controlnet -o t2iadapter_color_sd14v1.pth
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/t2iadapter_color_sd14v1.yaml -d ./ComfyUI/models/controlnet -o t2iadapter_color_sd14v1.yaml
+
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/t2iadapter_depth_sd15v2.pth -d ./ComfyUI/models/controlnet -o t2iadapter_depth_sd15v2.pth
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/t2iadapter_depth_sd15v2.yaml -d ./ComfyUI/models/controlnet -o t2iadapter_depth_sd15v2.yaml
+
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/t2iadapter_keypose_sd14v1.pth -d ./ComfyUI/models/controlnet -o t2iadapter_keypose_sd14v1.pth
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/t2iadapter_keypose_sd14v1.yaml -d ./ComfyUI/models/controlnet -o t2iadapter_keypose_sd14v1.yaml
+
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/t2iadapter_openpose_sd14v1.pth -d ./ComfyUI/models/controlnet -o t2iadapter_openpose_sd14v1.pth
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/t2iadapter_openpose_sd14v1.yaml -d ./ComfyUI/models/controlnet -o t2iadapter_openpose_sd14v1.yaml
+
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/t2iadapter_seg_sd14v1.pth -d ./ComfyUI/models/controlnet -o t2iadapter_seg_sd14v1.pth
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/t2iadapter_seg_sd14v1.yaml -d ./ComfyUI/models/controlnet -o t2iadapter_seg_sd14v1.yaml
+
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/t2iadapter_sketch_sd15v2.pth -d ./ComfyUI/models/controlnet -o t2iadapter_sketch_sd15v2.pth
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/t2iadapter_sketch_sd15v2.yaml -d ./ComfyUI/models/controlnet -o t2iadapter_sketch_sd15v2.yaml
+
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/t2iadapter_style_sd14v1.pth -d ./ComfyUI/models/controlnet -o t2iadapter_style_sd14v1.pth
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/t2iadapter_style_sd14v1.yaml -d ./ComfyUI/models/controlnet -o t2iadapter_style_sd14v1.yaml
+
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/t2iadapter_zoedepth_sd15v1.pth -d ./ComfyUI/models/controlnet -o t2iadapter_zoedepth_sd15v1.pth
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/t2iadapter_zoedepth_sd15v1.yaml -d ./ComfyUI/models/controlnet -o t2iadapter_zoedepth_sd15v1.yaml
+
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/image_adapter_v14.yaml -d ./ComfyUI/models/controlnet -o image_adapter_v14.yaml
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter-plus-face_sd15.pth -d ./ComfyUI/models/controlnet -o ip-adapter-plus-face_sd15.pth
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sd15.pth -d ./ComfyUI/models/controlnet -o ip-adapter_sd15.pth
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sd15_light.pth -d ./ComfyUI/models/controlnet -o ip-adapter_sd15_light.pth
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sd15_plus.pth -d ./ComfyUI/models/controlnet -o ip-adapter_sd15_plus.pth
+                cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/controlnet_v1.1/resolve/main/sketch_adapter_v14.yaml -d ./ComfyUI/models/controlnet -o sketch_adapter_v14.yaml
+            fi
+
+        else #使用modelscope下载模型
+
+            if [ $a1111_sd_webui_extension_model_1 = 0 ];then #安装controlnet时再下载相关模型
+                term_sd_notice "下载controlnet模型中"
+                get_modelscope_model licyks/controlnet_v1.1/master/cldm_v15.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/cldm_v21.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_sd15_canny.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_sd15_depth.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_sd15_hed.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_sd15_mlsd.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_sd15_normal.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_sd15_openpose.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_sd15_scribble.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_sd15_seg.yaml ./ComfyUI/models/controlnet
+
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11e_sd15_ip2p_fp16.safetensors ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11e_sd15_ip2p_fp16.yaml ./ComfyUI/models/controlnet
+
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11e_sd15_shuffle_fp16.safetensors ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11e_sd15_shuffle_fp16.yaml ./ComfyUI/models/controlnet
+
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11f1e_sd15_tile_fp16.safetensors ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11f1e_sd15_tile_fp16.yaml ./ComfyUI/models/controlnet
+
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11f1p_sd15_depth_fp16.safetensors ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11f1p_sd15_depth_fp16.yaml ./ComfyUI/models/controlnet
+
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_canny_fp16.safetensors ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_canny_fp16.yaml ./ComfyUI/models/controlnet
+
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_inpaint_fp16.safetensors ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_inpaint_fp16.yaml ./ComfyUI/models/controlnet
+
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_lineart_fp16.safetensors ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_lineart_fp16.yaml ./ComfyUI/models/controlnet
+
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_mlsd_fp16.safetensors ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_mlsd_fp16.yaml ./ComfyUI/models/controlnet
+
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_normalbae_fp16.safetensors ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_normalbae_fp16.yaml ./ComfyUI/models/controlnet
+
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_openpose_fp16.safetensors ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_openpose_fp16.yaml ./ComfyUI/models/controlnet
+
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_scribble_fp16.safetensors ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_scribble_fp16.yaml ./ComfyUI/models/controlnet
+
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_seg_fp16.safetensors ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_seg_fp16.yaml ./ComfyUI/models/controlnet
+
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_softedge_fp16.safetensors ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_softedge_fp16.yaml ./ComfyUI/models/controlnet
+
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15s2_lineart_anime_fp16.safetensors ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15s2_lineart_anime_fp16.yaml ./ComfyUI/models/controlnet
+
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v1p_sd15_brightness.safetensors ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v1p_sd15_illumination.safetensors ./ComfyUI/models/controlnet
+
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v1p_sd15_qrcode_monster.safetensors ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v1p_sd15_qrcode_monster.yaml ./ComfyUI/models/controlnet
+
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_canny_sd15v2.pth ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_canny_sd15v2.yaml ./ComfyUI/models/controlnet
+
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_color_sd14v1.pth ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_color_sd14v1.yaml ./ComfyUI/models/controlnet
+
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_depth_sd15v2.pth ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_depth_sd15v2.yaml ./ComfyUI/models/controlnet
+
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_keypose_sd14v1.pth ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_keypose_sd14v1.yaml ./ComfyUI/models/controlnet
+
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_openpose_sd14v1.pth ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_openpose_sd14v1.yaml ./ComfyUI/models/controlnet
+
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_seg_sd14v1.pth ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_seg_sd14v1.yaml ./ComfyUI/models/controlnet
+
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_sketch_sd15v2.pth ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_sketch_sd15v2.yaml ./ComfyUI/models/controlnet
+
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_style_sd14v1.pth ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_style_sd14v1.yaml ./ComfyUI/models/controlnet
+
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_zoedepth_sd15v1.pth ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_zoedepth_sd15v1.yaml ./ComfyUI/models/controlnet
+
+                get_modelscope_model licyks/controlnet_v1.1/master/image_adapter_v14.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter-plus-face_sd15.pth ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter_sd15.pth ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter_sd15_light.pth ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter_sd15_plus.pth ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/sketch_adapter_v14.yaml ./ComfyUI/models/controlnet
+            fi
+            tmp_enable_proxy #恢复原有的代理
+        fi
 }
+
+#加载模块
+source ./term-sd/modules/get_modelscope_model.sh
+source ./term-sd/modules/cmd_daemon.sh
+source ./term-sd/modules/proxy.sh
+source ./term-sd/modules/install_prepare.sh
 
 if [ -d "./ComfyUI" ];then
     proxy_option #代理选择

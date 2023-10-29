@@ -14,25 +14,31 @@ function process_install_invokeai()
         print_line_to_shell "invokeai 安装"
         term_sd_notice "开始安装invokeai"
         tmp_disable_proxy #临时取消代理,避免一些不必要的网络减速
-        if [ ! -d "./InvokeAI" ];then
-            mkdir InvokeAI
-        fi
+        [ ! -d "./InvokeAI" ] && mkdir InvokeAI
         cd ./InvokeAI
         create_venv
         enter_venv
-        if [ ! -d "./invokeai" ];then
-            mkdir ./invokeai
-        fi
+        [ ! -d "./invokeai" ] && mkdir ./invokeai
+
         if [ ! -z "$(echo $pytorch_install_version | awk '{gsub(/[=+]/, "")}1')" ];then
             cmd_daemon pip_cmd install $pytorch_install_version $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --prefer-binary --default-timeout=100 --retries 5
         fi
         cmd_daemon pip_cmd install invokeai $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --prefer-binary --default-timeout=100 --retries 5
-        tmp_enable_proxy #恢复原有的代理,保证能从huggingface下载模型
+        
         term_sd_notice "下载upscaler模型中"
-        cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-upscaler-models/resolve/main/invokeai/RealESRGAN_x4plus.pth -d ./invokeai/models/core/upscaling/realesrgan -o RealESRGAN_x4plus.pth
-        cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-upscaler-models/resolve/main/invokeai/RealESRGAN_x4plus_anime_6B.pth -d ./invokeai/models/core/upscaling/realesrgan -o RealESRGAN_x4plus_anime_6B.pth
-        cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-upscaler-models/resolve/main/invokeai/ESRGAN_SRx4_DF2KOST_official-ff704c30.pth -d ./invokeai/models/core/upscaling/realesrgan -o ESRGAN_SRx4_DF2KOST_official-ff704c30.pth
-        cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-upscaler-models/resolve/main/invokeai/RealESRGAN_x2plus.pth -d ./invokeai/models/core/upscaling/realesrgan -o RealESRGAN_x2plus.pth
+        if [ $use_modelscope_model = 1 ];then #使用huggingface下载模型
+            tmp_enable_proxy #恢复原有的代理,保证能从huggingface下载模型
+            cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-upscaler-models/resolve/main/invokeai/RealESRGAN_x4plus.pth -d ./invokeai/models/core/upscaling/realesrgan -o RealESRGAN_x4plus.pth
+            cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-upscaler-models/resolve/main/invokeai/RealESRGAN_x4plus_anime_6B.pth -d ./invokeai/models/core/upscaling/realesrgan -o RealESRGAN_x4plus_anime_6B.pth
+            cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-upscaler-models/resolve/main/invokeai/ESRGAN_SRx4_DF2KOST_official-ff704c30.pth -d ./invokeai/models/core/upscaling/realesrgan -o ESRGAN_SRx4_DF2KOST_official-ff704c30.pth
+            cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-upscaler-models/resolve/main/invokeai/RealESRGAN_x2plus.pth -d ./invokeai/models/core/upscaling/realesrgan -o RealESRGAN_x2plus.pth
+        else #使用modelscope下载模型
+            get_modelscope_model licyks/sd-upscaler-models/master/invokeai/ESRGAN_SRx4_DF2KOST_official-ff704c30.pth ./invokeai/models/core/upscaling/realesrgan
+            get_modelscope_model licyks/sd-upscaler-models/master/invokeai/RealESRGAN_x2plus.pth ./invokeai/models/core/upscaling/realesrgan
+            get_modelscope_model licyks/sd-upscaler-models/master/invokeai/RealESRGAN_x4plus.pth ./invokeai/models/core/upscaling/realesrgan
+            get_modelscope_model licyks/sd-upscaler-models/master/invokeai/RealESRGAN_x4plus_anime_6B.pth ./invokeai/models/core/upscaling/realesrgan
+            tmp_enable_proxy #恢复原有的代理
+        fi
         term_sd_notice "安装结束"
         exit_venv
         print_line_to_shell

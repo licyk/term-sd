@@ -13,14 +13,18 @@ function proxy_option()
     final_install_check_python="禁用"
     final_install_check_github="禁用"
     only_hugggingface_proxy_info="禁用"
+    use_modelscope_model=1
+    use_modelscope_model_info="禁用"
     final_install_check_force_pip="禁用"
 
     proxy_option_dialog=$(
-        dialog --clear --title "Term-SD" --backtitle "安装代理选项" --separate-output --notags --title "Term-SD" --ok-label "确认" --no-cancel --checklist "请选择代理(强制使用pip一般情况下不选)" 25 80 10 \
-        "1" "启用pip镜像源" ON \
-        "2" "启用github代理" ON \
-        "3" "huggingface独占代理" ON \
-        "4" "强制使用pip" OFF \
+        dialog --clear --title "Term-SD" --backtitle "安装代理选项" --separate-output --notags --title "Term-SD" --ok-label "确认" --no-cancel --checklist "请选择代理\n注:\n1、当同时启用两个github代理源时,将使用第二个github代理源\n2、强制使用pip一般情况下不选" 25 80 10 \
+        "1" "启用pip镜像源(使用pip国内镜像源下载python软件包)" ON \
+        "2" "启用github代理源1(使用ghproxy代理站下载github上的源码)" OFF \
+        "3" "启用github代理源2(使用gitclone代理站下载github上的源码)" ON \
+        "4" "huggingface独占代理(仅在下载huggingface的模型的过程启用代理)" ON \
+        "5" "使用modelscope模型下载源(将huggingface下载源改为modelscope下载源)" ON \
+        "6" "强制使用pip(无视系统警告强制使用pip安装python软件包)" OFF \
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ]; then
@@ -36,13 +40,21 @@ function proxy_option()
                     ;;
                 2)
                     github_proxy="https://ghproxy.com/"
-                    final_install_check_github="启用"
+                    final_install_check_github="启用代理源1"
                     ;;
                 3)
+                    github_proxy="https://gitclone.com/"
+                    final_install_check_github="启用代理源2"
+                    ;;
+                4)
                     only_hugggingface_proxy=0
                     only_hugggingface_proxy_info="启用"
                     ;;
-                4)
+                5)
+                    use_modelscope_model=0
+                    use_modelscope_model_info="启用"
+                    ;;
+                6)
                     force_pip="--break-system-packages"
                     final_install_check_force_pip="启用"
                     ;;
@@ -143,6 +155,7 @@ function final_install_check()
 pip镜像源:$final_install_check_python \n
 github代理:$final_install_check_github\n
 huggingface独占代理:$only_hugggingface_proxy_info\n
+使用modelscope模型下载源:$use_modelscope_model_info\n
 强制使用pip:$final_install_check_force_pip\n
 pytorch:$([ ! -z "$(echo $pytorch_install_version | awk '{gsub(/[=+]/, "")}1')" ] && echo $pytorch_install_version || echo "无")\n
 pip安装方式:$final_install_check_pip_methon\n

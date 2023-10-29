@@ -62,7 +62,8 @@ function term_sd_remote()
         "1" "github源" \
         "2" "gitlab源" \
         "3" "gitee源" \
-        "4" "代理源(ghproxy.com)" \
+        "4" "代理源1(ghproxy.com)" \
+        "5" "代理源2(gitclone.com)" \
         3>&1 1>&2 2>&3)
     
     if [ $? = 0 ];then
@@ -77,7 +78,10 @@ function term_sd_remote()
                 git --git-dir="./term-sd/.git" remote set-url origin "https://gitee.com/four-dishes/term-sd"
                 ;;
             4)
-                git --git-dir="./term-sd/.git" remote set-url origin "https://ghproxy.com/https://github.com/licyk/term-sd"
+                git --git-dir="./term-sd/.git" remote set-url origin "https://ghproxy.com/github.com/licyk/term-sd"
+                ;;
+            5)
+                git --git-dir="./term-sd/.git" remote set-url origin "https://gitclone.com/github.com/licyk/term-sd"
                 ;;
         esac
     fi
