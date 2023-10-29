@@ -13,6 +13,8 @@ function proxy_option()
     final_install_check_python="禁用"
     final_install_check_github="禁用"
     only_hugggingface_proxy_info="禁用"
+    use_modelscope_model=1
+    use_modelscope_model_info="禁用"
     final_install_check_force_pip="禁用"
 
     proxy_option_dialog=$(
@@ -20,7 +22,8 @@ function proxy_option()
         "1" "启用pip镜像源" ON \
         "2" "启用github代理" ON \
         "3" "huggingface独占代理" ON \
-        "4" "强制使用pip" OFF \
+        "4" "使用modelscope模型下载源" ON \
+        "5" "强制使用pip" OFF \
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ]; then
@@ -43,6 +46,10 @@ function proxy_option()
                     only_hugggingface_proxy_info="启用"
                     ;;
                 4)
+                    use_modelscope_model=0
+                    use_modelscope_model_info="启用"
+                    ;;
+                5)
                     force_pip="--break-system-packages"
                     final_install_check_force_pip="启用"
                     ;;
@@ -143,6 +150,7 @@ function final_install_check()
 pip镜像源:$final_install_check_python \n
 github代理:$final_install_check_github\n
 huggingface独占代理:$only_hugggingface_proxy_info\n
+使用modelscope模型下载源:$use_modelscope_model_info\n
 强制使用pip:$final_install_check_force_pip\n
 pytorch:$([ ! -z "$(echo $pytorch_install_version | awk '{gsub(/[=+]/, "")}1')" ] && echo $pytorch_install_version || echo "无")\n
 pip安装方式:$final_install_check_pip_methon\n
