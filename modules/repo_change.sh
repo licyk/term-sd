@@ -1,50 +1,135 @@
 #!/bin/bash
 
-#将远程源替换成代理源
-function change_repo_to_proxy()
+#远程源的种类检测
+function term_sd_git_remote_test()
 {
-    repo_remote_address=$(git remote -v | awk 'NR==1 {print $2}') #获取项目远程地址
-    if [ ! -z $(echo $repo_remote_address | grep github.com) ];then #检测到属于github的地址再执行操作
-        if [ -z $(echo $repo_remote_address | grep ghproxy.com) ];then
-            term_sd_notice "替换$(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源为镜像源"
-            repo_remote_address="https://ghproxy.com/$repo_remote_address"
-            git remote set-url origin $repo_remote_address
-            if [ $? = 0 ];then
-                change_repo_return="$change_repo_return $(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源替换成功\n"
-            else
-                change_repo_return="$change_repo_return $(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源替换失败\n"
-            fi
-        else
-            term_sd_notice "$(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源无需替换"
-            change_repo_return="$change_repo_return $(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源无需替换\n"
+    export git_repo_remote_address=$(git remote -v | awk 'NR==1 {print $2}') #获取项目远程地址
+    if [ ! -z $(echo $git_repo_remote_address | grep github.com) ];then #检测远程源的原地址是否属于github地址
+        git_repo_remote_change_info=0 #启用替换功能
+        if [ -z $(echo $git_repo_remote_address | grep ghproxy.com) ];then #检测远程源的地址属于ghproxy.com镜像源
+            term_sd_git_remote_test_info="github_ghproxy"
+        elif [ -z $(echo $git_repo_remote_address | grep gitclone.com) ];then #检测远程源的地址属于gitclone.com镜像源
+            term_sd_git_remote_test_info="github_gitclone"
+        else #检测远程源的地址属于github.com源
+            term_sd_git_remote_test_info="github"
         fi
     else
-        term_sd_notice "$(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源非github地址,不执行替换"
-        change_repo_return="$change_repo_return $(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源非github地址,无需替换\n"
+        git_repo_remote_change_info=1 #禁用替换功能
+        term_sd_git_remote_test_info="other"
+    fi
+}
+
+#将远程源替换成代理源(ghproxy.com)
+function change_repo_to_proxy_ghproxy()
+{
+    term_sd_git_remote_test #检测远程源的种类(同时获取远程地址git_repo_remote_address)
+    git_repo_remote_address_changed=$(echo $git_repo_remote_address | awk '{sub("https://github.com/","github.com/")}1') #获取项目远程地址,如果是github地址,则处理链接为特定格式
+    if [ $git_repo_remote_change_info = 0 ];then
+        case $term_sd_git_remote_test_info in
+            github)
+                term_sd_notice "替换$(echo $git_repo_remote_address_changed | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源为镜像源(ghproxy.com)"
+                git_repo_remote_address_changed="https://ghproxy.com/https://${git_repo_remote_address_changed}" #修改链接为ghproxy镜像源
+                git remote set-url origin $git_repo_remote_address_changed
+                if [ $? = 0 ];then
+                    change_repo_return="$change_repo_return $(echo $git_repo_remote_address_changed | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源替换成功\n"
+                else
+                    change_repo_return="$change_repo_return $(echo $git_repo_remote_address_changed | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源替换失败\n"
+                fi
+                ;;
+            github_gitclone)
+                term_sd_notice "替换$(echo $git_repo_remote_address_changed | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源为镜像源(ghproxy.com)"
+                git_repo_remote_address_changed="https://ghproxy.com/https://$(echo $git_repo_remote_address_changed | awk '{sub("https://gitclone.com/","")}1')" #将https://gitclone.com/替换成空字符并修改链接为ghproxy镜像源
+                git remote set-url origin $git_repo_remote_address_changed
+                if [ $? = 0 ];then
+                    change_repo_return="$change_repo_return $(echo $git_repo_remote_address_changed | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源替换成功\n"
+                else
+                    change_repo_return="$change_repo_return $(echo $git_repo_remote_address_changed | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源替换失败\n"
+                fi
+                ;;
+            github_ghproxy)
+                term_sd_notice "$(echo $git_repo_remote_address_changed | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源无需替换"
+                change_repo_return="$change_repo_return $(echo $git_repo_remote_address_changed | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源无需替换\n"
+                ;;
+        esac
+    else
+        term_sd_notice "$(echo $git_repo_remote_address_changed | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源非github地址,不执行替换"
+        change_repo_return="$change_repo_return $(echo $git_repo_remote_address_changed | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源非github地址,无需替换\n"
+    fi
+}
+
+#将远程源替换成代理源(gitclone.com)
+function change_repo_to_proxy_gitclone()
+{
+    term_sd_git_remote_test #检测远程源的种类(同时获取远程地址git_repo_remote_address)
+    git_repo_remote_address_changed=$(echo $git_repo_remote_address | awk '{sub("https://github.com/","github.com/")}1') #获取项目远程地址,如果是github地址,则处理链接为特定格式
+    if [ $git_repo_remote_change_info = 0 ];then
+        case $term_sd_git_remote_test_info in
+            github)
+                term_sd_notice "替换$(echo $git_repo_remote_address_changed | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源为镜像源(gitclone.com)"
+                git_repo_remote_address_changed="https://gitclone.com/${git_repo_remote_address_changed}" #修改链接为gitclone镜像源
+                git remote set-url origin $git_repo_remote_address_changed
+                if [ $? = 0 ];then
+                    change_repo_return="$change_repo_return $(echo $git_repo_remote_address_changed | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源替换成功\n"
+                else
+                    change_repo_return="$change_repo_return $(echo $git_repo_remote_address_changed | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源替换失败\n"
+                fi
+                ;;
+            github_ghproxy)
+                term_sd_notice "替换$(echo $git_repo_remote_address_changed | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源为镜像源(gitclone.com)"
+                git_repo_remote_address_changed="https://gitclone.com/$(echo $git_repo_remote_address_changed | awk '{sub("https://ghproxy.com/https://","")}1')" #将https://ghproxy.com/https://替换成空字符并修改链接为gitclone镜像源
+                git remote set-url origin $git_repo_remote_address_changed
+                if [ $? = 0 ];then
+                    change_repo_return="$change_repo_return $(echo $git_repo_remote_address_changed | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源替换成功\n"
+                else
+                    change_repo_return="$change_repo_return $(echo $git_repo_remote_address_changed | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源替换失败\n"
+                fi
+                ;;
+            github_gitclone)
+                term_sd_notice "$(echo $git_repo_remote_address_changed | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源无需替换"
+                change_repo_return="$change_repo_return $(echo $git_repo_remote_address_changed | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源无需替换\n"
+                ;;
+        esac
+    else
+        term_sd_notice "$(echo $git_repo_remote_address_changed | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源非github地址,不执行替换"
+        change_repo_return="$change_repo_return $(echo $git_repo_remote_address_changed | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源非github地址,无需替换\n"
     fi
 }
 
 #恢复原始的远程源
 function change_repo_to_origin()
 {
-    repo_remote_address=$(git remote -v | awk 'NR==1 {print $2}') #获取项目远程地址
-    if [ ! -z $(echo $repo_remote_address | grep github.com) ];then
-        if [ ! -z $(echo $repo_remote_address | grep ghproxy.com) ];then
-            term_sd_notice "替换$(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源为官方源"
-            repo_remote_address=$(echo $repo_remote_address | awk '{sub("https://ghproxy.com/","")}1') #使用awk的替换功能将"https://ghproxy.com/"字段替换成空字符
-            git remote set-url origin $repo_remote_address
-            if [ $? = 0 ];then
-                change_repo_return="$change_repo_return $(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源替换成功\n"
-            else
-                change_repo_return="$change_repo_return $(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源替换失败\n"
-            fi
-        else
-            term_sd_notice "$(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源无需替换"
-            change_repo_return="$change_repo_return $(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源无需替换\n"
-        fi
+    term_sd_git_remote_test #检测远程源的种类(同时获取远程地址git_repo_remote_address)
+    git_repo_remote_address_changed=$(echo $git_repo_remote_address | awk '{sub("https://github.com/","github.com/")}1') #获取项目远程地址,如果是github地址,则处理链接为特定格式
+    if [ $git_repo_remote_change_info = 0 ];then
+        case $term_sd_git_remote_test_info in
+            github_gitclone)
+                term_sd_notice "替换$(echo $git_repo_remote_address_changed | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源为官方源(github.com)"
+                git_repo_remote_address_changed=$(echo $git_repo_remote_address_changed | awk '{sub("https://gitclone.com/github.com/","https://github.com/")}1') #修改链接为官方源
+                git remote set-url origin $git_repo_remote_address_changed
+                if [ $? = 0 ];then
+                    change_repo_return="$change_repo_return $(echo $git_repo_remote_address_changed | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源替换成功\n"
+                else
+                    change_repo_return="$change_repo_return $(echo $git_repo_remote_address_changed | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源替换失败\n"
+                fi
+                ;;
+            github_ghproxy)
+                term_sd_notice "替换$(echo $git_repo_remote_address_changed | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源为官方源(github.com)"
+                git_repo_remote_address_changed=$(echo $git_repo_remote_address_changed | awk '{sub("https://ghproxy.com/https://","https://")}1') #修改链接为官方源
+                git remote set-url origin $git_repo_remote_address_changed
+                if [ $? = 0 ];then
+                    change_repo_return="$change_repo_return $(echo $git_repo_remote_address_changed | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源替换成功\n"
+                else
+                    change_repo_return="$change_repo_return $(echo $git_repo_remote_address_changed | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源替换失败\n"
+                fi
+                ;;
+            github)
+                term_sd_notice "$(echo $git_repo_remote_address_changed | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源无需替换"
+                change_repo_return="$change_repo_return $(echo $git_repo_remote_address_changed | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源无需替换\n"
+                ;;
+        esac
     else
-        term_sd_notice "$(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源非github地址,不执行替换"
-        change_repo_return="$change_repo_return $(echo $repo_remote_address | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源非github地址,无需替换\n"
+        term_sd_notice "$(echo $git_repo_remote_address_changed | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源非github地址,不执行替换"
+        change_repo_return="$change_repo_return $(echo $git_repo_remote_address_changed | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')更新源非github地址,无需替换\n"
     fi
 }
 
@@ -57,7 +142,8 @@ function select_repo()
     select_repo_dialog=$(dialog --clear --title "Term-SD" --backtitle "更新源选择界面" --ok-label "确认" --cancel-label "取消" --menu "选择要修改成的更新源\n当前将要修改更新源的AI软件:$term_sd_manager_info" 25 80 10 \
         "1" "官方源" \
         "2" "镜像源" \
-        "3" "返回" \
+        "3" "镜像源2(gitclone.com)" \
+        "4" "返回" \
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
@@ -68,9 +154,13 @@ function select_repo()
                 ;;
             2)
                 print_line_to_shell "更新源一键替换"
-                export change_repo_cmd="change_repo_to_proxy"
+                export change_repo_cmd="change_repo_to_proxy_ghproxy"
                 ;;
             3)
+                print_line_to_shell "更新源一键替换"
+                export change_repo_cmd="change_repo_to_proxy_gitclone"
+                ;;
+            4)
                 select_repo_exec=1 #不执行替换
                 ;;
         esac
@@ -85,8 +175,9 @@ function select_repo_single()
     change_repo_return="" #清除上次运行结果
     select_repo_single_dialog=$(dialog --clear --title "Term-SD" --backtitle "更新源选择界面" --ok-label "确认" --cancel-label "取消" --menu "选择要修改成的更新源\n当前更新源:$(git remote -v | awk 'NR==1 {print $2}')" 25 80 10 \
         "1" "官方源" \
-        "2" "镜像源" \
-        "3" "返回" \
+        "2" "镜像源1(ghproxy.com)" \
+        "3" "镜像源2(gitclone.com)" \
+        "4" "返回" \
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
@@ -96,7 +187,11 @@ function select_repo_single()
                 dialog --clear --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$change_repo_return------------------------------------------------------------------" 25 80
                 ;;
             2)
-                change_repo_to_proxy
+                change_repo_to_proxy_ghproxy
+                dialog --clear --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$change_repo_return------------------------------------------------------------------" 25 80
+                ;;
+            3)
+                change_repo_to_proxy_gitclone
                 dialog --clear --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$change_repo_return------------------------------------------------------------------" 25 80
                 ;;
         esac

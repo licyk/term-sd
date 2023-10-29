@@ -15,7 +15,7 @@ function process_install_a1111_sd_webui()
         print_line_to_shell "stable-diffusion-webui 安装"
         term_sd_notice "开始安装stable-diffusion-webui"
         tmp_disable_proxy #临时取消代理,避免一些不必要的网络减速
-        cmd_daemon git clone "$github_proxy"https://github.com/AUTOMATIC1111/stable-diffusion-webui
+        cmd_daemon git clone ${github_proxy}github.com/AUTOMATIC1111/stable-diffusion-webui
         [ ! -d "./$term_sd_manager_info" ] && tmp_enable_proxy && term_sd_notice "检测到"$term_sd_manager_info"框架安装失败,已终止安装进程" && sleep 3 && return 1 #防止继续进行安装导致文件散落,造成目录混乱
         cd ./stable-diffusion-webui
         create_venv
@@ -25,16 +25,16 @@ function process_install_a1111_sd_webui()
         #安装的依赖参考"stable-diffusion-webui/modules/launch_utils.py"
         [ ! -d "./stable-diffusion-webui/repositories" ] && mkdir ./stable-diffusion-webui/repositories
 
-        cmd_daemon git clone "$github_proxy"https://github.com/sczhou/CodeFormer ./stable-diffusion-webui/repositories/CodeFormer
-        cmd_daemon git clone "$github_proxy"https://github.com/salesforce/BLIP ./stable-diffusion-webui/repositories/BLIP
-        cmd_daemon git clone "$github_proxy"https://github.com/Stability-AI/stablediffusion ./stable-diffusion-webui/repositories/stable-diffusion-stability-ai
-        cmd_daemon git clone "$github_proxy"https://github.com/Stability-AI/generative-models ./stable-diffusion-webui/repositories/generative-models
-        cmd_daemon git clone "$github_proxy"https://github.com/crowsonkb/k-diffusion ./stable-diffusion-webui/repositories/k-diffusion
+        cmd_daemon git clone ${github_proxy}github.com/sczhou/CodeFormer ./stable-diffusion-webui/repositories/CodeFormer
+        cmd_daemon git clone ${github_proxy}github.com/salesforce/BLIP ./stable-diffusion-webui/repositories/BLIP
+        cmd_daemon git clone ${github_proxy}github.com/Stability-AI/stablediffusion ./stable-diffusion-webui/repositories/stable-diffusion-stability-ai
+        cmd_daemon git clone ${github_proxy}github.com/Stability-AI/generative-models ./stable-diffusion-webui/repositories/generative-models
+        cmd_daemon git clone ${github_proxy}github.com/crowsonkb/k-diffusion ./stable-diffusion-webui/repositories/k-diffusion
 
         if [ ! -z "$(echo $pytorch_install_version | awk '{gsub(/[=+]/, "")}1')" ];then
             cmd_daemon pip_cmd install $pytorch_install_version $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --prefer-binary --default-timeout=100 --retries 5 #"--default-timeout=100 --retries 5"在网络差导致下载中断时重试下载
         fi
-        cmd_daemon pip_cmd install git+"$github_proxy"https://github.com/openai/CLIP --prefer-binary $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+        cmd_daemon pip_cmd install git+${github_proxy}github.com/openai/CLIP --prefer-binary $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
 
         cmd_daemon pip_cmd install -r ./stable-diffusion-webui/repositories/CodeFormer/requirements.txt --prefer-binary $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
         cmd_daemon pip_cmd install -r ./stable-diffusion-webui/requirements.txt --prefer-binary $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5 #安装stable-diffusion-webui的依赖
@@ -55,7 +55,7 @@ function process_install_a1111_sd_webui()
         if [ ! -z "$a1111_sd_webui_extension_install_list" ];then
             term_sd_notice "安装插件中"
             for i in $a1111_sd_webui_extension_install_list ;do
-                cmd_daemon git clone --recurse-submodules "$github_proxy"$i ./stable-diffusion-webui/extensions/$(echo $i | awk -F'/' '{print $NF}')
+                cmd_daemon git clone --recurse-submodules ${github_proxy}$(echo $i | awk '{sub("https://github.com/","github.com/")}1') ./stable-diffusion-webui/extensions/$(echo $i | awk -F'/' '{print $NF}')
             done
         fi
 

@@ -16,7 +16,7 @@ function process_install_comfyui()
         print_line_to_shell "ComfyUI 安装"
         term_sd_notice "开始安装ComfyUI"
         tmp_disable_proxy #临时取消代理,避免一些不必要的网络减速
-        cmd_daemon git clone "$github_proxy"https://github.com/comfyanonymous/ComfyUI
+        cmd_daemon git clone ${github_proxy}github.com/comfyanonymous/ComfyUI
         [ ! -d "./$term_sd_manager_info" ] && tmp_enable_proxy && term_sd_notice "检测到"$term_sd_manager_info"框架安装失败,已终止安装进程" && sleep 3 && return 1 #防止继续进行安装导致文件散落,造成目录混乱
         cd ./ComfyUI
         create_venv
@@ -31,14 +31,14 @@ function process_install_comfyui()
         if [ ! -z "$comfyui_extension_install_list" ];then
             term_sd_notice "安装插件中"
             for i in $comfyui_extension_install_list ;do
-                cmd_daemon git clone --recurse-submodules "$github_proxy"$i ./ComfyUI/web/extensions/$(echo $i | awk -F'/' '{print $NF}')
+                cmd_daemon git clone --recurse-submodules ${github_proxy}$(echo $i | awk '{sub("https://github.com/","github.com/")}1') ./ComfyUI/web/extensions/$(echo $i | awk -F'/' '{print $NF}')
             done
         fi
 
         if [ ! -z "$comfyui_custom_node_install_list" ];then
             term_sd_notice "安装自定义节点中"
             for i in $comfyui_custom_node_install_list ;do
-                cmd_daemon git clone --recurse-submodules "$github_proxy"$i ./ComfyUI/custom_nodes/$(echo $i | awk -F'/' '{print $NF}')
+                cmd_daemon git clone --recurse-submodules ${github_proxy}$(echo $i | awk '{sub("https://github.com/","github.com/")}1') ./ComfyUI/custom_nodes/$(echo $i | awk -F'/' '{print $NF}')
             done
         fi
 
