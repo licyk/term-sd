@@ -51,25 +51,25 @@ function process_install_fooocus()
             cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/fooocus-model/resolve/main/vae_approx/xl-to-v1_interposer-v3.1.safetensors -d ./Fooocus/models/vae_approx -o xl-to-v1_interposer-v3.1.safetensors
             cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/fooocus-model/resolve/main/vae_approx/xlvaeapp.pth -d ./Fooocus/models/vae_approx -o xlvaeapp.pth
         else #使用modelscope下载模型
-            get_modelscope_model licyks/sd-model/master sdxl_1.0/sd_xl_base_1.0_0.9vae.safetensors ./Fooocus/models/checkpoints
-            get_modelscope_model licyks/sd-model/master sdxl_refiner_1.0/sd_xl_refiner_1.0_0.9vae.safetensors ./Fooocus/models/checkpoints
-            get_modelscope_model licyks/fooocus-model/master loras/sd_xl_offset_example-lora_1.0.safetensors ./Fooocus/models/loras
+            get_modelscope_model licyks/sd-model/master/sdxl_1.0/sd_xl_base_1.0_0.9vae.safetensors ./Fooocus/models/checkpoints
+            get_modelscope_model licyks/sd-model/master/sdxl_refiner_1.0/sd_xl_refiner_1.0_0.9vae.safetensors ./Fooocus/models/checkpoints
+            get_modelscope_model licyks/fooocus-model/master/loras/sd_xl_offset_example-lora_1.0.safetensors ./Fooocus/models/loras
 
-            get_modelscope_model licyks/fooocus-model/master inpaint/fooocus_inpaint_head.pth ./Fooocus/models/inpaint
-            get_modelscope_model licyks/fooocus-model/master inpaint/fooocus_inpaint_head.pth ./Fooocus/models/inpaint
+            get_modelscope_model licyks/fooocus-model/master/inpaint/fooocus_inpaint_head.pth ./Fooocus/models/inpaint
+            get_modelscope_model licyks/fooocus-model/master/inpaint/fooocus_inpaint_head.pth ./Fooocus/models/inpaint
 
-            get_modelscope_model licyks/fooocus-model/master prompt_expansion/fooocus_expansion/pytorch_model.bin ./Fooocus/models/prompt_expansion/fooocus_expansion
-            get_modelscope_model licyks/fooocus-model/master prompt_expansion/fooocus_expansion/config.json ./Fooocus/models/prompt_expansion/fooocus_expansion
-            get_modelscope_model licyks/fooocus-model/master prompt_expansion/fooocus_expansion/merges.txt ./Fooocus/models/prompt_expansion/fooocus_expansion
-            get_modelscope_model licyks/fooocus-model/master prompt_expansion/fooocus_expansion/special_tokens_map.json ./Fooocus/models/prompt_expansion/fooocus_expansion
-            get_modelscope_model licyks/fooocus-model/master prompt_expansion/fooocus_expansion/tokenizer.json ./Fooocus/models/prompt_expansion/fooocus_expansion
-            get_modelscope_model licyks/fooocus-model/master prompt_expansion/fooocus_expansion/tokenizer_config.json ./Fooocus/models/prompt_expansion/fooocus_expansion
-            get_modelscope_model licyks/fooocus-model/master prompt_expansion/fooocus_expansion/vocab.json ./Fooocus/models/prompt_expansion/fooocus_expansion
+            get_modelscope_model licyks/fooocus-model/master/prompt_expansion/fooocus_expansion/pytorch_model.bin ./Fooocus/models/prompt_expansion/fooocus_expansion
+            get_modelscope_model licyks/fooocus-model/master/prompt_expansion/fooocus_expansion/config.json ./Fooocus/models/prompt_expansion/fooocus_expansion
+            get_modelscope_model licyks/fooocus-model/master/prompt_expansion/fooocus_expansion/merges.txt ./Fooocus/models/prompt_expansion/fooocus_expansion
+            get_modelscope_model licyks/fooocus-model/master/prompt_expansion/fooocus_expansion/special_tokens_map.json ./Fooocus/models/prompt_expansion/fooocus_expansion
+            get_modelscope_model licyks/fooocus-model/master/prompt_expansion/fooocus_expansion/tokenizer.json ./Fooocus/models/prompt_expansion/fooocus_expansion
+            get_modelscope_model licyks/fooocus-model/master/prompt_expansion/fooocus_expansion/tokenizer_config.json ./Fooocus/models/prompt_expansion/fooocus_expansion
+            get_modelscope_model licyks/fooocus-model/master/prompt_expansion/fooocus_expansion/vocab.json ./Fooocus/models/prompt_expansion/fooocus_expansion
 
-            get_modelscope_model licyks/fooocus-model/master upscale_models/fooocus_upscaler_s409985e5.bin ./Fooocus/models/upscale_models
-            get_modelscope_model licyks/fooocus-model/master vae_approx/vaeapp_sd15.pth ./Fooocus/models/vae_approx
-            get_modelscope_model licyks/fooocus-model/master vae_approx/xl-to-v1_interposer-v3.1.safetensors ./Fooocus/models/vae_approx
-            get_modelscope_model licyks/fooocus-model/master vae_approx/xlvaeapp.pth./Fooocus/models/vae_approx
+            get_modelscope_model licyks/fooocus-model/master/upscale_models/fooocus_upscaler_s409985e5.bin ./Fooocus/models/upscale_models
+            get_modelscope_model licyks/fooocus-model/master/vae_approx/vaeapp_sd15.pth ./Fooocus/models/vae_approx
+            get_modelscope_model licyks/fooocus-model/master/vae_approx/xl-to-v1_interposer-v3.1.safetensors ./Fooocus/models/vae_approx
+            get_modelscope_model licyks/fooocus-model/master/vae_approx/xlvaeapp.pth./Fooocus/models/vae_approx
             tmp_enable_proxy #恢复原有的代理
         fi
 

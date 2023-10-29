@@ -146,104 +146,104 @@ function process_install_comfyui()
             fi
 
         else #使用modelscope下载模型
-            get_modelscope_model licyks/sd-model/master sd_1.5/v1-5-pruned-emaonly.safetensors ./ComfyUI/models/checkpoints
-            get_modelscope_model licyks/sd-vae/master sd_1.5/vae-ft-ema-560000-ema-pruned.safetensors ./ComfyUI/models/vae
-            get_modelscope_model licyks/sd-vae/master sd_1.5/vae-ft-mse-840000-ema-pruned.safetensors ./ComfyUI/models/vae
+            get_modelscope_model licyks/sd-model/master/sd_1.5/v1-5-pruned-emaonly.safetensors ./ComfyUI/models/checkpoints
+            get_modelscope_model licyks/sd-vae/master/sd_1.5/vae-ft-ema-560000-ema-pruned.safetensors ./ComfyUI/models/vae
+            get_modelscope_model licyks/sd-vae/master/sd_1.5/vae-ft-mse-840000-ema-pruned.safetensors ./ComfyUI/models/vae
 
             if [ $a1111_sd_webui_extension_model_1 = 0 ];then #安装controlnet时再下载相关模型
                 term_sd_notice "下载controlnet模型中"
-                get_modelscope_model licyks/controlnet_v1.1/master cldm_v15.yaml ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master cldm_v21.yaml ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master control_sd15_canny.yaml ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master control_sd15_depth.yaml ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master control_sd15_hed.yaml ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master control_sd15_mlsd.yaml ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master control_sd15_normal.yaml ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master control_sd15_openpose.yaml ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master control_sd15_scribble.yaml ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master control_sd15_seg.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/cldm_v15.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/cldm_v21.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_sd15_canny.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_sd15_depth.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_sd15_hed.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_sd15_mlsd.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_sd15_normal.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_sd15_openpose.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_sd15_scribble.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_sd15_seg.yaml ./ComfyUI/models/controlnet
 
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11e_sd15_ip2p_fp16.safetensors ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11e_sd15_ip2p_fp16.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11e_sd15_ip2p_fp16.safetensors ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11e_sd15_ip2p_fp16.yaml ./ComfyUI/models/controlnet
 
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11e_sd15_shuffle_fp16.safetensors ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11e_sd15_shuffle_fp16.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11e_sd15_shuffle_fp16.safetensors ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11e_sd15_shuffle_fp16.yaml ./ComfyUI/models/controlnet
 
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11f1e_sd15_tile_fp16.safetensors ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11f1e_sd15_tile_fp16.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11f1e_sd15_tile_fp16.safetensors ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11f1e_sd15_tile_fp16.yaml ./ComfyUI/models/controlnet
 
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11f1p_sd15_depth_fp16.safetensors ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11f1p_sd15_depth_fp16.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11f1p_sd15_depth_fp16.safetensors ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11f1p_sd15_depth_fp16.yaml ./ComfyUI/models/controlnet
 
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_canny_fp16.safetensors ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_canny_fp16.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_canny_fp16.safetensors ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_canny_fp16.yaml ./ComfyUI/models/controlnet
 
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_inpaint_fp16.safetensors ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_inpaint_fp16.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_inpaint_fp16.safetensors ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_inpaint_fp16.yaml ./ComfyUI/models/controlnet
 
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_lineart_fp16.safetensors ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_lineart_fp16.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_lineart_fp16.safetensors ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_lineart_fp16.yaml ./ComfyUI/models/controlnet
 
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_mlsd_fp16.safetensors ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_mlsd_fp16.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_mlsd_fp16.safetensors ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_mlsd_fp16.yaml ./ComfyUI/models/controlnet
 
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_normalbae_fp16.safetensors ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_normalbae_fp16.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_normalbae_fp16.safetensors ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_normalbae_fp16.yaml ./ComfyUI/models/controlnet
 
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_openpose_fp16.safetensors ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_openpose_fp16.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_openpose_fp16.safetensors ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_openpose_fp16.yaml ./ComfyUI/models/controlnet
 
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_scribble_fp16.safetensors ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_scribble_fp16.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_scribble_fp16.safetensors ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_scribble_fp16.yaml ./ComfyUI/models/controlnet
 
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_seg_fp16.safetensors ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_seg_fp16.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_seg_fp16.safetensors ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_seg_fp16.yaml ./ComfyUI/models/controlnet
 
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_softedge_fp16.safetensors ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_softedge_fp16.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_softedge_fp16.safetensors ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_softedge_fp16.yaml ./ComfyUI/models/controlnet
 
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15s2_lineart_anime_fp16.safetensors ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15s2_lineart_anime_fp16.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15s2_lineart_anime_fp16.safetensors ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15s2_lineart_anime_fp16.yaml ./ComfyUI/models/controlnet
 
-                get_modelscope_model licyks/controlnet_v1.1/master control_v1p_sd15_brightness.safetensors ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master control_v1p_sd15_illumination.safetensors ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v1p_sd15_brightness.safetensors ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v1p_sd15_illumination.safetensors ./ComfyUI/models/controlnet
 
-                get_modelscope_model licyks/controlnet_v1.1/master control_v1p_sd15_qrcode_monster.safetensors ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master control_v1p_sd15_qrcode_monster.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v1p_sd15_qrcode_monster.safetensors ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v1p_sd15_qrcode_monster.yaml ./ComfyUI/models/controlnet
 
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_canny_sd15v2.pth ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_canny_sd15v2.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_canny_sd15v2.pth ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_canny_sd15v2.yaml ./ComfyUI/models/controlnet
 
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_color_sd14v1.pth ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_color_sd14v1.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_color_sd14v1.pth ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_color_sd14v1.yaml ./ComfyUI/models/controlnet
 
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_depth_sd15v2.pth ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_depth_sd15v2.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_depth_sd15v2.pth ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_depth_sd15v2.yaml ./ComfyUI/models/controlnet
 
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_keypose_sd14v1.pth ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_keypose_sd14v1.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_keypose_sd14v1.pth ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_keypose_sd14v1.yaml ./ComfyUI/models/controlnet
 
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_openpose_sd14v1.pth ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_openpose_sd14v1.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_openpose_sd14v1.pth ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_openpose_sd14v1.yaml ./ComfyUI/models/controlnet
 
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_seg_sd14v1.pth ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_seg_sd14v1.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_seg_sd14v1.pth ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_seg_sd14v1.yaml ./ComfyUI/models/controlnet
 
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_sketch_sd15v2.pth ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_sketch_sd15v2.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_sketch_sd15v2.pth ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_sketch_sd15v2.yaml ./ComfyUI/models/controlnet
 
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_style_sd14v1.pth ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_style_sd14v1.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_style_sd14v1.pth ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_style_sd14v1.yaml ./ComfyUI/models/controlnet
 
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_zoedepth_sd15v1.pth ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_zoedepth_sd15v1.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_zoedepth_sd15v1.pth ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_zoedepth_sd15v1.yaml ./ComfyUI/models/controlnet
 
-                get_modelscope_model licyks/controlnet_v1.1/master image_adapter_v14.yaml ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master ip-adapter-plus-face_sd15.pth ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master ip-adapter_sd15.pth ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master ip-adapter_sd15_light.pth ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master ip-adapter_sd15_plus.pth ./ComfyUI/models/controlnet
-                get_modelscope_model licyks/controlnet_v1.1/master sketch_adapter_v14.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/image_adapter_v14.yaml ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter-plus-face_sd15.pth ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter_sd15.pth ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter_sd15_light.pth ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter_sd15_plus.pth ./ComfyUI/models/controlnet
+                get_modelscope_model licyks/controlnet_v1.1/master/sketch_adapter_v14.yaml ./ComfyUI/models/controlnet
             fi
             tmp_enable_proxy #恢复原有的代理
         fi

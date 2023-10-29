@@ -257,194 +257,194 @@ function process_install_a1111_sd_webui()
 
         else #使用modelscope下载模型
             #大模型
-            get_modelscope_model licyks/sd-model/master sd_1.5/v1-5-pruned-emaonly.safetensors ./stable-diffusion-webui/models/Stable-diffusion
+            get_modelscope_model licyks/sd-model/master/sd_1.5/v1-5-pruned-emaonly.safetensors ./stable-diffusion-webui/models/Stable-diffusion
             #VAE模型
-            get_modelscope_model licyks/sd-vae/master sd_1.5/vae-ft-ema-560000-ema-pruned.safetensors ./stable-diffusion-webui/models/VAE
-            get_modelscope_model licyks/sd-vae/master sd_1.5/vae-ft-mse-840000-ema-pruned.safetensors ./stable-diffusion-webui/models/VAE
+            get_modelscope_model licyks/sd-vae/master/sd_1.5/vae-ft-ema-560000-ema-pruned.safetensors ./stable-diffusion-webui/models/VAE
+            get_modelscope_model licyks/sd-vae/master/sd_1.5/vae-ft-mse-840000-ema-pruned.safetensors ./stable-diffusion-webui/models/VAE
             #VAE-approx模型
-            get_modelscope_model licyks/sd-vae/master vae-approx/model.pt ./stable-diffusion-webui/models/VAE-approx
-            get_modelscope_model licyks/sd-vae/master vae-approx/vaeapprox-sdxl.pt ./stable-diffusion-webui/models/VAE-approx
+            get_modelscope_model licyks/sd-vae/master/vae-approx/model.pt ./stable-diffusion-webui/models/VAE-approx
+            get_modelscope_model licyks/sd-vae/master/vae-approx/vaeapprox-sdxl.pt ./stable-diffusion-webui/models/VAE-approx
             #upscaler模型
-            get_modelscope_model licyks/sd-upscaler-models/master ESRGAN/4x-UltraSharp.pth ./stable-diffusion-webui/models/ESRGAN
-            get_modelscope_model licyks/sd-upscaler-models/master ESRGAN/BSRGAN.pth ./stable-diffusion-webui/models/ESRGAN
-            get_modelscope_model licyks/sd-upscaler-models/master ESRGAN/ESRGAN_4x.pth ./stable-diffusion-webui/models/ESRGAN
-            get_modelscope_model licyks/sd-upscaler-models/master GFPGAN/detection_Resnet50_Final.pth ./stable-diffusion-webui/models/GFPGAN
-            get_modelscope_model licyks/sd-upscaler-models/master GFPGAN/GFPGANv1.4.pth ./stable-diffusion-webui/models/GFPGAN
-            get_modelscope_model licyks/sd-upscaler-models/master GFPGAN/parsing_bisenet.pth ./stable-diffusion-webui/models/GFPGAN
-            get_modelscope_model licyks/sd-upscaler-models/master GFPGAN/parsing_parsenet.pth ./stable-diffusion-webui/models/GFPGAN
-            get_modelscope_model licyks/sd-upscaler-models/master RealESRGAN/RealESRGAN_x4plus.pth ./stable-diffusion-webui/models/RealESRGAN
-            get_modelscope_model licyks/sd-upscaler-models/master RealESRGAN/RealESRGAN_x4plus_anime_6B.pth ./stable-diffusion-webui/models/RealESRGAN
+            get_modelscope_model licyks/sd-upscaler-models/master/ESRGAN/4x-UltraSharp.pth ./stable-diffusion-webui/models/ESRGAN
+            get_modelscope_model licyks/sd-upscaler-models/master/ESRGAN/BSRGAN.pth ./stable-diffusion-webui/models/ESRGAN
+            get_modelscope_model licyks/sd-upscaler-models/master/ESRGAN/ESRGAN_4x.pth ./stable-diffusion-webui/models/ESRGAN
+            get_modelscope_model licyks/sd-upscaler-models/master/GFPGAN/detection_Resnet50_Final.pth ./stable-diffusion-webui/models/GFPGAN
+            get_modelscope_model licyks/sd-upscaler-models/master/GFPGAN/GFPGANv1.4.pth ./stable-diffusion-webui/models/GFPGAN
+            get_modelscope_model licyks/sd-upscaler-models/master/GFPGAN/parsing_bisenet.pth ./stable-diffusion-webui/models/GFPGAN
+            get_modelscope_model licyks/sd-upscaler-models/master/GFPGAN/parsing_parsenet.pth ./stable-diffusion-webui/models/GFPGAN
+            get_modelscope_model licyks/sd-upscaler-models/master/RealESRGAN/RealESRGAN_x4plus.pth ./stable-diffusion-webui/models/RealESRGAN
+            get_modelscope_model licyks/sd-upscaler-models/master/RealESRGAN/RealESRGAN_x4plus_anime_6B.pth ./stable-diffusion-webui/models/RealESRGAN
             #BLIP模型
-            get_modelscope_model licyks/sd-upscaler-models/master BLIP/model_base_caption_capfilt_large.pth ./stable-diffusion-webui/models/BLIP
+            get_modelscope_model licyks/sd-upscaler-models/master/BLIP/model_base_caption_capfilt_large.pth ./stable-diffusion-webui/models/BLIP
             #Codeformer模型
-            get_modelscope_model licyks/sd-upscaler-models/master Codeformer/codeformer-v0.1.0.pth ./stable-diffusion-webui/models/Codeformer
+            get_modelscope_model licyks/sd-upscaler-models/master/Codeformer/codeformer-v0.1.0.pth ./stable-diffusion-webui/models/Codeformer
             #embeddings模型
-            get_modelscope_model licyks/sd-embeddings/master sd_1.5/EasyNegativeV2.safetensors ./stable-diffusion-webui/embeddings/negative
-            get_modelscope_model licyks/sd-embeddings/master sd_1.5/bad-artist-anime.pt ./stable-diffusion-webui/embeddings/negative
-            get_modelscope_model licyks/sd-embeddings/master sd_1.5/bad-artist.pt ./stable-diffusion-webui/embeddings/negative
-            get_modelscope_model licyks/sd-embeddings/master sd_1.5/bad-hands-5.pt ./stable-diffusion-webui/embeddings/negative
-            get_modelscope_model licyks/sd-embeddings/master sd_1.5/bad-image-v2-39000.pt ./stable-diffusion-webui/embeddings/negative
-            get_modelscope_model licyks/sd-embeddings/master sd_1.5/bad_prompt_version2.pt ./stable-diffusion-webui/embeddings/negative
-            get_modelscope_model licyks/sd-embeddings/master sd_1.5/ng_deepnegative_v1_75t.pt ./stable-diffusion-webui/embeddings/negative
-            get_modelscope_model licyks/sd-embeddings/master sd_1.5/verybadimagenegative_v1.3.pt ./stable-diffusion-webui/embeddings/negative
+            get_modelscope_model licyks/sd-embeddings/master/sd_1.5/EasyNegativeV2.safetensors ./stable-diffusion-webui/embeddings/negative
+            get_modelscope_model licyks/sd-embeddings/master/sd_1.5/bad-artist-anime.pt ./stable-diffusion-webui/embeddings/negative
+            get_modelscope_model licyks/sd-embeddings/master/sd_1.5/bad-artist.pt ./stable-diffusion-webui/embeddings/negative
+            get_modelscope_model licyks/sd-embeddings/master/sd_1.5/bad-hands-5.pt ./stable-diffusion-webui/embeddings/negative
+            get_modelscope_model licyks/sd-embeddings/master/sd_1.5/bad-image-v2-39000.pt ./stable-diffusion-webui/embeddings/negative
+            get_modelscope_model licyks/sd-embeddings/master/sd_1.5/bad_prompt_version2.pt ./stable-diffusion-webui/embeddings/negative
+            get_modelscope_model licyks/sd-embeddings/master/sd_1.5/ng_deepnegative_v1_75t.pt ./stable-diffusion-webui/embeddings/negative
+            get_modelscope_model licyks/sd-embeddings/master/sd_1.5/verybadimagenegative_v1.3.pt ./stable-diffusion-webui/embeddings/negative
 
             if [ $a1111_sd_webui_extension_model_1 = 0 ];then #安装controlnet时再下载相关模型
                 term_sd_notice "下载controlnet模型中"
-                get_modelscope_model licyks/controlnet_v1.1/master cldm_v15.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master cldm_v21.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master control_sd15_canny.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master control_sd15_depth.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master control_sd15_hed.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master control_sd15_mlsd.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master control_sd15_normal.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master control_sd15_openpose.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master control_sd15_scribble.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master control_sd15_seg.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/cldm_v15.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/cldm_v21.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_sd15_canny.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_sd15_depth.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_sd15_hed.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_sd15_mlsd.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_sd15_normal.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_sd15_openpose.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_sd15_scribble.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_sd15_seg.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
 
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11e_sd15_ip2p_fp16.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11e_sd15_ip2p_fp16.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11e_sd15_ip2p_fp16.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11e_sd15_ip2p_fp16.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
 
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11e_sd15_shuffle_fp16.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11e_sd15_shuffle_fp16.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11e_sd15_shuffle_fp16.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11e_sd15_shuffle_fp16.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
 
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11f1e_sd15_tile_fp16.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11f1e_sd15_tile_fp16.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11f1e_sd15_tile_fp16.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11f1e_sd15_tile_fp16.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
 
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11f1p_sd15_depth_fp16.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11f1p_sd15_depth_fp16.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11f1p_sd15_depth_fp16.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11f1p_sd15_depth_fp16.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
 
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_canny_fp16.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_canny_fp16.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_canny_fp16.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_canny_fp16.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
 
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_inpaint_fp16.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_inpaint_fp16.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_inpaint_fp16.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_inpaint_fp16.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
 
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_lineart_fp16.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_lineart_fp16.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_lineart_fp16.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_lineart_fp16.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
 
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_mlsd_fp16.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_mlsd_fp16.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_mlsd_fp16.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_mlsd_fp16.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
 
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_normalbae_fp16.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_normalbae_fp16.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_normalbae_fp16.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_normalbae_fp16.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
 
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_openpose_fp16.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_openpose_fp16.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_openpose_fp16.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_openpose_fp16.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
 
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_scribble_fp16.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_scribble_fp16.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_scribble_fp16.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_scribble_fp16.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
 
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_seg_fp16.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_seg_fp16.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_seg_fp16.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_seg_fp16.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
 
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_softedge_fp16.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15_softedge_fp16.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_softedge_fp16.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15_softedge_fp16.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
 
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15s2_lineart_anime_fp16.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master control_v11p_sd15s2_lineart_anime_fp16.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15s2_lineart_anime_fp16.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v11p_sd15s2_lineart_anime_fp16.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
 
-                get_modelscope_model licyks/controlnet_v1.1/master control_v1p_sd15_brightness.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master control_v1p_sd15_illumination.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v1p_sd15_brightness.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v1p_sd15_illumination.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
 
-                get_modelscope_model licyks/controlnet_v1.1/master control_v1p_sd15_qrcode_monster.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master control_v1p_sd15_qrcode_monster.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v1p_sd15_qrcode_monster.safetensors ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/control_v1p_sd15_qrcode_monster.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
 
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_canny_sd15v2.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_canny_sd15v2.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_canny_sd15v2.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_canny_sd15v2.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
 
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_color_sd14v1.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_color_sd14v1.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_color_sd14v1.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_color_sd14v1.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
 
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_depth_sd15v2.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_depth_sd15v2.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_depth_sd15v2.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_depth_sd15v2.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
 
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_keypose_sd14v1.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_keypose_sd14v1.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_keypose_sd14v1.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_keypose_sd14v1.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
 
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_openpose_sd14v1.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_openpose_sd14v1.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_openpose_sd14v1.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_openpose_sd14v1.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
 
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_seg_sd14v1.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_seg_sd14v1.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_seg_sd14v1.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_seg_sd14v1.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
 
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_sketch_sd15v2.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_sketch_sd15v2.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_sketch_sd15v2.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_sketch_sd15v2.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
 
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_style_sd14v1.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_style_sd14v1.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_style_sd14v1.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_style_sd14v1.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
 
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_zoedepth_sd15v1.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master t2iadapter_zoedepth_sd15v1.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_zoedepth_sd15v1.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_zoedepth_sd15v1.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
 
-                get_modelscope_model licyks/controlnet_v1.1/master image_adapter_v14.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master ip-adapter-plus-face_sd15.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master ip-adapter_sd15.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master ip-adapter_sd15_light.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master ip-adapter_sd15_plus.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
-                get_modelscope_model licyks/controlnet_v1.1/master sketch_adapter_v14.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/image_adapter_v14.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter-plus-face_sd15.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter_sd15.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter_sd15_light.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter_sd15_plus.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
+                get_modelscope_model licyks/controlnet_v1.1/master/sketch_adapter_v14.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
                 #controlnet预处理器
-                get_modelscope_model licyks/controlnet_v1.1_annotator/master clip_vision/clip_g.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/clip_vision
-                get_modelscope_model licyks/controlnet_v1.1_annotator/master clip_vision/clip_h.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/clip_vision
-                get_modelscope_model licyks/controlnet_v1.1_annotator/master clip_vision/clip_vitl.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/clip_vision
+                get_modelscope_model licyks/controlnet_v1.1_annotator/master/clip_vision/clip_g.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/clip_vision
+                get_modelscope_model licyks/controlnet_v1.1_annotator/master/clip_vision/clip_h.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/clip_vision
+                get_modelscope_model licyks/controlnet_v1.1_annotator/master/clip_vision/clip_vitl.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/clip_vision
 
-                get_modelscope_model licyks/controlnet_v1.1_annotator/master hed/ControlNetHED.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/hed
+                get_modelscope_model licyks/controlnet_v1.1_annotator/master/hed/ControlNetHED.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/hed
 
-                get_modelscope_model licyks/controlnet_v1.1_annotator/master lama/ControlNetLama.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/lama
+                get_modelscope_model licyks/controlnet_v1.1_annotator/master/lama/ControlNetLama.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/lama
 
-                get_modelscope_model licyks/controlnet_v1.1_annotator/master leres/latest_net_G.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/leres
-                get_modelscope_model licyks/controlnet_v1.1_annotator/master leres/res101.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/leres
+                get_modelscope_model licyks/controlnet_v1.1_annotator/master/leres/latest_net_G.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/leres
+                get_modelscope_model licyks/controlnet_v1.1_annotator/master/leres/res101.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/leres
 
-                get_modelscope_model licyks/controlnet_v1.1_annotator/master lineart/sk_model.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/lineart
-                get_modelscope_model licyks/controlnet_v1.1_annotator/master lineart/sk_model2.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/lineart
+                get_modelscope_model licyks/controlnet_v1.1_annotator/master/lineart/sk_model.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/lineart
+                get_modelscope_model licyks/controlnet_v1.1_annotator/master/lineart/sk_model2.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/lineart
 
-                get_modelscope_model licyks/controlnet_v1.1_annotator/master lineart_anime/netG.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/lineart_anime
+                get_modelscope_model licyks/controlnet_v1.1_annotator/master/lineart_anime/netG.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/lineart_anime
 
-                get_modelscope_model licyks/controlnet_v1.1_annotator/master manga_line/erika.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/manga_line
+                get_modelscope_model licyks/controlnet_v1.1_annotator/master/manga_line/erika.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/manga_line
 
-                get_modelscope_model licyks/controlnet_v1.1_annotator/master midas/dpt_hybrid-midas-501f0c75.pt ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/midas
+                get_modelscope_model licyks/controlnet_v1.1_annotator/master/midas/dpt_hybrid-midas-501f0c75.pt ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/midas
 
-                get_modelscope_model licyks/controlnet_v1.1_annotator/master mlsd/mlsd_large_512_fp32.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/mlsd
+                get_modelscope_model licyks/controlnet_v1.1_annotator/master/mlsd/mlsd_large_512_fp32.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/mlsd
 
-                get_modelscope_model licyks/controlnet_v1.1_annotator/master normal_bae/scannet.pt ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/normal_bae
+                get_modelscope_model licyks/controlnet_v1.1_annotator/master/normal_bae/scannet.pt ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/normal_bae
 
-                get_modelscope_model licyks/controlnet_v1.1_annotator/master oneformer/150_16_swin_l_oneformer_coco_100ep.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/oneformer
-                get_modelscope_model licyks/controlnet_v1.1_annotator/master oneformer/250_16_swin_l_oneformer_ade20k_160k.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/oneformer
+                get_modelscope_model licyks/controlnet_v1.1_annotator/master/oneformer/150_16_swin_l_oneformer_coco_100ep.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/oneformer
+                get_modelscope_model licyks/controlnet_v1.1_annotator/master/oneformer/250_16_swin_l_oneformer_ade20k_160k.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/oneformer
 
-                get_modelscope_model licyks/controlnet_v1.1_annotator/master openpose/body_pose_model.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/openpose
-                get_modelscope_model licyks/controlnet_v1.1_annotator/master openpose/dw-ll_ucoco_384.onnx ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/openpose
-                get_modelscope_model licyks/controlnet_v1.1_annotator/master openpose/facenet.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/openpose
-                get_modelscope_model licyks/controlnet_v1.1_annotator/master openpose/hand_pose_model.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/openpose
-                get_modelscope_model licyks/controlnet_v1.1_annotator/master openpose/yolox_l.onnx ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/openpose
+                get_modelscope_model licyks/controlnet_v1.1_annotator/master/openpose/body_pose_model.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/openpose
+                get_modelscope_model licyks/controlnet_v1.1_annotator/master/openpose/dw-ll_ucoco_384.onnx ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/openpose
+                get_modelscope_model licyks/controlnet_v1.1_annotator/master/openpose/facenet.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/openpose
+                get_modelscope_model licyks/controlnet_v1.1_annotator/master/openpose/hand_pose_model.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/openpose
+                get_modelscope_model licyks/controlnet_v1.1_annotator/master/openpose/yolox_l.onnx ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/openpose
 
-                get_modelscope_model licyks/controlnet_v1.1_annotator/master pidinet/table5_pidinet.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/pidinet
+                get_modelscope_model licyks/controlnet_v1.1_annotator/master/pidinet/table5_pidinet.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/pidinet
 
-                get_modelscope_model licyks/controlnet_v1.1_annotator/master uniformer/upernet_global_small.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/uniformer
+                get_modelscope_model licyks/controlnet_v1.1_annotator/master/uniformer/upernet_global_small.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/uniformer
 
-                get_modelscope_model licyks/controlnet_v1.1_annotator/master zoedepth/ZoeD_M12_N.pt ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/zoedepth
+                get_modelscope_model licyks/controlnet_v1.1_annotator/master/zoedepth/ZoeD_M12_N.pt ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/zoedepth
             fi
 
             if [ $a1111_sd_webui_extension_model_2 = 0 ];then #安装adetailer插件相关模型
                 term_sd_notice "下载adetailer模型中"
-                get_modelscope_model licyks/sd-extensions-model/master adetailer/deepfashion2_yolov8s-seg.pt ./stable-diffusion-webui/models/adetailer
-                get_modelscope_model licyks/sd-extensions-model/master adetailer/face_yolov8m.pt ./stable-diffusion-webui/models/adetailer
-                get_modelscope_model licyks/sd-extensions-model/master adetailer/face_yolov8n.pt ./stable-diffusion-webui/models/adetailer
-                get_modelscope_model licyks/sd-extensions-model/master adetailer/face_yolov8n_v2.pt ./stable-diffusion-webui/models/adetailer
-                get_modelscope_model licyks/sd-extensions-model/master adetailer/face_yolov8s.pt ./stable-diffusion-webui/models/adetailer
-                get_modelscope_model licyks/sd-extensions-model/master adetailer/hand_yolov8n.pt ./stable-diffusion-webui/models/adetailer
-                get_modelscope_model licyks/sd-extensions-model/master adetailer/hand_yolov8s.pt ./stable-diffusion-webui/models/adetailer
-                get_modelscope_model licyks/sd-extensions-model/master adetailer/person_yolov8m-seg.pt ./stable-diffusion-webui/models/adetailer
-                get_modelscope_model licyks/sd-extensions-model/master adetailer/person_yolov8n-seg.pt ./stable-diffusion-webui/models/adetailer
-                get_modelscope_model licyks/sd-extensions-model/master adetailer/person_yolov8s-seg.pt ./stable-diffusion-webui/models/adetailer
+                get_modelscope_model licyks/sd-extensions-model/master/adetailer/deepfashion2_yolov8s-seg.pt ./stable-diffusion-webui/models/adetailer
+                get_modelscope_model licyks/sd-extensions-model/master/adetailer/face_yolov8m.pt ./stable-diffusion-webui/models/adetailer
+                get_modelscope_model licyks/sd-extensions-model/master/adetailer/face_yolov8n.pt ./stable-diffusion-webui/models/adetailer
+                get_modelscope_model licyks/sd-extensions-model/master/adetailer/face_yolov8n_v2.pt ./stable-diffusion-webui/models/adetailer
+                get_modelscope_model licyks/sd-extensions-model/master/adetailer/face_yolov8s.pt ./stable-diffusion-webui/models/adetailer
+                get_modelscope_model licyks/sd-extensions-model/master/adetailer/hand_yolov8n.pt ./stable-diffusion-webui/models/adetailer
+                get_modelscope_model licyks/sd-extensions-model/master/adetailer/hand_yolov8s.pt ./stable-diffusion-webui/models/adetailer
+                get_modelscope_model licyks/sd-extensions-model/master/adetailer/person_yolov8m-seg.pt ./stable-diffusion-webui/models/adetailer
+                get_modelscope_model licyks/sd-extensions-model/master/adetailer/person_yolov8n-seg.pt ./stable-diffusion-webui/models/adetailer
+                get_modelscope_model licyks/sd-extensions-model/master/adetailer/person_yolov8s-seg.pt ./stable-diffusion-webui/models/adetailer
             fi
 
             if [ $a1111_sd_webui_extension_model_3 = 0 ];then #安装sd-webui-IS-NET-pro插件相关模型
                 term_sd_notice "下载sd-webui-IS-NET-pro模型中"
-                get_modelscope_model licyks/sd-extensions-model/master sd-webui-IS-NET-pro/isnet-general-use.pth ./stable-diffusion-webui/extensions/sd-webui-IS-NET-pro/saved_models/IS-Net
+                get_modelscope_model licyks/sd-extensions-model/master/sd-webui-IS-NET-pro/isnet-general-use.pth ./stable-diffusion-webui/extensions/sd-webui-IS-NET-pro/saved_models/IS-Net
             fi
 
             if [ $a1111_sd_webui_extension_model_4 = 0 ];then #安装sd-webui-animatediff插件相关模型
                 term_sd_notice "下载sd-webui-animatediff模型中"
-                get_modelscope_model licyks/sd-extensions-model/master sd-webui-animatediff/mm_sd_v15_v2.ckpt ./stable-diffusion-webui/extensions/sd-webui-animatediff/model
+                get_modelscope_model licyks/sd-extensions-model/master/sd-webui-animatediff/mm_sd_v15_v2.ckpt ./stable-diffusion-webui/extensions/sd-webui-animatediff/model
             fi
 
             tmp_enable_proxy #恢复原有的代理

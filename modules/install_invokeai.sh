@@ -33,10 +33,10 @@ function process_install_invokeai()
             cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-upscaler-models/resolve/main/invokeai/ESRGAN_SRx4_DF2KOST_official-ff704c30.pth -d ./invokeai/models/core/upscaling/realesrgan -o ESRGAN_SRx4_DF2KOST_official-ff704c30.pth
             cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-upscaler-models/resolve/main/invokeai/RealESRGAN_x2plus.pth -d ./invokeai/models/core/upscaling/realesrgan -o RealESRGAN_x2plus.pth
         else #使用modelscope下载模型
-            get_modelscope_model licyks/sd-upscaler-models/master invokeai/ESRGAN_SRx4_DF2KOST_official-ff704c30.pth ./invokeai/models/core/upscaling/realesrgan
-            get_modelscope_model licyks/sd-upscaler-models/master invokeai/RealESRGAN_x2plus.pth ./invokeai/models/core/upscaling/realesrgan
-            get_modelscope_model licyks/sd-upscaler-models/master invokeai/RealESRGAN_x4plus.pth ./invokeai/models/core/upscaling/realesrgan
-            get_modelscope_model licyks/sd-upscaler-models/master invokeai/RealESRGAN_x4plus_anime_6B.pth ./invokeai/models/core/upscaling/realesrgan
+            get_modelscope_model licyks/sd-upscaler-models/master/invokeai/ESRGAN_SRx4_DF2KOST_official-ff704c30.pth ./invokeai/models/core/upscaling/realesrgan
+            get_modelscope_model licyks/sd-upscaler-models/master/invokeai/RealESRGAN_x2plus.pth ./invokeai/models/core/upscaling/realesrgan
+            get_modelscope_model licyks/sd-upscaler-models/master/invokeai/RealESRGAN_x4plus.pth ./invokeai/models/core/upscaling/realesrgan
+            get_modelscope_model licyks/sd-upscaler-models/master/invokeai/RealESRGAN_x4plus_anime_6B.pth ./invokeai/models/core/upscaling/realesrgan
             tmp_enable_proxy #恢复原有的代理
         fi
         term_sd_notice "安装结束"
