@@ -121,7 +121,8 @@ Term-SD在下载好后，只会有一个基础的配置脚本“term-sd.sh”，
 1、github源\n
 2、gitee源\n
 3、gitlab源\n
-4、代理源（使用代理站连接github源）\n
+4、代理源1(ghproxy.com)\n
+5、代理源2(gitclone.com)\n
 \n
 一般情况选择任意一种都可以进行下载，但是如果用户无法在浏览器访问github官网，则不建议选第一个\n
 如果下载失败，Term-SD将会自动退出，这时再次运行Term-SD重新下载，选择其他下载源\n

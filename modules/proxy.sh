@@ -74,6 +74,7 @@ google: $(curl google.com > /dev/null 2> /dev/null && echo "成功" || echo "失
 huggingface: $(curl huggingface.co > /dev/null 2> /dev/null && echo "成功" || echo "失败")\n
 github: $(curl github.com > /dev/null 2> /dev/null && echo "成功" || echo "失败")\n
 ghproxy: $(curl ghproxy.com > /dev/null 2> /dev/null && echo "成功" || echo "失败")\n
+gitclone: $(curl gitclone.com > /dev/null 2> /dev/null && echo "成功" || echo "失败")\n
 ------------------------------------------------------------------\n
 " 25 80
 }
