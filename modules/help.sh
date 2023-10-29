@@ -183,6 +183,7 @@ Term-SD在使用安装、管理功能时，会使用准备功能来对一些操�
 2、启用github代理：Term-SD从github克隆源代码时使用github代理镜像站进行克隆\n
 3、huggingface独占代理：Term-SD安装ai软件的过程仅为huggingface下载源启用代理，减少代理流量的消耗\n
 4、强制使用pip：强制使用pip安装python软件包，一般只有在禁用venv虚拟环境后才需要启用\n 
+5、使用modelscope模型下载源：将安装时使用的huggingface模型下载源改为modelscope模型下载源（因为huggingface在国内无法直接访问）\n
 \n
 一般这些选项保持默认即可\n
 \n
@@ -232,7 +233,7 @@ Term-SD在使用安装、管理功能时，会使用准备功能来对一些操�
 ### 1、设置pip镜像源\n
 首先我们在Term-SD主界面选择“pip镜像源设置”，进入后可选择“官方源”和“国内镜像源”，这里非常推荐设置为“国内镜像源”（如果之前为pip设置镜像源，包括pypi源、pytorch源，则不需要再次设置“pip镜像源”）\n
 \n
-### 2、设置代理（没有一个质量比较好的代理时就不要设置了）\n
+### 2、设置代理（可选，如果没有一个质量比较好的代理时就不要设置了）\n
 如果用户有代理软件，并且代理的速度和稳定性较好，则先判断代理软件的代理工作模式，一般有TUN模式或者驱动模式的就不需要设置代理，因为这两种代理模式可以让终端环境走代理（其余模式不行）\n
 但是TUN模式或者驱动模式会让所有流量走代理，而Term-SD在安装ai软件的过程中只有部分下载源需要代理，这将会造成代理流量的浪费。所以，如果代理软件有其他代理模式，最好选这些的，并查看代理软件的代理协议、ip和端口，然后在Term-SD主界面的“代理设置”里选择代理协议，填入ip和端口，回车保存，这样Term-SD就可以决定哪些流量需要走代理\n
 如果代理没有TUN模式或者驱动模式，则查看代理软件的代理协议、ip和端口，然后在Term-SD主界面的“代理设置”里选择代理协议，填入ip和端口，回车保存\n
@@ -270,6 +271,7 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 2、启用github代理：Term-SD从github克隆源代码时使用github代理镜像站进行克隆\n
 3、huggingface独占代理：Term-SD安装ai软件的过程仅为huggingface下载源启用代理，减少代理流量的消耗\n
 4、强制使用pip：强制使用pip安装python软件包，一般只有在禁用venv虚拟环境后才需要启用\n
+5、使用modelscope模型下载源：将安装时使用的huggingface模型下载源改为modelscope模型下载源（因为huggingface在国内无法直接访问）\n
 \n
 一般这些选项保持默认即可\n
 \n

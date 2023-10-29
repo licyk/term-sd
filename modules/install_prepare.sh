@@ -39,7 +39,7 @@ function proxy_option()
                     final_install_check_python="启用"
                     ;;
                 2)
-                    github_proxy="https://ghproxy.com/https://"
+                    github_proxy="https://ghproxy.com/"
                     final_install_check_github="启用代理源1"
                     ;;
                 3)
