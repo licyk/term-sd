@@ -141,7 +141,7 @@ function select_repo()
 
     select_repo_dialog=$(dialog --clear --title "Term-SD" --backtitle "更新源选择界面" --ok-label "确认" --cancel-label "取消" --menu "选择要修改成的更新源\n当前将要修改更新源的AI软件:$term_sd_manager_info" 25 80 10 \
         "1" "官方源" \
-        "2" "镜像源" \
+        "2" "镜像源1(ghproxy.com)" \
         "3" "镜像源2(gitclone.com)" \
         "4" "返回" \
         3>&1 1>&2 2>&3)

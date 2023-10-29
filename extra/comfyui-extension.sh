@@ -1,56 +1,5 @@
 #!/bin/bash
 
-#安装前代理选择
-function proxy_option()
-{
-    pip_index_mirror="--index-url https://pypi.python.org/simple"
-    pip_extra_index_mirror=""
-    pip_find_mirror="--find-links https://download.pytorch.org/whl/torch_stable.html"
-    #extra_pip_mirror="--extra-index-url https://download.pytorch.org/whl"
-    github_proxy=""
-    force_pip=""
-    only_hugggingface_proxy=1
-    final_install_check_python="禁用"
-    final_install_check_github="禁用"
-    only_hugggingface_proxy_info="禁用"
-    final_install_check_force_pip="禁用"
-
-    proxy_option_dialog=$(
-        dialog --clear --title "Term-SD" --backtitle "安装代理选项" --separate-output --notags --title "Term-SD" --ok-label "确认" --no-cancel --checklist "请选择代理(强制使用pip一般情况下不选)" 25 80 10 \
-        "1" "启用pip镜像源" OFF \
-        "2" "启用github代理" ON \
-        "3" "huggingface独占代理" OFF \
-        "4" "强制使用pip" OFF \
-        3>&1 1>&2 2>&3)
-
-    if [ $? = 0 ]; then
-        for i in $proxy_option_dialog; do
-            case "$i" in
-                1)
-                    #pip_mirror="-i https://mirror.sjtu.edu.cn/pypi/web/simple" #上海交大的镜像源有点问题,在安装invokeai时会报错,可能是软件包版本的问题
-                    #extra_pip_mirror="-f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
-                    pip_index_mirror="--index-url https://mirrors.bfsu.edu.cn/pypi/web/simple"
-                    pip_extra_index_mirror="--extra-index-url https://mirrors.hit.edu.cn/pypi/web/simple --extra-index-url https://pypi.tuna.tsinghua.edu.cn/simple --extra-index-url https://mirrors.pku.edu.cn/pypi/web/simple"
-                    pip_find_mirror="--find-links https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html --find-links https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
-                    final_install_check_python="启用"
-                    ;;
-                2)
-                    github_proxy="https://ghproxy.com/"
-                    final_install_check_github="启用"
-                    ;;
-                3)
-                    only_hugggingface_proxy=0
-                    only_hugggingface_proxy_info="启用"
-                    ;;
-                4)
-                    force_pip="--break-system-packages"
-                    final_install_check_force_pip="启用"
-                    ;;
-            esac
-        done
-    fi
-}
-
 #comfyui插件选择
 function comfyui_extension_option()
 {
@@ -334,6 +283,12 @@ function process_install_comfyui()
         aria2c $aria2_multi_threaded https://huggingface.co/h94/IP-Adapter/resolve/main/models/ip-adapter_sd15_light.bin -d ./ComfyUI/models/controlnet -o ip-adapter_sd15_light.pth
     fi
 }
+
+#加载模块
+source ./term-sd/modules/get_modelscope_model.sh
+source ./term-sd/modules/cmd_daemon.sh
+source ./term-sd/modules/proxy.sh
+source ./term-sd/modules/install_prepare.sh
 
 if [ -d "./ComfyUI" ];then
     proxy_option #代理选择
