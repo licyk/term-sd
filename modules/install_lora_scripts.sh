@@ -36,11 +36,13 @@ function process_install_lora_scripts()
         
         term_sd_notice "下载模型中"
         if [ $use_modelscope_model = 1 ];then #使用huggingface下载模型
+            term_sd_notice "使用huggingface模型下载源"
             tmp_enable_proxy #恢复原有的代理,保证能从huggingface下载模型
             cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.safetensors -d ./lora-scripts/sd-models/ -o model.safetensors
             cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/stabilityai/sd-vae-ft-mse-original/resolve/main/vae-ft-mse-840000-ema-pruned.safetensors -d ./lora-scripts/sd-models/ -o vae-ft-mse-840000-ema-pruned.safetensors
             cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/stabilityai/sd-vae-ft-ema-original/resolve/main/vae-ft-ema-560000-ema-pruned.safetensors -d ./lora-scripts/sd-models/ -o vae-ft-ema-560000-ema-pruned.safetensors
         else #使用modelscope下载模型
+            term_sd_notice "使用modelscope模型下载源"
             get_modelscope_model licyks/sd-model/master/sd_1.5/v1-5-pruned-emaonly.safetensors ./lora-scripts/sd-models/
             get_modelscope_model licyks/sd-vae/master/sd_1.5/vae-ft-ema-560000-ema-pruned.safetensors ./lora-scripts/sd-models/
             get_modelscope_model licyks/sd-vae/master/sd_1.5/vae-ft-mse-840000-ema-pruned.safetensors ./lora-scripts/sd-models/

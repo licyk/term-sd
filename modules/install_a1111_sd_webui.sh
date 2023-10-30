@@ -61,6 +61,7 @@ function process_install_a1111_sd_webui()
 
         term_sd_notice "下载模型中"
         if [ $use_modelscope_model = 1 ];then #使用huggingface下载模型
+            term_sd_notice "使用huggingface模型下载源"
             tmp_enable_proxy #恢复原有的代理,保证能从huggingface下载模型
             #大模型
             cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.safetensors -d ./stable-diffusion-webui/models/Stable-diffusion -o sd-v1-5.safetensors
@@ -256,6 +257,7 @@ function process_install_a1111_sd_webui()
             fi
 
         else #使用modelscope下载模型
+            term_sd_notice "使用modelscope模型下载源"
             #大模型
             get_modelscope_model licyks/sd-model/master/sd_1.5/v1-5-pruned-emaonly.safetensors ./stable-diffusion-webui/models/Stable-diffusion
             #VAE模型

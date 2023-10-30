@@ -27,12 +27,14 @@ function process_install_invokeai()
         
         term_sd_notice "下载upscaler模型中"
         if [ $use_modelscope_model = 1 ];then #使用huggingface下载模型
+            term_sd_notice "使用huggingface模型下载源"
             tmp_enable_proxy #恢复原有的代理,保证能从huggingface下载模型
             cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-upscaler-models/resolve/main/invokeai/RealESRGAN_x4plus.pth -d ./invokeai/models/core/upscaling/realesrgan -o RealESRGAN_x4plus.pth
             cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-upscaler-models/resolve/main/invokeai/RealESRGAN_x4plus_anime_6B.pth -d ./invokeai/models/core/upscaling/realesrgan -o RealESRGAN_x4plus_anime_6B.pth
             cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-upscaler-models/resolve/main/invokeai/ESRGAN_SRx4_DF2KOST_official-ff704c30.pth -d ./invokeai/models/core/upscaling/realesrgan -o ESRGAN_SRx4_DF2KOST_official-ff704c30.pth
             cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/sd-upscaler-models/resolve/main/invokeai/RealESRGAN_x2plus.pth -d ./invokeai/models/core/upscaling/realesrgan -o RealESRGAN_x2plus.pth
         else #使用modelscope下载模型
+            term_sd_notice "使用modelscope模型下载源"
             get_modelscope_model licyks/sd-upscaler-models/master/invokeai/ESRGAN_SRx4_DF2KOST_official-ff704c30.pth ./invokeai/models/core/upscaling/realesrgan
             get_modelscope_model licyks/sd-upscaler-models/master/invokeai/RealESRGAN_x2plus.pth ./invokeai/models/core/upscaling/realesrgan
             get_modelscope_model licyks/sd-upscaler-models/master/invokeai/RealESRGAN_x4plus.pth ./invokeai/models/core/upscaling/realesrgan

@@ -30,6 +30,7 @@ function process_install_fooocus()
 
         term_sd_notice "下载模型中"
         if [ $use_modelscope_model = 1 ];then #使用huggingface下载模型
+            term_sd_notice "使用huggingface模型下载源"
             tmp_enable_proxy #恢复原有的代理,保证能从huggingface下载模型
             cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0_0.9vae.safetensors -d ./Fooocus/models/checkpoints/ -o sd_xl_base_1.0_0.9vae.safetensors
             cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0_0.9vae.safetensors -d ./Fooocus/models/checkpoints/ -o sd_xl_refiner_1.0_0.9vae.safetensor
@@ -51,6 +52,7 @@ function process_install_fooocus()
             cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/fooocus-model/resolve/main/vae_approx/xl-to-v1_interposer-v3.1.safetensors -d ./Fooocus/models/vae_approx -o xl-to-v1_interposer-v3.1.safetensors
             cmd_daemon aria2c $aria2_multi_threaded https://huggingface.co/licyk/fooocus-model/resolve/main/vae_approx/xlvaeapp.pth -d ./Fooocus/models/vae_approx -o xlvaeapp.pth
         else #使用modelscope下载模型
+            term_sd_notice "使用modelscope模型下载源"
             get_modelscope_model licyks/sd-model/master/sdxl_1.0/sd_xl_base_1.0_0.9vae.safetensors ./Fooocus/models/checkpoints
             get_modelscope_model licyks/sd-model/master/sdxl_refiner_1.0/sd_xl_refiner_1.0_0.9vae.safetensors ./Fooocus/models/checkpoints
             get_modelscope_model licyks/fooocus-model/master/loras/sd_xl_offset_example-lora_1.0.safetensors ./Fooocus/models/loras
