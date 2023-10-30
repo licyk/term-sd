@@ -591,7 +591,7 @@ download-hanamizuki:下载绘世启动器\n
 设置安装ai软件的命令重试次数。在网络不稳定时可能出现命令执行中断,设置该值可让命令执行中断后再重新执行。设置为0时将删除配置\n
 \n
 ## 绘世启动器的使用\n
-目前绘世启动器支持启动AUTOMATIC1111-stable-diffusion-webui、ComfyUI。使用Term-SD部署AUTOMATIC1111-stable-diffusion-webui或者ComfyUI后，将绘世启动器放入stable-diffusion-webui文件夹或者ComfyUI文件夹后就可以使用绘世启动器启动对应的ai软件了\n
+目前绘世启动器支持启动AUTOMATIC1111-stable-diffusion-webui、ComfyUI、Fooocus。使用Term-SD部署AUTOMATIC1111-stable-diffusion-webui、ComfyUI、或者Fooocus后，将绘世启动器放入stable-diffusion-webui文件夹、ComfyUI文件夹或者Fooocus文件夹后就可以使用绘世启动器启动对应的ai软件了（可以使用Term-SD扩展脚本中的download-hanamizuki脚本来下载绘世启动器，并且脚本会主动将绘世启动器放入上述文件夹中）\n
 " 25 80
 }
 
@@ -609,7 +609,7 @@ function help_option_3()
 8、ComfyUI目前并没有自动为插件或者自定义节点安装依赖的功能,所以安装插件或者自定义节点后后,推荐运行一次\"安装依赖\"功能,有些依赖下载源是在github上的,无法下载时请使用代理工具(已知问题:因为一些插件/自定义节点的安装依赖方式并不统一,term-sd的依赖安装功能可能没有用,需要手动进行安装依赖)\n
 9、启动ComfyUI时,在\"Import times for custom nodes:\"过程如果出现\"IMPORT FAILED\",则找到对应自定义节点,运行一次\"安装依赖\"功能,或者使用\"安装全部自定义节点依赖\"功能进行依赖安装\n
 10、InvokeAI在安装好后,要运行一次invokeai-configure,到\"install stable diffusion models\"界面时,可以把所有的模型取消勾选,因为有的模型是从civitai下载的,如果没有开启代理会导致下载失败\n
-11、在插件/自定义节点的管理功能中没有"更新","切换版本","修复更新"这些按钮,是因为这些插件/自定义节点的文件夹内没有".git"文件夹,如果是从github上直接下载压缩包再解压安装的就会有这种情况\n
+11、在插件/自定义节点的管理功能中没有\"更新\",\"切换版本\",\"修复更新\"这些按钮,是因为这些插件/自定义节点的文件夹内没有\".git\"文件夹,如果是从github上直接下载压缩包再解压安装的就会有这种情况\n
 12、A1111-SD-Webui设置界面语言:点击\"Settings\"-->\"User interface\"-->\"Localization\",点击右边的刷新按钮,再选择(防止不显示出来),在列表中选择zh-Hans(stable)(Term-SD在安装时默认下载了中文插件),再点击上面的\"Apply settings\",最后点击\"Reload UI\"生效\n
 13、ComfyUI设置界面语言:点击右上角的齿轮图标,找到\"AGLTranslation-langualge\",选择\"中文\",ComfyUi将会自动切换中文\n
 14、InvokeAI设置界面语言:点击右上角的三条横杠的图标,然后点击Settings,然后找到Language选项,点击文字下方的选项框,找到简体中文并选中即可\n
