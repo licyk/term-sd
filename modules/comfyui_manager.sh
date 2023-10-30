@@ -45,9 +45,9 @@ function comfyui_option()
                         term_sd_notice "请再次确认是否删除ComfyUI(yes/no)?"
                         term_sd_notice "警告:该操作将永久删除ComfyUI"
                         term_sd_notice "提示:输入yes或no后回车"
-                        term_sd_remove_repositore_option=""
-                        read -p "===============================> " term_sd_remove_repositore_option
-                        case $term_sd_remove_repositore_option in
+                        term_sd_remove_repository_option=""
+                        read -p "===============================> " term_sd_remove_repository_option
+                        case $term_sd_remove_repository_option in
                             yes|y|YES|Y)
                                 term_sd_notice "删除ComfyUI中"
                                 exit_venv

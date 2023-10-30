@@ -135,9 +135,9 @@ function operate_comfyui_custom_node()
                     term_sd_notice "请再次确认是否删除$(echo $comfyui_custom_node_selection | awk -F "/" '{print $NF}')(yes/no)?"
                     term_sd_notice "警告:该操作将永久删除$(echo $comfyui_custom_node_selection | awk -F "/" '{print $NF}')"
                     term_sd_notice "提示:输入yes或no后回车"
-                    term_sd_remove_repositore_option=""
-                    read -p "===============================> " term_sd_remove_repositore_option
-                    case $term_sd_remove_repositore_option in
+                    term_sd_remove_repository_option=""
+                    read -p "===============================> " term_sd_remove_repository_option
+                    case $term_sd_remove_repository_option in
                         yes|y|YES|Y)
                             term_sd_notice "删除$(echo $comfyui_custom_node_selection | awk -F "/" '{print $NF}')自定义节点中"
                             cd ..
