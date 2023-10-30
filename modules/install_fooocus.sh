@@ -71,7 +71,7 @@ function process_install_fooocus()
             get_modelscope_model licyks/fooocus-model/master/upscale_models/fooocus_upscaler_s409985e5.bin ./Fooocus/models/upscale_models
             get_modelscope_model licyks/fooocus-model/master/vae_approx/vaeapp_sd15.pth ./Fooocus/models/vae_approx
             get_modelscope_model licyks/fooocus-model/master/vae_approx/xl-to-v1_interposer-v3.1.safetensors ./Fooocus/models/vae_approx
-            get_modelscope_model licyks/fooocus-model/master/vae_approx/xlvaeapp.pth./Fooocus/models/vae_approx
+            get_modelscope_model licyks/fooocus-model/master/vae_approx/xlvaeapp.pth ./Fooocus/models/vae_approx
             tmp_enable_proxy #恢复原有的代理
         fi
 
