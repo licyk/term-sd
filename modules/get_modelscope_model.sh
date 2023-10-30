@@ -17,7 +17,6 @@ function get_modelscope_model()
     modelscope_user=$(echo $@ | awk '{gsub(/[/]/, " ")}1' | awk '{print$1}')
     modelscope_name=$(echo $@ | awk '{gsub(/[/]/, " ")}1' | awk '{print$2}')
     modelscope_branch=$(echo $@ | awk '{gsub(/[/]/, " ")}1' | awk '{print$3}')
-    #将输入中的前三个数据替换成空字符->把第一个"/"替换成空字符
-    modelscope_model_path=$(echo $1 | awk '{sub("'${modelscope_user}/${modelscope_name}/${modelscope_branch}'","")}1' | awk '{sub("/","")}1')
+    modelscope_model_path=$(echo $1 | awk '{sub("'${modelscope_user}/${modelscope_name}/${modelscope_branch}/'","")}1')
     cmd_daemon aria2c $aria2_multi_threaded "https://modelscope.cn/api/v1/models/${modelscope_user}/${modelscope_name}/repo?Revision=${modelscope_branch}&FilePath=${modelscope_model_path}" -d ${2} -o $(echo $1 | awk -F'/' '{print$NF}')
 }

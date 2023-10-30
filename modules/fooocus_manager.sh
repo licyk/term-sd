@@ -46,10 +46,22 @@ function fooocus_option()
                     ;;
                 2)
                     if (dialog --clear --title "Fooocus管理" --backtitle "Fooocus删除选项" --yes-label "是" --no-label "否" --yesno "是否删除Fooocus?" 25 80) then
-                        term_sd_notice "删除Fooocus中"
-                        exit_venv
-                        cd ..
-                        rm -rf ./Fooocus
+                        term_sd_notice "请再次确认是否删除Fooocus(yes/no)?"
+                        term_sd_notice "警告:该操作将永久删除Fooocus"
+                        term_sd_notice "提示:输入yes或no后回车"
+                        term_sd_remove_repositore_option=""
+                        read -p "===============================> " term_sd_remove_repositore_option
+                        case $term_sd_remove_repositore_option in
+                            yes|y|YES|Y)
+                                term_sd_notice "删除Fooocus中"
+                                exit_venv
+                                cd ..
+                                rm -rf ./Fooocus
+                                ;;
+                            *)
+                                fooocus_option
+                                ;;
+                        esac
                     else
                         fooocus_option
                     fi

@@ -47,10 +47,22 @@ function invokeai_option()
                         ;;
                     2)
                         if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI删除选项" --yes-label "是" --no-label "否" --yesno "是否删除InvokeAI?" 25 80) then
-                            term_sd_notice "删除InvokeAI中"
-                            exit_venv
-                            cd ..
-                            rm -rf ./InvokeAI
+                            term_sd_notice "请再次确认是否删除InvokeAI(yes/no)?"
+                            term_sd_notice "警告:该操作将永久删除InvokeAI"
+                            term_sd_notice "提示:输入yes或no后回车"
+                            term_sd_remove_repositore_option=""
+                            read -p "===============================> " term_sd_remove_repositore_option
+                            case $term_sd_remove_repositore_option in
+                                yes|y|YES|Y)
+                                    term_sd_notice "删除InvokeAI中"
+                                    exit_venv
+                                    cd ..
+                                    rm -rf ./InvokeAI
+                                    ;;
+                                *)
+                                    invokeai_option
+                                    ;;
+                            esac
                         else
                             invokeai_option
                         fi

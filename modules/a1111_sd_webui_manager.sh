@@ -55,10 +55,22 @@ function a1111_sd_webui_option()
                     ;;
                 2)
                     if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui删除选项" --yes-label "是" --no-label "否" --yesno "是否删除A1111-Stable-Diffusion-Webui?" 25 80) then
-                        term_sd_notice "删除A1111-Stable-Diffusion-Webui中"
-                        exit_venv
-                        cd ..
-                        rm -rf ./stable-diffusion-webui
+                        term_sd_notice "请再次确认是否删除A1111-Stable-Diffusion-Webui(yes/no)?"
+                        term_sd_notice "警告:该操作将永久删除A1111-Stable-Diffusion-Webui"
+                        term_sd_notice "提示:输入yes或no后回车"
+                        term_sd_remove_repositore_option=""
+                        read -p "===============================> " term_sd_remove_repositore_option
+                        case $term_sd_remove_repositore_option in
+                            yes|y|YES|Y)
+                                term_sd_notice "删除A1111-Stable-Diffusion-Webui中"
+                                exit_venv
+                                cd ..
+                                rm -rf ./stable-diffusion-webui
+                                ;;
+                            *)
+                                a1111_sd_webui_option
+                                ;;
+                        esac
                     else
                         a1111_sd_webui_option
                     fi
