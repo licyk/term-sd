@@ -20,8 +20,8 @@ function proxy_option()
     proxy_option_dialog=$(
         dialog --clear --title "Term-SD" --backtitle "安装代理选项" --separate-output --notags --title "Term-SD" --ok-label "确认" --no-cancel --checklist "请选择代理\n注:\n1、当同时启用两个github代理源时,将使用第二个github代理源\n2、强制使用pip一般情况下不选" 25 80 10 \
         "1" "启用pip镜像源(使用pip国内镜像源下载python软件包)" ON \
-        "2" "启用github代理源1(使用ghproxy代理站下载github上的源码)" OFF \
-        "3" "启用github代理源2(使用gitclone代理站下载github上的源码)" ON \
+        "2" "启用github代理源1(使用ghproxy代理站下载github上的源码)" ON \
+        "3" "启用github代理源2(使用gitclone代理站下载github上的源码)" OFF \
         "4" "huggingface独占代理(仅在下载huggingface的模型的过程启用代理)" ON \
         "5" "使用modelscope模型下载源(将huggingface下载源改为modelscope下载源)" ON \
         "6" "强制使用pip(无视系统警告强制使用pip安装python软件包)" OFF \
