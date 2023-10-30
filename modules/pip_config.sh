@@ -44,7 +44,7 @@ function set_pip_mirrors_option()
 function pip_cache_clean()
 {
     term_sd_notice "统计pip缓存信息中"
-    if (dialog --clear --title "Term-SD" --backtitle "pip缓存清理选项" --yes-label "是" --no-label "否" --yesno "pip缓存信息:\npip缓存路径:$(pip_cmd cache dir)\n包索引页面缓存大小:$(pip_cmd cache info |awk NR==2 | awk -F ':'  '{print $2 $3 $4}')\n本地构建的wheel包大小:$(pip_cmd cache info |awk NR==5 | awk -F ':'  '{print $2 $3 $4}')\n是否删除pip缓存?" 25 80);then
+    if (dialog --clear --title "Term-SD" --backtitle "pip缓存清理选项" --yes-label "是" --no-label "否" --yesno "pip缓存信息:\npip缓存路径:$(pip_cmd cache dir)\n包索引页面缓存大小:$(pip_cmd cache info | grep "Package index page cache size" | awk -F ':'  '{print $2 $3 $4}')\n本地构建的wheel包大小:$(pip_cmd cache info | grep "Locally built wheels size" | awk -F ':'  '{print $2 $3 $4}')\n是否删除pip缓存?" 25 80);then
         pip_cmd cache purge
     fi
 }
