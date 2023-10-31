@@ -7,7 +7,7 @@ function comfyui_custom_node_methon()
     cd "$start_path/ComfyUI/custom_nodes" #回到最初路径
     #功能选择界面
     comfyui_custom_node_methon_dialog=$(
-        dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI自定义节点管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择ComfyUI自定义节点管理选项的功能" 25 80 10 \
+        dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI自定义节点管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择ComfyUI自定义节点管理选项的功能" 25 80 10 \
         "1" "安装" \
         "2" "管理" \
         "3" "更新全部自定义节点" \
@@ -44,7 +44,7 @@ function comfyui_custom_node_manager()
     dir_list=$(ls -l --time-style=+"%Y-%m-%d" | awk -F ' ' ' { print $7 " " $6 } ') #当前目录文件和文件夹信息
 
     comfyui_custom_node_selection=$(
-        dialog --clear --yes-label "确认" --no-label "取消" --title "ComfyUI管理" --backtitle "ComfyUI自定义节点列表" --menu "使用上下键选择要操作的插件并回车确认" 25 80 10 \
+        dialog --erase-on-exit --yes-label "确认" --no-label "取消" --title "ComfyUI管理" --backtitle "ComfyUI自定义节点列表" --menu "使用上下键选择要操作的插件并回车确认" 25 80 10 \
         "-->返回<--" "<---------" \
         $dir_list \
         3>&1 1>&2 2>&3)
@@ -67,7 +67,7 @@ function comfyui_custom_node_manager()
 #自定义节点安装模块
 function comfyui_custom_node_install()
 {
-    comfyui_custom_node_address=$(dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI自定义节点安装选项" --ok-label "确认" --cancel-label "取消" --inputbox "输入自定义节点的github地址或其他下载地址" 25 80 3>&1 1>&2 2>&3)
+    comfyui_custom_node_address=$(dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI自定义节点安装选项" --ok-label "确认" --cancel-label "取消" --inputbox "输入自定义节点的github地址或其他下载地址" 25 80 3>&1 1>&2 2>&3)
 
     if [ ! -z $comfyui_custom_node_address ]; then
         term_sd_notice "安装$(echo $comfyui_custom_node_address | awk -F'/' '{print $NF}')中"
@@ -79,9 +79,9 @@ function comfyui_custom_node_install()
         fi
 
         if [ $git_req = 0 ];then
-            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI自定义节点安装结果" --ok-label "确认" --msgbox "$(echo $comfyui_custom_node_address | awk -F'/' '{print $NF}')自定义节点安装成功\n$comfyui_custom_node_dep_notice" 25 80
+            dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI自定义节点安装结果" --ok-label "确认" --msgbox "$(echo $comfyui_custom_node_address | awk -F'/' '{print $NF}')自定义节点安装成功\n$comfyui_custom_node_dep_notice" 25 80
         else
-            dialog --clear --title "ComfyUI管理" --backtitle "ComfyUI自定义节点安装结果" --ok-label "确认" --msgbox "$(echo $comfyui_custom_node_address | awk -F'/' '{print $NF}')自定义节点安装失败" 25 80
+            dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI自定义节点安装结果" --ok-label "确认" --msgbox "$(echo $comfyui_custom_node_address | awk -F'/' '{print $NF}')自定义节点安装失败" 25 80
         fi
     fi
 }
@@ -104,7 +104,7 @@ function operate_comfyui_custom_node()
     fi
 
     operate_comfyui_custom_node_dialog=$(
-        dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择对"$comfyui_custom_node_selection"自定义节点的管理功能\n当前更新源:$([ -d "./.git" ] && git remote -v | awk 'NR==1 {print $2}' || echo "无")" 25 80 10 \
+        dialog --erase-on-exit --title "ComfyUI选项" --backtitle "ComfyUI自定义节点管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择对"$comfyui_custom_node_selection"自定义节点的管理功能\n当前更新源:$([ -d "./.git" ] && git remote -v | awk 'NR==1 {print $2}' || echo "无")" 25 80 10 \
         $dialog_update_button \
         "2" "安装依赖" \
         "3" "卸载" \
@@ -120,9 +120,9 @@ function operate_comfyui_custom_node()
                 term_sd_notice "更新$(echo $comfyui_custom_node_selection | awk -F "/" '{print $NF}')自定义节点中"
                 git pull --recurse-submodules
                 if [ $? = "0" ];then
-                    dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点更新结果" --ok-label "确认" --msgbox ""$comfyui_custom_node_selection"自定义节点更新成功" 25 80
+                    dialog --erase-on-exit --title "ComfyUI选项" --backtitle "ComfyUI自定义节点更新结果" --ok-label "确认" --msgbox ""$comfyui_custom_node_selection"自定义节点更新成功" 25 80
                 else
-                    dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点更新结果" --ok-label "确认" --msgbox ""$comfyui_custom_node_selection"自定义节点更新失败" 25 80
+                    dialog --erase-on-exit --title "ComfyUI选项" --backtitle "ComfyUI自定义节点更新结果" --ok-label "确认" --msgbox ""$comfyui_custom_node_selection"自定义节点更新失败" 25 80
                 fi
                 operate_comfyui_custom_node
                 ;;
@@ -131,7 +131,7 @@ function operate_comfyui_custom_node()
                 operate_comfyui_custom_node
                 ;;
             3)
-                if (dialog --clear --title "ComfyUI选项" --backtitle "ComfyUI自定义节点删除选项" --yes-label "是" --no-label "否" --yesno "是否删除"$comfyui_custom_node_selection"自定义节点?" 25 80) then
+                if (dialog --erase-on-exit --title "ComfyUI选项" --backtitle "ComfyUI自定义节点删除选项" --yes-label "是" --no-label "否" --yesno "是否删除"$comfyui_custom_node_selection"自定义节点?" 25 80) then
                     term_sd_notice "请再次确认是否删除$(echo $comfyui_custom_node_selection | awk -F "/" '{print $NF}')(yes/no)?"
                     term_sd_notice "警告:该操作将永久删除$(echo $comfyui_custom_node_selection | awk -F "/" '{print $NF}')"
                     term_sd_notice "提示:输入yes或no后回车"

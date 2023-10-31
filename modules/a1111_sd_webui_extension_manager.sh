@@ -7,7 +7,7 @@ function a1111_sd_webui_extension_methon()
     cd "$start_path/stable-diffusion-webui/extensions" #回到最初路径
     #功能选择界面
     a1111_sd_webui_extension_methon_dialog=$(
-        dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择A1111-SD-Webui插件管理选项的功能" 25 80 10 \
+        dialog --erase-on-exit --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择A1111-SD-Webui插件管理选项的功能" 25 80 10 \
         "1" "安装" \
         "2" "管理" \
         "3" "更新全部插件" \
@@ -39,7 +39,7 @@ function a1111_sd_webui_extension_manager()
     dir_list=$(ls -l --time-style=+"%Y-%m-%d"  | awk -F ' ' ' { print $7 " " $6 } ') #当前目录文件和文件夹信息
 
     extension_selection=$(
-        dialog --clear --ok-label "确认" --cancel-label "取消" --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件列表" --menu "请选择A1111-SD-Webui插件" 25 80 10 \
+        dialog --erase-on-exit --ok-label "确认" --cancel-label "取消" --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件列表" --menu "请选择A1111-SD-Webui插件" 25 80 10 \
         "-->返回<--" "<---------" \
         $dir_list \
         3>&1 1>&2 2>&3)
@@ -62,15 +62,15 @@ function a1111_sd_webui_extension_manager()
 #插件安装模块
 function a1111_sd_webui_extension_install()
 {
-    extension_address=$(dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件安装选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入插件的github地址或其他下载地址" 25 80 3>&1 1>&2 2>&3)
+    extension_address=$(dialog --erase-on-exit --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件安装选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入插件的github地址或其他下载地址" 25 80 3>&1 1>&2 2>&3)
 
     if [ ! -z $extension_address ]; then
         term_sd_notice "安装$(echo $extension_address | awk -F'/' '{print $NF}')中"
         git clone --recurse-submodules $extension_address
         if [ $? = 0 ];then
-            dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件安装结果" --ok-label "确认" --msgbox "$(echo $extension_address | awk -F'/' '{print $NF}')插件安装成功" 25 80
+            dialog --erase-on-exit --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件安装结果" --ok-label "确认" --msgbox "$(echo $extension_address | awk -F'/' '{print $NF}')插件安装成功" 25 80
         else
-            dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件安装结果" --ok-label "确认" --msgbox "$(echo $extension_address | awk -F'/' '{print $NF}')插件安装失败" 25 80
+            dialog --erase-on-exit --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件安装结果" --ok-label "确认" --msgbox "$(echo $extension_address | awk -F'/' '{print $NF}')插件安装失败" 25 80
         fi
     fi
 }
@@ -92,7 +92,7 @@ function a1111_sd_webui_operate_extension()
     fi
 
     a1111_sd_webui_operate_extension_dialog=$(
-        dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择对"$extension_selection"插件的管理功能\n当前更新源:$([ -d "./.git" ] && git remote -v | awk 'NR==1 {print $2}' || echo "无")" 25 80 10 \
+        dialog --erase-on-exit --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择对"$extension_selection"插件的管理功能\n当前更新源:$([ -d "./.git" ] && git remote -v | awk 'NR==1 {print $2}' || echo "无")" 25 80 10 \
         $dialog_update_button \
         "2" "卸载" \
         $dialog_fix_update_button \
@@ -107,14 +107,14 @@ function a1111_sd_webui_operate_extension()
                 term_sd_notice "更新$(echo $extension_selection | awk -F "/" '{print $NF}')插件中"
                 git pull --recurse-submodules
                 if [ $? = 0 ];then
-                    dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件更新结果" --ok-label "确认" --msgbox ""$extension_selection"插件更新成功" 25 80
+                    dialog --erase-on-exit --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件更新结果" --ok-label "确认" --msgbox ""$extension_selection"插件更新成功" 25 80
                 else
-                    dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件更新结果" --ok-label "确认" --msgbox ""$extension_selection"插件更新失败" 25 80
+                    dialog --erase-on-exit --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件更新结果" --ok-label "确认" --msgbox ""$extension_selection"插件更新失败" 25 80
                 fi
                 a1111_sd_webui_operate_extension
                 ;;
             2)
-                if (dialog --clear --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件删除选项" --yes-label "是" --no-label "否" --yesno "是否删除"$extension_selection"插件?" 25 80) then
+                if (dialog --erase-on-exit --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui插件删除选项" --yes-label "是" --no-label "否" --yesno "是否删除"$extension_selection"插件?" 25 80) then
                     term_sd_notice "请再次确认是否删除$(echo $extension_selection | awk -F "/" '{print $NF}')(yes/no)?"
                     term_sd_notice "警告:该操作将永久删除$(echo $extension_selection | awk -F "/" '{print $NF}')"
                     term_sd_notice "提示:输入yes或no后回车"

@@ -5,7 +5,7 @@
 #帮助选择
 function help_option()
 {
-    help_option_dialog=$(dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --cancel-label "取消" --menu "请选择帮助" 25 80 10 \
+    help_option_dialog=$(dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --cancel-label "取消" --menu "请选择帮助" 25 80 10 \
         "1" "关于Term-SD" \
         "2" "Term-SD使用方法" \
         "3" "Term-SD注意事项" \
@@ -62,7 +62,7 @@ function help_option()
 #关于term-sd
 function help_option_1()
 {
-    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "关于Term-SD:\n
+    dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "关于Term-SD:\n
 Term-SD是基于终端显示的AI管理器,可以对AI软件进行简单的管理\n
 支持的AI软件如下:\n
 1、AUTOMATIC1111-stable-diffusion-webui(支持切换成SD.Next/stable-diffusion-webui-directml)\n
@@ -108,7 +108,7 @@ bilibili@自带马赛克属性的阿尼\n
 function help_option_2()
 {
     #把https://github.com/licyk/README-collection/blob/main/term-sd/README_how_to_use_term_sd.md上的使用教程放到term-sd中
-    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "# Tern-SD使用教程\n
+    dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "# Tern-SD使用教程\n
 ## Term-SD的初始化\n
 \n
 Term-SD在下载好后，只会有一个基础的配置脚本“term-sd.sh”，当运行这个配置脚本时，Term-SD会检测运行所需依赖。当检测到缺少依赖时，Term-SD会提示用户需要去安装的依赖，并自动退出，这时候需要用户检查这些依赖是否安装，并且把缺失的依赖装上\n
@@ -598,7 +598,7 @@ download-hanamizuki:下载绘世启动器\n
 #注意事项
 function help_option_3()
 {
-    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "Term-SD使用注意:\n
+    dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "Term-SD使用注意:\n
 1、使用方向键、Tab键移动光标,方向键翻页(鼠标滚轮无法翻页),Enter进行选择,Space键勾选或取消勾选,(已勾选时显示[*]),Ctrl+Shift+V粘贴文本,Ctrl+C可中断指令的运行,鼠标左键可点击按钮(右键无效)\n
 2、安装AI软件的路径和Term-SD脚本所在路径相同,方便管理\n
 3、若AI软件使用了venv虚拟环境,移动AI软件到新的路径后需要使用Term-SD的“重新生成venv虚拟环境”功能,才能使venv虚拟环境正常工作\n
@@ -622,7 +622,7 @@ function help_option_3()
 #term-sd功能介绍
 function help_option_4()
 {
-    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "Term-SD功能说明:\n
+    dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "Term-SD功能说明:\n
 参数使用方法(设置快捷启动命令后可将\"./term-sd.sh\"替换成\"termsd\"或者\"tsd\"):\n
   ./term-sd.sh [--help] [--extra script_name] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--update-pip] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar] [--set-aria2-multi-threaded thread_value] [--set-cmd-daemon-retry retry_value]\n
 参数功能:\n
@@ -683,7 +683,7 @@ huggingface独占代理:仅在下载huggingface上的模型时使用代理,且�
 #目录说明
 function help_option_5()
 {
-    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "AI软件的目录说明:\n
+    dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "AI软件的目录说明:\n
 在启用venv虚拟环境后,在安装时AI软件的目录下会产生venv文件夹,这个是python软件包安装的目录,更换cudnn可在该文件夹中操作\n
 \n
 \n
@@ -788,7 +788,7 @@ lora-scripts\n
 #扩展脚本说明
 function help_option_6()
 {
-    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "Term-SD扩展脚本说明:\n
+    dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "Term-SD扩展脚本说明:\n
 扩展脚本列表(启动Term-SD时加入\"--extra\"启动参数即可使用扩展脚本):\n
 sd-webui-extension:安装sd-webui的插件\n
 comfyui-extension:安装ComfyUI的插件\n
@@ -802,7 +802,7 @@ list:列出可用的扩展脚本\n
 #AUTOMATIC1111-stable-diffusion-webui插件说明
 function help_option_7()
 {
-    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "AUTOMATIC1111-stable-diffusion-webui插件说明:\n
+    dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "AUTOMATIC1111-stable-diffusion-webui插件说明:\n
 注:有些插件因为年久失修,可能会出现兼容性问题。具体介绍请在github上搜索项目\n
 \n
 kohya-config-webui: 一个用于生成kohya-ss训练脚本使用的toml配置文件的WebUI\n
@@ -872,7 +872,7 @@ sd-webui-EasyPhoto:以简单的操作生成自己的ai人像\n
 #ComfyUI插件/自定义节点说明
 function help_option_8()
 {
-    dialog --clear --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "ComfyUI插件/自定义节点说明:\n
+    dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "ComfyUI插件/自定义节点说明:\n
 注:具体介绍请在github上搜索项目\n
 \n
 插件:\n

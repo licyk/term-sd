@@ -12,7 +12,7 @@ function invokeai_option()
         enter_venv #进入环境
         if which invokeai 2> /dev/null ;then #查找环境中有没有invokeai
             invokeai_option_dialog=$(
-                dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择InvokeAI管理选项的功能" 25 80 10 \
+                dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择InvokeAI管理选项的功能" 25 80 10 \
                 "1" "更新" \
                 "2" "卸载" \
                 "3" "启动" \
@@ -37,16 +37,16 @@ function invokeai_option()
                             tmp_disable_proxy #临时取消代理,避免一些不必要的网络减速
                             pip_cmd install $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --prefer-binary --upgrade invokeai --default-timeout=100 --retries 5
                             if [ $? = 0 ];then
-                                dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI更新结果" --ok-label "确认" --msgbox "InvokeAI更新成功" 25 80
+                                dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI更新结果" --ok-label "确认" --msgbox "InvokeAI更新成功" 25 80
                             else
-                                dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI更新结果" --ok-label "确认" --msgbox "InvokeAI更新失败" 25 80
+                                dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI更新结果" --ok-label "确认" --msgbox "InvokeAI更新失败" 25 80
                             fi
                             tmp_enable_proxy #恢复原有的代理
                         fi
                         invokeai_option
                         ;;
                     2)
-                        if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI删除选项" --yes-label "是" --no-label "否" --yesno "是否删除InvokeAI?" 25 80) then
+                        if (dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI删除选项" --yes-label "是" --no-label "否" --yesno "是否删除InvokeAI?" 25 80) then
                             term_sd_notice "请再次确认是否删除InvokeAI(yes/no)?"
                             term_sd_notice "警告:该操作将永久删除InvokeAI"
                             term_sd_notice "提示:输入yes或no后回车"
@@ -80,7 +80,7 @@ function invokeai_option()
                         invokeai_option
                         ;;
                     5)
-                        if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装InvokeAI?" 25 80) then
+                        if (dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装InvokeAI?" 25 80) then
                             cd "$start_path"
                             exit_venv
                             process_install_invokeai
@@ -101,7 +101,7 @@ function invokeai_option()
                         invokeai_option
                         ;;
                     18)
-                        if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI虚拟环境修复选项" --yes-label "是" --no-label "否" --yesno "是否修复InvokeAI的虚拟环境" 25 80);then
+                        if (dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI虚拟环境修复选项" --yes-label "是" --no-label "否" --yesno "是否修复InvokeAI的虚拟环境" 25 80);then
                             create_venv --fix
                             enter_venv
                             pip freeze | grep -i invokeai | xargs pip install --no-deps --force-reinstall #重新安装invokeai
@@ -109,7 +109,7 @@ function invokeai_option()
                         invokeai_option
                         ;;
                     19)
-                        if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建InvokeAI的虚拟环境" 25 80);then
+                        if (dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建InvokeAI的虚拟环境" 25 80);then
                             invokeai_venv_rebuild
                         fi
                         invokeai_option
@@ -117,13 +117,13 @@ function invokeai_option()
                 esac
             fi
         else 
-            if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI安装选项" --yes-label "是" --no-label "否" --yesno "检测到当前未安装InvokeAI,是否进行安装?" 25 80) then
+            if (dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI安装选项" --yes-label "是" --no-label "否" --yesno "检测到当前未安装InvokeAI,是否进行安装?" 25 80) then
                 cd "$start_path"
                 process_install_invokeai
             fi
         fi
     else
-        if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI安装选项" --yes-label "是" --no-label "否" --yesno "检测到当前未安装InvokeAI,是否进行安装?" 25 80) then
+        if (dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI安装选项" --yes-label "是" --no-label "否" --yesno "检测到当前未安装InvokeAI,是否进行安装?" 25 80) then
           process_install_invokeai
         fi
     fi
@@ -132,7 +132,7 @@ function invokeai_option()
 #invokeai更新依赖功能
 function invokeai_update_depend()
 {
-    if (dialog --clear --title "InvokeAI管理" --backtitle "InvokeAI依赖更新选项" --yes-label "是" --no-label "否" --yesno "是否更新InvokeAI的依赖?" 25 80);then
+    if (dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI依赖更新选项" --yes-label "是" --no-label "否" --yesno "是否更新InvokeAI的依赖?" 25 80);then
         #更新前的准备
         proxy_option #代理选择
         pip_install_methon #安装方式选择

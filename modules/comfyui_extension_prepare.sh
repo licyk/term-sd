@@ -7,7 +7,7 @@ function comfyui_extension_option()
     comfyui_extension_install_list=""
 
     comfyui_extension_list=$(
-        dialog --clear --title "Term-SD" --backtitle "ComfyUI插件安装选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "请选择要安装的ComfyUI插件" 25 80 10 \
+        dialog --erase-on-exit --title "Term-SD" --backtitle "ComfyUI插件安装选项" --separate-output --notags --ok-label "确认" --no-cancel --checklist "请选择要安装的ComfyUI插件" 25 80 10 \
         "1" "ComfyUI-extensions" OFF \
         "2" "graphNavigator" OFF \
         3>&1 1>&2 2>&3)

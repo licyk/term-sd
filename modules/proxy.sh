@@ -3,7 +3,7 @@
 #配置代理界面
 function set_proxy_option()
 {
-    set_proxy_option_dialog=$(dialog --clear --title "Term-SD" --backtitle "代理设置界面" --ok-label "确认" --cancel-label "取消" --menu "请选择设置代理协议\n当前代理设置:$([ -z $http_proxy ] && echo "无" || echo $http_proxy)" 25 80 10 \
+    set_proxy_option_dialog=$(dialog --erase-on-exit --title "Term-SD" --backtitle "代理设置界面" --ok-label "确认" --cancel-label "取消" --menu "请选择设置代理协议\n当前代理设置:$([ -z $http_proxy ] && echo "无" || echo $http_proxy)" 25 80 10 \
         "1" "http" \
         "2" "socks" \
         "3" "socks5" \
@@ -15,7 +15,7 @@ function set_proxy_option()
     if [ $? = 0 ];then
         case $set_proxy_option_dialog in
             1)
-                proxy_config=$(dialog --clear --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入代理地址\n格式:<ip>:<port>" 25 80 "$(echo $http_proxy | awk -F'://' '{print $NF}')" 3>&1 1>&2 2>&3)
+                proxy_config=$(dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入代理地址\n格式:<ip>:<port>" 25 80 "$(echo $http_proxy | awk -F'://' '{print $NF}')" 3>&1 1>&2 2>&3)
                 #proxy_config=$(echo $proxy_config | awk '{sub("：",":")}1')
                 proxy_config=$(echo $proxy_config | awk '{gsub(/[：]/, ":")}1' | awk '{gsub(/[。]/, ".")}1') #防止用户输入中文冒号,句号后导致错误
                 if [ ! -z $proxy_config ];then
@@ -26,7 +26,7 @@ function set_proxy_option()
                 set_proxy_option
                 ;;
             2)
-                proxy_config=$(dialog --clear --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入代理地址\n格式:<ip>:<port>" 25 80 "$(echo $http_proxy | awk -F'://' '{print $NF}')" 3>&1 1>&2 2>&3)
+                proxy_config=$(dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入代理地址\n格式:<ip>:<port>" 25 80 "$(echo $http_proxy | awk -F'://' '{print $NF}')" 3>&1 1>&2 2>&3)
                 proxy_config=$(echo $proxy_config | awk '{gsub(/[：]/, ":")}1' | awk '{gsub(/[。]/, ".")}1') #防止用户输入中文冒号,句号后导致错误
                 if [ ! -z $proxy_config ];then
                     export http_proxy="socks://$proxy_config"
@@ -36,7 +36,7 @@ function set_proxy_option()
                 set_proxy_option
                 ;;
             3)
-                proxy_config=$(dialog --clear --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入代理地址\n格式:<ip>:<port>" 25 80 "$(echo $http_proxy | awk -F'://' '{print $NF}')" 3>&1 1>&2 2>&3)
+                proxy_config=$(dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入代理地址\n格式:<ip>:<port>" 25 80 "$(echo $http_proxy | awk -F'://' '{print $NF}')" 3>&1 1>&2 2>&3)
                 proxy_config=$(echo $proxy_config | awk '{gsub(/[：]/, ":")}1' | awk '{gsub(/[。]/, ".")}1') #防止用户输入中文冒号,句号后导致错误
                 if [ ! -z $proxy_config ];then
                     export http_proxy="socks5://$proxy_config"
@@ -46,7 +46,7 @@ function set_proxy_option()
                 set_proxy_option
                 ;;
             4)
-                if (dialog --clear --title "Term-SD" --backtitle "代理参数删除界面" --yes-label "是" --no-label "否" --yesno "是否删除代理配置?" 25 80) then
+                if (dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数删除界面" --yes-label "是" --no-label "否" --yesno "是否删除代理配置?" 25 80) then
                     rm -rf ./term-sd/proxy.conf
                     export http_proxy=""
                     export https_proxy=""
@@ -64,7 +64,7 @@ function set_proxy_option()
 function term_sd_network_test()
 {
     term_sd_notice "测试网络中"
-    dialog --clear --title "Term-SD" --backtitle "Term-SD网络测试" --ok-label "确认" --msgbox "网络测试结果:\n
+    dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD网络测试" --ok-label "确认" --msgbox "网络测试结果:\n
 ------------------------------------------------------------------\n
 网络信息:\n
 $(curl -s ipinfo.io)\n

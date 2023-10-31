@@ -18,7 +18,7 @@ function proxy_option()
     final_install_check_force_pip="禁用"
 
     proxy_option_dialog=$(
-        dialog --clear --title "Term-SD" --backtitle "安装代理选项" --separate-output --notags --title "Term-SD" --ok-label "确认" --no-cancel --checklist "请选择代理\n注:\n1、当同时启用两个github代理源时,将使用第二个github代理源\n2、强制使用pip一般情况下不选" 25 80 10 \
+        dialog --erase-on-exit --title "Term-SD" --backtitle "安装代理选项" --separate-output --notags --title "Term-SD" --ok-label "确认" --no-cancel --checklist "请选择代理\n注:\n1、当同时启用两个github代理源时,将使用第二个github代理源\n2、强制使用pip一般情况下不选" 25 80 10 \
         "1" "启用pip镜像源(使用pip国内镜像源下载python软件包)" ON \
         "2" "启用github代理源1(使用ghproxy代理站下载github上的源码)" ON \
         "3" "启用github代理源2(使用gitclone代理站下载github上的源码)" OFF \
@@ -69,7 +69,7 @@ function pytorch_version_select()
     pytorch_install_version=""
 
     pytorch_version_select_dialog=$(
-        dialog --clear --title "Term-SD" --backtitle "pytorch安装版本选项" --ok-label "确认" --no-cancel --menu "请选择要安装的pytorch版本" 25 80 10 \
+        dialog --erase-on-exit --title "Term-SD" --backtitle "pytorch安装版本选项" --ok-label "确认" --no-cancel --menu "请选择要安装的pytorch版本" 25 80 10 \
         "1" "Torch+xformers" \
         "2" "Torch" \
         "3" "Torch 2.0.0+Torch-Directml" \
@@ -129,7 +129,7 @@ function pip_install_methon()
     final_install_check_pip_methon="常规安装(setup.py)"
 
     pip_install_methon_dialog=$(
-        dialog --clear --title "Term-SD" --backtitle "pip安装模式选项" --ok-label "确认" --no-cancel --menu "请选择pip安装方式\n1、常规安装可能会有问题,但速度较快\n2、标准构建安装可解决一些报错问题,但速度较慢" 25 80 10 \
+        dialog --erase-on-exit --title "Term-SD" --backtitle "pip安装模式选项" --ok-label "确认" --no-cancel --menu "请选择pip安装方式\n1、常规安装可能会有问题,但速度较快\n2、标准构建安装可解决一些报错问题,但速度较慢" 25 80 10 \
         "1" "常规安装(setup.py)" \
         "2" "标准构建安装(--use-pep517)" \
         3>&1 1>&2 2>&3)
@@ -151,7 +151,7 @@ function pip_install_methon()
 #安装前确认界面
 function final_install_check()
 {
-    if (dialog --clear --title "Term-SD" --backtitle "安装确认选项" --yes-label "是" --no-label "否" --yesno "是否进行安装? \n
+    if (dialog --erase-on-exit --title "Term-SD" --backtitle "安装确认选项" --yes-label "是" --no-label "否" --yesno "是否进行安装? \n
 pip镜像源:$final_install_check_python \n
 github代理:$final_install_check_github\n
 huggingface独占代理:$only_hugggingface_proxy_info\n

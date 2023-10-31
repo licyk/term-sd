@@ -9,7 +9,7 @@ function lora_scripts_option()
     if [ -d "./lora-scripts" ];then
         cd lora-scripts
         lora_scripts_option_dialog=$(
-            dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择lora-scripts管理选项的功能\n当前更新源:$(git remote -v | awk 'NR==1 {print $2}')" 25 80 10 \
+            dialog --erase-on-exit --title "lora-scripts管理" --backtitle "lora-scripts管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择lora-scripts管理选项的功能\n当前更新源:$(git remote -v | awk 'NR==1 {print $2}')" 25 80 10 \
             "1" "更新" \
             "2" "卸载" \
             "3" "修复更新" \
@@ -41,14 +41,14 @@ function lora_scripts_option()
                     git submodule update #版本不对应,有时会出现各种奇怪的报错
                     git submodule
                     if [ $test_num = "0" ];then
-                        dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts更新结果" --ok-label "确认" --msgbox "lora-scripts更新成功" 25 80
+                        dialog --erase-on-exit --title "lora-scripts管理" --backtitle "lora-scripts更新结果" --ok-label "确认" --msgbox "lora-scripts更新成功" 25 80
                     else
-                        dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts更新结果" --ok-label "确认" --msgbox "lora-scripts更新失败" 25 80
+                        dialog --erase-on-exit --title "lora-scripts管理" --backtitle "lora-scripts更新结果" --ok-label "确认" --msgbox "lora-scripts更新失败" 25 80
                     fi
                     lora_scripts_option
                     ;;
                 2)
-                    if (dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts删除选项" --yes-label "是" --no-label "否" --yesno "是否删除lora-scripts?" 25 80) then
+                    if (dialog --erase-on-exit --title "lora-scripts管理" --backtitle "lora-scripts删除选项" --yes-label "是" --no-label "否" --yesno "是否删除lora-scripts?" 25 80) then
                         term_sd_notice "请再次确认是否删除lora-scripts(yes/no)?"
                         term_sd_notice "警告:该操作将永久删除lora-scripts"
                         term_sd_notice "提示:输入yes或no后回车"
@@ -107,7 +107,7 @@ function lora_scripts_option()
                     lora_scripts_option
                     ;;
                 8)
-                    if (dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装lora-scripts?" 25 80) then
+                    if (dialog --erase-on-exit --title "lora-scripts管理" --backtitle "lora-scripts重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装lora-scripts?" 25 80) then
                         cd "$start_path"
                         exit_venv
                         process_install_lora_scripts
@@ -128,13 +128,13 @@ function lora_scripts_option()
                     lora_scripts_option
                     ;;
                 18)
-                    if (dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts虚拟环境修复选项" --yes-label "是" --no-label "否" --yesno "是否修复lora-scripts的虚拟环境" 25 80);then
+                    if (dialog --erase-on-exit --title "lora-scripts管理" --backtitle "lora-scripts虚拟环境修复选项" --yes-label "是" --no-label "否" --yesno "是否修复lora-scripts的虚拟环境" 25 80);then
                         create_venv --fix
                     fi
                     lora_scripts_option
                     ;;
                 19)
-                    if (dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建lora-scripts的虚拟环境" 25 80);then
+                    if (dialog --erase-on-exit --title "lora-scripts管理" --backtitle "lora-scripts虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建lora-scripts的虚拟环境" 25 80);then
                         lora_scripts_venv_rebuild
                     fi
                     lora_scripts_option
@@ -142,7 +142,7 @@ function lora_scripts_option()
             esac
         fi
     else
-        if (dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts安装选项" --yes-label "是" --no-label "否" --yesno "检测到当前未安装lora_scripts,是否进行安装?" 25 80) then
+        if (dialog --erase-on-exit --title "lora-scripts管理" --backtitle "lora-scripts安装选项" --yes-label "是" --no-label "否" --yesno "检测到当前未安装lora_scripts,是否进行安装?" 25 80) then
             process_install_lora_scripts
         fi
     fi
@@ -151,7 +151,7 @@ function lora_scripts_option()
 #lora-scripts依赖更新功能
 function lora_scripts_update_depend()
 {
-    if (dialog --clear --title "lora-scripts管理" --backtitle "lora-scripts依赖更新选项" --yes-label "是" --no-label "否" --yesno "是否更新lora-scripts的依赖?" 25 80);then
+    if (dialog --erase-on-exit --title "lora-scripts管理" --backtitle "lora-scripts依赖更新选项" --yes-label "是" --no-label "否" --yesno "是否更新lora-scripts的依赖?" 25 80);then
         #更新前的准备
         proxy_option #代理选择
         pip_install_methon #安装方式选择
