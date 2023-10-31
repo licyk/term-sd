@@ -72,7 +72,7 @@ function invokeai_option()
                     3)
                         if [ ! -f "./term-sd-launch.conf" ]; then #找不到启动配置时默认生成一个
                             term_sd_notice "未找到启动配置文件,创建中"
-                            echo "--root ./invokeai --web" > term-sd-launch.conf
+                            echo "--web" > term-sd-launch.conf
                         fi
                         generate_invokeai_launch
                         invokeai_option

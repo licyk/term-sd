@@ -23,6 +23,7 @@ function generate_invokeai_launch()
                 ;;
             2)
                 print_line_to_shell "$term_sd_manager_info 启动"
+                term_sd_notice "提示:可以使用\"Ctrl+C\"终止ai软件的运行"
                 invokeai-web --root ./invokeai
                 print_line_to_shell
                 generate_invokeai_launch
@@ -113,7 +114,7 @@ function generate_invokeai_launch_custom()
 
         #生成启动脚本
         term_sd_notice "设置启动参数> $custom_invokeai_launch_option"
-        echo "--root ./invokeai $custom_invokeai_launch_option" > term-sd-launch.conf
+        echo "$custom_invokeai_launch_option" > term-sd-launch.conf
     fi
 }
 
@@ -148,10 +149,10 @@ function invokeai_launch()
 #invokeai手动输入启动参数界面
 function invokeai_manual_launch()
 {
-    invokeai_manual_launch_parameter=$(dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入InvokeAI启动参数" 25 80 "$(cat ./term-sd-launch.conf | awk '{sub("--root ./invokeai ","")}1')" 3>&1 1>&2 2>&3)
+    invokeai_manual_launch_parameter=$(dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入InvokeAI启动参数" 25 80 "$(cat ./term-sd-launch.conf)" 3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
         term_sd_notice "设置启动参数> $invokeai_manual_launch_parameter"
-        echo "--root ./invokeai $invokeai_manual_launch_parameter" > term-sd-launch.conf
+        echo "$invokeai_manual_launch_parameter" > term-sd-launch.conf
     fi
 }
