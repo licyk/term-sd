@@ -684,7 +684,8 @@ huggingface独占代理:仅在下载huggingface上的模型时使用代理,且�
 function help_option_5()
 {
     dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "AI软件的目录说明:\n
-在启用venv虚拟环境后,在安装时AI软件的目录下会产生venv文件夹,这个是python软件包安装的目录,更换cudnn可在该文件夹中操作\n
+在启用venv虚拟环境后,在安装时AI软件的目录下会产生venv文件夹,这个是python软件包安装的目录\n
+ai软件自动下载部分模型(如clip,u2net模型)将储存在Term-SD目录中,可在\"<Term-SD所在目录>/term-sd/.cache\"中查看\n
 \n
 \n
 stable diffusion webui目录的说明(只列举比较重要的):\n

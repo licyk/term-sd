@@ -105,5 +105,5 @@ function term_sd_init_env_value()
     export TORCH_HOME="$start_path/term-sd/.cache/torch"
     export U2NET_HOME="$start_path/term-sd/.cache/u2net"
     export XDG_CACHE_HOME="$start_path/term-sd/.cache"
-    export TRANSFORMERS_CACHE="$start_path/term-sd/.cache/huggingface/transformers"
+    #export TRANSFORMERS_CACHE="$start_path/term-sd/.cache/huggingface/transformers"
 }
