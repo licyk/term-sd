@@ -80,13 +80,13 @@ function generate_invokeai_launch_custom()
                     custom_invokeai_launch_option="--free_gpu_mem $custom_invokeai_launch_option"
                     ;;
                 3)
-                    custom_invokeai_launch_option="--precision auto $custom_invokeai_launch_option"
+                    custom_invokeai_launch_option="--precision autocast $custom_invokeai_launch_option"
                     ;;
                 4)
-                    custom_invokeai_launch_option="--precision fp32 $custom_invokeai_launch_option"
+                    custom_invokeai_launch_option="--precision float32 $custom_invokeai_launch_option"
                     ;;
                 5)
-                    custom_invokeai_launch_option="--precision fp16 $custom_invokeai_launch_option"
+                    custom_invokeai_launch_option="--precision float16 $custom_invokeai_launch_option"
                     ;;
                 6)
                     custom_invokeai_launch_option="--no-xformers $custom_invokeai_launch_option"
