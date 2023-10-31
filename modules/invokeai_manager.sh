@@ -60,10 +60,12 @@ function invokeai_option()
                                     rm -rf ./InvokeAI
                                     ;;
                                 *)
+                                    term_sd_notice "取消删除操作"
                                     invokeai_option
                                     ;;
                             esac
                         else
+                            term_sd_notice "取消删除操作"
                             invokeai_option
                         fi
                         ;;

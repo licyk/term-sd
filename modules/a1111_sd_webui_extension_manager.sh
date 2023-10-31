@@ -127,10 +127,12 @@ function a1111_sd_webui_operate_extension()
                             rm -rf ./$extension_selection
                             ;;
                         *)
+                            term_sd_notice "取消删除操作"
                             a1111_sd_webui_operate_extension
                             ;;
                     esac
                 else
+                    term_sd_notice "取消删除操作"
                     a1111_sd_webui_operate_extension
                 fi
                 ;;

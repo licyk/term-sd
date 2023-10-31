@@ -59,10 +59,12 @@ function fooocus_option()
                                 rm -rf ./Fooocus
                                 ;;
                             *)
+                                term_sd_notice "取消删除操作"
                                 fooocus_option
                                 ;;
                         esac
                     else
+                        term_sd_notice "取消删除操作"
                         fooocus_option
                     fi
                     ;;

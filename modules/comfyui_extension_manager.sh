@@ -148,10 +148,12 @@ function operate_comfyui_extension()
                             rm -rf ./$comfyui_extension_selection
                             ;;
                         *)
+                            term_sd_notice "取消删除操作"
                             operate_comfyui_extension
                             ;;
                     esac
                 else
+                    term_sd_notice "取消删除操作"
                     operate_comfyui_extension
                 fi
                 ;;

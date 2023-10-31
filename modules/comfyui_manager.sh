@@ -55,10 +55,12 @@ function comfyui_option()
                                 rm -rf ./ComfyUI
                                 ;;
                             *)
+                                term_sd_notice "取消删除操作"
                                 comfyui_option
                                 ;;
                         esac
-                    else    
+                    else
+                        term_sd_notice "取消删除操作"
                         comfyui_option
                     fi
                     ;;

@@ -144,10 +144,12 @@ function operate_comfyui_custom_node()
                             rm -rf ./$comfyui_custom_node_selection
                             ;;
                         *)
+                            term_sd_notice "取消删除操作"
                             operate_comfyui_custom_node
                             ;;
                     esac
                 else
+                    term_sd_notice "取消删除操作"
                     operate_comfyui_custom_node
                 fi
                 ;;

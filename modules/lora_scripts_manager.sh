@@ -62,10 +62,12 @@ function lora_scripts_option()
                                 rm -rf ./lora-scripts
                                 ;;
                             *)
+                                term_sd_notice "取消删除操作"
                                 lora_scripts_option
                                 ;;
                         esac
                     else
+                        term_sd_notice "取消删除操作"
                         lora_scripts_option
                     fi
                     ;;

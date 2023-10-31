@@ -68,10 +68,12 @@ function a1111_sd_webui_option()
                                 rm -rf ./stable-diffusion-webui
                                 ;;
                             *)
+                                term_sd_notice "取消删除操作"
                                 a1111_sd_webui_option
                                 ;;
                         esac
                     else
+                        term_sd_notice "取消删除操作"
                         a1111_sd_webui_option
                     fi
                     ;;
