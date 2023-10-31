@@ -508,7 +508,7 @@ download-hanamizuki:下载绘世启动器\n
 \n
 #### 启动参数的使用方法\n
 \n
-./term-sd.sh [--help] [--extra script_name] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--update-pip] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar] [--set-aria2-multi-threaded thread_value] [--set-cmd-daemon-retry retry_value]\n
+./term-sd.sh [--help] [--extra script_name] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--update-pip] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar] [--set-aria2-multi-threaded thread_value] [--set-cmd-daemon-retry retry_value] [--enable-cache-path-redirect] [--disable-cache-path-redirect]\n
 \n
 \n
 >中括号“[]”仅用来展示，在使用的时候不要输入进去\n
@@ -590,6 +590,12 @@ download-hanamizuki:下载绘世启动器\n
 19、set-cmd-daemon-retry\n
 设置安装ai软件的命令重试次数。在网络不稳定时可能出现命令执行中断,设置该值可让命令执行中断后再重新执行。设置为0时将删除配置\n
 \n
+20、enable-cache-path-redirect\n
+启用ai软件缓存路径重定向功能(默认)。该功能将缓存重定向至Term-SD的目录中\n
+\n
+21、disable-cache-path-redirect\n
+禁用ai软件缓存路径重定向功能\n
+\n
 ## 绘世启动器的使用\n
 目前绘世启动器支持启动AUTOMATIC1111-stable-diffusion-webui、ComfyUI、Fooocus。使用Term-SD部署AUTOMATIC1111-stable-diffusion-webui、ComfyUI、或者Fooocus后，将绘世启动器放入stable-diffusion-webui文件夹、ComfyUI文件夹或者Fooocus文件夹后就可以使用绘世启动器启动对应的ai软件了（可以使用Term-SD扩展脚本中的download-hanamizuki脚本来下载绘世启动器，并且脚本会主动将绘世启动器放入上述文件夹中）\n
 " 25 80
@@ -624,7 +630,7 @@ function help_option_4()
 {
     dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "Term-SD功能说明:\n
 参数使用方法(设置快捷启动命令后可将\"./term-sd.sh\"替换成\"termsd\"或者\"tsd\"):\n
-  ./term-sd.sh [--help] [--extra script_name] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--update-pip] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar] [--set-aria2-multi-threaded thread_value] [--set-cmd-daemon-retry retry_value]\n
+  ./term-sd.sh [--help] [--extra script_name] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--update-pip] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar] [--set-aria2-multi-threaded thread_value] [--set-cmd-daemon-retry retry_value] [--enable-cache-path-redirect] [--disable-cache-path-redirect]\n
 参数功能:\n
 help:显示启动参数帮助\n
 extra:启动扩展脚本选择列表,当选项后面输入了脚本名,则直接启动指定的脚本,否则启动扩展脚本选择界面\n
@@ -646,6 +652,8 @@ enable-bar:启用Term-SD初始化进度显示(默认)\n
 disable-bar:禁用Term-SD初始化进度显示(加了进度显示只会降低Term-SD初始化速度)\n
 set-aria2-multi-threaded:设置安装ai软件时下载模型的线程数。设置为0时将删除配置\n
 set-cmd-daemon-retry:设置安装ai软件的命令重试次数。在网络不稳定时可能出现命令执行中断,设置该值可让命令执行中断后再重新执行。设置为0时将删除配置\n
+enable-cache-path-redirect:启用ai软件缓存路径重定向功能(默认)\n
+disable-cache-path-redirect:禁用ai软件缓存路径重定向功能\n
 \n
 Term-SD的功能(除了安装,更新,启动,卸载):\n
 主界面:\n

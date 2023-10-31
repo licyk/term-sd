@@ -96,14 +96,16 @@ function mainmenu()
 #term-sd设置路径环境变量
 function term_sd_init_env_value()
 {
-    export CACHE_HOME="$start_path/term-sd/.cache"
-    export HF_HOME="$start_path/term-sd/.cache/huggingface"
-    export MATPLOTLIBRC="$start_path/term-sd/.cache"
-    export MODELSCOPE_CACHE="$start_path/term-sd/.cache/modelscope/hub"
-    export MS_CACHE_HOME="$start_path/term-sd/.cache/modelscope/hub"
-    export SYCL_CACHE_DIR="$start_path/term-sd/.cache/libsycl_cache"
-    export TORCH_HOME="$start_path/term-sd/.cache/torch"
-    export U2NET_HOME="$start_path/term-sd/.cache/u2net"
-    export XDG_CACHE_HOME="$start_path/term-sd/.cache"
-    #export TRANSFORMERS_CACHE="$start_path/term-sd/.cache/huggingface/transformers"
+    if [ ! -f "./term-sd/disable-cache-path-redirect.lock" ];then
+        export CACHE_HOME="$start_path/term-sd/.cache"
+        export HF_HOME="$start_path/term-sd/.cache/huggingface"
+        export MATPLOTLIBRC="$start_path/term-sd/.cache"
+        export MODELSCOPE_CACHE="$start_path/term-sd/.cache/modelscope/hub"
+        export MS_CACHE_HOME="$start_path/term-sd/.cache/modelscope/hub"
+        export SYCL_CACHE_DIR="$start_path/term-sd/.cache/libsycl_cache"
+        export TORCH_HOME="$start_path/term-sd/.cache/torch"
+        export U2NET_HOME="$start_path/term-sd/.cache/u2net"
+        export XDG_CACHE_HOME="$start_path/term-sd/.cache"
+        #export TRANSFORMERS_CACHE="$start_path/term-sd/.cache/huggingface/transformers"
+    fi
 }

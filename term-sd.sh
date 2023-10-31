@@ -20,7 +20,7 @@ function term_sd_launch_unknown_option_notice()
 {
     if [ $(option_or_value_test "$i") = 0 ];then #测试输入值是参数还是选项
         case $i in
-		--null|--help|--reinstall-term-sd|--enable-auto-update|--disable-auto-update|--set-python-path|--set-pip-path|--unset-python-path|--unset-pip-path|--enable-new-bar|--disable-new-bar|--enable-bar|--disable-bar|--remove-term-sd|--quick-cmd|--update-pip|--test-network|--extra|--set-aria2-multi-threaded|--set-cmd-daemon-retry) #排除已有参数
+		--null|--help|--reinstall-term-sd|--enable-auto-update|--disable-auto-update|--set-python-path|--set-pip-path|--unset-python-path|--unset-pip-path|--enable-new-bar|--disable-new-bar|--enable-bar|--disable-bar|--remove-term-sd|--quick-cmd|--update-pip|--test-network|--extra|--set-aria2-multi-threaded|--set-cmd-daemon-retry|--enable-cache-path-redirect|--disable-cache-path-redirect) #排除已有参数
                 ;;
             *)
                 term_sd_notice "未知参数 \"$i\""
@@ -68,7 +68,7 @@ function term_sd_process_user_input_early()
             --help)
                 print_line_to_shell
                 term_sd_notice "启动参数使用方法:"
-                echo "  term-sd.sh [--help] [--extra script_name] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--update-pip] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar] [--set-aria2-multi-threaded thread_value] [--set-cmd-daemon-retry retry_value]"
+                echo "  term-sd.sh [--help] [--extra script_name] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--update-pip] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar] [--set-aria2-multi-threaded thread_value] [--set-cmd-daemon-retry retry_value] [--enable-cache-path-redirect] [--disable-cache-path-redirect]"
                 echo "选项:"
                 echo "  --help"
                 echo "        显示启动参数帮助"
@@ -108,6 +108,10 @@ function term_sd_process_user_input_early()
                 echo "        设置安装ai软件时下载模型的线程数。设置为0时将删除配置"
                 echo "  --set-cmd-daemon-retry retry_value"
                 echo "        设置安装ai软件的命令重试次数。在网络不稳定时可能出现命令执行中断,设置该值可让命令执行中断后再重新执行。设置为0时将删除配置"
+                echo "  --enable-cache-path-redirect"
+                echo "        启用ai软件缓存路径重定向功能(默认)"
+                echo "  --disable-cache-path-redirect"
+                echo "        禁用ai软件缓存路径重定向功能"
                 print_line_to_shell
                 exit 1
                 ;;
@@ -165,6 +169,14 @@ function term_sd_process_user_input_early()
                 ;;
             --remove-term-sd)
                 remove_term_sd
+                ;;
+            --enable-cache-path-redirect)
+                rm -f ./term-sd/disable-cache-path-redirect.lock
+                term_sd_notice "启用ai软件缓存路径重定向功能"
+                ;;
+            --disable-cache-path-redirect)
+                touch ./term-sd/disable-cache-path-redirect.lock
+                term_sd_notice "禁用ai软件缓存路径重定向功能"
                 ;;
             *)
                 term_sd_launch_unknown_option_notice
