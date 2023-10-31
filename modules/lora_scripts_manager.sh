@@ -98,7 +98,7 @@ function lora_scripts_option()
                 6)
                     print_line_to_shell "$term_sd_manager_info 启动"
                     enter_venv
-                    export HF_HOME=huggingface
+                    #export HF_HOME=huggingface
                     export PYTHONUTF8=1
                     python_cmd ./gui.py
                     print_line_to_shell

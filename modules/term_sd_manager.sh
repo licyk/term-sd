@@ -21,7 +21,6 @@ dialog:$(dialog --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
 #主界面
 function mainmenu()
 {
-    term_sd_init_env_value #设置缓存路径的环境变量
     export term_sd_manager_info=""
     cd "$start_path" #回到最初路径
     exit_venv #确保进行下一步操作前已退出其他虚拟环境
@@ -90,22 +89,5 @@ function mainmenu()
         print_line_to_shell
         term_sd_notice "退出Term-SD"
         exit 1
-    fi
-}
-
-#term-sd设置路径环境变量
-function term_sd_init_env_value()
-{
-    if [ ! -f "./term-sd/disable-cache-path-redirect.lock" ];then
-        export CACHE_HOME="$start_path/term-sd/cache"
-        export HF_HOME="$start_path/term-sd/cache/huggingface"
-        export MATPLOTLIBRC="$start_path/term-sd/cache"
-        export MODELSCOPE_CACHE="$start_path/term-sd/cache/modelscope/hub"
-        export MS_CACHE_HOME="$start_path/term-sd/cache/modelscope/hub"
-        export SYCL_CACHE_DIR="$start_path/term-sd/cache/libsycl_cache"
-        export TORCH_HOME="$start_path/term-sd/cache/torch"
-        export U2NET_HOME="$start_path/term-sd/cache/u2net"
-        export XDG_CACHE_HOME="$start_path/term-sd/cache"
-        #export TRANSFORMERS_CACHE="$start_path/term-sd/cache/huggingface/transformers"
     fi
 }
