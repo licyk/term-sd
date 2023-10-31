@@ -397,6 +397,7 @@ function term_sd_install()
         esac
     elif [ ! -d "./term-sd/.git" ];then
         term_sd_notice "检测到Term-SD的.git目录不存在,将会导致Term-SD无法更新,是否重新安装(yes/no)?"
+        term_sd_notice "警告:该操作将永久删除Term-SD目录中的所有文件,包括ai软件下载的部分模型文件(存在于Term-SD目录中的\".cache\"文件夹,如有必要,请备份该文件夹)"
         term_sd_notice "提示:输入yes或no后回车"
         read -p "===============================> " term_sd_install_option
 
@@ -426,6 +427,7 @@ function term_sd_reinstall()
     if which git > /dev/null 2> /dev/null ;then
         term_sd_install_option=""
         term_sd_notice "是否重新安装Term-SD(yes/no)?"
+        term_sd_notice "警告:该操作将永久删除Term-SD目录中的所有文件,包括ai软件下载的部分模型文件(存在于Term-SD目录中的\".cache\"文件夹,如有必要,请备份该文件夹)"
         term_sd_notice "提示:输入yes或no后回车"
         read -p "===============================> " term_sd_install_option
 
@@ -498,6 +500,7 @@ function remove_term_sd()
 {
     remove_term_sd_option=""
     term_sd_notice "是否卸载Term-SD"
+    term_sd_notice "警告:该操作将永久删除Term-SD目录中的所有文件,包括ai软件下载的部分模型文件(存在于Term-SD目录中的\".cache\"文件夹,如有必要,请备份该文件夹)"
     term_sd_notice "提示:输入yes或no后回车"
     read -p "===============================> " remove_term_sd_option
 
@@ -1023,7 +1026,7 @@ function term_sd_env_prepare()
 #################################################
 
 #term-sd版本
-export term_sd_version_="0.7.0"
+export term_sd_version_="0.7.1"
 
 #判断启动状态(在shell中,新变量的值为空,且不需要定义就可以使用,不像c语言中要求那么严格)
 if [ ! -z $term_sd_env_prepare_info ] && [ $term_sd_env_prepare_info = 0 ];then #检测term-sd是直接启动还是重启

@@ -1,8 +1,27 @@
 #!/bin/bash
 
+#显示版本信息
+function term_sd_version()
+{
+    term_sd_notice "统计版本信息中"
+    dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD开始界面" --ok-label "确认" --msgbox "版本信息:\n\n
+系统:$(uname -o) \n
+Term-SD:"$term_sd_version_" \n
+python:$(python_cmd --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
+pip:$(pip_cmd --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
+aria2:$(aria2c --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ') \n
+git:$(git --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ') \n
+dialog:$(dialog --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
+\n
+提示: \n
+使用方向键、Tab键移动光标,方向键翻页(鼠标滚轮无法翻页),Enter进行选择,Space键勾选或取消勾选,(已勾选时显示[*]),Ctrl+Shift+V粘贴文本,Ctrl+C可中断指令的运行,鼠标左键可点击按钮(右键无效)\n
+第一次使用Term-SD时先在主界面选择“帮助”查看使用说明,参数说明和注意的地方,内容不定期更新" 25 80
+}
+
 #主界面
 function mainmenu()
 {
+    term_sd_init_env_value #设置缓存路径的环境变量
     export term_sd_manager_info=""
     cd "$start_path" #回到最初路径
     exit_venv #确保进行下一步操作前已退出其他虚拟环境
@@ -74,20 +93,17 @@ function mainmenu()
     fi
 }
 
-#显示版本信息
-function term_sd_version()
+#term-sd设置路径环境变量
+function term_sd_init_env_value()
 {
-    term_sd_notice "统计版本信息中"
-    dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD开始界面" --ok-label "确认" --msgbox "版本信息:\n\n
-系统:$(uname -o) \n
-Term-SD:"$term_sd_version_" \n
-python:$(python_cmd --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
-pip:$(pip_cmd --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
-aria2:$(aria2c --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ') \n
-git:$(git --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ') \n
-dialog:$(dialog --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
-\n
-提示: \n
-使用方向键、Tab键移动光标,方向键翻页(鼠标滚轮无法翻页),Enter进行选择,Space键勾选或取消勾选,(已勾选时显示[*]),Ctrl+Shift+V粘贴文本,Ctrl+C可中断指令的运行,鼠标左键可点击按钮(右键无效)\n
-第一次使用Term-SD时先在主界面选择“帮助”查看使用说明,参数说明和注意的地方,内容不定期更新" 25 80
+    export CACHE_HOME="$start_path/term-sd/.cache"
+    export HF_HOME="$start_path/term-sd/.cache/huggingface"
+    export MATPLOTLIBRC="$start_path/term-sd/.cache"
+    export MODELSCOPE_CACHE="$start_path/term-sd/.cache/modelscope/hub"
+    export MS_CACHE_HOME="$start_path/term-sd/.cache/modelscope/hub"
+    export SYCL_CACHE_DIR="$start_path/term-sd/.cache/libsycl_cache"
+    export TORCH_HOME="$start_path/term-sd/.cache/torch"
+    export U2NET_HOME="$start_path/term-sd/.cache/u2net"
+    export XDG_CACHE_HOME="$start_path/term-sd/.cache"
+    #export TRANSFORMERS_CACHE="$start_path/term-sd/.cache/huggingface/transformers"
 }

@@ -6,7 +6,7 @@ function generate_invokeai_launch()
     generate_invokeai_launch_dialog=$(
         dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI启动参数选项" --ok-label "确认" --cancel-label "取消" --menu "请选择InvokeAI启动参数" 25 80 10 \
         "1" "(invokeai-configure)启动配置界面" \
-        "2" "(invokeai --web)启动webui界面" \
+        "2" "(invokeai-web)启动webui界面" \
         "3" "(invokeai-ti --gui)启动模型训练界面" \
         "4" "(invokeai-merge --gui)启动模型合并界面" \
         "5" "自定义启动参数" \
