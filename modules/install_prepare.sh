@@ -79,7 +79,7 @@ function pytorch_version_select()
         "7" "Torch 1.13.1(CUDA11.7)+xFormers 0.016" \
         "8" "Torch 2.0.0(CUDA11.8)+xFormers 0.018" \
         "9" "Torch 2.0.1(CUDA11.8)+xFormers 0.022" \
-        "10" "Torch 2.1.0(CUDA12.1)+xFormers 0.022" \
+        "10" "Torch 2.1.0(CUDA12.1)+xFormers 0.0.22.post7" \
         "20" "跳过安装" \
         3>&1 1>&2 2>&3)
 
@@ -116,7 +116,7 @@ function pytorch_version_select()
                 pytorch_install_version="torch==2.0.1+cu118 torchvision==0.15.2+cu118 xformers==0.0.22"
                 ;;
             10)
-                pytorch_install_version="torch==2.1.0+cu121 torchvision==0.16.0+cu121 xformers==0.0.22"
+                pytorch_install_version="torch==2.1.0+cu121 torchvision==0.16.0+cu121 xformers==0.0.22.post7"
                 ;;
         esac
     fi

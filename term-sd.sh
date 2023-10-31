@@ -846,23 +846,6 @@ function term_sd_test_network()
     sleep 5
 }
 
-#term-sd设置路径环境变量
-function term_sd_init_env_value()
-{
-    if [ ! -f "./term-sd/disable-cache-path-redirect.lock" ];then
-        export CACHE_HOME="$start_path/term-sd/cache"
-        export HF_HOME="$start_path/term-sd/cache/huggingface"
-        export MATPLOTLIBRC="$start_path/term-sd/cache"
-        export MODELSCOPE_CACHE="$start_path/term-sd/cache/modelscope/hub"
-        export MS_CACHE_HOME="$start_path/term-sd/cache/modelscope/hub"
-        export SYCL_CACHE_DIR="$start_path/term-sd/cache/libsycl_cache"
-        export TORCH_HOME="$start_path/term-sd/cache/torch"
-        export U2NET_HOME="$start_path/term-sd/cache/u2net"
-        export XDG_CACHE_HOME="$start_path/term-sd/cache"
-        #export TRANSFORMERS_CACHE="$start_path/term-sd/cache/huggingface/transformers"
-    fi
-}
-
 #term-sd准备环境功能
 function term_sd_env_prepare()
 {
@@ -879,9 +862,8 @@ function term_sd_env_prepare()
         exit 1
     fi
 
+    export start_path=$(pwd) #设置启动时脚本路径
     term_sd_process_user_input_early "$@" #处理用户输入
-    term_sd_init_env_value #设置缓存路径的环境变量
-
     term_sd_notice "检测依赖软件是否安装"
     missing_dep=""
     missing_dep_macos=""
@@ -1017,8 +999,19 @@ function term_sd_env_prepare()
         export aria2_multi_threaded="-x 1"
     fi
 
-    #设置启动时脚本路径
-    export start_path=$(pwd)
+    #term-sd设置路径环境变量
+    if [ ! -f "./term-sd/disable-cache-path-redirect.lock" ];then
+        export CACHE_HOME="$start_path/term-sd/cache"
+        export HF_HOME="$start_path/term-sd/cache/huggingface"
+        export MATPLOTLIBRC="$start_path/term-sd/cache"
+        export MODELSCOPE_CACHE="$start_path/term-sd/cache/modelscope/hub"
+        export MS_CACHE_HOME="$start_path/term-sd/cache/modelscope/hub"
+        export SYCL_CACHE_DIR="$start_path/term-sd/cache/libsycl_cache"
+        export TORCH_HOME="$start_path/term-sd/cache/torch"
+        export U2NET_HOME="$start_path/term-sd/cache/u2net"
+        export XDG_CACHE_HOME="$start_path/term-sd/cache"
+        #export TRANSFORMERS_CACHE="$start_path/term-sd/cache/huggingface/transformers"
+    fi
 
     #设置虚拟环境
     if [ -f ./term-sd/term-sd-venv-disable.lock ];then #找到term-sd-venv-disable.lock文件,禁用虚拟环境
