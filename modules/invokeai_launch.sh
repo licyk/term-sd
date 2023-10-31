@@ -23,7 +23,7 @@ function generate_invokeai_launch()
                 ;;
             2)
                 print_line_to_shell "$term_sd_manager_info 启动"
-                invokeai --web --root ./invokeai
+                invokeai-web --root ./invokeai
                 print_line_to_shell
                 generate_invokeai_launch
                 ;;

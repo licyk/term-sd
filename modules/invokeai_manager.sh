@@ -104,7 +104,7 @@ function invokeai_option()
                         if (dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI虚拟环境修复选项" --yes-label "是" --no-label "否" --yesno "是否修复InvokeAI的虚拟环境" 25 80);then
                             create_venv --fix
                             enter_venv
-                            pip freeze | grep -i invokeai | xargs pip install --no-deps --force-reinstall #重新安装invokeai
+                            cmd_daemon pip_cmd install $(pip_ cmd freeze | grep -i invokeai) --no-deps --force-reinstall #重新安装invokeai
                         fi
                         invokeai_option
                         ;;
