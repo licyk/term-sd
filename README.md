@@ -1,7 +1,7 @@
 # Term-SD
 
 基于dialog实现界面显示的AI管理器，支持安装，管理[AUTOMATIC1111-stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui)(支持切换成[SD.Next](https://github.com/vladmandic/automatic)/[stable-diffusion-webui-directml](https://github.com/lshqqytiger/stable-diffusion-webui-directml))，[ComfyUI](https://github.com/comfyanonymous/ComfyUI)，[InvokeAI](https://github.com/invoke-ai/InvokeAI)，[Fooocus](https://github.com/lllyasviel/Fooocus)，[lora-scripts](https://github.com/Akegarasu/lora-scripts)  
-Term-SD支持在Linux，Windows，MacOS上运行(Windows平台还需要安装msys2，MacOS还需要安装homebrew，rust，cmake，protobuf，wget)  
+Term-SD支持在Linux，Windows，MacOS上运行(Windows平台还需要安装msys2，MacOS还需要安装homebrew，rust，cmake，protobuf，wget，gawk)  
 使用Term-SD前需要安装aria2，python(3.9~3.11的版本)，pip，git，dialog  
 在使用Term-SD前先配置好环境  
 
@@ -124,8 +124,13 @@ brew update
 
 ### 2、安装git，aria2，dialog，python，rust，cmake，protobuf，wget
 ```
-brew install git aria2 dialog python@3.10 rust cmake protobuf wget
+brew install git aria2 dialog python@3.10 rust cmake protobuf wget gawk
 ```
+### 3、链接gawk命令到awk
+```
+echo "alias awk='gawk'" > ~/.zprofile
+```
+>MacOS系统中自带的awk功能较少，可能会影响Term-SD运行，所以需要使用功能更强大的gawk
 
 ***
 
