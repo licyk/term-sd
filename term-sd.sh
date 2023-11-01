@@ -3,8 +3,7 @@
 ###################
 # 脚本已在Windows,Linux上做过测试,MacOS未做过测试,可能会有问题
 # https://stackoverflow.com/questions/24332942/why-awk-script-does-not-work-on-mac-os-but-works-on-linux
-# 未知MacOS上自带的awk是否会对脚本的运行产生影响
-# 安装过程使用huggingface下载模型,需要科学上网,虽然国内有modelscope,但是需要使用api或者git来下载模型,所以没考虑
+# 未知MacOS上自带的awk是否会对脚本的运行产生影响,安装gawk并使用alias将gawk链接awk命令可解决
 
 # licyk
 ###################
@@ -572,7 +571,7 @@ function install_cmd_to_shell()
 function install_config_to_shell()
 {
     #将要向.bashrc写入的配置
-    term_sd_shell_config="termsd(){ term_sd_start_path=\$(pwd) ; cd \"$term_sd_install_path\" ; ./term-sd.sh \"\$@\" ; cd \"\$term_sd_start_path\" > /dev/null ; }"
+    term_sd_shell_config="termsd(){ term_sd_start_path=\$(pwd) ; cd \"$(pwd)\" ; ./term-sd.sh \"\$@\" ; cd \"\$term_sd_start_path\" > /dev/null ; }"
     if cat ~/."$user_shell"rc | grep termsd > /dev/null ;then
         term_sd_notice "配置已存在,添加前请删除原有配置"
     else
@@ -846,224 +845,225 @@ function term_sd_test_network()
     sleep 5
 }
 
-#term-sd准备环境功能
-function term_sd_env_prepare()
-{
-    print_line_to_shell "Term-SD"
+#################################################
 
-    #目录结构检测,防止用户直接运行Term-SD目录内的term-sd.sh
-    term_sd_notice "Term-SD初始化中"
-    if [ ! -d "./term-sd" ] && [ -d "./.git" ] && [ -d "./modules" ] && [ -f "./modules/init.sh" ] && [ -d "./extra" ] && [ -d "./other" ];then
-        term_sd_notice "检测到目录错误"
-        term_sd_notice "禁止用户直接在Term-SD目录里运行Term-SD"
-        term_sd_notice "请将term-sd.sh文件复制到Term-SD目录外面(和Term-SD目录放在一起)"
-        term_sd_notice "再运行目录外面的term-sd.sh"
-        term_sd_notice "退出Term-SD"
-        exit 1
-    fi
+#term-sd初始化部分
 
-    export start_path=$(pwd) #设置启动时脚本路径
-    term_sd_process_user_input_early "$@" #处理用户输入
-    term_sd_notice "检测依赖软件是否安装"
-    missing_dep=""
-    missing_dep_macos=""
-    test_num=0
-    test_num_macos=0
-    term_sd_depend="git aria2c dialog" #term-sd依赖软件包
-    term_sd_depend_macos="wget rustc cmake brew protoc" #term-sd依赖软件包(MacOS)
-    term_sd_install_path=$(pwd) #读取term-sd安装位置
-    user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') #读取用户所使用的shell
+print_line_to_shell "Term-SD"
+term_sd_notice "Term-SD初始化中"
 
-    #存在python自定义路径配置文件时自动读取到变量中
-    if [ -f "./term-sd/python-path.conf" ];then
-        term_sd_python_path=$(cat ./term-sd/python-path.conf)
-    fi
+export term_sd_version_="0.7.2" #term-sd版本
+export user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') #读取用户所使用的shell
+export start_path=$(pwd) #设置启动时脚本路径
+export PYTHONUTF8=1 #强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题
 
-    #存在pip自定义路径配置文件时自动读取到变量中
-    if [ -f "./term-sd/pip-path.conf" ];then
-        term_sd_pip_path=$(cat ./term-sd/pip-path.conf)
-    fi
+#在使用http_proxy变量后,会出现ValueError: When localhost is not accessible, a shareable link must be created. Please set share=True
+#导致启动异常
+#需要设置no_proxy让localhost,127.0.0.1,::1避开http_proxy
+#详见https://github.com/microsoft/TaskMatrix/issues/250
+export no_proxy="localhost,127.0.0.1,::1" #除了避免http_proxy变量的影响,也避免了代理软件的影响(在启动a1111-sd-webui前开启代理软件可能会导致webui无法生图(启动后再开启没有影响),并报错,设置该变量后完美解决该问题)
 
-    #检测可用的python命令,并检测是否手动指定python路径
-    if [ -z "$term_sd_python_path" ];then
-        if python3 --version > /dev/null 2> /dev/null || python --version > /dev/null 2> /dev/null ;then #判断是否有可用的python
-            test_num=$(( $test_num + 1 ))
+#检测term-sd是直接启动还是重启
+case $term_sd_env_prepare_info in
+    0) #检测到是重启
+        term_sd_notice "重启Term-SD中"
+        ;;
+    *)
+        term_sd_process_user_input_early "$@" #处理用户输入
+        ;;
+esac
 
-            if [ ! -z "$(python3 --version 2> /dev/null)" ];then
-                export term_sd_python_path=$(which python3)
-            elif [ ! -z "$(python --version 2> /dev/null)" ];then
-                export term_sd_python_path=$(which python)
+#存在python自定义路径配置文件时自动读取到变量中
+if [ -f "./term-sd/python-path.conf" ];then
+    export term_sd_python_path=$(cat ./term-sd/python-path.conf)
+fi
+
+#存在pip自定义路径配置文件时自动读取到变量中
+if [ -f "./term-sd/pip-path.conf" ];then
+    export term_sd_pip_path=$(cat ./term-sd/pip-path.conf)
+fi
+
+if [ -f "./term-sd/proxy.conf" ];then #读取代理设置并设置代理
+    export http_proxy=$(cat ./term-sd/proxy.conf)
+    export https_proxy=$(cat ./term-sd/proxy.conf)
+    #export all_proxy=$(cat ./term-sd/proxy.conf)
+    #代理变量的说明:https://blog.csdn.net/Dancen/article/details/128045261
+fi
+
+#设置安装重试次数
+if [ -f "./term-sd/cmd-daemon-retry.conf" ];then
+    export cmd_daemon_retry=$(cat ./term-sd/cmd-daemon-retry.conf)
+else #没有配置文件时使用默认值
+    export cmd_daemon_retry=0
+fi
+
+#设置安装ai软件时下载模型的线程数
+if [ -f "./term-sd/aria2-thread.conf" ];then
+    export aria2_multi_threaded=$(cat ./term-sd/aria2-thread.conf)
+else
+    export aria2_multi_threaded="-x 1"
+fi
+
+#term-sd设置路径环境变量
+if [ ! -f "./term-sd/disable-cache-path-redirect.lock" ];then
+    export CACHE_HOME="$start_path/term-sd/cache"
+    export HF_HOME="$start_path/term-sd/cache/huggingface"
+    export MATPLOTLIBRC="$start_path/term-sd/cache"
+    export MODELSCOPE_CACHE="$start_path/term-sd/cache/modelscope/hub"
+    export MS_CACHE_HOME="$start_path/term-sd/cache/modelscope/hub"
+    export SYCL_CACHE_DIR="$start_path/term-sd/cache/libsycl_cache"
+    export TORCH_HOME="$start_path/term-sd/cache/torch"
+    export U2NET_HOME="$start_path/term-sd/cache/u2net"
+    export XDG_CACHE_HOME="$start_path/term-sd/cache"
+    #export TRANSFORMERS_CACHE="$start_path/term-sd/cache/huggingface/transformers"
+fi
+
+#设置虚拟环境
+if [ -f ./term-sd/term-sd-venv-disable.lock ];then #找到term-sd-venv-disable.lock文件,禁用虚拟环境
+    export venv_active="1"
+    export dialog_recreate_venv_button=""
+    export dialog_rebuild_venv_button=""
+else
+    export venv_active="0"
+    export dialog_recreate_venv_button=""18" "修复venv虚拟环境"" #在启用venv后显示这些dialog按钮
+    export dialog_rebuild_venv_button=""19" "重新构建venv虚拟环境""
+fi
+
+#依赖检测
+case $term_sd_env_prepare_info in #判断启动状态(在shell中,新变量的值为空,且不需要定义就可以使用,不像c语言中要求那么严格)
+    0)
+        ;;
+    *)
+        #目录结构检测,防止用户直接运行Term-SD目录内的term-sd.sh
+        if [ ! -d "./term-sd" ] && [ -d "./.git" ] && [ -d "./modules" ] && [ -f "./modules/init.sh" ] && [ -d "./extra" ] && [ -d "./other" ];then
+            term_sd_notice "检测到目录错误"
+            term_sd_notice "禁止用户直接在Term-SD目录里运行Term-SD"
+            term_sd_notice "请将term-sd.sh文件复制到Term-SD目录外面(和Term-SD目录放在一起)"
+            term_sd_notice "再运行目录外面的term-sd.sh"
+            term_sd_notice "退出Term-SD"
+            exit 1
+        fi
+
+        term_sd_notice "检测依赖软件是否安装"
+        missing_dep=""
+        missing_dep_macos=""
+        test_num=0
+        test_num_macos=0
+        term_sd_depend="git aria2c dialog" #term-sd依赖软件包
+        term_sd_depend_macos="wget rustc cmake brew protoc gawk" #term-sd依赖软件包(MacOS)
+
+        #检测可用的python命令,并检测是否手动指定python路径
+        if [ -z "$term_sd_python_path" ];then
+            if python3 --version > /dev/null 2> /dev/null || python --version > /dev/null 2> /dev/null ;then #判断是否有可用的python
+                test_num=$(( $test_num + 1 ))
+
+                if [ ! -z "$(python3 --version 2> /dev/null)" ];then
+                    export term_sd_python_path=$(which python3)
+                elif [ ! -z "$(python --version 2> /dev/null)" ];then
+                    export term_sd_python_path=$(which python)
+                fi
+            else
+                missing_dep="$missing_dep python,"
+            fi  
+        else
+            if which "$term_sd_python_path" > /dev/null 2> /dev/null ;then
+                test_num=$(( $test_num + 1 ))
+                term_sd_notice "使用自定义python解释器路径:$term_sd_python_path"
+            else
+                term_sd_notice "手动指定的python路径错误"
+                term_sd_notice "提示:"
+                term_sd_notice "使用--set-python-path重新设置python解释器路径"
+                term_sd_notice "使用--unset-python-path删除python解释器路径设置"
+                missing_dep="$missing_dep python,"
+            fi
+        fi
+
+        #检测可用的pip命令,并检测是否手动指定pip路径
+        if [ -z "$term_sd_pip_path" ];then
+            if which pip > /dev/null 2> /dev/null ;then
+                test_num=$(( $test_num + 1 ))
+                export term_sd_pip_path=$(which pip)
+            else
+                missing_dep="$missing_dep pip,"
             fi
         else
-            missing_dep="$missing_dep python,"
-        fi  
-    else
-        if which "$term_sd_python_path" > /dev/null 2> /dev/null ;then
-            test_num=$(( $test_num + 1 ))
-            term_sd_notice "使用自定义python解释器路径:$term_sd_python_path"
-        else
-            term_sd_notice "手动指定的python路径错误"
-            term_sd_notice "提示:"
-            term_sd_notice "使用--set-python-path重新设置python解释器路径"
-            term_sd_notice "使用--unset-python-path删除python解释器路径设置"
-            missing_dep="$missing_dep python,"
-        fi
-    fi
-
-    #检测可用的pip命令,并检测是否手动指定pip路径
-    if [ -z "$term_sd_pip_path" ];then
-        if which pip > /dev/null 2> /dev/null ;then
-            test_num=$(( $test_num + 1 ))
-            export term_sd_pip_path=$(which pip)
-        else
-            missing_dep="$missing_dep pip,"
-        fi
-    else
-        if which "$term_sd_pip_path" > /dev/null 2> /dev/null ;then
-            test_num=$(( $test_num + 1 ))
-            term_sd_notice "使用自定义pip路径:$term_sd_pip_path"
-        else
-            term_sd_notice "手动指定的pip路径错误"
-            term_sd_notice "提示:"
-            term_sd_notice "使用--set-pip-path重新设置pip路径"
-            term_sd_notice "使用--unset-pip-path删除pip路径设置"
-            missing_dep="$missing_dep pip,"
-        fi
-    fi
-
-    #判断系统是否安装必须使用的软件
-    for i in $term_sd_depend ; do
-        if which $i > /dev/null 2> /dev/null ;then
-            test_num=$(( $test_num + 1 ))
-        else
-            missing_dep="$missing_dep $i,"
-        fi
-    done
-
-
-    #依赖检测(MacOS)
-    if [ $(uname) = "Darwin" ];then
-        for i in $term_sd_depend_macos ; do
-            if which $i > /dev/null 2> /dev/null ;then
-                test_num_macos=$(( $test_num_macos + 1 ))
+            if which "$term_sd_pip_path" > /dev/null 2> /dev/null ;then
+                test_num=$(( $test_num + 1 ))
+                term_sd_notice "使用自定义pip路径:$term_sd_pip_path"
             else
-                #转换名称
-                case $i in
-                    rustc)
-                        i=rust
-                        ;;
-                    brew)
-                        i=homebrew
-                        ;;
-                    protoc)
-                        i=protobuf
-                        ;;
-                esac
-                missing_dep_macos="$missing_dep_macos $i,"
+                term_sd_notice "手动指定的pip路径错误"
+                term_sd_notice "提示:"
+                term_sd_notice "使用--set-pip-path重新设置pip路径"
+                term_sd_notice "使用--unset-pip-path删除pip路径设置"
+                missing_dep="$missing_dep pip,"
+            fi
+        fi
+
+        #判断系统是否安装必须使用的软件
+        for i in $term_sd_depend ; do
+            if which $i > /dev/null 2> /dev/null ;then
+                test_num=$(( $test_num + 1 ))
+            else
+                missing_dep="$missing_dep $i,"
             fi
         done
 
-        if [ $test_num_macos -ge 5 ];then
-            print_line_to_shell "缺少以下依赖"
-            echo $missing_dep_macos
-            print_line_to_shell
-            term_sd_notice "缺少依赖将影响ai软件的安装,请退出Term-SD并使用homebrew(如果没有homebrew,则先安装homebrew,再用homebrew去安装其他缺少依赖)安装缺少的依赖后重试"
-            sleep 5
+        #依赖检测(MacOS)
+        if [ $(uname) = "Darwin" ];then
+            for i in $term_sd_depend_macos ; do
+                if which $i > /dev/null 2> /dev/null ;then
+                    test_num_macos=$(( $test_num_macos + 1 ))
+                else
+                    #转换名称
+                    case $i in
+                        rustc)
+                            i=rust
+                            ;;
+                        brew)
+                            i=homebrew
+                            ;;
+                        protoc)
+                            i=protobuf
+                            ;;
+                    esac
+                    missing_dep_macos="$missing_dep_macos $i,"
+                fi
+            done
+
+            if [ $test_num_macos -ge 5 ];then
+                print_line_to_shell "缺少以下依赖"
+                echo $missing_dep_macos
+                print_line_to_shell
+                term_sd_notice "缺少依赖将影响ai软件的安装,请退出Term-SD并使用homebrew(如果没有homebrew,则先安装homebrew,再用homebrew去安装其他缺少依赖)安装缺少的依赖后重试"
+                sleep 5
+            fi
         fi
-    fi
 
-    #在使用http_proxy变量后,会出现ValueError: When localhost is not accessible, a shareable link must be created. Please set share=True
-    #导致启动异常
-    #需要设置no_proxy让localhost,127.0.0.1,::1避开http_proxy
-    #详见https://github.com/microsoft/TaskMatrix/issues/250
-    export no_proxy="localhost,127.0.0.1,::1" #除了避免http_proxy变量的影响,也避免了代理软件的影响(在启动a1111-sd-webui前开启代理软件可能会导致webui无法生图(启动后再开启没有影响),并报错,设置该变量后完美解决该问题)
-
-    if [ -f "./term-sd/proxy.conf" ];then #读取代理设置并设置代理
-        export http_proxy=$(cat ./term-sd/proxy.conf)
-        export https_proxy=$(cat ./term-sd/proxy.conf)
-        #export all_proxy=$(cat ./term-sd/proxy.conf)
-        #代理变量的说明:https://blog.csdn.net/Dancen/article/details/128045261
-    fi
-
-    #设置安装重试次数
-    if [ -f "./term-sd/cmd-daemon-retry.conf" ];then
-        export cmd_daemon_retry=$(cat ./term-sd/cmd-daemon-retry.conf)
-    else #没有配置文件时使用默认值
-        export cmd_daemon_retry=0
-    fi
-
-    #设置安装ai软件时下载模型的线程数
-    if [ -f "./term-sd/aria2-thread.conf" ];then
-        export aria2_multi_threaded=$(cat ./term-sd/aria2-thread.conf)
-    else
-        export aria2_multi_threaded="-x 1"
-    fi
-
-    #term-sd设置路径环境变量
-    if [ ! -f "./term-sd/disable-cache-path-redirect.lock" ];then
-        export CACHE_HOME="$start_path/term-sd/cache"
-        export HF_HOME="$start_path/term-sd/cache/huggingface"
-        export MATPLOTLIBRC="$start_path/term-sd/cache"
-        export MODELSCOPE_CACHE="$start_path/term-sd/cache/modelscope/hub"
-        export MS_CACHE_HOME="$start_path/term-sd/cache/modelscope/hub"
-        export SYCL_CACHE_DIR="$start_path/term-sd/cache/libsycl_cache"
-        export TORCH_HOME="$start_path/term-sd/cache/torch"
-        export U2NET_HOME="$start_path/term-sd/cache/u2net"
-        export XDG_CACHE_HOME="$start_path/term-sd/cache"
-        #export TRANSFORMERS_CACHE="$start_path/term-sd/cache/huggingface/transformers"
-    fi
-
-    #设置虚拟环境
-    if [ -f ./term-sd/term-sd-venv-disable.lock ];then #找到term-sd-venv-disable.lock文件,禁用虚拟环境
-        export venv_active="1"
-        export dialog_recreate_venv_button=""
-        export dialog_rebuild_venv_button=""
-    else
-        export venv_active="0"
-        export dialog_recreate_venv_button=""18" "修复venv虚拟环境"" #在启用venv后显示这些dialog按钮
-        export dialog_rebuild_venv_button=""19" "重新构建venv虚拟环境""
-    fi
-
-    #启动terrm-sd
-    if [ $test_num -ge 5 ];then
-        term_sd_notice "检测完成"
-        terminal_size_test #检测终端大小
-        term_sd_install
-        if [ -d "./term-sd/modules" ];then #找到目录后才启动
-            term_sd_auto_update_trigger
-            export term_sd_env_prepare_info=0 #用于检测term-sd的启动状态
-            term_sd_process_user_input "$@" #处理用户输入
-            source ./term-sd/modules/init.sh #加载term-sd模块
+        #判断依赖检测结果
+        if [ $test_num -ge 5 ];then
+            term_sd_notice "依赖检测完成"
+            terminal_size_test #检测终端大小
+            term_sd_install
+            if [ -d "./term-sd/modules" ];then #找到目录后才启动
+                term_sd_auto_update_trigger
+                export term_sd_env_prepare_info=0 #用于检测term-sd的启动状态
+                term_sd_process_user_input "$@" #处理用户输入
+            else
+                term_sd_notice "Term-SD模块丢失,\"输入./term-sd.sh --reinstall-term-sd\"重新安装Term-SD"
+            fi
         else
-            term_sd_notice "Term-SD模块丢失,\"输入./term-sd.sh --reinstall-term-sd\"重新安装Term-SD"
+            print_line_to_shell "缺少以下依赖"
+            echo $missing_dep
+            print_line_to_shell
+            term_sd_notice "请安装缺少的依赖后重试"
+            exit 1
         fi
-    else
-        print_line_to_shell "缺少以下依赖"
-        echo $missing_dep
-        print_line_to_shell
-        term_sd_notice "请安装缺少的依赖后重试"
-        exit 1
-    fi
-}
+        ;;
+esac
 
-#################################################
+source ./term-sd/modules/init.sh #加载term-sd模块
+term_sd_notice "启动Term-SD中"
 
-#term-sd版本
-export term_sd_version_="0.7.1"
-
-#判断启动状态(在shell中,新变量的值为空,且不需要定义就可以使用,不像c语言中要求那么严格)
-if [ ! -z $term_sd_env_prepare_info ] && [ $term_sd_env_prepare_info = 0 ];then #检测term-sd是直接启动还是重启
-    #重启Term-SD
-    print_line_to_shell "Term-SD"
-    term_sd_notice "重启Term-SD中"
-    source ./term-sd/modules/init.sh
-    term_sd_notice "启动Term-SD中"
-    term_sd_version
-    _main_
-else
-    #正常启动
-    term_sd_env_prepare "$@"
-    term_sd_notice "启动Term-SD中"
-    term_sd_version
-    _main_
-fi
+#启动terrm-sd    
+term_sd_version
+_main_
