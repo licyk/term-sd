@@ -125,6 +125,7 @@ function a1111_sd_webui_operate_extension()
                             term_sd_notice "删除$(echo $extension_selection | awk -F "/" '{print $NF}')插件中"
                             cd ..
                             rm -rf ./$extension_selection
+                            term_sd_notice "删除$(echo $extension_selection | awk -F "/" '{print $NF}')插件完成"
                             ;;
                         *)
                             term_sd_notice "取消删除操作"

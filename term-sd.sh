@@ -1030,7 +1030,9 @@ case $term_sd_env_prepare_info in #判断启动状态(在shell中,新变量的�
                 fi
             done
 
-            if [ $test_num_macos -ge 5 ];then
+            if [ $test_num_macos -ge 6 ];then
+                alias awk='gawk' #将gawk链接到awk命令中
+            else
                 print_line_to_shell "缺少以下依赖"
                 echo $missing_dep_macos
                 print_line_to_shell

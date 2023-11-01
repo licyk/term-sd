@@ -122,15 +122,12 @@ brew update
 [《清华大学开源软件镜像站 Homebrew/Linuxbrew镜像使用帮助》](https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/)  
 [《Homebrew Documentation》](https://docs.brew.sh/Installation)
 
-### 2、安装git，aria2，dialog，python，rust，cmake，protobuf，wget
+### 2、安装git，aria2，dialog，python，rust，cmake，protobuf，wget，gawk
 ```
 brew install git aria2 dialog python@3.10 rust cmake protobuf wget gawk
 ```
-### 3、链接gawk命令到awk
-```
-echo "alias awk='gawk'" > ~/.zprofile
-```
->MacOS系统中自带的awk功能较少，可能会影响Term-SD运行，所以需要使用功能更强大的gawk
+
+>MacOS系统中自带的awk功能较少，可能会影响Term-SD运行，所以需要安装功能更强大的gawk
 
 ***
 

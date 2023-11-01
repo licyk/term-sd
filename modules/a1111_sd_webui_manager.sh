@@ -66,6 +66,7 @@ function a1111_sd_webui_option()
                                 exit_venv
                                 cd ..
                                 rm -rf ./stable-diffusion-webui
+                                term_sd_notice "删除A1111-Stable-Diffusion-Webui完成"
                                 ;;
                             *)
                                 term_sd_notice "取消删除操作"

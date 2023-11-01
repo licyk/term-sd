@@ -60,6 +60,7 @@ function lora_scripts_option()
                                 exit_venv
                                 cd ..
                                 rm -rf ./lora-scripts
+                                term_sd_notice "删除lora-scripts完成"
                                 ;;
                             *)
                                 term_sd_notice "取消删除操作"

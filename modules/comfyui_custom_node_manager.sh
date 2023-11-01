@@ -142,6 +142,7 @@ function operate_comfyui_custom_node()
                             term_sd_notice "删除$(echo $comfyui_custom_node_selection | awk -F "/" '{print $NF}')自定义节点中"
                             cd ..
                             rm -rf ./$comfyui_custom_node_selection
+                            term_sd_notice "删除$(echo $comfyui_custom_node_selection | awk -F "/" '{print $NF}')自定义节点完成"
                             ;;
                         *)
                             term_sd_notice "取消删除操作"

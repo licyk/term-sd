@@ -58,6 +58,7 @@ function invokeai_option()
                                     exit_venv
                                     cd ..
                                     rm -rf ./InvokeAI
+                                    term_sd_notice "删除InvokeAI完成"
                                     ;;
                                 *)
                                     term_sd_notice "取消删除操作"

@@ -27,6 +27,7 @@ function sd_webui_branch_switch()
                 cmd_daemon git pull --rebase
                 mv -f ./repositories/blip ./repositories/BLIP
                 sd_webui_branch_file_restore
+                term_sd_notice "分支切换完成"
                 print_line_to_shell
                 ;;
             2)
@@ -39,6 +40,7 @@ function sd_webui_branch_switch()
                 cmd_daemon git pull --rebase
                 mv -f ./repositories/blip ./repositories/BLIP
                 sd_webui_branch_file_restore
+                term_sd_notice "分支切换完成"
                 print_line_to_shell
                 ;;
             3)
@@ -52,6 +54,7 @@ function sd_webui_branch_switch()
                 cmd_daemon git pull --rebase --recurse-submodules
                 mv -f ./repositories/BLIP ./repositories/blip
                 sd_webui_branch_file_restore
+                term_sd_notice "分支切换完成"
                 print_line_to_shell
                 ;;
             4)
@@ -65,6 +68,7 @@ function sd_webui_branch_switch()
                 cmd_daemon git pull --rebase --recurse-submodules
                 mv -f ./repositories/BLIP ./repositories/blip
                 sd_webui_branch_file_restore
+                term_sd_notice "分支切换完成"
                 print_line_to_shell
                 ;;
             5)
@@ -77,6 +81,7 @@ function sd_webui_branch_switch()
                 cmd_daemon git pull --rebase
                 mv -f ./repositories/blip ./repositories/BLIP
                 sd_webui_branch_file_restore
+                term_sd_notice "分支切换完成"
                 print_line_to_shell
                 ;;
             6)
@@ -89,6 +94,7 @@ function sd_webui_branch_switch()
                 cmd_daemon git pull --rebase
                 mv -f ./repositories/blip ./repositories/BLIP
                 sd_webui_branch_file_restore
+                term_sd_notice "分支切换完成"
                 print_line_to_shell
         esac
     fi

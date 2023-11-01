@@ -57,6 +57,7 @@ function fooocus_option()
                                 exit_venv
                                 cd ..
                                 rm -rf ./Fooocus
+                                term_sd_notice "删除Fooocus完成"
                                 ;;
                             *)
                                 term_sd_notice "取消删除操作"

@@ -84,6 +84,7 @@ function term_sd_remote()
                 git --git-dir="./term-sd/.git" remote set-url origin "https://gitclone.com/github.com/licyk/term-sd"
                 ;;
         esac
+        term_sd_notice "Term-SD更新源切换完成"
     fi
 }
 

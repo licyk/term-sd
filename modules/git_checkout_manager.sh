@@ -14,5 +14,6 @@ function git_checkout_manager()
     if [ $? = 0 ];then
         term_sd_notice "切换$(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')版本中"
         git checkout $commit_selection
+        term_sd_notice "版本切换完成"
     fi
 }

@@ -22,6 +22,7 @@ function pytorch_reinstall()
         fi
         exit_venv
         tmp_enable_proxy
+        term_sd_notice "pytorch安装结束"
         print_line_to_shell
     fi
 }

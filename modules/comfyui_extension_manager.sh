@@ -146,6 +146,7 @@ function operate_comfyui_extension()
                             term_sd_notice "删除$(echo $comfyui_extension_selection | awk -F "/" '{print $NF}')插件中"
                             cd ..
                             rm -rf ./$comfyui_extension_selection
+                            term_sd_notice "删除$(echo $comfyui_extension_selection | awk -F "/" '{print $NF}')插件完成"
                             ;;
                         *)
                             term_sd_notice "取消删除操作"

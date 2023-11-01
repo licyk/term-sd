@@ -53,6 +53,7 @@ function comfyui_option()
                                 exit_venv
                                 cd ..
                                 rm -rf ./ComfyUI
+                                term_sd_notice "删除ComfyUI完成"
                                 ;;
                             *)
                                 term_sd_notice "取消删除操作"

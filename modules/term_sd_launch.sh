@@ -11,5 +11,6 @@ function term_sd_launch()
         enter_venv
         python_cmd $(cat ./term-sd-launch.conf)
     fi
+    term_sd_notice "运行结束"
     print_line_to_shell
 }
