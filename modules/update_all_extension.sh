@@ -26,7 +26,7 @@ function extension_all_update()
             extension_to_update_=$(( $extension_to_update_ + 1 ))
             term_sd_notice "[$extension_to_update_/$extension_to_update] 更新$(echo $i | awk -F "/" '{print $NF}')插件中"
             update_info="$update_info$(echo $i | awk -F "/" '{print $NF}')插件:"
-            git pull --recurse-submodules
+            cmd_daemon git pull --recurse-submodules
         
             if [ $? = 0 ];then
                 update_info="$update_info"更新成功"\n"

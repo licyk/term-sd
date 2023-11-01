@@ -45,7 +45,7 @@ function a1111_sd_webui_option()
             case $a1111_sd_webui_option_dialog in
                 1)
                     term_sd_notice "更新A1111-Stable-Diffusion-Webui中"
-                    git pull
+                    cmd_daemon git pull
                     if [ $? = 0 ];then
                         dialog --erase-on-exit --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui更新结果" --ok-label "确认" --msgbox "A1111-SD-Webui更新成功" 25 80
                     else

@@ -32,7 +32,7 @@ function comfyui_option()
             case $comfyui_option_dialog in
                 1)
                     term_sd_notice "更新ComfyUI中"
-                    git pull
+                    cmd_daemon git pull
                     if [ $? = 0 ];then
                         dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI更新结果" --ok-label "确认" --msgbox "ComfyUI更新成功" 25 80
                     else

@@ -852,7 +852,7 @@ function term_sd_test_network()
 print_line_to_shell "Term-SD"
 term_sd_notice "Term-SD初始化中"
 
-export term_sd_version_="0.7.2" #term-sd版本
+export term_sd_version_="0.7.3" #term-sd版本
 export user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') #读取用户所使用的shell
 export start_path=$(pwd) #设置启动时脚本路径
 export PYTHONUTF8=1 #强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题

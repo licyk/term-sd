@@ -31,7 +31,7 @@ function fooocus_option()
                 1)
                     term_sd_notice "更新Fooocus中"
                     test_num=1
-                    git pull
+                    cmd_daemon git pull
                     if [ $? = 0 ];then
                         test_num=0
                     fi

@@ -122,7 +122,7 @@ function operate_comfyui_extension()
         case $operate_comfyui_extension_dialog in
             1)
                 term_sd_notice "更新"$comfyui_extension_selection"中"
-                git pull --recurse-submodules
+                cmd_daemon git pull --recurse-submodules
                 if [ $? = 0 ];then
                     dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI插件更新结果" --ok-label "确认" --msgbox ""$comfyui_extension_selection"插件更新成功" 25 80
                 else
