@@ -31,12 +31,12 @@ function lora_scripts_option()
                 1)
                     term_sd_notice "更新lora-scripts中"
                     test_num=1
-                    git pull
+                    cmd_daemon git pull
                     if [ $? = 0 ];then
                         test_num=0
                     fi
-                    git pull ./sd-scripts
-                    git pull ./frontend
+                    cmd_daemon git pull ./sd-scripts
+                    cmd_daemon git pull ./frontend
                     git submodule init
                     git submodule update #版本不对应,有时会出现各种奇怪的报错
                     git submodule

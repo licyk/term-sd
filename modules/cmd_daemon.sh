@@ -16,6 +16,7 @@ function cmd_daemon()
                 if [ $count -gt $cmd_daemon_retry ];then
                     term_sd_notice "超出重试次数,终止重试"
                     term_sd_notice "执行失败的命令:\"$@\""
+                    return 1
                     break
                 fi
                 term_sd_notice "[$count/$cmd_daemon_retry]检测到命令执行失败,重试中"

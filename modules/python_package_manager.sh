@@ -17,19 +17,19 @@ function manage_python_packages()
 
         case $pip_install_or_remove in
             1) #常规安装
-                pip_cmd install $manage_python_packages_names $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+                cmd_daemon pip_cmd install $manage_python_packages_names $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
                 ;;
             2) #仅安装
-                pip_cmd install --no-deps $manage_python_packages_names $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+                cmd_daemon pip_cmd install --no-deps $manage_python_packages_names $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
                 ;;
             3) #强制重装
-                pip_cmd install --force-reinstall $manage_python_packages_names $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+                cmd_daemon pip_cmd install --force-reinstall $manage_python_packages_names $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
                 ;;
             4) #仅强制重装
-                pip_cmd install --force-reinstall --no-deps $manage_python_packages_names $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+                cmd_daemon pip_cmd install --force-reinstall --no-deps $manage_python_packages_names $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
                 ;;
             5) #卸载
-                pip_cmd uninstall -y $manage_python_packages_names
+                cmd_daemon pip_cmd uninstall -y $manage_python_packages_names
                 ;;
         esac
 

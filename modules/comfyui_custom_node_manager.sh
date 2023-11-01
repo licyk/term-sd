@@ -118,7 +118,7 @@ function operate_comfyui_custom_node()
         case $operate_comfyui_custom_node_dialog in
             1)
                 term_sd_notice "更新$(echo $comfyui_custom_node_selection | awk -F "/" '{print $NF}')自定义节点中"
-                git pull --recurse-submodules
+                cmd_daemon git pull --recurse-submodules
                 if [ $? = "0" ];then
                     dialog --erase-on-exit --title "ComfyUI选项" --backtitle "ComfyUI自定义节点更新结果" --ok-label "确认" --msgbox ""$comfyui_custom_node_selection"自定义节点更新成功" 25 80
                 else

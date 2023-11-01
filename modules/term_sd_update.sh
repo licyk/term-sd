@@ -19,8 +19,8 @@ function term_sd_update_option()
                     term_sd_notice "更新Term-SD中"
                     cd ./term-sd
                     git_pull_info=""
-                    git fetch --all
-                    git pull --all
+                    cmd_daemon git fetch --all
+                    cmd_daemon git pull --all
                     git_pull_info=$?
                     cd ..
                     if [ $git_pull_info = 0 ];then
