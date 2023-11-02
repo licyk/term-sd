@@ -7,7 +7,7 @@ function proxy_option()
     pip_extra_index_mirror=""
     pip_find_mirror="--find-links https://download.pytorch.org/whl/torch_stable.html"
     #extra_pip_mirror="--extra-index-url https://download.pytorch.org/whl"
-    github_proxy=""
+    github_proxy="https://"
     force_pip=""
     only_hugggingface_proxy=1
     final_install_check_python="禁用"
