@@ -25,7 +25,7 @@ function mainmenu()
     cd "$start_path" #回到最初路径
     exit_venv #确保进行下一步操作前已退出其他虚拟环境
     mainmenu_dialog=$(
-    dialog --erase-on-exit --title "Term-SD" --backtitle "主界面" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的功能\n虚拟环境状态:$([ $venv_active = 0 ] && echo "启用" || echo "禁用")\n代理设置:$([ -z $http_proxy ] && echo "无" || echo $http_proxy)\n缓存重定向:$([ ! -f "./term-sd/disable-cache-path-redirect.lock" ] && echo "启用" || echo "禁用")" 25 80 10 \
+        dialog --erase-on-exit --title "Term-SD" --backtitle "主界面" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的功能\n虚拟环境状态:$([ $venv_active = 0 ] && echo "启用" || echo "禁用")\n代理设置:$([ -z $http_proxy ] && echo "无" || echo $http_proxy)\n缓存重定向:$([ ! -f "./term-sd/disable-cache-path-redirect.lock" ] && echo "启用" || echo "禁用")" 25 80 10 \
         "0" "Term-SD更新管理" \
         "1" "AUTOMATIC1111-stable-diffusion-webui管理" \
         "2" "ComfyUI管理" \
