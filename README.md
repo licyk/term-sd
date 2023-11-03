@@ -76,7 +76,7 @@ pacman -S dialog
 
 Debian(Ubuntu)系：  
 ```
-sudo apt install python3 python3-pip python3-venv git aira2 dialog
+sudo apt install python3 python3-pip python3-venv git aria2 dialog
 ```
 ArchLinux系：  
 ```
