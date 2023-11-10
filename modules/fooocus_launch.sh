@@ -1,11 +1,12 @@
 #!/bin/bash
 
-#fooocus启动脚本生成部分
-function generate_fooocus_launch()
+# fooocus启动脚本生成部分
+fooocus_launch_args_setting()
 {
-    fooocus_launch_option=""
+    local fooocus_launch_args
+    local fooocus_launch_args_setting_dialog
 
-    fooocus_launch_option_dialog=$(
+    fooocus_launch_args_setting_dialog=$(
         dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus启动参数选项" --separate-output --notags --ok-label "确认" --cancel-label "取消" --checklist "请选择Fooocus启动参数,确认之后将覆盖原有启动参数配置" 25 80 10 \
         "1" "(listen)开放远程连接" OFF \
         "2" "(auto-launch)启动webui完成后自动启动浏览器" ON \
@@ -42,115 +43,122 @@ function generate_fooocus_launch()
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
-        for i in $fooocus_launch_option_dialog; do
+        for i in $fooocus_launch_args_setting_dialog; do
             case $i in
                 1)
-                    fooocus_launch_option="--listen $fooocus_launch_option"
+                    fooocus_launch_args="--listen $fooocus_launch_args"
                     ;;
                 2)    
-                    fooocus_launch_option="--auto-launch $fooocus_launch_option"
+                    fooocus_launch_args="--auto-launch $fooocus_launch_args"
                     ;;
                 3)
-                    fooocus_launch_option="--disable-auto-launch $fooocus_launch_option"
+                    fooocus_launch_args="--disable-auto-launch $fooocus_launch_args"
                     ;;
                 4)
-                    fooocus_launch_option="--cuda-malloc $fooocus_launch_option"
+                    fooocus_launch_args="--cuda-malloc $fooocus_launch_args"
                     ;;
                 5)
-                    fooocus_launch_option="--disable-cuda-malloc $fooocus_launch_option"
+                    fooocus_launch_args="--disable-cuda-malloc $fooocus_launch_args"
                     ;;
                 6)
-                    fooocus_launch_option="--dont-upcast-attention $fooocus_launch_option"
+                    fooocus_launch_args="--dont-upcast-attention $fooocus_launch_args"
                     ;;
                 7)
-                    fooocus_launch_option="--force-fp32 $fooocus_launch_option"
+                    fooocus_launch_args="--force-fp32 $fooocus_launch_args"
                     ;;
                 8)
-                    fooocus_launch_option="--force-fp16 $fooocus_launch_option"
+                    fooocus_launch_args="--force-fp16 $fooocus_launch_args"
                     ;;
                 9)
-                    fooocus_launch_option="--bf16-unet $fooocus_launch_option"
+                    fooocus_launch_args="--bf16-unet $fooocus_launch_args"
                     ;;
                 10)
-                    fooocus_launch_option="--fp16-vae $fooocus_launch_option"
+                    fooocus_launch_args="--fp16-vae $fooocus_launch_args"
                     ;;
                 11)
-                    fooocus_launch_option="--fp32-vae $fooocus_launch_option"
+                    fooocus_launch_args="--fp32-vae $fooocus_launch_args"
                     ;;
                 12)
-                    fooocus_launch_option="--bf16-vae $fooocus_launch_option"
+                    fooocus_launch_args="--bf16-vae $fooocus_launch_args"
                     ;;
                 13)
-                    fooocus_launch_option="--disable-ipex-optimize $fooocus_launch_option"
+                    fooocus_launch_args="--disable-ipex-optimize $fooocus_launch_args"
                     ;;
                 14)
-                    fooocus_launch_option="--preview-method none $fooocus_launch_option"
+                    fooocus_launch_args="--preview-method none $fooocus_launch_args"
                     ;;
                 15)
-                    fooocus_launch_option="--preview-method latent2rgb $fooocus_launch_option"
+                    fooocus_launch_args="--preview-method latent2rgb $fooocus_launch_args"
                     ;;
                 16)
-                    fooocus_launch_option="--preview-method taesd $fooocus_launch_option"
+                    fooocus_launch_args="--preview-method taesd $fooocus_launch_args"
                     ;;
                 17)
-                    fooocus_launch_option="--use-split-cross-attention $fooocus_launch_option"
+                    fooocus_launch_args="--use-split-cross-attention $fooocus_launch_args"
                     ;;
                 18)
-                    fooocus_launch_option="--use-quad-cross-attention $fooocus_launch_option"
+                    fooocus_launch_args="--use-quad-cross-attention $fooocus_launch_args"
                     ;;
                 19)
-                    fooocus_launch_option="--use-pytorch-cross-attention $fooocus_launch_option"
+                    fooocus_launch_args="--use-pytorch-cross-attention $fooocus_launch_args"
                     ;;
                 20)
-                    fooocus_launch_option="--disable-xformers $fooocus_launch_option"
+                    fooocus_launch_args="--disable-xformers $fooocus_launch_args"
                     ;;
                 21)
-                    fooocus_launch_option="--gpu-only $fooocus_launch_option"
+                    fooocus_launch_args="--gpu-only $fooocus_launch_args"
                     ;;
                 22)
-                    fooocus_launch_option="--highvram $fooocus_launch_option"
+                    fooocus_launch_args="--highvram $fooocus_launch_args"
                     ;;
                 23)
-                    fooocus_launch_option="--normalvram $fooocus_launch_option"
+                    fooocus_launch_args="--normalvram $fooocus_launch_args"
                     ;;
                 24)
-                    fooocus_launch_option="--lowvram $fooocus_launch_option"
+                    fooocus_launch_args="--lowvram $fooocus_launch_args"
                     ;;
                 25)
-                    fooocus_launch_option="--novram $fooocus_launch_option"
+                    fooocus_launch_args="--novram $fooocus_launch_args"
                     ;;
                 26)
-                    fooocus_launch_option="--cpu $fooocus_launch_option"
+                    fooocus_launch_args="--cpu $fooocus_launch_args"
                     ;;
                 27)
-                    fooocus_launch_option="--disable-smart-memory $fooocus_launch_option"
+                    fooocus_launch_args="--disable-smart-memory $fooocus_launch_args"
                     ;;
                 28)
-                    fooocus_launch_option="--dont-print-server $fooocus_launch_option"
+                    fooocus_launch_args="--dont-print-server $fooocus_launch_args"
                     ;;
                 29)
-                    fooocus_launch_option="--quick-test-for-ci $fooocus_launch_option"
+                    fooocus_launch_args="--quick-test-for-ci $fooocus_launch_args"
                     ;;
                 30)
-                    fooocus_launch_option="--windows-standalone-build $fooocus_launch_option"
+                    fooocus_launch_args="--windows-standalone-build $fooocus_launch_args"
                     ;;
                 31)
-                    fooocus_launch_option="--disable-metadata $fooocus_launch_option"
+                    fooocus_launch_args="--disable-metadata $fooocus_launch_args"
                     ;;
                 32)
-                    fooocus_launch_option="--share $fooocus_launch_option"
+                    fooocus_launch_args="--share $fooocus_launch_args"
                     ;;
             esac
         done
 
-        term_sd_notice "设置启动参数> $fooocus_launch_option"
-        echo "launch.py $fooocus_launch_option" > term-sd-launch.conf
+        term_sd_echo "设置启动参数> $fooocus_launch_args"
+        echo "launch.py $fooocus_launch_args" > term-sd-launch.conf
     fi
 }
 
-#fooocus启动界面
-function fooocus_launch()
+# fooocus启动界面
+fooocus_launch()
 {
+    local fooocus_launch_dialog
+
+    if [ ! -f "./term-sd-launch.conf" ]; then # 找不到启动配置时默认生成一个
+        term_sd_echo "未找到启动配置文件,创建中"
+        echo "launch.py " > term-sd-launch.conf
+    fi
+
     fooocus_launch_dialog=$(dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动Fooocus/修改Fooocus启动参数\n当前启动参数:\n$([ $venv_active = 0 ] && echo python || echo "$term_sd_python_path") $(cat ./term-sd-launch.conf)" 25 80 10 \
         "1" "启动" \
         "2" "选择预设启动参数" \
@@ -158,31 +166,31 @@ function fooocus_launch()
         "4" "返回" \
         3>&1 1>&2 2>&3)
 
-    if [ $? = 0 ];then
-        case $fooocus_launch_dialog in
-            1)
-                term_sd_launch
-                fooocus_launch
-                ;;
-            2)
-                generate_fooocus_launch
-                fooocus_launch
-                ;;
-            3)
-                fooocus_manual_launch
-                fooocus_launch
-                ;;
-        esac
-    fi
+    case $fooocus_launch_dialog in
+        1)
+            term_sd_launch
+            fooocus_launch
+            ;;
+        2)
+            fooocus_launch_args_setting
+            fooocus_launch
+            ;;
+        3)
+            fooocus_manual_launch
+            fooocus_launch
+            ;;
+    esac
 }
 
-#fooocus手动输入启动参数界面
-function fooocus_manual_launch()
+# fooocus手动输入启动参数界面
+fooocus_manual_launch()
 {
-    fooocus_manual_launch_parameter=$(dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入Fooocus启动参数" 25 80 "$(cat ./term-sd-launch.conf | awk '{sub("launch.py ","")}1')" 3>&1 1>&2 2>&3)
+    local fooocus_launch_args
+
+    fooocus_launch_args=$(dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入Fooocus启动参数" 25 80 "$(cat ./term-sd-launch.conf | awk '{sub("launch.py ","")}1')" 3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
-        term_sd_notice "设置启动参数> $fooocus_manual_launch_parameter"
-        echo "launch.py $fooocus_manual_launch_parameter" > term-sd-launch.conf
+        term_sd_echo "设置启动参数> $fooocus_launch_args"
+        echo "launch.py $fooocus_launch_args" > term-sd-launch.conf
     fi
 }

@@ -1,63 +1,67 @@
 #!/bin/bash
 
-#term-sd更新功能
-function term_sd_update_option()
+# term-sd更新功能
+term_sd_update_manager()
 {
-    if [ -d "./term-sd/.git" ];then #检测目录中是否有.git文件夹
-        term_sd_update_option_dialog=$(
+    local term_sd_update_manager_dialog
+
+    if [ -d "./term-sd/.git" ];then # 检测目录中是否有.git文件夹
+        term_sd_update_manager_dialog=$(
             dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD更新选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的更新源\n当前Term-SD更新源:$(git --git-dir="./term-sd/.git" remote get-url origin)\n当前Term-SD分支:$(git --git-dir="./term-sd/.git" branch | grep \* | awk -F "* " '{print $NF}')" 25 80 10 \
+            "0" "返回" \
             "1" "更新" \
-            "2" "切换更新源" \
-            "3" "切换分支" \
-            "4" "修复更新" \
-            "5" "返回" \
+            "2" "修复更新" \
+            "3" "设置自动更新" \
+            "4" "切换更新源" \
+            "5" "切换分支" \
             3>&1 1>&2 2>&3)
 
-        if [ $? = 0 ];then
-            case $term_sd_update_option_dialog in
-                1)
-                    term_sd_notice "更新Term-SD中"
-                    cd ./term-sd
-                    git_pull_info=""
-                    cmd_daemon git fetch --all
-                    cmd_daemon git pull --all
-                    git_pull_info=$?
+        case $term_sd_update_manager_dialog in
+            1)
+                term_sd_echo "更新Term-SD中"
+                cd ./term-sd
+                git_pull_repository
+                if [ $? = 0 ];then
                     cd ..
-                    if [ $git_pull_info = 0 ];then
-                        cp -f ./term-sd/term-sd.sh .
-                        chmod +x ./term-sd.sh
-                        dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD更新结果" --ok-label "确定" --msgbox "Term-SD更新成功,选择确定后重启" 25 80
-                        source ./term-sd.sh
-                    else
-                        dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD更新结果" --ok-label "确定" --msgbox "Term-SD更新失败" 25 80
-                        term_sd_update_option
-                    fi
-                    ;;
-                2)
-                    term_sd_remote
-                    term_sd_update_option
-                    ;;
-                3)
-                    term_sd_branch
-                    term_sd_update_option
-                    ;;
-                4)
-                    cd ./term-sd
-                    term_sd_fix_pointer_offset
+                    cp -f ./term-sd/term-sd.sh .
+                    chmod +x ./term-sd.sh
+                    dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD更新结果" --ok-label "确定" --msgbox "Term-SD更新成功,选择确定后重启" 25 80
+                    source ./term-sd.sh
+                else
                     cd ..
-                    term_sd_update_option
-                    ;;
-            esac
-        fi
-    else #检测到没有该文件夹,无法进行更新,提示用户修复
+                    dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD更新结果" --ok-label "确定" --msgbox "Term-SD更新失败" 25 80
+                    term_sd_update_manager
+                fi
+                ;;
+            2)
+                cd ./term-sd
+                git_fix_pointer_offset
+                cd ..
+                term_sd_update_manager
+                ;;
+            3)
+                term_sd_auto_update_setting
+                term_sd_update_manager
+                ;;
+            4)
+                term_sd_remote_revise
+                term_sd_update_manager
+                ;;
+            5)
+                term_sd_branch_switch
+                term_sd_update_manager
+                ;;
+            
+        esac
+    else # 检测到没有该文件夹,无法进行更新,提示用户修复
         dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD更新选项" --ok-label "确定" --msgbox "Term-SD文件损坏,无法进行更新,请重启Term-SD并按提示修复问题" 25 80
     fi
 }
 
-#term-sd更新源切换功能
-function term_sd_remote()
+# term-sd更新源切换功能
+term_sd_remote_revise()
 {
-    term_sd_remote_dialog=$(
+    term_sd_remote_revise_dialog=$(
         dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD分支切换界面" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的分支\n当前Term-SD更新源:$(git --git-dir="./term-sd/.git" remote get-url origin)" 25 80 10 \
         "1" "github源" \
         "2" "gitlab源" \
@@ -67,7 +71,7 @@ function term_sd_remote()
         3>&1 1>&2 2>&3)
     
     if [ $? = 0 ];then
-        case $term_sd_remote_dialog in
+        case $term_sd_remote_revise_dialog in
             1)
                 git --git-dir="./term-sd/.git" remote set-url origin "https://github.com/licyk/term-sd"
                 ;;
@@ -84,29 +88,29 @@ function term_sd_remote()
                 git --git-dir="./term-sd/.git" remote set-url origin "https://gitclone.com/github.com/licyk/term-sd"
                 ;;
         esac
-        term_sd_notice "Term-SD更新源切换完成"
+        term_sd_echo "Term-SD更新源切换完成"
     fi
 }
 
-#term-sd分支切换
-function term_sd_branch()
+# term-sd分支切换
+term_sd_branch_switch()
 {
-    term_sd_branch_dialog=$(dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD分支切换界面" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的分支\n当前Term-SD分支:$(git --git-dir="./term-sd/.git" branch | grep \* | awk -F "* " '{print $NF}')" 25 80 10 \
+    term_sd_branch_switch_dialog=$(dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD分支切换界面" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的分支\n当前Term-SD分支:$(git --git-dir="./term-sd/.git" branch | grep \* | awk -F "* " '{print $NF}')" 25 80 10 \
         "1" "主分支" \
         "2" "测试分支" \
         "3" "返回" \
         3>&1 1>&2 2>&3)
     
     if [ $? = 0 ];then
-        case $term_sd_branch_dialog in
+        case $term_sd_branch_switch_dialog in
             1)
                 cd ./term-sd
                 git checkout main
                 cd ..
                 cp -f ./term-sd/term-sd.sh .
                 chmod +x ./term-sd.sh
-                term_sd_notice "切换到主分支"
-                term_sd_notice "即将重启Term-SD"
+                term_sd_echo "切换到主分支"
+                term_sd_echo "即将重启Term-SD"
                 sleep 1
                 source ./term-sd.sh
                 ;;
@@ -116,11 +120,35 @@ function term_sd_branch()
                 cd ..
                 cp -f ./term-sd/term-sd.sh .
                 chmod +x ./term-sd.sh
-                term_sd_notice "切换到测试分支"
-                term_sd_notice "即将重启Term-SD"
+                term_sd_echo "切换到测试分支"
+                term_sd_echo "即将重启Term-SD"
                 sleep 1
                 source ./term-sd.sh
                 ;;
         esac
     fi
+}
+
+# 自动更新设置
+term_sd_auto_update_setting()
+{
+    local term_sd_auto_update_setting_dialog
+
+    term_sd_auto_update_setting_dialog=$(dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD自动更新设置界面" --ok-label "确认" --cancel-label "取消" --menu "是否启用Term-SD自动更新?" 25 80 10 \
+        "0" "返回" \
+        "1" "启用" \
+        "2" "禁用" \
+        3>&1 1>&2 2>&3)
+
+    case $term_sd_auto_update_setting_dialog in
+        1)
+            touch ./term-sd/term-sd-auto-update.lock
+            dialog --erase-on-exit --title "Term-SD" --backtitle "缓存重定向设置界面" --ok-label "确认" --msgbox "启用成功" 25 80
+            ;;
+        2)
+            rm -f ./term-sd/term-sd-auto-update.lock
+            rm -f ./term-sd/term-sd-auto-update-time.conf
+            dialog --erase-on-exit --title "Term-SD" --backtitle "缓存重定向设置界面" --ok-label "确认" --msgbox "禁用成功" 25 80
+            ;;
+    esac
 }

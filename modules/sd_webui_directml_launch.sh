@@ -1,14 +1,13 @@
 #!/bin/bash
 
-#sd-webui-directml启动参数生成功能
-function generate_sd_webui_directml_launch()
+# sd-webui-directml启动参数生成功能
+sd_webui_directml_launch_args_setting()
 {
-    #清空启动参数
-    sd_webui_directml_launch_option=""
+    local sd_webui_directml_launch_args_setting_dialog
+    local sd_webui_directml_launch_args
 
-    #展示启动参数选项
-    sd_webui_directml_launch_option_dialog=$(
-        dialog --erase-on-exit --title "A1111-SD-Webui管理" --backtitle "SD-Webui-DirectML启动参数选项" --separate-output --notags --ok-label "确认" --cancel-label "取消" --checklist "请选择SD-Webui-DirectML启动参数,确认之后将覆盖原有启动参数配置" 25 80 10 \
+    sd_webui_directml_launch_args_setting_dialog=$(
+        dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI-DirectML启动参数选项" --separate-output --notags --ok-label "确认" --cancel-label "取消" --checklist "请选择Stable-Diffusion-WebUI-DirectML启动参数,确认之后将覆盖原有启动参数配置" 25 80 10 \
         "1" "(update-all-extensions)启动时更新所有扩展" OFF \
         "2" "(skip-python-version-check)跳过检查python版本" OFF \
         "3" "(skip-torch-cuda-test)跳过CUDA可用性检查" ON \
@@ -78,255 +77,256 @@ function generate_sd_webui_directml_launch()
         "67" "(disable-extra-extensions)禁用非内置的扩展运行" OFF \
         3>&1 1>&2 2>&3)
 
-    #根据菜单得到的数据设置变量
     if [ $? = 0 ];then
-        for i in $sd_webui_directml_launch_option_dialog; do
+        for i in $sd_webui_directml_launch_args_setting_dialog; do
             case $i in
                 1)
-                    sd_webui_directml_launch_option="--update-all-extensions $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--update-all-extensions $sd_webui_directml_launch_args"
                     ;;
                 2)
-                    sd_webui_directml_launch_option="--skip-python-version-check $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--skip-python-version-check $sd_webui_directml_launch_args"
                     ;;
                 3)
-                    sd_webui_directml_launch_option="--skip-torch-cuda-test $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--skip-torch-cuda-test $sd_webui_directml_launch_args"
                     ;;
                 4)
-                    sd_webui_directml_launch_option="--reinstall-xformers $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--reinstall-xformers $sd_webui_directml_launch_args"
                     ;;
                 5)
-                    sd_webui_directml_launch_option="--reinstall-torch $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--reinstall-torch $sd_webui_directml_launch_args"
                     ;;
                 6)
-                    sd_webui_directml_launch_option="--update-check $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--update-check $sd_webui_directml_launch_args"
                     ;;
                 7)
-                    sd_webui_directml_launch_option="--test-server $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--test-server $sd_webui_directml_launch_args"
                     ;;
                 8)
-                    sd_webui_directml_launch_option="--log-startup $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--log-startup $sd_webui_directml_launch_args"
                     ;;
                 9)
-                    sd_webui_directml_launch_option="--skip-prepare-environment $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--skip-prepare-environment $sd_webui_directml_launch_args"
                     ;;
                 10)
-                    sd_webui_directml_launch_option="--skip-install $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--skip-install $sd_webui_directml_launch_args"
                     ;;
                 11)
-                    sd_webui_directml_launch_option="--dump-sysinfo $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--dump-sysinfo $sd_webui_directml_launch_args"
                     ;;
                 12)
-                    sd_webui_directml_launch_option="--do-not-download-clip $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--do-not-download-clip $sd_webui_directml_launch_args"
                     ;;
                 13)
-                    sd_webui_directml_launch_option="--no-half $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--no-half $sd_webui_directml_launch_args"
                     ;;
                 14)
-                    sd_webui_directml_launch_option="--no-half-vae $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--no-half-vae $sd_webui_directml_launch_args"
                     ;;
                 15)
-                    sd_webui_directml_launch_option="--no-progressbar-hiding $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--no-progressbar-hiding $sd_webui_directml_launch_args"
                     ;;
                 16)
-                    sd_webui_directml_launch_option="--allow-code $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--allow-code $sd_webui_directml_launch_args"
                     ;;
                 17)
-                    sd_webui_directml_launch_option="--medvram $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--medvram $sd_webui_directml_launch_args"
                     ;;
                 18)
-                    sd_webui_directml_launch_option="--medvram-sdxl $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--medvram-sdxl $sd_webui_directml_launch_args"
                     ;;
                 19)
-                    sd_webui_directml_launch_option="--lowvram $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--lowvram $sd_webui_directml_launch_args"
                     ;;
                 20)
-                    sd_webui_directml_launch_option="--lowram $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--lowram $sd_webui_directml_launch_args"
                     ;;
                 21)
-                    sd_webui_directml_launch_option="--precision full $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--precision full $sd_webui_directml_launch_args"
                     ;;
                 22)
-                    sd_webui_directml_launch_option="--upcast-sampling $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--upcast-sampling $sd_webui_directml_launch_args"
                     ;;
                 23)
-                    sd_webui_directml_launch_option="--share $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--share $sd_webui_directml_launch_args"
                     ;;
                 24)
-                    sd_webui_directml_launch_option="--enable-insecure-extension-access $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--enable-insecure-extension-access $sd_webui_directml_launch_args"
                     ;;
                 25)
-                    sd_webui_directml_launch_option="--xformers $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--xformers $sd_webui_directml_launch_args"
                     ;;
                 26)
-                    sd_webui_directml_launch_option="--force-enable-xformers $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--force-enable-xformers $sd_webui_directml_launch_args"
                     ;;
                 27)
-                    sd_webui_directml_launch_option="--xformers-flash-attention $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--xformers-flash-attention $sd_webui_directml_launch_args"
                     ;;
                 28)
-                    sd_webui_directml_launch_option="--opt-split-attention $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--opt-split-attention $sd_webui_directml_launch_args"
                     ;;
                 29)
-                    sd_webui_directml_launch_option="--opt-sub-quad-attention $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--opt-sub-quad-attention $sd_webui_directml_launch_args"
                     ;;
                 30)
-                    sd_webui_directml_launch_option="--opt-split-attention-invokeai $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--opt-split-attention-invokeai $sd_webui_directml_launch_args"
                     ;;
                 31)
-                    sd_webui_directml_launch_option="--opt-split-attention-v1 $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--opt-split-attention-v1 $sd_webui_directml_launch_args"
                     ;;
                 32)
-                    sd_webui_directml_launch_option="--opt-sdp-attention $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--opt-sdp-attention $sd_webui_directml_launch_args"
                     ;;
                 33)
-                    sd_webui_directml_launch_option="--opt-sdp-no-mem-attention $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--opt-sdp-no-mem-attention $sd_webui_directml_launch_args"
                     ;;
                 34)
-                    sd_webui_directml_launch_option="--disable-opt-split-attention $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--disable-opt-split-attention $sd_webui_directml_launch_args"
                     ;;
                 35)
-                    sd_webui_directml_launch_option="--disable-nan-check $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--disable-nan-check $sd_webui_directml_launch_args"
                     ;;
                 36)
-                    sd_webui_directml_launch_option="--use-cpu all $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--use-cpu all $sd_webui_directml_launch_args"
                     ;;
                 37)
-                    sd_webui_directml_launch_option="--disable-model-loading-ram-optimization $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--disable-model-loading-ram-optimization $sd_webui_directml_launch_args"
                     ;;
                 38)
-                    sd_webui_directml_launch_option="--listen $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--listen $sd_webui_directml_launch_args"
                     ;;
                 39)
-                    sd_webui_directml_launch_option="--hide-ui-dir-config $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--hide-ui-dir-config $sd_webui_directml_launch_args"
                     ;;
                 40)
-                    sd_webui_directml_launch_option="--freeze-settings $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--freeze-settings $sd_webui_directml_launch_args"
                     ;;
                 41)
-                    sd_webui_directml_launch_option="--gradio-debug $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--gradio-debug $sd_webui_directml_launch_args"
                     ;;
                 42)
-                    sd_webui_directml_launch_option="--opt-channelslast $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--opt-channelslast $sd_webui_directml_launch_args"
                     ;;
                 43)
-                    sd_webui_directml_launch_option="--autolaunch $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--autolaunch $sd_webui_directml_launch_args"
                     ;;
                 44)
-                    sd_webui_directml_launch_option="--theme dark $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--theme dark $sd_webui_directml_launch_args"
                     ;;
                 45)
-                    sd_webui_directml_launch_option="--use-textbox-seed $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--use-textbox-seed $sd_webui_directml_launch_args"
                     ;;
                 46)
-                    sd_webui_directml_launch_option="--disable-console-progressbars $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--disable-console-progressbars $sd_webui_directml_launch_args"
                     ;;
                 47)
-                    sd_webui_directml_launch_option="--enable-console-prompts $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--enable-console-prompts $sd_webui_directml_launch_args"
                     ;;
                 48)
-                    sd_webui_directml_launch_option="--disable-safe-unpickle $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--disable-safe-unpickle $sd_webui_directml_launch_args"
                     ;;
                 49)
-                    sd_webui_directml_launch_option="--api $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--api $sd_webui_directml_launch_args"
                     ;;
                 50)
-                    sd_webui_directml_launch_option="--api-log $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--api-log $sd_webui_directml_launch_args"
                     ;;
                 51)
-                    sd_webui_directml_launch_option="--nowebui $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--nowebui $sd_webui_directml_launch_args"
                     ;;
                 52)
-                    sd_webui_directml_launch_option="--onnx $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--onnx $sd_webui_directml_launch_args"
                     ;;
                 53)
-                    sd_webui_directml_launch_option="--olive $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--olive $sd_webui_directml_launch_args"
                     ;;
                 54)
-                    sd_webui_directml_launch_option="--backend cuda $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--backend cuda $sd_webui_directml_launch_args"
                     ;;
                 55)
-                    sd_webui_directml_launch_option="--backend rocm $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--backend rocm $sd_webui_directml_launch_args"
                     ;;
                 56)
-                    sd_webui_directml_launch_option="--backend directml $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--backend directml $sd_webui_directml_launch_args"
                     ;;
                 57)
-                    sd_webui_directml_launch_option="--ui-debug-mode $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--ui-debug-mode $sd_webui_directml_launch_args"
                     ;;
                 58)
-                    sd_webui_directml_launch_option="--administrator $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--administrator $sd_webui_directml_launch_args"
                     ;;
                 59)
-                    sd_webui_directml_launch_option="--disable-tls-verify $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--disable-tls-verify $sd_webui_directml_launch_args"
                     ;;
                 60)
-                    sd_webui_directml_launch_option="--no-gradio-queue $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--no-gradio-queue $sd_webui_directml_launch_args"
                     ;;
                 61)
-                    sd_webui_directml_launch_option="--skip-version-check $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--skip-version-check $sd_webui_directml_launch_args"
                     ;;
                 62)
-                    sd_webui_directml_launch_option="--no-hashing $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--no-hashing $sd_webui_directml_launch_args"
                     ;;
                 63)
-                    sd_webui_directml_launch_option="--no-download-sd-model $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--no-download-sd-model $sd_webui_directml_launch_args"
                     ;;
                 64)
-                    sd_webui_directml_launch_option="--add-stop-route $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--add-stop-route $sd_webui_directml_launch_args"
                     ;;
                 65)
-                    sd_webui_directml_launch_option="--api-server-stop $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--api-server-stop $sd_webui_directml_launch_args"
                     ;;
                 66)
-                    sd_webui_directml_launch_option="--disable-all-extensions $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--disable-all-extensions $sd_webui_directml_launch_args"
                     ;;
                 67)
-                    sd_webui_directml_launch_option="--disable-extra-extensions $sd_webui_directml_launch_option"
+                    sd_webui_directml_launch_args="--disable-extra-extensions $sd_webui_directml_launch_args"
                     ;;
             esac
         done
     
-        #生成启动脚本
-        term_sd_notice "设置启动参数> $sd_webui_directml_launch_option"
-        echo "launch.py $sd_webui_directml_launch_option" > term-sd-launch.conf
+        # 生成启动脚本
+        term_sd_echo "设置启动参数> $sd_webui_directml_launch_args"
+        echo "launch.py $sd_webui_directml_launch_args" > term-sd-launch.conf
     fi
 }
 
-#a1111-sd-webui启动界面
-function sd_webui_directml_launch()
+# sd-webui-directml启动界面
+sd_webui_directml_launch()
 {
-    sd_webui_directml_launch_dialog=$(dialog --erase-on-exit --title "A1111-SD-Webui管理" --backtitle "SD-Webui-DirectML启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动SD-Webui-DirectML/修改SD-Webui-DirectML启动参数\n当前启动参数:\n$([ $venv_active = 0 ] && echo python || echo "$term_sd_python_path") $(cat ./term-sd-launch.conf)" 25 80 10 \
+    local sd_webui_directml_launch_dialog
+
+    sd_webui_directml_launch_dialog=$(dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI-DirectML启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动Stable-Diffusion-WebUI-DirectML/修改Stable-Diffusion-WebUI-DirectML启动参数\n当前启动参数:\n$([ $venv_active = 0 ] && echo python || echo "$term_sd_python_path") $(cat ./term-sd-launch.conf)" 25 80 10 \
         "1" "启动" \
         "2" "选择预设启动参数" \
         "3" "自定义启动参数" \
         "4" "返回" \
         3>&1 1>&2 2>&3)
     
-    if [ $? = 0 ];then
-        case $sd_webui_directml_launch_dialog in
-            1)
-                term_sd_launch
-                sd_webui_directml_launch
-                ;;
-            2)
-                generate_sd_webui_directml_launch
-                sd_webui_directml_launch
-                ;;
-            3)
-                sd_webui_directml_manual_launch
-                sd_webui_directml_launch
-                ;;
-        esac
-    fi
+    case $sd_webui_directml_launch_dialog in
+        1)
+            term_sd_launch
+            sd_webui_directml_launch
+            ;;
+        2)
+            sd_webui_directml_launch_args_setting
+            sd_webui_directml_launch
+            ;;
+        3)
+            sd_webui_directml_launch_args_revise
+            sd_webui_directml_launch
+            ;;
+    esac
 }
 
-#a1111-sd-webui手动输入启动参数界面
-function sd_webui_directml_manual_launch()
+# sd-webui-directml手动输入启动参数界面
+sd_webui_directml_launch_args_revise()
 {
-    sd_webui_directml_manual_launch_parameter=$(dialog --erase-on-exit --title "A1111-SD-Webui管理" --backtitle "SD-Webui-DirectML自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入SD-Webui-DirectML启动参数" 25 80 "$(cat ./term-sd-launch.conf | awk '{sub("launch.py ","")}1')" 3>&1 1>&2 2>&3)
+    local sd_webui_directml_launch_args
+
+    sd_webui_directml_launch_args=$(dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI-DirectML自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入Stable-Diffusion-WebUI-DirectML启动参数" 25 80 "$(cat ./term-sd-launch.conf | awk '{sub("launch.py ","")}1')" 3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
-        term_sd_notice "设置启动参数> $sd_webui_directml_manual_launch_parameter"
-        echo "launch.py $sd_webui_directml_manual_launch_parameter" > term-sd-launch.conf 
+        term_sd_echo "设置启动参数> $sd_webui_directml_launch_args"
+        echo "launch.py $sd_webui_directml_launch_args" > term-sd-launch.conf 
     fi
 }

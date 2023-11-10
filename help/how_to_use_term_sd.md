@@ -478,4 +478,4 @@ download-hanamizuki：下载绘世启动器
 ||绘世启动器|
 |---|---|
 |↓|[下载地址1](https://github.com/licyk/README-collection/releases/download/archive/hanamizuki.exe)|
-|↓|[下载地址2](https://gitee.com/four-dishes/README-collection/releases/download/v0.0.1/hanamizuki.exe)|
+|↓|[下载地址2](https://gitee.com/licyk/README-collection/releases/download/v0.0.1/hanamizuki.exe)|

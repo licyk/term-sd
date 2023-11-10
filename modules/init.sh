@@ -1,14 +1,14 @@
 #!/bin/bash
 
-#term-sd初始化部分
-function term_sd_init()
+# term-sd初始化部分
+term_sd_init()
 {
     term_sd_modules_number=$(( $(ls ./term-sd/modules/*.sh | wc -w) - 1 ))
     term_sd_modules_number_=1
     term_sd_init_bar_notice="[$(date "+%Y-%m-%d %H:%M:%S")][Term-SD]:: "
     for i in ./term-sd/modules/*.sh ;do
         [ $i = "./term-sd/modules/init.sh" ] && continue
-        printf "$term_sd_init_bar_notice[$term_sd_modules_number_/$term_sd_modules_number] 加载> $(echo $i | awk -F'/' '{print $NF}')                              \r"
+        printf "$term_sd_init_bar_notice[$term_sd_modules_number_/$term_sd_modules_number] 加载> $(basename $i .sh)                              \r"
         term_sd_modules_number_=$(( $term_sd_modules_number_ + 1 ))
         source $i
     done
@@ -16,8 +16,8 @@ function term_sd_init()
     print_line_to_shell
 }
 
-#term-sd初始化部分(带进度条)
-function term_sd_init_new()
+# term-sd初始化部分(带进度条)
+term_sd_init_new()
 {
     term_sd_modules_number_sum="$(( $(ls ./term-sd/modules/*.sh | wc -w) - 1 ))" #需要加载的模块数量
     term_sd_modules_number=1
@@ -37,8 +37,8 @@ function term_sd_init_new()
     print_line_to_shell
 }
 
-#进度条生成功能(开了只会降低加载速度)
-function term_sd_process_bar()
+# 进度条生成功能(开了只会降低加载速度)
+term_sd_process_bar()
 {
     term_sd_modules_number_mark=$(echo $(awk 'BEGIN {print '$term_sd_modules_number' / '$term_sd_modules_number_sum' * 100 }') | awk -F'.' '{print $1}') #加载进度百分比
     term_sd_process_bar_length=$(echo $(awk 'BEGIN {print '$term_sd_modules_number' / '$term_sd_modules_number_sum' * '$term_sd_process_bar_initial_length' }') | awk -F'.' '{print $1}') #进度条已完成的实时长度
@@ -55,8 +55,8 @@ function term_sd_process_bar()
     printf "[$(date "+%Y-%m-%d %H:%M:%S")][Term-SD]:: 加载模块中|${term_sd_init_bar}| ${term_sd_modules_number_mark}%%\r"
 }
 
-#无进度显示的初始化功能(增加进度显示只会降低加载速度)
-function term_sd_init_no_bar()
+# 无进度显示的初始化功能(增加进度显示只会降低加载速度)
+term_sd_init_no_bar()
 {
     for i in ./term-sd/modules/*.sh ;do
         [ $i = "./term-sd/modules/init.sh" ] && continue
@@ -66,7 +66,7 @@ function term_sd_init_no_bar()
     print_line_to_shell
 }
 
-#初始化功能
+# 初始化功能
 if [ -f "./term-sd/term-sd-no-bar.lock" ];then
     term_sd_init_no_bar
 elif [ -f "./term-sd/term-sd-new-bar.lock" ];then

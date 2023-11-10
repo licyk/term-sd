@@ -76,7 +76,7 @@ pacman -S dialog
 
 Debian(Ubuntu)系：  
 ```
-sudo apt install python3 python3-pip python3-venv git aria2 dialog
+sudo apt install python3 python3-pip python3-venv git aira2 dialog
 ```
 ArchLinux系：  
 ```
@@ -155,20 +155,3 @@ aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/sd-webui-scri
 
 >huggingface目前在大陆网络环境无法访问😭，需要使用带有TUN模式或者驱动模式的代理软件(如果代理软件没有TUN模式或者驱动模式，需在Term-SD中配置好代理参数)，保证能够正常下载模型。Term-SD能否访问huggingface可使用Term-SD主界面的`代理设置`->`网络测试`来测试  
 Term-SD在安装ai软件的过程提供modelscope模型下载源，避免huggingface在国内无法访问而导致下载模型失败，但在ai软件运行过程中，ai软件本体或者插件可能会使用huggingface下载模型，这时还是需要使用代理的。可以搭配绘世启动器解决问题（绘世启动器可将huggingface下载链接重定向至国内下载源，解决huggingface无法访问导致下载不了模型的问题）
-
-***
-
-# sd-webui-for-colab(停更)
-### 推荐使用 https://github.com/Van-wise/sd-colab
-
-脚本修改自https://github.com/camenduru/stable-diffusion-webui-colab  
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/licyk/sd-webui-scipt/blob/main/other/stable_diffusion_webui_colab.ipynb)(stable)  
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/licyk/sd-webui-scipt/blob/main/other/fast_stable_diffusion.ipynb)(for  colab free user)  
-
-# stable-diffusion-webui-install(停更)
-
-stable diffusion本地部署脚本  
-使用前请确保已安装python、git、aria2  
-stable-diffusion-webui-install.sh为无github代理的版本  
-stable-diffusion-webui-install-proxy.sh添加了github代理，在国内环境下载更快  
-update.sh为一键更新sd-webui脚本，用于更新stable diffusion本体和插件，请将该脚本放入stable-diffusion-webui目录下再运行
