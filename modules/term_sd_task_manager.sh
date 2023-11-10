@@ -81,7 +81,7 @@ term_sd_get_task_cmd()
 # 使用格式: term_sd_task_cmd_revise <文件路径> <指定行数>
 term_sd_task_cmd_revise()
 {
-    sed ''${2}'s/__term_sd_task_pre_/__term_sd_task_done_/' ${1}
+    sed -i ''$2's/__term_sd_task_pre_/__term_sd_task_done_/' $1 > /dev/null
 }
 
 # 设置安装时使用的环境变量

@@ -12,10 +12,11 @@ install_fooocus()
         for ((cmd_point=1;cmd_point<=cmd_sum;cmd_point++))
         do
             term_sd_echo "Fooocus安装进度:[$cmd_point/$cmd_sum]"
-            install_cmd=$(term_sd_get_task_cmd $(cat "$start_path/term-sd/task/fooocus_install.sh" | awk 'NR=='${1}'{print$0}'))
+            install_cmd=$(term_sd_get_task_cmd $(cat "$start_path/term-sd/task/fooocus_install.sh" | awk 'NR=='${cmd_point}'{print$0}'))
 
             if [ -z "$(echo "$install_cmd" | grep -o __term_sd_task_done_ )" ];then # 检测命令是否需要执行
-                "$install_cmd" # 执行命令
+                echo "$install_cmd" > "$start_path/term-sd/task/cache.sh" # 取出命令并放入缓存文件中
+                source "$start_path/term-sd/task/cache.sh" # 执行命令
             else
                 true
             fi
@@ -64,7 +65,8 @@ install_fooocus()
                 term_sd_echo "Fooocus安装进度:[$cmd_point/$cmd_sum]"
                 install_cmd=$(term_sd_get_task_cmd $(cat "$start_path/term-sd/task/fooocus_install.sh" | awk 'NR=='${cmd_point}'{print$0}'))
                 if [ -z "$(echo "$install_cmd" | grep -o __term_sd_task_done_ )" ];then # 检测命令是否需要执行
-                    "$install_cmd" # 执行命令
+                    echo "$install_cmd" > "$start_path/term-sd/task/cache.sh" # 取出命令并放入缓存文件中
+                    source "$start_path/term-sd/task/cache.sh" # 执行命令
                 else
                     true
                 fi

@@ -83,7 +83,7 @@ term_sd_manager()
 
     case $term_sd_manager_dialog in
         0) # 选择Term-SD更新
-            term_sd_update_option
+            term_sd_update_manager
             ;;
         1) # 选择stable-diffusion-webui
             term_sd_install_task_manager stable-diffusion-webui
@@ -104,7 +104,7 @@ term_sd_manager()
             term_sd_setting
             ;;
         7) # 选择帮助
-            help_option
+            term_sd_help
             ;;
         *) # 选择退出
             term_sd_print_line

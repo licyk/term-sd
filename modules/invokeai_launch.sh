@@ -15,37 +15,37 @@ invokeai_launch()
 
     case $invokeai_launch_dialog in
         1)
-            print_line_to_shell "$term_sd_manager_info 启动"
+            term_sd_print_line "$term_sd_manager_info 启动"
             invokeai-configure --root ./invokeai
-            print_line_to_shell
+            term_sd_print_line
             invokeai_launch
             ;;
         2)
-            print_line_to_shell "$term_sd_manager_info 启动"
-            term_sd_notice "提示:可以使用\"Ctrl+C\"终止ai软件的运行"
+            term_sd_print_line "$term_sd_manager_info 启动"
+            term_sd_echo "提示:可以使用\"Ctrl+C\"终止ai软件的运行"
             invokeai-web --root ./invokeai
             term_sd_echo "运行结束"
-            print_line_to_shell
+            term_sd_print_line
             invokeai_launch
             ;;
         3)
-            print_line_to_shell "$term_sd_manager_info 启动"
-            term_sd_notice "提示:可以使用\"Ctrl+C\"终止ai软件的运行"
+            term_sd_print_line "$term_sd_manager_info 启动"
+            term_sd_echo "提示:可以使用\"Ctrl+C\"终止ai软件的运行"
             invokeai-web --host 0.0.0.0 --root ./invokeai
             term_sd_echo "运行结束"
-            print_line_to_shell
+            term_sd_print_line
             invokeai_launch
             ;;
         4)
-            print_line_to_shell "$term_sd_manager_info 启动"
+            term_sd_print_line "$term_sd_manager_info 启动"
             invokeai-ti --gui --root ./invokeai
-            print_line_to_shell
+            term_sd_print_line
             invokeai_launch
             ;;
         5)
-            print_line_to_shell "$term_sd_manager_info 启动"
+            term_sd_print_line "$term_sd_manager_info 启动"
             invokeai-merge --gui --root ./invokeai
-            print_line_to_shell
+            term_sd_print_line
             invokeai_launch
             ;;
     esac

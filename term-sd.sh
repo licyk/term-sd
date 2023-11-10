@@ -233,8 +233,8 @@ term_sd_test_args()
 # 提示未知启动参数
 term_sd_unknown_args_echo()
 {
-    if [ $(term_sd_test_args $@) = 0 ];then # 测试输入值是参数还是选项
-        term_sd_echo "未知参数 \"$i\""
+    if [ $(term_sd_test_args $@) = 0 ] && [ ! $@ = "--null" ];then # 测试输入值是参数还是选项
+        term_sd_echo "未知参数 \"$@\""
     fi
 }
 
@@ -416,8 +416,6 @@ term_sd_reinstall()
         esac
     fi
 }
-
-
 
 # term-sd卸载功能
 term_sd_remove()
@@ -746,6 +744,7 @@ export term_sd_version_="1.0.0pre" # term-sd版本
 export user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题
+export pip_manager_update=1
 
 # 在使用http_proxy变量后,会出现ValueError: When localhost is not accessible, a shareable link must be created. Please set share=True
 # 导致启动异常

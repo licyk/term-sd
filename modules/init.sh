@@ -12,8 +12,8 @@ term_sd_init()
         term_sd_modules_number_=$(( $term_sd_modules_number_ + 1 ))
         source $i
     done
-    printf "[$(date "+%Y-%m-%d %H:%M:%S")][Term-SD]:: 初始化Term-SD完成                               \n"
-    print_line_to_shell
+    printf "[$(date "+%Y-%m-%d %H:%M:%S")][Term-SD][info]:: 初始化Term-SD完成                               \n"
+    term_sd_print_line
 }
 
 # term-sd初始化部分(带进度条)
@@ -33,8 +33,8 @@ term_sd_init_new()
         source $i #加载模块
     done
     echo
-    term_sd_notice "初始化Term-SD完成"
-    print_line_to_shell
+    term_sd_echo "初始化Term-SD完成"
+    term_sd_print_line
 }
 
 # 进度条生成功能(开了只会降低加载速度)
@@ -52,7 +52,7 @@ term_sd_process_bar()
         fi
         term_sd_init_bar="${term_sd_init_bar}${term_sd_init_bar_display}" #一开始是空的，通过循环填上一堆空格,然后逐渐减少空格数量,增加方块符号的数量
     done
-    printf "[$(date "+%Y-%m-%d %H:%M:%S")][Term-SD]:: 加载模块中|${term_sd_init_bar}| ${term_sd_modules_number_mark}%%\r"
+    printf "[$(date "+%Y-%m-%d %H:%M:%S")][Term-SD][info]:: 加载模块中|${term_sd_init_bar}| ${term_sd_modules_number_mark}%%\r"
 }
 
 # 无进度显示的初始化功能(增加进度显示只会降低加载速度)
@@ -62,8 +62,8 @@ term_sd_init_no_bar()
         [ $i = "./term-sd/modules/init.sh" ] && continue
         source $i
     done
-    term_sd_notice "初始化Term-SD完成"
-    print_line_to_shell
+    term_sd_echo "初始化Term-SD完成"
+    term_sd_print_line
 }
 
 # 初始化功能
