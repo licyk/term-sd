@@ -6,33 +6,33 @@ term_sd_install_task_manager()
 {
     local term_sd_install_task_manager_dialog
     local term_sd_install_task_file_path
-    local term_sd_install_exwc_cmd
+    local term_sd_install_exec_cmd
     local term_sd_manager_exec_cmd
 
     case $@ in
         stable-diffusion-webui)
-            term_sd_install_task_file_path="$start_path/term-sd/task/sd_webui_install_task.md"
-            term_sd_install_exwc_cmd="install_sd_webui"
+            term_sd_install_task_file_path="$start_path/term-sd/task/sd_webui_install.sh"
+            term_sd_install_exec_cmd="install_sd_webui"
             term_sd_manager_exec_cmd="sd_webui_manager"
             ;;
         ComfyUI)
-            term_sd_install_task_file_path="$start_path/term-sd/task/comfyui_install_task.md"
-            term_sd_install_exwc_cmd="install_sd_webui"
+            term_sd_install_task_file_path="$start_path/term-sd/task/comfyui_install.sh"
+            term_sd_install_exec_cmd="install_sd_webui"
             term_sd_manager_exec_cmd="comfyui_manager"
             ;;
         InvokeAI)
-            term_sd_install_task_file_path="$start_path/term-sd/task/invokeai_install_task.md"
-            term_sd_install_exwc_cmd="install_sd_webui"
+            term_sd_install_task_file_path="$start_path/term-sd/task/invokeai_install.sh"
+            term_sd_install_exec_cmd="install_sd_webui"
             term_sd_manager_exec_cmd="invokeai_manager"
             ;;
         Fooocus)
-            term_sd_install_task_file_path="$start_path/term-sd/task/fooocus_install_task.md"
-            term_sd_install_exwc_cmd="install_sd_webui"
+            term_sd_install_task_file_path="$start_path/term-sd/task/fooocus_install.sh"
+            term_sd_install_exec_cmd="install_sd_webui"
             term_sd_manager_exec_cmd="fooocus_manager"
             ;;
         lora-scripts)
-            term_sd_install_task_file_path="$start_path/term-sd/task/lora_scripts_install_task.md"
-            term_sd_install_exwc_cmd="install_sd_webui"
+            term_sd_install_task_file_path="$start_path/term-sd/task/lora_scripts_install.sh"
+            term_sd_install_exec_cmd="install_sd_webui"
             term_sd_manager_exec_cmd="lora_scripts_manager"
             ;;
     esac
@@ -48,11 +48,11 @@ term_sd_install_task_manager()
 
         case $term_sd_install_task_manager_dialog in
             1) # 寻找任务队列表并执行
-                $term_sd_install_exwc_cmd
+                $term_sd_install_exec_cmd
                 ;;
             2) # 删除原有的任务队列表并进入安装参数设置界面
                 rm -f "$term_sd_install_task_file_path"
-                $term_sd_install_exwc_cmd
+                $term_sd_install_exec_cmd
                 ;;
             3) # 删除原有的任务队列表并进入管理界面
                 rm -f "$term_sd_install_task_file_path"

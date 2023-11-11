@@ -117,6 +117,7 @@ comfyui_manager()
             14)
                 if (dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装ComfyUI?" 25 80) then
                     cd "$start_path"
+                    rm -f "$start_path/term-sd/task/comfyui_install.sh"
                     exit_venv
                     install_comfyui
                 else
@@ -149,6 +150,7 @@ comfyui_manager()
         esac
     else
         if (dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI安装选项" --yes-label "是" --no-label "否" --yesno "检测到当前未安装ComfyUI,是否进行安装?" 25 80) then
+            rm -f "$start_path/term-sd/task/comfyui_install.sh"
             install_comfyui
         fi
     fi

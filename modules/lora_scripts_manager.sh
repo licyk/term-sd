@@ -103,6 +103,7 @@ lora_scripts_manager()
             12)
                 if (dialog --erase-on-exit --title "lora-scripts管理" --backtitle "lora-scripts重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装lora-scripts?" 25 80) then
                     cd "$start_path"
+                    rm -f "$start_path/term-sd/task/lora_scripts_install.sh"
                     exit_venv
                     install_lora_scripts
                 else
@@ -135,6 +136,7 @@ lora_scripts_manager()
         esac
     else
         if (dialog --erase-on-exit --title "lora-scripts管理" --backtitle "lora-scripts安装选项" --yes-label "是" --no-label "否" --yesno "检测到当前未安装lora_scripts,是否进行安装?" 25 80) then
+            rm -f "$start_path/term-sd/task/lora_scripts_install.sh"
             install_lora_scripts
         fi
     fi

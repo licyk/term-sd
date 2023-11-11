@@ -14,7 +14,7 @@ install_invokeai()
             term_sd_echo "InvokeAI安装进度:[$cmd_point/$cmd_sum]"
             install_cmd=$(term_sd_get_task_cmd $(cat "$start_path/term-sd/task/invokeai_install.sh" | awk 'NR=='${cmd_point}'{print$0}'))
 
-            if [ -z "$(echo "$install_cmd" | grep -o __term_sd_task_done_ )" ];then # 检测命令是否需要执行
+            if [ -z "$(echo "$(cat "$start_path/term-sd/task/invokeai_install.sh" | awk 'NR=='${cmd_point}'{print$0}')" | grep -o __term_sd_task_done_ )" ];then # 检测命令是否需要执行
                 echo "$install_cmd" > "$start_path/term-sd/task/cache.sh" # 取出命令并放入缓存文件中
                 source "$start_path/term-sd/task/cache.sh" # 执行命令
             else
@@ -38,6 +38,7 @@ install_invokeai()
         term_sd_tmp_enable_proxy # 恢复代理
         term_sd_echo "InvokeAI安装结束"
         rm -f "$start_path/term-sd/task/invokeai_install.sh" # 删除任务文件
+        rm -f "$start_path/term-sd/task/cache.sh"
         invokeai_manager # 进入管理界面
     else # 生成安装任务并执行安装任务
         # 安装前的准备
@@ -64,7 +65,8 @@ install_invokeai()
             do
                 term_sd_echo "InvokeAI安装进度:[$cmd_point/$cmd_sum]"
                 install_cmd=$(term_sd_get_task_cmd $(cat "$start_path/term-sd/task/invokeai_install.sh" | awk 'NR=='${cmd_point}'{print$0}'))
-                if [ -z "$(echo "$install_cmd" | grep -o __term_sd_task_done_ )" ];then # 检测命令是否需要执行
+
+                if [ -z "$(echo "$(cat "$start_path/term-sd/task/invokeai_install.sh" | awk 'NR=='${cmd_point}'{print$0}')" | grep -o __term_sd_task_done_ )" ];then # 检测命令是否需要执行
                     echo "$install_cmd" > "$start_path/term-sd/task/cache.sh" # 取出命令并放入缓存文件中
                     source "$start_path/term-sd/task/cache.sh" # 执行命令
                 else
@@ -88,6 +90,7 @@ install_invokeai()
             term_sd_tmp_enable_proxy # 恢复代理
             term_sd_echo "InvokeAI安装结束"
             rm -f "$start_path/term-sd/task/invokeai_install.sh" # 删除任务文件
+            rm -f "$start_path/term-sd/task/cache.sh"
             invokeai_manager # 进入管理界面
         fi
     fi

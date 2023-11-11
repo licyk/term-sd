@@ -68,10 +68,13 @@ git_format_repository_url()
 
 # git克隆项目(使用格式化链接)
 # 使用格式: git_clone_repository <链接格式> <原链接> <下载路径> <文件夹名称>
+# 注: 路径的左右不能有"/"
 git_clone_repository()
 {
     local git_clone_repository_path
     local git_clone_repository_url
+
+    git_clone_repository_url=$(git_format_repository_url $1 $2) # 生成格式化后的链接
     if [ ! -z $3 ];then # 下载路径不为空
         if [ ! -z $4 ];then # 文件夹名称不为空
             git_clone_repository_path="./${3}/${4}"
@@ -82,9 +85,9 @@ git_clone_repository()
         git_clone_repository_path="./$(echo $git_clone_repository_url | awk -F'/' '{print $NF}')"
     fi
 
-    git_clone_repository_url=$(git_format_repository_url $1 $2) # 生成格式化后的链接
-    [ -d "$git_clone_repository_path" ] && rm -rf $git_clone_repository_path # 出现同名文件夹时执行删除
-    term_sd_watch git clone $git_clone_repository_url $git_clone_repository_path
+    if [ ! -d "$git_clone_repository_path" ];then # 出现同名文件夹时终止执行
+        term_sd_watch git clone $git_clone_repository_url $git_clone_repository_path
+    fi
 }
 
 # git远程源替换

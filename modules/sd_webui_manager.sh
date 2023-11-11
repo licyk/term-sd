@@ -125,6 +125,7 @@ sd_webui_manager()
             14)
                 if (dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装Stable-Diffusion-WebUI?" 25 80) then
                     cd "$start_path"
+                    rm -f "$start_path/term-sd/task/sd_webui_install.sh"
                     exit_venv
                     install_sd_webui
                 else

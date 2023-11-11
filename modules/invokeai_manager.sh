@@ -50,34 +50,23 @@ invokeai_manager()
                     fi
                     invokeai_manager
                     ;;
-                
-                
                 3)
                     invokeai_update_depend
                     invokeai_manager
                     ;;
                 4)
-                    if (dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装InvokeAI?" 25 80) then
-                        cd "$start_path"
-                        exit_venv
-                        install_invokeai
-                    else
-                        invokeai_manager
-                    fi
-                    ;;
-                5)
-                    pytorch_reinstall
-                    invokeai_manager
-                    ;;
-                6)
                     python_package_manager
                     invokeai_manager
                     ;;
-                7)
+                5)
                     python_package_ver_backup_manager
                     invokeai_manager
                     ;;
-                8)
+                6)
+                    pytorch_reinstall
+                    invokeai_manager
+                    ;;
+                7)
                     if [ $venv_setup_status = 0 ];then
                         if (dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI虚拟环境修复选项" --yes-label "是" --no-label "否" --yesno "是否修复InvokeAI的虚拟环境" 25 80);then
                             create_venv --fix
@@ -89,7 +78,7 @@ invokeai_manager()
                     fi
                         invokeai_manager
                     ;;
-                9)
+                8)
                     if [ $venv_setup_status = 0 ];then
                         if (dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建InvokeAI的虚拟环境" 25 80);then
                             invokeai_venv_rebuild
@@ -98,6 +87,16 @@ invokeai_manager()
                         dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI虚拟环境重建选项" --ok-label "确认" --msgbox "虚拟环境功能已禁用,无法使用该功能" 25 80
                     fi
                     invokeai_manager
+                    ;;
+                9)
+                    if (dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装InvokeAI?" 25 80) then
+                        cd "$start_path"
+                        rm -f "$start_path/term-sd/task/invokeai_install.sh"
+                        exit_venv
+                        install_invokeai
+                    else
+                        invokeai_manager
+                    fi
                     ;;
                 10)
                     if (dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI删除选项" --yes-label "是" --no-label "否" --yesno "是否删除InvokeAI?" 25 80) then
@@ -126,12 +125,14 @@ invokeai_manager()
         else 
             if (dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI安装选项" --yes-label "是" --no-label "否" --yesno "检测到当前未安装InvokeAI,是否进行安装?" 25 80) then
                 cd "$start_path"
+                rm -f "$start_path/term-sd/task/invokeai_install.sh"
                 install_invokeai
             fi
         fi
     else
         if (dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI安装选项" --yes-label "是" --no-label "否" --yesno "检测到当前未安装InvokeAI,是否进行安装?" 25 80) then
-          install_invokeai
+            rm -f "$start_path/term-sd/task/invokeai_install.sh"
+            install_invokeai
         fi
     fi
 }

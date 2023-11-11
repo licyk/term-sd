@@ -26,8 +26,8 @@ download_mirror_select()
         "9" "启用github镜像源5(使用gh.idayer镜像站下载github上的源码)" OFF \
         3>&1 1>&2 2>&3)
 
-    for i in $proxy_option_dialog; do
-        case "$i" in
+    for i in $download_mirror_select_dialog; do
+        case $i in
             1)
                 pip_index_mirror="--index-url https://mirrors.bfsu.edu.cn/pypi/web/simple"
                 pip_extra_index_mirror="--extra-index-url https://mirrors.hit.edu.cn/pypi/web/simple --extra-index-url https://pypi.tuna.tsinghua.edu.cn/simple --extra-index-url https://mirror.nju.edu.cn/pypi/web/simple"
@@ -156,7 +156,7 @@ huggingface下载源独占代理:$([ $only_hugggingface_proxy = 0 ] && echo "启
 使用modelscope模型下载源:$([ $use_modelscope_model = 0 ] && echo "启用" || echo "禁用")\n
 强制使用pip:$([ -z "$pip_break_system_package" ] && echo "禁用" || echo "启用")\n
 pytorch版本:$([ ! -z "$(echo $pytorch_install_version | awk '{gsub(/[=+]/, "")}1')" ] && echo $pytorch_install_version || echo "无")\n
-pip安装方式:$final_install_check_pip_methon\n
+pip安装方式:$([ -z $pip_install_mode ] && echo "常规安装(setup.py)" || echo "标准构建安装(--use-pep517)")\n
 " 25 80);then
         term_sd_echo "确认进行安装"
         return 0
