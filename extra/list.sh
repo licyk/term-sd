@@ -1,5 +1,5 @@
 #!/bin/bash
-#没啥用的脚本
+# 没啥用的脚本
 term_sd_echo "当前可用扩展脚本列表"
 term_sd_print_line
 ls -lrh "./term-sd/extra" --time-style=+"%Y-%m-%d" | awk 'NR>=2 {print "  "$7}' | awk -F'.sh' '{print $1}'

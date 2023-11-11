@@ -5,14 +5,14 @@ term_sd_init()
 {
     term_sd_modules_number=$(( $(ls ./term-sd/modules/*.sh | wc -w) - 1 ))
     term_sd_modules_number_=1
-    term_sd_init_bar_notice="[$(date "+%Y-%m-%d %H:%M:%S")][Term-SD]:: "
+    term_sd_init_bar_notice="[$(date "+%Y-%m-%d %H:%M:%S")][\033[36mTerm-SD\033[0m][\033[32minfo\033[0m]:: "
     for i in ./term-sd/modules/*.sh ;do
         [ $i = "./term-sd/modules/init.sh" ] && continue
         printf "$term_sd_init_bar_notice[$term_sd_modules_number_/$term_sd_modules_number] 加载: $(basename $i .sh)                              \r"
         term_sd_modules_number_=$(( $term_sd_modules_number_ + 1 ))
         source $i
     done
-    printf "[$(date "+%Y-%m-%d %H:%M:%S")][Term-SD][info]:: 初始化Term-SD完成                               \n"
+    printf "[$(date "+%Y-%m-%d %H:%M:%S")][\033[36mTerm-SD\033[0m][\033[32minfo\033[0m]:: 初始化Term-SD完成                               \n"
     term_sd_print_line
 }
 
@@ -52,7 +52,7 @@ term_sd_process_bar()
         fi
         term_sd_init_bar="${term_sd_init_bar}${term_sd_init_bar_display}" #一开始是空的，通过循环填上一堆空格,然后逐渐减少空格数量,增加方块符号的数量
     done
-    printf "[$(date "+%Y-%m-%d %H:%M:%S")][Term-SD][info]:: 加载模块中|${term_sd_init_bar}| ${term_sd_modules_number_mark}%%\r"
+    printf "[$(date "+%Y-%m-%d %H:%M:%S")][\033[36mTerm-SD\033[0m][\033[32minfo\033[0m]:: 加载模块中|${term_sd_init_bar}| ${term_sd_modules_number_mark}%%\r"
 }
 
 # 无进度显示的初始化功能(增加进度显示只会降低加载速度)

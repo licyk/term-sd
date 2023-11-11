@@ -211,29 +211,37 @@ term_sd_extra_scripts_launch()
 # 扩展脚本选择
 term_sd_extra_scripts()
 {
+    local extra_script_dir_list
+    local extra_script_dir_list_select
+
     extra_script_dir_list=$(ls -l "./term-sd/extra" --time-style=+"%Y-%m-%d" | awk -F ' ' ' { print $7 " " $6 } ')
-    extra_script_dir_list_=$(dialog --erase-on-exit --title "Term-SD" --backtitle "扩展脚本选项" --ok-label "确认" --cancel-label "取消" --menu "请选择要启动的脚本" 25 80 10 \
+    extra_script_dir_list_select=$(dialog --erase-on-exit --title "Term-SD" --backtitle "扩展脚本选项" --ok-label "确认" --cancel-label "取消" --menu "请选择要启动的脚本" 25 80 10 \
         "Term-SD" "<---------" \
         $extra_script_dir_list \
         "退出" "<---------" \
         3>&1 1>&2 2>&3)
 
-    if [ $? = 0 ];then
-        if [ $extra_script_dir_list_ = "Term-SD" ];then
-            source ./term-sd/modules/init.sh
-            term_sd_version
-            main
-        elif [ $extra_script_dir_list_ = "退出" ];then
-            term_sd_print_line
-            term_sd_echo "退出Term-SD"
-            exit 1
-        else
-            source ./term-sd/extra/$extra_script_dir_list_
-        fi
-    fi
-    term_sd_print_line
-    term_sd_echo "退出Term-SD"
-    exit 1
+    case $? in
+        0)
+            case $extra_script_dir_list_select in
+                Term-SD)
+                    source ./term-sd/modules/init.sh
+                    term_sd_version
+                    main
+                    ;;
+                "退出")
+                    term_sd_print_line
+                    term_sd_echo "退出Term-SD"
+                    exit 1
+                    ;;
+                *)
+                    source ./term-sd/extra/$extra_script_dir_list_select
+                    term_sd_print_line
+                    term_sd_echo "退出$(echo $extra_script_dir_list_select | awk '{sub(".sh","")}1')脚本"
+                    exit 1
+            esac
+            ;;
+    esac
 }
 
 # 格式化信息输出
@@ -780,7 +788,7 @@ term_sd_macos_depend_test()
 term_sd_print_line "Term-SD"
 term_sd_echo "Term-SD初始化中"
 
-export term_sd_version_="1.0.0pre3" # term-sd版本
+export term_sd_version_="1.0.0pre4" # term-sd版本
 export user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题

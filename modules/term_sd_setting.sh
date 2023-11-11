@@ -11,7 +11,7 @@ term_sd_setting()
         "1" "> 虚拟环境设置($([ $venv_setup_status = 0 ] && echo "启用" || echo "禁用"))" \
         "2" "> pip镜像源设置" \
         "3" "> pip缓存清理" \
-        "4" "> 代理设置($([ -z $http_proxy ] && echo "无" || echo "代理地址:$http_proxy"))" \
+        "4" "> 代理设置($([ -z $http_proxy ] && echo "无" || echo "代理地址:$(echo $http_proxy | awk '{print substr($@,1,40)}')"))" \
         "5" "> 命令执行监测设置($([ -f "./term-sd/term-sd-watch-retry.conf" ] && echo "启用(重试次数:$(cat ./term-sd/term-sd-watch-retry.conf))" || echo "禁用"))" \
         "6" "> Term-SD安装模式($([ ! -f "./term-sd/term-sd-disable-strict-install-mode.lock" ] && echo "严格模式" || echo "宽容模式"))" \
         "7" "> aria2线程设置($([ -f "./term-sd/aria2-thread.conf" ] && echo "启用(线程数:$(cat ./term-sd/aria2-thread.conf | awk '{sub("-x ","")}1'))" || echo "禁用"))" \
