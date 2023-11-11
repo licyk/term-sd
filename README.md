@@ -1,4 +1,8 @@
+<div align="center">
+
 # Term-SD
+
+</div>
 
 基于dialog实现界面显示的AI管理器，支持安装，管理[AUTOMATIC1111-stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui)(支持切换成[SD.Next](https://github.com/vladmandic/automatic)/[stable-diffusion-webui-directml](https://github.com/lshqqytiger/stable-diffusion-webui-directml))，[ComfyUI](https://github.com/comfyanonymous/ComfyUI)，[InvokeAI](https://github.com/invoke-ai/InvokeAI)，[Fooocus](https://github.com/lllyasviel/Fooocus)，[lora-scripts](https://github.com/Akegarasu/lora-scripts)  
 Term-SD支持在Linux，Windows，MacOS上运行(Windows平台还需要安装msys2，MacOS还需要安装homebrew，rust，cmake，protobuf，wget，gawk)  

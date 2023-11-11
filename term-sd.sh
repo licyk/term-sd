@@ -240,7 +240,7 @@ term_sd_extra_scripts()
 term_sd_echo()
 {
     local req=$? # 记录上一条命令的运行
-    echo "[$(date "+%Y-%m-%d %H:%M:%S")][Term-SD]$([ $req = 0 ] && echo [info] || echo [warm]):: "$@""
+    echo -e "[$(date "+%Y-%m-%d %H:%M:%S")][\033[36mTerm-SD\033[0m]$([ $req = 0 ] && echo -e "[\033[32minfo\033[0m]" || echo "[\033[33mwarm\033[0m]"):: "$@""
     return $req # 将记录的结果返回
 }
 
@@ -264,6 +264,76 @@ term_sd_unknown_args_echo()
     if [ $(term_sd_test_args $@) = 0 ] && [ ! $@ = "--null" ];then # 测试输入值是参数还是选项
         term_sd_echo "未知参数 \"$@\""
     fi
+}
+
+# 终端横线显示功能
+term_sd_print_line()
+{
+    local shellwidth
+    local print_word_to_shell
+    local shell_word_width
+    local shell_word_width_zh_cn
+    local print_line_info
+    local print_word_info
+    local print_mode
+
+    if [ -z "$@" ];then # 输出方法选择
+        print_mode=1
+    else
+        shellwidth=$(stty size | awk '{print $2}') # 获取终端宽度
+        print_word_to_shell=$(echo "$@" | awk '{gsub(/ /,"-")}1') # 将空格转换为"-"
+        shell_word_width=$(( $(echo "$print_word_to_shell" | wc -c) - 1 )) # 总共的字符长度
+        shell_word_width_zh_cn=$(( $(echo "$print_word_to_shell" | awk '{gsub(/[a-zA-Z]/,"") ; gsub(/[0-9]/, "") ; gsub(/-/,"")}1' | wc -c) - 1 )) # 计算中文字符的长度
+        shell_word_width=$(( $shell_word_width - $shell_word_width_zh_cn )) # 除去中文之后的长度
+        # 中文的字符长度为3,但终端中只占2个字符位
+        shell_word_width_zh_cn=$(( $shell_word_width_zh_cn / 3 * 2 )) # 转换中文在终端占用的实际字符长度
+        shell_word_width=$(( $shell_word_width + $shell_word_width_zh_cn )) # 最终显示文字的长度
+
+        # 横线输出长度的计算
+        shellwidth=$(( ($shellwidth - $shell_word_width) / 2 )) # 除去输出字符后的横线宽度
+
+        # 判断终端宽度大小是否是单双数
+        print_line_info=$(( $shellwidth % 2 ))
+        # 判断字符宽度大小是否是单双数
+        print_word_info=$(( $shell_word_width % 2 ))
+        
+        case $print_line_info in
+            0) # 如果终端宽度大小是双数
+                case $print_word_info in
+                    0) # 如果字符宽度大小是双数
+                        print_mode=2
+                        ;;
+                    1) # 如果字符宽度大小是单数
+                        print_mode=3
+                        ;;
+                esac
+                ;;
+            1) # 如果终端宽度大小是单数数
+                case $print_word_info in
+                    0) # 如果字符宽度大小是双数
+                        print_mode=2
+                        ;;
+                    1) # 如果字符宽度大小是单数
+                        print_mode=3
+                        ;;
+                esac
+                ;;
+        esac
+    fi
+
+    # 输出
+    case $print_mode in
+        1)
+            shellwidth=$(stty size | awk '{print $2}') # 获取终端宽度
+            yes "-" | sed $shellwidth'q' | tr -d '\n' # 输出横杠
+            ;;
+        2) # 解决显示字符为单数时少显示一个字符导致不对成的问题
+            echo "$(yes "-" | sed $shellwidth'q' | tr -d '\n')"$@"$(yes "-" | sed $shellwidth'q' | tr -d '\n')"
+            ;;
+        3)
+            echo "$(yes "-" | sed $shellwidth'q' | tr -d '\n')"$@"$(yes "-" | sed $(( $shellwidth + 1 ))'q' | tr -d '\n')"
+            ;;
+    esac
 }
 
 # 自动更新触发功能
@@ -425,7 +495,7 @@ term_sd_install()
 # term-sd重新安装功能
 term_sd_reinstall()
 {
-    if which git > /dev/null 2> /dev/null ;then
+    if which git > /dev/null 2>&1 ;then
         term_sd_echo "是否重新安装Term-SD(yes/no)?"
         term_sd_echo "警告:该操作将永久删除Term-SD目录中的所有文件,包括ai软件下载的部分模型文件(存在于Term-SD目录中的\"cache\"文件夹,如有必要,请备份该文件夹)"
         term_sd_echo "提示:输入yes或no后回车"
@@ -527,80 +597,6 @@ remove_config_from_shell()
     term_sd_echo "配置已删除,重启shell以生效"
 }
 
-# 终端横线显示功能
-term_sd_print_line()
-{
-    local shellwidth
-    local print_word_to_shell
-    local shell_word_width
-    local shell_word_width_zh_cn
-    local print_line_info
-    local print_word_info
-
-    if [ -z "$1" ];then
-        term_sd_print_line_to_shell 1
-    else
-        shellwidth=$(stty size | awk '{print $2}') # 获取终端宽度
-        print_word_to_shell=$(echo "$1" | awk '{gsub(/ /,"-")}1') # 将空格转换为"-"
-        shell_word_width=$(( $(echo "$print_word_to_shell" | wc -c) - 1 )) # 总共的字符长度
-        shell_word_width_zh_cn=$(( $(echo "$print_word_to_shell" | awk '{gsub(/[a-zA-Z]/,"") ; gsub(/[0-9]/, "") ; gsub(/-/,"")}1' | wc -c) - 1 )) # 计算中文字符的长度
-        shell_word_width=$(( $shell_word_width - $shell_word_width_zh_cn )) # 除去中文之后的长度
-        # 中文的字符长度为3,但终端中只占2个字符位
-        shell_word_width_zh_cn=$(( $shell_word_width_zh_cn / 3 * 2 )) # 转换中文在终端占用的实际字符长度
-        shell_word_width=$(( $shell_word_width + $shell_word_width_zh_cn )) # 最终显示文字的长度
-
-        # 横线输出长度的计算
-        shellwidth=$(( ($shellwidth - $shell_word_width) / 2 )) # 除去输出字符后的横线宽度
-
-        # 判断终端宽度大小是否是单双数
-        print_line_info=$(( $shellwidth % 2 ))
-        # 判断字符宽度大小是否是单双数
-        print_word_info=$(( $shell_word_width % 2 ))
-        
-        case $print_line_info in
-            0) # 如果终端宽度大小是双数
-                case $print_word_info in
-                    0) # 如果字符宽度大小是双数
-                        term_sd_print_line_to_shell 2 $1
-                        ;;
-                    1) # 如果字符宽度大小是单数
-                        term_sd_print_line_to_shell 3 $1
-                        ;;
-                esac
-                ;;
-            1) # 如果终端宽度大小是单数数
-                case $print_word_info in
-                    0) # 如果字符宽度大小是双数
-                        term_sd_print_line_to_shell 2 $1
-                        ;;
-                    1) # 如果字符宽度大小是单数
-                        term_sd_print_line_to_shell 3 $1
-                        ;;
-                esac
-                ;;
-        esac
-
-        
-    fi
-}
-
-# 输出终端横线方法
-term_sd_print_line_to_shell()
-{
-    case $1 in
-        1)
-            shellwidth=$(stty size | awk '{print $2}') # 获取终端宽度
-            yes "-" | sed $shellwidth'q' | tr -d '\n' # 输出横杠
-            ;;
-        2) # 解决显示字符为单数时少显示一个字符导致不对成的问题
-            echo "$(yes "-" | sed $shellwidth'q' | tr -d '\n')"$2"$(yes "-" | sed $shellwidth'q' | tr -d '\n')"
-            ;;
-        3)
-            echo "$(yes "-" | sed $shellwidth'q' | tr -d '\n')"$2"$(yes "-" | sed $(( $shellwidth + 1 ))'q' | tr -d '\n')"
-            ;;
-    esac
-}
-
 # 手动指定python路径功能
 set_python_path()
 {
@@ -696,14 +692,14 @@ set_term_sd_watch()
         if [ ! -z $@ ];then
             if [ $@ = 0 ];then
                 term_sd_echo "删除安装ai软件的命令重试次数配置"
-                rm -rf ./term-sd/cmd-daemon-retry.conf
+                rm -rf ./term-sd/term-sd-watch-retry.conf
             else
                 term_sd_echo "设置安装ai软件的命令重试次数: $@"
-                echo "$@" > ./term-sd/cmd-daemon-retry.conf
+                echo "$@" > ./term-sd/term-sd-watch-retry.conf
             fi
         else
             term_sd_echo "未指定重试次数,使用默认值: 3"
-            echo "3" > ./term-sd/cmd-daemon-retry.conf
+            echo "3" > ./term-sd/term-sd-watch-retry.conf
         fi
     else
         term_sd_echo "输入格式错误,重试次数只能为数字且不能为负数"
@@ -734,7 +730,7 @@ term_sd_depend_test()
 
     # 判断系统是否安装必须使用的软件
     for i in $term_sd_depend ; do
-        if ! which $i > /dev/null 2> /dev/null ;then
+        if ! which $i > /dev/null 2>&1 ;then
             missing_dep="$missing_dep $i,"
             term_sd_depend_status=1
         fi
@@ -754,7 +750,7 @@ term_sd_macos_depend_test()
     export missing_dep_macos
 
     for i in $term_sd_depend_macos ; do
-        if ! which $i > /dev/null 2> /dev/null ;then
+        if ! which $i > /dev/null 2>&1 ;then
             term_sd_depend_status=1
             # 转换名称
             case $i in
@@ -784,7 +780,7 @@ term_sd_macos_depend_test()
 term_sd_print_line "Term-SD"
 term_sd_echo "Term-SD初始化中"
 
-export term_sd_version_="1.0.0pre2" # term-sd版本
+export term_sd_version_="1.0.0pre3" # term-sd版本
 export user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题
@@ -824,8 +820,8 @@ if [ -f "./term-sd/proxy.conf" ];then # 读取代理设置并设置代理
 fi
 
 # 设置安装重试次数
-if [ -f "./term-sd/cmd-daemon-retry.conf" ];then
-    export term_sd_cmd_retry=$(cat ./term-sd/cmd-daemon-retry.conf)
+if [ -f "./term-sd/term-sd-watch-retry.conf" ];then
+    export term_sd_cmd_retry=$(cat ./term-sd/term-sd-watch-retry.conf)
 else # 没有配置文件时使用默认值
     export term_sd_cmd_retry=0
 fi
@@ -886,7 +882,7 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
 
         # 检测可用的python命令,并检测是否手动指定python路径
         if [ -z "$term_sd_python_path" ];then
-            if python3 --version > /dev/null 2> /dev/null || python --version > /dev/null 2> /dev/null ;then # 判断是否有可用的python
+            if python3 --version > /dev/null 2>&1 || python --version > /dev/null 2>&1 ;then # 判断是否有可用的python
                 test_num=$(( $test_num + 1 ))
 
                 if [ ! -z "$(python3 --version 2> /dev/null)" ];then
@@ -898,7 +894,7 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
                 missing_dep="$missing_dep python,"
             fi  
         else
-            if which "$term_sd_python_path" > /dev/null 2> /dev/null ;then
+            if which "$term_sd_python_path" > /dev/null 2>&1 ;then
                 test_num=$(( $test_num + 1 ))
                 term_sd_echo "使用自定义python解释器路径:$term_sd_python_path"
             else
@@ -912,14 +908,14 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
 
         # 检测可用的pip命令,并检测是否手动指定pip路径
         if [ -z "$term_sd_pip_path" ];then
-            if which pip > /dev/null 2> /dev/null ;then
+            if which pip > /dev/null 2>&1 ;then
                 test_num=$(( $test_num + 1 ))
                 export term_sd_pip_path=$(which pip)
             else
                 missing_dep="$missing_dep pip,"
             fi
         else
-            if which "$term_sd_pip_path" > /dev/null 2> /dev/null ;then
+            if which "$term_sd_pip_path" > /dev/null 2>&1 ;then
                 test_num=$(( $test_num + 1 ))
                 term_sd_echo "使用自定义pip路径:$term_sd_pip_path"
             else

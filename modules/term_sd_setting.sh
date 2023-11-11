@@ -86,7 +86,7 @@ term_sd_watch_setting()
     case $term_sd_watch_setting_dialog in
         1)
             term_sd_watch_value=$(dialog --erase-on-exit --title "Term-SD" --backtitle "命令执行监测设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入重试次数(仅输入数字,不允许输入负数和其他非数字的字符)" 25 80 "$(cat ./term-sd/term-sd-watch-retry.conf)" 3>&1 1>&2 2>&3)
-            if [ -z "$(echo $term_sd_watch_value | awk '{gsub(/[0-9]/, "")}1')" ];then
+            if [ ! -z "$(echo $term_sd_watch_value | awk '{gsub(/[0-9]/, "")}1')" ];then
                 dialog --erase-on-exit --title "Term-SD" --backtitle "命令执行监测设置界面" --ok-label "确认" --msgbox "输入格式错误,重试次数只能为数字且不能为负数" 25 80
             else
                 echo "$term_sd_watch_value" > ./term-sd/term-sd-watch-retry.conf
@@ -148,7 +148,7 @@ aria2_multi_threaded_setting()
     case $aria2_multi_threaded_setting_dialog in
         1)
             aria2_multi_threaded_value=$(dialog --erase-on-exit --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入线程数(仅输入数字(),不允许输入负数和其他非数字的字符)" 25 80 "$(cat ./term-sd/aria2-thread.conf | awk '{sub("-x ","")}1')" 3>&1 1>&2 2>&3)
-            if [ -z "$(echo $aria2_multi_threaded_value | awk '{gsub(/[0-9]/, "")}1')" ] || [ $aria2_multi_threaded_value = 0 ] ;then
+            if [ ! -z "$(echo $aria2_multi_threaded_value | awk '{gsub(/[0-9]/, "")}1')" ] || [ $aria2_multi_threaded_value = 0 ] ;then
                 dialog --erase-on-exit --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --msgbox "输入格式错误,线程数只能为数字且不能为负数" 25 80
             else
                 if [ $@ -le 16 ];then
@@ -250,11 +250,15 @@ term_sd_network_test()
 $(curl -s ipinfo.io)\n
 ------------------------------------------------------------------\n
 网站访问:\n
-google: $(curl google.com > /dev/null 2> /dev/null && echo "成功" || echo "失败")\n
-huggingface: $(curl huggingface.co > /dev/null 2> /dev/null && echo "成功" || echo "失败")\n
-github: $(curl github.com > /dev/null 2> /dev/null && echo "成功" || echo "失败")\n
-ghproxy: $(curl ghproxy.com > /dev/null 2> /dev/null && echo "成功" || echo "失败")\n
-gitclone: $(curl gitclone.com > /dev/null 2> /dev/null && echo "成功" || echo "失败")\n
+google.com: $(curl google.com > /dev/null 2>&1 && echo "成功" || echo "失败")\n
+huggingface.co: $(curl huggingface.co > /dev/null 2>&1 && echo "成功" || echo "失败")\n
+modelscope: $(curl modelscope.cn > /dev/null 2>&1 && echo "成功" || echo "失败")\n
+github.com: $(curl github.com > /dev/null 2>&1 && echo "成功" || echo "失败")\n
+ghproxy.com: $(curl ghproxy.com > /dev/null 2>&1 && echo "成功" || echo "失败")\n
+gitclone.com: $(curl gitclone.com > /dev/null 2>&1 && echo "成功" || echo "失败")\n
+gh-proxy.com: $(curl gh-proxy.com > /dev/null 2>&1 && echo "成功" || echo "失败")\n
+ghps.cc: $(curl ghps.cc > /dev/null 2>&1 && echo "成功" || echo "失败")\n
+gh.idayer.com: $(curl gh.idayer.com > /dev/null 2>&1 && echo "成功" || echo "失败")\n
 ------------------------------------------------------------------\n
 " 25 80
 }
@@ -262,34 +266,29 @@ gitclone: $(curl gitclone.com > /dev/null 2> /dev/null && echo "成功" || echo 
 # 卸载选项
 term_sd_uninstall_interface()
 {
-    local term_sd_uninstall_interface_dlalog
-
-    term_sd_uninstall_interface_dlalog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "Term-SD卸载界面" --ok-label "确认" --cancel-label "取消" --menu "警告:该操作将永久删除Term-SD目录中的所有文件,包括ai软件下载的部分模型文件(存在于Term-SD目录中的\"cache\"文件夹,如有必要,请备份该文件夹)\n是否卸载Term-SD?" 25 80 10 \
-        "0" "> 取消" \
-        "1" "> 确认" \
-        3>&1 1>&2 2>&3)
-
-    case $term_sd_uninstall_interface_dlalog in
-        1)
-            case $(term_sd_read) in
-                y|yes|YES|Y)
-                    term_sd_echo "开始卸载Term-SD"
-                    rm -f ./term-sd
-                    rm -rf ./term-sd.sh
-                    user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') # 读取用户所使用的shell
-                    if [ $user_shell = bash ] || [ $user_shell = zsh ];then
-                        sed -i '/# Term-SD/d' ~/."$user_shell"rc
-                        sed -i '/termsd(){/d' ~/."$user_shell"rc
-                        sed -i '/alias tsd/d' ~/."$user_shell"rc
-                    fi
-                    term_sd_echo "Term-SD卸载完成"
-                    exit 1
-                    ;;
-                *)
-                    term_sd_uninstall_interface
-                    ;;
-            esac
-            ;;
-    esac
+    if (dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD卸载界面" --yes-label "是" --no-label "否" --yesno "警告:该操作将永久删除Term-SD目录中的所有文件,包括ai软件下载的部分模型文件(存在于Term-SD目录中的\"cache\"文件夹,如有必要,请备份该文件夹)\n是否卸载Term-SD?" 25 80) then
+        term_sd_echo "请再次确认是否删除Term-SD(yes/no)?"
+        term_sd_echo "警告:该操作将永久删除Term-SD"
+        term_sd_echo "提示:输入yes或no后回车"
+        case $(term_sd_read) in
+            y|yes|YES|Y)
+                term_sd_echo "开始卸载Term-SD"
+                rm -f ./term-sd
+                rm -rf ./term-sd.sh
+                user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') # 读取用户所使用的shell
+                if [ $user_shell = bash ] || [ $user_shell = zsh ];then
+                    sed -i '/# Term-SD/d' ~/."$user_shell"rc
+                    sed -i '/termsd(){/d' ~/."$user_shell"rc
+                    sed -i '/alias tsd/d' ~/."$user_shell"rc
+                fi
+                term_sd_echo "Term-SD卸载完成"
+                exit 1
+                ;;
+            *)
+                term_sd_echo "取消卸载操作"
+                ;;
+        esac
+    else
+        term_sd_echo "取消卸载操作"
+    fi
 }

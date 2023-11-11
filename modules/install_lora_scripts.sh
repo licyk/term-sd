@@ -42,7 +42,7 @@ install_lora_scripts()
         lora_scripts_manager # 进入管理界面
     else # 生成安装任务并执行安装任务
         # 安装前的准备
-        download_mirror_select # 下载镜像源选择
+        download_mirror_select auto_github_mirrror # 下载镜像源选择
         pytorch_version_select # pytorch版本选择
         pip_install_mode_select # 安装方式选择
         term_sd_install_confirm # 安装确认

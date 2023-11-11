@@ -1,9 +1,10 @@
 #!/bin/bash
 
-# 安装前镜像选择
+# 安装前镜像选择(后面加上auto_github_mirrror参数将自动勾选"github镜像源自动选择")
 download_mirror_select()
 {
     local download_mirror_select_dialog
+    local auto_select_github_mirror=1
     pip_index_mirror="--index-url https://pypi.python.org/simple"
     pip_extra_index_mirror=
     pip_find_mirror="--find-links https://download.pytorch.org/whl/torch_stable.html"
@@ -19,11 +20,12 @@ download_mirror_select()
         "2" "强制使用pip(无视系统警告强制使用pip安装python软件包)" OFF \
         "3" "使用modelscope模型下载源(将huggingface下载源改为modelscope下载源)" ON \
         "4" "huggingface下载源独占代理(仅在下载huggingface的模型的过程启用代理)" ON \
-        "5" "启用github镜像源1(使用ghproxy镜像站下载github上的源码)" ON \
-        "6" "启用github镜像源2(使用gitclone镜像站下载github上的源码)" OFF \
-        "7" "启用github镜像源3(使用gh-proxy镜像站下载github上的源码)" OFF \
-        "8" "启用github镜像源4(使用ghps镜像站下载github上的源码)" OFF \
-        "9" "启用github镜像源5(使用gh.idayer镜像站下载github上的源码)" OFF \
+        "5" "github镜像源自动选择(测试可用的镜像源并选择自动选择)" $([ ! -z $1 ] && [ $1 = "auto_github_mirrror" ] && echo "ON" || echo "OFF") \
+        "6" "启用github镜像源1(使用ghproxy镜像站下载github上的源码)" OFF \
+        "7" "启用github镜像源2(使用gitclone镜像站下载github上的源码)" $([ ! -z $1 ] && [ $1 = "auto_github_mirrror" ] && echo "OFF" || echo "ON") \
+        "8" "启用github镜像源3(使用gh-proxy镜像站下载github上的源码)" OFF \
+        "9" "启用github镜像源4(使用ghps镜像站下载github上的源码)" OFF \
+        "10" "启用github镜像源5(使用gh.idayer镜像站下载github上的源码)" OFF \
         3>&1 1>&2 2>&3)
 
     for i in $download_mirror_select_dialog; do
@@ -43,27 +45,37 @@ download_mirror_select()
                 only_hugggingface_proxy=0
                 ;;
             5)
-                github_mirror="https://ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo"
-                github_mirror_name="镜像源1(giproxy.com)"
+                auto_select_github_mirror=0
                 ;;
             6)
+                github_mirror="https://ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo"
+                github_mirror_name="镜像源1(ghproxy.com)"
+                ;;
+            7)
                 github_mirror="https://gitclone.com/github.com/term_sd_git_user/term_sd_git_repo"
                 github_mirror_name="镜像源2(gitclone.com)"
                 ;;
-            7)
+            8)
                 github_mirror="https://gh-proxy.com/https://github.com/term_sd_git_user/term_sd_git_repo"
                 github_mirror_name="镜像源3(gh-proxy.com)"
                 ;;
-            8)
+            9)
                 github_mirror="https://ghps.cc/https://github.com/term_sd_git_user/term_sd_git_repo"
                 github_mirror_name="镜像源4(ghps.cc)"
                 ;;
-            9)
+            10)
                 github_mirror="https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo"
                 github_mirror_name="镜像源5(gh.idayer.com)"
                 ;;
         esac
     done
+
+    if [ $auto_select_github_mirror = 0 ];then # 测试可用的镜像源
+        term_sd_echo "测试可用的github镜像源中"
+        github_mirror=$(github_mirror_test)
+        github_mirror_name="镜像源($(echo $github_mirror | awk '{sub("https://","")}1' | awk -F '/' '{print$NR}'))"
+        term_sd_echo "镜像源测试结束,镜像源选择: $github_mirror_name"
+    fi
 }
 
 # pytorch安装版本选择
@@ -164,4 +176,28 @@ pip安装方式:$([ -z $pip_install_mode ] && echo "常规安装(setup.py)" || e
         term_sd_echo "取消安装"
         return 1
     fi
+}
+
+# github镜像源测试
+github_mirror_test()
+{
+    # 镜像源列表
+    local github_mirror_list="https://ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo \
+    https://gh-proxy.com/https://github.com/term_sd_git_user/term_sd_git_repo \
+    https://ghps.cc/https://github.com/term_sd_git_user/term_sd_git_repo \
+    https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo \
+    https://gitclone.com/github.com/term_sd_git_user/term_sd_git_repo"
+
+    local git_req
+    for i in $github_mirror_list ;do
+        git clone $(git_format_repository_url $i https://github.com/licyk/empty) "$start_path/term-sd/github_mirror_test" --depth=1 > /dev/null 2>&1 # 测试镜像源是否正常连接
+        git_req=$?
+        rm -rf "$start_path/term-sd/github_mirror_test" > /dev/null 2>&1
+        if [ $git_req = 0 ];then
+            echo $i
+            break
+        else
+            echo https://github.com/term_sd_git_user/term_sd_git_repo
+        fi
+    done
 }
