@@ -5,19 +5,20 @@ term_sd_setting()
 {
     local term_sd_setting_dialog
 
-    term_sd_setting_dialog=$(dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD设置选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD设置" 25 80 10 \
-        "0" "返回" \
-        "1" "虚拟环境设置($([ $venv_setup_status = 0 ] && echo "启用" || echo "禁用"))" \
-        "2" "pip镜像源设置" \
-        "3" "pip缓存清理" \
-        "4" "代理设置($([ -z $http_proxy ] && echo "无" || echo "代理地址:$http_proxy"))" \
-        "5" "命令执行监测设置($([ -f "./term-sd/term-sd-watch-retry.conf" ] && echo "启用(重试次数:$(cat ./term-sd/term-sd-watch-retry.conf))" || echo "禁用"))" \
-        "6" "Term-SD安装模式($([ ! -f "./term-sd/term-sd-disable-strict-install-mode.lock" ] && echo "严格模式" || echo "宽容模式"))" \
-        "7" "aria2线程设置($([ -f "./term-sd/aria2-thread.conf" ] && echo "启用(线程数:$(cat ./term-sd/aria2-thread.conf | awk '{sub("-x ","")}1'))" || echo "禁用"))" \
-        "8" "缓存重定向设置($([ ! -f "./term-sd/disable-cache-path-redirect.lock" ] && echo "启用" || echo "禁用"))" \
-        "9" "空间占用分析" \
-        "10" "网络连接测试" \
-        "11" "卸载Term-SD" \
+    term_sd_setting_dialog=$(
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "Term-SD设置选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD设置" 25 80 10 \
+        "0" "> 返回" \
+        "1" "> 虚拟环境设置($([ $venv_setup_status = 0 ] && echo "启用" || echo "禁用"))" \
+        "2" "> pip镜像源设置" \
+        "3" "> pip缓存清理" \
+        "4" "> 代理设置($([ -z $http_proxy ] && echo "无" || echo "代理地址:$http_proxy"))" \
+        "5" "> 命令执行监测设置($([ -f "./term-sd/term-sd-watch-retry.conf" ] && echo "启用(重试次数:$(cat ./term-sd/term-sd-watch-retry.conf))" || echo "禁用"))" \
+        "6" "> Term-SD安装模式($([ ! -f "./term-sd/term-sd-disable-strict-install-mode.lock" ] && echo "严格模式" || echo "宽容模式"))" \
+        "7" "> aria2线程设置($([ -f "./term-sd/aria2-thread.conf" ] && echo "启用(线程数:$(cat ./term-sd/aria2-thread.conf | awk '{sub("-x ","")}1'))" || echo "禁用"))" \
+        "8" "> 缓存重定向设置($([ ! -f "./term-sd/disable-cache-path-redirect.lock" ] && echo "启用" || echo "禁用"))" \
+        "9" "> 空间占用分析" \
+        "10" "> 网络连接测试" \
+        "11" "> 卸载Term-SD" \
         3>&1 1>&2 2>&3)
 
     case $term_sd_setting_dialog in
@@ -75,10 +76,11 @@ term_sd_watch_setting()
     local term_sd_watch_value
     export term_sd_cmd_retry
 
-    term_sd_watch_setting_dialog=$(dialog --erase-on-exit --title "Term-SD" --backtitle "命令执行监测设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于监测命令的运行情况,若设置了重试次数,Term-SD将重试执行失败的命令(有些命令需要联网,在网络不稳定的时候容易导致命令执行失败),保证命令执行成功\n当前状态:$([ -f "./term-sd/term-sd-watch-retry.conf" ] && echo "启用(重试次数:$(cat ./term-sd/term-sd-watch-retry.conf))" || echo "禁用")\n是否启用命令执行监测?(推荐启用)" 25 80 10 \
-        "0" "返回" \
-        "1" "启用" \
-        "2" "禁用" \
+    term_sd_watch_setting_dialog=$(
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "命令执行监测设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于监测命令的运行情况,若设置了重试次数,Term-SD将重试执行失败的命令(有些命令需要联网,在网络不稳定的时候容易导致命令执行失败),保证命令执行成功\n当前状态:$([ -f "./term-sd/term-sd-watch-retry.conf" ] && echo "启用(重试次数:$(cat ./term-sd/term-sd-watch-retry.conf))" || echo "禁用")\n是否启用命令执行监测?(推荐启用)" 25 80 10 \
+        "0" "> 返回" \
+        "1" "> 启用" \
+        "2" "> 禁用" \
         3>&1 1>&2 2>&3)
 
     case $term_sd_watch_setting_dialog in
@@ -108,10 +110,11 @@ term_sd_install_mode_setting()
     local term_sd_install_mode_setting_dialog
     export term_sd_install_mode
 
-    term_sd_install_mode_setting_dialog=$(dialog --erase-on-exit --title "Term-SD" --backtitle "安装模式设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于设置Term-SD安装AI软件的工作模式。当启用\"严格模式\"后,Term-SD在安转AI软件时出现执行失败的命令时将停止安装进程(Term-SD支持断点恢复,可恢复上次安装进程中断的位置),而\"宽容模式\"在安转AI软件时出现执行失败的命令时忽略执行失败的命令继续执行完成安装任务\n当前安装模式:$([ ! -f "./term-sd/term-sd-disable-strict-install-mode.lock" ] && echo "严格模式" || echo "宽容模式")\n请选择要设置的安装模式(默认启用严格模式)" 25 80 10 \
-        "0" "返回" \
-        "1" "严格模式" \
-        "2" "宽容模式" \
+    term_sd_install_mode_setting_dialog=$(
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "安装模式设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于设置Term-SD安装AI软件的工作模式。当启用\"严格模式\"后,Term-SD在安转AI软件时出现执行失败的命令时将停止安装进程(Term-SD支持断点恢复,可恢复上次安装进程中断的位置),而\"宽容模式\"在安转AI软件时出现执行失败的命令时忽略执行失败的命令继续执行完成安装任务\n当前安装模式:$([ ! -f "./term-sd/term-sd-disable-strict-install-mode.lock" ] && echo "严格模式" || echo "宽容模式")\n请选择要设置的安装模式(默认启用严格模式)" 25 80 10 \
+        "0" "> 返回" \
+        "1" "> 严格模式" \
+        "2" "> 宽容模式" \
         3>&1 1>&2 2>&3)
 
     case $term_sd_install_mode_setting_dialog in
@@ -135,10 +138,11 @@ aria2_multi_threaded_setting()
     local aria2_multi_threaded_value
     export aria2_multi_threaded
 
-    aria2_multi_threaded_setting_dialog=$(dialog --erase-on-exit --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于增加Term-SD在使用aria2下载模型时的线程数,在一定程度上提高下载速度\n当前状态:$([ -f "./term-sd/aria2-thread.conf" ] && echo "启用(线程数:$(cat ./term-sd/aria2-thread.conf | awk '{sub("-x ","")}1'))" || echo "禁用")\n是否启用aria2多线程下载?" 25 80 10 \
-        "0" "返回" \
-        "1" "启用" \
-        "2" "禁用" \
+    aria2_multi_threaded_setting_dialog=$(
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于增加Term-SD在使用aria2下载模型时的线程数,在一定程度上提高下载速度\n当前状态:$([ -f "./term-sd/aria2-thread.conf" ] && echo "启用(线程数:$(cat ./term-sd/aria2-thread.conf | awk '{sub("-x ","")}1'))" || echo "禁用")\n是否启用aria2多线程下载?" 25 80 10 \
+        "0" "> 返回" \
+        "1" "> 启用" \
+        "2" "> 禁用" \
         3>&1 1>&2 2>&3)
 
     case $aria2_multi_threaded_setting_dialog in
@@ -182,10 +186,11 @@ term_sd_cache_redirect_setting()
     export U2NET_HOME
     export XDG_CACHE_HOME
 
-    term_sd_cache_redirect_setting_dialog=$(dialog --erase-on-exit --title "Term-SD" --backtitle "缓存重定向设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能将会把ai软件产生的缓存重定向至Term-SD中(便于清理)\n当前状态:$([ ! -f "./term-sd/disable-cache-path-redirect.lock" ] && echo "启用" || echo "禁用")\n是否启用缓存重定向?" 25 80 10 \
-        "0" "返回" \
-        "1" "启用" \
-        "2" "禁用" \
+    term_sd_cache_redirect_setting_dialog=$(
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "缓存重定向设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能将会把ai软件产生的缓存重定向至Term-SD中(便于清理)\n当前状态:$([ ! -f "./term-sd/disable-cache-path-redirect.lock" ] && echo "启用" || echo "禁用")\n是否启用缓存重定向?" 25 80 10 \
+        "0" "> 返回" \
+        "1" "> 启用" \
+        "2" "> 禁用" \
         3>&1 1>&2 2>&3)
 
     case $term_sd_cache_redirect_setting_dialog in
@@ -259,9 +264,10 @@ term_sd_uninstall_interface()
 {
     local term_sd_uninstall_interface_dlalog
 
-    term_sd_uninstall_interface_dlalog=$(dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD卸载界面" --ok-label "确认" --cancel-label "取消" --menu "警告:该操作将永久删除Term-SD目录中的所有文件,包括ai软件下载的部分模型文件(存在于Term-SD目录中的\"cache\"文件夹,如有必要,请备份该文件夹)\n是否卸载Term-SD?" 25 80 10 \
-        "0" "取消" \
-        "1" "确认" \
+    term_sd_uninstall_interface_dlalog=$(
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "Term-SD卸载界面" --ok-label "确认" --cancel-label "取消" --menu "警告:该操作将永久删除Term-SD目录中的所有文件,包括ai软件下载的部分模型文件(存在于Term-SD目录中的\"cache\"文件夹,如有必要,请备份该文件夹)\n是否卸载Term-SD?" 25 80 10 \
+        "0" "> 取消" \
+        "1" "> 确认" \
         3>&1 1>&2 2>&3)
 
     case $term_sd_uninstall_interface_dlalog in

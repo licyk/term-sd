@@ -13,18 +13,18 @@ invokeai_manager()
         enter_venv # 进入环境
         if which invokeai-web 2> /dev/null ;then #查找环境中有没有invokeai
             invokeai_manager_dialog=$(
-                dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择InvokeAI管理选项的功能" 25 80 10 \
-                "0" "返回" \
-                "1" "启动" \
-                "2" "更新" \
-                "3" "更新依赖" \
-                "4" "python软件包安装/重装/卸载" \
-                "5" "依赖库版本管理" \
-                "6" "重新安装pytorch" \
-                "7" "修复虚拟环境" \
-                "8" "重新构建虚拟环境" \
-                "9" "重新安装" \
-                "10" "卸载" \
+                dialog --erase-on-exit --notags --title "InvokeAI管理" --backtitle "InvokeAI管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择InvokeAI管理选项的功能" 25 80 10 \
+                "0" "> 返回" \
+                "1" "> 启动" \
+                "2" "> 更新" \
+                "3" "> 更新依赖" \
+                "4" "> python软件包安装/重装/卸载" \
+                "5" "> 依赖库版本管理" \
+                "6" "> 重新安装pytorch" \
+                "7" "> 修复虚拟环境" \
+                "8" "> 重新构建虚拟环境" \
+                "9" "> 重新安装" \
+                "10" "> 卸载" \
                 3>&1 1>&2 2>&3)
 
             case $invokeai_manager_dialog in

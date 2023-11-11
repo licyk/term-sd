@@ -8,12 +8,12 @@ comfyui_extension_manager()
     cd "$start_path/ComfyUI/web/extensions" # 回到最初路径
 
     comfyui_extension_manager_dialog=$(
-        dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择ComfyUI插件管理选项的功能" 25 80 10 \
-        "0" "返回" \
-        "1" "安装" \
-        "2" "管理" \
-        "3" "更新全部插件" \
-        "4" "安装全部插件依赖" \
+        dialog --erase-on-exit --notags --title "ComfyUI管理" --backtitle "ComfyUI插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择ComfyUI插件管理选项的功能" 25 80 10 \
+        "0" "> 返回" \
+        "1" "> 安装" \
+        "2" "> 管理" \
+        "3" "> 更新全部插件" \
+        "4" "> 安装全部插件依赖" \
         3>&1 1>&2 2>&3 )
 
     if [ $? = 0 ];then
@@ -98,14 +98,14 @@ comfyui_extension_interface()
     local comfyui_extension_interface_dialog
 
     comfyui_extension_interface_dialog=$(
-        dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择对${comfyui_extension_name}插件的管理功能\n当前更新源:$([ -d "./.git" ] && git remote -v | awk 'NR==1 {print $2}' || echo "无")" 25 80 10 \
-        "0" "返回" \
-        "1" "更新" \
-        "2" "修复更新" \
-        "3" "安装依赖" \
-        "4" "版本切换" \
-        "5" "更新源切换" \
-        "6" "卸载" \
+        dialog --erase-on-exit --notags --title "ComfyUI管理" --backtitle "ComfyUI插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择对${comfyui_extension_name}插件的管理功能\n当前更新源:$([ -d "./.git" ] && git remote -v | awk 'NR==1 {print $2}' || echo "无")" 25 80 10 \
+        "0" "> 返回" \
+        "1" "> 更新" \
+        "2" "> 修复更新" \
+        "3" "> 安装依赖" \
+        "4" "> 版本切换" \
+        "5" "> 更新源切换" \
+        "6" "> 卸载" \
         3>&1 1>&2 2>&3)
 
     case $comfyui_extension_interface_dialog in

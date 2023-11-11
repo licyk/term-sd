@@ -8,11 +8,11 @@ sd_webui_extension_manager()
 
     # 功能选择界面
     sd_webui_extension_manager_dialog=$(
-        dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Stable-Diffusion-WebUI插件管理选项的功能" 25 80 10 \
-        "0" "返回" \
-        "1" "安装" \
-        "2" "管理" \
-        "3" "更新全部插件" \
+        dialog --erase-on-exit --notags --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Stable-Diffusion-WebUI插件管理选项的功能" 25 80 10 \
+        "0" "> 返回" \
+        "1" "> 安装" \
+        "2" "> 管理" \
+        "3" "> 更新全部插件" \
         3>&1 1>&2 2>&3 )
 
     case $sd_webui_extension_manager_dialog in
@@ -81,13 +81,13 @@ sd_webui_extension_interface()
     local sd_webui_extension_interface_dialog
 
     sd_webui_extension_interface_dialog=$(
-        dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择对${sd_webui_extension_name}插件的管理功能\n当前更新源:$([ -d "./.git" ] && git remote -v | awk 'NR==1 {print $2}' || echo "无")" 25 80 10 \
-        "0" "返回" \
-        "1" "更新" \
-        "2" "修复更新" \
-        "3" "版本切换" \
-        "4" "更新源切换" \
-        "5" "卸载" \
+        dialog --erase-on-exit --notags --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择对${sd_webui_extension_name}插件的管理功能\n当前更新源:$([ -d "./.git" ] && git remote -v | awk 'NR==1 {print $2}' || echo "无")" 25 80 10 \
+        "0" "> 返回" \
+        "1" "> 更新" \
+        "2" "> 修复更新" \
+        "3" "> 版本切换" \
+        "4" "> 更新源切换" \
+        "5" "> 卸载" \
         3>&1 1>&2 2>&3)
 
     case $sd_webui_extension_interface_dialog in

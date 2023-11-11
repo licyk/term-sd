@@ -8,7 +8,7 @@ term_sd_init()
     term_sd_init_bar_notice="[$(date "+%Y-%m-%d %H:%M:%S")][Term-SD]:: "
     for i in ./term-sd/modules/*.sh ;do
         [ $i = "./term-sd/modules/init.sh" ] && continue
-        printf "$term_sd_init_bar_notice[$term_sd_modules_number_/$term_sd_modules_number] 加载> $(basename $i .sh)                              \r"
+        printf "$term_sd_init_bar_notice[$term_sd_modules_number_/$term_sd_modules_number] 加载: $(basename $i .sh)                              \r"
         term_sd_modules_number_=$(( $term_sd_modules_number_ + 1 ))
         source $i
     done

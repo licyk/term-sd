@@ -7,7 +7,7 @@ comfyui_launch_args_setting()
     local comfyui_launch_args_setting_dialog
 
     comfyui_launch_args_setting_dialog=$(
-        dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI启动参数选项" --separate-output --notags --ok-label "确认" --cancel-label "取消" --checklist "请选择ComfyUI启动参数,确认之后将覆盖原有启动参数配置" 25 80 10 \
+        dialog --erase-on-exit --notags --title "ComfyUI管理" --backtitle "ComfyUI启动参数选项" --ok-label "确认" --cancel-label "取消" --checklist "请选择ComfyUI启动参数,确认之后将覆盖原有启动参数配置" 25 80 10 \
         "1" "(listen)开放远程连接" OFF \
         "2" "(auto-launch)启动webui完成后自动启动浏览器" ON \
         "3" "(disable-auto-launch)禁用在启动webui完成后自动启动浏览器" OFF \
@@ -145,7 +145,7 @@ comfyui_launch_args_setting()
         done
 
         # 生成启动脚本
-        term_sd_echo "设置启动参数> $comfyui_launch_args"
+        term_sd_echo "设置启动参数:  $comfyui_launch_args"
         echo "main.py $comfyui_launch_args" > term-sd-launch.conf
     fi
 }
@@ -160,11 +160,12 @@ comfyui_launch()
             echo "main.py --auto-launch" > term-sd-launch.conf
     fi
 
-    comfyui_launch_dialog=$(dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动ComfyUI/修改ComfyUI启动参数\n当前启动参数:\n$([ $venv_active = 0 ] && echo python || echo "$term_sd_python_path") $(cat ./term-sd-launch.conf)" 25 80 10 \
-        "1" "启动" \
-        "2" "选择预设启动参数" \
-        "3" "自定义启动参数" \
-        "4" "返回" \
+    comfyui_launch_dialog=$(
+        dialog --erase-on-exit --notags --title "ComfyUI管理" --backtitle "ComfyUI启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动ComfyUI/修改ComfyUI启动参数\n当前启动参数:\n$([ $venv_active = 0 ] && echo python || echo "$term_sd_python_path") $(cat ./term-sd-launch.conf)" 25 80 10 \
+        "0" "> 返回" \
+        "1" "> 启动" \
+        "2" "> 选择预设启动参数" \
+        "3" "> 自定义启动参数" \
         3>&1 1>&2 2>&3)
 
     case $comfyui_launch_dialog in
@@ -191,7 +192,7 @@ comfyui_launch_args_revise()
     comfyui_launch_args=$(dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入ComfyUI启动参数" 25 80 "$(cat ./term-sd-launch.conf | awk '{sub("main.py ","")}1')" 3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
-        term_sd_echo "设置启动参数> $comfyui_launch_args"
+        term_sd_echo "设置启动参数:  $comfyui_launch_args"
         echo "main.py $comfyui_launch_args" > term-sd-launch.conf
     fi
 }

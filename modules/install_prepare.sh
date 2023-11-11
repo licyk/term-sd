@@ -14,7 +14,7 @@ download_mirror_select()
     github_mirror_name="官方源(github.com)"
 
     download_mirror_select_dialog=$(
-        dialog --erase-on-exit --title "Term-SD" --backtitle "安装镜像选项" --title "Term-SD" --ok-label "确认" --no-cancel --checklist "请选择镜像\n注:\n1、当同时启用两个github镜像源时,将使用第二个github镜像源\n2、强制使用pip一般情况下不选" 25 80 10 \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "安装镜像选项" --title "Term-SD" --ok-label "确认" --no-cancel --checklist "请选择镜像\n注:\n1、当同时启用两个github镜像源时,将使用第二个github镜像源\n2、强制使用pip一般情况下不选" 25 80 10 \
         "1" "启用pip镜像源(使用pip国内镜像源下载python软件包)" ON \
         "2" "强制使用pip(无视系统警告强制使用pip安装python软件包)" OFF \
         "3" "使用modelscope模型下载源(将huggingface下载源改为modelscope下载源)" ON \
@@ -73,18 +73,18 @@ pytorch_version_select()
     pytorch_install_version=
 
     pytorch_version_select_dialog=$(
-        dialog --erase-on-exit --title "Term-SD" --backtitle "pytorch安装版本选项" --ok-label "确认" --no-cancel --menu "请选择要安装的pytorch版本" 25 80 10 \
-        "1" "Torch+xformers" \
-        "2" "Torch" \
-        "3" "Torch 2.0.0+Torch-Directml" \
-        "4" "Torch 2.1.0+CPU" \
-        "5" "Torch 2.1.0+RoCM 5.6" \
-        "6" "Torch 1.12.1(CUDA11.3)+xFormers 0.014" \
-        "7" "Torch 1.13.1(CUDA11.7)+xFormers 0.016" \
-        "8" "Torch 2.0.0(CUDA11.8)+xFormers 0.018" \
-        "9" "Torch 2.0.1(CUDA11.8)+xFormers 0.022" \
-        "10" "Torch 2.1.0(CUDA12.1)+xFormers 0.0.22.post7" \
-        "20" "跳过安装" \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "pytorch安装版本选项" --ok-label "确认" --no-cancel --menu "请选择要安装的pytorch版本" 25 80 10 \
+        "1" "> Torch+xformers" \
+        "2" "> Torch" \
+        "3" "> Torch 2.0.0+Torch-Directml" \
+        "4" "> Torch 2.1.0+CPU" \
+        "5" "> Torch 2.1.0+RoCM 5.6" \
+        "6" "> Torch 1.12.1(CUDA11.3)+xFormers 0.014" \
+        "7" "> Torch 1.13.1(CUDA11.7)+xFormers 0.016" \
+        "8" "> Torch 2.0.0(CUDA11.8)+xFormers 0.018" \
+        "9" "> Torch 2.0.1(CUDA11.8)+xFormers 0.022" \
+        "10" "> Torch 2.1.0(CUDA12.1)+xFormers 0.0.22.post7" \
+        "20" "> 跳过安装" \
         3>&1 1>&2 2>&3)
 
     case $pytorch_version_select_dialog in
@@ -131,9 +131,9 @@ pip_install_mode_select()
     pip_install_mode=
 
     pip_install_methon_dialog=$(
-        dialog --erase-on-exit --title "Term-SD" --backtitle "pip安装模式选项" --ok-label "确认" --no-cancel --menu "请选择pip安装方式\n1、常规安装可能会有问题,但速度较快\n2、标准构建安装可解决一些报错问题,但速度较慢" 25 80 10 \
-        "1" "常规安装(setup.py)" \
-        "2" "标准构建安装(--use-pep517)" \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "pip安装模式选项" --ok-label "确认" --no-cancel --menu "请选择pip安装方式\n1、常规安装可能会有问题,但速度较快\n2、标准构建安装可解决一些报错问题,但速度较慢" 25 80 10 \
+        "1" "> 常规安装(setup.py)" \
+        "2" "> 标准构建安装(--use-pep517)" \
         3>&1 1>&2 2>&3)
 
     case $pip_install_methon_dialog in

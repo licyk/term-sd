@@ -69,16 +69,16 @@ term_sd_manager()
     exit_venv # 确保进行下一步操作前已退出其他虚拟环境
 
     term_sd_manager_dialog=$(
-        dialog --erase-on-exit --title "Term-SD" --backtitle "主界面" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的功能\n当前虚拟环境状态:$([ $venv_setup_status = 0 ] && echo "启用" || echo "禁用")\n当前代理设置:$([ -z $http_proxy ] && echo "无" || echo $http_proxy)" 25 80 10 \
-        "0" "Term-SD更新管理" \
-        "1" "AUTOMATIC1111-stable-diffusion-webui管理" \
-        "2" "ComfyUI管理" \
-        "3" "InvokeAI管理" \
-        "4" "Fooocus管理" \
-        "5" "lora-scripts管理" \
-        "6" "设置" \
-        "7" "帮助" \
-        "8" "退出" \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "主界面" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的功能\n当前虚拟环境状态:$([ $venv_setup_status = 0 ] && echo "启用" || echo "禁用")\n当前代理设置:$([ -z $http_proxy ] && echo "无" || echo $http_proxy)" 25 80 10 \
+        "0" "> Term-SD更新管理" \
+        "1" "> AUTOMATIC1111-stable-diffusion-webui管理" \
+        "2" "> ComfyUI管理" \
+        "3" "> InvokeAI管理" \
+        "4" "> Fooocus管理" \
+        "5" "> lora-scripts管理" \
+        "6" "> 设置" \
+        "7" "> 帮助" \
+        "8" "> 退出" \
         3>&1 1>&2 2>&3 )
 
     case $term_sd_manager_dialog in
@@ -120,15 +120,15 @@ term_sd_help()
     local term_sd_help_dialog
 
     term_sd_help_dialog=$(
-        dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --cancel-label "取消" --menu "请选择帮助" 25 80 10 \
-        "0" "返回" \
-        "1" "关于Term-SD" \
-        "2" "Term-SD使用方法" \
-        "3" "Term-SD注意事项" \
-        "4" "目录说明" \
-        "5" "Term-SD扩展脚本说明" \
-        "6" "sd-webui插件说明" \
-        "7" "ComfyUI插件/自定义节点说明" \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --cancel-label "取消" --menu "请选择帮助" 25 80 10 \
+        "0" "> 返回" \
+        "1" "> 关于Term-SD" \
+        "2" "> Term-SD使用方法" \
+        "3" "> Term-SD注意事项" \
+        "4" "> 目录说明" \
+        "5" "> Term-SD扩展脚本说明" \
+        "6" "> sd-webui插件说明" \
+        "7" "> ComfyUI插件/自定义节点说明" \
         3>&1 1>&2 2>&3)
 
     case $term_sd_help_dialog in

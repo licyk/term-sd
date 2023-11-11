@@ -24,23 +24,23 @@ sd_webui_manager()
         esac
 
         sd_webui_manager_dialog=$(
-            dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Stable-Diffusion-WebUI管理选项的功能\n当前更新源:$(git remote -v | awk 'NR==1 {print $2}')\n当前分支:$sd_webui_branch_info" 25 80 10 \
-            "0" "返回" \
-            "1" "启动" \
-            "2" "更新" \
-            "3" "修复更新" \
-            "4" "管理插件" \
-            "5" "切换版本" \
-            "6" "更新源替换" \
-            "7" "分支切换" \
-            "8" "更新依赖" \
-            "9" "python软件包安装/重装/卸载" \
-            "10" "依赖库版本管理" \
-            "11" "重新安装pytorch" \
-            "12" "修复虚拟环境" \
-            "13" "重新构建虚拟环境" \
-            "14" "重新安装" \
-            "15" "卸载" \
+            dialog --erase-on-exit --notags --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Stable-Diffusion-WebUI管理选项的功能\n当前更新源:$(git remote -v | awk 'NR==1 {print $2}')\n当前分支:$sd_webui_branch_info" 25 80 10 \
+            "0" "> 返回" \
+            "1" "> 启动" \
+            "2" "> 更新" \
+            "3" "> 修复更新" \
+            "4" "> 管理插件" \
+            "5" "> 切换版本" \
+            "6" "> 更新源替换" \
+            "7" "> 分支切换" \
+            "8" "> 更新依赖" \
+            "9" "> python软件包安装/重装/卸载" \
+            "10" "> 依赖库版本管理" \
+            "11" "> 重新安装pytorch" \
+            "12" "> 修复虚拟环境" \
+            "13" "> 重新构建虚拟环境" \
+            "14" "> 重新安装" \
+            "15" "> 卸载" \
             3>&1 1>&2 2>&3)
 
         case $sd_webui_manager_dialog in

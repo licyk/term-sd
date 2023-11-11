@@ -38,12 +38,13 @@ term_sd_install_task_manager()
     esac
 
     if [ -f "$term_sd_install_task_file_path" ];then
-        term_sd_install_task_manager_dialog=$(dialog --erase-on-exit --title "Term-SD" --backtitle "AI软件安装提示界面" --ok-label "确认" --cancel-label "取消" --menu "检测到有未完成的安装任务是否继续进行?" 25 80 10 \
-            "0" "返回" \
-            "1" "继续进行" \
-            "2" "重新设置安装参数并进行安装" \
-            "3" "删除安装任务并进入管理界面" \
-            "4" "跳过安装任务并进入管理界面" \
+        term_sd_install_task_manager_dialog=$(
+            dialog --erase-on-exit --notags --title "Term-SD" --backtitle "AI软件安装提示界面" --ok-label "确认" --cancel-label "取消" --menu "检测到有未完成的安装任务是否继续进行?" 25 80 10 \
+            "0" "> 返回" \
+            "1" "> 继续进行" \
+            "2" "> 重新设置安装参数并进行安装" \
+            "3" "> 删除安装任务并进入管理界面" \
+            "4" "> 跳过安装任务并进入管理界面" \
             3>&1 1>&2 2>&3)
 
         case $term_sd_install_task_manager_dialog in

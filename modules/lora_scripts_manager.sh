@@ -9,21 +9,21 @@ lora_scripts_manager()
     if [ -d "./lora-scripts" ];then
         cd lora-scripts
         lora_scripts_manager_dialog=$(
-            dialog --erase-on-exit --title "lora-scripts管理" --backtitle "lora-scripts管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择lora-scripts管理选项的功能\n当前更新源:$(git remote -v | awk 'NR==1 {print $2}')" 25 80 10 \
-            "0" "返回" \
-            "1" "启动" \
-            "2" "更新" \
-            "3" "修复更新" \
-            "4" "切换版本" \
-            "5" "更新源替换" \
-            "6" "更新依赖" \
-            "7" "python软件包安装/重装/卸载" \
-            "8" "依赖库版本管理" \
-            "9" "重新安装pytorch" \
-            "10" "修复虚拟环境" \
-            "11" "重新构建虚拟环境" \
-            "12" "重新安装" \
-            "13" "卸载" \
+            dialog --erase-on-exit --notags --title "lora-scripts管理" --backtitle "lora-scripts管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择lora-scripts管理选项的功能\n当前更新源:$(git remote -v | awk 'NR==1 {print $2}')" 25 80 10 \
+            "0" "> 返回" \
+            "1" "> 启动" \
+            "2" "> 更新" \
+            "3" "> 修复更新" \
+            "4" "> 切换版本" \
+            "5" "> 更新源替换" \
+            "6" "> 更新依赖" \
+            "7" "> python软件包安装/重装/卸载" \
+            "8" "> 依赖库版本管理" \
+            "9" "> 重新安装pytorch" \
+            "10" "> 修复虚拟环境" \
+            "11" "> 重新构建虚拟环境" \
+            "12" "> 重新安装" \
+            "13" "> 卸载" \
             3>&1 1>&2 2>&3)
 
         case $lora_scripts_manager_dialog in

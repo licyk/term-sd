@@ -208,6 +208,34 @@ term_sd_extra_scripts_launch()
     fi
 }
 
+# 扩展脚本选择
+term_sd_extra_scripts()
+{
+    extra_script_dir_list=$(ls -l "./term-sd/extra" --time-style=+"%Y-%m-%d" | awk -F ' ' ' { print $7 " " $6 } ')
+    extra_script_dir_list_=$(dialog --erase-on-exit --title "Term-SD" --backtitle "扩展脚本选项" --ok-label "确认" --cancel-label "取消" --menu "请选择要启动的脚本" 25 80 10 \
+        "Term-SD" "<---------" \
+        $extra_script_dir_list \
+        "退出" "<---------" \
+        3>&1 1>&2 2>&3)
+
+    if [ $? = 0 ];then
+        if [ $extra_script_dir_list_ = "Term-SD" ];then
+            source ./term-sd/modules/init.sh
+            term_sd_version
+            main
+        elif [ $extra_script_dir_list_ = "退出" ];then
+            term_sd_print_line
+            term_sd_echo "退出Term-SD"
+            exit 1
+        else
+            source ./term-sd/extra/$extra_script_dir_list_
+        fi
+    fi
+    term_sd_print_line
+    term_sd_echo "退出Term-SD"
+    exit 1
+}
+
 # 格式化信息输出
 term_sd_echo()
 {

@@ -7,11 +7,11 @@ pip_mirrors_setting()
 
     term_sd_echo "获取pip全局配置"
     pip_mirrors_setting_dialog=$(
-        dialog --erase-on-exit --title "Term-SD" --backtitle "pip镜像源选项" --ok-label "确认" --cancel-label "取消" --menu "请选择设置的pip镜像源\n当前pip全局配置:\n$(term_sd_pip config list | awk '{print$0}')" 25 80 10 \
-        "0" "返回" \
-        "1" "设置官方源" \
-        "2" "设置国内镜像源" \
-        "3" "删除镜像源配置" \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "pip镜像源选项" --ok-label "确认" --cancel-label "取消" --menu "请选择设置的pip镜像源\n当前pip全局配置:\n$(term_sd_pip config list | awk '{print$0}')" 25 80 10 \
+        "0" "> 返回" \
+        "1" "> 设置官方源" \
+        "2" "> 设置国内镜像源" \
+        "3" "> 删除镜像源配置" \
         3>&1 1>&2 2>&3)
 
     case $pip_mirrors_setting_dialog in

@@ -7,10 +7,10 @@ venv_setting()
     export venv_setup_status
 
     venv_setting_dialog=$(
-        dialog --erase-on-exit --title "Term-SD" --backtitle "虚拟环境设置界面" --ok-label "确认" --cancel-label "取消" --menu "是否启用虚拟环境?(推荐启用)\n当前虚拟环境状态:$([ $venv_setup_status = 0 ] && echo "启用" || echo "禁用")" 25 80 10 \
-        "0" "返回" \
-        "1" "启用" \
-        "2" "禁用" \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "虚拟环境设置界面" --ok-label "确认" --cancel-label "取消" --menu "是否启用虚拟环境?(推荐启用)\n当前虚拟环境状态:$([ $venv_setup_status = 0 ] && echo "启用" || echo "禁用")" 25 80 10 \
+        "0" "> 返回" \
+        "1" "> 启用" \
+        "2" "> 禁用" \
         3>&1 1>&2 2>&3)
 
     case $venv_setting_dialog in

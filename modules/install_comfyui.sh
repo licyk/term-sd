@@ -113,7 +113,8 @@ install_comfyui()
 # 插件选择
 comfyui_extension_install_select()
 {
-    comfyui_extension_install_select_list=$(dialog --erase-on-exit --title "ComfyUI安装" --backtitle "ComfyUI插件安装选项" --separate-output --notags --ok-label "确认" --cancel-label "取消" --checklist "请选择需要安装的ComfyUI插件" 25 80 10 \
+    comfyui_extension_install_select_list=$(
+        dialog --erase-on-exit --notags --title "ComfyUI安装" --backtitle "ComfyUI插件安装选项" --ok-label "确认" --cancel-label "取消" --checklist "请选择需要安装的ComfyUI插件" 25 80 10 \
         $(cat "$start_path/term-sd/install/comfyui/dialog_comfyui_extension.md") \
         3>&1 1>&2 2>&3)
 }
@@ -121,7 +122,8 @@ comfyui_extension_install_select()
 # 自定义节点选择
 comfyui_custom_node_install_select()
 {
-    comfyui_custom_node_install_select_list=$(dialog --erase-on-exit --title "ComfyUI安装" --backtitle "ComfyUI插件安装选项" --separate-output --notags --ok-label "确认" --cancel-label "取消" --checklist "请选择需要安装的ComfyUI插件" 25 80 10 \
+    comfyui_custom_node_install_select_list=$(
+        dialog --erase-on-exit --notags --title "ComfyUI安装" --backtitle "ComfyUI插件安装选项" --ok-label "确认" --cancel-label "取消" --checklist "请选择需要安装的ComfyUI插件" 25 80 10 \
         $(cat "$start_path/term-sd/install/comfyui/dialog_comfyui_custom_node.md") \
         3>&1 1>&2 2>&3)
 }

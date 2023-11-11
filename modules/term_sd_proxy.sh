@@ -9,12 +9,12 @@ term_sd_proxy_setting()
     export https_proxy
 
     term_sd_proxy_setting_dialog=$(
-        dialog --erase-on-exit --title "Term-SD" --backtitle "代理设置界面" --ok-label "确认" --cancel-label "取消" --menu "请选择设置代理协议\n当前代理设置:$([ -z $http_proxy ] && echo "无" || echo $http_proxy)" 25 80 10 \
-        "1" "http协议" \
-        "2" "socks协议" \
-        "3" "socks5协议" \
-        "4" "删除代理参数" \
-        "5" "返回" \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "代理设置界面" --ok-label "确认" --cancel-label "取消" --menu "请选择设置代理协议\n当前代理设置:$([ -z $http_proxy ] && echo "无" || echo $http_proxy)" 25 80 10 \
+        "0" "> 返回" \
+        "1" "> http协议" \
+        "2" "> socks协议" \
+        "3" "> socks5协议" \
+        "4" "> 删除代理参数" \
         3>&1 1>&2 2>&3)
 
     case $term_sd_proxy_setting_dialog in

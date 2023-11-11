@@ -4,13 +4,13 @@
 invokeai_launch()
 {
     invokeai_launch_dialog=$(
-        dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI启动参数选项" --ok-label "确认" --cancel-label "取消" --menu "请选择InvokeAI启动参数" 25 80 10 \
-        "1" "(invokeai-configure)启动配置界面" \
-        "2" "(invokeai-web)启动webui界面" \
-        "3" "(invokeai-web --host)启动webui界面" \
-        "4" "(invokeai-ti --gui)启动模型训练界面" \
-        "5" "(invokeai-merge --gui)启动模型合并界面" \
-        "6" "返回" \
+        dialog --erase-on-exit --notags --title "InvokeAI管理" --backtitle "InvokeAI启动参数选项" --ok-label "确认" --cancel-label "取消" --menu "请选择InvokeAI启动参数" 25 80 10 \
+        "0" "> 返回" \
+        "1" "> (invokeai-configure)启动配置界面" \
+        "2" "> (invokeai-web)启动webui界面" \
+        "3" "> (invokeai-web --host)启动webui界面" \
+        "4" "> (invokeai-ti --gui)启动模型训练界面" \
+        "5" "> (invokeai-merge --gui)启动模型合并界面" \
         3>&1 1>&2 2>&3)
 
     case $invokeai_launch_dialog in
