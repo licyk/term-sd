@@ -74,7 +74,9 @@ comfyui_manager()
                 comfyui_manager
                 ;;
             7)
-                comfyui_remote_revise
+                if (dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI更新源切换选项" --yes-label "是" --no-label "否" --yesno "是否切换ComfyUI更新源?" 25 80) then
+                    comfyui_remote_revise
+                fi
                 comfyui_manager
                 ;;
             
@@ -83,7 +85,9 @@ comfyui_manager()
                 comfyui_manager
                 ;;
             9)
-                python_package_manager
+                if (dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI的python软件包安装/重装/卸载选项" --yes-label "是" --no-label "否" --yesno "是否进入python软件包安装/重装/卸载选项?" 25 80) then
+                    python_package_manager
+                fi
                 comfyui_manager
                 ;;
             10)

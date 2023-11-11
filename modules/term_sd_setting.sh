@@ -7,14 +7,14 @@ term_sd_setting()
 
     term_sd_setting_dialog=$(dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD设置选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD设置" 25 80 10 \
         "0" "返回" \
-        "1" "虚拟环境设置" \
+        "1" "虚拟环境设置($([ $venv_setup_status = 0 ] && echo "启用" || echo "禁用"))" \
         "2" "pip镜像源设置" \
         "3" "pip缓存清理" \
-        "4" "代理设置" \
-        "5" "命令执行监测设置" \
-        "6" "Term-SD安装模式" \
-        "7" "aria2线程设置" \
-        "8" "缓存重定向设置" \
+        "4" "代理设置($([ -z $http_proxy ] && echo "无" || echo "代理地址:$http_proxy"))" \
+        "5" "命令执行监测设置($([ -f "./term-sd/term-sd-watch-retry.conf" ] && echo "启用(重试次数:$(cat ./term-sd/term-sd-watch-retry.conf))" || echo "禁用"))" \
+        "6" "Term-SD安装模式($([ ! -f "./term-sd/term-sd-disable-strict-install-mode.lock" ] && echo "严格模式" || echo "宽容模式"))" \
+        "7" "aria2线程设置($([ -f "./term-sd/aria2-thread.conf" ] && echo "启用(线程数:$(cat ./term-sd/aria2-thread.conf | awk '{sub("-x ","")}1'))" || echo "禁用"))" \
+        "8" "缓存重定向设置($([ ! -f "./term-sd/disable-cache-path-redirect.lock" ] && echo "启用" || echo "禁用"))" \
         "9" "空间占用分析" \
         "10" "网络连接测试" \
         "11" "卸载Term-SD" \
@@ -108,7 +108,7 @@ term_sd_install_mode_setting()
     local term_sd_install_mode_setting_dialog
     export term_sd_install_mode
 
-    term_sd_install_mode_setting_dialog=$(dialog --erase-on-exit --title "Term-SD" --backtitle "安装模式设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于设置Term-SD安装AI软件的工作模式。当启用\"严格模式\"后,Term-SD在安转AI软件时出现执行失败的命令时将停止安装进程(Term-SD支持断点恢复,可恢复上次安装进程中断的位置),而\"宽容模式\"在安转AI软件时出现执行失败的命令时忽略执行失败的命令继续执行完成安装任务\n当前状态:$([ ! -f "./term-sd/term-sd-disable-strict-install-mode.lock" ] && echo "启用" || echo "禁用")\n请选择要设置的安装模式(默认启用严格模式)" 25 80 10 \
+    term_sd_install_mode_setting_dialog=$(dialog --erase-on-exit --title "Term-SD" --backtitle "安装模式设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于设置Term-SD安装AI软件的工作模式。当启用\"严格模式\"后,Term-SD在安转AI软件时出现执行失败的命令时将停止安装进程(Term-SD支持断点恢复,可恢复上次安装进程中断的位置),而\"宽容模式\"在安转AI软件时出现执行失败的命令时忽略执行失败的命令继续执行完成安装任务\n当前安装模式:$([ ! -f "./term-sd/term-sd-disable-strict-install-mode.lock" ] && echo "严格模式" || echo "宽容模式")\n请选择要设置的安装模式(默认启用严格模式)" 25 80 10 \
         "0" "返回" \
         "1" "严格模式" \
         "2" "宽容模式" \

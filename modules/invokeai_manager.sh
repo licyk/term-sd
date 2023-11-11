@@ -55,7 +55,9 @@ invokeai_manager()
                     invokeai_manager
                     ;;
                 4)
-                    python_package_manager
+                    if (dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI的python软件包安装/重装/卸载选项" --yes-label "是" --no-label "否" --yesno "是否进入python软件包安装/重装/卸载选项?" 25 80) then
+                        python_package_manager
+                    fi
                     invokeai_manager
                     ;;
                 5)

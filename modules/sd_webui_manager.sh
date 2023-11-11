@@ -77,7 +77,9 @@ sd_webui_manager()
                 sd_webui_manager
                 ;;
             6)
-                sd_webui_remote_revise
+                if (dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI更新源切换选项" --yes-label "是" --no-label "否" --yesno "是否切换Stable-Diffusion-Webui更新源?" 25 80) then
+                    sd_webui_remote_revise
+                fi
                 sd_webui_manager
                 ;;
             7)
@@ -91,7 +93,9 @@ sd_webui_manager()
                 sd_webui_manager
                 ;;
             9)
-                python_package_manager
+                if (dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI的python软件包安装/重装/卸载选项" --yes-label "是" --no-label "否" --yesno "是否进入python软件包安装/重装/卸载选项?" 25 80) then
+                    python_package_manager
+                fi
                 sd_webui_manager
                 ;;
             10)

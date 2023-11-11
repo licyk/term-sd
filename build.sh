@@ -64,7 +64,7 @@ build_dialog_list_sd_webui()
     fi
     echo "生成${output_file}中"
     echo "AUTOMATIC1111-stable-diffusion-webui插件说明：" >> $output_file
-    echo "注：有些插件因为年久失修，可能会出现兼容性问题。具体介绍请在github上搜索项目\n" >> $output_file
+    echo "注：有些插件因为年久失修，可能会出现兼容性问题。具体介绍请在github上搜索项目" >> $output_file
 
     while (($flag==0))
     do

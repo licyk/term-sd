@@ -9,7 +9,7 @@ pytorch_reinstall()
     pip_install_mode_select # 安装方式选择
     term_sd_install_confirm # 安装前确认
 
-    if [ $final_install_check_exec = 0 ];then
+    if [ $? = 0 ];then
         # 开始安装pytorch
         term_sd_print_line "pytorch安装"
         term_sd_tmp_disable_proxy

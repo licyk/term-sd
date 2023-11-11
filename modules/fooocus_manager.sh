@@ -63,7 +63,9 @@ fooocus_manager()
                 fooocus_manager
                 ;;
             5)
-                fooocus_remote_revise
+                if (dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus更新源切换选项" --yes-label "是" --no-label "否" --yesno "是否切换Fooocus更新源?" 25 80) then
+                    fooocus_remote_revise
+                fi
                 fooocus_manager
                 ;;
             6)
@@ -71,7 +73,9 @@ fooocus_manager()
                 fooocus_manager
                 ;;
             7)
-                python_package_manager
+                if (dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus的python软件包安装/重装/卸载选项" --yes-label "是" --no-label "否" --yesno "是否进入python软件包安装/重装/卸载选项?" 25 80) then
+                    python_package_manager
+                fi
                 fooocus_manager
                 ;;
             8)

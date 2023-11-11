@@ -8,23 +8,30 @@ git_ver_switch()
         term_sd_echo "获取$(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')版本信息"
         git_repository_commit=$(
             dialog --erase-on-exit --title "Term-SD" --backtitle "项目切换版本选项" --ok-label "确认" --cancel-label "取消" --menu "请选择要切换的版本\n当前版本:\n$(git show -s --format="%H %cd" --date=format:"%Y-%m-%d %H:%M:%S")" 25 80 10 \
+            "-->返回<--" "<-------------------" \
             $(git log --all --date=short --pretty=format:"%H %cd" --date=format:"%Y-%m-%d|%H:%M:%S" | awk -F  ' ' ' {print $1 " " $2} ') \
             3>&1 1>&2 2>&3)
 
         if [ $? = 0 ];then
-            term_sd_echo "切换$(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')版本中"
-            case $1 in
-                --submod)
-                    git reset --hard $git_repository_commit
-                    git submodule init # 同时切换子模块的版本
-                    git submodule update
-                    ;;
-                *)
-                    # 这里切换版本不使用git checkout,因为这样会导致分支签出,在git pull时会出现"当前不在一个分支上",需要重新git checkout回去
-                    git reset --hard $git_repository_commit # 将整个工作区回退到指定commit
-                    ;;
-            esac
-            term_sd_echo "版本切换完成,版本日期: $(git show -s --format="%ai" $git_repository_commit)"
+            if [ ! $git_repository_commit = "-->返回<--" ];then
+                term_sd_echo "切换$(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')版本中"
+                case $1 in
+                    --submod)
+                        git reset --hard $git_repository_commit
+                        git submodule init # 同时切换子模块的版本
+                        git submodule update
+                        ;;
+                    *)
+                        # 这里切换版本不使用git checkout,因为这样会导致分支签出,在git pull时会出现"当前不在一个分支上",需要重新git checkout回去
+                        git reset --hard $git_repository_commit # 将整个工作区回退到指定commit
+                        ;;
+                esac
+                term_sd_echo "版本切换完成,版本日期: $(git show -s --format="%ai" $git_repository_commit)"
+            else
+                term_sd_echo "取消版本切换操作"
+            fi
+        else
+            term_sd_echo "取消版本切换操作"
         fi
     else
         term_sd_echo "$(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')非git安装,无法切换版本"

@@ -241,6 +241,13 @@ term_sd_unknown_args_echo()
 # 自动更新触发功能
 term_sd_auto_update_trigger()
 {
+    local term_sd_start_time
+    local term_sd_end_time
+    local term_sd_start_time_seconds
+    local term_sd_end_time_seconds
+    local term_sd_auto_update_time_span
+    local term_sd_auto_update_time_set=3600 # 检查更新时间间隔
+
     if [ -f "./term-sd/term-sd-auto-update.lock" ] && [ -d "./term-sd/.git" ];then # 找到自动更新配置
         if [ -f "./term-sd/term-sd-auto-update-time.conf" ];then # 有上次运行记录
             term_sd_start_time=`date +'%Y-%m-%d %H:%M:%S'` # 查看当前时间
@@ -248,7 +255,6 @@ term_sd_auto_update_trigger()
             term_sd_start_time_seconds=$(date --date="$term_sd_start_time" +%s) # 转换时间单位
             term_sd_end_time_seconds=$(date --date="$term_sd_end_time" +%s)
             term_sd_auto_update_time_span=$(( $term_sd_start_time_seconds - $term_sd_end_time_seconds )) # 计算相隔时间
-            term_sd_auto_update_time_set=3600 # 检查更新时间间隔
             if [ $term_sd_auto_update_time_span -ge $term_sd_auto_update_time_set ];then # 判断时间间隔
                 term_sd_auto_update
                 date +'%Y-%m-%d %H:%M:%S' > ./term-sd/term-sd-auto-update-time.conf # 记录自动更新功能的启动时间
@@ -270,8 +276,9 @@ term_sd_auto_update()
     term_sd_echo "检查更新中"
     term_sd_local_branch=$(git --git-dir="./term-sd/.git" branch | grep \* | awk -F "* " '{print $NF}') # term-sd分支
     term_sd_local_hash=$(git --git-dir="./term-sd/.git" rev-parse HEAD) # term-sd本地hash
-    term_sd_remote_hash=$(git --git-dir="./term-sd/.git" ls-remote origin refs/remotes/origin/$term_sd_local_branch $term_sd_local_branch | awk '{print $1}') # term-sd远程hash
-    if git --git-dir="./term-sd/.git" ls-remote origin refs/remotes/origin/$term_sd_local_branch $term_sd_local_branch 2> /dev/null 1> /dev/null ;then # 网络连接正常时再进行更新
+    term_sd_remote_hash=$(git --git-dir="./term-sd/.git" ls-remote origin refs/remotes/origin/$term_sd_local_branch $term_sd_local_branch) # term-sd远程hash
+    if [ $? = 0 ];then # 网络连接正常时再进行更新
+        term_sd_remote_hash=$(echo $term_sd_remote_hash | awk '{print $1}')
         if [ ! $term_sd_local_hash = $term_sd_remote_hash ];then
             term_sd_echo "检测到Term-SD有新版本"
             term_sd_echo "是否选择更新(yes/no)?"
@@ -473,14 +480,12 @@ install_cmd_to_shell()
 # term-sd快捷命令安装功能
 install_config_to_shell()
 {
-    # 将要向.bashrc写入的配置
-    term_sd_shell_config="termsd(){ term_sd_start_path=\$(pwd) ; cd \"$(pwd)\" ; ./term-sd.sh \"\$@\" ; cd \"\$term_sd_start_path\" > /dev/null ; }"
-    if cat ~/."$user_shell"rc | grep termsd > /dev/null ;then
+    if cat ~/.${user_shell}rc | grep termsd > /dev/null ;then
         term_sd_echo "配置已存在,添加前请删除原有配置"
     else
-        echo "# Term-SD" >> ~/."$user_shell"rc
-        echo $term_sd_shell_config >> ~/."$user_shell"rc
-        echo "alias tsd='termsd'" >> ~/."$user_shell"rc
+        echo "# Term-SD" >> ~/.${user_shell}rc
+        echo "termsd(){ term_sd_start_path=\$(pwd) ; cd \"$(pwd)\" ; ./term-sd.sh \"\$@\" ; cd \"\$term_sd_start_path\" > /dev/null ; }" >> ~/.${user_shell}rc
+        echo "alias tsd='termsd'" >> ~/.${user_shell}rc
         term_sd_echo "配置添加完成,重启shell以生效"
     fi
 }
@@ -488,31 +493,36 @@ install_config_to_shell()
 # term-sd快捷命令卸载功能
 remove_config_from_shell()
 {
-    sed -i '/# Term-SD/d' ~/."$user_shell"rc
-    sed -i '/termsd(){/d' ~/."$user_shell"rc
-    sed -i '/alias tsd/d' ~/."$user_shell"rc
+    sed -i '/# Term-SD/d' ~/.${user_shell}rc
+    sed -i '/termsd(){/d' ~/.${user_shell}rc
+    sed -i '/alias tsd/d' ~/.${user_shell}rc
     term_sd_echo "配置已删除,重启shell以生效"
 }
 
 # 终端横线显示功能
 term_sd_print_line()
 {
+    local shellwidth
+    local print_word_to_shell
+    local shell_word_width
+    local shell_word_width_zh_cn
+    local print_line_info
+    local print_word_info
+
     if [ -z "$1" ];then
         term_sd_print_line_to_shell 1
     else
-        print_word_to_shell="$1"
         shellwidth=$(stty size | awk '{print $2}') # 获取终端宽度
-        print_word_to_shell_=$(echo "$print_word_to_shell" | awk '{gsub(/ /,"-")}1') # 将空格转换为"-"
-        shell_word_width=$(( $(echo "$print_word_to_shell_" | wc -c) - 1 )) # 总共的字符长度
-        shell_word_width_zh_cn=$(( $(echo "$print_word_to_shell_" | awk '{gsub(/[a-zA-Z]/, "")}1' | awk '{gsub(/[0-9]/, "")}1' | awk '{gsub(/-/,"")}1' | wc -c) - 1 )) # 计算中文字符的长度
+        print_word_to_shell=$(echo "$1" | awk '{gsub(/ /,"-")}1') # 将空格转换为"-"
+        shell_word_width=$(( $(echo "$print_word_to_shell" | wc -c) - 1 )) # 总共的字符长度
+        shell_word_width_zh_cn=$(( $(echo "$print_word_to_shell" | awk '{gsub(/[a-zA-Z]/,"") ; gsub(/[0-9]/, "") ; gsub(/-/,"")}1' | wc -c) - 1 )) # 计算中文字符的长度
         shell_word_width=$(( $shell_word_width - $shell_word_width_zh_cn )) # 除去中文之后的长度
         # 中文的字符长度为3,但终端中只占2个字符位
         shell_word_width_zh_cn=$(( $shell_word_width_zh_cn / 3 * 2 )) # 转换中文在终端占用的实际字符长度
         shell_word_width=$(( $shell_word_width + $shell_word_width_zh_cn )) # 最终显示文字的长度
 
         # 横线输出长度的计算
-        shellwidth=$(( $shellwidth - $shell_word_width )) # 除去输出字符后的横线宽度
-        shellwidth=$(( $shellwidth / 2 )) # 半边的宽度
+        shellwidth=$(( ($shellwidth - $shell_word_width) / 2 )) # 除去输出字符后的横线宽度
 
         # 判断终端宽度大小是否是单双数
         print_line_info=$(( $shellwidth % 2 ))
@@ -523,20 +533,20 @@ term_sd_print_line()
             0) # 如果终端宽度大小是双数
                 case $print_word_info in
                     0) # 如果字符宽度大小是双数
-                        term_sd_print_line_to_shell 2
+                        term_sd_print_line_to_shell 2 $1
                         ;;
                     1) # 如果字符宽度大小是单数
-                        term_sd_print_line_to_shell 3
+                        term_sd_print_line_to_shell 3 $1
                         ;;
                 esac
                 ;;
             1) # 如果终端宽度大小是单数数
                 case $print_word_info in
                     0) # 如果字符宽度大小是双数
-                        term_sd_print_line_to_shell 2
+                        term_sd_print_line_to_shell 2 $1
                         ;;
                     1) # 如果字符宽度大小是单数
-                        term_sd_print_line_to_shell 3
+                        term_sd_print_line_to_shell 3 $1
                         ;;
                 esac
                 ;;
@@ -549,24 +559,25 @@ term_sd_print_line()
 # 输出终端横线方法
 term_sd_print_line_to_shell()
 {
-    case $? in
+    case $1 in
         1)
             shellwidth=$(stty size | awk '{print $2}') # 获取终端宽度
             yes "-" | sed $shellwidth'q' | tr -d '\n' # 输出横杠
             ;;
         2) # 解决显示字符为单数时少显示一个字符导致不对成的问题
-            echo "$(yes "-" | sed $shellwidth'q' | tr -d '\n')"$print_word_to_shell"$(yes "-" | sed $shellwidth'q' | tr -d '\n')"
+            echo "$(yes "-" | sed $shellwidth'q' | tr -d '\n')"$2"$(yes "-" | sed $shellwidth'q' | tr -d '\n')"
             ;;
         3)
-            echo "$(yes "-" | sed $shellwidth'q' | tr -d '\n')"$print_word_to_shell"$(yes "-" | sed $(( $shellwidth + 1 ))'q' | tr -d '\n')"
+            echo "$(yes "-" | sed $shellwidth'q' | tr -d '\n')"$2"$(yes "-" | sed $(( $shellwidth + 1 ))'q' | tr -d '\n')"
             ;;
     esac
-    print_word_to_shell="" # 清除已输出的内容
 }
 
 # 手动指定python路径功能
 set_python_path()
 {
+    local set_python_path_option
+
     if [ -z "$@" ];then
         term_sd_echo "请输入python解释器的路径"
         term_sd_echo "提示:输入完后请回车保存,或者输入exit退出"
@@ -597,6 +608,8 @@ set_python_path()
 # 手动指定pip路径功能
 set_pip_path()
 {
+    local set_pip_path_option
+
     if [ -z "$@" ];then
         term_sd_echo "请输入pip的路径"
         term_sd_echo "提示:输入完后请回车保存,或者输入exit退出"
@@ -672,6 +685,9 @@ set_term_sd_watch()
 # 终端大小检测
 terminal_size_test()
 {
+    local shellwidth
+    local shellheight
+
     shellwidth=$(stty size | awk '{print $2}') # 获取终端宽度，推荐95
     shellheight=$(stty size | awk '{print $1}') # 获取终端高度，推荐35
     term_sd_echo "当前终端大小: $shellheight x $shellwidth"
@@ -740,7 +756,7 @@ term_sd_macos_depend_test()
 term_sd_print_line "Term-SD"
 term_sd_echo "Term-SD初始化中"
 
-export term_sd_version_="1.0.0pre1" # term-sd版本
+export term_sd_version_="1.0.0pre2" # term-sd版本
 export user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题
@@ -837,7 +853,7 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
         fi
 
         term_sd_echo "检测依赖软件是否安装"
-        term_sd_depend="git aria2c dialog" # term-sd依赖软件包
+        term_sd_depend="git aria2c dialog curl" # term-sd依赖软件包
         term_sd_depend_macos="wget rustc cmake brew protoc gawk" # term-sd依赖软件包(MacOS)
 
         # 检测可用的python命令,并检测是否手动指定python路径

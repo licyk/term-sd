@@ -42,13 +42,13 @@ git_remote_url_select()
 
     git_remote_url_select_dialog=$(
         dialog --erase-on-exit --title "Term-SD" --backtitle "更新源选择界面" --ok-label "确认" --cancel-label "取消" --menu "选择要修改成的更新源\n当前将要修改更新源的AI软件:$term_sd_manager_info" 25 80 10 \
+        "0" "返回" \
         "1" "官方源(github.com)" \
         "2" "代理源1(ghproxy.com)" \
         "3" "代理源2(gitclone.com)" \
         "4" "代理源3(gh-proxy.com)" \
         "5" "代理源4(ghps.cc)" \
         "6" "代理源5(ghps.cc)" \
-        "7" "返回" \
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
@@ -103,13 +103,13 @@ git_remote_url_select_single()
 
         git_remote_url_select_single_dialog=$(
             dialog --erase-on-exit --title "Term-SD" --backtitle "更新源选择界面" --ok-label "确认" --cancel-label "取消" --menu "选择要修改成的更新源\n当前更新源:$(git remote -v | awk 'NR==1 {print $2}')" 25 80 10 \
+            "0" "返回" \
             "1" "官方源(github.com)" \
             "2" "代理源1(ghproxy.com)" \
             "3" "代理源2(gitclone.com)" \
             "4" "代理源3(gh-proxy.com)" \
             "5" "代理源4(ghps.cc)" \
             "6" "代理源5(ghps.cc)" \
-            "7" "返回" \
             3>&1 1>&2 2>&3)
 
         case $git_remote_url_select_single_dialog in

@@ -27,7 +27,7 @@ install_sd_webui()
                 if [ $term_sd_install_mode = 0 ];then
                     term_sd_echo "安装命令执行失败,终止安装程序"
                     term_sd_tmp_enable_proxy # 恢复代理
-                    sleep 3
+                    sleep 5
                     return 1
                 else
                     term_sd_echo "忽略执行失败的命令"
@@ -89,7 +89,7 @@ install_sd_webui()
                     if [ $term_sd_install_mode = 0 ];then
                         term_sd_echo "安装命令执行失败,终止安装程序"
                         term_sd_tmp_enable_proxy # 恢复代理
-                        sleep 3
+                        sleep 5
                         return 1
                     else
                         term_sd_echo "忽略执行失败的命令"
