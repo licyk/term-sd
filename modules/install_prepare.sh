@@ -1,168 +1,199 @@
 #!/bin/bash
 
-#安装前代理选择
-function proxy_option()
+# 安装前镜像选择(后面加上auto_github_mirrror参数将自动勾选"github镜像源自动选择")
+download_mirror_select()
 {
+    local download_mirror_select_dialog
+    local auto_select_github_mirror=1
     pip_index_mirror="--index-url https://pypi.python.org/simple"
-    pip_extra_index_mirror=""
+    pip_extra_index_mirror=
     pip_find_mirror="--find-links https://download.pytorch.org/whl/torch_stable.html"
-    #extra_pip_mirror="--extra-index-url https://download.pytorch.org/whl"
-    github_proxy="https://"
-    force_pip=""
+    pip_break_system_package=
     only_hugggingface_proxy=1
-    final_install_check_python="禁用"
-    final_install_check_github="禁用"
-    only_hugggingface_proxy_info="禁用"
     use_modelscope_model=1
-    use_modelscope_model_info="禁用"
-    final_install_check_force_pip="禁用"
+    github_mirror="https://github.com/term_sd_git_user/term_sd_git_repo"
+    github_mirror_name="官方源(github.com)"
 
-    proxy_option_dialog=$(
-        dialog --erase-on-exit --title "Term-SD" --backtitle "安装代理选项" --separate-output --notags --title "Term-SD" --ok-label "确认" --no-cancel --checklist "请选择代理\n注:\n1、当同时启用两个github代理源时,将使用第二个github代理源\n2、强制使用pip一般情况下不选" 25 80 10 \
+    download_mirror_select_dialog=$(
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "安装镜像选项" --title "Term-SD" --ok-label "确认" --no-cancel --checklist "请选择镜像\n注:\n1、当同时启用两个github镜像源时,将使用第二个github镜像源\n2、强制使用pip一般情况下不选" 25 80 10 \
         "1" "启用pip镜像源(使用pip国内镜像源下载python软件包)" ON \
-        "2" "启用github代理源1(使用ghproxy代理站下载github上的源码)" ON \
-        "3" "启用github代理源2(使用gitclone代理站下载github上的源码)" OFF \
-        "4" "huggingface独占代理(仅在下载huggingface的模型的过程启用代理)" ON \
-        "5" "使用modelscope模型下载源(将huggingface下载源改为modelscope下载源)" ON \
-        "6" "强制使用pip(无视系统警告强制使用pip安装python软件包)" OFF \
+        "2" "强制使用pip(无视系统警告强制使用pip安装python软件包)" OFF \
+        "3" "使用modelscope模型下载源(将huggingface下载源改为modelscope下载源)" ON \
+        "4" "huggingface下载源独占代理(仅在下载huggingface的模型的过程启用代理)" ON \
+        "5" "github镜像源自动选择(测试可用的镜像源并选择自动选择)" $([ ! -z $1 ] && [ $1 = "auto_github_mirrror" ] && echo "ON" || echo "OFF") \
+        "6" "启用github镜像源1(使用ghproxy镜像站下载github上的源码)" OFF \
+        "7" "启用github镜像源2(使用gitclone镜像站下载github上的源码)" $([ ! -z $1 ] && [ $1 = "auto_github_mirrror" ] && echo "OFF" || echo "ON") \
+        "8" "启用github镜像源3(使用gh-proxy镜像站下载github上的源码)" OFF \
+        "9" "启用github镜像源4(使用ghps镜像站下载github上的源码)" OFF \
+        "10" "启用github镜像源5(使用gh.idayer镜像站下载github上的源码)" OFF \
         3>&1 1>&2 2>&3)
 
-    if [ $? = 0 ]; then
-        for i in $proxy_option_dialog; do
-            case "$i" in
-                1)
-                    #pip_mirror="-i https://mirror.sjtu.edu.cn/pypi/web/simple" #上海交大的镜像源有点问题,在安装invokeai时会报错,可能是软件包版本的问题
-                    #extra_pip_mirror="-f https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
-                    pip_index_mirror="--index-url https://mirrors.bfsu.edu.cn/pypi/web/simple"
-                    pip_extra_index_mirror="--extra-index-url https://mirrors.hit.edu.cn/pypi/web/simple --extra-index-url https://pypi.tuna.tsinghua.edu.cn/simple --extra-index-url https://mirror.nju.edu.cn/pypi/web/simple"
-                    pip_find_mirror="--find-links https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html --find-links https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
-                    final_install_check_python="启用"
-                    ;;
-                2)
-                    github_proxy="https://ghproxy.com/"
-                    final_install_check_github="启用代理源1"
-                    ;;
-                3)
-                    github_proxy="https://gitclone.com/"
-                    final_install_check_github="启用代理源2"
-                    ;;
-                4)
-                    only_hugggingface_proxy=0
-                    only_hugggingface_proxy_info="启用"
-                    ;;
-                5)
-                    use_modelscope_model=0
-                    use_modelscope_model_info="启用"
-                    ;;
-                6)
-                    force_pip="--break-system-packages"
-                    final_install_check_force_pip="启用"
-                    ;;
-            esac
-        done
-    fi
-}
-
-#pytorch安装选择
-function pytorch_version_select()
-{
-    pytorch_install_version=""
-
-    pytorch_version_select_dialog=$(
-        dialog --erase-on-exit --title "Term-SD" --backtitle "pytorch安装版本选项" --ok-label "确认" --no-cancel --menu "请选择要安装的pytorch版本" 25 80 10 \
-        "1" "Torch+xformers" \
-        "2" "Torch" \
-        "3" "Torch 2.0.0+Torch-Directml" \
-        "4" "Torch 2.1.0+CPU" \
-        "5" "Torch 2.1.0+RoCM 5.6" \
-        "6" "Torch 1.12.1(CUDA11.3)+xFormers 0.014" \
-        "7" "Torch 1.13.1(CUDA11.7)+xFormers 0.016" \
-        "8" "Torch 2.0.0(CUDA11.8)+xFormers 0.018" \
-        "9" "Torch 2.0.1(CUDA11.8)+xFormers 0.022" \
-        "10" "Torch 2.1.0(CUDA12.1)+xFormers 0.0.22.post7" \
-        "20" "跳过安装" \
-        3>&1 1>&2 2>&3)
-
-    if [ $? = 0 ];then
-        case $pytorch_version_select_dialog in
-            20)
-                pytorch_install_version=""
-                ;;
+    for i in $download_mirror_select_dialog; do
+        case $i in
             1)
-                pytorch_install_version="torch torchvision xformers"
+                pip_index_mirror="--index-url https://mirrors.bfsu.edu.cn/pypi/web/simple"
+                pip_extra_index_mirror="--extra-index-url https://mirrors.hit.edu.cn/pypi/web/simple --extra-index-url https://pypi.tuna.tsinghua.edu.cn/simple --extra-index-url https://mirror.nju.edu.cn/pypi/web/simple"
+                pip_find_mirror="--find-links https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html --find-links https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
                 ;;
             2)
-                pytorch_install_version="torch torchvision"
+                pip_break_system_package="--break-system-packages"
                 ;;
             3)
-                pytorch_install_version="torch==2.0.0 torchvision==0.15.1 torch-directml"
+                use_modelscope_model=0
                 ;;
             4)
-                pytorch_install_version="torch==2.1.0+cpu torchvision==0.16.0+cpu"
+                only_hugggingface_proxy=0
                 ;;
             5)
-                pytorch_install_version="torch==2.1.0+rocm5.6 torchvision==0.16.0+rocm5.6"
+                auto_select_github_mirror=0
                 ;;
             6)
-                pytorch_install_version="torch==1.12.1+cu113 torchvision==0.13.1+cu113 xformers==0.0.14"
+                github_mirror="https://ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo"
+                github_mirror_name="镜像源1(ghproxy.com)"
                 ;;
             7)
-                pytorch_install_version="torch==1.13.1+cu117 torchvision==0.14.1+cu117 xformers==0.0.16"
+                github_mirror="https://gitclone.com/github.com/term_sd_git_user/term_sd_git_repo"
+                github_mirror_name="镜像源2(gitclone.com)"
                 ;;
             8)
-                pytorch_install_version="torch==2.0.0+cu118 torchvision==0.15.1+cu118 xformers==0.0.18"
+                github_mirror="https://gh-proxy.com/https://github.com/term_sd_git_user/term_sd_git_repo"
+                github_mirror_name="镜像源3(gh-proxy.com)"
                 ;;
             9)
-                pytorch_install_version="torch==2.0.1+cu118 torchvision==0.15.2+cu118 xformers==0.0.22"
+                github_mirror="https://ghps.cc/https://github.com/term_sd_git_user/term_sd_git_repo"
+                github_mirror_name="镜像源4(ghps.cc)"
                 ;;
             10)
-                pytorch_install_version="torch==2.1.0+cu121 torchvision==0.16.0+cu121 xformers==0.0.22.post7"
+                github_mirror="https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo"
+                github_mirror_name="镜像源5(gh.idayer.com)"
                 ;;
         esac
+    done
+
+    if [ $auto_select_github_mirror = 0 ];then # 测试可用的镜像源
+        term_sd_echo "测试可用的github镜像源中"
+        github_mirror=$(github_mirror_test)
+        github_mirror_name="镜像源($(echo $github_mirror | awk '{sub("https://","")}1' | awk -F '/' '{print$NR}'))"
+        term_sd_echo "镜像源测试结束,镜像源选择: $github_mirror_name"
     fi
 }
 
-#pip安装模式选择
-function pip_install_methon()
+# pytorch安装版本选择
+pytorch_version_select()
 {
-    pip_install_methon_select=""
-    final_install_check_pip_methon="常规安装(setup.py)"
+    local pytorch_version_select_dialog
+    pytorch_install_version=
 
-    pip_install_methon_dialog=$(
-        dialog --erase-on-exit --title "Term-SD" --backtitle "pip安装模式选项" --ok-label "确认" --no-cancel --menu "请选择pip安装方式\n1、常规安装可能会有问题,但速度较快\n2、标准构建安装可解决一些报错问题,但速度较慢" 25 80 10 \
-        "1" "常规安装(setup.py)" \
-        "2" "标准构建安装(--use-pep517)" \
+    pytorch_version_select_dialog=$(
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "pytorch安装版本选项" --ok-label "确认" --no-cancel --menu "请选择要安装的pytorch版本" 25 80 10 \
+        "1" "> Torch+xformers" \
+        "2" "> Torch" \
+        "3" "> Torch 2.0.0+Torch-Directml" \
+        "4" "> Torch 2.1.0+CPU" \
+        "5" "> Torch 2.1.0+RoCM 5.6" \
+        "6" "> Torch 1.12.1(CUDA11.3)+xFormers 0.014" \
+        "7" "> Torch 1.13.1(CUDA11.7)+xFormers 0.016" \
+        "8" "> Torch 2.0.0(CUDA11.8)+xFormers 0.018" \
+        "9" "> Torch 2.0.1(CUDA11.8)+xFormers 0.022" \
+        "10" "> Torch 2.1.0(CUDA12.1)+xFormers 0.0.22.post7" \
+        "20" "> 跳过安装" \
         3>&1 1>&2 2>&3)
 
-    if [ $? = 0 ];then
-        case $pip_install_methon_dialog in
-            1)
-                pip_install_methon_select=""
-                final_install_check_pip_methon="常规安装(setup.py)"
-                ;;
-            2)
-                pip_install_methon_select="--use-pep517"
-                final_install_check_pip_methon="标准构建安装(--use-pep517)"
-                ;;
-        esac
+    case $pytorch_version_select_dialog in
+        20)
+            pytorch_install_version=
+            ;;
+        1)
+            pytorch_install_version="torch torchvision xformers"
+            ;;
+        2)
+            pytorch_install_version="torch torchvision"
+            ;;
+        3)
+            pytorch_install_version="torch==2.0.0 torchvision==0.15.1 torch-directml"
+            ;;
+        4)
+            pytorch_install_version="torch==2.1.0+cpu torchvision==0.16.0+cpu"
+            ;;
+        5)
+            pytorch_install_version="torch==2.1.0+rocm5.6 torchvision==0.16.0+rocm5.6"
+            ;;
+        6)
+            pytorch_install_version="torch==1.12.1+cu113 torchvision==0.13.1+cu113 xformers==0.0.14"
+            ;;
+        7)
+            pytorch_install_version="torch==1.13.1+cu117 torchvision==0.14.1+cu117 xformers==0.0.16"
+            ;;
+        8)
+            pytorch_install_version="torch==2.0.0+cu118 torchvision==0.15.1+cu118 xformers==0.0.18"
+            ;;
+        9)
+            pytorch_install_version="torch==2.0.1+cu118 torchvision==0.15.2+cu118 xformers==0.0.22"
+            ;;
+        10)
+            pytorch_install_version="torch==2.1.0+cu121 torchvision==0.16.0+cu121 xformers==0.0.22.post7"
+            ;;
+    esac
+}
+
+# pip安装模式选择
+pip_install_mode_select()
+{
+    local pip_install_methon_dialog
+    pip_install_mode=
+
+    pip_install_methon_dialog=$(
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "pip安装模式选项" --ok-label "确认" --no-cancel --menu "请选择pip安装方式\n1、常规安装可能会有问题,但速度较快\n2、标准构建安装可解决一些报错问题,但速度较慢" 25 80 10 \
+        "1" "> 常规安装(setup.py)" \
+        "2" "> 标准构建安装(--use-pep517)" \
+        3>&1 1>&2 2>&3)
+
+    case $pip_install_methon_dialog in
+        1)
+            pip_install_mode=
+            ;;
+        2)
+            pip_install_mode="--use-pep517"
+            ;;
+    esac
+}
+
+# 安装前确认界面
+term_sd_install_confirm()
+{
+    if (dialog --erase-on-exit --title "Term-SD" --backtitle "安装确认选项" --yes-label "是" --no-label "否" --yesno "是否进行安装? \n
+pip镜像源:$([ -z "$pip_extra_index_mirror" ] && echo "禁用" || echo "启用")\n
+github镜像:$github_mirror_name\n
+huggingface下载源独占代理:$([ $only_hugggingface_proxy = 0 ] && echo "启用" || echo "禁用")\n
+使用modelscope模型下载源:$([ $use_modelscope_model = 0 ] && echo "启用" || echo "禁用")\n
+强制使用pip:$([ -z "$pip_break_system_package" ] && echo "禁用" || echo "启用")\n
+pytorch版本:$([ ! -z "$(echo $pytorch_install_version | awk '{gsub(/[=+]/, "")}1')" ] && echo $pytorch_install_version || echo "无")\n
+pip安装方式:$([ -z $pip_install_mode ] && echo "常规安装(setup.py)" || echo "标准构建安装(--use-pep517)")\n
+" 25 80);then
+        term_sd_echo "确认进行安装"
+        return 0
+    else
+        term_sd_echo "取消安装"
+        return 1
     fi
 }
 
-#安装前确认界面
-function final_install_check()
+# github镜像源测试
+github_mirror_test()
 {
-    if (dialog --erase-on-exit --title "Term-SD" --backtitle "安装确认选项" --yes-label "是" --no-label "否" --yesno "是否进行安装? \n
-pip镜像源:$final_install_check_python \n
-github代理:$final_install_check_github\n
-huggingface独占代理:$only_hugggingface_proxy_info\n
-使用modelscope模型下载源:$use_modelscope_model_info\n
-强制使用pip:$final_install_check_force_pip\n
-pytorch:$([ ! -z "$(echo $pytorch_install_version | awk '{gsub(/[=+]/, "")}1')" ] && echo $pytorch_install_version || echo "无")\n
-pip安装方式:$final_install_check_pip_methon\n
-" 25 80);then
-        term_sd_notice "安装参数设置完成"
-        export final_install_check_exec=0 #声明是否进行安装
-    else
-        export final_install_check_exec=1
-    fi
+    # 镜像源列表
+    local github_mirror_list="https://ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo https://gh-proxy.com/https://github.com/term_sd_git_user/term_sd_git_repo https://ghps.cc/https://github.com/term_sd_git_user/term_sd_git_repo https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo https://gitclone.com/github.com/term_sd_git_user/term_sd_git_repo"
+    local github_mirror_avaliable=1
+    local git_req
+    for i in $github_mirror_list ;do
+        git clone $(git_format_repository_url $i https://github.com/licyk/empty) "$start_path/term-sd/github_mirror_test" --depth=1 > /dev/null 2>&1 # 测试镜像源是否正常连接
+        git_req=$?
+        rm -rf "$start_path/term-sd/github_mirror_test" > /dev/null 2>&1
+        if [ $git_req = 0 ];then
+            echo $i
+            github_mirror_avaliable=0
+            break
+        fi
+    done
+    [ $github_mirror_avaliable = 1 ] && echo https://github.com/term_sd_git_user/term_sd_git_repo # 只有上面所有的镜像源无法使用才使用github源
 }
