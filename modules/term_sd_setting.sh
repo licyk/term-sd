@@ -11,7 +11,7 @@ term_sd_setting()
         "1" "> 虚拟环境设置($([ $venv_setup_status = 0 ] && echo "启用" || echo "禁用"))" \
         "2" "> pip镜像源设置" \
         "3" "> pip缓存清理" \
-        "4" "> 代理设置($([ -z $http_proxy ] && echo "无" || echo "代理地址:$(echo $http_proxy | awk '{print substr($@,1,40)}')"))" \
+        "4" "> 代理设置($([ -z $http_proxy ] && echo "无" || echo "代理地址:$(echo $http_proxy | awk '{print substr($1,1,40)}')"))" \
         "5" "> 命令执行监测设置($([ -f "./term-sd/term-sd-watch-retry.conf" ] && echo "启用(重试次数:$(cat ./term-sd/term-sd-watch-retry.conf))" || echo "禁用"))" \
         "6" "> Term-SD安装模式($([ ! -f "./term-sd/term-sd-disable-strict-install-mode.lock" ] && echo "严格模式" || echo "宽容模式"))" \
         "7" "> aria2线程设置($([ -f "./term-sd/aria2-thread.conf" ] && echo "启用(线程数:$(cat ./term-sd/aria2-thread.conf | awk '{sub("-x ","")}1'))" || echo "禁用"))" \
@@ -151,7 +151,7 @@ aria2_multi_threaded_setting()
             if [ ! -z "$(echo $aria2_multi_threaded_value | awk '{gsub(/[0-9]/, "")}1')" ] || [ $aria2_multi_threaded_value = 0 ] ;then
                 dialog --erase-on-exit --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --msgbox "输入格式错误,线程数只能为数字且不能为负数" 25 80
             else
-                if [ $@ -le 16 ];then
+                if [ $aria2_multi_threaded_value -le 16 ];then
                     echo "-x $aria2_multi_threaded_value" > ./term-sd/aria2-thread.conf
                     aria2_multi_threaded="-x $aria2_multi_threaded_value"
                     dialog --erase-on-exit --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --msgbox "启用成功" 25 80
@@ -278,7 +278,7 @@ term_sd_uninstall_interface()
                 user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') # 读取用户所使用的shell
                 if [ $user_shell = bash ] || [ $user_shell = zsh ];then
                     sed -i '/# Term-SD/d' ~/."$user_shell"rc
-                    sed -i '/termsd(){/d' ~/."$user_shell"rc
+                    sed -i '/term_sd(){/d' ~/."$user_shell"rc
                     sed -i '/alias tsd/d' ~/."$user_shell"rc
                 fi
                 term_sd_echo "Term-SD卸载完成"

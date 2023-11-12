@@ -95,4 +95,5 @@ term_sd_set_install_env_value()
     echo "__term_sd_task_sys github_mirror=\"$github_mirror\""
     echo "__term_sd_task_sys pytorch_install_version=\"$pytorch_install_version\""
     echo "__term_sd_task_sys pip_install_mode=\"$pip_install_mode\""
+    echo "__term_sd_task_sys only_hugggingface_proxy=\"$only_hugggingface_proxy\""
 }

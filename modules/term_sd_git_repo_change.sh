@@ -51,47 +51,42 @@ git_remote_url_select()
         "6" "> 代理源5(ghps.cc)" \
         3>&1 1>&2 2>&3)
 
-    if [ $? = 0 ];then
-        case $git_remote_url_select_dialoggit_remote_url_select_dialog in
-            1)
-                term_sd_print_line "更新源一键替换"
-                git_repo_remote_revise_cmd="git_repo_remote_revise https://github.com/term_sd_git_user/term_sd_git_repo"
-                return 0
-                ;;
-            2)
-                term_sd_print_line "更新源一键替换"
-                git_repo_remote_revise_cmd="git_repo_remote_revise https://ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo"
-                return 0
-                ;;
-            3)
-                term_sd_print_line "更新源一键替换"
-                git_repo_remote_revise_cmd="git_repo_remote_revise https://gitclone.com/github.com/term_sd_git_user/term_sd_git_repo"
-                return 0
-                ;;
-            4)
-                term_sd_print_line "更新源一键替换"
-                git_repo_remote_revise_cmd="git_repo_remote_revise https://gh-proxy.com/https://github.com/term_sd_git_user/term_sd_git_repo"
-                return 0
-                ;;
-            5)
-                term_sd_print_line "更新源一键替换"
-                git_repo_remote_revise_cmd="git_repo_remote_revise https://ghps.cc/https://github.com/term_sd_git_user/term_sd_git_repo"
-                return 0
-                ;;
-            6)
-                term_sd_print_line "更新源一键替换"
-                git_repo_remote_revise_cmd="git_repo_remote_revise https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo"
-                return 0
-                ;;
-            *)
-                term_sd_echo "取消替换更新源操作"
-                return 1 #不执行替换
-                ;;
-        esac
-    else
-        term_sd_echo "取消替换更新源操作"
-        return 1
-    fi
+    case $git_remote_url_select_dialog in
+        1)
+            term_sd_print_line "更新源一键替换"
+            git_repo_remote_revise_cmd="git_repo_remote_revise https://github.com/term_sd_git_user/term_sd_git_repo"
+            return 0
+            ;;
+        2)
+            term_sd_print_line "更新源一键替换"
+            git_repo_remote_revise_cmd="git_repo_remote_revise https://ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo"
+            return 0
+            ;;
+        3)
+            term_sd_print_line "更新源一键替换"
+            git_repo_remote_revise_cmd="git_repo_remote_revise https://gitclone.com/github.com/term_sd_git_user/term_sd_git_repo"
+            return 0
+            ;;
+        4)
+            term_sd_print_line "更新源一键替换"
+            git_repo_remote_revise_cmd="git_repo_remote_revise https://gh-proxy.com/https://github.com/term_sd_git_user/term_sd_git_repo"
+            return 0
+            ;;
+        5)
+            term_sd_print_line "更新源一键替换"
+            git_repo_remote_revise_cmd="git_repo_remote_revise https://ghps.cc/https://github.com/term_sd_git_user/term_sd_git_repo"
+            return 0
+            ;;
+        6)
+            term_sd_print_line "更新源一键替换"
+            git_repo_remote_revise_cmd="git_repo_remote_revise https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo"
+            return 0
+            ;;
+        *)
+            term_sd_echo "取消替换更新源操作"
+            return 1 #不执行替换
+            ;;
+    esac
 }
 
 # git远程源选择(针对单个插件/自定义节点)
@@ -136,6 +131,9 @@ git_remote_url_select_single()
             6)
                 git_repo_remote_revise https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo
                 dialog --erase-on-exit --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$git_repo_remote_revise_req------------------------------------------------------------------" 25 80
+                ;;
+            *)
+                term_sd_echo "取消替换更新源操作"
                 ;;
         esac
     else

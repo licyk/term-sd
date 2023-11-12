@@ -556,7 +556,7 @@ install_cmd_to_shell()
     case $user_shell in
         bash|zsh)
             term_sd_echo "是否将Term-SD快捷启动指令添加到shell环境中?"
-            term_sd_echo "添加后可使用\"termsd\"指令启动Term-SD"
+            term_sd_echo "添加后可使用\"term_sd\",\"tsd\"指令启动Term-SD"
             term_sd_echo "1、添加"
             term_sd_echo "2、删除"
             term_sd_echo "3、退出"
@@ -586,12 +586,12 @@ install_cmd_to_shell()
 # term-sd快捷命令安装功能
 install_config_to_shell()
 {
-    if cat ~/.${user_shell}rc | grep termsd > /dev/null ;then
+    if cat ~/.${user_shell}rc | grep term_sd > /dev/null ;then
         term_sd_echo "配置已存在,添加前请删除原有配置"
     else
         echo "# Term-SD" >> ~/.${user_shell}rc
-        echo "termsd(){ term_sd_start_path=\$(pwd) ; cd \"$(pwd)\" ; ./term-sd.sh \"\$@\" ; cd \"\$term_sd_start_path\" > /dev/null ; }" >> ~/.${user_shell}rc
-        echo "alias tsd='termsd'" >> ~/.${user_shell}rc
+        echo "term_sd(){ term_sd_start_path=\$(pwd) ; cd \"$(pwd)\" ; ./term-sd.sh \"\$@\" ; cd \"\$term_sd_start_path\" > /dev/null ; }" >> ~/.${user_shell}rc
+        echo "alias tsd='term_sd'" >> ~/.${user_shell}rc
         term_sd_echo "配置添加完成,重启shell以生效"
     fi
 }
@@ -600,7 +600,7 @@ install_config_to_shell()
 remove_config_from_shell()
 {
     sed -i '/# Term-SD/d' ~/.${user_shell}rc
-    sed -i '/termsd(){/d' ~/.${user_shell}rc
+    sed -i '/term_sd(){/d' ~/.${user_shell}rc
     sed -i '/alias tsd/d' ~/.${user_shell}rc
     term_sd_echo "配置已删除,重启shell以生效"
 }
@@ -788,7 +788,7 @@ term_sd_macos_depend_test()
 term_sd_print_line "Term-SD"
 term_sd_echo "Term-SD初始化中"
 
-export term_sd_version_="1.0.0pre4" # term-sd版本
+export term_sd_version_="1.0.0pre5" # term-sd版本
 export user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题
