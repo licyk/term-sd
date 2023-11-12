@@ -38,5 +38,5 @@ __term_sd_task_pre_ext_37 git_clone_repository ${github_mirror} https://github.c
 __term_sd_task_pre_ext_38 git_clone_repository ${github_mirror} https://github.com/Fannovel16/comfyui_controlnet_aux ComfyUI/custom_nodes ON # ComfyUI的ControlNet辅助预处理器
 __term_sd_task_pre_ext_39 git_clone_repository ${github_mirror} https://github.com/AIGODLIKE/AIGODLIKE-COMFYUI-TRANSLATION ComfyUI/custom_nodes ON # ComfyUI的翻译扩展
 __term_sd_task_pre_ext_40 git_clone_repository ${github_mirror} https://github.com/Stability-AI/stability-ComfyUI-nodes ComfyUI/custom_nodes ON # Stability-AI自定义节点支持
-__term_sd_task_pre_ext_41 git_clone_repository ${github_mirror} https://github.com/hustille/ComfyUI_Fooocus_KSampler ComfyUI/custom_nodes ON # 添加fooocus噪声生成器支持
+__term_sd_task_pre_ext_41 git_clone_repository ${github_mirror} https://github.com/hustille/ComfyUI_Fooocus_KSampler ComfyUI/custom_nodes OFF # 添加fooocus噪声生成器支持
 __term_sd_task_pre_ext_42 git_clone_repository ${github_mirror} https://github.com/WASasquatch/FreeU_Advanced ComfyUI/custom_nodes ON # 生图加速

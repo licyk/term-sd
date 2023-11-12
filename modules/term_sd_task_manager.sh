@@ -8,40 +8,46 @@ term_sd_install_task_manager()
     local term_sd_install_task_file_path
     local term_sd_install_exec_cmd
     local term_sd_manager_exec_cmd
+    local term_sd_install_task_info
 
     case $@ in
         stable-diffusion-webui)
             term_sd_install_task_file_path="$start_path/term-sd/task/sd_webui_install.sh"
             term_sd_install_exec_cmd="install_sd_webui"
             term_sd_manager_exec_cmd="sd_webui_manager"
+            term_sd_install_task_info="Stable-Diffusion-WebUI"
             ;;
         ComfyUI)
             term_sd_install_task_file_path="$start_path/term-sd/task/comfyui_install.sh"
             term_sd_install_exec_cmd="install_comfyui"
             term_sd_manager_exec_cmd="comfyui_manager"
+            term_sd_install_task_info="ComfyUI"
             ;;
         InvokeAI)
             term_sd_install_task_file_path="$start_path/term-sd/task/invokeai_install.sh"
             term_sd_install_exec_cmd="install_invokeai"
             term_sd_manager_exec_cmd="invokeai_manager"
+            term_sd_install_task_info="InvokeAI"
             ;;
         Fooocus)
             term_sd_install_task_file_path="$start_path/term-sd/task/fooocus_install.sh"
             term_sd_install_exec_cmd="install_fooocus"
             term_sd_manager_exec_cmd="fooocus_manager"
+            term_sd_install_task_info="Fooocus"
             ;;
         lora-scripts)
             term_sd_install_task_file_path="$start_path/term-sd/task/lora_scripts_install.sh"
             term_sd_install_exec_cmd="install_lora_scripts"
             term_sd_manager_exec_cmd="lora_scripts_manager"
+            term_sd_install_task_info="lora-scripts"
             ;;
     esac
 
     if [ -f "$term_sd_install_task_file_path" ];then
         term_sd_install_task_manager_dialog=$(
-            dialog --erase-on-exit --notags --title "Term-SD" --backtitle "AI软件安装提示界面" --ok-label "确认" --cancel-label "取消" --menu "检测到有未完成的安装任务是否继续进行?" 25 80 10 \
+            dialog --erase-on-exit --notags --title "Term-SD" --backtitle "AI软件安装提示界面" --ok-label "确认" --cancel-label "取消" --menu "检测到${term_sd_install_task_info}有未完成的安装任务,是否继续进行?" 25 80 10 \
             "0" "> 返回" \
-            "1" "> 继续进行" \
+            "1" "> 继续执行安装任务" \
             "2" "> 重新设置安装参数并进行安装" \
             "3" "> 删除安装任务并进入管理界面" \
             "4" "> 跳过安装任务并进入管理界面" \
