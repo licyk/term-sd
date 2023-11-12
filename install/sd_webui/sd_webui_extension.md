@@ -1,4 +1,3 @@
-__term_sd_task_sys term_sd_echo "安装插件中"
 __term_sd_task_pre_ext_1 git_clone_repository ${github_mirror} https://github.com/WSH032/kohya-config-webui stable-diffusion-webui/extensions OFF # 一个用于生成kohya-ss训练脚本使用的toml配置文件的WebUI
 __term_sd_task_pre_ext_2 git_clone_repository ${github_mirror} https://github.com/kohya-ss/sd-webui-additional-networks stable-diffusion-webui/extensions OFF # 将LoRA等模型添加到stablediffusion以生成图像的扩展
 __term_sd_task_pre_ext_3 git_clone_repository ${github_mirror} https://github.com/DominikDoom/a1111-sd-webui-tagcomplete stable-diffusion-webui/extensions ON # 输入Tag时提供booru风格（如Danbooru）的TAG自动补全

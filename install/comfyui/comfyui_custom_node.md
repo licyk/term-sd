@@ -1,4 +1,3 @@
-__term_sd_task_sys term_sd_echo "安装自定义节点中"
 __term_sd_task_pre_ext_1 git_clone_repository ${github_mirror} https://github.com/WASasquatch/was-node-suite-comfyui ComfyUI/custom_nodes ON # 适用于ComfyUI的广泛节点套件，包含190多个新节点
 __term_sd_task_pre_ext_2 git_clone_repository ${github_mirror} https://github.com/BlenderNeko/ComfyUI_Cutoff ComfyUI/custom_nodes ON # 解决tag污染
 __term_sd_task_pre_ext_3 git_clone_repository ${github_mirror} https://github.com/BlenderNeko/ComfyUI_TiledKSampler ComfyUI/custom_nodes OFF # ComfyUI的平铺采样器

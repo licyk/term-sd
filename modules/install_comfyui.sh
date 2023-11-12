@@ -51,10 +51,12 @@ install_comfyui()
             term_sd_echo "生成安装任务中"
             term_sd_set_install_env_value >> "$start_path/term-sd/task/comfyui_install.sh" # 环境变量
             cat "$start_path/term-sd/install/comfyui/comfyui_core.md" >> "$start_path/term-sd/task/comfyui_install.sh" # 核心组件
+            [ ! -z "$comfyui_extension_install_select_list" ] && echo "__term_sd_task_sys term_sd_echo "安装插件中"" >> "$start_path/term-sd/task/comfyui_install.sh"
             for i in $comfyui_extension_install_select_list ;do
                 cat "$start_path/term-sd/install/comfyui/comfyui_extension.md" | grep -w $i | awk '{sub(" ON "," ") ; sub(" OFF "," ")}1' >> "$start_path/term-sd/task/comfyui_install.sh" # 插件
             done
 
+            [ ! -z "$comfyui_custom_node_install_select_list" ] && echo "__term_sd_task_sys term_sd_echo "安装自定义节点中"" >> "$start_path/term-sd/task/comfyui_install.sh" # 核心组件
             for i in $comfyui_custom_node_install_select_list ;do
                 cat "$start_path/term-sd/install/comfyui/comfyui_custom_node.md" | grep -w $i | awk '{sub(" ON "," ") ; sub(" OFF "," ")}1' >> "$start_path/term-sd/task/comfyui_install.sh" # 插件
             done
@@ -114,7 +116,7 @@ install_comfyui()
 comfyui_extension_install_select()
 {
     comfyui_extension_install_select_list=$(
-        dialog --erase-on-exit --notags --title "ComfyUI安装" --backtitle "ComfyUI插件安装选项" --ok-label "确认" --cancel-label "取消" --checklist "请选择需要安装的ComfyUI插件" 25 80 10 \
+        dialog --erase-on-exit --notags --title "ComfyUI安装" --backtitle "ComfyUI插件安装选项" --ok-label "确认" --no-cancel --checklist "请选择需要安装的ComfyUI插件" 25 80 10 \
         $(cat "$start_path/term-sd/install/comfyui/dialog_comfyui_extension.md") \
         3>&1 1>&2 2>&3)
 }
@@ -123,7 +125,7 @@ comfyui_extension_install_select()
 comfyui_custom_node_install_select()
 {
     comfyui_custom_node_install_select_list=$(
-        dialog --erase-on-exit --notags --title "ComfyUI安装" --backtitle "ComfyUI插件安装选项" --ok-label "确认" --cancel-label "取消" --checklist "请选择需要安装的ComfyUI插件" 25 80 10 \
+        dialog --erase-on-exit --notags --title "ComfyUI安装" --backtitle "ComfyUI插件安装选项" --ok-label "确认" --no-cancel --checklist "请选择需要安装的ComfyUI插件" 25 80 10 \
         $(cat "$start_path/term-sd/install/comfyui/dialog_comfyui_custom_node.md") \
         3>&1 1>&2 2>&3)
 }
