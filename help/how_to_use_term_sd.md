@@ -445,7 +445,7 @@ download-hanamizuki：下载绘世启动器
 
 #### 启动参数的使用方法  
 ```
-./term-sd.sh [--help] [--extra script_name] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--update-pip] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar] [--set-aria2-multi-threaded thread_value] [--set-cmd-daemon-retry retry_value] [--enable-cache-path-redirect] [--disable-cache-path-redirect]
+./term-sd.sh [--help] [--extra script_name] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--update-pip] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar] [--set-aria2-multi-threaded thread_value] [--set-cmd-daemon-retry retry_value] [--enable-cache-path-redirect] [--disable-cache-path-redirect] [--debug]
 ```
 
 >中括号“[]”仅用来展示，在使用的时候不要输入进去  
@@ -529,6 +529,9 @@ download-hanamizuki：下载绘世启动器
 
 20、disable-cache-path-redirect  
 禁用ai软件缓存路径重定向功能
+
+21、debug  
+显示调试信息
 
 ***
 

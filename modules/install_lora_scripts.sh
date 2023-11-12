@@ -16,8 +16,10 @@ install_lora_scripts()
 
             if [ -z "$(echo "$(cat "$start_path/term-sd/task/lora_scripts_install.sh" | awk 'NR=='${cmd_point}'{print$0}')" | grep -o __term_sd_task_done_ )" ];then # 检测命令是否需要执行
                 echo "$install_cmd" > "$start_path/term-sd/task/cache.sh" # 取出命令并放入缓存文件中
+                [ $term_sd_debug_mode = 0 ] && term_sd_echo "命令: \"$install_cmd\""
                 source "$start_path/term-sd/task/cache.sh" # 执行命令
             else
+                [ $term_sd_debug_mode = 0 ] && term_sd_echo "跳过执行命令: \"$install_cmd\""
                 true
             fi
 
@@ -68,8 +70,10 @@ install_lora_scripts()
 
                 if [ -z "$(echo "$(cat "$start_path/term-sd/task/lora_scripts_install.sh" | awk 'NR=='${cmd_point}'{print$0}')" | grep -o __term_sd_task_done_ )" ];then # 检测命令是否需要执行
                     echo "$install_cmd" > "$start_path/term-sd/task/cache.sh" # 取出命令并放入缓存文件中
+                    [ $term_sd_debug_mode = 0 ] && term_sd_echo "命令: \"$install_cmd\""
                     source "$start_path/term-sd/task/cache.sh" # 执行命令
                 else
+                    [ $term_sd_debug_mode = 0 ] && term_sd_echo "跳过执行命令: \"$install_cmd\""
                     true
                 fi
 

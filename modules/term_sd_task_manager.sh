@@ -17,22 +17,22 @@ term_sd_install_task_manager()
             ;;
         ComfyUI)
             term_sd_install_task_file_path="$start_path/term-sd/task/comfyui_install.sh"
-            term_sd_install_exec_cmd="install_sd_webui"
+            term_sd_install_exec_cmd="install_comfyui"
             term_sd_manager_exec_cmd="comfyui_manager"
             ;;
         InvokeAI)
             term_sd_install_task_file_path="$start_path/term-sd/task/invokeai_install.sh"
-            term_sd_install_exec_cmd="install_sd_webui"
+            term_sd_install_exec_cmd="install_invokeai"
             term_sd_manager_exec_cmd="invokeai_manager"
             ;;
         Fooocus)
             term_sd_install_task_file_path="$start_path/term-sd/task/fooocus_install.sh"
-            term_sd_install_exec_cmd="install_sd_webui"
+            term_sd_install_exec_cmd="install_fooocus"
             term_sd_manager_exec_cmd="fooocus_manager"
             ;;
         lora-scripts)
             term_sd_install_task_file_path="$start_path/term-sd/task/lora_scripts_install.sh"
-            term_sd_install_exec_cmd="install_sd_webui"
+            term_sd_install_exec_cmd="install_lora_scripts"
             term_sd_manager_exec_cmd="lora_scripts_manager"
             ;;
     esac

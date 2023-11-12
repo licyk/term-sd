@@ -118,6 +118,10 @@ term_sd_launch_args_manager()
             --extra)
                 term_sd_launch_args_input="--extra"
                 ;;
+            --debug)
+                term_sd_echo "显示Term-SD调试信息"
+                term_sd_debug_mode=0
+                ;;
             *)
                 term_sd_unknown_args_echo $i
                 ;;
@@ -131,7 +135,7 @@ term_sd_args_help()
 {
     cat<<EOF
     使用方法:
-    term-sd.sh [--help] [--extra script_name] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--test-network] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--update-pip] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar] [--set-aria2-multi-threaded thread_value] [--set-cmd-daemon-retry retry_value] [--enable-cache-path-redirect] [--disable-cache-path-redirect]
+    term-sd.sh [--help] [--extra script_name] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--update-pip] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar] [--set-aria2-multi-threaded thread_value] [--set-cmd-daemon-retry retry_value] [--enable-cache-path-redirect] [--disable-cache-path-redirect] [--debug]
 
     选项:
     --help
@@ -146,8 +150,6 @@ term_sd_args_help()
         重新安装Term-SD
     --remove-term-sd
         卸载Term-SD
-    --test-network
-        测试网络环境,用于测试代理是否可用,需安装curl
     --quick-cmd
         添加Term-SD快捷启动命令到shell
     --set-python-path python_path
@@ -176,6 +178,8 @@ term_sd_args_help()
         启用ai软件缓存路径重定向功能(默认)
     --disable-cache-path-redirect
         禁用ai软件缓存路径重定向功能
+    --debug
+        显示Term-SD安装ai软件时使用的命令
 EOF
 }
 
@@ -788,11 +792,12 @@ term_sd_macos_depend_test()
 term_sd_print_line "Term-SD"
 term_sd_echo "Term-SD初始化中"
 
-export term_sd_version_="1.0.0pre7" # term-sd版本
+export term_sd_version_="1.0.0pre8" # term-sd版本
 export user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题
 export pip_manager_update=1
+export term_sd_debug_mode=1
 
 # 在使用http_proxy变量后,会出现ValueError: When localhost is not accessible, a shareable link must be created. Please set share=True
 # 导致启动异常

@@ -20,7 +20,7 @@ term_sd_proxy_setting()
     case $term_sd_proxy_setting_dialog in
         1)
             term_sd_proxy_config=$(dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入代理地址\n格式:<ip>:<port>" 25 80 "$(echo $http_proxy | awk -F'://' '{print $NF}')" 3>&1 1>&2 2>&3)
-            term_sd_proxy_config=$(echo $term_sd_proxy_config | awk '{gsub(/[：]/, ":")}1' | awk '{gsub(/[。]/, ".")}1') # 防止用户输入中文冒号,句号后导致错误
+            term_sd_proxy_config=$(echo $term_sd_proxy_config | awk '{gsub(/[：]/, ":") ; gsub(/[。]/, ".")}1') # 防止用户输入中文冒号,句号后导致错误
             if [ $? = 0 ];then
                 export http_proxy="http://$term_sd_proxy_config"
                 export https_proxy="http://$term_sd_proxy_config"
@@ -30,7 +30,7 @@ term_sd_proxy_setting()
             ;;
         2)
             term_sd_proxy_config=$(dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入代理地址\n格式:<ip>:<port>" 25 80 "$(echo $http_proxy | awk -F'://' '{print $NF}')" 3>&1 1>&2 2>&3)
-            term_sd_proxy_config=$(echo $term_sd_proxy_config | awk '{gsub(/[：]/, ":")}1' | awk '{gsub(/[。]/, ".")}1') # 防止用户输入中文冒号,句号后导致错误
+            term_sd_proxy_config=$(echo $term_sd_proxy_config | awk '{gsub(/[：]/, ":") ; gsub(/[。]/, ".")}1') # 防止用户输入中文冒号,句号后导致错误
             if [ $? = 0 ];then
                 export http_proxy="socks://$term_sd_proxy_config"
                 export https_proxy="socks://$term_sd_proxy_config"
@@ -40,7 +40,7 @@ term_sd_proxy_setting()
             ;;
         3)
             term_sd_proxy_config=$(dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入代理地址\n格式:<ip>:<port>" 25 80 "$(echo $http_proxy | awk -F'://' '{print $NF}')" 3>&1 1>&2 2>&3)
-            term_sd_proxy_config=$(echo $term_sd_proxy_config | awk '{gsub(/[：]/, ":")}1' | awk '{gsub(/[。]/, ".")}1') # 防止用户输入中文冒号,句号后导致错误
+            term_sd_proxy_config=$(echo $term_sd_proxy_config | awk '{gsub(/[：]/, ":") ; gsub(/[。]/, ".")}1') # 防止用户输入中文冒号,句号后导致错误
             if [ $? = 0 ];then
                 export http_proxy="socks5://$term_sd_proxy_config"
                 export https_proxy="socks5://$term_sd_proxy_config"
