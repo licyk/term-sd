@@ -18,7 +18,7 @@ sd_webui_branch_switch()
     case $sd_webui_branch_switch_dialog in
         1)
             term_sd_print_line "$term_sd_manager_info 分支切换"
-            term_sd_notice "切换到AUTOMATIC1111/stable-diffusion-webui主分支"
+            term_sd_echo "切换到AUTOMATIC1111/stable-diffusion-webui主分支"
             git remote set-url origin "$github_proxy"https://github.com/AUTOMATIC1111/stable-diffusion-webui
             git submodule deinit --all -f
             term_sd_watch git fetch
@@ -26,12 +26,12 @@ sd_webui_branch_switch()
             term_sd_watch git pull --rebase
             mv -f ./repositories/blip ./repositories/BLIP
             sd_webui_branch_file_restore
-            term_sd_notice "分支切换完成"
+            term_sd_echo "分支切换完成"
             term_sd_print_line
             ;;
         2)
             term_sd_print_line "$term_sd_manager_info 分支切换"
-            term_sd_notice "切换到AUTOMATIC1111/stable-diffusion-webui主分支"
+            term_sd_echo "切换到AUTOMATIC1111/stable-diffusion-webui主分支"
             git remote set-url origin "$github_proxy"https://github.com/AUTOMATIC1111/stable-diffusion-webui
             git submodule deinit --all -f
             term_sd_watch git fetch
@@ -39,12 +39,12 @@ sd_webui_branch_switch()
             term_sd_watch git pull --rebase
             mv -f ./repositories/blip ./repositories/BLIP
             sd_webui_branch_file_restore
-            term_sd_notice "分支切换完成"
+            term_sd_echo "分支切换完成"
             term_sd_print_line
             ;;
         3)
             term_sd_print_line "$term_sd_manager_info 分支切换"
-            term_sd_notice "切换到vladmandic/SD.NEXT主分支"
+            term_sd_echo "切换到vladmandic/SD.NEXT主分支"
             git remote set-url origin "$github_proxy"https://github.com/vladmandic/automatic
             term_sd_watch git fetch --recurse-submodules
             git checkout master
@@ -53,12 +53,12 @@ sd_webui_branch_switch()
             term_sd_watch git pull --rebase --recurse-submodules
             mv -f ./repositories/BLIP ./repositories/blip
             sd_webui_branch_file_restore
-            term_sd_notice "分支切换完成"
+            term_sd_echo "分支切换完成"
             term_sd_print_line
             ;;
         4)
             term_sd_print_line "$term_sd_manager_info 分支切换"
-            term_sd_notice "切换到vladmandic/SD.NEXT测试分支"
+            term_sd_echo "切换到vladmandic/SD.NEXT测试分支"
             git remote set-url origin "$github_proxy"https://github.com/vladmandic/automatic
             term_sd_watch git fetch --recurse-submodules
             git checkout dev
@@ -67,12 +67,12 @@ sd_webui_branch_switch()
             term_sd_watch git pull --rebase --recurse-submodules
             mv -f ./repositories/BLIP ./repositories/blip
             sd_webui_branch_file_restore
-            term_sd_notice "分支切换完成"
+            term_sd_echo "分支切换完成"
             term_sd_print_line
             ;;
         5)
             term_sd_print_line "$term_sd_manager_info 分支切换"
-            term_sd_notice "切换到lshqqytiger/stable-diffusion-webui-directml主分支"
+            term_sd_echo "切换到lshqqytiger/stable-diffusion-webui-directml主分支"
             git remote set-url origin "$github_proxy"https://github.com/lshqqytiger/stable-diffusion-webui-directml
             git submodule deinit --all -f
             term_sd_watch git fetch
@@ -80,12 +80,12 @@ sd_webui_branch_switch()
             term_sd_watch git pull --rebase
             mv -f ./repositories/blip ./repositories/BLIP
             sd_webui_branch_file_restore
-            term_sd_notice "分支切换完成"
+            term_sd_echo "分支切换完成"
             term_sd_print_line
             ;;
         6)
             term_sd_print_line "$term_sd_manager_info 分支切换"
-            term_sd_notice "切换到lshqqytiger/stable-diffusion-webui-directml测试分支"
+            term_sd_echo "切换到lshqqytiger/stable-diffusion-webui-directml测试分支"
             git remote set-url origin "$github_proxy"https://github.com/lshqqytiger/stable-diffusion-webui-directml
             git submodule deinit --all -f
             term_sd_watch git fetch
@@ -93,7 +93,7 @@ sd_webui_branch_switch()
             term_sd_watch git pull --rebase
             mv -f ./repositories/blip ./repositories/BLIP
             sd_webui_branch_file_restore
-            term_sd_notice "分支切换完成"
+            term_sd_echo "分支切换完成"
             term_sd_print_line
             ;;
     esac
