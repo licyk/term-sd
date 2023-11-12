@@ -31,7 +31,7 @@ Term-SD是一款基于dialog实现前端界面显示的AI管理器，支持安�
 
 ## 安装要求
 
-Term-SD支持在Linux，Windows，MacOS上运行，在使用Term-SD前先配置好依赖环境  
+Term-SD支持在Linux，Windows，MacOS上运行，在使用Term-SD前先配置好依赖环境，以下是各个平台所需的依赖  
 - Windows：msys2，aria2，python，pip，git，dialog，curl  
 - Linux：aria2，python，pip，git，dialog，curl  
 - MacOS：homebrew，aria2，python，pip，git，dialog，rust，cmake，protobuf，wget，gawk，curl
