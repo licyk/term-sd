@@ -32,7 +32,7 @@ term_sd_launch_args_manager()
                     set_term_sd_watch $term_sd_launch_args
                     ;;
                 --extra)
-                    term_sd_extra_scripts_launch $term_sd_launch_args
+                    term_sd_extra_scripts_name=$term_sd_launch_args
                     ;;
             esac
             term_sd_launch_args_input= # 清除选项,留给下一次判断
@@ -134,7 +134,7 @@ term_sd_launch_args_manager()
 term_sd_args_help()
 {
     cat<<EOF
-    使用方法:
+    Term-SD启动参数使用方法:
     term-sd.sh [--help] [--extra script_name] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--update-pip] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar] [--set-aria2-multi-threaded thread_value] [--set-cmd-daemon-retry retry_value] [--enable-cache-path-redirect] [--disable-cache-path-redirect] [--debug]
 
     选项:
@@ -186,29 +186,21 @@ EOF
 # 扩展脚本启动功能
 term_sd_extra_scripts_launch()
 {
-    if [ $(term_sd_depend_test) = 0 ];then
-        if [ -z "$@" ];then
-            term_sd_extra_scripts
-        else
-            if [ -f "./term-sd/extra/$(echo $@ | awk '{sub(".sh","")}1').sh" ];then
-                term_sd_echo "启动$(echo $@ | awk '{sub(".sh","")}1')脚本中"
-                source ./term-sd/extra/$(echo $@ | awk '{sub(".sh","")}1').sh
-                term_sd_print_line
-                term_sd_echo "退出$(echo $@ | awk '{sub(".sh","")}1')脚本"
-                exit 1
-            else
-                term_sd_print_line
-                term_sd_echo "未找到$(echo $@ | awk '{sub(".sh","")}1')脚本"
-                term_sd_echo "退出Term-SD"
-                exit 1
-            fi
-        fi
+    if [ -z "$@" ];then
+        term_sd_extra_scripts
     else
-        term_sd_print_line "缺少以下依赖"
-        echo $missing_dep
-        term_sd_print_line
-        term_sd_echo "请安装缺少的依赖后重试"
-        exit 1
+        if [ -f "./term-sd/extra/$(echo $@ | awk '{sub(".sh","")}1').sh" ];then
+            term_sd_echo "启动$(echo $@ | awk '{sub(".sh","")}1')脚本中"
+            source ./term-sd/extra/$(echo $@ | awk '{sub(".sh","")}1').sh
+            term_sd_print_line
+            term_sd_echo "退出$(echo $@ | awk '{sub(".sh","")}1')脚本"
+            exit 1
+        else
+            term_sd_print_line
+            term_sd_echo "未找到$(echo $@ | awk '{sub(".sh","")}1')脚本"
+            term_sd_echo "退出Term-SD"
+            exit 1
+        fi
     fi
 }
 
@@ -244,6 +236,10 @@ term_sd_extra_scripts()
                     term_sd_echo "退出$(echo $extra_script_dir_list_select | awk '{sub(".sh","")}1')脚本"
                     exit 1
             esac
+            ;;
+        *)
+            term_sd_echo "退出Term-SD"
+            exit 1
             ;;
     esac
 }
@@ -734,59 +730,6 @@ terminal_size_test()
     fi
 }
 
-# 依赖检测
-term_sd_depend_test()
-{
-    local term_sd_depend_status=0
-    export missing_dep
-
-    # 判断系统是否安装必须使用的软件
-    for i in $term_sd_depend ; do
-        if ! which $i > /dev/null 2>&1 ;then
-            missing_dep="$missing_dep $i,"
-            term_sd_depend_status=1
-        fi
-    done
-
-    if [ $term_sd_depend_status = 0 ];then
-        echo 0
-    else
-        echo 1
-    fi
-}
-
-# 依赖检测(MacOS)
-term_sd_macos_depend_test()
-{
-    local term_sd_depend_status=0
-    export missing_dep_macos
-
-    for i in $term_sd_depend_macos ; do
-        if ! which $i > /dev/null 2>&1 ;then
-            term_sd_depend_status=1
-            # 转换名称
-            case $i in
-                rustc)
-                    i=rust
-                    ;;
-                brew)
-                    i=homebrew
-                    ;;
-                protoc)
-                    i=protobuf
-                    ;;
-            esac
-            missing_dep_macos="$missing_dep_macos $i,"
-        fi
-    done
-
-    if [ $term_sd_depend_status = 0 ];then
-        echo 0
-    else
-        echo 1
-    fi
-}
-
 #############################
 
 term_sd_print_line "Term-SD"
@@ -798,6 +741,9 @@ export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题
 export pip_manager_update=1
 export term_sd_debug_mode=1
+missing_depend_info=0
+missing_depend_macos_info=0
+term_sd_extra_scripts_name="null"
 
 # 在使用http_proxy变量后,会出现ValueError: When localhost is not accessible, a shareable link must be created. Please set share=True
 # 导致启动异常
@@ -904,7 +850,7 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
                     export term_sd_python_path=$(which python)
                 fi
             else
-                missing_dep="$missing_dep python,"
+                missing_depend="$missing_depend python,"
             fi  
         else
             if which "$term_sd_python_path" > /dev/null 2>&1 ;then
@@ -915,7 +861,7 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
                 term_sd_echo "提示:"
                 term_sd_echo "使用--set-python-path重新设置python解释器路径"
                 term_sd_echo "使用--unset-python-path删除python解释器路径设置"
-                missing_dep="$missing_dep python,"
+                missing_depend="$missing_depend python,"
             fi
         fi
 
@@ -925,7 +871,7 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
                 test_num=$(( $test_num + 1 ))
                 export term_sd_pip_path=$(which pip)
             else
-                missing_dep="$missing_dep pip,"
+                missing_depend="$missing_depend pip,"
             fi
         else
             if which "$term_sd_pip_path" > /dev/null 2>&1 ;then
@@ -936,25 +882,53 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
                 term_sd_echo "提示:"
                 term_sd_echo "使用--set-pip-path重新设置pip路径"
                 term_sd_echo "使用--unset-pip-path删除pip路径设置"
-                missing_dep="$missing_dep pip,"
+                missing_depend="$missing_depend pip,"
             fi
         fi
 
-        # 依赖检测(MacOS)
+        #判断系统是否安装必须使用的软件
+        for i in $term_sd_depend ; do
+            if ! which $i > /dev/null 2> /dev/null ;then
+                missing_depend="$missing_depend $i,"
+                missing_depend_info=1
+            fi
+        done
+
+        #依赖检测(MacOS)
         if [ $(uname) = "Darwin" ];then
-            if [ $(term_sd_macos_depend_test) = 0 ];then
-                alias awk='gawk' # 将gawk链接到awk命令中
+            for i in $term_sd_depend_macos ; do
+                if which $i > /dev/null 2> /dev/null ;then
+                    test_num_macos=$(( $test_num_macos + 1 ))
+                else
+                    #转换名称
+                    case $i in
+                        rustc)
+                            i=rust
+                            ;;
+                        brew)
+                            i=homebrew
+                            ;;
+                        protoc)
+                            i=protobuf
+                            ;;
+                    esac
+                    missing_depend_macos="$missing_depend_macos $i,"
+                fi
+            done
+
+            if [ $missing_depend_macos_info = 0 ];then
+                alias awk='gawk' #将gawk链接到awk命令中
             else
-                term_sd_print_line "缺少以下依赖"
-                echo $missing_dep_macos
-                term_sd_print_line
-                term_sd_echo "缺少依赖将影响ai软件的安装,请退出Term-SD并使用homebrew(如果没有homebrew,则先安装homebrew,再用homebrew去安装其他缺少依赖)安装缺少的依赖后重试"
+                print_line_to_shell "缺少以下依赖"
+                echo $missing_depend_macos
+                print_line_to_shell
+                term_sd_notice "缺少依赖将影响ai软件的安装,请退出Term-SD并使用homebrew(如果没有homebrew,则先安装homebrew,再用homebrew去安装其他缺少依赖)安装缺少的依赖后重试"
                 sleep 5
             fi
         fi
 
         # 判断依赖检测结果
-        if [ $(term_sd_depend_test) = 0 ];then
+        if [ $missing_depend_info = 0 ];then
             term_sd_echo "依赖检测完成"
             terminal_size_test # 检测终端大小
             term_sd_install
@@ -967,7 +941,7 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
             fi
         else
             term_sd_print_line "缺少以下依赖"
-            echo $missing_dep
+            echo $missing_depend
             term_sd_print_line
             term_sd_echo "请安装缺少的依赖后重试"
             exit 1
@@ -977,9 +951,16 @@ esac
 
 #############################
 
-source ./term-sd/modules/init.sh # 加载term-sd模块
-term_sd_echo "启动Term-SD中"
+case $term_sd_extra_scripts_name in
+    null)
+        source ./term-sd/modules/init.sh # 加载term-sd模块
+        ;;
+    *)
+        term_sd_extra_scripts_launch $term_sd_extra_scripts_name
+        ;;
+esac
 
 # 启动terrm-sd
+term_sd_echo "启动Term-SD中"
 term_sd_version
 main
