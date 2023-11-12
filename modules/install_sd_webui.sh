@@ -56,12 +56,12 @@ install_sd_webui()
             done
 
             if [ $use_modelscope_model = 1 ];then
-                cat "$start_path/term-sd/install/sd_webui/sd_webui_hf_model.md" | grep -w $i >> "$start_path/term-sd/task/sd_webui_install.sh" # 模型
+                cat "$start_path/term-sd/install/sd_webui/sd_webui_hf_model.md" >> "$start_path/term-sd/task/sd_webui_install.sh" # 模型
                 for i in $sd_webui_extension_install_select_list ;do
                     cat "$start_path/term-sd/install/sd_webui/sd_webui_extension_hf_model.md" | grep -w $i >> "$start_path/term-sd/task/sd_webui_install.sh" # 插件所需的模型
                 done
             else
-                cat "$start_path/term-sd/install/sd_webui/sd_webui_ms_model.md" | grep -w $i >> "$start_path/term-sd/task/sd_webui_install.sh" # 模型
+                cat "$start_path/term-sd/install/sd_webui/sd_webui_ms_model.md" >> "$start_path/term-sd/task/sd_webui_install.sh" # 模型
                 for i in $sd_webui_extension_install_select_list ;do
                     cat "$start_path/term-sd/install/sd_webui/sd_webui_extension_ms_model.md" | grep -w $i >> "$start_path/term-sd/task/sd_webui_install.sh" # 插件所需的模型
                 done

@@ -52,9 +52,9 @@ install_fooocus()
             cat "$start_path/term-sd/install/fooocus/fooocus_core.md" >> "$start_path/term-sd/task/fooocus_install.sh" # 核心组件
 
             if [ $use_modelscope_model = 1 ];then
-                cat "$start_path/term-sd/install/fooocus/fooocus_hf_model.md" | grep -w $i >> "$start_path/term-sd/task/fooocus_install.sh" # 模型
+                cat "$start_path/term-sd/install/fooocus/fooocus_hf_model.md" >> "$start_path/term-sd/task/fooocus_install.sh" # 模型
             else
-                cat "$start_path/term-sd/install/fooocus/fooocus_ms_model.md" | grep -w $i >> "$start_path/term-sd/task/fooocus_install.sh" # 模型
+                cat "$start_path/term-sd/install/fooocus/fooocus_ms_model.md" >> "$start_path/term-sd/task/fooocus_install.sh" # 模型
             fi
 
             term_sd_echo "任务队列生成完成"

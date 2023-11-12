@@ -60,12 +60,12 @@ install_comfyui()
             done
 
             if [ $use_modelscope_model = 1 ];then
-                cat "$start_path/term-sd/install/comfyui/comfyui_hf_model.md" | grep -w $i >> "$start_path/term-sd/task/comfyui_install.sh" # 模型
+                cat "$start_path/term-sd/install/comfyui/comfyui_hf_model.md" >> "$start_path/term-sd/task/comfyui_install.sh" # 模型
                 for i in $comfyui_custom_node_install_select_list ;do
                     cat "$start_path/term-sd/install/comfyui/comfyui_custom_node_hf_model.md" | grep -w $i >> "$start_path/term-sd/task/comfyui_install.sh" # 自定义节点所需的模型
                 done
             else
-                cat "$start_path/term-sd/install/comfyui/comfyui_ms_model.md" | grep -w $i >> "$start_path/term-sd/task/comfyui_install.sh" # 模型
+                cat "$start_path/term-sd/install/comfyui/comfyui_ms_model.md" >> "$start_path/term-sd/task/comfyui_install.sh" # 模型
                 for i in $comfyui_custom_node_install_select_list ;do
                     cat "$start_path/term-sd/install/comfyui/comfyui_custom_node_ms_model.md" | grep -w $i >> "$start_path/term-sd/task/comfyui_install.sh" # 自定义节点所需的模型
                 done
