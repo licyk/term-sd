@@ -48,7 +48,7 @@ git_remote_url_select()
         "3" "> 代理源2(gitclone.com)" \
         "4" "> 代理源3(gh-proxy.com)" \
         "5" "> 代理源4(ghps.cc)" \
-        "6" "> 代理源5(ghps.cc)" \
+        "6" "> 代理源5(gh.idayer.com)" \
         3>&1 1>&2 2>&3)
 
     case $git_remote_url_select_dialog in
@@ -104,7 +104,7 @@ git_remote_url_select_single()
             "3" "> 代理源2(gitclone.com)" \
             "4" "> 代理源3(gh-proxy.com)" \
             "5" "> 代理源4(ghps.cc)" \
-            "6" "> 代理源5(ghps.cc)" \
+            "6" "> 代理源5(gh.idayer.com)" \
             3>&1 1>&2 2>&3)
 
         case $git_remote_url_select_single_dialog in
