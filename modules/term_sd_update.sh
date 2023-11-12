@@ -7,7 +7,7 @@ term_sd_update_manager()
 
     if [ -d "./term-sd/.git" ];then # 检测目录中是否有.git文件夹
         term_sd_update_manager_dialog=$(
-            dialog --erase-on-exit --notags --title "Term-SD" --backtitle "Term-SD更新选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的更新源\n当前Term-SD更新源:$(git --git-dir="./term-sd/.git" remote get-url origin)\n当前Term-SD分支:$(git --git-dir="./term-sd/.git" branch | grep \* | awk -F "* " '{print $NF}')\n自动更新:$([ -f "./term-sd/term-sd-auto-update.lock" ] && echo "启用" || echo "禁用")" 25 80 10 \
+            dialog --erase-on-exit --notags --title "Term-SD" --backtitle "Term-SD更新选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的更新源\n当前Term-SD更新源:$(git --git-dir="./term-sd/.git" remote get-url origin)\n当前Term-SD分支:$(git --git-dir="./term-sd/.git" branch | grep \* | awk -F "*" '{print $NF}')\n自动更新:$([ -f "./term-sd/term-sd-auto-update.lock" ] && echo "启用" || echo "禁用")" 25 80 10 \
             "0" "> 返回" \
             "1" "> 更新" \
             "2" "> 修复更新" \
