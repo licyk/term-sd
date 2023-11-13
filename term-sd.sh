@@ -608,7 +608,7 @@ set_python_path()
 {
     local set_python_path_option
 
-    if [ -z "$@" ];then
+    if [ -z "$*" ];then
         term_sd_echo "请输入python解释器的路径"
         term_sd_echo "提示:输入完后请回车保存,或者输入exit退出"
         read -p "===============================> " set_python_path_option
@@ -640,7 +640,7 @@ set_pip_path()
 {
     local set_pip_path_option
 
-    if [ -z "$@" ];then
+    if [ -z "$*" ];then
         term_sd_echo "请输入pip的路径"
         term_sd_echo "提示:输入完后请回车保存,或者输入exit退出"
         read -p "===============================> " set_pip_path_option
