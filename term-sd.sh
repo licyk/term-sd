@@ -254,7 +254,7 @@ term_sd_echo()
 term_sd_read()
 {
     local term_sd_read_req
-    read -p "=====================================> " term_sd_read_req
+    read -p "===============================> " term_sd_read_req
     echo $term_sd_read_req
 }
 
