@@ -1,3 +1,4 @@
+__term_sd_task_pre_ext_34 term_sd_echo "下载controlnet模型中"
 __term_sd_task_pre_ext_34 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/cldm_v15.yaml -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o cldm_v15.yaml
 __term_sd_task_pre_ext_34 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/cldm_v21.yaml -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o cldm_v21.yaml
 __term_sd_task_pre_ext_34 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_sd15_canny.yaml -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_sd15_canny.yaml
@@ -88,7 +89,11 @@ __term_sd_task_pre_ext_34 aria2_download https://huggingface.co/licyk/controlnet
 __term_sd_task_pre_ext_34 aria2_download https://huggingface.co/licyk/controlnet_v1.1_annotator/resolve/main/pidinet/table5_pidinet.pth -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/pidinet -o table5_pidinet.pth
 __term_sd_task_pre_ext_34 aria2_download https://huggingface.co/licyk/controlnet_v1.1_annotator/resolve/main/uniformer/upernet_global_small.pth -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/uniformer -o upernet_global_small.pth
 __term_sd_task_pre_ext_34 aria2_download https://huggingface.co/licyk/controlnet_v1.1_annotator/resolve/main/zoedepth/ZoeD_M12_N.pt -d ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/zoedepth -o ZoeD_M12_N.pt
+
+__term_sd_task_pre_ext_37 term_sd_echo "下载animatediff模型"
 __term_sd_task_pre_ext_37 aria2_download https://huggingface.co/guoyww/animatediff/resolve/main/mm_sd_v15_v2.ckpt -d ./stable-diffusion-webui/extensions/sd-webui-animatediff/model -o mm_sd_v15_v2.ckpt
+
+__term_sd_task_pre_ext_42 term_sd_echo "下载adetailer模型"
 __term_sd_task_pre_ext_42 aria2_download https://huggingface.co/Bingsu/adetailer/resolve/main/deepfashion2_yolov8s-seg.pt -d ./stable-diffusion-webui/models/adetailer -o deepfashion2_yolov8s-seg.pt # adetailer模型
 __term_sd_task_pre_ext_42 aria2_download https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8m.pt -d ./stable-diffusion-webui/models/adetailer -o face_yolov8m.pt
 __term_sd_task_pre_ext_42 aria2_download https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8n.pt -d ./stable-diffusion-webui/models/adetailer -o face_yolov8n.pt
@@ -99,4 +104,6 @@ __term_sd_task_pre_ext_42 aria2_download https://huggingface.co/Bingsu/adetailer
 __term_sd_task_pre_ext_42 aria2_download https://huggingface.co/Bingsu/adetailer/resolve/main/person_yolov8m-seg.pt -d ./stable-diffusion-webui/models/adetailer -o person_yolov8m-seg.pt
 __term_sd_task_pre_ext_42 aria2_download https://huggingface.co/Bingsu/adetailer/resolve/main/person_yolov8n-seg.pt -d ./stable-diffusion-webui/models/adetailer -o person_yolov8n-seg.pt
 __term_sd_task_pre_ext_42 aria2_download https://huggingface.co/Bingsu/adetailer/resolve/main/person_yolov8s-seg.pt -d ./stable-diffusion-webui/models/adetailer -o person_yolov8s-seg.pt
+
+__term_sd_task_pre_ext_44 term_sd_echo "下载IS-NET模型"
 __term_sd_task_pre_ext_44 aria2_download https://huggingface.co/ClockZinc/IS-NET_pth/resolve/main/isnet-general-use.pth -d ./stable-diffusion-webui/extensions/sd-webui-IS-NET-pro/saved_models/IS-Net -o isnet-general-use.pth

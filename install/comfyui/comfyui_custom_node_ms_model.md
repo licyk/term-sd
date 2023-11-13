@@ -1,3 +1,4 @@
+__term_sd_task_pre_ext_38 term_sd_echo "下载controlnet模型中"
 __term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1/master/cldm_v15.yaml ./ComfyUI/models/controlnet
 __term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1/master/cldm_v21.yaml ./ComfyUI/models/controlnet
 __term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1/master/control_sd15_canny.yaml ./ComfyUI/models/controlnet

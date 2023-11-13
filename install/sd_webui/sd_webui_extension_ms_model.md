@@ -1,3 +1,4 @@
+__term_sd_task_pre_ext_34 term_sd_echo "下载controlnet模型中"
 __term_sd_task_pre_ext_34 get_modelscope_model licyks/controlnet_v1.1/master/cldm_v15.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
 __term_sd_task_pre_ext_34 get_modelscope_model licyks/controlnet_v1.1/master/cldm_v21.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
 __term_sd_task_pre_ext_34 get_modelscope_model licyks/controlnet_v1.1/master/control_sd15_canny.yaml ./stable-diffusion-webui/extensions/sd-webui-controlnet/models
@@ -88,7 +89,11 @@ __term_sd_task_pre_ext_34 get_modelscope_model licyks/controlnet_v1.1_annotator/
 __term_sd_task_pre_ext_34 get_modelscope_model licyks/controlnet_v1.1_annotator/master/pidinet/table5_pidinet.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/pidinet
 __term_sd_task_pre_ext_34 get_modelscope_model licyks/controlnet_v1.1_annotator/master/uniformer/upernet_global_small.pth ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/uniformer
 __term_sd_task_pre_ext_34 get_modelscope_model licyks/controlnet_v1.1_annotator/master/zoedepth/ZoeD_M12_N.pt ./stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/downloads/zoedepth
+
+__term_sd_task_pre_ext_37 term_sd_echo "下载animatediff模型"
 __term_sd_task_pre_ext_37 get_modelscope_model licyks/sd-extensions-model/master/sd-webui-animatediff/mm_sd_v15_v2.ckpt ./stable-diffusion-webui/extensions/sd-webui-animatediff/model
+
+__term_sd_task_pre_ext_42 term_sd_echo "下载adetailer模型"
 __term_sd_task_pre_ext_42 get_modelscope_model licyks/sd-extensions-model/master/adetailer/deepfashion2_yolov8s-seg.pt ./stable-diffusion-webui/models/adetailer # adetailer模型
 __term_sd_task_pre_ext_42 get_modelscope_model licyks/sd-extensions-model/master/adetailer/face_yolov8m.pt ./stable-diffusion-webui/models/adetailer
 __term_sd_task_pre_ext_42 get_modelscope_model licyks/sd-extensions-model/master/adetailer/face_yolov8n.pt ./stable-diffusion-webui/models/adetailer
@@ -99,4 +104,6 @@ __term_sd_task_pre_ext_42 get_modelscope_model licyks/sd-extensions-model/master
 __term_sd_task_pre_ext_42 get_modelscope_model licyks/sd-extensions-model/master/adetailer/person_yolov8m-seg.pt ./stable-diffusion-webui/models/adetailer
 __term_sd_task_pre_ext_42 get_modelscope_model licyks/sd-extensions-model/master/adetailer/person_yolov8n-seg.pt ./stable-diffusion-webui/models/adetailer
 __term_sd_task_pre_ext_42 get_modelscope_model licyks/sd-extensions-model/master/adetailer/person_yolov8s-seg.pt ./stable-diffusion-webui/models/adetailer
+
+__term_sd_task_pre_ext_44 term_sd_echo "下载IS-NET模型"
 __term_sd_task_pre_ext_44 get_modelscope_model licyks/sd-extensions-model/master/sd-webui-IS-NET-pro/isnet-general-use.pth ./stable-diffusion-webui/extensions/sd-webui-IS-NET-pro/saved_models/IS-Net
