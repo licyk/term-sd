@@ -13,7 +13,7 @@ term_sd_launch_args_manager()
 
         # 参数检测部分
         if [ ! -z $term_sd_launch_args_input ];then
-            if [ $(term_sd_test_args $term_sd_launch_args) = 0 ];then # 测试输入值是参数还是选项
+            if [ "$(term_sd_test_args "$term_sd_launch_args")" = 0 ];then # 测试输入值是参数还是选项
                 term_sd_launch_args= # 检测到选项的下一项是选项,直接清除
             fi
 
@@ -267,7 +267,7 @@ term_sd_test_args()
 # 提示未知启动参数
 term_sd_unknown_args_echo()
 {
-    if [ $(term_sd_test_args $@) = 0 ] && [ ! "$@" = "--null" ];then # 测试输入值是参数还是选项
+    if [ "$(term_sd_test_args "$@")" = 0 ] && [ ! "$@" = "--null" ];then # 测试输入值是参数还是选项
         term_sd_echo "未知参数 \"$@\""
     fi
 }
