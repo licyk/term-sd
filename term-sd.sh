@@ -840,25 +840,24 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
         # 检测可用的python命令,并检测是否手动指定python路径
         if [ -z "$term_sd_python_path" ];then
             if python3 --version > /dev/null 2>&1 || python --version > /dev/null 2>&1 ;then # 判断是否有可用的python
-                test_num=$(( $test_num + 1 ))
-
                 if [ ! -z "$(python3 --version 2> /dev/null)" ];then
                     export term_sd_python_path=$(which python3)
                 elif [ ! -z "$(python --version 2> /dev/null)" ];then
                     export term_sd_python_path=$(which python)
                 fi
             else
+                missing_depend_info=1
                 missing_depend="$missing_depend python,"
             fi  
         else
             if which "$term_sd_python_path" > /dev/null 2>&1 ;then
-                test_num=$(( $test_num + 1 ))
                 term_sd_echo "使用自定义python解释器路径:$term_sd_python_path"
             else
                 term_sd_echo "手动指定的python路径错误"
                 term_sd_echo "提示:"
                 term_sd_echo "使用--set-python-path重新设置python解释器路径"
                 term_sd_echo "使用--unset-python-path删除python解释器路径设置"
+                missing_depend_info=1
                 missing_depend="$missing_depend python,"
             fi
         fi
@@ -866,20 +865,20 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
         # 检测可用的pip命令,并检测是否手动指定pip路径
         if [ -z "$term_sd_pip_path" ];then
             if which pip > /dev/null 2>&1 ;then
-                test_num=$(( $test_num + 1 ))
                 export term_sd_pip_path=$(which pip)
             else
+                missing_depend_info=1
                 missing_depend="$missing_depend pip,"
             fi
         else
             if which "$term_sd_pip_path" > /dev/null 2>&1 ;then
-                test_num=$(( $test_num + 1 ))
                 term_sd_echo "使用自定义pip路径:$term_sd_pip_path"
             else
                 term_sd_echo "手动指定的pip路径错误"
                 term_sd_echo "提示:"
                 term_sd_echo "使用--set-pip-path重新设置pip路径"
                 term_sd_echo "使用--unset-pip-path删除pip路径设置"
+                missing_depend_info=1
                 missing_depend="$missing_depend pip,"
             fi
         fi
