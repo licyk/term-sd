@@ -396,6 +396,7 @@ term_sd_auto_update()
                         cd ..
                         cp -f ./term-sd/term-sd.sh .
                         chmod +x ./term-sd.sh
+                        term_sd_auto_update_info=0
                         term_sd_echo "Term-SD更新成功"
                     else
                         cd ..
@@ -742,6 +743,7 @@ export term_sd_debug_mode=1
 missing_depend_info=0
 missing_depend_macos_info=0
 term_sd_extra_scripts_name="null"
+term_sd_auto_update_info=1
 
 # 在使用http_proxy变量后,会出现ValueError: When localhost is not accessible, a shareable link must be created. Please set share=True
 # 导致启动异常
@@ -883,6 +885,13 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
             fi
         fi
 
+        # 检测python和pip路径设置
+        if [ "$term_sd_python_path" = "$term_sd_pip_path" ];then
+            term_sd_echo "python路径和pip路径相同,请重新设置"
+            term_sd_echo "退出Term-SD"
+            exit 1
+        fi
+
         #判断系统是否安装必须使用的软件
         for i in $term_sd_depend ; do
             if ! which $i > /dev/null 2> /dev/null ;then
@@ -947,6 +956,11 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
 esac
 
 #############################
+
+# 自动更新成功时重载环境
+if [ $term_sd_auto_update_info = 0 ];then
+    source ./term-sd.sh
+fi
 
 case $term_sd_extra_scripts_name in
     null)
