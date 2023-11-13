@@ -5,14 +5,14 @@ term_sd_init()
 {
     term_sd_modules_number=$(( $(ls ./term-sd/modules/*.sh | wc -w) - 1 ))
     term_sd_modules_number_=1
-    term_sd_init_bar_notice="[$(date "+%Y-%m-%d %H:%M:%S")][\033[36mTerm-SD\033[0m][\033[32minfo\033[0m]:: "
+    term_sd_init_bar_notice="[\033[33m$(date "+%Y-%m-%d %H:%M:%S")\033[0m][\033[36mTerm-SD\033[0m]:: "
     for i in ./term-sd/modules/*.sh ;do
         [ $i = "./term-sd/modules/init.sh" ] && continue
         printf "$term_sd_init_bar_notice[$term_sd_modules_number_/$term_sd_modules_number] 加载: $(basename $i .sh)                              \r"
         term_sd_modules_number_=$(( $term_sd_modules_number_ + 1 ))
         source $i
     done
-    printf "[$(date "+%Y-%m-%d %H:%M:%S")][\033[36mTerm-SD\033[0m][\033[32minfo\033[0m]:: 初始化Term-SD完成                               \n"
+    printf "[\033[33m$(date "+%Y-%m-%d %H:%M:%S")\033[0m][\033[36mTerm-SD\033[0m]:: 初始化Term-SD完成                               \n"
     term_sd_print_line
 }
 
