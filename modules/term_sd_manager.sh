@@ -127,7 +127,7 @@ term_sd_help()
         "3" "> Term-SD注意事项" \
         "4" "> 目录说明" \
         "5" "> Term-SD扩展脚本说明" \
-        "6" "> sd-webui插件说明" \
+        "6" "> Stable-Diffusion-WebUI插件说明" \
         "7" "> ComfyUI插件/自定义节点说明" \
         3>&1 1>&2 2>&3)
 

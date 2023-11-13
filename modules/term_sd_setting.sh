@@ -121,11 +121,13 @@ term_sd_install_mode_setting()
         1)
             term_sd_install_mode=0
             rm -f ./term-sd/term-sd-disable-strict-install-mode.lock
+            dialog --erase-on-exit --title "Term-SD" --backtitle "安装模式设置界面" --ok-label "确认" --msgbox "启用严格模式成功" 25 80
             term_sd_install_mode_setting
             ;;
         2)
             term_sd_install_mode=1
             touch ./term-sd/term-sd-disable-strict-install-mode.lock
+            dialog --erase-on-exit --title "Term-SD" --backtitle "安装模式设置界面" --ok-label "确认" --msgbox "启用宽容模式成功" 25 80
             term_sd_install_mode_setting
             ;;
     esac

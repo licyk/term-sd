@@ -1,3 +1,4 @@
+__term_sd_task_pre_ext_38 term_sd_echo "下载controlnet模型中"
 __term_sd_task_pre_ext_38 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/cldm_v15.yaml -d ./ComfyUI/models/controlnet -o cldm_v15.yaml
 __term_sd_task_pre_ext_38 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/cldm_v21.yaml -d ./ComfyUI/models/controlnet -o cldm_v21.yaml
 __term_sd_task_pre_ext_38 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_sd15_canny.yaml -d ./ComfyUI/models/controlnet -o control_sd15_canny.yaml
