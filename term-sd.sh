@@ -267,7 +267,7 @@ term_sd_test_args()
 # 提示未知启动参数
 term_sd_unknown_args_echo()
 {
-    if [ $(term_sd_test_args $@) = 0 ] && [ ! $@ = "--null" ];then # 测试输入值是参数还是选项
+    if [ $(term_sd_test_args $@) = 0 ] && [ ! "$@" = "--null" ];then # 测试输入值是参数还是选项
         term_sd_echo "未知参数 \"$@\""
     fi
 }
