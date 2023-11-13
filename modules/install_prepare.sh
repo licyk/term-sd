@@ -143,7 +143,7 @@ pip_install_mode_select()
     pip_install_mode=
 
     pip_install_methon_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "pip安装模式选项" --ok-label "确认" --no-cancel --menu "请选择pip安装方式\n1、常规安装可能会有问题,但速度较快\n2、标准构建安装可解决一些报错问题,但速度较慢" 25 80 10 \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "pip安装模式选项" --ok-label "确认" --no-cancel --menu "请选择pip安装方式\n1、常规安装可能会有问题,但速度较快\n2、标准构建安装可解决一些报错问题,但速度较慢(对安装时间不在意的话推荐启用)" 25 80 10 \
         "1" "> 常规安装(setup.py)" \
         "2" "> 标准构建安装(--use-pep517)" \
         3>&1 1>&2 2>&3)
