@@ -19,7 +19,7 @@ git_repo_remote_revise()
     if [ "$(git_remote_type_test)" = "github" ];then # 判断远程源种类
         git_repository_remote_revise $1 # 执行远程源替换
         if [ $? = 0 ];then
-            term_sd_echo "替换${git_repo_name}源为${}"
+            term_sd_echo "替换${git_repo_name}源为$(echo $1 | awk -F 'https://' '{print$NF}' | awk -F '/' '{print$NR}')"
             git_repo_remote_revise_req="$git_repo_remote_revise_req ${git_repo_name}更新源替换成功\n"
         else
             true
