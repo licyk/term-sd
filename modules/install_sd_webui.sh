@@ -52,21 +52,21 @@ install_sd_webui()
         if [ $? = 0 ];then
             term_sd_echo "生成安装任务中"
             term_sd_set_install_env_value >> "$start_path/term-sd/task/sd_webui_install.sh" # 环境变量
-            cat "$start_path/term-sd/install/sd_webui/sd_webui_core.md" >> "$start_path/term-sd/task/sd_webui_install.sh" # 核心组件
+            cat "$start_path/term-sd/install/sd_webui/sd_webui_core.sh" >> "$start_path/term-sd/task/sd_webui_install.sh" # 核心组件
             [ ! -z "$sd_webui_extension_install_select_list" ] && echo "" >> "$start_path/term-sd/task/sd_webui_install.sh" && echo "__term_sd_task_sys term_sd_echo "安装插件中"" >> "$start_path/term-sd/task/sd_webui_install.sh"
             for i in $sd_webui_extension_install_select_list ;do
-                cat "$start_path/term-sd/install/sd_webui/sd_webui_extension.md" | grep -w $i | awk '{sub(" ON "," ") ; sub(" OFF "," ")}1' >> "$start_path/term-sd/task/sd_webui_install.sh" # 插件
+                cat "$start_path/term-sd/install/sd_webui/sd_webui_extension.sh" | grep -w $i | awk '{sub(" ON "," ") ; sub(" OFF "," ")}1' >> "$start_path/term-sd/task/sd_webui_install.sh" # 插件
             done
 
             if [ $use_modelscope_model = 1 ];then
-                cat "$start_path/term-sd/install/sd_webui/sd_webui_hf_model.md" >> "$start_path/term-sd/task/sd_webui_install.sh" # 模型
+                cat "$start_path/term-sd/install/sd_webui/sd_webui_hf_model.sh" >> "$start_path/term-sd/task/sd_webui_install.sh" # 模型
                 for i in $sd_webui_extension_install_select_list ;do
-                    cat "$start_path/term-sd/install/sd_webui/sd_webui_extension_hf_model.md" | grep -w $i >> "$start_path/term-sd/task/sd_webui_install.sh" # 插件所需的模型
+                    cat "$start_path/term-sd/install/sd_webui/sd_webui_extension_hf_model.sh" | grep -w $i >> "$start_path/term-sd/task/sd_webui_install.sh" # 插件所需的模型
                 done
             else
-                cat "$start_path/term-sd/install/sd_webui/sd_webui_ms_model.md" >> "$start_path/term-sd/task/sd_webui_install.sh" # 模型
+                cat "$start_path/term-sd/install/sd_webui/sd_webui_ms_model.sh" >> "$start_path/term-sd/task/sd_webui_install.sh" # 模型
                 for i in $sd_webui_extension_install_select_list ;do
-                    cat "$start_path/term-sd/install/sd_webui/sd_webui_extension_ms_model.md" | grep -w $i >> "$start_path/term-sd/task/sd_webui_install.sh" # 插件所需的模型
+                    cat "$start_path/term-sd/install/sd_webui/sd_webui_extension_ms_model.sh" | grep -w $i >> "$start_path/term-sd/task/sd_webui_install.sh" # 插件所需的模型
                 done
             fi
 
@@ -116,6 +116,6 @@ sd_webui_extension_install_select()
 {
     sd_webui_extension_install_select_list=$(
         dialog --erase-on-exit --notags --title "Stable-Diffusion-WebUI安装" --backtitle "Stable-Diffusion-WebUI插件安装选项" --ok-label "确认" --no-cancel --checklist "请选择需要安装的Stable-Diffusion-Webui插件" 25 80 10 \
-        $(cat "$start_path/term-sd/install/sd_webui/dialog_sd_webui_extension.md") \
+        $(cat "$start_path/term-sd/install/sd_webui/dialog_sd_webui_extension.sh") \
         3>&1 1>&2 2>&3)
 }

@@ -396,7 +396,7 @@ term_sd_auto_update()
                         cd ..
                         cp -f ./term-sd/term-sd.sh .
                         chmod +x ./term-sd.sh
-                        term_sd_auto_update_info=0
+                        term_sd_restart_info=0
                         term_sd_echo "Term-SD更新成功"
                     else
                         cd ..
@@ -465,6 +465,7 @@ term_sd_install()
                 if [ $? = 0 ];then
                     cp -f ./term-sd/term-sd.sh .
                     chmod +x ./term-sd.sh
+                    term_sd_restart_info=0
                     term_sd_echo "Term-SD安装成功"
                 else
                     term_sd_echo "Term-SD安装失败"
@@ -489,6 +490,7 @@ term_sd_install()
                 if [ $? = 0 ];then
                     cp -f ./term-sd/term-sd.sh .
                     chmod +x ./term-sd.sh
+                    term_sd_restart_info=0
                     term_sd_echo "Term-SD安装成功"
                 else
                     term_sd_echo "Term-SD安装失败"
@@ -516,6 +518,7 @@ term_sd_reinstall()
                 if [ $? = 0 ];then
                     cp -f ./term-sd/term-sd.sh .
                     chmod +x ./term-sd.sh
+                    term_sd_restart_info=0
                     term_sd_echo "Term-SD安装成功"
                 else
                     term_sd_echo "Term-SD安装失败"
@@ -734,7 +737,7 @@ terminal_size_test()
 term_sd_print_line "Term-SD"
 term_sd_echo "Term-SD初始化中"
 
-export term_sd_version_="1.0.2" # term-sd版本
+export term_sd_version_="1.0.3" # term-sd版本
 export user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题
@@ -743,7 +746,7 @@ export term_sd_debug_mode=1
 missing_depend_info=0
 missing_depend_macos_info=0
 term_sd_extra_scripts_name="null"
-term_sd_auto_update_info=1
+term_sd_restart_info=1
 
 # 在使用http_proxy变量后,会出现ValueError: When localhost is not accessible, a shareable link must be created. Please set share=True
 # 导致启动异常
@@ -958,7 +961,7 @@ esac
 #############################
 
 # 自动更新成功时重载环境
-if [ $term_sd_auto_update_info = 0 ];then
+if [ $term_sd_restart_info = 0 ];then
     source ./term-sd.sh
 fi
 

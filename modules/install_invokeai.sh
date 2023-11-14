@@ -51,12 +51,12 @@ install_invokeai()
         if [ $? = 0 ];then
             term_sd_echo "生成安装任务中"
             term_sd_set_install_env_value >> "$start_path/term-sd/task/invokeai_install.sh" # 环境变量
-            cat "$start_path/term-sd/install/invokeai/invokeai_core.md" >> "$start_path/term-sd/task/invokeai_install.sh" # 核心组件
+            cat "$start_path/term-sd/install/invokeai/invokeai_core.sh" >> "$start_path/term-sd/task/invokeai_install.sh" # 核心组件
 
             if [ $use_modelscope_model = 1 ];then
-                cat "$start_path/term-sd/install/invokeai/invokeai_hf_model.md" >> "$start_path/term-sd/task/invokeai_install.sh" # 模型
+                cat "$start_path/term-sd/install/invokeai/invokeai_hf_model.sh" >> "$start_path/term-sd/task/invokeai_install.sh" # 模型
             else
-                cat "$start_path/term-sd/install/invokeai/invokeai_ms_model.md" >> "$start_path/term-sd/task/invokeai_install.sh" # 模型
+                cat "$start_path/term-sd/install/invokeai/invokeai_ms_model.sh" >> "$start_path/term-sd/task/invokeai_install.sh" # 模型
             fi
 
             term_sd_echo "任务队列生成完成"
