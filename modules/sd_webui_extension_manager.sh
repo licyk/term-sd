@@ -8,7 +8,7 @@ sd_webui_extension_manager()
 
     # 功能选择界面
     sd_webui_extension_manager_dialog=$(
-        dialog --erase-on-exit --notags --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Stable-Diffusion-WebUI插件管理选项的功能" 25 80 10 \
+        dialog --erase-on-exit --notags --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Stable-Diffusion-WebUI插件管理选项的功能" $term_sd_dialog_width $term_sd_dialog_height $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> 安装" \
         "2" "> 管理" \
@@ -36,15 +36,15 @@ sd_webui_extension_install()
 {
     local sd_webui_extension_url
 
-    sd_webui_extension_url=$(dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件安装选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入插件的github地址或其他下载地址" 25 80 3>&1 1>&2 2>&3)
+    sd_webui_extension_url=$(dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件安装选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入插件的github地址或其他下载地址" $term_sd_dialog_width $term_sd_dialog_height 3>&1 1>&2 2>&3)
 
     if [ ! -z $sd_webui_extension_url ]; then
         term_sd_echo "安装$(echo $sd_webui_extension_url | awk -F'/' '{print $NF}')插件中"
         term_sd_watch git clone --recurse-submodules $sd_webui_extension_url
         if [ $? = 0 ];then
-            dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件安装结果" --ok-label "确认" --msgbox "$(echo $sd_webui_extension_url | awk -F'/' '{print $NF}')插件安装成功" 25 80
+            dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件安装结果" --ok-label "确认" --msgbox "$(echo $sd_webui_extension_url | awk -F'/' '{print $NF}')插件安装成功" $term_sd_dialog_width $term_sd_dialog_height
         else
-            dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件安装结果" --ok-label "确认" --msgbox "$(echo $sd_webui_extension_url | awk -F'/' '{print $NF}')插件安装失败" 25 80
+            dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件安装结果" --ok-label "确认" --msgbox "$(echo $sd_webui_extension_url | awk -F'/' '{print $NF}')插件安装失败" $term_sd_dialog_width $term_sd_dialog_height
         fi
     fi
 }
@@ -55,7 +55,7 @@ sd_webui_extension_list()
     cd "$start_path/stable-diffusion-webui/extensions" #回到最初路径
 
     sd_webui_extension_name=$(
-        dialog --erase-on-exit --ok-label "确认" --cancel-label "取消" --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件列表" --menu "请选择Stable-Diffusion-WebUI插件" 25 80 10 \
+        dialog --erase-on-exit --ok-label "确认" --cancel-label "取消" --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件列表" --menu "请选择Stable-Diffusion-WebUI插件" $term_sd_dialog_width $term_sd_dialog_height $term_sd_dialog_menu_height \
         "-->返回<--" "<---------" \
         $(ls -l --time-style=+"%Y-%m-%d"  | awk -F ' ' ' { print $7 " " $6 } ') \
         3>&1 1>&2 2>&3)
@@ -81,7 +81,7 @@ sd_webui_extension_interface()
     local sd_webui_extension_interface_dialog
 
     sd_webui_extension_interface_dialog=$(
-        dialog --erase-on-exit --notags --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择对${sd_webui_extension_name}插件的管理功能\n当前更新源:$([ -d "./.git" ] && git remote -v | awk 'NR==1 {print $2}' || echo "无")" 25 80 10 \
+        dialog --erase-on-exit --notags --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择对${sd_webui_extension_name}插件的管理功能\n当前更新源:$([ -d "./.git" ] && git remote -v | awk 'NR==1 {print $2}' || echo "无")" $term_sd_dialog_width $term_sd_dialog_height $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> 更新" \
         "2" "> 修复更新" \
@@ -96,13 +96,13 @@ sd_webui_extension_interface()
             git_pull_repository
             case $? in
                 0)
-                    dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件更新结果" --ok-label "确认" --msgbox "${sd_webui_extension_name}插件更新成功" 25 80
+                    dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件更新结果" --ok-label "确认" --msgbox "${sd_webui_extension_name}插件更新成功" $term_sd_dialog_width $term_sd_dialog_height
                     ;;
                 10)
-                    dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件更新结果" --ok-label "确认" --msgbox "${sd_webui_extension_name}插件非git安装,无法更新" 25 80
+                    dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件更新结果" --ok-label "确认" --msgbox "${sd_webui_extension_name}插件非git安装,无法更新" $term_sd_dialog_width $term_sd_dialog_height
                     ;;
                 *)
-                    dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件更新结果" --ok-label "确认" --msgbox "${sd_webui_extension_name}插件更新失败" 25 80
+                    dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件更新结果" --ok-label "确认" --msgbox "${sd_webui_extension_name}插件更新失败" $term_sd_dialog_width $term_sd_dialog_height
                     ;;
             esac
             sd_webui_extension_interface
@@ -110,21 +110,21 @@ sd_webui_extension_interface()
         
         2)
             git_fix_pointer_offset
-            [ $? = 10 ] && dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件修复更新" --ok-label "确认" --msgbox "${sd_webui_extension_name}插件非git安装,无法修复更新" 25 80
+            [ $? = 10 ] && dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件修复更新" --ok-label "确认" --msgbox "${sd_webui_extension_name}插件非git安装,无法修复更新" $term_sd_dialog_width $term_sd_dialog_height
             sd_webui_extension_interface
             ;;
         3)
             git_ver_switch
-            [ $? = 10 ] && dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件版本切换" --ok-label "确认" --msgbox "${sd_webui_extension_name}插件非git安装,无法进行版本切换" 25 80
+            [ $? = 10 ] && dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件版本切换" --ok-label "确认" --msgbox "${sd_webui_extension_name}插件非git安装,无法进行版本切换" $term_sd_dialog_width $term_sd_dialog_height
             sd_webui_extension_interface
             ;;
         4)
             git_remote_url_select_single
-            [ $? = 10 ] && dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件更新源切换" --ok-label "确认" --msgbox "${sd_webui_extension_name}插件非git安装,无法进行更新源切换" 25 80
+            [ $? = 10 ] && dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件更新源切换" --ok-label "确认" --msgbox "${sd_webui_extension_name}插件非git安装,无法进行更新源切换" $term_sd_dialog_width $term_sd_dialog_height
             sd_webui_extension_interface
             ;;
         5)
-            if (dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件删除选项" --yes-label "是" --no-label "否" --yesno "是否删除${sd_webui_extension_name}插件?" 25 80) then
+            if (dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件删除选项" --yes-label "是" --no-label "否" --yesno "是否删除${sd_webui_extension_name}插件?" $term_sd_dialog_width $term_sd_dialog_height) then
                 term_sd_echo "请再次确认是否删除$(echo $sd_webui_extension_name | awk -F "/" '{print $NF}')(yes/no)?"
                 term_sd_echo "警告:该操作将永久删除$(echo $sd_webui_extension_name | awk -F "/" '{print $NF}')"
                 term_sd_echo "提示:输入yes或no后回车"

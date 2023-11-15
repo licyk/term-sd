@@ -57,7 +57,7 @@ comfyui_extension_depend_install()
         exit_venv
         term_sd_tmp_enable_proxy
         term_sd_print_line
-        dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI${1}依赖安装结果" --ok-label "确认" --msgbox "当前依赖的安装情况列表\n------------------------------------------------------------------\n$comfyui_extension_depend_install_req------------------------------------------------------------------" 25 80
+        dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI${1}依赖安装结果" --ok-label "确认" --msgbox "当前依赖的安装情况列表\n------------------------------------------------------------------\n$comfyui_extension_depend_install_req------------------------------------------------------------------" $term_sd_dialog_width $term_sd_dialog_height
     fi
 }
 
@@ -93,5 +93,5 @@ comfyui_extension_depend_install_single()
     fi
 
     exit_venv
-    dialog --erase-on-exit --title "ComfyUI选项" --backtitle "ComfyUI${1}依赖安装结果" --ok-label "确认" --msgbox "当前依赖的安装情况列表\n------------------------------------------------------------------\n$comfyui_extension_depend_install_req------------------------------------------------------------------" 25 80
+    dialog --erase-on-exit --title "ComfyUI选项" --backtitle "ComfyUI${1}依赖安装结果" --ok-label "确认" --msgbox "当前依赖的安装情况列表\n------------------------------------------------------------------\n$comfyui_extension_depend_install_req------------------------------------------------------------------" $term_sd_dialog_width $term_sd_dialog_height
 }

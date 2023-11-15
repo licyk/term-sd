@@ -7,7 +7,7 @@ fooocus_launch_args_setting()
     local fooocus_launch_args_setting_dialog
 
     fooocus_launch_args_setting_dialog=$(
-        dialog --erase-on-exit --notags --title "Fooocus管理" --backtitle "Fooocus启动参数选项" --ok-label "确认" --cancel-label "取消" --checklist "请选择Fooocus启动参数,确认之后将覆盖原有启动参数配置" 25 80 10 \
+        dialog --erase-on-exit --notags --title "Fooocus管理" --backtitle "Fooocus启动参数选项" --ok-label "确认" --cancel-label "取消" --checklist "请选择Fooocus启动参数,确认之后将覆盖原有启动参数配置" $term_sd_dialog_width $term_sd_dialog_height $term_sd_dialog_menu_height \
         "1" "(listen)开放远程连接" OFF \
         "2" "(auto-launch)启动webui完成后自动启动浏览器" ON \
         "3" "(disable-auto-launch)禁用在启动webui完成后自动启动浏览器" OFF \
@@ -160,7 +160,7 @@ fooocus_launch()
     fi
 
     fooocus_launch_dialog=$(
-        dialog --erase-on-exit --notags --title "Fooocus管理" --backtitle "Fooocus启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动Fooocus/修改Fooocus启动参数\n当前启动参数:\n$([ $venv_setup_status = 0 ] && echo python || echo "$term_sd_python_path") $(cat ./term-sd-launch.conf)" 25 80 10 \
+        dialog --erase-on-exit --notags --title "Fooocus管理" --backtitle "Fooocus启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动Fooocus/修改Fooocus启动参数\n当前启动参数:\n$([ $venv_setup_status = 0 ] && echo python || echo "$term_sd_python_path") $(cat ./term-sd-launch.conf)" $term_sd_dialog_width $term_sd_dialog_height $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> 启动" \
         "2" "> 选择预设启动参数" \
@@ -188,7 +188,7 @@ fooocus_manual_launch()
 {
     local fooocus_launch_args
 
-    fooocus_launch_args=$(dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入Fooocus启动参数" 25 80 "$(cat ./term-sd-launch.conf | awk '{sub("launch.py ","")}1')" 3>&1 1>&2 2>&3)
+    fooocus_launch_args=$(dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入Fooocus启动参数" $term_sd_dialog_width $term_sd_dialog_height "$(cat ./term-sd-launch.conf | awk '{sub("launch.py ","")}1')" 3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
         term_sd_echo "设置启动参数:  $fooocus_launch_args"

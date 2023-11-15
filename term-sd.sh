@@ -196,7 +196,7 @@ term_sd_extra_scripts()
     local extra_script_dir_list_select
 
     extra_script_dir_list=$(ls -l "./term-sd/extra" --time-style=+"%Y-%m-%d" | awk -F ' ' ' { print $7 " " $6 } ')
-    extra_script_dir_list_select=$(dialog --erase-on-exit --title "Term-SD" --backtitle "扩展脚本选项" --ok-label "确认" --cancel-label "取消" --menu "请选择要启动的脚本" 25 80 10 \
+    extra_script_dir_list_select=$(dialog --erase-on-exit --title "Term-SD" --backtitle "扩展脚本选项" --ok-label "确认" --cancel-label "取消" --menu "请选择要启动的脚本" $term_sd_dialog_width $term_sd_dialog_height $term_sd_dialog_menu_height \
         "Term-SD" "<---------" \
         $extra_script_dir_list \
         "退出" "<---------" \
@@ -271,7 +271,7 @@ term_sd_print_line()
     if [ -z "$@" ];then # 输出方法选择
         print_mode=1
     else
-        shellwidth=$(stty size | awk '{print $2}') # 获取终端宽度
+        shellwidth=$term_sd_shell_width # 获取终端宽度
         print_word_to_shell=$(echo "$@" | awk '{gsub(/ /,"-")}1') # 将空格转换为"-"
         shell_word_width=$(( $(echo "$print_word_to_shell" | wc -c) - 1 )) # 总共的字符长度
         shell_word_width_zh_cn=$(( $(echo "$print_word_to_shell" | awk '{gsub(/[a-zA-Z]/,"") ; gsub(/[0-9]/, "") ; gsub(/-/,"")}1' | wc -c) - 1 )) # 计算中文字符的长度
@@ -315,7 +315,7 @@ term_sd_print_line()
     # 输出
     case $print_mode in
         1)
-            shellwidth=$(stty size | awk '{print $2}') # 获取终端宽度
+            shellwidth=$term_sd_shell_width # 获取终端宽度
             yes "-" | sed $shellwidth'q' | tr -d '\n' # 输出横杠
             ;;
         2) # 解决显示字符为单数时少显示一个字符导致不对成的问题
@@ -665,40 +665,26 @@ set_pip_path()
     fi
 }
 
-# 终端大小检测
-terminal_size_test()
-{
-    local shellwidth
-    local shellheight
-
-    shellwidth=$(stty size | awk '{print $2}') # 获取终端宽度，推荐95
-    shellheight=$(stty size | awk '{print $1}') # 获取终端高度，推荐35
-    term_sd_echo "当前终端大小: $shellheight x $shellwidth"
-    if [ $shellheight -lt 30 ] || [ $shellwidth -lt 85 ];then
-        term_sd_echo "检测到终端大小过小"
-        term_sd_echo "为了防止界面显示不全,建议调大终端大小"
-        sleep 3
-    fi
-}
-
 #############################
 
 term_sd_print_line "Term-SD"
 term_sd_echo "Term-SD初始化中"
 
-export term_sd_version_info="1.0.4" # term-sd版本
+export term_sd_version_info="1.0.5" # term-sd版本
 export user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题
 export PIP_TIMEOUT=120 # 设置pip的超时时间
 export PIP_RETRIES=5 # 设置pip的重试次数
 export PIP_DISABLE_PIP_VERSION_CHECK=1 # 禁用pip版本版本检查
-export pip_manager_update=1
-export term_sd_debug_mode=1
-missing_depend_info=0
+export pip_manager_update=1 # Term-SD自动更新pip
+export term_sd_debug_mode=1 # # debug模式
+missing_depend_info=0 # 依赖缺失状态
 missing_depend_macos_info=0
-term_sd_extra_scripts_name="null"
-term_sd_restart_info=1
+term_sd_extra_scripts_name="null" # Term-SD扩展脚本
+term_sd_restart_info=1 # term-sd重启
+term_sd_shell_width=$(stty size | awk '{print $2}') # 获取终端宽度
+term_sd_shell_height=$(stty size | awk '{print $1}') # 获取终端高度
 
 # 在使用http_proxy变量后,会出现ValueError: When localhost is not accessible, a shareable link must be created. Please set share=True
 # 导致启动异常
@@ -715,6 +701,21 @@ case $term_sd_env_prepare_info in
         term_sd_launch_args_manager "$@" # 处理用户输入的参数
         ;;
 esac
+
+# 设置dialog界面的大小
+export term_sd_dialog_menu_height=10 #dialog高度条目
+
+if [ $(( $term_sd_shell_width -6 )) -le 12 ];then # dialog宽度
+    export term_sd_dialog_width=-1
+else
+    export term_sd_dialog_width=$(( $term_sd_shell_width -6 ))
+fi
+
+if [ $(( $term_sd_shell_height - 20 )) -le 6 ];then # dialog高度
+    export term_sd_dialog_height=-1
+else
+    export term_sd_dialog_height=$(( $term_sd_shell_height - 20 ))
+fi
 
 # 存在python自定义路径配置文件时自动读取到变量中
 if [ -f "./term-sd/python-path.conf" ];then
@@ -909,7 +910,6 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
         # 判断依赖检测结果
         if [ $missing_depend_info = 0 ];then
             term_sd_echo "依赖检测完成"
-            terminal_size_test # 检测终端大小
             term_sd_install
             if [ -d "./term-sd/modules" ];then # 找到目录后才启动
                 term_sd_auto_update_trigger

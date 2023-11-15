@@ -35,5 +35,5 @@ update_all_extension()
         fi
     done
     term_sd_print_line
-    dialog --erase-on-exit --title "Term-SD" --backtitle "插件/自定义节点更新结果" --ok-label "确认" --msgbox "当前插件/自定义节点的更新情况列表\n------------------------------------------------------------------\n$extension_update_req------------------------------------------------------------------" 25 80
+    dialog --erase-on-exit --title "Term-SD" --backtitle "插件/自定义节点更新结果" --ok-label "确认" --msgbox "当前插件/自定义节点的更新情况列表\n------------------------------------------------------------------\n$extension_update_req------------------------------------------------------------------" $term_sd_dialog_width $term_sd_dialog_height
 }
