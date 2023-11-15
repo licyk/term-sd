@@ -452,6 +452,9 @@ term_sd_install()
                     chmod +x ./term-sd.sh
                     term_sd_restart_info=0
                     term_sd_echo "Term-SD安装成功"
+                    echo "3" > ./term-sd/term-sd-watch-retry.conf
+                    export term_sd_cmd_retry=3
+                    term_sd_echo "Term-SD命令执行监测设置已自动设置"
                 else
                     term_sd_echo "Term-SD安装失败"
                     exit 1
@@ -477,6 +480,9 @@ term_sd_install()
                     chmod +x ./term-sd.sh
                     term_sd_restart_info=0
                     term_sd_echo "Term-SD安装成功"
+                    echo "3" > ./term-sd/term-sd-watch-retry.conf
+                    export term_sd_cmd_retry=3
+                    term_sd_echo "Term-SD命令执行监测设置已自动设置"
                 else
                     term_sd_echo "Term-SD安装失败"
                     exit 1
@@ -505,6 +511,9 @@ term_sd_reinstall()
                     chmod +x ./term-sd.sh
                     term_sd_restart_info=0
                     term_sd_echo "Term-SD安装成功"
+                    echo "3" > ./term-sd/term-sd-watch-retry.conf
+                    export term_sd_cmd_retry=3
+                    term_sd_echo "Term-SD命令执行监测设置已自动设置"
                 else
                     term_sd_echo "Term-SD安装失败"
                     exit 1
