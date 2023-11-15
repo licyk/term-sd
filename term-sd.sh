@@ -25,12 +25,6 @@ term_sd_launch_args_manager()
                 --set-pip-path)
                     set_pip_path $term_sd_launch_args
                     ;;
-                --set-aria2-multi-threaded)
-                    set_aria2_multi_threaded $term_sd_launch_args
-                    ;;
-                --set-cmd-daemon-retry)
-                    set_term_sd_watch $term_sd_launch_args
-                    ;;
                 --extra)
                     term_sd_extra_scripts_name=$term_sd_launch_args
                     ;;
@@ -90,14 +84,9 @@ term_sd_launch_args_manager()
                 touch ./term-sd/term-sd-no-bar.lock
                 term_sd_echo "禁用Term-SD初始化进度显示"
                 ;;
-            --set-aria2-multi-threaded)
-                term_sd_launch_args_input="--set-aria2-multi-threaded"
-                ;;
-            --set-cmd-daemon-retry)
-                term_sd_launch_args_input="--set-cmd-daemon-retry"
-                ;;
             --update-pip)
                 export pip_manager_update=0
+                export PIP_DISABLE_PIP_VERSION_CHECK=0
                 term_sd_echo "进入虚拟环境时将更新pip软件包管理器"
                 ;;
             --remove-term-sd)
@@ -120,7 +109,7 @@ term_sd_launch_args_manager()
                 ;;
             --debug)
                 term_sd_echo "显示Term-SD调试信息"
-                term_sd_debug_mode=0
+                export term_sd_debug_mode=0
                 ;;
             *)
                 term_sd_unknown_args_echo $i
@@ -135,7 +124,7 @@ term_sd_args_help()
 {
     cat<<EOF
     Term-SD启动参数使用方法:
-    term-sd.sh [--help] [--extra script_name] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--update-pip] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar] [--set-aria2-multi-threaded thread_value] [--set-cmd-daemon-retry retry_value] [--enable-cache-path-redirect] [--disable-cache-path-redirect] [--debug]
+    term-sd.sh [--help] [--extra script_name] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--update-pip] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar] [--enable-cache-path-redirect] [--disable-cache-path-redirect] [--debug]
 
     选项:
     --help
@@ -170,10 +159,6 @@ term_sd_args_help()
         启用Term-SD初始化进度显示(默认)
     --disable-bar
         禁用Term-SD初始化进度显示(加了进度显示只会降低Term-SD初始化速度)
-    --set-aria2-multi-threaded thread_value 
-        设置安装ai软件时下载模型的线程数。设置为0时将删除配置
-    --set-cmd-daemon-retry retry_value
-        设置安装ai软件的命令重试次数。在网络不稳定时可能出现命令执行中断,设置该值可让命令执行中断后再重新执行。设置为0时将删除配置
     --enable-cache-path-redirect
         启用ai软件缓存路径重定向功能(默认)
     --disable-cache-path-redirect
@@ -671,51 +656,6 @@ set_pip_path()
     fi
 }
 
-# aria线程设置
-set_aria2_multi_threaded()
-{
-    if [ -z $(echo $@ | awk '{gsub(/[0-9]/, "")}1') ];then
-        if [ ! -z $@ ];then
-            if [ $@ = 0 ];then
-                term_sd_echo "删除下载线程数配置"
-                rm -rf ./term-sd/aria2-thread.conf
-            elif [ $@ -le 16 ];then
-                term_sd_echo "设置安装ai软件时下载模型的线程数: $@"
-                echo "-x $@" > ./term-sd/aria2-thread.conf
-            else
-                term_sd_echo "设置安装ai软件时下载模型的线程数: 16"
-                echo "-x 16" > ./term-sd/aria2-thread.conf
-            fi
-        else
-            term_sd_echo "未指定线程数,使用默认值: 1"
-            echo "-x 1" > ./term-sd/aria2-thread.conf
-        fi
-    else
-        term_sd_echo "输入格式错误,线程数只能为数字且不能为负数"
-    fi
-}
-
-# 安装过程的命令重试次数设置
-set_term_sd_watch()
-{
-    if [ -z $(echo $@ | awk '{gsub(/[0-9]/, "")}1') ];then
-        if [ ! -z $@ ];then
-            if [ $@ = 0 ];then
-                term_sd_echo "删除安装ai软件的命令重试次数配置"
-                rm -rf ./term-sd/term-sd-watch-retry.conf
-            else
-                term_sd_echo "设置安装ai软件的命令重试次数: $@"
-                echo "$@" > ./term-sd/term-sd-watch-retry.conf
-            fi
-        else
-            term_sd_echo "未指定重试次数,使用默认值: 3"
-            echo "3" > ./term-sd/term-sd-watch-retry.conf
-        fi
-    else
-        term_sd_echo "输入格式错误,重试次数只能为数字且不能为负数"
-    fi 
-}
-
 # 终端大小检测
 terminal_size_test()
 {
@@ -737,10 +677,13 @@ terminal_size_test()
 term_sd_print_line "Term-SD"
 term_sd_echo "Term-SD初始化中"
 
-export term_sd_version_="1.0.3" # term-sd版本
+export term_sd_version_info="1.0.4" # term-sd版本
 export user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题
+export PIP_TIMEOUT=120 # 设置pip的超时时间
+export PIP_RETRIES=5 # 设置pip的重试次数
+export PIP_DISABLE_PIP_VERSION_CHECK=1 # 禁用pip版本版本检查
 export pip_manager_update=1
 export term_sd_debug_mode=1
 missing_depend_info=0
@@ -806,11 +749,16 @@ if [ ! -f "./term-sd/disable-cache-path-redirect.lock" ];then
     export TORCH_HOME="$start_path/term-sd/cache/torch"
     export U2NET_HOME="$start_path/term-sd/cache/u2net"
     export XDG_CACHE_HOME="$start_path/term-sd/cache"
+    export PIP_CACHE_DIR="$start_path/term-sd/cache/pip"
+    export PYTHONPYCACHEPREFIX="$start_path/term-sd/cache/pycache"
     # export TRANSFORMERS_CACHE="$start_path/term-sd/cache/huggingface/transformers"
 fi
 
+
+
+
 # 设置虚拟环境
-if [ -f ./term-sd/term-sd-venv-disable.lock ];then # 找到term-sd-venv-disable.lock文件,禁用虚拟环境
+if [ -f "./term-sd/term-sd-venv-disable.lock" ];then # 找到term-sd-venv-disable.lock文件,禁用虚拟环境
     export venv_setup_status="1"
 else
     export venv_setup_status="0"
@@ -821,6 +769,22 @@ if [ -f "./term-sd/term-sd-disable-strict-install-mode.lock" ];then
     export term_sd_install_mode=1
 else
     export term_sd_install_mode=0
+fi
+
+# cuda内存分配方案设置
+if [ -f "./term-sd/cuda-memory-alloc.conf" ];then
+    export PYTORCH_CUDA_ALLOC_CONF=$(cat ./term-sd/cuda-memory-alloc.conf)
+fi
+
+# 设置pip镜像源
+if [ -f "./term-sd/disable-pip-mirror.lock" ];then
+    export PIP_INDEX_URL="https://pypi.python.org/simple"
+    export PIP_EXTRA_INDEX_URL=""
+    export PIP_FIND_LINKS="https://download.pytorch.org/whl/torch_stable.html"
+else
+    export PIP_INDEX_URL="https://mirrors.bfsu.edu.cn/pypi/web/simple"
+    export PIP_EXTRA_INDEX_URL="https://mirrors.hit.edu.cn/pypi/web/simple https://pypi.tuna.tsinghua.edu.cn/simple https://mirror.nju.edu.cn/pypi/web/simple"
+    export PIP_FIND_LINKS="https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
 fi
 
 # 依赖检测

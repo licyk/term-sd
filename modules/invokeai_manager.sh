@@ -40,7 +40,7 @@ invokeai_manager()
                     if [ $? = 0 ];then
                         term_sd_echo "更新InvokeAI中"
                         term_sd_tmp_disable_proxy # 临时取消代理,避免一些不必要的网络减速
-                        term_sd_watch term_sd_pip install $pip_mirror $extra_pip_mirror $force_pip $pip_install_methon_select --prefer-binary --upgrade invokeai --default-timeout=100 --retries 5
+                        term_sd_watch term_sd_pip install $pip_mirror $extra_pip_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade invokeai
                         if [ $? = 0 ];then
                             dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI更新结果" --ok-label "确认" --msgbox "InvokeAI更新成功" 25 80
                         else

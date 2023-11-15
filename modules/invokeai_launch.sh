@@ -10,7 +10,7 @@ invokeai_launch()
         "2" "> (configure --skip-sd-weights)启动配置程序并只下载核心模型" \
         "3" "> (web)启动webui界面" \
         "4" "> (web --host)启动带有远程连接webui界面" \
-        "5" "> (web)启动webui界面并禁用缺失模型检查" \
+        "5" "> (web --ignore_missing_core_models)启动webui界面并禁用缺失模型检查" \
         "6" "> (ti --gui)启动模型训练界面" \
         "7" "> (merge --gui)启动模型合并界面" \
         3>&1 1>&2 2>&3)

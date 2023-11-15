@@ -164,7 +164,7 @@ lora_scripts_update_depend()
             cd ./sd-scripts
             requirements_python_package_update "./requirements.txt" # sd-scripts目录下还有个_typos.toml，在安装requirements.txt里的依赖时会指向这个文件
             cd ..
-            term_sd_watch term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --prefer-binary --upgrade lion-pytorch dadaptation prodigyopt lycoris-lora fastapi uvicorn wandb scipy --default-timeout=100 --retries 5
+            term_sd_watch term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade lion-pytorch dadaptation prodigyopt lycoris-lora fastapi uvicorn wandb scipy
             requirements_python_package_update "./requirements.txt" # lora-scripts安装依赖
             exit_venv
             tmp_enable_proxy
