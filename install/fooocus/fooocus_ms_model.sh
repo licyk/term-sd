@@ -16,3 +16,11 @@ __term_sd_task_pre_model get_modelscope_model licyks/fooocus-model/master/upscal
 __term_sd_task_pre_model get_modelscope_model licyks/fooocus-model/master/vae_approx/vaeapp_sd15.pth ./Fooocus/models/vae_approx
 __term_sd_task_pre_model get_modelscope_model licyks/fooocus-model/master/vae_approx/xl-to-v1_interposer-v3.1.safetensors ./Fooocus/models/vae_approx
 __term_sd_task_pre_model get_modelscope_model licyks/fooocus-model/master/vae_approx/xlvaeapp.pth ./Fooocus/models/vae_approx
+__term_sd_task_pre_model get_modelscope_model licyks/fooocus-model/master/loras/sdxl_lcm_lora.safetensors ./Fooocus/models/loras
+__term_sd_task_pre_model get_modelscope_model licyks/fooocus-model/master/controlnet/control-lora-canny-rank128.safetensors ./Fooocus/models/controlnet
+__term_sd_task_pre_model get_modelscope_model licyks/fooocus-model/master/controlnet/fooocus_ip_negative.safetensors ./Fooocus/models/controlnet
+__term_sd_task_pre_model get_modelscope_model licyks/fooocus-model/master/controlnet/fooocus_xl_cpds_128.safetensors ./Fooocus/models/controlnet
+__term_sd_task_pre_model get_modelscope_model licyks/fooocus-model/master/controlnet/ip-adapter-plus_sdxl_vit-h.bin ./Fooocus/models/controlnet
+__term_sd_task_pre_model get_modelscope_model licyks/fooocus-model/master/controlnet/detection_Resnet50_Final.pth ./Fooocus/models/controlnet
+__term_sd_task_pre_model get_modelscope_model licyks/fooocus-model/master/controlnet/ip-adapter-plus-face_sdxl_vit-h.bin ./Fooocus/models/controlnet
+__term_sd_task_pre_model get_modelscope_model licyks/fooocus-model/master/controlnet/parsing_parsenet.pth ./Fooocus/models/controlnet

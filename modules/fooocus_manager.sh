@@ -37,7 +37,7 @@ fooocus_manager()
                 term_sd_echo "更新Fooocus中"
                 git_pull_repository
                 git_req=$?
-                cd ./repositories/Fooocus-from-StabilityAI-Official
+                cd ./repositories/ComfyUI-from-StabilityAI-Official
                 git_pull_repository
                 case $git_req in
                     0)
