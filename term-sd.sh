@@ -754,9 +754,6 @@ if [ ! -f "./term-sd/disable-cache-path-redirect.lock" ];then
     # export TRANSFORMERS_CACHE="$start_path/term-sd/cache/huggingface/transformers"
 fi
 
-
-
-
 # 设置虚拟环境
 if [ -f "./term-sd/term-sd-venv-disable.lock" ];then # 找到term-sd-venv-disable.lock文件,禁用虚拟环境
     export venv_setup_status="1"

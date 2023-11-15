@@ -86,7 +86,7 @@ python_venv_setting()
     export venv_setup_status
 
     python_venv_setting_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "虚拟环境设置界面" --ok-label "确认" --cancel-label "取消" --menu "是否启用虚拟环境?(推荐启用)\n当前虚拟环境状态:$([ $venv_setup_status = 0 ] && echo "启用" || echo "禁用")" 25 80 10 \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "虚拟环境设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于给AI软件启用虚拟环境,隔离不同AI软件的python库,防止python库中软件包版本和AI软件的版本要求不对应\n当前虚拟环境状态:$([ $venv_setup_status = 0 ] && echo "启用" || echo "禁用")\n是否启用虚拟环境?(推荐启用)" 25 80 10 \
         "0" "> 返回" \
         "1" "> 启用" \
         "2" "> 禁用" \
@@ -159,7 +159,7 @@ pip_mirrors_env_setting()
     export PIP_FIND_LINKS
 
     pip_mirrors_env_setting_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "pip镜像源(环境变量)选项" --ok-label "确认" --cancel-label "取消" --menu "该功能用于设置pip镜像源(环境变量)(优先级大于全局配置),加速国内下载python软件包的速度\n当前pip环境变量配置:$([ ! -z $(echo $PIP_INDEX_URL | grep "pypi.python.org") ] && echo "国内镜像源" || echo "官方源")\n请选择设置的pip镜像源(环境变量)" 25 80 10 \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "pip镜像源(环境变量)选项" --ok-label "确认" --cancel-label "取消" --menu "该功能用于设置pip镜像源(环境变量)(优先级大于全局配置),加速国内下载python软件包的速度\n当前pip环境变量配置:$([ ! -z $(echo $PIP_INDEX_URL | grep "pypi.python.org") ] && echo "官方源" || echo "国内镜像源")\n请选择设置的pip镜像源(环境变量)" 25 80 10 \
         "0" "> 返回" \
         "1" "> 设置官方源" \
         "2" "> 设置国内镜像源(默认)" \
@@ -204,7 +204,7 @@ term_sd_proxy_setting()
     export https_proxy
 
     term_sd_proxy_setting_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "代理设置界面" --ok-label "确认" --cancel-label "取消" --menu "请选择设置代理协议\n当前代理设置:$([ -z $http_proxy ] && echo "无" || echo $http_proxy)" 25 80 10 \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "代理设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于设置代理服务器,解决AI软件和Term-SD因网络环境导致无法连接上服务器,而出现报错的问题\n当前代理设置:$([ -z $http_proxy ] && echo "无" || echo $http_proxy)\n请选择设置代理协议" 25 80 10 \
         "0" "> 返回" \
         "1" "> http协议" \
         "2" "> socks协议" \
