@@ -4,7 +4,7 @@
 invokeai_launch()
 {
     invokeai_launch_dialog=$(
-        dialog --erase-on-exit --notags --title "InvokeAI管理" --backtitle "InvokeAI启动参数选项" --ok-label "确认" --cancel-label "取消" --menu "请选择InvokeAI启动参数" $term_sd_dialog_width $term_sd_dialog_height $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "InvokeAI管理" --backtitle "InvokeAI启动参数选项" --ok-label "确认" --cancel-label "取消" --menu "请选择InvokeAI启动参数" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> (configure)启动配置界面" \
         "2" "> (configure --skip-sd-weights)启动配置程序并只下载核心模型" \

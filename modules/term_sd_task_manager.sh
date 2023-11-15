@@ -45,7 +45,7 @@ term_sd_install_task_manager()
 
     if [ -f "$term_sd_install_task_file_path" ];then
         term_sd_install_task_manager_dialog=$(
-            dialog --erase-on-exit --notags --title "Term-SD" --backtitle "AI软件安装提示界面" --ok-label "确认" --cancel-label "取消" --menu "检测到${term_sd_install_task_info}有未完成的安装任务,是否继续进行?" $term_sd_dialog_width $term_sd_dialog_height $term_sd_dialog_menu_height \
+            dialog --erase-on-exit --notags --title "Term-SD" --backtitle "AI软件安装提示界面" --ok-label "确认" --cancel-label "取消" --menu "检测到${term_sd_install_task_info}有未完成的安装任务,是否继续进行?" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
             "0" "> 返回" \
             "1" "> 继续执行安装任务" \
             "2" "> 重新设置安装参数并进行安装" \

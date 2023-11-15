@@ -9,7 +9,7 @@ python_package_ver_backup_manager()
 
     enter_venv # 进入虚拟环境进行操作
     python_package_ver_backup_manager_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "依赖库版本管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的依赖库版本管理功能\n当前"$term_sd_manager_info"依赖库版本备份情况:$( [ ! -z "$(ls ./term-sd-python-pkg-backup)" ] && echo \\n$( ls -lrh ./term-sd-python-pkg-backup --time-style=+"%Y-%m-%d" | awk 'NR==2 {print $7}' ) || echo "无" )" $term_sd_dialog_width $term_sd_dialog_height $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "依赖库版本管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的依赖库版本管理功能\n当前"$term_sd_manager_info"依赖库版本备份情况:$( [ ! -z "$(ls ./term-sd-python-pkg-backup)" ] && echo \\n$( ls -lrh ./term-sd-python-pkg-backup --time-style=+"%Y-%m-%d" | awk 'NR==2 {print $7}' ) || echo "无" )" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> 备份python依赖库版本" \
         "2" "> python依赖库版本管理" \
@@ -17,7 +17,7 @@ python_package_ver_backup_manager()
 
     case $python_package_ver_backup_manager_dialog in
         1)
-            if (dialog --erase-on-exit --title "Term-SD" --backtitle "依赖库版本备份选项" --yes-label "是" --no-label "否" --yesno "是否备份"$term_sd_manager_info"依赖库?" $term_sd_dialog_width $term_sd_dialog_height) then
+            if (dialog --erase-on-exit --title "Term-SD" --backtitle "依赖库版本备份选项" --yes-label "是" --no-label "否" --yesno "是否备份"$term_sd_manager_info"依赖库?" $term_sd_dialog_height $term_sd_dialog_width) then
                 backup_python_package_ver
             fi
             python_package_ver_backup_manager
@@ -50,7 +50,7 @@ python_package_ver_backup_list()
 {
     local python_package_ver_backup_list_dialog
 
-    python_package_ver_backup_list_dialog=$(dialog --erase-on-exit --title "Term-SD" --backtitle "依赖库版本记录列表选项" --ok-label "确认" --cancel-label "取消" --menu "请选择依赖库版本记录" $term_sd_dialog_width $term_sd_dialog_height $term_sd_dialog_menu_height \
+    python_package_ver_backup_list_dialog=$(dialog --erase-on-exit --title "Term-SD" --backtitle "依赖库版本记录列表选项" --ok-label "确认" --cancel-label "取消" --menu "请选择依赖库版本记录" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "-->返回<--" "<---" \
         $(ls -lrh "./term-sd-python-pkg-backup" --time-style=+"%Y-%m-%d" | awk '{ print $7 " " $5 }') \
         3>&1 1>&2 2>&3)
@@ -75,7 +75,7 @@ process_python_package_ver_backup()
     local process_python_package_ver_backup_dialog
 
     process_python_package_ver_backup_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "依赖库版本记录管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的依赖库版本记录管理功能\n当前版本记录:\n$(echo $python_package_ver_backup_list_dialog | awk '{sub(".txt","")}1')" $term_sd_dialog_width $term_sd_dialog_height $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "依赖库版本记录管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的依赖库版本记录管理功能\n当前版本记录:\n$(echo $python_package_ver_backup_list_dialog | awk '{sub(".txt","")}1')" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> 恢复该版本记录" \
         "2" "> 删除该版本记录" \
@@ -83,13 +83,13 @@ process_python_package_ver_backup()
     
     case $process_python_package_ver_backup_dialog in
         1)
-            if (dialog --erase-on-exit --title "Term-SD" --backtitle "依赖库版本恢复确认选项" --yes-label "是" --no-label "否" --yesno "是否恢复该版本记录?" $term_sd_dialog_width $term_sd_dialog_height) then
+            if (dialog --erase-on-exit --title "Term-SD" --backtitle "依赖库版本恢复确认选项" --yes-label "是" --no-label "否" --yesno "是否恢复该版本记录?" $term_sd_dialog_height $term_sd_dialog_width) then
                 restore_python_package_ver
             fi
             process_python_package_ver_backup
             ;;
         2)
-            if (dialog --erase-on-exit --title "Term-SD" --backtitle "安装确认选项" --yes-label "是" --no-label "否" --yesno "是否删除该版本记录?" $term_sd_dialog_width $term_sd_dialog_height) then
+            if (dialog --erase-on-exit --title "Term-SD" --backtitle "安装确认选项" --yes-label "是" --no-label "否" --yesno "是否删除该版本记录?" $term_sd_dialog_height $term_sd_dialog_width) then
                 term_sd_echo "删除$(echo $python_package_ver_backup_list_dialog | awk '{sub(".txt","")}1')记录中"
                 rm -rf ./term-sd-python-pkg-backup/$python_package_ver_backup_list_dialog
             fi

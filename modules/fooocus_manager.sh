@@ -11,7 +11,7 @@ fooocus_manager()
     if [ -d "./Fooocus" ];then
         cd Fooocus
         fooocus_manager_dialog=$(
-            dialog --erase-on-exit --notags --title "Fooocus管理" --backtitle "Fooocus管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Fooocus管理选项的功能\n当前更新源:$(git remote -v | awk 'NR==1 {print $2}')" $term_sd_dialog_width $term_sd_dialog_height $term_sd_dialog_menu_height \
+            dialog --erase-on-exit --notags --title "Fooocus管理" --backtitle "Fooocus管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Fooocus管理选项的功能\n当前更新源:$(git remote -v | awk 'NR==1 {print $2}')" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
             "0" "> 返回" \
             "1" "> 启动" \
             "2" "> 更新" \
@@ -41,13 +41,13 @@ fooocus_manager()
                 git_pull_repository
                 case $git_req in
                     0)
-                        dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus更新结果" --ok-label "确认" --msgbox "Fooocus更新成功" $term_sd_dialog_width $term_sd_dialog_height
+                        dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus更新结果" --ok-label "确认" --msgbox "Fooocus更新成功" $term_sd_dialog_height $term_sd_dialog_width
                         ;;
                     10)
-                        dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus更新结果" --ok-label "确认" --msgbox "Fooocus非git安装,无法更新" $term_sd_dialog_width $term_sd_dialog_height
+                        dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus更新结果" --ok-label "确认" --msgbox "Fooocus非git安装,无法更新" $term_sd_dialog_height $term_sd_dialog_width
                         ;;
                     *)
-                        dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus更新结果" --ok-label "确认" --msgbox "Fooocus更新失败" $term_sd_dialog_width $term_sd_dialog_height
+                        dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus更新结果" --ok-label "确认" --msgbox "Fooocus更新失败" $term_sd_dialog_height $term_sd_dialog_width
                         ;;
                 esac
                 fooocus_manager
@@ -63,7 +63,7 @@ fooocus_manager()
                 fooocus_manager
                 ;;
             5)
-                if (dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus更新源切换选项" --yes-label "是" --no-label "否" --yesno "是否切换Fooocus更新源?" $term_sd_dialog_width $term_sd_dialog_height) then
+                if (dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus更新源切换选项" --yes-label "是" --no-label "否" --yesno "是否切换Fooocus更新源?" $term_sd_dialog_height $term_sd_dialog_width) then
                     fooocus_remote_revise
                 fi
                 fooocus_manager
@@ -73,7 +73,7 @@ fooocus_manager()
                 fooocus_manager
                 ;;
             7)
-                if (dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus的python软件包安装/重装/卸载选项" --yes-label "是" --no-label "否" --yesno "是否进入python软件包安装/重装/卸载选项?" $term_sd_dialog_width $term_sd_dialog_height) then
+                if (dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus的python软件包安装/重装/卸载选项" --yes-label "是" --no-label "否" --yesno "是否进入python软件包安装/重装/卸载选项?" $term_sd_dialog_height $term_sd_dialog_width) then
                     python_package_manager
                 fi
                 fooocus_manager
@@ -88,26 +88,26 @@ fooocus_manager()
                 ;;
             10)
                 if [ $venv_setup_status = 0 ];then
-                    if (dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus虚拟环境修复选项" --yes-label "是" --no-label "否" --yesno "是否修复Fooocus的虚拟环境" $term_sd_dialog_width $term_sd_dialog_height);then
+                    if (dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus虚拟环境修复选项" --yes-label "是" --no-label "否" --yesno "是否修复Fooocus的虚拟环境" $term_sd_dialog_height $term_sd_dialog_width);then
                         create_venv --fix
                     fi
                 else
-                    dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus虚拟环境修复选项" --ok-label "确认" --msgbox "虚拟环境功能已禁用,无法使用该功能" $term_sd_dialog_width $term_sd_dialog_height
+                    dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus虚拟环境修复选项" --ok-label "确认" --msgbox "虚拟环境功能已禁用,无法使用该功能" $term_sd_dialog_height $term_sd_dialog_width
                 fi
                 fooocus_manager
                 ;;
             11)
                 if [ $venv_setup_status = 0 ];then
-                    if (dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建Fooocus的虚拟环境" $term_sd_dialog_width $term_sd_dialog_height);then
+                    if (dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建Fooocus的虚拟环境" $term_sd_dialog_height $term_sd_dialog_width);then
                         fooocus_venv_rebuild
                     fi
                 else
-                    dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus虚拟环境重建选项" --ok-label "确认" --msgbox "虚拟环境功能已禁用,无法使用该功能" $term_sd_dialog_width $term_sd_dialog_height
+                    dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus虚拟环境重建选项" --ok-label "确认" --msgbox "虚拟环境功能已禁用,无法使用该功能" $term_sd_dialog_height $term_sd_dialog_width
                 fi
                 fooocus_manager
                 ;;
             12)
-                if (dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装Fooocus?" $term_sd_dialog_width $term_sd_dialog_height) then
+                if (dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装Fooocus?" $term_sd_dialog_height $term_sd_dialog_width) then
                     cd "$start_path"
                     rm -f "$start_path/term-sd/task/fooocus_install.sh"
                     exit_venv
@@ -117,7 +117,7 @@ fooocus_manager()
                 fi
                 ;;
             13)
-                if (dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus删除选项" --yes-label "是" --no-label "否" --yesno "是否删除Fooocus?" $term_sd_dialog_width $term_sd_dialog_height) then
+                if (dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus删除选项" --yes-label "是" --no-label "否" --yesno "是否删除Fooocus?" $term_sd_dialog_height $term_sd_dialog_width) then
                     term_sd_echo "请再次确认是否删除Fooocus(yes/no)?"
                     term_sd_echo "警告:该操作将永久删除Fooocus"
                     term_sd_echo "提示:输入yes或no后回车"
@@ -141,7 +141,7 @@ fooocus_manager()
                 ;;
         esac
     else
-        if (dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus安装选项" --yes-label "是" --no-label "否" --yesno "检测到当前未安装Fooocus,是否进行安装?" $term_sd_dialog_width $term_sd_dialog_height) then
+        if (dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus安装选项" --yes-label "是" --no-label "否" --yesno "检测到当前未安装Fooocus,是否进行安装?" $term_sd_dialog_height $term_sd_dialog_width) then
             rm -f "$start_path/term-sd/task/fooocus_install.sh"
             install_fooocus
         fi
@@ -151,7 +151,7 @@ fooocus_manager()
 # fooocus依赖更新
 fooocus_update_depend()
 {
-    if (dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus依赖更新选项" --yes-label "是" --no-label "否" --yesno "是否更新Fooocus的依赖?" $term_sd_dialog_width $term_sd_dialog_height);then
+    if (dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus依赖更新选项" --yes-label "是" --no-label "否" --yesno "是否更新Fooocus的依赖?" $term_sd_dialog_height $term_sd_dialog_width);then
         # 更新前的准备
         download_mirror_select # 下载镜像源选择
         pip_install_mode_select # 安装方式选择

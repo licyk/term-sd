@@ -120,7 +120,7 @@ install_comfyui()
 comfyui_extension_install_select()
 {
     comfyui_extension_install_select_list=$(
-        dialog --erase-on-exit --notags --title "ComfyUI安装" --backtitle "ComfyUI插件安装选项" --ok-label "确认" --no-cancel --checklist "请选择需要安装的ComfyUI插件" $term_sd_dialog_width $term_sd_dialog_height $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "ComfyUI安装" --backtitle "ComfyUI插件安装选项" --ok-label "确认" --no-cancel --checklist "请选择需要安装的ComfyUI插件" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         $(cat "$start_path/term-sd/install/comfyui/dialog_comfyui_extension.sh") \
         3>&1 1>&2 2>&3)
 }
@@ -129,7 +129,7 @@ comfyui_extension_install_select()
 comfyui_custom_node_install_select()
 {
     comfyui_custom_node_install_select_list=$(
-        dialog --erase-on-exit --notags --title "ComfyUI安装" --backtitle "ComfyUI插件安装选项" --ok-label "确认" --no-cancel --checklist "请选择需要安装的ComfyUI插件" $term_sd_dialog_width $term_sd_dialog_height $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "ComfyUI安装" --backtitle "ComfyUI插件安装选项" --ok-label "确认" --no-cancel --checklist "请选择需要安装的ComfyUI插件" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         $(cat "$start_path/term-sd/install/comfyui/dialog_comfyui_custom_node.sh") \
         3>&1 1>&2 2>&3)
 }

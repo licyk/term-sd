@@ -196,7 +196,7 @@ term_sd_extra_scripts()
     local extra_script_dir_list_select
 
     extra_script_dir_list=$(ls -l "./term-sd/extra" --time-style=+"%Y-%m-%d" | awk -F ' ' ' { print $7 " " $6 } ')
-    extra_script_dir_list_select=$(dialog --erase-on-exit --title "Term-SD" --backtitle "扩展脚本选项" --ok-label "确认" --cancel-label "取消" --menu "请选择要启动的脚本" $term_sd_dialog_width $term_sd_dialog_height $term_sd_dialog_menu_height \
+    extra_script_dir_list_select=$(dialog --erase-on-exit --title "Term-SD" --backtitle "扩展脚本选项" --ok-label "确认" --cancel-label "取消" --menu "请选择要启动的脚本" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "Term-SD" "<---------" \
         $extra_script_dir_list \
         "退出" "<---------" \
@@ -702,19 +702,20 @@ case $term_sd_env_prepare_info in
         ;;
 esac
 
+# dialog使用文档https://manpages.debian.org/bookworm/dialog/dialog.1.en.html
 # 设置dialog界面的大小
 export term_sd_dialog_menu_height=10 #dialog高度条目
 
-if [ $(( $term_sd_shell_width -6 )) -le 12 ];then # dialog宽度
+if [ $(( $term_sd_shell_width -20 )) -le 12 ];then # dialog宽度
     export term_sd_dialog_width=-1
 else
-    export term_sd_dialog_width=$(( $term_sd_shell_width -6 ))
+    export term_sd_dialog_width=$(( $term_sd_shell_width -20 ))
 fi
 
-if [ $(( $term_sd_shell_height - 20 )) -le 6 ];then # dialog高度
+if [ $(( $term_sd_shell_height - 6 )) -le 6 ];then # dialog高度
     export term_sd_dialog_height=-1
 else
-    export term_sd_dialog_height=$(( $term_sd_shell_height - 20 ))
+    export term_sd_dialog_height=$(( $term_sd_shell_height - 6 ))
 fi
 
 # 存在python自定义路径配置文件时自动读取到变量中

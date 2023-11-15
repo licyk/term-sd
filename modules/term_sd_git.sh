@@ -7,7 +7,7 @@ git_ver_switch()
         local git_repository_commit
         term_sd_echo "获取$(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')版本信息"
         git_repository_commit=$(
-            dialog --erase-on-exit --title "Term-SD" --backtitle "项目切换版本选项" --ok-label "确认" --cancel-label "取消" --menu "请选择要切换的版本\n当前版本:\n$(git show -s --format="%H %cd" --date=format:"%Y-%m-%d %H:%M:%S")" $term_sd_dialog_width $term_sd_dialog_height $term_sd_dialog_menu_height \
+            dialog --erase-on-exit --title "Term-SD" --backtitle "项目切换版本选项" --ok-label "确认" --cancel-label "取消" --menu "请选择要切换的版本\n当前版本:\n$(git show -s --format="%H %cd" --date=format:"%Y-%m-%d %H:%M:%S")" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
             "-->返回<--" "<-------------------" \
             $(git log --all --date=short --pretty=format:"%H %cd" --date=format:"%Y-%m-%d|%H:%M:%S" | awk -F  ' ' ' {print $1 " " $2} ') \
             3>&1 1>&2 2>&3)

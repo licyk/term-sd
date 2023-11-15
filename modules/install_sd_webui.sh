@@ -115,7 +115,7 @@ install_sd_webui()
 sd_webui_extension_install_select()
 {
     sd_webui_extension_install_select_list=$(
-        dialog --erase-on-exit --notags --title "Stable-Diffusion-WebUI安装" --backtitle "Stable-Diffusion-WebUI插件安装选项" --ok-label "确认" --no-cancel --checklist "请选择需要安装的Stable-Diffusion-Webui插件" $term_sd_dialog_width $term_sd_dialog_height $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Stable-Diffusion-WebUI安装" --backtitle "Stable-Diffusion-WebUI插件安装选项" --ok-label "确认" --no-cancel --checklist "请选择需要安装的Stable-Diffusion-Webui插件" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         $(cat "$start_path/term-sd/install/sd_webui/dialog_sd_webui_extension.sh") \
         3>&1 1>&2 2>&3)
 }
