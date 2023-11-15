@@ -10,7 +10,7 @@ term_sd_setting()
         "0" "> 返回" \
         "1" "> 虚拟环境设置($([ $venv_setup_status = 0 ] && echo "启用" || echo "禁用"))" \
         "2" "> pip镜像源设置(配置文件)" \
-        "3" "> pip镜像源设置(环境变量)($([ ! -z $(echo $PIP_INDEX_URL | grep "pypi.python.org") ] && echo "国内镜像源" || echo "官方源"))" \
+        "3" "> pip镜像源设置(环境变量)($([ ! -z $(echo $PIP_INDEX_URL | grep "pypi.python.org") ] && echo "官方源" || echo "国内镜像源"))" \
         "4" "> pip缓存清理" \
         "5" "> 代理设置($([ -z $http_proxy ] && echo "无" || echo "代理地址:$(echo $http_proxy | awk '{print substr($1,1,40)}')"))" \
         "6" "> 命令执行监测设置($([ -f "./term-sd/term-sd-watch-retry.conf" ] && echo "启用(重试次数:$(cat ./term-sd/term-sd-watch-retry.conf))" || echo "禁用"))" \
@@ -33,38 +33,46 @@ term_sd_setting()
             term_sd_setting
             ;;
         3)
-            pip_cache_clean
+            pip_mirrors_env_setting
             term_sd_setting
             ;;
         4)
-            term_sd_proxy_setting
+            pip_cache_clean
             term_sd_setting
             ;;
         5)
-            term_sd_watch_setting
+            term_sd_proxy_setting
             term_sd_setting
             ;;
         6)
-            term_sd_install_mode_setting
+            term_sd_watch_setting
             term_sd_setting
             ;;
         7)
-            aria2_multi_threaded_setting
+            term_sd_install_mode_setting
             term_sd_setting
             ;;
         8)
-            term_sd_cache_redirect_setting
+            aria2_multi_threaded_setting
             term_sd_setting
             ;;
         9)
-            term_sd_disk_space_stat
+            term_sd_cache_redirect_setting
             term_sd_setting
             ;;
         10)
-            term_sd_network_test
+            cuda_memory_alloc_setting
             term_sd_setting
             ;;
         11)
+            term_sd_disk_space_stat
+            term_sd_setting
+            ;;
+        12)
+            term_sd_network_test
+            term_sd_setting
+            ;;
+        13)
             term_sd_uninstall_interface
             term_sd_setting
             ;;
