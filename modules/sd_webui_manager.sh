@@ -184,7 +184,7 @@ sd_webui_update_depend()
             enter_venv
             python_package_update "./repositories/CodeFormer/requirements.txt"
             python_package_update "./requirements.txt"
-            term_sd_watch term_sd_pip install git+"$github_proxy"https://github.com/openai/CLIP --prefer-binary $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $force_pip $pip_install_methon_select --default-timeout=100 --retries 5
+            term_sd_watch term_sd_pip install git+"$github_proxy"https://github.com/openai/CLIP --prefer-binary $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode
             exit_venv
             term_sd_tmp_enable_proxy
             term_sd_echo "更新Stable-Diffusion-WebUI依赖结束"

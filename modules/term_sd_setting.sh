@@ -9,21 +9,23 @@ term_sd_setting()
         dialog --erase-on-exit --notags --title "Term-SD" --backtitle "Term-SD设置选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD设置" 25 80 10 \
         "0" "> 返回" \
         "1" "> 虚拟环境设置($([ $venv_setup_status = 0 ] && echo "启用" || echo "禁用"))" \
-        "2" "> pip镜像源设置" \
-        "3" "> pip缓存清理" \
-        "4" "> 代理设置($([ -z $http_proxy ] && echo "无" || echo "代理地址:$(echo $http_proxy | awk '{print substr($1,1,40)}')"))" \
-        "5" "> 命令执行监测设置($([ -f "./term-sd/term-sd-watch-retry.conf" ] && echo "启用(重试次数:$(cat ./term-sd/term-sd-watch-retry.conf))" || echo "禁用"))" \
-        "6" "> Term-SD安装模式($([ ! -f "./term-sd/term-sd-disable-strict-install-mode.lock" ] && echo "严格模式" || echo "宽容模式"))" \
-        "7" "> aria2线程设置($([ -f "./term-sd/aria2-thread.conf" ] && echo "启用(线程数:$(cat ./term-sd/aria2-thread.conf | awk '{sub("-x ","")}1'))" || echo "禁用"))" \
-        "8" "> 缓存重定向设置($([ ! -f "./term-sd/disable-cache-path-redirect.lock" ] && echo "启用" || echo "禁用"))" \
-        "9" "> 空间占用分析" \
-        "10" "> 网络连接测试" \
-        "11" "> 卸载Term-SD" \
+        "2" "> pip镜像源设置(配置文件)" \
+        "3" "> pip镜像源设置(环境变量)($([ ! -z $(echo $PIP_INDEX_URL | grep "pypi.python.org") ] && echo "国内镜像源" || echo "官方源"))" \
+        "4" "> pip缓存清理" \
+        "5" "> 代理设置($([ -z $http_proxy ] && echo "无" || echo "代理地址:$(echo $http_proxy | awk '{print substr($1,1,40)}')"))" \
+        "6" "> 命令执行监测设置($([ -f "./term-sd/term-sd-watch-retry.conf" ] && echo "启用(重试次数:$(cat ./term-sd/term-sd-watch-retry.conf))" || echo "禁用"))" \
+        "7" "> Term-SD安装模式($([ ! -f "./term-sd/term-sd-disable-strict-install-mode.lock" ] && echo "严格模式" || echo "宽容模式"))" \
+        "8" "> aria2线程设置($([ -f "./term-sd/aria2-thread.conf" ] && echo "启用(线程数:$(cat ./term-sd/aria2-thread.conf | awk '{sub("-x ","")}1'))" || echo "禁用"))" \
+        "9" "> 缓存重定向设置($([ ! -f "./term-sd/disable-cache-path-redirect.lock" ] && echo "启用" || echo "禁用"))" \
+        "10" "> CUDA内存分配设置($([ -f "./term-sd/cuda-memory-alloc.conf" ] && echo $([ ! -z $(cat ./term-sd/cuda-memory-alloc.conf | grep cudaMallocAsync) ] && echo "CUDA内置异步分配器" || echo "PyTorch原生分配器") || echo "未设置"))" \
+        "11" "> 空间占用分析" \
+        "12" "> 网络连接测试" \
+        "13" "> 卸载Term-SD" \
         3>&1 1>&2 2>&3)
 
     case $term_sd_setting_dialog in
         1)
-            venv_setting
+            python_venv_setting
             term_sd_setting
             ;;
         2)
@@ -65,6 +67,185 @@ term_sd_setting()
         11)
             term_sd_uninstall_interface
             term_sd_setting
+            ;;
+    esac
+}
+
+# 虚拟环境设置
+python_venv_setting()
+{
+    local python_venv_setting_dialog
+    export venv_setup_status
+
+    python_venv_setting_dialog=$(
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "虚拟环境设置界面" --ok-label "确认" --cancel-label "取消" --menu "是否启用虚拟环境?(推荐启用)\n当前虚拟环境状态:$([ $venv_setup_status = 0 ] && echo "启用" || echo "禁用")" 25 80 10 \
+        "0" "> 返回" \
+        "1" "> 启用" \
+        "2" "> 禁用" \
+        3>&1 1>&2 2>&3)
+
+    case $python_venv_setting_dialog in
+        1)
+            venv_setup_status=0
+            rm -rf ./term-sd/term-sd-venv-disable.lock
+            dialog --erase-on-exit --title "Term-SD" --backtitle "虚拟环境设置界面" --ok-label "确认" --msgbox "启用成功" 25 80
+            python_venv_setting
+            ;;
+        2)
+            venv_setup_status=1
+            touch ./term-sd/term-sd-venv-disable.lock
+            dialog --erase-on-exit --title "Term-SD" --backtitle "虚拟环境设置界面" --ok-label "确认" --msgbox "禁用成功" 25 80
+            python_venv_setting
+            ;;
+    esac
+}
+
+# pip镜像源选项(配置文件)
+pip_mirrors_setting()
+{
+    local pip_mirrors_setting_dialog
+
+    term_sd_echo "获取pip全局配置"
+    pip_mirrors_setting_dialog=$(
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "pip镜像源(配置文件)选项" --ok-label "确认" --cancel-label "取消" --menu "该功能用于设置pip镜像源(环境变量)(优先级小于环境变量配置),加速国内下载python软件包的速度\n当前pip全局配置:\n$(term_sd_pip config list | awk '{print$0}')\n请选择设置的pip镜像源(配置文件)" 25 80 10 \
+        "0" "> 返回" \
+        "1" "> 设置官方源" \
+        "2" "> 设置国内镜像源" \
+        "3" "> 删除镜像源配置" \
+        3>&1 1>&2 2>&3)
+
+    case $pip_mirrors_setting_dialog in
+        1)
+            term_sd_echo "设置pip镜像源为官方源"
+            term_sd_pip config set global.index-url "https://pypi.python.org/simple"
+            term_sd_pip config unset global.extra-index-url
+            term_sd_pip config set global.find-links "https://download.pytorch.org/whl/torch_stable.html"
+            dialog --erase-on-exit --title "Term-SD" --backtitle "pip镜像源(配置文件)选项" --ok-label "确认" --msgbox "设置pip镜像源为官方源成功" 25 80
+            pip_mirrors_setting
+            ;;
+        2)
+            term_sd_echo "设置pip镜像源为国内镜像源"
+            term_sd_pip config set global.index-url "https://mirrors.bfsu.edu.cn/pypi/web/simple"
+            term_sd_pip config set global.extra-index-url "https://mirrors.hit.edu.cn/pypi/web/simple https://pypi.tuna.tsinghua.edu.cn/simple https://mirror.nju.edu.cn/pypi/web/simple"
+            term_sd_pip config set global.find-links "https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
+            dialog --erase-on-exit --title "Term-SD" --backtitle "pip镜像源(配置文件)选项" --ok-label "确认" --msgbox "设置pip镜像源为国内镜像源成功" 25 80
+            pip_mirrors_setting
+            ;;
+        3)
+            term_sd_echo "删除镜像源配置"
+            term_sd_pip config unset global.extra-index-url
+            term_sd_pip config unset global.index-url
+            term_sd_pip config unset global.find-links
+            dialog --erase-on-exit --title "Term-SD" --backtitle "pip镜像源(配置文件)选项" --ok-label "确认" --msgbox "删除镜像源配置成功" 25 80
+            pip_mirrors_setting
+            ;;
+    esac
+}
+
+# pip镜像源设置(环境变量)
+pip_mirrors_env_setting()
+{
+    local pip_mirrors_env_setting_dialog
+    export PIP_INDEX_URL
+    export PIP_EXTRA_INDEX_URL
+    export PIP_FIND_LINKS
+
+    pip_mirrors_env_setting_dialog=$(
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "pip镜像源(环境变量)选项" --ok-label "确认" --cancel-label "取消" --menu "该功能用于设置pip镜像源(环境变量)(优先级大于全局配置),加速国内下载python软件包的速度\n当前pip环境变量配置:$([ ! -z $(echo $PIP_INDEX_URL | grep "pypi.python.org") ] && echo "国内镜像源" || echo "官方源")\n请选择设置的pip镜像源(环境变量)" 25 80 10 \
+        "0" "> 返回" \
+        "1" "> 设置官方源" \
+        "2" "> 设置国内镜像源(默认)" \
+        3>&1 1>&2 2>&3)
+
+    case $pip_mirrors_env_setting_dialog in
+        1)
+            PIP_INDEX_URL="https://pypi.python.org/simple"
+            PIP_EXTRA_INDEX_URL=""
+            PIP_FIND_LINKS="https://download.pytorch.org/whl/torch_stable.html"
+            touch ./term-sd/disable-pip-mirror.lock
+            dialog --erase-on-exit --title "Term-SD" --backtitle "pip镜像源(环境变量)选项" --ok-label "确认" --msgbox "设置pip镜像源为官方源成功" 25 80
+            pip_mirrors_env_setting
+            ;;
+        2)
+            PIP_INDEX_URL="https://mirrors.bfsu.edu.cn/pypi/web/simple"
+            PIP_EXTRA_INDEX_URL="https://mirrors.hit.edu.cn/pypi/web/simple https://pypi.tuna.tsinghua.edu.cn/simple https://mirror.nju.edu.cn/pypi/web/simple"
+            PIP_FIND_LINKS="https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
+            rm -f ./term-sd/disable-pip-mirror.lock
+            dialog --erase-on-exit --title "Term-SD" --backtitle "pip镜像源(环境变量)选项" --ok-label "确认" --msgbox "设置pip镜像源为国内镜像源成功" 25 80
+            pip_mirrors_env_setting
+            ;;
+    esac
+}
+
+# pip缓存清理功能
+pip_cache_clean()
+{
+    term_sd_echo "统计pip缓存信息"
+    if (dialog --erase-on-exit --title "Term-SD" --backtitle "pip缓存清理选项" --yes-label "是" --no-label "否" --yesno "pip缓存信息:\npip缓存路径:$(term_sd_pip cache dir)\n包索引页面缓存大小:$(term_sd_pip cache info | grep "Package index page cache size" | awk -F ':'  '{print $2 $3 $4}')\n本地构建的wheel包大小:$(term_sd_pip cache info | grep "Locally built wheels size" | awk -F ':'  '{print $2 $3 $4}')\n是否删除pip缓存?" 25 80);then
+        term_sd_pip cache purge
+        dialog --erase-on-exit --title "Term-SD" --backtitle "pip缓存清理选项" --ok-label "确认" --msgbox "清理pip缓存完成" 25 80
+    fi
+}
+
+# 代理设置
+term_sd_proxy_setting()
+{
+    local term_sd_proxy_config
+    local term_sd_proxy_setting_dialog
+    export http_proxy
+    export https_proxy
+
+    term_sd_proxy_setting_dialog=$(
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "代理设置界面" --ok-label "确认" --cancel-label "取消" --menu "请选择设置代理协议\n当前代理设置:$([ -z $http_proxy ] && echo "无" || echo $http_proxy)" 25 80 10 \
+        "0" "> 返回" \
+        "1" "> http协议" \
+        "2" "> socks协议" \
+        "3" "> socks5协议" \
+        "4" "> 删除代理参数" \
+        3>&1 1>&2 2>&3)
+
+    case $term_sd_proxy_setting_dialog in
+        1)
+            term_sd_proxy_config=$(dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入代理地址\n格式:<ip>:<port>" 25 80 "$(echo $http_proxy | awk -F'://' '{print $NF}')" 3>&1 1>&2 2>&3)
+            term_sd_proxy_config=$(echo $term_sd_proxy_config | awk '{gsub(/[：]/, ":") ; gsub(/[。]/, ".")}1') # 防止用户输入中文冒号,句号后导致错误
+            if [ $? = 0 ];then
+                http_proxy="http://$term_sd_proxy_config"
+                https_proxy="http://$term_sd_proxy_config"
+                echo "http://$term_sd_proxy_config" > ./term-sd/proxy.conf
+                dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --msgbox "代理地址:\"$http_proxy\"\n代理协议:\"$(echo $http_proxy | awk -F '://' '{print$NR}')\"\n设置代理完成" 25 80
+            fi
+            term_sd_proxy_setting
+            ;;
+        2)
+            term_sd_proxy_config=$(dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入代理地址\n格式:<ip>:<port>" 25 80 "$(echo $http_proxy | awk -F'://' '{print $NF}')" 3>&1 1>&2 2>&3)
+            term_sd_proxy_config=$(echo $term_sd_proxy_config | awk '{gsub(/[：]/, ":") ; gsub(/[。]/, ".")}1') # 防止用户输入中文冒号,句号后导致错误
+            if [ $? = 0 ];then
+                http_proxy="socks://$term_sd_proxy_config"
+                https_proxy="socks://$term_sd_proxy_config"
+                echo "socks://$term_sd_proxy_config" > ./term-sd/proxy.conf
+                dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --msgbox "代理地址:\"$http_proxy\"\n代理协议:\"$(echo $http_proxy | awk -F '://' '{print$NR}')\"\n设置代理完成" 25 80
+            fi
+            term_sd_proxy_setting
+            ;;
+        3)
+            term_sd_proxy_config=$(dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入代理地址\n格式:<ip>:<port>" 25 80 "$(echo $http_proxy | awk -F'://' '{print $NF}')" 3>&1 1>&2 2>&3)
+            term_sd_proxy_config=$(echo $term_sd_proxy_config | awk '{gsub(/[：]/, ":") ; gsub(/[。]/, ".")}1') # 防止用户输入中文冒号,句号后导致错误
+            if [ $? = 0 ];then
+                http_proxy="socks5://$term_sd_proxy_config"
+                https_proxy="socks5://$term_sd_proxy_config"
+                echo "socks5://$term_sd_proxy_config" > ./term-sd/proxy.conf
+                dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --msgbox "代理地址:\"$http_proxy\"\n代理协议:\"$(echo $http_proxy | awk -F '://' '{print$NR}')\"\n设置代理完成" 25 80
+            fi
+            term_sd_proxy_setting
+            ;;
+        4)
+            if (dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数删除界面" --yes-label "是" --no-label "否" --yesno "是否删除代理配置?" 25 80) then
+                http_proxy=
+                https_proxy=
+                rm -f ./term-sd/proxy.conf
+                dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --msgbox "清除设置代理完成" 25 80
+            fi
+            term_sd_proxy_setting
             ;;
     esac
 }
@@ -187,6 +368,8 @@ term_sd_cache_redirect_setting()
     export TORCH_HOME
     export U2NET_HOME
     export XDG_CACHE_HOME
+    export PIP_CACHE_DIR
+    export PYTHONPYCACHEPREFIX
 
     term_sd_cache_redirect_setting_dialog=$(
         dialog --erase-on-exit --notags --title "Term-SD" --backtitle "缓存重定向设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能将会把ai软件产生的缓存重定向至Term-SD中(便于清理)\n当前状态:$([ ! -f "./term-sd/disable-cache-path-redirect.lock" ] && echo "启用" || echo "禁用")\n是否启用缓存重定向?" 25 80 10 \
@@ -207,6 +390,8 @@ term_sd_cache_redirect_setting()
             TORCH_HOME="$start_path/term-sd/cache/torch"
             U2NET_HOME="$start_path/term-sd/cache/u2net"
             XDG_CACHE_HOME="$start_path/term-sd/cache"
+            PIP_CACHE_DIR="$start_path/term-sd/cache/pip"
+            PYTHONPYCACHEPREFIX="$start_path/term-sd/cache/pycache"
             dialog --erase-on-exit --title "Term-SD" --backtitle "缓存重定向设置界面" --ok-label "确认" --msgbox "启用成功" 25 80
             term_sd_cache_redirect_setting
             ;;
@@ -221,8 +406,46 @@ term_sd_cache_redirect_setting()
             TORCH_HOME=
             U2NET_HOME=
             XDG_CACHE_HOME=
+            PIP_CACHE_DIR=
+            PYTHONPYCACHEPREFIX=
             dialog --erase-on-exit --title "Term-SD" --backtitle "缓存重定向设置界面" --ok-label "确认" --msgbox "禁用成功" 25 80
             term_sd_cache_redirect_setting
+            ;;
+    esac
+}
+
+# cuda内存分配设置
+cuda_memory_alloc_setting()
+{
+    local cuda_memory_alloc_setting_dialog
+    export PYTORCH_CUDA_ALLOC_CONF
+
+    cuda_memory_alloc_setting_dialog=$(
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "CUDA内存分配设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于更换底层CUDA内存分配器(仅支持nvidia显卡,且CUDA版本需要大于11.4)\n当前内存分配器:$([ -f "./term-sd/cuda-memory-alloc.conf" ] && echo $([ ! -z $(cat ./term-sd/cuda-memory-alloc.conf | grep cudaMallocAsync) ] && echo "CUDA内置异步分配器" || echo "PyTorch原生分配器") || echo "未设置")\n请选择CUDA内存分配器" 25 80 10 \
+        "0" "> 返回" \
+        "1" "> PyTorch原生分配器" \
+        "2" "> CUDA(11.4+)内置异步分配器" \
+        "3" "> 清除设置" \
+        3>&1 1>&2 2>&3)
+
+    case $cuda_memory_alloc_setting_dialog in
+        1)
+            PYTORCH_CUDA_ALLOC_CONF=garbage_collection_threshold:0.9,max_split_size_mb:512
+            echo "garbage_collection_threshold:0.9,max_split_size_mb:512" > ./term-sd/cuda-memory-alloc.conf
+            dialog --erase-on-exit --title "Term-SD" --backtitle "CUDA内存分配设置界面" --ok-label "确认" --msgbox "设置CUDA内存分配器为PyTorch原生分配器成功" 25 80
+            cuda_memory_alloc_setting
+            ;;
+        2)
+            PYTORCH_CUDA_ALLOC_CONF=backend:cudaMallocAsync
+            echo "backend:cudaMallocAsync" > ./term-sd/cuda-memory-alloc.conf
+            dialog --erase-on-exit --title "Term-SD" --backtitle "CUDA内存分配设置界面" --ok-label "确认" --msgbox "设置CUDA内存分配器为CUDA内置异步分配器成功" 25 80
+            cuda_memory_alloc_setting
+            ;;
+        3)
+            PYTORCH_CUDA_ALLOC_CONF=
+            rm -f ./term-sd/cuda-memory-alloc.conf
+            dialog --erase-on-exit --title "Term-SD" --backtitle "CUDA内存分配设置界面" --ok-label "确认" --msgbox "清除CUDA内存分配器设置成功" 25 80
+            cuda_memory_alloc_setting
             ;;
     esac
 }
