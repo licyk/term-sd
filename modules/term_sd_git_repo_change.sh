@@ -233,6 +233,8 @@ lora_scripts_remote_revise()
         $git_repo_remote_revise_cmd
         cd "$start_path/lora-scripts/sd-scripts"
         $git_repo_remote_revise_cmd
+        cd "$start_path/lora-scripts/mikazuki/dataset-tag-editor"
+        $git_repo_remote_revise_cmd
         term_sd_echo "lora-scripts更新源替换结束"
         term_sd_print_line
         dialog --erase-on-exit --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n------------------------------------------------------------------\n$git_repo_remote_revise_req------------------------------------------------------------------" $term_sd_dialog_height $term_sd_dialog_width
