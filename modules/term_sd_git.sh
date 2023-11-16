@@ -99,6 +99,10 @@ git_clone_repository()
 
             if [ ! -d "$git_clone_repository_path" ];then # 出现同名文件夹时终止执行
                 term_sd_watch git clone --recurse-submodules $git_clone_repository_url $git_clone_repository_path
+            else
+                if [ -z "$(ls "$git_clone_repository_path")" ];then
+                    term_sd_watch git clone --recurse-submodules $git_clone_repository_url $git_clone_repository_path
+                fi
             fi
             ;;
         *)
@@ -115,6 +119,10 @@ git_clone_repository()
 
             if [ ! -d "$git_clone_repository_path" ];then # 出现同名文件夹时终止执行
                 term_sd_watch git clone --recurse-submodules $git_clone_repository_url $git_clone_repository_path
+            else
+                if [ -z "$(ls "$git_clone_repository_path")" ];then
+                    term_sd_watch git clone --recurse-submodules $git_clone_repository_url $git_clone_repository_path
+                fi
             fi
             ;;
     esac
