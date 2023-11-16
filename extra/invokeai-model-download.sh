@@ -2,12 +2,13 @@
 
 # 加载模块
 source ./term-sd/modules/term_sd_manager.sh
+source ./term-sd/modules/term_sd_task_manager.sh
 
 # 模型选择
 invokeai_model_select()
 {
     invokeai_model_select_dialog=$(
-        dialog --erase-on-exit --notags --title "IovokeAI管理" --backtitle "IovokeAI模型下载" --ok-label "确认" --cancel-label "取消" --checklist "请选择需要下载的InvokeAI模型" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "IovokeAI管理" --backtitle "IovokeAI模型下载" --ok-label "确认" --cancel-label "取消" --checklist "请选择需要下载的InvokeAI模型" 20 60 10 \
         "invokeai_embed" ">-----embedding模型列表-----" ON \
         "__invokeai_model_embed_sd15_1" "EasyNegative" OFF \
         "__invokeai_model_embed_sdxl_1" "ahx-beta-453407d" OFF \
@@ -48,7 +49,7 @@ invokeai_model_select()
         "__invokeai_model_t2i_sdxl_lineart" "t2i-lineart-sdxl" OFF \
         "__invokeai_model_t2i_sdxl_sketch" "t2i-sketch-sdxl" OFF \
         "__invokeai_model_t2i_sdxl_zoedepth" "t2i-zoedepth-sdxl" OFF \
-        "invokeai_ip_adapt" >"-----ip-adapter模型列表-----" ON \
+        "invokeai_ip_adapt" ">-----ip-adapter模型列表-----" ON \
         "__invokeai_model_ip_adapt_sd15_clip" "ip-adapt-clip-sd1.5" OFF \
         "__invokeai_model_ip_adapt_sd15_plus_face" "ip-adapt-plus-face-sd1.5" OFF \
         "__invokeai_model_ip_adapt_sd15_plus" "ip-adapt-plus-sd1.5" OFF \
@@ -319,7 +320,7 @@ get_invokeai_model()
     local modelscope_model_path=$(echo $1 | awk '{sub("'${modelscope_user}/${modelscope_name}/${modelscope_branch}/'","")}1')
     local invokeai_model_url="https://modelscope.cn/api/v1/models/${modelscope_user}/${modelscope_name}/repo?Revision=${modelscope_branch}&FilePath=${modelscope_model_path}"
     local local_file_path="${2}/$(echo $1 | awk -F'/' '{print$NF}')"
-    local local_aria_cache_path="${2}/$(echo $1 | awk -F'/' '{print$NF}').aria"
+    local local_aria_cache_path="${2}/$(echo $1 | awk -F'/' '{print$NF}').aria2"
     if [ ! -f "$local_file_path" ];then
         term_sd_echo "下载$(echo $modelscope_model_path | awk -F '/' '{print$NF}')中"
         term_sd_watch aria2c $aria2_multi_threaded $invokeai_model_url -d ${2} -o $(echo $1 | awk -F'/' '{print$NF}')
@@ -335,6 +336,9 @@ get_invokeai_model()
 
 invokeai_model_download()
 {
+    local cmd_sum
+    local cmd_point
+    local install_cmd
     invokeai_model_select
     if [ $? = 0 ];then
         term_sd_echo "生成任务队列"
@@ -344,13 +348,13 @@ invokeai_model_download()
         done
         term_sd_echo "任务队列生成完成"
         term_sd_echo "开始下载InvokeAI模型"
+        cmd_sum=$(cat "$start_path/term-sd/task/invokeai_model_download.sh" | wc -l)
         for ((cmd_point=1;cmd_point<=cmd_sum;cmd_point++))
         do
             install_cmd=$(term_sd_get_task_cmd $(cat "$start_path/term-sd/task/invokeai_model_download.sh" | awk 'NR=='${cmd_point}'{print$0}'))
             echo "$install_cmd" > "$start_path/term-sd/task/cache.sh" # 取出命令并放入缓存文件中
             source "$start_path/term-sd/task/cache.sh" # 执行命令
         done
-
         rm -f "$start_path/term-sd/task/invokeai_model_download.sh" # 删除任务文件
         rm -f "$start_path/term-sd/task/cache.sh"
         term_sd_echo "模型下载结束"

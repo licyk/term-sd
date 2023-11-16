@@ -89,7 +89,7 @@ term_sd_remote_revise()
                 git --git-dir="./term-sd/.git" remote set-url origin "https://gitclone.com/github.com/licyk/term-sd"
                 ;;
         esac
-        term_sd_echo "Term-SD更新源切换完成"
+        dialog --erase-on-exit --title "Term-SD" --backtitle "缓存重定向设置界面" --ok-label "确认" --msgbox "Term-SD更新源切换完成" $term_sd_dialog_height $term_sd_dialog_width
     fi
 }
 
@@ -147,11 +147,13 @@ term_sd_auto_update_setting()
         1)
             touch ./term-sd/term-sd-auto-update.lock
             dialog --erase-on-exit --title "Term-SD" --backtitle "缓存重定向设置界面" --ok-label "确认" --msgbox "启用成功" $term_sd_dialog_height $term_sd_dialog_width
+            term_sd_auto_update_setting
             ;;
         2)
             rm -f ./term-sd/term-sd-auto-update.lock
             rm -f ./term-sd/term-sd-auto-update-time.conf
             dialog --erase-on-exit --title "Term-SD" --backtitle "缓存重定向设置界面" --ok-label "确认" --msgbox "禁用成功" $term_sd_dialog_height $term_sd_dialog_width
+            term_sd_auto_update_setting
             ;;
     esac
 }
