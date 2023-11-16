@@ -338,6 +338,7 @@ invokeai_model_download()
     invokeai_model_select
     if [ $? = 0 ];then
         term_sd_echo "生成任务队列"
+        rm -f "$start_path/term-sd/task/invokeai_model_download.sh" # 删除上次未清除的任务列表
         for i in $invokeai_model_select_dialog ; do
             invokeai_model_list | grep -w $i >> "$start_path/term-sd/task/invokeai_model_download.sh"
         done
