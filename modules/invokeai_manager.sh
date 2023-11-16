@@ -14,7 +14,7 @@ invokeai_manager()
             exit_venv # 退出原来的环境
             create_venv # 尝试重新生成虚拟环境,解决因为路径移动导致虚拟环境无法进入,然后检测不到invokeai
             enter_venv # 进入环境
-        fi  
+        fi
         if which invokeai-web 2> /dev/null ;then #查找环境中有没有invokeai
             invokeai_manager_dialog=$(
                 dialog --erase-on-exit --notags --title "InvokeAI管理" --backtitle "InvokeAI管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择InvokeAI管理选项的功能" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \

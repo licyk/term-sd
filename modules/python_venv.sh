@@ -11,12 +11,12 @@ create_venv()
                 fix_venv # 再进行虚拟环境的修复
             else
                 term_sd_echo "创建虚拟环境中"
-                term_sd_python -m venv venv 2> /dev/null > /dev/null
+                term_sd_python -m venv venv > /dev/null 2>&1
                 term_sd_echo "创建虚拟环境完成"
             fi
         else
             term_sd_echo "创建虚拟环境"
-            term_sd_python -m venv venv 2> /dev/null > /dev/null
+            term_sd_python -m venv venv > /dev/null 2>&1
             term_sd_echo "创建虚拟环境完成"
         fi
     fi
@@ -32,7 +32,7 @@ fix_venv()
         mv -f ./venv/Lib ./term-sd-tmp # 将依赖库转移到临时文件夹
         rm -rf ./venv # 删除原有虚拟环境
         term_sd_echo "重新创建新的虚拟环境"
-        term_sd_python -m venv venv 2> /dev/null > /dev/null # 重新创建新的虚拟环境
+        term_sd_python -m venv venv > /dev/null 2>&1 # 重新创建新的虚拟环境
         rm -rf ./venv/Lib # 删除新的虚拟环境中的库文件,为移入原有的库腾出空间
         term_sd_echo "恢复虚拟环境库文件中"
         mv -f ./term-sd-tmp/Lib ./venv # 移入原有的库
@@ -43,7 +43,7 @@ fix_venv()
         mv -f ./venv/lib ./term-sd-tmp # 将依赖库转移到临时文件夹
         rm -rf ./venv # 删除原有虚拟环境
         term_sd_echo "重新创建新的虚拟环境"
-        term_sd_python -m venv venv 2> /dev/null > /dev/null # 重新创建新的虚拟环境
+        term_sd_python -m venv venv > /dev/null 2>&1 # 重新创建新的虚拟环境
         rm -rf ./venv/lib # 删除新的虚拟环境中的库文件,为移入原有的库腾出空间
         term_sd_echo "恢复虚拟环境库文件中"
         mv -f ./term-sd-tmp/lib ./venv # 移入原有的库
@@ -51,7 +51,7 @@ fix_venv()
         term_sd_echo "修复虚拟环境完成"
     else # 未判断出类型
         term_sd_echo "创建venv虚拟环境中"
-        term_sd_python -m venv venv 2> /dev/null > /dev/null
+        term_sd_python -m venv venv > /dev/null 2>&1
         term_sd_echo "创建虚拟环境完成"
     fi
 }
@@ -61,16 +61,16 @@ enter_venv()
 {
     if [ $venv_setup_status = 0 ];then
         if [ ! -z "$VIRTUAL_ENV" ];then # 检测到未退出虚拟环境
-            exit_venv 2> /dev/null
+            exit_venv > /dev/null 2>&1
         fi
         term_sd_echo "进入虚拟环境"
 
         if [ -f "./venv/Scripts/activate" ];then # 在Windows端的venv目录结构和linux,macos的不同,所以进入虚拟环境的方式有区别
             pip_package_manager_update
-            source ./venv/Scripts/activate > /dev/null
+            source ./venv/Scripts/activate > /dev/null 2>&1
         elif [ -f "./venv/bin/activate" ];then
             pip_package_manager_update
-            source ./venv/bin/activate > /dev/null
+            source ./venv/bin/activate > /dev/null 2>&1
         else
             false
             term_sd_echo "虚拟环境文件损坏"

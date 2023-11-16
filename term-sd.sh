@@ -869,7 +869,7 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
 
         #判断系统是否安装必须使用的软件
         for i in $term_sd_depend ; do
-            if ! which $i > /dev/null 2> /dev/null ;then
+            if ! which $i > /dev/null 2>&1 ;then
                 missing_depend="$missing_depend $i,"
                 missing_depend_info=1
             fi
@@ -878,7 +878,7 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
         #依赖检测(MacOS)
         if [ $(uname) = "Darwin" ];then
             for i in $term_sd_depend_macos ; do
-                if which $i > /dev/null 2> /dev/null ;then
+                if which $i > /dev/null 2>&1 ;then
                     test_num_macos=$(( $test_num_macos + 1 ))
                 else
                     #转换名称
