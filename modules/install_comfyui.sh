@@ -28,7 +28,7 @@ install_comfyui()
                 if [ $term_sd_install_mode = 0 ];then
                     term_sd_echo "安装命令执行失败,终止安装程序"
                     term_sd_tmp_enable_proxy # 恢复代理
-                    sleep 5
+                    dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI安装结果" --ok-label "确认" --msgbox "ComfyUI安装进程执行失败,请重试" $term_sd_dialog_height $term_sd_dialog_width
                     return 1
                 else
                     term_sd_echo "忽略执行失败的命令"
@@ -99,7 +99,7 @@ install_comfyui()
                     if [ $term_sd_install_mode = 0 ];then
                         term_sd_echo "安装命令执行失败,终止安装程序"
                         term_sd_tmp_enable_proxy # 恢复代理
-                        sleep 5
+                        dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI安装结果" --ok-label "确认" --msgbox "ComfyUI安装进程执行失败,请重试" $term_sd_dialog_height $term_sd_dialog_width
                         return 1
                     else
                         term_sd_echo "忽略执行失败的命令"
