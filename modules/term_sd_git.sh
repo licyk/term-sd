@@ -75,27 +75,49 @@ git_format_repository_url()
 }
 
 # git克隆项目(使用格式化链接)
-# 使用格式: git_clone_repository <链接格式> <原链接> <下载路径> <文件夹名称>
+# 使用格式: 
+# 仅克隆项目: git_clone_repository <链接格式> <原链接> <下载路径> <文件夹名称>
+# 克隆项目和子模块: git_clone_repository --submod <链接格式> <原链接> <下载路径> <文件夹名称>
 # 注: 路径的左右不能有"/"
 git_clone_repository()
 {
     local git_clone_repository_path
     local git_clone_repository_url
 
-    git_clone_repository_url=$(git_format_repository_url $1 $2) # 生成格式化后的链接
-    if [ ! -z $3 ];then # 下载路径不为空
-        if [ ! -z $4 ];then # 文件夹名称不为空
-            git_clone_repository_path="./${3}/${4}"
-        else # 以项目的名称作为文件夹名称
-            git_clone_repository_path="./${3}/$(echo $git_clone_repository_url | awk -F'/' '{print $NF}')"
-        fi
-    else
-        git_clone_repository_path="./$(echo $git_clone_repository_url | awk -F'/' '{print $NF}')"
-    fi
+    case $1 in
+        --submod)
+            git_clone_repository_url=$(git_format_repository_url $2 $3) # 生成格式化后的链接
+            if [ ! -z $4 ];then # 下载路径不为空
+                if [ ! -z $5 ];then # 文件夹名称不为空
+                    git_clone_repository_path="./${4}/${5}"
+                else # 以项目的名称作为文件夹名称
+                    git_clone_repository_path="./${4}/$(echo $git_clone_repository_url | awk -F'/' '{print $NF}')"
+                fi
+            else
+                git_clone_repository_path="./$(echo $git_clone_repository_url | awk -F'/' '{print $NF}')"
+            fi
 
-    if [ ! -d "$git_clone_repository_path" ];then # 出现同名文件夹时终止执行
-        term_sd_watch git clone --recurse-submodules $git_clone_repository_url $git_clone_repository_path
-    fi
+            if [ ! -d "$git_clone_repository_path" ];then # 出现同名文件夹时终止执行
+                term_sd_watch git clone --recurse-submodules $git_clone_repository_url $git_clone_repository_path
+            fi
+            ;;
+        *)
+            git_clone_repository_url=$(git_format_repository_url $1 $2) # 生成格式化后的链接
+            if [ ! -z $3 ];then # 下载路径不为空
+                if [ ! -z $4 ];then # 文件夹名称不为空
+                    git_clone_repository_path="./${3}/${4}"
+                else # 以项目的名称作为文件夹名称
+                    git_clone_repository_path="./${3}/$(echo $git_clone_repository_url | awk -F'/' '{print $NF}')"
+                fi
+            else
+                git_clone_repository_path="./$(echo $git_clone_repository_url | awk -F'/' '{print $NF}')"
+            fi
+
+            if [ ! -d "$git_clone_repository_path" ];then # 出现同名文件夹时终止执行
+                term_sd_watch git clone --recurse-submodules $git_clone_repository_url $git_clone_repository_path
+            fi
+            ;;
+    esac
 }
 
 # git远程源替换

@@ -37,9 +37,24 @@ term_sd_watch()
 }
 
 # aria2下载工具
+# 使用格式: aria2_download <下载链接> <下载路径> <文件名>
 aria2_download()
 {
-    term_sd_watch aria2c $aria2_multi_threaded "$@"
+    local model_url=$1
+    local local_file_path="${2}/${3}"
+    local local_aria_cache_path="${2}/${3}.aria2"
+
+    if [ ! -f "$local_file_path" ];then
+        term_sd_echo "下载$(echo ${3} | awk -F '/' '{print$NF}')中"
+        term_sd_watch aria2c $aria2_multi_threaded $model_url -d ${2} -o ${3}
+    else
+        if [ -f "$local_aria_cache_path" ];then
+            term_sd_echo "恢复下载$(echo ${3} | awk -F '/' '{print$NF}')中"
+            term_sd_watch aria2c $aria2_multi_threaded $model_url -d ${2} -o ${3}
+        else
+            term_sd_echo "$(echo ${3} | awk -F '/' '{print$NF}')文件已存在,跳过下载该文件"
+        fi
+    fi
 }
 
 # 显示版本信息

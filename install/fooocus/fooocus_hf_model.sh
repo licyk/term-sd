@@ -1,27 +1,27 @@
 __term_sd_task_sys term_sd_echo "下载模型中"
 __term_sd_task_sys term_sd_echo "使用huggingface模型下载源"
 __term_sd_task_sys term_sd_tmp_enable_proxy
-__term_sd_task_pre_model aria2_download https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0_0.9vae.safetensors -d ./Fooocus/models/checkpoints/ -o sd_xl_base_1.0_0.9vae.safetensors
-__term_sd_task_pre_model aria2_download https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0_0.9vae.safetensors -d ./Fooocus/models/checkpoints/ -o sd_xl_refiner_1.0_0.9vae.safetensor
-__term_sd_task_pre_model aria2_download https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_offset_example-lora_1.0.safetensors -d ./Fooocus/models/loras/ -o sd_xl_offset_example-lora_1.0.safetensors
-__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/inpaint/inpaint.fooocus.patch -d ./Fooocus/models/inpaint/ -o inpaint.fooocus.patch
-__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/inpaint/fooocus_inpaint_head.pth -d ./Fooocus/models/inpaint/ -o fooocus_inpaint_head.pth
-__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/prompt_expansion/fooocus_expansion/pytorch_model.bin -d ./Fooocus/models/prompt_expansion/fooocus_expansion/ -o pytorch_model.bin
-__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/prompt_expansion/fooocus_expansion/config.json -d ./Fooocus/models/prompt_expansion/fooocus_expansion/ -o config.json
-__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/prompt_expansion/fooocus_expansion/merges.txt -d ./Fooocus/models/prompt_expansion/fooocus_expansion/ -o merges.txt
-__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/prompt_expansion/fooocus_expansion/special_tokens_map.json -d ./Fooocus/models/prompt_expansion/fooocus_expansion/ -o special_tokens_map.json
-__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/prompt_expansion/fooocus_expansion/tokenizer.json -d ./Fooocus/models/prompt_expansion/fooocus_expansion/ -o tokenizer.json
-__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/prompt_expansion/fooocus_expansion/tokenizer_config.json -d ./Fooocus/models/prompt_expansion/fooocus_expansion/ -o tokenizer_config.json
-__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/prompt_expansion/fooocus_expansion/vocab.json -d ./Fooocus/models/prompt_expansion/fooocus_expansion/ -o vocab.json
-__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/upscale_models/fooocus_upscaler_s409985e5.bin -d ./Fooocus/models/upscale_models/ -o fooocus_upscaler_s409985e5.bin
-__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/vae_approx/vaeapp_sd15.pth -d ./Fooocus/models/vae_approx -o vaeapp_sd15.pth
-__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/vae_approx/xl-to-v1_interposer-v3.1.safetensors -d ./Fooocus/models/vae_approx -o xl-to-v1_interposer-v3.1.safetensors
-__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/vae_approx/xlvaeapp.pth -d ./Fooocus/models/vae_approx -o xlvaeapp.pth
-__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/loras/sdxl_lcm_lora.safetensors -d ./Fooocus/models/loras/ -o sdxl_lcm_lora.safetensors
-__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/controlnet/control-lora-canny-rank128.safetensors -d ./Fooocus/models/controlnet -o control-lora-canny-rank128.safetensors
-__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/controlnet/fooocus_ip_negative.safetensors -d ./Fooocus/models/controlnet -o fooocus_ip_negative.safetensors
-__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/controlnet/fooocus_xl_cpds_128.safetensors -d ./Fooocus/models/controlnet -o fooocus_xl_cpds_128.safetensors
-__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/controlnet/ip-adapter-plus_sdxl_vit-h.bin -d ./Fooocus/models/controlnet -o ip-adapter-plus_sdxl_vit-h.bin
-__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/controlnet/detection_Resnet50_Final.pth -d ./Fooocus/models/controlnet -o detection_Resnet50_Final.pth
-__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/controlnet/ip-adapter-plus-face_sdxl_vit-h.bin -d ./Fooocus/models/controlnet -o ip-adapter-plus-face_sdxl_vit-h.bin
-__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/controlnet/parsing_parsenet.pth -d ./Fooocus/models/controlnet -o parsing_parsenet.pth
+__term_sd_task_pre_model aria2_download https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0_0.9vae.safetensors ./Fooocus/models/checkpoints/ sd_xl_base_1.0_0.9vae.safetensors
+__term_sd_task_pre_model aria2_download https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0_0.9vae.safetensors ./Fooocus/models/checkpoints/ sd_xl_refiner_1.0_0.9vae.safetensor
+__term_sd_task_pre_model aria2_download https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_offset_example-lora_1.0.safetensors ./Fooocus/models/loras/ sd_xl_offset_example-lora_1.0.safetensors
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/inpaint/inpaint.fooocus.patch ./Fooocus/models/inpaint/ inpaint.fooocus.patch
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/inpaint/fooocus_inpaint_head.pth ./Fooocus/models/inpaint/ fooocus_inpaint_head.pth
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/prompt_expansion/fooocus_expansion/pytorch_model.bin ./Fooocus/models/prompt_expansion/fooocus_expansion/ pytorch_model.bin
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/prompt_expansion/fooocus_expansion/config.json ./Fooocus/models/prompt_expansion/fooocus_expansion/ config.json
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/prompt_expansion/fooocus_expansion/merges.txt ./Fooocus/models/prompt_expansion/fooocus_expansion/ merges.txt
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/prompt_expansion/fooocus_expansion/special_tokens_map.json ./Fooocus/models/prompt_expansion/fooocus_expansion/ special_tokens_map.json
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/prompt_expansion/fooocus_expansion/tokenizer.json ./Fooocus/models/prompt_expansion/fooocus_expansion/ tokenizer.json
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/prompt_expansion/fooocus_expansion/tokenizer_config.json ./Fooocus/models/prompt_expansion/fooocus_expansion/ tokenizer_config.json
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/prompt_expansion/fooocus_expansion/vocab.json ./Fooocus/models/prompt_expansion/fooocus_expansion/ vocab.json
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/upscale_models/fooocus_upscaler_s409985e5.bin ./Fooocus/models/upscale_models/ fooocus_upscaler_s409985e5.bin
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/vae_approx/vaeapp_sd15.pth ./Fooocus/models/vae_approx vaeapp_sd15.pth
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/vae_approx/xl-to-v1_interposer-v3.1.safetensors ./Fooocus/models/vae_approx xl-to-v1_interposer-v3.1.safetensors
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/vae_approx/xlvaeapp.pth ./Fooocus/models/vae_approx xlvaeapp.pth
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/loras/sdxl_lcm_lora.safetensors ./Fooocus/models/loras/ sdxl_lcm_lora.safetensors
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/controlnet/control-lora-canny-rank128.safetensors ./Fooocus/models/controlnet control-lora-canny-rank128.safetensors
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/controlnet/fooocus_ip_negative.safetensors ./Fooocus/models/controlnet fooocus_ip_negative.safetensors
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/controlnet/fooocus_xl_cpds_128.safetensors ./Fooocus/models/controlnet fooocus_xl_cpds_128.safetensors
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/controlnet/ip-adapter-plus_sdxl_vit-h.bin ./Fooocus/models/controlnet ip-adapter-plus_sdxl_vit-h.bin
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/controlnet/detection_Resnet50_Final.pth ./Fooocus/models/controlnet detection_Resnet50_Final.pth
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/controlnet/ip-adapter-plus-face_sdxl_vit-h.bin ./Fooocus/models/controlnet ip-adapter-plus-face_sdxl_vit-h.bin
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/fooocus-model/resolve/main/controlnet/parsing_parsenet.pth ./Fooocus/models/controlnet parsing_parsenet.pth
