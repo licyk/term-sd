@@ -506,8 +506,8 @@ term_sd_uninstall_interface()
         case $(term_sd_read) in
             y|yes|YES|Y)
                 term_sd_echo "开始卸载Term-SD"
-                rm -f ./term-sd
-                rm -rf ./term-sd.sh
+                rm -rf ./term-sd
+                rm -f ./term-sd.sh
                 user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') # 读取用户所使用的shell
                 if [ $user_shell = bash ] || [ $user_shell = zsh ];then
                     sed -i '/# Term-SD/d' ~/."$user_shell"rc
