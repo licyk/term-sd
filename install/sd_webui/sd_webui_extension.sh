@@ -57,3 +57,4 @@ __term_sd_task_pre_ext_56 git_clone_repository --submod ${github_mirror} https:/
 __term_sd_task_pre_ext_57 git_clone_repository --submod ${github_mirror} https://github.com/Scholar01/sd-webui-workspace stable-diffusion-webui/extensions ON # 保存webui生图的参数
 __term_sd_task_pre_ext_58 git_clone_repository --submod ${github_mirror} https://github.com/zero01101/openOutpaint-webUI-extension stable-diffusion-webui/extensions OFF # 提供类似InvokeAI的统一画布的功能
 __term_sd_task_pre_ext_59 git_clone_repository --submod ${github_mirror} https://github.com/aigc-apps/sd-webui-EasyPhoto stable-diffusion-webui/extensions OFF # 以简单的操作生成自己的ai人像
+__term_sd_task_pre_ext_59 git_clone_repository --submod ${github_mirror} https://github.com/Haoming02/sd-webui-boomer stable-diffusion-webui/extensions ON # 恢复新版webui已经移除的按钮

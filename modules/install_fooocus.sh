@@ -52,7 +52,7 @@ install_fooocus()
             term_sd_echo "生成安装任务中"
             term_sd_set_install_env_value >> "$start_path/term-sd/task/fooocus_install.sh" # 环境变量
             cat "$start_path/term-sd/install/fooocus/fooocus_core.sh" >> "$start_path/term-sd/task/fooocus_install.sh" # 核心组件
-
+            echo "" >> "$start_path/term-sd/task/fooocus_install.sh"
             if [ $use_modelscope_model = 1 ];then
                 cat "$start_path/term-sd/install/fooocus/fooocus_hf_model.sh" >> "$start_path/term-sd/task/fooocus_install.sh" # 模型
             else

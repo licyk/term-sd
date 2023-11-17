@@ -236,3 +236,7 @@ AUTOMATIC1111-stable-diffusion-webui插件说明：
 59、sd-webui-EasyPhoto：
 描述：以简单的操作生成自己的ai人像
 链接：https://github.com/aigc-apps/sd-webui-EasyPhoto
+
+60、sd-webui-boomer：
+描述：恢复新版webui已经移除的按钮
+链接：https://github.com/Haoming02/sd-webui-boomer

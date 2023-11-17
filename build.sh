@@ -14,8 +14,8 @@ build_list()
     while (($flag==0))
     do
         args_1=$(cat $input_file | awk 'NR=='${count}' {print$1}')
-        args_2=$(cat $input_file | awk 'NR=='${count}' {print$4}')
-        args_3=$(cat $input_file | awk 'NR=='${count}' {print$6}')
+        args_2=$(cat $input_file | awk 'NR=='${count}' {print$5}')
+        args_3=$(cat $input_file | awk 'NR=='${count}' {print$7}')
         args_2=$(echo $args_2 | awk -F '/' '{print$NF}')
         if [ -z "$args_1" ];then
             flag=1
@@ -68,16 +68,16 @@ build_dialog_list_sd_webui()
 
     while (($flag==0))
     do
-        extension_url=$(cat $input_file | awk 'NR=='${count}' {print$4}')
-        extension_name=$(cat $input_file | awk 'NR=='${count}' {print$4}' | awk -F '/' '{print$NF}')
-        extension_description=$(cat $input_file | awk 'NR=='${count}' {print$8}')
+        extension_url=$(cat $input_file | awk 'NR=='${count}' {print$5}')
+        extension_name=$(cat $input_file | awk 'NR=='${count}' {print$5}' | awk -F '/' '{print$NF}')
+        extension_description=$(cat $input_file | awk 'NR=='${count}' {print$9}')
         list_head=$(cat $input_file | awk 'NR=='${count}' {print$1}')
         if [ -z "$list_head" ];then
             flag=1
         else
             if [ -z "$(echo $list_head | grep __term_sd_task_sys)" ];then
                 echo "" >> $output_file
-                echo "$(( $count -1 ))、$extension_name："  >> $output_file
+                echo "$count、$extension_name："  >> $output_file
                 echo "描述：$extension_description" >> $output_file
                 echo "链接：$extension_url" >> $output_file
             fi
@@ -116,16 +116,16 @@ build_dialog_list_comfyui()
 
     while (($flag==0))
     do
-        extension_url=$(cat $input_file_1 | awk 'NR=='${count}' {print$4}')
-        extension_name=$(cat $input_file_1 | awk 'NR=='${count}' {print$4}' | awk -F '/' '{print$NF}')
-        extension_description=$(cat $input_file_1 | awk 'NR=='${count}' {print$8}')
+        extension_url=$(cat $input_file_1 | awk 'NR=='${count}' {print$5}')
+        extension_name=$(cat $input_file_1 | awk 'NR=='${count}' {print$5}' | awk -F '/' '{print$NF}')
+        extension_description=$(cat $input_file_1 | awk 'NR=='${count}' {print$9}')
         list_head=$(cat $input_file_1 | awk 'NR=='${count}' {print$1}')
         if [ -z "$list_head" ];then
             flag=1
         else
             if [ -z "$(echo $list_head | grep __term_sd_task_sys)" ];then
                 echo "" >> $output_file
-                echo "$(( $count -1 ))、$extension_name："  >> $output_file
+                echo "$count、$extension_name："  >> $output_file
                 echo "描述：$extension_description" >> $output_file
                 echo "链接：$extension_url" >> $output_file
             fi
@@ -149,7 +149,7 @@ build_dialog_list_comfyui()
         else
             if [ -z "$(echo $list_head | grep __term_sd_task_sys)" ];then
                 echo "" >> $output_file
-                echo "$(( $count -1 ))、$extension_name："  >> $output_file
+                echo "$count、$extension_name："  >> $output_file
                 echo "描述：$extension_description" >> $output_file
                 echo "链接：$extension_url" >> $output_file
             fi
@@ -173,11 +173,11 @@ echo "----------build----------"
 start_time_sum=$(date +'%Y-%m-%d %H:%M:%S')
 start_time_seconds_sum=$(date --date="$start_time_sum" +%s)
 
-build_dialog_list install/comfyui/comfyui_custom_node.md install/comfyui/dialog_comfyui_custom_node.md
-build_dialog_list install/comfyui/comfyui_extension.md install/comfyui/dialog_comfyui_extension.md
-build_dialog_list install/sd_webui/sd_webui_extension.md install/sd_webui/dialog_sd_webui_extension.md
-build_dialog_list_sd_webui install/sd_webui/sd_webui_extension.md help/sd_webui_extension_description.md
-build_dialog_list_comfyui install/comfyui/comfyui_extension.md install/comfyui/comfyui_custom_node.md help/comfyui_extension_description.md
+build_dialog_list install/comfyui/comfyui_custom_node.sh install/comfyui/dialog_comfyui_custom_node.sh
+build_dialog_list install/comfyui/comfyui_extension.sh install/comfyui/dialog_comfyui_extension.sh
+build_dialog_list install/sd_webui/sd_webui_extension.sh install/sd_webui/dialog_sd_webui_extension.sh
+build_dialog_list_sd_webui install/sd_webui/sd_webui_extension.sh help/sd_webui_extension_description.md
+build_dialog_list_comfyui install/comfyui/comfyui_extension.sh install/comfyui/comfyui_custom_node.sh help/comfyui_extension_description.md
 
 echo "----------done----------"
 end_time_sum=$(date +'%Y-%m-%d %H:%M:%S')
