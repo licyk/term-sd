@@ -19,12 +19,16 @@ invokeai_launch()
         1)
             term_sd_print_line "$term_sd_manager_info 启动"
             invokeai-configure --root ./invokeai
+            term_sd_echo "运行结束,按回车键继续"
+            read
             term_sd_print_line
             invokeai_launch
             ;;
         2)
             term_sd_print_line "$term_sd_manager_info 启动"
             invokeai-configure --skip-sd-weights --yes --root ./invokeai
+            term_sd_echo "运行结束,按回车键继续"
+            read
             term_sd_print_line
             invokeai_launch
             ;;
@@ -32,7 +36,8 @@ invokeai_launch()
             term_sd_print_line "$term_sd_manager_info 启动"
             term_sd_echo "提示:可以使用\"Ctrl+C\"终止ai软件的运行"
             invokeai-web --root ./invokeai
-            term_sd_echo "运行结束"
+            term_sd_echo "运行结束,按回车键继续"
+            read
             term_sd_print_line
             invokeai_launch
             ;;
@@ -40,7 +45,8 @@ invokeai_launch()
             term_sd_print_line "$term_sd_manager_info 启动"
             term_sd_echo "提示:可以使用\"Ctrl+C\"终止ai软件的运行"
             invokeai-web --host 0.0.0.0 --root ./invokeai
-            term_sd_echo "运行结束"
+            term_sd_echo "运行结束,按回车键继续"
+            read
             term_sd_print_line
             invokeai_launch
             ;;
@@ -48,7 +54,8 @@ invokeai_launch()
             term_sd_print_line "$term_sd_manager_info 启动"
             term_sd_echo "提示:可以使用\"Ctrl+C\"终止ai软件的运行"
             invokeai-web --ignore_missing_core_models --root ./invokeai
-            term_sd_echo "运行结束"
+            term_sd_echo "运行结束,按回车键继续"
+            read
             term_sd_print_line
             invokeai_launch
             ;;
@@ -56,12 +63,16 @@ invokeai_launch()
         6)
             term_sd_print_line "$term_sd_manager_info 启动"
             invokeai-ti --gui --root ./invokeai
+            term_sd_echo "运行结束,按回车键继续"
+            read
             term_sd_print_line
             invokeai_launch
             ;;
         7)
             term_sd_print_line "$term_sd_manager_info 启动"
             invokeai-merge --gui --root ./invokeai
+            term_sd_echo "运行结束,按回车键继续"
+            read
             term_sd_print_line
             invokeai_launch
             ;;
