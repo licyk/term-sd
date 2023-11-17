@@ -142,9 +142,8 @@ term_sd_help()
         "2" "> Term-SD使用方法" \
         "3" "> Term-SD注意事项" \
         "4" "> 目录说明" \
-        "5" "> Term-SD扩展脚本说明" \
-        "6" "> Stable-Diffusion-WebUI插件说明" \
-        "7" "> ComfyUI插件/自定义节点说明" \
+        "5" "> Stable-Diffusion-WebUI插件说明" \
+        "6" "> ComfyUI插件/自定义节点说明" \
         3>&1 1>&2 2>&3)
 
     case $term_sd_help_dialog in
@@ -165,14 +164,10 @@ term_sd_help()
             term_sd_help
             ;;
         5)
-            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat ./term-sd/help/term_sd_extension_script_description.md)" $term_sd_dialog_height $term_sd_dialog_width
-            term_sd_help
-            ;;
-        6)
             dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat ./term-sd/help/sd_webui_extension_description.md)" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_help
             ;;
-        7)
+        6)
             dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat ./term-sd/help/comfyui_extension_description.md)" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_help
             ;;

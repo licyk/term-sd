@@ -140,9 +140,9 @@ build_dialog_list_comfyui()
     flag=0
     while (($flag==0))
     do
-        extension_url=$(cat $input_file_2 | awk 'NR=='${count}' {print$4}')
-        extension_name=$(cat $input_file_2 | awk 'NR=='${count}' {print$4}' | awk -F '/' '{print$NF}')
-        extension_description=$(cat $input_file_2 | awk 'NR=='${count}' {print$8}')
+        extension_url=$(cat $input_file_2 | awk 'NR=='${count}' {print$5}')
+        extension_name=$(cat $input_file_2 | awk 'NR=='${count}' {print$5}' | awk -F '/' '{print$NF}')
+        extension_description=$(cat $input_file_2 | awk 'NR=='${count}' {print$9}')
         list_head=$(cat $input_file_2 | awk 'NR=='${count}' {print$1}')
         if [ -z "$list_head" ];then
             flag=1

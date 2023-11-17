@@ -25,7 +25,6 @@ https://www.kdocs.cn/l/cre0TwbMkdx3
 https://hazn93ygkcs.feishu.cn/wiki/JRydwXpCti1bxJkN6zNc4a8qnAe
 https://docs.qq.com/doc/p/230e7ada2a60d8e347d639edd5521f5e62332fe9
 https://ivonblog.com/posts/stable-diffusion-webui-manuals/zh-cn
-https://licyk.netlify.app/2023/08/01/stable-diffusion-tutorial
 
 推荐一些up主：
 bilibili@秋葉aaaki
