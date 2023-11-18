@@ -14,8 +14,8 @@ build_list()
     while (($flag==0))
     do
         args_1=$(cat $input_file | awk 'NR=='${count}' {print$1}')
-        args_2=$(cat $input_file | awk 'NR=='${count}' {print$5}')
-        args_3=$(cat $input_file | awk 'NR=='${count}' {print$7}')
+        args_2=$(cat $input_file | awk 'NR=='${count}' {print$4}')
+        args_3=$(cat $input_file | awk 'NR=='${count}' {print$6}')
         args_2=$(echo $args_2 | awk -F '/' '{print$NF}')
         if [ -z "$args_1" ];then
             flag=1
@@ -33,6 +33,7 @@ build_dialog_list()
     local start_time=$(date +'%Y-%m-%d %H:%M:%S')
     local start_time_seconds=$(date --date="$start_time" +%s)
     local input_file="./$1"
+    local cache_file="./task/dialog_cache.sh"
     local output_file="./$2"
     local end_time
     local end_time_seconds
@@ -41,7 +42,9 @@ build_dialog_list()
         rm -f $output_file
     fi
     echo "生成${output_file}中"
-    echo $(build_list $input_file) >> $output_file
+    cat $input_file | awk '{sub(" --submod","")}1' >> $cache_file
+    echo $(build_list $cache_file) >> $output_file
+    rm -f $cache_file
     end_time=$(date +'%Y-%m-%d %H:%M:%S')
     end_time_seconds=$(date --date="$end_time" +%s)
     time_span=$(( $end_time_seconds - $start_time_seconds )) # 计算相隔时间
@@ -54,6 +57,7 @@ build_dialog_list_sd_webui()
     local start_time_seconds=$(date --date="$start_time" +%s)
     local input_file="./$1"
     local output_file="./$2"
+    local cache_file="./task/dialog_cache.sh"
     local flag=0
     local count=1
     local end_time
@@ -63,15 +67,16 @@ build_dialog_list_sd_webui()
         rm -f $output_file
     fi
     echo "生成${output_file}中"
+    cat $input_file | awk '{sub(" --submod","")}1' >> $cache_file
     echo "AUTOMATIC1111-stable-diffusion-webui插件说明：" >> $output_file
     echo "注：有些插件因为年久失修，可能会出现兼容性问题。具体介绍请在github上搜索项目" >> $output_file
 
     while (($flag==0))
     do
-        extension_url=$(cat $input_file | awk 'NR=='${count}' {print$5}')
-        extension_name=$(cat $input_file | awk 'NR=='${count}' {print$5}' | awk -F '/' '{print$NF}')
-        extension_description=$(cat $input_file | awk 'NR=='${count}' {print$9}')
-        list_head=$(cat $input_file | awk 'NR=='${count}' {print$1}')
+        extension_url=$(cat $cache_file | awk 'NR=='${count}' {print$4}')
+        extension_name=$(cat $cache_file | awk 'NR=='${count}' {print$4}' | awk -F '/' '{print$NF}')
+        extension_description=$(cat $cache_file | awk 'NR=='${count}' {print$8}')
+        list_head=$(cat $cache_file | awk 'NR=='${count}' {print$1}')
         if [ -z "$list_head" ];then
             flag=1
         else
@@ -84,7 +89,7 @@ build_dialog_list_sd_webui()
         fi
         count=$(($count + 1))
     done
-
+    rm -f $cache_file
     end_time=$(date +'%Y-%m-%d %H:%M:%S')
     end_time_seconds=$(date --date="$end_time" +%s)
     time_span=$(( $end_time_seconds - $start_time_seconds )) # 计算相隔时间
@@ -97,6 +102,8 @@ build_dialog_list_comfyui()
     local start_time_seconds=$(date --date="$start_time" +%s)
     local input_file_1="./$1"
     local input_file_2="./$2"
+    local cache_file_1="./task/dialog_cache_1.sh"
+    local cache_file_2="./task/dialog_cache_2.sh"
     local output_file="./$3"
     local flag=0
     local count=1
@@ -108,7 +115,8 @@ build_dialog_list_comfyui()
     fi
 
     echo "生成${output_file}中"
-
+    cat $input_file_1 | awk '{sub(" --submod","")}1' >> $cache_file_1
+    cat $input_file_2 | awk '{sub(" --submod","")}1' >> $cache_file_2
     echo "ComfyUI插件/自定义节点说明：" >> $output_file
     echo "注：有些插件/自定义节点因为年久失修，可能会出现兼容性问题。具体介绍请在github上搜索项目" >> $output_file
     echo "" >> $output_file
@@ -116,10 +124,10 @@ build_dialog_list_comfyui()
 
     while (($flag==0))
     do
-        extension_url=$(cat $input_file_1 | awk 'NR=='${count}' {print$5}')
-        extension_name=$(cat $input_file_1 | awk 'NR=='${count}' {print$5}' | awk -F '/' '{print$NF}')
-        extension_description=$(cat $input_file_1 | awk 'NR=='${count}' {print$9}')
-        list_head=$(cat $input_file_1 | awk 'NR=='${count}' {print$1}')
+        extension_url=$(cat $cache_file_1 | awk 'NR=='${count}' {print$4}')
+        extension_name=$(cat $cache_file_1 | awk 'NR=='${count}' {print$4}' | awk -F '/' '{print$NF}')
+        extension_description=$(cat $cache_file_1 | awk 'NR=='${count}' {print$8}')
+        list_head=$(cat $cache_file_1 | awk 'NR=='${count}' {print$1}')
         if [ -z "$list_head" ];then
             flag=1
         else
@@ -140,10 +148,10 @@ build_dialog_list_comfyui()
     flag=0
     while (($flag==0))
     do
-        extension_url=$(cat $input_file_2 | awk 'NR=='${count}' {print$5}')
-        extension_name=$(cat $input_file_2 | awk 'NR=='${count}' {print$5}' | awk -F '/' '{print$NF}')
-        extension_description=$(cat $input_file_2 | awk 'NR=='${count}' {print$9}')
-        list_head=$(cat $input_file_2 | awk 'NR=='${count}' {print$1}')
+        extension_url=$(cat $cache_file_2 | awk 'NR=='${count}' {print$4}')
+        extension_name=$(cat $cache_file_2 | awk 'NR=='${count}' {print$4}' | awk -F '/' '{print$NF}')
+        extension_description=$(cat $cache_file_2 | awk 'NR=='${count}' {print$8}')
+        list_head=$(cat $cache_file_2 | awk 'NR=='${count}' {print$1}')
         if [ -z "$list_head" ];then
             flag=1
         else
@@ -156,7 +164,8 @@ build_dialog_list_comfyui()
         fi
         count=$(($count + 1))
     done
-
+    rm -f $cache_file_1
+    rm -f $cache_file_2
     end_time=$(date +'%Y-%m-%d %H:%M:%S')
     end_time_seconds=$(date --date="$end_time" +%s)
     time_span=$(( $end_time_seconds - $start_time_seconds )) # 计算相隔时间
