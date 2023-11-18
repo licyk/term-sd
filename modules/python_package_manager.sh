@@ -39,10 +39,10 @@ python_package_manager()
 
         if [ $? = 0 ];then
             term_sd_print_line
-            dialog --erase-on-exit --title "Term-SD" --backtitle "pip软件包"$pip_manage_package_methon_info"结果" --ok-label "确认" --msgbox "以下python软件包"$pip_manage_package_methon_info"成功\n------------------------------------------------------------------\n$python_package_name\n------------------------------------------------------------------" $term_sd_dialog_height $term_sd_dialog_width
+            dialog --erase-on-exit --title "Term-SD" --backtitle "pip软件包"$pip_manage_package_methon_info"结果" --ok-label "确认" --msgbox "以下python软件包"$pip_manage_package_methon_info"成功\n${term_sd_delimiter}\n$python_package_name\n${term_sd_delimiter}" $term_sd_dialog_height $term_sd_dialog_width
         else
             term_sd_print_line
-            dialog --erase-on-exit --title "Term-SD" --backtitle "pip软件包"$pip_manage_package_methon_info"结果" --ok-label "确认" --msgbox "以下python软件包"$pip_manage_package_methon_info"失败\n------------------------------------------------------------------\n$python_package_name\n------------------------------------------------------------------" $term_sd_dialog_height $term_sd_dialog_width
+            dialog --erase-on-exit --title "Term-SD" --backtitle "pip软件包"$pip_manage_package_methon_info"结果" --ok-label "确认" --msgbox "以下python软件包"$pip_manage_package_methon_info"失败\n${term_sd_delimiter}\n$python_package_name\n${term_sd_delimiter}" $term_sd_dialog_height $term_sd_dialog_width
         fi
     fi
 }

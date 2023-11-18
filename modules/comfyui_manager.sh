@@ -179,7 +179,7 @@ comfyui_update_depend()
             exit_venv
             term_sd_tmp_enable_proxy
             term_sd_echo "更新ComfyUI依赖结束"
-            term_sd_print_line
+            term_sd_pause
         fi
     fi
 }

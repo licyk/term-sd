@@ -7,9 +7,7 @@ term_sd_launch()
     term_sd_echo "提示:可以使用\"Ctrl+C\"终止ai软件的运行"
     enter_venv
     term_sd_python $(cat ./term-sd-launch.conf)
-    term_sd_echo "运行结束,按回车键继续"
-    read
-    term_sd_print_line
+    term_sd_pause
 }
 
 # 进程监测

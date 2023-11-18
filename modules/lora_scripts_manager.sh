@@ -31,7 +31,7 @@ lora_scripts_manager()
                 term_sd_print_line "$term_sd_manager_info 启动"
                 enter_venv
                 term_sd_python ./gui.py
-                term_sd_print_line
+                term_sd_pause
                 lora_scripts_manager
                 ;;
             2)
@@ -169,7 +169,7 @@ lora_scripts_update_depend()
             exit_venv
             tmp_enable_proxy
             term_sd_echo "更新lora-scripts依赖结束"
-            term_sd_print_line
+            term_sd_pause
         fi
     fi
 }

@@ -478,10 +478,10 @@ term_sd_network_test()
 {
     term_sd_echo "测试网络中"
     dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD网络测试" --ok-label "确认" --msgbox "网络测试结果:\n
-------------------------------------------------------------------\n
+${term_sd_delimiter}\n
 网络信息:\n
 $(curl -s ipinfo.io)\n
-------------------------------------------------------------------\n
+${term_sd_delimiter}\n
 网站访问:\n
 google.com: $(curl google.com > /dev/null 2>&1 && echo "成功" || echo "失败")\n
 huggingface.co: $(curl huggingface.co > /dev/null 2>&1 && echo "成功" || echo "失败")\n
@@ -492,7 +492,7 @@ gitclone.com: $(curl gitclone.com > /dev/null 2>&1 && echo "成功" || echo "失
 gh-proxy.com: $(curl gh-proxy.com > /dev/null 2>&1 && echo "成功" || echo "失败")\n
 ghps.cc: $(curl ghps.cc > /dev/null 2>&1 && echo "成功" || echo "失败")\n
 gh.idayer.com: $(curl gh.idayer.com > /dev/null 2>&1 && echo "成功" || echo "失败")\n
-------------------------------------------------------------------\n
+${term_sd_delimiter}\n
 " $term_sd_dialog_height $term_sd_dialog_width
 }
 

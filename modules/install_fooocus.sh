@@ -29,6 +29,7 @@ install_fooocus()
                 if [ $term_sd_install_mode = 0 ];then
                     term_sd_echo "安装命令执行失败,终止安装程序"
                     term_sd_tmp_enable_proxy # 恢复代理
+                    term_sd_pause
                     dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus安装结果" --ok-label "确认" --msgbox "Fooocus安装进程执行失败,请重试" $term_sd_dialog_height $term_sd_dialog_width
                     return 1
                 else
@@ -83,6 +84,7 @@ install_fooocus()
                     if [ $term_sd_install_mode = 0 ];then
                         term_sd_echo "安装命令执行失败,终止安装程序"
                         term_sd_tmp_enable_proxy # 恢复代理
+                        term_sd_pause
                         dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus安装结果" --ok-label "确认" --msgbox "Fooocus安装进程执行失败,请重试" $term_sd_dialog_height $term_sd_dialog_width
                         return 1
                     else

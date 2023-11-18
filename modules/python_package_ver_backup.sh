@@ -137,6 +137,6 @@ restore_python_package_ver()
         term_sd_pip install -r ./term-sd-python-pkg-backup/$python_package_ver_backup_list_dialog --prefer-binary #安装原有版本的依赖包
         term_sd_tmp_enable_proxy #恢复原有的代理
         term_sd_echo "恢复依赖库版本完成"
-        term_sd_print_line
+        term_sd_pause
     fi
 }

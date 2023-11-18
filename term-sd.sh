@@ -243,6 +243,14 @@ term_sd_read()
     echo $term_sd_read_req
 }
 
+# 暂停运行(用于显示运行结果)
+term_sd_pause()
+{
+    term_sd_print_line
+    term_sd_echo "执行结束,请按回车键继续"
+    read
+}
+
 # 测试输入值是参数还是选项,选项输出0,参数输出1(用于实现getopt命令的功能)
 term_sd_test_args()
 {
@@ -670,7 +678,7 @@ set_pip_path()
 term_sd_print_line "Term-SD"
 term_sd_echo "Term-SD初始化中"
 
-export term_sd_version_info="1.0.7" # term-sd版本
+export term_sd_version_info="1.0.8" # term-sd版本
 export user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题
@@ -685,6 +693,7 @@ term_sd_extra_scripts_name="null" # Term-SD扩展脚本
 term_sd_restart_info=1 # term-sd重启
 term_sd_shell_width=$(stty size | awk '{print $2}') # 获取终端宽度
 term_sd_shell_height=$(stty size | awk '{print $1}') # 获取终端高度
+term_sd_delimiter=$(yes "-" | sed $(( $term_sd_dialog_width - 4 ))'q' | tr -d '\n') # 分隔符号
 
 # 在使用http_proxy变量后,会出现ValueError: When localhost is not accessible, a shareable link must be created. Please set share=True
 # 导致启动异常

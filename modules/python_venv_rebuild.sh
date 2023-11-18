@@ -27,7 +27,7 @@ sd_webui_venv_rebuild()
         term_sd_echo "重构结束"
         exit_venv
         term_sd_tmp_enable_proxy
-        term_sd_print_line
+        term_sd_pause
     fi
 }
 
@@ -56,7 +56,7 @@ comfyui_venv_rebuild()
         term_sd_echo "重构结束"
         exit_venv
         term_sd_tmp_enable_proxy
-        term_sd_print_line
+        term_sd_pause
     fi
 }
 
@@ -85,7 +85,7 @@ invokeai_venv_rebuild()
         term_sd_echo "重构结束"
         exit_venv
         term_sd_tmp_enable_proxy
-        term_sd_print_line
+        term_sd_pause
     fi
 }
 
@@ -118,7 +118,7 @@ lora_scripts_venv_rebuild()
         term_sd_echo "重构结束"
         exit_venv
         term_sd_tmp_enable_proxy
-        term_sd_print_line
+        term_sd_pause
     fi
 }
 
@@ -147,6 +147,6 @@ fooocus_venv_rebuild()
         term_sd_echo "重构结束"
         exit_venv
         term_sd_tmp_enable_proxy
-        term_sd_print_line
+        term_sd_pause
     fi
 }
