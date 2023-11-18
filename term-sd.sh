@@ -693,7 +693,6 @@ term_sd_extra_scripts_name="null" # Term-SD扩展脚本
 term_sd_restart_info=1 # term-sd重启
 term_sd_shell_width=$(stty size | awk '{print $2}') # 获取终端宽度
 term_sd_shell_height=$(stty size | awk '{print $1}') # 获取终端高度
-term_sd_delimiter=$(yes "-" | sed $(( $term_sd_dialog_width - 4 ))'q' | tr -d '\n') # 分隔符号
 
 # 在使用http_proxy变量后,会出现ValueError: When localhost is not accessible, a shareable link must be created. Please set share=True
 # 导致启动异常
@@ -726,6 +725,9 @@ if [ $(( $term_sd_shell_height - 6 )) -le 6 ];then # dialog高度
 else
     export term_sd_dialog_height=$(( $term_sd_shell_height - 6 ))
 fi
+
+# 分隔符号
+term_sd_delimiter=$(yes "-" | sed $(( $term_sd_dialog_width - 4 ))'q' | tr -d '\n')
 
 # 存在python自定义路径配置文件时自动读取到变量中
 if [ -f "./term-sd/python-path.conf" ];then
