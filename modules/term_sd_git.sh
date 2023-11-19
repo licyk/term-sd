@@ -164,3 +164,18 @@ git_pull_repository()
         return 10
     fi
 }
+
+# 展示git分支
+git_branch_display()
+{
+    local ref
+    ref=$(git symbolic-ref --quiet HEAD 2> /dev/null)
+    if [ ! $? = 0 ]; then
+        if [ $? = 128 ];then
+            return # 未找到.git
+        else
+            ref=$(git rev-parse --short HEAD 2> /dev/null) || return
+        fi
+    fi
+    echo ${ref#refs/heads/}
+}

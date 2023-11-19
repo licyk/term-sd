@@ -13,13 +13,13 @@ sd_webui_manager()
 
         case $(git remote -v | awk 'NR==1 {print $2}' | awk -F'/' '{print $NF}') in # 分支判断
             stable-diffusion-webui)
-                sd_webui_branch_info="AUTOMATIC1111 webui"
+                sd_webui_branch_info="AUTOMATIC1111 webui $(git_branch_display)"
                 ;;
             automatic)
-                sd_webui_branch_info="vladmandic webui"
+                sd_webui_branch_info="vladmandic webui $(git_branch_display)"
                 ;;
             stable-diffusion-webui-directml)
-                sd_webui_branch_info="lshqqytiger webui"
+                sd_webui_branch_info="lshqqytiger webui $(git_branch_display)"
                 ;;
         esac
 
