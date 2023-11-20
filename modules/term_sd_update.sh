@@ -7,7 +7,7 @@ term_sd_update_manager()
 
     if [ -d "./term-sd/.git" ];then # 检测目录中是否有.git文件夹
         term_sd_update_manager_dialog=$(
-            dialog --erase-on-exit --notags --title "Term-SD" --backtitle "Term-SD更新选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的更新源\n当前Term-SD更新源:$(git --git-dir="./term-sd/.git" remote get-url origin)\n当前Term-SD分支:$(git --git-dir="./term-sd/.git" branch | grep \* | awk -F "*" '{print $NF}')\n自动更新:$([ -f "./term-sd/term-sd-auto-update.lock" ] && echo "启用" || echo "禁用")" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+            dialog --erase-on-exit --notags --title "Term-SD" --backtitle "Term-SD更新选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的更新源\n当前Term-SD更新源:$(git --git-dir="./term-sd/.git" remote get-url origin)\n当前Term-SD分支:$(git --git-dir="./term-sd/.git" branch | grep \* | awk -F "*" '{print $NF}')\nTerm-SD自动更新:$([ -f "./term-sd/term-sd-auto-update.lock" ] && echo "启用" || echo "禁用")" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
             "0" "> 返回" \
             "1" "> 更新" \
             "2" "> 修复更新" \
@@ -62,7 +62,7 @@ term_sd_update_manager()
 term_sd_remote_revise()
 {
     term_sd_remote_revise_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "Term-SD分支切换界面" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的分支\n当前Term-SD更新源:$(git --git-dir="./term-sd/.git" remote get-url origin)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "Term-SD更新源切换选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的分支\n当前Term-SD更新源:$(git --git-dir="./term-sd/.git" remote get-url origin)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> github源" \
         "2" "> gitlab源" \
@@ -89,7 +89,8 @@ term_sd_remote_revise()
                 git --git-dir="./term-sd/.git" remote set-url origin "https://gitclone.com/github.com/licyk/term-sd"
                 ;;
         esac
-        dialog --erase-on-exit --title "Term-SD" --backtitle "缓存重定向设置界面" --ok-label "确认" --msgbox "Term-SD更新源切换完成" $term_sd_dialog_height $term_sd_dialog_width
+        dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD更新源切换选项" --ok-label "确认" --msgbox "Term-SD更新源切换完成" $term_sd_dialog_height $term_sd_dialog_width
+        term_sd_remote_revise
     fi
 }
 
@@ -137,7 +138,7 @@ term_sd_auto_update_setting()
     local term_sd_auto_update_setting_dialog
 
     term_sd_auto_update_setting_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "Term-SD自动更新设置界面" --ok-label "确认" --cancel-label "取消" --menu "是否启用Term-SD自动更新?\n当前状态:$([ -f "./term-sd/term-sd-auto-update.lock" ] && echo "启用" || echo "禁用")" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "Term-SD自动更新选项" --ok-label "确认" --cancel-label "取消" --menu "是否启用Term-SD自动更新?\n当前状态:$([ -f "./term-sd/term-sd-auto-update.lock" ] && echo "启用" || echo "禁用")" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> 启用" \
         "2" "> 禁用" \
@@ -146,13 +147,13 @@ term_sd_auto_update_setting()
     case $term_sd_auto_update_setting_dialog in
         1)
             touch ./term-sd/term-sd-auto-update.lock
-            dialog --erase-on-exit --title "Term-SD" --backtitle "缓存重定向设置界面" --ok-label "确认" --msgbox "启用成功" $term_sd_dialog_height $term_sd_dialog_width
+            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD自动更新选项" --ok-label "确认" --msgbox "启用成功" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_auto_update_setting
             ;;
         2)
             rm -f ./term-sd/term-sd-auto-update.lock
             rm -f ./term-sd/term-sd-auto-update-time.conf
-            dialog --erase-on-exit --title "Term-SD" --backtitle "缓存重定向设置界面" --ok-label "确认" --msgbox "禁用成功" $term_sd_dialog_height $term_sd_dialog_width
+            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD自动更新选项" --ok-label "确认" --msgbox "禁用成功" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_auto_update_setting
             ;;
     esac

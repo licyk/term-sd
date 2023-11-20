@@ -476,22 +476,32 @@ Fooocus:$([ -d "./Fooocus" ] && du -sh ./Fooocus | awk -F ' ' ' {print $1} ' || 
 # 网络连接测试
 term_sd_network_test()
 {
+    local network_test
+    local req
+    local network_test_url
+    local count=1
+    local sum
+    network_test_url="google.com huggingface.co modelscope.cn github.com ghproxy.com gitclone.com gh-proxy.com ghps.cc gh.idayer.com"
+    sum=$(echo $network_test_url | wc -w)
     term_sd_echo "测试网络中"
+    for i in $network_test_url; do
+        term_sd_echo "[$count/$sum] 测试链接访问:$i"
+        count=$(( $count + 1 ))
+        curl $i > /dev/null 2>&1
+        if [ $? = 0 ];then
+            req="$req $i:成功\n"
+        else
+            req="$req $i:失败\n"
+        fi
+    done
+    term_sd_echo "获取网络信息"
     dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD网络测试" --ok-label "确认" --msgbox "网络测试结果:\n
 ${term_sd_delimiter}\n
 网络信息:\n
 $(curl -s ipinfo.io)\n
 ${term_sd_delimiter}\n
 网站访问:\n
-google.com: $(curl google.com > /dev/null 2>&1 && echo "成功" || echo "失败")\n
-huggingface.co: $(curl huggingface.co > /dev/null 2>&1 && echo "成功" || echo "失败")\n
-modelscope: $(curl modelscope.cn > /dev/null 2>&1 && echo "成功" || echo "失败")\n
-github.com: $(curl github.com > /dev/null 2>&1 && echo "成功" || echo "失败")\n
-ghproxy.com: $(curl ghproxy.com > /dev/null 2>&1 && echo "成功" || echo "失败")\n
-gitclone.com: $(curl gitclone.com > /dev/null 2>&1 && echo "成功" || echo "失败")\n
-gh-proxy.com: $(curl gh-proxy.com > /dev/null 2>&1 && echo "成功" || echo "失败")\n
-ghps.cc: $(curl ghps.cc > /dev/null 2>&1 && echo "成功" || echo "失败")\n
-gh.idayer.com: $(curl gh.idayer.com > /dev/null 2>&1 && echo "成功" || echo "失败")\n
+$req\n
 ${term_sd_delimiter}\n
 " $term_sd_dialog_height $term_sd_dialog_width
 }

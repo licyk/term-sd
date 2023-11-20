@@ -169,9 +169,11 @@ git_pull_repository()
 git_branch_display()
 {
     local ref
+    local req
     ref=$(git symbolic-ref --quiet HEAD 2> /dev/null)
-    if [ ! $? = 0 ]; then
-        if [ $? = 128 ];then
+    req=$?
+    if [ ! $req = 0 ]; then
+        if [ $req = 128 ];then
             return # 未找到.git
         else
             ref=$(git rev-parse --short HEAD 2> /dev/null) || return
