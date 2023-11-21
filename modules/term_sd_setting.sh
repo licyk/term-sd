@@ -278,9 +278,14 @@ term_sd_watch_setting()
             if [ ! -z "$(echo $term_sd_watch_value | awk '{gsub(/[0-9]/, "")}1')" ];then
                 dialog --erase-on-exit --title "Term-SD" --backtitle "命令执行监测设置界面" --ok-label "确认" --msgbox "输入格式错误,重试次数只能为数字且不能为负数" $term_sd_dialog_height $term_sd_dialog_width
             else
-                echo "$term_sd_watch_value" > ./term-sd/term-sd-watch-retry.conf
-                term_sd_cmd_retry=$term_sd_watch_value
-                dialog --erase-on-exit --title "Term-SD" --backtitle "命令执行监测设置界面" --ok-label "确认" --msgbox "启用成功" $term_sd_dialog_height $term_sd_dialog_width
+                if [ ! -z "$term_sd_watch_value" ];then
+                    echo "$term_sd_watch_value" > ./term-sd/term-sd-watch-retry.conf
+                    term_sd_cmd_retry=$term_sd_watch_value
+                    dialog --erase-on-exit --title "Term-SD" --backtitle "命令执行监测设置界面" --ok-label "确认" --msgbox "启用成功" $term_sd_dialog_height $term_sd_dialog_width
+                else
+                    dialog --erase-on-exit --title "Term-SD" --backtitle "命令执行监测设置界面" --ok-label "确认" --msgbox "未输入,请重试" $term_sd_dialog_height $term_sd_dialog_width
+                fi
+
             fi
             term_sd_watch_setting
             ;;
@@ -342,14 +347,18 @@ aria2_multi_threaded_setting()
             if [ ! -z "$(echo $aria2_multi_threaded_value | awk '{gsub(/[0-9]/, "")}1')" ] || [ $aria2_multi_threaded_value = 0 ] ;then
                 dialog --erase-on-exit --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --msgbox "输入格式错误,线程数只能为数字且不能为负数" $term_sd_dialog_height $term_sd_dialog_width
             else
-                if [ $aria2_multi_threaded_value -le 16 ];then
-                    echo "-x $aria2_multi_threaded_value" > ./term-sd/aria2-thread.conf
-                    aria2_multi_threaded="-x $aria2_multi_threaded_value"
-                    dialog --erase-on-exit --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --msgbox "启用成功" $term_sd_dialog_height $term_sd_dialog_width
+                if [ ! -z "$aria2_multi_threaded_value" ];then
+                    if [ $aria2_multi_threaded_value -le 16 ];then
+                        echo "-x $aria2_multi_threaded_value" > ./term-sd/aria2-thread.conf
+                        aria2_multi_threaded="-x $aria2_multi_threaded_value"
+                        dialog --erase-on-exit --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --msgbox "启用成功" $term_sd_dialog_height $term_sd_dialog_width
+                    else
+                        echo "-x 16" > ./term-sd/aria2-thread.conf
+                        aria2_multi_threaded="-x 16"
+                        dialog --erase-on-exit --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --msgbox "启用成功" $term_sd_dialog_height $term_sd_dialog_width
+                    fi
                 else
-                    echo "-x 16" > ./term-sd/aria2-thread.conf
-                    aria2_multi_threaded="-x 16"
-                    dialog --erase-on-exit --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --msgbox "启用成功" $term_sd_dialog_height $term_sd_dialog_width
+                    dialog --erase-on-exit --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --msgbox "未输入,请重试" $term_sd_dialog_height $term_sd_dialog_width
                 fi
             fi
             aria2_multi_threaded_setting
