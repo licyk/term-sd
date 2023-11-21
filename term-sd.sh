@@ -659,9 +659,10 @@ export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题
 export PIP_TIMEOUT=120 # 设置pip的超时时间
 export PIP_RETRIES=5 # 设置pip的重试次数
-export PIP_DISABLE_PIP_VERSION_CHECK=1 # 禁用pip版本版本检查
-export pip_manager_update=1 # Term-SD自动更新pip
-export term_sd_debug_mode=1 # # debug模式
+export PIP_DISABLE_PIP_VERSION_CHECK # 禁用pip版本版本检查
+export pip_manager_update # Term-SD自动更新pip
+export term_sd_debug_mode # # debug模式
+export term_sd_delimiter=$(yes "-" | sed $(( $term_sd_dialog_width - 4 ))'q' | tr -d '\n') # 分隔符号
 missing_depend_info=0 # 依赖缺失状态
 missing_depend_macos_info=0
 term_sd_extra_scripts_name="null" # Term-SD扩展脚本
@@ -701,8 +702,16 @@ else
     export term_sd_dialog_height=$(( $term_sd_shell_height - 6 ))
 fi
 
-# 分隔符号
-term_sd_delimiter=$(yes "-" | sed $(( $term_sd_dialog_width - 4 ))'q' | tr -d '\n')
+# 设置debug模式的环境变量设置
+if [ -z $term_sd_debug_mode ];then
+    term_sd_debug_mode=1
+fi
+
+# 设置pip自动更新的环境变量设置
+if [ -z $pip_manager_update ];then
+    pip_manager_update=1
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+fi
 
 # 存在python自定义路径配置文件时自动读取到变量中
 if [ -f "./term-sd/config/python-path.conf" ];then
