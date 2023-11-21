@@ -488,10 +488,14 @@ term_sd_network_test()
     local network_test
     local req
     local network_test_url
-    local count=1
+    local count
     local sum
+    count=1
     network_test_url="google.com huggingface.co modelscope.cn github.com ghproxy.com gitclone.com gh-proxy.com ghps.cc gh.idayer.com"
     sum=$(echo $network_test_url | wc -w)
+    term_sd_echo "获取网络信息"
+    [ -f "./term-sd/task/ipinfo.sh" ] && rm -f ./term-sd/task/ipinfo.sh
+    curl -s ipinfo.io >> ./term-sd/task/ipinfo.sh
     term_sd_echo "测试网络中"
     for i in $network_test_url; do
         term_sd_echo "[$count/$sum] 测试链接访问:$i"
@@ -503,16 +507,20 @@ term_sd_network_test()
             req="$req $i:失败\n"
         fi
     done
-    term_sd_echo "获取网络信息"
     dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD网络测试" --ok-label "确认" --msgbox "网络测试结果:\n
 ${term_sd_delimiter}\n
 网络信息:\n
-$(curl -s ipinfo.io)\n
+$(cat ./term-sd/task/ipinfo.sh | grep \"ip\"\: | awk '{gsub(/[\\"]/,"") ; sub("ip:","IP:")}1')\n
+$(cat ./term-sd/task/ipinfo.sh | grep \"country\"\: | awk '{gsub(/[\\"]/,"") ; sub("country:","地址:")}1')\
+$(cat ./term-sd/task/ipinfo.sh | grep \"region\"\: | awk '{gsub(/[\\"]/,"") ; sub("region:","")}1')\
+$(cat ./term-sd/task/ipinfo.sh | grep \"city\"\: | awk '{gsub(/[\\"]/,"") ; sub("city:","")}1')\n
+$(cat ./term-sd/task/ipinfo.sh | grep \"org\"\: | awk '{gsub(/[\\"]/,"") ; sub("org:","网络提供商:")}1')\n
 ${term_sd_delimiter}\n
 网站访问:\n
 $req\n
 ${term_sd_delimiter}\n
 " $term_sd_dialog_height $term_sd_dialog_width
+    rm -f ./term-sd/task/ipinfo.sh
 }
 
 # 卸载选项
