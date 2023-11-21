@@ -69,9 +69,9 @@ term_sd_init_no_bar()
 }
 
 # 初始化功能
-if [ -f "./term-sd/term-sd-no-bar.lock" ];then
+if [ -f "./term-sd/config/term-sd-no-bar.lock" ];then
     term_sd_init_no_bar
-elif [ -f "./term-sd/term-sd-new-bar.lock" ];then
+elif [ -f "./term-sd/config/term-sd-new-bar.lock" ];then
     term_sd_init_new
 else
     term_sd_init

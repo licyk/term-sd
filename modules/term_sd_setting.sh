@@ -13,11 +13,11 @@ term_sd_setting()
         "3" "> pip镜像源设置(环境变量)($([ ! -z $(echo $PIP_INDEX_URL | grep "pypi.python.org") ] && echo "官方源" || echo "国内镜像源"))" \
         "4" "> pip缓存清理" \
         "5" "> 代理设置($([ -z $http_proxy ] && echo "无" || echo "代理地址:$(echo $http_proxy | awk '{print substr($1,1,40)}')"))" \
-        "6" "> 命令执行监测设置($([ -f "./term-sd/term-sd-watch-retry.conf" ] && echo "启用(重试次数:$(cat ./term-sd/term-sd-watch-retry.conf))" || echo "禁用"))" \
-        "7" "> Term-SD安装模式($([ ! -f "./term-sd/term-sd-disable-strict-install-mode.lock" ] && echo "严格模式" || echo "宽容模式"))" \
-        "8" "> aria2线程设置($([ -f "./term-sd/aria2-thread.conf" ] && echo "启用(线程数:$(cat ./term-sd/aria2-thread.conf | awk '{sub("-x ","")}1'))" || echo "禁用"))" \
-        "9" "> 缓存重定向设置($([ ! -f "./term-sd/disable-cache-path-redirect.lock" ] && echo "启用" || echo "禁用"))" \
-        "10" "> CUDA内存分配设置($([ -f "./term-sd/cuda-memory-alloc.conf" ] && echo $([ ! -z $(cat ./term-sd/cuda-memory-alloc.conf | grep cudaMallocAsync) ] && echo "CUDA内置异步分配器" || echo "PyTorch原生分配器") || echo "未设置"))" \
+        "6" "> 命令执行监测设置($([ -f "./term-sd/config/term-sd-watch-retry.conf" ] && echo "启用(重试次数:$(cat ./term-sd/config/term-sd-watch-retry.conf))" || echo "禁用"))" \
+        "7" "> Term-SD安装模式($([ ! -f "./term-sd/config/term-sd-disable-strict-install-mode.lock" ] && echo "严格模式" || echo "宽容模式"))" \
+        "8" "> aria2线程设置($([ -f "./term-sd/config/aria2-thread.conf" ] && echo "启用(线程数:$(cat ./term-sd/config/aria2-thread.conf | awk '{sub("-x ","")}1'))" || echo "禁用"))" \
+        "9" "> 缓存重定向设置($([ ! -f "./term-sd/config/disable-cache-path-redirect.lock" ] && echo "启用" || echo "禁用"))" \
+        "10" "> CUDA内存分配设置($([ -f "./term-sd/config/cuda-memory-alloc.conf" ] && echo $([ ! -z $(cat ./term-sd/config/cuda-memory-alloc.conf | grep cudaMallocAsync) ] && echo "CUDA内置异步分配器" || echo "PyTorch原生分配器") || echo "未设置"))" \
         "11" "> 空间占用分析" \
         "12" "> 网络连接测试" \
         "13" "> 卸载Term-SD" \
@@ -95,13 +95,13 @@ python_venv_setting()
     case $python_venv_setting_dialog in
         1)
             venv_setup_status=0
-            rm -rf ./term-sd/term-sd-venv-disable.lock
+            rm -rf ./term-sd/config/term-sd-venv-disable.lock
             dialog --erase-on-exit --title "Term-SD" --backtitle "虚拟环境设置界面" --ok-label "确认" --msgbox "启用成功" $term_sd_dialog_height $term_sd_dialog_width
             python_venv_setting
             ;;
         2)
             venv_setup_status=1
-            touch ./term-sd/term-sd-venv-disable.lock
+            touch ./term-sd/config/term-sd-venv-disable.lock
             dialog --erase-on-exit --title "Term-SD" --backtitle "虚拟环境设置界面" --ok-label "确认" --msgbox "禁用成功" $term_sd_dialog_height $term_sd_dialog_width
             python_venv_setting
             ;;
@@ -170,7 +170,7 @@ pip_mirrors_env_setting()
             PIP_INDEX_URL="https://pypi.python.org/simple"
             PIP_EXTRA_INDEX_URL=""
             PIP_FIND_LINKS="https://download.pytorch.org/whl/torch_stable.html"
-            touch ./term-sd/disable-pip-mirror.lock
+            touch ./term-sd/config/disable-pip-mirror.lock
             dialog --erase-on-exit --title "Term-SD" --backtitle "pip镜像源(环境变量)选项" --ok-label "确认" --msgbox "设置pip镜像源为官方源成功" $term_sd_dialog_height $term_sd_dialog_width
             pip_mirrors_env_setting
             ;;
@@ -178,7 +178,7 @@ pip_mirrors_env_setting()
             PIP_INDEX_URL="https://mirrors.bfsu.edu.cn/pypi/web/simple"
             PIP_EXTRA_INDEX_URL="https://mirrors.hit.edu.cn/pypi/web/simple https://pypi.tuna.tsinghua.edu.cn/simple https://mirror.nju.edu.cn/pypi/web/simple"
             PIP_FIND_LINKS="https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
-            rm -f ./term-sd/disable-pip-mirror.lock
+            rm -f ./term-sd/config/disable-pip-mirror.lock
             dialog --erase-on-exit --title "Term-SD" --backtitle "pip镜像源(环境变量)选项" --ok-label "确认" --msgbox "设置pip镜像源为国内镜像源成功" $term_sd_dialog_height $term_sd_dialog_width
             pip_mirrors_env_setting
             ;;
@@ -219,7 +219,7 @@ term_sd_proxy_setting()
             if [ $? = 0 ];then
                 http_proxy="http://$term_sd_proxy_config"
                 https_proxy="http://$term_sd_proxy_config"
-                echo "http://$term_sd_proxy_config" > ./term-sd/proxy.conf
+                echo "http://$term_sd_proxy_config" > ./term-sd/config/proxy.conf
                 dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --msgbox "代理地址:\"$http_proxy\"\n代理协议:\"$(echo $http_proxy | awk -F '://' '{print$NR}')\"\n设置代理完成" $term_sd_dialog_height $term_sd_dialog_width
             fi
             term_sd_proxy_setting
@@ -230,7 +230,7 @@ term_sd_proxy_setting()
             if [ $? = 0 ];then
                 http_proxy="socks://$term_sd_proxy_config"
                 https_proxy="socks://$term_sd_proxy_config"
-                echo "socks://$term_sd_proxy_config" > ./term-sd/proxy.conf
+                echo "socks://$term_sd_proxy_config" > ./term-sd/config/proxy.conf
                 dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --msgbox "代理地址:\"$http_proxy\"\n代理协议:\"$(echo $http_proxy | awk -F '://' '{print$NR}')\"\n设置代理完成" $term_sd_dialog_height $term_sd_dialog_width
             fi
             term_sd_proxy_setting
@@ -241,7 +241,7 @@ term_sd_proxy_setting()
             if [ $? = 0 ];then
                 http_proxy="socks5://$term_sd_proxy_config"
                 https_proxy="socks5://$term_sd_proxy_config"
-                echo "socks5://$term_sd_proxy_config" > ./term-sd/proxy.conf
+                echo "socks5://$term_sd_proxy_config" > ./term-sd/config/proxy.conf
                 dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --msgbox "代理地址:\"$http_proxy\"\n代理协议:\"$(echo $http_proxy | awk -F '://' '{print$NR}')\"\n设置代理完成" $term_sd_dialog_height $term_sd_dialog_width
             fi
             term_sd_proxy_setting
@@ -250,7 +250,7 @@ term_sd_proxy_setting()
             if (dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数删除界面" --yes-label "是" --no-label "否" --yesno "是否删除代理配置?" $term_sd_dialog_height $term_sd_dialog_width) then
                 http_proxy=
                 https_proxy=
-                rm -f ./term-sd/proxy.conf
+                rm -f ./term-sd/config/proxy.conf
                 dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --msgbox "清除设置代理完成" $term_sd_dialog_height $term_sd_dialog_width
             fi
             term_sd_proxy_setting
@@ -266,7 +266,7 @@ term_sd_watch_setting()
     export term_sd_cmd_retry
 
     term_sd_watch_setting_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "命令执行监测设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于监测命令的运行情况,若设置了重试次数,Term-SD将重试执行失败的命令(有些命令需要联网,在网络不稳定的时候容易导致命令执行失败),保证命令执行成功\n当前状态:$([ -f "./term-sd/term-sd-watch-retry.conf" ] && echo "启用(重试次数:$(cat ./term-sd/term-sd-watch-retry.conf))" || echo "禁用")\n是否启用命令执行监测?(推荐启用)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "命令执行监测设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于监测命令的运行情况,若设置了重试次数,Term-SD将重试执行失败的命令(有些命令需要联网,在网络不稳定的时候容易导致命令执行失败),保证命令执行成功\n当前状态:$([ -f "./term-sd/config/term-sd-watch-retry.conf" ] && echo "启用(重试次数:$(cat ./term-sd/config/term-sd-watch-retry.conf))" || echo "禁用")\n是否启用命令执行监测?(推荐启用)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> 启用" \
         "2" "> 禁用" \
@@ -274,12 +274,12 @@ term_sd_watch_setting()
 
     case $term_sd_watch_setting_dialog in
         1)
-            term_sd_watch_value=$(dialog --erase-on-exit --title "Term-SD" --backtitle "命令执行监测设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入重试次数(仅输入数字,不允许输入负数和其他非数字的字符)" $term_sd_dialog_height $term_sd_dialog_width "$(cat ./term-sd/term-sd-watch-retry.conf)" 3>&1 1>&2 2>&3)
+            term_sd_watch_value=$(dialog --erase-on-exit --title "Term-SD" --backtitle "命令执行监测设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入重试次数(仅输入数字,不允许输入负数和其他非数字的字符)" $term_sd_dialog_height $term_sd_dialog_width "$(cat ./term-sd/config/term-sd-watch-retry.conf)" 3>&1 1>&2 2>&3)
             if [ ! -z "$(echo $term_sd_watch_value | awk '{gsub(/[0-9]/, "")}1')" ];then
                 dialog --erase-on-exit --title "Term-SD" --backtitle "命令执行监测设置界面" --ok-label "确认" --msgbox "输入格式错误,重试次数只能为数字且不能为负数" $term_sd_dialog_height $term_sd_dialog_width
             else
                 if [ ! -z "$term_sd_watch_value" ];then
-                    echo "$term_sd_watch_value" > ./term-sd/term-sd-watch-retry.conf
+                    echo "$term_sd_watch_value" > ./term-sd/config/term-sd-watch-retry.conf
                     term_sd_cmd_retry=$term_sd_watch_value
                     dialog --erase-on-exit --title "Term-SD" --backtitle "命令执行监测设置界面" --ok-label "确认" --msgbox "启用成功" $term_sd_dialog_height $term_sd_dialog_width
                 else
@@ -290,7 +290,7 @@ term_sd_watch_setting()
             term_sd_watch_setting
             ;;
         2)
-            rm -rf ./term-sd/term-sd-watch-retry.conf
+            rm -rf ./term-sd/config/term-sd-watch-retry.conf
             term_sd_cmd_retry=0
             dialog --erase-on-exit --title "Term-SD" --backtitle "命令执行监测设置界面" --ok-label "确认" --msgbox "禁用成功" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_watch_setting
@@ -305,7 +305,7 @@ term_sd_install_mode_setting()
     export term_sd_install_mode
 
     term_sd_install_mode_setting_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "安装模式设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于设置Term-SD安装AI软件的工作模式。当启用\"严格模式\"后,Term-SD在安转AI软件时出现执行失败的命令时将停止安装进程(Term-SD支持断点恢复,可恢复上次安装进程中断的位置),而\"宽容模式\"在安转AI软件时出现执行失败的命令时忽略执行失败的命令继续执行完成安装任务\n当前安装模式:$([ ! -f "./term-sd/term-sd-disable-strict-install-mode.lock" ] && echo "严格模式" || echo "宽容模式")\n请选择要设置的安装模式(默认启用严格模式)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "安装模式设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于设置Term-SD安装AI软件的工作模式。当启用\"严格模式\"后,Term-SD在安转AI软件时出现执行失败的命令时将停止安装进程(Term-SD支持断点恢复,可恢复上次安装进程中断的位置),而\"宽容模式\"在安转AI软件时出现执行失败的命令时忽略执行失败的命令继续执行完成安装任务\n当前安装模式:$([ ! -f "./term-sd/config/term-sd-disable-strict-install-mode.lock" ] && echo "严格模式" || echo "宽容模式")\n请选择要设置的安装模式(默认启用严格模式)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> 严格模式" \
         "2" "> 宽容模式" \
@@ -314,13 +314,13 @@ term_sd_install_mode_setting()
     case $term_sd_install_mode_setting_dialog in
         1)
             term_sd_install_mode=0
-            rm -f ./term-sd/term-sd-disable-strict-install-mode.lock
+            rm -f ./term-sd/config/term-sd-disable-strict-install-mode.lock
             dialog --erase-on-exit --title "Term-SD" --backtitle "安装模式设置界面" --ok-label "确认" --msgbox "启用严格模式成功" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_install_mode_setting
             ;;
         2)
             term_sd_install_mode=1
-            touch ./term-sd/term-sd-disable-strict-install-mode.lock
+            touch ./term-sd/config/term-sd-disable-strict-install-mode.lock
             dialog --erase-on-exit --title "Term-SD" --backtitle "安装模式设置界面" --ok-label "确认" --msgbox "启用宽容模式成功" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_install_mode_setting
             ;;
@@ -335,7 +335,7 @@ aria2_multi_threaded_setting()
     export aria2_multi_threaded
 
     aria2_multi_threaded_setting_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于增加Term-SD在使用aria2下载模型时的线程数,在一定程度上提高下载速度\n当前状态:$([ -f "./term-sd/aria2-thread.conf" ] && echo "启用(线程数:$(cat ./term-sd/aria2-thread.conf | awk '{sub("-x ","")}1'))" || echo "禁用")\n是否启用aria2多线程下载?" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于增加Term-SD在使用aria2下载模型时的线程数,在一定程度上提高下载速度\n当前状态:$([ -f "./term-sd/config/aria2-thread.conf" ] && echo "启用(线程数:$(cat ./term-sd/config/aria2-thread.conf | awk '{sub("-x ","")}1'))" || echo "禁用")\n是否启用aria2多线程下载?" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> 启用" \
         "2" "> 禁用" \
@@ -343,17 +343,17 @@ aria2_multi_threaded_setting()
 
     case $aria2_multi_threaded_setting_dialog in
         1)
-            aria2_multi_threaded_value=$(dialog --erase-on-exit --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入线程数(仅输入数字(),不允许输入负数和其他非数字的字符)" $term_sd_dialog_height $term_sd_dialog_width "$(cat ./term-sd/aria2-thread.conf | awk '{sub("-x ","")}1')" 3>&1 1>&2 2>&3)
+            aria2_multi_threaded_value=$(dialog --erase-on-exit --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入线程数(仅输入数字(),不允许输入负数和其他非数字的字符)" $term_sd_dialog_height $term_sd_dialog_width "$(cat ./term-sd/config/aria2-thread.conf | awk '{sub("-x ","")}1')" 3>&1 1>&2 2>&3)
             if [ ! -z "$(echo $aria2_multi_threaded_value | awk '{gsub(/[0-9]/, "")}1')" ] || [ $aria2_multi_threaded_value = 0 ] ;then
                 dialog --erase-on-exit --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --msgbox "输入格式错误,线程数只能为数字且不能为负数" $term_sd_dialog_height $term_sd_dialog_width
             else
                 if [ ! -z "$aria2_multi_threaded_value" ];then
                     if [ $aria2_multi_threaded_value -le 16 ];then
-                        echo "-x $aria2_multi_threaded_value" > ./term-sd/aria2-thread.conf
+                        echo "-x $aria2_multi_threaded_value" > ./term-sd/config/aria2-thread.conf
                         aria2_multi_threaded="-x $aria2_multi_threaded_value"
                         dialog --erase-on-exit --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --msgbox "启用成功" $term_sd_dialog_height $term_sd_dialog_width
                     else
-                        echo "-x 16" > ./term-sd/aria2-thread.conf
+                        echo "-x 16" > ./term-sd/config/aria2-thread.conf
                         aria2_multi_threaded="-x 16"
                         dialog --erase-on-exit --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --msgbox "启用成功" $term_sd_dialog_height $term_sd_dialog_width
                     fi
@@ -364,7 +364,7 @@ aria2_multi_threaded_setting()
             aria2_multi_threaded_setting
             ;;
         2)
-            rm -rf ./term-sd/aria2-thread.conf
+            rm -rf ./term-sd/config/aria2-thread.conf
             aria2_multi_threaded=
             dialog --erase-on-exit --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --msgbox "禁用成功" $term_sd_dialog_height $term_sd_dialog_width
             aria2_multi_threaded_setting
@@ -389,7 +389,7 @@ term_sd_cache_redirect_setting()
     export PYTHONPYCACHEPREFIX
 
     term_sd_cache_redirect_setting_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "缓存重定向设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能将会把ai软件产生的缓存重定向至Term-SD中(便于清理)\n当前状态:$([ ! -f "./term-sd/disable-cache-path-redirect.lock" ] && echo "启用" || echo "禁用")\n是否启用缓存重定向?" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "缓存重定向设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能将会把ai软件产生的缓存重定向至Term-SD中(便于清理)\n当前状态:$([ ! -f "./term-sd/config/disable-cache-path-redirect.lock" ] && echo "启用" || echo "禁用")\n是否启用缓存重定向?" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> 启用" \
         "2" "> 禁用" \
@@ -397,7 +397,7 @@ term_sd_cache_redirect_setting()
 
     case $term_sd_cache_redirect_setting_dialog in
         1)
-            rm -f ./term-sd/disable-cache-path-redirect.lock
+            rm -f ./term-sd/config/disable-cache-path-redirect.lock
             CACHE_HOME="$start_path/term-sd/cache"
             HF_HOME="$start_path/term-sd/cache/huggingface"
             MATPLOTLIBRC="$start_path/term-sd/cache"
@@ -413,7 +413,7 @@ term_sd_cache_redirect_setting()
             term_sd_cache_redirect_setting
             ;;
         2)
-            touch -f ./term-sd/disable-cache-path-redirect.lock
+            touch -f ./term-sd/config/disable-cache-path-redirect.lock
             CACHE_HOME=
             HF_HOME=
             MATPLOTLIBRC=
@@ -438,7 +438,7 @@ cuda_memory_alloc_setting()
     export PYTORCH_CUDA_ALLOC_CONF
 
     cuda_memory_alloc_setting_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "CUDA内存分配设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于更换底层CUDA内存分配器(仅支持nvidia显卡,且CUDA版本需要大于11.4)\n当前内存分配器:$([ -f "./term-sd/cuda-memory-alloc.conf" ] && echo $([ ! -z $(cat ./term-sd/cuda-memory-alloc.conf | grep cudaMallocAsync) ] && echo "CUDA内置异步分配器" || echo "PyTorch原生分配器") || echo "未设置")\n请选择CUDA内存分配器" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "CUDA内存分配设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于更换底层CUDA内存分配器(仅支持nvidia显卡,且CUDA版本需要大于11.4)\n当前内存分配器:$([ -f "./term-sd/config/cuda-memory-alloc.conf" ] && echo $([ ! -z $(cat ./term-sd/config/cuda-memory-alloc.conf | grep cudaMallocAsync) ] && echo "CUDA内置异步分配器" || echo "PyTorch原生分配器") || echo "未设置")\n请选择CUDA内存分配器" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> PyTorch原生分配器" \
         "2" "> CUDA(11.4+)内置异步分配器" \
@@ -448,19 +448,19 @@ cuda_memory_alloc_setting()
     case $cuda_memory_alloc_setting_dialog in
         1)
             PYTORCH_CUDA_ALLOC_CONF=garbage_collection_threshold:0.9,max_split_size_mb:512
-            echo "garbage_collection_threshold:0.9,max_split_size_mb:512" > ./term-sd/cuda-memory-alloc.conf
+            echo "garbage_collection_threshold:0.9,max_split_size_mb:512" > ./term-sd/config/cuda-memory-alloc.conf
             dialog --erase-on-exit --title "Term-SD" --backtitle "CUDA内存分配设置界面" --ok-label "确认" --msgbox "设置CUDA内存分配器为PyTorch原生分配器成功" $term_sd_dialog_height $term_sd_dialog_width
             cuda_memory_alloc_setting
             ;;
         2)
             PYTORCH_CUDA_ALLOC_CONF=backend:cudaMallocAsync
-            echo "backend:cudaMallocAsync" > ./term-sd/cuda-memory-alloc.conf
+            echo "backend:cudaMallocAsync" > ./term-sd/config/cuda-memory-alloc.conf
             dialog --erase-on-exit --title "Term-SD" --backtitle "CUDA内存分配设置界面" --ok-label "确认" --msgbox "设置CUDA内存分配器为CUDA内置异步分配器成功" $term_sd_dialog_height $term_sd_dialog_width
             cuda_memory_alloc_setting
             ;;
         3)
             PYTORCH_CUDA_ALLOC_CONF=
-            rm -f ./term-sd/cuda-memory-alloc.conf
+            rm -f ./term-sd/config/cuda-memory-alloc.conf
             dialog --erase-on-exit --title "Term-SD" --backtitle "CUDA内存分配设置界面" --ok-label "确认" --msgbox "清除CUDA内存分配器设置成功" $term_sd_dialog_height $term_sd_dialog_width
             cuda_memory_alloc_setting
             ;;

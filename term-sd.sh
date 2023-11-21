@@ -45,15 +45,6 @@ term_sd_launch_args_manager()
             --reinstall-term-sd)
                 term_sd_reinstall
                 ;;
-            --enable-auto-update)
-                term_sd_echo "启用Term-SD自动检查更新功能"
-                touch ./term-sd/term-sd-auto-update.lock
-                ;;
-            --disable-auto-update)
-                term_sd_echo "禁用Term-SD自动检查更新功能"
-                rm -rf ./term-sd/term-sd-auto-update.lock
-                rm -rf ./term-sd/term-sd-auto-update-time.conf
-                ;;
             --set-python-path)
                 term_sd_launch_args_input="--set-python-path"
                 ;;
@@ -61,27 +52,27 @@ term_sd_launch_args_manager()
                 term_sd_launch_args_input="--set-pip-path"
                 ;;
             --unset-python-path)
-                rm -f ./term-sd/python-path.conf
+                rm -f ./term-sd/config/python-path.conf
                 term_sd_echo "已删除自定义python解释器路径配置"
                 ;;
             --unset-pip-path)
-                rm -f ./term-sd/pip-path.conf
+                rm -f ./term-sd/config/pip-path.conf
                 term_sd_echo "已删除自定义pip解释器路径配置"
                 ;;
             --enable-new-bar)
                 term_sd_echo "启用新的Term-SD初始化进度条"
-                touch ./term-sd/term-sd-new-bar.lock
+                touch ./term-sd/config/term-sd-new-bar.lock
                 ;;
             --disable-new-bar)
                 term_sd_echo "禁用新的Term-SD初始化进度条"
-                rm -rf ./term-sd/term-sd-new-bar.lock
+                rm -f ./term-sd/config/term-sd-new-bar.lock
                 ;;
             --enable-bar)
-                rm -f ./term-sd/term-sd-no-bar.lock
+                rm -f ./term-sd/config/term-sd-no-bar.lock
                 term_sd_echo "启用Term-SD初始化进度显示"
                 ;;
             --disable-bar)
-                touch ./term-sd/term-sd-no-bar.lock
+                touch ./term-sd/config/term-sd-no-bar.lock
                 term_sd_echo "禁用Term-SD初始化进度显示"
                 ;;
             --update-pip)
@@ -91,14 +82,6 @@ term_sd_launch_args_manager()
                 ;;
             --remove-term-sd)
                 term_sd_remove
-                ;;
-            --enable-cache-path-redirect)
-                rm -f ./term-sd/disable-cache-path-redirect.lock
-                term_sd_echo "启用ai软件缓存路径重定向功能"
-                ;;
-            --disable-cache-path-redirect)
-                touch ./term-sd/disable-cache-path-redirect.lock
-                term_sd_echo "禁用ai软件缓存路径重定向功能"
                 ;;
             --quick-cmd)
                 install_cmd_to_shell
@@ -124,17 +107,13 @@ term_sd_args_help()
 {
     cat<<EOF
     Term-SD启动参数使用方法:
-    term-sd.sh [--help] [--extra script_name] [--enable-auto-update] [--disable-auto-update] [--reinstall-term-sd] [--remove-term-sd] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--update-pip] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar] [--enable-cache-path-redirect] [--disable-cache-path-redirect] [--debug]
+    term-sd.sh [--help] [--extra script_name] [--reinstall-term-sd] [--remove-term-sd] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--update-pip] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar] [--debug]
 
     选项:
     --help
         显示启动参数帮助
     --extra script_name
         启动扩展脚本选择列表,当选项后面输入了脚本名,则直接启动指定的脚本,否则启动扩展脚本选择界面
-    --enable-auto-update
-        启用Term-SD自动检查更新功能
-    --disable-auto-update
-        禁用Term-SD自动检查更新功能
     --reinstall-term-sd
         重新安装Term-SD
     --remove-term-sd
@@ -159,10 +138,6 @@ term_sd_args_help()
         启用Term-SD初始化进度显示(默认)
     --disable-bar
         禁用Term-SD初始化进度显示(加了进度显示只会降低Term-SD初始化速度)
-    --enable-cache-path-redirect
-        启用ai软件缓存路径重定向功能(默认)
-    --disable-cache-path-redirect
-        禁用ai软件缓存路径重定向功能
     --debug
         显示Term-SD安装ai软件时使用的命令
 EOF
@@ -345,20 +320,20 @@ term_sd_auto_update_trigger()
     local term_sd_auto_update_time_span
     local term_sd_auto_update_time_set=3600 # 检查更新时间间隔
 
-    if [ -f "./term-sd/term-sd-auto-update.lock" ] && [ -d "./term-sd/.git" ];then # 找到自动更新配置
-        if [ -f "./term-sd/term-sd-auto-update-time.conf" ];then # 有上次运行记录
+    if [ -f "./term-sd/config/term-sd-auto-update.lock" ] && [ -d "./term-sd/.git" ];then # 找到自动更新配置
+        if [ -f "./term-sd/config/term-sd-auto-update-time.conf" ];then # 有上次运行记录
             term_sd_start_time=`date +'%Y-%m-%d %H:%M:%S'` # 查看当前时间
-            term_sd_end_time=$(cat ./term-sd/term-sd-auto-update-time.conf) # 获取上次更新时间
+            term_sd_end_time=$(cat ./term-sd/config/term-sd-auto-update-time.conf) # 获取上次更新时间
             term_sd_start_time_seconds=$(date --date="$term_sd_start_time" +%s) # 转换时间单位
             term_sd_end_time_seconds=$(date --date="$term_sd_end_time" +%s)
             term_sd_auto_update_time_span=$(( $term_sd_start_time_seconds - $term_sd_end_time_seconds )) # 计算相隔时间
             if [ $term_sd_auto_update_time_span -ge $term_sd_auto_update_time_set ];then # 判断时间间隔
                 term_sd_auto_update
-                date +'%Y-%m-%d %H:%M:%S' > ./term-sd/term-sd-auto-update-time.conf # 记录自动更新功能的启动时间
+                date +'%Y-%m-%d %H:%M:%S' > ./term-sd/config/term-sd-auto-update-time.conf # 记录自动更新功能的启动时间
             fi
         else # 没有时直接执行
             term_sd_auto_update
-            date +'%Y-%m-%d %H:%M:%S' > ./term-sd/term-sd-auto-update-time.conf # 记录自动更新功能的启动时间
+            date +'%Y-%m-%d %H:%M:%S' > ./term-sd/config/term-sd-auto-update-time.conf # 记录自动更新功能的启动时间
         fi
     fi
 }
@@ -460,7 +435,7 @@ term_sd_install()
                     chmod +x ./term-sd.sh
                     term_sd_restart_info=0
                     term_sd_echo "Term-SD安装成功"
-                    echo "3" > ./term-sd/term-sd-watch-retry.conf
+                    echo "3" > ./term-sd/config/term-sd-watch-retry.conf
                     export term_sd_cmd_retry=3
                     term_sd_echo "Term-SD命令执行监测设置已自动设置"
                 else
@@ -488,7 +463,7 @@ term_sd_install()
                     chmod +x ./term-sd.sh
                     term_sd_restart_info=0
                     term_sd_echo "Term-SD安装成功"
-                    echo "3" > ./term-sd/term-sd-watch-retry.conf
+                    echo "3" > ./term-sd/config/term-sd-watch-retry.conf
                     export term_sd_cmd_retry=3
                     term_sd_echo "Term-SD命令执行监测设置已自动设置"
                 else
@@ -519,7 +494,7 @@ term_sd_reinstall()
                     chmod +x ./term-sd.sh
                     term_sd_restart_info=0
                     term_sd_echo "Term-SD安装成功"
-                    echo "3" > ./term-sd/term-sd-watch-retry.conf
+                    echo "3" > ./term-sd/config/term-sd-watch-retry.conf
                     export term_sd_cmd_retry=3
                     term_sd_echo "Term-SD命令执行监测设置已自动设置"
                 else
@@ -625,7 +600,7 @@ set_python_path()
             term_sd_echo "退出python路径指定功能"
         else
             term_sd_python_path="$set_python_path_option"
-            echo $term_sd_python_path > ./term-sd/python-path.conf
+            echo $term_sd_python_path > ./term-sd/config/python-path.conf
             term_sd_echo "python解释器路径指定完成"
             term_sd_echo "提示:"
             term_sd_echo "使用--set-python-path重新设置python解释器路径"
@@ -633,7 +608,7 @@ set_python_path()
         fi
     else # 直接将选项后面的参数作为路径
         term_sd_echo "设置python解释器路径: $@"
-        echo $@ > ./term-sd/python-path.conf
+        echo $@ > ./term-sd/config/python-path.conf
         term_sd_echo "python解释器路径指定完成"
         term_sd_echo "提示:"
         term_sd_echo "使用--set-python-path重新设置python解释器路径"
@@ -657,7 +632,7 @@ set_pip_path()
             term_sd_echo "退出pip路径指定功能"
         else
             term_sd_pip_path="$set_pip_path_option"
-            echo $term_sd_pip_path > ./term-sd/pip-path.conf
+            echo $term_sd_pip_path > ./term-sd/config/pip-path.conf
             term_sd_echo "pip路径指定完成"
             term_sd_echo "提示:"
             term_sd_echo "使用--set-pip-path重新设置pip路径"
@@ -665,7 +640,7 @@ set_pip_path()
         fi
     else # 直接将选项后面的参数作为路径
         term_sd_echo "设置pip路径: $@"
-        echo $@ > ./term-sd/pip-path.conf
+        echo $@ > ./term-sd/config/pip-path.conf
         term_sd_echo "pip路径指定完成"
         term_sd_echo "提示:"
         term_sd_echo "使用--set-pip-path重新设置pip路径"
@@ -730,38 +705,37 @@ fi
 term_sd_delimiter=$(yes "-" | sed $(( $term_sd_dialog_width - 4 ))'q' | tr -d '\n')
 
 # 存在python自定义路径配置文件时自动读取到变量中
-if [ -f "./term-sd/python-path.conf" ];then
-    export term_sd_python_path=$(cat ./term-sd/python-path.conf)
+if [ -f "./term-sd/config/python-path.conf" ];then
+    export term_sd_python_path=$(cat ./term-sd/config/python-path.conf)
 fi
 
 # 存在pip自定义路径配置文件时自动读取到变量中
-if [ -f "./term-sd/pip-path.conf" ];then
-    export term_sd_pip_path=$(cat ./term-sd/pip-path.conf)
+if [ -f "./term-sd/config/pip-path.conf" ];then
+    export term_sd_pip_path=$(cat ./term-sd/config/pip-path.conf)
 fi
 
-if [ -f "./term-sd/proxy.conf" ];then # 读取代理设置并设置代理
-    export http_proxy=$(cat ./term-sd/proxy.conf)
-    export https_proxy=$(cat ./term-sd/proxy.conf)
-    # export all_proxy=$(cat ./term-sd/proxy.conf)
+if [ -f "./term-sd/config/proxy.conf" ];then # 读取代理设置并设置代理
+    export http_proxy=$(cat ./term-sd/config/proxy.conf)
+    export https_proxy=$(cat ./term-sd/config/proxy.conf)
     # 代理变量的说明:https://blog.csdn.net/Dancen/article/details/128045261
 fi
 
 # 设置安装重试次数
-if [ -f "./term-sd/term-sd-watch-retry.conf" ];then
-    export term_sd_cmd_retry=$(cat ./term-sd/term-sd-watch-retry.conf)
+if [ -f "./term-sd/config/term-sd-watch-retry.conf" ];then
+    export term_sd_cmd_retry=$(cat ./term-sd/config/term-sd-watch-retry.conf)
 else # 没有配置文件时使用默认值
     export term_sd_cmd_retry=0
 fi
 
 # 设置安装ai软件时下载模型的线程数
-if [ -f "./term-sd/aria2-thread.conf" ];then
-    export aria2_multi_threaded=$(cat ./term-sd/aria2-thread.conf)
+if [ -f "./term-sd/config/aria2-thread.conf" ];then
+    export aria2_multi_threaded=$(cat ./term-sd/config/aria2-thread.conf)
 else
     export aria2_multi_threaded="-x 1"
 fi
 
 # term-sd设置路径环境变量
-if [ ! -f "./term-sd/disable-cache-path-redirect.lock" ];then
+if [ ! -f "./term-sd/config/disable-cache-path-redirect.lock" ];then
     export CACHE_HOME="$start_path/term-sd/cache"
     export HF_HOME="$start_path/term-sd/cache/huggingface"
     export MATPLOTLIBRC="$start_path/term-sd/cache"
@@ -777,26 +751,26 @@ if [ ! -f "./term-sd/disable-cache-path-redirect.lock" ];then
 fi
 
 # 设置虚拟环境
-if [ -f "./term-sd/term-sd-venv-disable.lock" ];then # 找到term-sd-venv-disable.lock文件,禁用虚拟环境
+if [ -f "./term-sd/config/term-sd-venv-disable.lock" ];then # 找到term-sd-venv-disable.lock文件,禁用虚拟环境
     export venv_setup_status="1"
 else
     export venv_setup_status="0"
 fi
 
 # 设置安装模式
-if [ -f "./term-sd/term-sd-disable-strict-install-mode.lock" ];then
+if [ -f "./term-sd/config/term-sd-disable-strict-install-mode.lock" ];then
     export term_sd_install_mode=1
 else
     export term_sd_install_mode=0
 fi
 
 # cuda内存分配方案设置
-if [ -f "./term-sd/cuda-memory-alloc.conf" ];then
-    export PYTORCH_CUDA_ALLOC_CONF=$(cat ./term-sd/cuda-memory-alloc.conf)
+if [ -f "./term-sd/config/cuda-memory-alloc.conf" ];then
+    export PYTORCH_CUDA_ALLOC_CONF=$(cat ./term-sd/config/cuda-memory-alloc.conf)
 fi
 
 # 设置pip镜像源
-if [ -f "./term-sd/disable-pip-mirror.lock" ];then
+if [ -f "./term-sd/config/disable-pip-mirror.lock" ];then
     export PIP_INDEX_URL="https://pypi.python.org/simple"
     export PIP_EXTRA_INDEX_URL=""
     export PIP_FIND_LINKS="https://download.pytorch.org/whl/torch_stable.html"
