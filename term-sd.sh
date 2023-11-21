@@ -22,9 +22,6 @@ term_sd_launch_args_manager()
                 --set-python-path)
                     set_python_path $term_sd_launch_args
                     ;;
-                --set-pip-path)
-                    set_pip_path $term_sd_launch_args
-                    ;;
                 --extra)
                     term_sd_extra_scripts_name=$term_sd_launch_args
                     ;;
@@ -48,16 +45,9 @@ term_sd_launch_args_manager()
             --set-python-path)
                 term_sd_launch_args_input="--set-python-path"
                 ;;
-            --set-pip-path)
-                term_sd_launch_args_input="--set-pip-path"
-                ;;
             --unset-python-path)
                 rm -f ./term-sd/config/python-path.conf
                 term_sd_echo "已删除自定义python解释器路径配置"
-                ;;
-            --unset-pip-path)
-                rm -f ./term-sd/config/pip-path.conf
-                term_sd_echo "已删除自定义pip解释器路径配置"
                 ;;
             --enable-new-bar)
                 term_sd_echo "启用新的Term-SD初始化进度条"
@@ -107,7 +97,7 @@ term_sd_args_help()
 {
     cat<<EOF
     Term-SD启动参数使用方法:
-    term-sd.sh [--help] [--extra script_name] [--reinstall-term-sd] [--remove-term-sd] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--update-pip] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar] [--debug]
+    term-sd.sh [--help] [--extra script_name] [--reinstall-term-sd] [--remove-term-sd] [--quick-cmd] [--set-python-path python_path] [--unset-python-path] [--update-pip] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar] [--debug]
 
     选项:
     --help
@@ -122,12 +112,8 @@ term_sd_args_help()
         添加Term-SD快捷启动命令到shell
     --set-python-path python_path
         手动指定python解释器路径,当选项后面输入了路径,则直接使用输入的路径来设置python解释器路径(建议用\\把路径括起来),否则启动设置界面
-    --set-pip-path pip_path
-        手动指定pip路径,当选项后面输入了路径,则直接使用输入的路径来设置pip路径(建议用\\把路径括起来),否则启动设置界面
     --unset-python-path
         删除自定义python解释器路径配置
-    --unset-pip-path
-        删除自定义pip解释器路径配置
     --update-pip
         进入虚拟环境时更新pip软件包管理器
     --enable-new-bar
@@ -616,44 +602,12 @@ set_python_path()
     fi
 }
 
-# 手动指定pip路径功能
-set_pip_path()
-{
-    local set_pip_path_option
-
-    if [ -z "$*" ];then
-        term_sd_echo "请输入pip的路径"
-        term_sd_echo "提示:输入完后请回车保存,或者输入exit退出"
-        read -p "===============================> " set_pip_path_option
-        if [ -z "$set_pip_path_option" ];then
-            term_sd_echo "未输入，请重试"
-            set_pip_path
-        elif [ "$set_pip_path_option" = "exit" ];then
-            term_sd_echo "退出pip路径指定功能"
-        else
-            term_sd_pip_path="$set_pip_path_option"
-            echo $term_sd_pip_path > ./term-sd/config/pip-path.conf
-            term_sd_echo "pip路径指定完成"
-            term_sd_echo "提示:"
-            term_sd_echo "使用--set-pip-path重新设置pip路径"
-            term_sd_echo "使用--unset-pip-path删除pip路径设置"
-        fi
-    else # 直接将选项后面的参数作为路径
-        term_sd_echo "设置pip路径: $@"
-        echo $@ > ./term-sd/config/pip-path.conf
-        term_sd_echo "pip路径指定完成"
-        term_sd_echo "提示:"
-        term_sd_echo "使用--set-pip-path重新设置pip路径"
-        term_sd_echo "使用--unset-pip-path删除pip路径设置"
-    fi
-}
-
 #############################
 
 term_sd_print_line "Term-SD"
 term_sd_echo "Term-SD初始化中"
 
-export term_sd_version_info="1.0.10" # term-sd版本
+export term_sd_version_info="1.0.11" # term-sd版本
 export user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题
@@ -719,11 +673,6 @@ fi
 # 存在python自定义路径配置文件时自动读取到变量中
 if [ -f "./term-sd/config/python-path.conf" ];then
     export term_sd_python_path=$(cat ./term-sd/config/python-path.conf)
-fi
-
-# 存在pip自定义路径配置文件时自动读取到变量中
-if [ -f "./term-sd/config/pip-path.conf" ];then
-    export term_sd_pip_path=$(cat ./term-sd/config/pip-path.conf)
 fi
 
 if [ -f "./term-sd/config/proxy.conf" ];then # 读取代理设置并设置代理
@@ -836,32 +785,10 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
             fi
         fi
 
-        # 检测可用的pip命令,并检测是否手动指定pip路径
-        if [ -z "$term_sd_pip_path" ];then
-            if which pip > /dev/null 2>&1 ;then
-                export term_sd_pip_path=$(which pip)
-            else
-                missing_depend_info=1
-                missing_depend="$missing_depend pip,"
-            fi
-        else
-            if which "$term_sd_pip_path" > /dev/null 2>&1 ;then
-                term_sd_echo "使用自定义pip路径:$term_sd_pip_path"
-            else
-                term_sd_echo "手动指定的pip路径错误"
-                term_sd_echo "提示:"
-                term_sd_echo "使用--set-pip-path重新设置pip路径"
-                term_sd_echo "使用--unset-pip-path删除pip路径设置"
-                missing_depend_info=1
-                missing_depend="$missing_depend pip,"
-            fi
-        fi
-
-        # 检测python和pip路径设置
-        if [ "$term_sd_python_path" = "$term_sd_pip_path" ];then
-            term_sd_echo "python路径和pip路径相同,请重新设置"
-            term_sd_echo "退出Term-SD"
-            exit 1
+        # 检测可用的pip命令
+        if ! "$term_sd_python_path" -m pip -V > /dev/null 2>&1 ;then
+            missing_depend_info=1
+            missing_depend="$missing_depend pip,"
         fi
 
         #判断系统是否安装必须使用的软件
@@ -907,7 +834,7 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
 
         # 判断依赖检测结果
         if [ $missing_depend_info = 0 ];then
-            term_sd_echo "依赖检测完成"
+            term_sd_echo "依赖检测完成,无缺失依赖"
             term_sd_install
             if [ -d "./term-sd/modules" ];then # 找到目录后才启动
                 term_sd_auto_update_trigger

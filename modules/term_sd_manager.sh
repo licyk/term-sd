@@ -61,15 +61,15 @@ term_sd_version()
 {
     term_sd_echo "统计版本信息中"
     dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD开始界面" --ok-label "确认" --msgbox "版本信息:\n\n
-系统:$(uname -o) \n
-Term-SD:"$term_sd_version_info" \n
-python:$(term_sd_python --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
-pip:$(term_sd_pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
-aria2:$(aria2c --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ') \n
-git:$(git --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ') \n
-dialog:$(dialog --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
+系统:$(uname -o)\n
+Term-SD: $term_sd_version_info\n
+python:$(term_sd_python --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n
+pip:$(term_sd_pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n
+aria2:$(aria2c --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n
+git:$(git --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $3} ')\n
+dialog:$(dialog --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ')\n
 \n
-提示: \n
+提示:\n
 使用方向键、Tab键移动光标,方向键翻页(鼠标滚轮无法翻页),Enter进行选择,Space键勾选或取消勾选,(已勾选时显示[*]),Ctrl+Shift+V粘贴文本,Ctrl+C可中断指令的运行,鼠标左键可点击按钮(右键无效)\n
 第一次使用Term-SD时先在主界面选择“帮助”查看使用说明,参数说明和注意的地方,内容不定期更新" $term_sd_dialog_height $term_sd_dialog_width
 }

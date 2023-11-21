@@ -27,6 +27,6 @@ term_sd_pip()
         pip "$@"
     else
         # 调用系统中存在的pip
-        "$term_sd_pip_path" "$@"
+        "$term_sd_python_path" -m pip "$@"
     fi
 }

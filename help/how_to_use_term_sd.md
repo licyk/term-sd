@@ -498,7 +498,7 @@ Term-SD包含了一些扩展脚本，扩充Term-SD的功能
 
 #### 启动参数的使用方法
 ```
-./term-sd.sh [--help] [--extra script_name] [--reinstall-term-sd] [--remove-term-sd] [--quick-cmd] [--set-python-path python_path] [--set-pip-path pip_path] [--unset-python-path] [--unset-pip-path] [--update-pip] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar] [--debug]
+./term-sd.sh [--help] [--extra script_name] [--reinstall-term-sd] [--remove-term-sd] [--quick-cmd] [--set-python-path python_path] [--unset-python-path] [--update-pip] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar] [--debug]
 ```
 
 >中括号“[]”仅用来展示，在使用的时候不要输入进去  
@@ -544,56 +544,37 @@ Term-SD包含了一些扩展脚本，扩充Term-SD的功能
 >根据自己安装的路径来填。在Windows系统中，每个文件夹的分隔符不要使用反斜杠，Windows系统中的盘符，如“C:”，“D:”，要改成“/c”，“/d”，因为MingW64不认识这些路径符号
 
 
-- 7、set-pip-path
-
-手动指定pip路径（一定是绝对路径），当选项后面输入了路径，则直接使用输入的路径来设置pip路径（建议用“ ”把路径括起来），否则启动设置界面  
-路径的参考格式如下：
-```
-/usr/bin/pip
-/c/Python/Scripts/pip.exe
-/d/Program Files/Python310/Scripts/pip.exe
-/d/Program Files/Python310/Scripts/pip
-/data/data/com.termux/files/usr/bin/pip
-```
->根据自己安装的路径来填，每个文件夹的分隔符不要使用反斜杠，Windows系统中的盘符，如“C:”，“D:”，要改成“/c”，“/d”，因为MingW64不认识这些路径符号
-
-
-- 8、unset-python-path
+- 7、unset-python-path
 
 删除自定义python解释器路径配置
 
 
-- 9、unset-pip-path
-
-删除自定义pip解释器路径配置
-
-
-- 10、enable-new-bar
+- 8、enable-new-bar
 
 启用新的Term-SD初始化进度条
 
 
-- 11、disable-new-bar
+- 9、disable-new-bar
 
 禁用新的Term-SD初始化进度条
 
 
-- 12、enable-bar
+- 10、enable-bar
 
 启用Term-SD初始化进度显示（默认）
 
 
-- 13、disable-bar
+- 11、disable-bar
 
 禁用Term-SD初始化进度显示（加了进度显示只会降低Term-SD初始化速度）
 
 
-- 14、update-pip
+- 12、update-pip
 
 进入虚拟环境时更新pip软件包管理
 
 
-- 15、debug
+- 13、debug
 
 显示调试信息
 
