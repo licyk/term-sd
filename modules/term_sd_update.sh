@@ -71,27 +71,33 @@ term_sd_remote_revise()
         "5" "> 代理源2(gitclone.com)" \
         3>&1 1>&2 2>&3)
     
-    if [ $? = 0 ];then
-        case $term_sd_remote_revise_dialog in
-            1)
-                git --git-dir="./term-sd/.git" remote set-url origin "https://github.com/licyk/term-sd"
-                ;;
-            2)
-                git --git-dir="./term-sd/.git" remote set-url origin "https://gitlab.com/licyk/term-sd"
-                ;;
-            3)
-                git --git-dir="./term-sd/.git" remote set-url origin "https://gitee.com/four-dishes/term-sd"
-                ;;
-            4)
-                git --git-dir="./term-sd/.git" remote set-url origin "https://ghproxy.com/github.com/licyk/term-sd"
-                ;;
-            5)
-                git --git-dir="./term-sd/.git" remote set-url origin "https://gitclone.com/github.com/licyk/term-sd"
-                ;;
-        esac
-        dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD更新源切换选项" --ok-label "确认" --msgbox "Term-SD更新源切换完成" $term_sd_dialog_height $term_sd_dialog_width
-        term_sd_remote_revise
-    fi
+    case $term_sd_remote_revise_dialog in
+        1)
+            git --git-dir="./term-sd/.git" remote set-url origin "https://github.com/licyk/term-sd"
+            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD更新源切换选项" --ok-label "确认" --msgbox "Term-SD更新源切换完成" $term_sd_dialog_height $term_sd_dialog_width
+            term_sd_remote_revise
+            ;;
+        2)
+            git --git-dir="./term-sd/.git" remote set-url origin "https://gitlab.com/licyk/term-sd"
+            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD更新源切换选项" --ok-label "确认" --msgbox "Term-SD更新源切换完成" $term_sd_dialog_height $term_sd_dialog_width
+            term_sd_remote_revise
+            ;;
+        3)
+            git --git-dir="./term-sd/.git" remote set-url origin "https://gitee.com/four-dishes/term-sd"
+            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD更新源切换选项" --ok-label "确认" --msgbox "Term-SD更新源切换完成" $term_sd_dialog_height $term_sd_dialog_width
+            term_sd_remote_revise
+            ;;
+        4)
+            git --git-dir="./term-sd/.git" remote set-url origin "https://ghproxy.com/github.com/licyk/term-sd"
+            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD更新源切换选项" --ok-label "确认" --msgbox "Term-SD更新源切换完成" $term_sd_dialog_height $term_sd_dialog_width
+            term_sd_remote_revise
+            ;;
+        5)
+            git --git-dir="./term-sd/.git" remote set-url origin "https://gitclone.com/github.com/licyk/term-sd"
+            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD更新源切换选项" --ok-label "确认" --msgbox "Term-SD更新源切换完成" $term_sd_dialog_height $term_sd_dialog_width
+            term_sd_remote_revise
+            ;;
+    esac
 }
 
 # term-sd分支切换
