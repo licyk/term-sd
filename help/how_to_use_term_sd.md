@@ -604,5 +604,5 @@ Term-SD包含了一些扩展脚本，扩充Term-SD的功能
 
 ||绘世启动器|
 |---|---|
-|↓|[下载地址1](https://github.com/licyk/README-collection/releases/download/archive/hanamizuki.exe)|
-|↓|[下载地址2](https://gitee.com/licyk/README-collection/releases/download/v0.0.1/hanamizuki.exe)|
+|↓|[下载地址1](https://github.com/licyk/term-sd/releases/download/archive/hanamizuki.exe)|
+|↓|[下载地址2](https://gitee.com/licyk/term-sd/releases/download/archive/hanamizuki.exe)|

@@ -9,11 +9,11 @@ download_hanamizuki_resource_select()
     case $(term_sd_read) in
         1)
             term_sd_echo "选择github源"
-            download_hanamizuki_resource="https://github.com/licyk/README-collection/releases/download/archive/hanamizuki.exe"
+            download_hanamizuki_resource="https://github.com/licyk/term-sd/releases/download/archive/hanamizuki.exe"
             ;;
         2)
             term_sd_echo "选择gitee源"
-            download_hanamizuki_resource="https://gitee.com/four-dishes/README-collection/releases/download/v0.0.1/hanamizuki.exe"
+            download_hanamizuki_resource="https://gitee.com/licyk/term-sd/releases/download/archive/hanamizuki.exe"
             ;;
         3)
             download_hanamizuki_info=1
