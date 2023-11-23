@@ -244,3 +244,7 @@ AUTOMATIC1111-stable-diffusion-webui插件说明：
 61、model-keyword：
 描述：用于补全模型对应的提示词，比如使用lora模型的提示词
 链接：https://github.com/mix1009/model-keyword
+
+62、Stable-Diffusion-WebUI-TensorRT：
+描述：nvidia官方加速工具，加速图片生成
+链接：https://github.com/NVIDIA/Stable-Diffusion-WebUI-TensorRT
