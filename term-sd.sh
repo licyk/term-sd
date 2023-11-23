@@ -555,7 +555,7 @@ install_config_to_shell()
         term_sd_echo "配置已存在,添加前请删除原有配置"
     else
         echo "# Term-SD" >> ~/.${user_shell}rc
-        echo "term_sd(){ term_sd_start_path=\$(pwd) ; cd \"$(pwd)\" ; ./term-sd.sh \"\$@\" ; cd \"\$term_sd_start_path\" > /dev/null ; }" >> ~/.${user_shell}rc
+        echo "term_sd(){ local term_sd_start_path=\$(pwd) ; cd \"$(pwd)\" ; ./term-sd.sh \"\$@\" ; cd \"\$term_sd_start_path\" > /dev/null ; }" >> ~/.${user_shell}rc
         echo "alias tsd='term_sd'" >> ~/.${user_shell}rc
         term_sd_echo "配置添加完成,重启shell以生效"
     fi
