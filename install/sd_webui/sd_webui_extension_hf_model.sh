@@ -110,3 +110,7 @@ __term_sd_task_pre_ext_44 aria2_download https://huggingface.co/ClockZinc/IS-NET
 
 __term_sd_task_pre_ext_33 term_sd_echo "下载sd-webui-segment-anything模型"
 __term_sd_task_pre_ext_33 aria2_download https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth ./stable-diffusion-webui/extensions/sd-webui-segment-anything/models/sam sam_vit_h_4b8939.pth
+__term_sd_task_pre_ext_33 aria2_download https://dl.fbaipublicfiles.com/segment_anything/sam_vit_l_0b3195.pth ./stable-diffusion-webui/extensions/sd-webui-segment-anything/models/sam sam_vit_l_0b3195.pth
+__term_sd_task_pre_ext_33 aria2_download https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth ./stable-diffusion-webui/extensions/sd-webui-segment-anything/models/sam sam_vit_b_01ec64.pth
+__term_sd_task_pre_ext_33 aria2_download https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/groundingdino_swint_ogc.pth  ./stable-diffusion-webui/extensions/sd-webui-segment-anything/models/grounding-dino/groundingdino_swint_ogc.pth
+__term_sd_task_pre_ext_33 aria2_download https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/groundingdino_swinb_cogcoor.pth ./stable-diffusion-webui/extensions/sd-webui-segment-anything/models/grounding-dino/groundingdino_swinb_cogcoor.pth
