@@ -97,7 +97,7 @@ Term-SD在成功启动后，首先显示的是各个组件的版本信息，选�
 该功能用于增加Term-SD在使用aria2下载模型时的线程数,在一定程度上提高下载速度
 
 ### 缓存重定向设置
-该功能将会把ai软件产生的缓存重定向至Term-SD目录中，位于cache文件夹，不过有些AI软件会把模型下载到缓存目录中，存在于“unet”文件夹和“huggingface”文件夹中，在清理缓存中需要注意。该设置默认启用
+该功能将会把AI软件产生的缓存重定向至Term-SD目录中，位于cache文件夹，不过有些AI软件会把模型下载到缓存目录中，存在于“unet”文件夹和“huggingface”文件夹中，在清理缓存中需要注意。该设置默认启用
 
 ### CUDA内存分配设置
 该功能用于设置CUDA分配显存使用的分配器，当CUDA版本大于11.4+且pytorch版本大于2.0.0时，可以设置为“CUDA(11.4+)内置异步分配器”，加速AI软件的运行，否则设置为“PyTorch原生分配器”或者不设置  
@@ -127,7 +127,7 @@ Term-SD在使用安装、管理功能时，会使用准备功能来对一些操�
 ### 1、代理选项
 有以下选项：
 - 1、启用pip镜像源：Term-SD调用pip下载python软件包时使用国内镜像源进行下载
-- 2、huggingface独占代理：Term-SD安装ai软件的过程仅为huggingface下载源启用代理，减少代理流量的消耗
+- 2、huggingface独占代理：Term-SD安装AI软件的过程仅为huggingface下载源启用代理，减少代理流量的消耗
 - 3、强制使用pip：强制使用pip安装python软件包，一般只有在禁用虚拟环境后才需要启用 
 - 4、使用modelscope模型下载源：将安装时使用的huggingface模型下载源改为modelscope模型下载源（因为huggingface在国内无法直接访问）
 - 5、github镜像源自动选择：测试可用的github镜像源并选择自动选择，选择该选项后将覆盖手动设置的github镜像源
@@ -192,7 +192,7 @@ Term-SD在使用安装、管理功能时，会使用准备功能来对一些操�
 
 ***
 
-## 使用Term-SD安装ai软件前的准备
+## 使用Term-SD安装AI软件前的准备
 
 安装前，我们需要做一些准备
 
@@ -204,7 +204,7 @@ Term-SD在使用安装、管理功能时，会使用准备功能来对一些操�
 - 2、设置代理（可选，如果没有一个质量比较好的代理时就不要设置了）
 
 如果用户有代理软件，并且代理的速度和稳定性较好，则先判断代理软件的代理工作模式，一般有TUN模式或者驱动模式的就不需要设置代理，因为这两种代理模式可以让终端环境走代理（其余模式不行）  
-但是TUN模式或者驱动模式会让所有流量走代理，而Term-SD在安装ai软件的过程中只有部分下载源需要代理，这将会造成代理流量的浪费。所以，如果代理软件有其他代理模式，最好选这些的，并查看代理软件的代理协议、ip和端口，然后在Term-SD主界面的“代理设置”里选择代理协议，填入ip和端口，回车保存，这样Term-SD就可以决定哪些流量需要走代理  
+但是TUN模式或者驱动模式会让所有流量走代理，而Term-SD在安装AI软件的过程中只有部分下载源需要代理，这将会造成代理流量的浪费。所以，如果代理软件有其他代理模式，最好选这些的，并查看代理软件的代理协议、ip和端口，然后在Term-SD主界面的“代理设置”里选择代理协议，填入ip和端口，回车保存，这样Term-SD就可以决定哪些流量需要走代理  
 如果代理没有TUN模式或者驱动模式，则查看代理软件的代理协议、ip和端口，然后在Term-SD设置的“代理设置”里选择代理协议，填入ip和端口，回车保存  
 
 >在不使用代理后，需要在“代理设置”里删除代理参数，防止在代理软件关闭后出现Term-SD无法访问网络的问题  
@@ -212,9 +212,9 @@ Term-SD在使用安装、管理功能时，会使用准备功能来对一些操�
 - 3、设置安装重试功能（推荐）
 >Term-SD默认已配置该选项，可忽略
 
-在Term-SD设置选择“命令执行监测设置”，选择启用，输入重试次数（推荐3），这时就设置好安装重试功能了，在安装ai软件时如果遇到网络不稳定导致命令执行的中断时，将会重新执行中断的命令，保证安装的顺利进行
+在Term-SD设置选择“命令执行监测设置”，选择启用，输入重试次数（推荐3），这时就设置好安装重试功能了，在安装AI软件时如果遇到网络不稳定导致命令执行的中断时，将会重新执行中断的命令，保证安装的顺利进行
 
-进行上面的步骤后就可以进行ai软件的安装
+进行上面的步骤后就可以进行AI软件的安装
 
 ***
 
@@ -230,7 +230,7 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 需要安装哪一种就选择哪一个管理选项
 
 >1、安装过程请保持网络通畅  
->2、当ai软件安装好后，能启动且无报错时，最好使用“依赖库版本管理”将依赖库的软件包版本备份下来，当ai软件因为软件包版本问题导致ai软件出现报错时就可以用这个功能恢复原来的依赖库版本
+>2、当AI软件安装好后，能启动且无报错时，最好使用“依赖库版本管理”将依赖库的软件包版本备份下来，当AI软件因为软件包版本问题导致AI软件出现报错时就可以用这个功能恢复原来的依赖库版本
 
 ### AUTOMATIC1111-stable-diffusion-webui安装
 
@@ -242,7 +242,7 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 #### 1、代理选项
 第一个是代理选项，共有以下选项
 - 1、启用pip镜像源：Term-SD调用pip下载python软件包时使用国内镜像源进行下载
-- 2、huggingface独占代理：Term-SD安装ai软件的过程仅为huggingface下载源启用代理，减少代理流量的消耗
+- 2、huggingface独占代理：Term-SD安装AI软件的过程仅为huggingface下载源启用代理，减少代理流量的消耗
 - 3、强制使用pip：强制使用pip安装python软件包，一般只有在禁用虚拟环境后才需要启用 
 - 4、使用modelscope模型下载源：将安装时使用的huggingface模型下载源改为modelscope模型下载源（因为huggingface在国内无法直接访问）
 - 5、github镜像源自动选择：测试可用的github镜像源并选择自动选择，选择该选项后将覆盖手动设置的github镜像源
@@ -258,12 +258,13 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 - 2、Torch
 - 3、Torch 2.0.0+Torch-Directml
 - 4、Torch 2.1.0+CPU
-- 5、Torch 2.1.0+RoCM 5.6
-- 6、Torch 1.12.1（CUDA11.3）+xFormers 0.014
-- 7、Torch 1.13.1（CUDA11.7）+xFormers 0.016
-- 8、Torch 2.0.0（CUDA11.8）+xFormers 0.018
-- 9、Torch 2.0.1（CUDA11.8）+xFormers 0.022
-- 10、Torch 2.1.0（CUDA12.1）+xFormers 0.022
+- 5、Torch 2.0.1+RoCM 5.4.2
+- 6、Torch 2.1.0+RoCM 5.6
+- 7、Torch 1.12.1（CUDA11.3）+xFormers 0.014
+- 8、Torch 1.13.1（CUDA11.7）+xFormers 0.016
+- 9、Torch 2.0.0（CUDA11.8）+xFormers 0.018
+- 10、Torch 2.0.1（CUDA11.8）+xFormers 0.022
+- 11、Torch 2.1.0（CUDA12.1）+xFormers 0.022post7
 
 选择版本时需要根据系统类型和显卡选择  
 在Windows系统中，Nvidia显卡选择Torch（CUDA）+xformers的版本，AMD显卡和Intel显卡选择Torch+Torch-Directml的版本  
@@ -381,6 +382,7 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 
 ## Term-SD管理功能
 
+当AI软件成功安装后，就可以使用Term-SD的管理功能来启动或者管理ai了  
 在5个ai管理界面中，包含一些功能对ai进行管理
 
 ### 1、更新
@@ -432,24 +434,24 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 该功能用于切换更新源，加速下载；当某个github镜像源无法使用导致无法更新插件时，也可以使用该功能将更新源切换到可用的github镜像源或者切换成github源
 
 ### 8、启动
-该功能用于启动ai软件  
+该功能用于启动AI软件  
 在stable-diffusion-webui、ComfyUI、InvokeAI，Fooocus中可以选择预设启动参数或者自定义启动参数，从而使用一些功能  
 当设置预设参数时，将会删除之前设置的启动参数；而自定义启动参数可以修改上次设置的启动参数
 
 ### 9、更新依赖
-该功能用于更新ai软件依赖的python软件包，可用于解决ai软件的部分依赖版本太旧导致运行报错，一般用不上
+该功能用于更新AI软件依赖的python软件包，可用于解决AI软件的部分依赖版本太旧导致运行报错，一般用不上
 
 ### 10、重新安装
-该功能用于重新执行ai软件的安装过程，一般用不上
+该功能用于重新执行AI软件的安装过程，一般用不上
 
 ### 11、重新安装pytorch
 该功能用于切换pytorch的版本
 
 ### 12、修复虚拟环境
-该功能用于修复生成ai软件使用的虚拟环境，一般在移动ai软件的位置，ai软件运行出现问题后才用
+该功能用于修复生成AI软件使用的虚拟环境，一般在移动AI软件的位置，AI软件运行出现问题后才用
 
 ### 13、重新构建虚拟环境
-该功能用于重新构建ai软件使用的虚拟环境，一般用在移动ai软件的位置后、ai软件运行出现报错（有一些时候是python依赖库出现了版本错误或者损坏，或者装了一些插件后出现问题，删除插件后问题依然没有解决）、安装ai软件前禁用了虚拟环境，安装后启用了虚拟环境，需要修复虚拟环境  
+该功能用于重新构建AI软件使用的虚拟环境，一般用在移动AI软件的位置后、AI软件运行出现报错（有一些时候是python依赖库出现了版本错误或者损坏，或者装了一些插件后出现问题，删除插件后问题依然没有解决）、安装AI软件前禁用了虚拟环境，安装后启用了虚拟环境，需要修复虚拟环境  
 这个功能一般不需要用，除非解决不了一些python库报错问题（因为该功能将会重新构建虚拟环境，需要消耗比较长的时间）
 
 ### 14、分支切换
@@ -478,7 +480,7 @@ xformers==0.0.21 numpy
 ```
 
 ### 16、依赖库版本管理
-该功能用于记录python依赖库的版本，在ai软件运行正常时，可以用该功能记录python依赖库的各个软件包版本，当因为装插件等导致依赖库的软件包版本出现错误而导致报错时，可用该功能恢复原来依赖库的各个软件包版本，从而解决报错
+该功能用于记录python依赖库的版本，在AI软件运行正常时，可以用该功能记录python依赖库的各个软件包版本，当因为装插件等导致依赖库的软件包版本出现错误而导致报错时，可用该功能恢复原来依赖库的各个软件包版本，从而解决报错
 
 ***
 
@@ -522,7 +524,7 @@ Term-SD包含了一些扩展脚本，扩充Term-SD的功能
 
 - 4、remove-term-sd
 
-卸载Term-SD，该功能将会删除Term-SD自身的所有组件和快捷启动命令，只保留已经安装的ai软件
+卸载Term-SD，该功能将会删除Term-SD自身的所有组件和快捷启动命令，只保留已经安装的AI软件
 
 
 - 5、quick-cmd
@@ -581,7 +583,7 @@ Term-SD包含了一些扩展脚本，扩充Term-SD的功能
 ***
 
 ## 绘世启动器的使用
-目前绘世启动器支持启动AUTOMATIC1111-stable-diffusion-webui、ComfyUI、Fooocus。使用Term-SD部署AUTOMATIC1111-stable-diffusion-webui、ComfyUI、或者Fooocus后，将绘世启动器放入stable-diffusion-webui文件夹、ComfyUI文件夹或者Fooocus文件夹后就可以使用绘世启动器启动对应的ai软件了（可以使用Term-SD扩展脚本中的download-hanamizuki脚本来下载绘世启动器，并且脚本会自动将绘世启动器放入上述文件夹中）
+目前绘世启动器支持启动AUTOMATIC1111-stable-diffusion-webui、ComfyUI、Fooocus。使用Term-SD部署AUTOMATIC1111-stable-diffusion-webui、ComfyUI、或者Fooocus后，将绘世启动器放入stable-diffusion-webui文件夹、ComfyUI文件夹或者Fooocus文件夹后就可以使用绘世启动器启动对应的AI软件了（可以使用Term-SD扩展脚本中的download-hanamizuki脚本来下载绘世启动器，并且脚本会自动将绘世启动器放入上述文件夹中）
 
 ||绘世启动器|
 |---|---|
