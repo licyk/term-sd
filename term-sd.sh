@@ -647,7 +647,7 @@ case $term_sd_env_prepare_info in
 esac
 
 # 目录结构检测,防止用户直接运行Term-SD目录内的term-sd.sh
-if [ ! -d "./term-sd" ] && [ -d "./.git" ] && [ -d "./modules" ] && [ -f "./modules/init.sh" ] && [ -d "./extra" ] && [ -d "./other" ];then
+if [ ! -d "./term-sd" ] && [ -d "./.git" ] && [ -d "./modules" ] && [ -f "./modules/init.sh" ] && [ -d "./extra" ];then
     term_sd_echo "检测到目录错误"
     term_sd_echo "禁止用户直接在Term-SD目录里运行Term-SD"
     term_sd_echo "请将term-sd.sh文件复制到Term-SD目录外面(和Term-SD目录放在一起)"
