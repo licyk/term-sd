@@ -248,3 +248,7 @@ AUTOMATIC1111-stable-diffusion-webui插件说明：
 62、Stable-Diffusion-WebUI-TensorRT：
 描述：nvidia官方加速工具，加速图片生成
 链接：https://github.com/NVIDIA/Stable-Diffusion-WebUI-TensorRT
+
+63、sd-webui-lobe-theme：
+描述：webui主题
+链接：https://github.com/lobehub/sd-webui-lobe-theme

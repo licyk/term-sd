@@ -60,3 +60,5 @@ __term_sd_task_pre_ext_59 git_clone_repository ${github_mirror} https://github.c
 __term_sd_task_pre_ext_60 git_clone_repository ${github_mirror} https://github.com/Haoming02/sd-webui-boomer stable-diffusion-webui/extensions ON # 恢复新版webui已经移除的按钮
 __term_sd_task_pre_ext_61 git_clone_repository ${github_mirror} https://github.com/mix1009/model-keyword stable-diffusion-webui/extensions ON # 用于补全模型对应的提示词，比如使用lora模型的提示词
 __term_sd_task_pre_ext_62 git_clone_repository ${github_mirror} https://github.com/NVIDIA/Stable-Diffusion-WebUI-TensorRT stable-diffusion-webui/extensions OFF # nvidia官方加速工具，加速图片生成
+__term_sd_task_pre_ext_63 git_clone_repository ${github_mirror} https://github.com/lobehub/sd-webui-lobe-theme stable-diffusion-webui/extensions OFF # webui主题
+
