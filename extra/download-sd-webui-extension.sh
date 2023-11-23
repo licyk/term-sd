@@ -5,6 +5,7 @@ source ./term-sd/modules/get_modelscope_model.sh
 source ./term-sd/modules/term_sd_git.sh
 source ./term-sd/modules/term_sd_task_manager.sh
 source ./term-sd/modules/term_sd_manager.sh
+source ./term-sd/modules/term_sd_proxy.sh
 
 install_sd_webui_extension()
 {
@@ -12,22 +13,21 @@ install_sd_webui_extension()
     download_mirror_select auto_github_mirrror # 下载镜像源选择
     sd_webui_extension_install_select_list=$(
         dialog --erase-on-exit --notags --title "Stable-Diffusion-WebUI安装" --backtitle "Stable-Diffusion-WebUI插件安装选项" --ok-label "确认" --no-cancel --checklist "请选择需要安装的Stable-Diffusion-Webui插件" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
-        $(cat "$start_path/term-sd/install/sd_webui/dialog_sd_webui_extension.sh") \
+        $(cat "$start_path/term-sd/install/sd_webui/dialog_sd_webui_extension.sh" | awk '{gsub(" ON"," OFF")}1') \
         3>&1 1>&2 2>&3)
     term_sd_install_confirm # 安装确认
     if [ $? = 0 ];then
         term_sd_echo "生成任务队列"
+        touch "$start_path/term-sd/task/sd_webui_install_extension.sh"
         for i in $sd_webui_extension_install_select_list ;do
             cat "$start_path/term-sd/install/sd_webui/sd_webui_extension.sh" | grep -w $i | awk '{sub(" ON "," ") ; sub(" OFF "," ")}1' >> "$start_path/term-sd/task/sd_webui_install_extension.sh" # 插件
         done
 
         if [ $use_modelscope_model = 1 ];then
-            cat "$start_path/term-sd/install/sd_webui/sd_webui_hf_model.sh" >> "$start_path/term-sd/task/sd_webui_install_extension.sh" # 模型
             for i in $sd_webui_extension_install_select_list ;do
                 cat "$start_path/term-sd/install/sd_webui/sd_webui_extension_hf_model.sh" | grep -w $i >> "$start_path/term-sd/task/sd_webui_install_extension.sh" # 插件所需的模型
             done
         else
-            cat "$start_path/term-sd/install/sd_webui/sd_webui_ms_model.sh" >> "$start_path/term-sd/task/sd_webui_install_extension.sh" # 模型
             for i in $sd_webui_extension_install_select_list ;do
                 cat "$start_path/term-sd/install/sd_webui/sd_webui_extension_ms_model.sh" | grep -w $i >> "$start_path/term-sd/task/sd_webui_install_extension.sh" # 插件所需的模型
             done
