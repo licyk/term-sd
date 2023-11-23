@@ -646,6 +646,16 @@ case $term_sd_env_prepare_info in
         ;;
 esac
 
+# 目录结构检测,防止用户直接运行Term-SD目录内的term-sd.sh
+if [ ! -d "./term-sd" ] && [ -d "./.git" ] && [ -d "./modules" ] && [ -f "./modules/init.sh" ] && [ -d "./extra" ] && [ -d "./other" ];then
+    term_sd_echo "检测到目录错误"
+    term_sd_echo "禁止用户直接在Term-SD目录里运行Term-SD"
+    term_sd_echo "请将term-sd.sh文件复制到Term-SD目录外面(和Term-SD目录放在一起)"
+    term_sd_echo "再运行目录外面的term-sd.sh"
+    term_sd_echo "退出Term-SD"
+    exit 1
+fi
+
 # dialog使用文档https://manpages.debian.org/bookworm/dialog/dialog.1.en.html
 # 设置dialog界面的大小
 export term_sd_dialog_menu_height=10 #dialog高度条目
@@ -736,16 +746,6 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
     0)
         ;;
     *)
-        # 目录结构检测,防止用户直接运行Term-SD目录内的term-sd.sh
-        if [ ! -d "./term-sd" ] && [ -d "./.git" ] && [ -d "./modules" ] && [ -f "./modules/init.sh" ] && [ -d "./extra" ] && [ -d "./other" ];then
-            term_sd_echo "检测到目录错误"
-            term_sd_echo "禁止用户直接在Term-SD目录里运行Term-SD"
-            term_sd_echo "请将term-sd.sh文件复制到Term-SD目录外面(和Term-SD目录放在一起)"
-            term_sd_echo "再运行目录外面的term-sd.sh"
-            term_sd_echo "退出Term-SD"
-            exit 1
-        fi
-
         term_sd_echo "检测依赖软件是否安装"
         term_sd_depend="git aria2c dialog curl" # term-sd依赖软件包
         term_sd_depend_macos="wget rustc cmake brew protoc gawk" # term-sd依赖软件包(MacOS)
