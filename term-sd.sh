@@ -701,22 +701,6 @@ else
     export aria2_multi_threaded="-x 1"
 fi
 
-# term-sd设置路径环境变量
-if [ ! -f "./term-sd/config/disable-cache-path-redirect.lock" ];then
-    export CACHE_HOME="$start_path/term-sd/cache"
-    export HF_HOME="$start_path/term-sd/cache/huggingface"
-    export MATPLOTLIBRC="$start_path/term-sd/cache"
-    export MODELSCOPE_CACHE="$start_path/term-sd/cache/modelscope/hub"
-    export MS_CACHE_HOME="$start_path/term-sd/cache/modelscope/hub"
-    export SYCL_CACHE_DIR="$start_path/term-sd/cache/libsycl_cache"
-    export TORCH_HOME="$start_path/term-sd/cache/torch"
-    export U2NET_HOME="$start_path/term-sd/cache/u2net"
-    export XDG_CACHE_HOME="$start_path/term-sd/cache"
-    export PIP_CACHE_DIR="$start_path/term-sd/cache/pip"
-    export PYTHONPYCACHEPREFIX="$start_path/term-sd/cache/pycache"
-    # export TRANSFORMERS_CACHE="$start_path/term-sd/cache/huggingface/transformers"
-fi
-
 # 设置虚拟环境
 if [ -f "./term-sd/config/term-sd-venv-disable.lock" ];then # 找到term-sd-venv-disable.lock文件,禁用虚拟环境
     export venv_setup_status="1"
@@ -858,6 +842,23 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
         fi
         ;;
 esac
+
+# 放在依赖检测之后,解决一些奇怪的问题
+# term-sd设置路径环境变量
+if [ ! -f "./term-sd/config/disable-cache-path-redirect.lock" ];then
+    export CACHE_HOME="$start_path/term-sd/cache"
+    export HF_HOME="$start_path/term-sd/cache/huggingface"
+    export MATPLOTLIBRC="$start_path/term-sd/cache"
+    export MODELSCOPE_CACHE="$start_path/term-sd/cache/modelscope/hub"
+    export MS_CACHE_HOME="$start_path/term-sd/cache/modelscope/hub"
+    export SYCL_CACHE_DIR="$start_path/term-sd/cache/libsycl_cache"
+    export TORCH_HOME="$start_path/term-sd/cache/torch"
+    export U2NET_HOME="$start_path/term-sd/cache/u2net"
+    export XDG_CACHE_HOME="$start_path/term-sd/cache"
+    export PIP_CACHE_DIR="$start_path/term-sd/cache/pip"
+    export PYTHONPYCACHEPREFIX="$start_path/term-sd/cache/pycache"
+    # export TRANSFORMERS_CACHE="$start_path/term-sd/cache/huggingface/transformers"
+fi
 
 #############################
 
