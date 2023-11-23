@@ -107,3 +107,6 @@ __term_sd_task_pre_ext_42 get_modelscope_model licyks/sd-extensions-model/master
 
 __term_sd_task_pre_ext_44 term_sd_echo "下载IS-NET模型"
 __term_sd_task_pre_ext_44 get_modelscope_model licyks/sd-extensions-model/master/sd-webui-IS-NET-pro/isnet-general-use.pth ./stable-diffusion-webui/extensions/sd-webui-IS-NET-pro/saved_models/IS-Net
+
+__term_sd_task_pre_ext_33 term_sd_echo "下载sd-webui-segment-anything模型"
+__term_sd_task_pre_ext_33 get_modelscope_model licyks/sd-extensions-model/master/sd-webui-segment-anything/sam_vit_h_4b8939.pth ./stable-diffusion-webui/extensions/sd-webui-segment-anything/models/sam

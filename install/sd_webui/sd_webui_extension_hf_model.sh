@@ -107,3 +107,6 @@ __term_sd_task_pre_ext_42 aria2_download https://huggingface.co/Bingsu/adetailer
 
 __term_sd_task_pre_ext_44 term_sd_echo "下载IS-NET模型"
 __term_sd_task_pre_ext_44 aria2_download https://huggingface.co/ClockZinc/IS-NET_pth/resolve/main/isnet-general-use.pth ./stable-diffusion-webui/extensions/sd-webui-IS-NET-pro/saved_models/IS-Net isnet-general-use.pth
+
+__term_sd_task_pre_ext_33 term_sd_echo "下载sd-webui-segment-anything模型"
+__term_sd_task_pre_ext_33 aria2_download https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth ./stable-diffusion-webui/extensions/sd-webui-segment-anything/models/sam sam_vit_h_4b8939.pth
