@@ -15,8 +15,8 @@ Term-SD在下载好后，只会有一个基础的配置脚本“term-sd.sh”，
 - 4、代理源1(ghproxy.com)
 - 5、代理源2(gitclone.com)
 
-一般情况选择任意一种都可以进行下载，但是如果用户无法在浏览器访问github官网，则不建议选第一个  
-如果下载失败，Term-SD将会自动退出，这时再次运行Term-SD重新下载，选择其他下载源  
+一般情况下选择任意一种都可以进行下载  
+如果下载失败，Term-SD将会自动退出，这时再次运行Term-SD，选择其他下载源来重新下载  
 当成功下载时，Term-SD将会自动初始化模块，并启动
 
 ***
@@ -143,18 +143,19 @@ Term-SD在使用安装、管理功能时，会使用准备功能来对一些操�
 - 2、Torch
 - 3、Torch 2.0.0+Torch-Directml
 - 4、Torch 2.1.0+CPU
-- 5、Torch 2.1.0+RoCM 5.6
-- 6、Torch 1.12.1（CUDA11.3）+xFormers 0.014
-- 7、Torch 1.13.1（CUDA11.7）+xFormers 0.016
-- 8、Torch 2.0.0（CUDA11.8）+xFormers 0.018
-- 9、Torch 2.0.1（CUDA11.8）+xFormers 0.022
-- 10、Torch 2.1.0（CUDA12.1）+xFormers 0.022
+- 5、Torch 2.0.1+RoCM 5.4.2
+- 6、Torch 2.1.0+RoCM 5.6
+- 7、Torch 1.12.1（CUDA11.3）+xFormers 0.014
+- 8、Torch 1.13.1（CUDA11.7）+xFormers 0.016
+- 9、Torch 2.0.0（CUDA11.8）+xFormers 0.018
+- 10、Torch 2.0.1（CUDA11.8）+xFormers 0.022
+- 11、Torch 2.1.0（CUDA12.1）+xFormers 0.022post7
 
 选择版本时需要根据系统类型和显卡选择  
-在Windows系统中，Nvidia显卡选择Torch（CUDA）+xformers的版本，AMD显卡和Intel显卡选择Torch+Torch-Directml的版本  
-在Linux系统中，Nvidia显卡选择Torch（CUDA）+xformers的版本，AMD显卡选择Torch+Rocm的版本，Intel显卡选择Torch版本  
-在MacOS系统中，选择Torch版本  
-如果想要使用CPU进行跑图，选择Torch+CPU的版本
+- 在Windows系统中，Nvidia显卡选择Torch（CUDA）+xformers的版本，AMD显卡和Intel显卡选择Torch+Torch-Directml的版本  
+- 在Linux系统中，Nvidia显卡选择Torch（CUDA）+xformers的版本，AMD显卡选择Torch+Rocm的版本，Intel显卡选择Torch版本  
+- 在MacOS系统中，选择Torch版本  
+- 如果想要使用CPU进行跑图，选择Torch+CPU的版本
 
 ### 3、pip安装模式选项
 该功能用于选择pip的安装模式，可解决某些情况下安装python软件包失败的问题，如果不在意安装时间，可以选择标准构建安装（--use-pep517），保证安装成功；选择常规安装（setup.py）也可以，安装速度会比较快，但可能会出现安装失败的问题  
@@ -196,12 +197,7 @@ Term-SD在使用安装、管理功能时，会使用准备功能来对一些操�
 
 安装前，我们需要做一些准备
 
-- 1、设置pip镜像源（推荐）
->Term-SD默认已配置该选项，可忽略
-
-首先我们在Term-SD设置选择“pip镜像源设置”，进入后可选择“官方源”和“国内镜像源”，这里非常推荐设置为“国内镜像源”（如果之前为pip设置镜像源，包括pypi源、pytorch源，则不需要再次设置“pip镜像源”）  
-
-- 2、设置代理（可选，如果没有一个质量比较好的代理时就不要设置了）
+- 1、设置代理（可选，如果没有一个质量比较好的代理时就不要设置了）
 
 如果用户有代理软件，并且代理的速度和稳定性较好，则先判断代理软件的代理工作模式，一般有TUN模式或者驱动模式的就不需要设置代理，因为这两种代理模式可以让终端环境走代理（其余模式不行）  
 但是TUN模式或者驱动模式会让所有流量走代理，而Term-SD在安装AI软件的过程中只有部分下载源需要代理，这将会造成代理流量的浪费。所以，如果代理软件有其他代理模式，最好选这些的，并查看代理软件的代理协议、ip和端口，然后在Term-SD主界面的“代理设置”里选择代理协议，填入ip和端口，回车保存，这样Term-SD就可以决定哪些流量需要走代理  
@@ -209,10 +205,17 @@ Term-SD在使用安装、管理功能时，会使用准备功能来对一些操�
 
 >在不使用代理后，需要在“代理设置”里删除代理参数，防止在代理软件关闭后出现Term-SD无法访问网络的问题  
 
-- 3、设置安装重试功能（推荐）
->Term-SD默认已配置该选项，可忽略
+- 2、设置pip镜像源（推荐）
 
-在Term-SD设置选择“命令执行监测设置”，选择启用，输入重试次数（推荐3），这时就设置好安装重试功能了，在安装AI软件时如果遇到网络不稳定导致命令执行的中断时，将会重新执行中断的命令，保证安装的顺利进行
+Term-SD默认已配置该选项，可忽略
+
+~~首先我们在Term-SD设置选择“pip镜像源设置”，进入后可选择“官方源”和“国内镜像源”，这里非常推荐设置为“国内镜像源”（如果之前为pip设置镜像源，包括pypi源、pytorch源，则不需要再次设置“pip镜像源”）~~  
+
+- 3、设置安装重试功能（推荐）
+
+Term-SD默认已配置该选项，可忽略
+
+~~在Term-SD设置选择“命令执行监测设置”，选择启用，输入重试次数（推荐3），这时就设置好安装重试功能了，在安装AI软件时如果遇到网络不稳定导致命令执行的中断时，将会重新执行中断的命令，保证安装的顺利进行~~
 
 进行上面的步骤后就可以进行AI软件的安装
 
@@ -541,7 +544,7 @@ Term-SD包含了一些扩展脚本，扩充Term-SD的功能
 /c/Python/python.exe
 /c/Program Files/Python310/python
 /d/Program Files/Python310/python.exe
-/data/data/com.termux/files/usr/bin/python3
+/usr/bin/python3
 ```
 >根据自己安装的路径来填。在Windows系统中，每个文件夹的分隔符不要使用反斜杠，Windows系统中的盘符，如“C:”，“D:”，要改成“/c”，“/d”，因为MingW64不认识这些路径符号
 
