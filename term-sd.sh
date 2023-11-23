@@ -424,6 +424,8 @@ term_sd_install()
                     echo "3" > ./term-sd/config/term-sd-watch-retry.conf
                     export term_sd_cmd_retry=3
                     term_sd_echo "Term-SD命令执行监测设置已自动设置"
+                    touch ./term-sd/config/term-sd-auto-update.lock
+                    term_sd_echo "Term-SD自动更新已自动设置"
                 else
                     term_sd_echo "Term-SD安装失败"
                     exit 1
@@ -452,6 +454,8 @@ term_sd_install()
                     echo "3" > ./term-sd/config/term-sd-watch-retry.conf
                     export term_sd_cmd_retry=3
                     term_sd_echo "Term-SD命令执行监测设置已自动设置"
+                    touch ./term-sd/config/term-sd-auto-update.lock
+                    term_sd_echo "Term-SD自动更新已自动设置"
                 else
                     term_sd_echo "Term-SD安装失败"
                     exit 1
@@ -483,6 +487,8 @@ term_sd_reinstall()
                     echo "3" > ./term-sd/config/term-sd-watch-retry.conf
                     export term_sd_cmd_retry=3
                     term_sd_echo "Term-SD命令执行监测设置已自动设置"
+                    touch ./term-sd/config/term-sd-auto-update.lock
+                    term_sd_echo "Term-SD自动更新已自动设置"
                 else
                     term_sd_echo "Term-SD安装失败"
                     exit 1
