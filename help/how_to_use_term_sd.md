@@ -127,7 +127,7 @@ Term-SD在使用安装、管理功能时，会使用准备功能来对一些操�
 ### 1、代理选项
 有以下选项：
 - 1、启用pip镜像源：Term-SD调用pip下载python软件包时使用国内镜像源进行下载
-- 2、huggingface独占代理：Term-SD安装AI软件的过程仅为huggingface下载源启用代理，减少代理流量的消耗
+- 2、huggingface/github独占代理：Term-SD安装AI软件的过程仅为huggingface/github下载源启用代理，减少代理流量的消耗
 - 3、强制使用pip：强制使用pip安装python软件包，一般只有在禁用虚拟环境后才需要启用 
 - 4、使用modelscope模型下载源：将安装时使用的huggingface模型下载源改为modelscope模型下载源（因为huggingface在国内无法直接访问）
 - 5、github镜像源自动选择：测试可用的github镜像源并选择自动选择，选择该选项后将覆盖手动设置的github镜像源
@@ -245,7 +245,7 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 #### 1、代理选项
 第一个是代理选项，共有以下选项
 - 1、启用pip镜像源：Term-SD调用pip下载python软件包时使用国内镜像源进行下载
-- 2、huggingface独占代理：Term-SD安装AI软件的过程仅为huggingface下载源启用代理，减少代理流量的消耗
+- 2、huggingface/github独占代理：Term-SD安装AI软件的过程仅为huggingface/github下载源启用代理，减少代理流量的消耗
 - 3、强制使用pip：强制使用pip安装python软件包，一般只有在禁用虚拟环境后才需要启用 
 - 4、使用modelscope模型下载源：将安装时使用的huggingface模型下载源改为modelscope模型下载源（因为huggingface在国内无法直接访问）
 - 5、github镜像源自动选择：测试可用的github镜像源并选择自动选择，选择该选项后将覆盖手动设置的github镜像源

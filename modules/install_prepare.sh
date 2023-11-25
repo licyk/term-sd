@@ -9,17 +9,19 @@ download_mirror_select()
     pip_extra_index_mirror=
     pip_find_mirror="--find-links https://download.pytorch.org/whl/torch_stable.html"
     pip_break_system_package=
-    only_hugggingface_proxy=1
+    term_sd_only_proxy=1
     use_modelscope_model=1
     github_mirror="https://github.com/term_sd_git_user/term_sd_git_repo"
     github_mirror_name="官方源(github.com)"
+    proxy_address_1=$http_proxy
+    proxy_address_2=$https_proxy
 
     download_mirror_select_dialog=$(
         dialog --erase-on-exit --notags --title "Term-SD" --backtitle "安装镜像选项" --title "Term-SD" --ok-label "确认" --no-cancel --checklist "请选择镜像\n注:\n1、当同时启用多个github镜像源时,优先选择最下面的github镜像源;勾选\"github镜像源自动选择\"时,将覆盖手动设置的github镜像源\n2、强制使用pip一般情况下不选" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "1" "启用pip镜像源(使用pip国内镜像源下载python软件包)" ON \
         "2" "强制使用pip(无视系统警告强制使用pip安装python软件包)" OFF \
         "3" "使用modelscope模型下载源(将huggingface下载源改为modelscope下载源)" ON \
-        "4" "huggingface下载源独占代理(仅在下载huggingface的模型的过程启用代理)" ON \
+        "4" "huggingface/github下载源独占代理(仅在下载huggingface/github上的文件时启用代理)" ON \
         "5" "github镜像源自动选择(测试可用的镜像源并选择自动选择)" $([ ! -z $1 ] && [ $1 = "auto_github_mirrror" ] && echo "ON" || echo "OFF") \
         "6" "启用github镜像源1(使用ghproxy镜像站下载github上的源码)" OFF \
         "7" "启用github镜像源2(使用gitclone镜像站下载github上的源码)" $([ ! -z $1 ] && [ $1 = "auto_github_mirrror" ] && echo "OFF" || echo "ON") \
@@ -42,7 +44,7 @@ download_mirror_select()
                 use_modelscope_model=0
                 ;;
             4)
-                only_hugggingface_proxy=0
+                term_sd_only_proxy=0
                 ;;
             5)
                 auto_select_github_mirror=0
@@ -168,7 +170,7 @@ term_sd_install_confirm()
     if (dialog --erase-on-exit --title "Term-SD" --backtitle "安装确认选项" --yes-label "是" --no-label "否" --yesno "是否进行安装? \n
 pip镜像源:$([ -z "$pip_extra_index_mirror" ] && echo "禁用" || echo "启用")\n
 github镜像:$github_mirror_name\n
-huggingface下载源独占代理:$([ $only_hugggingface_proxy = 0 ] && echo "启用" || echo "禁用")\n
+huggingface/github下载源独占代理:$([ $term_sd_only_proxy = 0 ] && echo "启用" || echo "禁用")\n
 使用modelscope模型下载源:$([ $use_modelscope_model = 0 ] && echo "启用" || echo "禁用")\n
 强制使用pip:$([ -z "$pip_break_system_package" ] && echo "禁用" || echo "启用")\n
 pytorch版本:$([ ! -z "$(echo $pytorch_install_version | awk '{gsub(/[=+]/, "")}1')" ] && echo $pytorch_install_version || echo "无")\n

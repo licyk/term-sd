@@ -54,15 +54,18 @@ install_comfyui()
             term_sd_echo "生成安装任务中"
             term_sd_set_install_env_value >> "$start_path/term-sd/task/comfyui_install.sh" # 环境变量
             cat "$start_path/term-sd/install/comfyui/comfyui_core.sh" >> "$start_path/term-sd/task/comfyui_install.sh" # 核心组件
-            [ ! -z "$comfyui_extension_install_select_list" ] && echo "" >> "$start_path/term-sd/task/comfyui_install.sh" && echo "__term_sd_task_sys term_sd_echo "安装插件中"" >> "$start_path/term-sd/task/comfyui_install.sh"
+            
+            [ ! -z "$comfyui_extension_install_select_list" ] && echo "" >> "$start_path/term-sd/task/comfyui_install.sh" && echo "__term_sd_task_sys term_sd_echo "安装插件中"" >> "$start_path/term-sd/task/comfyui_install.sh" && echo "__term_sd_task_sys term_sd_tmp_enable_proxy" >> "$start_path/term-sd/task/comfyui_install.sh"
             for i in $comfyui_extension_install_select_list ;do
                 cat "$start_path/term-sd/install/comfyui/comfyui_extension.sh" | grep -w $i | awk '{sub(" ON "," ") ; sub(" OFF "," ")}1' >> "$start_path/term-sd/task/comfyui_install.sh" # 插件
             done
+            [ ! -z "$comfyui_extension_install_select_list" ] && echo "__term_sd_task_sys term_sd_tmp_disable_proxy" >> "$start_path/term-sd/task/comfyui_install.sh"
 
-            [ ! -z "$comfyui_custom_node_install_select_list" ] && echo "" >> "$start_path/term-sd/task/comfyui_install.sh" && echo "__term_sd_task_sys term_sd_echo "安装自定义节点中"" >> "$start_path/term-sd/task/comfyui_install.sh" # 核心组件
+            [ ! -z "$comfyui_custom_node_install_select_list" ] && echo "" >> "$start_path/term-sd/task/comfyui_install.sh" && echo "__term_sd_task_sys term_sd_echo "安装自定义节点中"" >> "$start_path/term-sd/task/comfyui_install.sh" && echo "__term_sd_task_sys term_sd_tmp_enable_proxy" >> "$start_path/term-sd/task/comfyui_install.sh"
             for i in $comfyui_custom_node_install_select_list ;do
                 cat "$start_path/term-sd/install/comfyui/comfyui_custom_node.sh" | grep -w $i | awk '{sub(" ON "," ") ; sub(" OFF "," ")}1' >> "$start_path/term-sd/task/comfyui_install.sh" # 插件
             done
+            [ ! -z "$comfyui_custom_node_install_select_list" ] && echo "__term_sd_task_sys term_sd_tmp_disable_proxy" >> "$start_path/term-sd/task/comfyui_install.sh"
 
             if [ $use_modelscope_model = 1 ];then
                 cat "$start_path/term-sd/install/comfyui/comfyui_hf_model.sh" >> "$start_path/term-sd/task/comfyui_install.sh" # 模型

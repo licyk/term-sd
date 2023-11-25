@@ -54,10 +54,11 @@ install_sd_webui()
             term_sd_echo "生成安装任务中"
             term_sd_set_install_env_value >> "$start_path/term-sd/task/sd_webui_install.sh" # 环境变量
             cat "$start_path/term-sd/install/sd_webui/sd_webui_core.sh" >> "$start_path/term-sd/task/sd_webui_install.sh" # 核心组件
-            [ ! -z "$sd_webui_extension_install_select_list" ] && echo "" >> "$start_path/term-sd/task/sd_webui_install.sh" && echo "__term_sd_task_sys term_sd_echo "安装插件中"" >> "$start_path/term-sd/task/sd_webui_install.sh"
+            [ ! -z "$sd_webui_extension_install_select_list" ] && echo "" >> "$start_path/term-sd/task/sd_webui_install.sh" && echo "__term_sd_task_sys term_sd_echo "安装插件中"" >> "$start_path/term-sd/task/sd_webui_install.sh" && echo "__term_sd_task_sys term_sd_tmp_enable_proxy" >> "$start_path/term-sd/task/sd_webui_install.sh"
             for i in $sd_webui_extension_install_select_list ;do
                 cat "$start_path/term-sd/install/sd_webui/sd_webui_extension.sh" | grep -w $i | awk '{sub(" ON "," ") ; sub(" OFF "," ")}1' >> "$start_path/term-sd/task/sd_webui_install.sh" # 插件
             done
+            [ ! -z "$sd_webui_extension_install_select_list" ] && echo "__term_sd_task_sys term_sd_tmp_disable_proxy" >> "$start_path/term-sd/task/sd_webui_install.sh"
 
             if [ $use_modelscope_model = 1 ];then
                 cat "$start_path/term-sd/install/sd_webui/sd_webui_hf_model.sh" >> "$start_path/term-sd/task/sd_webui_install.sh" # 模型
