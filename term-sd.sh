@@ -332,7 +332,7 @@ term_sd_auto_update()
     local term_sd_remote_hash
 
     term_sd_echo "检查更新中"
-    term_sd_local_branch=$(git --git-dir="./term-sd/.git" branch | grep \* | awk -F "* " '{print $NF}') # term-sd分支
+    term_sd_local_branch=$(git --git-dir="./term-sd/.git" branch | grep \* | awk -F "*" '{gsub(/[" "]/,"") ; print $NF}') # term-sd分支
     term_sd_local_hash=$(git --git-dir="./term-sd/.git" rev-parse HEAD) # term-sd本地hash
     term_sd_remote_hash=$(git --git-dir="./term-sd/.git" ls-remote origin refs/remotes/origin/$term_sd_local_branch $term_sd_local_branch) # term-sd远程hash
     if [ $? = 0 ];then # 网络连接正常时再进行更新
