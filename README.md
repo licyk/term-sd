@@ -62,14 +62,9 @@ _！Windows平台可阅读图文版[《Windows平台如何配置Term-SD运行环
 
 - 4、安装aria2  
 前往[aira2官网](http://aria2.github.io/)  
-点击`Download version`进入下载页面，找到`aria2-xx版本-win-64bit-build1.zip`点击下载，解压得到`aria2c.exe`
-在系统的某个位置创建一个文件夹，得到一个路径，比如D:\Program Files\aria2，记下来，将aria2c.exe放入文件夹  
-按下“win+R”快捷键，打开运行对话框，输入指令：  
-```
-sysdm.cpl
-```
-打开`系统属性`窗体后，依次点击选项卡`高级`->`环境变量`  
-在`系统变量`部分点双击`Path`，点击`新建`，把刚刚记下来的路径粘贴上去，然后一直点确定直至完成  
+点击`Download version`进入下载页面，找到`aria2-xx版本-win-64bit-build1.zip`  
+点击下载，解压得到一个`aria2c.exe`（Windows系统需要启用`显示文件扩展名`，才能看见文件的扩展名）  
+然后打开MSYS2的安装路径（刚刚安装的路径是`C:\msys64`），然后进入`usr`文件夹，再进入`bin`文件夹，将aria2c.exe放入文件夹中  
 
 - 5、配置Windows终端  
 >Windows10需在开始菜单中找到`micorsoft store`，搜索`Windows Terminal`进行安装
