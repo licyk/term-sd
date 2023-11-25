@@ -215,8 +215,8 @@ term_sd_proxy_setting()
     case $term_sd_proxy_setting_dialog in
         1)
             term_sd_proxy_config=$(dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入代理地址\n格式:<ip>:<port>" $term_sd_dialog_height $term_sd_dialog_width "$(echo $http_proxy | awk -F'://' '{print $NF}')" 3>&1 1>&2 2>&3)
-            term_sd_proxy_config=$(echo $term_sd_proxy_config | awk '{gsub(/[：]/, ":") ; gsub(/[。]/, ".")}1') # 防止用户输入中文冒号,句号后导致错误
-            if [ $? = 0 ];then
+            if [ $? = 0 ] && [ ! -z "$term_sd_proxy_config" ];then
+                term_sd_proxy_config=$(echo $term_sd_proxy_config | awk '{gsub(/[：]/, ":") ; gsub(/[。]/, ".")}1') # 防止用户输入中文冒号,句号后导致错误
                 http_proxy="http://$term_sd_proxy_config"
                 https_proxy="http://$term_sd_proxy_config"
                 echo "http://$term_sd_proxy_config" > ./term-sd/config/proxy.conf
@@ -226,8 +226,8 @@ term_sd_proxy_setting()
             ;;
         2)
             term_sd_proxy_config=$(dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入代理地址\n格式:<ip>:<port>" $term_sd_dialog_height $term_sd_dialog_width "$(echo $http_proxy | awk -F'://' '{print $NF}')" 3>&1 1>&2 2>&3)
-            term_sd_proxy_config=$(echo $term_sd_proxy_config | awk '{gsub(/[：]/, ":") ; gsub(/[。]/, ".")}1') # 防止用户输入中文冒号,句号后导致错误
-            if [ $? = 0 ];then
+            if [ $? = 0 ] && [ ! -z "$term_sd_proxy_config" ];then
+                term_sd_proxy_config=$(echo $term_sd_proxy_config | awk '{gsub(/[：]/, ":") ; gsub(/[。]/, ".")}1') # 防止用户输入中文冒号,句号后导致错误
                 http_proxy="socks://$term_sd_proxy_config"
                 https_proxy="socks://$term_sd_proxy_config"
                 echo "socks://$term_sd_proxy_config" > ./term-sd/config/proxy.conf
@@ -237,8 +237,8 @@ term_sd_proxy_setting()
             ;;
         3)
             term_sd_proxy_config=$(dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入代理地址\n格式:<ip>:<port>" $term_sd_dialog_height $term_sd_dialog_width "$(echo $http_proxy | awk -F'://' '{print $NF}')" 3>&1 1>&2 2>&3)
-            term_sd_proxy_config=$(echo $term_sd_proxy_config | awk '{gsub(/[：]/, ":") ; gsub(/[。]/, ".")}1') # 防止用户输入中文冒号,句号后导致错误
-            if [ $? = 0 ];then
+            if [ $? = 0 ] && [ ! -z "$term_sd_proxy_config" ];then
+                term_sd_proxy_config=$(echo $term_sd_proxy_config | awk '{gsub(/[：]/, ":") ; gsub(/[。]/, ".")}1') # 防止用户输入中文冒号,句号后导致错误
                 http_proxy="socks5://$term_sd_proxy_config"
                 https_proxy="socks5://$term_sd_proxy_config"
                 echo "socks5://$term_sd_proxy_config" > ./term-sd/config/proxy.conf

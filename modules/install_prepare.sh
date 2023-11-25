@@ -186,7 +186,7 @@ pip安装方式:$([ -z $pip_install_mode ] && echo "常规安装(setup.py)" || e
 github_mirror_test()
 {
     # 镜像源列表
-    local github_mirror_list="https://ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo https://gitclone.com/github.com/term_sd_git_user/term_sd_git_repo https://gh-proxy.com/https://github.com/term_sd_git_user/term_sd_git_repo https://ghps.cc/https://github.com/term_sd_git_user/term_sd_git_repo https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo"
+    local github_mirror_list="https://ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo https://gh-proxy.com/https://github.com/term_sd_git_user/term_sd_git_repo https://ghps.cc/https://github.com/term_sd_git_user/term_sd_git_repo https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo https://gitclone.com/github.com/term_sd_git_user/term_sd_git_repo"
     local github_mirror_avaliable=1
     local git_req
     local http_proxy
