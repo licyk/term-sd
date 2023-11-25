@@ -61,7 +61,7 @@ _！Windows平台可阅读图文版[《Windows平台如何配置Term-SD运行环
 >python安装器在安装python时同时安装pip，一般不需要手动再去安装pip
 
 - 4、安装aria2  
-前往[aira2官网](http://aria2.github.io/)  
+前往[aria2官网](http://aria2.github.io/)  
 点击`Download version`进入下载页面，找到`aria2-xx版本-win-64bit-build1.zip`  
 点击下载，解压得到一个`aria2c.exe`（Windows系统需要启用`显示文件扩展名`，才能看见文件的扩展名）  
 然后打开MSYS2的安装路径（刚刚安装的路径是`C:\msys64`），然后进入`usr`文件夹，再进入`bin`文件夹，将aria2c.exe放入文件夹中  
@@ -104,7 +104,7 @@ pacman -S dialog curl
 
 Debian(Ubuntu)系：  
 ```
-sudo apt install python3 python3-pip python3-venv git aira2 dialog curl
+sudo apt install python3 python3-pip python3-venv git aria2 dialog curl
 ```
 ArchLinux系：  
 ```
