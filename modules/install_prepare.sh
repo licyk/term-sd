@@ -189,6 +189,10 @@ github_mirror_test()
     local github_mirror_list="https://ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo https://gh-proxy.com/https://github.com/term_sd_git_user/term_sd_git_repo https://ghps.cc/https://github.com/term_sd_git_user/term_sd_git_repo https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo https://gitclone.com/github.com/term_sd_git_user/term_sd_git_repo"
     local github_mirror_avaliable=1
     local git_req
+    local http_proxy
+    local https_proxy
+    http_proxy= # 临时清除配置好的代理,防止干扰测试
+    https_proxy=
     for i in $github_mirror_list ;do
         git clone $(git_format_repository_url $i https://github.com/licyk/empty) "$start_path/term-sd/github_mirror_test" --depth=1 > /dev/null 2>&1 # 测试镜像源是否正常连接
         git_req=$?

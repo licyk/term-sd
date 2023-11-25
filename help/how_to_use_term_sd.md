@@ -275,7 +275,10 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 在MacOS系统中，选择Torch版本  
 如果想要使用CPU进行跑图，选择Torch+CPU的版本
 
-#### 3、pip安装模式选择
+#### 3、插件选择
+第四个是插件选择，Term-SD默认已经勾选一些比较有用的插件，可以根据个人需求进行选择
+
+#### 4、pip安装模式选择
 第三个是pip包管理器的安装模式选择，共有2种模式
 - 1、常规安装（setup.py）：使用传统方式进行安装，默认使用二进制软件包进行安装，速度较快
 - 2、标准构建安装（--use-pep517）：使用标准编译安装，使用源码编译成二进制软件包再进行安装，耗时比较久，但可以解决一些python软件包安装失败的问题
@@ -283,9 +286,6 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 一般使用常规安装（setup.py）就行，如果想要保证安装成功，可以选择标准构建安装（--use-pep517）
 
 >在Linux系统中使用常规安装（setup.py）可能会出现安装失败的问题，所以推荐使用标准构建安装（--use-pep517）
-
-#### 4、插件选择
-第四个是插件选择，Term-SD默认已经勾选一些比较有用的插件，可以根据个人需求进行选择
 
 #### 5、安装确认
 最后一个是安装确认，选择“是”开始安装  
@@ -304,14 +304,14 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 #### 2、pytorch版本选择
 和AUTOMATIC1111-stable-diffusion-webui的选择方法相同
 
-#### 3、pip安装模式选择
-和AUTOMATIC1111-stable-diffusion-webui的选择方法相同
-
-#### 4、插件安装
+#### 3、插件安装
 第四个是插件选择，Term-SD默认已经勾选一些比较有用的插件，可以根据个人需求进行选择
 
-#### 5、自定义节点安装
+#### 4、自定义节点安装
 第五个是自定义节点选择，Term-SD默认已经勾选一些比较有用的插件，可以根据个人需求进行选择
+
+#### 5、pip安装模式选择
+和AUTOMATIC1111-stable-diffusion-webui的选择方法相同
 
 #### 6、安装确认
 最后一个是安装确认，选择“是”开始安装  
