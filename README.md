@@ -163,7 +163,7 @@ brew install git aria2 dialog python@3.10 rust cmake protobuf wget gawk curl
 - 1、下载Term-SD  
 打开终端，输入以下命令下载Term-SD
 ```
-aria2c https://raw.githubusercontent.com/licyk/sd-webui-script/main/term-sd.sh && chmod +x term-sd.sh
+aria2c https://github.com/licyk/term-sd/raw/main/term-sd.sh && chmod +x term-sd.sh
 ```
 如果下载失败可以打开科学上网，再输入刚才的指令，或者使用gitlab仓库地址下载  
 ```
