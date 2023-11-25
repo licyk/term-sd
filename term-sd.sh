@@ -424,6 +424,8 @@ term_sd_install()
                     echo "3" > ./term-sd/config/term-sd-watch-retry.conf
                     export term_sd_cmd_retry=3
                     term_sd_echo "Term-SD命令执行监测设置已自动设置"
+                    touch ./term-sd/config/term-sd-auto-update.lock
+                    term_sd_echo "Term-SD自动更新已自动设置"
                 else
                     term_sd_echo "Term-SD安装失败"
                     exit 1
@@ -452,6 +454,8 @@ term_sd_install()
                     echo "3" > ./term-sd/config/term-sd-watch-retry.conf
                     export term_sd_cmd_retry=3
                     term_sd_echo "Term-SD命令执行监测设置已自动设置"
+                    touch ./term-sd/config/term-sd-auto-update.lock
+                    term_sd_echo "Term-SD自动更新已自动设置"
                 else
                     term_sd_echo "Term-SD安装失败"
                     exit 1
@@ -483,6 +487,8 @@ term_sd_reinstall()
                     echo "3" > ./term-sd/config/term-sd-watch-retry.conf
                     export term_sd_cmd_retry=3
                     term_sd_echo "Term-SD命令执行监测设置已自动设置"
+                    touch ./term-sd/config/term-sd-auto-update.lock
+                    term_sd_echo "Term-SD自动更新已自动设置"
                 else
                     term_sd_echo "Term-SD安装失败"
                     exit 1
@@ -607,7 +613,7 @@ set_python_path()
 term_sd_print_line "Term-SD"
 term_sd_echo "Term-SD初始化中"
 
-export term_sd_version_info="1.0.11" # term-sd版本
+export term_sd_version_info="1.0.12" # term-sd版本
 export user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题
@@ -639,6 +645,16 @@ case $term_sd_env_prepare_info in
         term_sd_launch_args_manager "$@" # 处理用户输入的参数
         ;;
 esac
+
+# 目录结构检测,防止用户直接运行Term-SD目录内的term-sd.sh
+if [ ! -d "./term-sd" ] && [ -d "./.git" ] && [ -d "./modules" ] && [ -f "./modules/init.sh" ] && [ -d "./extra" ];then
+    term_sd_echo "检测到目录错误"
+    term_sd_echo "禁止用户直接在Term-SD目录里运行Term-SD"
+    term_sd_echo "请将term-sd.sh文件复制到Term-SD目录外面(和Term-SD目录放在一起)"
+    term_sd_echo "再运行目录外面的term-sd.sh"
+    term_sd_echo "退出Term-SD"
+    exit 1
+fi
 
 # dialog使用文档https://manpages.debian.org/bookworm/dialog/dialog.1.en.html
 # 设置dialog界面的大小
@@ -695,22 +711,6 @@ else
     export aria2_multi_threaded="-x 1"
 fi
 
-# term-sd设置路径环境变量
-if [ ! -f "./term-sd/config/disable-cache-path-redirect.lock" ];then
-    export CACHE_HOME="$start_path/term-sd/cache"
-    export HF_HOME="$start_path/term-sd/cache/huggingface"
-    export MATPLOTLIBRC="$start_path/term-sd/cache"
-    export MODELSCOPE_CACHE="$start_path/term-sd/cache/modelscope/hub"
-    export MS_CACHE_HOME="$start_path/term-sd/cache/modelscope/hub"
-    export SYCL_CACHE_DIR="$start_path/term-sd/cache/libsycl_cache"
-    export TORCH_HOME="$start_path/term-sd/cache/torch"
-    export U2NET_HOME="$start_path/term-sd/cache/u2net"
-    export XDG_CACHE_HOME="$start_path/term-sd/cache"
-    export PIP_CACHE_DIR="$start_path/term-sd/cache/pip"
-    export PYTHONPYCACHEPREFIX="$start_path/term-sd/cache/pycache"
-    # export TRANSFORMERS_CACHE="$start_path/term-sd/cache/huggingface/transformers"
-fi
-
 # 设置虚拟环境
 if [ -f "./term-sd/config/term-sd-venv-disable.lock" ];then # 找到term-sd-venv-disable.lock文件,禁用虚拟环境
     export venv_setup_status="1"
@@ -746,16 +746,6 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
     0)
         ;;
     *)
-        # 目录结构检测,防止用户直接运行Term-SD目录内的term-sd.sh
-        if [ ! -d "./term-sd" ] && [ -d "./.git" ] && [ -d "./modules" ] && [ -f "./modules/init.sh" ] && [ -d "./extra" ] && [ -d "./other" ];then
-            term_sd_echo "检测到目录错误"
-            term_sd_echo "禁止用户直接在Term-SD目录里运行Term-SD"
-            term_sd_echo "请将term-sd.sh文件复制到Term-SD目录外面(和Term-SD目录放在一起)"
-            term_sd_echo "再运行目录外面的term-sd.sh"
-            term_sd_echo "退出Term-SD"
-            exit 1
-        fi
-
         term_sd_echo "检测依赖软件是否安装"
         term_sd_depend="git aria2c dialog curl" # term-sd依赖软件包
         term_sd_depend_macos="wget rustc cmake brew protoc gawk" # term-sd依赖软件包(MacOS)
@@ -852,6 +842,23 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
         fi
         ;;
 esac
+
+# 放在依赖检测之后,解决一些奇怪的问题
+# term-sd设置路径环境变量
+if [ ! -f "./term-sd/config/disable-cache-path-redirect.lock" ];then
+    export CACHE_HOME="$start_path/term-sd/cache"
+    export HF_HOME="$start_path/term-sd/cache/huggingface"
+    export MATPLOTLIBRC="$start_path/term-sd/cache"
+    export MODELSCOPE_CACHE="$start_path/term-sd/cache/modelscope/hub"
+    export MS_CACHE_HOME="$start_path/term-sd/cache/modelscope/hub"
+    export SYCL_CACHE_DIR="$start_path/term-sd/cache/libsycl_cache"
+    export TORCH_HOME="$start_path/term-sd/cache/torch"
+    export U2NET_HOME="$start_path/term-sd/cache/u2net"
+    export XDG_CACHE_HOME="$start_path/term-sd/cache"
+    export PIP_CACHE_DIR="$start_path/term-sd/cache/pip"
+    export PYTHONPYCACHEPREFIX="$start_path/term-sd/cache/pycache"
+    # export TRANSFORMERS_CACHE="$start_path/term-sd/cache/huggingface/transformers"
+fi
 
 #############################
 

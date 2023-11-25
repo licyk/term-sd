@@ -495,6 +495,8 @@ Term-SD包含了一些扩展脚本，扩充Term-SD的功能
 - 2、list：列出可用的扩展脚本
 - 3、invokeai-model-download：下载InvokeAI模型，包含controlnet模型和部分大模型模型，解决使用官方配置程序因无法访问huggingface而下载失败的问题
 - 4、install-pytorch-ipex：安装Pytorch IPEX到AI软件的依赖库中，使AI软件能够调用显卡来运行
+- 5、download-sd-webui-extension：下载stable-diffusion-webui插件
+- 6、download-comfyui-extension：下载ComfyUI插件
 
 >如果需要使用扩展脚本，则在启动Term-SD前加入“--extra”启动参数即可使用扩展脚本
 
