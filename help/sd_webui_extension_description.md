@@ -252,3 +252,7 @@ AUTOMATIC1111-stable-diffusion-webui插件说明：
 63、sd-webui-lobe-theme：
 描述：webui主题
 链接：https://github.com/lobehub/sd-webui-lobe-theme
+
+64、stable-diffusion-webui-GPU-temperature-protection：
+描述：显卡过热保护
+链接：https://github.com/w-e-w/stable-diffusion-webui-GPU-temperature-protection
