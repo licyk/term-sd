@@ -491,7 +491,7 @@ term_sd_network_test()
     local count
     local sum
     count=1
-    network_test_url="google.com huggingface.co modelscope.cn github.com ghproxy.com gitclone.com gh-proxy.com ghps.cc gh.idayer.com"
+    network_test_url="google.com huggingface.co modelscope.cn github.com mirror.ghproxy.com gitclone.com gh-proxy.com ghps.cc gh.idayer.com"
     sum=$(echo $network_test_url | wc -w)
     term_sd_echo "获取网络信息"
     [ -f "./term-sd/task/ipinfo.sh" ] && rm -f ./term-sd/task/ipinfo.sh

@@ -42,6 +42,7 @@ install_fooocus()
         term_sd_echo "Fooocus安装结束"
         rm -f "$start_path/term-sd/task/fooocus_install.sh" # 删除任务文件
         rm -f "$start_path/term-sd/task/cache.sh"
+        dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus安装结果" --ok-label "确认" --msgbox "Fooocus安装结束,选择确定进入管理界面" $term_sd_dialog_height $term_sd_dialog_width
         fooocus_manager # 进入管理界面
     else # 生成安装任务并执行安装任务
         # 安装前的准备
@@ -97,6 +98,7 @@ install_fooocus()
             term_sd_echo "Fooocus安装结束"
             rm -f "$start_path/term-sd/task/fooocus_install.sh" # 删除任务文件
             rm -f "$start_path/term-sd/task/cache.sh"
+            dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus安装结果" --ok-label "确认" --msgbox "Fooocus安装结束,选择确定进入管理界面" $term_sd_dialog_height $term_sd_dialog_width
             fooocus_manager # 进入管理界面
         fi
     fi

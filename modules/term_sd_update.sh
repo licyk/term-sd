@@ -67,8 +67,8 @@ term_sd_remote_revise()
         "1" "> github源" \
         "2" "> gitlab源" \
         "3" "> gitee源" \
-        "4" "> 代理源1(ghproxy.com)" \
-        "5" "> 代理源2(gitclone.com)" \
+        "4" "> jihulab源" \
+        "5" "> 代理源(ghproxy.com)" \
         3>&1 1>&2 2>&3)
     
     case $term_sd_remote_revise_dialog in
@@ -88,12 +88,12 @@ term_sd_remote_revise()
             term_sd_remote_revise
             ;;
         4)
-            git --git-dir="./term-sd/.git" remote set-url origin "https://ghproxy.com/github.com/licyk/term-sd"
+            git --git-dir="./term-sd/.git" remote set-url origin "https://jihulab.com/licyk/term-sd"
             dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD更新源切换选项" --ok-label "确认" --msgbox "Term-SD更新源切换完成" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_remote_revise
             ;;
         5)
-            git --git-dir="./term-sd/.git" remote set-url origin "https://gitclone.com/github.com/licyk/term-sd"
+            git --git-dir="./term-sd/.git" remote set-url origin "https://mirror.ghproxy.com/github.com/licyk/term-sd"
             dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD更新源切换选项" --ok-label "确认" --msgbox "Term-SD更新源切换完成" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_remote_revise
             ;;

@@ -44,7 +44,7 @@ git_remote_url_select()
         dialog --erase-on-exit --notags --title "Term-SD" --backtitle "更新源选择界面" --ok-label "确认" --cancel-label "取消" --menu "选择要修改成的更新源\n当前将要修改更新源的AI软件:$term_sd_manager_info" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> 官方源(github.com)" \
-        "2" "> 代理源1(ghproxy.com)" \
+        "2" "> 代理源1(mirror.ghproxy.com)" \
         "3" "> 代理源2(gitclone.com)" \
         "4" "> 代理源3(gh-proxy.com)" \
         "5" "> 代理源4(ghps.cc)" \
@@ -59,7 +59,7 @@ git_remote_url_select()
             ;;
         2)
             term_sd_print_line "更新源一键替换"
-            git_repo_remote_revise_cmd="git_repo_remote_revise https://ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo"
+            git_repo_remote_revise_cmd="git_repo_remote_revise https://mirror.ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo"
             return 0
             ;;
         3)
@@ -100,7 +100,7 @@ git_remote_url_select_single()
             dialog --erase-on-exit --notags --title "Term-SD" --backtitle "更新源选择界面" --ok-label "确认" --cancel-label "取消" --menu "选择要修改成的更新源\n当前更新源:$(git remote -v | awk 'NR==1 {print $2}')" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
             "0" "> 返回" \
             "1" "> 官方源(github.com)" \
-            "2" "> 代理源1(ghproxy.com)" \
+            "2" "> 代理源1(mirror.ghproxy.com)" \
             "3" "> 代理源2(gitclone.com)" \
             "4" "> 代理源3(gh-proxy.com)" \
             "5" "> 代理源4(ghps.cc)" \
@@ -113,7 +113,7 @@ git_remote_url_select_single()
                 dialog --erase-on-exit --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n${term_sd_delimiter}\n$git_repo_remote_revise_req${term_sd_delimiter}" $term_sd_dialog_height $term_sd_dialog_width
                 ;;
             2)
-                git_repo_remote_revise https://ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo
+                git_repo_remote_revise https://mirror.ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo
                 dialog --erase-on-exit --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n${term_sd_delimiter}\n$git_repo_remote_revise_req${term_sd_delimiter}" $term_sd_dialog_height $term_sd_dialog_width
                 ;;
             3)

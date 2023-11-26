@@ -42,6 +42,7 @@ install_sd_webui()
         term_sd_echo "stable-diffusion-webui安装结束"
         rm -f "$start_path/term-sd/task/sd_webui_install.sh" # 删除任务文件
         rm -f "$start_path/term-sd/task/cache.sh"
+        dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI安装结果" --ok-label "确认" --msgbox "Stable-Diffusion-WebUI安装结束,选择确定进入管理界面" $term_sd_dialog_height $term_sd_dialog_width
         sd_webui_manager # 进入管理界面
     else # 生成安装任务并执行安装任务
         # 安装前的准备
@@ -109,6 +110,7 @@ install_sd_webui()
             term_sd_echo "stable-diffusion-webui安装结束"
             rm -f "$start_path/term-sd/task/sd_webui_install.sh" # 删除任务文件
             rm -f "$start_path/term-sd/task/cache.sh"
+            dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI安装结果" --ok-label "确认" --msgbox "Stable-Diffusion-WebUI安装结束,选择确定进入管理界面" $term_sd_dialog_height $term_sd_dialog_width
             sd_webui_manager # 进入管理界面
         fi
     fi

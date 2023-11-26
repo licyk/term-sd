@@ -374,8 +374,8 @@ term_sd_install_mirror_select()
     term_sd_echo "1、github源"
     term_sd_echo "2、gitlab源"
     term_sd_echo "3、gitee源"
-    term_sd_echo "4、代理源1(ghproxy.com)"
-    term_sd_echo "5、代理源2(gitclone.com)"
+    term_sd_echo "4、jihulab源"
+    term_sd_echo "5、代理源(mirror.ghproxy.com)"
     term_sd_echo "提示:输入数字后回车"
     case $(term_sd_read) in
         1)
@@ -391,12 +391,12 @@ term_sd_install_mirror_select()
             term_sd_install_mirror="https://gitee.com/four-dishes/term-sd"
             ;;
         4)
-            term_sd_echo "选择代理源1(ghproxy.com)"
-            term_sd_install_mirror="https://ghproxy.com/github.com/licyk/term-sd"
+            term_sd_echo "选择jihulab源"
+            term_sd_install_mirror="https://jihulab.com/licyk/term-sd"
             ;;
         5)
-            term_sd_echo "选择代理源2(gitclone.com)"
-            term_sd_install_mirror="https://gitclone.com/github.com/licyk/term-sd"
+            term_sd_echo "选择代理源(mirror.ghproxy.com)"
+            term_sd_install_mirror="https://mirror.ghproxy.com/github.com/licyk/term-sd"
             ;;
         *)
             term_sd_echo "输入有误,请重试"
@@ -613,7 +613,7 @@ set_python_path()
 term_sd_print_line "Term-SD"
 term_sd_echo "Term-SD初始化中"
 
-export term_sd_version_info="1.0.13" # term-sd版本
+export term_sd_version_info="1.0.14" # term-sd版本
 export user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题
