@@ -62,3 +62,4 @@ __term_sd_task_pre_ext_61 git_clone_repository ${github_mirror} https://github.c
 __term_sd_task_pre_ext_62 git_clone_repository ${github_mirror} https://github.com/NVIDIA/Stable-Diffusion-WebUI-TensorRT stable-diffusion-webui/extensions OFF # nvidia官方加速工具，加速图片生成
 __term_sd_task_pre_ext_63 git_clone_repository ${github_mirror} https://github.com/lobehub/sd-webui-lobe-theme stable-diffusion-webui/extensions OFF # webui主题
 __term_sd_task_pre_ext_64 git_clone_repository ${github_mirror} https://github.com/w-e-w/stable-diffusion-webui-GPU-temperature-protection stable-diffusion-webui/extensions OFF # 显卡过热保护
+__term_sd_task_pre_ext_65 git_clone_repository ${github_mirror} https://github.com/huchenlei/sd-webui-api-payload-display stable-diffusion-webui/extensions OFF # 生图完成后展示api参数

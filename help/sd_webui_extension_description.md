@@ -256,3 +256,7 @@ AUTOMATIC1111-stable-diffusion-webui插件说明：
 64、stable-diffusion-webui-GPU-temperature-protection：
 描述：显卡过热保护
 链接：https://github.com/w-e-w/stable-diffusion-webui-GPU-temperature-protection
+
+65、sd-webui-api-payload-display：
+描述：生图完成后展示api参数
+链接：https://github.com/huchenlei/sd-webui-api-payload-display

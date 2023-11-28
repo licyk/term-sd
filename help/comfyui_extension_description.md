@@ -180,3 +180,7 @@ ComfyUI插件/自定义节点说明：
 42、FreeU_Advanced：
 描述：生图加速
 链接：https://github.com/WASasquatch/FreeU_Advanced
+
+43、ControlNet-LLLite-ComfyUI：
+描述：添加ControlNet-LLLite支持
+链接：https://github.com/kohya-ss/ControlNet-LLLite-ComfyUI

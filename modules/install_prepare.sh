@@ -24,7 +24,7 @@ download_mirror_select()
         "4" "huggingface/github下载源独占代理(仅在下载huggingface/github上的文件时启用代理)" ON \
         "5" "github镜像源自动选择(测试可用的镜像源并选择自动选择)" $([ ! -z $1 ] && [ $1 = "auto_github_mirrror" ] && echo "ON" || echo "OFF") \
         "6" "启用github镜像源1(使用ghproxy镜像站下载github上的源码)" $([ ! -z $1 ] && [ $1 = "auto_github_mirrror" ] && echo "OFF" || echo "ON") \
-        "7" "启用github镜像源2(使用gitclone镜像站下载github上的源码)"OFF  \
+        "7" "启用github镜像源2(使用gitclone镜像站下载github上的源码)" OFF  \
         "8" "启用github镜像源3(使用gh-proxy镜像站下载github上的源码)" OFF \
         "9" "启用github镜像源4(使用ghps镜像站下载github上的源码)" OFF \
         "10" "启用github镜像源5(使用gh.idayer镜像站下载github上的源码)" OFF \
