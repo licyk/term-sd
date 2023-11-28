@@ -36,7 +36,7 @@ comfyui_manager()
                 comfyui_launch
                 comfyui_manager
                 ;;
-            1)
+            2)
                 term_sd_echo "更新ComfyUI中"
                 git_pull_repository
                 case $? in
