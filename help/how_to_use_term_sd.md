@@ -1,7 +1,6 @@
 # Tern-SD使用教程
 
 ## Term-SD的初始化
-
 Term-SD在下载好后，只会有一个基础的配置脚本“term-sd.sh”，当运行这个配置脚本时，Term-SD会检测运行所需依赖。当检测到缺少依赖时，Term-SD会提示用户需要去安装的依赖，并自动退出，这时候需要用户检查这些依赖是否安装，并且把缺失的依赖装上  
 当检测到依赖都安装时，脚本会提示用户安装Term-SD的完整组件
 
@@ -12,8 +11,8 @@ Term-SD在下载好后，只会有一个基础的配置脚本“term-sd.sh”，
 - 1、github源
 - 2、gitee源
 - 3、gitlab源
-- 4、代理源1(ghproxy.com)
-- 5、代理源2(gitclone.com)
+- 4、jihulab源
+- 5、代理源(ghproxy.com)
 
 一般情况下选择任意一种都可以进行下载  
 如果下载失败，Term-SD将会自动退出，这时再次运行Term-SD，选择其他下载源来重新下载  
@@ -22,7 +21,6 @@ Term-SD在下载好后，只会有一个基础的配置脚本“term-sd.sh”，
 ***
 
 ## Term-SD的主界面介绍
-
 Term-SD在成功启动后，首先显示的是各个组件的版本信息，选择确定后就进入Term-SD的主界面  
 主界面有以下选项
 - 1、Term-SD更新管理：管理，修复Term-SD的更新
@@ -31,13 +29,13 @@ Term-SD在成功启动后，首先显示的是各个组件的版本信息，选�
 - 4、InvokeAI管理：包含各种InvokeAI的管理功能
 - 5、Fooocus管理：包含各种Fooocus的管理功能
 - 6、lora-scripts管理：包含各种lora-scripts的管理功能
+- 7、kohya_ss管理：包含各种kohya_ss的管理功能
 - 7、设置：包含Term-SD各种设置
 - 8、帮助：Term-SD的各种帮助文档
 
 ***
 
 ## Term-SD更新管理
-
 该功能用于对Term-SD自身的更新等进行管理，共有以下选项
 - 1、更新：更新Term-SD
 - 2、切换更新源：Term-SD有多个下载源，用于解决某些更新源更新慢或者无法更新的问题，一般来说github源的版本变化较快，其他源的版本变化会有延后（大约延迟一天，因为其他源每隔一天同步一次github仓库）
@@ -48,7 +46,6 @@ Term-SD在成功启动后，首先显示的是各个组件的版本信息，选�
 ***
 
 ## Term-SD设置
-
 该界面提供以下设置：
 
 ### 虚拟环境设置
@@ -120,7 +117,6 @@ Term-SD在成功启动后，首先显示的是各个组件的版本信息，选�
 ***
 
 ## Term-SD的准备功能
-
 Term-SD在使用安装、管理功能时，会使用准备功能来对一些操作进行准备工作，共有以下功能
 >这些功能会经常出现
 
@@ -194,7 +190,6 @@ Term-SD在使用安装、管理功能时，会使用准备功能来对一些操�
 ***
 
 ## 使用Term-SD安装AI软件前的准备
-
 安装前，我们需要做一些准备
 
 - 1、设置代理（可选，如果没有一个质量比较好的代理时就不要设置了）
@@ -222,7 +217,6 @@ Term-SD默认已配置该选项，可忽略
 ***
 
 ## Term-SD安装功能
-
 Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-scripts，在Term-SD的主界面对应下面的选项
 - 1、AUTOMATIC1111-stable-diffusion-webui管理
 - 2、ComfyUI管理
@@ -236,7 +230,6 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 >2、当AI软件安装好后，能启动且无报错时，最好使用“依赖库版本管理”将依赖库的软件包版本备份下来，当AI软件因为软件包版本问题导致AI软件出现报错时就可以用这个功能恢复原来的依赖库版本
 
 ### AUTOMATIC1111-stable-diffusion-webui安装
-
 >AUTOMATIC1111-stable-diffusion-webui是一款功能丰富，社区资源丰富的ai绘画软件，支持扩展
 
 选中AUTOMATIC1111-stable-diffusion-webui管理后，Term-SD会检测该ai是否安装，如果没有安装，Term-SD会提示用户是否进行安装  
@@ -292,7 +285,6 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 安装时间根据网络速度和电脑性能决定
 
 ### ComfyUI安装
-
 >ComfyUI是一款节点式操作的ai绘画软件，上手难度较高，但是节点赋予ComfyUI更高的操作上限，且支持将节点工作流保存成文件，支持扩展。同时ComfyUI让用户更好的理解ai绘画的工作原理
 
 选中ComfyUI管理后，Term-SD会检测该ai是否安装，如果没有安装，Term-SD会提示用户是否进行安装  
@@ -320,7 +312,6 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 >在安装结束后，如果有安装插件/自定义节点的，需要在插件管理/自定义节点管理里运行安装全部插件依赖/安装全部自定义节点依赖，保证插件/自定义节点的正常运行（因为ComfyUI并没有AUTOMATIC1111-stable-diffusion-webui自动为插件安装依赖的功能）
 
 ### InvokeAI安装
-
 >InvokeAI是一款操作界面简单的ai绘画软件，功能较少，但拥有特色功能“统一画布”，用户可以在画布上不断扩展图片的大小
 
 选中InvokeAI管理后，Term-SD会检测该ai是否安装，如果没有安装，Term-SD会提示用户是否进行安装  
@@ -342,7 +333,6 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 >安装完成后，在启动选项需要选择`(configure --skip-sd-weights)`进行配置，配置完成后再选择`(web)`启动webui界面
 
 ### Fooocus安装
-
 >Fooocus是一款专为SDXL模型优化的ai绘画软件，界面简单，让使用者可以专注于提示词的书写，而且有着非常强的内存优化和速度优化，强于其他同类webui。
 
 选中Fooocus管理后，Term-SD会检测该ai是否安装，如果没有安装，Term-SD会提示用户是否进行安装  
@@ -362,7 +352,6 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 安装时间根据网络速度和电脑性能决定
 
 ### lora-scripts安装
-
 >lora-scripts是一款ai模型训练工具，支持训练lora模型、dreambooth模型
 
 选中lora-scripts管理后，Term-SD会检测该ai是否安装，如果没有安装，Term-SD会提示用户是否进行安装  
@@ -381,10 +370,28 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 最后一个是安装确认，选择“是”开始安装  
 安装时间根据网络速度和电脑性能决定
 
+### kohya_ss安装
+>kohya_ss是一款ai模型训练工具，支持训练lora、dreambooth、Finetune、Train Network模型
+
+选中kohya_ss管理后，Term-SD会检测该ai是否安装，如果没有安装，Term-SD会提示用户是否进行安装  
+选择“是”之后，Term-SD会进入安装准备选项
+
+#### 1、代理选项
+和AUTOMATIC1111-stable-diffusion-webui的选择方法相同
+
+#### 2、pytorch版本选择
+和AUTOMATIC1111-stable-diffusion-webui的选择方法相同
+
+#### 3、pip安装模式选择
+和AUTOMATIC1111-stable-diffusion-webui的选择方法相同
+
+#### 4、安装确认
+最后一个是安装确认，选择“是”开始安装  
+安装时间根据网络速度和电脑性能决定
+
 ***
 
 ## Term-SD管理功能
-
 当AI软件成功安装后，就可以使用Term-SD的管理功能来启动或者管理ai了  
 在5个ai管理界面中，包含一些功能对ai进行管理
 

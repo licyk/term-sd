@@ -182,15 +182,15 @@ sd_webui_remote_revise()
 # ComfyUI远程源替换功能
 comfyui_remote_revise()
 {
-    git_remote_url_select #选择更新源
+    git_remote_url_select # 选择更新源
 
     if [ $? = 0 ];then
         term_sd_echo "开始替换ComfyUI更新源"
-        #执行替换功能
-        #主体部分
+        # 执行替换功能
+        # 主体部分
         $git_repo_remote_revise_cmd
 
-        #插件
+        # 插件
         cd "$start_path/ComfyUI/web/extensions"
         for i in ./* ;do
             if [ -d "$i" ];then
@@ -202,7 +202,7 @@ comfyui_remote_revise()
             fi
         done
 
-        #自定义节点
+        # 自定义节点
         cd "$start_path/ComfyUI/custom_nodes"
         for i in ./* ;do
             if [ -d "$i" ];then
@@ -221,10 +221,10 @@ comfyui_remote_revise()
 
 }
 
-#lora-scripts远程源替换功能
+# lora-scripts远程源替换功能
 lora_scripts_remote_revise()
 {
-    git_remote_url_select #选择更新源
+    git_remote_url_select # 选择更新源
 
     if [ $? = 0 ];then
         term_sd_echo "开始替换lora-scripts更新源"
@@ -241,10 +241,10 @@ lora_scripts_remote_revise()
     fi
 }
 
-#Fooocus切换更新源功能
+# Fooocus切换更新源功能
 fooocus_remote_revise()
 {
-    git_remote_url_select #选择更新源
+    git_remote_url_select # 选择更新源
 
     if [ $? = 0 ];then
         term_sd_echo "开始替换Fooocus更新源"
@@ -252,6 +252,20 @@ fooocus_remote_revise()
         cd "$start_path/Fooocus/repositories/ComfyUI-from-StabilityAI-Official"
         $git_repo_remote_revise_cmd
         term_sd_echo "Fooocus更新源替换结束"
+        term_sd_print_line
+        dialog --erase-on-exit --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n${term_sd_delimiter}\n$git_repo_remote_revise_req${term_sd_delimiter}" $term_sd_dialog_height $term_sd_dialog_width
+    fi
+}
+
+# kohya_ss切换更新源功能
+kohya_ss_remote_revise()
+{
+    git_remote_url_select # 选择更新源
+
+    if [ $? = 0 ];then
+        term_sd_echo "开始替换kohya_ss更新源"
+        $git_repo_remote_revise_cmd
+        term_sd_echo "kohya_ss更新源替换结束"
         term_sd_print_line
         dialog --erase-on-exit --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n${term_sd_delimiter}\n$git_repo_remote_revise_req${term_sd_delimiter}" $term_sd_dialog_height $term_sd_dialog_width
     fi
