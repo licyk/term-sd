@@ -158,16 +158,16 @@ lora_scripts_update_depend()
         if [ $? = 0 ];then
             term_sd_print_line "lora-scripts依赖更新"
             term_sd_echo "更新lora-scripts依赖中"
-            tmp_disable_proxy
+            term_sd_tmp_disable_proxy
             create_venv
             enter_venv
             cd ./sd-scripts
-            requirements_python_package_update "./requirements.txt" # sd-scripts目录下还有个_typos.toml，在安装requirements.txt里的依赖时会指向这个文件
+            python_package_update "./requirements.txt" # sd-scripts目录下还有个_typos.toml，在安装requirements.txt里的依赖时会指向这个文件
             cd ..
             term_sd_watch term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade lion-pytorch dadaptation prodigyopt lycoris-lora fastapi uvicorn wandb scipy
-            requirements_python_package_update "./requirements.txt" # lora-scripts安装依赖
+            python_package_update "./requirements.txt" # lora-scripts安装依赖
             exit_venv
-            tmp_enable_proxy
+            term_sd_tmp_enable_proxy
             term_sd_echo "更新lora-scripts依赖结束"
             term_sd_pause
         fi

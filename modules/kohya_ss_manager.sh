@@ -158,13 +158,13 @@ kohya_ss_update_depend()
         if [ $? = 0 ];then
             term_sd_print_line "kohya_ss依赖更新"
             term_sd_echo "更新kohya_ss依赖中"
-            tmp_disable_proxy
+            term_sd_tmp_disable_proxy
             create_venv
             enter_venv
             term_sd_watch term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade lion-pytorch dadaptation prodigyopt lycoris-lora fastapi uvicorn wandb scipy
-            requirements_python_package_update "./requirements.txt" # kohya_ss安装依赖
+            python_package_update "./requirements.txt" # kohya_ss安装依赖
             exit_venv
-            tmp_enable_proxy
+            term_sd_tmp_enable_proxy
             term_sd_echo "更新kohya_ss依赖结束"
             term_sd_pause
         fi
