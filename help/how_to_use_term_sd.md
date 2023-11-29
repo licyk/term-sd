@@ -389,7 +389,8 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 最后一个是安装确认，选择“是”开始安装  
 安装时间根据网络速度和电脑性能决定
 
->如果系统是Windows，则在安装完成之后，需要退出Term-SD，在Term-SD启动命令添加启动参数`--extra fix-bitsandbytes-for-kohya-ss-on-windows`，运行fix-bitsandbytes-for-kohya-ss-on-windows脚本来修复bitsandbytes报错问题
+>如果系统是Windows，则在安装完成之后，需要退出Term-SD，在Term-SD启动命令后面添加启动参数`--extra fix-bitsandbytes-for-kohya-ss-on-windows`，运行fix-bitsandbytes-for-kohya-ss-on-windows脚本来修复bitsandbytes报错，解决训练失败的问题。命令如下  
+`./term-sd.sh --extra fix-bitsandbytes-for-kohya-ss-on-windows`
 
 ***
 

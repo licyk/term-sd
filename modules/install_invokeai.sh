@@ -42,7 +42,7 @@ install_invokeai()
         term_sd_echo "InvokeAI安装结束"
         rm -f "$start_path/term-sd/task/invokeai_install.sh" # 删除任务文件
         rm -f "$start_path/term-sd/task/cache.sh"
-        dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI安装结果" --ok-label "确认" --msgbox "InvokeAI安装结束,选择确定进入管理界面" $term_sd_dialog_height $term_sd_dialog_width
+        dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI安装结果" --ok-label "确认" --msgbox "InvokeAI安装结束,选择确定进入管理界面\n注:\n安装完成后,在启动选项需要选择“(configure --skip-sd-weights)启动配置程序并只下载核心模型”选项或者“(configure)启动配置界面”选项进行配置,配置完成后再选择”(web)启动webui界面“选项启动webui界面\n" $term_sd_dialog_height $term_sd_dialog_width
         invokeai_manager # 进入管理界面
     else # 生成安装任务并执行安装任务
         # 安装前的准备
@@ -98,7 +98,7 @@ install_invokeai()
             term_sd_echo "InvokeAI安装结束"
             rm -f "$start_path/term-sd/task/invokeai_install.sh" # 删除任务文件
             rm -f "$start_path/term-sd/task/cache.sh"
-            dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI安装结果" --ok-label "确认" --msgbox "InvokeAI安装结束,选择确定进入管理界面" $term_sd_dialog_height $term_sd_dialog_width
+            dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI安装结果" --ok-label "确认" --msgbox "InvokeAI安装结束,选择确定进入管理界面\n注:\n安装完成后,在启动选项需要选择“(configure --skip-sd-weights)启动配置程序并只下载核心模型”选项或者“(configure)启动配置界面”选项进行配置,配置完成后再选择”(web)启动webui界面“选项启动webui界面\n" $term_sd_dialog_height $term_sd_dialog_width
             invokeai_manager # 进入管理界面
         fi
     fi

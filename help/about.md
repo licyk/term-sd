@@ -54,6 +54,11 @@ ComfyUI手册（非官方，偏硬核）：
   https://github.com/WASasquatch/comfyui-plugins
   https://wyrde.github.io/ComfyResources/nodes
 
+●colab版：
+（没有设备玩stable-diffusion的可以尝试下面的项目）
+  https://github.com/camenduru/stable-diffusion-webui-colab
+  https://github.com/Van-wise/sd-colab
+
 
 up主推荐：
   bilibili@秋葉aaaki
