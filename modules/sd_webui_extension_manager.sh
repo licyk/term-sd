@@ -10,8 +10,8 @@ sd_webui_extension_manager()
     sd_webui_extension_manager_dialog=$(
         dialog --erase-on-exit --notags --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Stable-Diffusion-WebUI插件管理选项的功能" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
-        "1" "> 安装" \
-        "2" "> 管理" \
+        "1" "> 安装插件" \
+        "2" "> 管理插件" \
         "3" "> 更新全部插件" \
         3>&1 1>&2 2>&3 )
 

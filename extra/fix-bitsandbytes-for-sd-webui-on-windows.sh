@@ -4,9 +4,10 @@ source ./term-sd/modules/term_sd_manager.sh
 source ./term-sd/modules/python_venv.sh
 source ./term-sd/modules/term_sd_python_cmd.sh
 
-if [ -d "./kohya_ss" ];then
-    term_sd_echo "开始修复kohya_ss环境的bitsandbytes"
-    cd kohya_ss
+if [ -d "./stable-diffusion-webui" ];then
+    term_sd_echo "开始修复stable-diffusion-webui环境的bitsandbytes"
+    term_sd_echo "提示:不建议在stable-diffusion-webui中进行模型训练,如需训练模型,请使用lora-scripts或者kohya_ss"
+    cd stable-diffusion-webui
     create_venv
     enter_venv
     cd ..
@@ -18,5 +19,5 @@ if [ -d "./kohya_ss" ];then
     fi
     exit_venv
 else
-    term_sd_echo "kohya_ss未安装"
+    term_sd_echo "stable-diffusion-webui未安装"
 fi

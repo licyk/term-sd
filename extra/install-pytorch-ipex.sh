@@ -12,6 +12,7 @@ install_pytorch_repo_select()
     term_sd_echo "3、Fooocus"
     term_sd_echo "4、InvokeAI"
     term_sd_echo "5、lora-scripts"
+    term_sd_echo "6、kohya_ss"
     term_sd_echo "提示:输入数字并回车,或者输入exit回车退出"
     case $(term_sd_read) in
         1)
@@ -45,11 +46,11 @@ install_pytorch_ipex()
         cd "$@"
         create_venv
         enter_venv
-        cd $start_path
+        cd ..
         get_pytorch_whl
         if [ $? = 0 ];then
             term_sd_echo "开始安装pytorch ipex"
-            pip install ./term-sd/task/pytorch-ipex/intel_extension_for_pytorch-2.0.110+gitc6ea20b-cp310-cp310-win_amd64.whl ./term-sd/task/pytorch-ipex/torch-2.0.0a0+gite9ebda2-cp310-cp310-win_amd64.whl ./term-sd/task/pytorch-ipex/torchvision-0.15.2a0+fa99a53-cp310-cp310-win_amd64.whl
+            term_sd_watch term_sd_pip install ./term-sd/task/pytorch-ipex/intel_extension_for_pytorch-2.0.110+gitc6ea20b-cp310-cp310-win_amd64.whl ./term-sd/task/pytorch-ipex/torch-2.0.0a0+gite9ebda2-cp310-cp310-win_amd64.whl ./term-sd/task/pytorch-ipex/torchvision-0.15.2a0+fa99a53-cp310-cp310-win_amd64.whl
             term_sd_echo "安装结束"
         else
             term_sd_echo "下载pytorch ipex失败"
@@ -65,9 +66,9 @@ install_pytorch_ipex()
 get_pytorch_whl()
 {
     local req=0
-    aria2c https://gitcode.net/rubble7343/nuullll-intel-extension-for-pytorch/-/raw/master/intel_extension_for_pytorch-2.0.110+gitc6ea20b-cp310-cp310-win_amd64.whl?inline=false -d ./term-sd/task/pytorch-ipex -o intel_extension_for_pytorch-2.0.110+gitc6ea20b-cp310-cp310-win_amd64.whl || req=1
-    aria2c https://gitcode.net/rubble7343/nuullll-intel-extension-for-pytorch/-/raw/master/torch-2.0.0a0+gite9ebda2-cp310-cp310-win_amd64.whl?inline=false -d ./term-sd/task/pytorch-ipex -o torch-2.0.0a0+gite9ebda2-cp310-cp310-win_amd64.whl || req=1
-    aria2c https://gitcode.net/rubble7343/nuullll-intel-extension-for-pytorch/-/raw/master/torchvision-0.15.2a0+fa99a53-cp310-cp310-win_amd64.whl?inline=false -d ./term-sd/task/pytorch-ipex -o torchvision-0.15.2a0+fa99a53-cp310-cp310-win_amd64.whl || req=1
+    term_sd_watch aria2c https://gitcode.net/rubble7343/nuullll-intel-extension-for-pytorch/-/raw/master/intel_extension_for_pytorch-2.0.110+gitc6ea20b-cp310-cp310-win_amd64.whl?inline=false -d ./term-sd/task/pytorch-ipex -o intel_extension_for_pytorch-2.0.110+gitc6ea20b-cp310-cp310-win_amd64.whl || req=1
+    term_sd_watch aria2c https://gitcode.net/rubble7343/nuullll-intel-extension-for-pytorch/-/raw/master/torch-2.0.0a0+gite9ebda2-cp310-cp310-win_amd64.whl?inline=false -d ./term-sd/task/pytorch-ipex -o torch-2.0.0a0+gite9ebda2-cp310-cp310-win_amd64.whl || req=1
+    term_sd_watch aria2c https://gitcode.net/rubble7343/nuullll-intel-extension-for-pytorch/-/raw/master/torchvision-0.15.2a0+fa99a53-cp310-cp310-win_amd64.whl?inline=false -d ./term-sd/task/pytorch-ipex -o torchvision-0.15.2a0+fa99a53-cp310-cp310-win_amd64.whl || req=1
     return $req
 }
 
@@ -90,6 +91,9 @@ case $? in
         ;;
     5)
         install_pytorch_ipex lora-scripts
+        ;;
+    6)
+        install_pytorch_ipex kohya_ss
         ;;
     *)
         term_sd_echo "取消安装pytorch ipex"
