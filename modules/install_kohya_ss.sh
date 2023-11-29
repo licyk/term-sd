@@ -42,7 +42,7 @@ install_kohya_ss()
         term_sd_echo "kohya_ss安装结束"
         rm -f "$start_path/term-sd/task/kohya_ss_install.sh" # 删除任务文件
         rm -f "$start_path/term-sd/task/cache.sh"
-        dialog --erase-on-exit --title "kohya_ss管理" --backtitle "kohya_ss安装结果" --ok-label "确认" --msgbox "kohya_ss安装结束,选择确定进入管理界面\n注:\n如果使用的系统是Windows,则在安装完成之后,需要退出Term-SD,在Term-SD启动命令后面添加启动参数“--extra fix-bitsandbytes-for-kohya-ss-on-windows”,运行fix-bitsandbytes-for-kohya-ss-on-windows脚本来修复bitsandbytes,解决训练时bitsandbytes组件报错导致训练失败的问题" $term_sd_dialog_height $term_sd_dialog_width
+        dialog --erase-on-exit --title "kohya_ss管理" --backtitle "kohya_ss安装结果" --ok-label "确认" --msgbox "kohya_ss安装结束,选择确定进入管理界面" $term_sd_dialog_height $term_sd_dialog_width
         kohya_ss_manager # 进入管理界面
     else # 生成安装任务并执行安装任务
         # 安装前的准备
@@ -98,7 +98,7 @@ install_kohya_ss()
             term_sd_echo "kohya_ss安装结束"
             rm -f "$start_path/term-sd/task/kohya_ss_install.sh" # 删除任务文件
             rm -f "$start_path/term-sd/task/cache.sh"
-            dialog --erase-on-exit --title "kohya_ss管理" --backtitle "kohya_ss安装结果" --ok-label "确认" --msgbox "kohya_ss安装结束,选择确定进入管理界面\n注:\n如果使用的系统是Windows,则在安装完成之后,需要退出Term-SD,在Term-SD启动命令后面添加启动参数“--extra fix-bitsandbytes-for-kohya-ss-on-windows”,运行fix-bitsandbytes-for-kohya-ss-on-windows脚本来修复bitsandbytes,解决训练时bitsandbytes组件报错导致训练失败的问题" $term_sd_dialog_height $term_sd_dialog_width
+            dialog --erase-on-exit --title "kohya_ss管理" --backtitle "kohya_ss安装结果" --ok-label "确认" --msgbox "kohya_ss安装结束,选择确定进入管理界面" $term_sd_dialog_height $term_sd_dialog_width
             kohya_ss_manager # 进入管理界面
         fi
     fi

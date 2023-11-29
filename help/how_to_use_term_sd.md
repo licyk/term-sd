@@ -284,6 +284,7 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 最后一个是安装确认，选择“是”开始安装  
 安装时间根据网络速度和电脑性能决定
 
+
 ### ComfyUI安装
 >ComfyUI是一款节点式操作的ai绘画软件，上手难度较高，但是节点赋予ComfyUI更高的操作上限，且支持将节点工作流保存成文件，支持扩展。同时ComfyUI让用户更好的理解ai绘画的工作原理
 
@@ -311,6 +312,7 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 
 >在安装结束后，如果有安装插件/自定义节点的，需要在插件管理/自定义节点管理里运行安装全部插件依赖/安装全部自定义节点依赖，保证插件/自定义节点的正常运行（因为ComfyUI并没有AUTOMATIC1111-stable-diffusion-webui自动为插件安装依赖的功能）
 
+
 ### InvokeAI安装
 >InvokeAI是一款操作界面简单的ai绘画软件，功能较少，但拥有特色功能“统一画布”，用户可以在画布上不断扩展图片的大小
 
@@ -332,6 +334,7 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 
 >安装完成后，在启动选项需要选择`(configure --skip-sd-weights)`进行配置，配置完成后再选择`(web)`启动webui界面
 
+
 ### Fooocus安装
 >Fooocus是一款专为SDXL模型优化的ai绘画软件，界面简单，让使用者可以专注于提示词的书写，而且有着非常强的内存优化和速度优化，强于其他同类webui。
 
@@ -350,6 +353,7 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 #### 4、安装确认
 最后一个是安装确认，选择“是”开始安装  
 安装时间根据网络速度和电脑性能决定
+
 
 ### lora-scripts安装
 >lora-scripts是一款ai模型训练工具，支持训练lora模型、dreambooth模型
@@ -370,6 +374,7 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 最后一个是安装确认，选择“是”开始安装  
 安装时间根据网络速度和电脑性能决定
 
+
 ### kohya_ss安装
 >kohya_ss是一款ai模型训练工具，支持训练lora、dreambooth、Finetune、Train Network模型
 
@@ -388,9 +393,6 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 #### 4、安装确认
 最后一个是安装确认，选择“是”开始安装  
 安装时间根据网络速度和电脑性能决定
-
->如果系统是Windows，则在安装完成之后，需要退出Term-SD，在Term-SD启动命令后面添加启动参数`--extra fix-bitsandbytes-for-kohya-ss-on-windows`，运行fix-bitsandbytes-for-kohya-ss-on-windows脚本来修复bitsandbytes报错，解决训练失败的问题。命令如下  
-`./term-sd.sh --extra fix-bitsandbytes-for-kohya-ss-on-windows`
 
 ***
 
