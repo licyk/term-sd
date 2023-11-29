@@ -41,6 +41,12 @@ term_sd_install_task_manager()
             term_sd_manager_exec_cmd="lora_scripts_manager"
             term_sd_install_task_info="lora-scripts"
             ;;
+        kohya_ss)
+            term_sd_install_task_file_path="$start_path/term-sd/task/kohya_ss_install.sh"
+            term_sd_install_exec_cmd="install_kohya_ss"
+            term_sd_manager_exec_cmd="kohya_ss_manager"
+            term_sd_install_task_info="kohya_ss"
+            ;;
     esac
 
     if [ -f "$term_sd_install_task_file_path" ];then

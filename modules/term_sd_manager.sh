@@ -90,9 +90,10 @@ term_sd_manager()
         "3" "> InvokeAI管理" \
         "4" "> Fooocus管理" \
         "5" "> lora-scripts管理" \
-        "6" "> 设置" \
-        "7" "> 帮助" \
-        "8" "> 退出" \
+        "6" "> kohya_ss管理" \
+        "7" "> 设置" \
+        "8" "> 帮助" \
+        "9" "> 退出" \
         3>&1 1>&2 2>&3 )
 
     case $term_sd_manager_dialog in
@@ -114,10 +115,13 @@ term_sd_manager()
         5) # 选择lora-scripts
             term_sd_install_task_manager lora-scripts
             ;;
-        6) # 选择设置
+        6) # 选择kohya_ss
+            term_sd_install_task_manager kohya_ss
+            ;;
+        7) # 选择设置
             term_sd_setting
             ;;
-        7) # 选择帮助
+        8) # 选择帮助
             term_sd_help
             ;;
         *) # 选择退出

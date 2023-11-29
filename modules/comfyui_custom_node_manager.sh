@@ -9,8 +9,8 @@ comfyui_custom_node_manager()
     comfyui_custom_node_manager_dialog=$(
         dialog --erase-on-exit --notags --title "ComfyUI管理" --backtitle "ComfyUI自定义节点管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择ComfyUI自定义节点管理选项的功能" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
-        "1" "> 安装" \
-        "2" "> 管理" \
+        "1" "> 安装自定义节点" \
+        "2" "> 管理自定义节点" \
         "3" "> 更新全部自定义节点" \
         "4" "> 安装全部自定义节点依赖" \
         3>&1 1>&2 2>&3 )

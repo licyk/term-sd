@@ -184,3 +184,7 @@ ComfyUI插件/自定义节点说明：
 43、ControlNet-LLLite-ComfyUI：
 描述：添加ControlNet-LLLite支持
 链接：https://github.com/kohya-ss/ControlNet-LLLite-ComfyUI
+
+44、ComfyUI-AnimateDiff-Evolved：
+描述：视频生成节点
+链接：https://github.com/Kosinkadink/ComfyUI-AnimateDiff-Evolved

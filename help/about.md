@@ -6,6 +6,7 @@ Term-SD是基于终端显示（使用GNU提供的dialog渲染界面）的AI管�
 3、InvokeAI
 4、Fooocus
 5、lora-scripts
+6、kohya_ss
 （AI软件都基于stable-diffusion）
 
 

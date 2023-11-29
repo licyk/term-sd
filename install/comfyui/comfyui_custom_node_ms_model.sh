@@ -65,3 +65,6 @@ __term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1/master/ip-
 __term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter_sd15_light.pth ./ComfyUI/models/controlnet
 __term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter_sd15_plus.pth ./ComfyUI/models/controlnet
 __term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1/master/sketch_adapter_v14.yaml ./ComfyUI/models/controlnet
+
+__term_sd_task_pre_ext_44 term_sd_echo "下载animatediff模型中"
+__term_sd_task_pre_ext_44 get_modelscope_model licyks/sd-extensions-model/master/sd-webui-animatediff/mm_sd_v15_v2.ckpt ./ComfyUI/custom_nodes/ComfyUI-AnimateDiff-Evolved/models
