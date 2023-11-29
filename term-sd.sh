@@ -737,7 +737,7 @@ if [ -f "./term-sd/config/disable-pip-mirror.lock" ];then
     export PIP_FIND_LINKS="https://download.pytorch.org/whl/torch_stable.html"
 else
     export PIP_INDEX_URL="https://mirrors.bfsu.edu.cn/pypi/web/simple"
-    export PIP_EXTRA_INDEX_URL="https://mirrors.hit.edu.cn/pypi/web/simple https://pypi.tuna.tsinghua.edu.cn/simple https://mirror.nju.edu.cn/pypi/web/simple"
+    export PIP_EXTRA_INDEX_URL="https://mirror.baidu.com/pypi/simple https://pypi.tuna.tsinghua.edu.cn/simple https://mirror.nju.edu.cn/pypi/web/simple"
     export PIP_FIND_LINKS="https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
 fi
 
