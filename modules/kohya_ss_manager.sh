@@ -30,7 +30,7 @@ kohya_ss_manager()
             1)
                 term_sd_print_line "$term_sd_manager_info 启动"
                 enter_venv
-                term_sd_python ./kohya_gui.py --headless --language zh-CN
+                term_sd_python ./kohya_gui.py --language zh-CN
                 term_sd_pause
                 kohya_ss_manager
                 ;;
