@@ -389,6 +389,8 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 最后一个是安装确认，选择“是”开始安装  
 安装时间根据网络速度和电脑性能决定
 
+>如果系统是Windows，则在安装完成之后，需要退出Term-SD，在Term-SD启动命令添加启动参数`--extra fix-bitsandbytes-for-kohya-ss-on-windows`，运行fix-bitsandbytes-for-kohya-ss-on-windows脚本来修复bitsandbytes报错问题
+
 ***
 
 ## Term-SD管理功能
@@ -504,6 +506,7 @@ Term-SD包含了一些扩展脚本，扩充Term-SD的功能
 - 4、install-pytorch-ipex：安装Pytorch IPEX到AI软件的依赖库中，使AI软件能够调用显卡来运行
 - 5、download-sd-webui-extension：下载stable-diffusion-webui插件
 - 6、download-comfyui-extension：下载ComfyUI插件
+- 7、fix-bitsandbytes-for-kohya-ss-on-windows：修复原版bitsandbytes在Windows端无法运行导致kohya_ss报错无法进行训练的问题
 
 >如果需要使用扩展脚本，则在启动Term-SD前加入“--extra”启动参数即可使用扩展脚本
 

@@ -28,6 +28,7 @@ Term-SD是一款基于dialog实现前端界面显示的AI管理器，支持安�
 - 3、[InvokeAI](https://github.com/invoke-ai/InvokeAI)  
 - 4、[Fooocus](https://github.com/lllyasviel/Fooocus)  
 - 5、[lora-scripts](https://github.com/Akegarasu/lora-scripts)  
+- 6、[kohya_ss](https://github.com/bmaltais/kohya_ss)  
 
 ## 安装要求
 
@@ -63,7 +64,7 @@ _！Windows平台可阅读图文版[《Windows平台如何配置Term-SD运行环
 进入[python官网](https://www.python.org/downloads/release/python-31011/)    
 在python3.10的页面找到`Windows installer (64-bit)`，点击下载  
 打开python安装包，在安装界面点击`customize installation`，然后点击`next`，勾选`Add Python to environment variables`，再点击`browse`，自己选择要安装的位置，选择好后点击`install`，等待安装完成  
-安装结束前先不要关闭安装界面，先点击`Disable path length limit`，再退出  
+安装结束后先不要关闭安装界面，先点击`Disable path length limit`（没有该选项时则不用理会），再退出  
 >python安装器在安装python时同时安装pip，一般不需要手动再去安装pip
 
 - 4、配置Windows终端
