@@ -65,3 +65,6 @@ __term_sd_task_pre_ext_38 aria2_download https://huggingface.co/licyk/controlnet
 __term_sd_task_pre_ext_38 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sd15_light.pth ./ComfyUI/models/controlnet ip-adapter_sd15_light.pth
 __term_sd_task_pre_ext_38 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sd15_plus.pth ./ComfyUI/models/controlnet ip-adapter_sd15_plus.pth
 __term_sd_task_pre_ext_38 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/sketch_adapter_v14.yaml ./ComfyUI/models/controlnet sketch_adapter_v14.yaml
+
+__term_sd_task_pre_ext_44 term_sd_echo "下载animatediff模型中"
+__term_sd_task_pre_ext_44 aria2_download https://huggingface.co/guoyww/animatediff/resolve/main/mm_sd_v15_v2.ckpt ./ComfyUI/custom_nodes/ComfyUI-AnimateDiff-Evolved/models mm_sd_v15_v2.ckpt
