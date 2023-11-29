@@ -10,7 +10,7 @@ if [ -d "./kohya_ss" ];then
     create_venv
     enter_venv
     cd ..
-    term_sd_watch term_sd_pip install bitsandbytes==0.41.1 --force --index-url https://jihulab.com/api/v4/projects/140618/packages/pypi/simple
+    term_sd_watch term_sd_pip install bitsandbytes==0.41.1 --force-reinstall --index-url https://jihulab.com/api/v4/projects/140618/packages/pypi/simple
     if [ $? = 0 ];then
         term_sd_echo "bitsandbytes-for-windows安装成功"
     else
