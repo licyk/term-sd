@@ -134,12 +134,12 @@ comfyui_extension_interface()
             comfyui_extension_depend_install_single "插件"
             comfyui_extension_interface
             ;;
-        5)
+        4)
             git_ver_switch
             [ $? = 10 ] && dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI自定义节点版本切换" --ok-label "确认" --msgbox "${comfyui_extension_name}插件非git安装,无法进行版本切换" $term_sd_dialog_height $term_sd_dialog_width
             comfyui_extension_interface
             ;;
-        6)
+        5)
             git_remote_url_select_single
             [ $? = 10 ] && dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI自定义节点更新源切换" --ok-label "确认" --msgbox "${comfyui_extension_name}插件非git安装,无法进行更新源切换" $term_sd_dialog_height $term_sd_dialog_width
             comfyui_extension_interface
