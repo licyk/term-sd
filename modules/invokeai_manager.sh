@@ -111,8 +111,8 @@ invokeai_manager()
                         term_sd_echo "提示:输入yes或no后回车"
                         case $(term_sd_read) in
                             yes|y|YES|Y)
-                                term_sd_echo "删除InvokeAI中"
                                 exit_venv
+                                term_sd_echo "删除InvokeAI中"
                                 cd ..
                                 rm -rf ./InvokeAI
                                 term_sd_echo "删除InvokeAI完成"

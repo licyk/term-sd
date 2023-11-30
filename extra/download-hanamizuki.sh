@@ -10,13 +10,15 @@ download_hanamizuki_resource_select()
         1)
             term_sd_echo "选择github源"
             download_hanamizuki_resource="https://github.com/licyk/term-sd/releases/download/archive/hanamizuki.exe"
+            return 0
             ;;
         2)
             term_sd_echo "选择gitee源"
             download_hanamizuki_resource="https://gitee.com/licyk/term-sd/releases/download/archive/hanamizuki.exe"
+            return 0
             ;;
         3)
-            download_hanamizuki_info=1
+            return 1
             ;;
         *)
             term_sd_echo "输入有误,请重试"
@@ -27,12 +29,11 @@ download_hanamizuki_resource_select()
 
 download_hanamizuki()
 {
-    mkdir term-sd-tmp
-    aria2c $download_hanamizuki_resource -d ./term-sd-tmp -o "绘世.exe"
+    aria2c $download_hanamizuki_resource -d ./term-sd/task -o "绘世.exe"
     if [ $? = 0 ];then
         if [ -d "./stable-diffusion-webui" ];then
             if [ ! -f "./stable-diffusion-webui/绘世.exe" ];then
-                cp -f "./term-sd-tmp/绘世.exe" ./stable-diffusion-webui
+                cp -f "./term-sd/task/绘世.exe" ./stable-diffusion-webui
                 term_sd_echo "已将绘世启动器复制到stable-diffusion-webui文件夹"
             else
                 term_sd_echo "stable-diffusion-webui文件夹中已存在绘世启动器"
@@ -43,7 +44,7 @@ download_hanamizuki()
 
         if [ -d "./ComfyUI" ];then
             if [ ! -f "./ComfyUI/绘世.exe" ];then
-                cp -f "./term-sd-tmp/绘世.exe" ./ComfyUI
+                cp -f "./term-sd/task/绘世.exe" ./ComfyUI
                 term_sd_echo "已将绘世启动器复制到ComfyUI文件夹"
             else
                 term_sd_echo "ComfyUI文件夹中已存在绘世启动器"
@@ -54,7 +55,7 @@ download_hanamizuki()
 
         if [ -d "./Fooocus" ];then
             if [ ! -f "./Fooocus/绘世.exe" ];then
-                cp -f "./term-sd-tmp/绘世.exe" ./Fooocus
+                cp -f "./term-sd/task/绘世.exe" ./Fooocus
                 term_sd_echo "已将绘世启动器复制到Fooocus文件夹"
             else
                 term_sd_echo "Fooocus文件夹中已存在绘世启动器"
@@ -62,28 +63,21 @@ download_hanamizuki()
         else
             term_sd_echo "未找到Fooocus文件夹"
         fi
-
+        rm -f "./term-sd/task/绘世.exe"
     else
         term_sd_echo "下载失败"
     fi
-    rm -rf ./term-sd-tmp    
 }
 
-download_hanamizuki_init()
-{
-    if [ -d "./stable-diffusion-webui" ] || [ -d "./ComfyUI" ] || [ -d "./Fooocus" ];then
-        if [ ! -f "./stable-diffusion-webui/绘世.exe" ] || [ ! -f "./ComfyUI/绘世.exe" ] || [ ! -f "./Fooocus/绘世.exe" ];then
-            download_hanamizuki_info=0
-            download_hanamizuki_resource_select
-            if [ ! $download_hanamizuki_info = 1 ];then
-                download_hanamizuki
-            fi
-        else
-            term_sd_echo "绘世启动器已存在stable-diffusion-webui,ComfyUI,Fooocus文件夹中"
+if [ -d "./stable-diffusion-webui" ] || [ -d "./ComfyUI" ] || [ -d "./Fooocus" ];then
+    if [ ! -f "./stable-diffusion-webui/绘世.exe" ] || [ ! -f "./ComfyUI/绘世.exe" ] || [ ! -f "./Fooocus/绘世.exe" ];then
+        download_hanamizuki_resource_select
+        if [ $? = 0 ];then
+            download_hanamizuki
         fi
     else
-        term_sd_echo "未找到stable-diffusion-webui,ComfyUI,Fooocus文件夹"
+        term_sd_echo "绘世启动器已存在stable-diffusion-webui,ComfyUI,Fooocus文件夹中"
     fi
-}
-
-download_hanamizuki_init
+else
+    term_sd_echo "未找到stable-diffusion-webui,ComfyUI,Fooocus文件夹"
+fi

@@ -604,6 +604,13 @@ Term-SD包含了一些扩展脚本，扩充Term-SD的功能
 ## 绘世启动器的使用
 目前绘世启动器支持启动AUTOMATIC1111-stable-diffusion-webui、ComfyUI、Fooocus。使用Term-SD部署AUTOMATIC1111-stable-diffusion-webui、ComfyUI、或者Fooocus后，将绘世启动器放入stable-diffusion-webui文件夹、ComfyUI文件夹或者Fooocus文件夹后就可以使用绘世启动器启动对应的AI软件了（可以使用Term-SD扩展脚本中的download-hanamizuki脚本来下载绘世启动器，并且脚本会自动将绘世启动器放入上述文件夹中）
 
+||绘世启动器依赖|
+|---|---
+|↓|[Microsoft Visual C++](https://aka.ms/vs/17/release/vc_redist.x64.exe)|
+|↓|[.NET 6.0](https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/sdk-6.0.417-windows-x64-installer)|
+|↓|[.NET 8.0](https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/sdk-8.0.100-windows-x64-installer)|
+>使用绘世前需要安装依赖
+
 ||绘世启动器|
 |---|---|
 |↓|[下载地址1](https://github.com/licyk/term-sd/releases/download/archive/hanamizuki.exe)|

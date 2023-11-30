@@ -16,7 +16,7 @@ install_comfyui_extension()
         $(cat "$start_path/term-sd/install/comfyui/dialog_comfyui_extension.sh" | awk '{gsub(" ON"," OFF")}1') \
         3>&1 1>&2 2>&3)
     comfyui_custom_node_install_select_list=$(
-        dialog --erase-on-exit --notags --title "ComfyUI安装" --backtitle "ComfyUI插件安装选项" --ok-label "确认" --no-cancel --checklist "请选择需要安装的ComfyUI插件" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "ComfyUI安装" --backtitle "ComfyUI插件安装选项" --ok-label "确认" --no-cancel --checklist "请选择需要安装的ComfyUI自定义节点" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         $(cat "$start_path/term-sd/install/comfyui/dialog_comfyui_custom_node.sh" | awk '{gsub(" ON"," OFF")}1') \
         3>&1 1>&2 2>&3)
     term_sd_install_confirm # 安装确认
@@ -43,7 +43,7 @@ install_comfyui_extension()
         fi
 
         term_sd_echo "任务队列生成完成"
-        term_sd_echo "开始下载ComfyUI插件"
+        term_sd_echo "开始下载ComfyUI插件/自定义节点"
 
         cmd_sum=$(( $(cat "$start_path/term-sd/task/comfyui_install_extension.sh" | wc -l) + 1 )) # 统计命令行数
         for ((cmd_point=1;cmd_point<=cmd_sum;cmd_point++))
@@ -63,11 +63,11 @@ install_comfyui_extension()
         done
 
         term_sd_tmp_enable_proxy # 恢复代理
-        term_sd_echo "ComfyUI插件下载结束"
+        term_sd_echo "ComfyUI插件/自定义节点下载结束"
         rm -f "$start_path/term-sd/task/comfyui_install_extension.sh" # 删除任务文件
         rm -f "$start_path/term-sd/task/cache.sh"
     else
-        term_sd_echo "取消下载ComfyUI插件"
+        term_sd_echo "取消下载ComfyUI/自定义节点插件"
     fi
 }
 

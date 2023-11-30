@@ -13,7 +13,8 @@ install_pytorch_repo_select()
     term_sd_echo "4、InvokeAI"
     term_sd_echo "5、lora-scripts"
     term_sd_echo "6、kohya_ss"
-    term_sd_echo "提示:输入数字并回车,或者输入exit回车退出"
+    term_sd_echo "7、退出"
+    term_sd_echo "提示:输入数字并回车"
     case $(term_sd_read) in
         1)
             return 1
@@ -30,7 +31,10 @@ install_pytorch_repo_select()
         5)
             return 5
             ;;
-        exit)
+        6)
+            return 6
+            ;;
+        7)
             return 128
             ;;
         *)
@@ -65,11 +69,9 @@ install_pytorch_ipex()
 
 get_pytorch_whl()
 {
-    local req=0
-    term_sd_watch aria2c https://gitcode.net/rubble7343/nuullll-intel-extension-for-pytorch/-/raw/master/intel_extension_for_pytorch-2.0.110+gitc6ea20b-cp310-cp310-win_amd64.whl?inline=false -d ./term-sd/task/pytorch-ipex -o intel_extension_for_pytorch-2.0.110+gitc6ea20b-cp310-cp310-win_amd64.whl || req=1
-    term_sd_watch aria2c https://gitcode.net/rubble7343/nuullll-intel-extension-for-pytorch/-/raw/master/torch-2.0.0a0+gite9ebda2-cp310-cp310-win_amd64.whl?inline=false -d ./term-sd/task/pytorch-ipex -o torch-2.0.0a0+gite9ebda2-cp310-cp310-win_amd64.whl || req=1
-    term_sd_watch aria2c https://gitcode.net/rubble7343/nuullll-intel-extension-for-pytorch/-/raw/master/torchvision-0.15.2a0+fa99a53-cp310-cp310-win_amd64.whl?inline=false -d ./term-sd/task/pytorch-ipex -o torchvision-0.15.2a0+fa99a53-cp310-cp310-win_amd64.whl || req=1
-    return $req
+    term_sd_watch aria2c https://gitcode.net/rubble7343/nuullll-intel-extension-for-pytorch/-/raw/master/intel_extension_for_pytorch-2.0.110+gitc6ea20b-cp310-cp310-win_amd64.whl?inline=false -d ./term-sd/task/pytorch-ipex -o intel_extension_for_pytorch-2.0.110+gitc6ea20b-cp310-cp310-win_amd64.whl || return 1
+    term_sd_watch aria2c https://gitcode.net/rubble7343/nuullll-intel-extension-for-pytorch/-/raw/master/torch-2.0.0a0+gite9ebda2-cp310-cp310-win_amd64.whl?inline=false -d ./term-sd/task/pytorch-ipex -o torch-2.0.0a0+gite9ebda2-cp310-cp310-win_amd64.whl || return 1
+    term_sd_watch aria2c https://gitcode.net/rubble7343/nuullll-intel-extension-for-pytorch/-/raw/master/torchvision-0.15.2a0+fa99a53-cp310-cp310-win_amd64.whl?inline=false -d ./term-sd/task/pytorch-ipex -o torchvision-0.15.2a0+fa99a53-cp310-cp310-win_amd64.whl || return 1
 }
 
 #############################
