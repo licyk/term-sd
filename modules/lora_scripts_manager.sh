@@ -9,7 +9,7 @@ lora_scripts_manager()
     if [ -d "./lora-scripts" ];then
         cd lora-scripts
         lora_scripts_manager_dialog=$(
-            dialog --erase-on-exit --notags --title "lora-scripts管理" --backtitle "lora-scripts管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择lora-scripts管理选项的功能\n当前更新源:$(git remote -v | awk 'NR==1 {print $2}')\n当前分支:$(git_branch_display)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+            dialog --erase-on-exit --notags --title "lora-scripts管理" --backtitle "lora-scripts管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择lora-scripts管理选项的功能\n当前更新源:$(git_remote_display)\n当前分支:$(git_branch_display)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
             "0" "> 返回" \
             "1" "> 启动" \
             "2" "> 更新" \

@@ -170,14 +170,28 @@ git_branch_display()
 {
     local ref
     local req
+    local git_commit_hash
     ref=$(git symbolic-ref --quiet HEAD 2> /dev/null)
     req=$?
-    if [ ! $req = 0 ]; then
+    if [ $req = 0 ]; then
+        git_commit_hash=$(git show -s --format="%h %cd" --date=format:"%Y-%m-%d %H:%M:%S")
+    else
         if [ $req = 128 ];then
             return # 未找到.git
         else
             ref=$(git rev-parse --short HEAD 2> /dev/null) || return
+            git_commit_hash=$(git show -s --format="%cd" --date=format:"%Y-%m-%d %H:%M:%S")
         fi
     fi
-    echo ${ref#refs/heads/}
+    echo ${ref#refs/heads/} ${git_commit_hash}
+}
+
+# git远程源地址展示
+git_remote_display()
+{
+    if [ -d "./.git" ];then
+        echo $(git remote -v | awk 'NR==1 {print $2}')
+    else
+        echo "非git安装,无更新源"
+    fi
 }

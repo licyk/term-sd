@@ -3,9 +3,24 @@
 # sd-webui分支切换功能
 sd_webui_branch_switch()
 {
+    local sd_webui_branch_info
+    local sd_webui_branch_switch_dialog
+
+    case $(git remote -v | awk 'NR==1 {print $2}' | awk -F'/' '{print $NF}') in # 分支判断
+        stable-diffusion-webui)
+            sd_webui_branch_info="AUTOMATIC1111 webui $(git_branch_display)"
+            ;;
+        automatic)
+            sd_webui_branch_info="vladmandic webui $(git_branch_display)"
+            ;;
+        stable-diffusion-webui-directml)
+            sd_webui_branch_info="lshqqytiger webui $(git_branch_display)"
+            ;;
+    esac
+
     download_mirror_select # 切换前前代理选择
     sd_webui_branch_switch_dialog=$(
-        dialog --erase-on-exit --notags --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui分支切换选项" --ok-label "确认" --cancel-label "取消" --menu "请选择要切换的SD-Webui分支\n当前更新源:$(git remote -v | awk 'NR==1 {print $2}')" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "A1111-SD-Webui管理" --backtitle "A1111-SD-Webui分支切换选项" --ok-label "确认" --cancel-label "取消" --menu "请选择要切换的SD-Webui分支\n当前更新源:$(git_remote_display)\n当前分支:$sd_webui_branch_info" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
             "0" "> 返回" \
             "1" "> AUTOMATIC1111/stable-diffusion-webui主分支" \
             "2" "> AUTOMATIC1111/stable-diffusion-webui测试分支" \

@@ -94,7 +94,7 @@ comfyui_custom_node_interface()
     local comfyui_custom_node_interface_dialog
 
     comfyui_custom_node_interface_dialog=$(
-        dialog --erase-on-exit --notags --title "ComfyUI选项" --backtitle "ComfyUI自定义节点管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择对${comfyui_custom_node_name}自定义节点的管理功能\n当前更新源:$([ -d "./.git" ] && git remote -v | awk 'NR==1 {print $2}' || echo "无")" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "ComfyUI选项" --backtitle "ComfyUI自定义节点管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择对${comfyui_custom_node_name}自定义节点的管理功能\n当前更新源:$(git_remote_display)\n当前分支:$(git_branch_display)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> 更新" \
         "2" "> 修复更新" \
