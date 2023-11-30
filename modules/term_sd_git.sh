@@ -171,19 +171,20 @@ git_branch_display()
     local ref
     local req
     local git_commit_hash
-    ref=$(git symbolic-ref --quiet HEAD 2> /dev/null)
-    req=$?
-    if [ $req = 0 ]; then
-        git_commit_hash=$(git show -s --format="%h %cd" --date=format:"%Y-%m-%d %H:%M:%S")
-    else
-        if [ $req = 128 ];then
-            return # 未找到.git
+
+    if [ -d "./.git" ];then
+        ref=$(git symbolic-ref --quiet HEAD 2> /dev/null)
+        req=$?
+        if [ $req = 0 ]; then
+            git_commit_hash=$(git show -s --format="%h %cd" --date=format:"%Y-%m-%d %H:%M:%S")
         else
             ref=$(git rev-parse --short HEAD 2> /dev/null) || return
             git_commit_hash=$(git show -s --format="%cd" --date=format:"%Y-%m-%d %H:%M:%S")
         fi
+        echo ${ref#refs/heads/} ${git_commit_hash}
+    else
+        echo "非git安装,无分支"
     fi
-    echo ${ref#refs/heads/} ${git_commit_hash}
 }
 
 # git远程源地址展示
