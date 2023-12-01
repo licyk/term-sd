@@ -100,9 +100,10 @@ pacman -Sy
 
 输入以下内容并回车
 ```
-pacman -S dialog curl mingw-w64-ucrt-x86_64-aria2
+pacman -S dialog curl mingw-w64-ucrt-x86_64-aria2 mingw-w64-ucrt-x86_64-ca-certificates
 ```
 输入y，回车，等待安装完成
+>`mingw-w64-ucrt-x86_64-ca-certificates`这个包如果不装会导致aria2下载时出现`ssl/tls handshake failure: unable to get local issuer certificate`
 
 完成上面的步骤后环境就配置好了，可以在下面的步骤下载和启动Term-SD
 
