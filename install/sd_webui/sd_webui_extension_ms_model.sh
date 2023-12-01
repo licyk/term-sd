@@ -114,3 +114,8 @@ __term_sd_task_pre_ext_33 get_modelscope_model licyks/sd-extensions-model/master
 __term_sd_task_pre_ext_33 get_modelscope_model licyks/sd-extensions-model/master/sd-webui-segment-anything/sam_vit_b_01ec64.pth ./stable-diffusion-webui/extensions/sd-webui-segment-anything/models/sam
 __term_sd_task_pre_ext_33 get_modelscope_model licyks/sd-extensions-model/master/sd-webui-segment-anything/groundingdino_swint_ogc.pth ./stable-diffusion-webui/extensions/sd-webui-segment-anything/models/grounding-dino
 __term_sd_task_pre_ext_33 get_modelscope_model licyks/sd-extensions-model/master/sd-webui-segment-anything/groundingdino_swinb_cogcoor.pth ./stable-diffusion-webui/extensions/sd-webui-segment-anything/models/grounding-dino
+
+__term_sd_task_pre_ext_66 term_sd_echo "下载sd-webui-inpaint-anything模型"
+__term_sd_task_pre_ext_66 get_modelscope_model licyks/sd-extensions-model/master/sd-webui-segment-anything/sam_vit_h_4b8939.pth ./stable-diffusion-webui/extensions/sd-webui-inpaint-anything/models
+__term_sd_task_pre_ext_66 get_modelscope_model licyks/sd-extensions-model/master/sd-webui-segment-anything/sam_vit_l_0b3195.pth ./stable-diffusion-webui/extensions/sd-webui-inpaint-anything/models
+__term_sd_task_pre_ext_66 get_modelscope_model licyks/sd-extensions-model/master/sd-webui-segment-anything/sam_vit_b_01ec64.pth ./stable-diffusion-webui/extensions/sd-webui-inpaint-anything/models

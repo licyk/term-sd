@@ -260,3 +260,7 @@ AUTOMATIC1111-stable-diffusion-webui插件说明：
 65、sd-webui-api-payload-display：
 描述：生图完成后展示api参数
 链接：https://github.com/huchenlei/sd-webui-api-payload-display
+
+66、sd-webui-inpaint-anything：
+描述：使用seg生成的蒙版进行图像重绘
+链接：https://github.com/Uminosachi/sd-webui-inpaint-anything
