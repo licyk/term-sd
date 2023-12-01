@@ -26,6 +26,9 @@ Term-SD的编写参考了https://gitee.com/skymysky/linux（制作Term-SD早期�
   https://www.bilibili.com/read/cv22159609
 重绘学派法术绪论：
   https://docs.qq.com/pdf/DR2V2ZlhHbnJUVHBa
+StableDiffusionBook：
+  https://draw.dianas.cyou
+  https://stable-diffusion-book.vercel.app
 Stable Diffusion汇总文档：
   https://www.kdocs.cn/l/cre0TwbMkdx3
 Stable Diffusion 信息并联&入门教程：

@@ -623,6 +623,7 @@ export PIP_DISABLE_PIP_VERSION_CHECK # 禁用pip版本版本检查
 export pip_manager_update # Term-SD自动更新pip
 export term_sd_debug_mode # # debug模式
 export term_sd_delimiter
+export SAFETENSORS_FAST_GPU=1 # 强制所有模型使用 GPU 加载
 missing_depend_info=0 # 依赖缺失状态
 missing_depend_macos_info=0
 term_sd_extra_scripts_name="null" # Term-SD扩展脚本
