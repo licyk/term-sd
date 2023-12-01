@@ -2,7 +2,7 @@
 
 # Term-SD
 
-_✨ 功能丰富的AI软件管理器_
+_✨一个小巧，多功能的AI软件管理器_
 
 </div>
 
@@ -22,8 +22,7 @@ _✨ 功能丰富的AI软件管理器_
 
 ## 简介
 Term-SD是一款基于dialog实现前端界面显示的AI管理器，支持安装，管理以下软件  
-- 1、
-[AUTOMATIC1111-stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui)(支持切换成[SD.Next](https://github.com/vladmandic/automatic)/[stable-diffusion-webui-directml](https://github.com/lshqqytiger/stable-diffusion-webui-directml))  
+- 1、[AUTOMATIC1111-stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui)(支持切换成[SD.Next](https://github.com/vladmandic/automatic)/[stable-diffusion-webui-directml](https://github.com/lshqqytiger/stable-diffusion-webui-directml))  
 - 2、[ComfyUI](https://github.com/comfyanonymous/ComfyUI)  
 - 3、[InvokeAI](https://github.com/invoke-ai/InvokeAI)  
 - 4、[Fooocus](https://github.com/lllyasviel/Fooocus)  

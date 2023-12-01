@@ -5,7 +5,7 @@ source ./term-sd/modules/python_venv.sh
 source ./term-sd/modules/term_sd_python_cmd.sh
 
 if [ -d "./kohya_ss" ];then
-    if [ $OS = "Windows_NT" ];then
+    if [ ! -z $OS ] && [ $OS = "Windows_NT" ];then
         term_sd_echo "开始修复kohya_ss环境的bitsandbytes"
         cd kohya_ss
         create_venv
