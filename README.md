@@ -34,7 +34,7 @@ Term-SD是一款基于dialog实现前端界面显示的AI管理器，支持安�
 Term-SD支持在Linux，Windows，MacOS上运行，在使用Term-SD前先配置好依赖环境，以下是各个平台所需的依赖  
 - Windows：msys2，aria2，python，pip，git，dialog，curl  
 - Linux：aria2，python，pip，git，dialog，curl  
-- MacOS：homebrew，aria2，python，pip，git，dialog，rust，cmake，protobuf，wget，gawk，curl
+- MacOS：homebrew，aria2，python，pip，git，dialog，rust，cmake，protobuf，wget，curl
 
 ***
 
@@ -158,12 +158,10 @@ brew update
 [《清华大学开源软件镜像站 Homebrew/Linuxbrew镜像使用帮助》](https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/)  
 [《Homebrew Documentation》](https://docs.brew.sh/Installation)
 
-- 2、安装git，aria2，dialog，python，rust，cmake，protobuf，wget，gawk，curl
+- 2、安装git，aria2，dialog，python，rust，cmake，protobuf，wget，curl
 ```
-brew install git aria2 dialog python@3.10 rust cmake protobuf wget gawk curl
+brew install git aria2 dialog python@3.10 rust cmake protobuf wget curl
 ```
-
->MacOS系统中自带的awk功能较少，可能会影响Term-SD运行，所以需要安装功能更强大的gawk
 
 ***
 

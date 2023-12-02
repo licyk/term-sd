@@ -749,7 +749,7 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
     *)
         term_sd_echo "检测依赖软件是否安装"
         term_sd_depend="git aria2c dialog curl" # term-sd依赖软件包
-        term_sd_depend_macos="wget rustc cmake brew protoc gawk" # term-sd依赖软件包(MacOS)
+        term_sd_depend_macos="wget rustc cmake brew protoc" # term-sd依赖软件包(MacOS)
 
         # 检测可用的python命令,并检测是否手动指定python路径
         if [ -z "$term_sd_python_path" ];then
@@ -793,9 +793,7 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
         #依赖检测(MacOS)
         if [ $(uname) = "Darwin" ];then
             for i in $term_sd_depend_macos ; do
-                if which $i > /dev/null 2>&1 ;then
-                    test_num_macos=$(( $test_num_macos + 1 ))
-                else
+                if ! which $i > /dev/null 2>&1 ;then
                     #转换名称
                     case $i in
                         rustc)
@@ -809,12 +807,11 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
                             ;;
                     esac
                     missing_depend_macos="$missing_depend_macos $i,"
+                    missing_depend_macos_info=1
                 fi
             done
 
-            if [ $missing_depend_macos_info = 0 ];then
-                alias awk='gawk' #将gawk链接到awk命令中
-            else
+            if [ ! $missing_depend_macos_info = 0 ];then
                 print_line_to_shell "缺少以下依赖"
                 echo $missing_depend_macos
                 print_line_to_shell
