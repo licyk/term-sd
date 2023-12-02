@@ -25,5 +25,6 @@ __term_sd_task_pre_core echo "    ]," >> ./stable-diffusion-webui/config.json
 __term_sd_task_pre_core echo "    \"save_to_dirs\": false," >> ./stable-diffusion-webui/config.json
 __term_sd_task_pre_core echo "    \"grid_save_to_dirs\": false," >> ./stable-diffusion-webui/config.json
 __term_sd_task_pre_core echo "    \"hires_fix_show_sampler\": true," >> ./stable-diffusion-webui/config.json
-__term_sd_task_pre_core echo "    \"CLIP_stop_at_last_layers\": 2" >> ./stable-diffusion-webui/config.json
+__term_sd_task_pre_core echo "    \"CLIP_stop_at_last_layers\": 2," >> ./stable-diffusion-webui/config.json
+__term_sd_task_pre_core echo "    \"localization\": \"zh-Hans (Stable)\"" >> ./stable-diffusion-webui/config.json
 __term_sd_task_pre_core echo "}" >> ./stable-diffusion-webui/config.json
