@@ -133,8 +133,8 @@ pip_mirrors_setting()
             ;;
         2)
             term_sd_echo "设置pip镜像源为国内镜像源"
-            term_sd_pip config set global.index-url "https://mirrors.bfsu.edu.cn/pypi/web/simple"
-            term_sd_pip config set global.extra-index-url "https://mirror.baidu.com/pypi/simple https://pypi.tuna.tsinghua.edu.cn/simple https://mirror.nju.edu.cn/pypi/web/simple"
+            term_sd_pip config set global.index-url "https://mirrors.cloud.tencent.com/pypi/simple"
+            term_sd_pip config set global.extra-index-url "https://mirror.baidu.com/pypi/simple https://mirrors.bfsu.edu.cn/pypi/web/simple https://mirror.nju.edu.cn/pypi/web/simple"
             term_sd_pip config set global.find-links "https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
             dialog --erase-on-exit --title "Term-SD" --backtitle "pip镜像源(配置文件)选项" --ok-label "确认" --msgbox "设置pip镜像源为国内镜像源成功" $term_sd_dialog_height $term_sd_dialog_width
             pip_mirrors_setting
@@ -175,8 +175,8 @@ pip_mirrors_env_setting()
             pip_mirrors_env_setting
             ;;
         2)
-            PIP_INDEX_URL="https://mirrors.bfsu.edu.cn/pypi/web/simple"
-            PIP_EXTRA_INDEX_URL="https://mirror.baidu.com/pypi/simple https://pypi.tuna.tsinghua.edu.cn/simple https://mirror.nju.edu.cn/pypi/web/simple"
+            PIP_INDEX_URL="https://mirrors.cloud.tencent.com/pypi/simple"
+            PIP_EXTRA_INDEX_URL="https://mirror.baidu.com/pypi/simple https://mirrors.bfsu.edu.cn/pypi/web/simple https://mirror.nju.edu.cn/pypi/web/simple"
             PIP_FIND_LINKS="https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
             rm -f ./term-sd/config/disable-pip-mirror.lock
             dialog --erase-on-exit --title "Term-SD" --backtitle "pip镜像源(环境变量)选项" --ok-label "确认" --msgbox "设置pip镜像源为国内镜像源成功" $term_sd_dialog_height $term_sd_dialog_width
