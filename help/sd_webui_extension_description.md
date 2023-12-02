@@ -30,7 +30,7 @@ AUTOMATIC1111-stable-diffusion-webui插件说明：
 链接：https://github.com/Akegarasu/sd-webui-model-converter
 
 8、sd-webui-supermerger：
-描述：模型转换扩展
+描述：模型融合扩展
 链接：https://github.com/hako-mikan/sd-webui-supermerger
 
 9、stable-diffusion-webui-localization-zh_Hans：
@@ -146,7 +146,7 @@ AUTOMATIC1111-stable-diffusion-webui插件说明：
 链接：https://github.com/ModelSurge/sd-webui-comfyui
 
 37、sd-webui-animatediff：
-描述：GIF生成扩展
+描述：视频生成扩展
 链接：https://github.com/continue-revolution/sd-webui-animatediff
 
 38、sd-webui-photopea-embed：
