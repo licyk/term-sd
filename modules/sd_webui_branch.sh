@@ -3,6 +3,8 @@
 # sd-web启动分支判断
 sd_webui_launch()
 {
+    local sd_webui_branch
+
     if [ ! -f "./term-sd-launch.conf" ]; then # 找不到启动配置时默认生成一个
         term_sd_echo "未找到启动配置文件,创建中"
         echo "launch.py --theme dark --autolaunch --xformers" > term-sd-launch.conf
@@ -16,6 +18,8 @@ sd_webui_launch()
         vlad_sd_webui_launch
     elif [ ! -z "$(echo $sd_webui_branch | grep stable-diffusion-webui-directml)" ];then
         sd_webui_directml_launch
+    else
+        a1111_sd_webui_launch
     fi
 }
 
