@@ -22,6 +22,8 @@ sd_webui_manager()
             stable-diffusion-webui-directml)
                 sd_webui_branch_info="lshqqytiger webui $(git_branch_display)"
                 ;;
+            *)
+                sd_webui_branch_info="null(git文件损坏)"
         esac
 
         sd_webui_manager_dialog=$(
