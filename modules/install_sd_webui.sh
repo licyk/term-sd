@@ -124,3 +124,22 @@ sd_webui_extension_install_select()
         $(cat "$start_path/term-sd/install/sd_webui/dialog_sd_webui_extension.sh") \
         3>&1 1>&2 2>&3)
 }
+
+# sd-webui配置文件
+sd_webui_config_file()
+{
+    cat<<EOF
+{
+    "quicksettings_list": [
+        "sd_model_checkpoint",
+        "sd_vae",
+        "CLIP_stop_at_last_layers"
+    ],
+    "save_to_dirs": false,
+    "grid_save_to_dirs": false,
+    "hires_fix_show_sampler": true,
+    "CLIP_stop_at_last_layers": 2,
+    "localization": "zh-Hans (Stable)"
+}
+EOF
+}

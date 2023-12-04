@@ -6,5 +6,5 @@ __term_sd_task_sys cd ./ComfyUI
 __term_sd_task_sys create_venv
 __term_sd_task_sys enter_venv
 __term_sd_task_sys cd ..
-__term_sd_task_pre_core [ ! -z "$(echo $pytorch_install_version | awk '{gsub(/[=+]/, "")}1')" ] && term_sd_watch term_sd_pip install $pytorch_install_version $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary || true
+__term_sd_task_pre_core install_pytorch # 安装pytorch
 __term_sd_task_pre_core term_sd_watch term_sd_pip install -r ./ComfyUI/requirements.txt --prefer-binary $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode

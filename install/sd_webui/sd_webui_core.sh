@@ -11,20 +11,9 @@ __term_sd_task_pre_core git_clone_repository ${github_mirror} https://github.com
 __term_sd_task_pre_core git_clone_repository ${github_mirror} https://github.com/Stability-AI/generative-models stable-diffusion-webui/repositories generative-models
 __term_sd_task_pre_core git_clone_repository ${github_mirror} https://github.com/crowsonkb/k-diffusion stable-diffusion-webui/repositories k-diffusion
 __term_sd_task_sys term_sd_tmp_disable_proxy # 临时取消代理,避免一些不必要的网络减速
-__term_sd_task_pre_core [ ! -z "$(echo $pytorch_install_version | awk '{gsub(/[=+]/, "")}1')" ] && term_sd_watch term_sd_pip install $pytorch_install_version $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary || true
+__term_sd_task_pre_core install_pytorch # 安装pytorch
 __term_sd_task_pre_core term_sd_watch term_sd_pip install git+$(git_format_repository_url ${github_mirror} https://github.com/openai/CLIP) --prefer-binary $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode
 __term_sd_task_pre_core term_sd_watch term_sd_pip install -r ./stable-diffusion-webui/repositories/CodeFormer/requirements.txt --prefer-binary $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode
 __term_sd_task_pre_core term_sd_watch term_sd_pip install -r ./stable-diffusion-webui/requirements.txt --prefer-binary $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode # 安装stable-diffusion-webui的依赖
 __term_sd_task_pre_core term_sd_echo "生成配置中"
-__term_sd_task_pre_core echo "{" > ./stable-diffusion-webui/config.json
-__term_sd_task_pre_core echo "    \"quicksettings_list\": [" >> ./stable-diffusion-webui/config.json
-__term_sd_task_pre_core echo "        \"sd_model_checkpoint\"," >> ./stable-diffusion-webui/config.json
-__term_sd_task_pre_core echo "        \"sd_vae\"," >> ./stable-diffusion-webui/config.json
-__term_sd_task_pre_core echo "        \"CLIP_stop_at_last_layers\"" >> ./stable-diffusion-webui/config.json   
-__term_sd_task_pre_core echo "    ]," >> ./stable-diffusion-webui/config.json
-__term_sd_task_pre_core echo "    \"save_to_dirs\": false," >> ./stable-diffusion-webui/config.json
-__term_sd_task_pre_core echo "    \"grid_save_to_dirs\": false," >> ./stable-diffusion-webui/config.json
-__term_sd_task_pre_core echo "    \"hires_fix_show_sampler\": true," >> ./stable-diffusion-webui/config.json
-__term_sd_task_pre_core echo "    \"CLIP_stop_at_last_layers\": 2," >> ./stable-diffusion-webui/config.json
-__term_sd_task_pre_core echo "    \"localization\": \"zh-Hans (Stable)\"" >> ./stable-diffusion-webui/config.json
-__term_sd_task_pre_core echo "}" >> ./stable-diffusion-webui/config.json
+__term_sd_task_pre_core sd_webui_config_file > ./stable-diffusion-webui/config.json

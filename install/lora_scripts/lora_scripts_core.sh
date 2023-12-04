@@ -10,7 +10,7 @@ __term_sd_task_pre_core git submodule init
 __term_sd_task_pre_core git submodule update
 __term_sd_task_sys create_venv
 __term_sd_task_sys enter_venv
-__term_sd_task_pre_core [ ! -z "$(echo $pytorch_install_version | awk '{gsub(/[=+]/, "")}1')" ] && term_sd_watch term_sd_pip install $pytorch_install_version $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary || true
+__term_sd_task_pre_core install_pytorch # 安装pytorch
 __term_sd_task_sys cd ./sd-scripts
 __term_sd_task_pre_core term_sd_watch term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade -r requirements.txt # sd-scripts目录下还有个_typos.toml,在安装requirements.txt里的依赖时会指向这个文件
 __term_sd_task_sys cd ..

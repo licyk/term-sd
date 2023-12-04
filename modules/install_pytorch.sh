@@ -15,14 +15,22 @@ pytorch_reinstall()
         term_sd_tmp_disable_proxy
         create_venv
         enter_venv
-        if [ ! -z "$(echo $pytorch_install_version | awk '{gsub(/[=+]/, "")}1')" ];then
-            term_sd_watch term_sd_pip install $pytorch_install_version $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --force-reinstall
-        else
-            term_sd_echo "未指定pytorch版本,跳过安装"
-        fi
+        install_pytorch
         exit_venv
         term_sd_tmp_enable_proxy
         term_sd_echo "pytorch安装结束"
         term_sd_pause
+    fi
+}
+
+# pytorch安装
+install_pytorch()
+{
+    if [ ! -z "$(echo $pytorch_install_version | awk '{gsub(/[=+]/,"")}1')" ];then
+        term_sd_watch term_sd_pip install $pytorch_install_version $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary
+        return $?
+    else
+        term_sd_echo "未指定pytorch版本,跳过安装"
+        return 0
     fi
 }
