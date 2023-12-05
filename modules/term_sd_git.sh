@@ -194,7 +194,7 @@ git_branch_display()
 git_remote_display()
 {
     if [ -d "./.git" ];then
-        echo $(git remote -v 2 > /dev/null | awk 'NR==1 {print $2}')
+        echo $(git remote -v 2> /dev/null | awk 'NR==1 {print $2}')
     else
         echo "非git安装,无更新源"
     fi
