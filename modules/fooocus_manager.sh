@@ -24,8 +24,9 @@ fooocus_manager()
             "9" "> 重新安装pytorch" \
             "10" "> 修复虚拟环境" \
             "11" "> 重新构建虚拟环境" \
-            "12" "> 重新安装" \
-            "13" "> 卸载" \
+            "12" "> 重新安装后端组件" \
+            "13" "> 重新安装" \
+            "14" "> 卸载" \
             3>&1 1>&2 2>&3)
 
         case $fooocus_manager_dialog in
@@ -107,6 +108,10 @@ fooocus_manager()
                 fooocus_manager
                 ;;
             12)
+                foooucs_backend_repo_reinstall
+                fooocus_manager
+                ;;
+            13)
                 if (dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装Fooocus?" $term_sd_dialog_height $term_sd_dialog_width) then
                     cd "$start_path"
                     rm -f "$start_path/term-sd/task/fooocus_install.sh"
@@ -116,7 +121,7 @@ fooocus_manager()
                     fooocus_manager
                 fi
                 ;;
-            13)
+            14)
                 if (dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus删除选项" --yes-label "是" --no-label "否" --yesno "是否删除Fooocus?" $term_sd_dialog_height $term_sd_dialog_width) then
                     term_sd_echo "请再次确认是否删除Fooocus(yes/no)?"
                     term_sd_echo "警告:该操作将永久删除Fooocus"
@@ -167,6 +172,25 @@ fooocus_update_depend()
             exit_venv
             term_sd_tmp_enable_proxy
             term_sd_echo "更新Fooocus依赖结束"
+            term_sd_pause
+        fi
+    fi
+}
+
+# fooocus后端重装
+foooucs_backend_repo_reinstall()
+{
+    if (dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus后端组件重装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装Fooocus后端组件?" $term_sd_dialog_height $term_sd_dialog_width);then
+        download_mirror_select # 下载镜像源选择
+        term_sd_install_confirm # 安装前确认
+
+        if [ $? = 0 ];then
+            term_sd_print_line "Fooocus后端组件重装"
+            term_sd_echo "删除原有Fooocus后端组件中"
+            rm -rf ./repositories/*
+            term_sd_echo "重新下载Fooocus后端组件中"
+            git_clone_repository ${github_mirror} https://github.com/comfyanonymous/ComfyUI Fooocus/repositories ComfyUI-from-StabilityAI-Official
+            term_sd_echo "重装Fooocus后端组件结束"
             term_sd_pause
         fi
     fi

@@ -42,8 +42,9 @@ sd_webui_manager()
             "11" "> 重新安装pytorch" \
             "12" "> 修复虚拟环境" \
             "13" "> 重新构建虚拟环境" \
-            "14" "> 重新安装" \
-            "15" "> 卸载" \
+            "14" "> 重新安装后端组件" \
+            "15" "> 重新安装" \
+            "16" "> 卸载" \
             3>&1 1>&2 2>&3)
 
         case $sd_webui_manager_dialog in
@@ -130,6 +131,10 @@ sd_webui_manager()
                 sd_webui_manager
                 ;;
             14)
+                sd_webui_backend_repo_reinstall
+                sd_webui_manager
+                ;;
+            15)
                 if (dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装Stable-Diffusion-WebUI?" $term_sd_dialog_height $term_sd_dialog_width) then
                     cd "$start_path"
                     rm -f "$start_path/term-sd/task/sd_webui_install.sh"
@@ -139,7 +144,7 @@ sd_webui_manager()
                     sd_webui_manager
                 fi
                 ;;
-            15)
+            16)
                 if (dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI删除选项" --yes-label "是" --no-label "否" --yesno "是否删除Stable-Diffusion-WebUI?" $term_sd_dialog_height $term_sd_dialog_width);then
                     term_sd_echo "请再次确认是否删除Stable-Diffusion-WebUI(yes/no)?"
                     term_sd_echo "警告:该操作将永久删除Stable-Diffusion-WebUI"
@@ -164,7 +169,7 @@ sd_webui_manager()
                 ;;
         esac
     else #找不到stable-diffusion-webui目录
-        if (dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI安装选项" --yes-label "是" --no-label "否" --yesno "检测到当前未安装Stable-Diffusion-WebUI,是否进行安装?" $term_sd_dialog_height $term_sd_dialog_width) then
+        if (dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI安装选项" --yes-label "是" --no-label "否" --yesno "检测到当前未安装Stable-Diffusion-WebUI,是否进行安装?" $term_sd_dialog_height $term_sd_dialog_width);then
             install_sd_webui
         fi
     fi
@@ -191,6 +196,29 @@ sd_webui_update_depend()
             exit_venv
             term_sd_tmp_enable_proxy
             term_sd_echo "更新Stable-Diffusion-WebUI依赖结束"
+            term_sd_pause
+        fi
+    fi
+}
+
+# sd-webui后端组件重装
+sd_webui_backend_repo_reinstall()
+{
+    if (dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI后端组件重装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装Stable-Diffusion-WebUI后端组件?" $term_sd_dialog_height $term_sd_dialog_width);then
+        download_mirror_select # 下载镜像源选择
+        term_sd_install_confirm # 安装前确认
+
+        if [ $? = 0 ];then
+            term_sd_print_line "Stable-Diffusion-WebUI后端组件重装"
+            term_sd_echo "删除原有Stable-Diffusion-WebUI后端组件中"
+            rm -rf ./repositories/*
+            term_sd_echo "重新下载Stable-Diffusion-WebUI后端组件中"
+            git_clone_repository ${github_mirror} https://github.com/sczhou/CodeFormer repositories CodeFormer
+            git_clone_repository ${github_mirror} https://github.com/salesforce/BLIP repositories BLIP
+            git_clone_repository ${github_mirror} https://github.com/Stability-AI/stablediffusion repositories stable-diffusion-stability-ai
+            git_clone_repository ${github_mirror} https://github.com/Stability-AI/generative-models repositories generative-models
+            git_clone_repository ${github_mirror} https://github.com/crowsonkb/k-diffusion repositories k-diffusion
+            term_sd_echo "重装Stable-Diffusion-WebUI后端组件结束"
             term_sd_pause
         fi
     fi

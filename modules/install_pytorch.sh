@@ -3,23 +3,25 @@
 # pytorch重装
 pytorch_reinstall()
 {
-    # 安装前的准备
-    download_mirror_select # 下载镜像源选择
-    pytorch_version_select # pytorch版本选择
-    pip_install_mode_select # 安装方式选择
-    term_sd_install_confirm # 安装前确认
+    if (dialog --erase-on-exit --title "Term-SD" --backtitle "pytorch重装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装pytorch?" $term_sd_dialog_height $term_sd_dialog_width);then
+        # 安装前的准备
+        download_mirror_select # 下载镜像源选择
+        pytorch_version_select # pytorch版本选择
+        pip_install_mode_select # 安装方式选择
+        term_sd_install_confirm # 安装前确认
 
-    if [ $? = 0 ];then
-        # 开始安装pytorch
-        term_sd_print_line "pytorch安装"
-        term_sd_tmp_disable_proxy
-        create_venv
-        enter_venv
-        install_pytorch
-        exit_venv
-        term_sd_tmp_enable_proxy
-        term_sd_echo "pytorch安装结束"
-        term_sd_pause
+        if [ $? = 0 ];then
+            # 开始安装pytorch
+            term_sd_print_line "pytorch安装"
+            term_sd_tmp_disable_proxy
+            create_venv
+            enter_venv
+            install_pytorch
+            exit_venv
+            term_sd_tmp_enable_proxy
+            term_sd_echo "pytorch安装结束"
+            term_sd_pause
+        fi
     fi
 }
 

@@ -109,7 +109,7 @@ Term-SD在成功启动后，首先显示的是各个组件的版本信息，选�
 该功能用于统计各个AI软件的空间占用和Term-SD重定向的缓存占用情况
 
 ### 网络连接测试
-测试网络环境，用于测试代理是否可用。该功能将会测试网络连接是否正常，并测试google，huggingface，github，ghproxy等能否访问。在安装时出现的“代理选项”中，有的github镜像源可能无法访问，可以通过该功能查看哪些镜像源可用
+测试网络环境，用于测试代理是否可用。该功能将会测试网络连接是否正常，并测试google，huggingface，github，ghproxy等能否访问。在安装时出现的“代理设置”中，有的github镜像源可能无法访问，可以通过该功能查看哪些镜像源可用
 
 ### 卸载Term-SD
 卸载Term-SD本体程序，保留已下载的AI软件
@@ -120,7 +120,7 @@ Term-SD在成功启动后，首先显示的是各个组件的版本信息，选�
 Term-SD在使用安装、管理功能时，会使用准备功能来对一些操作进行准备工作，共有以下功能
 >这些功能会经常出现
 
-### 1、代理选项
+### 1、安装镜像选项
 有以下选项：
 - 1、启用pip镜像源：Term-SD调用pip下载python软件包时使用国内镜像源进行下载
 - 2、huggingface/github独占代理：Term-SD安装AI软件的过程仅为huggingface/github下载源启用代理，减少代理流量的消耗
@@ -235,8 +235,8 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 选中AUTOMATIC1111-stable-diffusion-webui管理后，Term-SD会检测该ai是否安装，如果没有安装，Term-SD会提示用户是否进行安装  
 选择“是”之后，Term-SD会进入安装准备选项
 
-#### 1、代理选项
-第一个是代理选项，共有以下选项
+#### 1、安装镜像选项
+第一个是安装镜像选项，共有以下选项
 - 1、启用pip镜像源：Term-SD调用pip下载python软件包时使用国内镜像源进行下载
 - 2、huggingface/github独占代理：Term-SD安装AI软件的过程仅为huggingface/github下载源启用代理，减少代理流量的消耗
 - 3、强制使用pip：强制使用pip安装python软件包，一般只有在禁用虚拟环境后才需要启用 
@@ -291,7 +291,7 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 选中ComfyUI管理后，Term-SD会检测该ai是否安装，如果没有安装，Term-SD会提示用户是否进行安装  
 选择“是”之后，Term-SD会进入安装准备选项
 
-#### 1、代理选项
+#### 1、安装镜像选项
 和AUTOMATIC1111-stable-diffusion-webui的选择方法相同
 
 #### 2、pytorch版本选择
@@ -319,7 +319,7 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 选中InvokeAI管理后，Term-SD会检测该ai是否安装，如果没有安装，Term-SD会提示用户是否进行安装  
 选择“是”之后，Term-SD会进入安装准备选项
 
-#### 1、代理选项
+#### 1、安装镜像选项
 和AUTOMATIC1111-stable-diffusion-webui的选择方法相同
 
 #### 2、pytorch版本选择
@@ -341,7 +341,7 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 选中Fooocus管理后，Term-SD会检测该ai是否安装，如果没有安装，Term-SD会提示用户是否进行安装  
 选择“是”之后，Term-SD会进入安装准备选项
 
-#### 1、代理选项
+#### 1、安装镜像选项
 和AUTOMATIC1111-stable-diffusion-webui的选择方法相同
 
 #### 2、pytorch版本选择
@@ -361,7 +361,7 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 选中lora-scripts管理后，Term-SD会检测该ai是否安装，如果没有安装，Term-SD会提示用户是否进行安装  
 选择“是”之后，Term-SD会进入安装准备选项
 
-#### 1、代理选项
+#### 1、安装镜像选项
 和AUTOMATIC1111-stable-diffusion-webui的选择方法相同
 
 #### 2、pytorch版本选择
@@ -381,7 +381,7 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 选中kohya_ss管理后，Term-SD会检测该ai是否安装，如果没有安装，Term-SD会提示用户是否进行安装  
 选择“是”之后，Term-SD会进入安装准备选项
 
-#### 1、代理选项
+#### 1、安装镜像选项
 和AUTOMATIC1111-stable-diffusion-webui的选择方法相同
 
 #### 2、pytorch版本选择
@@ -496,6 +496,11 @@ xformers==0.0.21 numpy
 
 ### 16、依赖库版本管理
 该功能用于记录python依赖库的版本，在AI软件运行正常时，可以用该功能记录python依赖库的各个软件包版本，当因为装插件等导致依赖库的软件包版本出现错误而导致报错时，可用该功能恢复原来依赖库的各个软件包版本，从而解决报错
+
+### 17、重新安装后端组件
+>仅限stable-diffusion-webui，Fooocus
+
+该功能用于重新下载后端需要的组件，组件可在`AI软件文件夹/repositories`文件夹中查看
 
 ***
 
