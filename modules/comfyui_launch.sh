@@ -41,7 +41,7 @@ comfyui_launch_args_setting()
         "31" "(disable-metadata)禁用在文件中保存提示元数据" OFF \
         "32" "(share)通过gradio共享" OFF \
         "33" "(fp8_e4m3fn-text-enc)使用fp8精度(e4m3fn)" OFF \
-        "34" "(fp8_e5m2-text-enc)使用fp8精度(e5m)" OFF \
+        "34" "(fp8_e5m2-text-enc)使用fp8精度(e5m2)" OFF \
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
