@@ -34,7 +34,7 @@ git_ver_switch()
             term_sd_echo "取消版本切换操作"
         fi
     else
-        term_sd_echo "$(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')非git安装,无法切换版本"
+        term_sd_echo "$(pwd | awk -F '/' '{print$NF}')非git安装,无法切换版本"
         return 10
     fi
 }
@@ -54,7 +54,7 @@ git_fix_pointer_offset()
         git restore --recurse-submodules --source=HEAD :/ # 重置工作区
         term_sd_echo "修复$(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')完成"
     else
-        term_sd_echo "$(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')非git安装,无法修复更新"
+        term_sd_echo "$(pwd | awk -F '/' '{print$NF}')非git安装,无法修复更新"
         return 10
     fi
 }
@@ -163,7 +163,7 @@ git_pull_repository()
                 ;;
         esac
     else
-        term_sd_echo "$(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')非git安装,无法更新"
+        term_sd_echo "$(pwd | awk -F '/' '{print$NF}')非git安装,无法更新"
         return 10
     fi
 }
@@ -194,7 +194,7 @@ git_branch_display()
 git_remote_display()
 {
     if [ -d "./.git" ];then
-        echo $(git remote -v | awk 'NR==1 {print $2}')
+        echo $(git remote -v 2 > /dev/null | awk 'NR==1 {print $2}')
     else
         echo "非git安装,无更新源"
     fi

@@ -189,7 +189,7 @@ foooucs_backend_repo_reinstall()
             term_sd_echo "删除原有Fooocus后端组件中"
             rm -rf ./repositories/*
             term_sd_echo "重新下载Fooocus后端组件中"
-            git_clone_repository ${github_mirror} https://github.com/comfyanonymous/ComfyUI Fooocus/repositories ComfyUI-from-StabilityAI-Official
+            git_clone_repository ${github_mirror} https://github.com/comfyanonymous/ComfyUI repositories ComfyUI-from-StabilityAI-Official
             term_sd_echo "重装Fooocus后端组件结束"
             term_sd_pause
         fi
