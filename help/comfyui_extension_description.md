@@ -188,3 +188,15 @@ ComfyUI插件/自定义节点说明：
 44、ComfyUI-AnimateDiff-Evolved：
 描述：视频生成节点
 链接：https://github.com/Kosinkadink/ComfyUI-AnimateDiff-Evolved
+
+45、comfyui-tooling-nodes：
+描述：使用ComfyUI作为外部工具后端的节点
+链接：https://github.com/Acly/comfyui-tooling-nodes
+
+46、ComfyUI_IPAdapter_plus：
+描述：添加ip-adapt支持
+链接：https://github.com/cubiq/ComfyUI_IPAdapter_plus
+
+47、efficiency-nodes-comfyui：
+描述：自定义节点的集合，可帮助简化工作流程并减少节点总数
+链接：https://github.com/jags111/efficiency-nodes-comfyui

@@ -15,6 +15,9 @@ __term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-upscaler
 __term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/parsing_parsenet.pth ./ComfyUI/models/upscale_models parsing_parsenet.pth
 __term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/RealESRGAN/RealESRGAN_x4plus.pth ./ComfyUI/models/upscale_models RealESRGAN_x4plus.pth
 __term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/RealESRGAN/RealESRGAN_x4plus_anime_6B.pth ./ComfyUI/models/upscale_models RealESRGAN_x4plus_anime_6B.pth
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x_NMKD-Superscale-Artisoftject_210000_G.pth ./ComfyUI/models/upscale_models 4x_NMKD-Superscale-Artisoftject_210000_G.pth
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x_NMKD-Superscale-SP_178000_G.pth ./ComfyUI/models/upscale_models 4x_NMKD-Superscale-SP_178000_G.pth
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/8x_NMKD-Superscale_150000_G.pth ./ComfyUI/models/upscale_models 8x_NMKD-Superscale_150000_G.pth
 __term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/EasyNegativeV2.safetensors ./ComfyUI/models/embeddings/negative EasyNegativeV2.safetensors # embeddings模型
 __term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-artist-anime.pt ./ComfyUI/models/embeddings/negative bad-artist-anime.pt
 __term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-artist.pt ./ComfyUI/models/embeddings/negative bad-artist.pt

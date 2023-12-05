@@ -9,6 +9,9 @@ __term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-vae/reso
 __term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x-UltraSharp.pth ./stable-diffusion-webui/models/ESRGAN 4x-UltraSharp.pth # upscaler模型
 __term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/BSRGAN.pth ./stable-diffusion-webui/models/ESRGAN BSRGAN.pth
 __term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/ESRGAN_4x.pth ./stable-diffusion-webui/models/ESRGAN ESRGAN_4x.pth
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x_NMKD-Superscale-Artisoftject_210000_G.pth ./stable-diffusion-webui/models/ESRGAN 4x_NMKD-Superscale-Artisoftject_210000_G.pth
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x_NMKD-Superscale-SP_178000_G.pth ./stable-diffusion-webui/models/ESRGAN 4x_NMKD-Superscale-SP_178000_G.pth
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/8x_NMKD-Superscale_150000_G.pth ./stable-diffusion-webui/models/ESRGAN 8x_NMKD-Superscale_150000_G.pth
 __term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/GFPGANv1.4.pth ./stable-diffusion-webui/models/GFPGAN GFPGANv1.4.pth
 __term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/detection_Resnet50_Final.pth ./stable-diffusion-webui/models/GFPGAN detection_Resnet50_Final.pth
 __term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/parsing_bisenet.pth ./stable-diffusion-webui/models/GFPGAN parsing_bisenet.pth

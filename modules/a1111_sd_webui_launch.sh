@@ -70,6 +70,8 @@ a1111_sd_webui_launch_args_setting()
         "60" "(api-server-stop)通过API启用服务器停止/重启/终止功能" OFF \
         "61" "(disable-all-extensions)禁用所有扩展运行" OFF \
         "62" "(disable-extra-extensions)禁用非内置的扩展运行" OFF \
+        "63" "(use-ipex)使用intel XPU作为生图后端" OFF \
+        "64" "(skip-load-model-at-start)启动webui时不加载模型,加速启动" ON \
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
@@ -260,6 +262,12 @@ a1111_sd_webui_launch_args_setting()
                     ;;
                 62)
                     a1111_sd_webui_launch_args="--disable-extra-extensions $a1111_sd_webui_launch_args"
+                    ;;
+                63)
+                    a1111_sd_webui_launch_args="--use-ipex $a1111_sd_webui_launch_args"
+                    ;;
+                64)
+                    a1111_sd_webui_launch_args="--skip-load-model-at-start $a1111_sd_webui_launch_args"
                     ;;
             esac
         done

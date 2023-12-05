@@ -14,6 +14,9 @@ __term_sd_task_pre_model get_modelscope_model licyks/sd-upscaler-models/master/G
 __term_sd_task_pre_model get_modelscope_model licyks/sd-upscaler-models/master/GFPGAN/parsing_parsenet.pth ./ComfyUI/models/upscale_models
 __term_sd_task_pre_model get_modelscope_model licyks/sd-upscaler-models/master/RealESRGAN/RealESRGAN_x4plus.pth ./ComfyUI/models/upscale_models
 __term_sd_task_pre_model get_modelscope_model licyks/sd-upscaler-models/master/RealESRGAN/RealESRGAN_x4plus_anime_6B.pth ./ComfyUI/models/upscale_models
+__term_sd_task_pre_model get_modelscope_model licyks/sd-upscaler-models/master/ESRGAN/4x_NMKD-Superscale-Artisoftject_210000_G.pth ./ComfyUI/models/upscale_models
+__term_sd_task_pre_model get_modelscope_model licyks/sd-upscaler-models/master/ESRGAN/4x_NMKD-Superscale-SP_178000_G.pth ./ComfyUI/models/upscale_models
+__term_sd_task_pre_model get_modelscope_model licyks/sd-upscaler-models/master/ESRGAN/8x_NMKD-Superscale_150000_G.pth ./ComfyUI/models/upscale_models
 __term_sd_task_pre_model get_modelscope_model licyks/sd-embeddings/master/sd_1.5/EasyNegativeV2.safetensors ./ComfyUI/models/embeddings/negative # embeddings模型
 __term_sd_task_pre_model get_modelscope_model licyks/sd-embeddings/master/sd_1.5/bad-artist-anime.pt ./ComfyUI/models/embeddings/negative
 __term_sd_task_pre_model get_modelscope_model licyks/sd-embeddings/master/sd_1.5/bad-artist.pt ./ComfyUI/models/embeddings/negative

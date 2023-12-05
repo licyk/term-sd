@@ -15,7 +15,7 @@ comfyui_launch_args_setting()
         "5" "(disable-cuda-malloc)禁用CUDA流顺序内存分配器" OFF \
         "6" "(dont-upcast-attention)禁用向上注意力优化" OFF \
         "7" "(force-fp32)强制使用fp32" OFF \
-        "8" "(force-fp16)强制使用 fp16" OFF \
+        "8" "(force-fp16)强制使用fp16" OFF \
         "9" "(bf16-unet)使用bf16精度运行unet" OFF \
         "10" "(fp16-vae)使用fp16精度运行vae" OFF \
         "11" "(fp32-vae)使用fp32精度运行vae" OFF \
@@ -40,6 +40,8 @@ comfyui_launch_args_setting()
         "30" "(windows-standalone-build)启用Windows独占功能" OFF \
         "31" "(disable-metadata)禁用在文件中保存提示元数据" OFF \
         "32" "(share)通过gradio共享" OFF \
+        "33" "(fp8_e4m3fn-text-enc)使用fp8精度(e4m3fn)" OFF \
+        "34" "(fp8_e5m2-text-enc)使用fp8精度(e5m)" OFF \
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
@@ -140,6 +142,12 @@ comfyui_launch_args_setting()
                     ;;
                 32)
                     comfyui_launch_args="--share $comfyui_launch_args"
+                    ;;
+                33)
+                    comfyui_launch_args="--fp8_e4m3fn-text-enc $comfyui_launch_args"
+                    ;;
+                34)
+                    comfyui_launch_args="--fp8_e5m2-text-enc $comfyui_launch_args"
                     ;;
             esac
         done

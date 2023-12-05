@@ -264,3 +264,7 @@ AUTOMATIC1111-stable-diffusion-webui插件说明：
 66、sd-webui-inpaint-anything：
 描述：使用seg生成的蒙版进行图像重绘
 链接：https://github.com/Uminosachi/sd-webui-inpaint-anything
+
+67、sd-webui-aspect-ratio-helper：
+描述：图片尺寸比例固定
+链接：https://github.com/thomasasfk/sd-webui-aspect-ratio-helper

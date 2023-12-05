@@ -60,11 +60,14 @@ __term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1/master/t2i
 __term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_zoedepth_sd15v1.pth ./ComfyUI/models/controlnet
 __term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_zoedepth_sd15v1.yaml ./ComfyUI/models/controlnet
 __term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1/master/image_adapter_v14.yaml ./ComfyUI/models/controlnet
-__term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter-plus-face_sd15.pth ./ComfyUI/models/controlnet
-__term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter_sd15.pth ./ComfyUI/models/controlnet
-__term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter_sd15_light.pth ./ComfyUI/models/controlnet
-__term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter_sd15_plus.pth ./ComfyUI/models/controlnet
 __term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1/master/sketch_adapter_v14.yaml ./ComfyUI/models/controlnet
 
 __term_sd_task_pre_ext_44 term_sd_echo "下载animatediff模型中"
 __term_sd_task_pre_ext_44 get_modelscope_model licyks/sd-extensions-model/master/sd-webui-animatediff/mm_sd_v15_v2.ckpt ./ComfyUI/custom_nodes/ComfyUI-AnimateDiff-Evolved/models
+
+__term_sd_task_pre_ext_46 term_sd_echo "下载ip-adapter模型中"
+__term_sd_task_pre_ext_46 get_modelscope_model licyks/controlnet_v1.1/master/image_adapter_v14.yaml ./ComfyUI/custom_nodes/ComfyUI_IPAdapter_plus/models
+__term_sd_task_pre_ext_46 get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter-plus-face_sd15.pth ./ComfyUI/custom_nodes/ComfyUI_IPAdapter_plus/models
+__term_sd_task_pre_ext_46 get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter_sd15.pth ./ComfyUI/custom_nodes/ComfyUI_IPAdapter_plus/models
+__term_sd_task_pre_ext_46 get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter_sd15_light.pth ./ComfyUI/custom_nodes/ComfyUI_IPAdapter_plus/models
+__term_sd_task_pre_ext_46 get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter_sd15_plus.pth ./ComfyUI/custom_nodes/ComfyUI_IPAdapter_plus/models

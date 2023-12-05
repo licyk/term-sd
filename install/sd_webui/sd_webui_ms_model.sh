@@ -8,6 +8,9 @@ __term_sd_task_pre_model get_modelscope_model licyks/sd-vae/master/vae-approx/va
 __term_sd_task_pre_model get_modelscope_model licyks/sd-upscaler-models/master/ESRGAN/4x-UltraSharp.pth ./stable-diffusion-webui/models/ESRGAN # upscaler模型
 __term_sd_task_pre_model get_modelscope_model licyks/sd-upscaler-models/master/ESRGAN/BSRGAN.pth ./stable-diffusion-webui/models/ESRGAN
 __term_sd_task_pre_model get_modelscope_model licyks/sd-upscaler-models/master/ESRGAN/ESRGAN_4x.pth ./stable-diffusion-webui/models/ESRGAN
+__term_sd_task_pre_model get_modelscope_model licyks/sd-upscaler-models/master/ESRGAN/4x_NMKD-Superscale-Artisoftject_210000_G.pth ./stable-diffusion-webui/models/ESRGAN
+__term_sd_task_pre_model get_modelscope_model licyks/sd-upscaler-models/master/ESRGAN/4x_NMKD-Superscale-SP_178000_G.pth ./stable-diffusion-webui/models/ESRGAN
+__term_sd_task_pre_model get_modelscope_model licyks/sd-upscaler-models/master/ESRGAN/8x_NMKD-Superscale_150000_G.pth ./stable-diffusion-webui/models/ESRGAN
 __term_sd_task_pre_model get_modelscope_model licyks/sd-upscaler-models/master/GFPGAN/detection_Resnet50_Final.pth ./stable-diffusion-webui/models/GFPGAN
 __term_sd_task_pre_model get_modelscope_model licyks/sd-upscaler-models/master/GFPGAN/GFPGANv1.4.pth ./stable-diffusion-webui/models/GFPGAN
 __term_sd_task_pre_model get_modelscope_model licyks/sd-upscaler-models/master/GFPGAN/parsing_bisenet.pth ./stable-diffusion-webui/models/GFPGAN
