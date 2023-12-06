@@ -613,10 +613,11 @@ set_python_path()
 term_sd_print_line "Term-SD"
 term_sd_echo "Term-SD初始化中"
 
-export term_sd_version_info="1.1.7" # term-sd版本
+export term_sd_version_info="1.1.8" # term-sd版本
 export user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题
+export PYTHONIOENCODING=utf8
 export PIP_TIMEOUT=120 # 设置pip的超时时间
 export PIP_RETRIES=5 # 设置pip的重试次数
 export PIP_DISABLE_PIP_VERSION_CHECK # 禁用pip版本版本检查

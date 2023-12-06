@@ -200,3 +200,7 @@ ComfyUI插件/自定义节点说明：
 47、efficiency-nodes-comfyui：
 描述：自定义节点的集合，可帮助简化工作流程并减少节点总数
 链接：https://github.com/jags111/efficiency-nodes-comfyui
+
+48、cd-tuner_negpip-ComfyUI：
+描述：解决tag的强污染，效果比cutoff好
+链接：https://github.com/laksjdjf/cd-tuner_negpip-ComfyUI

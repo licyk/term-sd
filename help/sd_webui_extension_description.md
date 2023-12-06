@@ -268,3 +268,15 @@ AUTOMATIC1111-stable-diffusion-webui插件说明：
 67、sd-webui-aspect-ratio-helper：
 描述：图片尺寸比例固定
 链接：https://github.com/thomasasfk/sd-webui-aspect-ratio-helper
+
+68、sd-webui-cd-tuner：
+描述：修改输出图像中的细节和色调的数量
+链接：https://github.com/hako-mikan/sd-webui-cd-tuner
+
+69、sd-webui-negpip：
+描述：解决tag的强污染，效果比cutoff更强
+链接：https://github.com/hako-mikan/sd-webui-negpip
+
+70、sd-webui-agent-scheduler：
+描述：生图队列管理，可制作一个参数不同的队列来进行批量生图
+链接：https://github.com/ArtVentureX/sd-webui-agent-scheduler
