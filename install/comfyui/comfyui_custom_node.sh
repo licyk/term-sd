@@ -46,3 +46,4 @@ __term_sd_task_pre_ext_45 git_clone_repository ${github_mirror} https://github.c
 __term_sd_task_pre_ext_46 git_clone_repository ${github_mirror} https://github.com/cubiq/ComfyUI_IPAdapter_plus ComfyUI/custom_nodes ON # 添加ip-adapt支持
 __term_sd_task_pre_ext_47 git_clone_repository ${github_mirror} https://github.com/jags111/efficiency-nodes-comfyui ComfyUI/custom_nodes ON # 自定义节点的集合，可帮助简化工作流程并减少节点总数
 __term_sd_task_pre_ext_48 git_clone_repository ${github_mirror} https://github.com/laksjdjf/cd-tuner_negpip-ComfyUI ComfyUI/custom_nodes ON # 解决tag的强污染，效果比cutoff好
+__term_sd_task_pre_ext_49 git_clone_repository ${github_mirror} https://github.com/kohya-ss/ControlNet-LLLite-ComfyUI ComfyUI/custom_nodes OFF # 添加ControlNet-LLLite的支持

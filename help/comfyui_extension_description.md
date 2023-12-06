@@ -204,3 +204,7 @@ ComfyUI插件/自定义节点说明：
 48、cd-tuner_negpip-ComfyUI：
 描述：解决tag的强污染，效果比cutoff好
 链接：https://github.com/laksjdjf/cd-tuner_negpip-ComfyUI
+
+49、ControlNet-LLLite-ComfyUI：
+描述：添加ControlNet-LLLite的支持
+链接：https://github.com/kohya-ss/ControlNet-LLLite-ComfyUI
