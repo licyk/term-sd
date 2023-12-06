@@ -158,7 +158,7 @@ ComfyUI插件/自定义节点说明：
 链接：https://github.com/Bikecicle/ComfyUI-Waveform-Extensions
 
 37、ComfyUI_Custom_Nodes_AlekPet：
-描述：一些额外的音频工具，用于示例扩散ComfyUI扩展
+描述：提示词翻译节点
 链接：https://github.com/AlekPet/ComfyUI_Custom_Nodes_AlekPet
 
 38、comfyui_controlnet_aux：
@@ -208,3 +208,7 @@ ComfyUI插件/自定义节点说明：
 49、ControlNet-LLLite-ComfyUI：
 描述：添加ControlNet-LLLite的支持
 链接：https://github.com/kohya-ss/ControlNet-LLLite-ComfyUI
+
+50、sdxl_prompt_styler：
+描述：SDXL提示词风格预设节点
+链接：https://github.com/twri/sdxl_prompt_styler
