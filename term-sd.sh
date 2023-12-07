@@ -613,7 +613,7 @@ set_python_path()
 term_sd_print_line "Term-SD"
 term_sd_echo "Term-SD初始化中"
 
-export term_sd_version_info="1.1.8" # term-sd版本
+export term_sd_version_info="1.1.9" # term-sd版本
 export user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题
@@ -865,6 +865,9 @@ fi
 if [ $term_sd_restart_info = 0 ];then
     source ./term-sd.sh
 fi
+
+term_sd_echo "Term-SD版本: $term_sd_version_info"
+term_sd_echo "Commit hash: $(git --git-dir="./term-sd/.git" show -s --format="%H %cd" --date=format:"%Y-%m-%d %H:%M:%S")"
 
 case $term_sd_extra_scripts_name in
     null)
