@@ -19,17 +19,26 @@ get_modelscope_model()
     local modelscope_branch=$(echo $@ | awk '{gsub(/[/]/, " ")}1' | awk '{print$3}')
     local modelscope_model_path=$(echo $1 | awk '{sub("'${modelscope_user}/${modelscope_name}/${modelscope_branch}/'","")}1')
     local modelscope_model_url="https://modelscope.cn/api/v1/models/${modelscope_user}/${modelscope_name}/repo?Revision=${modelscope_branch}&FilePath=${modelscope_model_path}"
-    local local_file_path="${2}/$(echo $1 | awk -F'/' '{print$NF}')"
-    local local_aria_cache_path="${2}/$(echo $1 | awk -F'/' '{print$NF}').aria2"
+
+    if [ ! -z "$3" ];then
+        local local_file_path="${2}/${3}"
+        local local_aria_cache_path="${2}/${3}.aria2"
+
+    else
+        local local_file_path="${2}/$(echo $1 | awk -F'/' '{print$NF}')"
+        local local_aria_cache_path="${2}/$(echo $1 | awk -F'/' '{print$NF}').aria2"
+    fi
+
     if [ ! -f "$local_file_path" ];then
         term_sd_echo "下载$(echo $modelscope_model_path | awk -F '/' '{print$NF}')中"
-        term_sd_watch aria2c $aria2_multi_threaded $modelscope_model_url -d ${2} -o $(echo $1 | awk -F'/' '{print$NF}')
+        term_sd_watch aria2c $aria2_multi_threaded $modelscope_model_url -d ${2} -o $(echo $local_file_path | awk -F'/' '{print$NF}')
     else
         if [ -f "$local_aria_cache_path" ];then
             term_sd_echo "恢复下载$(echo $modelscope_model_path | awk -F '/' '{print$NF}')中"
-            term_sd_watch aria2c $aria2_multi_threaded $modelscope_model_url -d ${2} -o $(echo $1 | awk -F'/' '{print$NF}')
+            term_sd_watch aria2c $aria2_multi_threaded $modelscope_model_url -d ${2} -o $(echo $local_file_path | awk -F'/' '{print$NF}')
         else
             term_sd_echo "$(echo $modelscope_model_path | awk -F '/' '{print$NF}')文件已存在,跳过下载该文件"
         fi
     fi
 }
+
