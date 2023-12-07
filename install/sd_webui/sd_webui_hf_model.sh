@@ -20,11 +20,11 @@ __term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-upscaler
 __term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/RealESRGAN/RealESRGAN_x4plus_anime_6B.pth ./stable-diffusion-webui/models/RealESRGAN RealESRGAN_x4plus_anime_6B.pth
 __term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/BLIP/model_base_caption_capfilt_large.pth ./stable-diffusion-webui/models/BLIP model_base_caption_capfilt_large.pth # BLIP模型
 __term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/Codeformer/codeformer-v0.1.0.pth ./stable-diffusion-webui/models/Codeformer codeformer-v0.1.0.pth # Codeformer模型
-__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/EasyNegativeV2.safetensors ./stable-diffusion-webui/models/embeddings/negative EasyNegativeV2.safetensors # embeddings模型
-__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-artist-anime.pt ./stable-diffusion-webui/models/embeddings/negative bad-artist-anime.pt
-__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-artist.pt ./stable-diffusion-webui/models/embeddings/negative bad-artist.pt
-__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-hands-5.pt ./stable-diffusion-webui/models/embeddings/negative bad-hands-5.pt
-__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-image-v2-39000.pt ./stable-diffusion-webui/models/embeddings/negative bad-image-v2-39000.pt
-__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad_prompt_version2.pt ./stable-diffusion-webui/models/embeddings/negative bad_prompt_version2.pt
-__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/ng_deepnegative_v1_75t.pt ./stable-diffusion-webui/models/embeddings/negative ng_deepnegative_v1_75t.pt
-__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/verybadimagenegative_v1.3.pt ./stable-diffusion-webui/models/embeddings/negative verybadimagenegative_v1.3.pt
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/EasyNegativeV2.safetensors ./stable-diffusion-webui/embeddings EasyNegativeV2.safetensors # embeddings模型
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-artist-anime.pt ./stable-diffusion-webui/embeddings bad-artist-anime.pt
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-artist.pt ./stable-diffusion-webui/embeddings bad-artist.pt
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-hands-5.pt ./stable-diffusion-webui/embeddings bad-hands-5.pt
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-image-v2-39000.pt ./stable-diffusion-webui/embeddings bad-image-v2-39000.pt
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad_prompt_version2.pt ./stable-diffusion-webui/embeddings bad_prompt_version2.pt
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/ng_deepnegative_v1_75t.pt ./stable-diffusion-webui/embeddings ng_deepnegative_v1_75t.pt
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/verybadimagenegative_v1.3.pt ./stable-diffusion-webui/embeddings verybadimagenegative_v1.3.pt
