@@ -105,7 +105,7 @@ pacman -S dialog curl mingw-w64-ucrt-x86_64-aria2 mingw-w64-ucrt-x86_64-ca-certi
 输入y，回车，等待安装完成
 >`mingw-w64-ucrt-x86_64-ca-certificates`这个包如果不装会导致aria2下载时出现`ssl/tls handshake failure: unable to get local issuer certificate`
 
-完成上面的步骤后环境就配置好了，可以在下面的步骤下载和启动Term-SD
+完成上面的步骤后Term-SD的运行环境就配置好了，可以在下面的步骤[安装Term-SD](#安装term-sd)
 
 ### Linux
 在终端输入下面的命令
@@ -126,6 +126,9 @@ sudo zypper install python3 python3-pip python-venvs git aria2 dialog curl
 ```
 nix-env -i python311Full aria git dialog curl
 ```
+
+完成上面的步骤后Term-SD的运行环境就配置好了，可以在下面的步骤[安装Term-SD](#安装term-sd)
+
 ### MacOS
 
 - 1、安装homebrew
@@ -162,6 +165,8 @@ brew update
 ```
 brew install git aria2 dialog python@3.10 rust cmake protobuf wget curl
 ```
+
+完成上面的步骤后Term-SD的运行环境就配置好了，可以在下面的步骤[安装Term-SD](#安装term-sd)
 
 ***
 
