@@ -516,6 +516,7 @@ Term-SD包含了一些扩展脚本，扩充Term-SD的功能
 - 6、download-comfyui-extension：下载ComfyUI插件
 - 7、fix-bitsandbytes-for-kohya-ss-on-windows：修复原版bitsandbytes在Windows端无法运行导致kohya_ss报错无法进行训练的问题
 - 8、fix-bitsandbytes-for-sd-webui-on-windows：修复原版bitsandbytes在Windows端无法运行导致stable-diffusion-webui中的模型训练插件报错无法进行训练的问题（训练模型不建议在stable-diffusion-webui中进行，请使用lora-scripts或者kohya_ss进行模型训练）
+- 9、file-backup：备份/恢复AI软件的数据
 
 >如果需要使用扩展脚本，则在启动Term-SD前加入“--extra”启动参数即可使用扩展脚本
 
