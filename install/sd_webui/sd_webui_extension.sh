@@ -68,3 +68,5 @@ __term_sd_task_pre_ext_67 git_clone_repository ${github_mirror} https://github.c
 __term_sd_task_pre_ext_68 git_clone_repository ${github_mirror} https://github.com/hako-mikan/sd-webui-cd-tuner stable-diffusion-webui/extensions OFF # 修改输出图像中的细节和色调的数量
 __term_sd_task_pre_ext_69 git_clone_repository ${github_mirror} https://github.com/hako-mikan/sd-webui-negpip stable-diffusion-webui/extensions OFF # 解决tag的强污染，效果比cutoff更强
 __term_sd_task_pre_ext_70 git_clone_repository ${github_mirror} https://github.com/ArtVentureX/sd-webui-agent-scheduler stable-diffusion-webui/extensions OFF # 生图队列管理，可制作一个参数不同的队列来进行批量生图
+__term_sd_task_pre_ext_71 git_clone_repository ${github_mirror} https://github.com/butaixianran/Stable-Diffusion-Webui-Civitai-Helper stable-diffusion-webui/extensions OFF # civitai模型管理 
+

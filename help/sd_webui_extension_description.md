@@ -280,3 +280,7 @@ AUTOMATIC1111-stable-diffusion-webui插件说明：
 70、sd-webui-agent-scheduler：
 描述：生图队列管理，可制作一个参数不同的队列来进行批量生图
 链接：https://github.com/ArtVentureX/sd-webui-agent-scheduler
+
+71、Stable-Diffusion-Webui-Civitai-Helper：
+描述：civitai模型管理
+链接：https://github.com/butaixianran/Stable-Diffusion-Webui-Civitai-Helper
