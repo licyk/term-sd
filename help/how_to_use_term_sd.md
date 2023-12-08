@@ -141,11 +141,11 @@ Term-SD在使用安装、管理功能时，会使用准备功能来对一些操�
 - 4、Torch 2.1.0+CPU
 - 5、Torch 2.0.1+RoCM 5.4.2
 - 6、Torch 2.1.0+RoCM 5.6
-- 7、Torch 1.12.1（CUDA11.3）+xFormers 0.014
-- 8、Torch 1.13.1（CUDA11.7）+xFormers 0.016
-- 9、Torch 2.0.0（CUDA11.8）+xFormers 0.018
-- 10、Torch 2.0.1（CUDA11.8）+xFormers 0.022
-- 11、Torch 2.1.0（CUDA12.1）+xFormers 0.022post7
+- 7、Torch 1.12.1（CUDA11.3）+xFormers 0.0.14
+- 8、Torch 1.13.1（CUDA11.7）+xFormers 0.0.16
+- 9、Torch 2.0.0（CUDA11.8）+xFormers 0.0.18
+- 10、Torch 2.0.1（CUDA11.8）+xFormers 0.0.22
+- 11、Torch 2.1.1（CUDA12.1）+xFormers 0.0.23
 
 选择版本时需要根据系统类型和显卡选择  
 - 在Windows系统中，Nvidia显卡选择Torch（CUDA）+xformers的版本，AMD显卡和Intel显卡选择Torch+Torch-Directml的版本  
@@ -256,11 +256,11 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 - 4、Torch 2.1.0+CPU
 - 5、Torch 2.0.1+RoCM 5.4.2
 - 6、Torch 2.1.0+RoCM 5.6
-- 7、Torch 1.12.1（CUDA11.3）+xFormers 0.014
-- 8、Torch 1.13.1（CUDA11.7）+xFormers 0.016
-- 9、Torch 2.0.0（CUDA11.8）+xFormers 0.018
-- 10、Torch 2.0.1（CUDA11.8）+xFormers 0.022
-- 11、Torch 2.1.0（CUDA12.1）+xFormers 0.022post7
+- 7、Torch 1.12.1（CUDA11.3）+xFormers 0.0.14
+- 8、Torch 1.13.1（CUDA11.7）+xFormers 0.0.16
+- 9、Torch 2.0.0（CUDA11.8）+xFormers 0.0.18
+- 10、Torch 2.0.1（CUDA11.8）+xFormers 0.0.22
+- 11、Torch 2.1.1（CUDA12.1）+xFormers 0.0.23
 
 选择版本时需要根据系统类型和显卡选择  
 在Windows系统中，Nvidia显卡选择Torch（CUDA）+xformers的版本，AMD显卡和Intel显卡选择Torch+Torch-Directml的版本  
