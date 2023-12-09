@@ -56,7 +56,7 @@ __term_sd_task_pre_ext_55 git_clone_repository ${github_mirror} https://github.c
 __term_sd_task_pre_ext_56 git_clone_repository ${github_mirror} https://github.com/Tencent/LightDiffusionFlow stable-diffusion-webui/extensions ON # 保存工作流
 __term_sd_task_pre_ext_57 git_clone_repository ${github_mirror} https://github.com/Scholar01/sd-webui-workspace stable-diffusion-webui/extensions OFF # 保存webui生图的参数
 __term_sd_task_pre_ext_58 git_clone_repository --submod ${github_mirror} https://github.com/zero01101/openOutpaint-webUI-extension stable-diffusion-webui/extensions OFF # 提供类似InvokeAI的统一画布的功能
-__term_sd_task_pre_ext_59 git_clone_repository ${github_mirror} https://github.com/aigc-apps/sd-webui-EasyPhoto stable-diffusion-webui/extensions OFF # 以简单的操作生成自己的ai人像
+__term_sd_task_pre_ext_59 git_clone_repository ${github_mirror} https://github.com/Carzit/sd-webui-samplers-scheduler stable-diffusion-webui/extensions OFF # 采样器调度器，可以在不同的生成步骤中应用不同的采样器
 __term_sd_task_pre_ext_60 git_clone_repository ${github_mirror} https://github.com/Haoming02/sd-webui-boomer stable-diffusion-webui/extensions ON # 恢复新版webui已经移除的按钮
 __term_sd_task_pre_ext_61 git_clone_repository ${github_mirror} https://github.com/mix1009/model-keyword stable-diffusion-webui/extensions ON # 用于补全模型对应的提示词，比如使用lora模型的提示词
 __term_sd_task_pre_ext_62 git_clone_repository ${github_mirror} https://github.com/NVIDIA/Stable-Diffusion-WebUI-TensorRT stable-diffusion-webui/extensions OFF # nvidia官方加速工具，加速图片生成
@@ -69,4 +69,3 @@ __term_sd_task_pre_ext_68 git_clone_repository ${github_mirror} https://github.c
 __term_sd_task_pre_ext_69 git_clone_repository ${github_mirror} https://github.com/hako-mikan/sd-webui-negpip stable-diffusion-webui/extensions OFF # 解决tag的强污染，效果比cutoff更强
 __term_sd_task_pre_ext_70 git_clone_repository ${github_mirror} https://github.com/ArtVentureX/sd-webui-agent-scheduler stable-diffusion-webui/extensions OFF # 生图队列管理，可制作一个参数不同的队列来进行批量生图
 __term_sd_task_pre_ext_71 git_clone_repository ${github_mirror} https://github.com/butaixianran/Stable-Diffusion-Webui-Civitai-Helper stable-diffusion-webui/extensions OFF # civitai模型管理 
-

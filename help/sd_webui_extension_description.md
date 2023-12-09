@@ -233,9 +233,9 @@ AUTOMATIC1111-stable-diffusion-webui插件说明：
 描述：提供类似InvokeAI的统一画布的功能
 链接：https://github.com/zero01101/openOutpaint-webUI-extension
 
-59、sd-webui-EasyPhoto：
-描述：以简单的操作生成自己的ai人像
-链接：https://github.com/aigc-apps/sd-webui-EasyPhoto
+59、sd-webui-samplers-scheduler：
+描述：采样器调度器，可以在不同的生成步骤中应用不同的采样器
+链接：https://github.com/Carzit/sd-webui-samplers-scheduler
 
 60、sd-webui-boomer：
 描述：恢复新版webui已经移除的按钮
