@@ -285,8 +285,8 @@ comfyui_data_backup()
     cp -rf ./ComfyUI/models ./term-sd-backup/ComfyUI/
     cp -rf ./ComfyUI/output ./term-sd-backup/ComfyUI/
     cp -rf ./ComfyUI/web/extensions ./term-sd-backup/ComfyUI/
-    rm -rf ./term-sd-backup/ComfyUI/web/core
-    rm -f ./term-sd-backup/ComfyUI/web/logging.js.example
+    rm -rf ./term-sd-backup/ComfyUI/web/extensions/core
+    rm -f ./term-sd-backup/ComfyUI/web/extensions/logging.js.example
 }
 
 comfyui_data_restore()
