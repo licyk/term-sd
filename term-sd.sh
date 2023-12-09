@@ -138,7 +138,7 @@ term_sd_extra_scripts_launch()
         if [ -f "./term-sd/extra/$(echo $@ | awk '{sub(".sh","")}1').sh" ];then
             term_sd_print_line "${extra_script_dir_list_select}脚本启动"
             term_sd_echo "启动$(echo $@ | awk '{sub(".sh","")}1')脚本中"
-            source ./term-sd/extra/$(echo $@ | awk '{sub(".sh","")}1').sh
+            . ./term-sd/extra/$(echo $@ | awk '{sub(".sh","")}1').sh
             term_sd_print_line
             term_sd_echo "退出$(echo $@ | awk '{sub(".sh","")}1')脚本"
             exit 1
@@ -168,7 +168,7 @@ term_sd_extra_scripts()
         0)
             case $extra_script_dir_list_select in
                 Term-SD)
-                    source ./term-sd/modules/init.sh
+                    . ./term-sd/modules/init.sh
                     term_sd_version
                     main
                     ;;
@@ -179,7 +179,7 @@ term_sd_extra_scripts()
                     ;;
                 *)
                     term_sd_print_line "${extra_script_dir_list_select}脚本启动"
-                    source ./term-sd/extra/$extra_script_dir_list_select
+                    . ./term-sd/extra/$extra_script_dir_list_select
                     term_sd_print_line
                     term_sd_echo "退出$(echo $extra_script_dir_list_select | awk '{sub(".sh","")}1')脚本"
                     exit 1
@@ -615,7 +615,7 @@ set_python_path()
 term_sd_print_line "Term-SD"
 term_sd_echo "Term-SD初始化中"
 
-export term_sd_version_info="1.1.12" # term-sd版本
+export term_sd_version_info="1.1.13" # term-sd版本
 export user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题
@@ -865,7 +865,7 @@ fi
 
 # 自动更新成功时重载环境
 if [ $term_sd_restart_info = 0 ];then
-    source ./term-sd.sh
+    . ./term-sd.sh
 fi
 
 term_sd_echo "Term-SD版本: $term_sd_version_info"
@@ -873,7 +873,7 @@ term_sd_echo "Commit hash: $(git --git-dir="./term-sd/.git" show -s --format="%H
 
 case $term_sd_extra_scripts_name in
     null)
-        source ./term-sd/modules/init.sh # 加载term-sd模块
+        . ./term-sd/modules/init.sh # 加载term-sd模块
         ;;
     *)
         term_sd_extra_scripts_launch $term_sd_extra_scripts_name

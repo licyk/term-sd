@@ -190,11 +190,13 @@ aria2c https://gitlab.com/licyk/term-sd/-/raw/main/term-sd.sh && chmod +x term-s
 ./term-sd.sh
 ```
 启动后按照提示安装Term-SD组件后即可正常使用，如果下载失败就更换其他下载源  
-每次启动一定要在Term-SD所在目录才能启动，除非使用“term_sd”命令或者“tsd”命令启动（需要通过--quick-cmd启动参数进行安装）
+每次启动一定要在Term-SD所在目录才能启动，除非使用`term_sd`命令或者`tsd`命令启动  
+而这些快捷命令需要通过`--quick-cmd`启动参数进行安装  
+更多信息请阅读[帮助文档](#帮助文档)
 
 ## 帮助文档
 
-这里是有关Term-SD的使用方法文档
+<h3>这里是有关Term-SD的使用方法文档</h3>
 
 ### [《Windows平台如何配置Term-SD运行环境》](https://github.com/licyk/README-collection/blob/main/term-sd/README_config_env.md)
 介绍Windows平台下如何配置Term-SD运行环境

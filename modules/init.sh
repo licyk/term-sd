@@ -10,7 +10,7 @@ term_sd_init()
         [ $i = "./term-sd/modules/init.sh" ] && continue
         printf "$info[$count/$modules_count_sum] 加载: $(basename $i .sh)                              \r"
         count=$(( $count + 1 ))
-        source $i
+        . $i
     done
     printf "[\033[33m$(date "+%Y-%m-%d %H:%M:%S")\033[0m][\033[36mTerm-SD\033[0m]:: 初始化Term-SD完成                               \n"
     term_sd_print_line
@@ -27,7 +27,7 @@ term_sd_init_new()
         [ $i = "./term-sd/modules/init.sh" ] && continue # 避免重新初始化init.sh脚本
         term_sd_process_bar $bar_length $count $modules_count_sum # 输出进度条
         count=$(( $count + 1 ))
-        source $i # 加载模块
+        . $i # 加载模块
     done
     term_sd_echo "初始化Term-SD完成"
     term_sd_print_line
@@ -62,7 +62,7 @@ term_sd_init_no_bar()
 {
     for i in ./term-sd/modules/*.sh ;do
         [ $i = "./term-sd/modules/init.sh" ] && continue
-        source $i
+        . $i
     done
     term_sd_echo "初始化Term-SD完成"
     term_sd_print_line

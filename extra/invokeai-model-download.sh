@@ -330,7 +330,7 @@ invokeai_model_download()
         do
             install_cmd=$(term_sd_get_task_cmd $(cat "$start_path/term-sd/task/invokeai_model_download.sh" | awk 'NR=='${cmd_point}'{print$0}'))
             echo "$install_cmd" > "$start_path/term-sd/task/cache.sh" # 取出命令并放入缓存文件中
-            source "$start_path/term-sd/task/cache.sh" # 执行命令
+            term_sd_exec_cmd # 执行命令
         done
         rm -f "$start_path/term-sd/task/invokeai_model_download.sh" # 删除任务文件
         rm -f "$start_path/term-sd/task/cache.sh"

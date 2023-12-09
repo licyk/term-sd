@@ -67,10 +67,10 @@ enter_venv()
 
         if [ -f "./venv/Scripts/activate" ];then # 在Windows端的venv目录结构和linux,macos的不同,所以进入虚拟环境的方式有区别
             pip_package_manager_update
-            source ./venv/Scripts/activate > /dev/null 2>&1
+            . ./venv/Scripts/activate > /dev/null 2>&1
         elif [ -f "./venv/bin/activate" ];then
             pip_package_manager_update
-            source ./venv/bin/activate > /dev/null 2>&1
+            . ./venv/bin/activate > /dev/null 2>&1
         else
             false
             term_sd_echo "虚拟环境文件损坏"

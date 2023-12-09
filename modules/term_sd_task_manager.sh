@@ -90,6 +90,14 @@ term_sd_get_task_cmd()
     echo $task_cmd
 }
 
+# 安装命令执行
+# 用于执行"term-sd/task"下的"cache.sh"文件
+# cache.sh为执行任务队列时产生
+term_sd_exec_cmd()
+{
+    . "$start_path/term-sd/task/cache.sh"
+}
+
 # 安装任务命令标记修改(将未完成标记为已完成)
 # 使用格式: term_sd_task_cmd_revise <文件路径> <指定行数>
 term_sd_task_cmd_revise()

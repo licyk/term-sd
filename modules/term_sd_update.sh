@@ -26,7 +26,7 @@ term_sd_update_manager()
                     cp -f ./term-sd/term-sd.sh .
                     chmod +x ./term-sd.sh
                     dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD更新结果" --ok-label "确定" --msgbox "Term-SD更新成功,选择确定后重启" $term_sd_dialog_height $term_sd_dialog_width
-                    source ./term-sd.sh
+                    . ./term-sd.sh
                 else
                     cd ..
                     dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD更新结果" --ok-label "确定" --msgbox "Term-SD更新失败" $term_sd_dialog_height $term_sd_dialog_width
@@ -121,7 +121,7 @@ term_sd_branch_switch()
                 term_sd_echo "切换到主分支"
                 term_sd_echo "即将重启Term-SD"
                 sleep 1
-                source ./term-sd.sh
+                . ./term-sd.sh
                 ;;
             2)
                 cd ./term-sd
@@ -132,7 +132,7 @@ term_sd_branch_switch()
                 term_sd_echo "切换到测试分支"
                 term_sd_echo "即将重启Term-SD"
                 sleep 1
-                source ./term-sd.sh
+                . ./term-sd.sh
                 ;;
         esac
     fi
