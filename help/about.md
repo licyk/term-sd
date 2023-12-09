@@ -9,7 +9,6 @@ Term-SD是基于终端显示（使用GNU提供的dialog渲染界面）的AI管�
 6、kohya_ss
 注：AI软件基于stable-diffusion
 
-
 Term-SD的编写参考了https://gitee.com/skymysky/linux（制作Term-SD早期的灵感来源）
 
 
@@ -42,22 +41,27 @@ SD常见报错合集：
 绘世启动器帮助：
   https://support.qq.com/products/488228
 stable diffusion 常见错误收集及对应解决方案：
-  https://sd.wa9.cn/html/135995266.html
+  https://sd.wa9.cn
 绘世启动器诊断包自测工具：
   https://sd.wa9.cn/check_log.php
+stable diffusion工作流分享（需要安装LightDiffusionFlow插件进行导入）：
+  https://www.lightflow.ai
 
 ●ComfyUI：
 工作流示范：
-  https://comfyanonymous.github.io/ComfyUI_examples/
+  https://comfyanonymous.github.io/ComfyUI_examples
 一个更加完整的ComfyUI工作流存储可以帮助你更好的理解ComfyUI（非官方）：
   https://github.com/cubiq/ComfyUI_Workflows
 ComfyUI手册（非官方，偏硬核）：
-  https://comfyui.creamlab.net/
+  https://comfyui.creamlab.net
 节点指南：
-  https://blenderneko.github.io/ComfyUI-docs/
+  https://blenderneko.github.io/ComfyUI-docs
 扩展列表：
   https://github.com/WASasquatch/comfyui-plugins
   https://wyrde.github.io/ComfyResources/nodes
+  https://ltdrdata.github.io
+ComfyUI工作流分享：
+  https://comfyworkflows.com
 
 ●colab版：
 （没有设备玩stable-diffusion的可以尝试下面的项目）
