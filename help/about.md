@@ -43,6 +43,8 @@ SD常见报错合集：
   https://support.qq.com/products/488228
 stable diffusion 常见错误收集及对应解决方案：
   https://sd.wa9.cn/html/135995266.html
+绘世启动器诊断包自测工具：
+  https://sd.wa9.cn/check_log.php
 
 ●ComfyUI：
 工作流示范：

@@ -165,7 +165,7 @@ ComfyUI
 ├── models          模型路径
 ├── output          图片保存路径
 └── web
-    └── extensions  插件路径（疑似遗弃）
+    └── extensions  插件路径（少见）
 
 InvokeAI
 └── invokeai        模型，图片，配置文件路径
@@ -285,6 +285,8 @@ comfyui_data_backup()
     cp -rf ./ComfyUI/models ./term-sd-backup/ComfyUI/
     cp -rf ./ComfyUI/output ./term-sd-backup/ComfyUI/
     cp -rf ./ComfyUI/web/extensions ./term-sd-backup/ComfyUI/
+    rm -rf ./term-sd-backup/ComfyUI/web/core
+    rm -f ./term-sd-backup/ComfyUI/web/logging.js.example
 }
 
 comfyui_data_restore()
