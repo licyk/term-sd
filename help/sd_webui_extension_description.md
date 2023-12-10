@@ -284,3 +284,7 @@ AUTOMATIC1111-stable-diffusion-webui插件说明：
 71、Stable-Diffusion-Webui-Civitai-Helper：
 描述：civitai模型管理
 链接：https://github.com/butaixianran/Stable-Diffusion-Webui-Civitai-Helper
+
+72、sd-webui-Lora-queue-helper：
+描述：Lora队列助手，用于比较具有相同提示和设置的相同角色的Lora/从同一来源生成不同的角色/或者只需切换和选择Lora，而无需更改选项卡
+链接：https://github.com/Yinzo/sd-webui-Lora-queue-helper

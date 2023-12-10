@@ -69,3 +69,4 @@ __term_sd_task_pre_ext_68 git_clone_repository ${github_mirror} https://github.c
 __term_sd_task_pre_ext_69 git_clone_repository ${github_mirror} https://github.com/hako-mikan/sd-webui-negpip stable-diffusion-webui/extensions OFF # 解决tag的强污染，效果比cutoff更强
 __term_sd_task_pre_ext_70 git_clone_repository ${github_mirror} https://github.com/ArtVentureX/sd-webui-agent-scheduler stable-diffusion-webui/extensions OFF # 生图队列管理，可制作一个参数不同的队列来进行批量生图
 __term_sd_task_pre_ext_71 git_clone_repository ${github_mirror} https://github.com/butaixianran/Stable-Diffusion-Webui-Civitai-Helper stable-diffusion-webui/extensions OFF # civitai模型管理 
+__term_sd_task_pre_ext_72 git_clone_repository ${github_mirror} https://github.com/Yinzo/sd-webui-Lora-queue-helper stable-diffusion-webui/extensions OFF # Lora队列助手，用于比较具有相同提示和设置的相同角色的Lora/从同一来源生成不同的角色/或者只需切换和选择Lora，而无需更改选项卡
