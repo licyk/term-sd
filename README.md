@@ -64,7 +64,9 @@ _！Windows平台可阅读图文版[《Windows平台如何配置Term-SD运行环
 在python3.10的页面找到`Windows installer (64-bit)`，点击下载  
 打开python安装包，在安装界面点击`customize installation`，然后点击`next`，勾选`Add Python to environment variables`，再点击`browse`，自己选择要安装的位置，选择好后点击`install`，等待安装完成  
 安装结束后先不要关闭安装界面，先点击`Disable path length limit`（没有该选项时则不用理会），再退出  
->python安装器在安装python时同时安装pip，一般不需要手动再去安装pip
+>1、python安装器在安装python时同时安装pip（安装选项中已默认勾选安装pip），所以不需要手动再去安装pip  
+>2、`Disable path length limit`为启用Windows系统的长路径支持，具体查看微软官方文档[《最大路径长度限制》](https://learn.microsoft.com/zh-cn/windows/win32/fileio/maximum-file-path-limitation)，之前已经在Windows系统中启用该功能之后，选项`Disable path length limit`将不会显示
+
 
 - 4、配置Windows终端
 
