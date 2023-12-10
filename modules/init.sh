@@ -5,14 +5,16 @@ term_sd_init()
 {
     local modules_count_sum="$(( $(ls ./term-sd/modules/*.sh | wc -w) - 1 ))" # 需要加载的模块数量
     local count=1
-    local info="[\033[33m$(date "+%Y-%m-%d %H:%M:%S")\033[0m][\033[36mTerm-SD\033[0m]:: "
+    local module_name
     for i in ./term-sd/modules/*.sh ;do
         [ $i = "./term-sd/modules/init.sh" ] && continue
-        printf "$info[$count/$modules_count_sum] 加载: $(basename $i .sh)                              \r"
+        module_name=${i#./term-sd/modules/}
+        module_name=${module_name%.sh}
+        printf "[\033[33m$(date "+%Y-%m-%d %H:%M:%S")\033[0m][\033[36mTerm-SD\033[0m]:: [$count/$modules_count_sum] 加载: $module_name                   \r"
         count=$(( $count + 1 ))
         . $i
     done
-    printf "[\033[33m$(date "+%Y-%m-%d %H:%M:%S")\033[0m][\033[36mTerm-SD\033[0m]:: 初始化Term-SD完成                               \n"
+    printf "[\033[33m$(date "+%Y-%m-%d %H:%M:%S")\033[0m][\033[36mTerm-SD\033[0m]:: 初始化Term-SD完成                    \n"
     term_sd_print_line
 }
 
@@ -69,10 +71,15 @@ term_sd_init_no_bar()
 }
 
 # 初始化功能
-if [ -f "./term-sd/config/term-sd-no-bar.lock" ];then
-    term_sd_init_no_bar
-elif [ -f "./term-sd/config/term-sd-new-bar.lock" ];then
-    term_sd_init_new
+if [ -f "./term-sd/config/term-sd-bar.conf" ];then
+    case $(cat ./term-sd/config/term-sd-bar.conf) in
+        none)
+            term_sd_init_no_bar
+            ;;
+        new)
+            term_sd_init_new
+            ;;
+    esac
 else
     term_sd_init
 fi

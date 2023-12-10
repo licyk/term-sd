@@ -42,7 +42,7 @@ ComfyUI插件/自定义节点说明：
 链接：https://github.com/ltdrdata/ComfyUI-Impact-Pack
 
 8、ComfyUI-Manager：
-描述：自定义节点/插件管理器
+描述：自定义节点管理器
 链接：https://github.com/ltdrdata/ComfyUI-Manager
 
 9、ComfyUI-Custom-Nodes：
@@ -212,3 +212,7 @@ ComfyUI插件/自定义节点说明：
 50、sdxl_prompt_styler：
 描述：SDXL提示词风格预设节点
 链接：https://github.com/twri/sdxl_prompt_styler
+
+51、comfyui-workspace-manager：
+描述：工作流管理器
+链接：https://github.com/11cafe/comfyui-workspace-manager

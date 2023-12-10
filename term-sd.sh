@@ -25,6 +25,9 @@ term_sd_launch_args_manager()
                 --extra)
                     term_sd_extra_scripts_name=$term_sd_launch_args
                     ;;
+                --bar)
+                    term_sd_loading_bar_setting $term_sd_launch_args
+                    ;;
             esac
             term_sd_launch_args_input= # 清除选项,留给下一次判断
         fi
@@ -49,21 +52,8 @@ term_sd_launch_args_manager()
                 rm -f ./term-sd/config/python-path.conf
                 term_sd_echo "已删除自定义python解释器路径配置"
                 ;;
-            --enable-new-bar)
-                term_sd_echo "启用新的Term-SD初始化进度条"
-                touch ./term-sd/config/term-sd-new-bar.lock
-                ;;
-            --disable-new-bar)
-                term_sd_echo "禁用新的Term-SD初始化进度条"
-                rm -f ./term-sd/config/term-sd-new-bar.lock
-                ;;
-            --enable-bar)
-                rm -f ./term-sd/config/term-sd-no-bar.lock
-                term_sd_echo "启用Term-SD初始化进度显示"
-                ;;
-            --disable-bar)
-                touch ./term-sd/config/term-sd-no-bar.lock
-                term_sd_echo "禁用Term-SD初始化进度显示"
+            --bar)
+                term_sd_launch_args_input="--bar"
                 ;;
             --update-pip)
                 export pip_manager_update=0
@@ -97,7 +87,7 @@ term_sd_args_help()
 {
     cat<<EOF
     Term-SD启动参数使用方法:
-    term-sd.sh [--help] [--extra script_name] [--reinstall-term-sd] [--remove-term-sd] [--quick-cmd] [--set-python-path python_path] [--unset-python-path] [--update-pip] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar] [--debug]
+    term-sd.sh [--help] [--extra script_name] [--reinstall-term-sd] [--remove-term-sd] [--quick-cmd] [--set-python-path python_path] [--unset-python-path] [--update-pip] [--bar display_mode] [--debug]
 
     选项:
     --help
@@ -116,14 +106,11 @@ term_sd_args_help()
         删除自定义python解释器路径配置
     --update-pip
         进入虚拟环境时更新pip软件包管理器
-    --enable-new-bar
-        启用新的Term-SD初始化进度条
-    --disable-new-bar
-        禁用新的Term-SD初始化进度条
-    --enable-bar
-        启用Term-SD初始化进度显示(默认)
-    --disable-bar
-        禁用Term-SD初始化进度显示(加了进度显示只会降低Term-SD初始化速度)
+    --bar display_mode
+        设置Term-SD初始化进度条的显示样式,有以下显示模式:
+            none:禁用进度条显示
+            normal:使用默认的显示模式
+            new:使用新的进度条显示
     --debug
         显示Term-SD安装ai软件时使用的命令
 EOF
@@ -225,6 +212,32 @@ term_sd_unknown_args_echo()
 {
     if [ "$(term_sd_test_args "$@")" = 0 ] && [ ! "$@" = "--null" ];then # 测试输入值是参数还是选项
         term_sd_echo "未知参数 \"$@\""
+    fi
+}
+
+# 加载进度条设置
+term_sd_loading_bar_setting()
+{
+    if [ -z "$*" ];then
+        term_sd_echo "未指定Term-SD初始化进度条的显示模式"
+    else
+        case $@ in
+            none)
+                echo "none" > ./term-sd/config/term-sd-bar.conf
+                term_sd_echo "禁用Term-SD初始化进度显示"
+                ;;
+            normal)
+                rm -f ./term-sd/config/term-sd-bar.conf
+                term_sd_echo "使用默认Term-SD初始化进度显示模式"
+                ;;
+            new)
+                echo "new" > ./term-sd/config/term-sd-bar.conf
+                term_sd_echo "使用新的Term-SD初始化进度显示模式"
+                ;;
+            *)
+                term_sd_echo "未知的Term-SD初始化进度条显示模式"
+                ;;
+        esac
     fi
 }
 
@@ -615,7 +628,7 @@ set_python_path()
 term_sd_print_line "Term-SD"
 term_sd_echo "Term-SD初始化中"
 
-export term_sd_version_info="1.1.13" # term-sd版本
+export term_sd_version_info="1.1.14" # term-sd版本
 export user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题

@@ -146,6 +146,7 @@ Term-SD在使用安装、管理功能时，会使用准备功能来对一些操�
 - 9、Torch 2.0.0（CUDA11.8）+xFormers 0.0.18
 - 10、Torch 2.0.1（CUDA11.8）+xFormers 0.0.22
 - 11、Torch 2.1.1（CUDA11.8）+xFormers 0.0.23
+- 12、Torch 2.1.1（CUDA12.1）+xFormers 0.0.23
 
 选择版本时需要根据系统类型和显卡选择  
 - 在Windows系统中，Nvidia显卡选择Torch（CUDA）+xformers的版本，AMD显卡和Intel显卡选择Torch+Torch-Directml的版本  
@@ -261,6 +262,7 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 - 9、Torch 2.0.0（CUDA11.8）+xFormers 0.0.18
 - 10、Torch 2.0.1（CUDA11.8）+xFormers 0.0.22
 - 11、Torch 2.1.1（CUDA11.8）+xFormers 0.0.23
+- 12、Torch 2.1.1（CUDA12.1）+xFormers 0.0.23
 
 选择版本时需要根据系统类型和显卡选择  
 在Windows系统中，Nvidia显卡选择Torch（CUDA）+xformers的版本，AMD显卡和Intel显卡选择Torch+Torch-Directml的版本  
@@ -525,7 +527,7 @@ Term-SD包含了一些扩展脚本，扩充Term-SD的功能
 
 #### 启动参数的使用方法
 ```
-./term-sd.sh [--help] [--extra script_name] [--reinstall-term-sd] [--remove-term-sd] [--quick-cmd] [--set-python-path python_path] [--unset-python-path] [--update-pip] [--enable-new-bar] [--disable-new-bar] [--enable-bar] [--disable-bar] [--debug]
+./term-sd.sh [--help] [--extra script_name] [--reinstall-term-sd] [--remove-term-sd] [--quick-cmd] [--set-python-path python_path] [--unset-python-path] [--update-pip] [--bar display_mode] [--debug]
 ```
 
 >中括号“[]”仅用来展示，在使用的时候不要输入进去  
@@ -576,24 +578,12 @@ Term-SD包含了一些扩展脚本，扩充Term-SD的功能
 删除自定义python解释器路径配置
 
 
-- 8、enable-new-bar
+- 8、--bar
 
-启用新的Term-SD初始化进度条
-
-
-- 9、disable-new-bar
-
-禁用新的Term-SD初始化进度条
-
-
-- 10、enable-bar
-
-启用Term-SD初始化进度显示（默认）
-
-
-- 11、disable-bar
-
-禁用Term-SD初始化进度显示（加了进度显示只会降低Term-SD初始化速度）
+设置Term-SD初始化进度条显示模式，有以下几种：  
+（1）none：禁用进度条显示  
+（2）normal：使用默认的显示模式  
+（3）new：使用新的进度条显示
 
 
 - 12、update-pip
