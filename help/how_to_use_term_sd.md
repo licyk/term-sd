@@ -137,20 +137,21 @@ Term-SD在使用安装、管理功能时，会使用准备功能来对一些操�
 有以下版本组合：
 - 1、Torch+xformers
 - 2、Torch
-- 3、Torch 2.0.0+Torch-Directml
+- 3、Torch 2.0.0（Directml）
 - 4、Torch 2.1.0+CPU
 - 5、Torch 2.0.1+RoCM 5.4.2
 - 6、Torch 2.1.0+RoCM 5.6
-- 7、Torch 1.12.1（CUDA11.3）+xFormers 0.0.14
-- 8、Torch 1.13.1（CUDA11.7）+xFormers 0.0.16
-- 9、Torch 2.0.0（CUDA11.8）+xFormers 0.0.18
-- 10、Torch 2.0.1（CUDA11.8）+xFormers 0.0.22
-- 11、Torch 2.1.1（CUDA11.8）+xFormers 0.0.23
-- 12、Torch 2.1.1（CUDA12.1）+xFormers 0.0.23
+- 7、Torch 2.0.0+IPEX
+- 8、Torch 1.12.1（CUDA11.3）+xFormers 0.0.14
+- 9、Torch 1.13.1（CUDA11.7）+xFormers 0.0.16
+- 10、Torch 2.0.0（CUDA11.8）+xFormers 0.0.18
+- 11、Torch 2.0.1（CUDA11.8）+xFormers 0.0.22
+- 12、Torch 2.1.1（CUDA11.8）+xFormers 0.0.23
+- 13、Torch 2.1.1（CUDA12.1）+xFormers 0.0.23
 
 选择版本时需要根据系统类型和显卡选择  
-- 在Windows系统中，Nvidia显卡选择Torch（CUDA）+xformers的版本，AMD显卡和Intel显卡选择Torch+Torch-Directml的版本  
-- 在Linux系统中，Nvidia显卡选择Torch（CUDA）+xformers的版本，AMD显卡选择Torch+Rocm的版本，Intel显卡选择Torch版本  
+- 在Windows系统中，Nvidia显卡选择Torch（CUDA）+xformers的版本，AMD显卡Torch(Directml)的版本，Intel显卡选择Torch 2.0.0+IPEX的版本  
+- 在Linux系统中，Nvidia显卡选择Torch（CUDA）+xformers的版本，AMD显卡选择Torch+Rocm的版本，Intel显卡选择Torch 2.0.0+IPEX版本  
 - 在MacOS系统中，选择Torch版本  
 - 如果想要使用CPU进行跑图，选择Torch+CPU的版本
 
@@ -253,20 +254,21 @@ Term-SD支持AUTOMATIC1111-stable-diffusion-webui，ComfyUI，InvokeAI，lora-sc
 第二个是pytorch版本的选择界面，有以下版本组合
 - 1、Torch+xformers
 - 2、Torch
-- 3、Torch 2.0.0+Torch-Directml
+- 3、Torch 2.0.0（Directml）
 - 4、Torch 2.1.0+CPU
 - 5、Torch 2.0.1+RoCM 5.4.2
 - 6、Torch 2.1.0+RoCM 5.6
-- 7、Torch 1.12.1（CUDA11.3）+xFormers 0.0.14
-- 8、Torch 1.13.1（CUDA11.7）+xFormers 0.0.16
-- 9、Torch 2.0.0（CUDA11.8）+xFormers 0.0.18
-- 10、Torch 2.0.1（CUDA11.8）+xFormers 0.0.22
-- 11、Torch 2.1.1（CUDA11.8）+xFormers 0.0.23
-- 12、Torch 2.1.1（CUDA12.1）+xFormers 0.0.23
+- 7、Torch 2.0.0+IPEX
+- 8、Torch 1.12.1（CUDA11.3）+xFormers 0.0.14
+- 9、Torch 1.13.1（CUDA11.7）+xFormers 0.0.16
+- 10、Torch 2.0.0（CUDA11.8）+xFormers 0.0.18
+- 11、Torch 2.0.1（CUDA11.8）+xFormers 0.0.22
+- 12、Torch 2.1.1（CUDA11.8）+xFormers 0.0.23
+- 13、Torch 2.1.1（CUDA12.1）+xFormers 0.0.23
 
 选择版本时需要根据系统类型和显卡选择  
-在Windows系统中，Nvidia显卡选择Torch（CUDA）+xformers的版本，AMD显卡和Intel显卡选择Torch+Torch-Directml的版本  
-在Linux系统中，Nvidia显卡选择Torch（CUDA）+xformers的版本，AMD显卡选择Torch+Rocm的版本，Intel显卡选择Torch版本  
+在Windows系统中，Nvidia显卡选择Torch（CUDA）+xformers的版本，AMD显卡Torch(Directml)的版本，Intel显卡选择Torch 2.0.0+IPEX的版本  
+在Linux系统中，Nvidia显卡选择Torch（CUDA）+xformers的版本，AMD显卡选择Torch+Rocm的版本，Intel显卡选择Torch 2.0.0+IPEX版本  
 在MacOS系统中，选择Torch版本  
 如果想要使用CPU进行跑图，选择Torch+CPU的版本
 
@@ -513,12 +515,11 @@ Term-SD包含了一些扩展脚本，扩充Term-SD的功能
 - 1、download-hanamizuki：下载绘世启动器
 - 2、list：列出可用的扩展脚本
 - 3、invokeai-model-download：下载InvokeAI模型，包含controlnet模型和部分大模型模型，解决使用官方配置程序因无法访问huggingface而下载失败的问题
-- 4、install-pytorch-ipex：安装Pytorch IPEX到AI软件的依赖库中，使AI软件能够调用显卡来运行
-- 5、download-sd-webui-extension：下载stable-diffusion-webui插件
-- 6、download-comfyui-extension：下载ComfyUI插件
-- 7、fix-bitsandbytes-for-kohya-ss-on-windows：修复原版bitsandbytes在Windows端无法运行导致kohya_ss报错无法进行训练的问题
-- 8、fix-bitsandbytes-for-sd-webui-on-windows：修复原版bitsandbytes在Windows端无法运行导致stable-diffusion-webui中的模型训练插件报错无法进行训练的问题（训练模型不建议在stable-diffusion-webui中进行，请使用lora-scripts或者kohya_ss进行模型训练）
-- 9、file-backup：备份/恢复AI软件的数据
+- 4、download-sd-webui-extension：下载stable-diffusion-webui插件
+- 5、download-comfyui-extension：下载ComfyUI插件
+- 6、fix-bitsandbytes-for-kohya-ss-on-windows：修复原版bitsandbytes在Windows端无法运行导致kohya_ss报错无法进行训练的问题
+- 7、fix-bitsandbytes-for-sd-webui-on-windows：修复原版bitsandbytes在Windows端无法运行导致stable-diffusion-webui中的模型训练插件报错无法进行训练的问题（训练模型不建议在stable-diffusion-webui中进行，请使用lora-scripts或者kohya_ss进行模型训练）
+- 8、file-backup：备份/恢复AI软件的数据
 
 >如果需要使用扩展脚本，则在启动Term-SD前加入“--extra”启动参数即可使用扩展脚本
 

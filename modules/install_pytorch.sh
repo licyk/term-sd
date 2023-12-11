@@ -28,8 +28,21 @@ pytorch_reinstall()
 # pytorch安装
 install_pytorch()
 {
+    local ipex_win_url="https://gitcode.net/rubble7343/nuullll-intel-extension-for-pytorch/-/raw/master/torch-2.0.0a0+gite9ebda2-cp310-cp310-win_amd64.whl https://gitcode.net/rubble7343/nuullll-intel-extension-for-pytorch/-/raw/master/torchvision-0.15.2a0+fa99a53-cp310-cp310-win_amd64.whl https://gitcode.net/rubble7343/nuullll-intel-extension-for-pytorch/-/raw/master/intel_extension_for_pytorch-2.0.110+gitc6ea20b-cp310-cp310-win_amd64.whl"
+    local ipex_url="--index-url https://pytorch-extension.intel.com/release-whl/stable/xpu/us/"
     if [ ! -z "$pytorch_install_version" ];then
-        term_sd_watch term_sd_pip install $pytorch_install_version $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary
+        if grep ipex <<<$pytorch_install_version > /dev/null 2>&1 ;then
+            case $OS in
+                Windows_NT)
+                    term_sd_watch term_sd_pip install $ipex_win_url $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary
+                    ;;
+                *)
+                    term_sd_watch term_sd_pip install torch==2.0.1a0 torchvision==0.15.2a0 intel-extension-for-pytorch $ipex_url $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary
+                    ;;
+            esac
+        else
+            term_sd_watch term_sd_pip install $pytorch_install_version $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary
+        fi
         return $?
     else
         term_sd_echo "未指定pytorch版本,跳过安装"

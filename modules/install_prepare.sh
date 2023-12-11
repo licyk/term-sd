@@ -90,16 +90,17 @@ pytorch_version_select()
         dialog --erase-on-exit --notags --title "Term-SD" --backtitle "pytorch安装版本选项" --ok-label "确认" --no-cancel --menu "请选择要安装的pytorch版本" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "1" "> Torch+xformers" \
         "2" "> Torch" \
-        "3" "> Torch 2.0.0+Torch-Directml" \
+        "3" "> Torch 2.0.0(Directml)" \
         "4" "> Torch 2.1.0+CPU" \
         "5" "> Torch 2.0.1+RoCM 5.4.2" \
         "6" "> Torch 2.1.0+RoCM 5.6" \
-        "7" "> Torch 1.12.1(CUDA11.3)+xFormers 0.0.14" \
-        "8" "> Torch 1.13.1(CUDA11.7)+xFormers 0.0.16" \
-        "9" "> Torch 2.0.0(CUDA11.8)+xFormers 0.0.18" \
-        "10" "> Torch 2.0.1(CUDA11.8)+xFormers 0.0.22" \
-        "11" "> Torch 2.1.1(CUDA11.8)+xFormers 0.0.23" \
-        "12" "> Torch 2.1.1(CUDA12.1)+xFormers 0.0.23" \
+        "7" "> Torch 2.0.0+IPEX" \
+        "8" "> Torch 1.12.1(CUDA11.3)+xFormers 0.0.14" \
+        "9" "> Torch 1.13.1(CUDA11.7)+xFormers 0.0.16" \
+        "10" "> Torch 2.0.0(CUDA11.8)+xFormers 0.0.18" \
+        "11" "> Torch 2.0.1(CUDA11.8)+xFormers 0.0.22" \
+        "12" "> Torch 2.1.1(CUDA11.8)+xFormers 0.0.23" \
+        "13" "> Torch 2.1.1(CUDA12.1)+xFormers 0.0.23" \
         "20" "> 跳过安装Torch" \
         3>&1 1>&2 2>&3)
 
@@ -126,21 +127,24 @@ pytorch_version_select()
             pytorch_install_version="torch==2.1.0+rocm5.6 torchvision==0.16.0+rocm5.6"
             ;;
         7)
-            pytorch_install_version="torch==1.12.1+cu113 torchvision==0.13.1+cu113 xformers==0.0.14"
+            pytorch_install_version="torch2.0.0+ipex"
             ;;
         8)
-            pytorch_install_version="torch==1.13.1+cu117 torchvision==0.14.1+cu117 xformers==0.0.16"
+            pytorch_install_version="torch==1.12.1+cu113 torchvision==0.13.1+cu113 xformers==0.0.14"
             ;;
         9)
-            pytorch_install_version="torch==2.0.0+cu118 torchvision==0.15.1+cu118 xformers==0.0.18"
+            pytorch_install_version="torch==1.13.1+cu117 torchvision==0.14.1+cu117 xformers==0.0.16"
             ;;
         10)
-            pytorch_install_version="torch==2.0.1+cu118 torchvision==0.15.2+cu118 xformers==0.0.22"
+            pytorch_install_version="torch==2.0.0+cu118 torchvision==0.15.1+cu118 xformers==0.0.18"
             ;;
         11)
-            pytorch_install_version="torch==2.1.1+cu118 torchvision==0.16.1+cu118 xformers==0.0.23"
+            pytorch_install_version="torch==2.0.1+cu118 torchvision==0.15.2+cu118 xformers==0.0.22"
             ;;
         12)
+            pytorch_install_version="torch==2.1.1+cu118 torchvision==0.16.1+cu118 xformers==0.0.23"
+            ;;
+        13)
             pytorch_install_version="torch==2.1.1+cu121 torchvision==0.16.1+cu121 xformers==0.0.23"
             ;;
     esac
