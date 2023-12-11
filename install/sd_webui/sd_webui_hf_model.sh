@@ -19,6 +19,7 @@ __term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-upscaler
 __term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/RealESRGAN/RealESRGAN_x4plus.pth ./stable-diffusion-webui/models/RealESRGAN RealESRGAN_x4plus.pth
 __term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/RealESRGAN/RealESRGAN_x4plus_anime_6B.pth ./stable-diffusion-webui/models/RealESRGAN RealESRGAN_x4plus_anime_6B.pth
 __term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/BLIP/model_base_caption_capfilt_large.pth ./stable-diffusion-webui/models/BLIP model_base_caption_capfilt_large.pth # BLIP模型
+__term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/torch_deepdanbooru/model-resnet_custom_v3.pt  ./stable-diffusion-webui/models/torch_deepdanbooru model-resnet_custom_v3.pt # deepdanbooru模型
 __term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/Codeformer/codeformer-v0.1.0.pth ./stable-diffusion-webui/models/Codeformer codeformer-v0.1.0.pth # Codeformer模型
 __term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/EasyNegativeV2.safetensors ./stable-diffusion-webui/embeddings EasyNegativeV2.safetensors # embeddings模型
 __term_sd_task_pre_model aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-artist-anime.pt ./stable-diffusion-webui/embeddings bad-artist-anime.pt

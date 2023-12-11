@@ -18,6 +18,7 @@ __term_sd_task_pre_model get_modelscope_model licyks/sd-upscaler-models/master/G
 __term_sd_task_pre_model get_modelscope_model licyks/sd-upscaler-models/master/RealESRGAN/RealESRGAN_x4plus.pth ./stable-diffusion-webui/models/RealESRGAN
 __term_sd_task_pre_model get_modelscope_model licyks/sd-upscaler-models/master/RealESRGAN/RealESRGAN_x4plus_anime_6B.pth ./stable-diffusion-webui/models/RealESRGAN
 __term_sd_task_pre_model get_modelscope_model licyks/sd-upscaler-models/master/BLIP/model_base_caption_capfilt_large.pth ./stable-diffusion-webui/models/BLIP # BLIP模型
+__term_sd_task_pre_model get_modelscope_model licyks/sd-upscaler-models/master/torch_deepdanbooru/model-resnet_custom_v3.pt ./stable-diffusion-webui/models/torch_deepdanbooru # deepdanbooru模型
 __term_sd_task_pre_model get_modelscope_model licyks/sd-upscaler-models/master/Codeformer/codeformer-v0.1.0.pth ./stable-diffusion-webui/models/Codeformer # Codeformer模型
 __term_sd_task_pre_model get_modelscope_model licyks/sd-embeddings/master/sd_1.5/EasyNegativeV2.safetensors ./stable-diffusion-webui/embeddings # embeddings模型
 __term_sd_task_pre_model get_modelscope_model licyks/sd-embeddings/master/sd_1.5/bad-artist-anime.pt ./stable-diffusion-webui/embeddings
