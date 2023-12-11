@@ -28,7 +28,7 @@ pytorch_reinstall()
 # pytorch安装
 install_pytorch()
 {
-    if [ ! -z "$(echo $pytorch_install_version | awk '{gsub(/[=+]/,"")}1')" ];then
+    if [ ! -z "$pytorch_install_version" ];then
         term_sd_watch term_sd_pip install $pytorch_install_version $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary
         return $?
     else

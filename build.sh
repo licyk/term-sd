@@ -178,18 +178,44 @@ if [ ! -d "./modules" ] || [ ! -d "./install" ] || [ ! -d "./task" ] || [ ! -d "
     exit 1
 fi
 
-echo "----------build----------"
-start_time_sum=$(date +'%Y-%m-%d %H:%M:%S')
-start_time_seconds_sum=$(date --date="$start_time_sum" +%s)
+if [ ! -z "$*" ];then
+    echo "----------build----------"
+    start_time_sum=$(date +'%Y-%m-%d %H:%M:%S')
+    start_time_seconds_sum=$(date --date="$start_time_sum" +%s)
+    for n in $@ ;do
+        case $n in
+            --fix)
+                echo "格式转换"
+                list=$(find extra config help install modules task)
+                for i in $list; do
+                    if [ -f $i ];then
+                    dos2unix $i
+                    fi
+                done
+                dos2unix term-sd.sh
+                dos2unix build.sh
+                dos2unix README.md
+                ;;
+            --build)
+                build_dialog_list install/comfyui/comfyui_custom_node.sh install/comfyui/dialog_comfyui_custom_node.sh
+                build_dialog_list install/comfyui/comfyui_extension.sh install/comfyui/dialog_comfyui_extension.sh
+                build_dialog_list install/sd_webui/sd_webui_extension.sh install/sd_webui/dialog_sd_webui_extension.sh
+                build_dialog_list_sd_webui install/sd_webui/sd_webui_extension.sh help/sd_webui_extension_description.md
+                build_dialog_list_comfyui install/comfyui/comfyui_extension.sh install/comfyui/comfyui_custom_node.sh help/comfyui_extension_description.md
+                ;;
+            *)
+                echo "未知参数\"$n\""
+                ;;
+        esac
+    done
 
-build_dialog_list install/comfyui/comfyui_custom_node.sh install/comfyui/dialog_comfyui_custom_node.sh
-build_dialog_list install/comfyui/comfyui_extension.sh install/comfyui/dialog_comfyui_extension.sh
-build_dialog_list install/sd_webui/sd_webui_extension.sh install/sd_webui/dialog_sd_webui_extension.sh
-build_dialog_list_sd_webui install/sd_webui/sd_webui_extension.sh help/sd_webui_extension_description.md
-build_dialog_list_comfyui install/comfyui/comfyui_extension.sh install/comfyui/comfyui_custom_node.sh help/comfyui_extension_description.md
-
-echo "----------done----------"
-end_time_sum=$(date +'%Y-%m-%d %H:%M:%S')
-end_time_seconds_sum=$(date --date="$end_time_sum" +%s)
-time_span_sum=$(( $end_time_seconds_sum - $start_time_seconds_sum )) # 计算相隔时间
-echo "总共用时:${time_span_sum} sec"
+    echo "----------done----------"
+    end_time_sum=$(date +'%Y-%m-%d %H:%M:%S')
+    end_time_seconds_sum=$(date --date="$end_time_sum" +%s)
+    time_span_sum=$(( $end_time_seconds_sum - $start_time_seconds_sum )) # 计算相隔时间
+    echo "总共用时:${time_span_sum} sec"
+else
+    echo "使用："
+    echo "./build.sh [--fix] [--build]"
+    echo "未指定操作"
+fi
