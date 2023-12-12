@@ -9,6 +9,10 @@ stable-diffusion-webui
 ├── extensions   插件存放位置
 ├── launch.py    term-sd启动sd-webui的方法
 ├── config.json  stable-diffusion-webui的配置文件，需要重置设置时删除该文件即可
+├── params.txt      上次生图参数
+├── ui-config.json  界面设置
+├── styles.csv       提示词预设
+├── cache.json      模型hash缓
 ├── outputs   生成图片的保存位置
 └── models    模型存放目录
     ├── ESRGAN    放大模型存放位置
@@ -87,13 +91,19 @@ Fooocus
 │   ├── upscale_models   放大模型存放位置
 │   └── vae   VAE模型存放位置
 ├── output   生成图片的保存位置
-
+└── config.txt 配置文件保存路径
 
 lora-scripts目录的部分说明（只列举比较重要的）：
 lora-scripts
+├── config
+│   └── autosave    训练参数保存路径
 ├── gui.py   term-sd启动lora-scripts的方法
 ├── logs   日志存放位置
 ├── output   训练得到的模型存放位置
-├── sd-models   训练所用的底模存放位置
-└── toml   保存的训练参数存放位置
+└── sd-models   训练所用的底模存放位置
 
+kohya_ss目录的部分说明（只列举比较重要的）：
+kohya_ss
+├── output          模型保存路径
+├── models          训练底模路径
+└── train           训练集路径

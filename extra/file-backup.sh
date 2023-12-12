@@ -158,7 +158,8 @@ stable-diffusion-webui
 ├── models          模型路径
 ├── outputs          图片保存路径
 ├── params.txt      上次生图参数
-└── ui-config.json  界面设置
+├── ui-config.json  界面设置
+└── styles.csv       提示词预设
 
 ComfyUI
 ├── custom_nodes    自定义节点路径
@@ -263,6 +264,7 @@ sd_webui_data_backup()
     cp -f ./stable-diffusion-webui/config.json ./term-sd-backup/stable-diffusion-webui/
     cp -f ./stable-diffusion-webui/ui-config.json ./term-sd-backup/stable-diffusion-webui/
     cp -f ./stable-diffusion-webui/params.txt ./term-sd-backup/stable-diffusion-webui/
+    cp -f ./stable-diffusion-webui/styles.csv ./term-sd-backup/stable-diffusion-webui/
 }
 
 sd_webui_data_restore()
@@ -275,6 +277,7 @@ sd_webui_data_restore()
     cp -f ./term-sd-backup/stable-diffusion-webui/config.json ./stable-diffusion-webui/
     cp -f ./term-sd-backup/stable-diffusion-webui/ui-config.json ./stable-diffusion-webui/
     cp -f ./term-sd-backup/stable-diffusion-webui/params.txt ./stable-diffusion-webui/
+    cp -f ./term-sd-backup/stable-diffusion-webui/styles.csv ./stable-diffusion-webui/
 }
 
 # comfyui
