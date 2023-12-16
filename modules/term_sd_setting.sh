@@ -13,11 +13,11 @@ term_sd_setting()
         "3" "> pip镜像源设置(环境变量)($([ ! -z $(echo $PIP_INDEX_URL | grep "pypi.python.org") ] && echo "官方源" || echo "国内镜像源"))" \
         "4" "> pip缓存清理" \
         "5" "> 代理设置($([ -z $http_proxy ] && echo "无" || echo "代理地址:$(echo $http_proxy | awk '{print substr($1,1,40)}')"))" \
-        "6" "> 命令执行监测设置($([ -f "./term-sd/config/term-sd-watch-retry.conf" ] && echo "启用(重试次数:$(cat ./term-sd/config/term-sd-watch-retry.conf))" || echo "禁用"))" \
-        "7" "> Term-SD安装模式($([ ! -f "./term-sd/config/term-sd-disable-strict-install-mode.lock" ] && echo "严格模式" || echo "宽容模式"))" \
-        "8" "> aria2线程设置($([ -f "./term-sd/config/aria2-thread.conf" ] && echo "启用(线程数:$(cat ./term-sd/config/aria2-thread.conf | awk '{sub("-x ","")}1'))" || echo "禁用"))" \
-        "9" "> 缓存重定向设置($([ ! -f "./term-sd/config/disable-cache-path-redirect.lock" ] && echo "启用" || echo "禁用"))" \
-        "10" "> CUDA内存分配设置($([ -f "./term-sd/config/cuda-memory-alloc.conf" ] && echo $([ ! -z $(cat ./term-sd/config/cuda-memory-alloc.conf | grep cudaMallocAsync) ] && echo "CUDA内置异步分配器" || echo "PyTorch原生分配器") || echo "未设置"))" \
+        "6" "> 命令执行监测设置($([ -f "term-sd/config/term-sd-watch-retry.conf" ] && echo "启用(重试次数:$(cat term-sd/config/term-sd-watch-retry.conf))" || echo "禁用"))" \
+        "7" "> Term-SD安装模式($([ ! -f "term-sd/config/term-sd-disable-strict-install-mode.lock" ] && echo "严格模式" || echo "宽容模式"))" \
+        "8" "> aria2线程设置($([ -f "term-sd/config/aria2-thread.conf" ] && echo "启用(线程数:$(cat term-sd/config/aria2-thread.conf | awk '{sub("-x ","")}1'))" || echo "禁用"))" \
+        "9" "> 缓存重定向设置($([ ! -f "term-sd/config/disable-cache-path-redirect.lock" ] && echo "启用" || echo "禁用"))" \
+        "10" "> CUDA内存分配设置($([ -f "term-sd/config/cuda-memory-alloc.conf" ] && echo $([ ! -z $(cat term-sd/config/cuda-memory-alloc.conf | grep cudaMallocAsync) ] && echo "CUDA内置异步分配器" || echo "PyTorch原生分配器") || echo "未设置"))" \
         "11" "> 自定义安装路径" \
         "12" "> 空间占用分析" \
         "13" "> 网络连接测试" \
@@ -100,13 +100,13 @@ python_venv_setting()
     case $python_venv_setting_dialog in
         1)
             venv_setup_status=0
-            rm -rf ./term-sd/config/term-sd-venv-disable.lock
+            rm -rf term-sd/config/term-sd-venv-disable.lock
             dialog --erase-on-exit --title "Term-SD" --backtitle "虚拟环境设置界面" --ok-label "确认" --msgbox "启用成功" $term_sd_dialog_height $term_sd_dialog_width
             python_venv_setting
             ;;
         2)
             venv_setup_status=1
-            touch ./term-sd/config/term-sd-venv-disable.lock
+            touch term-sd/config/term-sd-venv-disable.lock
             dialog --erase-on-exit --title "Term-SD" --backtitle "虚拟环境设置界面" --ok-label "确认" --msgbox "禁用成功" $term_sd_dialog_height $term_sd_dialog_width
             python_venv_setting
             ;;
@@ -175,7 +175,7 @@ pip_mirrors_env_setting()
             PIP_INDEX_URL="https://pypi.python.org/simple"
             PIP_EXTRA_INDEX_URL=""
             PIP_FIND_LINKS="https://download.pytorch.org/whl/torch_stable.html"
-            touch ./term-sd/config/disable-pip-mirror.lock
+            touch term-sd/config/disable-pip-mirror.lock
             dialog --erase-on-exit --title "Term-SD" --backtitle "pip镜像源(环境变量)选项" --ok-label "确认" --msgbox "设置pip镜像源为官方源成功" $term_sd_dialog_height $term_sd_dialog_width
             pip_mirrors_env_setting
             ;;
@@ -183,7 +183,7 @@ pip_mirrors_env_setting()
             PIP_INDEX_URL="https://mirrors.cloud.tencent.com/pypi/simple"
             PIP_EXTRA_INDEX_URL="https://mirror.baidu.com/pypi/simple https://mirrors.bfsu.edu.cn/pypi/web/simple https://mirror.nju.edu.cn/pypi/web/simple"
             PIP_FIND_LINKS="https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
-            rm -f ./term-sd/config/disable-pip-mirror.lock
+            rm -f term-sd/config/disable-pip-mirror.lock
             dialog --erase-on-exit --title "Term-SD" --backtitle "pip镜像源(环境变量)选项" --ok-label "确认" --msgbox "设置pip镜像源为国内镜像源成功" $term_sd_dialog_height $term_sd_dialog_width
             pip_mirrors_env_setting
             ;;
@@ -224,7 +224,7 @@ term_sd_proxy_setting()
                 term_sd_proxy_config=$(echo $term_sd_proxy_config | awk '{gsub(/[：]/, ":") ; gsub(/[。]/, ".")}1') # 防止用户输入中文冒号,句号后导致错误
                 http_proxy="http://$term_sd_proxy_config"
                 https_proxy="http://$term_sd_proxy_config"
-                echo "http://$term_sd_proxy_config" > ./term-sd/config/proxy.conf
+                echo "http://$term_sd_proxy_config" > term-sd/config/proxy.conf
                 dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --msgbox "代理地址:\"$http_proxy\"\n代理协议:\"$(echo $http_proxy | awk -F '://' '{print$NR}')\"\n设置代理完成" $term_sd_dialog_height $term_sd_dialog_width
             fi
             term_sd_proxy_setting
@@ -235,7 +235,7 @@ term_sd_proxy_setting()
                 term_sd_proxy_config=$(echo $term_sd_proxy_config | awk '{gsub(/[：]/, ":") ; gsub(/[。]/, ".")}1') # 防止用户输入中文冒号,句号后导致错误
                 http_proxy="socks://$term_sd_proxy_config"
                 https_proxy="socks://$term_sd_proxy_config"
-                echo "socks://$term_sd_proxy_config" > ./term-sd/config/proxy.conf
+                echo "socks://$term_sd_proxy_config" > term-sd/config/proxy.conf
                 dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --msgbox "代理地址:\"$http_proxy\"\n代理协议:\"$(echo $http_proxy | awk -F '://' '{print$NR}')\"\n设置代理完成" $term_sd_dialog_height $term_sd_dialog_width
             fi
             term_sd_proxy_setting
@@ -246,7 +246,7 @@ term_sd_proxy_setting()
                 term_sd_proxy_config=$(echo $term_sd_proxy_config | awk '{gsub(/[：]/, ":") ; gsub(/[。]/, ".")}1') # 防止用户输入中文冒号,句号后导致错误
                 http_proxy="socks5://$term_sd_proxy_config"
                 https_proxy="socks5://$term_sd_proxy_config"
-                echo "socks5://$term_sd_proxy_config" > ./term-sd/config/proxy.conf
+                echo "socks5://$term_sd_proxy_config" > term-sd/config/proxy.conf
                 dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --msgbox "代理地址:\"$http_proxy\"\n代理协议:\"$(echo $http_proxy | awk -F '://' '{print$NR}')\"\n设置代理完成" $term_sd_dialog_height $term_sd_dialog_width
             fi
             term_sd_proxy_setting
@@ -255,7 +255,7 @@ term_sd_proxy_setting()
             if (dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数删除界面" --yes-label "是" --no-label "否" --yesno "是否删除代理配置?" $term_sd_dialog_height $term_sd_dialog_width) then
                 http_proxy=
                 https_proxy=
-                rm -f ./term-sd/config/proxy.conf
+                rm -f term-sd/config/proxy.conf
                 dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --msgbox "清除设置代理完成" $term_sd_dialog_height $term_sd_dialog_width
             fi
             term_sd_proxy_setting
@@ -271,7 +271,7 @@ term_sd_watch_setting()
     export term_sd_cmd_retry
 
     term_sd_watch_setting_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "命令执行监测设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于监测命令的运行情况,若设置了重试次数,Term-SD将重试执行失败的命令(有些命令需要联网,在网络不稳定的时候容易导致命令执行失败),保证命令执行成功\n当前状态:$([ -f "./term-sd/config/term-sd-watch-retry.conf" ] && echo "启用(重试次数:$(cat ./term-sd/config/term-sd-watch-retry.conf))" || echo "禁用")\n是否启用命令执行监测?(推荐启用)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "命令执行监测设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于监测命令的运行情况,若设置了重试次数,Term-SD将重试执行失败的命令(有些命令需要联网,在网络不稳定的时候容易导致命令执行失败),保证命令执行成功\n当前状态:$([ -f "term-sd/config/term-sd-watch-retry.conf" ] && echo "启用(重试次数:$(cat term-sd/config/term-sd-watch-retry.conf))" || echo "禁用")\n是否启用命令执行监测?(推荐启用)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> 启用" \
         "2" "> 禁用" \
@@ -279,12 +279,12 @@ term_sd_watch_setting()
 
     case $term_sd_watch_setting_dialog in
         1)
-            term_sd_watch_value=$(dialog --erase-on-exit --title "Term-SD" --backtitle "命令执行监测设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入重试次数(仅输入数字,不允许输入负数和其他非数字的字符)" $term_sd_dialog_height $term_sd_dialog_width "$(cat ./term-sd/config/term-sd-watch-retry.conf)" 3>&1 1>&2 2>&3)
+            term_sd_watch_value=$(dialog --erase-on-exit --title "Term-SD" --backtitle "命令执行监测设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入重试次数(仅输入数字,不允许输入负数和其他非数字的字符)" $term_sd_dialog_height $term_sd_dialog_width "$(cat term-sd/config/term-sd-watch-retry.conf)" 3>&1 1>&2 2>&3)
             if [ ! -z "$(echo $term_sd_watch_value | awk '{gsub(/[0-9]/, "")}1')" ];then
                 dialog --erase-on-exit --title "Term-SD" --backtitle "命令执行监测设置界面" --ok-label "确认" --msgbox "输入格式错误,重试次数只能为数字且不能为负数" $term_sd_dialog_height $term_sd_dialog_width
             else
                 if [ ! -z "$term_sd_watch_value" ];then
-                    echo "$term_sd_watch_value" > ./term-sd/config/term-sd-watch-retry.conf
+                    echo "$term_sd_watch_value" > term-sd/config/term-sd-watch-retry.conf
                     term_sd_cmd_retry=$term_sd_watch_value
                     dialog --erase-on-exit --title "Term-SD" --backtitle "命令执行监测设置界面" --ok-label "确认" --msgbox "启用成功" $term_sd_dialog_height $term_sd_dialog_width
                 else
@@ -295,7 +295,7 @@ term_sd_watch_setting()
             term_sd_watch_setting
             ;;
         2)
-            rm -rf ./term-sd/config/term-sd-watch-retry.conf
+            rm -rf term-sd/config/term-sd-watch-retry.conf
             term_sd_cmd_retry=0
             dialog --erase-on-exit --title "Term-SD" --backtitle "命令执行监测设置界面" --ok-label "确认" --msgbox "禁用成功" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_watch_setting
@@ -310,7 +310,7 @@ term_sd_install_mode_setting()
     export term_sd_install_mode
 
     term_sd_install_mode_setting_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "安装模式设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于设置Term-SD安装AI软件的工作模式。当启用\"严格模式\"后,Term-SD在安转AI软件时出现执行失败的命令时将停止安装进程(Term-SD支持断点恢复,可恢复上次安装进程中断的位置),而\"宽容模式\"在安转AI软件时出现执行失败的命令时忽略执行失败的命令继续执行完成安装任务\n当前安装模式:$([ ! -f "./term-sd/config/term-sd-disable-strict-install-mode.lock" ] && echo "严格模式" || echo "宽容模式")\n请选择要设置的安装模式(默认启用严格模式)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "安装模式设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于设置Term-SD安装AI软件的工作模式。当启用\"严格模式\"后,Term-SD在安转AI软件时出现执行失败的命令时将停止安装进程(Term-SD支持断点恢复,可恢复上次安装进程中断的位置),而\"宽容模式\"在安转AI软件时出现执行失败的命令时忽略执行失败的命令继续执行完成安装任务\n当前安装模式:$([ ! -f "term-sd/config/term-sd-disable-strict-install-mode.lock" ] && echo "严格模式" || echo "宽容模式")\n请选择要设置的安装模式(默认启用严格模式)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> 严格模式" \
         "2" "> 宽容模式" \
@@ -319,13 +319,13 @@ term_sd_install_mode_setting()
     case $term_sd_install_mode_setting_dialog in
         1)
             term_sd_install_mode=0
-            rm -f ./term-sd/config/term-sd-disable-strict-install-mode.lock
+            rm -f term-sd/config/term-sd-disable-strict-install-mode.lock
             dialog --erase-on-exit --title "Term-SD" --backtitle "安装模式设置界面" --ok-label "确认" --msgbox "启用严格模式成功" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_install_mode_setting
             ;;
         2)
             term_sd_install_mode=1
-            touch ./term-sd/config/term-sd-disable-strict-install-mode.lock
+            touch term-sd/config/term-sd-disable-strict-install-mode.lock
             dialog --erase-on-exit --title "Term-SD" --backtitle "安装模式设置界面" --ok-label "确认" --msgbox "启用宽容模式成功" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_install_mode_setting
             ;;
@@ -340,7 +340,7 @@ aria2_multi_threaded_setting()
     export aria2_multi_threaded
 
     aria2_multi_threaded_setting_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于增加Term-SD在使用aria2下载模型时的线程数,在一定程度上提高下载速度\n当前状态:$([ -f "./term-sd/config/aria2-thread.conf" ] && echo "启用(线程数:$(cat ./term-sd/config/aria2-thread.conf | awk '{sub("-x ","")}1'))" || echo "禁用")\n是否启用aria2多线程下载?" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于增加Term-SD在使用aria2下载模型时的线程数,在一定程度上提高下载速度\n当前状态:$([ -f "term-sd/config/aria2-thread.conf" ] && echo "启用(线程数:$(cat term-sd/config/aria2-thread.conf | awk '{sub("-x ","")}1'))" || echo "禁用")\n是否启用aria2多线程下载?" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> 启用" \
         "2" "> 禁用" \
@@ -348,17 +348,17 @@ aria2_multi_threaded_setting()
 
     case $aria2_multi_threaded_setting_dialog in
         1)
-            aria2_multi_threaded_value=$(dialog --erase-on-exit --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入线程数(仅输入数字(),不允许输入负数和其他非数字的字符)" $term_sd_dialog_height $term_sd_dialog_width "$(cat ./term-sd/config/aria2-thread.conf | awk '{sub("-x ","")}1')" 3>&1 1>&2 2>&3)
+            aria2_multi_threaded_value=$(dialog --erase-on-exit --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入线程数(仅输入数字(),不允许输入负数和其他非数字的字符)" $term_sd_dialog_height $term_sd_dialog_width "$(cat term-sd/config/aria2-thread.conf | awk '{sub("-x ","")}1')" 3>&1 1>&2 2>&3)
             if [ ! -z "$(echo $aria2_multi_threaded_value | awk '{gsub(/[0-9]/, "")}1')" ] || [ $aria2_multi_threaded_value = 0 ] ;then
                 dialog --erase-on-exit --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --msgbox "输入格式错误,线程数只能为数字且不能为负数" $term_sd_dialog_height $term_sd_dialog_width
             else
                 if [ ! -z "$aria2_multi_threaded_value" ];then
                     if [ $aria2_multi_threaded_value -le 16 ];then
-                        echo "-x $aria2_multi_threaded_value" > ./term-sd/config/aria2-thread.conf
+                        echo "-x $aria2_multi_threaded_value" > term-sd/config/aria2-thread.conf
                         aria2_multi_threaded="-x $aria2_multi_threaded_value"
                         dialog --erase-on-exit --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --msgbox "启用成功" $term_sd_dialog_height $term_sd_dialog_width
                     else
-                        echo "-x 16" > ./term-sd/config/aria2-thread.conf
+                        echo "-x 16" > term-sd/config/aria2-thread.conf
                         aria2_multi_threaded="-x 16"
                         dialog --erase-on-exit --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --msgbox "启用成功" $term_sd_dialog_height $term_sd_dialog_width
                     fi
@@ -369,7 +369,7 @@ aria2_multi_threaded_setting()
             aria2_multi_threaded_setting
             ;;
         2)
-            rm -rf ./term-sd/config/aria2-thread.conf
+            rm -rf term-sd/config/aria2-thread.conf
             aria2_multi_threaded=
             dialog --erase-on-exit --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --msgbox "禁用成功" $term_sd_dialog_height $term_sd_dialog_width
             aria2_multi_threaded_setting
@@ -394,7 +394,7 @@ term_sd_cache_redirect_setting()
     export PYTHONPYCACHEPREFIX
 
     term_sd_cache_redirect_setting_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "缓存重定向设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能将会把ai软件产生的缓存重定向至Term-SD中(便于清理)\n当前状态:$([ ! -f "./term-sd/config/disable-cache-path-redirect.lock" ] && echo "启用" || echo "禁用")\n是否启用缓存重定向?" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "缓存重定向设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能将会把ai软件产生的缓存重定向至Term-SD中(便于清理)\n当前状态:$([ ! -f "term-sd/config/disable-cache-path-redirect.lock" ] && echo "启用" || echo "禁用")\n是否启用缓存重定向?" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> 启用" \
         "2" "> 禁用" \
@@ -402,7 +402,7 @@ term_sd_cache_redirect_setting()
 
     case $term_sd_cache_redirect_setting_dialog in
         1)
-            rm -f ./term-sd/config/disable-cache-path-redirect.lock
+            rm -f term-sd/config/disable-cache-path-redirect.lock
             CACHE_HOME="$start_path/term-sd/cache"
             HF_HOME="$start_path/term-sd/cache/huggingface"
             MATPLOTLIBRC="$start_path/term-sd/cache"
@@ -418,7 +418,7 @@ term_sd_cache_redirect_setting()
             term_sd_cache_redirect_setting
             ;;
         2)
-            touch -f ./term-sd/config/disable-cache-path-redirect.lock
+            touch -f term-sd/config/disable-cache-path-redirect.lock
             CACHE_HOME=
             HF_HOME=
             MATPLOTLIBRC=
@@ -443,7 +443,7 @@ cuda_memory_alloc_setting()
     export PYTORCH_CUDA_ALLOC_CONF
 
     cuda_memory_alloc_setting_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "CUDA内存分配设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于更换底层CUDA内存分配器(仅支持nvidia显卡,且CUDA版本需要大于11.4)\n当前内存分配器:$([ -f "./term-sd/config/cuda-memory-alloc.conf" ] && echo $([ ! -z $(cat ./term-sd/config/cuda-memory-alloc.conf | grep cudaMallocAsync) ] && echo "CUDA内置异步分配器" || echo "PyTorch原生分配器") || echo "未设置")\n请选择CUDA内存分配器" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "CUDA内存分配设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于更换底层CUDA内存分配器(仅支持nvidia显卡,且CUDA版本需要大于11.4)\n当前内存分配器:$([ -f "term-sd/config/cuda-memory-alloc.conf" ] && echo $([ ! -z $(cat term-sd/config/cuda-memory-alloc.conf | grep cudaMallocAsync) ] && echo "CUDA内置异步分配器" || echo "PyTorch原生分配器") || echo "未设置")\n请选择CUDA内存分配器" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> PyTorch原生分配器" \
         "2" "> CUDA(11.4+)内置异步分配器" \
@@ -453,19 +453,19 @@ cuda_memory_alloc_setting()
     case $cuda_memory_alloc_setting_dialog in
         1)
             PYTORCH_CUDA_ALLOC_CONF=garbage_collection_threshold:0.9,max_split_size_mb:512
-            echo "garbage_collection_threshold:0.9,max_split_size_mb:512" > ./term-sd/config/cuda-memory-alloc.conf
+            echo "garbage_collection_threshold:0.9,max_split_size_mb:512" > term-sd/config/cuda-memory-alloc.conf
             dialog --erase-on-exit --title "Term-SD" --backtitle "CUDA内存分配设置界面" --ok-label "确认" --msgbox "设置CUDA内存分配器为PyTorch原生分配器成功" $term_sd_dialog_height $term_sd_dialog_width
             cuda_memory_alloc_setting
             ;;
         2)
             PYTORCH_CUDA_ALLOC_CONF=backend:cudaMallocAsync
-            echo "backend:cudaMallocAsync" > ./term-sd/config/cuda-memory-alloc.conf
+            echo "backend:cudaMallocAsync" > term-sd/config/cuda-memory-alloc.conf
             dialog --erase-on-exit --title "Term-SD" --backtitle "CUDA内存分配设置界面" --ok-label "确认" --msgbox "设置CUDA内存分配器为CUDA内置异步分配器成功" $term_sd_dialog_height $term_sd_dialog_width
             cuda_memory_alloc_setting
             ;;
         3)
             PYTORCH_CUDA_ALLOC_CONF=
-            rm -f ./term-sd/config/cuda-memory-alloc.conf
+            rm -f term-sd/config/cuda-memory-alloc.conf
             dialog --erase-on-exit --title "Term-SD" --backtitle "CUDA内存分配设置界面" --ok-label "确认" --msgbox "清除CUDA内存分配器设置成功" $term_sd_dialog_height $term_sd_dialog_width
             cuda_memory_alloc_setting
             ;;
@@ -480,12 +480,12 @@ custom_install_path_setting()
     custom_install_path_setting_dialog=$(
         dialog --erase-on-exit --notags --title "Term-SD" --backtitle "自定义安装路径设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于自定义AI软件的安装路径,当保持默认时,AI软件的安装路径与Term-SD所在路径同级\n当前Term-SD所在路径:${start_path}/term-sd\n注:\n1、路径最好使用绝对路径\n2、如果是Windows系统,请使用msys2可识别的路径格式,\n如:\"D:\\Downloads\\webui\"要写成\"/d/Downloads/webui\"" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
-        "1" "> stable-diffusion-webui安装路径设置(当前配置:$([ -f ./term-sd/config/sd-webui-path.conf ] && echo "自定义" || echo 默认))" \
-        "2" "> ComfyUI安装路径设置(当前配置:$([ -f ./term-sd/config/comfyui-path.conf ] && echo "自定义" || echo 默认))" \
-        "3" "> InvokeAI安装路径设置(当前配置:$([ -f ./term-sd/config/invokeai-path.conf ] && echo "自定义" || echo 默认))" \
-        "4" "> Fooocus安装路径设置(当前配置:$([ -f ./term-sd/config/fooocus-path.conf ] && echo "自定义" || echo 默认))" \
-        "5" "> lora-scripts安装路径设置(当前配置:$([ -f ./term-sd/config/lora-scripts-path.conf ] && echo "自定义" || echo 默认))" \
-        "6" "> kohya_ss安装路径设置(当前配置:$([ -f ./term-sd/config/kohya_ss-path.conf ] && echo "自定义" || echo 默认))" \
+        "1" "> stable-diffusion-webui安装路径设置(当前配置:$([ -f term-sd/config/sd-webui-path.conf ] && echo "自定义" || echo 默认))" \
+        "2" "> ComfyUI安装路径设置(当前配置:$([ -f term-sd/config/comfyui-path.conf ] && echo "自定义" || echo 默认))" \
+        "3" "> InvokeAI安装路径设置(当前配置:$([ -f term-sd/config/invokeai-path.conf ] && echo "自定义" || echo 默认))" \
+        "4" "> Fooocus安装路径设置(当前配置:$([ -f term-sd/config/fooocus-path.conf ] && echo "自定义" || echo 默认))" \
+        "5" "> lora-scripts安装路径设置(当前配置:$([ -f term-sd/config/lora-scripts-path.conf ] && echo "自定义" || echo 默认))" \
+        "6" "> kohya_ss安装路径设置(当前配置:$([ -f term-sd/config/kohya_ss-path.conf ] && echo "自定义" || echo 默认))" \
         3>&1 1>&2 2>&3)
 
     case $custom_install_path_setting_dialog in
@@ -523,7 +523,7 @@ sd_webui_custom_install_path_setting()
     local sd_webui_custom_install_path_setting_dialog
 
     sd_webui_custom_install_path_setting_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "stable-diffusion-webui安装路径设置界面" --ok-label "确认" --cancel-label "取消" --menu "请选择配置选项\n当前自定义安装路径:$([ -f ./term-sd/config/sd-webui-path.conf ] && cat ./term-sd/config/sd-webui-path.conf || echo 默认)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "stable-diffusion-webui安装路径设置界面" --ok-label "确认" --cancel-label "取消" --menu "请选择配置选项\n当前自定义安装路径:$([ -f term-sd/config/sd-webui-path.conf ] && cat term-sd/config/sd-webui-path.conf || echo 默认)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> 设置安装路径" \
         "2" "> 恢复默认安装路径设置" \
@@ -531,7 +531,7 @@ sd_webui_custom_install_path_setting()
 
     case $sd_webui_custom_install_path_setting_dialog in
         1)
-            custom_install_path=$(dialog --erase-on-exit --title "Term-SD" --backtitle "stable-diffusion-webui安装路径设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入stable-diffusion-webui安装路径\n注:请使用绝对路径" $term_sd_dialog_height $term_sd_dialog_width "$([ -f ./term-sd/config/sd-webui-path.conf ] && cat ./term-sd/config/sd-webui-path.conf)" 3>&1 1>&2 2>&3)
+            custom_install_path=$(dialog --erase-on-exit --title "Term-SD" --backtitle "stable-diffusion-webui安装路径设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入stable-diffusion-webui安装路径\n注:请使用绝对路径" $term_sd_dialog_height $term_sd_dialog_width "$([ -f term-sd/config/sd-webui-path.conf ] && cat term-sd/config/sd-webui-path.conf)" 3>&1 1>&2 2>&3)
             if [ $? = 0 ] && [ ! -z "$custom_install_path" ];then
                 if [ "$custom_install_path" = "/" ];then
                     dialog --erase-on-exit --title "Term-SD" --backtitle "stable-diffusion-webui安装路径设置界面" --ok-label "确认" --msgbox "禁止将根目录设置为安装路径" $term_sd_dialog_height $term_sd_dialog_width
@@ -539,7 +539,7 @@ sd_webui_custom_install_path_setting()
                     export sd_webui_path=$custom_install_path
                     export sd_webui_folder=$(basename "$sd_webui_path")
                     export sd_webui_parent_path=$(dirname "$sd_webui_path")
-                    echo "$custom_install_path" > ./term-sd/config/sd-webui-path.conf
+                    echo "$custom_install_path" > term-sd/config/sd-webui-path.conf
                     dialog --erase-on-exit --title "Term-SD" --backtitle "stable-diffusion-webui安装路径设置界面" --ok-label "确认" --msgbox "stable-diffusion-webui安装路径设置成功\n安装路径:$custom_install_path\n$([ ! $(echo $custom_install_path | awk '{print substr($0,1,1)}') = "/" ] && echo "检测到安装路径不是绝对路径,可能会导致一些问题")" $term_sd_dialog_height $term_sd_dialog_width
                 fi
             fi
@@ -547,7 +547,7 @@ sd_webui_custom_install_path_setting()
             ;;
         2)
             if (dialog --erase-on-exit --title "Term-SD" --backtitle "stable-diffusion-webui安装路径设置界面" --yes-label "是" --no-label "否" --yesno "是否重置stable-diffusion-webui安装路径?" $term_sd_dialog_height $term_sd_dialog_width) then
-                rm -f ./term-sd/config/sd-webui-path.conf
+                rm -f term-sd/config/sd-webui-path.conf
                 export sd_webui_path="$start_path/stable-diffusion-webui"
                 export sd_webui_folder="stable-diffusion-webui"
                 export sd_webui_parent_path=$start_path
@@ -565,7 +565,7 @@ comfyui_custom_install_path_setting()
     local comfyui_custom_install_path_setting_dialog
 
     comfyui_custom_install_path_setting_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "ComfyUI安装路径设置界面" --ok-label "确认" --cancel-label "取消" --menu "请选择配置选项\n当前自定义安装路径:$([ -f ./term-sd/config/comfyui-path.conf ] && cat ./term-sd/config/comfyui-path.conf || echo 默认)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "ComfyUI安装路径设置界面" --ok-label "确认" --cancel-label "取消" --menu "请选择配置选项\n当前自定义安装路径:$([ -f term-sd/config/comfyui-path.conf ] && cat term-sd/config/comfyui-path.conf || echo 默认)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> 设置安装路径" \
         "2" "> 恢复默认安装路径设置" \
@@ -573,7 +573,7 @@ comfyui_custom_install_path_setting()
 
     case $comfyui_custom_install_path_setting_dialog in
         1)
-            custom_install_path=$(dialog --erase-on-exit --title "Term-SD" --backtitle "ComfyUI安装路径设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入ComfyUI安装路径\n注:请使用绝对路径" $term_sd_dialog_height $term_sd_dialog_width "$([ -f ./term-sd/config/comfyui-path.conf ] && cat ./term-sd/config/comfyui-path.conf)" 3>&1 1>&2 2>&3)
+            custom_install_path=$(dialog --erase-on-exit --title "Term-SD" --backtitle "ComfyUI安装路径设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入ComfyUI安装路径\n注:请使用绝对路径" $term_sd_dialog_height $term_sd_dialog_width "$([ -f term-sd/config/comfyui-path.conf ] && cat term-sd/config/comfyui-path.conf)" 3>&1 1>&2 2>&3)
             if [ $? = 0 ] && [ ! -z "$custom_install_path" ];then
                 if [ "$custom_install_path" = "/" ];then
                     dialog --erase-on-exit --title "Term-SD" --backtitle "ComfyUI安装路径设置界面" --ok-label "确认" --msgbox "禁止将根目录设置为安装路径" $term_sd_dialog_height $term_sd_dialog_width
@@ -581,7 +581,7 @@ comfyui_custom_install_path_setting()
                     export comfyui_path=$custom_install_path
                     export comfyui_folder=$(basename "$comfyui_path")
                     export comfyui_parent_path=$(dirname "$comfyui_path")
-                    echo "$custom_install_path" > ./term-sd/config/comfyui-path.conf
+                    echo "$custom_install_path" > term-sd/config/comfyui-path.conf
                     dialog --erase-on-exit --title "Term-SD" --backtitle "ComfyUI安装路径设置界面" --ok-label "确认" --msgbox "ComfyUI安装路径设置成功\n安装路径:$custom_install_path\n$([ ! $(echo $custom_install_path | awk '{print substr($0,1,1)}') = "/" ] && echo "检测到安装路径不是绝对路径,可能会导致一些问题")" $term_sd_dialog_height $term_sd_dialog_width
                 fi
             fi
@@ -589,7 +589,7 @@ comfyui_custom_install_path_setting()
             ;;
         2)
             if (dialog --erase-on-exit --title "Term-SD" --backtitle "ComfyUI安装路径设置界面" --yes-label "是" --no-label "否" --yesno "是否重置ComfyUI安装路径?" $term_sd_dialog_height $term_sd_dialog_width) then
-                rm -f ./term-sd/config/comfyui-path.conf
+                rm -f term-sd/config/comfyui-path.conf
                 export comfyui_path="$start_path/ComfyUI"
                 export comfyui_folder="ComfyUI"
                 export comfyui_parent_path=$start_path
@@ -607,7 +607,7 @@ invokeai_custom_install_path_setting()
     local invokeai_custom_install_path_setting_dialog
 
     invokeai_custom_install_path_setting_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "InvokeAI安装路径设置界面" --ok-label "确认" --cancel-label "取消" --menu "请选择配置选项\n当前自定义安装路径:$([ -f ./term-sd/config/invokeai-path.conf ] && cat ./term-sd/config/invokeai-path.conf || echo 默认)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "InvokeAI安装路径设置界面" --ok-label "确认" --cancel-label "取消" --menu "请选择配置选项\n当前自定义安装路径:$([ -f term-sd/config/invokeai-path.conf ] && cat term-sd/config/invokeai-path.conf || echo 默认)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> 设置安装路径" \
         "2" "> 恢复默认安装路径设置" \
@@ -615,7 +615,7 @@ invokeai_custom_install_path_setting()
 
     case $invokeai_custom_install_path_setting_dialog in
         1)
-            custom_install_path=$(dialog --erase-on-exit --title "Term-SD" --backtitle "InvokeAI安装路径设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入InvokeAI安装路径\n注:请使用绝对路径" $term_sd_dialog_height $term_sd_dialog_width "$([ -f ./term-sd/config/invokeai-path.conf ] && cat ./term-sd/config/invokeai-path.conf)" 3>&1 1>&2 2>&3)
+            custom_install_path=$(dialog --erase-on-exit --title "Term-SD" --backtitle "InvokeAI安装路径设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入InvokeAI安装路径\n注:请使用绝对路径" $term_sd_dialog_height $term_sd_dialog_width "$([ -f term-sd/config/invokeai-path.conf ] && cat term-sd/config/invokeai-path.conf)" 3>&1 1>&2 2>&3)
             if [ $? = 0 ] && [ ! -z "$custom_install_path" ];then
                 if [ "$custom_install_path" = "/" ];then
                     dialog --erase-on-exit --title "Term-SD" --backtitle "InvokeAI安装路径设置界面" --ok-label "确认" --msgbox "禁止将根目录设置为安装路径" $term_sd_dialog_height $term_sd_dialog_width
@@ -623,7 +623,7 @@ invokeai_custom_install_path_setting()
                     export invokeai_path=$custom_install_path
                     export invokeai_folder=$(basename "$invokeai_path")
                     export invokeai_parent_path=$(dirname "$invokeai_path")
-                    echo "$custom_install_path" > ./term-sd/config/invokeai-path.conf
+                    echo "$custom_install_path" > term-sd/config/invokeai-path.conf
                     dialog --erase-on-exit --title "Term-SD" --backtitle "InvokeAI安装路径设置界面" --ok-label "确认" --msgbox "InvokeAI安装路径设置成功\n安装路径:$custom_install_path\n$([ ! $(echo $custom_install_path | awk '{print substr($0,1,1)}') = "/" ] && echo "检测到安装路径不是绝对路径,可能会导致一些问题")" $term_sd_dialog_height $term_sd_dialog_width
                 fi
             fi
@@ -631,7 +631,7 @@ invokeai_custom_install_path_setting()
             ;;
         2)
             if (dialog --erase-on-exit --title "Term-SD" --backtitle "InvokeAI安装路径设置界面" --yes-label "是" --no-label "否" --yesno "是否重置InvokeAI安装路径?" $term_sd_dialog_height $term_sd_dialog_width) then
-                rm -f ./term-sd/config/invokeai-path.conf
+                rm -f term-sd/config/invokeai-path.conf
                 export invokeai_path="$start_path/InvokeAI"
                 export invokeai_folder="InvokeAI"
                 export invokeai_parent_path=$start_path
@@ -649,7 +649,7 @@ fooocus_custom_install_path_setting()
     local fooocus_custom_install_path_setting_dialog
 
     fooocus_custom_install_path_setting_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "Fooocus安装路径设置界面" --ok-label "确认" --cancel-label "取消" --menu "请选择配置选项\n当前自定义安装路径:$([ -f ./term-sd/config/fooocus-path.conf ] && cat ./term-sd/config/fooocus-path.conf || echo 默认)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "Fooocus安装路径设置界面" --ok-label "确认" --cancel-label "取消" --menu "请选择配置选项\n当前自定义安装路径:$([ -f term-sd/config/fooocus-path.conf ] && cat term-sd/config/fooocus-path.conf || echo 默认)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> 设置安装路径" \
         "2" "> 恢复默认安装路径设置" \
@@ -657,7 +657,7 @@ fooocus_custom_install_path_setting()
 
     case $fooocus_custom_install_path_setting_dialog in
         1)
-            custom_install_path=$(dialog --erase-on-exit --title "Term-SD" --backtitle "Fooocus安装路径设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入Fooocus安装路径\n注:请使用绝对路径" $term_sd_dialog_height $term_sd_dialog_width "$([ -f ./term-sd/config/fooocus-path.conf ] && cat ./term-sd/config/fooocus-path.conf)" 3>&1 1>&2 2>&3)
+            custom_install_path=$(dialog --erase-on-exit --title "Term-SD" --backtitle "Fooocus安装路径设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入Fooocus安装路径\n注:请使用绝对路径" $term_sd_dialog_height $term_sd_dialog_width "$([ -f term-sd/config/fooocus-path.conf ] && cat term-sd/config/fooocus-path.conf)" 3>&1 1>&2 2>&3)
             if [ $? = 0 ] && [ ! -z "$custom_install_path" ];then
                 if [ "$custom_install_path" = "/" ];then
                     dialog --erase-on-exit --title "Term-SD" --backtitle "Fooocus安装路径设置界面" --ok-label "确认" --msgbox "禁止将根目录设置为安装路径" $term_sd_dialog_height $term_sd_dialog_width
@@ -665,7 +665,7 @@ fooocus_custom_install_path_setting()
                     export fooocus_path=$custom_install_path
                     export fooocus_folder=$(basename "$fooocus_path")
                     export fooocus_parent_path=$(dirname "$fooocus_path")
-                    echo "$custom_install_path" > ./term-sd/config/fooocus-path.conf
+                    echo "$custom_install_path" > term-sd/config/fooocus-path.conf
                     dialog --erase-on-exit --title "Term-SD" --backtitle "Fooocus安装路径设置界面" --ok-label "确认" --msgbox "Fooocus安装路径设置成功\n安装路径:$custom_install_path\n$([ ! $(echo $custom_install_path | awk '{print substr($0,1,1)}') = "/" ] && echo "检测到安装路径不是绝对路径,可能会导致一些问题")" $term_sd_dialog_height $term_sd_dialog_width
                 fi
             fi
@@ -673,7 +673,7 @@ fooocus_custom_install_path_setting()
             ;;
         2)
             if (dialog --erase-on-exit --title "Term-SD" --backtitle "Fooocus安装路径设置界面" --yes-label "是" --no-label "否" --yesno "是否重置Fooocus安装路径?" $term_sd_dialog_height $term_sd_dialog_width) then
-                rm -f ./term-sd/config/fooocus-path.conf
+                rm -f term-sd/config/fooocus-path.conf
                 export fooocus_path="$start_path/Fooocus"
                 export fooocus_folder="Fooocus"
                 export fooocus_parent_path=$start_path
@@ -691,7 +691,7 @@ lora_scripts_custom_install_path_setting()
     local lora_scripts_custom_install_path_setting_dialog
 
     lora_scripts_custom_install_path_setting_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "lora-scripts安装路径设置界面" --ok-label "确认" --cancel-label "取消" --menu "请选择配置选项\n当前自定义安装路径:$([ -f ./term-sd/config/lora-scripts-path.conf ] && cat ./term-sd/config/lora-scripts-path.conf || echo 默认)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "lora-scripts安装路径设置界面" --ok-label "确认" --cancel-label "取消" --menu "请选择配置选项\n当前自定义安装路径:$([ -f term-sd/config/lora-scripts-path.conf ] && cat term-sd/config/lora-scripts-path.conf || echo 默认)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> 设置安装路径" \
         "2" "> 恢复默认安装路径设置" \
@@ -699,7 +699,7 @@ lora_scripts_custom_install_path_setting()
 
     case $lora_scripts_custom_install_path_setting_dialog in
         1)
-            custom_install_path=$(dialog --erase-on-exit --title "Term-SD" --backtitle "lora-scripts安装路径设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入lora-scripts安装路径\n注:请使用绝对路径" $term_sd_dialog_height $term_sd_dialog_width "$([ -f ./term-sd/config/lora-scripts-path.conf ] && cat ./term-sd/config/lora-scripts-path.conf)" 3>&1 1>&2 2>&3)
+            custom_install_path=$(dialog --erase-on-exit --title "Term-SD" --backtitle "lora-scripts安装路径设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入lora-scripts安装路径\n注:请使用绝对路径" $term_sd_dialog_height $term_sd_dialog_width "$([ -f term-sd/config/lora-scripts-path.conf ] && cat term-sd/config/lora-scripts-path.conf)" 3>&1 1>&2 2>&3)
             if [ $? = 0 ] && [ ! -z "$custom_install_path" ];then
                 if [ "$custom_install_path" = "/" ];then
                     dialog --erase-on-exit --title "Term-SD" --backtitle "lora-scripts安装路径设置界面" --ok-label "确认" --msgbox "禁止将根目录设置为安装路径" $term_sd_dialog_height $term_sd_dialog_width
@@ -707,7 +707,7 @@ lora_scripts_custom_install_path_setting()
                     export lora_scripts_path=$custom_install_path
                     export lora_scripts_folder=$(basename "$lora_scripts_path")
                     export lora_scripts_parent_path=$(dirname "$lora_scripts_path")
-                    echo "$custom_install_path" > ./term-sd/config/lora-scripts-path.conf
+                    echo "$custom_install_path" > term-sd/config/lora-scripts-path.conf
                     dialog --erase-on-exit --title "Term-SD" --backtitle "lora-scripts安装路径设置界面" --ok-label "确认" --msgbox "lora-scripts安装路径设置成功\n安装路径:$custom_install_path\n$([ ! $(echo $custom_install_path | awk '{print substr($0,1,1)}') = "/" ] && echo "检测到安装路径不是绝对路径,可能会导致一些问题")" $term_sd_dialog_height $term_sd_dialog_width
                 fi
             fi
@@ -715,7 +715,7 @@ lora_scripts_custom_install_path_setting()
             ;;
         2)
             if (dialog --erase-on-exit --title "Term-SD" --backtitle "lora-scripts安装路径设置界面" --yes-label "是" --no-label "否" --yesno "是否重置lora-scripts安装路径?" $term_sd_dialog_height $term_sd_dialog_width) then
-                rm -f ./term-sd/config/lora-scripts-path.conf
+                rm -f term-sd/config/lora-scripts-path.conf
                 export lora_scripts_path="$start_path/lora-scripts"
                 export lora_scripts_folder="lora-scripts"
                 export lora_scripts_parent_path=$start_path
@@ -733,7 +733,7 @@ kohya_ss_custom_install_path_setting()
     local kohya_ss_custom_install_path_setting_dialog
 
     kohya_ss_custom_install_path_setting_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "kohya_ss安装路径设置界面" --ok-label "确认" --cancel-label "取消" --menu "请选择配置选项\n当前自定义安装路径:$([ -f ./term-sd/config/kohya_ss-path.conf ] && cat ./term-sd/config/kohya_ss-path.conf || echo 默认)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "kohya_ss安装路径设置界面" --ok-label "确认" --cancel-label "取消" --menu "请选择配置选项\n当前自定义安装路径:$([ -f term-sd/config/kohya_ss-path.conf ] && cat term-sd/config/kohya_ss-path.conf || echo 默认)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> 设置安装路径" \
         "2" "> 恢复默认安装路径设置" \
@@ -741,7 +741,7 @@ kohya_ss_custom_install_path_setting()
 
     case $kohya_ss_custom_install_path_setting_dialog in
         1)
-            custom_install_path=$(dialog --erase-on-exit --title "Term-SD" --backtitle "kohya_ss安装路径设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入kohya_ss安装路径\n注:请使用绝对路径" $term_sd_dialog_height $term_sd_dialog_width "$([ -f ./term-sd/config/kohya_ss-path.conf ] && cat ./term-sd/config/kohya_ss-path.conf)" 3>&1 1>&2 2>&3)
+            custom_install_path=$(dialog --erase-on-exit --title "Term-SD" --backtitle "kohya_ss安装路径设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入kohya_ss安装路径\n注:请使用绝对路径" $term_sd_dialog_height $term_sd_dialog_width "$([ -f term-sd/config/kohya_ss-path.conf ] && cat term-sd/config/kohya_ss-path.conf)" 3>&1 1>&2 2>&3)
             if [ $? = 0 ] && [ ! -z "$custom_install_path" ];then
                 if [ "$custom_install_path" = "/" ];then
                     dialog --erase-on-exit --title "Term-SD" --backtitle "kohya_ss安装路径设置界面" --ok-label "确认" --msgbox "禁止将根目录设置为安装路径" $term_sd_dialog_height $term_sd_dialog_width
@@ -749,7 +749,7 @@ kohya_ss_custom_install_path_setting()
                     export kohya_ss_path=$custom_install_path
                     export kohya_ss_folder=$(basename "$kohya_ss_path")
                     export kohya_ss_parent_path=$(dirname "$kohya_ss_path")
-                    echo "$custom_install_path" > ./term-sd/config/kohya_ss-path.conf
+                    echo "$custom_install_path" > term-sd/config/kohya_ss-path.conf
                     dialog --erase-on-exit --title "Term-SD" --backtitle "kohya_ss安装路径设置界面" --ok-label "确认" --msgbox "kohya_ss安装路径设置成功\n安装路径:$custom_install_path\n$([ ! $(echo $custom_install_path| awk '{print substr($0,1,1)}') = "/" ] && echo "检测到安装路径不是绝对路径,可能会导致一些问题")" $term_sd_dialog_height $term_sd_dialog_width
                 fi
             fi
@@ -757,7 +757,7 @@ kohya_ss_custom_install_path_setting()
             ;;
         2)
             if (dialog --erase-on-exit --title "Term-SD" --backtitle "kohya_ss安装路径设置界面" --yes-label "是" --no-label "否" --yesno "是否重置kohya_ss安装路径?" $term_sd_dialog_height $term_sd_dialog_width) then
-                rm -f ./term-sd/config/kohya_ss-path.conf
+                rm -f term-sd/config/kohya_ss-path.conf
                 export kohya_ss_path="$start_path/kohya_ss"
                 export kohya_ss_folder="kohya_ss"
                 export kohya_ss_parent_path=$start_path
@@ -772,9 +772,9 @@ kohya_ss_custom_install_path_setting()
 term_sd_disk_space_stat()
 {
     term_sd_echo "统计空间占用中"
-    dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD空间占用分析" --ok-label "确认" --msgbox "当前目录剩余空间:$(df ./ -h | awk 'NR==2{print$4}')\n
+    dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD空间占用分析" --ok-label "确认" --msgbox "当前目录剩余空间:$(df  -h | awk 'NR==2{print$4}')\n
 项目空间占用:\n
-Term-SD(重定向)缓存目录:$([ -d "./term-sd/cache" ] && du -sh ./term-sd/cache | awk '{print $1}' || echo "无")\n
+Term-SD(重定向)缓存目录:$([ -d "term-sd/cache" ] && du -sh term-sd/cache | awk '{print $1}' || echo "无")\n
 stable-diffusion-webui:$([ -d "$sd_webui_path" ] && du -sh "$sd_webui_path" | awk '{print $1}' || echo "未安装")\n
 ComfyUI:$([ -d "$comfyui_path" ] && du -sh "$comfyui_path" | awk '{print $1}' || echo "未安装")\n
 InvokeAI:$([ -d "$invokeai_path" ] && du -sh "$invokeai_path" | awk '{print $1}' || echo "未安装")\n
@@ -796,8 +796,8 @@ term_sd_network_test()
     network_test_url="google.com huggingface.co modelscope.cn github.com mirror.ghproxy.com gitclone.com gh-proxy.com ghps.cc gh.idayer.com"
     sum=$(echo $network_test_url | wc -w)
     term_sd_echo "获取网络信息"
-    [ -f "./term-sd/task/ipinfo.sh" ] && rm -f ./term-sd/task/ipinfo.sh
-    curl -s ipinfo.io >> ./term-sd/task/ipinfo.sh
+    [ -f "term-sd/task/ipinfo.sh" ] && rm -f term-sd/task/ipinfo.sh
+    curl -s ipinfo.io >> term-sd/task/ipinfo.sh
     term_sd_echo "测试网络中"
     for i in $network_test_url; do
         term_sd_echo "[$count/$sum] 测试链接访问:$i"
@@ -812,17 +812,17 @@ term_sd_network_test()
     dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD网络测试" --ok-label "确认" --msgbox "网络测试结果:\n
 ${term_sd_delimiter}\n
 网络信息:\n
-$(cat ./term-sd/task/ipinfo.sh | grep \"ip\"\: | awk '{gsub(/[\\"]/,"") ; sub("ip:","IP:")}1')\n
-$(cat ./term-sd/task/ipinfo.sh | grep \"country\"\: | awk '{gsub(/[\\"]/,"") ; sub("country:","地址:")}1')\
-$(cat ./term-sd/task/ipinfo.sh | grep \"region\"\: | awk '{gsub(/[\\"]/,"") ; sub("region:","")}1')\
-$(cat ./term-sd/task/ipinfo.sh | grep \"city\"\: | awk '{gsub(/[\\"]/,"") ; sub("city:","")}1')\n
-$(cat ./term-sd/task/ipinfo.sh | grep \"org\"\: | awk '{gsub(/[\\"]/,"") ; sub("org:","网络提供商:")}1')\n
+$(cat term-sd/task/ipinfo.sh | grep \"ip\"\: | awk '{gsub(/[\\"]/,"") ; sub("ip:","IP:")}1')\n
+$(cat term-sd/task/ipinfo.sh | grep \"country\"\: | awk '{gsub(/[\\"]/,"") ; sub("country:","地址:")}1')\
+$(cat term-sd/task/ipinfo.sh | grep \"region\"\: | awk '{gsub(/[\\"]/,"") ; sub("region:","")}1')\
+$(cat term-sd/task/ipinfo.sh | grep \"city\"\: | awk '{gsub(/[\\"]/,"") ; sub("city:","")}1')\n
+$(cat term-sd/task/ipinfo.sh | grep \"org\"\: | awk '{gsub(/[\\"]/,"") ; sub("org:","网络提供商:")}1')\n
 ${term_sd_delimiter}\n
 网站访问:\n
 $req\n
 ${term_sd_delimiter}\n
 " $term_sd_dialog_height $term_sd_dialog_width
-    rm -f ./term-sd/task/ipinfo.sh
+    rm -f term-sd/task/ipinfo.sh
 }
 
 # 卸载选项
@@ -835,8 +835,8 @@ term_sd_uninstall_interface()
         case $(term_sd_read) in
             y|yes|YES|Y)
                 term_sd_echo "开始卸载Term-SD"
-                rm -rf ./term-sd
-                rm -f ./term-sd.sh
+                rm -rf term-sd
+                rm -f term-sd.sh
                 user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') # 读取用户所使用的shell
                 if [ $user_shell = bash ] || [ $user_shell = zsh ];then
                     sed -i '/# Term-SD/d' ~/."$user_shell"rc

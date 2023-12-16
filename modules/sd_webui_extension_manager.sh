@@ -38,13 +38,13 @@ sd_webui_extension_install()
 
     sd_webui_extension_url=$(dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件安装选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入插件的github地址或其他下载地址" $term_sd_dialog_height $term_sd_dialog_width 3>&1 1>&2 2>&3)
 
-    if [ ! -z $sd_webui_extension_url ]; then
-        term_sd_echo "安装$(echo $sd_webui_extension_url | awk -F'/' '{print $NF}')插件中"
+    if [ ! -z "$sd_webui_extension_url" ]; then
+        term_sd_echo "安装$(basename "$sd_webui_extension_url")插件中"
         term_sd_watch git clone --recurse-submodules $sd_webui_extension_url
         if [ $? = 0 ];then
-            dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件安装结果" --ok-label "确认" --msgbox "$(echo $sd_webui_extension_url | awk -F'/' '{print $NF}')插件安装成功" $term_sd_dialog_height $term_sd_dialog_width
+            dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件安装结果" --ok-label "确认" --msgbox "$(basename "$sd_webui_extension_url")插件安装成功" $term_sd_dialog_height $term_sd_dialog_width
         else
-            dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件安装结果" --ok-label "确认" --msgbox "$(echo $sd_webui_extension_url | awk -F'/' '{print $NF}')插件安装失败" $term_sd_dialog_height $term_sd_dialog_width
+            dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件安装结果" --ok-label "确认" --msgbox "$(basename "$sd_webui_extension_url")插件安装失败" $term_sd_dialog_height $term_sd_dialog_width
         fi
     fi
 }
@@ -125,15 +125,15 @@ sd_webui_extension_interface()
             ;;
         5)
             if (dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件删除选项" --yes-label "是" --no-label "否" --yesno "是否删除${sd_webui_extension_name}插件?" $term_sd_dialog_height $term_sd_dialog_width) then
-                term_sd_echo "请再次确认是否删除$(echo $sd_webui_extension_name | awk -F "/" '{print $NF}')(yes/no)?"
-                term_sd_echo "警告:该操作将永久删除$(echo $sd_webui_extension_name | awk -F "/" '{print $NF}')"
+                term_sd_echo "请再次确认是否删除$(basename "$sd_webui_extension_name")(yes/no)?"
+                term_sd_echo "警告:该操作将永久删除$(basename "$sd_webui_extension_name")"
                 term_sd_echo "提示:输入yes或no后回车"
                 case $(term_sd_read) in
                     yes|y|YES|Y)
-                        term_sd_echo "删除$(echo $sd_webui_extension_name | awk -F "/" '{print $NF}')插件中"
+                        term_sd_echo "删除$(basename "$sd_webui_extension_name")插件中"
                         cd ..
-                        rm -rf ./$sd_webui_extension_name
-                        term_sd_echo "删除$(echo $sd_webui_extension_name | awk -F "/" '{print $NF}')插件完成"
+                        rm -rf "$sd_webui_extension_name"
+                        term_sd_echo "删除$(basename "$sd_webui_extension_name")插件完成"
                         ;;
                     *)
                         term_sd_echo "取消删除操作"

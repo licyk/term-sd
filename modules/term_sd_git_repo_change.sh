@@ -92,7 +92,7 @@ git_remote_url_select()
 # git远程源选择(针对单个插件/自定义节点)
 git_remote_url_select_single()
 {
-    if [ -d "./.git" ];then # 检测目录中是否有.git文件夹
+    if [ -d ".git" ];then # 检测目录中是否有.git文件夹
         local git_remote_url_select_single_dialog
         git_repo_remote_revise_req= # 清除运行结果
 
@@ -155,9 +155,9 @@ sd_webui_remote_revise()
 
         # 组件部分
         cd "$sd_webui_path"/repositories
-        for i in ./* ;do
+        for i in * ;do
             if [ -d "$i/.git" ];then
-                cd "./$i"
+                cd "$i"
                 $git_repo_remote_revise_cmd
                 cd - > /dev/null
             fi
@@ -165,9 +165,9 @@ sd_webui_remote_revise()
 
         # 插件部分
         cd "$sd_webui_path"/extensions
-        for i in ./* ;do
+        for i in * ;do
             if [ -d "$i/.git" ];then
-                cd "./$i"
+                cd "$i"
                 $git_repo_remote_revise_cmd
                 cd - > /dev/null
             fi
@@ -192,10 +192,10 @@ comfyui_remote_revise()
 
         # 插件
         cd "$comfyui_path"/web/extensions
-        for i in ./* ;do
+        for i in * ;do
             if [ -d "$i" ];then
                 if [ -d "$i/.git" ];then
-                    cd "./$i"
+                    cd "$i"
                     $git_repo_remote_revise_cmd
                     cd - > /dev/null
                 fi
@@ -204,10 +204,10 @@ comfyui_remote_revise()
 
         # 自定义节点
         cd "$comfyui_path"/custom_nodes
-        for i in ./* ;do
+        for i in * ;do
             if [ -d "$i" ];then
                 if [ -d "$i/.git" ];then
-                    cd "./$i"
+                    cd "$i"
                     $git_repo_remote_revise_cmd
                     cd - > /dev/null
                 fi

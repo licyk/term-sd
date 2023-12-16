@@ -18,12 +18,12 @@ term_sd_launch()
             launch_sd_config="fooocus-launch.conf"
             ;;
     esac
-    term_sd_print_line "$term_sd_manager_info 启动"
+    term_sd_print_line "${term_sd_manager_info}启动"
     term_sd_echo "提示:可以使用\"Ctrl+C\"终止ai软件的运行"
     enter_venv
     case $term_sd_manager_info in
         InvokeAI)
-            invokeai-web --root ./invokeai $(cat "$start_path"/term-sd/config/$launch_sd_config)
+            invokeai-web --root invokeai $(cat "$start_path"/term-sd/config/$launch_sd_config)
             ;;
         *)
             term_sd_python $(cat "$start_path"/term-sd/config/$launch_sd_config)
@@ -68,7 +68,7 @@ aria2_download()
     local local_file_parent_path
 
     if [ -z "$2" ];then # 只有链接时
-        local_file_path="./$(basename $1)"
+        local_file_path="$(basename $1)"
         local_aria_cache_path="${local_file_path}.aria2"
         file_name=$(basename "$local_file_path")
         local_file_parent_path=$(dirname "$local_file_path")
@@ -192,27 +192,27 @@ term_sd_help()
 
     case $term_sd_help_dialog in
         1)
-            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat ./term-sd/help/about.md)" $term_sd_dialog_height $term_sd_dialog_width
+            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat term-sd/help/about.md)" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_help
             ;;
         2)
-            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat ./term-sd/help/how_to_use_term_sd.md)" $term_sd_dialog_height $term_sd_dialog_width
+            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat term-sd/help/how_to_use_term_sd.md)" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_help
             ;;
         3)
-            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat ./term-sd/help/term_sd_note.md)" $term_sd_dialog_height $term_sd_dialog_width
+            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat term-sd/help/term_sd_note.md)" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_help
             ;;
         4)
-            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat ./term-sd/help/directory_description.md)" $term_sd_dialog_height $term_sd_dialog_width
+            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat term-sd/help/directory_description.md)" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_help
             ;;
         5)
-            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat ./term-sd/help/sd_webui_extension_description.md)" $term_sd_dialog_height $term_sd_dialog_width
+            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat term-sd/help/sd_webui_extension_description.md)" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_help
             ;;
         6)
-            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat ./term-sd/help/comfyui_extension_description.md)" $term_sd_dialog_height $term_sd_dialog_width
+            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat term-sd/help/comfyui_extension_description.md)" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_help
             ;;
     esac

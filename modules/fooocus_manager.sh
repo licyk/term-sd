@@ -38,7 +38,7 @@ fooocus_manager()
                 term_sd_echo "更新Fooocus中"
                 git_pull_repository
                 git_req=$?
-                cd ./repositories/ComfyUI-from-StabilityAI-Official
+                cd repositories/ComfyUI-from-StabilityAI-Official
                 git_pull_repository
                 case $git_req in
                     0)
@@ -55,7 +55,7 @@ fooocus_manager()
                 ;;
             3)
                 git_fix_pointer_offset # 修复Fooocus
-                cd ./repositories/Fooocus-from-StabilityAI-Official
+                cd repositories/Fooocus-from-StabilityAI-Official
                 git_fix_pointer_offset # 修复Fooocus的核心ComfyUI
                 fooocus_manager
                 ;;
@@ -131,7 +131,7 @@ fooocus_manager()
                             term_sd_echo "删除Fooocus中"
                             exit_venv
                             cd ..
-                            rm -rf ./"$fooocus_folder"
+                            rm -rf "$fooocus_folder"
                             term_sd_echo "删除Fooocus完成"
                             ;;
                         *)
@@ -168,7 +168,7 @@ fooocus_update_depend()
             term_sd_tmp_disable_proxy
             create_venv
             enter_venv
-            python_package_update "./requirements_versions.txt"
+            python_package_update "requirements_versions.txt"
             exit_venv
             term_sd_tmp_enable_proxy
             term_sd_echo "更新Fooocus依赖结束"
@@ -187,7 +187,7 @@ foooucs_backend_repo_reinstall()
         if [ $? = 0 ];then
             term_sd_print_line "Fooocus后端组件重装"
             term_sd_echo "删除原有Fooocus后端组件中"
-            rm -rf ./repositories/*
+            rm -rf repositories/*
             term_sd_echo "重新下载Fooocus后端组件中"
             git_clone_repository ${github_mirror} https://github.com/comfyanonymous/ComfyUI repositories ComfyUI-from-StabilityAI-Official
             term_sd_echo "重装Fooocus后端组件结束"

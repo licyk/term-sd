@@ -114,7 +114,7 @@ invokeai_manager()
                                 exit_venv
                                 term_sd_echo "删除InvokeAI中"
                                 cd ..
-                                rm -rf ./InvokeAI
+                                rm -rf "$invokeai_folder"
                                 term_sd_echo "删除InvokeAI完成"
                                 ;;
                             *)
@@ -159,8 +159,8 @@ invokeai_update_depend()
             create_venv
             enter_venv
             term_sd_pip freeze | awk -F'==' '{print $1}' > requirements.txt #生成一个更新列表
-            python_package_update "./requirements.txt"
-            rm -rf ./requirements.txt
+            python_package_update "requirements.txt"
+            rm -rf requirements.txt
             exit_venv
             term_sd_tmp_enable_proxy
             term_sd_echo "更新InvokeAI依赖结束"

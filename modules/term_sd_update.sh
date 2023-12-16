@@ -5,9 +5,9 @@ term_sd_update_manager()
 {
     local term_sd_update_manager_dialog
 
-    if [ -d "./term-sd/.git" ];then # 检测目录中是否有.git文件夹
+    if [ -d "term-sd/.git" ];then # 检测目录中是否有.git文件夹
         term_sd_update_manager_dialog=$(
-            dialog --erase-on-exit --notags --title "Term-SD" --backtitle "Term-SD更新选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的更新源\n当前Term-SD更新源:$(cd ./term-sd ; git_remote_display)\n当前Term-SD分支:$(cd ./term-sd ; git_branch_display)\nTerm-SD自动更新:$([ -f "./term-sd/config/term-sd-auto-update.lock" ] && echo "启用" || echo "禁用")\n当前Term-SD版本:${term_sd_version_info}" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+            dialog --erase-on-exit --notags --title "Term-SD" --backtitle "Term-SD更新选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的更新源\n当前Term-SD更新源:$(cd term-sd ; git_remote_display)\n当前Term-SD分支:$(cd term-sd ; git_branch_display)\nTerm-SD自动更新:$([ -f "term-sd/config/term-sd-auto-update.lock" ] && echo "启用" || echo "禁用")\n当前Term-SD版本:${term_sd_version_info}" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
             "0" "> 返回" \
             "1" "> 更新" \
             "2" "> 修复更新" \
@@ -19,13 +19,13 @@ term_sd_update_manager()
         case $term_sd_update_manager_dialog in
             1)
                 term_sd_echo "更新Term-SD中"
-                date +'%Y-%m-%d %H:%M:%S' > ./term-sd/config/term-sd-auto-update-time.conf # 记录更新时间
-                cd ./term-sd
+                date +'%Y-%m-%d %H:%M:%S' > term-sd/config/term-sd-auto-update-time.conf # 记录更新时间
+                cd term-sd
                 git_pull_repository
                 if [ $? = 0 ];then
                     cd ..
-                    cp -f ./term-sd/term-sd.sh .
-                    chmod +x ./term-sd.sh
+                    cp -f term-sd/term-sd.sh .
+                    chmod +x term-sd.sh
                     dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD更新结果" --ok-label "确定" --msgbox "Term-SD更新成功,选择确定后重启" $term_sd_dialog_height $term_sd_dialog_width
                     . ./term-sd.sh
                 else
@@ -35,7 +35,7 @@ term_sd_update_manager()
                 fi
                 ;;
             2)
-                cd ./term-sd
+                cd term-sd
                 git_fix_pointer_offset
                 cd ..
                 term_sd_update_manager
@@ -63,7 +63,7 @@ term_sd_update_manager()
 term_sd_remote_revise()
 {
     term_sd_remote_revise_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "Term-SD更新源切换选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的分支\n当前Term-SD更新源:$(cd ./term-sd ; git_remote_display)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "Term-SD更新源切换选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的分支\n当前Term-SD更新源:$(cd term-sd ; git_remote_display)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> github源" \
         "2" "> gitlab源" \
@@ -74,27 +74,27 @@ term_sd_remote_revise()
     
     case $term_sd_remote_revise_dialog in
         1)
-            git --git-dir="./term-sd/.git" remote set-url origin "https://github.com/licyk/term-sd"
+            git --git-dir="term-sd/.git" remote set-url origin "https://github.com/licyk/term-sd"
             dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD更新源切换选项" --ok-label "确认" --msgbox "Term-SD更新源切换完成" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_remote_revise
             ;;
         2)
-            git --git-dir="./term-sd/.git" remote set-url origin "https://gitlab.com/licyk/term-sd"
+            git --git-dir="term-sd/.git" remote set-url origin "https://gitlab.com/licyk/term-sd"
             dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD更新源切换选项" --ok-label "确认" --msgbox "Term-SD更新源切换完成" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_remote_revise
             ;;
         3)
-            git --git-dir="./term-sd/.git" remote set-url origin "https://gitee.com/four-dishes/term-sd"
+            git --git-dir="term-sd/.git" remote set-url origin "https://gitee.com/four-dishes/term-sd"
             dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD更新源切换选项" --ok-label "确认" --msgbox "Term-SD更新源切换完成" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_remote_revise
             ;;
         4)
-            git --git-dir="./term-sd/.git" remote set-url origin "https://jihulab.com/licyk/term-sd"
+            git --git-dir="term-sd/.git" remote set-url origin "https://jihulab.com/licyk/term-sd"
             dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD更新源切换选项" --ok-label "确认" --msgbox "Term-SD更新源切换完成" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_remote_revise
             ;;
         5)
-            git --git-dir="./term-sd/.git" remote set-url origin "https://mirror.ghproxy.com/github.com/licyk/term-sd"
+            git --git-dir="term-sd/.git" remote set-url origin "https://mirror.ghproxy.com/github.com/licyk/term-sd"
             dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD更新源切换选项" --ok-label "确认" --msgbox "Term-SD更新源切换完成" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_remote_revise
             ;;
@@ -105,7 +105,7 @@ term_sd_remote_revise()
 term_sd_branch_switch()
 {
     term_sd_branch_switch_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "Term-SD分支切换界面" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的分支\n当前Term-SD分支:$(cd ./term-sd ; git_branch_display)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "Term-SD分支切换界面" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的分支\n当前Term-SD分支:$(cd term-sd ; git_branch_display)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> 主分支" \
         "2" "> 测试分支" \
@@ -114,22 +114,22 @@ term_sd_branch_switch()
     if [ $? = 0 ];then
         case $term_sd_branch_switch_dialog in
             1)
-                cd ./term-sd
+                cd term-sd
                 git checkout main
                 cd ..
-                cp -f ./term-sd/term-sd.sh .
-                chmod +x ./term-sd.sh
+                cp -f term-sd/term-sd.sh .
+                chmod +x term-sd.sh
                 term_sd_echo "切换到主分支"
                 term_sd_echo "即将重启Term-SD"
                 sleep 1
                 . ./term-sd.sh
                 ;;
             2)
-                cd ./term-sd
+                cd term-sd
                 git checkout dev
                 cd ..
-                cp -f ./term-sd/term-sd.sh .
-                chmod +x ./term-sd.sh
+                cp -f term-sd/term-sd.sh .
+                chmod +x term-sd.sh
                 term_sd_echo "切换到测试分支"
                 term_sd_echo "即将重启Term-SD"
                 sleep 1
@@ -145,7 +145,7 @@ term_sd_auto_update_setting()
     local term_sd_auto_update_setting_dialog
 
     term_sd_auto_update_setting_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "Term-SD自动更新选项" --ok-label "确认" --cancel-label "取消" --menu "是否启用Term-SD自动更新?\nTerm-SD自动更新:$([ -f "./term-sd/config/term-sd-auto-update.lock" ] && echo "启用" || echo "禁用")" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "Term-SD自动更新选项" --ok-label "确认" --cancel-label "取消" --menu "是否启用Term-SD自动更新?\nTerm-SD自动更新:$([ -f "term-sd/config/term-sd-auto-update.lock" ] && echo "启用" || echo "禁用")" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> 启用" \
         "2" "> 禁用" \
@@ -153,13 +153,13 @@ term_sd_auto_update_setting()
 
     case $term_sd_auto_update_setting_dialog in
         1)
-            touch ./term-sd/config/term-sd-auto-update.lock
+            touch term-sd/config/term-sd-auto-update.lock
             dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD自动更新选项" --ok-label "确认" --msgbox "启用成功" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_auto_update_setting
             ;;
         2)
-            rm -f ./term-sd/config/term-sd-auto-update.lock
-            rm -f ./term-sd/config/term-sd-auto-update-time.conf
+            rm -f term-sd/config/term-sd-auto-update.lock
+            rm -f term-sd/config/term-sd-auto-update-time.conf
             dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD自动更新选项" --ok-label "确认" --msgbox "禁用成功" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_auto_update_setting
             ;;

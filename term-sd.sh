@@ -49,7 +49,7 @@ term_sd_launch_args_manager()
                 term_sd_launch_args_input="--set-python-path"
                 ;;
             --unset-python-path)
-                rm -f ./term-sd/config/python-path.conf
+                rm -f term-sd/config/python-path.conf
                 term_sd_echo "已删除自定义python解释器路径配置"
                 ;;
             --bar)
@@ -122,7 +122,7 @@ term_sd_extra_scripts_launch()
     if [ -z "$@" ];then
         term_sd_extra_scripts
     else
-        if [ -f "./term-sd/extra/$(echo $@ | awk '{sub(".sh","")}1').sh" ];then
+        if [ -f "term-sd/extra/$(echo $@ | awk '{sub(".sh","")}1').sh" ];then
             term_sd_print_line "${extra_script_dir_list_select}脚本启动"
             term_sd_echo "启动$(echo $@ | awk '{sub(".sh","")}1')脚本中"
             . ./term-sd/extra/$(echo $@ | awk '{sub(".sh","")}1').sh
@@ -144,7 +144,7 @@ term_sd_extra_scripts()
     local extra_script_dir_list
     local extra_script_dir_list_select
 
-    extra_script_dir_list=$(ls -l "./term-sd/extra" --time-style=+"%Y-%m-%d" | awk -F ' ' ' { print $7 " " $6 } ')
+    extra_script_dir_list=$(ls -l "term-sd/extra" --time-style=+"%Y-%m-%d" | awk -F ' ' ' { print $7 " " $6 } ')
     extra_script_dir_list_select=$(dialog --erase-on-exit --title "Term-SD" --backtitle "扩展脚本选项" --ok-label "确认" --cancel-label "取消" --menu "请选择要启动的脚本" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "Term-SD" "<---------" \
         $extra_script_dir_list \
@@ -233,15 +233,15 @@ term_sd_loading_bar_setting()
     else
         case $@ in
             none)
-                echo "none" > ./term-sd/config/term-sd-bar.conf
+                echo "none" > term-sd/config/term-sd-bar.conf
                 term_sd_echo "禁用Term-SD初始化进度显示"
                 ;;
             normal)
-                rm -f ./term-sd/config/term-sd-bar.conf
+                rm -f term-sd/config/term-sd-bar.conf
                 term_sd_echo "使用默认Term-SD初始化进度显示模式"
                 ;;
             new)
-                echo "new" > ./term-sd/config/term-sd-bar.conf
+                echo "new" > term-sd/config/term-sd-bar.conf
                 term_sd_echo "使用新的Term-SD初始化进度显示模式"
                 ;;
             *)
@@ -331,20 +331,20 @@ term_sd_auto_update_trigger()
     local term_sd_auto_update_time_span
     local term_sd_auto_update_time_set=3600 # 检查更新时间间隔
 
-    if [ -f "./term-sd/config/term-sd-auto-update.lock" ] && [ -d "./term-sd/.git" ];then # 找到自动更新配置
-        if [ -f "./term-sd/config/term-sd-auto-update-time.conf" ];then # 有上次运行记录
+    if [ -f "term-sd/config/term-sd-auto-update.lock" ] && [ -d "term-sd/.git" ];then # 找到自动更新配置
+        if [ -f "term-sd/config/term-sd-auto-update-time.conf" ];then # 有上次运行记录
             term_sd_start_time=`date +'%Y-%m-%d %H:%M:%S'` # 查看当前时间
-            term_sd_end_time=$(cat ./term-sd/config/term-sd-auto-update-time.conf) # 获取上次更新时间
+            term_sd_end_time=$(cat term-sd/config/term-sd-auto-update-time.conf) # 获取上次更新时间
             term_sd_start_time_seconds=$(date --date="$term_sd_start_time" +%s) # 转换时间单位
             term_sd_end_time_seconds=$(date --date="$term_sd_end_time" +%s)
             term_sd_auto_update_time_span=$(( $term_sd_start_time_seconds - $term_sd_end_time_seconds )) # 计算相隔时间
             if [ $term_sd_auto_update_time_span -ge $term_sd_auto_update_time_set ];then # 判断时间间隔
                 term_sd_auto_update
-                date +'%Y-%m-%d %H:%M:%S' > ./term-sd/config/term-sd-auto-update-time.conf # 记录自动更新功能的启动时间
+                date +'%Y-%m-%d %H:%M:%S' > term-sd/config/term-sd-auto-update-time.conf # 记录自动更新功能的启动时间
             fi
         else # 没有时直接执行
             term_sd_auto_update
-            date +'%Y-%m-%d %H:%M:%S' > ./term-sd/config/term-sd-auto-update-time.conf # 记录自动更新功能的启动时间
+            date +'%Y-%m-%d %H:%M:%S' > term-sd/config/term-sd-auto-update-time.conf # 记录自动更新功能的启动时间
         fi
     fi
 }
@@ -357,9 +357,9 @@ term_sd_auto_update()
     local term_sd_remote_hash
 
     term_sd_echo "检查更新中"
-    term_sd_local_branch=$(git --git-dir="./term-sd/.git" branch | grep \* | awk -F "*" '{gsub(/[" "]/,"") ; print $NF}') # term-sd分支
-    term_sd_local_hash=$(git --git-dir="./term-sd/.git" rev-parse HEAD) # term-sd本地hash
-    term_sd_remote_hash=$(git --git-dir="./term-sd/.git" ls-remote origin refs/remotes/origin/$term_sd_local_branch $term_sd_local_branch 2> /dev/null) # term-sd远程hash
+    term_sd_local_branch=$(git --git-dir="term-sd/.git" branch | grep \* | awk -F "*" '{gsub(/[" "]/,"") ; print $NF}') # term-sd分支
+    term_sd_local_hash=$(git --git-dir="term-sd/.git" rev-parse HEAD) # term-sd本地hash
+    term_sd_remote_hash=$(git --git-dir="term-sd/.git" ls-remote origin refs/remotes/origin/$term_sd_local_branch $term_sd_local_branch 2> /dev/null) # term-sd远程hash
     if [ $? = 0 ];then # 网络连接正常时再进行更新
         term_sd_remote_hash=$(echo $term_sd_remote_hash | awk '{print $1}')
         if [ ! $term_sd_local_hash = $term_sd_remote_hash ];then
@@ -369,12 +369,12 @@ term_sd_auto_update()
             case $(term_sd_read) in
                 yes|y|YES|Y)
                     term_sd_echo "更新Term-SD中"
-                    cd ./term-sd
+                    cd term-sd
                     git pull
                     if [ $? = 0 ];then
                         cd ..
-                        cp -f ./term-sd/term-sd.sh .
-                        chmod +x ./term-sd.sh
+                        cp -f term-sd/term-sd.sh .
+                        chmod +x term-sd.sh
                         term_sd_restart_info=0
                         term_sd_echo "Term-SD更新成功"
                     else
@@ -433,7 +433,7 @@ term_sd_install_mirror_select()
 # term-sd安装功能
 term_sd_install()
 {
-    if [ ! -d "./term-sd" ];then
+    if [ ! -d "term-sd" ];then
         term_sd_echo "检测到Term-SD未安装,是否进行安装(yes/no)?"
         term_sd_echo "提示:输入yes或no后回车"
         case $(term_sd_read) in
@@ -442,14 +442,14 @@ term_sd_install()
                 term_sd_echo "下载Term-SD中"
                 git clone $term_sd_install_mirror
                 if [ $? = 0 ];then
-                    cp -f ./term-sd/term-sd.sh .
-                    chmod +x ./term-sd.sh
+                    cp -f term-sd/term-sd.sh .
+                    chmod +x term-sd.sh
                     term_sd_restart_info=0
                     term_sd_echo "Term-SD安装成功"
-                    echo "3" > ./term-sd/config/term-sd-watch-retry.conf
+                    echo "3" > term-sd/config/term-sd-watch-retry.conf
                     export term_sd_cmd_retry=3
                     term_sd_echo "Term-SD命令执行监测设置已自动设置"
-                    touch ./term-sd/config/term-sd-auto-update.lock
+                    touch term-sd/config/term-sd-auto-update.lock
                     term_sd_echo "Term-SD自动更新已自动设置"
                 else
                     term_sd_echo "Term-SD安装失败"
@@ -460,7 +460,7 @@ term_sd_install()
                 exit 1
                 ;;
         esac
-    elif [ ! -d "./term-sd/.git" ];then
+    elif [ ! -d "term-sd/.git" ];then
         term_sd_echo "检测到Term-SD的.git目录不存在,将会导致Term-SD无法更新,是否重新安装(yes/no)?"
         term_sd_echo "警告:该操作将永久删除Term-SD目录中的所有文件,包括ai软件下载的部分模型文件(存在于Term-SD目录中的\"cache\"文件夹,如有必要,请备份该文件夹)"
         term_sd_echo "提示:输入yes或no后回车"
@@ -468,18 +468,18 @@ term_sd_install()
             yes|y|YES|Y)
                 term_sd_install_mirror_select
                 term_sd_echo "清除Term-SD文件中"
-                rm -rf ./term-sd
+                rm -rf term-sd
                 term_sd_echo "清除完成,开始安装Term-SD"
                 git clone $term_sd_install_mirror
                 if [ $? = 0 ];then
-                    cp -f ./term-sd/term-sd.sh .
-                    chmod +x ./term-sd.sh
+                    cp -f term-sd/term-sd.sh .
+                    chmod +x term-sd.sh
                     term_sd_restart_info=0
                     term_sd_echo "Term-SD安装成功"
-                    echo "3" > ./term-sd/config/term-sd-watch-retry.conf
+                    echo "3" > term-sd/config/term-sd-watch-retry.conf
                     export term_sd_cmd_retry=3
                     term_sd_echo "Term-SD命令执行监测设置已自动设置"
-                    touch ./term-sd/config/term-sd-auto-update.lock
+                    touch term-sd/config/term-sd-auto-update.lock
                     term_sd_echo "Term-SD自动更新已自动设置"
                 else
                     term_sd_echo "Term-SD安装失败"
@@ -501,18 +501,18 @@ term_sd_reinstall()
             yes|y|YES|Y)
                 term_sd_install_mirror_select
                 term_sd_echo "清除Term-SD文件中"
-                rm -rf ./term-sd
+                rm -rf term-sd
                 term_sd_echo "清除完成,开始安装Term-SD"
                 git clone $term_sd_install_mirror
                 if [ $? = 0 ];then
-                    cp -f ./term-sd/term-sd.sh .
-                    chmod +x ./term-sd.sh
+                    cp -f term-sd/term-sd.sh .
+                    chmod +x term-sd.sh
                     term_sd_restart_info=0
                     term_sd_echo "Term-SD安装成功"
-                    echo "3" > ./term-sd/config/term-sd-watch-retry.conf
+                    echo "3" > term-sd/config/term-sd-watch-retry.conf
                     export term_sd_cmd_retry=3
                     term_sd_echo "Term-SD命令执行监测设置已自动设置"
-                    touch ./term-sd/config/term-sd-auto-update.lock
+                    touch term-sd/config/term-sd-auto-update.lock
                     term_sd_echo "Term-SD自动更新已自动设置"
                 else
                     term_sd_echo "Term-SD安装失败"
@@ -535,8 +535,8 @@ term_sd_remove()
     case $(term_sd_read) in
         y|yes|YES|Y)
             term_sd_echo "开始卸载Term-SD"
-            rm -rf ./term-sd
-            rm -rf ./term-sd.sh
+            rm -rf term-sd
+            rm -rf term-sd.sh
             if [ $user_shell = bash ] || [ $user_shell = zsh ];then
                 remove_config_from_shell
             fi
@@ -617,7 +617,7 @@ set_python_path()
             term_sd_echo "退出python路径指定功能"
         else
             term_sd_python_path="$set_python_path_option"
-            echo $term_sd_python_path > ./term-sd/config/python-path.conf
+            echo $term_sd_python_path > term-sd/config/python-path.conf
             term_sd_echo "python解释器路径指定完成"
             term_sd_echo "提示:"
             term_sd_echo "使用--set-python-path重新设置python解释器路径"
@@ -625,7 +625,7 @@ set_python_path()
         fi
     else # 直接将选项后面的参数作为路径
         term_sd_echo "设置python解释器路径: $@"
-        echo $@ > ./term-sd/config/python-path.conf
+        echo $@ > term-sd/config/python-path.conf
         term_sd_echo "python解释器路径指定完成"
         term_sd_echo "提示:"
         term_sd_echo "使用--set-python-path重新设置python解释器路径"
@@ -635,7 +635,7 @@ set_python_path()
 
 #############################
 
-export term_sd_version_info="1.2.0dev3" # term-sd版本
+export term_sd_version_info="1.2.0dev4" # term-sd版本
 export user_shell=$(basename $SHELL) # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题
@@ -674,7 +674,7 @@ case $term_sd_env_prepare_info in
 esac
 
 # 目录结构检测,防止用户直接运行Term-SD目录内的term-sd.sh
-if [ ! -d "./term-sd" ] && [ -d "./.git" ] && [ -d "./modules" ] && [ -f "./modules/init.sh" ] && [ -d "./extra" ];then
+if [ ! -d "term-sd" ] && [ -d ".git" ] && [ -d "modules" ] && [ -f "modules/init.sh" ] && [ -d "extra" ];then
     term_sd_echo "检测到目录错误"
     term_sd_echo "禁止用户直接在Term-SD目录里运行Term-SD"
     term_sd_echo "请将term-sd.sh文件复制到Term-SD目录外面(和Term-SD目录放在一起)"
@@ -714,51 +714,51 @@ if [ -z $pip_manager_update ];then
 fi
 
 # 存在python自定义路径配置文件时自动读取到变量中
-if [ -f "./term-sd/config/python-path.conf" ];then
-    export term_sd_python_path=$(cat ./term-sd/config/python-path.conf)
+if [ -f "term-sd/config/python-path.conf" ];then
+    export term_sd_python_path=$(cat term-sd/config/python-path.conf)
 fi
 
-if [ -f "./term-sd/config/proxy.conf" ];then # 读取代理设置并设置代理
-    export http_proxy=$(cat ./term-sd/config/proxy.conf)
-    export https_proxy=$(cat ./term-sd/config/proxy.conf)
+if [ -f "term-sd/config/proxy.conf" ];then # 读取代理设置并设置代理
+    export http_proxy=$(cat term-sd/config/proxy.conf)
+    export https_proxy=$(cat term-sd/config/proxy.conf)
     # 代理变量的说明:https://blog.csdn.net/Dancen/article/details/128045261
 fi
 
 # 设置安装重试次数
-if [ -f "./term-sd/config/term-sd-watch-retry.conf" ];then
-    export term_sd_cmd_retry=$(cat ./term-sd/config/term-sd-watch-retry.conf)
+if [ -f "term-sd/config/term-sd-watch-retry.conf" ];then
+    export term_sd_cmd_retry=$(cat term-sd/config/term-sd-watch-retry.conf)
 else # 没有配置文件时使用默认值
     export term_sd_cmd_retry=0
 fi
 
 # 设置安装ai软件时下载模型的线程数
-if [ -f "./term-sd/config/aria2-thread.conf" ];then
-    export aria2_multi_threaded=$(cat ./term-sd/config/aria2-thread.conf)
+if [ -f "term-sd/config/aria2-thread.conf" ];then
+    export aria2_multi_threaded=$(cat term-sd/config/aria2-thread.conf)
 else
     export aria2_multi_threaded="-x 1"
 fi
 
 # 设置虚拟环境
-if [ -f "./term-sd/config/term-sd-venv-disable.lock" ];then # 找到term-sd-venv-disable.lock文件,禁用虚拟环境
+if [ -f "term-sd/config/term-sd-venv-disable.lock" ];then # 找到term-sd-venv-disable.lock文件,禁用虚拟环境
     export venv_setup_status="1"
 else
     export venv_setup_status="0"
 fi
 
 # 设置安装模式
-if [ -f "./term-sd/config/term-sd-disable-strict-install-mode.lock" ];then
+if [ -f "term-sd/config/term-sd-disable-strict-install-mode.lock" ];then
     export term_sd_install_mode=1
 else
     export term_sd_install_mode=0
 fi
 
 # cuda内存分配方案设置
-if [ -f "./term-sd/config/cuda-memory-alloc.conf" ];then
-    export PYTORCH_CUDA_ALLOC_CONF=$(cat ./term-sd/config/cuda-memory-alloc.conf)
+if [ -f "term-sd/config/cuda-memory-alloc.conf" ];then
+    export PYTORCH_CUDA_ALLOC_CONF=$(cat term-sd/config/cuda-memory-alloc.conf)
 fi
 
 # 设置pip镜像源
-if [ -f "./term-sd/config/disable-pip-mirror.lock" ];then
+if [ -f "term-sd/config/disable-pip-mirror.lock" ];then
     export PIP_INDEX_URL="https://pypi.python.org/simple"
     export PIP_EXTRA_INDEX_URL=""
     export PIP_FIND_LINKS="https://download.pytorch.org/whl/torch_stable.html"
@@ -769,8 +769,8 @@ else
 fi
 
 # 设置ai软件路径
-if [ -f "./term-sd/config/sd-webui-path.conf" ];then
-    export sd_webui_path=$(cat ./term-sd/config/sd-webui-path.conf)
+if [ -f "term-sd/config/sd-webui-path.conf" ];then
+    export sd_webui_path=$(cat term-sd/config/sd-webui-path.conf)
     export sd_webui_folder=$(basename "$sd_webui_path")
     export sd_webui_parent_path=$(dirname "$sd_webui_path")
 else
@@ -779,8 +779,8 @@ else
     export sd_webui_parent_path=$start_path
 fi
 
-if [ -f "./term-sd/config/comfyui-path.conf" ];then
-    export comfyui_path=$(cat ./term-sd/config/comfyui-path.conf)
+if [ -f "term-sd/config/comfyui-path.conf" ];then
+    export comfyui_path=$(cat term-sd/config/comfyui-path.conf)
     export comfyui_folder=$(basename "$comfyui_path")
     export comfyui_parent_path=$(dirname "$comfyui_path")
 else
@@ -789,8 +789,8 @@ else
     export comfyui_parent_path=$start_path
 fi
 
-if [ -f "./term-sd/config/invokeai-path.conf" ];then
-    export invokeai_path=$(cat ./term-sd/config/invokeai-path.conf)
+if [ -f "term-sd/config/invokeai-path.conf" ];then
+    export invokeai_path=$(cat term-sd/config/invokeai-path.conf)
     export invokeai_folder=$(basename "$invokeai_path")
     export invokeai_parent_path=$(dirname "$invokeai_path")
 else
@@ -799,8 +799,8 @@ else
     export invokeai_parent_path=$start_path
 fi
 
-if [ -f "./term-sd/config/fooocus-path.conf" ];then
-    export fooocus_path=$(cat ./term-sd/config/fooocus-path.conf)
+if [ -f "term-sd/config/fooocus-path.conf" ];then
+    export fooocus_path=$(cat term-sd/config/fooocus-path.conf)
     export fooocus_folder=$(basename "$fooocus_path")
     export fooocus_parent_path=$(dirname "$fooocus_path")
 else
@@ -809,8 +809,8 @@ else
     export fooocus_parent_path=$start_path
 fi
 
-if [ -f "./term-sd/config/lora-scripts-path.conf" ];then
-    export lora_scripts_path=$(cat ./term-sd/config/lora-scripts-path.conf)
+if [ -f "term-sd/config/lora-scripts-path.conf" ];then
+    export lora_scripts_path=$(cat term-sd/config/lora-scripts-path.conf)
     export lora_scripts_folder=$(basename "$lora_scripts_path")
     export lora_scripts_parent_path=$(dirname "$lora_scripts_path")
 else
@@ -819,8 +819,8 @@ else
     export lora_scripts_parent_path=$start_path
 fi
 
-if [ -f "./term-sd/config/kohya_ss-path.conf" ];then
-    export kohya_ss_path=$(cat ./term-sd/config/kohya_ss-path.conf)
+if [ -f "term-sd/config/kohya_ss-path.conf" ];then
+    export kohya_ss_path=$(cat term-sd/config/kohya_ss-path.conf)
     export kohya_ss_folder=$(basename "$kohya_ss_path")
     export kohya_ss_parent_path=$(dirname "$kohya_ss_path")
 else
@@ -911,7 +911,7 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
         if [ $missing_depend_info = 0 ];then
             term_sd_echo "依赖检测完成,无缺失依赖"
             term_sd_install
-            if [ -d "./term-sd/modules" ];then # 找到目录后才启动
+            if [ -d "term-sd/modules" ];then # 找到目录后才启动
                 term_sd_auto_update_trigger
                 export term_sd_env_prepare_info=0 # 用于检测term-sd的启动状态
             else
@@ -930,7 +930,7 @@ esac
 
 # 放在依赖检测之后,解决一些奇怪的问题
 # term-sd设置路径环境变量
-if [ ! -f "./term-sd/config/disable-cache-path-redirect.lock" ];then
+if [ ! -f "term-sd/config/disable-cache-path-redirect.lock" ];then
     export CACHE_HOME="$start_path/term-sd/cache"
     export HF_HOME="$start_path/term-sd/cache/huggingface"
     export MATPLOTLIBRC="$start_path/term-sd/cache"
@@ -953,7 +953,7 @@ if [ $term_sd_restart_info = 0 ];then
 fi
 
 term_sd_echo "Term-SD版本: $term_sd_version_info"
-term_sd_echo "Commit hash: $(git --git-dir="./term-sd/.git" show -s --format="%H %cd" --date=format:"%Y-%m-%d %H:%M:%S")"
+term_sd_echo "Commit hash: $(git --git-dir="term-sd/.git" show -s --format="%H %cd" --date=format:"%Y-%m-%d %H:%M:%S")"
 
 case $term_sd_extra_scripts_name in
     null)

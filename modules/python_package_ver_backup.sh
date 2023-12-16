@@ -117,7 +117,7 @@ process_python_package_ver_backup()
         2)
             if (dialog --erase-on-exit --title "Term-SD" --backtitle "安装确认选项" --yes-label "是" --no-label "否" --yesno "是否删除该版本记录?" $term_sd_dialog_height $term_sd_dialog_width) then
                 term_sd_echo "删除$(echo $python_package_ver_backup_list_dialog | awk '{sub(".txt","")}1')记录中"
-                rm -rf ./term-sd-python-pkg-backup/$python_package_ver_backup_list_dialog
+                rm -rf term-sd-python-pkg-backup/$python_package_ver_backup_list_dialog
             fi
             ;;
     esac
@@ -140,21 +140,21 @@ restore_python_package_ver()
         term_sd_pip freeze | awk -F'==' '{print $1}' > tmp-python-pkg-no-vers.txt #生成一份无版本的现有列表
 
         #生成一份软件包卸载名单
-        for i in $(cat ./tmp-python-pkg-no-vers-bak.txt); do
-            sed -i '/'$i'/d' ./tmp-python-pkg-no-vers.txt 2> /dev/null #需要卸载的依赖包名单
+        for i in $(cat tmp-python-pkg-no-vers-bak.txt); do
+            sed -i '/'$i'/d' tmp-python-pkg-no-vers.txt 2> /dev/null #需要卸载的依赖包名单
         done
 
         term_sd_tmp_disable_proxy #临时取消代理,避免一些不必要的网络减速
-        if [ ! -z "$(cat ./tmp-python-pkg-no-vers.txt)" ];then
+        if [ ! -z "$(cat tmp-python-pkg-no-vers.txt)" ];then
             term_sd_print_line "python软件包卸载列表"
             term_sd_echo "将要卸载以下python软件包"
-            cat ./tmp-python-pkg-no-vers.txt
+            cat tmp-python-pkg-no-vers.txt
             term_sd_print_line
             term_sd_echo "卸载多余软件包中"
-            term_sd_pip uninstall -y -r ./tmp-python-pkg-no-vers.txt  #卸载名单中的依赖包
+            term_sd_pip uninstall -y -r tmp-python-pkg-no-vers.txt  #卸载名单中的依赖包
         fi
-        rm -rf ./tmp-python-pkg-no-vers.txt #删除卸载名单列表
-        rm -rf ./tmp-python-pkg-no-vers-bak.txt #删除不需要的包名文件缓存
+        rm -rf tmp-python-pkg-no-vers.txt #删除卸载名单列表
+        rm -rf tmp-python-pkg-no-vers-bak.txt #删除不需要的包名文件缓存
         term_sd_print_line "python软件包安装列表"
         term_sd_echo "将要安装以下python软件包"
         cat "$start_path"/term-sd/requirements-backup/$backup_req_sd_name/$python_package_ver_backup_list_dialog

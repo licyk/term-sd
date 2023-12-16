@@ -15,27 +15,27 @@ comfyui_extension_depend_install()
 
         term_sd_print_line "$term_sd_manager_info ${1}依赖一键安装"
         term_sd_tmp_disable_proxy
-        cd "$start_path/ComfyUI"
+        cd "$comfyui_path"
         enter_venv
         cd -
 
-        for i in ./* ;do # 统计需要安装的依赖
+        for i in * ;do # 统计需要安装的依赖
             [ -f "$i" ] && continue # 排除文件
-            if [ -f "./$i/install.py" ] || [ -f "./$i/requirements.txt" ];then
+            if [ -f "$i/install.py" ] || [ -f "$i/requirements.txt" ];then
                 comfyui_extension_depend_install_count=$(( $comfyui_extension_depend_install_count + 1 ))
             fi
         done
 
-        for i in ./*;do
+        for i in *;do
             [ -f "$i" ] && continue # 排除文件
-            cd $i
-            if [ -f "./install.py" ] || [ -f "./requirements.txt" ];then
+            cd "$i"
+            if [ -f "install.py" ] || [ -f "requirements.txt" ];then
                 comfyui_extension_depend_install_sum=$(( $comfyui_extension_depend_install_sum + 1 ))
                 term_sd_echo "[$comfyui_extension_depend_install_sum/$comfyui_extension_depend_install_count] 安装$(echo $i | awk -F "/" '{print $NF}')${1}依赖"
-                comfyui_extension_depend_install_req="$comfyui_extension_depend_install_req $(echo $i | awk -F "/" '{print $NF}'):\n" # 作为显示安装结果信息
+                comfyui_extension_depend_install_req="$comfyui_extension_depend_install_req $(basename "$i"):\n" # 作为显示安装结果信息
             fi
 
-            if [ -f "./install.py" ];then # 找到install.py文件
+            if [ -f "install.py" ];then # 找到install.py文件
                 term_sd_watch term_sd_python install.py
                 if [ $? = 0 ];then # 记录退出状态
                     comfyui_extension_depend_install_req="$comfyui_extension_depend_install_req     run install.py:成功\n"
@@ -44,7 +44,7 @@ comfyui_extension_depend_install()
                 fi
             fi
 
-            if [ -f "./requirements.txt" ];then # 找到requirement.txt文件
+            if [ -f "requirements.txt" ];then # 找到requirement.txt文件
                 term_sd_watch term_sd_pip install -r requirements.txt
                 if [ $? = 0 ];then # 记录退出状态
                     comfyui_extension_depend_install_req="$comfyui_extension_depend_install_req     install requirements.txt:成功\n"
@@ -69,12 +69,12 @@ comfyui_extension_depend_install_single()
     cd -
     local comfyui_extension_depend_install_req
 
-    if [ -f "./install.py" ] || [ -f "./requirements.txt" ];then
+    if [ -f "install.py" ] || [ -f "requirements.txt" ];then
         term_sd_echo "安装$(pwd | awk -F "/" '{print $NF}')${1}依赖"
         comfyui_extension_depend_install_req="$comfyui_extension_depend_install_req\n $(pwd | awk -F "/" '{print $NF}')${1}:\n" # 作为显示安装结果信息
     fi
 
-    if [ -f "./install.py" ];then # 找到install.py文件
+    if [ -f "install.py" ];then # 找到install.py文件
         term_sd_watch term_sd_python install.py
         if [ $? = 0 ];then # 记录退出状态
             comfyui_extension_depend_install_req="$comfyui_extension_depend_install_req     run install.py:成功\n"
@@ -83,7 +83,7 @@ comfyui_extension_depend_install_single()
         fi
     fi
 
-    if [ -f "./requirements.txt" ];then # 找到requirement.txt文件
+    if [ -f "requirements.txt" ];then # 找到requirement.txt文件
         term_sd_watch term_sd_pip install -r requirements.txt
         if [ $? = 0 ];then # 记录退出状态
             comfyui_extension_depend_install_req="$comfyui_extension_depend_install_req     install requirements.txt:成功\n"

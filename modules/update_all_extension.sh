@@ -10,16 +10,16 @@ update_all_extension()
 
     term_sd_print_line "$term_sd_manager_info 插件一键更新"
     # 统计需要更新的数量
-    for i in ./* ;do
+    for i in * ;do
         [ -f "$i" ] && continue # 排除文件
-        [ ! -d "./$i/.git" ] && continue # 排除没有.git文件夹的目录
+        [ ! -d "$i/.git" ] && continue # 排除没有.git文件夹的目录
         extension_update_sum=$(( $extension_update_sum + 1 ))
     done
 
     # 更新插件
-    for i in ./* ;do
+    for i in * ;do
         [ -f "$i" ] && continue # 排除文件
-        if [ -d "./$i/.git" ];then # 检测到目录中包含.git文件夹再执行更新操作
+        if [ -d "$i/.git" ];then # 检测到目录中包含.git文件夹再执行更新操作
             cd "$i"
             extension_update_count=$(( $extension_update_count + 1 ))
             term_sd_echo "[$extension_update_count/$extension_update_sum] 更新$(echo $i | awk -F "/" '{print $NF}')插件中"

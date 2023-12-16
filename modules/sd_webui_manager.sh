@@ -154,7 +154,7 @@ sd_webui_manager()
                             term_sd_echo "删除Stable-Diffusion-WebUI中"
                             exit_venv
                             cd ..
-                            rm -rf ./"$sd_webui_folder"
+                            rm -rf "$sd_webui_folder"
                             term_sd_echo "删除Stable-Diffusion-WebUI完成"
                             ;;
                         *)
@@ -190,8 +190,8 @@ sd_webui_update_depend()
             term_sd_tmp_disable_proxy
             create_venv
             enter_venv
-            python_package_update "./repositories/CodeFormer/requirements.txt"
-            python_package_update "./requirements.txt"
+            python_package_update "repositories/CodeFormer/requirements.txt"
+            python_package_update "requirements.txt"
             term_sd_watch term_sd_pip install git+$(git_format_repository_url $github_mirror https://github.com/openai/CLIP) --prefer-binary $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode
             exit_venv
             term_sd_tmp_enable_proxy
@@ -211,7 +211,7 @@ sd_webui_backend_repo_reinstall()
         if [ $? = 0 ];then
             term_sd_print_line "Stable-Diffusion-WebUI后端组件重装"
             term_sd_echo "删除原有Stable-Diffusion-WebUI后端组件中"
-            rm -rf ./repositories/*
+            rm -rf repositories/*
             term_sd_echo "重新下载Stable-Diffusion-WebUI后端组件中"
             git_clone_repository ${github_mirror} https://github.com/sczhou/CodeFormer repositories CodeFormer
             git_clone_repository ${github_mirror} https://github.com/salesforce/BLIP repositories BLIP
