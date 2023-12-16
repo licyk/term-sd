@@ -5,7 +5,7 @@
 comfyui_extension_manager()
 {
     local comfyui_extension_manager_dialog
-    cd "$start_path/ComfyUI/web/extensions" # 回到最初路径
+    cd "$comfyui_path"/web/extensions # 回到最初路径
 
     comfyui_extension_manager_dialog=$(
         dialog --erase-on-exit --notags --title "ComfyUI管理" --backtitle "ComfyUI插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择ComfyUI插件管理选项的功能" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
@@ -41,7 +41,7 @@ comfyui_extension_manager()
 # 插件列表浏览器
 comfyui_extension_list()
 {
-    cd "$start_path/ComfyUI/web/extensions" # 回到最初路径
+    cd "$comfyui_path"/web/extensions # 回到最初路径
 
     comfyui_extension_name=$(
         dialog --erase-on-exit --ok-label "确认" --cancel-label "取消" --title "ComfyUI管理" --backtitle "ComfyUI插件列表" --menu "使用上下键选择要操作的插件并回车确认" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
@@ -75,19 +75,19 @@ comfyui_extension_install()
 
     comfyui_extension_url=$(dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI插件安装选项" --ok-label "确认" --cancel-label "取消" --inputbox "输入插件的github地址或其他下载地址" $term_sd_dialog_height $term_sd_dialog_width 3>&1 1>&2 2>&3)
 
-    if [ ! -z $comfyui_extension_url ]; then
-        term_sd_echo "安装$(echo $comfyui_extension_url | awk -F'/' '{print $NF}')插件中"
+    if [ ! -z "$comfyui_extension_url" ]; then
+        term_sd_echo "安装$(basename $comfyui_extension_url)插件中"
         term_sd_watch git clone --recurse-submodules $comfyui_extension_url
         git_req=$?
         
-        if [ -f "./$(awk -F "/" '{print $NF}' <<< "$comfyui_extension_url")/requirements.txt" ] || [ -f "./$(awk -F "/" '{print $NF}' <<< "$comfyui_extension_url")/install.py" ];then
+        if [ -f "$(awk -F "/" '{print $NF}' <<< "$comfyui_extension_url")/requirements.txt" ] || [ -f "$(awk -F "/" '{print $NF}' <<< "$comfyui_extension_url")/install.py" ];then
             comfyui_extension_dep_notice="检测到该插件需要安装依赖,请进入插件管理功能,选中该插件,运行一次\"安装依赖\"功能"
         fi
 
         if [ $git_req = 0 ];then
-            dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI插件安装结果" --ok-label "确认" --msgbox "$(echo $comfyui_extension_url | awk -F'/' '{print $NF}')插件安装成功\n$comfyui_extension_dep_notice" $term_sd_dialog_height $term_sd_dialog_width
+            dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI插件安装结果" --ok-label "确认" --msgbox "$(basename $comfyui_extension_url)插件安装成功\n$comfyui_extension_dep_notice" $term_sd_dialog_height $term_sd_dialog_width
         else
-            dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI插件安装结果" --ok-label "确认" --msgbox "$(echo $comfyui_extension_url | awk -F'/' '{print $NF}')插件安装失败" $term_sd_dialog_height $term_sd_dialog_width
+            dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI插件安装结果" --ok-label "确认" --msgbox "$(basename $comfyui_extension_url)插件安装失败" $term_sd_dialog_height $term_sd_dialog_width
         fi
     fi
 }
@@ -146,15 +146,15 @@ comfyui_extension_interface()
             ;;
         6)
             if (dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI插件删除选项" --yes-label "是" --no-label "否" --yesno "是否删除${comfyui_extension_name}插件?" $term_sd_dialog_height $term_sd_dialog_width) then
-                term_sd_echo "请再次确认是否删除$(echo $comfyui_extension_name | awk -F "/" '{print $NF}')(yes/no)?"
-                term_sd_echo "警告:该操作将永久删除$(echo $comfyui_extension_name | awk -F "/" '{print $NF}')"
+                term_sd_echo "请再次确认是否删除$(basename "$comfyui_extension_name")(yes/no)?"
+                term_sd_echo "警告:该操作将永久删除$(basename "$comfyui_extension_name")"
                 term_sd_echo "提示:输入yes或no后回车"
                 case $(term_sd_read) in
                     yes|y|YES|Y)
-                        term_sd_echo "删除$(echo $comfyui_extension_name | awk -F "/" '{print $NF}')插件中"
+                        term_sd_echo "删除$(basename "$comfyui_extension_name")插件中"
                         cd ..
-                        rm -rf ./$comfyui_extension_name
-                        term_sd_echo "删除$(echo $comfyui_extension_name | awk -F "/" '{print $NF}')插件完成"
+                        rm -rf "$comfyui_extension_name"
+                        term_sd_echo "删除$(basename "$comfyui_extension_name")插件完成"
                         ;;
                     *)
                         term_sd_echo "取消删除操作"

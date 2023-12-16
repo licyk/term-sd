@@ -3,10 +3,32 @@
 # 启动ai软件
 term_sd_launch()
 {
-    term_sd_print_line "$term_sd_manager_info 启动"
+    local launch_sd_config
+    case $term_sd_manager_info in
+        stable-diffusion-webui)
+            launch_sd_config="sd-webui-launch.conf"
+            ;;
+        ComfyUI)
+            launch_sd_config="comfyui-launch.conf"
+            ;;
+        InvokeAI)
+            launch_sd_config="invokeai-launch.conf"
+            ;;
+        Fooocus)
+            launch_sd_config="fooocus-launch.conf"
+            ;;
+    esac
+    term_sd_print_line "${term_sd_manager_info}启动"
     term_sd_echo "提示:可以使用\"Ctrl+C\"终止ai软件的运行"
     enter_venv
-    term_sd_python $(cat ./term-sd-launch.conf)
+    case $term_sd_manager_info in
+        InvokeAI)
+            invokeai-web --root invokeai $(cat "$start_path"/term-sd/config/$launch_sd_config)
+            ;;
+        *)
+            term_sd_python $(cat "$start_path"/term-sd/config/$launch_sd_config)
+            ;;
+    esac
     term_sd_pause
 }
 
@@ -40,18 +62,37 @@ term_sd_watch()
 aria2_download()
 {
     local model_url=$1
-    local local_file_path="${2}/${3}"
-    local local_aria_cache_path="${2}/${3}.aria2"
+    local local_file_path
+    local local_aria_cache_path
+    local file_name
+    local local_file_parent_path
+
+    if [ -z "$2" ];then # 只有链接时
+        local_file_path="$(basename $1)"
+        local_aria_cache_path="${local_file_path}.aria2"
+        file_name=$(basename "$local_file_path")
+        local_file_parent_path=$(dirname "$local_file_path")
+    elif [ -z "$3" ];then # 有链接和下载位置
+        local_file_path="${2}/$(basename $1)"
+        local_aria_cache_path="${local_file_path}.aria2"
+        file_name=$(basename "$local_file_path")
+        local_file_parent_path=$(dirname "$local_file_path")
+    else # 链接,下载位置和下载文件名都有
+        local_file_path="${2}/${3}"
+        local_aria_cache_path="${local_file_path}.aria2"
+        file_name=$(basename "$local_file_path")
+        local_file_parent_path=$(dirname "$local_file_path")
+    fi
 
     if [ ! -f "$local_file_path" ];then
-        term_sd_echo "下载$(echo ${3} | awk -F '/' '{print$NF}')中"
-        term_sd_watch aria2c $aria2_multi_threaded $model_url -d ${2} -o ${3}
+        term_sd_echo "下载${file_name}中"
+        term_sd_watch aria2c $aria2_multi_threaded $model_url -d "$local_file_parent_path" -o "$file_name"
     else
         if [ -f "$local_aria_cache_path" ];then
-            term_sd_echo "恢复下载$(echo ${3} | awk -F '/' '{print$NF}')中"
-            term_sd_watch aria2c $aria2_multi_threaded $model_url -d ${2} -o ${3}
+            term_sd_echo "恢复下载${file_name}中"
+            term_sd_watch aria2c $aria2_multi_threaded $model_url -d "$local_file_parent_path" -o "$file_name"
         else
-            term_sd_echo "$(echo ${3} | awk -F '/' '{print$NF}')文件已存在,跳过下载该文件"
+            term_sd_echo "${file_name}文件已存在,跳过下载该文件"
         fi
     fi
 }
@@ -151,27 +192,27 @@ term_sd_help()
 
     case $term_sd_help_dialog in
         1)
-            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat ./term-sd/help/about.md)" $term_sd_dialog_height $term_sd_dialog_width
+            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat term-sd/help/about.md)" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_help
             ;;
         2)
-            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat ./term-sd/help/how_to_use_term_sd.md)" $term_sd_dialog_height $term_sd_dialog_width
+            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat term-sd/help/how_to_use_term_sd.md)" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_help
             ;;
         3)
-            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat ./term-sd/help/term_sd_note.md)" $term_sd_dialog_height $term_sd_dialog_width
+            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat term-sd/help/term_sd_note.md)" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_help
             ;;
         4)
-            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat ./term-sd/help/directory_description.md)" $term_sd_dialog_height $term_sd_dialog_width
+            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat term-sd/help/directory_description.md)" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_help
             ;;
         5)
-            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat ./term-sd/help/sd_webui_extension_description.md)" $term_sd_dialog_height $term_sd_dialog_width
+            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat term-sd/help/sd_webui_extension_description.md)" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_help
             ;;
         6)
-            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat ./term-sd/help/comfyui_extension_description.md)" $term_sd_dialog_height $term_sd_dialog_width
+            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat term-sd/help/comfyui_extension_description.md)" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_help
             ;;
     esac

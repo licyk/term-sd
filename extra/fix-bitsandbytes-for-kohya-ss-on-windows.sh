@@ -1,13 +1,13 @@
 #!/bin/bash
 
-source ./term-sd/modules/term_sd_manager.sh
-source ./term-sd/modules/python_venv.sh
-source ./term-sd/modules/term_sd_python_cmd.sh
+. ./term-sd/modules/term_sd_manager.sh
+. ./term-sd/modules/python_venv.sh
+. ./term-sd/modules/term_sd_python_cmd.sh
 
-if [ -d "./kohya_ss" ];then
+if [ -d "$kohya_ss_path" ];then
     if [ ! -z $OS ] && [ $OS = "Windows_NT" ];then
         term_sd_echo "开始修复kohya_ss环境的bitsandbytes"
-        cd kohya_ss
+        cd "$kohya_ss_path"
         create_venv
         enter_venv
         cd ..
@@ -24,3 +24,5 @@ if [ -d "./kohya_ss" ];then
 else
     term_sd_echo "kohya_ss未安装"
 fi
+
+cd "$start_path"

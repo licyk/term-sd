@@ -5,7 +5,7 @@ create_venv()
 {
     if [ $venv_setup_status = 0 ];then
         if [ ! -z "$1" ] && [ $1 = "--fix" ];then
-            if [ -d "./venv" ];then
+            if [ -d "venv" ];then
                 term_sd_echo "修复虚拟环境中"
                 exit_venv # 先退出虚拟环境
                 fix_venv # 再进行虚拟环境的修复
@@ -25,29 +25,29 @@ create_venv()
 # 修复虚拟环境功能(一种骚操作,修复完后只会丢失一些命令文件,而python的库调用依然正常)
 fix_venv()
 {
-    mkdir ./term-sd-tmp
+    mkdir term-sd-tmp
     # 判断虚拟环境的类型
-    if [ -d "./venv/Scripts" ];then # Windows端的venv结构
+    if [ -d "venv/Scripts" ];then # Windows端的venv结构
         term_sd_echo "将虚拟环境的库转移到临时文件夹中"
-        mv -f ./venv/Lib ./term-sd-tmp # 将依赖库转移到临时文件夹
-        rm -rf ./venv # 删除原有虚拟环境
+        mv -f venv/Lib term-sd-tmp # 将依赖库转移到临时文件夹
+        rm -rf venv # 删除原有虚拟环境
         term_sd_echo "重新创建新的虚拟环境"
         term_sd_python -m venv venv > /dev/null 2>&1 # 重新创建新的虚拟环境
-        rm -rf ./venv/Lib # 删除新的虚拟环境中的库文件,为移入原有的库腾出空间
+        rm -rf venv/Lib # 删除新的虚拟环境中的库文件,为移入原有的库腾出空间
         term_sd_echo "恢复虚拟环境库文件中"
-        mv -f ./term-sd-tmp/Lib ./venv # 移入原有的库
-        rm -rf ./term-sd-tmp # 清理临时文件夹
+        mv -f term-sd-tmp/Lib venv # 移入原有的库
+        rm -rf term-sd-tmp # 清理临时文件夹
         term_sd_echo "修复虚拟环境完成"
-    elif [ -d "./venv/bin" ];then # Linux/MacOS端的venv结构
+    elif [ -d "venv/bin" ];then # Linux/MacOS端的venv结构
         term_sd_echo "将虚拟环境的库转移到临时文件夹中"
-        mv -f ./venv/lib ./term-sd-tmp # 将依赖库转移到临时文件夹
-        rm -rf ./venv # 删除原有虚拟环境
+        mv -f venv/lib term-sd-tmp # 将依赖库转移到临时文件夹
+        rm -rf venv # 删除原有虚拟环境
         term_sd_echo "重新创建新的虚拟环境"
         term_sd_python -m venv venv > /dev/null 2>&1 # 重新创建新的虚拟环境
-        rm -rf ./venv/lib # 删除新的虚拟环境中的库文件,为移入原有的库腾出空间
+        rm -rf venv/lib # 删除新的虚拟环境中的库文件,为移入原有的库腾出空间
         term_sd_echo "恢复虚拟环境库文件中"
-        mv -f ./term-sd-tmp/lib ./venv # 移入原有的库
-        rm -rf ./term-sd-tmp # 清理临时文件夹
+        mv -f term-sd-tmp/lib venv # 移入原有的库
+        rm -rf term-sd-tmp # 清理临时文件夹
         term_sd_echo "修复虚拟环境完成"
     else # 未判断出类型
         term_sd_echo "创建venv虚拟环境中"
@@ -65,10 +65,10 @@ enter_venv()
         fi
         term_sd_echo "进入虚拟环境"
 
-        if [ -f "./venv/Scripts/activate" ];then # 在Windows端的venv目录结构和linux,macos的不同,所以进入虚拟环境的方式有区别
+        if [ -f "venv/Scripts/activate" ];then # 在Windows端的venv目录结构和linux,macos的不同,所以进入虚拟环境的方式有区别
             pip_package_manager_update
             . ./venv/Scripts/activate > /dev/null 2>&1
-        elif [ -f "./venv/bin/activate" ];then
+        elif [ -f "venv/bin/activate" ];then
             pip_package_manager_update
             . ./venv/bin/activate > /dev/null 2>&1
         else
@@ -79,7 +79,8 @@ enter_venv()
 }
 
 # 退出虚拟环境功能(改了一下python官方的退出脚本)
-exit_venv(){
+exit_venv()
+{
     if [ ! -z "$VIRTUAL_ENV" ];then # 检测是否在虚拟环境中
         term_sd_echo "退出虚拟环境"
         # reset old environment variables

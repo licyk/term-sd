@@ -92,7 +92,7 @@ git_remote_url_select()
 # git远程源选择(针对单个插件/自定义节点)
 git_remote_url_select_single()
 {
-    if [ -d "./.git" ];then # 检测目录中是否有.git文件夹
+    if [ -d ".git" ];then # 检测目录中是否有.git文件夹
         local git_remote_url_select_single_dialog
         git_repo_remote_revise_req= # 清除运行结果
 
@@ -154,22 +154,22 @@ sd_webui_remote_revise()
         $git_repo_remote_revise_cmd
 
         # 组件部分
-        cd "$start_path/stable-diffusion-webui/repositories"
-        for i in ./* ;do
+        cd "$sd_webui_path"/repositories
+        for i in * ;do
             if [ -d "$i/.git" ];then
-                cd "./$i"
+                cd "$i"
                 $git_repo_remote_revise_cmd
-                cd - > /dev/null
+                cd - > /dev/null 2>&1
             fi
         done
 
         # 插件部分
-        cd "$start_path/stable-diffusion-webui/extensions"
-        for i in ./* ;do
+        cd "$sd_webui_path"/extensions
+        for i in * ;do
             if [ -d "$i/.git" ];then
-                cd "./$i"
+                cd "$i"
                 $git_repo_remote_revise_cmd
-                cd - > /dev/null
+                cd - > /dev/null 2>&1
             fi
         done
 
@@ -191,25 +191,25 @@ comfyui_remote_revise()
         $git_repo_remote_revise_cmd
 
         # 插件
-        cd "$start_path/ComfyUI/web/extensions"
-        for i in ./* ;do
+        cd "$comfyui_path"/web/extensions
+        for i in * ;do
             if [ -d "$i" ];then
                 if [ -d "$i/.git" ];then
-                    cd "./$i"
+                    cd "$i"
                     $git_repo_remote_revise_cmd
-                    cd - > /dev/null
+                    cd - > /dev/null 2>&1
                 fi
             fi
         done
 
         # 自定义节点
-        cd "$start_path/ComfyUI/custom_nodes"
-        for i in ./* ;do
+        cd "$comfyui_path"/custom_nodes
+        for i in * ;do
             if [ -d "$i" ];then
                 if [ -d "$i/.git" ];then
-                    cd "./$i"
+                    cd "$i"
                     $git_repo_remote_revise_cmd
-                    cd - > /dev/null
+                    cd - > /dev/null 2>&1
                 fi
             fi
         done
@@ -229,11 +229,11 @@ lora_scripts_remote_revise()
     if [ $? = 0 ];then
         term_sd_echo "开始替换lora-scripts更新源"
         $git_repo_remote_revise_cmd
-        cd "$start_path/lora-scripts/frontend"
+        cd "$lora_scripts_path"/frontend
         $git_repo_remote_revise_cmd
-        cd "$start_path/lora-scripts/sd-scripts"
+        cd "$lora_scripts_path"/sd-scripts
         $git_repo_remote_revise_cmd
-        cd "$start_path/lora-scripts/mikazuki/dataset-tag-editor"
+        cd "$lora_scripts_path"/mikazuki/dataset-tag-editor
         $git_repo_remote_revise_cmd
         term_sd_echo "lora-scripts更新源替换结束"
         term_sd_print_line
@@ -249,7 +249,7 @@ fooocus_remote_revise()
     if [ $? = 0 ];then
         term_sd_echo "开始替换Fooocus更新源"
         $git_repo_remote_revise_cmd
-        cd "$start_path/Fooocus/repositories/ComfyUI-from-StabilityAI-Official"
+        cd "$fooocus_path"/repositories/ComfyUI-from-StabilityAI-Official
         $git_repo_remote_revise_cmd
         term_sd_echo "Fooocus更新源替换结束"
         term_sd_print_line

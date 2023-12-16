@@ -3,7 +3,7 @@
 # git版本切换(加上--submod将同时切换子模块版本)
 git_ver_switch()
 {
-    if [ -d "./.git" ];then # 检测目录中是否有.git文件夹
+    if [ -d ".git" ];then # 检测目录中是否有.git文件夹
         local git_repository_commit
         term_sd_echo "获取$(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')版本信息"
         git_repository_commit=$(
@@ -34,7 +34,7 @@ git_ver_switch()
             term_sd_echo "取消版本切换操作"
         fi
     else
-        term_sd_echo "$(pwd | awk -F '/' '{print$NF}')非git安装,无法切换版本"
+        term_sd_echo "$(basename $(pwd))非git安装,无法切换版本"
         return 10
     fi
 }
@@ -44,7 +44,7 @@ git_fix_pointer_offset()
 {
     local repo_main_branch
     # 当git在子文件夹中找不到.git文件夹时,将会自动在父文件夹中寻找,以此类推,直到找到.git文件夹。用户的安装方式可能是直接下载源码压缩包,导致安装后的文件夹没有.git文件夹,直接执行git会导致不良的后果
-    if [ -d "./.git" ];then # 检测目录中是否有.git文件夹
+    if [ -d ".git" ];then # 检测目录中是否有.git文件夹
         term_sd_echo "修复$(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')分支签出状态"
         git submodule init # 初始化git子模块
         repo_main_branch=$(git branch -a | grep /HEAD | awk -F'/' '{print $NF}') # 查询远程HEAD所指分支
@@ -54,7 +54,7 @@ git_fix_pointer_offset()
         git restore --recurse-submodules --source=HEAD :/ # 重置工作区
         term_sd_echo "修复$(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')完成"
     else
-        term_sd_echo "$(pwd | awk -F '/' '{print$NF}')非git安装,无法修复更新"
+        term_sd_echo "$(basename $(pwd))非git安装,无法修复更新"
         return 10
     fi
 }
@@ -81,7 +81,7 @@ git_format_repository_url()
 # 使用格式: 
 # 仅克隆项目: git_clone_repository <链接格式> <原链接> <下载路径> <文件夹名称>
 # 克隆项目和子模块: git_clone_repository --submod <链接格式> <原链接> <下载路径> <文件夹名称>
-# 注: 路径的左右不能有"/"
+# 注: 路径的右边不能有"/"
 git_clone_repository()
 {
     local git_clone_repository_path
@@ -90,41 +90,41 @@ git_clone_repository()
     case $1 in
         --submod)
             git_clone_repository_url=$(git_format_repository_url $2 $3) # 生成格式化后的链接
-            if [ ! -z $4 ];then # 下载路径不为空
-                if [ ! -z $5 ];then # 文件夹名称不为空
-                    git_clone_repository_path="./${4}/${5}"
+            if [ ! -z "$4" ];then # 下载路径不为空
+                if [ ! -z "$5" ];then # 文件夹名称不为空
+                    git_clone_repository_path="${4}/${5}"
                 else # 以项目的名称作为文件夹名称
-                    git_clone_repository_path="./${4}/$(echo $git_clone_repository_url | awk -F'/' '{print $NF}')"
+                    git_clone_repository_path="${4}/$(basename "$git_clone_repository_url")"
                 fi
             else
-                git_clone_repository_path="./$(echo $git_clone_repository_url | awk -F'/' '{print $NF}')"
+                git_clone_repository_path="$(basename "$git_clone_repository_url")"
             fi
 
-            if [ ! -d "$git_clone_repository_path" ];then # 出现同名文件夹时终止执行
-                term_sd_watch git clone --recurse-submodules $git_clone_repository_url $git_clone_repository_path
-            else
-                if [ -z "$(ls "$git_clone_repository_path")" ];then
-                    term_sd_watch git clone --recurse-submodules $git_clone_repository_url $git_clone_repository_path
+            if [ ! -d "$git_clone_repository_path" ];then
+                term_sd_watch git clone --recurse-submodules "$git_clone_repository_url" "$git_clone_repository_path"
+            else # 出现同名文件夹时检测是否执行
+                if [ $(ls "$git_clone_repository_path" -al --format=horizontal | wc --words) -le 2 ];then
+                    term_sd_watch git clone --recurse-submodules "$git_clone_repository_url" "$git_clone_repository_path"
                 fi
             fi
             ;;
         *)
             git_clone_repository_url=$(git_format_repository_url $1 $2) # 生成格式化后的链接
-            if [ ! -z $3 ];then # 下载路径不为空
-                if [ ! -z $4 ];then # 文件夹名称不为空
-                    git_clone_repository_path="./${3}/${4}"
+            if [ ! -z "$3" ];then # 下载路径不为空
+                if [ ! -z "$4" ];then # 文件夹名称不为空
+                    git_clone_repository_path="${3}/${4}"
                 else # 以项目的名称作为文件夹名称
-                    git_clone_repository_path="./${3}/$(echo $git_clone_repository_url | awk -F'/' '{print $NF}')"
+                    git_clone_repository_path="${3}/$(basename "$git_clone_repository_url")"
                 fi
             else
-                git_clone_repository_path="./$(echo $git_clone_repository_url | awk -F'/' '{print $NF}')"
+                git_clone_repository_path="$(basename "$git_clone_repository_url")"
             fi
 
-            if [ ! -d "$git_clone_repository_path" ];then # 出现同名文件夹时终止执行
-                term_sd_watch git clone $git_clone_repository_url $git_clone_repository_path
-            else
-                if [ -z "$(ls "$git_clone_repository_path")" ];then
-                    term_sd_watch git clone $git_clone_repository_url $git_clone_repository_path
+            if [ ! -d "$git_clone_repository_path" ];then
+                term_sd_watch git clone "$git_clone_repository_url" "$git_clone_repository_path"
+            else # 出现同名文件夹时检测是否执行
+                if [ $(ls "$git_clone_repository_path" -al --format=horizontal | wc --words) -le 2 ];then
+                    term_sd_watch git clone "$git_clone_repository_url" "$git_clone_repository_path"
                 fi
             fi
             ;;
@@ -152,7 +152,7 @@ git_repository_remote_revise()
 # git拉取更新(加上--submod将同时更新模块)
 git_pull_repository()
 {
-    if [ -d "./.git" ];then # 检测目录中是否有.git文件夹
+    if [ -d ".git" ];then # 检测目录中是否有.git文件夹
         case $1 in
             --submod)
                 git submodule init # 初始化git子模块
@@ -163,7 +163,7 @@ git_pull_repository()
                 ;;
         esac
     else
-        term_sd_echo "$(pwd | awk -F '/' '{print$NF}')非git安装,无法更新"
+        term_sd_echo "$(basename $(pwd))非git安装,无法更新"
         return 10
     fi
 }
@@ -175,7 +175,7 @@ git_branch_display()
     local req
     local git_commit_hash
 
-    if [ -d "./.git" ];then
+    if [ -d ".git" ];then
         ref=$(git symbolic-ref --quiet HEAD 2> /dev/null)
         req=$?
         if [ $req = 0 ]; then
@@ -193,7 +193,7 @@ git_branch_display()
 # git远程源地址展示
 git_remote_display()
 {
-    if [ -d "./.git" ];then
+    if [ -d ".git" ];then
         echo $(git remote -v 2> /dev/null | awk 'NR==1 {print $2}')
     else
         echo "非git安装,无更新源"

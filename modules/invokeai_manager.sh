@@ -7,8 +7,8 @@ invokeai_manager()
     export term_sd_manager_info="InvokeAI"
     cd "$start_path" # 回到最初路径
     exit_venv # 确保进行下一步操作前已退出其他虚拟环境
-    if [ -d "InvokeAI" ];then # 找到invokeai文件夹
-        cd InvokeAI
+    if [ -d "$invokeai_path" ];then # 找到invokeai文件夹
+        cd "$invokeai_path"
         enter_venv # 进入环境
         if ! which invokeai-web 2> /dev/null ;then
             exit_venv # 退出原来的环境
@@ -114,7 +114,7 @@ invokeai_manager()
                                 exit_venv
                                 term_sd_echo "删除InvokeAI中"
                                 cd ..
-                                rm -rf ./InvokeAI
+                                rm -rf "$invokeai_folder"
                                 term_sd_echo "删除InvokeAI完成"
                                 ;;
                             *)
@@ -130,7 +130,7 @@ invokeai_manager()
             esac
         else 
             if (dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI安装选项" --yes-label "是" --no-label "否" --yesno "检测到当前未安装InvokeAI,是否进行安装?" $term_sd_dialog_height $term_sd_dialog_width) then
-                cd "$start_path"
+                cd "$invokeai_parent_path"
                 rm -f "$start_path/term-sd/task/invokeai_install.sh"
                 install_invokeai
             fi
@@ -159,8 +159,8 @@ invokeai_update_depend()
             create_venv
             enter_venv
             term_sd_pip freeze | awk -F'==' '{print $1}' > requirements.txt #生成一个更新列表
-            python_package_update "./requirements.txt"
-            rm -rf ./requirements.txt
+            python_package_update "requirements.txt"
+            rm -rf requirements.txt
             exit_venv
             term_sd_tmp_enable_proxy
             term_sd_echo "更新InvokeAI依赖结束"

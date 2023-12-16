@@ -9,7 +9,7 @@ build_list()
     local args_3
     local count=1
     local flag=0
-    local input_file="./$@"
+    local input_file="$@"
     
     while (($flag==0))
     do
@@ -32,9 +32,9 @@ build_dialog_list()
 {
     local start_time=$(date +'%Y-%m-%d %H:%M:%S')
     local start_time_seconds=$(date --date="$start_time" +%s)
-    local input_file="./$1"
-    local cache_file="./task/dialog_cache.sh"
-    local output_file="./$2"
+    local input_file="$1"
+    local cache_file="task/dialog_cache.sh"
+    local output_file="$2"
     local end_time
     local end_time_seconds
     local time_span
@@ -55,9 +55,9 @@ build_dialog_list_sd_webui()
 {
     local start_time=$(date +'%Y-%m-%d %H:%M:%S')
     local start_time_seconds=$(date --date="$start_time" +%s)
-    local input_file="./$1"
-    local output_file="./$2"
-    local cache_file="./task/dialog_cache.sh"
+    local input_file="$1"
+    local output_file="$2"
+    local cache_file="task/dialog_cache.sh"
     local flag=0
     local count=1
     local end_time
@@ -100,11 +100,11 @@ build_dialog_list_comfyui()
 {
     local start_time=$(date +'%Y-%m-%d %H:%M:%S')
     local start_time_seconds=$(date --date="$start_time" +%s)
-    local input_file_1="./$1"
-    local input_file_2="./$2"
-    local cache_file_1="./task/dialog_cache_1.sh"
-    local cache_file_2="./task/dialog_cache_2.sh"
-    local output_file="./$3"
+    local input_file_1="$1"
+    local input_file_2="$2"
+    local cache_file_1="task/dialog_cache_1.sh"
+    local cache_file_2="task/dialog_cache_2.sh"
+    local output_file="$3"
     local flag=0
     local count=1
     local end_time
@@ -173,7 +173,7 @@ build_dialog_list_comfyui()
 }
 
 
-if [ ! -d "./modules" ] || [ ! -d "./install" ] || [ ! -d "./task" ] || [ ! -d "./help" ];then
+if [ ! -d "modules" ] || [ ! -d "install" ] || [ ! -d "task" ] || [ ! -d "help" ];then
     echo "目录错误"
     exit 1
 fi
@@ -216,6 +216,6 @@ if [ ! -z "$*" ];then
     echo "总共用时:${time_span_sum} sec"
 else
     echo "使用："
-    echo "./build.sh [--fix] [--build]"
+    echo "build.sh [--fix] [--build]"
     echo "未指定操作"
 fi

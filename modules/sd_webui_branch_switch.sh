@@ -43,7 +43,7 @@ sd_webui_branch_switch()
             term_sd_watch git fetch
             git checkout master
             term_sd_watch git pull --rebase
-            mv -f ./repositories/blip ./repositories/BLIP
+            mv -f repositories/blip repositories/BLIP
             sd_webui_branch_file_restore
             term_sd_echo "分支切换完成"
             term_sd_pause
@@ -56,7 +56,7 @@ sd_webui_branch_switch()
             term_sd_watch git fetch
             git checkout dev
             term_sd_watch git pull --rebase
-            mv -f ./repositories/blip ./repositories/BLIP
+            mv -f repositories/blip repositories/BLIP
             sd_webui_branch_file_restore
             term_sd_echo "分支切换完成"
             term_sd_pause
@@ -72,7 +72,7 @@ sd_webui_branch_switch()
             term_sd_watch git pull --rebase --recurse-submodules
             git submodule init
             term_sd_watch git pull --recurse-submodules
-            mv -f ./repositories/BLIP ./repositories/blip
+            mv -f repositories/BLIP repositories/blip
             sd_webui_branch_file_restore sd_next
             term_sd_echo "分支切换完成"
             term_sd_pause
@@ -88,7 +88,7 @@ sd_webui_branch_switch()
             term_sd_watch git pull --rebase --recurse-submodules
             git submodule init
             term_sd_watch git pull --recurse-submodules
-            mv -f ./repositories/BLIP ./repositories/blip
+            mv -f repositories/BLIP repositories/blip
             sd_webui_branch_file_restore sd_next
             term_sd_echo "分支切换完成"
             term_sd_pause
@@ -101,7 +101,7 @@ sd_webui_branch_switch()
             term_sd_watch git fetch
             git checkout master
             term_sd_watch git pull --rebase
-            mv -f ./repositories/blip ./repositories/BLIP
+            mv -f repositories/blip repositories/BLIP
             sd_webui_branch_file_restore
             term_sd_echo "分支切换完成"
             term_sd_pause
@@ -114,7 +114,7 @@ sd_webui_branch_switch()
             term_sd_watch git fetch
             git checkout dev
             term_sd_watch git pull --rebase
-            mv -f ./repositories/blip ./repositories/BLIP
+            mv -f repositories/blip repositories/BLIP
             sd_webui_branch_file_restore
             term_sd_echo "分支切换完成"
             term_sd_pause
@@ -126,10 +126,10 @@ sd_webui_branch_switch()
 # sd-webui分支切换后的重置功能
 sd_webui_branch_file_restore()
 {
-    if [ -d "./repositories" ];then
-        cd ./repositories
-        for i in ./* ;do
-            [ ! -d "./$i/.git" ] && continue # 排除没有.git文件夹的目录
+    if [ -d "repositories" ];then
+        cd repositories
+        for i in * ;do
+            [ ! -d "$i/.git" ] && continue # 排除没有.git文件夹的目录
             cd $i
             git reset --recurse-submodules --hard HEAD
             git restore --recurse-submodules --source=HEAD :/
@@ -141,7 +141,7 @@ sd_webui_branch_file_restore()
         sd_next)
             ;;
         *)
-            rm -rf ./extensions-builtin
+            rm -rf extensions-builtin
             ;;
     esac
     git reset --recurse-submodules --hard HEAD

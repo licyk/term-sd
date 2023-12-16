@@ -1,11 +1,11 @@
 #!/bin/bash
 
-source ./term-sd/modules/install_prepare.sh
-source ./term-sd/modules/get_modelscope_model.sh
-source ./term-sd/modules/term_sd_git.sh
-source ./term-sd/modules/term_sd_task_manager.sh
-source ./term-sd/modules/term_sd_manager.sh
-source ./term-sd/modules/term_sd_proxy.sh
+. ./term-sd/modules/install_prepare.sh
+. ./term-sd/modules/get_modelscope_model.sh
+. ./term-sd/modules/term_sd_git.sh
+. ./term-sd/modules/term_sd_task_manager.sh
+. ./term-sd/modules/term_sd_manager.sh
+. ./term-sd/modules/term_sd_proxy.sh
 
 install_comfyui_extension()
 {
@@ -54,7 +54,7 @@ install_comfyui_extension()
             if [ -z "$(echo "$(cat "$start_path/term-sd/task/comfyui_install_extension.sh" | awk 'NR=='${cmd_point}'{print$0}')" | grep -o __term_sd_task_done_ )" ];then # 检测命令是否需要执行
                 echo "$install_cmd" > "$start_path/term-sd/task/cache.sh" # 取出命令并放入缓存文件中
                 [ $term_sd_debug_mode = 0 ] && term_sd_echo "执行命令: \"$install_cmd\""
-                source "$start_path/term-sd/task/cache.sh" # 执行命令
+                term_sd_exec_cmd # 执行命令
             else
                 [ $term_sd_debug_mode = 0 ] && term_sd_echo "跳过执行命令: \"$install_cmd\""
                 true
@@ -71,7 +71,7 @@ install_comfyui_extension()
     fi
 }
 
-if [ -d "./ComfyUI" ];then
+if [ -d "$comfyui_path" ];then
     install_comfyui_extension
 else
     term_sd_echo "未安装ComfyUI"
