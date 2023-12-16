@@ -106,7 +106,7 @@ data_backup_manager()
             term_sd_echo "提示:输入yes或no后回车"
             case $(term_sd_read) in
                 y|yes|YES|Y)
-                    if [ -d ".term-sd/backup/${1}" ];then
+                    if [ -d "term-sd/backup/${1}" ];then
                         start_time=$(date +%s)
                         term_sd_echo "开始恢复${1}数据"
                         term_sd_data_restore ${1}
@@ -128,10 +128,10 @@ data_backup_manager()
             term_sd_echo "提示:输入yes或no后回车"
             case $(term_sd_read) in
                 y|yes|YES|Y)
-                    if [ -d ".term-sd/backup/${1}" ];then
+                    if [ -d "term-sd/backup/${1}" ];then
                         start_time=$(date +%s)
                         term_sd_echo "开始删除${1}数据备份"
-                        rm -rf .term-sd/backup/${1}
+                        rm -rf term-sd/backup/${1}
                         term_sd_echo "删除${1}数据备份完成"
                         term_sd_file_operate_time $start_time
                     else
@@ -268,152 +268,152 @@ term_sd_file_operate_time()
 # sd-webui
 sd_webui_data_backup()
 {
-    [ ! -d ".term-sd/backup/stable-diffusion-webui" ] && mkdir .term-sd/backup/stable-diffusion-webui
-    cp -rf "$sd_webui_path"/embeddings .term-sd/backup/stable-diffusion-webui/
-    cp -rf "$sd_webui_path"/models .term-sd/backup/stable-diffusion-webui/
-    cp -rf "$sd_webui_path"/outputs .term-sd/backup/stable-diffusion-webui/
-    cp -rf "$sd_webui_path"/extensions .term-sd/backup/stable-diffusion-webui/
-    cp -f "$sd_webui_path"/cache.json .term-sd/backup/stable-diffusion-webui/
-    cp -f "$sd_webui_path"/config.json .term-sd/backup/stable-diffusion-webui/
-    cp -f "$sd_webui_path"/ui-config.json .term-sd/backup/stable-diffusion-webui/
-    cp -f "$sd_webui_path"/params.txt .term-sd/backup/stable-diffusion-webui/
-    cp -f "$sd_webui_path"/styles.csv .term-sd/backup/stable-diffusion-webui/
+    [ ! -d "term-sd/backup/stable-diffusion-webui" ] && mkdir term-sd/backup/stable-diffusion-webui
+    cp -rf "$sd_webui_path"/embeddings term-sd/backup/stable-diffusion-webui/
+    cp -rf "$sd_webui_path"/models term-sd/backup/stable-diffusion-webui/
+    cp -rf "$sd_webui_path"/outputs term-sd/backup/stable-diffusion-webui/
+    cp -rf "$sd_webui_path"/extensions term-sd/backup/stable-diffusion-webui/
+    cp -f "$sd_webui_path"/cache.json term-sd/backup/stable-diffusion-webui/
+    cp -f "$sd_webui_path"/config.json term-sd/backup/stable-diffusion-webui/
+    cp -f "$sd_webui_path"/ui-config.json term-sd/backup/stable-diffusion-webui/
+    cp -f "$sd_webui_path"/params.txt term-sd/backup/stable-diffusion-webui/
+    cp -f "$sd_webui_path"/styles.csv term-sd/backup/stable-diffusion-webui/
 }
 
 sd_webui_data_restore()
 {
-    cp -rf .term-sd/backup/stable-diffusion-webui/embeddings "$sd_webui_path"/
-    cp -rf .term-sd/backup/stable-diffusion-webui/models "$sd_webui_path"/
-    cp -rf .term-sd/backup/stable-diffusion-webui/outputs "$sd_webui_path"/
-    cp -rf .term-sd/backup/stable-diffusion-webui/extensions "$sd_webui_path"/
-    cp -f .term-sd/backup/stable-diffusion-webui/cache.json "$sd_webui_path"/
-    cp -f .term-sd/backup/stable-diffusion-webui/config.json "$sd_webui_path"/
-    cp -f .term-sd/backup/stable-diffusion-webui/ui-config.json "$sd_webui_path"/
-    cp -f .term-sd/backup/stable-diffusion-webui/params.txt "$sd_webui_path"/
-    cp -f .term-sd/backup/stable-diffusion-webui/styles.csv "$sd_webui_path"/
+    cp -rf term-sd/backup/stable-diffusion-webui/embeddings "$sd_webui_path"/
+    cp -rf term-sd/backup/stable-diffusion-webui/models "$sd_webui_path"/
+    cp -rf term-sd/backup/stable-diffusion-webui/outputs "$sd_webui_path"/
+    cp -rf term-sd/backup/stable-diffusion-webui/extensions "$sd_webui_path"/
+    cp -f term-sd/backup/stable-diffusion-webui/cache.json "$sd_webui_path"/
+    cp -f term-sd/backup/stable-diffusion-webui/config.json "$sd_webui_path"/
+    cp -f term-sd/backup/stable-diffusion-webui/ui-config.json "$sd_webui_path"/
+    cp -f term-sd/backup/stable-diffusion-webui/params.txt "$sd_webui_path"/
+    cp -f term-sd/backup/stable-diffusion-webui/styles.csv "$sd_webui_path"/
 }
 
 # comfyui
 comfyui_data_backup()
 {
-    [ ! -d ".term-sd/backup/ComfyUI" ] && mkdir .term-sd/backup/ComfyUI
-    cp -rf "$comfyui_path"/custom_nodes .term-sd/backup/ComfyUI/
-    cp -rf "$comfyui_path"/models .term-sd/backup/ComfyUI/
-    cp -rf "$comfyui_path"/output .term-sd/backup/ComfyUI/
-    cp -rf "$comfyui_path"/web/extensions .term-sd/backup/ComfyUI/
-    [ -f "$comfyui_path/extra_model_paths.yaml" ] && cp -rf "$comfyui_path"/extra_model_paths.yaml .term-sd/backup/ComfyUI/
-    rm -rf .term-sd/backup/ComfyUI/web/extensions/core
-    rm -f .term-sd/backup/ComfyUI/web/extensions/logging.js.example
+    [ ! -d "term-sd/backup/ComfyUI" ] && mkdir term-sd/backup/ComfyUI
+    cp -rf "$comfyui_path"/custom_nodes term-sd/backup/ComfyUI/
+    cp -rf "$comfyui_path"/models term-sd/backup/ComfyUI/
+    cp -rf "$comfyui_path"/output term-sd/backup/ComfyUI/
+    cp -rf "$comfyui_path"/web/extensions term-sd/backup/ComfyUI/
+    [ -f "$comfyui_path/extra_model_paths.yaml" ] && cp -rf "$comfyui_path"/extra_model_paths.yaml term-sd/backup/ComfyUI/
+    rm -rf term-sd/backup/ComfyUI/web/extensions/core
+    rm -f term-sd/backup/ComfyUI/web/extensions/logging.js.example
 }
 
 comfyui_data_restore()
 {
-    cp -rf .term-sd/backup/ComfyUI/custom_nodes "$comfyui_path"/
-    cp -rf .term-sd/backup/ComfyUI/models "$comfyui_path"/
-    cp -rf .term-sd/backup/ComfyUI/output "$comfyui_path"/
-    cp -rf .term-sd/backup/ComfyUI/web/extensions "$comfyui_path"/
-    [ -f ".term-sd/backup/ComfyUI/extra_model_paths.yaml" ] && cp -f .term-sd/backup/ComfyUI/extra_model_paths.yaml "$comfyui_path"/
+    cp -rf term-sd/backup/ComfyUI/custom_nodes "$comfyui_path"/
+    cp -rf term-sd/backup/ComfyUI/models "$comfyui_path"/
+    cp -rf term-sd/backup/ComfyUI/output "$comfyui_path"/
+    cp -rf term-sd/backup/ComfyUI/web/extensions "$comfyui_path"/
+    [ -f "term-sd/backup/ComfyUI/extra_model_paths.yaml" ] && cp -f term-sd/backup/ComfyUI/extra_model_paths.yaml "$comfyui_path"/
 }
 
 # invokeai
 invokeai_data_backup()
 {
-    [ ! -d ".term-sd/backup/InvokeAI" ] && mkdir .term-sd/backup/InvokeAI
-    cp -rf "$invokeai_path"/invokeai/autoimport .term-sd/backup/InvokeAI/
-    cp -rf "$invokeai_path"/invokeai/configs .term-sd/backup/InvokeAI/
-    cp -rf "$invokeai_path"/invokeai/databases .term-sd/backup/InvokeAI/
-    cp -rf "$invokeai_path"/invokeai/nodes .term-sd/backup/InvokeAI/
-    cp -rf "$invokeai_path"/invokeai/outputs .term-sd/backup/InvokeAI/
-    cp -rf "$invokeai_path"/invokeai/text-inversion-output .term-sd/backup/InvokeAI/
-    cp -rf "$invokeai_path"/invokeai/text-inversion-training-data .term-sd/backup/InvokeAI/
-    cp -f "$invokeai_path"/invokeai/invokeai.yaml .term-sd/backup/InvokeAI/
-    [ ! -d ".term-sd/backup/InvokeAI/models" ] && mkdir -p .term-sd/backup/InvokeAI/models
-    cp -rf "$invokeai_path"/invokeai/models/any .term-sd/backup/InvokeAI/models/
-    cp -rf "$invokeai_path"/invokeai/models/core .term-sd/backup/InvokeAI/models/
-    cp -rf "$invokeai_path"/invokeai/models/sd-1 .term-sd/backup/InvokeAI/models/
-    cp -rf "$invokeai_path"/invokeai/models/sd-2 .term-sd/backup/InvokeAI/models/
-    cp -rf "$invokeai_path"/invokeai/models/sdxl .term-sd/backup/InvokeAI/models/
-    cp -rf "$invokeai_path"/invokeai/models/sdxl-refiner .term-sd/backup/InvokeAI/models/
+    [ ! -d "term-sd/backup/InvokeAI" ] && mkdir term-sd/backup/InvokeAI
+    cp -rf "$invokeai_path"/invokeai/autoimport term-sd/backup/InvokeAI/
+    cp -rf "$invokeai_path"/invokeai/configs term-sd/backup/InvokeAI/
+    cp -rf "$invokeai_path"/invokeai/databases term-sd/backup/InvokeAI/
+    cp -rf "$invokeai_path"/invokeai/nodes term-sd/backup/InvokeAI/
+    cp -rf "$invokeai_path"/invokeai/outputs term-sd/backup/InvokeAI/
+    cp -rf "$invokeai_path"/invokeai/text-inversion-output term-sd/backup/InvokeAI/
+    cp -rf "$invokeai_path"/invokeai/text-inversion-training-data term-sd/backup/InvokeAI/
+    cp -f "$invokeai_path"/invokeai/invokeai.yaml term-sd/backup/InvokeAI/
+    [ ! -d "term-sd/backup/InvokeAI/models" ] && mkdir -p term-sd/backup/InvokeAI/models
+    cp -rf "$invokeai_path"/invokeai/models/any term-sd/backup/InvokeAI/models/
+    cp -rf "$invokeai_path"/invokeai/models/core term-sd/backup/InvokeAI/models/
+    cp -rf "$invokeai_path"/invokeai/models/sd-1 term-sd/backup/InvokeAI/models/
+    cp -rf "$invokeai_path"/invokeai/models/sd-2 term-sd/backup/InvokeAI/models/
+    cp -rf "$invokeai_path"/invokeai/models/sdxl term-sd/backup/InvokeAI/models/
+    cp -rf "$invokeai_path"/invokeai/models/sdxl-refiner term-sd/backup/InvokeAI/models/
 }
 
 invokeai_data_restore()
 {
-    cp -rf .term-sd/backup/InvokeAI/autoimport "$invokeai_path"/invokeai/
-    cp -rf .term-sd/backup/InvokeAI/configs "$invokeai_path"/invokeai/
-    cp -rf .term-sd/backup/InvokeAI/databases "$invokeai_path"/invokeai/
-    cp -rf .term-sd/backup/InvokeAI/nodes "$invokeai_path"/invokeai
-    cp -rf .term-sd/backup/InvokeAI/outputs "$invokeai_path"/invokeai/
-    cp -rf .term-sd/backup/InvokeAI/text-inversion-output "$invokeai_path"/invokeai/
-    cp -rf .term-sd/backup/InvokeAI/text-inversion-training-data "$invokeai_path"/invokeai/
-    cp -f .term-sd/backup/InvokeAI/invokeai.yaml "$invokeai_path"/invokeai/
+    cp -rf term-sd/backup/InvokeAI/autoimport "$invokeai_path"/invokeai/
+    cp -rf term-sd/backup/InvokeAI/configs "$invokeai_path"/invokeai/
+    cp -rf term-sd/backup/InvokeAI/databases "$invokeai_path"/invokeai/
+    cp -rf term-sd/backup/InvokeAI/nodes "$invokeai_path"/invokeai
+    cp -rf term-sd/backup/InvokeAI/outputs "$invokeai_path"/invokeai/
+    cp -rf term-sd/backup/InvokeAI/text-inversion-output "$invokeai_path"/invokeai/
+    cp -rf term-sd/backup/InvokeAI/text-inversion-training-data "$invokeai_path"/invokeai/
+    cp -f term-sd/backup/InvokeAI/invokeai.yaml "$invokeai_path"/invokeai/
     [ ! -d ""$invokeai_path"/invokeai/models" ] && mkdir -p "$invokeai_path"/invokeai/models
-    cp -rf .term-sd/backup/InvokeAI/models/any "$invokeai_path"/invokeai/models/
-    cp -rf .term-sd/backup/InvokeAI/models/core "$invokeai_path"/invokeai/models/
-    cp -rf .term-sd/backup/InvokeAI/models/sd-1 "$invokeai_path"/invokeai/models/
-    cp -rf .term-sd/backup/InvokeAI/models/sd-2 "$invokeai_path"/invokeai/models/
-    cp -rf .term-sd/backup/InvokeAI/models/sdxl "$invokeai_path"/invokeai/models/
-    cp -rf .term-sd/backup/InvokeAI/models/sdxl-refiner "$invokeai_path"/invokeai/models/
+    cp -rf term-sd/backup/InvokeAI/models/any "$invokeai_path"/invokeai/models/
+    cp -rf term-sd/backup/InvokeAI/models/core "$invokeai_path"/invokeai/models/
+    cp -rf term-sd/backup/InvokeAI/models/sd-1 "$invokeai_path"/invokeai/models/
+    cp -rf term-sd/backup/InvokeAI/models/sd-2 "$invokeai_path"/invokeai/models/
+    cp -rf term-sd/backup/InvokeAI/models/sdxl "$invokeai_path"/invokeai/models/
+    cp -rf term-sd/backup/InvokeAI/models/sdxl-refiner "$invokeai_path"/invokeai/models/
 }
 
 # fooocus
 fooocus_data_backup()
 {
-    [ ! -d ".term-sd/backup/Fooocus" ] && mkdir .term-sd/backup/Fooocus
-    cp -rf "$fooocus_path"/models .term-sd/backup/Fooocus/
-    cp -rf "$fooocus_path"/outputs .term-sd/backup/Fooocus/
-    cp -f "$fooocus_path"/config.txt .term-sd/backup/Fooocus/
+    [ ! -d "term-sd/backup/Fooocus" ] && mkdir term-sd/backup/Fooocus
+    cp -rf "$fooocus_path"/models term-sd/backup/Fooocus/
+    cp -rf "$fooocus_path"/outputs term-sd/backup/Fooocus/
+    cp -f "$fooocus_path"/config.txt term-sd/backup/Fooocus/
 }
 
 fooocus_data_restore()
 {
-    cp -rf .term-sd/backup/Fooocus/models "$fooocus_path"/
-    cp -rf .term-sd/backup/Fooocus/outputs "$fooocus_path"/
-    cp -f .term-sd/backup/Fooocus/config.txt "$fooocus_path"/
+    cp -rf term-sd/backup/Fooocus/models "$fooocus_path"/
+    cp -rf term-sd/backup/Fooocus/outputs "$fooocus_path"/
+    cp -f term-sd/backup/Fooocus/config.txt "$fooocus_path"/
 }
 
 # lora-scripts
 lora_scripts_data_backup()
 {
-    [ ! -d ".term-sd/backup/lora-scripts" ] && mkdir .term-sd/backup/lora-scripts
-    cp -rf "$lora_scripts_path"/config/autosave .term-sd/backup/lora-scripts/
-    cp -rf "$lora_scripts_path"/logs .term-sd/backup/lora-scripts/
-    cp -rf "$lora_scripts_path"/output .term-sd/backup/lora-scripts/
-    cp -rf "$lora_scripts_path"/sd-models .term-sd/backup/lora-scripts/
-    cp -rf "$lora_scripts_path"/train .term-sd/backup/lora-scripts/
+    [ ! -d "term-sd/backup/lora-scripts" ] && mkdir term-sd/backup/lora-scripts
+    cp -rf "$lora_scripts_path"/config/autosave term-sd/backup/lora-scripts/
+    cp -rf "$lora_scripts_path"/logs term-sd/backup/lora-scripts/
+    cp -rf "$lora_scripts_path"/output term-sd/backup/lora-scripts/
+    cp -rf "$lora_scripts_path"/sd-models term-sd/backup/lora-scripts/
+    cp -rf "$lora_scripts_path"/train term-sd/backup/lora-scripts/
 }
 
 lora_scripts_data_restore()
 {
-    cp -rf .term-sd/backup/lora-scripts/config/autosave "$lora_scripts_path"/
-    cp -rf .term-sd/backup/lora-scripts/logs "$lora_scripts_path"/
-    cp -rf .term-sd/backup/lora-scripts/output "$lora_scripts_path"/
-    cp -rf .term-sd/backup/lora-scripts/sd-models "$lora_scripts_path"/
-    cp -rf .term-sd/backup/lora-scripts/train "$lora_scripts_path"/
+    cp -rf term-sd/backup/lora-scripts/config/autosave "$lora_scripts_path"/
+    cp -rf term-sd/backup/lora-scripts/logs "$lora_scripts_path"/
+    cp -rf term-sd/backup/lora-scripts/output "$lora_scripts_path"/
+    cp -rf term-sd/backup/lora-scripts/sd-models "$lora_scripts_path"/
+    cp -rf term-sd/backup/lora-scripts/train "$lora_scripts_path"/
 }
 
 # kohya_ss
 kohya_ss_data_backup()
 {
-    [ ! -d ".term-sd/backup/kohya_ss" ] && mkdir .term-sd/backup/kohya_ss
-    cp -rf "$kohya_ss_path"/output .term-sd/backup/kohya_ss/
-    cp -rf "$kohya_ss_path"/train .term-sd/backup/kohya_ss/
-    cp -rf "$kohya_ss_path"/models .term-sd/backup/kohya_ss/
+    [ ! -d "term-sd/backup/kohya_ss" ] && mkdir term-sd/backup/kohya_ss
+    cp -rf "$kohya_ss_path"/output term-sd/backup/kohya_ss/
+    cp -rf "$kohya_ss_path"/train term-sd/backup/kohya_ss/
+    cp -rf "$kohya_ss_path"/models term-sd/backup/kohya_ss/
 }
 
 kohya_ss_data_restore()
 {
-    cp -rf .term-sd/backup/kohya_ss/output "$kohya_ss_path"/
-    cp -rf .term-sd/backup/kohya_ss/train "$kohya_ss_path"/
-    cp -rf .term-sd/backup/kohya_ss/models "$kohya_ss_path"/
+    cp -rf term-sd/backup/kohya_ss/output "$kohya_ss_path"/
+    cp -rf term-sd/backup/kohya_ss/train "$kohya_ss_path"/
+    cp -rf term-sd/backup/kohya_ss/models "$kohya_ss_path"/
 }
 
 #################################################
 
-if [ -d ".term-sd/backup" ];then
+if [ -d "term-sd/backup" ];then
     term_sd_echo "备份数据文件夹路径:${start_path}/term-sd/backup"
 else
     term_sd_echo "创建备份数据文件夹中,路径:${start_path}/term-sd/backup"
-    term_sd_mkdir .term-sd/backup
+    term_sd_mkdir term-sd/backup
 fi
 
 while (($? == 0));do
