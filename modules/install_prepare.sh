@@ -175,6 +175,27 @@ pip_install_mode_select()
             ;;
     esac
 }
+# 强制重装选择
+pip_force_reinstall_select()
+{
+    local pip_force_reinstall_select_dialog
+    pip_force_reinstall_mode=
+
+    pip_force_reinstall_select_dialog=$(
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "pip安装模式选项" --ok-label "确认" --no-cancel --menu "pip安装软件包时,是否使用强制重新安装,请选择" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        "1" "> 安装" \
+        "2" "> 强制重新安装" \
+        3>&1 1>&2 2>&3)
+
+    case $pip_force_reinstall_select_dialog in
+        1)
+            pip_force_reinstall_mode=
+            ;;
+        2)
+            pip_force_reinstall_mode="--force-reinstall"
+            ;;
+    esac
+}
 
 # 安装前确认界面
 term_sd_install_confirm()

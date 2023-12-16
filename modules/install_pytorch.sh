@@ -8,6 +8,7 @@ pytorch_reinstall()
         download_mirror_select # 下载镜像源选择
         pytorch_version_select # pytorch版本选择
         pip_install_mode_select # 安装方式选择
+        pip_force_reinstall_select # 强制重装选择
         term_sd_install_confirm # 安装前确认
 
         if [ $? = 0 ];then
@@ -40,26 +41,26 @@ install_pytorch()
                 Windows_NT)
                     case $torch_ipex_ver in
                         2.0.0)
-                            term_sd_watch term_sd_pip install $ipex_win_url_1 $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary
+                            term_sd_watch term_sd_pip install $ipex_win_url_1 $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
                             ;;
                         2.1.0)
-                            term_sd_watch term_sd_pip install $ipex_win_url_2 $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary || term_sd_watch term_sd_pip install $ipex_win_url_3 $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary
+                            term_sd_watch term_sd_pip install $ipex_win_url_2 $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary || term_sd_watch term_sd_pip install $ipex_win_url_3 $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
                             ;;
                     esac
                     ;;
                 *)
                     case $torch_ipex_ver in
                         2.0.0)
-                            term_sd_watch term_sd_pip install torch==2.0.1a0 torchvision==0.15.2a0 intel-extension-for-pytorch $ipex_url $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary
+                            term_sd_watch term_sd_pip install torch==2.0.1a0 torchvision==0.15.2a0 intel-extension-for-pytorch $ipex_url $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
                             ;;
                         2.1.0)
-                            term_sd_watch term_sd_pip install torch==2.1.0a0 torchvision==0.16.0a0 intel-extension-for-pytorch $ipex_url $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary
+                            term_sd_watch term_sd_pip install torch==2.1.0a0 torchvision==0.16.0a0 intel-extension-for-pytorch $ipex_url $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
                             ;;
                     esac
                 ;;
             esac
         else
-            term_sd_watch term_sd_pip install $pytorch_install_version $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary
+            term_sd_watch term_sd_pip install $pytorch_install_version $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
         fi
         return $?
     else

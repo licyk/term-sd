@@ -28,17 +28,17 @@ get_modelscope_model()
         local_file_path="./$(basename "$1")"
         local_aria_cache_path="${local_file_path}.aria2"
         modelscope_model_name=$(basename "$local_file_path")
-        local_file_parent_path=$(dirname $local_file_path)
+        local_file_parent_path=$(dirname "$local_file_path")
     elif [ -z "$3" ];then # 有链接和下载位置
         local_file_path="${2}/$(basename "$1")"
         local_aria_cache_path="${2}/$(basename "$1").aria2"
         modelscope_model_name=$(basename "$local_file_path")
-        local_file_parent_path=$(dirname $local_file_path)
+        local_file_parent_path=$(dirname "$local_file_path")
     else # 链接,下载位置和下载文件名都有
         local_file_path="${2}/${3}"
         local_aria_cache_path="${2}/${3}.aria2"
         modelscope_model_name=$(basename "$local_file_path")
-        local_file_parent_path=$(dirname $local_file_path)
+        local_file_parent_path=$(dirname "$local_file_path")
     fi
     
     if [ ! -f "$local_file_path" ];then

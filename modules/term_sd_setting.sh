@@ -478,7 +478,7 @@ custom_install_path_setting()
     local custom_install_path_setting_dialog
     local custom_install_path
     custom_install_path_setting_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "自定义安装路径设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于自定义AI软件的安装路径,当保持默认时,AI软件的安装目录与Term-SD所在目录同级\n注:\n1、路径最好使用绝对路径\n2、如果是Windows系统,请使用msys2可识别的路径格式,\n如:\"D:\\Downloads\\webui\"要写成\"/d/Downloads/webui\"" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "自定义安装路径设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于自定义AI软件的安装路径,当保持默认时,AI软件的安装路径与Term-SD所在路径同级\n当前Term-SD所在路径:${start_path}/term-sd\n注:\n1、路径最好使用绝对路径\n2、如果是Windows系统,请使用msys2可识别的路径格式,\n如:\"D:\\Downloads\\webui\"要写成\"/d/Downloads/webui\"" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> stable-diffusion-webui安装路径设置(当前配置:$([ -f ./term-sd/config/sd-webui-path.conf ] && echo "自定义" || echo 默认))" \
         "2" "> ComfyUI安装路径设置(当前配置:$([ -f ./term-sd/config/comfyui-path.conf ] && echo "自定义" || echo 默认))" \
@@ -772,14 +772,15 @@ kohya_ss_custom_install_path_setting()
 term_sd_disk_space_stat()
 {
     term_sd_echo "统计空间占用中"
-    dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD空间占用分析" --ok-label "确认" --msgbox "当前目录剩余空间:$(df ./ -h |awk 'NR==2'|awk -F ' ' ' {print $4} ')\n
+    dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD空间占用分析" --ok-label "确认" --msgbox "当前目录剩余空间:$(df ./ -h | awk 'NR==2{print$4}')\n
 项目空间占用:\n
-Term-SD(重定向)缓存目录:$([ -d "./term-sd/cache" ] && du -sh ./term-sd/cache | awk -F ' ' ' {print $1} ' || echo "无")\n
-stable-diffusion-webui:$([ -d "./stable-diffusion-webui" ] && du -sh ./stable-diffusion-webui | awk -F ' ' ' {print $1} ' || echo "未安装")\n
-ComfyUI:$([ -d "./ComfyUI" ] && du -sh ./ComfyUI | awk -F ' ' ' {print $1} ' || echo "未安装")\n
-InvokeAI:$([ -d "./InvokeAI" ] && du -sh ./InvokeAI | awk -F ' ' ' {print $1} ' || echo "未安装")\n
-lora-scripts:$([ -d "./lora-scripts" ] && du -sh ./lora-scripts | awk -F ' ' ' {print $1} ' || echo "未安装")\n
-Fooocus:$([ -d "./Fooocus" ] && du -sh ./Fooocus | awk -F ' ' ' {print $1} ' || echo "未安装")\n
+Term-SD(重定向)缓存目录:$([ -d "./term-sd/cache" ] && du -sh ./term-sd/cache | awk '{print $1}' || echo "无")\n
+stable-diffusion-webui:$([ -d "$sd_webui_path" ] && du -sh "$sd_webui_path" | awk '{print $1}' || echo "未安装")\n
+ComfyUI:$([ -d "$comfyui_path" ] && du -sh "$comfyui_path" | awk '{print $1}' || echo "未安装")\n
+InvokeAI:$([ -d "$invokeai_path" ] && du -sh "$invokeai_path" | awk '{print $1}' || echo "未安装")\n
+Fooocus:$([ -d "$fooocus_path" ] && du -sh "$fooocus_path" | awk '{print $1}' || echo "未安装")\n
+lora-scripts:$([ -d "$lora_scripts_path" ] && du -sh "$lora_scripts_path" | awk '{print $1}' || echo "未安装")\n
+kohya_ss:$([ -d "$kohya_ss_path" ] && du -sh "$kohya_ss_path" | awk '{print $1}' || echo "未安装")\n
 " $term_sd_dialog_height $term_sd_dialog_width
 }
 
