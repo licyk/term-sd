@@ -5,9 +5,9 @@ sd_webui_launch()
 {
     local sd_webui_branch
 
-    if [ ! -f "./term-sd-launch.conf" ]; then # 找不到启动配置时默认生成一个
+    if [ ! -f ""$start_path"/term-sd/config/sd-webui-launch.conf" ]; then # 找不到启动配置时默认生成一个
         term_sd_echo "未找到启动配置文件,创建中"
-        echo "launch.py --theme dark --autolaunch --xformers --skip-load-model-at-start" > term-sd-launch.conf
+        echo "launch.py --theme dark --autolaunch --xformers --skip-load-model-at-start" > "$start_path"/term-sd/config/sd-webui-launch.conf
     fi
 
     term_sd_echo "检测stable-diffusion-webui分支中"

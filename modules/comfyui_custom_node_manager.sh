@@ -4,7 +4,7 @@
 comfyui_custom_node_manager()
 {
     local comfyui_custom_node_manager_dialog
-    cd "$start_path/ComfyUI/custom_nodes" # 回到最初路径
+    cd "$comfyui_path"/custom_nodes # 回到最初路径
 
     comfyui_custom_node_manager_dialog=$(
         dialog --erase-on-exit --notags --title "ComfyUI管理" --backtitle "ComfyUI自定义节点管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择ComfyUI自定义节点管理选项的功能" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
@@ -64,7 +64,7 @@ comfyui_custom_node_install()
 # 自定义节点浏览器
 comfyui_custom_node_list()
 {
-    cd "$start_path/ComfyUI/custom_nodes" # 回到最初路径
+    cd "$comfyui_path"/custom_nodes # 回到最初路径
 
     comfyui_custom_node_name=$(
         dialog --erase-on-exit --yes-label "确认" --no-label "取消" --title "ComfyUI管理" --backtitle "ComfyUI自定义节点列表" --menu "使用上下键选择要操作的自定义节点并回车确认" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
@@ -78,11 +78,11 @@ comfyui_custom_node_list()
         elif [ -d "$comfyui_custom_node_name" ]; then  # 选择文件夹
             cd "$comfyui_custom_node_name"
             comfyui_custom_node_interface
-            comfyui_custom_node_manager
+            comfyui_custom_node_list
         elif [ -f "$extension_selection" ]; then
-            comfyui_custom_node_manager # 留在当前目录
+            comfyui_custom_node_list # 留在当前目录
         else
-            comfyui_custom_node_manager # 留在当前目录
+            comfyui_custom_node_list # 留在当前目录
         fi
     fi
 }

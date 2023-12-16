@@ -9,8 +9,8 @@ sd_webui_manager()
     cd "$start_path" # 回到最初路径
     exit_venv # 确保进行下一步操作前已退出其他虚拟环境
 
-    if [ -d "stable-diffusion-webui" ];then # 找到stable-diffusion-webui目录
-        cd stable-diffusion-webui
+    if [ -d "$sd_webui_path" ] && [ $(ls "$sd_webui_path" -al --format=horizontal | wc --words) -gt 2 ];then # 找到stable-diffusion-webui目录
+        cd "$sd_webui_path"
 
         case $(git remote -v | awk 'NR==1 {print $2}' | awk -F'/' '{print $NF}') in # 分支判断
             stable-diffusion-webui)
@@ -154,7 +154,7 @@ sd_webui_manager()
                             term_sd_echo "删除Stable-Diffusion-WebUI中"
                             exit_venv
                             cd ..
-                            rm -rf ./stable-diffusion-webui
+                            rm -rf ./"$sd_webui_folder"
                             term_sd_echo "删除Stable-Diffusion-WebUI完成"
                             ;;
                         *)
@@ -192,7 +192,7 @@ sd_webui_update_depend()
             enter_venv
             python_package_update "./repositories/CodeFormer/requirements.txt"
             python_package_update "./requirements.txt"
-            term_sd_watch term_sd_pip install git+"$github_proxy"https://github.com/openai/CLIP --prefer-binary $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode
+            term_sd_watch term_sd_pip install git+$(git_format_repository_url $github_mirror https://github.com/openai/CLIP) --prefer-binary $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode
             exit_venv
             term_sd_tmp_enable_proxy
             term_sd_echo "更新Stable-Diffusion-WebUI依赖结束"

@@ -6,8 +6,8 @@ lora_scripts_manager()
     export term_sd_manager_info="lora-scripts"
     cd "$start_path" # 回到最初路径
     exit_venv # 确保进行下一步操作前已退出其他虚拟环境
-    if [ -d "./lora-scripts" ];then
-        cd lora-scripts
+    if [ -d "$lora_scripts_path" ] && [ $(ls "$lora_scripts_path" -al --format=horizontal | wc --words) -gt 2 ];then
+        cd "$lora_scripts_path"
         lora_scripts_manager_dialog=$(
             dialog --erase-on-exit --notags --title "lora-scripts管理" --backtitle "lora-scripts管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择lora-scripts管理选项的功能\n当前更新源:$(git_remote_display)\n当前分支:$(git_branch_display)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
             "0" "> 返回" \
@@ -124,7 +124,7 @@ lora_scripts_manager()
                             term_sd_echo "删除lora-scripts中"
                             exit_venv
                             cd ..
-                            rm -rf ./lora-scripts
+                            rm -rf ./"$lora_scripts_folder"
                             term_sd_echo "删除lora-scripts完成"
                             ;;
                         *)
@@ -162,10 +162,10 @@ lora_scripts_update_depend()
             create_venv
             enter_venv
             cd ./sd-scripts
-            python_package_update "./requirements.txt" # sd-scripts目录下还有个_typos.toml，在安装requirements.txt里的依赖时会指向这个文件
+            python_package_update ./requirements.txt # sd-scripts目录下还有个_typos.toml，在安装requirements.txt里的依赖时会指向这个文件
             cd ..
             term_sd_watch term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade lion-pytorch dadaptation prodigyopt lycoris-lora fastapi uvicorn wandb scipy
-            python_package_update "./requirements.txt" # lora-scripts安装依赖
+            python_package_update ./requirements.txt # lora-scripts安装依赖
             exit_venv
             term_sd_tmp_enable_proxy
             term_sd_echo "更新lora-scripts依赖结束"

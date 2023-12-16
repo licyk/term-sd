@@ -2,3 +2,5 @@
 /task/*.sh
 /config/*.lock
 /config/*.conf
+/requirements-backup
+/backup

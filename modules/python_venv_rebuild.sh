@@ -20,7 +20,7 @@ sd_webui_venv_rebuild()
         enter_venv
 
         term_sd_watch term_sd_pip install $pytorch_install_version $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary #"--default-timeout=100 --retries 5"在网络差导致下载中断时重试下载
-        term_sd_watch term_sd_pip install git+"$github_proxy"https://github.com/openai/CLIP.git $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary
+        term_sd_watch term_sd_pip install git+$(git_format_repository_url $github_mirror https://github.com/openai/CLIP) $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary
         term_sd_watch term_sd_pip install -r ./repositories/CodeFormer/requirements.txt $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary
         term_sd_watch term_sd_pip install -r ./requirements.txt $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary #安装stable-diffusion-webui的依赖
 

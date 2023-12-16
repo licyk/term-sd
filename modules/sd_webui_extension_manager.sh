@@ -4,7 +4,7 @@
 sd_webui_extension_manager()
 {
     local sd_webui_extension_manager_dialog
-    cd "$start_path/stable-diffusion-webui/extensions" #回到最初路径
+    cd "$sd_webui_path"/extensions #回到最初路径
 
     # 功能选择界面
     sd_webui_extension_manager_dialog=$(
@@ -52,7 +52,7 @@ sd_webui_extension_install()
 # 插件列表浏览器
 sd_webui_extension_list()
 {
-    cd "$start_path/stable-diffusion-webui/extensions" #回到最初路径
+    cd "$sd_webui_path"/extensions #回到最初路径
 
     sd_webui_extension_name=$(
         dialog --erase-on-exit --ok-label "确认" --cancel-label "取消" --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件列表" --menu "请选择Stable-Diffusion-WebUI插件" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \

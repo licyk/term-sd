@@ -61,7 +61,7 @@ install_sd_webui_extension()
     fi
 }
 
-if [ -d "./stable-diffusion-webui" ];then
+if [ -d "$sd_webui_path" ];then
     install_sd_webui_extension
 else
     term_sd_echo "未安装stable-diffusion-webui"

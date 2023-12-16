@@ -31,9 +31,9 @@ download_hanamizuki()
 {
     aria2c $download_hanamizuki_resource -d ./term-sd/task -o "绘世.exe"
     if [ $? = 0 ];then
-        if [ -d "./stable-diffusion-webui" ];then
-            if [ ! -f "./stable-diffusion-webui/绘世.exe" ];then
-                cp -f "./term-sd/task/绘世.exe" ./stable-diffusion-webui
+        if [ -d "$sd_webui_path" ];then
+            if [ ! -f "$sd_webui_path/绘世.exe" ];then
+                cp -f "./term-sd/task/绘世.exe" "$sd_webui_path"
                 term_sd_echo "已将绘世启动器复制到stable-diffusion-webui文件夹"
             else
                 term_sd_echo "stable-diffusion-webui文件夹中已存在绘世启动器"
@@ -42,9 +42,9 @@ download_hanamizuki()
             term_sd_echo "未找到stable-diffusion-webui文件夹"
         fi
 
-        if [ -d "./ComfyUI" ];then
-            if [ ! -f "./ComfyUI/绘世.exe" ];then
-                cp -f "./term-sd/task/绘世.exe" ./ComfyUI
+        if [ -d "$comfyui_path" ];then
+            if [ ! -f "$comfyui_path/绘世.exe" ];then
+                cp -f "./term-sd/task/绘世.exe" "$comfyui_path"
                 term_sd_echo "已将绘世启动器复制到ComfyUI文件夹"
             else
                 term_sd_echo "ComfyUI文件夹中已存在绘世启动器"
@@ -53,9 +53,9 @@ download_hanamizuki()
             term_sd_echo "未找到ComfyUI文件夹"
         fi
 
-        if [ -d "./Fooocus" ];then
-            if [ ! -f "./Fooocus/绘世.exe" ];then
-                cp -f "./term-sd/task/绘世.exe" ./Fooocus
+        if [ -d "$fooocus_path" ];then
+            if [ ! -f "$fooocus_path/绘世.exe" ];then
+                cp -f "./term-sd/task/绘世.exe" "$fooocus_path"
                 term_sd_echo "已将绘世启动器复制到Fooocus文件夹"
             else
                 term_sd_echo "Fooocus文件夹中已存在绘世启动器"
@@ -69,8 +69,8 @@ download_hanamizuki()
     fi
 }
 
-if [ -d "./stable-diffusion-webui" ] || [ -d "./ComfyUI" ] || [ -d "./Fooocus" ];then
-    if [ ! -f "./stable-diffusion-webui/绘世.exe" ] || [ ! -f "./ComfyUI/绘世.exe" ] || [ ! -f "./Fooocus/绘世.exe" ];then
+if [ -d "$sd_webui_path" ] || [ -d "$comfyui_path" ] || [ -d "$fooocus_path" ];then
+    if [ ! -f "$sd_webui_path/绘世.exe" ] || [ ! -f "$comfyui_path/绘世.exe" ] || [ ! -f "$fooocus_path/绘世.exe" ];then
         download_hanamizuki_resource_select
         if [ $? = 0 ];then
             download_hanamizuki

@@ -8,8 +8,8 @@ fooocus_manager()
     export term_sd_manager_info="Fooocus"
     cd "$start_path" # 回到最初路径
     exit_venv # 确保进行下一步操作前已退出其他虚拟环境
-    if [ -d "./Fooocus" ];then
-        cd Fooocus
+    if [ -d "$fooocus_path" ] && [ $(ls "$fooocus_path" -al --format=horizontal | wc --words) -gt 2 ];then
+        cd "$fooocus_path"
         fooocus_manager_dialog=$(
             dialog --erase-on-exit --notags --title "Fooocus管理" --backtitle "Fooocus管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Fooocus管理选项的功能\n当前更新源:$(git_remote_display)\n当前分支:$(git_branch_display)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
             "0" "> 返回" \
@@ -131,7 +131,7 @@ fooocus_manager()
                             term_sd_echo "删除Fooocus中"
                             exit_venv
                             cd ..
-                            rm -rf ./Fooocus
+                            rm -rf ./"$fooocus_folder"
                             term_sd_echo "删除Fooocus完成"
                             ;;
                         *)

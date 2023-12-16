@@ -3,7 +3,7 @@
 # git版本切换(加上--submod将同时切换子模块版本)
 git_ver_switch()
 {
-    if [ -d "./.git" ];then # 检测目录中是否有.git文件夹
+    if [ -d ".git" ];then # 检测目录中是否有.git文件夹
         local git_repository_commit
         term_sd_echo "获取$(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')版本信息"
         git_repository_commit=$(
@@ -81,7 +81,7 @@ git_format_repository_url()
 # 使用格式: 
 # 仅克隆项目: git_clone_repository <链接格式> <原链接> <下载路径> <文件夹名称>
 # 克隆项目和子模块: git_clone_repository --submod <链接格式> <原链接> <下载路径> <文件夹名称>
-# 注: 路径的左右不能有"/"
+# 注: 路径的右边不能有"/"
 git_clone_repository()
 {
     local git_clone_repository_path
@@ -90,41 +90,41 @@ git_clone_repository()
     case $1 in
         --submod)
             git_clone_repository_url=$(git_format_repository_url $2 $3) # 生成格式化后的链接
-            if [ ! -z $4 ];then # 下载路径不为空
-                if [ ! -z $5 ];then # 文件夹名称不为空
-                    git_clone_repository_path="./${4}/${5}"
+            if [ ! -z "$4" ];then # 下载路径不为空
+                if [ ! -z "$5" ];then # 文件夹名称不为空
+                    git_clone_repository_path="${4}/${5}"
                 else # 以项目的名称作为文件夹名称
-                    git_clone_repository_path="./${4}/$(echo $git_clone_repository_url | awk -F'/' '{print $NF}')"
+                    git_clone_repository_path="${4}/$(echo $git_clone_repository_url | awk -F'/' '{print $NF}')"
                 fi
             else
-                git_clone_repository_path="./$(echo $git_clone_repository_url | awk -F'/' '{print $NF}')"
+                git_clone_repository_path="$(echo $git_clone_repository_url | awk -F'/' '{print $NF}')"
             fi
 
-            if [ ! -d "$git_clone_repository_path" ];then # 出现同名文件夹时终止执行
-                term_sd_watch git clone --recurse-submodules $git_clone_repository_url $git_clone_repository_path
-            else
-                if [ -z "$(ls "$git_clone_repository_path")" ];then
-                    term_sd_watch git clone --recurse-submodules $git_clone_repository_url $git_clone_repository_path
+            if [ ! -d "$git_clone_repository_path" ];then
+                term_sd_watch git clone --recurse-submodules "$git_clone_repository_url" "$git_clone_repository_path"
+            else # 出现同名文件夹时检测是否执行
+                if [ $(ls "$git_clone_repository_path" -al --format=horizontal | wc --words) -le 2 ];then
+                    term_sd_watch git clone --recurse-submodules "$git_clone_repository_url" "$git_clone_repository_path"
                 fi
             fi
             ;;
         *)
             git_clone_repository_url=$(git_format_repository_url $1 $2) # 生成格式化后的链接
-            if [ ! -z $3 ];then # 下载路径不为空
-                if [ ! -z $4 ];then # 文件夹名称不为空
-                    git_clone_repository_path="./${3}/${4}"
+            if [ ! -z "$3" ];then # 下载路径不为空
+                if [ ! -z "$4" ];then # 文件夹名称不为空
+                    git_clone_repository_path="${3}/${4}"
                 else # 以项目的名称作为文件夹名称
-                    git_clone_repository_path="./${3}/$(echo $git_clone_repository_url | awk -F'/' '{print $NF}')"
+                    git_clone_repository_path="${3}/$(echo $git_clone_repository_url | awk -F'/' '{print $NF}')"
                 fi
             else
-                git_clone_repository_path="./$(echo $git_clone_repository_url | awk -F'/' '{print $NF}')"
+                git_clone_repository_path="$(echo $git_clone_repository_url | awk -F'/' '{print $NF}')"
             fi
 
-            if [ ! -d "$git_clone_repository_path" ];then # 出现同名文件夹时终止执行
-                term_sd_watch git clone $git_clone_repository_url $git_clone_repository_path
-            else
-                if [ -z "$(ls "$git_clone_repository_path")" ];then
-                    term_sd_watch git clone $git_clone_repository_url $git_clone_repository_path
+            if [ ! -d "$git_clone_repository_path" ];then
+                term_sd_watch git clone "$git_clone_repository_url" "$git_clone_repository_path"
+            else # 出现同名文件夹时检测是否执行
+                if [ $(ls "$git_clone_repository_path" -al --format=horizontal | wc --words) -le 2 ];then
+                    term_sd_watch git clone "$git_clone_repository_url" "$git_clone_repository_path"
                 fi
             fi
             ;;
@@ -175,7 +175,7 @@ git_branch_display()
     local req
     local git_commit_hash
 
-    if [ -d "./.git" ];then
+    if [ -d ".git" ];then
         ref=$(git symbolic-ref --quiet HEAD 2> /dev/null)
         req=$?
         if [ $req = 0 ]; then
@@ -193,7 +193,7 @@ git_branch_display()
 # git远程源地址展示
 git_remote_display()
 {
-    if [ -d "./.git" ];then
+    if [ -d ".git" ];then
         echo $(git remote -v 2> /dev/null | awk 'NR==1 {print $2}')
     else
         echo "非git安装,无更新源"

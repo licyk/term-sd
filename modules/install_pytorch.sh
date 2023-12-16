@@ -28,17 +28,35 @@ pytorch_reinstall()
 # pytorch安装
 install_pytorch()
 {
-    local ipex_win_url="https://gitcode.net/rubble7343/nuullll-intel-extension-for-pytorch/-/raw/master/torch-2.0.0a0+gite9ebda2-cp310-cp310-win_amd64.whl https://gitcode.net/rubble7343/nuullll-intel-extension-for-pytorch/-/raw/master/torchvision-0.15.2a0+fa99a53-cp310-cp310-win_amd64.whl https://gitcode.net/rubble7343/nuullll-intel-extension-for-pytorch/-/raw/master/intel_extension_for_pytorch-2.0.110+gitc6ea20b-cp310-cp310-win_amd64.whl"
-    local ipex_url="--index-url https://pytorch-extension.intel.com/release-whl/stable/xpu/us/"
+    local ipex_win_url_1="https://gitcode.net/rubble7343/nuullll-intel-extension-for-pytorch/-/raw/master/torch-2.0.0a0+gite9ebda2-cp310-cp310-win_amd64.whl https://gitcode.net/rubble7343/nuullll-intel-extension-for-pytorch/-/raw/master/torchvision-0.15.2a0+fa99a53-cp310-cp310-win_amd64.whl https://gitcode.net/rubble7343/nuullll-intel-extension-for-pytorch/-/raw/master/intel_extension_for_pytorch-2.0.110+gitc6ea20b-cp310-cp310-win_amd64.whl"
+    local ipex_win_url_2="https://gitcode.net/rubble7343/nuullll-intel-extension-for-pytorch/-/raw/master/torch-2.1.0a0+cxx11.abi-cp310-cp310-win_amd64.whl https://gitcode.net/rubble7343/nuullll-intel-extension-for-pytorch/-/raw/master/torchvision-0.16.0a0+cxx11.abi-cp310-cp310-win_amd64.whl https://gitcode.net/rubble7343/nuullll-intel-extension-for-pytorch/-/raw/master/intel_extension_for_pytorch-2.1.10+xpu-cp310-cp310-win_amd64.whl"
+    local ipex_win_url_3="https://gitcode.net/rubble7343/nuullll-intel-extension-for-pytorch/-/raw/master/torch-2.1.0a0+cxx11.abi-cp311-cp311-win_amd64.whl https://gitcode.net/rubble7343/nuullll-intel-extension-for-pytorch/-/raw/master/torchvision-0.16.0a0+cxx11.abi-cp311-cp311-win_amd64.whl https://gitcode.net/rubble7343/nuullll-intel-extension-for-pytorch/-/raw/master/intel_extension_for_pytorch-2.1.10+xpu-cp311-cp311-win_amd64.whl"
+    local ipex_url="--index-url https://pytorch-extension.intel.com/release-whl/stable/xpu/us"
+    local torch_ipex_ver
     if [ ! -z "$pytorch_install_version" ];then
         if grep ipex <<<$pytorch_install_version > /dev/null 2>&1 ;then
+            torch_ipex_ver=$(echo $pytorch_install_version | awk '{print$2}')
             case $OS in
                 Windows_NT)
-                    term_sd_watch term_sd_pip install $ipex_win_url $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary
+                    case $torch_ipex_ver in
+                        2.0.0)
+                            term_sd_watch term_sd_pip install $ipex_win_url_1 $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary
+                            ;;
+                        2.1.0)
+                            term_sd_watch term_sd_pip install $ipex_win_url_2 $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary || term_sd_watch term_sd_pip install $ipex_win_url_3 $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary
+                            ;;
+                    esac
                     ;;
                 *)
-                    term_sd_watch term_sd_pip install torch==2.0.1a0 torchvision==0.15.2a0 intel-extension-for-pytorch $ipex_url $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary
-                    ;;
+                    case $torch_ipex_ver in
+                        2.0.0)
+                            term_sd_watch term_sd_pip install torch==2.0.1a0 torchvision==0.15.2a0 intel-extension-for-pytorch $ipex_url $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary
+                            ;;
+                        2.1.0)
+                            term_sd_watch term_sd_pip install torch==2.1.0a0 torchvision==0.16.0a0 intel-extension-for-pytorch $ipex_url $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary
+                            ;;
+                    esac
+                ;;
             esac
         else
             term_sd_watch term_sd_pip install $pytorch_install_version $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary

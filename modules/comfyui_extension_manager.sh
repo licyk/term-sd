@@ -5,7 +5,7 @@
 comfyui_extension_manager()
 {
     local comfyui_extension_manager_dialog
-    cd "$start_path/ComfyUI/web/extensions" # 回到最初路径
+    cd "$comfyui_path"/web/extensions # 回到最初路径
 
     comfyui_extension_manager_dialog=$(
         dialog --erase-on-exit --notags --title "ComfyUI管理" --backtitle "ComfyUI插件管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择ComfyUI插件管理选项的功能" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
@@ -41,7 +41,7 @@ comfyui_extension_manager()
 # 插件列表浏览器
 comfyui_extension_list()
 {
-    cd "$start_path/ComfyUI/web/extensions" # 回到最初路径
+    cd "$comfyui_path"/web/extensions # 回到最初路径
 
     comfyui_extension_name=$(
         dialog --erase-on-exit --ok-label "确认" --cancel-label "取消" --title "ComfyUI管理" --backtitle "ComfyUI插件列表" --menu "使用上下键选择要操作的插件并回车确认" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \

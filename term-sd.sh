@@ -215,6 +215,16 @@ term_sd_unknown_args_echo()
     fi
 }
 
+# 创建目录
+term_sd_mkdir()
+{
+    if [ ! -d "$@" ];then
+        mkdir -p "$@"
+    else
+        true
+    fi
+}
+
 # 加载进度条设置
 term_sd_loading_bar_setting()
 {
@@ -628,7 +638,7 @@ set_python_path()
 term_sd_print_line "Term-SD"
 term_sd_echo "Term-SD初始化中"
 
-export term_sd_version_info="1.1.17" # term-sd版本
+export term_sd_version_info="1.2.0dev" # term-sd版本
 export user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题
@@ -756,6 +766,67 @@ else
     export PIP_INDEX_URL="https://mirrors.cloud.tencent.com/pypi/simple"
     export PIP_EXTRA_INDEX_URL="https://mirror.baidu.com/pypi/simple https://mirrors.bfsu.edu.cn/pypi/web/simple https://mirror.nju.edu.cn/pypi/web/simple"
     export PIP_FIND_LINKS="https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
+fi
+
+# 设置ai软件路径
+if [ -f "./term-sd/config/sd-webui-path.conf" ];then
+    export sd_webui_path=$(cat ./term-sd/config/sd-webui-path.conf)
+    export sd_webui_folder=$(basename "$sd_webui_path")
+    export sd_webui_parent_path=$(dirname "$sd_webui_path")
+else
+    export sd_webui_path="$start_path/stable-diffusion-webui"
+    export sd_webui_folder="stable-diffusion-webui"
+    export sd_webui_parent_path=$start_path
+fi
+
+if [ -f "./term-sd/config/comfyui-path.conf" ];then
+    export comfyui_path=$(cat ./term-sd/config/comfyui-path.conf)
+    export comfyui_folder=$(basename "$comfyui_path")
+    export comfyui_parent_path=$(dirname "$comfyui_path")
+else
+    export comfyui_path="$start_path/ComfyUI"
+    export comfyui_folder="ComfyUI"
+    export comfyui_parent_path=$start_path
+fi
+
+if [ -f "./term-sd/config/invokeai-path.conf" ];then
+    export invokeai_path=$(cat ./term-sd/config/invokeai-path.conf)
+    export invokeai_folder=$(basename "$invokeai_path")
+    export invokeai_parent_path=$(dirname "$invokeai_path")
+else
+    export invokeai_path="$start_path/InvokeAI"
+    export invokeai_folder="InvokeAI"
+    export invokeai_parent_path=$start_path
+fi
+
+if [ -f "./term-sd/config/fooocus-path.conf" ];then
+    export fooocus_path=$(cat ./term-sd/config/fooocus-path.conf)
+    export fooocus_folder=$(basename "$fooocus_path")
+    export fooocus_parent_path=$(dirname "$fooocus_path")
+else
+    export fooocus_path="$start_path/Fooocus"
+    export fooocus_folder="Fooocus"
+    export fooocus_parent_path=$start_path
+fi
+
+if [ -f "./term-sd/config/lora-scripts-path.conf" ];then
+    export lora_scripts_path=$(cat ./term-sd/config/lora-scripts-path.conf)
+    export lora_scripts_folder=$(basename "$lora_scripts_path")
+    export lora_scripts_parent_path=$(dirname "$lora_scripts_path")
+else
+    export lora_scripts_path="$start_path/lora-scripts"
+    export lora_scripts_folder="lora-scripts"
+    export lora_scripts_parent_path=$start_path
+fi
+
+if [ -f "./term-sd/config/kohya_ss-path.conf" ];then
+    export kohya_ss_path=$(cat ./term-sd/config/kohya_ss-path.conf)
+    export kohya_ss_folder=$(basename "$kohya_ss_path")
+    export kohya_ss_parent_path=$(dirname "$kohya_ss_path")
+else
+    export kohya_ss_path="$start_path/kohya_ss"
+    export kohya_ss_folder="kohya_ss"
+    export kohya_ss_parent_path=$start_path
 fi
 
 # 依赖检测
