@@ -19,7 +19,7 @@ term_sd_update_manager()
         case $term_sd_update_manager_dialog in
             1)
                 term_sd_echo "更新Term-SD中"
-                date +'%Y-%m-%d %H:%M:%S' > term-sd/config/term-sd-auto-update-time.conf # 记录更新时间
+                [ -f "term-sd/config/term-sd-auto-update.lock" ] && date +'%Y-%m-%d %H:%M:%S' > term-sd/config/term-sd-auto-update-time.conf # 记录更新时间
                 cd term-sd
                 git_pull_repository
                 if [ $? = 0 ];then
