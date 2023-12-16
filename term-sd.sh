@@ -204,7 +204,7 @@ term_sd_pause()
 # 测试输入值是参数还是选项,选项输出0,参数输出1(用于实现getopt命令的功能)
 term_sd_test_args()
 {
-    echo $@ | awk -F ' ' '{for (i=1; i<=NF; i++) {if (substr($i, 1, 2) == "--") {print "0"} else {print "1"}}}'
+    echo $@ | awk '{for (i=1; i<=NF; i++) {if (substr($i, 1, 2) == "--") {print "0"} else {print "1"}}}'
 }
 
 # 提示未知启动参数
@@ -399,7 +399,7 @@ term_sd_install_mirror_select()
     term_sd_echo "1、github源"
     term_sd_echo "2、gitlab源"
     term_sd_echo "3、gitee源"
-    term_sd_echo "4、jihulab源"
+    term_sd_echo "4、极狐源"
     term_sd_echo "5、代理源(mirror.ghproxy.com)"
     term_sd_echo "提示:输入数字后回车"
     case $(term_sd_read) in
@@ -416,7 +416,7 @@ term_sd_install_mirror_select()
             term_sd_install_mirror="https://gitee.com/four-dishes/term-sd"
             ;;
         4)
-            term_sd_echo "选择jihulab源"
+            term_sd_echo "选择极狐源"
             term_sd_install_mirror="https://jihulab.com/licyk/term-sd"
             ;;
         5)
@@ -450,6 +450,7 @@ term_sd_install()
                     export term_sd_cmd_retry=3
                     term_sd_echo "Term-SD命令执行监测设置已自动设置"
                     touch term-sd/config/term-sd-auto-update.lock
+                    date +'%Y-%m-%d %H:%M:%S' > term-sd/config/term-sd-auto-update-time.conf
                     term_sd_echo "Term-SD自动更新已自动设置"
                 else
                     term_sd_echo "Term-SD安装失败"
@@ -480,6 +481,7 @@ term_sd_install()
                     export term_sd_cmd_retry=3
                     term_sd_echo "Term-SD命令执行监测设置已自动设置"
                     touch term-sd/config/term-sd-auto-update.lock
+                    date +'%Y-%m-%d %H:%M:%S' > term-sd/config/term-sd-auto-update-time.conf
                     term_sd_echo "Term-SD自动更新已自动设置"
                 else
                     term_sd_echo "Term-SD安装失败"
@@ -513,6 +515,7 @@ term_sd_reinstall()
                     export term_sd_cmd_retry=3
                     term_sd_echo "Term-SD命令执行监测设置已自动设置"
                     touch term-sd/config/term-sd-auto-update.lock
+                    date +'%Y-%m-%d %H:%M:%S' > term-sd/config/term-sd-auto-update-time.conf
                     term_sd_echo "Term-SD自动更新已自动设置"
                 else
                     term_sd_echo "Term-SD安装失败"
@@ -635,7 +638,7 @@ set_python_path()
 
 #############################
 
-export term_sd_version_info="1.2.0" # term-sd版本
+export term_sd_version_info="1.2.1" # term-sd版本
 export user_shell=$(basename $SHELL) # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题

@@ -11,7 +11,7 @@ Term-SD在下载好后，只会有一个基础的配置脚本`term-sd.sh`，当�
 - 1、github源
 - 2、gitee源
 - 3、gitlab源
-- 4、jihulab源
+- 4、极狐源
 - 5、代理源(ghproxy.com)
 
 一般情况下选择任意一种都可以进行下载  
@@ -70,8 +70,8 @@ Term-SD在使用安装、管理AI软件的功能时，会使用准备功能来�
 - 14、Torch 2.1.1（CUDA12.1）+xFormers 0.0.23
 
 选择版本时需要根据系统类型和显卡选择  
-- 在Windows系统中，Nvidia显卡选择Torch（CUDA）+xformers的版本，AMD显卡Torch(Directml)的版本，Intel显卡选择Torch 2.0.0+IPEX的版本  
-- 在Linux系统中，Nvidia显卡选择Torch（CUDA）+xformers的版本，AMD显卡选择Torch+Rocm的版本，Intel显卡选择Torch 2.0.0+IPEX版本  
+- 在Windows系统中，Nvidia显卡选择Torch（CUDA）+xformers的版本，AMD显卡Torch(Directml)的版本，Intel显卡选择Torch+IPEX的版本  
+- 在Linux系统中，Nvidia显卡选择Torch（CUDA）+xformers的版本，AMD显卡选择Torch+Rocm的版本，Intel显卡选择Torch+IPEX版本  
 - 在MacOS系统中，选择Torch版本  
 - 如果想要使用CPU进行跑图，选择Torch+CPU的版本
 
@@ -555,14 +555,14 @@ xformers==0.0.21 numpy
 
 ### 扩展脚本
 Term-SD包含了一些扩展脚本，扩充Term-SD的功能
-- 1、download-hanamizuki：下载绘世启动器
+- 1、download-hanamizuki：下载绘世启动器，并自动放入绘世启动器支持的AI软件的目录中
 - 2、list：列出可用的扩展脚本
 - 3、invokeai-model-download：下载InvokeAI模型，包含controlnet模型和部分大模型模型，解决使用官方配置程序因无法访问huggingface而下载失败的问题
-- 4、download-sd-webui-extension：下载stable-diffusion-webui插件
-- 5、download-comfyui-extension：下载ComfyUI插件
+- 4、download-sd-webui-extension：下载stable-diffusion-webui插件（脚本包含的插件列表在Term-SD的帮助中有说明）
+- 5、download-comfyui-extension：下载ComfyUI插件（脚本包含的插件列表在Term-SD的帮助中有说明）
 - 6、fix-bitsandbytes-for-kohya-ss-on-windows：修复原版bitsandbytes在Windows端无法运行导致kohya_ss报错无法进行训练的问题
 - 7、fix-bitsandbytes-for-sd-webui-on-windows：修复原版bitsandbytes在Windows端无法运行导致stable-diffusion-webui中的模型训练插件报错无法进行训练的问题（训练模型不建议在stable-diffusion-webui中进行，请使用lora-scripts或者kohya_ss进行模型训练）
-- 8、file-backup：备份/恢复AI软件的数据
+- 8、file-backup：备份/恢复AI软件的数据，备份文件储存在Term-SD的`backup`文件夹中
 
 >如果需要使用扩展脚本，则在启动Term-SD前加入`--extra`启动参数即可使用扩展脚本
 

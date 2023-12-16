@@ -3,12 +3,13 @@
 # 加载模块
 . ./term-sd/modules/term_sd_manager.sh
 . ./term-sd/modules/term_sd_task_manager.sh
+. ./term-sd/modules/get_modelscope_model.sh
 
 # 模型选择
 invokeai_model_select()
 {
     invokeai_model_select_dialog=$(
-        dialog --erase-on-exit --notags --title "IovokeAI管理" --backtitle "IovokeAI模型下载" --ok-label "确认" --cancel-label "取消" --checklist "请选择需要下载的InvokeAI模型" 20 60 10 \
+        dialog --erase-on-exit --notags --title "IovokeAI管理" --backtitle "IovokeAI模型下载" --ok-label "确认" --cancel-label "取消" --checklist "请选择需要下载的InvokeAI模型" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "invokeai_embed" ">-----embedding模型列表-----" ON \
         "__invokeai_model_embed_sd15_1" "EasyNegative" OFF \
         "__invokeai_model_embed_sdxl_1" "ahx-beta-453407d" OFF \
@@ -338,7 +339,7 @@ invokeai_model_download()
     fi
 }
 
-if [ -d ""$invokeai_path"" ];then
+if [ -d "$invokeai_path" ];then
     invokeai_model_download
 else
     term_sd_echo "未安装InvokeAI"

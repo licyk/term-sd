@@ -68,7 +68,7 @@ term_sd_remote_revise()
         "1" "> github源" \
         "2" "> gitlab源" \
         "3" "> gitee源" \
-        "4" "> jihulab源" \
+        "4" "> 极狐源" \
         "5" "> 代理源(ghproxy.com)" \
         3>&1 1>&2 2>&3)
     
