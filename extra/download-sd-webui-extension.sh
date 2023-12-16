@@ -1,11 +1,11 @@
 #!/bin/bash
 
-source ./term-sd/modules/install_prepare.sh
-source ./term-sd/modules/get_modelscope_model.sh
-source ./term-sd/modules/term_sd_git.sh
-source ./term-sd/modules/term_sd_task_manager.sh
-source ./term-sd/modules/term_sd_manager.sh
-source ./term-sd/modules/term_sd_proxy.sh
+. ./term-sd/modules/install_prepare.sh
+. ./term-sd/modules/get_modelscope_model.sh
+. ./term-sd/modules/term_sd_git.sh
+. ./term-sd/modules/term_sd_task_manager.sh
+. ./term-sd/modules/term_sd_manager.sh
+. ./term-sd/modules/term_sd_proxy.sh
 
 install_sd_webui_extension()
 {

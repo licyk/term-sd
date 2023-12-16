@@ -635,7 +635,7 @@ set_python_path()
 
 #############################
 
-export term_sd_version_info="1.2.0dev4" # term-sd版本
+export term_sd_version_info="1.2.0" # term-sd版本
 export user_shell=$(basename $SHELL) # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题

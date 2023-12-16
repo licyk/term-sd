@@ -84,10 +84,10 @@ python_package_ver_backup_list()
     if [ $? = 0 ];then
         if [ $python_package_ver_backup_list_dialog = "-->返回<--" ];then
             echo
-        elif [ -f ""$start_path"/term-sd/requirements-backup/$backup_req_sd_name/$python_package_ver_backup_list_dialog" ];then # 选择的是文件
+        elif [ -f "$start_path/term-sd/requirements-backup/$backup_req_sd_name/$python_package_ver_backup_list_dialog" ];then # 选择的是文件
             process_python_package_ver_backup
             python_package_ver_backup_list
-        elif [ -d ""$start_path"/term-sd/requirements-backup/$backup_req_sd_name/$python_package_ver_backup_list_dialog" ];then # 选择的是文件夹
+        elif [ -d "$start_path/term-sd/requirements-backup/$backup_req_sd_name/$python_package_ver_backup_list_dialog" ];then # 选择的是文件夹
             python_package_ver_backup_list
         else
             python_package_ver_backup_list

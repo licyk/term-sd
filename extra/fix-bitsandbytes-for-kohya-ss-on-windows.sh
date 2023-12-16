@@ -1,8 +1,8 @@
 #!/bin/bash
 
-source ./term-sd/modules/term_sd_manager.sh
-source ./term-sd/modules/python_venv.sh
-source ./term-sd/modules/term_sd_python_cmd.sh
+. ./term-sd/modules/term_sd_manager.sh
+. ./term-sd/modules/python_venv.sh
+. ./term-sd/modules/term_sd_python_cmd.sh
 
 if [ -d "$kohya_ss_path" ];then
     if [ ! -z $OS ] && [ $OS = "Windows_NT" ];then

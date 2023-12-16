@@ -229,6 +229,7 @@ github_mirror_test()
     local https_proxy
     http_proxy= # 临时清除配置好的代理,防止干扰测试
     https_proxy=
+    [ -d "$start_path/term-sd/github_mirror_test" ] && rm -rf "$start_path/term-sd/github_mirror_test" > /dev/null 2>&1
     for i in $github_mirror_list ;do
         git clone $(git_format_repository_url $i https://github.com/licyk/empty) "$start_path/term-sd/github_mirror_test" --depth=1 > /dev/null 2>&1 # 测试镜像源是否正常连接
         git_req=$?

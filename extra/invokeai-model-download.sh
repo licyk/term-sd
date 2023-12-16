@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # 加载模块
-source ./term-sd/modules/term_sd_manager.sh
-source ./term-sd/modules/term_sd_task_manager.sh
+. ./term-sd/modules/term_sd_manager.sh
+. ./term-sd/modules/term_sd_task_manager.sh
 
 # 模型选择
 invokeai_model_select()

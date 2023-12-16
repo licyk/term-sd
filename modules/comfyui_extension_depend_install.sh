@@ -17,7 +17,7 @@ comfyui_extension_depend_install()
         term_sd_tmp_disable_proxy
         cd "$comfyui_path"
         enter_venv
-        cd -
+        cd -  > /dev/null 2>&1
 
         for i in * ;do # 统计需要安装的依赖
             [ -f "$i" ] && continue # 排除文件
@@ -66,7 +66,7 @@ comfyui_extension_depend_install_single()
 {
     cd "$start_path/ComfyUI"
     enter_venv
-    cd -
+    cd - > /dev/null 2>&1
     local comfyui_extension_depend_install_req
 
     if [ -f "install.py" ] || [ -f "requirements.txt" ];then

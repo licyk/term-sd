@@ -162,7 +162,7 @@ fooocus_launch()
 {
     local fooocus_launch_dialog
 
-    if [ ! -f ""$start_path"/term-sd/config/fooocus-launch.conf" ]; then # 找不到启动配置时默认生成一个
+    if [ ! -f "$start_path/term-sd/config/fooocus-launch.conf" ]; then # 找不到启动配置时默认生成一个
         term_sd_echo "未找到启动配置文件,创建中"
         echo "launch.py " > "$start_path"/term-sd/config/fooocus-launch.conf
     fi

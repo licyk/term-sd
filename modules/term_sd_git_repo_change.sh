@@ -159,7 +159,7 @@ sd_webui_remote_revise()
             if [ -d "$i/.git" ];then
                 cd "$i"
                 $git_repo_remote_revise_cmd
-                cd - > /dev/null
+                cd - > /dev/null 2>&1
             fi
         done
 
@@ -169,7 +169,7 @@ sd_webui_remote_revise()
             if [ -d "$i/.git" ];then
                 cd "$i"
                 $git_repo_remote_revise_cmd
-                cd - > /dev/null
+                cd - > /dev/null 2>&1
             fi
         done
 
@@ -197,7 +197,7 @@ comfyui_remote_revise()
                 if [ -d "$i/.git" ];then
                     cd "$i"
                     $git_repo_remote_revise_cmd
-                    cd - > /dev/null
+                    cd - > /dev/null 2>&1
                 fi
             fi
         done
@@ -209,7 +209,7 @@ comfyui_remote_revise()
                 if [ -d "$i/.git" ];then
                     cd "$i"
                     $git_repo_remote_revise_cmd
-                    cd - > /dev/null
+                    cd - > /dev/null 2>&1
                 fi
             fi
         done
