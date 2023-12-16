@@ -635,11 +635,8 @@ set_python_path()
 
 #############################
 
-term_sd_print_line "Term-SD"
-term_sd_echo "Term-SD初始化中"
-
-export term_sd_version_info="1.2.0dev2" # term-sd版本
-export user_shell=$(echo $SHELL | awk -F "/" '{print $NF}') # 读取用户所使用的shell
+export term_sd_version_info="1.2.0dev3" # term-sd版本
+export user_shell=$(basename $SHELL) # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题
 export PYTHONIOENCODING=utf8
@@ -663,12 +660,15 @@ term_sd_shell_height=$(stty size | awk '{print $1}') # 获取终端高度
 # 详见https://github.com/microsoft/TaskMatrix/issues/250
 export no_proxy="localhost,127.0.0.1,::1" # 除了避免http_proxy变量的影响,也避免了代理软件的影响(在启动a1111-sd-webui前开启代理软件可能会导致webui无法生图(启动后再开启没有影响),并报错,设置该变量后完美解决该问题)
 
+term_sd_print_line "Term-SD"
+
 # 检测term-sd是直接启动还是重启
 case $term_sd_env_prepare_info in
     0) # 检测到是重启
         term_sd_echo "重启Term-SD中"
         ;;
     *)
+        term_sd_echo "Term-SD初始化中"
         term_sd_launch_args_manager "$@" # 处理用户输入的参数
         ;;
 esac

@@ -17,28 +17,46 @@ term_sd_file_manager()
 
     case $(term_sd_read) in
         1)
-            data_backup_manager stable-diffusion-webui
-            true
+            if [ -d "$sd_webui_path" ];then
+                data_backup_manager stable-diffusion-webui
+            else
+                term_sd_echo "未安装stable-diffusion-webui"
+            fi
             ;;
         2)
-            data_backup_manager ComfyUI
-            true
+            if [-d "$comfyui_path" ];then
+                data_backup_manager ComfyUI
+            else
+                term_sd_echo "未安装ComfyUI"
+            fi
             ;;
         3)
-            data_backup_manager InvokeAI
-            true
+            if [ -d "$invokeai_path" ];then
+                data_backup_manager InvokeAI
+            else
+                term_sd_echo "未安装InvokeAI"
+            fi
             ;;
         4)
-            data_backup_manager Fooocus
-            true
+            if [ -d "$fooocus_path" ];then
+                data_backup_manager Fooocus
+            else
+                term_sd_echo "未安装Fooocus"
+            fi
             ;;
         5)
-            data_backup_manager lora-scripts
-            true
+            if [ -d "$lora_scripts_path" ];then
+                data_backup_manager lora-scripts
+            else
+                term_sd_echo "未安转lora-scripts"
+            fi
             ;;
         6)
-            data_backup_manager kohya_ss
-            true
+            if [ -d "$kohya_ss_path" ];then
+                data_backup_manager kohya_ss
+            else
+                term_sd_echo "未安装kohya_ss"
+            fi
             ;;
         7)
             term_sd_file_manager_help
@@ -56,11 +74,6 @@ term_sd_file_manager()
 data_backup_manager()
 {
     local start_time
-
-    if [ ! -d "./${1}" ];then
-        term_sd_echo "${1}未安装"
-        return 1
-    fi
 
     term_sd_echo "请选择要进行的操作"
     term_sd_echo "1、备份${1}数据"
@@ -288,6 +301,7 @@ comfyui_data_backup()
     cp -rf "$comfyui_path"/models ./term-sd/backup/ComfyUI/
     cp -rf "$comfyui_path"/output ./term-sd/backup/ComfyUI/
     cp -rf "$comfyui_path"/web/extensions ./term-sd/backup/ComfyUI/
+    [ -f "$comfyui_path/extra_model_paths.yaml" ] && cp -rf "$comfyui_path"/extra_model_paths.yaml ./term-sd/backup/ComfyUI/
     rm -rf ./term-sd/backup/ComfyUI/web/extensions/core
     rm -f ./term-sd/backup/ComfyUI/web/extensions/logging.js.example
 }
@@ -298,18 +312,47 @@ comfyui_data_restore()
     cp -rf ./term-sd/backup/ComfyUI/models "$comfyui_path"/
     cp -rf ./term-sd/backup/ComfyUI/output "$comfyui_path"/
     cp -rf ./term-sd/backup/ComfyUI/web/extensions "$comfyui_path"/
+    [ -f "./term-sd/backup/ComfyUI/extra_model_paths.yaml" ] && cp -f ./term-sd/backup/ComfyUI/extra_model_paths.yaml "$comfyui_path"/
 }
 
 # invokeai
 invokeai_data_backup()
 {
     [ ! -d "./term-sd/backup/InvokeAI" ] && mkdir ./term-sd/backup/InvokeAI
-    cp -rf "$invokeai_path"/invokeai ./term-sd/backup/InvokeAI/
+    cp -rf "$invokeai_path"/invokeai/autoimport ./term-sd/backup/InvokeAI/
+    cp -rf "$invokeai_path"/invokeai/configs ./term-sd/backup/InvokeAI/
+    cp -rf "$invokeai_path"/invokeai/databases ./term-sd/backup/InvokeAI/
+    cp -rf "$invokeai_path"/invokeai/nodes ./term-sd/backup/InvokeAI/
+    cp -rf "$invokeai_path"/invokeai/outputs ./term-sd/backup/InvokeAI/
+    cp -rf "$invokeai_path"/invokeai/text-inversion-output ./term-sd/backup/InvokeAI/
+    cp -rf "$invokeai_path"/invokeai/text-inversion-training-data ./term-sd/backup/InvokeAI/
+    cp -f "$invokeai_path"/invokeai/invokeai.yaml ./term-sd/backup/InvokeAI/
+    [ ! -d "./term-sd/backup/InvokeAI/models" ] && mkdir -p ./term-sd/backup/InvokeAI/models
+    cp -rf "$invokeai_path"/invokeai/models/any ./term-sd/backup/InvokeAI/models/
+    cp -rf "$invokeai_path"/invokeai/models/core ./term-sd/backup/InvokeAI/models/
+    cp -rf "$invokeai_path"/invokeai/models/sd-1 ./term-sd/backup/InvokeAI/models/
+    cp -rf "$invokeai_path"/invokeai/models/sd-2 ./term-sd/backup/InvokeAI/models/
+    cp -rf "$invokeai_path"/invokeai/models/sdxl ./term-sd/backup/InvokeAI/models/
+    cp -rf "$invokeai_path"/invokeai/models/sdxl-refiner ./term-sd/backup/InvokeAI/models/
 }
 
 invokeai_data_restore()
 {
-    cp -rf ./term-sd/backup/InvokeAI/invokeai "$invokeai_path"/
+    cp -rf ./term-sd/backup/InvokeAI/autoimport "$invokeai_path"/invokeai/
+    cp -rf ./term-sd/backup/InvokeAI/configs "$invokeai_path"/invokeai/
+    cp -rf ./term-sd/backup/InvokeAI/databases "$invokeai_path"/invokeai/
+    cp -rf ./term-sd/backup/InvokeAI/nodes "$invokeai_path"/invokeai
+    cp -rf ./term-sd/backup/InvokeAI/outputs "$invokeai_path"/invokeai/
+    cp -rf ./term-sd/backup/InvokeAI/text-inversion-output "$invokeai_path"/invokeai/
+    cp -rf ./term-sd/backup/InvokeAI/text-inversion-training-data "$invokeai_path"/invokeai/
+    cp -f ./term-sd/backup/InvokeAI/invokeai.yaml "$invokeai_path"/invokeai/
+    [ ! -d ""$invokeai_path"/invokeai/models" ] && mkdir -p "$invokeai_path"/invokeai/models
+    cp -rf ./term-sd/backup/InvokeAI/models/any "$invokeai_path"/invokeai/models/
+    cp -rf ./term-sd/backup/InvokeAI/models/core "$invokeai_path"/invokeai/models/
+    cp -rf ./term-sd/backup/InvokeAI/models/sd-1 "$invokeai_path"/invokeai/models/
+    cp -rf ./term-sd/backup/InvokeAI/models/sd-2 "$invokeai_path"/invokeai/models/
+    cp -rf ./term-sd/backup/InvokeAI/models/sdxl "$invokeai_path"/invokeai/models/
+    cp -rf ./term-sd/backup/InvokeAI/models/sdxl-refiner "$invokeai_path"/invokeai/models/
 }
 
 # fooocus
