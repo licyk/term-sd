@@ -195,7 +195,7 @@ term_sd_help()
             term_sd_help
             ;;
         2)
-            less --mouse --prompt="[Term-SD]提示\:使用方向键\/鼠标滚轮进行翻页,按下\"q\"退出帮助界面" term-sd/help/how_to_use_term_sd.md
+            less --mouse --prompt="[Term-SD]提示\:使用方向键\/\"u\",\"d\"键\/鼠标滚轮进行翻页,按下\"q\"键返回帮助列表" term-sd/help/how_to_use_term_sd.md
             term_sd_help
             ;;
         3)
