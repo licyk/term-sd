@@ -1,9 +1,9 @@
 AI软件的目录说明：
-在启用venv虚拟环境后，在安装时AI软件的目录下会产生venv文件夹，这个是python软件包安装的目录
-ai软件自动下载部分模型（如clip，u2net模型）将储存在Term-SD目录中，可在<Term-SD所在目录>/term-sd/cache中查看
+在启用venv虚拟环境后，在安装时AI软件的目录下会产生venv文件夹，这个是Python软件包安装的目录
+AI软件自动下载部分模型（如clip，u2net模型）将储存在Term-SD目录中，可在<Term-SD所在目录>/term-sd/cache中查看
 
 
-stable diffusion webui目录的说明（只列举比较重要的）：
+Stable-Diffusion-WebUI目录的说明（只列举比较重要的）：
 stable-diffusion-webui
 ├── embeddings   embeddings模型存放位置
 ├── extensions   插件存放位置

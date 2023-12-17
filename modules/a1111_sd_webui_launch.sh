@@ -9,10 +9,10 @@ a1111_sd_webui_launch_args_setting()
     a1111_sd_webui_launch_args_dialog=$(
         dialog --erase-on-exit --notags --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI启动参数选项" --ok-label "确认" --cancel-label "取消" --checklist "请选择A1111-Stable-Diffusion-Webui启动参数,确认之后将覆盖原有启动参数配置" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "1" "(update-all-extensions)启动时更新所有扩展" OFF \
-        "2" "(skip-python-version-check)跳过检查python版本" OFF \
+        "2" "(skip-python-version-check)跳过检查Python版本" OFF \
         "3" "(skip-torch-cuda-test)跳过CUDA可用性检查" OFF \
         "4" "(reinstall-xformers)启动时重新安装xformers" OFF \
-        "5" "(reinstall-torch)启动时重新安装pytorch" OFF \
+        "5" "(reinstall-torch)启动时重新安装PyTorch" OFF \
         "6" "(update-check)启动时检查更新" OFF \
         "7" "(test-server)配置测试服务器" OFF \
         "8" "(log-startup)显示详细启动日志" OFF \
@@ -39,7 +39,7 @@ a1111_sd_webui_launch_args_setting()
         "29" "(opt-sub-quad-attention)使用sub-quad优化" OFF \
         "30" "(opt-split-attention-invokeai)使用sub-quad-invokeai优化" OFF \
         "31" "(opt-split-attention-v1)使用sub-quad-v1优化" OFF \
-        "32" "(opt-sdp-attention)使用sdp优化(仅限pytorch2.0以上)" OFF \
+        "32" "(opt-sdp-attention)使用sdp优化(仅限PyTorch2.0以上)" OFF \
         "33" "(opt-sdp-no-mem-attention)使用无高效内存使用的sdp优化" OFF \
         "34" "(disable-opt-split-attention)禁用split优化" OFF \
         "35" "(disable-nan-check)禁用潜空间NAN检查" OFF \
@@ -63,7 +63,7 @@ a1111_sd_webui_launch_args_setting()
         "53" "(administrator)启用管理员权限" OFF \
         "54" "(disable-tls-verify)禁用tls证书验证" OFF \
         "55" "(no-gradio-queue)禁用gradio队列" OFF \
-        "56" "(skip-version-check)禁用pytorch,xformers版本检查" OFF \
+        "56" "(skip-version-check)禁用PyTorch,xformers版本检查" OFF \
         "57" "(no-hashing)禁用模型hash检查" OFF \
         "58" "(no-download-sd-model)禁用自动下载模型,即使模型路径无模型" OFF \
         "59" "(add-stop-route)添加/_stop路由以停止服务器" OFF \

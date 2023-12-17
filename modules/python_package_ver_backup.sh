@@ -37,8 +37,8 @@ python_package_ver_backup_manager()
     python_package_ver_backup_manager_dialog=$(
         dialog --erase-on-exit --notags --title "Term-SD" --backtitle "依赖库版本管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的依赖库版本管理功能\n当前"$term_sd_manager_info"依赖库版本备份情况:$( [ ! -z "$(ls "$start_path"/term-sd/requirements-backup/$backup_req_sd_name)" ] && echo \\n$( ls -lrh "$start_path"/term-sd/requirements-backup/$backup_req_sd_name --time-style=+"%Y-%m-%d" | awk 'NR==2 {print $7}' ) || echo "无" )" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
-        "1" "> 备份python依赖库版本" \
-        "2" "> python依赖库版本管理" \
+        "1" "> 备份Python依赖库版本" \
+        "2" "> Python依赖库版本管理" \
         3>&1 1>&2 2>&3)
 
     case $python_package_ver_backup_manager_dialog in
@@ -62,7 +62,7 @@ python_package_ver_backup_manager()
 backup_python_package_ver()
 {
     local python_package_ver_backup_list_file_name
-    term_sd_echo "备份python依赖库版本中"
+    term_sd_echo "备份Python依赖库版本中"
     # 生成一个文件名
     python_package_ver_backup_list_file_name=$(echo requirements-bak-$(date "+%Y-%m-%d-%H-%M-%S").txt)
 
@@ -132,7 +132,7 @@ restore_python_package_ver()
     term_sd_install_confirm # 安装前确认
 
     if [ $? = 0 ];then
-        term_sd_print_line "python软件包版本恢复"
+        term_sd_print_line "Python软件包版本恢复"
         term_sd_echo "开始恢复依赖库版本中,版本$(echo $python_package_ver_backup_list_dialog | awk '{sub(".txt","")}1')"
 
         #这里不要用"",不然会出问题
@@ -147,16 +147,16 @@ restore_python_package_ver()
         term_sd_tmp_disable_proxy #临时取消代理,避免一些不必要的网络减速
         if [ ! -z "$(cat tmp-python-pkg-no-vers.txt)" ];then
             term_sd_print_line "python软件包卸载列表"
-            term_sd_echo "将要卸载以下python软件包"
+            term_sd_echo "将要卸载以下Python软件包"
             cat tmp-python-pkg-no-vers.txt
             term_sd_print_line
-            term_sd_echo "卸载多余软件包中"
+            term_sd_echo "卸载多余Python软件包中"
             term_sd_pip uninstall -y -r tmp-python-pkg-no-vers.txt  #卸载名单中的依赖包
         fi
         rm -rf tmp-python-pkg-no-vers.txt #删除卸载名单列表
         rm -rf tmp-python-pkg-no-vers-bak.txt #删除不需要的包名文件缓存
-        term_sd_print_line "python软件包安装列表"
-        term_sd_echo "将要安装以下python软件包"
+        term_sd_print_line "Python软件包安装列表"
+        term_sd_echo "将要安装以下Python软件包"
         cat "$start_path"/term-sd/requirements-backup/$backup_req_sd_name/$python_package_ver_backup_list_dialog
         term_sd_print_line
         term_sd_echo "恢复依赖库版本中"

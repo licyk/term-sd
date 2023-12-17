@@ -5,7 +5,7 @@ term_sd_file_manager()
 {
     local file_manager_dialog
     term_sd_echo "请选择进行的操作"
-    term_sd_echo "1、stable-diffusion-webui数据管理"
+    term_sd_echo "1、Stable-Diffusion-WebUI数据管理"
     term_sd_echo "2、ComfyUI数据管理"
     term_sd_echo "3、InvokeAI数据管理"
     term_sd_echo "4、Fooocus数据管理"
@@ -20,7 +20,7 @@ term_sd_file_manager()
             if [ -d "$sd_webui_path" ];then
                 data_backup_manager stable-diffusion-webui
             else
-                term_sd_echo "未安装stable-diffusion-webui"
+                term_sd_echo "未安装Stable-Diffusion-WebUI"
             fi
             ;;
         2)
@@ -163,7 +163,7 @@ term_sd_file_manager_help()
 该备份脚本会在Term-SD目录生成"term-sd/backup"文件夹,用于储存备份数据
 以下为脚本备份的数据:
 
-stable-diffusion-webui
+Stable-Diffusion-WebUI
 ├── cache.json      模型hash缓存
 ├── config.json     webui设置
 ├── embeddings      embeddings模型目录

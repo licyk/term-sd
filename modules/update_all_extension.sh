@@ -8,7 +8,7 @@ update_all_extension()
     local extension_update_sum=0
     local extension_update_count=0
 
-    term_sd_print_line "$term_sd_manager_info 插件一键更新"
+    term_sd_print_line "${term_sd_manager_info}插件一键更新"
     # 统计需要更新的数量
     for i in * ;do
         [ -f "$i" ] && continue # 排除文件

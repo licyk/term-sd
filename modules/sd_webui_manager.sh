@@ -37,9 +37,9 @@ sd_webui_manager()
             "6" "> 更新源替换" \
             "7" "> 分支切换" \
             "8" "> 更新依赖" \
-            "9" "> python软件包安装/重装/卸载" \
+            "9" "> Python软件包安装/重装/卸载" \
             "10" "> 依赖库版本管理" \
-            "11" "> 重新安装pytorch" \
+            "11" "> 重新安装PyTorch" \
             "12" "> 修复虚拟环境" \
             "13" "> 重新构建虚拟环境" \
             "14" "> 重新安装后端组件" \
@@ -97,7 +97,7 @@ sd_webui_manager()
                 sd_webui_manager
                 ;;
             9)
-                if (dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI的python软件包安装/重装/卸载选项" --yes-label "是" --no-label "否" --yesno "是否进入python软件包安装/重装/卸载选项?" $term_sd_dialog_height $term_sd_dialog_width) then
+                if (dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI的Python软件包安装/重装/卸载选项" --yes-label "是" --no-label "否" --yesno "是否进入Python软件包安装/重装/卸载选项?" $term_sd_dialog_height $term_sd_dialog_width) then
                     python_package_manager
                 fi
                 sd_webui_manager

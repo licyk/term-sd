@@ -18,8 +18,8 @@ download_mirror_select()
 
     download_mirror_select_dialog=$(
         dialog --erase-on-exit --notags --title "Term-SD" --backtitle "安装镜像选项" --title "Term-SD" --ok-label "确认" --no-cancel --checklist "请选择镜像\n注:\n1、当同时启用多个github镜像源时,优先选择最下面的github镜像源;勾选\"github镜像源自动选择\"时,将覆盖手动设置的github镜像源\n2、强制使用pip一般情况下不选" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
-        "1" "启用pip镜像源(使用pip国内镜像源下载python软件包)" ON \
-        "2" "强制使用pip(无视系统警告强制使用pip安装python软件包)" OFF \
+        "1" "启用pip镜像源(使用pip国内镜像源下载Python软件包)" ON \
+        "2" "强制使用pip(无视系统警告强制使用pip安装Python软件包)" OFF \
         "3" "使用modelscope模型下载源(将huggingface下载源改为modelscope下载源)" ON \
         "4" "huggingface/github下载源独占代理(仅在下载huggingface/github上的文件时启用代理)" ON \
         "5" "github镜像源自动选择(测试可用的镜像源并选择自动选择)" $([ ! -z $1 ] && [ $1 = "auto_github_mirrror" ] && echo "ON" || echo "OFF") \
@@ -87,7 +87,7 @@ pytorch_version_select()
     pytorch_install_version=
 
     pytorch_version_select_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "pytorch安装版本选项" --ok-label "确认" --no-cancel --menu "请选择要安装的pytorch版本" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "PyTorch安装版本选项" --ok-label "确认" --no-cancel --menu "请选择要安装的PyTorch版本" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "1" "> Torch+xformers" \
         "2" "> Torch" \
         "3" "> Torch 2.0.0(Directml)" \
@@ -206,7 +206,7 @@ github镜像:$github_mirror_name\n
 huggingface/github下载源独占代理:$([ $term_sd_only_proxy = 0 ] && echo "启用" || echo "禁用")\n
 使用modelscope模型下载源:$([ $use_modelscope_model = 0 ] && echo "启用" || echo "禁用")\n
 强制使用pip:$([ -z "$pip_break_system_package" ] && echo "禁用" || echo "启用")\n
-pytorch版本:$([ ! -z "$(echo $pytorch_install_version | awk '{gsub(/[=+]/, "")}1')" ] && echo $pytorch_install_version || echo "无")\n
+PyTorch版本:$([ ! -z "$(echo $pytorch_install_version | awk '{gsub(/[=+]/, "")}1')" ] && echo $pytorch_install_version || echo "无")\n
 pip安装方式:$([ -z $pip_install_mode ] && echo "常规安装(setup.py)" || echo "标准构建安装(--use-pep517)")\n
 " $term_sd_dialog_height $term_sd_dialog_width);then
         term_sd_echo "确认进行安装"

@@ -31,7 +31,7 @@ comfyui_extension_manager()
                 comfyui_extension_manager
                 ;;
             4) # 选择安装全部插件依赖
-                comfyui_extension_depend_install
+                comfyui_extension_depend_install "插件"
                 comfyui_extension_manager
                 ;;
         esac

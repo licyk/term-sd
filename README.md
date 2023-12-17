@@ -22,7 +22,7 @@ _✨一个小巧，多功能的AI软件管理器_
 
 ## 简介
 Term-SD是一款基于dialog实现前端界面显示的AI管理器，支持安装，管理以下软件  
-- 1、[AUTOMATIC1111-stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui)(支持切换成[SD.Next](https://github.com/vladmandic/automatic)/[stable-diffusion-webui-directml](https://github.com/lshqqytiger/stable-diffusion-webui-directml))  
+- 1、[Stable-Diffusion-WebUI](https://github.com/AUTOMATIC1111/stable-diffusion-webui)(支持切换成[SD.Next](https://github.com/vladmandic/automatic)/[Stable-Diffusion-WebUI-DirectML](https://github.com/lshqqytiger/stable-diffusion-webui-directml))  
 - 2、[ComfyUI](https://github.com/comfyanonymous/ComfyUI)  
 - 3、[InvokeAI](https://github.com/invoke-ai/InvokeAI)  
 - 4、[Fooocus](https://github.com/lllyasviel/Fooocus)  
@@ -58,13 +58,13 @@ _！Windows平台可阅读图文版[《Windows平台如何配置Term-SD运行环
 >这里不用MSYS2安装git，这是因为如果要在绘世启动器，powershell，cmd使用git，需要将MSYS2添加到环境变量，在这步出错容易导致系统出问题，所以改用手动下git安装包来安装  
 如果你完全不担心这种问题并且有足够的能力解决电脑系统问题，可以用MSYS2安装git，并将MSYS2添加到环境变量中
 
-- 3、安装python，pip
+- 3、安装Python，pip
 
-进入[python官网](https://www.python.org/downloads/release/python-31011/)    
-在python3.10的页面找到`Windows installer (64-bit)`，点击下载  
-打开python安装包，在安装界面点击`customize installation`，然后点击`next`，勾选`Add Python to environment variables`，再点击`browse`，自己选择要安装的位置，选择好后点击`install`，等待安装完成  
+进入[Python官网](https://www.python.org/downloads/release/python-31011/)    
+在Python3.10的页面找到`Windows installer (64-bit)`，点击下载  
+打开Python安装包，在安装界面点击`customize installation`，然后点击`next`，勾选`Add Python to environment variables`，再点击`browse`，自己选择要安装的位置，选择好后点击`install`，等待安装完成  
 安装结束后先不要关闭安装界面，先点击`Disable path length limit`（没有该选项时则不用理会），再退出  
->1、python安装器在安装python时同时安装pip（安装选项中已默认勾选安装pip），所以不需要手动再去安装pip  
+>1、Python安装器在安装Python时同时安装pip（安装选项中已默认勾选安装pip），所以不需要手动再去安装pip  
 >2、`Disable path length limit`为启用Windows系统的长路径支持，具体查看微软官方文档[《最大路径长度限制》](https://learn.microsoft.com/zh-cn/windows/win32/fileio/maximum-file-path-limitation)，之前已经在Windows系统中启用该功能之后，选项`Disable path length limit`将不会显示
 
 
@@ -87,7 +87,7 @@ C:\msys64\ucrt64.ico
 
 保存后生效，在标题栏点击向下的箭头就可以看到`MSYS2 UCRT64`，打开后就可以下载和运行Term-SD（一定要用在`Windows终端`配置好的`MSYS2 UCRT64`运行Term-SD，`powershell`和`cmd`是没法运行Term-SD的）
 >Windows终端默认启动powershell，如果想要启动时直接启动`MSYS2 UCRT64`，可以在Windows终端设置，`启动`->`默认配置文件`，将`Windows Powershell`改成`MSYS2 UCRT64`，这样每次打开Windows终端时默认就会打开MSYS2 UCRT64  
-如果要用MSYS2安装程序安装的`MSYS2 UCRT64`终端也可以，使用前需要手动编辑`/etc/profile`文件里的`MSYS2_PATH`变量，将aria2c，python添加进去，因为MSYS2安装的`MSYS2 UCRT64`终端并不会读取`系统属性`里设置的变量
+如果要用MSYS2安装程序安装的`MSYS2 UCRT64`终端也可以，使用前需要手动编辑`/etc/profile`文件里的`MSYS2_PATH`变量，将Python添加进去，因为MSYS2安装的`MSYS2 UCRT64`终端并不会读取`系统属性`里设置的变量
 
 - 5、配置MSYS2镜像源
 
@@ -183,7 +183,8 @@ aria2c https://github.com/licyk/term-sd/raw/main/term-sd.sh && chmod +x term-sd.
 ```
 aria2c https://gitlab.com/licyk/term-sd/-/raw/main/term-sd.sh && chmod +x term-sd.sh
 ```
->term-sd.sh文件所在位置决定了Term-SD安装路径和Term-SD安装ai软件的路径，所以要选好一个自己想要安装的路径再下载
+>1、term-sd.sh文件所在位置决定了Term-SD安装路径和Term-SD安装AI软件的路径，所以要选好一个自己想要安装的路径再下载  
+>2、Term-SD已支持修改AI软件的安装路径，可以在Term-SD的`设置`->`自定义安装路径`中设置，该功能的说明在[《如何使用Term-SD》](https://github.com/licyk/README-collection/blob/main/term-sd/README_how_to_use_term_sd.md)
 
 - 2、启动Term-SD
 

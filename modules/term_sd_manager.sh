@@ -127,7 +127,7 @@ term_sd_manager()
     term_sd_manager_dialog=$(
         dialog --erase-on-exit --notags --title "Term-SD" --backtitle "主界面" --ok-label "确认" --cancel-label "取消" --menu "请选择Term-SD的功能\n当前虚拟环境状态:$([ $venv_setup_status = 0 ] && echo "启用" || echo "禁用")\n当前代理设置:$([ -z $http_proxy ] && echo "无" || echo $http_proxy)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> Term-SD更新管理" \
-        "1" "> AUTOMATIC1111-stable-diffusion-webui管理" \
+        "1" "> Stable-Diffusion-WebUI管理" \
         "2" "> ComfyUI管理" \
         "3" "> InvokeAI管理" \
         "4" "> Fooocus管理" \

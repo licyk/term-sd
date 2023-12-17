@@ -34,11 +34,11 @@ install_sd_webui_extension()
         fi
 
         term_sd_echo "任务队列生成完成"
-        term_sd_echo "开始下载stable-diffusion-webui插件"
+        term_sd_echo "开始下载Stable-Diffusion-WebUI插件"
         cmd_sum=$(( $(cat "$start_path/term-sd/task/sd_webui_install_extension.sh" | wc -l) + 1 )) # 统计命令行数
         for ((cmd_point=1;cmd_point<=cmd_sum;cmd_point++))
         do
-            term_sd_echo "stable-diffusion-webui安装进度:[$cmd_point/$cmd_sum]"
+            term_sd_echo "Stable-Diffusion-WebUI安装进度:[$cmd_point/$cmd_sum]"
             install_cmd=$(term_sd_get_task_cmd $(cat "$start_path/term-sd/task/sd_webui_install_extension.sh" | awk 'NR=='${cmd_point}'{print$0}'))
 
             if [ -z "$(echo "$(cat "$start_path/term-sd/task/sd_webui_install_extension.sh" | awk 'NR=='${cmd_point}'{print$0}')" | grep -o __term_sd_task_done_ )" ];then # 检测命令是否需要执行
@@ -53,16 +53,16 @@ install_sd_webui_extension()
             done
 
             term_sd_tmp_enable_proxy # 恢复代理
-            term_sd_echo "stable-diffusion-webui插件下载结束"
+            term_sd_echo "Stable-Diffusion-WebUI插件下载结束"
             rm -f "$start_path/term-sd/task/sd_webui_install_extension.sh" # 删除任务文件
             rm -f "$start_path/term-sd/task/cache.sh"
     else
-        term_sd_echo "取消下载stable-diffusion-webui插件"
+        term_sd_echo "取消下载Stable-Diffusion-WebUI插件"
     fi
 }
 
 if [ -d "$sd_webui_path" ];then
     install_sd_webui_extension
 else
-    term_sd_echo "未安装stable-diffusion-webui"
+    term_sd_echo "未安装Stable-Diffusion-WebUI"
 fi

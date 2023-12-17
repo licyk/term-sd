@@ -6,8 +6,8 @@
 
 if [ -d "$sd_webui_path" ];then
     if [ ! -z $OS ] && [ $OS = "Windows_NT" ];then
-        term_sd_echo "开始修复stable-diffusion-webui环境的bitsandbytes"
-        term_sd_echo "提示:不建议在stable-diffusion-webui中进行模型训练,如需训练模型,请使用lora-scripts或者kohya_ss"
+        term_sd_echo "开始修复Stable-Diffusion-WebUI环境的bitsandbytes"
+        term_sd_echo "提示:不建议在Stable-Diffusion-WebUI中进行模型训练,如需训练模型,请使用lora-scripts或者kohya_ss"
         cd "$sd_webui_path"
         create_venv
         enter_venv
@@ -23,7 +23,7 @@ if [ -d "$sd_webui_path" ];then
         term_sd_echo "检测到当前系统不是Windows系统,无需修复bitsandbytes"
     fi
 else
-    term_sd_echo "stable-diffusion-webui未安装"
+    term_sd_echo "Stable-Diffusion-WebUI未安装"
 fi
 
 cd "$start_path"

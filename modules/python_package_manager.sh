@@ -9,10 +9,10 @@ python_package_manager()
     pip_install_mode_select # 安装方式选择
     pip_manage_package_methon_select # 强制安装选择
 
-    python_package_name=$(dialog --erase-on-exit --title "Term-SD" --backtitle ""$term_sd_manager_info" pip软件包安装/重装/卸载选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入需要安装/重装/卸载的pip软件包名" $term_sd_dialog_height $term_sd_dialog_width 3>&1 1>&2 2>&3)
+    python_package_name=$(dialog --erase-on-exit --title "Term-SD" --backtitle "$term_sd_manager_info Python软件包安装/重装/卸载选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入需要安装/重装/卸载的Python软件包名" $term_sd_dialog_height $term_sd_dialog_width 3>&1 1>&2 2>&3)
     if [ $? = 0 ] && [ ! -z "$(echo $python_package_name | awk '{gsub(/[=+<>]/, "")}1')" ];then
-        term_sd_print_line "pip软件包$pip_manage_package_methon_info"
-        term_sd_echo "将"$pip_manage_package_methon_info"以下python软件包"
+        term_sd_print_line "Python软件包$pip_manage_package_methon_info"
+        term_sd_echo "将"$pip_manage_package_methon_info"以下Python软件包"
         echo $python_package_name
         term_sd_print_line
         enter_venv
@@ -35,14 +35,14 @@ python_package_manager()
                 ;;
         esac
 
-        term_sd_echo "${pip_manage_package_methon_info}python软件包结束"
+        term_sd_echo "${pip_manage_package_methon_info}Python软件包结束"
 
         if [ $? = 0 ];then
             term_sd_print_line
-            dialog --erase-on-exit --title "Term-SD" --backtitle "pip软件包"$pip_manage_package_methon_info"结果" --ok-label "确认" --msgbox "以下python软件包"$pip_manage_package_methon_info"成功\n${term_sd_delimiter}\n$python_package_name\n${term_sd_delimiter}" $term_sd_dialog_height $term_sd_dialog_width
+            dialog --erase-on-exit --title "Term-SD" --backtitle "Python软件包"$pip_manage_package_methon_info"结果" --ok-label "确认" --msgbox "以下Python软件包"$pip_manage_package_methon_info"成功\n${term_sd_delimiter}\n$python_package_name\n${term_sd_delimiter}" $term_sd_dialog_height $term_sd_dialog_width
         else
             term_sd_print_line
-            dialog --erase-on-exit --title "Term-SD" --backtitle "pip软件包"$pip_manage_package_methon_info"结果" --ok-label "确认" --msgbox "以下python软件包"$pip_manage_package_methon_info"失败\n${term_sd_delimiter}\n$python_package_name\n${term_sd_delimiter}" $term_sd_dialog_height $term_sd_dialog_width
+            dialog --erase-on-exit --title "Term-SD" --backtitle "Python软件包"$pip_manage_package_methon_info"结果" --ok-label "确认" --msgbox "以下Python软件包"$pip_manage_package_methon_info"失败\n${term_sd_delimiter}\n$python_package_name\n${term_sd_delimiter}" $term_sd_dialog_height $term_sd_dialog_width
         fi
     fi
 }

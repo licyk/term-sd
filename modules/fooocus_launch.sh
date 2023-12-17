@@ -26,7 +26,7 @@ fooocus_launch_args_setting()
         "16" "(preview-method taesd)使用taesd图片预览" OFF \
         "17" "(use-split-cross-attention)使用split优化" OFF \
         "18" "(use-quad-cross-attention)使用quad优化" OFF \
-        "19" "(use-pytorch-cross-attention)使用pytorch方案优化" OFF \
+        "19" "(use-pytorch-cross-attention)使用PyTorch方案优化" OFF \
         "20" "(disable-xformers)禁用xformers优化" OFF \
         "21" "(gpu-only)将所有模型,文本编码器储存在GPU中" OFF \
         "22" "(highvram)不使用显存优化(生图完成后将模型继续保存在显存中)" OFF \

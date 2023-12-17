@@ -10,7 +10,7 @@ sd_webui_launch()
         echo "launch.py --theme dark --autolaunch --xformers --skip-load-model-at-start" > "$start_path"/term-sd/config/sd-webui-launch.conf
     fi
 
-    term_sd_echo "检测stable-diffusion-webui分支中"
+    term_sd_echo "检测Stable-Diffusion-WebUI分支中"
     sd_webui_branch=$(git remote -v 2> /dev/null | awk 'NR==1 {print $2}')
     if [ ! -z "$(echo $sd_webui_branch | grep stable-diffusion-webui)" ];then
         a1111_sd_webui_launch

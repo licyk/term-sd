@@ -22,9 +22,9 @@ invokeai_manager()
                 "1" "> 启动" \
                 "2" "> 更新" \
                 "3" "> 更新依赖" \
-                "4" "> python软件包安装/重装/卸载" \
+                "4" "> Python软件包安装/重装/卸载" \
                 "5" "> 依赖库版本管理" \
-                "6" "> 重新安装pytorch" \
+                "6" "> 重新安装PyTorch" \
                 "7" "> 修复虚拟环境" \
                 "8" "> 重新构建虚拟环境" \
                 "9" "> 重新安装" \
@@ -59,7 +59,7 @@ invokeai_manager()
                     invokeai_manager
                     ;;
                 4)
-                    if (dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI的python软件包安装/重装/卸载选项" --yes-label "是" --no-label "否" --yesno "是否进入python软件包安装/重装/卸载选项?" $term_sd_dialog_height $term_sd_dialog_width) then
+                    if (dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI的Python软件包安装/重装/卸载选项" --yes-label "是" --no-label "否" --yesno "是否进入Python软件包安装/重装/卸载选项?" $term_sd_dialog_height $term_sd_dialog_width) then
                         python_package_manager
                     fi
                     invokeai_manager

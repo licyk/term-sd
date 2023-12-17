@@ -13,7 +13,7 @@ comfyui_extension_depend_install()
         local comfyui_extension_depend_install_count=0
         local comfyui_extension_depend_install_sum=0
 
-        term_sd_print_line "$term_sd_manager_info ${1}依赖一键安装"
+        term_sd_print_line "${term_sd_manager_info}${1}依赖一键安装"
         term_sd_tmp_disable_proxy
         cd "$comfyui_path"
         enter_venv

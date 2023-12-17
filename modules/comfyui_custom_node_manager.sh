@@ -29,7 +29,7 @@ comfyui_custom_node_manager()
             comfyui_custom_node_manager
             ;;
         4) # 选择安装全部自定义节点依赖
-            comfyui_extension_depend_install
+            comfyui_extension_depend_install "自定义节点"
             comfyui_custom_node_manager
             ;;
     esac

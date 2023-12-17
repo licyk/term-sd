@@ -15,7 +15,7 @@ term_sd_setting()
         "5" "> 代理设置($([ -z $http_proxy ] && echo "无" || echo "代理地址:$(echo $http_proxy | awk '{print substr($1,1,40)}')"))" \
         "6" "> 命令执行监测设置($([ -f "term-sd/config/term-sd-watch-retry.conf" ] && echo "启用(重试次数:$(cat term-sd/config/term-sd-watch-retry.conf))" || echo "禁用"))" \
         "7" "> Term-SD安装模式($([ ! -f "term-sd/config/term-sd-disable-strict-install-mode.lock" ] && echo "严格模式" || echo "宽容模式"))" \
-        "8" "> aria2线程设置($([ -f "term-sd/config/aria2-thread.conf" ] && echo "启用(线程数:$(cat term-sd/config/aria2-thread.conf | awk '{sub("-x ","")}1'))" || echo "禁用"))" \
+        "8" "> Aria2线程设置($([ -f "term-sd/config/aria2-thread.conf" ] && echo "启用(线程数:$(cat term-sd/config/aria2-thread.conf | awk '{sub("-x ","")}1'))" || echo "禁用"))" \
         "9" "> 缓存重定向设置($([ ! -f "term-sd/config/disable-cache-path-redirect.lock" ] && echo "启用" || echo "禁用"))" \
         "10" "> CUDA内存分配设置($([ -f "term-sd/config/cuda-memory-alloc.conf" ] && echo $([ ! -z $(cat term-sd/config/cuda-memory-alloc.conf | grep cudaMallocAsync) ] && echo "CUDA内置异步分配器" || echo "PyTorch原生分配器") || echo "未设置"))" \
         "11" "> 自定义安装路径" \
@@ -91,7 +91,7 @@ python_venv_setting()
     export venv_setup_status
 
     python_venv_setting_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "虚拟环境设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于给AI软件启用虚拟环境,隔离不同AI软件的python库,防止python库中软件包版本和AI软件的版本要求不对应\n当前虚拟环境状态:$([ $venv_setup_status = 0 ] && echo "启用" || echo "禁用")\n是否启用虚拟环境?(推荐启用)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "虚拟环境设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于给AI软件启用虚拟环境,隔离不同AI软件的Python库,防止Python库中软件包版本和AI软件的版本要求不对应\n当前虚拟环境状态:$([ $venv_setup_status = 0 ] && echo "启用" || echo "禁用")\n是否启用虚拟环境?(推荐启用)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> 启用" \
         "2" "> 禁用" \
@@ -120,7 +120,7 @@ pip_mirrors_setting()
 
     term_sd_echo "获取pip全局配置"
     pip_mirrors_setting_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "pip镜像源(配置文件)选项" --ok-label "确认" --cancel-label "取消" --menu "该功能用于设置pip镜像源(环境变量)(优先级小于环境变量配置),加速国内下载python软件包的速度\n当前pip全局配置:\n$(term_sd_pip config list | awk '{print$0}')\n请选择设置的pip镜像源(配置文件)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "pip镜像源(配置文件)选项" --ok-label "确认" --cancel-label "取消" --menu "该功能用于设置pip镜像源(环境变量)(优先级小于环境变量配置),加速国内下载Python软件包的速度\n当前pip全局配置:\n$(term_sd_pip config list | awk '{print$0}')\n请选择设置的pip镜像源(配置文件)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> 设置官方源" \
         "2" "> 设置国内镜像源" \
@@ -164,7 +164,7 @@ pip_mirrors_env_setting()
     export PIP_FIND_LINKS
 
     pip_mirrors_env_setting_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "pip镜像源(环境变量)选项" --ok-label "确认" --cancel-label "取消" --menu "该功能用于设置pip镜像源(环境变量)(优先级大于全局配置),加速国内下载python软件包的速度\n当前pip环境变量配置:$([ ! -z $(echo $PIP_INDEX_URL | grep "pypi.python.org") ] && echo "官方源" || echo "国内镜像源")\n请选择设置的pip镜像源(环境变量)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "pip镜像源(环境变量)选项" --ok-label "确认" --cancel-label "取消" --menu "该功能用于设置pip镜像源(环境变量)(优先级大于全局配置),加速国内下载Python软件包的速度\n当前pip环境变量配置:$([ ! -z $(echo $PIP_INDEX_URL | grep "pypi.python.org") ] && echo "官方源" || echo "国内镜像源")\n请选择设置的pip镜像源(环境变量)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> 设置官方源" \
         "2" "> 设置国内镜像源(默认)" \
@@ -340,7 +340,7 @@ aria2_multi_threaded_setting()
     export aria2_multi_threaded
 
     aria2_multi_threaded_setting_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于增加Term-SD在使用aria2下载模型时的线程数,在一定程度上提高下载速度\n当前状态:$([ -f "term-sd/config/aria2-thread.conf" ] && echo "启用(线程数:$(cat term-sd/config/aria2-thread.conf | awk '{sub("-x ","")}1'))" || echo "禁用")\n是否启用aria2多线程下载?" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "Aria2线程设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于增加Term-SD在使用Aria2下载模型时的线程数,在一定程度上提高下载速度\n当前状态:$([ -f "term-sd/config/aria2-thread.conf" ] && echo "启用(线程数:$(cat term-sd/config/aria2-thread.conf | awk '{sub("-x ","")}1'))" || echo "禁用")\n是否启用Aria2多线程下载?" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> 启用" \
         "2" "> 禁用" \
@@ -348,22 +348,22 @@ aria2_multi_threaded_setting()
 
     case $aria2_multi_threaded_setting_dialog in
         1)
-            aria2_multi_threaded_value=$(dialog --erase-on-exit --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入线程数(仅输入数字(),不允许输入负数和其他非数字的字符)" $term_sd_dialog_height $term_sd_dialog_width "$(cat term-sd/config/aria2-thread.conf | awk '{sub("-x ","")}1')" 3>&1 1>&2 2>&3)
+            aria2_multi_threaded_value=$(dialog --erase-on-exit --title "Term-SD" --backtitle "Aria2线程设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入线程数(仅输入数字(),不允许输入负数和其他非数字的字符)" $term_sd_dialog_height $term_sd_dialog_width "$(cat term-sd/config/aria2-thread.conf | awk '{sub("-x ","")}1')" 3>&1 1>&2 2>&3)
             if [ ! -z "$(echo $aria2_multi_threaded_value | awk '{gsub(/[0-9]/, "")}1')" ] || [ $aria2_multi_threaded_value = 0 ] ;then
-                dialog --erase-on-exit --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --msgbox "输入格式错误,线程数只能为数字且不能为负数" $term_sd_dialog_height $term_sd_dialog_width
+                dialog --erase-on-exit --title "Term-SD" --backtitle "Aria2线程设置界面" --ok-label "确认" --msgbox "输入格式错误,线程数只能为数字且不能为负数" $term_sd_dialog_height $term_sd_dialog_width
             else
                 if [ ! -z "$aria2_multi_threaded_value" ];then
                     if [ $aria2_multi_threaded_value -le 16 ];then
                         echo "-x $aria2_multi_threaded_value" > term-sd/config/aria2-thread.conf
                         aria2_multi_threaded="-x $aria2_multi_threaded_value"
-                        dialog --erase-on-exit --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --msgbox "启用成功" $term_sd_dialog_height $term_sd_dialog_width
+                        dialog --erase-on-exit --title "Term-SD" --backtitle "Aria2线程设置界面" --ok-label "确认" --msgbox "启用成功" $term_sd_dialog_height $term_sd_dialog_width
                     else
                         echo "-x 16" > term-sd/config/aria2-thread.conf
                         aria2_multi_threaded="-x 16"
-                        dialog --erase-on-exit --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --msgbox "启用成功" $term_sd_dialog_height $term_sd_dialog_width
+                        dialog --erase-on-exit --title "Term-SD" --backtitle "Aria2线程设置界面" --ok-label "确认" --msgbox "启用成功" $term_sd_dialog_height $term_sd_dialog_width
                     fi
                 else
-                    dialog --erase-on-exit --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --msgbox "未输入,请重试" $term_sd_dialog_height $term_sd_dialog_width
+                    dialog --erase-on-exit --title "Term-SD" --backtitle "Aria2线程设置界面" --ok-label "确认" --msgbox "未输入,请重试" $term_sd_dialog_height $term_sd_dialog_width
                 fi
             fi
             aria2_multi_threaded_setting
@@ -371,7 +371,7 @@ aria2_multi_threaded_setting()
         2)
             rm -rf term-sd/config/aria2-thread.conf
             aria2_multi_threaded=
-            dialog --erase-on-exit --title "Term-SD" --backtitle "aria2线程设置界面" --ok-label "确认" --msgbox "禁用成功" $term_sd_dialog_height $term_sd_dialog_width
+            dialog --erase-on-exit --title "Term-SD" --backtitle "Aria2线程设置界面" --ok-label "确认" --msgbox "禁用成功" $term_sd_dialog_height $term_sd_dialog_width
             aria2_multi_threaded_setting
             ;;
     esac
@@ -394,7 +394,7 @@ term_sd_cache_redirect_setting()
     export PYTHONPYCACHEPREFIX
 
     term_sd_cache_redirect_setting_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "缓存重定向设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能将会把ai软件产生的缓存重定向至Term-SD中(便于清理)\n当前状态:$([ ! -f "term-sd/config/disable-cache-path-redirect.lock" ] && echo "启用" || echo "禁用")\n是否启用缓存重定向?" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "缓存重定向设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能将会把AI软件产生的缓存重定向至Term-SD中(便于清理)\n当前状态:$([ ! -f "term-sd/config/disable-cache-path-redirect.lock" ] && echo "启用" || echo "禁用")\n是否启用缓存重定向?" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> 启用" \
         "2" "> 禁用" \
@@ -480,7 +480,7 @@ custom_install_path_setting()
     custom_install_path_setting_dialog=$(
         dialog --erase-on-exit --notags --title "Term-SD" --backtitle "自定义安装路径设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于自定义AI软件的安装路径,当保持默认时,AI软件的安装路径与Term-SD所在路径同级\n当前Term-SD所在路径:${start_path}/term-sd\n注:\n1、路径最好使用绝对路径\n2、如果是Windows系统,请使用msys2可识别的路径格式,\n如:\"D:\\Downloads\\webui\"要写成\"/d/Downloads/webui\"" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
-        "1" "> stable-diffusion-webui安装路径设置(当前配置:$([ -f term-sd/config/sd-webui-path.conf ] && echo "自定义" || echo 默认))" \
+        "1" "> Stable-Diffusion-WebUI安装路径设置(当前配置:$([ -f term-sd/config/sd-webui-path.conf ] && echo "自定义" || echo 默认))" \
         "2" "> ComfyUI安装路径设置(当前配置:$([ -f term-sd/config/comfyui-path.conf ] && echo "自定义" || echo 默认))" \
         "3" "> InvokeAI安装路径设置(当前配置:$([ -f term-sd/config/invokeai-path.conf ] && echo "自定义" || echo 默认))" \
         "4" "> Fooocus安装路径设置(当前配置:$([ -f term-sd/config/fooocus-path.conf ] && echo "自定义" || echo 默认))" \
@@ -523,7 +523,7 @@ sd_webui_custom_install_path_setting()
     local sd_webui_custom_install_path_setting_dialog
 
     sd_webui_custom_install_path_setting_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "stable-diffusion-webui安装路径设置界面" --ok-label "确认" --cancel-label "取消" --menu "请选择配置选项\n当前自定义安装路径:$([ -f term-sd/config/sd-webui-path.conf ] && cat term-sd/config/sd-webui-path.conf || echo 默认)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "Stable-Diffusion-WebUI安装路径设置界面" --ok-label "确认" --cancel-label "取消" --menu "请选择配置选项\n当前自定义安装路径:$([ -f term-sd/config/sd-webui-path.conf ] && cat term-sd/config/sd-webui-path.conf || echo 默认)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> 设置安装路径" \
         "2" "> 恢复默认安装路径设置" \
@@ -531,27 +531,27 @@ sd_webui_custom_install_path_setting()
 
     case $sd_webui_custom_install_path_setting_dialog in
         1)
-            custom_install_path=$(dialog --erase-on-exit --title "Term-SD" --backtitle "stable-diffusion-webui安装路径设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入stable-diffusion-webui安装路径\n注:请使用绝对路径" $term_sd_dialog_height $term_sd_dialog_width "$([ -f term-sd/config/sd-webui-path.conf ] && cat term-sd/config/sd-webui-path.conf)" 3>&1 1>&2 2>&3)
+            custom_install_path=$(dialog --erase-on-exit --title "Term-SD" --backtitle "Stable-Diffusion-WebUI安装路径设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入Stable-Diffusion-WebUI安装路径\n注:请使用绝对路径" $term_sd_dialog_height $term_sd_dialog_width "$([ -f term-sd/config/sd-webui-path.conf ] && cat term-sd/config/sd-webui-path.conf)" 3>&1 1>&2 2>&3)
             if [ $? = 0 ] && [ ! -z "$custom_install_path" ];then
                 if [ "$custom_install_path" = "/" ];then
-                    dialog --erase-on-exit --title "Term-SD" --backtitle "stable-diffusion-webui安装路径设置界面" --ok-label "确认" --msgbox "禁止将根目录设置为安装路径" $term_sd_dialog_height $term_sd_dialog_width
+                    dialog --erase-on-exit --title "Term-SD" --backtitle "Stable-Diffusion-WebUI安装路径设置界面" --ok-label "确认" --msgbox "禁止将根目录设置为安装路径" $term_sd_dialog_height $term_sd_dialog_width
                 else
                     export sd_webui_path=$custom_install_path
                     export sd_webui_folder=$(basename "$sd_webui_path")
                     export sd_webui_parent_path=$(dirname "$sd_webui_path")
                     echo "$custom_install_path" > term-sd/config/sd-webui-path.conf
-                    dialog --erase-on-exit --title "Term-SD" --backtitle "stable-diffusion-webui安装路径设置界面" --ok-label "确认" --msgbox "stable-diffusion-webui安装路径设置成功\n安装路径:$custom_install_path\n$([ ! $(echo $custom_install_path | awk '{print substr($0,1,1)}') = "/" ] && echo "检测到安装路径不是绝对路径,可能会导致一些问题")" $term_sd_dialog_height $term_sd_dialog_width
+                    dialog --erase-on-exit --title "Term-SD" --backtitle "Stable-Diffusion-WebUI安装路径设置界面" --ok-label "确认" --msgbox "Stable-Diffusion-WebUI安装路径设置成功\n安装路径:$custom_install_path\n$([ ! $(echo $custom_install_path | awk '{print substr($0,1,1)}') = "/" ] && echo "检测到安装路径不是绝对路径,可能会导致一些问题")" $term_sd_dialog_height $term_sd_dialog_width
                 fi
             fi
             sd_webui_custom_install_path_setting
             ;;
         2)
-            if (dialog --erase-on-exit --title "Term-SD" --backtitle "stable-diffusion-webui安装路径设置界面" --yes-label "是" --no-label "否" --yesno "是否重置stable-diffusion-webui安装路径?" $term_sd_dialog_height $term_sd_dialog_width) then
+            if (dialog --erase-on-exit --title "Term-SD" --backtitle "Stable-Diffusion-WebUI安装路径设置界面" --yes-label "是" --no-label "否" --yesno "是否重置Stable-Diffusion-WebUI安装路径?" $term_sd_dialog_height $term_sd_dialog_width) then
                 rm -f term-sd/config/sd-webui-path.conf
                 export sd_webui_path="$start_path/stable-diffusion-webui"
                 export sd_webui_folder="stable-diffusion-webui"
                 export sd_webui_parent_path=$start_path
-                dialog --erase-on-exit --title "Term-SD" --backtitle "stable-diffusion-webui安装路径设置界面" --ok-label "确认" --msgbox "重置stable-diffusion-webui安装路径成功" $term_sd_dialog_height $term_sd_dialog_width
+                dialog --erase-on-exit --title "Term-SD" --backtitle "Stable-Diffusion-WebUI安装路径设置界面" --ok-label "确认" --msgbox "重置Stable-Diffusion-WebUI安装路径成功" $term_sd_dialog_height $term_sd_dialog_width
             fi
             sd_webui_custom_install_path_setting
             ;;
@@ -776,7 +776,7 @@ term_sd_disk_space_stat()
     local disk_free_space_stat=$(df  -h | awk 'NR==2{print$4}')
     term_sd_echo "统计Term-SD缓存目录空间占用"
     local term_sd_space_stat=$([ -d "term-sd/cache" ] && du -sh term-sd/cache | awk '{print $1}' || echo "无")
-    term_sd_echo "统计stable-diffusion-webui占用"
+    term_sd_echo "统计Stable-Diffusion-WebUI占用"
     local sd_webui_space_stat=$([ -d "$sd_webui_path" ] && du -sh "$sd_webui_path" | awk '{print $1}' || echo "未安装")
     term_sd_echo "统计ComfyUI占用"
     local comfyui_space_stat=$([ -d "$comfyui_path" ] && du -sh "$comfyui_path" | awk '{print $1}' || echo "未安装")
@@ -793,7 +793,7 @@ term_sd_disk_space_stat()
 项目空间占用分析:\n
 当前目录剩余空间:$disk_free_space_stat\n
 Term-SD(重定向)缓存目录:$term_sd_space_stat\n
-stable-diffusion-webui:$sd_webui_space_stat\n
+Stable-Diffusion-WebUI:$sd_webui_space_stat\n
 ComfyUI:$comfyui_space_stat\n
 InvokeAI:$invokeai_space_stat\n
 Fooocus:$fooocus_space_stat\n
@@ -846,7 +846,7 @@ ${term_sd_delimiter}\n
 # 卸载选项
 term_sd_uninstall_interface()
 {
-    if (dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD卸载界面" --yes-label "是" --no-label "否" --yesno "警告:该操作将永久删除Term-SD目录中的所有文件,包括ai软件下载的部分模型文件(存在于Term-SD目录中的\"cache\"文件夹,如有必要,请备份该文件夹)\n是否卸载Term-SD?" $term_sd_dialog_height $term_sd_dialog_width) then
+    if (dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD卸载界面" --yes-label "是" --no-label "否" --yesno "警告:该操作将永久删除Term-SD目录中的所有文件,包括AI软件下载的部分模型文件(存在于Term-SD目录中的\"cache\"文件夹,如有必要,请备份该文件夹)\n是否卸载Term-SD?" $term_sd_dialog_height $term_sd_dialog_width) then
         term_sd_echo "请再次确认是否删除Term-SD(yes/no)?"
         term_sd_echo "警告:该操作将永久删除Term-SD"
         term_sd_echo "提示:输入yes或no后回车"

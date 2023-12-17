@@ -19,9 +19,9 @@ fooocus_manager()
             "4" "> 切换版本" \
             "5" "> 更新源替换" \
             "6" "> 更新依赖" \
-            "7" "> python软件包安装/重装/卸载" \
+            "7" "> Python软件包安装/重装/卸载" \
             "8" "> 依赖库版本管理" \
-            "9" "> 重新安装pytorch" \
+            "9" "> 重新安装PyTorch" \
             "10" "> 修复虚拟环境" \
             "11" "> 重新构建虚拟环境" \
             "12" "> 重新安装后端组件" \
@@ -74,7 +74,7 @@ fooocus_manager()
                 fooocus_manager
                 ;;
             7)
-                if (dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus的python软件包安装/重装/卸载选项" --yes-label "是" --no-label "否" --yesno "是否进入python软件包安装/重装/卸载选项?" $term_sd_dialog_height $term_sd_dialog_width) then
+                if (dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus的Python软件包安装/重装/卸载选项" --yes-label "是" --no-label "否" --yesno "是否进入Python软件包安装/重装/卸载选项?" $term_sd_dialog_height $term_sd_dialog_width) then
                     python_package_manager
                 fi
                 fooocus_manager
