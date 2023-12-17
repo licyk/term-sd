@@ -209,7 +209,7 @@ term_sd_proxy_setting()
     export https_proxy
 
     term_sd_proxy_setting_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "代理设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于设置代理服务器,解决AI软件和Term-SD因网络环境导致无法连接上服务器,而出现报错的问题\n当前代理设置:$([ -z $http_proxy ] && echo "无" || echo $http_proxy)\n请选择设置代理协议" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "代理设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于设置代理服务器,解决AI软件和Term-SD因网络环境导致无法连接上服务器,而出现报错的问题\n当前代理设置:$([ -z $http_proxy ] && echo "无" || echo $http_proxy)\n请选择要设置的代理协议" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> http协议" \
         "2" "> socks协议" \
@@ -772,15 +772,33 @@ kohya_ss_custom_install_path_setting()
 term_sd_disk_space_stat()
 {
     term_sd_echo "统计空间占用中"
-    dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD空间占用分析" --ok-label "确认" --msgbox "当前目录剩余空间:$(df  -h | awk 'NR==2{print$4}')\n
-项目空间占用:\n
-Term-SD(重定向)缓存目录:$([ -d "term-sd/cache" ] && du -sh term-sd/cache | awk '{print $1}' || echo "无")\n
-stable-diffusion-webui:$([ -d "$sd_webui_path" ] && du -sh "$sd_webui_path" | awk '{print $1}' || echo "未安装")\n
-ComfyUI:$([ -d "$comfyui_path" ] && du -sh "$comfyui_path" | awk '{print $1}' || echo "未安装")\n
-InvokeAI:$([ -d "$invokeai_path" ] && du -sh "$invokeai_path" | awk '{print $1}' || echo "未安装")\n
-Fooocus:$([ -d "$fooocus_path" ] && du -sh "$fooocus_path" | awk '{print $1}' || echo "未安装")\n
-lora-scripts:$([ -d "$lora_scripts_path" ] && du -sh "$lora_scripts_path" | awk '{print $1}' || echo "未安装")\n
-kohya_ss:$([ -d "$kohya_ss_path" ] && du -sh "$kohya_ss_path" | awk '{print $1}' || echo "未安装")\n
+    term_sd_echo "统计当前目录剩余空间"
+    local disk_free_space_stat=$(df  -h | awk 'NR==2{print$4}')
+    term_sd_echo "统计Term-SD缓存目录空间占用"
+    local term_sd_space_stat=$([ -d "term-sd/cache" ] && du -sh term-sd/cache | awk '{print $1}' || echo "无")
+    term_sd_echo "统计stable-diffusion-webui占用"
+    local sd_webui_space_stat=$([ -d "$sd_webui_path" ] && du -sh "$sd_webui_path" | awk '{print $1}' || echo "未安装")
+    term_sd_echo "统计ComfyUI占用"
+    local comfyui_space_stat=$([ -d "$comfyui_path" ] && du -sh "$comfyui_path" | awk '{print $1}' || echo "未安装")
+    term_sd_echo "统计InvokeAI占用"
+    local invokeai_space_stat=$([ -d "$invokeai_path" ] && du -sh "$invokeai_path" | awk '{print $1}' || echo "未安装")
+    term_sd_echo "统计Fooocus占用"
+    local fooocus_space_stat=$([ -d "$fooocus_path" ] && du -sh "$fooocus_path" | awk '{print $1}' || echo "未安装")
+    term_sd_echo "统计lora-scripts占用"
+    local lora_scripts_space_stat=$([ -d "$lora_scripts_path" ] && du -sh "$lora_scripts_path" | awk '{print $1}' || echo "未安装")
+    term_sd_echo "统计kohya_ss占用"
+    local kohya_ss_space_stat=$([ -d "$kohya_ss_path" ] && du -sh "$kohya_ss_path" | awk '{print $1}' || echo "未安装")
+
+    dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD空间占用分析" --ok-label "确认" --msgbox "\
+项目空间占用分析:\n
+当前目录剩余空间:$disk_free_space_stat\n
+Term-SD(重定向)缓存目录:$term_sd_space_stat\n
+stable-diffusion-webui:$sd_webui_space_stat\n
+ComfyUI:$comfyui_space_stat\n
+InvokeAI:$invokeai_space_stat\n
+Fooocus:$fooocus_space_stat\n
+lora-scripts:$lora_scripts_space_stat\n
+kohya_ss:$kohya_ss_space_stat\n
 " $term_sd_dialog_height $term_sd_dialog_width
 }
 

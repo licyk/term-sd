@@ -184,10 +184,9 @@ term_sd_help()
         "0" "> 返回" \
         "1" "> 关于Term-SD" \
         "2" "> Term-SD使用方法" \
-        "3" "> Term-SD注意事项" \
-        "4" "> 目录说明" \
-        "5" "> Stable-Diffusion-WebUI插件说明" \
-        "6" "> ComfyUI插件/自定义节点说明" \
+        "3" "> 目录说明" \
+        "4" "> Stable-Diffusion-WebUI插件说明" \
+        "5" "> ComfyUI插件/自定义节点说明" \
         3>&1 1>&2 2>&3)
 
     case $term_sd_help_dialog in
@@ -196,22 +195,18 @@ term_sd_help()
             term_sd_help
             ;;
         2)
-            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat term-sd/help/how_to_use_term_sd.md)" $term_sd_dialog_height $term_sd_dialog_width
+            less --mouse --prompt="[Term-SD]提示\:使用方向键\/鼠标滚轮进行翻页,按下\"q\"退出帮助界面" term-sd/help/how_to_use_term_sd.md
             term_sd_help
             ;;
         3)
-            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat term-sd/help/term_sd_note.md)" $term_sd_dialog_height $term_sd_dialog_width
-            term_sd_help
-            ;;
-        4)
             dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat term-sd/help/directory_description.md)" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_help
             ;;
-        5)
+        4)
             dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat term-sd/help/sd_webui_extension_description.md)" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_help
             ;;
-        6)
+        5)
             dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat term-sd/help/comfyui_extension_description.md)" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_help
             ;;
