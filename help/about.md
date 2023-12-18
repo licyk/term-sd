@@ -46,6 +46,10 @@ stable diffusion 常见错误收集及对应解决方案：
   https://sd.wa9.cn/check_log.php
 stable diffusion工作流分享（需要安装LightDiffusionFlow插件进行导入）：
   https://www.lightflow.ai
+AiDraw：
+  https://guide.novelai.dev
+NovelAI.Dev社区：
+  https://novelai.dev
 
 ●ComfyUI：
 工作流示范：
@@ -62,6 +66,13 @@ ComfyUI手册（非官方，偏硬核）：
   https://ltdrdata.github.io
 ComfyUI工作流分享：
   https://comfyworkflows.com
+  https://openart.ai/workflows
+  https://github.com/wyrde/wyrde-comfyui-workflows
+  https://github.com/atlasunified/Templates-ComfyUI-
+AIGODLIKE社区：
+  https://www.aigodlike.com
+官方视觉漫画（教程）：
+  https://comfyanonymous.github.io/ComfyUI_tutorial_vn
 
 ●colab版：
 （没有设备玩stable-diffusion的可以尝试下面的项目）
