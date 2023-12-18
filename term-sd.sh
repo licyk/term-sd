@@ -50,7 +50,7 @@ term_sd_launch_args_manager()
                 ;;
             --unset-python-path)
                 rm -f term-sd/config/python-path.conf
-                term_sd_echo "已删除自定义python解释器路径配置"
+                term_sd_echo "已删除自定义Python解释器路径配置"
                 ;;
             --bar)
                 term_sd_launch_args_input="--bar"
@@ -101,9 +101,9 @@ term_sd_args_help()
     --quick-cmd
         添加Term-SD快捷启动命令到shell
     --set-python-path python_path
-        手动指定python解释器路径,当选项后面输入了路径,则直接使用输入的路径来设置python解释器路径(建议用\\把路径括起来),否则启动设置界面
+        手动指定Python解释器路径,当选项后面输入了路径,则直接使用输入的路径来设置Python解释器路径(建议用" "把路径括起来,防止路径输入错误),否则启动设置界面
     --unset-python-path
-        删除自定义python解释器路径配置
+        删除自定义Python解释器路径配置
     --update-pip
         进入虚拟环境时更新pip软件包管理器
     --bar display_mode
@@ -112,7 +112,7 @@ term_sd_args_help()
             normal:使用默认的显示模式
             new:使用新的进度条显示
     --debug
-        显示Term-SD安装ai软件时使用的命令
+        显示Term-SD安装AI软件时使用的命令
 EOF
 }
 
@@ -463,7 +463,7 @@ term_sd_install()
         esac
     elif [ ! -d "term-sd/.git" ];then
         term_sd_echo "检测到Term-SD的.git目录不存在,将会导致Term-SD无法更新,是否重新安装(yes/no)?"
-        term_sd_echo "警告:该操作将永久删除Term-SD目录中的所有文件,包括ai软件下载的部分模型文件(存在于Term-SD目录中的\"cache\"文件夹,如有必要,请备份该文件夹)"
+        term_sd_echo "警告:该操作将永久删除Term-SD目录中的所有文件,包括AI软件下载的部分模型文件(存在于Term-SD目录中的\"cache\"文件夹,如有必要,请备份该文件夹)"
         term_sd_echo "提示:输入yes或no后回车"
         case $(term_sd_read) in
             yes|y|YES|Y)
@@ -497,7 +497,7 @@ term_sd_reinstall()
 {
     if which git > /dev/null 2>&1 ;then
         term_sd_echo "是否重新安装Term-SD(yes/no)?"
-        term_sd_echo "警告:该操作将永久删除Term-SD目录中的所有文件,包括ai软件下载的部分模型文件(存在于Term-SD目录中的\"cache\"文件夹,如有必要,请备份该文件夹)"
+        term_sd_echo "警告:该操作将永久删除Term-SD目录中的所有文件,包括AI软件下载的部分模型文件(存在于Term-SD目录中的\"cache\"文件夹,如有必要,请备份该文件夹)"
         term_sd_echo "提示:输入yes或no后回车"
         case $(term_sd_read) in
             yes|y|YES|Y)
@@ -533,7 +533,7 @@ term_sd_reinstall()
 term_sd_remove()
 {
     term_sd_echo "是否卸载Term-SD"
-    term_sd_echo "警告:该操作将永久删除Term-SD目录中的所有文件,包括ai软件下载的部分模型文件(存在于Term-SD目录中的\"cache\"文件夹,如有必要,请备份该文件夹)"
+    term_sd_echo "警告:该操作将永久删除Term-SD目录中的所有文件,包括AI软件下载的部分模型文件(存在于Term-SD目录中的\"cache\"文件夹,如有必要,请备份该文件夹)"
     term_sd_echo "提示:输入yes或no后回车"
     case $(term_sd_read) in
         y|yes|YES|Y)
@@ -610,29 +610,29 @@ set_python_path()
     local set_python_path_option
 
     if [ -z "$*" ];then
-        term_sd_echo "请输入python解释器的路径"
+        term_sd_echo "请输入Python解释器的路径"
         term_sd_echo "提示:输入完后请回车保存,或者输入exit退出"
         read -p "===============================> " set_python_path_option
         if [ -z "$set_python_path_option" ];then
             term_sd_echo "未输入，请重试"
             set_python_path
         elif [ "$set_python_path_option" = "exit" ];then
-            term_sd_echo "退出python路径指定功能"
+            term_sd_echo "退出Python路径指定功能"
         else
             term_sd_python_path="$set_python_path_option"
             echo $term_sd_python_path > term-sd/config/python-path.conf
-            term_sd_echo "python解释器路径指定完成"
+            term_sd_echo "Python解释器路径指定完成"
             term_sd_echo "提示:"
-            term_sd_echo "使用--set-python-path重新设置python解释器路径"
-            term_sd_echo "使用--unset-python-path删除python解释器路径设置"
+            term_sd_echo "使用--set-python-path重新设置Python解释器路径"
+            term_sd_echo "使用--unset-python-path删除Python解释器路径设置"
         fi
     else # 直接将选项后面的参数作为路径
-        term_sd_echo "设置python解释器路径: $@"
+        term_sd_echo "设置Python解释器路径: $@"
         echo $@ > term-sd/config/python-path.conf
-        term_sd_echo "python解释器路径指定完成"
+        term_sd_echo "Python解释器路径指定完成"
         term_sd_echo "提示:"
-        term_sd_echo "使用--set-python-path重新设置python解释器路径"
-        term_sd_echo "使用--unset-python-path删除python解释器路径设置"
+        term_sd_echo "使用--set-python-path重新设置Python解释器路径"
+        term_sd_echo "使用--unset-python-path删除Python解释器路径设置"
     fi
 }
 
@@ -855,12 +855,12 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
             fi  
         else
             if which "$term_sd_python_path" > /dev/null 2>&1 ;then
-                term_sd_echo "使用自定义python解释器路径:$term_sd_python_path"
+                term_sd_echo "使用自定义Python解释器路径:$term_sd_python_path"
             else
-                term_sd_echo "手动指定的python路径错误"
+                term_sd_echo "手动指定的Python路径错误"
                 term_sd_echo "提示:"
-                term_sd_echo "使用--set-python-path重新设置python解释器路径"
-                term_sd_echo "使用--unset-python-path删除python解释器路径设置"
+                term_sd_echo "使用--set-python-path重新设置Python解释器路径"
+                term_sd_echo "使用--unset-python-path删除Python解释器路径设置"
                 missing_depend_info=1
                 missing_depend="$missing_depend python,"
             fi
@@ -875,6 +875,11 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
         #判断系统是否安装必须使用的软件
         for i in $term_sd_depend ; do
             if ! which $i > /dev/null 2>&1 ;then
+                case $i in
+                    aria2c)
+                        i=aria2
+                        ;;
+                esac
                 missing_depend="$missing_depend $i,"
                 missing_depend_info=1
             fi
@@ -905,7 +910,7 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
                 print_line_to_shell "缺少以下依赖"
                 echo $missing_depend_macos
                 print_line_to_shell
-                term_sd_notice "缺少依赖将影响ai软件的安装,请退出Term-SD并使用homebrew(如果没有homebrew,则先安装homebrew,再用homebrew去安装其他缺少依赖)安装缺少的依赖后重试"
+                term_sd_notice "缺少依赖将影响AI软件的安装,请退出Term-SD并使用homebrew(如果没有homebrew,则先安装homebrew,再用homebrew去安装其他缺少依赖)安装缺少的依赖后重试"
                 sleep 5
             fi
         fi
