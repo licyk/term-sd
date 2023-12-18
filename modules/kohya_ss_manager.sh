@@ -6,7 +6,7 @@ kohya_ss_manager()
     export term_sd_manager_info="kohya_ss"
     cd "$start_path" # 回到最初路径
     exit_venv # 确保进行下一步操作前已退出其他虚拟环境
-    if [ -d "$kohya_ss_path" ] && [ $(ls "$kohya_ss_path" -al --format=horizontal | wc --words) -gt 2 ];then
+    if [ -d "$kohya_ss_path" ] && [ $(term_sd_test_empty_dir "$kohya_ss_path") = 1 ];then
         cd "$kohya_ss_path"
         kohya_ss_manager_dialog=$(
             dialog --erase-on-exit --notags --title "kohya_ss管理" --backtitle "kohya_ss管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择kohya_ss管理选项的功能\n当前更新源:$(git_remote_display)\n当前分支:$(git_branch_display)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \

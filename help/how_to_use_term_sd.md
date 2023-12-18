@@ -490,9 +490,12 @@ xformers==0.0.21 numpy
 >比如安装TensorRT前，先使用这个功能备份依赖库的版本，然后再安装TensorRT。当TensorRT把依赖库环境搞炸的时候（有概率），把TernsorRT卸载，并使用该功能恢复依赖库。如果还没恢复，只能使用`重新构建虚拟环境`来修复
 
 ### 17、重新安装后端组件
->仅限Stable-Diffusion-WebUI，Fooocus
+>仅限Stable-Diffusion-WebUI，Fooocus，lora-scripts
 
-该功能用于重新下载后端需要的组件，组件可在`AI软件文件夹/repositories`文件夹中查看
+该功能用于重新下载后端需要的组件，组件存在以下文件夹中  
+- stable-diffusion-webui：`repositories`
+- Fooocus：`repositories`
+- lora-scripts：`frontend`、`sd-scripts`、`mikazuki/dataset-tag-editor`
 
 ***
 

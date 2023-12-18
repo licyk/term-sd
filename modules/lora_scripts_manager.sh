@@ -6,7 +6,7 @@ lora_scripts_manager()
     export term_sd_manager_info="lora-scripts"
     cd "$start_path" # 回到最初路径
     exit_venv # 确保进行下一步操作前已退出其他虚拟环境
-    if [ -d "$lora_scripts_path" ] && [ $(ls "$lora_scripts_path" -al --format=horizontal | wc --words) -gt 2 ];then
+    if [ -d "$lora_scripts_path" ] && [ $(term_sd_test_empty_dir "$lora_scripts_path") = 1 ];then
         cd "$lora_scripts_path"
         lora_scripts_manager_dialog=$(
             dialog --erase-on-exit --notags --title "lora-scripts管理" --backtitle "lora-scripts管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择lora-scripts管理选项的功能\n当前更新源:$(git_remote_display)\n当前分支:$(git_branch_display)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
@@ -22,8 +22,9 @@ lora_scripts_manager()
             "9" "> 重新安装PyTorch" \
             "10" "> 修复虚拟环境" \
             "11" "> 重新构建虚拟环境" \
-            "12" "> 重新安装" \
-            "13" "> 卸载" \
+            "12" "> 重新安装后端组件" \
+            "13" "> 重新安装" \
+            "14" "> 卸载" \
             3>&1 1>&2 2>&3)
 
         case $lora_scripts_manager_dialog in
@@ -105,6 +106,10 @@ lora_scripts_manager()
                 lora_scripts_manager
                 ;;
             12)
+                lora_scripts_backend_repo_reinstall
+                lora_scripts_manager
+                ;;
+            13)
                 if (dialog --erase-on-exit --title "lora-scripts管理" --backtitle "lora-scripts重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装lora-scripts?" $term_sd_dialog_height $term_sd_dialog_width) then
                     cd "$start_path"
                     rm -f "$start_path/term-sd/task/lora_scripts_install.sh"
@@ -114,7 +119,7 @@ lora_scripts_manager()
                     lora_scripts_manager
                 fi
                 ;;
-            13)
+            14)
                 if (dialog --erase-on-exit --title "lora-scripts管理" --backtitle "lora-scripts删除选项" --yes-label "是" --no-label "否" --yesno "是否删除lora-scripts?" $term_sd_dialog_height $term_sd_dialog_width) then
                     term_sd_echo "请再次确认是否删除lora-scripts(yes/no)?"
                     term_sd_echo "警告:该操作将永久删除lora-scripts"
@@ -169,6 +174,34 @@ lora_scripts_update_depend()
             exit_venv
             term_sd_tmp_enable_proxy
             term_sd_echo "更新lora-scripts依赖结束"
+            term_sd_pause
+        fi
+    fi
+}
+
+# 后端组件重装
+lora_scripts_backend_repo_reinstall()
+{
+    if (dialog --erase-on-exit --title "lora-scripts管理" --backtitle "lora-scripts后端组件重装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装lora-scripts后端组件?" $term_sd_dialog_height $term_sd_dialog_width);then
+        download_mirror_select # 下载镜像源选择
+        term_sd_install_confirm # 安装前确认
+
+        if [ $? = 0 ];then
+            term_sd_print_line "lora-scripts后端组件重装"
+            term_sd_echo "删除原有lora-scripts后端组件中"
+            rm -rf sd-scripts
+            rm -rf frontend
+            rm -rf mikazuki/dataset-tag-editor
+            term_sd_mkdir sd-scripts
+            term_sd_mkdir frontend
+            term_sd_mkdir mikazuki/dataset-tag-editor
+            term_sd_echo "重新下载lora-scripts后端组件中"
+            git_clone_repository ${github_mirror} https://github.com/kohya-ss/sd-scripts "$lora_scripts_path" sd-scripts # lora-scripts后端
+            git_clone_repository ${github_mirror} https://github.com/hanamizuki-ai/lora-gui-dist "$lora_scripts_path" frontend # lora-scripts前端
+            git_clone_repository ${github_mirror} https://github.com/Akegarasu/dataset-tag-editor "$lora_scripts_path"/mikazuki dataset-tag-editor # 标签编辑器
+            git submodule init
+            git submodule update
+            term_sd_echo "重装lora-scripts后端组件结束"
             term_sd_pause
         fi
     fi

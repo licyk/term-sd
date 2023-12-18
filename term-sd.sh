@@ -225,6 +225,16 @@ term_sd_mkdir()
     fi
 }
 
+# 检测目录是否为空,为空是返回0,不为空返回1
+term_sd_test_empty_dir()
+{
+    if [ $(ls "$@" -al --format=horizontal | wc --words) -le 2 ];then
+        echo 0
+    else
+        echo 1
+    fi
+}
+
 # 加载进度条设置
 term_sd_loading_bar_setting()
 {
@@ -638,7 +648,7 @@ set_python_path()
 
 #############################
 
-export term_sd_version_info="1.2.4" # term-sd版本
+export term_sd_version_info="1.2.5" # term-sd版本
 export user_shell=$(basename $SHELL) # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题

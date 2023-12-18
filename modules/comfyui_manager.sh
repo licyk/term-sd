@@ -8,7 +8,7 @@ comfyui_manager()
 
     cd "$start_path" # 回到最初路径
     exit_venv # 确保进行下一步操作前已退出其他虚拟环境
-    if [ -d "$comfyui_path" ] && [ $(ls "$comfyui_path" -al --format=horizontal | wc --words) -gt 2 ];then
+    if [ -d "$comfyui_path" ] && [ $(term_sd_test_empty_dir "$comfyui_path") = 1 ];then
         cd "$comfyui_path"
         comfyui_manager_dialog=$(
             dialog --erase-on-exit --notags --title "ComfyUI管理" --backtitle "ComfyUI管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择ComfyUI管理选项的功能\n当前更新源:$(git_remote_display)\n当前分支:$(git_branch_display)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \

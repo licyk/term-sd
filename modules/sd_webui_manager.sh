@@ -9,7 +9,7 @@ sd_webui_manager()
     cd "$start_path" # 回到最初路径
     exit_venv # 确保进行下一步操作前已退出其他虚拟环境
 
-    if [ -d "$sd_webui_path" ] && [ $(ls "$sd_webui_path" -al --format=horizontal | wc --words) -gt 2 ];then # 找到stable-diffusion-webui目录
+    if [ -d "$sd_webui_path" ] && [ $(term_sd_test_empty_dir "$sd_webui_path") = 1 ];then # 找到stable-diffusion-webui目录
         cd "$sd_webui_path"
 
         case $(git remote -v | awk 'NR==1 {print $2}' | awk -F'/' '{print $NF}') in # 分支判断

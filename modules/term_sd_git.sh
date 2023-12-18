@@ -103,7 +103,7 @@ git_clone_repository()
             if [ ! -d "$git_clone_repository_path" ];then
                 term_sd_watch git clone --recurse-submodules "$git_clone_repository_url" "$git_clone_repository_path"
             else # 出现同名文件夹时检测是否执行
-                if [ $(ls "$git_clone_repository_path" -al --format=horizontal | wc --words) -le 2 ];then
+                if [ $(term_sd_test_empty_dir "$git_clone_repository_path") = 0 ];then
                     term_sd_watch git clone --recurse-submodules "$git_clone_repository_url" "$git_clone_repository_path"
                 fi
             fi
@@ -123,7 +123,7 @@ git_clone_repository()
             if [ ! -d "$git_clone_repository_path" ];then
                 term_sd_watch git clone "$git_clone_repository_url" "$git_clone_repository_path"
             else # 出现同名文件夹时检测是否执行
-                if [ $(ls "$git_clone_repository_path" -al --format=horizontal | wc --words) -le 2 ];then
+                if [ $(term_sd_test_empty_dir "$git_clone_repository_path") = 0 ];then
                     term_sd_watch git clone "$git_clone_repository_url" "$git_clone_repository_path"
                 fi
             fi
