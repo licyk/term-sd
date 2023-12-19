@@ -437,6 +437,7 @@ term_sd_cache_redirect_setting()
 }
 
 # cuda内存分配设置
+# 参考:https://blog.csdn.net/MirageTanker/article/details/127998036
 cuda_memory_alloc_setting()
 {
     local cuda_memory_alloc_setting_dialog
