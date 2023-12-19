@@ -276,7 +276,7 @@ Term-SD支持Stable-Diffusion-WebUI，ComfyUI，InvokeAI，Fooocus，lora-script
 安装时间根据网络速度和电脑性能决定
 
 >1、在安装结束后，如果有自定义节点的，需要在`ComfyUI管理`->`自定义节点管理`里运行`安装全部全部自定义节点依赖`，保证自定义节点的正常运行（因为ComfyUI并没有Stable-Diffusion-WebUI自动为扩展安装依赖的功能）  
->2、如果扩展`ComfyUI-Manager`成功安装，可以不用执行`安装全部全部自定义节点依赖`，因为`ComfyUI-Manager`能够自动为扩展安装依赖（`ComfyUI-Manager`把ComfyUI缺失的这个功能给补上了）。
+>2、如果扩展`ComfyUI-Manager`成功安装，可以不用执行`安装全部全部自定义节点依赖`，因为`ComfyUI-Manager`能够自动为扩展安装依赖（`ComfyUI-Manager`把ComfyUI缺失的这个功能给补上了，不过`ComfyUI-Manager`有时候不会自动为其它扩展装依赖）。
 >3、设置中文：进入ComfyUI界面，点击右上角的齿轮图标进入设置，找到`AGLTranslation-langualge`，选择`中文[Chinese Simplified]`，ComfyUi将会自动切换中文
 
 ### InvokeAI安装
@@ -394,7 +394,7 @@ Term-SD支持Stable-Diffusion-WebUI，ComfyUI，InvokeAI，Fooocus，lora-script
 - (5) 更新源切换：切换插件的更新源，加速下载；当某个github镜像源无法使用导致无法更新插件时，也可以使用该功能将更新源切换到可用的github镜像源或者切换成github源
 - (6) 安装依赖（仅限ComfyUI）：安装插件运行时所需的依赖
 
->1、如果安装了`ComfyUI-Manager`这个扩展，就不需要使用`安装全部插件依赖`这个功能了  
+>1、如果安装了`ComfyUI-Manager`这个扩展，就不需要使用`安装全部插件依赖`这个功能了（`ComfyUI-Manager`把ComfyUI缺失的这个功能给补上了，不过`ComfyUI-Manager`有时候不会自动为其它扩展装依赖，这时就使用`安装全部插件依赖`来手动安装依赖）  
 >2、有时候扩展和AI软件的版本不匹配时（AI软件的版本很新，而扩展的版本很旧），就容易出现报错，此时就可以通过更新解决
 
 ### 5、自定义节点管理
@@ -414,7 +414,7 @@ Term-SD支持Stable-Diffusion-WebUI，ComfyUI，InvokeAI，Fooocus，lora-script
 - 5、更新源切换：切换自定义节点的更新源，加速下载；当某个github镜像源无法使用导致无法更新插件时，也可以使用该功能将更新源切换到可用的github镜像源或者切换成github源
 - 6、安装依赖：安装自定义节点运行时所需的依赖
 
->1、如果安装了`ComfyUI-Manager`这个扩展，就不需要使用`安装全部自定义节点依赖`这个功能了  
+>1、如果安装了`ComfyUI-Manager`这个扩展，就不需要使用`安装全部自定义节点依赖`这个功能了（`ComfyUI-Manager`把ComfyUI缺失的这个功能给补上了，不过`ComfyUI-Manager`有时候不会自动为其它扩展装依赖，这时就使用`安装全部自定义节点依赖`来手动安装依赖）    
 >2、有时候扩展和AI软件的版本不匹配时（AI软件的版本很新，而扩展的版本很旧），就容易出现报错，此时就可以通过更新解决
 
 ### 6、切换版本

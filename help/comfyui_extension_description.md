@@ -216,3 +216,7 @@ ComfyUI插件/自定义节点说明：
 51、comfyui-workspace-manager：
 描述：工作流管理器
 链接：https://github.com/11cafe/comfyui-workspace-manager
+
+52、comfyui-browser：
+描述：查看和管理ComfyUI的所有输出文件/工作流，并且添加收藏方便随时调用
+链接：https://github.com/talesofai/comfyui-browser

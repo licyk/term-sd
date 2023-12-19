@@ -49,3 +49,4 @@ __term_sd_task_pre_ext_48 git_clone_repository ${github_mirror} https://github.c
 __term_sd_task_pre_ext_49 git_clone_repository ${github_mirror} https://github.com/kohya-ss/ControlNet-LLLite-ComfyUI "$comfyui_folder"/custom_nodes OFF # 添加ControlNet-LLLite的支持
 __term_sd_task_pre_ext_50 git_clone_repository ${github_mirror} https://github.com/twri/sdxl_prompt_styler "$comfyui_folder"/custom_nodes OFF # SDXL提示词风格预设节点
 __term_sd_task_pre_ext_51 git_clone_repository ${github_mirror} https://github.com/11cafe/comfyui-workspace-manager "$comfyui_folder"/custom_nodes ON # 工作流管理器
+__term_sd_task_pre_ext_52 git_clone_repository ${github_mirror} https://github.com/talesofai/comfyui-browser "$comfyui_folder"/custom_nodes ON # 查看和管理ComfyUI的所有输出文件/工作流，并且添加收藏方便随时调用
