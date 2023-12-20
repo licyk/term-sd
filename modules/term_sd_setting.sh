@@ -536,6 +536,12 @@ sd_webui_custom_install_path_setting()
             if [ $? = 0 ] && [ ! -z "$custom_install_path" ];then
                 if [ "$custom_install_path" = "/" ];then
                     dialog --erase-on-exit --title "Term-SD" --backtitle "Stable-Diffusion-WebUI安装路径设置界面" --ok-label "确认" --msgbox "禁止将根目录设置为安装路径" $term_sd_dialog_height $term_sd_dialog_width
+                elif [ "$custom_install_path" = "$comfyui_path" ] ||\
+                [ "$custom_install_path" = "$invokeai_path" ] ||\
+                [ "$custom_install_path" = "$fooocus_path" ] ||\
+                [ "$custom_install_path" = "$lora_scripts_path" ] ||\
+                [ "$custom_install_path" = "$kohya_ss_path" ];then
+                    dialog --erase-on-exit --title "Term-SD" --backtitle "Stable-Diffusion-WebUI安装路径设置界面" --ok-label "确认" --msgbox "安装路径和其他AI软件的安装目录相同,请重新设置" $term_sd_dialog_height $term_sd_dialog_width
                 else
                     export sd_webui_path=$custom_install_path
                     export sd_webui_folder=$(basename "$sd_webui_path")
@@ -578,6 +584,12 @@ comfyui_custom_install_path_setting()
             if [ $? = 0 ] && [ ! -z "$custom_install_path" ];then
                 if [ "$custom_install_path" = "/" ];then
                     dialog --erase-on-exit --title "Term-SD" --backtitle "ComfyUI安装路径设置界面" --ok-label "确认" --msgbox "禁止将根目录设置为安装路径" $term_sd_dialog_height $term_sd_dialog_width
+                elif [ "$custom_install_path" = "$sd_webui_path" ] ||\
+                [ "$custom_install_path" = "$invokeai_path" ] ||\
+                [ "$custom_install_path" = "$fooocus_path" ] ||\
+                [ "$custom_install_path" = "$lora_scripts_path" ] ||\
+                [ "$custom_install_path" = "$kohya_ss_path" ];then
+                    dialog --erase-on-exit --title "Term-SD" --backtitle "ComfyUI安装路径设置界面" --ok-label "确认" --msgbox "安装路径和其他AI软件的安装目录相同,请重新设置" $term_sd_dialog_height $term_sd_dialog_width
                 else
                     export comfyui_path=$custom_install_path
                     export comfyui_folder=$(basename "$comfyui_path")
@@ -620,6 +632,12 @@ invokeai_custom_install_path_setting()
             if [ $? = 0 ] && [ ! -z "$custom_install_path" ];then
                 if [ "$custom_install_path" = "/" ];then
                     dialog --erase-on-exit --title "Term-SD" --backtitle "InvokeAI安装路径设置界面" --ok-label "确认" --msgbox "禁止将根目录设置为安装路径" $term_sd_dialog_height $term_sd_dialog_width
+                elif [ "$custom_install_path" = "$sd_webui_path" ] ||\
+                [ "$custom_install_path" = "$comfyui_path" ] ||\
+                [ "$custom_install_path" = "$fooocus_path" ] ||\
+                [ "$custom_install_path" = "$lora_scripts_path" ] ||\
+                [ "$custom_install_path" = "$kohya_ss_path" ];then
+                    dialog --erase-on-exit --title "Term-SD" --backtitle "InvokeAI安装路径设置界面" --ok-label "确认" --msgbox "安装路径和其他AI软件的安装目录相同,请重新设置" $term_sd_dialog_height $term_sd_dialog_width
                 else
                     export invokeai_path=$custom_install_path
                     export invokeai_folder=$(basename "$invokeai_path")
@@ -662,6 +680,12 @@ fooocus_custom_install_path_setting()
             if [ $? = 0 ] && [ ! -z "$custom_install_path" ];then
                 if [ "$custom_install_path" = "/" ];then
                     dialog --erase-on-exit --title "Term-SD" --backtitle "Fooocus安装路径设置界面" --ok-label "确认" --msgbox "禁止将根目录设置为安装路径" $term_sd_dialog_height $term_sd_dialog_width
+                elif [ "$custom_install_path" = "$sd_webui_path" ] ||\
+                [ "$custom_install_path" = "$comfyui_path" ] ||\
+                [ "$custom_install_path" = "$invokeai_path" ] ||\
+                [ "$custom_install_path" = "$lora_scripts_path" ] ||\
+                [ "$custom_install_path" = "$kohya_ss_path" ];then
+                    dialog --erase-on-exit --title "Term-SD" --backtitle "Fooocus安装路径设置界面" --ok-label "确认" --msgbox "安装路径和其他AI软件的安装目录相同,请重新设置" $term_sd_dialog_height $term_sd_dialog_width
                 else
                     export fooocus_path=$custom_install_path
                     export fooocus_folder=$(basename "$fooocus_path")
@@ -704,6 +728,12 @@ lora_scripts_custom_install_path_setting()
             if [ $? = 0 ] && [ ! -z "$custom_install_path" ];then
                 if [ "$custom_install_path" = "/" ];then
                     dialog --erase-on-exit --title "Term-SD" --backtitle "lora-scripts安装路径设置界面" --ok-label "确认" --msgbox "禁止将根目录设置为安装路径" $term_sd_dialog_height $term_sd_dialog_width
+                elif [ "$custom_install_path" = "$sd_webui_path" ] ||\
+                [ "$custom_install_path" = "$comfyui_path" ] ||\
+                [ "$custom_install_path" = "$invokeai_path" ] ||\
+                [ "$custom_install_path" = "$fooocus_path" ] ||\
+                [ "$custom_install_path" = "$kohya_ss_path" ];then
+                    dialog --erase-on-exit --title "Term-SD" --backtitle "lora-scripts安装路径设置界面" --ok-label "确认" --msgbox "安装路径和其他AI软件的安装目录相同,请重新设置" $term_sd_dialog_height $term_sd_dialog_width
                 else
                     export lora_scripts_path=$custom_install_path
                     export lora_scripts_folder=$(basename "$lora_scripts_path")
@@ -746,6 +776,12 @@ kohya_ss_custom_install_path_setting()
             if [ $? = 0 ] && [ ! -z "$custom_install_path" ];then
                 if [ "$custom_install_path" = "/" ];then
                     dialog --erase-on-exit --title "Term-SD" --backtitle "kohya_ss安装路径设置界面" --ok-label "确认" --msgbox "禁止将根目录设置为安装路径" $term_sd_dialog_height $term_sd_dialog_width
+                elif [ "$custom_install_path" = "$sd_webui_path" ] ||\
+                [ "$custom_install_path" = "$comfyui_path" ] ||\
+                [ "$custom_install_path" = "$invokeai_path" ] ||\
+                [ "$custom_install_path" = "$fooocus_path" ] ||\
+                [ "$custom_install_path" = "$lora_scripts_path" ];then
+                    dialog --erase-on-exit --title "Term-SD" --backtitle "kohya_ss安装路径设置界面" --ok-label "确认" --msgbox "安装路径和其他AI软件的安装目录相同,请重新设置" $term_sd_dialog_height $term_sd_dialog_width
                 else
                     export kohya_ss_path=$custom_install_path
                     export kohya_ss_folder=$(basename "$kohya_ss_path")
