@@ -129,7 +129,7 @@ restore_python_package_ver()
     # 安装前的准备
     download_mirror_select # 下载镜像源选择
     pip_install_mode_select # 安装方式选择
-    term_sd_install_confirm # 安装前确认
+    term_sd_install_confirm "是否恢复依赖库版本?" # 安装前确认
 
     if [ $? = 0 ];then
         term_sd_print_line "Python软件包版本恢复"

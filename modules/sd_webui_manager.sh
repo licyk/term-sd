@@ -182,7 +182,7 @@ sd_webui_update_depend()
         # 更新前的准备
         download_mirror_select # 下载镜像源选择
         pip_install_mode_select # 安装方式选择
-        term_sd_install_confirm # 安装前确认
+        term_sd_install_confirm "是否更新Stable-Diffusion-WebUI依赖?" # 安装前确认
 
         if [ $? = 0 ];then
             term_sd_print_line "Stable-Diffusion-WebUI依赖更新"
@@ -206,7 +206,7 @@ sd_webui_backend_repo_reinstall()
 {
     if (dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI后端组件重装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装Stable-Diffusion-WebUI后端组件?" $term_sd_dialog_height $term_sd_dialog_width);then
         download_mirror_select # 下载镜像源选择
-        term_sd_install_confirm # 安装前确认
+        term_sd_install_confirm "是否重新安装Stable-Diffusion-WebUI后端组件?" # 安装前确认
 
         if [ $? = 0 ];then
             term_sd_print_line "Stable-Diffusion-WebUI后端组件重装"

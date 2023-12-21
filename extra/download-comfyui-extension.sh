@@ -19,7 +19,7 @@ install_comfyui_extension()
         dialog --erase-on-exit --notags --title "ComfyUI安装" --backtitle "ComfyUI插件安装选项" --ok-label "确认" --no-cancel --checklist "请选择需要安装的ComfyUI自定义节点" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         $(cat "$start_path/term-sd/install/comfyui/dialog_comfyui_custom_node.sh" | awk '{gsub(" ON"," OFF")}1') \
         3>&1 1>&2 2>&3)
-    term_sd_install_confirm # 安装确认
+    term_sd_install_confirm "是否安装ComfyUI插件/自定义节点?" # 安装确认
     if [ $? = 0 ];then
         term_sd_echo "生成任务队列"
         touch "$start_path/term-sd/task/comfyui_install_extension.sh"

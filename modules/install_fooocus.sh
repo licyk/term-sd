@@ -49,7 +49,7 @@ install_fooocus()
         download_mirror_select auto_github_mirrror # 下载镜像源选择
         pytorch_version_select # pytorch版本选择
         pip_install_mode_select # 安装方式选择
-        term_sd_install_confirm # 安装确认
+        term_sd_install_confirm "是否安装Fooocus?" # 安装确认
         if [ $? = 0 ];then
             term_sd_echo "生成安装任务中"
             term_sd_set_install_env_value >> "$start_path/term-sd/task/fooocus_install.sh" # 环境变量

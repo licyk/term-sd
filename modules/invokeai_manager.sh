@@ -40,7 +40,7 @@ invokeai_manager()
                     # 更新前的准备
                     download_mirror_select # 下载镜像源选择
                     pip_install_mode_select # 安装方式选择
-                    term_sd_install_confirm # 安装前确认
+                    term_sd_install_confirm "是否更新InvokeAI?" # 安装前确认
                     if [ $? = 0 ];then
                         term_sd_echo "更新InvokeAI中"
                         term_sd_tmp_disable_proxy # 临时取消代理,避免一些不必要的网络减速
@@ -150,7 +150,7 @@ invokeai_update_depend()
         # 更新前的准备
         download_mirror_select # 下载镜像源选择
         pip_install_mode_select # 安装方式选择
-        term_sd_install_confirm # 安装前确认
+        term_sd_install_confirm "是否更新InvokeAI依赖?" # 安装前确认
 
         if [ $? = 0 ];then
             term_sd_print_line "InvokeAI依赖更新"

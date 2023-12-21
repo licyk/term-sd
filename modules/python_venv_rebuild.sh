@@ -7,7 +7,7 @@ sd_webui_venv_rebuild()
     download_mirror_select # 下载镜像源选择
     pytorch_version_select # pytorch版本选择
     pip_install_mode_select # 安装方式选择
-    term_sd_install_confirm # 安装前确认
+    term_sd_install_confirm "是否重新构建Stable-Diffusion-WebUI的虚拟环境?" # 安装前确认
 
     if [ $? = 0 ];then
         term_sd_print_line "$term_sd_manager_info 虚拟环境重建"
@@ -38,7 +38,7 @@ comfyui_venv_rebuild()
     download_mirror_select # 下载镜像源选择
     pytorch_version_select # pytorch版本选择
     pip_install_mode_select # 安装方式选择
-    term_sd_install_confirm # 安装前确认
+    term_sd_install_confirm "是否重新构建ComfyUI的虚拟环境?" # 安装前确认
 
     if [ $? = 0 ];then
         term_sd_print_line "$term_sd_manager_info 虚拟环境重建"
@@ -67,7 +67,7 @@ invokeai_venv_rebuild()
     download_mirror_select # 下载镜像源选择
     pytorch_version_select # pytorch版本选择
     pip_install_mode_select # 安装方式选择
-    term_sd_install_confirm # 安装前确认
+    term_sd_install_confirm "是否重新构建InvokeAI的虚拟环境?" # 安装前确认
 
     if [ $? = 0 ];then
         term_sd_print_line "$term_sd_manager_info 虚拟环境重建"
@@ -96,7 +96,7 @@ fooocus_venv_rebuild()
     download_mirror_select # 下载镜像源选择
     pytorch_version_select # pytorch版本选择
     pip_install_mode_select # 安装方式选择
-    term_sd_install_confirm # 安装前确认
+    term_sd_install_confirm "是否重新构建Fooocus的虚拟环境?" # 安装前确认
 
     if [ $? = 0 ];then
         term_sd_print_line "$term_sd_manager_info 虚拟环境重建"
@@ -125,7 +125,7 @@ lora_scripts_venv_rebuild()
     download_mirror_select # 下载镜像源选择
     pytorch_version_select # pytorch版本选择
     pip_install_mode_select # 安装方式选择
-    term_sd_install_confirm # 安装前确认
+    term_sd_install_confirm "是否重新构建lora-scripts的虚拟环境?" # 安装前确认
 
     if [ $? = 0 ];then
         term_sd_print_line "$term_sd_manager_info 虚拟环境重建"
@@ -161,7 +161,7 @@ kohya_ss_venv_rebuild()
     download_mirror_select # 下载镜像源选择
     pytorch_version_select # pytorch版本选择
     pip_install_mode_select # 安装方式选择
-    term_sd_install_confirm # 安装前确认
+    term_sd_install_confirm "是否重新构建kohya_ss的虚拟环境?" # 安装前确认
 
     if [ $? = 0 ];then
         term_sd_print_line "$term_sd_manager_info 虚拟环境重建"

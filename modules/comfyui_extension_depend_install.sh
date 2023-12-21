@@ -6,7 +6,7 @@ comfyui_extension_depend_install()
     # 安装前的准备
     download_mirror_select # 下载镜像源选择
     pip_install_mode_select # 安装方式选择
-    term_sd_install_confirm # 安装前确认
+    term_sd_install_confirm "是否安装ComfyUI插件/自定义节点依赖?" # 安装前确认
 
     if [ $? = 0 ];then
         local comfyui_extension_depend_install_req

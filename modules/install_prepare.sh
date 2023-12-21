@@ -198,9 +198,12 @@ pip_force_reinstall_select()
 }
 
 # 安装前确认界面
+# 加参数可修改提示内容
+# 使用:
+# term_sd_install_confirm <提示内容>
 term_sd_install_confirm()
 {
-    if (dialog --erase-on-exit --title "Term-SD" --backtitle "安装确认选项" --yes-label "是" --no-label "否" --yesno "是否进行安装? \n
+    if (dialog --erase-on-exit --title "Term-SD" --backtitle "安装确认选项" --yes-label "是" --no-label "否" --yesno "${@}\n
 pip镜像源:$([ -z "$pip_extra_index_mirror" ] && echo "禁用" || echo "启用")\n
 github镜像:$github_mirror_name\n
 huggingface/github下载源独占代理:$([ $term_sd_only_proxy = 0 ] && echo "启用" || echo "禁用")\n

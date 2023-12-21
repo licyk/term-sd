@@ -50,7 +50,7 @@ install_sd_webui()
         pytorch_version_select # pytorch版本选择
         sd_webui_extension_install_select # 插件选择
         pip_install_mode_select # 安装方式选择
-        term_sd_install_confirm # 安装确认
+        term_sd_install_confirm "是否安装Stable-Diffusion-WebUI?" # 安装确认
         if [ $? = 0 ];then
             term_sd_echo "生成安装任务中"
             term_sd_set_install_env_value >> "$start_path/term-sd/task/sd_webui_install.sh" # 环境变量

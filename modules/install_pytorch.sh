@@ -9,7 +9,7 @@ pytorch_reinstall()
         pytorch_version_select # pytorch版本选择
         pip_install_mode_select # 安装方式选择
         pip_force_reinstall_select # 强制重装选择
-        term_sd_install_confirm # 安装前确认
+        term_sd_install_confirm "是否重新安装PyTorch?" # 安装前确认
 
         if [ $? = 0 ];then
             # 开始安装pytorch

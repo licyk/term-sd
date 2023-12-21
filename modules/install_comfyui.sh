@@ -50,7 +50,7 @@ install_comfyui()
         comfyui_extension_install_select # 插件选择
         comfyui_custom_node_install_select # 自定义节点选择
         pip_install_mode_select # 安装方式选择
-        term_sd_install_confirm # 安装确认
+        term_sd_install_confirm "是否安装ComfUI?" # 安装确认
         if [ $? = 0 ];then
             term_sd_echo "生成安装任务中"
             term_sd_set_install_env_value >> "$start_path/term-sd/task/comfyui_install.sh" # 环境变量
