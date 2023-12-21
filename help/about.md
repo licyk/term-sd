@@ -50,6 +50,13 @@ AiDraw：
   https://guide.novelai.dev
 NovelAI.Dev社区：
   https://novelai.dev
+openpose editor网页版：
+  https://zhuyu1997.github.io/open-pose-editor/?lng=zh
+背景移除：
+  https://huggingface.co/spaces/skytnt/anime-remove-background
+图片语义分割：
+  https://huggingface.co/spaces/shi-labs/OneFormer
+  https://huggingface.co/spaces/yizhangliu/Grounded-Segment-Anything
 
 ●ComfyUI：
 工作流示范：
