@@ -93,6 +93,7 @@ Fooocus
 ├── output   生成图片的保存位置
 └── config.txt 配置文件保存路径
 
+
 lora-scripts目录的部分说明（只列举比较重要的）：
 lora-scripts
 ├── config
@@ -101,6 +102,7 @@ lora-scripts
 ├── logs   日志存放位置
 ├── output   训练得到的模型存放位置
 └── sd-models   训练所用的底模存放位置
+
 
 kohya_ss目录的部分说明（只列举比较重要的）：
 kohya_ss
