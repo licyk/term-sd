@@ -71,3 +71,5 @@ __term_sd_task_pre_ext_70 git_clone_repository ${github_mirror} https://github.c
 __term_sd_task_pre_ext_71 git_clone_repository ${github_mirror} https://github.com/butaixianran/Stable-Diffusion-Webui-Civitai-Helper "$sd_webui_folder"/extensions OFF # civitai模型管理 
 __term_sd_task_pre_ext_72 git_clone_repository ${github_mirror} https://github.com/Yinzo/sd-webui-Lora-queue-helper "$sd_webui_folder"/extensions OFF # Lora队列助手，用于比较具有相同提示和设置的相同角色的Lora/从同一来源生成不同的角色/或者只需切换和选择Lora，而无需更改选项卡
 __term_sd_task_pre_ext_73 git_clone_repository ${github_mirror} https://github.com/mattyamonaca/PBRemTools "$sd_webui_folder"/extensions OFF # 图片背景去除，并且可以生成蒙版图像
+__term_sd_task_pre_ext_74 git_clone_repository ${github_mirror} https://github.com/songweige/sd-webui-rich-text "$sd_webui_folder"/extensions OFF # 使用富文本进行图像生成，并且能够通过提示词来精准的控制图像
+__term_sd_task_pre_ext_75 git_clone_repository ${github_mirror} https://github.com/WSH032/image-deduplicate-cluster-webui "$sd_webui_folder"/extensions OFF # 图像查重和图片聚类

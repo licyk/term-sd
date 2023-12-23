@@ -292,3 +292,11 @@ AUTOMATIC1111-stable-diffusion-webui插件说明：
 73、PBRemTools：
 描述：图片背景去除，并且可以生成蒙版图像
 链接：https://github.com/mattyamonaca/PBRemTools
+
+74、sd-webui-rich-text：
+描述：使用富文本进行图像生成，并且能够通过提示词来精准的控制图像
+链接：https://github.com/songweige/sd-webui-rich-text
+
+75、image-deduplicate-cluster-webui：
+描述：图像查重和图片聚类
+链接：https://github.com/WSH032/image-deduplicate-cluster-webui
