@@ -304,3 +304,7 @@ AUTOMATIC1111-stable-diffusion-webui插件说明：
 76、stable-diffusion-webui-composable-lora：
 描述：将LoRA在提示中的插入位置与“AND”语法相关联
 链接：https://github.com/opparco/stable-diffusion-webui-composable-lora
+
+77、sdweb-merge-block-weighted-gui：
+描述：模型U-NET权重调整与合并
+链接：https://github.com/bbc-mc/sdweb-merge-block-weighted-gui

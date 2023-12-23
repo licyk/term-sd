@@ -52,6 +52,8 @@ AiDraw：
   https://guide.novelai.dev
 Latent Couple 可视化区域设置：
   https://latentcouple.hanamizuki.ai
+Merge Block Weight 魔法密录：
+  https://docs.qq.com/doc/DTklkTllGQmdac3Jl
 
 openpose editor网页版：
   https://zhuyu1997.github.io/open-pose-editor/?lng=zh
