@@ -46,10 +46,13 @@ stable diffusion 常见错误收集及对应解决方案：
   https://sd.wa9.cn/check_log.php
 stable diffusion工作流分享（需要安装LightDiffusionFlow插件进行导入）：
   https://www.lightflow.ai
-AiDraw：
-  https://guide.novelai.dev
 NovelAI.Dev社区：
   https://novelai.dev
+AiDraw：
+  https://guide.novelai.dev
+Latent Couple 可视化区域设置：
+  https://latentcouple.hanamizuki.ai
+
 openpose editor网页版：
   https://zhuyu1997.github.io/open-pose-editor/?lng=zh
 背景移除：

@@ -300,3 +300,7 @@ AUTOMATIC1111-stable-diffusion-webui插件说明：
 75、image-deduplicate-cluster-webui：
 描述：图像查重和图片聚类
 链接：https://github.com/WSH032/image-deduplicate-cluster-webui
+
+76、stable-diffusion-webui-composable-lora：
+描述：将LoRA在提示中的插入位置与“AND”语法相关联
+链接：https://github.com/opparco/stable-diffusion-webui-composable-lora

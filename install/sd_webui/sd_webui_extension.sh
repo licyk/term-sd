@@ -73,3 +73,4 @@ __term_sd_task_pre_ext_72 git_clone_repository ${github_mirror} https://github.c
 __term_sd_task_pre_ext_73 git_clone_repository ${github_mirror} https://github.com/mattyamonaca/PBRemTools "$sd_webui_folder"/extensions OFF # 图片背景去除，并且可以生成蒙版图像
 __term_sd_task_pre_ext_74 git_clone_repository ${github_mirror} https://github.com/songweige/sd-webui-rich-text "$sd_webui_folder"/extensions OFF # 使用富文本进行图像生成，并且能够通过提示词来精准的控制图像
 __term_sd_task_pre_ext_75 git_clone_repository ${github_mirror} https://github.com/WSH032/image-deduplicate-cluster-webui "$sd_webui_folder"/extensions OFF # 图像查重和图片聚类
+__term_sd_task_pre_ext_76 git_clone_repository ${github_mirror} https://github.com/opparco/stable-diffusion-webui-composable-lora "$sd_webui_folder"/extensions OFF # 将LoRA在提示中的插入位置与“AND”语法相关联
