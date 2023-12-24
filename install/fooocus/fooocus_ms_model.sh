@@ -1,6 +1,6 @@
 __term_sd_task_sys term_sd_echo "下载模型中"
 __term_sd_task_sys term_sd_echo "使用modelscope模型下载源"
-__term_sd_task_pre_model get_modelscope_model licyks/sd-model/master/sdxl_1.0/sd_xl_base_1.0_0.9vae.safetensors "$fooocus_folder"/models/checkpoints
+__term_sd_task_pre_model get_modelscope_model licyks/sd-model/master/sdxl_1.0/sd_xl_base_1.0_0.9vae.safetensors "$fooocus_folder"/models/checkpoints juggernautXL_version6Rundiffusion.safetensors
 __term_sd_task_pre_model get_modelscope_model licyks/sd-model/master/sdxl_refiner_1.0/sd_xl_refiner_1.0_0.9vae.safetensors "$fooocus_folder"/models/checkpoints
 __term_sd_task_pre_model get_modelscope_model licyks/fooocus-model/master/loras/sd_xl_offset_example-lora_1.0.safetensors "$fooocus_folder"/models/loras
 __term_sd_task_pre_model get_modelscope_model licyks/fooocus-model/master/inpaint/fooocus_inpaint_head.pth "$fooocus_folder"/models/inpaint

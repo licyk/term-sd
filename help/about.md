@@ -19,6 +19,10 @@ Term-SD的编写参考了https://gitee.com/skymysky/linux（制作Term-SD早期�
   https://www.liblib.ai
   https://www.esheep.com
   https://tusiart.com
+●controlnet模型下载：
+  https://huggingface.co/lllyasviel/Annotators
+  https://huggingface.co/lllyasviel/ControlNet-v1-1
+  https://huggingface.co/lllyasviel/sd_control_collection
  
 ●stable-diffusion-webui：
 从零开始的AI绘画入门教程——魔法导论：
@@ -54,7 +58,6 @@ Latent Couple 可视化区域设置：
   https://latentcouple.hanamizuki.ai
 Merge Block Weight 魔法密录：
   https://docs.qq.com/doc/DTklkTllGQmdac3Jl
-
 openpose editor网页版：
   https://zhuyu1997.github.io/open-pose-editor/?lng=zh
 背景移除：

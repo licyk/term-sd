@@ -16,6 +16,9 @@ term_sd_launch()
             ;;
         Fooocus)
             launch_sd_config="fooocus-launch.conf"
+            if echo $(cat "$start_path"/term-sd/config/$launch_sd_config) | grep "\-\-language zh" > /dev/null 2>&1 ;then # 添加中文配置
+                fooocus_lang_config_file > language/zh.json
+            fi
             ;;
     esac
     term_sd_print_line "${term_sd_manager_info}启动"
