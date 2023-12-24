@@ -50,6 +50,11 @@ fooocus_launch_args_setting()
         "40" "(theme dark)使用黑暗主题" OFF \
         "41" "(disable-image-log)禁用将图像和日志写入硬盘" OFF \
         "42" "(disable-analytics)禁用gradio分析" OFF \
+        "43" "(preset default)使用默认模型预设" OFF \
+        "44" "(preset sai)使用sai模型预设" ON \
+        "45" "(preset lcm)使用lcm模型预设" OFF \
+        "46" "(preset anime)使用anime模型预设" OFF \
+        "47" "(preset realistic)使用realistic模型预设" OFF \
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
@@ -181,6 +186,21 @@ fooocus_launch_args_setting()
                 42)
                     fooocus_launch_args="--disable-analytics $fooocus_launch_args"
                     ;;
+                43)
+                    fooocus_launch_args="--preset default $fooocus_launch_args"
+                    ;;
+                44)
+                    fooocus_launch_args="--preset sai $fooocus_launch_args"
+                    ;;
+                45)
+                    fooocus_launch_args="--preset lcm $fooocus_launch_args"
+                    ;;
+                46)
+                    fooocus_launch_args="--preset anime $fooocus_launch_args"
+                    ;;
+                47)
+                    fooocus_launch_args="--preset realistic $fooocus_launch_args"
+                    ;;
                 
             esac
         done
@@ -197,7 +217,7 @@ fooocus_launch()
 
     if [ ! -f "$start_path/term-sd/config/fooocus-launch.conf" ]; then # 找不到启动配置时默认生成一个
         term_sd_echo "未找到启动配置文件,创建中"
-        echo "launch.py --language zh" > "$start_path"/term-sd/config/fooocus-launch.conf
+        echo "launch.py --language zh --preset sai" > "$start_path"/term-sd/config/fooocus-launch.conf
     fi
 
     fooocus_launch_dialog=$(
