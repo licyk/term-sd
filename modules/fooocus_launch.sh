@@ -9,7 +9,7 @@ fooocus_launch_args_setting()
     fooocus_launch_args_setting_dialog=$(
         dialog --erase-on-exit --notags --title "Fooocus管理" --backtitle "Fooocus启动参数选项" --ok-label "确认" --cancel-label "取消" --checklist "请选择Fooocus启动参数,确认之后将覆盖原有启动参数配置" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "1" "(listen)开放远程连接" OFF \
-        "2" "(disable-header-check)" ON \
+        "2" "(disable-header-check)禁用请求头部检查" OFF \
         "3" "(in-browser)启动后自动打开浏览器" OFF \
         "4" "(disable-in-browser)禁用自动打开浏览器" OFF\
         "5" "(async-cuda-allocation)启用CUDA流顺序内存分配器" OFF \
@@ -24,10 +24,10 @@ fooocus_launch_args_setting()
         "14" "(vae-in-fp16)使用fp16精度运行vae" OFF \
         "15" "(vae-in-fp32)使用fp32精度运行vae" OFF \
         "16" "(vae-in-bf16)使用bf16精度运行vae" OFF \
-        "17" "(clip-in-fp8-e4m3fn)使用fp8(e4m3fn)精度运行clip" OFF \
-        "18" "(clip-in-fp8-e5m2)使用fp8(e5m2)精度运行clip" OFF \
-        "19" "(clip-in-fp16)使用fp16精度运行clip" OFF \
-        "20" "(clip-in-fp32)使用fp32精度运行clip" OFF \
+        "17" "(clip-in-fp8-e4m3fn)使用fp8(e4m3fn)精度运行文本编码器" OFF \
+        "18" "(clip-in-fp8-e5m2)使用fp8(e5m2)精度运行文本编码器" OFF \
+        "19" "(clip-in-fp16)使用fp16精度运行文本编码器" OFF \
+        "20" "(clip-in-fp32)使用fp32精度运行文本编码器" OFF \
         "21" "(directml)使用directml作为后端" OFF \
         "22" "(disable-ipex-hijack)禁用ipex修复" OFF \
         "23" "(attention-split)使用split优化" OFF \
@@ -42,14 +42,14 @@ fooocus_launch_args_setting()
         "32" "(always-cpu)使用CPU进行生图" OFF \
         "33" "(always-offload-from-vram)保持模型储存在显存中而不是自动卸载到内存中" OFF \
         "34" "(pytorch-deterministic)将PyTorch配置为使用确定性算法" OFF \
-        "34" "(disable-server-log)禁用服务端日志输出" OFF \
-        "34" "(debug-mode)启用debug模式" OFF \
-        "34" "(is-windows-embedded-python)启用Windows独占功能" OFF \
-        "34" "(disable-server-info)禁用服务端信息输出" OFF \
-        "34" "(language zh)启用中文" OFF \
-        "34" "(theme dark)使用黑暗主题" OFF \
-        "34" "(disable-image-log)禁用将图像和日志写入硬盘" OFF \
-        "34" "(disable-analytics)禁用gradio分析" OFF \
+        "35" "(disable-server-log)禁用服务端日志输出" OFF \
+        "36" "(debug-mode)启用debug模式" OFF \
+        "37" "(is-windows-embedded-python)启用Windows独占功能" OFF \
+        "38" "(disable-server-info)禁用服务端信息输出" OFF \
+        "39" "(language zh)启用中文" ON \
+        "40" "(theme dark)使用黑暗主题" OFF \
+        "41" "(disable-image-log)禁用将图像和日志写入硬盘" OFF \
+        "42" "(disable-analytics)禁用gradio分析" OFF \
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
