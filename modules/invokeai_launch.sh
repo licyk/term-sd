@@ -171,10 +171,10 @@ invokeai_manual_launch()
 {
     local invokeai_launch_args
 
-    invokeai_launch_args=$(dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入Fooocus启动参数" $term_sd_dialog_height $term_sd_dialog_width "$(cat "$start_path"/term-sd/config/invokeai-launch.conf | awk '{sub("launch.py ","")}1')" 3>&1 1>&2 2>&3)
+    invokeai_launch_args=$(dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入Fooocus启动参数" $term_sd_dialog_height $term_sd_dialog_width "$(cat "$start_path"/term-sd/config/invokeai-launch.conf)" 3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
         term_sd_echo "设置启动参数:  $invokeai_launch_args"
-        echo "launch.py $invokeai_launch_args" > "$start_path"/term-sd/config/invokeai-launch.conf
+        echo "$invokeai_launch_args" > "$start_path"/term-sd/config/invokeai-launch.conf
     fi
 }
