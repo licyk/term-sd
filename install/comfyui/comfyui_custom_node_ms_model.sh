@@ -61,6 +61,27 @@ __term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1/master/t2i
 __term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_zoedepth_sd15v1.yaml "$comfyui_folder"/models/controlnet
 __term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1/master/image_adapter_v14.yaml "$comfyui_folder"/models/controlnet
 __term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1/master/sketch_adapter_v14.yaml "$comfyui_folder"/models/controlnet
+__term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1_annotator/master/hed/ControlNetHED.pth "$comfyui_folder"/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators # controlnet预处理器
+__term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1_annotator/master/lama/ControlNetLama.pth "$comfyui_folder"/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators
+__term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1_annotator/master/leres/latest_net_G.pth "$comfyui_folder"/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators
+__term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1_annotator/master/leres/res101.pth "$comfyui_folder"/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators
+__term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1_annotator/master/lineart/sk_model.pth "$comfyui_folder"/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators
+__term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1_annotator/master/lineart/sk_model2.pth "$comfyui_folder"/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators
+__term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1_annotator/master/lineart_anime/netG.pth "$comfyui_folder"/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators
+__term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1_annotator/master/manga_line/erika.pth "$comfyui_folder"/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators
+__term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1_annotator/master/midas/dpt_hybrid-midas-501f0c75.pt "$comfyui_folder"/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators
+__term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1_annotator/master/mlsd/mlsd_large_512_fp32.pth "$comfyui_folder"/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators
+__term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1_annotator/master/normal_bae/scannet.pt "$comfyui_folder"/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators
+__term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1_annotator/master/oneformer/150_16_swin_l_oneformer_coco_100ep.pth "$comfyui_folder"/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators
+__term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1_annotator/master/oneformer/250_16_swin_l_oneformer_ade20k_160k.pth "$comfyui_folder"/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators
+__term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1_annotator/master/openpose/body_pose_model.pth "$comfyui_folder"/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators
+__term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1_annotator/master/openpose/dw-ll_ucoco_384.onnx "$comfyui_folder"/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators
+__term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1_annotator/master/openpose/facenet.pth "$comfyui_folder"/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators
+__term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1_annotator/master/openpose/hand_pose_model.pth "$comfyui_folder"/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators
+__term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1_annotator/master/openpose/yolox_l.onnx "$comfyui_folder"/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators
+__term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1_annotator/master/pidinet/table5_pidinet.pth "$comfyui_folder"/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators
+__term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1_annotator/master/uniformer/upernet_global_small.pth "$comfyui_folder"/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators
+__term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1_annotator/master/zoedepth/ZoeD_M12_N.pt "$comfyui_folder"/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators
 
 __term_sd_task_pre_ext_44 term_sd_echo "下载animatediff模型中"
 __term_sd_task_pre_ext_44 get_modelscope_model licyks/sd-extensions-model/master/sd-webui-animatediff/mm_sd_v15_v2.ckpt "$comfyui_folder"/custom_nodes/ComfyUI-AnimateDiff-Evolved/models
@@ -71,3 +92,6 @@ __term_sd_task_pre_ext_46 get_modelscope_model licyks/controlnet_v1.1/master/ip-
 __term_sd_task_pre_ext_46 get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter_sd15.pth "$comfyui_folder"/custom_nodes/ComfyUI_IPAdapter_plus/models
 __term_sd_task_pre_ext_46 get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter_sd15_light.pth "$comfyui_folder"/custom_nodes/ComfyUI_IPAdapter_plus/models
 __term_sd_task_pre_ext_46 get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter_sd15_plus.pth "$comfyui_folder"/custom_nodes/ComfyUI_IPAdapter_plus/models
+__term_sd_task_pre_ext_46 get_modelscope_model licyks/controlnet_v1.1_annotator/master/clip_vision/clip_g.pth "$comfyui_folder"/models/clip_vision
+__term_sd_task_pre_ext_46 get_modelscope_model licyks/controlnet_v1.1_annotator/master/clip_vision/clip_h.pth "$comfyui_folder"/models/clip_vision
+__term_sd_task_pre_ext_46 get_modelscope_model licyks/controlnet_v1.1_annotator/master/clip_vision/clip_vitl.pth "$comfyui_folder"/models/clip_vision
