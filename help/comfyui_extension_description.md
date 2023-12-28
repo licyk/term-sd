@@ -205,9 +205,9 @@ ComfyUI插件/自定义节点说明：
 描述：解决tag的强污染，效果比cutoff好
 链接：https://github.com/laksjdjf/cd-tuner_negpip-ComfyUI
 
-49、ControlNet-LLLite-ComfyUI：
+49、ComfyUI-Easy-Use：
 描述：添加ControlNet-LLLite的支持
-链接：https://github.com/kohya-ss/ControlNet-LLLite-ComfyUI
+链接：https://github.com/yolain/ComfyUI-Easy-Use
 
 50、sdxl_prompt_styler：
 描述：SDXL提示词风格预设节点
@@ -228,3 +228,15 @@ ComfyUI插件/自定义节点说明：
 54、ComfyUI-WD14-Tagger：
 描述：图片标签反推
 链接：https://github.com/pythongosssss/ComfyUI-WD14-Tagger
+
+55、ComfyUI-Inspire-Pack：
+描述：整合多功能的节点
+链接：https://github.com/ltdrdata/ComfyUI-Inspire-Pack
+
+56、sd-dynamic-thresholding：
+描述：解决使用更高的CFGScale而出现颜色问题
+链接：https://github.com/mcmonkeyprojects/sd-dynamic-thresholding
+
+57、rgthree-comfy：
+描述：节点管道工具
+链接：https://github.com/rgthree/rgthree-comfy
