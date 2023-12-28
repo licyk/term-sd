@@ -13,8 +13,7 @@ download_mirror_select()
     use_modelscope_model=1
     github_mirror="https://github.com/term_sd_git_user/term_sd_git_repo"
     github_mirror_name="官方源(github.com)"
-    proxy_address_1=$http_proxy
-    proxy_address_2=$https_proxy
+    term_sd_proxy=$https_proxy
 
     download_mirror_select_dialog=$(
         dialog --erase-on-exit --notags --title "Term-SD" --backtitle "安装镜像选项" --title "Term-SD" --ok-label "确认" --no-cancel --checklist "请选择镜像\n注:\n1、当同时启用多个github镜像源时,优先选择最下面的github镜像源;勾选\"github镜像源自动选择\"时,将覆盖手动设置的github镜像源\n2、强制使用pip一般情况下不选" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \

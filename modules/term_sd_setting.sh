@@ -207,6 +207,7 @@ term_sd_proxy_setting()
     local term_sd_proxy_setting_dialog
     export http_proxy
     export https_proxy
+    export term_sd_proxy
 
     term_sd_proxy_setting_dialog=$(
         dialog --erase-on-exit --notags --title "Term-SD" --backtitle "代理设置界面" --ok-label "确认" --cancel-label "取消" --menu "该功能用于设置代理服务器,解决AI软件和Term-SD因网络环境导致无法连接上服务器,而出现报错的问题\n当前代理设置:$([ -z $http_proxy ] && echo "无" || echo $http_proxy)\n请选择要设置的代理协议" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
@@ -224,6 +225,7 @@ term_sd_proxy_setting()
                 term_sd_proxy_config=$(echo $term_sd_proxy_config | awk '{gsub(/[：]/, ":") ; gsub(/[。]/, ".")}1') # 防止用户输入中文冒号,句号后导致错误
                 http_proxy="http://$term_sd_proxy_config"
                 https_proxy="http://$term_sd_proxy_config"
+                term_sd_proxy=$https_proxy
                 echo "http://$term_sd_proxy_config" > term-sd/config/proxy.conf
                 dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --msgbox "代理地址:\"$http_proxy\"\n代理协议:\"$(echo $http_proxy | awk -F '://' '{print$NR}')\"\n设置代理完成" $term_sd_dialog_height $term_sd_dialog_width
             fi
@@ -235,6 +237,7 @@ term_sd_proxy_setting()
                 term_sd_proxy_config=$(echo $term_sd_proxy_config | awk '{gsub(/[：]/, ":") ; gsub(/[。]/, ".")}1') # 防止用户输入中文冒号,句号后导致错误
                 http_proxy="socks://$term_sd_proxy_config"
                 https_proxy="socks://$term_sd_proxy_config"
+                term_sd_proxy=$https_proxy
                 echo "socks://$term_sd_proxy_config" > term-sd/config/proxy.conf
                 dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --msgbox "代理地址:\"$http_proxy\"\n代理协议:\"$(echo $http_proxy | awk -F '://' '{print$NR}')\"\n设置代理完成" $term_sd_dialog_height $term_sd_dialog_width
             fi
@@ -246,6 +249,7 @@ term_sd_proxy_setting()
                 term_sd_proxy_config=$(echo $term_sd_proxy_config | awk '{gsub(/[：]/, ":") ; gsub(/[。]/, ".")}1') # 防止用户输入中文冒号,句号后导致错误
                 http_proxy="socks5://$term_sd_proxy_config"
                 https_proxy="socks5://$term_sd_proxy_config"
+                term_sd_proxy=$https_proxy
                 echo "socks5://$term_sd_proxy_config" > term-sd/config/proxy.conf
                 dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --msgbox "代理地址:\"$http_proxy\"\n代理协议:\"$(echo $http_proxy | awk -F '://' '{print$NR}')\"\n设置代理完成" $term_sd_dialog_height $term_sd_dialog_width
             fi
@@ -255,6 +259,7 @@ term_sd_proxy_setting()
             if (dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数删除界面" --yes-label "是" --no-label "否" --yesno "是否删除代理配置?" $term_sd_dialog_height $term_sd_dialog_width) then
                 http_proxy=
                 https_proxy=
+                term_sd_proxy=
                 rm -f term-sd/config/proxy.conf
                 dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --msgbox "清除设置代理完成" $term_sd_dialog_height $term_sd_dialog_width
             fi

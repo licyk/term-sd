@@ -736,6 +736,7 @@ if [ -f "term-sd/config/proxy.conf" ];then # 读取代理设置并设置代理
     export https_proxy=$(cat term-sd/config/proxy.conf)
     # 代理变量的说明:https://blog.csdn.net/Dancen/article/details/128045261
 fi
+export term_sd_proxy=$https_proxy # 临时代理变量储存
 
 # 设置安装重试次数
 if [ -f "term-sd/config/term-sd-watch-retry.conf" ];then

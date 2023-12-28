@@ -8,8 +8,7 @@ term_sd_tmp_disable_proxy()
         case $term_sd_only_proxy in
             0)
                 term_sd_echo "huggingface/github下载源独占代理已启用,临时取消代理配置"
-                proxy_address_1=$http_proxy # 将代理配置储存到临时变量
-                proxy_address_2=$https_proxy
+                term_sd_proxy=$https_proxy # 将代理配置储存到临时变量
                 http_proxy= # 将代理配置删除
                 https_proxy=
                 ;;
@@ -20,12 +19,12 @@ term_sd_tmp_disable_proxy()
 #恢复原有代理配置
 term_sd_tmp_enable_proxy()
 {
-    if [ ! -z $proxy_address_1 ];then
+    if [ ! -z $term_sd_proxy ];then
         case $term_sd_only_proxy in
             0)
                 term_sd_echo "恢复代理配置"
-                http_proxy=$proxy_address_1 #从临时变量恢复代理配置
-                https_proxy=$proxy_address_2
+                http_proxy=$term_sd_proxy #从临时变量恢复代理配置
+                https_proxy=$term_sd_proxy
                 ;;
         esac
     fi
