@@ -220,3 +220,11 @@ ComfyUI插件/自定义节点说明：
 52、comfyui-browser：
 描述：查看和管理ComfyUI的所有输出文件/工作流，并且添加收藏方便随时调用
 链接：https://github.com/talesofai/comfyui-browser
+
+53、cg-use-everywhere：
+描述：节点整理工具
+链接：https://github.com/chrisgoringe/cg-use-everywhere
+
+54、ComfyUI-WD14-Tagger：
+描述：图片标签反推
+链接：https://github.com/pythongosssss/ComfyUI-WD14-Tagger
