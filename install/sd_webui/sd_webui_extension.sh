@@ -75,3 +75,4 @@ __term_sd_task_pre_ext_74 git_clone_repository ${github_mirror} https://github.c
 __term_sd_task_pre_ext_75 git_clone_repository ${github_mirror} https://github.com/WSH032/image-deduplicate-cluster-webui "$sd_webui_folder"/extensions OFF # 图像查重和图片聚类
 __term_sd_task_pre_ext_76 git_clone_repository ${github_mirror} https://github.com/opparco/stable-diffusion-webui-composable-lora "$sd_webui_folder"/extensions OFF # 将LoRA在提示中的插入位置与“AND”语法相关联
 __term_sd_task_pre_ext_77 git_clone_repository ${github_mirror} https://github.com/bbc-mc/sdweb-merge-block-weighted-gui "$sd_webui_folder"/extensions OFF # 模型U-NET权重调整与合并
+__term_sd_task_pre_ext_78 git_clone_repository ${github_mirror} https://github.com/BlafKing/sd-civitai-browser-plus "$sd_webui_folder"/extensions OFF # civitai助手升级版，支持更多功能
