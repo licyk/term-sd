@@ -95,3 +95,39 @@ comfyui_extension_depend_install_single()
     exit_venv
     dialog --erase-on-exit --title "ComfyUI选项" --backtitle "ComfyUI${1}依赖安装结果" --ok-label "确认" --msgbox "当前依赖的安装情况列表\n${term_sd_delimiter}\n$comfyui_extension_depend_install_req${term_sd_delimiter}" $term_sd_dialog_height $term_sd_dialog_width
 }
+
+# 插件/自定义节点依赖安装(自动)
+# 使用:
+# comfyui_extension_depend_install_auto "提示内容" "目录"
+# comfyui_custom_node_dep_notice变量用于返回安装依赖的信息
+comfyui_extension_depend_install_auto()
+{
+    if [ -f "$2/requirements.txt" ] || [ -f "$2/install.py" ];then
+        term_sd_echo "开始安装${2}${1}依赖"
+        comfyui_custom_node_dep_notice="$comfyui_custom_node_dep_notice\n\n${2}${1}依赖安装:\n"
+    
+        cd "$start_path/ComfyUI"
+        enter_venv
+        cd - > /dev/null 2>&1
+        cd "$2"
+
+        if [ -f "install.py" ];then # 找到install.py文件
+            term_sd_watch term_sd_python install.py
+            if [ $? = 0 ];then # 记录退出状态
+                comfyui_custom_node_dep_notice="$comfyui_custom_node_dep_notice     run install.py:成功\n"
+            else
+                comfyui_custom_node_dep_notice="$comfyui_custom_node_dep_notice     run install.py:失败\n"
+            fi
+        fi
+
+        if [ -f "requirements.txt" ];then # 找到requirement.txt文件
+            term_sd_watch term_sd_pip install -r requirements.txt
+            if [ $? = 0 ];then # 记录退出状态
+                comfyui_custom_node_dep_notice="$comfyui_custom_node_dep_notice     install requirements.txt:成功\n"
+            else
+                comfyui_custom_node_dep_notice="$comfyui_custom_node_dep_notice     install requirements.txt:失败\n"
+            fi
+        fi
+        cd ..
+    fi
+}

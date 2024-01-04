@@ -78,17 +78,15 @@ comfyui_extension_install()
     if [ ! -z "$comfyui_extension_url" ]; then
         term_sd_echo "安装$(basename $comfyui_extension_url)插件中"
         term_sd_watch git clone --recurse-submodules $comfyui_extension_url
-        git_req=$?
-        
-        if [ -f "$(awk -F "/" '{print $NF}' <<< "$comfyui_extension_url")/requirements.txt" ] || [ -f "$(awk -F "/" '{print $NF}' <<< "$comfyui_extension_url")/install.py" ];then
-            comfyui_extension_dep_notice="检测到该插件需要安装依赖,请进入插件管理功能,选中该插件,运行一次\"安装依赖\"功能"
+        if [ $? = 0 ];then
+            comfyui_custom_node_dep_notice="$(basename "$comfyui_extension_url")插件安装成功"
+            comfyui_extension_depend_install_auto "插件" "$(basename "$comfyui_extension_url")"
+        else
+            comfyui_custom_node_dep_notice="$(basename "$comfyui_extension_url")插件安装失败"
         fi
 
-        if [ $git_req = 0 ];then
-            dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI插件安装结果" --ok-label "确认" --msgbox "$(basename $comfyui_extension_url)插件安装成功\n$comfyui_extension_dep_notice" $term_sd_dialog_height $term_sd_dialog_width
-        else
-            dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI插件安装结果" --ok-label "确认" --msgbox "$(basename $comfyui_extension_url)插件安装失败" $term_sd_dialog_height $term_sd_dialog_width
-        fi
+        dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI插件安装结果" --ok-label "确认" --msgbox "$comfyui_custom_node_dep_notice" $term_sd_dialog_height $term_sd_dialog_width
+        comfyui_custom_node_dep_notice=
     fi
 }
 

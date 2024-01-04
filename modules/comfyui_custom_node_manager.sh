@@ -39,7 +39,6 @@ comfyui_custom_node_manager()
 comfyui_custom_node_install()
 {
     local comfyui_custom_node_url
-    local comfyui_custom_node_dep_notice
     local git_req
 
     comfyui_custom_node_url=$(dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI自定义节点安装选项" --ok-label "确认" --cancel-label "取消" --inputbox "输入自定义节点的github地址或其他下载地址" $term_sd_dialog_height $term_sd_dialog_width 3>&1 1>&2 2>&3)
@@ -47,17 +46,15 @@ comfyui_custom_node_install()
     if [ ! -z "$comfyui_custom_node_url" ]; then
         term_sd_echo "安装$(basename "$comfyui_custom_node_url")自定义节点中"
         term_sd_watch git clone --recurse-submodules $comfyui_custom_node_url
-        git_req=$?
-        
-        if [[[ -f "$(awk -F "/" '{print $NF}' <<< "$comfyui_custom_node_url")/requirements.txt" ] || [ -f "$(awk -F "/" '{print $NF}' <<< "$comfyui_custom_node_url")/install.py" ]]];then
-            comfyui_custom_node_dep_notice="检测到该自定义节点需要安装依赖,请进入自定义节点管理功能,选中该自定义节点,运行一次"安装依赖"功能"
+        if [ $? = 0 ];then
+            comfyui_custom_node_dep_notice="$(basename "$comfyui_custom_node_url")自定义节点安装成功"
+            comfyui_extension_depend_install_auto "自定义节点" "$(basename "$comfyui_custom_node_url")"
+        else
+            comfyui_custom_node_dep_notice="$(basename "$comfyui_custom_node_url")自定义节点安装失败"
         fi
 
-        if [ $git_req = 0 ];then
-            dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI自定义节点安装结果" --ok-label "确认" --msgbox "$(basename "$comfyui_custom_node_url")自定义节点安装成功\n$comfyui_custom_node_dep_notice" $term_sd_dialog_height $term_sd_dialog_width
-        else
-            dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI自定义节点安装结果" --ok-label "确认" --msgbox "$(basename "$comfyui_custom_node_url")自定义节点安装失败" $term_sd_dialog_height $term_sd_dialog_width
-        fi
+        dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI自定义节点安装结果" --ok-label "确认" --msgbox "$comfyui_custom_node_dep_notice" $term_sd_dialog_height $term_sd_dialog_width
+        comfyui_custom_node_dep_notice=
     fi
 }
 
