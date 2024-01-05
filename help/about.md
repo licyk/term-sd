@@ -60,6 +60,7 @@ Merge Block Weight 魔法密录：
   https://docs.qq.com/doc/DTklkTllGQmdac3Jl
 openpose editor网页版：
   https://zhuyu1997.github.io/open-pose-editor/?lng=zh
+  https://huchenlei.github.io/sd-webui-openpose-editor
 背景移除：
   https://huggingface.co/spaces/skytnt/anime-remove-background
 图片语义分割：
