@@ -49,6 +49,7 @@ git_remote_url_select()
         "4" "> 代理源3(gh-proxy.com)" \
         "5" "> 代理源4(ghps.cc)" \
         "6" "> 代理源5(gh.idayer.com)" \
+        "7" "> 代理源6(ghproxy.net)" \
         3>&1 1>&2 2>&3)
 
     case $git_remote_url_select_dialog in
@@ -82,6 +83,11 @@ git_remote_url_select()
             git_repo_remote_revise_cmd="git_repo_remote_revise https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo"
             return 0
             ;;
+        7)
+            term_sd_print_line "更新源一键替换"
+            git_repo_remote_revise_cmd="git_repo_remote_revise https://ghproxy.net/https://github.com/term_sd_git_user/term_sd_git_repo"
+            return 0
+            ;;
         *)
             term_sd_echo "取消替换更新源操作"
             return 1 #不执行替换
@@ -105,6 +111,7 @@ git_remote_url_select_single()
             "4" "> 代理源3(gh-proxy.com)" \
             "5" "> 代理源4(ghps.cc)" \
             "6" "> 代理源5(gh.idayer.com)" \
+            "7" "> 代理源6(ghproxy.net)" \
             3>&1 1>&2 2>&3)
 
         case $git_remote_url_select_single_dialog in
@@ -130,6 +137,10 @@ git_remote_url_select_single()
                 ;;
             6)
                 git_repo_remote_revise https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo
+                dialog --erase-on-exit --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n${term_sd_delimiter}\n$git_repo_remote_revise_req${term_sd_delimiter}" $term_sd_dialog_height $term_sd_dialog_width
+                ;;
+            7)
+                git_repo_remote_revise https://ghproxy.net/https://github.com/term_sd_git_user/term_sd_git_repo
                 dialog --erase-on-exit --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n${term_sd_delimiter}\n$git_repo_remote_revise_req${term_sd_delimiter}" $term_sd_dialog_height $term_sd_dialog_width
                 ;;
             *)

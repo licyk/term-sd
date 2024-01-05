@@ -27,6 +27,7 @@ download_mirror_select()
         "8" "启用github镜像源3(使用gh-proxy镜像站下载github上的源码)" OFF \
         "9" "启用github镜像源4(使用ghps镜像站下载github上的源码)" OFF \
         "10" "启用github镜像源5(使用gh.idayer镜像站下载github上的源码)" OFF \
+        "11" "启用github镜像源6(使用ghproxy.net镜像站下载github上的源码)" OFF \
         3>&1 1>&2 2>&3)
 
     for i in $download_mirror_select_dialog; do
@@ -67,6 +68,10 @@ download_mirror_select()
             10)
                 github_mirror="https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo"
                 github_mirror_name="镜像源5(gh.idayer.com)"
+                ;;
+            11)
+                github_mirror="https://ghproxy.net/https://github.com/term_sd_git_user/term_sd_git_repo"
+                github_mirror_name="镜像源6(ghproxy.net)"
                 ;;
         esac
     done
@@ -224,7 +229,7 @@ pip安装方式:$([ -z $pip_install_mode ] && echo "常规安装(setup.py)" || e
 github_mirror_test()
 {
     # 镜像源列表
-    local github_mirror_list="https://mirror.ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo https://gh-proxy.com/https://github.com/term_sd_git_user/term_sd_git_repo https://ghps.cc/https://github.com/term_sd_git_user/term_sd_git_repo https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo https://gitclone.com/github.com/term_sd_git_user/term_sd_git_repo"
+    local github_mirror_list="https://mirror.ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo https://gh-proxy.com/https://github.com/term_sd_git_user/term_sd_git_repo https://ghps.cc/https://github.com/term_sd_git_user/term_sd_git_repo https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo https://ghproxy.net/https://github.com/term_sd_git_user/term_sd_git_repo https://gitclone.com/github.com/term_sd_git_user/term_sd_git_repo"
     local github_mirror_avaliable=1
     local git_req
     local http_proxy
