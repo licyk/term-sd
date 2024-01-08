@@ -182,7 +182,7 @@ term_sd_extra_scripts()
 # 格式化信息输出
 term_sd_echo()
 {
-    echo -e "[\033[33m$(date "+%Y-%m-%d %H:%M:%S")\033[0m][\033[36mTerm-SD\033[0m]:: "$@""
+    echo -e "[\033[33m$(date "+%Y-%m-%d %H:%M:%S")\033[0m][\033[36mTerm-SD\033[0m]\033[36m::\033[0m "$@""
 }
 
 # 键盘输入读取
@@ -972,7 +972,7 @@ if [ $term_sd_restart_info = 0 ];then
 fi
 
 term_sd_echo "Term-SD版本: $term_sd_version_info"
-term_sd_echo "Commit hash: $(git --git-dir="term-sd/.git" show -s --format="%H %cd" --date=format:"%Y-%m-%d %H:%M:%S")"
+term_sd_echo "Commit: $(git --git-dir="term-sd/.git" show -s --format="%h %cd" --date=format:"%Y-%m-%d %H:%M:%S")"
 
 case $term_sd_extra_scripts_name in
     null)

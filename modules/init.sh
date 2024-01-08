@@ -10,11 +10,11 @@ term_sd_init()
         [ $i = "./term-sd/modules/init.sh" ] && continue
         module_name=${i#./term-sd/modules/}
         module_name=${module_name%.sh}
-        printf "[\033[33m$(date "+%Y-%m-%d %H:%M:%S")\033[0m][\033[36mTerm-SD\033[0m]:: [$count/$modules_count_sum] 加载: $module_name                   \r"
+        printf "[\033[33m$(date "+%Y-%m-%d %H:%M:%S")\033[0m][\033[36mTerm-SD\033[0m]\033[36m::\033[0m [$count/$modules_count_sum] 加载: $module_name                   \r"
         count=$(( $count + 1 ))
         . $i
     done
-    printf "[\033[33m$(date "+%Y-%m-%d %H:%M:%S")\033[0m][\033[36mTerm-SD\033[0m]:: 初始化Term-SD完成                    \n"
+    printf "[\033[33m$(date "+%Y-%m-%d %H:%M:%S")\033[0m][\033[36mTerm-SD\033[0m]\033[36m::\033[0m 初始化Term-SD完成                    \n"
     term_sd_print_line
 }
 
@@ -55,7 +55,7 @@ term_sd_process_bar()
         fi
         bar="${bar}${bar_display}" # 一开始是空的，通过循环填上一堆空格,然后逐渐减少空格数量,增加方块符号的数量
     done
-    printf "[\033[33m$(date "+%Y-%m-%d %H:%M:%S")\033[0m][\033[36mTerm-SD\033[0m]:: 加载模块中|${bar}| ${mark}%%\r"
+    printf "[\033[33m$(date "+%Y-%m-%d %H:%M:%S")\033[0m][\033[36mTerm-SD\033[0m]\033[36m::\033[0m 加载模块中|${bar}| ${mark}%%\r"
     [ $modules_count = $modules_count_sum ] && echo
 }
 

@@ -38,10 +38,10 @@ term_sd_launch()
 # 进程监测
 term_sd_watch()
 {
+    local count=0
     if [ $term_sd_cmd_retry = 0 ];then
         "$@" # 执行输入的命令
     else
-        count=0
         while (( $count <= $term_sd_cmd_retry ));do  
             count=$(( $count + 1 ))
             "$@" # 执行输入的命令
