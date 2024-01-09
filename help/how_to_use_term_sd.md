@@ -73,6 +73,8 @@ Term-SD在使用安装、管理AI软件的功能时，会使用准备功能来�
 - 12、Torch 2.0.1（CUDA11.8）+xFormers 0.0.22
 - 13、Torch 2.1.1（CUDA11.8）+xFormers 0.0.23
 - 14、Torch 2.1.1（CUDA12.1）+xFormers 0.0.23
+- 15、Torch 2.1.2（CUDA11.8）+xFormers 0.0.23
+- 16、Torch 2.1.2（CUDA12.1）+xFormers 0.0.23
 
 选择版本时需要根据系统类型和显卡选择  
 - 在Windows系统中，Nvidia显卡选择Torch（CUDA）+xformers的版本，AMD显卡Torch(Directml)的版本，Intel显卡选择Torch+IPEX的版本  
@@ -219,6 +221,8 @@ Term-SD支持Stable-Diffusion-WebUI，ComfyUI，InvokeAI，Fooocus，lora-script
 - 12、Torch 2.0.1（CUDA11.8）+xFormers 0.0.22
 - 13、Torch 2.1.1（CUDA11.8）+xFormers 0.0.23
 - 14、Torch 2.1.1（CUDA12.1）+xFormers 0.0.23
+- 15、Torch 2.1.2（CUDA11.8）+xFormers 0.0.23
+- 16、Torch 2.1.2（CUDA12.1）+xFormers 0.0.23
 
 选择版本时需要根据系统类型和显卡选择  
 在Windows系统中，Nvidia显卡选择Torch（CUDA）+xformers的版本，AMD显卡Torch(Directml)的版本，Intel显卡选择Torch 2.0.0+IPEX的版本  
@@ -276,7 +280,7 @@ Term-SD支持Stable-Diffusion-WebUI，ComfyUI，InvokeAI，Fooocus，lora-script
 安装时间根据网络速度和电脑性能决定
 
 >1、在安装结束后，如果有自定义节点的，需要在`ComfyUI管理`->`自定义节点管理`里运行`安装全部全部自定义节点依赖`，保证自定义节点的正常运行（因为ComfyUI并没有Stable-Diffusion-WebUI自动为扩展安装依赖的功能）  
->2、如果扩展`ComfyUI-Manager`成功安装，可以不用执行`安装全部全部自定义节点依赖`，因为`ComfyUI-Manager`能够自动为扩展安装依赖（`ComfyUI-Manager`把ComfyUI缺失的这个功能给补上了，不过`ComfyUI-Manager`有时候不会自动为其它扩展装依赖）。
+>2、如果扩展`ComfyUI-Manager`成功安装，可以不用执行`安装全部全部自定义节点依赖`，因为`ComfyUI-Manager`能够自动为扩展安装依赖（`ComfyUI-Manager`把ComfyUI缺失的这个功能给补上了，不过`ComfyUI-Manager`有时候不会自动为其它扩展装依赖，所以需要在`ComfyUI管理`->`自定义节点管理`里运行`安装全部全部自定义节点依赖`手动装一下）。
 >3、设置中文：进入ComfyUI界面，点击右上角的齿轮图标进入设置，找到`AGLTranslation-langualge`，选择`中文[Chinese Simplified]`，ComfyUi将会自动切换中文
 
 ### InvokeAI安装
