@@ -8,6 +8,7 @@ install_comfyui()
 
     if [ -f "$start_path/term-sd/task/comfyui_install.sh" ];then # 检测到有未完成的安装任务时直接执行安装任务
         cmd_sum=$(( $(cat "$start_path/term-sd/task/comfyui_install.sh" | wc -l) + 1 )) # 统计命令行数
+        term_sd_print_line "ComfyUI 安装"
         for ((cmd_point=1;cmd_point<=cmd_sum;cmd_point++))
         do
             term_sd_echo "ComfyUI安装进度:[$cmd_point/$cmd_sum]"
@@ -41,6 +42,7 @@ install_comfyui()
         term_sd_echo "ComfyUI安装结束"
         rm -f "$start_path/term-sd/task/comfyui_install.sh" # 删除任务文件
         rm -f "$start_path/term-sd/task/cache.sh"
+        term_sd_print_line
         dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI安装结果" --ok-label "确认" --msgbox "ComfyUI安装结束,选择确定进入管理界面\n注:\n建议在进入ComfyUI管理界面后,进入\"管理自定义节点\",选择\"安装全部自定义节点依赖\"为自定义节点安装依赖,保证自定义节点的正常运行" $term_sd_dialog_height $term_sd_dialog_width
         comfyui_manager # 进入管理界面
     else
@@ -52,6 +54,7 @@ install_comfyui()
         pip_install_mode_select # 安装方式选择
         term_sd_install_confirm "是否安装ComfUI?" # 安装确认
         if [ $? = 0 ];then
+            term_sd_print_line "ComfyUI 安装"
             term_sd_echo "生成安装任务中"
             term_sd_set_install_env_value >> "$start_path/term-sd/task/comfyui_install.sh" # 环境变量
             cat "$start_path/term-sd/install/comfyui/comfyui_core.sh" >> "$start_path/term-sd/task/comfyui_install.sh" # 核心组件
@@ -117,6 +120,7 @@ install_comfyui()
             term_sd_echo "ComfyUI安装结束"
             rm -f "$start_path/term-sd/task/comfyui_install.sh" # 删除任务文件
             rm -f "$start_path/term-sd/task/cache.sh"
+            term_sd_print_line
             dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI安装结果" --ok-label "确认" --msgbox "ComfyUI安装结束,选择确定进入管理界面\n注:\n建议在进入ComfyUI管理界面后,进入\"管理自定义节点\",选择\"安装全部自定义节点依赖\"为自定义节点安装依赖,保证自定义节点的正常运行" $term_sd_dialog_height $term_sd_dialog_width
             comfyui_manager # 进入管理界面
         fi

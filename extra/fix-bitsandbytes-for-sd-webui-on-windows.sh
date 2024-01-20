@@ -8,10 +8,8 @@ if [ -d "$sd_webui_path" ];then
     if [ ! -z $OS ] && [ $OS = "Windows_NT" ];then
         term_sd_echo "开始修复Stable-Diffusion-WebUI环境的bitsandbytes"
         term_sd_echo "提示:不建议在Stable-Diffusion-WebUI中进行模型训练,如需训练模型,请使用lora-scripts或者kohya_ss"
-        cd "$sd_webui_path"
-        create_venv
-        enter_venv
-        cd ..
+        create_venv "$sd_webui_path"
+        enter_venv "$sd_webui_path"
         term_sd_watch term_sd_pip install bitsandbytes==0.41.1 --force-reinstall --index-url https://jihulab.com/api/v4/projects/140618/packages/pypi/simple
         if [ $? = 0 ];then
             term_sd_echo "bitsandbytes-for-windows安装成功"

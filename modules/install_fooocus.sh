@@ -9,6 +9,7 @@ install_fooocus()
 
     if [ -f "$start_path/term-sd/task/fooocus_install.sh" ];then # 检测到有未完成的安装任务时直接执行安装任务
         cmd_sum=$(( $(cat "$start_path/term-sd/task/fooocus_install.sh" | wc -l) + 1 )) # 统计命令行数
+        term_sd_print_line "Fooocus 安装"
         for ((cmd_point=1;cmd_point<=cmd_sum;cmd_point++))
         do
             term_sd_echo "Fooocus安装进度:[$cmd_point/$cmd_sum]"
@@ -42,6 +43,7 @@ install_fooocus()
         term_sd_echo "Fooocus安装结束"
         rm -f "$start_path/term-sd/task/fooocus_install.sh" # 删除任务文件
         rm -f "$start_path/term-sd/task/cache.sh"
+        term_sd_print_line
         dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus安装结果" --ok-label "确认" --msgbox "Fooocus安装结束,选择确定进入管理界面" $term_sd_dialog_height $term_sd_dialog_width
         fooocus_manager # 进入管理界面
     else # 生成安装任务并执行安装任务
@@ -51,6 +53,7 @@ install_fooocus()
         pip_install_mode_select # 安装方式选择
         term_sd_install_confirm "是否安装Fooocus?" # 安装确认
         if [ $? = 0 ];then
+            term_sd_print_line "Fooocus 安装"
             term_sd_echo "生成安装任务中"
             term_sd_set_install_env_value >> "$start_path/term-sd/task/fooocus_install.sh" # 环境变量
             cat "$start_path/term-sd/install/fooocus/fooocus_core.sh" >> "$start_path/term-sd/task/fooocus_install.sh" # 核心组件
@@ -98,6 +101,7 @@ install_fooocus()
             term_sd_echo "Fooocus安装结束"
             rm -f "$start_path/term-sd/task/fooocus_install.sh" # 删除任务文件
             rm -f "$start_path/term-sd/task/cache.sh"
+            term_sd_print_line
             dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus安装结果" --ok-label "确认" --msgbox "Fooocus安装结束,选择确定进入管理界面" $term_sd_dialog_height $term_sd_dialog_width
             fooocus_manager # 进入管理界面
         fi

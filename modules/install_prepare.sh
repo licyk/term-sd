@@ -106,8 +106,8 @@ pytorch_version_select()
         "12" "> Torch 2.0.1(CUDA11.8)+xFormers 0.0.22" \
         "13" "> Torch 2.1.1(CUDA11.8)+xFormers 0.0.23" \
         "14" "> Torch 2.1.1(CUDA12.1)+xFormers 0.0.23" \
-        "15" "> Torch 2.1.2(CUDA11.8)+xFormers 0.0.23" \
-        "16" "> Torch 2.1.2(CUDA12.1)+xFormers 0.0.23" \
+        "15" "> Torch 2.1.2(CUDA11.8)+xFormers 0.0.23post1" \
+        "16" "> Torch 2.1.2(CUDA12.1)+xFormers 0.0.23post1" \
         "20" "> 跳过安装Torch" \
         3>&1 1>&2 2>&3)
 

@@ -75,7 +75,7 @@ invokeai_manager()
                 7)
                     if [ $venv_setup_status = 0 ];then
                         if (dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI虚拟环境修复选项" --yes-label "是" --no-label "否" --yesno "是否修复InvokeAI的虚拟环境" $term_sd_dialog_height $term_sd_dialog_width);then
-                            create_venv --fix
+                            fix_venv
                             enter_venv
                             term_sd_watch term_sd_pip install $(term_sd_pip freeze | grep -i invokeai) --no-deps --force-reinstall # 重新安装invokeai
                         fi

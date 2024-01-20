@@ -87,7 +87,7 @@ kohya_ss_manager()
             10)
                 if [ $venv_setup_status = 0 ];then
                     if (dialog --erase-on-exit --title "kohya_ss管理" --backtitle "kohya_ss虚拟环境修复选项" --yes-label "是" --no-label "否" --yesno "是否修复kohya_ss的虚拟环境" $term_sd_dialog_height $term_sd_dialog_width);then
-                        create_venv --fix
+                        fix_venv
                     fi
                 else
                     dialog --erase-on-exit --title "kohya_ss管理" --backtitle "kohya_ss虚拟环境修复选项" --ok-label "确认" --msgbox "虚拟环境功能已禁用,无法使用该功能" $term_sd_dialog_height $term_sd_dialog_width

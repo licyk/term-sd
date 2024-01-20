@@ -15,9 +15,7 @@ comfyui_extension_depend_install()
 
         term_sd_print_line "${term_sd_manager_info}${1}依赖一键安装"
         term_sd_tmp_disable_proxy
-        cd "$comfyui_path"
-        enter_venv
-        cd -  > /dev/null 2>&1
+        enter_venv "$comfyui_path"
 
         for i in * ;do # 统计需要安装的依赖
             [ -f "$i" ] && continue # 排除文件
@@ -64,9 +62,7 @@ comfyui_extension_depend_install()
 # 单独为插件/自定义节点安装依赖的功能
 comfyui_extension_depend_install_single()
 {
-    cd "$start_path/ComfyUI"
-    enter_venv
-    cd - > /dev/null 2>&1
+    enter_venv "$comfyui_path"
     local comfyui_extension_depend_install_req
 
     if [ -f "install.py" ] || [ -f "requirements.txt" ];then
@@ -106,9 +102,7 @@ comfyui_extension_depend_install_auto()
         term_sd_echo "开始安装${2}${1}依赖"
         comfyui_custom_node_dep_notice="$comfyui_custom_node_dep_notice\n\n${2}${1}依赖安装:\n"
     
-        cd "$start_path/ComfyUI"
-        enter_venv
-        cd - > /dev/null 2>&1
+        enter_venv "$comfyui_path"
         cd "$2"
 
         if [ -f "install.py" ];then # 找到install.py文件
