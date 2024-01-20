@@ -648,7 +648,7 @@ set_python_path()
 
 #############################
 
-export term_sd_version_info="1.2.9" # term-sd版本
+export term_sd_version_info="1.2.10" # term-sd版本
 export user_shell=$(basename $SHELL) # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题
@@ -863,7 +863,7 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
             else
                 missing_depend_info=1
                 missing_depend="$missing_depend python,"
-            fi  
+            fi
         else
             if which "$term_sd_python_path" > /dev/null 2>&1 ;then
                 term_sd_echo "使用自定义Python解释器路径:$term_sd_python_path"
@@ -921,7 +921,7 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
                 print_line_to_shell "缺少以下依赖"
                 echo $missing_depend_macos
                 print_line_to_shell
-                term_sd_notice "缺少依赖将影响AI软件的安装,请退出Term-SD并使用homebrew(如果没有homebrew,则先安装homebrew,再用homebrew去安装其他缺少依赖)安装缺少的依赖后重试"
+                term_sd_echo "缺少依赖将影响AI软件的安装,请退出Term-SD并使用homebrew(如果没有homebrew,则先安装homebrew,再用homebrew去安装其他缺少依赖)安装缺少的依赖后重试"
                 sleep 5
             fi
         fi
