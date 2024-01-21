@@ -31,7 +31,7 @@ __term_sd_task_pre_ext_30 git_clone_repository ${github_mirror} https://github.c
 __term_sd_task_pre_ext_31 git_clone_repository ${github_mirror} https://github.com/city96/ComfyUI_NetDist "$comfyui_path"/custom_nodes OFF # 在多个本地GPU/联网机器上运行ComfyUI工作流程
 __term_sd_task_pre_ext_32 git_clone_repository ${github_mirror} https://github.com/SLAPaper/ComfyUI-Image-Selector "$comfyui_path"/custom_nodes OFF # 从批处理中选择一个或多个图像
 __term_sd_task_pre_ext_33 git_clone_repository ${github_mirror} https://github.com/strimmlarn/ComfyUI-Strimmlarns-Aesthetic-Score "$comfyui_path"/custom_nodes OFF # 图片美学评分
-__term_sd_task_pre_ext_34 git_clone_repository ${github_mirror} https://github.com/ssitu/ComfyUI_UltimateSDUpscale "$comfyui_path"/custom_nodes ON # 图片放大
+__term_sd_task_pre_ext_34 git_clone_repository --submod ${github_mirror} https://github.com/ssitu/ComfyUI_UltimateSDUpscale "$comfyui_path"/custom_nodes ON # 图片放大
 __term_sd_task_pre_ext_35 git_clone_repository ${github_mirror} https://github.com/space-nuko/ComfyUI-Disco-Diffusion "$comfyui_path"/custom_nodes OFF # DiscoDiffusion模块
 __term_sd_task_pre_ext_36 git_clone_repository ${github_mirror} https://github.com/Bikecicle/ComfyUI-Waveform-Extensions "$comfyui_path"/custom_nodes OFF # 包括姿势，翻译等节点
 __term_sd_task_pre_ext_37 git_clone_repository ${github_mirror} https://github.com/AlekPet/ComfyUI_Custom_Nodes_AlekPet "$comfyui_path"/custom_nodes ON # 提示词翻译节点
