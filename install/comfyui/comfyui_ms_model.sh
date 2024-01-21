@@ -3,8 +3,8 @@ __term_sd_task_sys term_sd_echo "使用modelscope模型下载源"
 __term_sd_task_pre_model get_modelscope_model licyks/sd-model/master/sd_1.5/v1-5-pruned-emaonly.safetensors "$comfyui_path"/models/checkpoints
 __term_sd_task_pre_model get_modelscope_model licyks/sd-vae/master/sd_1.5/vae-ft-ema-560000-ema-pruned.safetensors "$comfyui_path"/models/vae
 __term_sd_task_pre_model get_modelscope_model licyks/sd-vae/master/sd_1.5/vae-ft-mse-840000-ema-pruned.safetensors "$comfyui_path"/models/vae
-__term_sd_task_pre_model get_modelscope_model licyks/sd-vae/master/vae-approx/model.pt "$comfyui_path"/models/VAE-approx # VAE-approx模型
-__term_sd_task_pre_model get_modelscope_model licyks/sd-vae/master/vae-approx/vaeapprox-sdxl.pt "$comfyui_path"/models/VAE-approx
+__term_sd_task_pre_model get_modelscope_model licyks/sd-vae/master/vae-approx/model.pt "$comfyui_path"/models/vae_approx # VAE-approx模型
+__term_sd_task_pre_model get_modelscope_model licyks/sd-vae/master/vae-approx/vaeapprox-sdxl.pt "$comfyui_path"/models/vae_approx
 __term_sd_task_pre_model get_modelscope_model licyks/sd-upscaler-models/master/ESRGAN/4x-UltraSharp.pth "$comfyui_path"/models/upscale_models # upscaler模型
 __term_sd_task_pre_model get_modelscope_model licyks/sd-upscaler-models/master/ESRGAN/BSRGAN.pth "$comfyui_path"/models/upscale_models
 __term_sd_task_pre_model get_modelscope_model licyks/sd-upscaler-models/master/ESRGAN/ESRGAN_4x.pth "$comfyui_path"/models/upscale_models

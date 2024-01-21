@@ -58,5 +58,5 @@ __term_sd_task_pre_ext_57 git_clone_repository ${github_mirror} https://github.c
 __term_sd_task_pre_ext_58 git_clone_repository ${github_mirror} https://github.com/Suzie1/ComfyUI_Comfyroll_CustomNodes "$comfyui_path"/custom_nodes ON # ComfyUI自定义节点合集
 __term_sd_task_pre_ext_59 git_clone_repository ${github_mirror} https://github.com/FizzleDorf/ComfyUI_FizzNodes "$comfyui_path"/custom_nodes OFF # 视频制作节点
 __term_sd_task_pre_ext_60 git_clone_repository ${github_mirror} https://github.com/Kosinkadink/ComfyUI-Advanced-ControlNet "$comfyui_path"/custom_nodes ON # Controlnet节点，包含各种Controlnet调节选项
-__term_sd_task_pre_ext_61 git_clone_repository ${github_mirror} https://github.com/kijai/ComfyUI-Marigold "$comfyui_path"/custom_nodes OFF # 深度图生成节点
+__term_sd_task_pre_ext_61 git_clone_repository ${github_mirror} https://github.com/kijai/ComfyUI-Marigold "$comfyui_path"/custom_nodes ON # 深度图生成节点
 __term_sd_task_pre_ext_62 git_clone_repository ${github_mirror} https://github.com/WASasquatch/PowerNoiseSuite "$comfyui_path"/custom_nodes ON # 噪声生成节点

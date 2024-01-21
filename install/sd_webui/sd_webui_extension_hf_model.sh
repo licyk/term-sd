@@ -91,31 +91,31 @@ __term_sd_task_pre_ext_34 aria2_download https://huggingface.co/licyk/controlnet
 __term_sd_task_pre_ext_34 aria2_download https://huggingface.co/licyk/controlnet_v1.1_annotator/resolve/main/zoedepth/ZoeD_M12_N.pt "$sd_webui_path"/extensions/sd-webui-controlnet/annotator/downloads/zoedepth ZoeD_M12_N.pt
 
 __term_sd_task_pre_ext_37 term_sd_echo "下载animatediff模型"
-__term_sd_task_pre_ext_37 aria2_download https://huggingface.co/guoyww/animatediff/resolve/main/mm_sd_v15_v2.ckpt "$sd_webui_path"/extensions/sd-webui-animatediff/model mm_sd_v15_v2.ckpt
+__term_sd_task_pre_ext_37 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/sd-webui-animatediff/mm_sd_v15_v2.ckpt "$sd_webui_path"/extensions/sd-webui-animatediff/model mm_sd_v15_v2.ckpt
 
 __term_sd_task_pre_ext_42 term_sd_echo "下载adetailer模型"
-__term_sd_task_pre_ext_42 aria2_download https://huggingface.co/Bingsu/adetailer/resolve/main/deepfashion2_yolov8s-seg.pt "$sd_webui_path"/models/adetailer deepfashion2_yolov8s-seg.pt # adetailer模型
-__term_sd_task_pre_ext_42 aria2_download https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8m.pt "$sd_webui_path"/models/adetailer face_yolov8m.pt
-__term_sd_task_pre_ext_42 aria2_download https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8n.pt "$sd_webui_path"/models/adetailer face_yolov8n.pt
-__term_sd_task_pre_ext_42 aria2_download https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8n_v2.pt "$sd_webui_path"/models/adetailer face_yolov8n_v2.pt
-__term_sd_task_pre_ext_42 aria2_download https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8s.pt "$sd_webui_path"/models/adetailer face_yolov8s.pt
-__term_sd_task_pre_ext_42 aria2_download https://huggingface.co/Bingsu/adetailer/resolve/main/hand_yolov8n.pt "$sd_webui_path"/models/adetailer hand_yolov8n.pt
-__term_sd_task_pre_ext_42 aria2_download https://huggingface.co/Bingsu/adetailer/resolve/main/hand_yolov8s.pt "$sd_webui_path"/models/adetailer hand_yolov8s.pt
-__term_sd_task_pre_ext_42 aria2_download https://huggingface.co/Bingsu/adetailer/resolve/main/person_yolov8m-seg.pt "$sd_webui_path"/models/adetailer person_yolov8m-seg.pt
-__term_sd_task_pre_ext_42 aria2_download https://huggingface.co/Bingsu/adetailer/resolve/main/person_yolov8n-seg.pt "$sd_webui_path"/models/adetailer person_yolov8n-seg.pt
-__term_sd_task_pre_ext_42 aria2_download https://huggingface.co/Bingsu/adetailer/resolve/main/person_yolov8s-seg.pt "$sd_webui_path"/models/adetailer person_yolov8s-seg.pt
+__term_sd_task_pre_ext_42 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/adetailer/deepfashion2_yolov8s-seg.pt "$sd_webui_path"/models/adetailer deepfashion2_yolov8s-seg.pt # adetailer模型
+__term_sd_task_pre_ext_42 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/adetailer/face_yolov8m.pt "$sd_webui_path"/models/adetailer face_yolov8m.pt
+__term_sd_task_pre_ext_42 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/adetailer/face_yolov8n.pt "$sd_webui_path"/models/adetailer face_yolov8n.pt
+__term_sd_task_pre_ext_42 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/adetailer/face_yolov8n_v2.pt "$sd_webui_path"/models/adetailer face_yolov8n_v2.pt
+__term_sd_task_pre_ext_42 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/adetailer/face_yolov8s.pt "$sd_webui_path"/models/adetailer face_yolov8s.pt
+__term_sd_task_pre_ext_42 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/adetailer/hand_yolov8n.pt "$sd_webui_path"/models/adetailer hand_yolov8n.pt
+__term_sd_task_pre_ext_42 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/adetailer/hand_yolov8s.pt "$sd_webui_path"/models/adetailer hand_yolov8s.pt
+__term_sd_task_pre_ext_42 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/adetailer/person_yolov8m-seg.pt "$sd_webui_path"/models/adetailer person_yolov8m-seg.pt
+__term_sd_task_pre_ext_42 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/adetailer/person_yolov8n-seg.pt "$sd_webui_path"/models/adetailer person_yolov8n-seg.pt
+__term_sd_task_pre_ext_42 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/adetailer/person_yolov8s-seg.pt "$sd_webui_path"/models/adetailer person_yolov8s-seg.pt
 
 __term_sd_task_pre_ext_44 term_sd_echo "下载IS-NET模型"
-__term_sd_task_pre_ext_44 aria2_download https://huggingface.co/ClockZinc/IS-NET_pth/resolve/main/isnet-general-use.pth "$sd_webui_path"/extensions/sd-webui-IS-NET-pro/saved_models/IS-Net isnet-general-use.pth
+__term_sd_task_pre_ext_44 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/sd-webui-IS-NET-pro/isnet-general-use.pth "$sd_webui_path"/extensions/sd-webui-IS-NET-pro/saved_models/IS-Net isnet-general-use.pth
 
 __term_sd_task_pre_ext_33 term_sd_echo "下载sd-webui-segment-anything模型"
-__term_sd_task_pre_ext_33 aria2_download https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth "$sd_webui_path"/extensions/sd-webui-segment-anything/models/sam sam_vit_h_4b8939.pth
-__term_sd_task_pre_ext_33 aria2_download https://dl.fbaipublicfiles.com/segment_anything/sam_vit_l_0b3195.pth "$sd_webui_path"/extensions/sd-webui-segment-anything/models/sam sam_vit_l_0b3195.pth
-__term_sd_task_pre_ext_33 aria2_download https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth "$sd_webui_path"/extensions/sd-webui-segment-anything/models/sam sam_vit_b_01ec64.pth
-__term_sd_task_pre_ext_33 aria2_download https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/groundingdino_swint_ogc.pth  "$sd_webui_path"/extensions/sd-webui-segment-anything/models/grounding-dino/groundingdino_swint_ogc.pth
-__term_sd_task_pre_ext_33 aria2_download https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/groundingdino_swinb_cogcoor.pth "$sd_webui_path"/extensions/sd-webui-segment-anything/models/grounding-dino/groundingdino_swinb_cogcoor.pth
+__term_sd_task_pre_ext_33 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/sd-webui-segment-anything/sam_vit_h_4b8939.pth "$sd_webui_path"/extensions/sd-webui-segment-anything/models/sam sam_vit_h_4b8939.pth
+__term_sd_task_pre_ext_33 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/sd-webui-segment-anything/sam_vit_l_0b3195.pth "$sd_webui_path"/extensions/sd-webui-segment-anything/models/sam sam_vit_l_0b3195.pth
+__term_sd_task_pre_ext_33 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/sd-webui-segment-anything/sam_vit_b_01ec64.pth "$sd_webui_path"/extensions/sd-webui-segment-anything/models/sam sam_vit_b_01ec64.pth
+__term_sd_task_pre_ext_33 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/sd-webui-segment-anything/groundingdino_swint_ogc.pth  "$sd_webui_path"/extensions/sd-webui-segment-anything/models/grounding-dino/groundingdino_swint_ogc.pth
+__term_sd_task_pre_ext_33 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/sd-webui-segment-anything/groundingdino_swinb_cogcoor.pth "$sd_webui_path"/extensions/sd-webui-segment-anything/models/grounding-dino/groundingdino_swinb_cogcoor.pth
 
 __term_sd_task_pre_ext_66 term_sd_echo "下载sd-webui-inpaint-anything模型"
-__term_sd_task_pre_ext_66 aria2_download https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth "$sd_webui_path"/extensions/sd-webui-inpaint-anything/models sam_vit_h_4b8939.pth
-__term_sd_task_pre_ext_66 aria2_download https://dl.fbaipublicfiles.com/segment_anything/sam_vit_l_0b3195.pth "$sd_webui_path"/extensions/sd-webui-inpaint-anything/models sam_vit_l_0b3195.pth
-__term_sd_task_pre_ext_66 aria2_download https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth "$sd_webui_path"/extensions/sd-webui-inpaint-anything/models sam_vit_b_01ec64.pth
+__term_sd_task_pre_ext_66 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/sd-webui-segment-anything/sam_vit_h_4b8939.pth "$sd_webui_path"/extensions/sd-webui-inpaint-anything/models sam_vit_h_4b8939.pth
+__term_sd_task_pre_ext_66 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/sd-webui-segment-anything/sam_vit_l_0b3195.pth "$sd_webui_path"/extensions/sd-webui-inpaint-anything/models sam_vit_l_0b3195.pth
+__term_sd_task_pre_ext_66 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/sd-webui-segment-anything/sam_vit_b_01ec64.pth "$sd_webui_path"/extensions/sd-webui-inpaint-anything/models sam_vit_b_01ec64.pth
