@@ -117,7 +117,7 @@ process_python_package_ver_backup()
         2)
             if (dialog --erase-on-exit --title "Term-SD" --backtitle "安装确认选项" --yes-label "是" --no-label "否" --yesno "是否删除该版本记录?" $term_sd_dialog_height $term_sd_dialog_width) then
                 term_sd_echo "删除$(echo $python_package_ver_backup_list_dialog | awk '{sub(".txt","")}1')记录中"
-                rm -rf term-sd-python-pkg-backup/$python_package_ver_backup_list_dialog
+                rm -rf "$start_path"/term-sd/requirements-backup/$backup_req_sd_name/$python_package_ver_backup_list_dialog
             fi
             ;;
     esac
