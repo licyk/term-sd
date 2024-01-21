@@ -97,22 +97,22 @@ __term_sd_task_pre_ext_46 get_modelscope_model licyks/controlnet_v1.1_annotator/
 __term_sd_task_pre_ext_46 get_modelscope_model licyks/controlnet_v1.1_annotator/master/clip_vision/clip_vitl.pth "$comfyui_path"/models/clip_vision
 
 __term_sd_task_pre_ext_7 term_sd_echo "下载ComfyUI-Impact-Pack模型中"
-__term_sd_task_pre_ext_7 get_modelscope_model licyks/comfyui-extensions-model/master/ComfyUI-Impact-Pack/face_yolov8m.pt "$comfyui_path"/models/ultralytics/bbox
-__term_sd_task_pre_ext_7 get_modelscope_model licyks/comfyui-extensions-model/master/ComfyUI-Impact-Pack/mmdet_anime-face_yolov3.pth "$comfyui_path"/models/ultralytics/bbox
-__term_sd_task_pre_ext_7 get_modelscope_model licyks/comfyui-extensions-model/master/ComfyUI-Impact-Pack/sam_vit_b_01ec64.pth "$comfyui_path"/models/sams
-__term_sd_task_pre_ext_7 get_modelscope_model licyks/comfyui-extensions-model/master/ComfyUI-Impact-Pack/hand_yolov8s.pt "$comfyui_path"/models/ultralytics/bbox
-__term_sd_task_pre_ext_7 get_modelscope_model licyks/comfyui-extensions-model/master/ComfyUI-Impact-Pack/person_yolov8m-seg.pt "$comfyui_path"/models/ultralytics/segm
+__term_sd_task_pre_ext_7 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-Impact-Pack/face_yolov8m.pt "$comfyui_path"/models/ultralytics/bbox
+__term_sd_task_pre_ext_7 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-Impact-Pack/mmdet_anime-face_yolov3.pth "$comfyui_path"/models/ultralytics/bbox
+__term_sd_task_pre_ext_7 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-Impact-Pack/sam_vit_b_01ec64.pth "$comfyui_path"/models/sams
+__term_sd_task_pre_ext_7 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-Impact-Pack/hand_yolov8s.pt "$comfyui_path"/models/ultralytics/bbox
+__term_sd_task_pre_ext_7 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-Impact-Pack/person_yolov8m-seg.pt "$comfyui_path"/models/ultralytics/segm
 
 __term_sd_task_pre_ext_61 term_sd_echo "下载ComfyUI-Marigold模型中"
-__term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extensions-model/master/ComfyUI-Marigold/model_index.json "$comfyui_path"/diffusers/model_index.json
-__term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extensions-model/master/ComfyUI-Marigold/scheduler/scheduler_config.json "$comfyui_path"/diffusers/scheduler/scheduler_config.json
-__term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extensions-model/master/ComfyUI-Marigold/text_encoder/config.json "$comfyui_path"/diffusers/text_encoder/config.json
-__term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extensions-model/master/ComfyUI-Marigold/text_encoder/model.safetensors "$comfyui_path"/diffusers/text_encoder/model.safetensors
-__term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extensions-model/master/ComfyUI-Marigold/tokenizer/merges.txt "$comfyui_path"/diffusers/tokenizer/merges.txt
-__term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extensions-model/master/ComfyUI-Marigold/tokenizer/special_tokens_map.json "$comfyui_path"/diffusers/tokenizer/special_tokens_map.json
-__term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extensions-model/master/ComfyUI-Marigold/tokenizer/tokenizer_config.json "$comfyui_path"/diffusers/tokenizer/tokenizer_config.json
-__term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extensions-model/master/ComfyUI-Marigold/tokenizer/vocab.json "$comfyui_path"/diffusers/tokenizer/vocab.json
-__term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extensions-model/master/ComfyUI-Marigold/unet/config.json "$comfyui_path"/diffusers/unet/config.json
-__term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extensions-model/master/ComfyUI-Marigold/unet/diffusion_pytorch_model.safetensors "$comfyui_path"/diffusers/unet/diffusion_pytorch_model.safetensors
-__term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extensions-model/master/ComfyUI-Marigold/vae/config.json "$comfyui_path"/diffusers/vae/config.json
-__term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extensions-model/master/ComfyUI-Marigold/vae/diffusion_pytorch_model.safetensors "$comfyui_path"/diffusers/vae/diffusion_pytorch_model.safetensors
+__term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-Marigold/model_index.json "$comfyui_path"/diffusers/model_index.json
+__term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-Marigold/scheduler/scheduler_config.json "$comfyui_path"/diffusers/scheduler/scheduler_config.json
+__term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-Marigold/text_encoder/config.json "$comfyui_path"/diffusers/text_encoder/config.json
+__term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-Marigold/text_encoder/model.safetensors "$comfyui_path"/diffusers/text_encoder/model.safetensors
+__term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-Marigold/tokenizer/merges.txt "$comfyui_path"/diffusers/tokenizer/merges.txt
+__term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-Marigold/tokenizer/special_tokens_map.json "$comfyui_path"/diffusers/tokenizer/special_tokens_map.json
+__term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-Marigold/tokenizer/tokenizer_config.json "$comfyui_path"/diffusers/tokenizer/tokenizer_config.json
+__term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-Marigold/tokenizer/vocab.json "$comfyui_path"/diffusers/tokenizer/vocab.json
+__term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-Marigold/unet/config.json "$comfyui_path"/diffusers/unet/config.json
+__term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-Marigold/unet/diffusion_pytorch_model.safetensors "$comfyui_path"/diffusers/unet/diffusion_pytorch_model.safetensors
+__term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-Marigold/vae/config.json "$comfyui_path"/diffusers/vae/config.json
+__term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-Marigold/vae/diffusion_pytorch_model.safetensors "$comfyui_path"/diffusers/vae/diffusion_pytorch_model.safetensors
