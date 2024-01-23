@@ -74,27 +74,27 @@ term_sd_remote_revise()
     
     case $term_sd_remote_revise_dialog in
         1)
-            git --git-dir="term-sd/.git" remote set-url origin "https://github.com/licyk/term-sd"
+            git -C term-sd remote set-url origin "https://github.com/licyk/term-sd"
             dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD更新源切换选项" --ok-label "确认" --msgbox "Term-SD更新源切换完成" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_remote_revise
             ;;
         2)
-            git --git-dir="term-sd/.git" remote set-url origin "https://gitlab.com/licyk/term-sd"
+            git -C term-sd remote set-url origin "https://gitlab.com/licyk/term-sd"
             dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD更新源切换选项" --ok-label "确认" --msgbox "Term-SD更新源切换完成" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_remote_revise
             ;;
         3)
-            git --git-dir="term-sd/.git" remote set-url origin "https://gitee.com/four-dishes/term-sd"
+            git -C term-sd remote set-url origin "https://gitee.com/four-dishes/term-sd"
             dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD更新源切换选项" --ok-label "确认" --msgbox "Term-SD更新源切换完成" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_remote_revise
             ;;
         4)
-            git --git-dir="term-sd/.git" remote set-url origin "https://jihulab.com/licyk/term-sd"
+            git -C term-sd remote set-url origin "https://jihulab.com/licyk/term-sd"
             dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD更新源切换选项" --ok-label "确认" --msgbox "Term-SD更新源切换完成" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_remote_revise
             ;;
         5)
-            git --git-dir="term-sd/.git" remote set-url origin "https://mirror.ghproxy.com/github.com/licyk/term-sd"
+            git -C term-sd remote set-url origin "https://mirror.ghproxy.com/github.com/licyk/term-sd"
             dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD更新源切换选项" --ok-label "确认" --msgbox "Term-SD更新源切换完成" $term_sd_dialog_height $term_sd_dialog_width
             term_sd_remote_revise
             ;;
@@ -114,9 +114,7 @@ term_sd_branch_switch()
     if [ $? = 0 ];then
         case $term_sd_branch_switch_dialog in
             1)
-                cd term-sd
-                git checkout main
-                cd ..
+                git -C term-sd checkout main
                 cp -f term-sd/term-sd.sh .
                 chmod +x term-sd.sh
                 term_sd_echo "切换到主分支"
@@ -125,9 +123,7 @@ term_sd_branch_switch()
                 . ./term-sd.sh
                 ;;
             2)
-                cd term-sd
-                git checkout dev
-                cd ..
+                git -C term-sd checkout dev
                 cp -f term-sd/term-sd.sh .
                 chmod +x term-sd.sh
                 term_sd_echo "切换到测试分支"
