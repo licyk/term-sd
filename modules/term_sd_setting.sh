@@ -853,7 +853,7 @@ term_sd_network_test()
     local count
     local sum
     count=1
-    network_test_url="google.com huggingface.co modelscope.cn github.com mirror.ghproxy.com gitclone.com gh-proxy.com ghps.cc gh.idayer.com"
+    network_test_url="google.com huggingface.co modelscope.cn github.com mirror.ghproxy.com gitclone.com gh-proxy.com ghps.cc gh.idayer.com ghproxy.net"
     sum=$(echo $network_test_url | wc -w)
     term_sd_echo "获取网络信息"
     [ -f "term-sd/task/ipinfo.sh" ] && rm -f term-sd/task/ipinfo.sh
@@ -862,11 +862,11 @@ term_sd_network_test()
     for i in $network_test_url; do
         term_sd_echo "[$count/$sum] 测试链接访问:$i"
         count=$(( $count + 1 ))
-        curl $i > /dev/null 2>&1
+        curl --connect-timeout 10 $i > /dev/null 2>&1
         if [ $? = 0 ];then
-            req="$req $i:成功\n"
+            req="$req $i:成功✓\n"
         else
-            req="$req $i:失败\n"
+            req="$req $i:失败×\n"
         fi
     done
     dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD网络测试" --ok-label "确认" --msgbox "网络测试结果:\n
@@ -904,7 +904,7 @@ term_sd_uninstall_interface()
                     sed -i '/alias tsd/d' ~/."$user_shell"rc
                 fi
                 term_sd_echo "Term-SD卸载完成"
-                exit 1
+                exit 0
                 ;;
             *)
                 term_sd_echo "取消卸载操作"

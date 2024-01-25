@@ -27,9 +27,9 @@ update_all_extension()
             git_pull_repository # 更新插件
         
             if [ $? = 0 ];then
-                extension_update_req="${extension_update_req}更新成功\n"
+                extension_update_req="${extension_update_req}更新成功✓\n"
             else
-                extension_update_req="${extension_update_req}更新失败\n"
+                extension_update_req="${extension_update_req}更新失败×\n"
             fi
             cd ..
         fi

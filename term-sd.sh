@@ -468,7 +468,7 @@ term_sd_install()
                 fi
                 ;;
             *)
-                exit 1
+                exit 0
                 ;;
         esac
     elif [ ! -d "term-sd/.git" ];then
@@ -533,7 +533,7 @@ term_sd_reinstall()
                 fi
                 ;;
             *)
-                exit 1
+                exit 0
                 ;;
         esac
     fi
@@ -556,7 +556,7 @@ term_sd_remove()
             term_sd_echo "Term-SD卸载完成"
             ;;
     esac
-    exit 1
+    exit 0
 }
 
 # term-sd添加快捷命令功能
