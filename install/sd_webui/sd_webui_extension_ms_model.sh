@@ -53,6 +53,12 @@ __term_sd_task_pre_ext_34 get_modelscope_model licyks/controlnet_v1.1_annotator/
 __term_sd_task_pre_ext_34 get_modelscope_model licyks/controlnet_v1.1_annotator/master/pidinet/table5_pidinet.pth "$sd_webui_path"/extensions/sd-webui-controlnet/annotator/downloads/pidinet
 __term_sd_task_pre_ext_34 get_modelscope_model licyks/controlnet_v1.1_annotator/master/uniformer/upernet_global_small.pth "$sd_webui_path"/extensions/sd-webui-controlnet/annotator/downloads/uniformer
 __term_sd_task_pre_ext_34 get_modelscope_model licyks/controlnet_v1.1_annotator/master/zoedepth/ZoeD_M12_N.pt "$sd_webui_path"/extensions/sd-webui-controlnet/annotator/downloads/zoedepth
+__term_sd_task_pre_ext_34 get_modelscope_model licyks/controlnet_v1.1_annotator/master/anime_face_segment/UNet.pth "$sd_webui_path"/extensions/sd-webui-controlnet/annotator/downloads/anime_face_segment
+__term_sd_task_pre_ext_34 get_modelscope_model licyks/controlnet_v1.1_annotator/master/densepose/densepose_r50_fpn_dl.torchscript "$sd_webui_path"/extensions/sd-webui-controlnet/annotator/downloads/densepose
+__term_sd_task_pre_ext_34 get_modelscope_model licyks/controlnet_v1.1_annotator/master/depth_anything/depth_anything_vitl14.pth "$sd_webui_path"/extensions/sd-webui-controlnet/annotator/downloads/depth_anything
+__term_sd_task_pre_ext_34 get_modelscope_model licyks/controlnet_v1.1_annotator/master/hand_refiner/hr16/ControlNet-HandRefiner-pruned/graphormer_hand_state_dict.bin "$sd_webui_path"/extensions/sd-webui-controlnet/annotator/downloads/hand_refiner/hr16/ControlNet-HandRefiner-pruned
+__term_sd_task_pre_ext_34 get_modelscope_model licyks/controlnet_v1.1_annotator/master/hand_refiner/hr16/ControlNet-HandRefiner-pruned/hrnetv2_w64_imagenet_pretrained.pth "$sd_webui_path"/extensions/sd-webui-controlnet/annotator/downloads/hand_refiner/hr16/ControlNet-HandRefiner-pruned
+__term_sd_task_pre_ext_34 get_modelscope_model licyks/controlnet_v1.1_annotator/master/openpose/rtmpose-m_simcc-ap10k_pt-aic-coco_210e-256x256-7a041aa1_20230206.onnx "$sd_webui_path"/extensions/sd-webui-controlnet/annotator/downloads/openpose
 
 __term_sd_task_pre_ext_37 term_sd_echo "下载animatediff模型"
 __term_sd_task_pre_ext_37 get_modelscope_model licyks/sd-extensions-model/master/sd-webui-animatediff/mm_sd_v15_v2.ckpt "$sd_webui_path"/extensions/sd-webui-animatediff/model
