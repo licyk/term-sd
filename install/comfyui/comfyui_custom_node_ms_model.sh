@@ -98,3 +98,15 @@ __term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extension-models/m
 __term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-Marigold/unet/diffusion_pytorch_model.safetensors "$comfyui_path"/diffusers/unet
 __term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-Marigold/vae/config.json "$comfyui_path"/diffusers/vae
 __term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-Marigold/vae/diffusion_pytorch_model.safetensors "$comfyui_path"/diffusers/vae
+
+__term_sd_task_pre_ext_54 term_sd_echo "下载ComfyUI-WD14-Tagger模型中"
+__term_sd_task_pre_ext_54 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-WD14-Tagger/wd-v1-4-convnext-tagger-v2.csv "$comfyui_path"/custom_nodes/ComfyUI-WD14-Tagger/models
+__term_sd_task_pre_ext_54 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-WD14-Tagger/wd-v1-4-convnext-tagger-v2.onnx "$comfyui_path"/custom_nodes/ComfyUI-WD14-Tagger/models
+__term_sd_task_pre_ext_54 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-WD14-Tagger/wd-v1-4-convnext-tagger.csv "$comfyui_path"/custom_nodes/ComfyUI-WD14-Tagger/models
+__term_sd_task_pre_ext_54 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-WD14-Tagger/wd-v1-4-convnext-tagger.onnx "$comfyui_path"/custom_nodes/ComfyUI-WD14-Tagger/models
+__term_sd_task_pre_ext_54 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-WD14-Tagger/wd-v1-4-convnextv2-tagger-v2.csv "$comfyui_path"/custom_nodes/ComfyUI-WD14-Tagger/models
+__term_sd_task_pre_ext_54 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-WD14-Tagger/wd-v1-4-convnextv2-tagger-v2.onnx "$comfyui_path"/custom_nodes/ComfyUI-WD14-Tagger/models
+__term_sd_task_pre_ext_54 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-WD14-Tagger/wd-v1-4-moat-tagger-v2.csv "$comfyui_path"/custom_nodes/ComfyUI-WD14-Tagger/models
+__term_sd_task_pre_ext_54 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-WD14-Tagger/wd-v1-4-moat-tagger-v2.onnx "$comfyui_path"/custom_nodes/ComfyUI-WD14-Tagger/models
+__term_sd_task_pre_ext_54 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-WD14-Tagger/wd-v1-4-vit-tagger-v2.csv "$comfyui_path"/custom_nodes/ComfyUI-WD14-Tagger/models
+__term_sd_task_pre_ext_54 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-WD14-Tagger/wd-v1-4-vit-tagger-v2.onnx "$comfyui_path"/custom_nodes/ComfyUI-WD14-Tagger/models
