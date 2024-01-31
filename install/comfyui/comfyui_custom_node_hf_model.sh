@@ -70,10 +70,12 @@ __term_sd_task_pre_ext_44 term_sd_echo "下载animatediff模型中"
 __term_sd_task_pre_ext_44 aria2_download https://huggingface.co/guoyww/animatediff/resolve/main/mm_sd_v15_v2.ckpt "$comfyui_path"/custom_nodes/ComfyUI-AnimateDiff-Evolved/models
 
 __term_sd_task_pre_ext_46 term_sd_echo "下载ip-adapter模型中"
-__term_sd_task_pre_ext_46 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter-plus-face_sd15.pth "$comfyui_path"/custom_nodes/ComfyUI_IPAdapter_plus/models
 __term_sd_task_pre_ext_46 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sd15.pth "$comfyui_path"/custom_nodes/ComfyUI_IPAdapter_plus/models
 __term_sd_task_pre_ext_46 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sd15_light.pth "$comfyui_path"/custom_nodes/ComfyUI_IPAdapter_plus/models
 __term_sd_task_pre_ext_46 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sd15_plus.pth "$comfyui_path"/custom_nodes/ComfyUI_IPAdapter_plus/models
+__term_sd_task_pre_ext_46 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sd15_vit-G.safetensors "$comfyui_path"/custom_nodes/ComfyUI_IPAdapter_plus/models
+__term_sd_task_pre_ext_46 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sdxl.safetensors "$comfyui_path"/custom_nodes/ComfyUI_IPAdapter_plus/models
+__term_sd_task_pre_ext_46 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter-plus_sdxl_vit-h.safetensors "$comfyui_path"/custom_nodes/ComfyUI_IPAdapter_plus/models
 __term_sd_task_pre_ext_46 aria2_download https://huggingface.co/licyk/controlnet_v1.1_annotator/resolve/main/clip_vision/clip_g.pth "$comfyui_path"/models/clip_vision
 __term_sd_task_pre_ext_46 aria2_download https://huggingface.co/licyk/controlnet_v1.1_annotator/resolve/main/clip_vision/clip_h.pth "$comfyui_path"/models/clip_vision
 __term_sd_task_pre_ext_46 aria2_download https://huggingface.co/licyk/controlnet_v1.1_annotator/resolve/main/clip_vision/clip_vitl.pth "$comfyui_path"/models/clip_vision

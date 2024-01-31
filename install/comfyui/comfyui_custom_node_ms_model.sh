@@ -70,10 +70,12 @@ __term_sd_task_pre_ext_44 term_sd_echo "下载animatediff模型中"
 __term_sd_task_pre_ext_44 get_modelscope_model licyks/sd-extensions-model/master/sd-webui-animatediff/mm_sd_v15_v2.ckpt "$comfyui_path"/custom_nodes/ComfyUI-AnimateDiff-Evolved/models
 
 __term_sd_task_pre_ext_46 term_sd_echo "下载ip-adapter模型中"
-__term_sd_task_pre_ext_46 get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter-plus-face_sd15.pth "$comfyui_path"/custom_nodes/ComfyUI_IPAdapter_plus/models
 __term_sd_task_pre_ext_46 get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter_sd15.pth "$comfyui_path"/custom_nodes/ComfyUI_IPAdapter_plus/models
 __term_sd_task_pre_ext_46 get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter_sd15_light.pth "$comfyui_path"/custom_nodes/ComfyUI_IPAdapter_plus/models
 __term_sd_task_pre_ext_46 get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter_sd15_plus.pth "$comfyui_path"/custom_nodes/ComfyUI_IPAdapter_plus/models
+__term_sd_task_pre_ext_46 get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter_sd15_vit-G.safetensors "$comfyui_path"/custom_nodes/ComfyUI_IPAdapter_plus/models
+__term_sd_task_pre_ext_46 get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter_sdxl.safetensors "$comfyui_path"/custom_nodes/ComfyUI_IPAdapter_plus/models
+__term_sd_task_pre_ext_46 get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter-plus_sdxl_vit-h.safetensors "$comfyui_path"/custom_nodes/ComfyUI_IPAdapter_plus/models
 __term_sd_task_pre_ext_46 get_modelscope_model licyks/controlnet_v1.1_annotator/master/clip_vision/clip_g.pth "$comfyui_path"/models/clip_vision
 __term_sd_task_pre_ext_46 get_modelscope_model licyks/controlnet_v1.1_annotator/master/clip_vision/clip_h.pth "$comfyui_path"/models/clip_vision
 __term_sd_task_pre_ext_46 get_modelscope_model licyks/controlnet_v1.1_annotator/master/clip_vision/clip_vitl.pth "$comfyui_path"/models/clip_vision

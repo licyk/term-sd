@@ -25,10 +25,12 @@ __term_sd_task_pre_ext_34 aria2_download https://huggingface.co/licyk/controlnet
 __term_sd_task_pre_ext_34 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/t2iadapter_sketch_sd15v2.pth "$sd_webui_path"/extensions/sd-webui-controlnet/models
 __term_sd_task_pre_ext_34 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/t2iadapter_style_sd14v1.pth "$sd_webui_path"/extensions/sd-webui-controlnet/models
 __term_sd_task_pre_ext_34 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/t2iadapter_zoedepth_sd15v1.pth "$sd_webui_path"/extensions/sd-webui-controlnet/models
-__term_sd_task_pre_ext_34 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter-plus-face_sd15.pth "$sd_webui_path"/extensions/sd-webui-controlnet/models
 __term_sd_task_pre_ext_34 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sd15.pth "$sd_webui_path"/extensions/sd-webui-controlnet/models
 __term_sd_task_pre_ext_34 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sd15_light.pth "$sd_webui_path"/extensions/sd-webui-controlnet/models
 __term_sd_task_pre_ext_34 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sd15_plus.pth "$sd_webui_path"/extensions/sd-webui-controlnet/models
+__term_sd_task_pre_ext_34 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sd15_vit-G.safetensors "$sd_webui_path"/extensions/sd-webui-controlnet/models
+__term_sd_task_pre_ext_34 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sdxl.safetensors "$sd_webui_path"/extensions/sd-webui-controlnet/models
+__term_sd_task_pre_ext_34 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter-plus_sdxl_vit-h.safetensors "$sd_webui_path"/extensions/sd-webui-controlnet/models
 __term_sd_task_pre_ext_34 aria2_download https://huggingface.co/licyk/controlnet_v1.1_annotator/resolve/main/clip_vision/clip_g.pth "$sd_webui_path"/extensions/sd-webui-controlnet/annotator/downloads/clip_vision #controlnet预处理器
 __term_sd_task_pre_ext_34 aria2_download https://huggingface.co/licyk/controlnet_v1.1_annotator/resolve/main/clip_vision/clip_h.pth "$sd_webui_path"/extensions/sd-webui-controlnet/annotator/downloads/clip_vision
 __term_sd_task_pre_ext_34 aria2_download https://huggingface.co/licyk/controlnet_v1.1_annotator/resolve/main/clip_vision/clip_vitl.pth "$sd_webui_path"/extensions/sd-webui-controlnet/annotator/downloads/clip_vision
