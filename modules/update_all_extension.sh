@@ -7,6 +7,8 @@ update_all_extension()
     local extension_update_req
     local extension_update_sum=0
     local extension_update_count=0
+    local success_count=0
+    local fail_count=0
 
     term_sd_print_line "${term_sd_manager_info}插件一键更新"
     # 统计需要更新的数量
@@ -28,12 +30,14 @@ update_all_extension()
         
             if [ $? = 0 ];then
                 extension_update_req="${extension_update_req}更新成功✓\n"
+                success_count=$((success_count + 1))
             else
                 extension_update_req="${extension_update_req}更新失败×\n"
+                fail_count=$((fail_count + 1))
             fi
             cd ..
         fi
     done
     term_sd_print_line
-    dialog --erase-on-exit --title "Term-SD" --backtitle "插件/自定义节点更新结果" --ok-label "确认" --msgbox "当前插件/自定义节点的更新情况列表\n${term_sd_delimiter}\n$extension_update_req${term_sd_delimiter}" $term_sd_dialog_height $term_sd_dialog_width
+    dialog --erase-on-exit --title "Term-SD" --backtitle "插件/自定义节点更新结果" --ok-label "确认" --msgbox "当前插件/自定义节点的更新情况列表\n[●: $extension_update_sum | ✓: $success_count | ×: $fail_count]\n${term_sd_delimiter}\n$extension_update_req${term_sd_delimiter}" $term_sd_dialog_height $term_sd_dialog_width
 }

@@ -4,6 +4,7 @@
 python_package_manager()
 {
     local python_package_name
+    local req
     # 安装前的准备
     download_mirror_select # 下载镜像源选择
     pip_install_mode_select # 安装方式选择
@@ -16,6 +17,7 @@ python_package_manager()
         echo $python_package_name
         term_sd_print_line
         enter_venv
+        term_sd_tmp_disable_proxy
 
         case $pip_manage_package_methon in # 选择pip包管理器管理方法
             1) # 常规安装
@@ -34,14 +36,15 @@ python_package_manager()
                 term_sd_watch term_sd_pip uninstall -y $python_package_name
                 ;;
         esac
+        req=$?
 
         term_sd_echo "${pip_manage_package_methon_info}Python软件包结束"
+        term_sd_tmp_enable_proxy
+        term_sd_print_line
 
-        if [ $? = 0 ];then
-            term_sd_print_line
+        if [ $req = 0 ];then
             dialog --erase-on-exit --title "Term-SD" --backtitle "Python软件包"$pip_manage_package_methon_info"结果" --ok-label "确认" --msgbox "以下Python软件包"$pip_manage_package_methon_info"成功\n${term_sd_delimiter}\n$python_package_name\n${term_sd_delimiter}" $term_sd_dialog_height $term_sd_dialog_width
         else
-            term_sd_print_line
             dialog --erase-on-exit --title "Term-SD" --backtitle "Python软件包"$pip_manage_package_methon_info"结果" --ok-label "确认" --msgbox "以下Python软件包"$pip_manage_package_methon_info"失败\n${term_sd_delimiter}\n$python_package_name\n${term_sd_delimiter}" $term_sd_dialog_height $term_sd_dialog_width
         fi
     fi

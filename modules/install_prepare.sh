@@ -108,11 +108,13 @@ pytorch_version_select()
         "14" "> Torch 2.1.1(CUDA12.1)+xFormers 0.0.23" \
         "15" "> Torch 2.1.2(CUDA11.8)+xFormers 0.0.23post1" \
         "16" "> Torch 2.1.2(CUDA12.1)+xFormers 0.0.23post1" \
-        "20" "> 跳过安装Torch" \
+        "17" "> Torch 2.2.0(CUDA11.8)+xFormers 0.0.24" \
+        "18" "> Torch 2.2.0(CUDA12.1)+xFormers 0.0.24" \
+        "50" "> 跳过安装Torch" \
         3>&1 1>&2 2>&3)
 
     case $pytorch_version_select_dialog in
-        20)
+        50)
             pytorch_install_version=
             ;;
         1)
@@ -163,6 +165,12 @@ pytorch_version_select()
         16)
             pytorch_install_version="torch==2.1.2+cu121 torchvision==0.16.2+cu121 xformers==0.0.23.post1"
             ;;
+        17)
+            pytorch_install_version="torch==2.2.0+cu118 torchvision==0.17.0+cu118 xformers==0.0.24"
+            ;;
+        18)
+            pytorch_install_version="torch==2.2.0+cu121 torchvision==0.17.0+cu121 xformers==0.0.24"
+            ;;
     esac
 }
 
@@ -187,6 +195,7 @@ pip_install_mode_select()
             ;;
     esac
 }
+
 # 强制重装选择
 pip_force_reinstall_select()
 {

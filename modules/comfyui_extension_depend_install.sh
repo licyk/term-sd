@@ -12,6 +12,9 @@ comfyui_extension_depend_install()
         local comfyui_extension_depend_install_req
         local comfyui_extension_depend_install_count=0
         local comfyui_extension_depend_install_sum=0
+        local depend_sum=0
+        local success_count=0
+        local fail_count=0
 
         term_sd_print_line "${term_sd_manager_info}${1}依赖一键安装"
         term_sd_tmp_disable_proxy
@@ -34,20 +37,26 @@ comfyui_extension_depend_install()
             fi
 
             if [ -f "install.py" ];then # 找到install.py文件
+                depend_sum=$(( $depend_sum + 1 ))
                 term_sd_watch term_sd_python install.py
                 if [ $? = 0 ];then # 记录退出状态
                     comfyui_extension_depend_install_req="$comfyui_extension_depend_install_req     run install.py:成功✓\n"
+                    success_count=$((success_count + 1))
                 else
                     comfyui_extension_depend_install_req="$comfyui_extension_depend_install_req     run install.py:失败×\n"
+                    fail_count=$((fail_count + 1))
                 fi
             fi
 
             if [ -f "requirements.txt" ];then # 找到requirement.txt文件
+                depend_sum=$(( $depend_sum + 1 ))
                 term_sd_watch term_sd_pip install -r requirements.txt
                 if [ $? = 0 ];then # 记录退出状态
                     comfyui_extension_depend_install_req="$comfyui_extension_depend_install_req     install requirements.txt:成功✓\n"
+                    success_count=$((success_count + 1))
                 else
                     comfyui_extension_depend_install_req="$comfyui_extension_depend_install_req     install requirements.txt:失败×\n"
+                    fail_count=$((fail_count + 1))
                 fi
             fi
             cd ..
@@ -55,7 +64,7 @@ comfyui_extension_depend_install()
         exit_venv
         term_sd_tmp_enable_proxy
         term_sd_print_line
-        dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI${1}依赖安装结果" --ok-label "确认" --msgbox "当前依赖的安装情况列表\n${term_sd_delimiter}\n$comfyui_extension_depend_install_req${term_sd_delimiter}" $term_sd_dialog_height $term_sd_dialog_width
+        dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI${1}依赖安装结果" --ok-label "确认" --msgbox "当前依赖的安装情况列表\n[●: $depend_sum | ✓: $success_count | ×: $fail_count]\n${term_sd_delimiter}\n$comfyui_extension_depend_install_req${term_sd_delimiter}" $term_sd_dialog_height $term_sd_dialog_width
     fi
 }
 
