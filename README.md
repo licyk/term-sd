@@ -114,15 +114,15 @@ pacman -S dialog curl mingw-w64-ucrt-x86_64-aria2 mingw-w64-ucrt-x86_64-ca-certi
 
 - Debian(Ubuntu)系：
 ```
-sudo apt install python3 python3-pip python3-venv git aria2 dialog curl
+sudo apt install python3 python3-pip python3-venv python3-tk git aria2 dialog curl
 ```
 - ArchLinux系：
 ```
-sudo pacman -S python3 python3-pip python3-venv git aria2 dialog curl
+sudo pacman -S python3 python3-pip python3-venv tk git aria2 dialog curl
 ```
 - OpenSEUS：
 ```
-sudo zypper install python3 python3-pip python-venvs git aria2 dialog curl
+sudo zypper install python3 python3-pip python-venvs python-tk git aria2 dialog curl
 ```
 - NixOS：
 ```

@@ -89,11 +89,11 @@ aria2_download()
 
     if [ ! -f "$local_file_path" ];then
         term_sd_echo "下载${file_name}中"
-        term_sd_watch aria2c $aria2_multi_threaded $model_url -d "$local_file_parent_path" -o "$file_name"
+        term_sd_watch aria2c -c $aria2_multi_threaded $model_url -d "$local_file_parent_path" -o "$file_name"
     else
         if [ -f "$local_aria_cache_path" ];then
             term_sd_echo "恢复下载${file_name}中"
-            term_sd_watch aria2c $aria2_multi_threaded $model_url -d "$local_file_parent_path" -o "$file_name"
+            term_sd_watch aria2c -c $aria2_multi_threaded $model_url -d "$local_file_parent_path" -o "$file_name"
         else
             term_sd_echo "${file_name}文件已存在,跳过下载该文件"
         fi
