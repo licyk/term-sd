@@ -218,6 +218,7 @@ sd_webui_backend_repo_reinstall()
             git_clone_repository ${github_mirror} https://github.com/Stability-AI/stablediffusion repositories stable-diffusion-stability-ai
             git_clone_repository ${github_mirror} https://github.com/Stability-AI/generative-models repositories generative-models
             git_clone_repository ${github_mirror} https://github.com/crowsonkb/k-diffusion repositories k-diffusion
+            git_clone_repository ${github_mirror} https://github.com/AUTOMATIC1111/stable-diffusion-webui-assets repositories stable-diffusion-webui-assets
             term_sd_echo "重装Stable-Diffusion-WebUI后端组件结束"
             term_sd_pause
         fi
