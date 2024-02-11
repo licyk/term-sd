@@ -24,7 +24,11 @@ term_sd_pip()
     # 检测是否在虚拟环境中
     if [ ! -z "$VIRTUAL_ENV" ];then
         # 调用虚拟环境的pip
-        pip "$@"
+        if [ ! -z "$(python3 --version 2> /dev/null)" ];then
+            python3 -m pip "$@"
+        elif [ ! -z "$(python --version 2> /dev/null)" ];then
+            python -m pip "$@"
+        fi
     else
         # 调用系统中存在的pip
         "$term_sd_python_path" -m pip "$@"

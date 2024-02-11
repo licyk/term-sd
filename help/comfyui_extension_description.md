@@ -260,3 +260,7 @@ ComfyUI插件/自定义节点说明：
 62、PowerNoiseSuite：
 描述：噪声生成节点
 链接：https://github.com/WASasquatch/PowerNoiseSuite
+
+63、ComfyUI-Crystools：
+描述：资源监视器
+链接：https://github.com/crystian/ComfyUI-Crystools
