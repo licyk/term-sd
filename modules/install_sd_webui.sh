@@ -143,7 +143,8 @@ sd_webui_config_file()
     "grid_save_to_dirs": false,
     "hires_fix_show_sampler": true,
     "CLIP_stop_at_last_layers": 2,
-    "localization": "zh-Hans (Stable)"
+    "localization": "zh-Hans (Stable)",
+    "show_progress_every_n_steps": 1
 }
 EOF
 }
