@@ -46,6 +46,7 @@ git_fix_pointer_offset()
     # 当git在子文件夹中找不到.git文件夹时,将会自动在父文件夹中寻找,以此类推,直到找到.git文件夹。用户的安装方式可能是直接下载源码压缩包,导致安装后的文件夹没有.git文件夹,直接执行git会导致不良的后果
     if [ -d ".git" ];then # 检测目录中是否有.git文件夹
         term_sd_echo "修复$(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')分支签出状态"
+        git remote prune origin # 删除无用分支
         git submodule init # 初始化git子模块
         repo_main_branch=$(git branch -a | grep /HEAD | awk -F'/' '{print $NF}') # 查询远程HEAD所指分支
         git checkout $repo_main_branch # 切换到主分支
