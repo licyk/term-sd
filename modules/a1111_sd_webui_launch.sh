@@ -283,6 +283,11 @@ a1111_sd_webui_launch()
 {
     local a1111_sd_webui_launch_dialog
 
+    if [ ! -f "$start_path/term-sd/config/sd-webui-launch.conf" ]; then # 找不到启动配置时默认生成一个
+        term_sd_echo "未找到启动配置文件,创建中"
+        echo "launch.py --theme dark --autolaunch --xformers --skip-load-model-at-start" > "$start_path"/term-sd/config/sd-webui-launch.conf
+    fi
+
     a1111_sd_webui_launch_dialog=$(
         dialog --erase-on-exit --notags --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动Stable-Diffusion-WebUI/修改Stable-Diffusion-WebUI启动参数\n当前启动参数:\n$([ $venv_setup_status = 0 ] && echo python || echo "$term_sd_python_path") $(cat "$start_path"/term-sd/config/sd-webui-launch.conf)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \

@@ -6,7 +6,20 @@ term_sd_launch()
     local launch_sd_config
     case $term_sd_manager_info in
         stable-diffusion-webui)
-            launch_sd_config="sd-webui-launch.conf"
+            case $(git remote -v | awk 'NR==1 {print $2}' | awk -F'/' '{print $NF}') in # 分支判断
+                stable-diffusion-webui|stable-diffusion-webui.git)
+                    launch_sd_config="sd-webui-launch.conf"
+                ;;
+                automatic|automatic.git)
+                    launch_sd_config="vlad-sd-webui-launch.conf"
+                ;;
+                stable-diffusion-webui-directml|stable-diffusion-webui-directml.git)
+                    launch_sd_config="sd-webui-directml-launch.conf"
+                    ;;
+                *)
+                    launch_sd_config="sd-webui-launch.conf"
+                    ;;
+            esac
             ;;
         ComfyUI)
             launch_sd_config="comfyui-launch.conf"

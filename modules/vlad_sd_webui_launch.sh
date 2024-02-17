@@ -184,7 +184,7 @@ vlad_sd_webui_launch_args_setting()
     
         # 生成启动脚本
         term_sd_echo "设置启动参数:  $vlad_sd_webui_launch_args"
-        echo "launch.py $vlad_sd_webui_launch_args" > "$start_path"/term-sd/config/sd-webui-launch.conf
+        echo "launch.py $vlad_sd_webui_launch_args" > "$start_path"/term-sd/config/vlad-sd-webui-launch.conf
     fi
 }
 
@@ -193,7 +193,12 @@ vlad_sd_webui_launch()
 {
     local vlad_sd_webui_launch_dialog
 
-    vlad_sd_webui_launch_dialog=$(dialog --erase-on-exit --notags --title "Stable-Diffusion-WebUI管理" --backtitle "SD.NEXT启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动SD.NEXT/修改SD.NEXT启动参数\n当前启动参数:\n$([ $venv_setup_status = 0 ] && echo python || echo "$term_sd_python_path") $(cat "$start_path"/term-sd/config/sd-webui-launch.conf)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+    if [ ! -f "$start_path/term-sd/config/vlad-sd-webui-launch.conf" ]; then # 找不到启动配置时默认生成一个
+        term_sd_echo "未找到启动配置文件,创建中"
+        echo "launch.py --autolaunch" > "$start_path"/term-sd/config/vlad-sd-webui-launch.conf
+    fi
+
+    vlad_sd_webui_launch_dialog=$(dialog --erase-on-exit --notags --title "Stable-Diffusion-WebUI管理" --backtitle "SD.NEXT启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动SD.NEXT/修改SD.NEXT启动参数\n当前启动参数:\n$([ $venv_setup_status = 0 ] && echo python || echo "$term_sd_python_path") $(cat "$start_path"/term-sd/config/vlad-sd-webui-launch.conf)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> 启动" \
         "2" "> 配置预设启动参数" \
@@ -220,10 +225,10 @@ vlad_sd_webui_launch()
 vlad_sd_webui_launch_args_revise()
 {
     local vlad_sd_webui_launch_args
-    vlad_sd_webui_launch_args=$(dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "SD.NEXT自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入SD.NEXT启动参数" $term_sd_dialog_height $term_sd_dialog_width "$(cat "$start_path"/term-sd/config/sd-webui-launch.conf | awk '{sub("launch.py ","")}1')" 3>&1 1>&2 2>&3)
+    vlad_sd_webui_launch_args=$(dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "SD.NEXT自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入SD.NEXT启动参数" $term_sd_dialog_height $term_sd_dialog_width "$(cat "$start_path"/term-sd/config/vlad-sd-webui-launch.conf | awk '{sub("launch.py ","")}1')" 3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
         term_sd_echo "设置启动参数:  $vlad_sd_webui_launch_args"
-        echo "launch.py $vlad_sd_webui_launch_args" > "$start_path"/term-sd/config/sd-webui-launch.conf
+        echo "launch.py $vlad_sd_webui_launch_args" > "$start_path"/term-sd/config/vlad-sd-webui-launch.conf
     fi
 }
