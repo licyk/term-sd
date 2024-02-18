@@ -11,7 +11,7 @@ fooocus_launch_args_setting()
         "1" "(listen)开放远程连接" OFF \
         "2" "(disable-header-check)禁用请求头部检查" OFF \
         "3" "(in-browser)启动后自动打开浏览器" OFF \
-        "4" "(disable-in-browser)禁用自动打开浏览器" OFF\
+        "4" "(disable-in-browser)禁用自动打开浏览器" OFF \
         "5" "(async-cuda-allocation)启用CUDA流顺序内存分配器" OFF \
         "6" "(disable-async-cuda-allocation)禁用CUDA流顺序内存分配器" OFF \
         "7" "(disable-attention-upcast)使用向上采样法提高精度" OFF \

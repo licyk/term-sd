@@ -33,6 +33,12 @@ term_sd_launch()
                 fooocus_lang_config_file > language/zh.json
             fi
             ;;
+        lora-scripts)
+            launch_sd_config="lora-scripts-launch.conf"
+            ;;
+        kohya_ss)
+            launch_sd_config="kohya_ss-launch.conf"
+            ;;
     esac
     term_sd_print_line "${term_sd_manager_info}启动"
     term_sd_echo "提示:可以使用\"Ctrl+C\"终止ai软件的运行"

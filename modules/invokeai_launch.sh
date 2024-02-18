@@ -96,7 +96,7 @@ invokeai_launch_args_setting()
         "1" "(host)开放远程连接" OFF \
         "2" "(no-esrgan)禁用esrgan进行画面修复" OFF \
         "3" "(no-internet_available)启用离线模式" OFF \
-        "4" "(log_tokenization)启用详细日志显示" OFF\
+        "4" "(log_tokenization)启用详细日志显示" OFF \
         "5" "(no-patchmatch)禁用图片修复模块" OFF \
         "6" "(ignore_missing_core_models)忽略下载核心模型" OFF \
         "7" "(log_format plain)使用纯文本格式日志" OFF \

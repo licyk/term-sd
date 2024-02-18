@@ -11,7 +11,7 @@ comfyui_launch_args_setting()
         "1" "(listen)开放远程连接" OFF \
         "2" "(auto-launch)启动webui完成后自动启动浏览器" ON \
         "3" "(disable-auto-launch)禁用在启动webui完成后自动启动浏览器" OFF \
-        "4" "(cuda-malloc)启用CUDA流顺序内存分配器(Torch2.0+默认启用)" OFF\
+        "4" "(cuda-malloc)启用CUDA流顺序内存分配器(Torch2.0+默认启用)" OFF \
         "5" "(disable-cuda-malloc)禁用CUDA流顺序内存分配器" OFF \
         "6" "(dont-upcast-attention)禁用向上注意力优化" OFF \
         "7" "(force-fp32)强制使用fp32" OFF \

@@ -29,10 +29,7 @@ lora_scripts_manager()
 
         case $lora_scripts_manager_dialog in
             1)
-                term_sd_print_line "$term_sd_manager_info 启动"
-                enter_venv
-                term_sd_python gui.py
-                term_sd_pause
+                lora_scripts_launch
                 lora_scripts_manager
                 ;;
             2)
