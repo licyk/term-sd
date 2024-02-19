@@ -22,18 +22,18 @@ _✨一个小巧，多功能的AI软件管理器_
 
 ## 简介
 Term-SD是一款基于dialog实现前端界面显示的AI管理器，支持安装，管理以下软件  
-- 1、[Stable-Diffusion-WebUI](https://github.com/AUTOMATIC1111/stable-diffusion-webui)(支持切换成[SD.Next](https://github.com/vladmandic/automatic)/[Stable-Diffusion-WebUI-DirectML](https://github.com/lshqqytiger/stable-diffusion-webui-directml))  
-- 2、[ComfyUI](https://github.com/comfyanonymous/ComfyUI)  
-- 3、[InvokeAI](https://github.com/invoke-ai/InvokeAI)  
-- 4、[Fooocus](https://github.com/lllyasviel/Fooocus)  
-- 5、[lora-scripts](https://github.com/Akegarasu/lora-scripts)  
-- 6、[kohya_ss](https://github.com/bmaltais/kohya_ss)  
+- 1、[Stable-Diffusion-WebUI](https://github.com/AUTOMATIC1111/stable-diffusion-webui) (支持切换成 [SD.Next](https://github.com/vladmandic/automatic) / [Stable-Diffusion-WebUI-DirectML](https://github.com/lshqqytiger/stable-diffusion-webui-directml) / [Stable-Diffusion-WebUI-Forge](https://github.com/lllyasviel/stable-diffusion-webui-forge))
+- 2、[ComfyUI](https://github.com/comfyanonymous/ComfyUI)
+- 3、[InvokeAI](https://github.com/invoke-ai/InvokeAI)
+- 4、[Fooocus](https://github.com/lllyasviel/Fooocus)
+- 5、[lora-scripts](https://github.com/Akegarasu/lora-scripts)
+- 6、[kohya_ss](https://github.com/bmaltais/kohya_ss)
 
 ## 安装要求
 
 Term-SD支持在Linux，Windows，MacOS上运行，在使用Term-SD前先配置好依赖环境，以下是各个平台所需的依赖  
-- Windows：msys2，aria2，python，pip，git，dialog，curl  
-- Linux：aria2，python，pip，git，dialog，curl  
+- Windows：msys2，aria2，python，pip，git，dialog，curl
+- Linux：aria2，python，pip，git，dialog，curl
 - MacOS：homebrew，aria2，python，pip，git，dialog，rust，cmake，protobuf，wget，curl
 
 ***

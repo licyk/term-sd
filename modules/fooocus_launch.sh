@@ -5,6 +5,7 @@ fooocus_launch_args_setting()
 {
     local fooocus_launch_args
     local fooocus_launch_args_setting_dialog
+    local launch_args
 
     fooocus_launch_args_setting_dialog=$(
         dialog --erase-on-exit --notags --title "Fooocus管理" --backtitle "Fooocus启动参数选项" --ok-label "确认" --cancel-label "取消" --checklist "请选择Fooocus启动参数,确认之后将覆盖原有启动参数配置" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
@@ -40,7 +41,7 @@ fooocus_launch_args_setting()
         "30" "(always-low-vram)使用显存优化(将会降低生图速度)" OFF \
         "31" "(always-no-vram)使用显存优化(将会大量降低生图速度)" OFF \
         "32" "(always-cpu)使用CPU进行生图" OFF \
-        "33" "(always-offload-from-vram)保持模型储存在显存中而不是自动卸载到内存中" OFF \
+        "33" "(always-offload-from-vram)生图完成后将模型从显存中卸载" OFF \
         "34" "(pytorch-deterministic)将PyTorch配置为使用确定性算法" OFF \
         "35" "(disable-server-log)禁用服务端日志输出" OFF \
         "36" "(debug-mode)启用debug模式" OFF \
@@ -61,152 +62,152 @@ fooocus_launch_args_setting()
         for i in $fooocus_launch_args_setting_dialog; do
             case $i in
                 1)
-                    fooocus_launch_args="--listen $fooocus_launch_args"
+                    fooocus_launch_args="--listen"
                     ;;
                 2)
-                    fooocus_launch_args="--disable-header-check $fooocus_launch_args"
+                    fooocus_launch_args="--disable-header-check"
                     ;;
                 3)
-                    fooocus_launch_args="--in-browser $fooocus_launch_args"
+                    fooocus_launch_args="--in-browser"
                     ;;
                 4)
-                    fooocus_launch_args="--disable-in-browser $fooocus_launch_args"
+                    fooocus_launch_args="--disable-in-browser"
                     ;;
                 5)
-                    fooocus_launch_args="--async-cuda-allocation $fooocus_launch_args"
+                    fooocus_launch_args="--async-cuda-allocation"
                     ;;
                 6)
-                    fooocus_launch_args="--disable-async-cuda-allocation $fooocus_launch_args"
+                    fooocus_launch_args="--disable-async-cuda-allocation"
                     ;;
                 7)
-                    fooocus_launch_args="--disable-attention-upcast $fooocus_launch_args"
+                    fooocus_launch_args="--disable-attention-upcast"
                     ;;
                 8)
-                    fooocus_launch_args="--all-in-fp32 $fooocus_launch_args"
+                    fooocus_launch_args="--all-in-fp32"
                     ;;
                 9)
-                    fooocus_launch_args="--all-in-fp16 $fooocus_launch_args"
+                    fooocus_launch_args="--all-in-fp16"
                     ;;
                 10)
-                    fooocus_launch_args="--unet-in-bf16 $fooocus_launch_args"
+                    fooocus_launch_args="--unet-in-bf16"
                     ;;
                 11)
-                    fooocus_launch_args="--unet-in-fp16 $fooocus_launch_args"
+                    fooocus_launch_args="--unet-in-fp16"
                     ;;
                 12)
-                    fooocus_launch_args="--unet-in-fp8-e4m3fn $fooocus_launch_args"
+                    fooocus_launch_args="--unet-in-fp8-e4m3fn"
                     ;;
                 13)
-                    fooocus_launch_args="--unet-in-fp8-e5m2 $fooocus_launch_args"
+                    fooocus_launch_args="--unet-in-fp8-e5m2"
                     ;;
                 14)
-                    fooocus_launch_args="--vae-in-fp16 $fooocus_launch_args"
+                    fooocus_launch_args="--vae-in-fp16"
                     ;;
                 15)
-                    fooocus_launch_args="--vae-in-fp32 $fooocus_launch_args"
+                    fooocus_launch_args="--vae-in-fp32"
                     ;;
                 16)
-                    fooocus_launch_args="--vae-in-bf16 $fooocus_launch_args"
+                    fooocus_launch_args="--vae-in-bf16"
                     ;;
                 17)
-                    fooocus_launch_args="--clip-in-fp8-e4m3fn $fooocus_launch_args"
+                    fooocus_launch_args="--clip-in-fp8-e4m3fn"
                     ;;
                 18)
-                    fooocus_launch_args="--clip-in-fp8-e5m2 $fooocus_launch_args"
+                    fooocus_launch_args="--clip-in-fp8-e5m2"
                     ;;
                 19)
-                    fooocus_launch_args="--clip-in-fp16 $fooocus_launch_args"
+                    fooocus_launch_args="--clip-in-fp16"
                     ;;
                 20)
-                    fooocus_launch_args="--clip-in-fp32 $fooocus_launch_args"
+                    fooocus_launch_args="--clip-in-fp32"
                     ;;
                 21)
-                    fooocus_launch_args="--directml $fooocus_launch_args"
+                    fooocus_launch_args="--directml"
                     ;;
                 22)
-                    fooocus_launch_args="--disable-ipex-hijack $fooocus_launch_args"
+                    fooocus_launch_args="--disable-ipex-hijack"
                     ;;
                 23)
-                    fooocus_launch_args="--attention-split $fooocus_launch_args"
+                    fooocus_launch_args="--attention-split"
                     ;;
                 24)
-                    fooocus_launch_args="--attention-quad $fooocus_launch_args"
+                    fooocus_launch_args="--attention-quad"
                     ;;
                 25)
-                    fooocus_launch_args="--attention-pytorch $fooocus_launch_args"
+                    fooocus_launch_args="--attention-pytorch"
                     ;;
                 26)
-                    fooocus_launch_args="--disable-xformers $fooocus_launch_args"
+                    fooocus_launch_args="--disable-xformers"
                     ;;
                 27)
-                    fooocus_launch_args="--always-gpu $fooocus_launch_args"
+                    fooocus_launch_args="--always-gpu"
                     ;;
                 28)
-                    fooocus_launch_args="--always-high-vram $fooocus_launch_args"
+                    fooocus_launch_args="--always-high-vram"
                     ;;
                 29)
-                    fooocus_launch_args="--always-normal-vram $fooocus_launch_args"
+                    fooocus_launch_args="--always-normal-vram"
                     ;;
                 30)
-                    fooocus_launch_args="--always-low-vram $fooocus_launch_args"
+                    fooocus_launch_args="--always-low-vram"
                     ;;
                 31)
-                    fooocus_launch_args="--always-no-vram $fooocus_launch_args"
+                    fooocus_launch_args="--always-no-vram"
                     ;;
                 32)
-                    fooocus_launch_args="--always-cpu $fooocus_launch_args"
+                    fooocus_launch_args="--always-cpu"
                     ;;
                 33)
-                    fooocus_launch_args="--always-offload-from-vram $fooocus_launch_args"
+                    fooocus_launch_args="--always-offload-from-vram"
                     ;;
                 34)
-                    fooocus_launch_args="--pytorch-deterministic $fooocus_launch_args"
+                    fooocus_launch_args="--pytorch-deterministic"
                     ;;
                 35)
-                    fooocus_launch_args="--disable-server-log $fooocus_launch_args"
+                    fooocus_launch_args="--disable-server-log"
                     ;;
                 36)
-                    fooocus_launch_args="--debug-mode $fooocus_launch_args"
+                    fooocus_launch_args="--debug-mode"
                     ;;
                 37)
-                    fooocus_launch_args="--is-windows-embedded-python $fooocus_launch_args"
+                    fooocus_launch_args="--is-windows-embedded-python"
                     ;;
                 38)
-                    fooocus_launch_args="--disable-server-info $fooocus_launch_args"
+                    fooocus_launch_args="--disable-server-info"
                     ;;
                 39)
-                    fooocus_launch_args="--language zh $fooocus_launch_args"
+                    fooocus_launch_args="--language zh"
                     ;;
                 40)
-                    fooocus_launch_args="--theme dark $fooocus_launch_args"
+                    fooocus_launch_args="--theme dark"
                     ;;
                 41)
-                    fooocus_launch_args="--disable-image-log $fooocus_launch_args"
+                    fooocus_launch_args="--disable-image-log"
                     ;;
                 42)
-                    fooocus_launch_args="--disable-analytics $fooocus_launch_args"
+                    fooocus_launch_args="--disable-analytics"
                     ;;
                 43)
-                    fooocus_launch_args="--preset default $fooocus_launch_args"
+                    fooocus_launch_args="--preset default"
                     ;;
                 44)
-                    fooocus_launch_args="--preset sai $fooocus_launch_args"
+                    fooocus_launch_args="--preset sai"
                     ;;
                 45)
-                    fooocus_launch_args="--preset lcm $fooocus_launch_args"
+                    fooocus_launch_args="--preset lcm"
                     ;;
                 46)
-                    fooocus_launch_args="--preset anime $fooocus_launch_args"
+                    fooocus_launch_args="--preset anime"
                     ;;
                 47)
-                    fooocus_launch_args="--preset realistic $fooocus_launch_args"
+                    fooocus_launch_args="--preset realistic"
                     ;;
-                
             esac
+            launch_args="$launch_args $fooocus_launch_args"
         done
 
-        term_sd_echo "设置启动参数:  $fooocus_launch_args"
-        echo "launch.py $fooocus_launch_args" > "$start_path"/term-sd/config/fooocus-launch.conf
+        term_sd_echo "设置启动参数:  $launch_args"
+        echo "launch.py $launch_args" > "$start_path"/term-sd/config/fooocus-launch.conf
     fi
 }
 

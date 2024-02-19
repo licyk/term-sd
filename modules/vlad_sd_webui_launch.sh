@@ -6,12 +6,13 @@ vlad_sd_webui_launch_args_setting()
     # 清空启动参数
     local vlad_sd_webui_launch_args_setting_dialog
     local vlad_sd_webui_launch_args
+    local launch_args
 
     # 展示启动参数选项
     vlad_sd_webui_launch_args_setting_dialog=$(
         dialog --erase-on-exit --notags --title "Stable-Diffusion-WebUI管理" --backtitle "SD.NEXT启动参数选项" --ok-label "确认" --cancel-label "取消" --checklist "请选择SD.NEXT启动参数,确认之后将覆盖原有启动参数配置" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
-        "1" "(medvram)启用显存优化,(显存<6g时推荐使用)" OFF \
-        "2" "(lowvram)启用显存优化,(显存<4g时推荐使用)" OFF \
+        "1" "(medvram)启用显存优化(显存<6g时推荐使用)" OFF \
+        "2" "(lowvram)启用显存优化(显存<4g时推荐使用)" OFF \
         "3" "(allow-code)允许从webui执行自定义脚本" OFF \
         "4" "(share)通过gradio共享" OFF \
         "5" "(insecure)启用扩展标签" OFF \
@@ -57,134 +58,135 @@ vlad_sd_webui_launch_args_setting()
         for i in $vlad_sd_webui_launch_args_setting_dialog; do
             case $i in
                 1)
-                    vlad_sd_webui_launch_args="--medvram $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--medvram"
                     ;;
                 2)
-                    vlad_sd_webui_launch_args="--lowvram $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--lowvram"
                     ;;
                 3)
-                    vlad_sd_webui_launch_args="--allow-code $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--allow-code"
                     ;;
                 4)
-                    vlad_sd_webui_launch_args="--share $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--share"
                     ;;
                 5)
-                    vlad_sd_webui_launch_args="--insecure $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--insecure"
                     ;;
                 6)
-                    vlad_sd_webui_launch_args="--use-cpu all $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--use-cpu all"
                     ;;
                 7)
-                    vlad_sd_webui_launch_args="--listen $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--listen"
                     ;;
                 8)
-                    vlad_sd_webui_launch_args="--freeze $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--freeze"
                     ;;
                 9)
-                    vlad_sd_webui_launch_args="--autolaunch $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--autolaunch"
                     ;;
                 10)
-                    vlad_sd_webui_launch_args="--docs $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--docs"
                     ;;
                 11)
-                    vlad_sd_webui_launch_args="--api-only $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--api-only"
                     ;;
                 12)
-                    vlad_sd_webui_launch_args="--api-log $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--api-log"
                     ;;
                 13)
-                    vlad_sd_webui_launch_args="--tls-selfsign $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--tls-selfsign"
                     ;;
                 14)
-                    vlad_sd_webui_launch_args="--no-hashing $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--no-hashing"
                     ;;
                 15)
-                    vlad_sd_webui_launch_args="--no-metadata $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--no-metadata"
                     ;;
                 16)
-                    vlad_sd_webui_launch_args="--no-download $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--no-download"
                     ;;
                 17)
-                    vlad_sd_webui_launch_args="--profile $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--profile"
                     ;;
                 18)
-                    vlad_sd_webui_launch_args="--disable-queue $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--disable-queue"
                     ;;
                 19)
-                    vlad_sd_webui_launch_args="--backend original $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--backend original"
                     ;;
                 20)
-                    vlad_sd_webui_launch_args="--backend diffusers $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--backend diffusers"
                     ;;
                 21)
-                    vlad_sd_webui_launch_args="--debug $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--debug"
                     ;;
                 22)
-                    vlad_sd_webui_launch_args="--reset $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--reset"
                     ;;
                 23)
-                    vlad_sd_webui_launch_args="--upgrade $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--upgrade"
                     ;;
                 24)
-                    vlad_sd_webui_launch_args="--requirements $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--requirements"
                     ;;
                 25)
-                    vlad_sd_webui_launch_args="--quick $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--quick"
                     ;;
                 26)
-                    vlad_sd_webui_launch_args="--use-directml $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--use-directml"
                     ;;
                 27)
-                    vlad_sd_webui_launch_args="--use-openvino $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--use-openvino"
                     ;;
                 28)
-                    vlad_sd_webui_launch_args="--use-ipex $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--use-ipex"
                     ;;
                 29)
-                    vlad_sd_webui_launch_args="--use-cuda $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--use-cuda"
                     ;;
                 30)
-                    vlad_sd_webui_launch_args="--use-rocm $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--use-rocm"
                     ;;
                 31)
-                    vlad_sd_webui_launch_args="--use-xformers $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--use-xformers"
                     ;;
                 32)
-                    vlad_sd_webui_launch_args="--skip-requirements $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--skip-requirements"
                     ;;
                 33)
-                    vlad_sd_webui_launch_args="--skip-extensions $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--skip-extensions"
                     ;;
                 34)
-                    vlad_sd_webui_launch_args="--skip-git $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--skip-git"
                     ;;
                 35)
-                    vlad_sd_webui_launch_args="--skip-torch $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--skip-torch"
                     ;;
                 36)
-                    vlad_sd_webui_launch_args="--skip-all $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--skip-all"
                     ;;
                 37)
-                    vlad_sd_webui_launch_args="--experimental $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--experimental"
                     ;;
                 38)
-                    vlad_sd_webui_launch_args="--reinstall $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--reinstall"
                     ;;
                 39)
-                    vlad_sd_webui_launch_args="--test $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--test"
                     ;;
                 40)
-                    vlad_sd_webui_launch_args="--ignore $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--ignore"
                     ;;
                 41)
-                    vlad_sd_webui_launch_args="--safe $vlad_sd_webui_launch_args"
+                    vlad_sd_webui_launch_args="--safe"
                     ;;
             esac
+            launch_args="$launch_args $vlad_sd_webui_launch_args"
         done
     
         # 生成启动脚本
-        term_sd_echo "设置启动参数:  $vlad_sd_webui_launch_args"
-        echo "launch.py $vlad_sd_webui_launch_args" > "$start_path"/term-sd/config/vlad-sd-webui-launch.conf
+        term_sd_echo "设置启动参数:  $launch_args"
+        echo "launch.py $launch_args" > "$start_path"/term-sd/config/vlad-sd-webui-launch.conf
     fi
 }
 

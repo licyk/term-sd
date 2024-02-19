@@ -90,6 +90,7 @@ invokeai_launch_args_setting()
 {
     local invokeai_launch_args_setting_dialog
     local invokeai_launch_args
+    local launch_args
 
     invokeai_launch_args_setting_dialog=$(
         dialog --erase-on-exit --notags --title "ComfyUI管理" --backtitle "ComfyUI启动参数选项" --ok-label "确认" --cancel-label "取消" --checklist "请选择ComfyUI启动参数,确认之后将覆盖原有启动参数配置" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
@@ -114,55 +115,56 @@ invokeai_launch_args_setting()
         for i in $invokeai_launch_args_setting_dialog; do
             case $i in
                 1)
-                    invokeai_launch_args="--host 0.0.0.0 $invokeai_launch_args"
+                    invokeai_launch_args="--host 0.0.0.0"
                     ;;
                 2)
-                    invokeai_launch_args="--no-esrgan $invokeai_launch_args"
+                    invokeai_launch_args="--no-esrgan"
                     ;;
                 3)
-                    invokeai_launch_args="--no-internet_available $invokeai_launch_args"
+                    invokeai_launch_args="--no-internet_available"
                     ;;
                 4)
-                    invokeai_launch_args="--log_tokenization $invokeai_launch_args"
+                    invokeai_launch_args="--log_tokenization"
                     ;;
                 5)
-                    invokeai_launch_args="--no-patchmatch $invokeai_launch_args"
+                    invokeai_launch_args="--no-patchmatch"
                     ;;
                 6)
-                    invokeai_launch_args="--ignore_missing_core_models $invokeai_launch_args"
+                    invokeai_launch_args="--ignore_missing_core_models"
                     ;;
                 7)
-                    invokeai_launch_args="--log_format plain $invokeai_launch_args"
+                    invokeai_launch_args="--log_format plain"
                     ;;
                 8)
-                    invokeai_launch_args="--log_format color $invokeai_launch_args"
+                    invokeai_launch_args="--log_format color"
                     ;;
                 9)
-                    invokeai_launch_args="--log_format syslog $invokeai_launch_args"
+                    invokeai_launch_args="--log_format syslog"
                     ;;
                 10)
-                    invokeai_launch_args="--log_format legacy $invokeai_launch_args"
+                    invokeai_launch_args="--log_format legacy"
                     ;;
                 11)
-                    invokeai_launch_args="--log_sql $invokeai_launch_args"
+                    invokeai_launch_args="--log_sql"
                     ;;
                 12)
-                    invokeai_launch_args="--dev_reload $invokeai_launch_args"
+                    invokeai_launch_args="--dev_reload"
                     ;;
                 13)
-                    invokeai_launch_args="--log_memory_usage $invokeai_launch_args"
+                    invokeai_launch_args="--log_memory_usage"
                     ;;
                 14)
-                    invokeai_launch_args="--always_use_cpu $invokeai_launch_args"
+                    invokeai_launch_args="--always_use_cpu"
                     ;;
                 15)
-                    invokeai_launch_args="--tiled_decode $invokeai_launch_args"
+                    invokeai_launch_args="--tiled_decode"
                     ;;
             esac
+            launch_args="$launch_args $invokeai_launch_args"
         done
 
-        term_sd_echo "设置启动参数:  $invokeai_launch_args"
-        echo "$invokeai_launch_args" > "$start_path"/term-sd/config/invokeai-launch.conf
+        term_sd_echo "设置启动参数:  $launch_args"
+        echo "$launch_args" > "$start_path"/term-sd/config/invokeai-launch.conf
     fi
 }
 

@@ -14,6 +14,9 @@ sd_webui_launch()
         stable-diffusion-webui-directml|stable-diffusion-webui-directml.git)
             sd_webui_directml_launch
             ;;
+        stable-diffusion-webui-forge|stable-diffusion-webui-forge.git)
+            sd_webui_forge_launch
+            ;;
         *)
             a1111_sd_webui_launch
             ;;

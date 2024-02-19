@@ -5,6 +5,7 @@ lora_scripts_launch_args_setting()
 {
     local lora_scripts_launch_args
     local lora_scripts_launch_args_setting_dialog
+    local launch_args
 
     lora_scripts_launch_args_setting_dialog=$(
         dialog --erase-on-exit --notags --title "lora-scripts管理" --backtitle "lora-scripts启动参数选项" --ok-label "确认" --cancel-label "取消" --checklist "请选择lora-scripts启动参数,确认之后将覆盖原有启动参数配置" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
@@ -19,26 +20,27 @@ lora_scripts_launch_args_setting()
         for i in $lora_scripts_launch_args_setting_dialog; do
             case $i in
                 1)
-                    lora_scripts_launch_args="--listen $lora_scripts_launch_args"
+                    lora_scripts_launch_args="--listen"
                     ;;
                 2)    
-                    lora_scripts_launch_args="--skip-prepare-environment $lora_scripts_launch_args"
+                    lora_scripts_launch_args="--skip-prepare-environment"
                     ;;
                 3)
-                    lora_scripts_launch_args="--disable-tensorboard $lora_scripts_launch_args"
+                    lora_scripts_launch_args="--disable-tensorboard"
                     ;;
                 4)
-                    lora_scripts_launch_args="--disable-tageditor $lora_scripts_launch_args"
+                    lora_scripts_launch_args="--disable-tageditor"
                     ;;
                 5)
-                    lora_scripts_launch_args="--dev $lora_scripts_launch_args"
+                    lora_scripts_launch_args="--dev"
                     ;;
             esac
+            launch_args="$launch_args $lora_scripts_launch_args"
         done
 
         # 生成启动脚本
-        term_sd_echo "设置启动参数:  $lora_scripts_launch_args"
-        echo "gui.py $lora_scripts_launch_args" > "$start_path"/term-sd/config/lora-scripts-launch.conf
+        term_sd_echo "设置启动参数:  $launch_args"
+        echo "gui.py $launch_args" > "$start_path"/term-sd/config/lora-scripts-launch.conf
     fi
 }
 

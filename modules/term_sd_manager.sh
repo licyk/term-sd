@@ -9,12 +9,15 @@ term_sd_launch()
             case $(git remote -v | awk 'NR==1 {print $2}' | awk -F'/' '{print $NF}') in # 分支判断
                 stable-diffusion-webui|stable-diffusion-webui.git)
                     launch_sd_config="sd-webui-launch.conf"
-                ;;
+                    ;;
                 automatic|automatic.git)
                     launch_sd_config="vlad-sd-webui-launch.conf"
-                ;;
+                    ;;
                 stable-diffusion-webui-directml|stable-diffusion-webui-directml.git)
                     launch_sd_config="sd-webui-directml-launch.conf"
+                    ;;
+                stable-diffusion-webui-forge|stable-diffusion-webui-forge.git)
+                    launch_sd_config="sd-webui-forge-launch.conf"
                     ;;
                 *)
                     launch_sd_config="sd-webui-launch.conf"

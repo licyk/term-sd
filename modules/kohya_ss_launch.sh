@@ -5,6 +5,7 @@ kohya_ss_launch_args_setting()
 {
     local kohya_ss_launch_args
     local kohya_ss_launch_args_setting_dialog
+    local launch_args
 
     kohya_ss_launch_args_setting_dialog=$(
         dialog --erase-on-exit --notags --title "kohya_ss管理" --backtitle "kohya_ss启动参数选项" --ok-label "确认" --cancel-label "取消" --checklist "请选择kohya_ss启动参数,确认之后将覆盖原有启动参数配置" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
@@ -19,26 +20,27 @@ kohya_ss_launch_args_setting()
         for i in $kohya_ss_launch_args_setting_dialog; do
             case $i in
                 1)
-                    kohya_ss_launch_args="--listen 0.0.0.0 $kohya_ss_launch_args"
+                    kohya_ss_launch_args="--listen 0.0.0.0"
                     ;;
                 2)    
-                    kohya_ss_launch_args="--inbrowser $kohya_ss_launch_args"
+                    kohya_ss_launch_args="--inbrowser"
                     ;;
                 3)
-                    kohya_ss_launch_args="--share $kohya_ss_launch_args"
+                    kohya_ss_launch_args="--share"
                     ;;
                 4)
-                    kohya_ss_launch_args="--language zh-CN $kohya_ss_launch_args"
+                    kohya_ss_launch_args="--language zh-CN"
                     ;;
                 5)
-                    kohya_ss_launch_args="--headless $kohya_ss_launch_args"
+                    kohya_ss_launch_args="--headless"
                     ;;
             esac
+            launch_args="$launch_args $kohya_ss_launch_args"
         done
 
         # 生成启动脚本
-        term_sd_echo "设置启动参数:  $kohya_ss_launch_args"
-        echo "kohya_gui.py $kohya_ss_launch_args" > "$start_path"/term-sd/config/kohya_ss-launch.conf
+        term_sd_echo "设置启动参数:  $launch_args"
+        echo "kohya_gui.py $launch_args" > "$start_path"/term-sd/config/kohya_ss-launch.conf
     fi
 }
 

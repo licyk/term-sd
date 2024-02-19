@@ -5,6 +5,7 @@ a1111_sd_webui_launch_args_setting()
 {
     local a1111_sd_webui_launch_args
     local a1111_sd_webui_launch_args_dialog
+    local launch_args
 
     a1111_sd_webui_launch_args_dialog=$(
         dialog --erase-on-exit --notags --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI启动参数选项" --ok-label "确认" --cancel-label "取消" --checklist "请选择A1111-Stable-Diffusion-Webui启动参数,确认之后将覆盖原有启动参数配置" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
@@ -24,9 +25,9 @@ a1111_sd_webui_launch_args_setting()
         "14" "(no-half-vae)关闭VAE模型半精度优化" OFF \
         "15" "(no-progressbar-hiding)不隐藏gradio UI中进度条" OFF \
         "16" "(allow-code)允许从webui执行自定义脚本" OFF \
-        "17" "(medvram)启用显存优化,(显存<6g时推荐使用)" OFF \
-        "18" "(medvram-sdxl)仅在SDXL模型启用显存优化,(显存<8g时推荐使用)" OFF \
-        "19" "(lowvram)启用显存优化,(显存<4g时推荐使用)" OFF \
+        "17" "(medvram)启用显存优化(显存<6g时推荐使用)" OFF \
+        "18" "(medvram-sdxl)仅在SDXL模型启用显存优化(显存<8g时推荐使用)" OFF \
+        "19" "(lowvram)启用显存优化(显存<4g时推荐使用)" OFF \
         "20" "(lowram)将模型加载到显存中而不是内存中" OFF \
         "21" "(precision full)使用模型全精度" OFF \
         "22" "(upcast-sampling)使用向上采样法提高精度" OFF \
@@ -78,203 +79,204 @@ a1111_sd_webui_launch_args_setting()
         for i in $a1111_sd_webui_launch_args_dialog; do
             case $i in
                 1)
-                    a1111_sd_webui_launch_args="--update-all-extensions $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--update-all-extensions"
                     ;;
                 2)
-                    a1111_sd_webui_launch_args="--skip-python-version-check $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--skip-python-version-check"
                     ;;
                 3)
-                    a1111_sd_webui_launch_args="--skip-torch-cuda-test $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--skip-torch-cuda-test"
                     ;;
                 4)
-                    a1111_sd_webui_launch_args="--reinstall-xformers $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--reinstall-xformers"
                     ;;
                 5)
-                    a1111_sd_webui_launch_args="--reinstall-torch $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--reinstall-torch"
                     ;;
                 6)
-                    a1111_sd_webui_launch_args="--update-check $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--update-check"
                     ;;
                 7)
-                    a1111_sd_webui_launch_args="--test-server $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--test-server"
                     ;;
                 8)
-                    a1111_sd_webui_launch_args="--log-startup $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--log-startup"
                     ;;
                 9)
-                    a1111_sd_webui_launch_args="--skip-prepare-environment $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--skip-prepare-environment"
                     ;;
                 10)
-                    a1111_sd_webui_launch_args="--skip-install $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--skip-install"
                     ;;
                 11)
-                    a1111_sd_webui_launch_args="--dump-sysinfo $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--dump-sysinfo"
                     ;;
                 12)
-                    a1111_sd_webui_launch_args="--do-not-download-clip $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--do-not-download-clip"
                     ;;
                 13)
-                    a1111_sd_webui_launch_args="--no-half $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--no-half"
                     ;;
                 14)
-                    a1111_sd_webui_launch_args="--no-half-vae $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--no-half-vae"
                     ;;
                 15)
-                    a1111_sd_webui_launch_args="--no-progressbar-hiding $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--no-progressbar-hiding"
                     ;;
                 16)
-                    a1111_sd_webui_launch_args="--allow-code $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--allow-code"
                     ;;
                 17)
-                    a1111_sd_webui_launch_args="--medvram $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--medvram"
                     ;;
                 18)
-                    a1111_sd_webui_launch_args="--medvram-sdxl $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--medvram-sdxl"
                     ;;
                 19)
-                    a1111_sd_webui_launch_args="--lowvram $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--lowvram"
                     ;;
                 20)
-                    a1111_sd_webui_launch_args="--lowram $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--lowram"
                     ;;
                 21)
-                    a1111_sd_webui_launch_args="--precision full $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--precision full"
                     ;;
                 22)
-                    a1111_sd_webui_launch_args="--upcast-sampling $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--upcast-sampling"
                     ;;
                 23)
-                    a1111_sd_webui_launch_args="--share $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--share"
                     ;;
                 24)
-                    a1111_sd_webui_launch_args="--enable-insecure-extension-access $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--enable-insecure-extension-access"
                     ;;
                 25)
-                    a1111_sd_webui_launch_args="--xformers $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--xformers"
                     ;;
                 26)
-                    a1111_sd_webui_launch_args="--force-enable-xformers $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--force-enable-xformers"
                     ;;
                 27)
-                    a1111_sd_webui_launch_args="--xformers-flash-attention $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--xformers-flash-attention"
                     ;;
                 28)
-                    a1111_sd_webui_launch_args="--opt-split-attention $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--opt-split-attention"
                     ;;
                 29)
-                    a1111_sd_webui_launch_args="--opt-sub-quad-attention $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--opt-sub-quad-attention"
                     ;;
                 30)
-                    a1111_sd_webui_launch_args="--opt-split-attention-invokeai $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--opt-split-attention-invokeai"
                     ;;
                 31)
-                    a1111_sd_webui_launch_args="--opt-split-attention-v1 $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--opt-split-attention-v1"
                     ;;
                 32)
-                    a1111_sd_webui_launch_args="--opt-sdp-attention $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--opt-sdp-attention"
                     ;;
                 33)
-                    a1111_sd_webui_launch_args="--opt-sdp-no-mem-attention $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--opt-sdp-no-mem-attention"
                     ;;
                 34)
-                    a1111_sd_webui_launch_args="--disable-opt-split-attention $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--disable-opt-split-attention"
                     ;;
                 35)
-                    a1111_sd_webui_launch_args="--disable-nan-check $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--disable-nan-check"
                     ;;
                 36)
-                    a1111_sd_webui_launch_args="--use-cpu all $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--use-cpu all"
                     ;;
                 37)
-                    a1111_sd_webui_launch_args="--disable-model-loading-ram-optimization $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--disable-model-loading-ram-optimization"
                     ;;
                 38)
-                    a1111_sd_webui_launch_args="--listen $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--listen"
                     ;;
                 39)
-                    a1111_sd_webui_launch_args="--hide-ui-dir-config $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--hide-ui-dir-config"
                     ;;
                 40)
-                    a1111_sd_webui_launch_args="--freeze-settings $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--freeze-settings"
                     ;;
                 41)
-                    a1111_sd_webui_launch_args="--gradio-debug $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--gradio-debug"
                     ;;
                 42)
-                    a1111_sd_webui_launch_args="--opt-channelslast $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--opt-channelslast"
                     ;;
                 43)
-                    a1111_sd_webui_launch_args="--autolaunch $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--autolaunch"
                     ;;
                 44)
-                    a1111_sd_webui_launch_args="--theme dark $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--theme dark"
                     ;;
                 45)
-                    a1111_sd_webui_launch_args="--use-textbox-seed $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--use-textbox-seed"
                     ;;
                 46)
-                    a1111_sd_webui_launch_args="--disable-console-progressbars $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--disable-console-progressbars"
                     ;;
                 47)
-                    a1111_sd_webui_launch_args="--enable-console-prompts $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--enable-console-prompts"
                     ;;
                 48)
-                    a1111_sd_webui_launch_args="--disable-safe-unpickle $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--disable-safe-unpickle"
                     ;;
                 49)
-                    a1111_sd_webui_launch_args="--api $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--api"
                     ;;
                 50)
-                    a1111_sd_webui_launch_args="--api-log $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--api-log"
                     ;;
                 51)
-                    a1111_sd_webui_launch_args="--nowebui $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--nowebui"
                     ;;
                 52)
-                    a1111_sd_webui_launch_args="--ui-debug-mode $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--ui-debug-mode"
                     ;;
                 53)
-                    a1111_sd_webui_launch_args="--administrator $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--administrator"
                     ;;
                 54)
-                    a1111_sd_webui_launch_args="--disable-tls-verify $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--disable-tls-verify"
                     ;;
                 55)
-                    a1111_sd_webui_launch_args="--no-gradio-queue $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--no-gradio-queue"
                     ;;
                 56)
-                    a1111_sd_webui_launch_args="--skip-version-check $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--skip-version-check"
                     ;;
                 57)
-                    a1111_sd_webui_launch_args="--no-hashing $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--no-hashing"
                     ;;
                 58)
-                    a1111_sd_webui_launch_args="--no-download-sd-model $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--no-download-sd-model"
                     ;;
                 59)
-                    a1111_sd_webui_launch_args="--add-stop-route $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--add-stop-route"
                     ;;
                 60)
-                    a1111_sd_webui_launch_args="--api-server-stop $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--api-server-stop"
                     ;;
                 61)
-                    a1111_sd_webui_launch_args="--disable-all-extensions $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--disable-all-extensions"
                     ;;
                 62)
-                    a1111_sd_webui_launch_args="--disable-extra-extensions $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--disable-extra-extensions"
                     ;;
                 63)
-                    a1111_sd_webui_launch_args="--use-ipex $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--use-ipex"
                     ;;
                 64)
-                    a1111_sd_webui_launch_args="--skip-load-model-at-start $a1111_sd_webui_launch_args"
+                    a1111_sd_webui_launch_args="--skip-load-model-at-start"
                     ;;
             esac
+            launch_args="$launch_args $a1111_sd_webui_launch_args"
         done
-    
+
         # 生成启动脚本
-        term_sd_echo "设置启动参数:  $a1111_sd_webui_launch_args"
-        echo "launch.py $a1111_sd_webui_launch_args" > "$start_path"/term-sd/config/sd-webui-launch.conf
+        term_sd_echo "设置启动参数:  $launch_args"
+        echo "launch.py $launch_args" > "$start_path"/term-sd/config/sd-webui-launch.conf
     fi
 }
 

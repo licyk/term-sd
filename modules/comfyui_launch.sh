@@ -5,6 +5,7 @@ comfyui_launch_args_setting()
 {
     local comfyui_launch_args
     local comfyui_launch_args_setting_dialog
+    local launch_args
 
     comfyui_launch_args_setting_dialog=$(
         dialog --erase-on-exit --notags --title "ComfyUI管理" --backtitle "ComfyUI启动参数选项" --ok-label "确认" --cancel-label "取消" --checklist "请选择ComfyUI启动参数,确认之后将覆盖原有启动参数配置" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
@@ -48,113 +49,114 @@ comfyui_launch_args_setting()
         for i in $comfyui_launch_args_setting_dialog; do
             case $i in
                 1)
-                    comfyui_launch_args="--listen $comfyui_launch_args"
+                    comfyui_launch_args="--listen"
                     ;;
                 2)    
-                    comfyui_launch_args="--auto-launch $comfyui_launch_args"
+                    comfyui_launch_args="--auto-launch"
                     ;;
                 3)
-                    comfyui_launch_args="--disable-auto-launch $comfyui_launch_args"
+                    comfyui_launch_args="--disable-auto-launch"
                     ;;
                 4)
-                    comfyui_launch_args="--cuda-malloc $comfyui_launch_args"
+                    comfyui_launch_args="--cuda-malloc"
                     ;;
                 5)
-                    comfyui_launch_args="--disable-cuda-malloc $comfyui_launch_args"
+                    comfyui_launch_args="--disable-cuda-malloc"
                     ;;
                 6)
-                    comfyui_launch_args="--dont-upcast-attention $comfyui_launch_args"
+                    comfyui_launch_args="--dont-upcast-attention"
                     ;;
                 7)
-                    comfyui_launch_args="--force-fp32 $comfyui_launch_args"
+                    comfyui_launch_args="--force-fp32"
                     ;;
                 8)
-                    comfyui_launch_args="--force-fp16 $comfyui_launch_args"
+                    comfyui_launch_args="--force-fp16"
                     ;;
                 9)
-                    comfyui_launch_args="--bf16-unet $comfyui_launch_args"
+                    comfyui_launch_args="--bf16-unet"
                     ;;
                 10)
-                    comfyui_launch_args="--fp16-vae $comfyui_launch_args"
+                    comfyui_launch_args="--fp16-vae"
                     ;;
                 11)
-                    comfyui_launch_args="--fp32-vae $comfyui_launch_args"
+                    comfyui_launch_args="--fp32-vae"
                     ;;
                 12)
-                    comfyui_launch_args="--bf16-vae $comfyui_launch_args"
+                    comfyui_launch_args="--bf16-vae"
                     ;;
                 13)
-                    comfyui_launch_args="--disable-ipex-optimize $comfyui_launch_args"
+                    comfyui_launch_args="--disable-ipex-optimize"
                     ;;
                 14)
-                    comfyui_launch_args="--preview-method none $comfyui_launch_args"
+                    comfyui_launch_args="--preview-method none"
                     ;;
                 15)
-                    comfyui_launch_args="--preview-method latent2rgb $comfyui_launch_args"
+                    comfyui_launch_args="--preview-method latent2rgb"
                     ;;
                 16)
-                    comfyui_launch_args="--preview-method taesd $comfyui_launch_args"
+                    comfyui_launch_args="--preview-method taesd"
                     ;;
                 17)
-                    comfyui_launch_args="--use-split-cross-attention $comfyui_launch_args"
+                    comfyui_launch_args="--use-split-cross-attention"
                     ;;
                 18)
-                    comfyui_launch_args="--use-quad-cross-attention $comfyui_launch_args"
+                    comfyui_launch_args="--use-quad-cross-attention"
                     ;;
                 19)
-                    comfyui_launch_args="--use-pytorch-cross-attention $comfyui_launch_args"
+                    comfyui_launch_args="--use-pytorch-cross-attention"
                     ;;
                 20)
-                    comfyui_launch_args="--disable-xformers $comfyui_launch_args"
+                    comfyui_launch_args="--disable-xformers"
                     ;;
                 21)
-                    comfyui_launch_args="--gpu-only $comfyui_launch_args"
+                    comfyui_launch_args="--gpu-only"
                     ;;
                 22)
-                    comfyui_launch_args="--highvram $comfyui_launch_args"
+                    comfyui_launch_args="--highvram"
                     ;;
                 23)
-                    comfyui_launch_args="--normalvram $comfyui_launch_args"
+                    comfyui_launch_args="--normalvram"
                     ;;
                 24)
-                    comfyui_launch_args="--lowvram $comfyui_launch_args"
+                    comfyui_launch_args="--lowvram"
                     ;;
                 25)
-                    comfyui_launch_args="--novram $comfyui_launch_args"
+                    comfyui_launch_args="--novram"
                     ;;
                 26)
-                    comfyui_launch_args="--cpu $comfyui_launch_args"
+                    comfyui_launch_args="--cpu"
                     ;;
                 27)
-                    comfyui_launch_args="--disable-smart-memory $comfyui_launch_args"
+                    comfyui_launch_args="--disable-smart-memory"
                     ;;
                 28)
-                    comfyui_launch_args="--dont-print-server $comfyui_launch_args"
+                    comfyui_launch_args="--dont-print-server"
                     ;;
                 29)
-                    comfyui_launch_args="--quick-test-for-ci $comfyui_launch_args"
+                    comfyui_launch_args="--quick-test-for-ci"
                     ;;
                 30)
-                    comfyui_launch_args="--windows-standalone-build $comfyui_launch_args"
+                    comfyui_launch_args="--windows-standalone-build"
                     ;;
                 31)
-                    comfyui_launch_args="--disable-metadata $comfyui_launch_args"
+                    comfyui_launch_args="--disable-metadata"
                     ;;
                 32)
-                    comfyui_launch_args="--share $comfyui_launch_args"
+                    comfyui_launch_args="--share"
                     ;;
                 33)
-                    comfyui_launch_args="--fp8_e4m3fn-text-enc $comfyui_launch_args"
+                    comfyui_launch_args="--fp8_e4m3fn-text-enc"
                     ;;
                 34)
-                    comfyui_launch_args="--fp8_e5m2-text-enc $comfyui_launch_args"
+                    comfyui_launch_args="--fp8_e5m2-text-enc"
                     ;;
             esac
+            launch_args="$launch_args $comfyui_launch_args"
         done
 
         # 生成启动脚本
-        term_sd_echo "设置启动参数:  $comfyui_launch_args"
-        echo "main.py $comfyui_launch_args" > "$start_path"/term-sd/config/comfyui-launch.conf
+        term_sd_echo "设置启动参数:  $launch_args"
+        echo "main.py $launch_args" > "$start_path"/term-sd/config/comfyui-launch.conf
     fi
 }
 
