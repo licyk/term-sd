@@ -203,10 +203,10 @@ fooocus_launch_args_setting()
                     fooocus_launch_args="--preset realistic"
                     ;;
             esac
-            launch_args="$launch_args $fooocus_launch_args"
+            launch_args="$fooocus_launch_args $launch_args"
         done
 
-        term_sd_echo "设置启动参数:  $launch_args"
+        term_sd_echo "设置启动参数: $launch_args"
         echo "launch.py $launch_args" > "$start_path"/term-sd/config/fooocus-launch.conf
     fi
 }
@@ -253,7 +253,7 @@ fooocus_manual_launch()
     fooocus_launch_args=$(dialog --erase-on-exit --title "Fooocus管理" --backtitle "Fooocus自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入Fooocus启动参数" $term_sd_dialog_height $term_sd_dialog_width "$(cat "$start_path"/term-sd/config/fooocus-launch.conf | awk '{sub("launch.py ","")}1')" 3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
-        term_sd_echo "设置启动参数:  $fooocus_launch_args"
+        term_sd_echo "设置启动参数: $fooocus_launch_args"
         echo "launch.py $fooocus_launch_args" > "$start_path"/term-sd/config/fooocus-launch.conf
     fi
 }

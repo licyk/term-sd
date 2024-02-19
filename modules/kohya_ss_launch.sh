@@ -35,11 +35,11 @@ kohya_ss_launch_args_setting()
                     kohya_ss_launch_args="--headless"
                     ;;
             esac
-            launch_args="$launch_args $kohya_ss_launch_args"
+            launch_args="$kohya_ss_launch_args $launch_args"
         done
 
         # 生成启动脚本
-        term_sd_echo "设置启动参数:  $launch_args"
+        term_sd_echo "设置启动参数: $launch_args"
         echo "kohya_gui.py $launch_args" > "$start_path"/term-sd/config/kohya_ss-launch.conf
     fi
 }
@@ -86,7 +86,7 @@ kohya_ss_launch_args_revise()
     kohya_ss_launch_args=$(dialog --erase-on-exit --title "kohya_ss管理" --backtitle "kohya_ss自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入kohya_ss启动参数" $term_sd_dialog_height $term_sd_dialog_width "$(cat "$start_path"/term-sd/config/kohya_ss-launch.conf | awk '{sub("kohya_gui.py ","")}1')" 3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
-        term_sd_echo "设置启动参数:  $kohya_ss_launch_args"
+        term_sd_echo "设置启动参数: $kohya_ss_launch_args"
         echo "kohya_gui.py $kohya_ss_launch_args" > "$start_path"/term-sd/config/kohya_ss-launch.conf
     fi
 }

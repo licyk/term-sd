@@ -151,11 +151,11 @@ comfyui_launch_args_setting()
                     comfyui_launch_args="--fp8_e5m2-text-enc"
                     ;;
             esac
-            launch_args="$launch_args $comfyui_launch_args"
+            launch_args="$comfyui_launch_args $launch_args"
         done
 
         # 生成启动脚本
-        term_sd_echo "设置启动参数:  $launch_args"
+        term_sd_echo "设置启动参数: $launch_args"
         echo "main.py $launch_args" > "$start_path"/term-sd/config/comfyui-launch.conf
     fi
 }
@@ -202,7 +202,7 @@ comfyui_launch_args_revise()
     comfyui_launch_args=$(dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入ComfyUI启动参数" $term_sd_dialog_height $term_sd_dialog_width "$(cat "$start_path"/term-sd/config/comfyui-launch.conf | awk '{sub("main.py ","")}1')" 3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
-        term_sd_echo "设置启动参数:  $comfyui_launch_args"
+        term_sd_echo "设置启动参数: $comfyui_launch_args"
         echo "main.py $comfyui_launch_args" > "$start_path"/term-sd/config/comfyui-launch.conf
     fi
 }

@@ -35,11 +35,11 @@ lora_scripts_launch_args_setting()
                     lora_scripts_launch_args="--dev"
                     ;;
             esac
-            launch_args="$launch_args $lora_scripts_launch_args"
+            launch_args="$lora_scripts_launch_args $launch_args"
         done
 
         # 生成启动脚本
-        term_sd_echo "设置启动参数:  $launch_args"
+        term_sd_echo "设置启动参数: $launch_args"
         echo "gui.py $launch_args" > "$start_path"/term-sd/config/lora-scripts-launch.conf
     fi
 }
@@ -86,7 +86,7 @@ lora_scripts_launch_args_revise()
     lora_scripts_launch_args=$(dialog --erase-on-exit --title "lora-scripts管理" --backtitle "lora-scripts自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入lora-scripts启动参数" $term_sd_dialog_height $term_sd_dialog_width "$(cat "$start_path"/term-sd/config/lora-scripts-launch.conf | awk '{sub("gui.py ","")}1')" 3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
-        term_sd_echo "设置启动参数:  $lora_scripts_launch_args"
+        term_sd_echo "设置启动参数: $lora_scripts_launch_args"
         echo "gui.py $lora_scripts_launch_args" > "$start_path"/term-sd/config/lora-scripts-launch.conf
     fi
 }
