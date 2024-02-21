@@ -696,6 +696,13 @@ if [ ! -d "term-sd" ] && [ -d ".git" ] && [ -d "modules" ] && [ -f "modules/init
     exit 1
 fi
 
+if [ ! "$(dirname "$(echo $0)")" = "." ];then
+    term_sd_echo "检测到未在term-sd.sh文件所在目录运行Term-SD"
+    term_sd_echo "请进入term-sd.sh文件所在目录后再次运行Term-SD"
+    term_sd_echo "退出Term-SD"
+    exit 1
+fi
+
 # dialog使用文档https://manpages.debian.org/bookworm/dialog/dialog.1.en.html
 # 设置dialog界面的大小
 export term_sd_dialog_menu_height=10 #dialog高度条目

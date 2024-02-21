@@ -1,7 +1,7 @@
 关于Term-SD：
 Term-SD是基于终端显示（使用GNU提供的dialog渲染界面）的AI管理器，可以安装AI软件，对AI软件进行简单的管理
 支持的AI软件如下：
-1、AUTOMATIC1111-stable-diffusion-webui（支持切换成SD.Next/stable-diffusion-webui-directml）
+1、AUTOMATIC1111-stable-diffusion-webui（支持切换成SD.Next/stable-diffusion-webui-directml/stable-diffusion-webui-forge）
 2、ComfyUI
 3、InvokeAI
 4、Fooocus
