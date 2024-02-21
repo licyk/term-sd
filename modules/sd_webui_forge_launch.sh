@@ -72,7 +72,7 @@ sd_webui_forge_launch_args_setting()
         "61" "(disable-all-extensions)禁用所有扩展运行" OFF \
         "62" "(disable-extra-extensions)禁用非内置的扩展运行" OFF \
         "63" "(use-ipex)使用intel XPU作为生图后端" OFF \
-        "64" "(skip-load-model-at-start)启动webui时不加载模型,加速启动" ON \
+        "64" "(skip-load-model-at-start)启动webui时不加载模型,加速启动" OFF \
         "65" "(in-browser)启动webui完成后自动启动浏览器" OFF \
         "66" "(disable-in-browser)禁用在启动webui完成后自动启动浏览器" OFF \
         "67" "(async-cuda-allocation)启用CUDA流顺序内存分配器" OFF \
@@ -447,7 +447,7 @@ sd_webui_forge_launch()
 
     if [ ! -f "$start_path/term-sd/config/sd-webui-forge-launch.conf" ]; then # 找不到启动配置时默认生成一个
         term_sd_echo "未找到启动配置文件,创建中"
-        echo "launch.py --theme dark --autolaunch --xformers --skip-load-model-at-start" > "$start_path"/term-sd/config/sd-webui-forge-launch.conf
+        echo "launch.py --theme dark --autolaunch --xformers" > "$start_path"/term-sd/config/sd-webui-forge-launch.conf
     fi
 
     sd_webui_forge_launch_dialog=$(
