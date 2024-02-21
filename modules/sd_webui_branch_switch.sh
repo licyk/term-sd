@@ -129,7 +129,7 @@ sd_webui_branch_switch()
             git remote set-url origin $(git_format_repository_url $github_mirror https://github.com/lllyasviel/stable-diffusion-webui-forge)
             git submodule deinit --all -f
             term_sd_watch git fetch
-            git checkout dev
+            git checkout main
             term_sd_watch git pull --rebase
             mv -f repositories/blip repositories/BLIP
             sd_webui_branch_file_restore
