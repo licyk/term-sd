@@ -312,3 +312,7 @@ AUTOMATIC1111-stable-diffusion-webui插件说明：
 78、sd-civitai-browser-plus：
 描述：civitai助手升级版，支持更多功能
 链接：https://github.com/BlafKing/sd-civitai-browser-plus
+
+79、sd-webui-weight-helper：
+描述：快捷调整lora分层参数
+链接：https://github.com/nihedon/sd-webui-weight-helper

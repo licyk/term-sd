@@ -25,6 +25,8 @@ Term-SD的编写参考了https://gitee.com/skymysky/linux（制作Term-SD早期�
   https://huggingface.co/lllyasviel/sd_control_collection
  
 ●stable-diffusion-webui：
+Stable Diffusion 潜工具书：
+  https://docs.qq.com/doc/p/230e7ada2a60d8e347d639edd5521f5e62332fe9
 从零开始的AI绘画入门教程——魔法导论：
   https://www.bilibili.com/read/cv22159609
 重绘学派法术绪论：
@@ -94,6 +96,7 @@ AIGODLIKE社区：
 （没有设备玩stable-diffusion的可以尝试下面的项目）
   https://github.com/camenduru/stable-diffusion-webui-colab
   https://github.com/Van-wise/sd-colab
+  https://github.com/2575044704/kaggle
 
 
 up主推荐：
