@@ -30,7 +30,7 @@ Stable Diffusion 潜工具书：
 从零开始的AI绘画入门教程——魔法导论：
   https://www.bilibili.com/read/cv22159609
 重绘学派法术绪论：
-  https://docs.qq.com/pdf/DR2V2ZlhHbnJUVHBa
+  https://docs.qq.com/pdf/DR2pJcWdTRXVpWEty
 StableDiffusionBook：
   https://draw.dianas.cyou
   https://stable-diffusion-book.vercel.app
@@ -103,6 +103,7 @@ up主推荐：
   bilibili@秋葉aaaki
   bilibili@青龙圣者
   bilibili@只剩一瓶辣椒酱
+  bilibili@琥珀青葉
   bilibili@大江户战士
   bilibili@独立研究员-星空
   bilibili@自带马赛克属性的阿尼
