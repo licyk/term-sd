@@ -299,7 +299,7 @@ sd_webui_directml_launch()
 
     if [ ! -f "$start_path/term-sd/config/sd-webui-directml-launch.conf" ]; then # 找不到启动配置时默认生成一个
         term_sd_echo "未找到启动配置文件,创建中"
-        echo "launch.py --theme dark --autolaunch --xformers" > "$start_path"/term-sd/config/sd-webui-directml-launch.conf
+        echo "launch.py --theme dark --autolaunch --xformers --api --skip-load-model-at-start" > "$start_path"/term-sd/config/sd-webui-directml-launch.conf
     fi
 
     sd_webui_directml_launch_dialog=$(

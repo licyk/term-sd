@@ -144,7 +144,8 @@ sd_webui_config_file()
     "hires_fix_show_sampler": true,
     "CLIP_stop_at_last_layers": 2,
     "localization": "zh-Hans (Stable)",
-    "show_progress_every_n_steps": 1
+    "show_progress_every_n_steps": 1,
+    "js_live_preview_in_modal_lightbox": true
 }
 EOF
 }
