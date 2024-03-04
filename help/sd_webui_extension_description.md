@@ -316,3 +316,7 @@ AUTOMATIC1111-stable-diffusion-webui插件说明：
 79、sd-webui-weight-helper：
 描述：快捷调整lora分层参数
 链接：https://github.com/nihedon/sd-webui-weight-helper
+
+80、sd-forge-layerdiffusion：
+描述：LayerDiffusion插件，仅支持sd-webui-forge
+链接：https://github.com/layerdiffusion/sd-forge-layerdiffusion

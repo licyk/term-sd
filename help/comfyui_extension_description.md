@@ -264,3 +264,11 @@ ComfyUI插件/自定义节点说明：
 63、ComfyUI-Crystools：
 描述：资源监视器
 链接：https://github.com/crystian/ComfyUI-Crystools
+
+64、ComfyUI-layerdiffusion：
+描述：LayerDiffusion节点
+链接：https://github.com/huchenlei/ComfyUI-layerdiffusion
+
+65、ComfyUI_LayerStyle：
+描述：图层和蒙版合成节点
+链接：https://github.com/chflame163/ComfyUI_LayerStyle

@@ -4,161 +4,141 @@
 term_sd_file_manager()
 {
     local file_manager_dialog
-    term_sd_echo "请选择进行的操作"
-    term_sd_echo "1、Stable-Diffusion-WebUI数据管理"
-    term_sd_echo "2、ComfyUI数据管理"
-    term_sd_echo "3、InvokeAI数据管理"
-    term_sd_echo "4、Fooocus数据管理"
-    term_sd_echo "5、lora-scripts数据管理"
-    term_sd_echo "6、kohya_ss数据管理"
-    term_sd_echo "7、帮助"
-    term_sd_echo "8、退出"
-    term_sd_echo "提示:输入数字并回车"
+    local file_manager_select
 
-    case $(term_sd_read) in
-        1)
-            if [ -d "$sd_webui_path" ];then
-                data_backup_manager stable-diffusion-webui
+    file_manager_dialog=$(
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "Term-SD备份选项" --ok-label "确认" --cancel-label "取消" --menu "请选择需要备份的软件\n当前备份文件存储目录:${start_path}/term-sd/backup" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+            "0" "> 帮助" \
+            "1" "> Stable-Diffusion-WebUI数据管理" \
+            "2" "> ComfyUI数据管理" \
+            "3" "> InvokeAI数据管理" \
+            "4" "> Fooocus数据管理" \
+            "5" "> lora-scripts数据管理" \
+            "6" "> kohya_ss数据管理" \
+            "7" "> 退出" \
+            3>&1 1>&2 2>&3)
+    
+    if [ $? = 0 ];then
+        case $file_manager_dialog in
+            0)
+                dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(term_sd_file_manager_help)" $term_sd_dialog_height $term_sd_dialog_width
+                ;;
+            1)
+                file_manager_select="stable-diffusion-webui"
+                ;;
+            2)
+                file_manager_select="ComfyUI"
+                ;;
+            3)
+                file_manager_select="InvokeAI"
+                ;;
+            4)
+                file_manager_select="Fooocus"
+                ;;
+            5)
+                file_manager_select="lora-scripts"
+                ;;
+            6)
+                file_manager_select="kohya_ss"
+                ;;
+            7)  
+                return 1
+                ;;
+        esac
+        if [ ! -z "$file_manager_select" ];then
+            if [ $(is_sd_folder_exist "$file_manager_select") = 0 ];then
+                data_backup_manager "$file_manager_select"
             else
-                term_sd_echo "未安装Stable-Diffusion-WebUI"
+                dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD备份选项" --ok-label "确认" --msgbox "${file_manager_select}未安装" $term_sd_dialog_height $term_sd_dialog_width
             fi
-            ;;
-        2)
-            if [-d "$comfyui_path" ];then
-                data_backup_manager ComfyUI
-            else
-                term_sd_echo "未安装ComfyUI"
-            fi
-            ;;
-        3)
-            if [ -d "$invokeai_path" ];then
-                data_backup_manager InvokeAI
-            else
-                term_sd_echo "未安装InvokeAI"
-            fi
-            ;;
-        4)
-            if [ -d "$fooocus_path" ];then
-                data_backup_manager Fooocus
-            else
-                term_sd_echo "未安装Fooocus"
-            fi
-            ;;
-        5)
-            if [ -d "$lora_scripts_path" ];then
-                data_backup_manager lora-scripts
-            else
-                term_sd_echo "未安转lora-scripts"
-            fi
-            ;;
-        6)
-            if [ -d "$kohya_ss_path" ];then
-                data_backup_manager kohya_ss
-            else
-                term_sd_echo "未安装kohya_ss"
-            fi
-            ;;
-        7)
-            term_sd_file_manager_help
-            ;;
-        8)
-            return 1
-            ;;
-        *)
-            term_sd_echo "输入有误,请重试"
-            ;;
-    esac
+        fi
+    else
+        return 1
+    fi
 }
 
 # 管理界面
 data_backup_manager()
 {
     local start_time
+    local data_backup_manager_dialog
 
-    term_sd_echo "请选择要进行的操作"
-    term_sd_echo "1、备份${1}数据"
-    term_sd_echo "2、恢复${1}数据"
-    term_sd_echo "3、删除${1}数据备份"
-    term_sd_echo "4、返回"
-    term_sd_echo "提示:输入数字并回车"
+    data_backup_manager_dialog=$(
+        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "${1}备份选项" --ok-label "确认" --cancel-label "取消" --menu "请选择要进行的操作" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+            "0" "> 返回" \
+            "1" "> 备份${1}数据" \
+            "2" "> 恢复${1}数据" \
+            "3" "> 删除${1}数据备份" \
+            3>&1 1>&2 2>&3)
 
-    case $(term_sd_read) in
-        1)
-            term_sd_echo "是否备份${1}数据(yes/no)"
-            term_sd_echo "提示:输入yes或no后回车"
-            case $(term_sd_read) in
-                y|yes|YES|Y)
-                    start_time=$(date +%s)
-                    term_sd_echo "开始备份${1}数据"
-                    term_sd_data_backup ${1}
-                    term_sd_echo "备份${1}数据完成"
-                    term_sd_file_operate_time $start_time
-                    data_backup_manager ${1}
-                    ;;
-                *)
-                    term_sd_echo "取消操作"
-                    data_backup_manager ${1}
-                    ;;
-            esac
-            ;;
-        2)
-            term_sd_echo "是否恢复${1}数据(yes/no)"
-            term_sd_echo "提示:输入yes或no后回车"
-            case $(term_sd_read) in
-                y|yes|YES|Y)
-                    if [ -d "term-sd/backup/${1}" ];then
+    if [ $? = 0 ];then
+        case $data_backup_manager_dialog in
+            1)
+                term_sd_echo "是否备份${1}数据(yes/no)"
+                term_sd_echo "提示:输入yes或no后回车"
+                case $(term_sd_read) in
+                    y|yes|YES|Y)
                         start_time=$(date +%s)
-                        term_sd_echo "开始恢复${1}数据"
-                        term_sd_data_restore ${1}
-                        term_sd_echo "恢复${1}数据完成"
-                        term_sd_file_operate_time $start_time
-                    else
-                        term_sd_echo "${1}未备份"
-                    fi
-                    data_backup_manager ${1}
-                    ;;
-                *)
-                    term_sd_echo "取消操作"
-                    data_backup_manager ${1}
-                    ;;
-            esac
-            ;;
-        3)
-            term_sd_echo "是否删除${1}数据备份(yes/no)"
-            term_sd_echo "提示:输入yes或no后回车"
-            case $(term_sd_read) in
-                y|yes|YES|Y)
-                    if [ -d "term-sd/backup/${1}" ];then
-                        start_time=$(date +%s)
-                        term_sd_echo "开始删除${1}数据备份"
-                        rm -rf term-sd/backup/${1}
-                        term_sd_echo "删除${1}数据备份完成"
-                        term_sd_file_operate_time $start_time
-                    else
-                        term_sd_echo "${1}未备份"
-                    fi
-                    data_backup_manager ${1}
-                    ;;
-                *)
-                    term_sd_echo "取消操作"
-                    data_backup_manager ${1}
-                    ;;
-            esac
-            ;;
-        4)
-            term_sd_echo "返回主界面"
-            ;;
-        *)
-            term_sd_echo "输入有误,请重试"
-            data_backup_manager ${1}
-            ;;
-    esac
+                        term_sd_echo "开始备份${1}数据"
+                        term_sd_data_backup ${1}
+                        dialog --erase-on-exit --title "Term-SD" --backtitle "${1}备份选项" --ok-label "确认" --msgbox "备份${1}数据完成,$(term_sd_file_operate_time $start_time)" $term_sd_dialog_height $term_sd_dialog_width
+                        data_backup_manager ${1}
+                        ;;
+                    *)
+                        term_sd_echo "取消操作"
+                        data_backup_manager ${1}
+                        ;;
+                esac
+                ;;
+            2)
+                term_sd_echo "是否恢复${1}数据(yes/no)"
+                term_sd_echo "提示:输入yes或no后回车"
+                case $(term_sd_read) in
+                    y|yes|YES|Y)
+                        if [ -d "term-sd/backup/${1}" ];then
+                            start_time=$(date +%s)
+                            term_sd_echo "开始恢复${1}数据"
+                            term_sd_data_restore ${1}
+                            dialog --erase-on-exit --title "Term-SD" --backtitle "${1}备份选项" --ok-label "确认" --msgbox "恢复${1}数据完成,$(term_sd_file_operate_time $start_time)" $term_sd_dialog_height $term_sd_dialog_width
+                        else
+                            dialog --erase-on-exit --title "Term-SD" --backtitle "${1}备份选项" --ok-label "确认" --msgbox "${1}未备份" $term_sd_dialog_height $term_sd_dialog_width
+                        fi
+                        data_backup_manager ${1}
+                        ;;
+                    *)
+                        term_sd_echo "取消操作"
+                        data_backup_manager ${1}
+                        ;;
+                esac
+                ;;
+            3)
+                term_sd_echo "是否删除${1}数据备份(yes/no)"
+                term_sd_echo "提示:输入yes或no后回车"
+                case $(term_sd_read) in
+                    y|yes|YES|Y)
+                        if [ -d "term-sd/backup/${1}" ];then
+                            start_time=$(date +%s)
+                            term_sd_echo "开始删除${1}数据备份"
+                            rm -rf term-sd/backup/${1}
+                            dialog --erase-on-exit --title "Term-SD" --backtitle "${1}备份选项" --ok-label "确认" --msgbox "删除${1}数据备份完成,$(term_sd_file_operate_time $start_time)" $term_sd_dialog_height $term_sd_dialog_width
+                        else
+                            dialog --erase-on-exit --title "Term-SD" --backtitle "${1}备份选项" --ok-label "确认" --msgbox "${1}未备份" $term_sd_dialog_height $term_sd_dialog_width
+                        fi
+                        data_backup_manager ${1}
+                        ;;
+                    *)
+                        term_sd_echo "取消操作"
+                        data_backup_manager ${1}
+                        ;;
+                esac
+                ;;
+        esac
+    fi
 }
 
 # 帮助
 term_sd_file_manager_help()
 {
-    term_sd_print_line "备份脚本帮助"
     cat<<EOF
 该备份脚本会在Term-SD目录生成"term-sd/backup"文件夹,用于储存备份数据
 以下为脚本备份的数据:
@@ -202,7 +182,31 @@ kohya_ss
 ├── models          训练底模路径
 └── train           训练集路径
 EOF
-    term_sd_print_line
+}
+
+# 检测文件夹存在
+is_sd_folder_exist()
+{
+    case ${1} in
+        stable-diffusion-webui)
+            [ -d "$sd_webui_path" ] && echo 0 || echo 1
+            ;;
+        ComfyUI)
+            [ -d "$comfyui_path" ] && echo 0 || echo 1
+            ;;
+        InvokeAI)
+            [ -d "$invokeai_path" ] && echo 0 || echo 1
+            ;;
+        Fooocus)
+            [ -d "$fooocus_path" ] && echo 0 || echo 1
+            ;;
+        lora-scripts)
+            [ -d "$lora_scripts_path" ] && echo 0 || echo 1
+            ;;
+        kohya_ss)
+            [ -d "$kohya_ss_path" ] && echo 0 || echo 1
+            ;;
+    esac
 }
 
 # 备份选择
@@ -262,7 +266,7 @@ term_sd_file_operate_time()
     local end_time=$(date +%s)
     local time_span
     time_span=$((end_time - start_time))
-    term_sd_echo "用时:${time_span} sec"
+    echo "用时: ${time_span} sec"
 }
 
 # sd-webui

@@ -77,3 +77,4 @@ __term_sd_task_pre_ext_76 git_clone_repository ${github_mirror} https://github.c
 __term_sd_task_pre_ext_77 git_clone_repository ${github_mirror} https://github.com/bbc-mc/sdweb-merge-block-weighted-gui "$sd_webui_path"/extensions OFF # 模型U-NET权重调整与合并
 __term_sd_task_pre_ext_78 git_clone_repository ${github_mirror} https://github.com/BlafKing/sd-civitai-browser-plus "$sd_webui_path"/extensions OFF # civitai助手升级版，支持更多功能
 __term_sd_task_pre_ext_79 git_clone_repository ${github_mirror} https://github.com/nihedon/sd-webui-weight-helper "$sd_webui_path"/extensions OFF # 快捷调整lora分层参数
+__term_sd_task_pre_ext_80 git_clone_repository ${github_mirror} https://github.com/layerdiffusion/sd-forge-layerdiffusion "$sd_webui_path"/extensions OFF # LayerDiffusion插件，仅支持sd-webui-forge

@@ -61,3 +61,5 @@ __term_sd_task_pre_ext_60 git_clone_repository ${github_mirror} https://github.c
 __term_sd_task_pre_ext_61 git_clone_repository ${github_mirror} https://github.com/kijai/ComfyUI-Marigold "$comfyui_path"/custom_nodes ON # 深度图生成节点
 __term_sd_task_pre_ext_62 git_clone_repository ${github_mirror} https://github.com/WASasquatch/PowerNoiseSuite "$comfyui_path"/custom_nodes ON # 噪声生成节点
 __term_sd_task_pre_ext_63 git_clone_repository ${github_mirror} https://github.com/crystian/ComfyUI-Crystools "$comfyui_path"/custom_nodes OFF # 资源监视器
+__term_sd_task_pre_ext_64 git_clone_repository ${github_mirror} https://github.com/huchenlei/ComfyUI-layerdiffusion "$comfyui_path"/custom_nodes OFF # LayerDiffusion节点
+__term_sd_task_pre_ext_65 git_clone_repository ${github_mirror} https://github.com/chflame163/ComfyUI_LayerStyle "$comfyui_path"/custom_nodes OFF # 图层和蒙版合成节点
