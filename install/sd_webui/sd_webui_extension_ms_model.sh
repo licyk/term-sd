@@ -93,11 +93,11 @@ __term_sd_task_pre_ext_66 get_modelscope_model licyks/sd-extensions-model/master
 __term_sd_task_pre_ext_66 get_modelscope_model licyks/sd-extensions-model/master/sd-webui-segment-anything/sam_vit_b_01ec64.pth "$sd_webui_path"/extensions/sd-webui-inpaint-anything/models
 
 __term_sd_task_pre_ext_80 term_sd_echo "下载sd-forge-layerdiffusion模型"
-__term_sd_task_pre_ext_80 get_modelscope_model licyk/layerdiffusion/master/layer_xl_bg2ble.safetensors "$sd_webui_path"/models/layer_model
-__term_sd_task_pre_ext_80 get_modelscope_model licyk/layerdiffusion/master/layer_xl_bgble2fg.safetensors "$sd_webui_path"/models/layer_model
-__term_sd_task_pre_ext_80 get_modelscope_model licyk/layerdiffusion/master/layer_xl_fg2ble.safetensors "$sd_webui_path"/models/layer_model
-__term_sd_task_pre_ext_80 get_modelscope_model licyk/layerdiffusion/master/layer_xl_fgble2bg.safetensors "$sd_webui_path"/models/layer_model
-__term_sd_task_pre_ext_80 get_modelscope_model licyk/layerdiffusion/master/layer_xl_transparent_attn.safetensors "$sd_webui_path"/models/layer_model
-__term_sd_task_pre_ext_80 get_modelscope_model licyk/layerdiffusion/master/layer_xl_transparent_conv.safetensors "$sd_webui_path"/models/layer_model
-__term_sd_task_pre_ext_80 get_modelscope_model licyk/layerdiffusion/master/vae_transparent_decoder.safetensors "$sd_webui_path"/models/layer_model
-__term_sd_task_pre_ext_80 get_modelscope_model licyk/layerdiffusion/master/vae_transparent_encoder.safetensors "$sd_webui_path"/models/layer_model
+__term_sd_task_pre_ext_80 get_modelscope_model licyks/layerdiffusion/master/layer_xl_bg2ble.safetensors "$sd_webui_path"/models/layer_model
+__term_sd_task_pre_ext_80 get_modelscope_model licyks/layerdiffusion/master/layer_xl_bgble2fg.safetensors "$sd_webui_path"/models/layer_model
+__term_sd_task_pre_ext_80 get_modelscope_model licyks/layerdiffusion/master/layer_xl_fg2ble.safetensors "$sd_webui_path"/models/layer_model
+__term_sd_task_pre_ext_80 get_modelscope_model licyks/layerdiffusion/master/layer_xl_fgble2bg.safetensors "$sd_webui_path"/models/layer_model
+__term_sd_task_pre_ext_80 get_modelscope_model licyks/layerdiffusion/master/layer_xl_transparent_attn.safetensors "$sd_webui_path"/models/layer_model
+__term_sd_task_pre_ext_80 get_modelscope_model licyks/layerdiffusion/master/layer_xl_transparent_conv.safetensors "$sd_webui_path"/models/layer_model
+__term_sd_task_pre_ext_80 get_modelscope_model licyks/layerdiffusion/master/vae_transparent_decoder.safetensors "$sd_webui_path"/models/layer_model
+__term_sd_task_pre_ext_80 get_modelscope_model licyks/layerdiffusion/master/vae_transparent_encoder.safetensors "$sd_webui_path"/models/layer_model
