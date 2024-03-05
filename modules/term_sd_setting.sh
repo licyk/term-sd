@@ -215,7 +215,8 @@ term_sd_proxy_setting()
         "1" "> http协议" \
         "2" "> socks协议" \
         "3" "> socks5协议" \
-        "4" "> 删除代理参数" \
+        "4" "> 自定义协议" \
+        "5" "> 删除代理参数" \
         3>&1 1>&2 2>&3)
 
     case $term_sd_proxy_setting_dialog in
@@ -256,6 +257,18 @@ term_sd_proxy_setting()
             term_sd_proxy_setting
             ;;
         4)
+            term_sd_proxy_config=$(dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --cancel-label "取消" --inputbox "请输入代理地址\n格式: <protocol>://<ip>:<port>" $term_sd_dialog_height $term_sd_dialog_width "$(echo $http_proxy)" 3>&1 1>&2 2>&3)
+            if [ $? = 0 ] && [ ! -z "$term_sd_proxy_config" ];then
+                term_sd_proxy_config=$(echo $term_sd_proxy_config | awk '{gsub(/[：]/, ":") ; gsub(/[。]/, ".")}1') # 防止用户输入中文冒号,句号后导致错误
+                http_proxy="$term_sd_proxy_config"
+                https_proxy="$term_sd_proxy_config"
+                term_sd_proxy=$https_proxy
+                echo "$term_sd_proxy_config" > term-sd/config/proxy.conf
+                dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数设置界面" --ok-label "确认" --msgbox "代理地址:\"$http_proxy\"\n代理协议:\"$(echo $http_proxy | awk -F '://' '{print$NR}')\"\n设置代理完成" $term_sd_dialog_height $term_sd_dialog_width
+            fi
+            term_sd_proxy_setting
+            ;;
+        5)
             if (dialog --erase-on-exit --title "Term-SD" --backtitle "代理参数删除界面" --yes-label "是" --no-label "否" --yesno "是否删除代理配置?" $term_sd_dialog_height $term_sd_dialog_width) then
                 http_proxy=
                 https_proxy=

@@ -694,9 +694,7 @@ if [ ! -d "term-sd" ] && [ -d ".git" ] && [ -d "modules" ] && [ -f "modules/init
     term_sd_echo "再运行目录外面的term-sd.sh"
     term_sd_echo "退出Term-SD"
     exit 1
-fi
-
-if [ ! "$(dirname "$(echo $0)")" = "." ];then
+elif [ ! "$(dirname "$(echo $0)")" = "." ];then
     term_sd_echo "检测到未在term-sd.sh文件所在目录运行Term-SD"
     term_sd_echo "请进入term-sd.sh文件所在目录后再次运行Term-SD"
     term_sd_echo "退出Term-SD"
