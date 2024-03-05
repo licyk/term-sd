@@ -112,3 +112,13 @@ __term_sd_task_pre_ext_54 aria2_download https://huggingface.co/licyk/comfyui-ex
 __term_sd_task_pre_ext_54 aria2_download https://huggingface.co/licyk/comfyui-extension-models/resolve/main/ComfyUI-WD14-Tagger/wd-v1-4-moat-tagger-v2.onnx "$comfyui_path"/custom_nodes/ComfyUI-WD14-Tagger/models
 __term_sd_task_pre_ext_54 aria2_download https://huggingface.co/licyk/comfyui-extension-models/resolve/main/ComfyUI-WD14-Tagger/wd-v1-4-vit-tagger-v2.csv "$comfyui_path"/custom_nodes/ComfyUI-WD14-Tagger/models
 __term_sd_task_pre_ext_54 aria2_download https://huggingface.co/licyk/comfyui-extension-models/resolve/main/ComfyUI-WD14-Tagger/wd-v1-4-vit-tagger-v2.onnx "$comfyui_path"/custom_nodes/ComfyUI-WD14-Tagger/models
+
+__term_sd_task_pre_ext_64 term_sd_echo "下载ComfyUI-layerdiffusion模型"
+__term_sd_task_pre_ext_64 aria2_download https://huggingface.co/licyk/layerdiffusion/resolve/main/layer_xl_bg2ble.safetensors "$comfyui_path"/models/layer_model
+__term_sd_task_pre_ext_64 aria2_download https://huggingface.co/licyk/layerdiffusion/resolve/main/layer_xl_bgble2fg.safetensors "$comfyui_path"/models/layer_model
+__term_sd_task_pre_ext_64 aria2_download https://huggingface.co/licyk/layerdiffusion/resolve/main/layer_xl_fg2ble.safetensors "$comfyui_path"/models/layer_model
+__term_sd_task_pre_ext_64 aria2_download https://huggingface.co/licyk/layerdiffusion/resolve/main/layer_xl_fgble2bg.safetensors "$comfyui_path"/models/layer_model
+__term_sd_task_pre_ext_64 aria2_download https://huggingface.co/licyk/layerdiffusion/resolve/main/layer_xl_transparent_attn.safetensors "$comfyui_path"/models/layer_model
+__term_sd_task_pre_ext_64 aria2_download https://huggingface.co/licyk/layerdiffusion/resolve/main/layer_xl_transparent_conv.safetensors "$comfyui_path"/models/layer_model
+__term_sd_task_pre_ext_64 aria2_download https://huggingface.co/licyk/layerdiffusion/resolve/main/vae_transparent_decoder.safetensors "$comfyui_path"/models/layer_model
+__term_sd_task_pre_ext_64 aria2_download https://huggingface.co/licyk/layerdiffusion/resolve/main/vae_transparent_encoder.safetensors "$comfyui_path"/models/layer_model
