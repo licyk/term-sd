@@ -44,9 +44,9 @@ sd_webui_branch_switch()
             term_sd_echo "切换到AUTOMATIC1111/Stable-Diffusion-WebUI主分支"
             git remote set-url origin $(git_format_repository_url $github_mirror https://github.com/AUTOMATIC1111/stable-diffusion-webui)
             git submodule deinit --all -f
-            term_sd_watch git fetch
+            term_sd_try git fetch
             git checkout master
-            term_sd_watch git pull --rebase
+            term_sd_try git pull --rebase
             mv -f repositories/blip repositories/BLIP
             sd_webui_branch_file_restore
             term_sd_echo "分支切换完成"
@@ -57,9 +57,9 @@ sd_webui_branch_switch()
             term_sd_echo "切换到AUTOMATIC1111/Stable-Diffusion-WebUI主分支"
             git remote set-url origin $(git_format_repository_url $github_mirror https://github.com/AUTOMATIC1111/stable-diffusion-webui)
             git submodule deinit --all -f
-            term_sd_watch git fetch
+            term_sd_try git fetch
             git checkout dev
-            term_sd_watch git pull --rebase
+            term_sd_try git pull --rebase
             mv -f repositories/blip repositories/BLIP
             sd_webui_branch_file_restore
             term_sd_echo "分支切换完成"
@@ -69,13 +69,13 @@ sd_webui_branch_switch()
             term_sd_print_line "$term_sd_manager_info 分支切换"
             term_sd_echo "切换到vladmandic/SD.NEXT主分支"
             git remote set-url origin $(git_format_repository_url $github_mirror https://github.com/vladmandic/automatic)
-            term_sd_watch git fetch --recurse-submodules
+            term_sd_try git fetch --recurse-submodules
             git checkout master
             git submodule init
-            term_sd_watch git submodule update
-            term_sd_watch git pull --rebase --recurse-submodules
+            term_sd_try git submodule update
+            term_sd_try git pull --rebase --recurse-submodules
             git submodule init
-            term_sd_watch git pull --recurse-submodules
+            term_sd_try git pull --recurse-submodules
             mv -f repositories/BLIP repositories/blip
             sd_webui_branch_file_restore sd_next
             term_sd_echo "分支切换完成"
@@ -85,13 +85,13 @@ sd_webui_branch_switch()
             term_sd_print_line "$term_sd_manager_info 分支切换"
             term_sd_echo "切换到vladmandic/SD.NEXT测试分支"
             git remote set-url origin $(git_format_repository_url $github_mirror https://github.com/vladmandic/automatic)
-            term_sd_watch git fetch --recurse-submodules
+            term_sd_try git fetch --recurse-submodules
             git checkout dev
             git submodule init
-            term_sd_watch git submodule update
-            term_sd_watch git pull --rebase --recurse-submodules
+            term_sd_try git submodule update
+            term_sd_try git pull --rebase --recurse-submodules
             git submodule init
-            term_sd_watch git pull --recurse-submodules
+            term_sd_try git pull --recurse-submodules
             mv -f repositories/BLIP repositories/blip
             sd_webui_branch_file_restore sd_next
             term_sd_echo "分支切换完成"
@@ -102,9 +102,9 @@ sd_webui_branch_switch()
             term_sd_echo "切换到lshqqytiger/Stable-Diffusion-WebUI-DirectML主分支"
             git remote set-url origin $(git_format_repository_url $github_mirror https://github.com/lshqqytiger/stable-diffusion-webui-directml)
             git submodule deinit --all -f
-            term_sd_watch git fetch
+            term_sd_try git fetch
             git checkout master
-            term_sd_watch git pull --rebase
+            term_sd_try git pull --rebase
             mv -f repositories/blip repositories/BLIP
             sd_webui_branch_file_restore
             term_sd_echo "分支切换完成"
@@ -115,9 +115,9 @@ sd_webui_branch_switch()
             term_sd_echo "切换到lshqqytiger/Stable-Diffusion-WebUI-DirectML测试分支"
             git remote set-url origin $(git_format_repository_url $github_mirror https://github.com/lshqqytiger/stable-diffusion-webui-directml)
             git submodule deinit --all -f
-            term_sd_watch git fetch
+            term_sd_try git fetch
             git checkout dev
-            term_sd_watch git pull --rebase
+            term_sd_try git pull --rebase
             mv -f repositories/blip repositories/BLIP
             sd_webui_branch_file_restore
             term_sd_echo "分支切换完成"
@@ -128,9 +128,9 @@ sd_webui_branch_switch()
             term_sd_echo "切换到lllyasviel/stable-diffusion-webui-forge分支"
             git remote set-url origin $(git_format_repository_url $github_mirror https://github.com/lllyasviel/stable-diffusion-webui-forge)
             git submodule deinit --all -f
-            term_sd_watch git fetch
+            term_sd_try git fetch
             git checkout main
-            term_sd_watch git pull --rebase
+            term_sd_try git pull --rebase
             mv -f repositories/blip repositories/BLIP
             sd_webui_branch_file_restore
             term_sd_echo "分支切换完成"

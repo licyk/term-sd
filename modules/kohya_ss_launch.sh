@@ -54,28 +54,31 @@ kohya_ss_launch()
         echo "kohya_gui.py --inbrowser --language zh-CN" > "$start_path"/term-sd/config/kohya_ss-launch.conf
     fi
 
-    kohya_ss_launch_dialog=$(
-        dialog --erase-on-exit --notags --title "kohya_ss管理" --backtitle "kohya_ss启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动kohya_ss/修改kohya_ss启动参数\n当前启动参数:\n$([ $venv_setup_status = 0 ] && echo python || echo "$term_sd_python_path") $(cat "$start_path"/term-sd/config/kohya_ss-launch.conf)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
-        "0" "> 返回" \
-        "1" "> 启动" \
-        "2" "> 配置预设启动参数" \
-        "3" "> 修改自定义启动参数" \
-        3>&1 1>&2 2>&3)
+    while true
+    do
+        kohya_ss_launch_dialog=$(
+            dialog --erase-on-exit --notags --title "kohya_ss管理" --backtitle "kohya_ss启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动kohya_ss/修改kohya_ss启动参数\n当前启动参数:\n$([ $venv_setup_status = 0 ] && echo python || echo "$term_sd_python_path") $(cat "$start_path"/term-sd/config/kohya_ss-launch.conf)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+            "0" "> 返回" \
+            "1" "> 启动" \
+            "2" "> 配置预设启动参数" \
+            "3" "> 修改自定义启动参数" \
+            3>&1 1>&2 2>&3)
 
-    case $kohya_ss_launch_dialog in
-        1)
-            term_sd_launch
-            kohya_ss_launch
-            ;;
-        2)
-            kohya_ss_launch_args_setting
-            kohya_ss_launch
-            ;;
-        3)
-            kohya_ss_launch_args_revise
-            kohya_ss_launch
-            ;;
-    esac
+        case $kohya_ss_launch_dialog in
+            1)
+                term_sd_launch
+                ;;
+            2)
+                kohya_ss_launch_args_setting
+                ;;
+            3)
+                kohya_ss_launch_args_revise
+                ;;
+            *)
+                break
+                ;;
+        esac
+    done
 }
 
 # kohya_ss手动输入启动参数界面

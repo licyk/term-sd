@@ -3,7 +3,8 @@
 # 主程序
 main()
 {
-    while : ;do
+    while true
+    do
         term_sd_manager
     done
 }

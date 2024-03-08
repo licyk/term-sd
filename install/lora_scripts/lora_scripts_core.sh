@@ -14,9 +14,9 @@ __term_sd_task_sys create_venv
 __term_sd_task_sys enter_venv
 __term_sd_task_pre_core install_pytorch # 安装pytorch
 __term_sd_task_sys cd sd-scripts
-__term_sd_task_pre_core term_sd_watch term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade -r requirements.txt # sd-scripts目录下还有个_typos.toml,在安装requirements.txt里的依赖时会指向这个文件
+__term_sd_task_pre_core term_sd_try term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade -r requirements.txt # sd-scripts目录下还有个_typos.toml,在安装requirements.txt里的依赖时会指向这个文件
 __term_sd_task_sys cd ..
-__term_sd_task_pre_core term_sd_watch term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade lion-pytorch dadaptation prodigyopt lycoris-lora fastapi uvicorn wandb scipy
-__term_sd_task_pre_core term_sd_watch term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade -r requirements.txt # lora-scripts安装依赖
-__term_sd_task_pre_core [ ! -z $OS ] && [ $OS = "Windows_NT" ] && term_sd_watch term_sd_pip install bitsandbytes==0.41.1 --force-reinstall --index-url https://jihulab.com/api/v4/projects/140618/packages/pypi/simple $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode || true # 如果是Windows系统则安装Windows版的bitsandbytes
+__term_sd_task_pre_core term_sd_try term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade lion-pytorch dadaptation prodigyopt lycoris-lora fastapi uvicorn wandb scipy
+__term_sd_task_pre_core term_sd_try term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade -r requirements.txt # lora-scripts安装依赖
+__term_sd_task_pre_core [ ! -z $OS ] && [ $OS = "Windows_NT" ] && term_sd_try term_sd_pip install bitsandbytes==0.41.1 --force-reinstall --index-url https://jihulab.com/api/v4/projects/140618/packages/pypi/simple $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode || true # 如果是Windows系统则安装Windows版的bitsandbytes
 __term_sd_task_sys cd ..

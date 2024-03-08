@@ -221,28 +221,31 @@ fooocus_launch()
         echo "launch.py --language zh --preset sai" > "$start_path"/term-sd/config/fooocus-launch.conf
     fi
 
-    fooocus_launch_dialog=$(
-        dialog --erase-on-exit --notags --title "Fooocus管理" --backtitle "Fooocus启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动Fooocus/修改Fooocus启动参数\n当前启动参数:\n$([ $venv_setup_status = 0 ] && echo python || echo "$term_sd_python_path") $(cat "$start_path"/term-sd/config/fooocus-launch.conf)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
-        "0" "> 返回" \
-        "1" "> 启动" \
-        "2" "> 配置预设启动参数" \
-        "3" "> 修改自定义启动参数" \
-        3>&1 1>&2 2>&3)
+    while true
+    do
+        fooocus_launch_dialog=$(
+            dialog --erase-on-exit --notags --title "Fooocus管理" --backtitle "Fooocus启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动Fooocus/修改Fooocus启动参数\n当前启动参数:\n$([ $venv_setup_status = 0 ] && echo python || echo "$term_sd_python_path") $(cat "$start_path"/term-sd/config/fooocus-launch.conf)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+            "0" "> 返回" \
+            "1" "> 启动" \
+            "2" "> 配置预设启动参数" \
+            "3" "> 修改自定义启动参数" \
+            3>&1 1>&2 2>&3)
 
-    case $fooocus_launch_dialog in
-        1)
-            term_sd_launch
-            fooocus_launch
-            ;;
-        2)
-            fooocus_launch_args_setting
-            fooocus_launch
-            ;;
-        3)
-            fooocus_manual_launch
-            fooocus_launch
-            ;;
-    esac
+        case $fooocus_launch_dialog in
+            1)
+                term_sd_launch
+                ;;
+            2)
+                fooocus_launch_args_setting
+                ;;
+            3)
+                fooocus_manual_launch
+                ;;
+            *)
+                break
+                ;;
+        esac
+    done
 }
 
 # fooocus手动输入启动参数界面

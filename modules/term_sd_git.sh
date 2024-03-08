@@ -102,10 +102,10 @@ git_clone_repository()
             fi
 
             if [ ! -d "$git_clone_repository_path" ];then
-                term_sd_watch git clone --recurse-submodules "$git_clone_repository_url" "$git_clone_repository_path"
+                term_sd_try git clone --recurse-submodules "$git_clone_repository_url" "$git_clone_repository_path"
             else # 出现同名文件夹时检测是否执行
                 if [ $(term_sd_test_empty_dir "$git_clone_repository_path") = 0 ];then
-                    term_sd_watch git clone --recurse-submodules "$git_clone_repository_url" "$git_clone_repository_path"
+                    term_sd_try git clone --recurse-submodules "$git_clone_repository_url" "$git_clone_repository_path"
                 fi
             fi
             ;;
@@ -122,10 +122,10 @@ git_clone_repository()
             fi
 
             if [ ! -d "$git_clone_repository_path" ];then
-                term_sd_watch git clone "$git_clone_repository_url" "$git_clone_repository_path"
+                term_sd_try git clone "$git_clone_repository_url" "$git_clone_repository_path"
             else # 出现同名文件夹时检测是否执行
                 if [ $(term_sd_test_empty_dir "$git_clone_repository_path") = 0 ];then
-                    term_sd_watch git clone "$git_clone_repository_url" "$git_clone_repository_path"
+                    term_sd_try git clone "$git_clone_repository_url" "$git_clone_repository_path"
                 fi
             fi
             ;;
@@ -157,10 +157,10 @@ git_pull_repository()
         case $1 in
             --submod)
                 git submodule init # 初始化git子模块
-                term_sd_watch git pull --recurse-submodules
+                term_sd_try git pull --recurse-submodules
                 ;;
             *)
-                term_sd_watch git pull
+                term_sd_try git pull
                 ;;
         esac
     else
@@ -199,4 +199,20 @@ git_remote_display()
     else
         echo "非git安装,无更新源"
     fi
+}
+
+# 检测需要克隆的git仓库是否已存在本地,已存在返回1,否则返回0
+term_sd_is_git_repository_exist()
+{
+    local flag=0
+    local i
+    local folder_name=$(basename "$@" | awk -F '.git' '{print$1}')
+    for i in ./* ;do # 检测本地同名的文件夹
+        if [ "$(basename "$i")" = "$folder_name" ] && [ $(term_sd_test_empty_dir "$folder_name") = 1 ];then
+            flag=1
+            echo 1
+            break
+        fi
+    done
+    [ $flag = 0 ] && echo 0
 }

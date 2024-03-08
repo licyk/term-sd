@@ -58,7 +58,7 @@ term_sd_launch()
 }
 
 # 进程监测
-term_sd_watch()
+term_sd_try()
 {
     local count=0
     if [ $term_sd_cmd_retry = 0 ];then
@@ -111,11 +111,11 @@ aria2_download()
 
     if [ ! -f "$local_file_path" ];then
         term_sd_echo "下载${file_name}中"
-        term_sd_watch aria2c -c $aria2_multi_threaded $model_url -d "$local_file_parent_path" -o "$file_name"
+        term_sd_try aria2c -c $aria2_multi_threaded $model_url -d "$local_file_parent_path" -o "$file_name"
     else
         if [ -f "$local_aria_cache_path" ];then
             term_sd_echo "恢复下载${file_name}中"
-            term_sd_watch aria2c -c $aria2_multi_threaded $model_url -d "$local_file_parent_path" -o "$file_name"
+            term_sd_try aria2c -c $aria2_multi_threaded $model_url -d "$local_file_parent_path" -o "$file_name"
         else
             term_sd_echo "${file_name}文件已存在,跳过下载该文件"
         fi
@@ -204,36 +204,37 @@ term_sd_help()
 {
     local term_sd_help_dialog
 
-    term_sd_help_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --cancel-label "取消" --menu "请选择帮助" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
-        "0" "> 返回" \
-        "1" "> 关于Term-SD" \
-        "2" "> Term-SD使用方法" \
-        "3" "> 目录说明" \
-        "4" "> Stable-Diffusion-WebUI插件说明" \
-        "5" "> ComfyUI插件/自定义节点说明" \
-        3>&1 1>&2 2>&3)
+    while true
+    do
+        term_sd_help_dialog=$(
+            dialog --erase-on-exit --notags --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --cancel-label "取消" --menu "请选择帮助" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+            "0" "> 返回" \
+            "1" "> 关于Term-SD" \
+            "2" "> Term-SD使用方法" \
+            "3" "> 目录说明" \
+            "4" "> Stable-Diffusion-WebUI插件说明" \
+            "5" "> ComfyUI插件/自定义节点说明" \
+            3>&1 1>&2 2>&3)
 
-    case $term_sd_help_dialog in
-        1)
-            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat term-sd/help/about.md)" $term_sd_dialog_height $term_sd_dialog_width
-            term_sd_help
-            ;;
-        2)
-            less --mouse --prompt="[Term-SD]提示\:使用方向键\/\"U\",\"D\"键\/鼠标滚轮进行翻页,按下\"Q\"键返回帮助列表" term-sd/help/how_to_use_term_sd.md
-            term_sd_help
-            ;;
-        3)
-            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat term-sd/help/directory_description.md)" $term_sd_dialog_height $term_sd_dialog_width
-            term_sd_help
-            ;;
-        4)
-            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat term-sd/help/sd_webui_extension_description.md)" $term_sd_dialog_height $term_sd_dialog_width
-            term_sd_help
-            ;;
-        5)
-            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat term-sd/help/comfyui_extension_description.md)" $term_sd_dialog_height $term_sd_dialog_width
-            term_sd_help
-            ;;
-    esac
+        case $term_sd_help_dialog in
+            1)
+                dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat term-sd/help/about.md)" $term_sd_dialog_height $term_sd_dialog_width
+                ;;
+            2)
+                less --mouse --prompt="[Term-SD]提示\:使用方向键\/\"U\",\"D\"键\/鼠标滚轮进行翻页,按下\"Q\"键返回帮助列表" term-sd/help/how_to_use_term_sd.md
+                ;;
+            3)
+                dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat term-sd/help/directory_description.md)" $term_sd_dialog_height $term_sd_dialog_width
+                ;;
+            4)
+                dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat term-sd/help/sd_webui_extension_description.md)" $term_sd_dialog_height $term_sd_dialog_width
+                ;;
+            5)
+                dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(cat term-sd/help/comfyui_extension_description.md)" $term_sd_dialog_height $term_sd_dialog_width
+                ;;
+            *)
+                break
+                ;;
+        esac
+    done
 }

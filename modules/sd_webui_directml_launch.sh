@@ -302,28 +302,31 @@ sd_webui_directml_launch()
         echo "launch.py --theme dark --autolaunch --xformers --api --skip-load-model-at-start" > "$start_path"/term-sd/config/sd-webui-directml-launch.conf
     fi
 
-    sd_webui_directml_launch_dialog=$(
-        dialog --erase-on-exit --notags --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI-DirectML启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动Stable-Diffusion-WebUI-DirectML/修改Stable-Diffusion-WebUI-DirectML启动参数\n当前启动参数:\n$([ $venv_setup_status = 0 ] && echo python || echo "$term_sd_python_path") $(cat "$start_path"/term-sd/config/sd-webui-directml-launch.conf)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
-        "0" "> 返回" \
-        "1" "> 启动" \
-        "2" "> 配置预设启动参数" \
-        "3" "> 修改自定义启动参数" \
-        3>&1 1>&2 2>&3)
-    
-    case $sd_webui_directml_launch_dialog in
-        1)
-            term_sd_launch
-            sd_webui_directml_launch
-            ;;
-        2)
-            sd_webui_directml_launch_args_setting
-            sd_webui_directml_launch
-            ;;
-        3)
-            sd_webui_directml_launch_args_revise
-            sd_webui_directml_launch
-            ;;
-    esac
+    while true
+    do
+        sd_webui_directml_launch_dialog=$(
+            dialog --erase-on-exit --notags --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI-DirectML启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动Stable-Diffusion-WebUI-DirectML/修改Stable-Diffusion-WebUI-DirectML启动参数\n当前启动参数:\n$([ $venv_setup_status = 0 ] && echo python || echo "$term_sd_python_path") $(cat "$start_path"/term-sd/config/sd-webui-directml-launch.conf)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+            "0" "> 返回" \
+            "1" "> 启动" \
+            "2" "> 配置预设启动参数" \
+            "3" "> 修改自定义启动参数" \
+            3>&1 1>&2 2>&3)
+        
+        case $sd_webui_directml_launch_dialog in
+            1)
+                term_sd_launch
+                ;;
+            2)
+                sd_webui_directml_launch_args_setting
+                ;;
+            3)
+                sd_webui_directml_launch_args_revise
+                ;;
+            *)
+                break
+                ;;
+        esac
+    done
 }
 
 # sd-webui-directml手动输入启动参数界面

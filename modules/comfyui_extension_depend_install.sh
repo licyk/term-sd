@@ -38,7 +38,7 @@ comfyui_extension_depend_install()
 
             if [ -f "install.py" ];then # 找到install.py文件
                 depend_sum=$(( $depend_sum + 1 ))
-                term_sd_watch term_sd_python install.py
+                term_sd_try term_sd_python install.py
                 if [ $? = 0 ];then # 记录退出状态
                     comfyui_extension_depend_install_req="$comfyui_extension_depend_install_req     run install.py:成功✓\n"
                     success_count=$((success_count + 1))
@@ -50,7 +50,7 @@ comfyui_extension_depend_install()
 
             if [ -f "requirements.txt" ];then # 找到requirement.txt文件
                 depend_sum=$(( $depend_sum + 1 ))
-                term_sd_watch term_sd_pip install -r requirements.txt
+                term_sd_try term_sd_pip install -r requirements.txt
                 if [ $? = 0 ];then # 记录退出状态
                     comfyui_extension_depend_install_req="$comfyui_extension_depend_install_req     install requirements.txt:成功✓\n"
                     success_count=$((success_count + 1))
@@ -80,7 +80,7 @@ comfyui_extension_depend_install_single()
     fi
 
     if [ -f "install.py" ];then # 找到install.py文件
-        term_sd_watch term_sd_python install.py
+        term_sd_try term_sd_python install.py
         if [ $? = 0 ];then # 记录退出状态
             comfyui_extension_depend_install_req="$comfyui_extension_depend_install_req     run install.py:成功✓\n"
         else
@@ -89,7 +89,7 @@ comfyui_extension_depend_install_single()
     fi
 
     if [ -f "requirements.txt" ];then # 找到requirement.txt文件
-        term_sd_watch term_sd_pip install -r requirements.txt
+        term_sd_try term_sd_pip install -r requirements.txt
         if [ $? = 0 ];then # 记录退出状态
             comfyui_extension_depend_install_req="$comfyui_extension_depend_install_req     install requirements.txt:成功✓\n"
         else
@@ -115,7 +115,7 @@ comfyui_extension_depend_install_auto()
         cd "$2"
 
         if [ -f "install.py" ];then # 找到install.py文件
-            term_sd_watch term_sd_python install.py
+            term_sd_try term_sd_python install.py
             if [ $? = 0 ];then # 记录退出状态
                 comfyui_custom_node_dep_notice="$comfyui_custom_node_dep_notice     run install.py:成功✓\n"
             else
@@ -124,7 +124,7 @@ comfyui_extension_depend_install_auto()
         fi
 
         if [ -f "requirements.txt" ];then # 找到requirement.txt文件
-            term_sd_watch term_sd_pip install -r requirements.txt
+            term_sd_try term_sd_pip install -r requirements.txt
             if [ $? = 0 ];then # 记录退出状态
                 comfyui_custom_node_dep_notice="$comfyui_custom_node_dep_notice     install requirements.txt:成功✓\n"
             else
@@ -132,5 +132,6 @@ comfyui_extension_depend_install_auto()
             fi
         fi
         cd ..
+        exit_venv
     fi
 }

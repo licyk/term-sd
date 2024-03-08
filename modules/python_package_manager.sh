@@ -21,19 +21,19 @@ python_package_manager()
 
         case $pip_manage_package_methon in # 选择pip包管理器管理方法
             1) # 常规安装
-                term_sd_watch term_sd_pip install $python_package_name $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode
+                term_sd_try term_sd_pip install $python_package_name $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode
                 ;;
             2) # 仅安装
-                term_sd_watch term_sd_pip install --no-deps $python_package_name $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode
+                term_sd_try term_sd_pip install --no-deps $python_package_name $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode
                 ;;
             3) # 强制重装
-                term_sd_watch term_sd_pip install --force-reinstall $python_package_name $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode
+                term_sd_try term_sd_pip install --force-reinstall $python_package_name $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode
                 ;;
             4) # 仅强制重装
-                term_sd_watch term_sd_pip install --force-reinstall --no-deps $python_package_name $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode
+                term_sd_try term_sd_pip install --force-reinstall --no-deps $python_package_name $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode
                 ;;
             5) # 卸载
-                term_sd_watch term_sd_pip uninstall -y $python_package_name
+                term_sd_try term_sd_pip uninstall -y $python_package_name
                 ;;
         esac
         req=$?
@@ -99,6 +99,6 @@ python_package_update()
         sed -i '/'$i'/d' tmp-python-package-update-list.txt 2> /dev/null  # 将忽略的软件包从名单删除
     done
     # 更新python软件包
-    term_sd_watch term_sd_pip install -r tmp-python-package-update-list.txt --prefer-binary --upgrade $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_break_system_package
+    term_sd_try term_sd_pip install -r tmp-python-package-update-list.txt --prefer-binary --upgrade $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_break_system_package
     rm -rf tmp-python-package-update-list.txt # 删除列表缓存
 }

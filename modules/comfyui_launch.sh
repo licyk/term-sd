@@ -170,28 +170,31 @@ comfyui_launch()
         echo "main.py --auto-launch" > "$start_path"/term-sd/config/comfyui-launch.conf
     fi
 
-    comfyui_launch_dialog=$(
-        dialog --erase-on-exit --notags --title "ComfyUI管理" --backtitle "ComfyUI启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动ComfyUI/修改ComfyUI启动参数\n当前启动参数:\n$([ $venv_setup_status = 0 ] && echo python || echo "$term_sd_python_path") $(cat "$start_path"/term-sd/config/comfyui-launch.conf)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
-        "0" "> 返回" \
-        "1" "> 启动" \
-        "2" "> 配置预设启动参数" \
-        "3" "> 修改自定义启动参数" \
-        3>&1 1>&2 2>&3)
+    while true
+    do
+        comfyui_launch_dialog=$(
+            dialog --erase-on-exit --notags --title "ComfyUI管理" --backtitle "ComfyUI启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动ComfyUI/修改ComfyUI启动参数\n当前启动参数:\n$([ $venv_setup_status = 0 ] && echo python || echo "$term_sd_python_path") $(cat "$start_path"/term-sd/config/comfyui-launch.conf)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+            "0" "> 返回" \
+            "1" "> 启动" \
+            "2" "> 配置预设启动参数" \
+            "3" "> 修改自定义启动参数" \
+            3>&1 1>&2 2>&3)
 
-    case $comfyui_launch_dialog in
-        1)
-            term_sd_launch
-            comfyui_launch
-            ;;
-        2)
-            comfyui_launch_args_setting
-            comfyui_launch
-            ;;
-        3)
-            comfyui_launch_args_revise
-            comfyui_launch
-            ;;
-    esac
+        case $comfyui_launch_dialog in
+            1)
+                term_sd_launch
+                ;;
+            2)
+                comfyui_launch_args_setting
+                ;;
+            3)
+                comfyui_launch_args_revise
+                ;;
+            *)
+                break
+                ;;
+        esac
+    done
 }
 
 # comfyui手动输入启动参数界面

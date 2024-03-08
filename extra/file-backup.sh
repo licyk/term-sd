@@ -6,19 +6,20 @@ term_sd_file_manager()
     local file_manager_dialog
     local file_manager_select
 
-    file_manager_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "Term-SD备份选项" --ok-label "确认" --cancel-label "取消" --menu "请选择需要备份的软件\n当前备份文件存储目录:${start_path}/term-sd/backup" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
-            "0" "> 帮助" \
-            "1" "> Stable-Diffusion-WebUI数据管理" \
-            "2" "> ComfyUI数据管理" \
-            "3" "> InvokeAI数据管理" \
-            "4" "> Fooocus数据管理" \
-            "5" "> lora-scripts数据管理" \
-            "6" "> kohya_ss数据管理" \
-            "7" "> 退出" \
-            3>&1 1>&2 2>&3)
-    
-    if [ $? = 0 ];then
+    while true
+    do
+        file_manager_dialog=$(
+            dialog --erase-on-exit --notags --title "Term-SD" --backtitle "Term-SD备份选项" --ok-label "确认" --cancel-label "取消" --menu "请选择需要备份的软件\n当前备份文件存储目录:${start_path}/term-sd/backup" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+                "0" "> 帮助" \
+                "1" "> Stable-Diffusion-WebUI数据管理" \
+                "2" "> ComfyUI数据管理" \
+                "3" "> InvokeAI数据管理" \
+                "4" "> Fooocus数据管理" \
+                "5" "> lora-scripts数据管理" \
+                "6" "> kohya_ss数据管理" \
+                "7" "> 退出" \
+                3>&1 1>&2 2>&3)
+        
         case $file_manager_dialog in
             0)
                 dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(term_sd_file_manager_help)" $term_sd_dialog_height $term_sd_dialog_width
@@ -44,17 +45,16 @@ term_sd_file_manager()
             7)  
                 return 1
                 ;;
+            *)
+                break
+                ;;
         esac
-        if [ ! -z "$file_manager_select" ];then
-            if [ $(is_sd_folder_exist "$file_manager_select") = 0 ];then
-                data_backup_manager "$file_manager_select"
-            else
-                dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD备份选项" --ok-label "确认" --msgbox "${file_manager_select}未安装" $term_sd_dialog_height $term_sd_dialog_width
-            fi
+        if [ ! -z "$file_manager_select" ] && [ $(is_sd_folder_exist "$file_manager_select") = 0 ];then
+            data_backup_manager "$file_manager_select"
+        else
+            dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD备份选项" --ok-label "确认" --msgbox "${file_manager_select}未安装" $term_sd_dialog_height $term_sd_dialog_width
         fi
-    else
-        return 1
-    fi
+    done
 }
 
 # 管理界面
@@ -63,15 +63,16 @@ data_backup_manager()
     local start_time
     local data_backup_manager_dialog
 
-    data_backup_manager_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "${1}备份选项" --ok-label "确认" --cancel-label "取消" --menu "请选择要进行的操作" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
-            "0" "> 返回" \
-            "1" "> 备份${1}数据" \
-            "2" "> 恢复${1}数据" \
-            "3" "> 删除${1}数据备份" \
-            3>&1 1>&2 2>&3)
+    while true
+    do
+        data_backup_manager_dialog=$(
+            dialog --erase-on-exit --notags --title "Term-SD" --backtitle "${1}备份选项" --ok-label "确认" --cancel-label "取消" --menu "请选择要进行的操作" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+                "0" "> 返回" \
+                "1" "> 备份${1}数据" \
+                "2" "> 恢复${1}数据" \
+                "3" "> 删除${1}数据备份" \
+                3>&1 1>&2 2>&3)
 
-    if [ $? = 0 ];then
         case $data_backup_manager_dialog in
             1)
                 term_sd_echo "是否备份${1}数据(yes/no)"
@@ -80,13 +81,10 @@ data_backup_manager()
                     y|yes|YES|Y)
                         start_time=$(date +%s)
                         term_sd_echo "开始备份${1}数据"
-                        term_sd_data_backup ${1}
                         dialog --erase-on-exit --title "Term-SD" --backtitle "${1}备份选项" --ok-label "确认" --msgbox "备份${1}数据完成,$(term_sd_file_operate_time $start_time)" $term_sd_dialog_height $term_sd_dialog_width
-                        data_backup_manager ${1}
                         ;;
                     *)
                         term_sd_echo "取消操作"
-                        data_backup_manager ${1}
                         ;;
                 esac
                 ;;
@@ -103,11 +101,9 @@ data_backup_manager()
                         else
                             dialog --erase-on-exit --title "Term-SD" --backtitle "${1}备份选项" --ok-label "确认" --msgbox "${1}未备份" $term_sd_dialog_height $term_sd_dialog_width
                         fi
-                        data_backup_manager ${1}
                         ;;
                     *)
                         term_sd_echo "取消操作"
-                        data_backup_manager ${1}
                         ;;
                 esac
                 ;;
@@ -124,16 +120,17 @@ data_backup_manager()
                         else
                             dialog --erase-on-exit --title "Term-SD" --backtitle "${1}备份选项" --ok-label "确认" --msgbox "${1}未备份" $term_sd_dialog_height $term_sd_dialog_width
                         fi
-                        data_backup_manager ${1}
                         ;;
                     *)
                         term_sd_echo "取消操作"
-                        data_backup_manager ${1}
                         ;;
                 esac
                 ;;
+            *)
+                break
+                ;;
         esac
-    fi
+    done
 }
 
 # 帮助

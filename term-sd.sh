@@ -405,39 +405,46 @@ term_sd_auto_update()
 # term-sd下载源选择
 term_sd_install_mirror_select()
 {
-    term_sd_echo "请选择Term-SD下载源"
-    term_sd_echo "1、github源"
-    term_sd_echo "2、gitlab源"
-    term_sd_echo "3、gitee源"
-    term_sd_echo "4、极狐源"
-    term_sd_echo "5、代理源(mirror.ghproxy.com)"
-    term_sd_echo "提示:输入数字后回车"
-    case $(term_sd_read) in
-        1)
-            term_sd_echo "选择github源"
-            term_sd_install_mirror="https://github.com/licyk/term-sd"
-            ;;
-        2)
-            term_sd_echo "选择gitlab源"
-            term_sd_install_mirror="https://gitlab.com/licyk/term-sd"
-            ;;
-        3)
-            term_sd_echo "选择gitee源"
-            term_sd_install_mirror="https://gitee.com/four-dishes/term-sd"
-            ;;
-        4)
-            term_sd_echo "选择极狐源"
-            term_sd_install_mirror="https://jihulab.com/licyk/term-sd"
-            ;;
-        5)
-            term_sd_echo "选择代理源(mirror.ghproxy.com)"
-            term_sd_install_mirror="https://mirror.ghproxy.com/github.com/licyk/term-sd"
-            ;;
-        *)
-            term_sd_echo "输入有误,请重试"
-            term_sd_install_mirror_select
-            ;;
-    esac
+    while true
+    do
+        term_sd_echo "请选择Term-SD下载源"
+        term_sd_echo "1、github源"
+        term_sd_echo "2、gitlab源"
+        term_sd_echo "3、gitee源"
+        term_sd_echo "4、极狐源"
+        term_sd_echo "5、代理源(mirror.ghproxy.com)"
+        term_sd_echo "提示:输入数字后回车"
+        case $(term_sd_read) in
+            1)
+                term_sd_echo "选择github源"
+                term_sd_install_mirror="https://github.com/licyk/term-sd"
+                break
+                ;;
+            2)
+                term_sd_echo "选择gitlab源"
+                term_sd_install_mirror="https://gitlab.com/licyk/term-sd"
+                break
+                ;;
+            3)
+                term_sd_echo "选择gitee源"
+                term_sd_install_mirror="https://gitee.com/four-dishes/term-sd"
+                break
+                ;;
+            4)
+                term_sd_echo "选择极狐源"
+                term_sd_install_mirror="https://jihulab.com/licyk/term-sd"
+                break
+                ;;
+            5)
+                term_sd_echo "选择代理源(mirror.ghproxy.com)"
+                term_sd_install_mirror="https://mirror.ghproxy.com/github.com/licyk/term-sd"
+                break
+                ;;
+            *)
+                term_sd_echo "输入有误,请重试"
+                ;;
+        esac
+    done
 }
 
 # term-sd安装功能
@@ -562,34 +569,38 @@ term_sd_remove()
 # term-sd添加快捷命令功能
 install_cmd_to_shell()
 {
-    case $user_shell in
-        bash|zsh)
-            term_sd_echo "是否将Term-SD快捷启动指令添加到shell环境中?"
-            term_sd_echo "添加后可使用\"term_sd\",\"tsd\"指令启动Term-SD"
-            term_sd_echo "1、添加"
-            term_sd_echo "2、删除"
-            term_sd_echo "3、退出"
-            term_sd_echo "提示:输入数字后回车"
-            case $(term_sd_read) in
-                1)
-                    install_config_to_shell
-                    ;;
-                2)
-                    remove_config_from_shell
-                    ;;
-                3)
-                    exit 1
-                    ;;
-                *)
-                    term_sd_echo "输入有误,请重试"
-                    install_cmd_to_shell
-                    ;;
-            esac
-            ;;
-        *)
-            term_sd_echo "不支持该shell"
-            ;;
-    esac
+    while true
+    do
+        case $user_shell in
+            bash|zsh)
+                term_sd_echo "是否将Term-SD快捷启动指令添加到shell环境中?"
+                term_sd_echo "添加后可使用\"term_sd\",\"tsd\"指令启动Term-SD"
+                term_sd_echo "1、添加"
+                term_sd_echo "2、删除"
+                term_sd_echo "3、退出"
+                term_sd_echo "提示:输入数字后回车"
+                case $(term_sd_read) in
+                    1)
+                        install_config_to_shell
+                        break
+                        ;;
+                    2)
+                        remove_config_from_shell
+                        break
+                        ;;
+                    3)
+                        exit 1
+                        ;;
+                    *)
+                        term_sd_echo "输入有误,请重试"
+                        ;;
+                esac
+                ;;
+            *)
+                term_sd_echo "不支持该shell"
+                ;;
+        esac
+    done
 }
 
 # term-sd快捷命令安装功能
@@ -619,36 +630,41 @@ set_python_path()
 {
     local set_python_path_option
 
-    if [ -z "$*" ];then
-        term_sd_echo "请输入Python解释器的路径"
-        term_sd_echo "提示:输入完后请回车保存,或者输入exit退出"
-        read -p "===============================> " set_python_path_option
-        if [ -z "$set_python_path_option" ];then
-            term_sd_echo "未输入，请重试"
-            set_python_path
-        elif [ "$set_python_path_option" = "exit" ];then
-            term_sd_echo "退出Python路径指定功能"
-        else
-            term_sd_python_path="$set_python_path_option"
-            echo $term_sd_python_path > term-sd/config/python-path.conf
+    while true
+    do
+        if [ -z "$*" ];then
+            term_sd_echo "请输入Python解释器的路径"
+            term_sd_echo "提示:输入完后请回车保存,或者输入exit退出"
+            read -p "===============================> " set_python_path_option
+            if [ -z "$set_python_path_option" ];then
+                term_sd_echo "未输入，请重试"
+            elif [ "$set_python_path_option" = "exit" ];then
+                term_sd_echo "退出Python路径指定功能"
+                break
+            else
+                term_sd_python_path="$set_python_path_option"
+                echo $term_sd_python_path > term-sd/config/python-path.conf
+                term_sd_echo "Python解释器路径指定完成"
+                term_sd_echo "提示:"
+                term_sd_echo "使用--set-python-path重新设置Python解释器路径"
+                term_sd_echo "使用--unset-python-path删除Python解释器路径设置"
+                break
+            fi
+        else # 直接将选项后面的参数作为路径
+            term_sd_echo "设置Python解释器路径: $@"
+            echo "$@" > term-sd/config/python-path.conf
             term_sd_echo "Python解释器路径指定完成"
             term_sd_echo "提示:"
             term_sd_echo "使用--set-python-path重新设置Python解释器路径"
             term_sd_echo "使用--unset-python-path删除Python解释器路径设置"
+            break
         fi
-    else # 直接将选项后面的参数作为路径
-        term_sd_echo "设置Python解释器路径: $@"
-        echo $@ > term-sd/config/python-path.conf
-        term_sd_echo "Python解释器路径指定完成"
-        term_sd_echo "提示:"
-        term_sd_echo "使用--set-python-path重新设置Python解释器路径"
-        term_sd_echo "使用--unset-python-path删除Python解释器路径设置"
-    fi
+    done
 }
 
 #############################
 
-export term_sd_version_info="1.2.15" # term-sd版本
+export term_sd_version_info="1.2.16" # term-sd版本
 export user_shell=$(basename $SHELL) # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题

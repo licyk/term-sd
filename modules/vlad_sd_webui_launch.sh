@@ -200,27 +200,30 @@ vlad_sd_webui_launch()
         echo "launch.py --autolaunch" > "$start_path"/term-sd/config/vlad-sd-webui-launch.conf
     fi
 
-    vlad_sd_webui_launch_dialog=$(dialog --erase-on-exit --notags --title "Stable-Diffusion-WebUI管理" --backtitle "SD.NEXT启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动SD.NEXT/修改SD.NEXT启动参数\n当前启动参数:\n$([ $venv_setup_status = 0 ] && echo python || echo "$term_sd_python_path") $(cat "$start_path"/term-sd/config/vlad-sd-webui-launch.conf)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
-        "0" "> 返回" \
-        "1" "> 启动" \
-        "2" "> 配置预设启动参数" \
-        "3" "> 修改自定义启动参数" \
-        3>&1 1>&2 2>&3)
-    
-    case $vlad_sd_webui_launch_dialog in
-        1)
-            term_sd_launch
-            vlad_sd_webui_launch
-            ;;
-        2)
-            vlad_sd_webui_launch_args_setting
-            vlad_sd_webui_launch
-            ;;
-        3)
-            vlad_sd_webui_launch_args_revise
-            vlad_sd_webui_launch
-            ;;
-    esac
+    while true
+    do
+        vlad_sd_webui_launch_dialog=$(dialog --erase-on-exit --notags --title "Stable-Diffusion-WebUI管理" --backtitle "SD.NEXT启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动SD.NEXT/修改SD.NEXT启动参数\n当前启动参数:\n$([ $venv_setup_status = 0 ] && echo python || echo "$term_sd_python_path") $(cat "$start_path"/term-sd/config/vlad-sd-webui-launch.conf)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+            "0" "> 返回" \
+            "1" "> 启动" \
+            "2" "> 配置预设启动参数" \
+            "3" "> 修改自定义启动参数" \
+            3>&1 1>&2 2>&3)
+        
+        case $vlad_sd_webui_launch_dialog in
+            1)
+                term_sd_launch
+                ;;
+            2)
+                vlad_sd_webui_launch_args_setting
+                ;;
+            3)
+                vlad_sd_webui_launch_args_revise
+                ;;
+            *)
+                break
+                ;;
+        esac
+    done
 }
 
 # vlad-sd-webui手动输入启动参数界面

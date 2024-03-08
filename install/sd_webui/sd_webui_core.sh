@@ -13,8 +13,8 @@ __term_sd_task_pre_core git_clone_repository ${github_mirror} https://github.com
 __term_sd_task_pre_core git_clone_repository ${github_mirror} https://github.com/AUTOMATIC1111/stable-diffusion-webui-assets "$sd_webui_path"/repositories stable-diffusion-webui-assets
 __term_sd_task_sys term_sd_tmp_disable_proxy # 临时取消代理,避免一些不必要的网络减速
 __term_sd_task_pre_core install_pytorch # 安装pytorch
-__term_sd_task_pre_core term_sd_watch term_sd_pip install git+$(git_format_repository_url ${github_mirror} https://github.com/openai/CLIP) --prefer-binary $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode
-__term_sd_task_pre_core term_sd_watch term_sd_pip install -r "$sd_webui_path"/repositories/CodeFormer/requirements.txt --prefer-binary $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode
-__term_sd_task_pre_core term_sd_watch term_sd_pip install -r "$sd_webui_path"/requirements.txt --prefer-binary $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode # 安装stable-diffusion-webui的依赖
+__term_sd_task_pre_core term_sd_try term_sd_pip install git+$(git_format_repository_url ${github_mirror} https://github.com/openai/CLIP) --prefer-binary $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode
+__term_sd_task_pre_core term_sd_try term_sd_pip install -r "$sd_webui_path"/repositories/CodeFormer/requirements.txt --prefer-binary $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode
+__term_sd_task_pre_core term_sd_try term_sd_pip install -r "$sd_webui_path"/requirements.txt --prefer-binary $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode # 安装stable-diffusion-webui的依赖
 __term_sd_task_pre_core term_sd_echo "生成配置中"
 __term_sd_task_pre_core sd_webui_config_file > "$sd_webui_path"/config.json

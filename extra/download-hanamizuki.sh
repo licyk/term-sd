@@ -2,29 +2,31 @@
 
 download_hanamizuki_resource_select()
 {
-    term_sd_echo "请选择绘世启动器下载源"
-    term_sd_echo "1、github源(速度可能比较慢)"
-    term_sd_echo "2、gitee源"
-    term_sd_echo "3、退出"
-    case $(term_sd_read) in
-        1)
-            term_sd_echo "选择github源"
-            download_hanamizuki_resource="https://github.com/licyk/term-sd/releases/download/archive/hanamizuki.exe"
-            return 0
-            ;;
-        2)
-            term_sd_echo "选择gitee源"
-            download_hanamizuki_resource="https://gitee.com/licyk/term-sd/releases/download/archive/hanamizuki.exe"
-            return 0
-            ;;
-        3)
-            return 1
-            ;;
-        *)
-            term_sd_echo "输入有误,请重试"
-            download_hanamizuki_resource_select
-            ;;
-    esac
+    while true
+    do
+        term_sd_echo "请选择绘世启动器下载源"
+        term_sd_echo "1、github源(速度可能比较慢)"
+        term_sd_echo "2、gitee源"
+        term_sd_echo "3、退出"
+        case $(term_sd_read) in
+            1)
+                term_sd_echo "选择github源"
+                download_hanamizuki_resource="https://github.com/licyk/term-sd/releases/download/archive/hanamizuki.exe"
+                return 0
+                ;;
+            2)
+                term_sd_echo "选择gitee源"
+                download_hanamizuki_resource="https://gitee.com/licyk/term-sd/releases/download/archive/hanamizuki.exe"
+                return 0
+                ;;
+            3)
+                return 1
+                ;;
+            *)
+                term_sd_echo "输入有误,请重试"
+                ;;
+        esac
+    done
 }
 
 download_hanamizuki()
