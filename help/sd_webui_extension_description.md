@@ -320,3 +320,7 @@ AUTOMATIC1111-stable-diffusion-webui插件说明：
 80、sd-forge-layerdiffusion：
 描述：LayerDiffusion插件，仅支持sd-webui-forge
 链接：https://github.com/layerdiffusion/sd-forge-layerdiffusion
+
+81、sd-danbooru-tags-upsampler：
+描述：将用于生图的提示词进行润色，使其出图的画面多样化，更自然
+链接：https://github.com/p1atdev/sd-danbooru-tags-upsampler

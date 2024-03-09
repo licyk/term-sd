@@ -78,3 +78,4 @@ __term_sd_task_pre_ext_77 git_clone_repository ${github_mirror} https://github.c
 __term_sd_task_pre_ext_78 git_clone_repository ${github_mirror} https://github.com/BlafKing/sd-civitai-browser-plus "$sd_webui_path"/extensions OFF # civitai助手升级版，支持更多功能
 __term_sd_task_pre_ext_79 git_clone_repository ${github_mirror} https://github.com/nihedon/sd-webui-weight-helper "$sd_webui_path"/extensions OFF # 快捷调整lora分层参数
 __term_sd_task_pre_ext_80 git_clone_repository ${github_mirror} https://github.com/layerdiffusion/sd-forge-layerdiffusion "$sd_webui_path"/extensions OFF # LayerDiffusion插件，仅支持sd-webui-forge
+__term_sd_task_pre_ext_81 git_clone_repository ${github_mirror} https://github.com/p1atdev/sd-danbooru-tags-upsampler "$sd_webui_path"/extensions OFF # 将用于生图的提示词进行润色，使其出图的画面多样化，更自然

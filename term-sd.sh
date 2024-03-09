@@ -278,7 +278,7 @@ term_sd_print_line()
         shellwidth=$term_sd_shell_width # 获取终端宽度
         print_word_to_shell=$(echo "$@" | awk '{gsub(/ /,"-")}1') # 将空格转换为"-"
         shell_word_width=$(( $(echo "$print_word_to_shell" | wc -c) - 1 )) # 总共的字符长度
-        shell_word_width_zh_cn=$(( $(echo "$print_word_to_shell" | awk '{gsub(/[a-zA-Z]/,"") ; gsub(/[0-9]/, "") ; gsub(/-/,"")}1' | wc -c) - 1 )) # 计算中文字符的长度
+        shell_word_width_zh_cn=$(( $(echo "$print_word_to_shell" | awk '{gsub(/[a-zA-Z]/,"") ; gsub(/[0-9]/, "") ; gsub(/[=+()（）、。,./\-_\\]/, "")}1' | wc -c) - 1 )) # 计算中文字符的长度
         shell_word_width=$(( $shell_word_width - $shell_word_width_zh_cn )) # 除去中文之后的长度
         # 中文的字符长度为3,但终端中只占2个字符位
         shell_word_width_zh_cn=$(( $shell_word_width_zh_cn / 3 * 2 )) # 转换中文在终端占用的实际字符长度
