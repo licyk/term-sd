@@ -157,6 +157,8 @@ comfyui_launch_args_setting()
         # 生成启动脚本
         term_sd_echo "设置启动参数: $launch_args"
         echo "main.py $launch_args" > "$start_path"/term-sd/config/comfyui-launch.conf
+    else
+        term_sd_echo "取消设置启动参数"
     fi
 }
 
@@ -207,5 +209,7 @@ comfyui_launch_args_revise()
     if [ $? = 0 ];then
         term_sd_echo "设置启动参数: $comfyui_launch_args"
         echo "main.py $comfyui_launch_args" > "$start_path"/term-sd/config/comfyui-launch.conf
+    else
+        term_sd_echo "取消启动参数修改"
     fi
 }

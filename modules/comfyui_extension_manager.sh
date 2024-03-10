@@ -90,6 +90,8 @@ comfyui_extension_install()
         fi
         dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI插件安装结果" --ok-label "确认" --msgbox "$comfyui_custom_node_dep_notice" $term_sd_dialog_height $term_sd_dialog_width
         comfyui_custom_node_dep_notice=
+    else
+        term_sd_echo "输入的ComfyUI插件安装地址为空,不执行操作"
     fi
 }
 

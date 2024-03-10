@@ -53,6 +53,8 @@ sd_webui_extension_install()
         else
             dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI插件安装结果" --ok-label "确认" --msgbox "$(basename "$sd_webui_extension_url" | awk -F '.git' '{print$1}')插件已存在" $term_sd_dialog_height $term_sd_dialog_width
         fi
+    else
+        term_sd_echo "输入的Stable-Diffusion-WebUI插件安装地址为空,不执行操作"
     fi
 }
 

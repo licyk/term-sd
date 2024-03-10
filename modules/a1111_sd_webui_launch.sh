@@ -277,6 +277,8 @@ a1111_sd_webui_launch_args_setting()
         # 生成启动脚本
         term_sd_echo "设置启动参数: $launch_args"
         echo "launch.py $launch_args" > "$start_path"/term-sd/config/sd-webui-launch.conf
+    else
+        term_sd_echo "取消设置启动参数"
     fi
 }
 
@@ -327,5 +329,7 @@ a1111_sd_webui_launch_args_revise()
     if [ $? = 0 ];then
         term_sd_echo "设置启动参数: $a1111_sd_webui_launch_args"
         echo "launch.py $a1111_sd_webui_launch_args" > "$start_path"/term-sd/config/sd-webui-launch.conf
+    else
+        term_sd_echo "取消启动参数修改"
     fi
 }

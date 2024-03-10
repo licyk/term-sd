@@ -208,6 +208,8 @@ fooocus_launch_args_setting()
 
         term_sd_echo "设置启动参数: $launch_args"
         echo "launch.py $launch_args" > "$start_path"/term-sd/config/fooocus-launch.conf
+    else
+        term_sd_echo "取消设置启动参数"
     fi
 }
 
@@ -258,5 +260,7 @@ fooocus_manual_launch()
     if [ $? = 0 ];then
         term_sd_echo "设置启动参数: $fooocus_launch_args"
         echo "launch.py $fooocus_launch_args" > "$start_path"/term-sd/config/fooocus-launch.conf
+    else
+        term_sd_echo "取消启动参数修改"
     fi
 }

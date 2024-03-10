@@ -485,11 +485,12 @@ Term-SD支持Stable-Diffusion-WebUI，ComfyUI，InvokeAI，Fooocus，lora-script
 - (3) 如果需要卸载某个软件包，就选择卸载
 - (4) 带有`仅`的功能是在安装时只安装用户输入的软件包，而不安装这些软件包的依赖
 
-安装/重装软件包时可以只写包名，也可以指定包名版本；可以输入多个软件包的包名,并使用空格隔开。例：
+安装/重装软件包时可以只写包名，也可以指定包名版本；可以输入多个软件包的包名，并使用空格隔开；如果想要更新某个软件包的版本,可以加上"-U"参数。例：
 ```
 xformers
 xformers==0.0.21
 xformers==0.0.21 numpy
+numpy -U
 ```
 
 ### 16、依赖库版本管理
@@ -545,7 +546,8 @@ xformers==0.0.21 numpy
 - 1、http：设置http协议的代理
 - 2、socks：设置socks协议的代理
 - 3、socks5：设置socks5协议的代理
-- 4、删除代理参数：将设置的代理参数删除
+- 4、自定义协议：可以选择预设代理协议之外的协议
+- 5、删除代理参数：将设置的代理参数删除
 
 设置代理时，用户需要选择代理协议，具体使用什么代理协议取决于所使用的代理软件开放的ip是用什么代理协议  
 这里举例代理如何填写：
@@ -641,9 +643,7 @@ Term-SD包含了一些扩展脚本，扩充Term-SD的功能
 - 3、invokeai-model-download：下载InvokeAI模型，包含controlnet模型和部分大模型模型，解决使用官方配置程序因无法访问huggingface而下载失败的问题
 - 4、download-sd-webui-extension：下载Stable-Diffusion-WebUI插件（脚本包含的插件列表在Term-SD的帮助中有说明）
 - 5、download-comfyui-extension：下载ComfyUI插件（脚本包含的插件列表在Term-SD的帮助中有说明）
-- 6、fix-bitsandbytes-for-kohya-ss-on-windows：修复原版bitsandbytes在Windows端无法运行导致kohya_ss报错无法进行训练的问题
-- 7、fix-bitsandbytes-for-sd-webui-on-windows：修复原版bitsandbytes在Windows端无法运行导致Stable-Diffusion-WebUI中的模型训练插件报错无法进行训练的问题（训练模型不建议在Stable-Diffusion-WebUI中进行，请使用lora-scripts或者kohya_ss进行模型训练）
-- 8、file-backup：备份/恢复AI软件的数据，备份文件储存在Term-SD的`backup`文件夹中
+- 6、file-backup：备份/恢复AI软件的数据，备份文件储存在Term-SD的`backup`文件夹中
 
 >如果需要使用扩展脚本，则在启动Term-SD前加入`--extra`启动参数即可使用扩展脚本
 
