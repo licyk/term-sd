@@ -12,7 +12,7 @@ sd_webui_venv_rebuild()
     if [ $? = 0 ];then
         term_sd_print_line "$term_sd_manager_info 虚拟环境重建"
         term_sd_tmp_disable_proxy
-        term_sd_echo "开始重构虚拟环境"
+        term_sd_echo "开始重新构建Stable-Diffusion-WebUI的虚拟环境"
         term_sd_echo "删除原有虚拟环境中"
         rm -rf venv
         term_sd_echo "删除完成"
@@ -24,7 +24,7 @@ sd_webui_venv_rebuild()
         term_sd_try term_sd_pip install -r repositories/CodeFormer/requirements.txt $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary
         term_sd_try term_sd_pip install -r requirements.txt $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary #安装stable-diffusion-webui的依赖
 
-        term_sd_echo "重构结束"
+        term_sd_echo "重新构建Stable-Diffusion-WebUI的虚拟环境结束"
         exit_venv
         term_sd_tmp_enable_proxy
         term_sd_pause
@@ -43,7 +43,7 @@ comfyui_venv_rebuild()
     if [ $? = 0 ];then
         term_sd_print_line "$term_sd_manager_info 虚拟环境重建"
         term_sd_tmp_disable_proxy
-        term_sd_echo "开始重构虚拟环境"
+        term_sd_echo "开始重新构建ComfyUI的虚拟环境"
         term_sd_echo "删除原有虚拟环境中"
         rm -rf venv
         term_sd_echo "删除完成"
@@ -53,7 +53,7 @@ comfyui_venv_rebuild()
         install_pytorch # 安装pytorch
         term_sd_try term_sd_pip install -r requirements.txt $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary
 
-        term_sd_echo "重构结束"
+        term_sd_echo "重新构建ComfyUI的虚拟环境结束"
         exit_venv
         term_sd_tmp_enable_proxy
         term_sd_pause
@@ -72,7 +72,7 @@ invokeai_venv_rebuild()
     if [ $? = 0 ];then
         term_sd_print_line "$term_sd_manager_info 虚拟环境重建"
         term_sd_tmp_disable_proxy
-        term_sd_echo "开始重构虚拟环境"
+        term_sd_echo "开始重新构建InvokeAI的虚拟环境"
         term_sd_echo "删除原有虚拟环境中"
         rm -rf venv
         term_sd_echo "删除完成"
@@ -82,7 +82,7 @@ invokeai_venv_rebuild()
         install_pytorch # 安装pytorch
         term_sd_try term_sd_pip install invokeai $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary
 
-        term_sd_echo "重构结束"
+        term_sd_echo "重新构建InvokeAI的虚拟环境结束"
         exit_venv
         term_sd_tmp_enable_proxy
         term_sd_pause
@@ -101,7 +101,7 @@ fooocus_venv_rebuild()
     if [ $? = 0 ];then
         term_sd_print_line "$term_sd_manager_info 虚拟环境重建"
         term_sd_tmp_disable_proxy
-        term_sd_echo "开始重构虚拟环境"
+        term_sd_echo "开始重新构建Fooocus的虚拟环境"
         term_sd_echo "删除原有虚拟环境中"
         rm -rf venv
         term_sd_echo "删除完成"
@@ -111,7 +111,7 @@ fooocus_venv_rebuild()
         install_pytorch # 安装pytorch
         term_sd_try term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade -r requirements_versions.txt
 
-        term_sd_echo "重构结束"
+        term_sd_echo "重新构建Fooocus的虚拟环境结束"
         exit_venv
         term_sd_tmp_enable_proxy
         term_sd_pause
@@ -130,7 +130,7 @@ lora_scripts_venv_rebuild()
     if [ $? = 0 ];then
         term_sd_print_line "$term_sd_manager_info 虚拟环境重建"
         term_sd_tmp_disable_proxy
-        term_sd_echo "开始重构虚拟环境"
+        term_sd_echo "开始重新构建lora-scripts的虚拟环境"
         term_sd_echo "删除原有虚拟环境中"
         rm -rf venv
         term_sd_echo "删除完成"
@@ -143,11 +143,9 @@ lora_scripts_venv_rebuild()
         cd ..
         term_sd_try term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade lion-pytorch dadaptation prodigyopt lycoris-lora fastapi uvicorn wandb scipy
         term_sd_try term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade -r requirements.txt # lora-scripts安装依赖
-        if [ ! -z $OS ] && [ $OS = "Windows_NT" ];then # 如果是Windows系统则安装Windows版的bitsandbytes
-            term_sd_try term_sd_pip install bitsandbytes==0.41.1 --force-reinstall --index-url https://jihulab.com/api/v4/projects/140618/packages/pypi/simple $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode
-        fi
+        term_sd_try term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade bitsandbytes
 
-        term_sd_echo "重构结束"
+        term_sd_echo "重新构建lora-scripts的虚拟环境结束"
         exit_venv
         term_sd_tmp_enable_proxy
         term_sd_pause
@@ -166,7 +164,7 @@ kohya_ss_venv_rebuild()
     if [ $? = 0 ];then
         term_sd_print_line "$term_sd_manager_info 虚拟环境重建"
         term_sd_tmp_disable_proxy
-        term_sd_echo "开始重构虚拟环境"
+        term_sd_echo "开始重新构建kohya_ss的虚拟环境"
         term_sd_echo "删除原有虚拟环境中"
         rm -rf venv
         term_sd_echo "删除完成"
@@ -176,12 +174,9 @@ kohya_ss_venv_rebuild()
         install_pytorch # 安装pytorch
         term_sd_try term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade lion-pytorch dadaptation prodigyopt lycoris-lora fastapi uvicorn wandb scipy bitsandbytes tensorflow tensorboard
         term_sd_try term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade -r requirements.txt # kohya_ss安装依赖
+        term_sd_try term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade bitsandbytes
 
-        if [ ! -z $OS ] && [ $OS = "Windows_NT" ];then # 如果是Windows系统则安装Windows版的bitsandbytes
-            term_sd_try term_sd_pip install bitsandbytes==0.41.1 --force-reinstall --index-url https://jihulab.com/api/v4/projects/140618/packages/pypi/simple $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode
-        fi
-
-        term_sd_echo "重构结束"
+        term_sd_echo "重新构建kohya_ss的虚拟环境结束"
         exit_venv
         term_sd_tmp_enable_proxy
         term_sd_pause
