@@ -324,3 +324,11 @@ AUTOMATIC1111-stable-diffusion-webui插件说明：
 81、sd-danbooru-tags-upsampler：
 描述：将用于生图的提示词进行润色，使其出图的画面多样化，更自然
 链接：https://github.com/p1atdev/sd-danbooru-tags-upsampler
+
+82、Stylez：
+描述：提示词预设风格选择工具
+链接：https://github.com/javsezlol1/Stylez
+
+83、sd-webui-next-style：
+描述：提示词预设风格选择工具，增加了汉化并添加Fooocus全部风格模板
+链接：https://github.com/Firetheft/sd-webui-next-style
