@@ -156,25 +156,25 @@ pytorch_version_select()
             pytorch_install_version="torch==2.0.1+cu118 torchvision==0.15.2+cu118 xformers==0.0.22"
             ;;
         13)
-            pytorch_install_version="torch==2.1.1+cu118 torchvision==0.16.1+cu118 xformers==0.0.23"
+            pytorch_install_version="torch==2.1.1+cu118 torchvision==0.16.1+cu118 xformers==0.0.23+cu118"
             ;;
         14)
             pytorch_install_version="torch==2.1.1+cu121 torchvision==0.16.1+cu121 xformers==0.0.23"
             ;;
         15)
-            pytorch_install_version="torch==2.1.2+cu118 torchvision==0.16.2+cu118 xformers==0.0.23.post1"
+            pytorch_install_version="torch==2.1.2+cu118 torchvision==0.16.2+cu118 xformers==0.0.23.post1+cu118"
             ;;
         16)
             pytorch_install_version="torch==2.1.2+cu121 torchvision==0.16.2+cu121 xformers==0.0.23.post1"
             ;;
         17)
-            pytorch_install_version="torch==2.2.0+cu118 torchvision==0.17.0+cu118 xformers==0.0.24"
+            pytorch_install_version="torch==2.2.0+cu118 torchvision==0.17.0+cu118 xformers==0.0.24+cu118"
             ;;
         18)
             pytorch_install_version="torch==2.2.0+cu121 torchvision==0.17.0+cu121 xformers==0.0.24"
             ;;
         19)
-            pytorch_install_version="torch==2.2.1+cu118 torchvision==0.17.1+cu118 xformers==0.0.25"
+            pytorch_install_version="torch==2.2.1+cu118 torchvision==0.17.1+cu118 xformers==0.0.25+cu118"
             ;;
         20)
             pytorch_install_version="torch==2.2.1+cu121 torchvision==0.17.1+cu121 xformers==0.0.25"
