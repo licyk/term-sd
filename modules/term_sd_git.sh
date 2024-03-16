@@ -19,7 +19,7 @@ git_ver_switch()
                     --submod)
                         git reset --hard $git_repository_commit
                         git submodule init # 同时切换子模块的版本
-                        git submodule update
+                        git submodule update --recursive
                         ;;
                     *)
                         # 这里切换版本不使用git checkout,因为这样会导致分支签出,在git pull时会出现"当前不在一个分支上",需要重新git checkout回去
