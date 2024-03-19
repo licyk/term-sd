@@ -81,3 +81,5 @@ __term_sd_task_pre_ext_80 git_clone_repository ${github_mirror} https://github.c
 __term_sd_task_pre_ext_81 git_clone_repository ${github_mirror} https://github.com/p1atdev/sd-danbooru-tags-upsampler "$sd_webui_path"/extensions OFF # 将用于生图的提示词进行润色，使其出图的画面多样化，更自然
 __term_sd_task_pre_ext_82 git_clone_repository ${github_mirror} https://github.com/javsezlol1/Stylez "$sd_webui_path"/extensions OFF # 提示词预设风格选择工具
 __term_sd_task_pre_ext_83 git_clone_repository ${github_mirror} https://github.com/Firetheft/sd-webui-next-style "$sd_webui_path"/extensions OFF # 提示词预设风格选择工具，增加了汉化并添加Fooocus全部风格模板
+__term_sd_task_pre_ext_84 git_clone_repository ${github_mirror} https://github.com/KohakuBlueleaf/a1111-sd-webui-haku-img "$sd_webui_path"/extensions OFF # 图像处理工具
+__term_sd_task_pre_ext_85 git_clone_repository ${github_mirror} https://github.com/KohakuBlueleaf/Kohaku-NAI "$sd_webui_path"/extensions OFF # novelai_api调用工具

@@ -332,3 +332,11 @@ AUTOMATIC1111-stable-diffusion-webui插件说明：
 83、sd-webui-next-style：
 描述：提示词预设风格选择工具，增加了汉化并添加Fooocus全部风格模板
 链接：https://github.com/Firetheft/sd-webui-next-style
+
+84、a1111-sd-webui-haku-img：
+描述：图像处理工具
+链接：https://github.com/KohakuBlueleaf/a1111-sd-webui-haku-img
+
+85、Kohaku-NAI：
+描述：novelai_api调用工具
+链接：https://github.com/KohakuBlueleaf/Kohaku-NAI
