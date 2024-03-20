@@ -23,6 +23,7 @@ term_sd_file_manager()
         case $file_manager_dialog in
             0)
                 dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD帮助选项" --ok-label "确认" --msgbox "$(term_sd_file_manager_help)" $term_sd_dialog_height $term_sd_dialog_width
+                continue
                 ;;
             1)
                 file_manager_select="stable-diffusion-webui"
@@ -46,10 +47,10 @@ term_sd_file_manager()
                 return 1
                 ;;
             *)
-                break
+                return 1
                 ;;
         esac
-        if [ ! -z "$file_manager_select" ] && [ $(is_sd_folder_exist "$file_manager_select") = 0 ];then
+        if [ "$(is_sd_folder_exist "$file_manager_select")" = 0 ];then
             data_backup_manager "$file_manager_select"
         else
             dialog --erase-on-exit --title "Term-SD" --backtitle "Term-SD备份选项" --ok-label "确认" --msgbox "${file_manager_select}未安装" $term_sd_dialog_height $term_sd_dialog_width
@@ -81,6 +82,7 @@ data_backup_manager()
                     y|yes|YES|Y)
                         start_time=$(date +%s)
                         term_sd_echo "开始备份${1}数据"
+                        term_sd_data_backup ${1}
                         dialog --erase-on-exit --title "Term-SD" --backtitle "${1}备份选项" --ok-label "确认" --msgbox "备份${1}数据完成,$(term_sd_file_operate_time $start_time)" $term_sd_dialog_height $term_sd_dialog_width
                         ;;
                     *)

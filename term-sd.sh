@@ -392,6 +392,9 @@ term_sd_auto_update()
                         term_sd_echo "Term-SD更新失败"
                     fi
                     ;;
+                *)
+                    term_sd_echo "跳过Term-SD的更新"
+                    ;;
             esac
         else
             term_sd_echo "Term-SD已经是最新版本"
@@ -475,6 +478,7 @@ term_sd_install()
                 fi
                 ;;
             *)
+                term_sd_echo "退出Term-SD"
                 exit 0
                 ;;
         esac
@@ -504,6 +508,9 @@ term_sd_install()
                     term_sd_echo "Term-SD安装失败"
                     exit 1
                 fi
+                ;;
+            *)
+                term_sd_echo "取消操作"
                 ;;
         esac
     fi
@@ -540,6 +547,7 @@ term_sd_reinstall()
                 fi
                 ;;
             *)
+                term_sd_echo "退出Term-SD"
                 exit 0
                 ;;
         esac
@@ -561,6 +569,9 @@ term_sd_remove()
                 remove_config_from_shell
             fi
             term_sd_echo "Term-SD卸载完成"
+            ;;
+        *)
+            term_sd_echo "取消操作"
             ;;
     esac
     exit 0
@@ -664,7 +675,7 @@ set_python_path()
 
 #############################
 
-export term_sd_version_info="1.2.17" # term-sd版本
+export term_sd_version_info="1.2.18" # term-sd版本
 export user_shell=$(basename $SHELL) # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题

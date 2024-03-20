@@ -648,6 +648,7 @@ Term-SD包含了一些扩展脚本，扩充Term-SD的功能
 - 4、download-sd-webui-extension：下载Stable-Diffusion-WebUI插件（脚本包含的插件列表在Term-SD的帮助中有说明）
 - 5、download-comfyui-extension：下载ComfyUI插件（脚本包含的插件列表在Term-SD的帮助中有说明）
 - 6、file-backup：备份/恢复AI软件的数据，备份文件储存在Term-SD的`backup`文件夹中
+- 7、fix-onnxruntime-gpu：当PyTorch所带的CUDA版本为12.1时，但本地安装的onnxruntime-gpu为适用于CUDA 11.8的版本时，将导致onnxruntime的运行无法使用GPU进行加速，该脚本可将onnxruntime-gpu重装至支持CUDA 12.1的版本
 
 >如果需要使用扩展脚本，则在启动Term-SD前加入`--extra`启动参数即可使用扩展脚本
 

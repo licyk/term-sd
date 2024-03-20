@@ -8,6 +8,7 @@ download_mirror_select()
     pip_index_mirror="--index-url https://pypi.python.org/simple"
     pip_extra_index_mirror=
     pip_find_mirror="--find-links https://download.pytorch.org/whl/torch_stable.html"
+    use_pip_mirror=1
     pip_break_system_package=
     term_sd_only_proxy=1
     use_modelscope_model=1
@@ -33,6 +34,7 @@ download_mirror_select()
     for i in $download_mirror_select_dialog; do
         case $i in
             1)
+                use_pip_mirror=0
                 pip_index_mirror="--index-url https://mirrors.cloud.tencent.com/pypi/simple"
                 pip_extra_index_mirror="--extra-index-url https://mirror.baidu.com/pypi/simple --extra-index-url https://mirrors.bfsu.edu.cn/pypi/web/simple --extra-index-url https://mirror.nju.edu.cn/pypi/web/simple"
                 pip_find_mirror="--find-links https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html --find-links https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
