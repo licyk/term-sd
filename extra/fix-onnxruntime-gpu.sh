@@ -123,9 +123,9 @@ fix_onnxruntime()
     term_sd_try term_sd_pip uninstall onnxruntime-gpu -y
     term_sd_echo "重新安装onnxruntime-gpu"
     PIP_EXTRA_INDEX_URL="https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple" \
-    term_sd_try term_sd_pip install onnxruntime-gpu==$onnxruntime_ver || \
+    term_sd_try term_sd_pip install onnxruntime-gpu==$onnxruntime_ver --no-cache-dir || \
     PIP_EXTRA_INDEX_URL="https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple" \
-    term_sd_try term_sd_pip install onnxruntime-gpu
+    term_sd_try term_sd_pip install onnxruntime-gpu --no-cache-dir
     if [ $? = 0 ];then
         term_sd_echo "修复${1}的onnxruntime-gpu成功"
     else
