@@ -128,7 +128,7 @@ term_sd_extra_scripts_launch()
             . ./term-sd/extra/$(echo $@ | awk '{sub(".sh","")}1').sh
             term_sd_print_line
             term_sd_echo "退出$(echo $@ | awk '{sub(".sh","")}1')脚本"
-            exit 1
+            exit 0
         else
             term_sd_print_line
             term_sd_echo "未找到$(echo $@ | awk '{sub(".sh","")}1')脚本"
@@ -162,19 +162,19 @@ term_sd_extra_scripts()
                 "退出")
                     term_sd_print_line
                     term_sd_echo "退出Term-SD"
-                    exit 1
+                    exit 0
                     ;;
                 *)
                     term_sd_print_line "${extra_script_dir_list_select}脚本启动"
                     . ./term-sd/extra/$extra_script_dir_list_select
                     term_sd_print_line
                     term_sd_echo "退出$(echo $extra_script_dir_list_select | awk '{sub(".sh","")}1')脚本"
-                    exit 1
+                    exit 0
             esac
             ;;
         *)
             term_sd_echo "退出Term-SD"
-            exit 1
+            exit 0
             ;;
     esac
 }
@@ -664,7 +664,7 @@ set_python_path()
 
 #############################
 
-export term_sd_version_info="1.2.16" # term-sd版本
+export term_sd_version_info="1.2.17" # term-sd版本
 export user_shell=$(basename $SHELL) # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题

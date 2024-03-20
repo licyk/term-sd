@@ -631,8 +631,6 @@ fooocus_lang_config_file()
     "Error": "错误",
     "Loading...": "加载中...",
     "Moving model to GPU ...": "将模型移至GPU...",
-    "Encoding negative": "解码提示词",
-    "Encoding positive": "解码反向提示词",
     "Loading models ...": "加载模型...",
     "VAE encoding ...": "VAE编码...",
     "Image processing ...": "处理图像...",
@@ -640,7 +638,8 @@ fooocus_lang_config_file()
     "Download": "下载",
     "Downloading control models ...": "下载Controlnet模型...",
     "Loading control models ...": "加载Controlnet模型...",
-    "processing": "处理中"
+    "processing": "处理中",
+    "Downloading upscale models ...": "下载放大模型..."
 }
 EOF
 }

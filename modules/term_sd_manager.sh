@@ -194,7 +194,7 @@ term_sd_manager()
         *) # 选择退出
             term_sd_print_line
             term_sd_echo "退出Term-SD"
-            exit 1
+            exit 0
             ;;
     esac
 }
