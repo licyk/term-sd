@@ -673,9 +673,58 @@ set_python_path()
     done
 }
 
+# 配置内存优化(仅限Linux)
+prepare_tcmalloc()
+{
+    if [[ "${OSTYPE}" == "linux"* ]] && [[ -z "${NO_TCMALLOC}" ]] && [[ -z "${LD_PRELOAD}" ]]; then
+        term_sd_echo "检测到系统为Linux, 尝试启用内存优化"
+        # 检查glibc版本
+        LIBC_VER=$(echo $(ldd --version | awk 'NR==1 {print $NF}') | grep -oP '\d+\.\d+')
+        term_sd_echo "glibc 版本为 $LIBC_VER"
+        libc_vernum=$(expr $LIBC_VER)
+        # 从 2.34 开始，libpthread 已经集成到 libc.so 中
+        libc_v234=2.34
+        # 定义 Tcmalloc 库数组
+        TCMALLOC_LIBS=("libtcmalloc(_minimal|)\.so\.\d" "libtcmalloc\.so\.\d")
+        # 遍历数组
+        for lib in "${TCMALLOC_LIBS[@]}"
+        do
+            # 确定库支持的 Tcmalloc 类型
+            TCMALLOC="$(PATH=/usr/sbin:$PATH ldconfig -p | grep -P $lib | head -n 1)"
+            TC_INFO=(${TCMALLOC//=>/})
+            if [[ ! -z "${TC_INFO}" ]]; then
+                term_sd_echo "检查 TCMalloc: ${TC_INFO}"
+                # 确定库是否链接到 libpthread 和解析未定义符号: pthread_key_create
+                if [ $(echo "$libc_vernum < $libc_v234" | bc) -eq 1 ]; then
+                    # glibc < 2.34，pthread_key_create 在 libpthread.so 中。检查链接到 libpthread.so
+                    if ldd ${TC_INFO[2]} | grep -q 'libpthread'; then
+                        term_sd_echo "$TC_INFO 链接到 libpthread, 执行 LD_PRELOAD=${TC_INFO[2]}"
+                        # 设置完整路径 LD_PRELOAD
+                        export LD_PRELOAD="${TC_INFO[2]}"
+                        break
+                    else
+                        term_sd_echo "$TC_INFO 没有链接到 libpthread, 将触发未定义符号: pthread_Key_create 错误"
+                    fi
+                else
+                    # libc.so（glibc）的2.34版本已将pthread库集成到glibc内部。在Ubuntu 22.04系统以及现代Linux系统和WSL（Windows Subsystem for Linux）环境下
+                    # libc.so（glibc）链接了一个几乎能在所有Linux用户态环境中运行的库，因此通常无需额外检查
+                    term_sd_echo "$TC_INFO 链接到 libc.so, 执行 LD_PRELOAD=${TC_INFO[2]}"
+                    # 设置完整路径 LD_PRELOAD
+                    export LD_PRELOAD="${TC_INFO[2]}"
+                    break
+                fi
+            fi
+        done
+        if [[ -z "${LD_PRELOAD}" ]]; then
+            term_sd_echo "无法定位 TCMalloc。未在系统上找到 tcmalloc 或 google-perftool"
+            sleep 3
+        fi
+    fi
+}
+
 #############################
 
-export term_sd_version_info="1.2.18" # term-sd版本
+export term_sd_version_info="1.2.19" # term-sd版本
 export user_shell=$(basename $SHELL) # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题
@@ -961,6 +1010,7 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
         # 判断依赖检测结果
         if [ $missing_depend_info = 0 ];then
             term_sd_echo "依赖检测完成,无缺失依赖"
+            prepare_tcmalloc # 配置内存优化(Linux)
             term_sd_install
             if [ -d "term-sd/modules" ];then # 找到目录后才启动
                 term_sd_auto_update_trigger
