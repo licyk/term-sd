@@ -70,6 +70,10 @@ install_pytorch()
             [ ! $? = 0 ] && return 1
             # 安装xFormers
             if [ ! -z "$xformers_ver" ];then
+                if term_sd_pip freeze | grep -q xformers ;then # 将原有的xofmers卸载
+                    term_sd_try term_sd_pip uninstall xformers -y
+                fi
+
                 if [ $use_pip_mirror = 0 ];then # 镜像源
                     if grep cu121 <<<$pytorch_install_version > /dev/null 2>&1 ;then # cuda12.1
                         PIP_EXTRA_INDEX_URL="https://mirror.sjtu.edu.cn/pytorch-wheels/cu121" \

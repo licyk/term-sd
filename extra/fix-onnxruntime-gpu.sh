@@ -40,7 +40,7 @@ term_sd_fix_onnxruntime()
                 fix_onnxruntime_select="kohya_ss"
                 ;;
             7)
-                return 1
+                break
                 ;;
             *)
                 term_sd_echo "输入有误,请重试"
@@ -121,8 +121,10 @@ fix_onnxruntime()
             ;;
     esac
     onnxruntime_ver=$(term_sd_pip freeze | grep onnxruntime== | awk -F '==' '{print $NF}')
-    term_sd_echo "卸载原有onnxruntime-gpu"
-    term_sd_try term_sd_pip uninstall onnxruntime-gpu -y
+    if term_sd_pip freeze | grep -q "onnxruntime-gpu" ;then
+        term_sd_echo "卸载原有onnxruntime-gpu"
+        term_sd_try term_sd_pip uninstall onnxruntime-gpu -y
+    fi
     term_sd_echo "重新安装onnxruntime-gpu"
     PIP_EXTRA_INDEX_URL="https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple" \
     term_sd_try term_sd_pip install onnxruntime-gpu==$onnxruntime_ver --no-cache-dir || \
