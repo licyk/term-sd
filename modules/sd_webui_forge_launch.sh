@@ -8,7 +8,7 @@ sd_webui_forge_launch_args_setting()
     local launch_args
 
     sd_webui_forge_launch_args_dialog=$(
-        dialog --erase-on-exit --notags --title "Stable-Diffusion-WebUI-Forge管理" --backtitle "Stable-Diffusion-WebUI-Forge启动参数选项" --ok-label "确认" --cancel-label "取消" --checklist "请选择A1111-Stable-Diffusion-Webui启动参数,确认之后将覆盖原有启动参数配置" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        dialog --erase-on-exit --notags --title "Stable-Diffusion-WebUI-Forge管理" --backtitle "Stable-Diffusion-WebUI-Forge启动参数选项" --ok-label "确认" --cancel-label "取消" --checklist "请选择Stable-Diffusion-WebUI-Forge启动参数,确认之后将覆盖原有启动参数配置" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "1" "(update-all-extensions)启动时更新所有扩展" OFF \
         "2" "(skip-python-version-check)跳过检查Python版本" OFF \
         "3" "(skip-torch-cuda-test)跳过CUDA可用性检查" OFF \
