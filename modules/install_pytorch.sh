@@ -63,8 +63,8 @@ install_pytorch()
                 ;;
             esac
         else
-            torch_ver=$(echo $pytorch_install_version | awk '{print $1 " " $2}')
-            xformers_ver=$(echo $pytorch_install_version | awk '{print $3}')
+            torch_ver=$(echo $pytorch_install_version | awk '{print $1 " " $2 " " $3}')
+            xformers_ver=$(echo $pytorch_install_version | awk '{print $4}')
             # 安装PyTorch
             term_sd_try term_sd_pip install $torch_ver $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
             [ ! $? = 0 ] && return 1

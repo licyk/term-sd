@@ -59,30 +59,31 @@ Term-SD在使用安装、管理AI软件的功能时，会使用准备功能来�
 
 ### 2、PyTorch版本选项
 有以下版本组合：
-- 1、Torch+xformers
+- 1、Torch+xFormers
 - 2、Torch
 - 3、Torch 2.0.0（Directml）
-- 4、Torch 2.1.0+CPU
+- 4、Torch 2.2.1+CPU
 - 5、Torch 2.0.1+RoCM 5.4.2
 - 6、Torch 2.1.0+RoCM 5.6
-- 7、Torch 2.0.0+IPEX
-- 8、Torch 2.1.0+IPEX
-- 9、Torch 1.12.1（CUDA11.3）+xFormers 0.0.14
-- 10、Torch 1.13.1（CUDA11.7）+xFormers 0.0.16
-- 11、Torch 2.0.0（CUDA11.8）+xFormers 0.0.18
-- 12、Torch 2.0.1（CUDA11.8）+xFormers 0.0.22
-- 13、Torch 2.1.1（CUDA11.8）+xFormers 0.0.23
-- 14、Torch 2.1.1（CUDA12.1）+xFormers 0.0.23
-- 15、Torch 2.1.2（CUDA11.8）+xFormers 0.0.23post1
-- 16、Torch 2.1.2（CUDA12.1）+xFormers 0.0.23post1
-- 17、Torch 2.2.0（CUDA11.8）+xFormers 0.0.24
-- 18、Torch 2.2.0（CUDA12.1）+xFormers 0.0.24
-- 19、Torch 2.2.1（CUDA11.8）+xFormers 0.0.25
-- 20、Torch 2.2.1（CUDA12.1）+xFormers 0.0.25
+- 7、Torch 2.2.1+RoCM 5.7
+- 8、Torch 2.0.0+IPEX
+- 9、Torch 2.1.0+IPEX
+- 10、Torch 1.12.1（CUDA11.3）+xFormers 0.0.14
+- 11、Torch 1.13.1（CUDA11.7）+xFormers 0.0.16
+- 12、Torch 2.0.0（CUDA11.8）+xFormers 0.0.18
+- 13、Torch 2.0.1（CUDA11.8）+xFormers 0.0.22
+- 14、Torch 2.1.1（CUDA11.8）+xFormers 0.0.23
+- 15、Torch 2.1.1（CUDA12.1）+xFormers 0.0.23
+- 16、Torch 2.1.2（CUDA11.8）+xFormers 0.0.23post1
+- 17、Torch 2.1.2（CUDA12.1）+xFormers 0.0.23post1
+- 18、Torch 2.2.0（CUDA11.8）+xFormers 0.0.24
+- 19、Torch 2.2.0（CUDA12.1）+xFormers 0.0.24
+- 20、Torch 2.2.1（CUDA11.8）+xFormers 0.0.25
+- 21、Torch 2.2.1（CUDA12.1）+xFormers 0.0.25
 
 选择版本时需要根据系统类型和显卡选择
-- 在Windows系统中，Nvidia显卡选择Torch（CUDA）+xformers的版本，AMD显卡Torch(Directml)的版本，Intel显卡选择Torch+IPEX的版本
-- 在Linux系统中，Nvidia显卡选择Torch（CUDA）+xformers的版本，AMD显卡选择Torch+Rocm的版本，Intel显卡选择Torch+IPEX版本
+- 在Windows系统中，Nvidia显卡选择Torch（CUDA）+xFormers的版本，AMD显卡Torch(Directml)的版本，Intel显卡选择Torch+IPEX的版本
+- 在Linux系统中，Nvidia显卡选择Torch（CUDA）+xFormers的版本，AMD显卡选择Torch+Rocm的版本，Intel显卡选择Torch+IPEX版本
 - 在MacOS系统中，选择Torch版本
 - 如果想要使用CPU进行跑图，选择Torch+CPU的版本
 
@@ -211,30 +212,31 @@ Term-SD支持Stable-Diffusion-WebUI，ComfyUI，InvokeAI，Fooocus，lora-script
 
 #### 2、PyTorch版本选择
 第二个是PyTorch版本的选择界面，有以下版本组合
-- 1、Torch+xformers
+- 1、Torch+xFormers
 - 2、Torch
 - 3、Torch 2.0.0（Directml）
-- 4、Torch 2.1.0+CPU
+- 4、Torch 2.2.1+CPU
 - 5、Torch 2.0.1+RoCM 5.4.2
 - 6、Torch 2.1.0+RoCM 5.6
-- 7、Torch 2.0.0+IPEX
-- 8、Torch 2.1.0+IPEX
-- 9、Torch 1.12.1（CUDA11.3）+xFormers 0.0.14
-- 10、Torch 1.13.1（CUDA11.7）+xFormers 0.0.16
-- 11、Torch 2.0.0（CUDA11.8）+xFormers 0.0.18
-- 12、Torch 2.0.1（CUDA11.8）+xFormers 0.0.22
-- 13、Torch 2.1.1（CUDA11.8）+xFormers 0.0.23
-- 14、Torch 2.1.1（CUDA12.1）+xFormers 0.0.23
-- 15、Torch 2.1.2（CUDA11.8）+xFormers 0.0.23post1
-- 16、Torch 2.1.2（CUDA12.1）+xFormers 0.0.23post1
-- 17、Torch 2.2.0（CUDA11.8）+xFormers 0.0.24
-- 18、Torch 2.2.0（CUDA12.1）+xFormers 0.0.24
-- 19、Torch 2.2.1（CUDA11.8）+xFormers 0.0.25
-- 20、Torch 2.2.1（CUDA12.1）+xFormers 0.0.25
+- 7、Torch 2.2.1+RoCM 5.7
+- 8、Torch 2.0.0+IPEX
+- 9、Torch 2.1.0+IPEX
+- 10、Torch 1.12.1（CUDA11.3）+xFormers 0.0.14
+- 11、Torch 1.13.1（CUDA11.7）+xFormers 0.0.16
+- 12、Torch 2.0.0（CUDA11.8）+xFormers 0.0.18
+- 13、Torch 2.0.1（CUDA11.8）+xFormers 0.0.22
+- 14、Torch 2.1.1（CUDA11.8）+xFormers 0.0.23
+- 15、Torch 2.1.1（CUDA12.1）+xFormers 0.0.23
+- 16、Torch 2.1.2（CUDA11.8）+xFormers 0.0.23post1
+- 17、Torch 2.1.2（CUDA12.1）+xFormers 0.0.23post1
+- 18、Torch 2.2.0（CUDA11.8）+xFormers 0.0.24
+- 19、Torch 2.2.0（CUDA12.1）+xFormers 0.0.24
+- 20、Torch 2.2.1（CUDA11.8）+xFormers 0.0.25
+- 21、Torch 2.2.1（CUDA12.1）+xFormers 0.0.25
 
 选择版本时需要根据系统类型和显卡选择
-- 在Windows系统中，Nvidia显卡选择Torch（CUDA）+xformers的版本，AMD显卡Torch(Directml)的版本，Intel显卡选择Torch+IPEX的版本
-- 在Linux系统中，Nvidia显卡选择Torch（CUDA）+xformers的版本，AMD显卡选择Torch+Rocm的版本，Intel显卡选择Torch+IPEX版本
+- 在Windows系统中，Nvidia显卡选择Torch（CUDA）+xFormers的版本，AMD显卡Torch(Directml)的版本，Intel显卡选择Torch+IPEX的版本
+- 在Linux系统中，Nvidia显卡选择Torch（CUDA）+xFormers的版本，AMD显卡选择Torch+Rocm的版本，Intel显卡选择Torch+IPEX版本
 - 在MacOS系统中，选择Torch版本
 - 如果想要使用CPU进行跑图，选择Torch+CPU的版本
 

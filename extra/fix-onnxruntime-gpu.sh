@@ -4,6 +4,7 @@
 . ./term-sd/modules/python_venv.sh
 . ./term-sd/modules/term_sd_python_cmd.sh
 
+# 主界面
 term_sd_fix_onnxruntime()
 {
     local fix_onnxruntime_select
@@ -47,7 +48,7 @@ term_sd_fix_onnxruntime()
                 ;;
         esac
         if [ "$(is_sd_folder_exist "$fix_onnxruntime_select")" = 0 ];then
-            term_sd_echo "是否修复${fix_onnxruntime_select}的onnxruntime-gpu(yes/no)"
+            term_sd_echo "是否修复${fix_onnxruntime_select}的onnxruntime-gpu?(yes/no)"
             term_sd_echo "提示:输入yes或no后回车"
             case $(term_sd_read) in
                 y|yes|Y|YES)
@@ -89,6 +90,7 @@ is_sd_folder_exist()
     esac
 }
 
+# 修复onnxruntime
 fix_onnxruntime()
 {
     local onnxruntime_ver
@@ -132,6 +134,7 @@ fix_onnxruntime()
         term_sd_echo "修复${1}的onnxruntime-gpu失败"
     fi
     exit_venv
+    term_sd_print_line
 }
 
 ########################
