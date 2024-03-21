@@ -272,3 +272,7 @@ ComfyUI插件/自定义节点说明：
 65、ComfyUI_LayerStyle：
 描述：图层和蒙版合成节点
 链接：https://github.com/chflame163/ComfyUI_LayerStyle
+
+66、ComfyUI-N-Sidebar：
+描述：节点快捷收藏整理工具
+链接：https://github.com/Nuked88/ComfyUI-N-Sidebar
