@@ -131,7 +131,7 @@ process_python_package_ver_backup()
     done
 }
 
-#恢复依赖库版本功能
+# 恢复依赖库版本功能
 restore_python_package_ver()
 {
     # 安装前的准备
@@ -143,33 +143,33 @@ restore_python_package_ver()
         term_sd_print_line "Python软件包版本恢复"
         term_sd_echo "开始恢复依赖库版本中,版本$(echo $python_package_ver_backup_list_dialog | awk '{sub(".txt","")}1')"
 
-        #这里不要用"",不然会出问题
-        cat "$start_path"/term-sd/requirements-backup/$backup_req_sd_name/$python_package_ver_backup_list_dialog | awk -F'==' '{print $1}' > tmp-python-pkg-no-vers-bak.txt #生成一份无版本的备份列表
-        term_sd_pip freeze | awk -F'==' '{print $1}' > tmp-python-pkg-no-vers.txt #生成一份无版本的现有列表
+        # 这里不要用"",不然会出问题
+        cat "$start_path"/term-sd/requirements-backup/$backup_req_sd_name/$python_package_ver_backup_list_dialog | awk -F'==' '{print $1}' > tmp-python-pkg-no-vers-bak.txt # 生成一份无版本的备份列表
+        term_sd_pip freeze | awk -F '==' '{print $1}' | awk -F '@' '{print $1}' > tmp-python-pkg-no-vers.txt # 生成一份无版本的现有列表
 
-        #生成一份软件包卸载名单
+        # 生成一份软件包卸载名单
         for i in $(cat tmp-python-pkg-no-vers-bak.txt); do
-            sed -i '/'$i'/d' tmp-python-pkg-no-vers.txt 2> /dev/null #需要卸载的依赖包名单
+            sed -i '/'$i'/d' tmp-python-pkg-no-vers.txt 2> /dev/null # 需要卸载的依赖包名单
         done
 
-        term_sd_tmp_disable_proxy #临时取消代理,避免一些不必要的网络减速
+        term_sd_tmp_disable_proxy # 临时取消代理,避免一些不必要的网络减速
         if [ ! -z "$(cat tmp-python-pkg-no-vers.txt)" ];then
             term_sd_print_line "python软件包卸载列表"
             term_sd_echo "将要卸载以下Python软件包"
             cat tmp-python-pkg-no-vers.txt
             term_sd_print_line
             term_sd_echo "卸载多余Python软件包中"
-            term_sd_pip uninstall -y -r tmp-python-pkg-no-vers.txt  #卸载名单中的依赖包
+            term_sd_pip uninstall -y -r tmp-python-pkg-no-vers.txt  # 卸载名单中的依赖包
         fi
-        rm -rf tmp-python-pkg-no-vers.txt #删除卸载名单列表
-        rm -rf tmp-python-pkg-no-vers-bak.txt #删除不需要的包名文件缓存
+        rm -rf tmp-python-pkg-no-vers.txt # 删除卸载名单列表
+        rm -rf tmp-python-pkg-no-vers-bak.txt # 删除不需要的包名文件缓存
         term_sd_print_line "Python软件包安装列表"
         term_sd_echo "将要安装以下Python软件包"
         cat "$start_path"/term-sd/requirements-backup/$backup_req_sd_name/$python_package_ver_backup_list_dialog
         term_sd_print_line
         term_sd_echo "恢复依赖库版本中"
-        term_sd_pip install -r "$start_path"/term-sd/requirements-backup/$backup_req_sd_name/$python_package_ver_backup_list_dialog --prefer-binary #安装原有版本的依赖包
-        term_sd_tmp_enable_proxy #恢复原有的代理
+        term_sd_try term_sd_pip install -r "$start_path"/term-sd/requirements-backup/$backup_req_sd_name/$python_package_ver_backup_list_dialog --prefer-binary # 安装原有版本的依赖包
+        term_sd_tmp_enable_proxy # 恢复原有的代理
         term_sd_echo "恢复依赖库版本完成"
         term_sd_pause
     fi
