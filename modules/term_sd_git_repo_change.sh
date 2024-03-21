@@ -229,7 +229,6 @@ comfyui_remote_revise()
         term_sd_print_line
         dialog --erase-on-exit --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n${term_sd_delimiter}\n$git_repo_remote_revise_req${term_sd_delimiter}" $term_sd_dialog_height $term_sd_dialog_width
     fi
-
 }
 
 # lora-scripts远程源替换功能

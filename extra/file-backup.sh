@@ -44,10 +44,10 @@ term_sd_file_manager()
                 file_manager_select="kohya_ss"
                 ;;
             7)  
-                return 1
+                break
                 ;;
             *)
-                return 1
+                break
                 ;;
         esac
         if [ "$(is_sd_folder_exist "$file_manager_select")" = 0 ];then
@@ -419,6 +419,4 @@ else
     term_sd_mkdir term-sd/backup
 fi
 
-while (($? == 0));do
-    term_sd_file_manager
-done
+term_sd_file_manager
