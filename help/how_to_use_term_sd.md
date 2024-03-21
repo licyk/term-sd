@@ -74,8 +74,8 @@ Term-SD在使用安装、管理AI软件的功能时，会使用准备功能来�
 - 13、Torch 2.0.1（CUDA11.8）+xFormers 0.0.22
 - 14、Torch 2.1.1（CUDA11.8）+xFormers 0.0.23
 - 15、Torch 2.1.1（CUDA12.1）+xFormers 0.0.23
-- 16、Torch 2.1.2（CUDA11.8）+xFormers 0.0.23post1
-- 17、Torch 2.1.2（CUDA12.1）+xFormers 0.0.23post1
+- 16、Torch 2.1.2（CUDA11.8）+xFormers 0.0.23.post1
+- 17、Torch 2.1.2（CUDA12.1）+xFormers 0.0.23.post1
 - 18、Torch 2.2.0（CUDA11.8）+xFormers 0.0.24
 - 19、Torch 2.2.0（CUDA12.1）+xFormers 0.0.24
 - 20、Torch 2.2.1（CUDA11.8）+xFormers 0.0.25
@@ -227,8 +227,8 @@ Term-SD支持Stable-Diffusion-WebUI，ComfyUI，InvokeAI，Fooocus，lora-script
 - 13、Torch 2.0.1（CUDA11.8）+xFormers 0.0.22
 - 14、Torch 2.1.1（CUDA11.8）+xFormers 0.0.23
 - 15、Torch 2.1.1（CUDA12.1）+xFormers 0.0.23
-- 16、Torch 2.1.2（CUDA11.8）+xFormers 0.0.23post1
-- 17、Torch 2.1.2（CUDA12.1）+xFormers 0.0.23post1
+- 16、Torch 2.1.2（CUDA11.8）+xFormers 0.0.23.post1
+- 17、Torch 2.1.2（CUDA12.1）+xFormers 0.0.23.post1
 - 18、Torch 2.2.0（CUDA11.8）+xFormers 0.0.24
 - 19、Torch 2.2.0（CUDA12.1）+xFormers 0.0.24
 - 20、Torch 2.2.1（CUDA11.8）+xFormers 0.0.25
