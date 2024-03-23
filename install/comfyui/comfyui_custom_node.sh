@@ -63,3 +63,4 @@ __term_sd_task_pre_ext_62 git_clone_repository ${github_mirror} https://github.c
 __term_sd_task_pre_ext_63 git_clone_repository ${github_mirror} https://github.com/crystian/ComfyUI-Crystools "$comfyui_path"/custom_nodes OFF # 资源监视器
 __term_sd_task_pre_ext_64 git_clone_repository ${github_mirror} https://github.com/huchenlei/ComfyUI-layerdiffusion "$comfyui_path"/custom_nodes OFF # LayerDiffusion节点
 __term_sd_task_pre_ext_65 git_clone_repository ${github_mirror} https://github.com/chflame163/ComfyUI_LayerStyle "$comfyui_path"/custom_nodes OFF # 图层和蒙版合成节点
+__term_sd_task_pre_ext_66 git_clone_repository ${github_mirror} https://github.com/Nuked88/ComfyUI-N-Sidebar "$comfyui_path"/custom_nodes OFF # 节点快捷收藏整理工具
