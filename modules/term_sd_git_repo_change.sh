@@ -19,17 +19,17 @@ git_repo_remote_revise()
     if [ "$(git_remote_type_test)" = "github" ];then # 判断远程源种类
         git_repository_remote_revise $1 # 执行远程源替换
         if [ $? = 0 ];then
-            term_sd_echo "替换${git_repo_name}更新源为$(echo $1 | awk '{sub("https://","") ; gsub(/\//," ")}1' | awk '{print$1}')源"
-            git_repo_remote_revise_req="$git_repo_remote_revise_req ${git_repo_name}更新源替换成功\n"
+            term_sd_echo "替换 ${git_repo_name} 更新源为 $(echo $1 | awk '{sub("https://","") ; gsub(/\//," ")}1' | awk '{print$1}') 源"
+            git_repo_remote_revise_req="$git_repo_remote_revise_req ${git_repo_name} 更新源替换成功\n"
         else
             true
-            term_sd_echo "${git_repo_name}更新源无需替换"
-            git_repo_remote_revise_req="$git_repo_remote_revise_req ${git_repo_name}更新源无需替换\n"
+            term_sd_echo "${git_repo_name} 更新源无需替换"
+            git_repo_remote_revise_req="$git_repo_remote_revise_req ${git_repo_name} 更新源无需替换\n"
         fi
     else
         true
-        term_sd_echo "${git_repo_name}更新源非github地址,不执行替换"
-        git_repo_remote_revise_req="$git_repo_remote_revise_req ${git_repo_name}更新源非github地址,不执行替换\n"
+        term_sd_echo "${git_repo_name} 更新源非 Github 地址, 不执行替换"
+        git_repo_remote_revise_req="$git_repo_remote_revise_req ${git_repo_name} 更新源非 Github 地址, 不执行替换\n"
     fi
 }
 
@@ -40,16 +40,21 @@ git_remote_url_select()
     export git_repo_remote_revise_cmd
     git_repo_remote_revise_req= # 清除运行结果
 
-    git_remote_url_select_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "更新源选择界面" --ok-label "确认" --cancel-label "取消" --menu "选择要修改成的更新源\n当前将要修改更新源的AI软件:$term_sd_manager_info" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+    git_remote_url_select_dialog=$(dialog --erase-on-exit --notags \
+        --title "Term-SD" \
+        --backtitle "更新源选择界面" \
+        --ok-label "确认" \
+        --cancel-label "取消" \
+        --menu "选择要修改成的更新源\n当前将要修改更新源的AI软件: $term_sd_manager_info" \
+        $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
-        "1" "> 官方源(github.com)" \
-        "2" "> 代理源1(mirror.ghproxy.com)" \
-        "3" "> 代理源2(gitclone.com)" \
-        "4" "> 代理源3(gh-proxy.com)" \
-        "5" "> 代理源4(ghps.cc)" \
-        "6" "> 代理源5(gh.idayer.com)" \
-        "7" "> 代理源6(ghproxy.net)" \
+        "1" "> 官方源 (github.com)" \
+        "2" "> 代理源1 (mirror.ghproxy.com)" \
+        "3" "> 代理源2 (gitclone.com)" \
+        "4" "> 代理源3 (gh-proxy.com)" \
+        "5" "> 代理源4 (ghps.cc)" \
+        "6" "> 代理源5 (gh.idayer.com)" \
+        "7" "> 代理源6 (ghproxy.net)" \
         3>&1 1>&2 2>&3)
 
     case $git_remote_url_select_dialog in
@@ -102,53 +107,93 @@ git_remote_url_select_single()
         local git_remote_url_select_single_dialog
         git_repo_remote_revise_req= # 清除运行结果
 
-        git_remote_url_select_single_dialog=$(
-            dialog --erase-on-exit --notags --title "Term-SD" --backtitle "更新源选择界面" --ok-label "确认" --cancel-label "取消" --menu "选择要修改成的更新源\n当前更新源:$(git remote -v | awk 'NR==1 {print $2}')" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        git_remote_url_select_single_dialog=$(dialog --erase-on-exit --notags \
+            --title "Term-SD" \
+            --backtitle "更新源选择界面" \
+            --ok-label "确认" \
+            --cancel-label "取消" \
+            --menu "选择要修改成的更新源\n当前更新源: $(git remote -v | awk 'NR==1 {print $2}')" \
+            $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
             "0" "> 返回" \
-            "1" "> 官方源(github.com)" \
-            "2" "> 代理源1(mirror.ghproxy.com)" \
-            "3" "> 代理源2(gitclone.com)" \
-            "4" "> 代理源3(gh-proxy.com)" \
-            "5" "> 代理源4(ghps.cc)" \
-            "6" "> 代理源5(gh.idayer.com)" \
-            "7" "> 代理源6(ghproxy.net)" \
+            "1" "> 官方源 (github.com)" \
+            "2" "> 代理源1 (mirror.ghproxy.com)" \
+            "3" "> 代理源2 (gitclone.com)" \
+            "4" "> 代理源3 (gh-proxy.com)" \
+            "5" "> 代理源4 (ghps.cc)" \
+            "6" "> 代理源5 (gh.idayer.com)" \
+            "7" "> 代理源6 (ghproxy.net)" \
             3>&1 1>&2 2>&3)
 
         case $git_remote_url_select_single_dialog in
             1)
                 git_repo_remote_revise https://github.com/term_sd_git_user/term_sd_git_repo
-                dialog --erase-on-exit --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n${term_sd_delimiter}\n$git_repo_remote_revise_req${term_sd_delimiter}" $term_sd_dialog_height $term_sd_dialog_width
+                dialog --erase-on-exit \
+                    --title "Term-SD" \
+                    --backtitle "更新源替换结果" \
+                    --ok-label "确认" \
+                    --msgbox "当前更新源替换情况列表\n${term_sd_delimiter}\n$git_repo_remote_revise_req${term_sd_delimiter}" \
+                    $term_sd_dialog_height $term_sd_dialog_width
                 ;;
             2)
                 git_repo_remote_revise https://mirror.ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo
-                dialog --erase-on-exit --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n${term_sd_delimiter}\n$git_repo_remote_revise_req${term_sd_delimiter}" $term_sd_dialog_height $term_sd_dialog_width
+                dialog --erase-on-exit \
+                    --title "Term-SD" \
+                    --backtitle "更新源替换结果" \
+                    --ok-label "确认" \
+                    --msgbox "当前更新源替换情况列表\n${term_sd_delimiter}\n$git_repo_remote_revise_req${term_sd_delimiter}" \
+                    $term_sd_dialog_height $term_sd_dialog_width
                 ;;
             3)
                 git_repo_remote_revise https://gitclone.com/github.com/term_sd_git_user/term_sd_git_repo
-                dialog --erase-on-exit --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n${term_sd_delimiter}\n$git_repo_remote_revise_req${term_sd_delimiter}" $term_sd_dialog_height $term_sd_dialog_width
+                dialog --erase-on-exit \
+                    --title "Term-SD" \
+                    --backtitle "更新源替换结果" \
+                    --ok-label "确认" \
+                    --msgbox "当前更新源替换情况列表\n${term_sd_delimiter}\n$git_repo_remote_revise_req${term_sd_delimiter}" \
+                    $term_sd_dialog_height $term_sd_dialog_width
                 ;;
             4)
                 git_repo_remote_revise https://gh-proxy.com/https://github.com/term_sd_git_user/term_sd_git_repo
-                dialog --erase-on-exit --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n${term_sd_delimiter}\n$git_repo_remote_revise_req${term_sd_delimiter}" $term_sd_dialog_height $term_sd_dialog_width
+                dialog --erase-on-exit \
+                    --title "Term-SD" \
+                    --backtitle "更新源替换结果" \
+                    --ok-label "确认" \
+                    --msgbox "当前更新源替换情况列表\n${term_sd_delimiter}\n$git_repo_remote_revise_req${term_sd_delimiter}" \
+                    $term_sd_dialog_height $term_sd_dialog_width
                 ;;
             5)
                 git_repo_remote_revise https://ghps.cc/https://github.com/term_sd_git_user/term_sd_git_repo
-                dialog --erase-on-exit --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n${term_sd_delimiter}\n$git_repo_remote_revise_req${term_sd_delimiter}" $term_sd_dialog_height $term_sd_dialog_width
+                dialog --erase-on-exit \
+                    --title "Term-SD" \
+                    --backtitle "更新源替换结果" \
+                    --ok-label "确认" \
+                    --msgbox "当前更新源替换情况列表\n${term_sd_delimiter}\n$git_repo_remote_revise_req${term_sd_delimiter}" \
+                    $term_sd_dialog_height $term_sd_dialog_width
                 ;;
             6)
                 git_repo_remote_revise https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo
-                dialog --erase-on-exit --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n${term_sd_delimiter}\n$git_repo_remote_revise_req${term_sd_delimiter}" $term_sd_dialog_height $term_sd_dialog_width
+                dialog --erase-on-exit \
+                    --title "Term-SD" \
+                    --backtitle "更新源替换结果" \
+                    --ok-label "确认" \
+                    --msgbox "当前更新源替换情况列表\n${term_sd_delimiter}\n$git_repo_remote_revise_req${term_sd_delimiter}" \
+                    $term_sd_dialog_height $term_sd_dialog_width
                 ;;
             7)
                 git_repo_remote_revise https://ghproxy.net/https://github.com/term_sd_git_user/term_sd_git_repo
-                dialog --erase-on-exit --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n${term_sd_delimiter}\n$git_repo_remote_revise_req${term_sd_delimiter}" $term_sd_dialog_height $term_sd_dialog_width
+                dialog --erase-on-exit \
+                    --title "Term-SD" \
+                    --backtitle "更新源替换结果" \
+                    --ok-label "确认" \
+                    --msgbox "当前更新源替换情况列表\n${term_sd_delimiter}\n$git_repo_remote_revise_req${term_sd_delimiter}" \
+                    $term_sd_dialog_height $term_sd_dialog_width
                 ;;
             *)
                 term_sd_echo "取消替换更新源操作"
                 ;;
         esac
     else
-        term_sd_echo "$(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')非git安装,无法切换更新源"
+        term_sd_echo "$(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1') 非 Git 安装, 无法切换更新源"
         return 10
     fi
 }
@@ -159,7 +204,7 @@ sd_webui_remote_revise()
     git_remote_url_select # 选择更新源
 
     if [ $? = 0 ];then
-        term_sd_echo "开始替换stable-diffusion-webui更新源"
+        term_sd_echo "开始替换 Stable-Diffusion-WebUI 更新源"
         # 执行替换功能
         # 主体部分
         $git_repo_remote_revise_cmd
@@ -184,9 +229,15 @@ sd_webui_remote_revise()
             fi
         done
 
-        term_sd_echo "stable-diffusion-webui更新源替换结束"
+        term_sd_echo "Stable-Duffusion-WebUI 更新源替换结束"
         term_sd_print_line
-        dialog --erase-on-exit --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n${term_sd_delimiter}\n$git_repo_remote_revise_req${term_sd_delimiter}" $term_sd_dialog_height $term_sd_dialog_width
+
+        dialog --erase-on-exit \
+            --title "Term-SD" \
+            --backtitle "Stable-Duffusion-WebUI 更新源替换结果" \
+            --ok-label "确认" \
+            --msgbox "当前更新源替换情况列表\n${term_sd_delimiter}\n$git_repo_remote_revise_req${term_sd_delimiter}" \
+            $term_sd_dialog_height $term_sd_dialog_width
     fi
 }
 
@@ -196,7 +247,7 @@ comfyui_remote_revise()
     git_remote_url_select # 选择更新源
 
     if [ $? = 0 ];then
-        term_sd_echo "开始替换ComfyUI更新源"
+        term_sd_echo "开始替换 ComfyUI 更新源"
         # 执行替换功能
         # 主体部分
         $git_repo_remote_revise_cmd
@@ -225,9 +276,15 @@ comfyui_remote_revise()
             fi
         done
 
-        term_sd_echo "ComfyUI更新源替换结束"
+        term_sd_echo "ComfyUI 更新源替换结束"
         term_sd_print_line
-        dialog --erase-on-exit --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n${term_sd_delimiter}\n$git_repo_remote_revise_req${term_sd_delimiter}" $term_sd_dialog_height $term_sd_dialog_width
+
+        dialog --erase-on-exit \
+            --title "Term-SD" \
+            --backtitle "ComfyUI 更新源替换结果" \
+            --ok-label "确认" \
+            --msgbox "当前更新源替换情况列表\n${term_sd_delimiter}\n$git_repo_remote_revise_req${term_sd_delimiter}" \
+            $term_sd_dialog_height $term_sd_dialog_width
     fi
 }
 
@@ -237,7 +294,7 @@ lora_scripts_remote_revise()
     git_remote_url_select # 选择更新源
 
     if [ $? = 0 ];then
-        term_sd_echo "开始替换lora-scripts更新源"
+        term_sd_echo "开始替换 lora-scripts 更新源"
         $git_repo_remote_revise_cmd
         cd "$lora_scripts_path"/frontend
         $git_repo_remote_revise_cmd
@@ -245,9 +302,15 @@ lora_scripts_remote_revise()
         $git_repo_remote_revise_cmd
         cd "$lora_scripts_path"/mikazuki/dataset-tag-editor
         $git_repo_remote_revise_cmd
-        term_sd_echo "lora-scripts更新源替换结束"
+        term_sd_echo "lora-scripts 更新源替换结束"
         term_sd_print_line
-        dialog --erase-on-exit --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n${term_sd_delimiter}\n$git_repo_remote_revise_req${term_sd_delimiter}" $term_sd_dialog_height $term_sd_dialog_width
+
+        dialog --erase-on-exit \
+            --title "Term-SD" \
+            --backtitle "lora-scripts 更新源替换结果" \
+            --ok-label "确认" \
+            --msgbox "当前更新源替换情况列表\n${term_sd_delimiter}\n$git_repo_remote_revise_req${term_sd_delimiter}" \
+            $term_sd_dialog_height $term_sd_dialog_width
     fi
 }
 
@@ -257,13 +320,19 @@ fooocus_remote_revise()
     git_remote_url_select # 选择更新源
 
     if [ $? = 0 ];then
-        term_sd_echo "开始替换Fooocus更新源"
+        term_sd_echo "开始替换 Fooocus 更新源"
         $git_repo_remote_revise_cmd
         cd "$fooocus_path"/repositories/ComfyUI-from-StabilityAI-Official
         $git_repo_remote_revise_cmd
-        term_sd_echo "Fooocus更新源替换结束"
+        term_sd_echo "Fooocus 更新源替换结束"
         term_sd_print_line
-        dialog --erase-on-exit --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n${term_sd_delimiter}\n$git_repo_remote_revise_req${term_sd_delimiter}" $term_sd_dialog_height $term_sd_dialog_width
+
+        dialog --erase-on-exit \
+            --title "Term-SD" \
+            --backtitle "Fooocus 更新源替换结果" \
+            --ok-label "确认" \
+            --msgbox "当前更新源替换情况列表\n${term_sd_delimiter}\n$git_repo_remote_revise_req${term_sd_delimiter}" \
+            $term_sd_dialog_height $term_sd_dialog_width
     fi
 }
 
@@ -273,10 +342,16 @@ kohya_ss_remote_revise()
     git_remote_url_select # 选择更新源
 
     if [ $? = 0 ];then
-        term_sd_echo "开始替换kohya_ss更新源"
+        term_sd_echo "开始替换 kohya_ss 更新源"
         $git_repo_remote_revise_cmd
-        term_sd_echo "kohya_ss更新源替换结束"
+        term_sd_echo "kohya_ss 更新源替换结束"
         term_sd_print_line
-        dialog --erase-on-exit --title "Term-SD" --backtitle "更新源替换结果" --ok-label "确认" --msgbox "当前更新源替换情况列表\n${term_sd_delimiter}\n$git_repo_remote_revise_req${term_sd_delimiter}" $term_sd_dialog_height $term_sd_dialog_width
+
+        dialog --erase-on-exit \
+            --title "Term-SD" \
+            --backtitle "kohya_ss 更新源替换结果" \
+            --ok-label "确认" \
+            --msgbox "当前更新源替换情况列表\n${term_sd_delimiter}\n$git_repo_remote_revise_req${term_sd_delimiter}" \
+            $term_sd_dialog_height $term_sd_dialog_width
     fi
 }

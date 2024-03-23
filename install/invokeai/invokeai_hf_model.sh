@@ -1,5 +1,5 @@
 __term_sd_task_sys term_sd_echo "下载模型中"
-__term_sd_task_sys term_sd_echo "使用huggingface模型下载源"
+__term_sd_task_sys term_sd_echo "使用 HuggingFace 模型下载源"
 __term_sd_task_sys term_sd_tmp_enable_proxy
 __term_sd_task_pre_model aria2_download https://huggingface.co/licyk/invokeai-core-model/resolve/main/models/core/convert/bert-base-uncased/special_tokens_map.json "$invokeai_path"/invokeai/models/core/convert/bert-base-uncased
 __term_sd_task_pre_model aria2_download https://huggingface.co/licyk/invokeai-core-model/resolve/main/models/core/convert/bert-base-uncased/tokenizer.json "$invokeai_path"/invokeai/models/core/convert/bert-base-uncased

@@ -50,7 +50,7 @@ term_sd_launch_args_manager()
                 ;;
             --unset-python-path)
                 rm -f term-sd/config/python-path.conf
-                term_sd_echo "已删除自定义Python解释器路径配置"
+                term_sd_echo "已删除自定义 Python 解释器路径配置"
                 ;;
             --bar)
                 term_sd_launch_args_input="--bar"
@@ -58,7 +58,7 @@ term_sd_launch_args_manager()
             --update-pip)
                 export pip_manager_update=0
                 export PIP_DISABLE_PIP_VERSION_CHECK=0
-                term_sd_echo "进入虚拟环境时将更新pip软件包管理器"
+                term_sd_echo "进入虚拟环境时将更新 Pip 软件包管理器"
                 ;;
             --remove-term-sd)
                 term_sd_remove
@@ -71,7 +71,7 @@ term_sd_launch_args_manager()
                 term_sd_launch_args_input="--extra"
                 ;;
             --debug)
-                term_sd_echo "显示Term-SD调试信息"
+                term_sd_echo "显示 Term-SD 调试信息"
                 export term_sd_debug_mode=0
                 ;;
             *)
@@ -93,26 +93,26 @@ term_sd_args_help()
     --help
         显示启动参数帮助
     --extra script_name
-        启动扩展脚本选择列表,当选项后面输入了脚本名,则直接启动指定的脚本,否则启动扩展脚本选择界面
+        启动扩展脚本选择列表, 当选项后面输入了脚本名, 则直接启动指定的脚本, 否则启动扩展脚本选择界面
     --reinstall-term-sd
-        重新安装Term-SD
+        重新安装 Term-SD
     --remove-term-sd
-        卸载Term-SD
+        卸载 Term-SD
     --quick-cmd
-        添加Term-SD快捷启动命令到shell
+        添加 Term-SD 快捷启动命令到 Shell
     --set-python-path python_path
-        手动指定Python解释器路径,当选项后面输入了路径,则直接使用输入的路径来设置Python解释器路径(建议用" "把路径括起来,防止路径输入错误),否则启动设置界面
+        手动指定 Python 解释器路径, 当选项后面输入了路径, 则直接使用输入的路径来设 置Python 解释器路径 (建议用" "把路径括起来, 防止路径输入错误), 否则启动设置界面
     --unset-python-path
-        删除自定义Python解释器路径配置
+        删除自定义 Python 解释器路径配置
     --update-pip
-        进入虚拟环境时更新pip软件包管理器
+        进入虚拟环境时更新 Pip 软件包管理器
     --bar display_mode
-        设置Term-SD初始化进度条的显示样式,有以下显示模式:
-            none:禁用进度条显示
-            normal:使用默认的显示模式
-            new:使用新的进度条显示
+        设置 Term-SD 初始化进度条的显示样式, 有以下显示模式:
+            none: 禁用进度条显示
+            normal: 使用默认的显示模式
+            new: 使用新的进度条显示
     --debug
-        显示Term-SD安装AI软件时使用的命令
+        显示 Term-SD 安装 AI 软件时使用的命令
 EOF
 }
 
@@ -123,16 +123,16 @@ term_sd_extra_scripts_launch()
         term_sd_extra_scripts
     else
         if [ -f "term-sd/extra/$(echo $@ | awk '{sub(".sh","")}1').sh" ];then
-            term_sd_print_line "${extra_script_dir_list_select}脚本启动"
-            term_sd_echo "启动$(echo $@ | awk '{sub(".sh","")}1')脚本中"
+            term_sd_print_line "${extra_script_dir_list_select} 脚本启动"
+            term_sd_echo "启动 $(echo $@ | awk '{sub(".sh","")}1') 脚本中"
             . ./term-sd/extra/$(echo $@ | awk '{sub(".sh","")}1').sh
             term_sd_print_line
-            term_sd_echo "退出$(echo $@ | awk '{sub(".sh","")}1')脚本"
+            term_sd_echo "退出 $(echo $@ | awk '{sub(".sh","")}1') 脚本"
             exit 0
         else
             term_sd_print_line
-            term_sd_echo "未找到$(echo $@ | awk '{sub(".sh","")}1')脚本"
-            term_sd_echo "退出Term-SD"
+            term_sd_echo "未找到 $(echo $@ | awk '{sub(".sh","")}1') 脚本"
+            term_sd_echo "退出 Term-SD"
             exit 1
         fi
     fi
@@ -145,7 +145,12 @@ term_sd_extra_scripts()
     local extra_script_dir_list_select
 
     extra_script_dir_list=$(ls -l "term-sd/extra" --time-style=+"%Y-%m-%d" | awk -F ' ' ' { print $7 " " $6 } ')
-    extra_script_dir_list_select=$(dialog --erase-on-exit --title "Term-SD" --backtitle "扩展脚本选项" --ok-label "确认" --cancel-label "取消" --menu "请选择要启动的脚本" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+    extra_script_dir_list_select=$(dialog --erase-on-exit \
+        --title "Term-SD" \
+        --backtitle "扩展脚本选项" \
+        --ok-label "确认" --cancel-label "取消" \
+        --menu "请选择要启动的脚本" \
+        $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "Term-SD" "<---------" \
         $extra_script_dir_list \
         "退出" "<---------" \
@@ -165,15 +170,15 @@ term_sd_extra_scripts()
                     exit 0
                     ;;
                 *)
-                    term_sd_print_line "${extra_script_dir_list_select}脚本启动"
+                    term_sd_print_line "${extra_script_dir_list_select} 脚本启动"
                     . ./term-sd/extra/$extra_script_dir_list_select
                     term_sd_print_line
-                    term_sd_echo "退出$(echo $extra_script_dir_list_select | awk '{sub(".sh","")}1')脚本"
+                    term_sd_echo "退出 $(echo $extra_script_dir_list_select | awk '{sub(".sh","")}1') 脚本"
                     exit 0
             esac
             ;;
         *)
-            term_sd_echo "退出Term-SD"
+            term_sd_echo "退出 Term-SD"
             exit 0
             ;;
     esac
@@ -197,7 +202,7 @@ term_sd_read()
 term_sd_pause()
 {
     term_sd_print_line
-    term_sd_echo "执行结束,请按回车键继续"
+    term_sd_echo "执行结束, 请按回车键继续"
     read
 }
 
@@ -211,7 +216,7 @@ term_sd_test_args()
 term_sd_unknown_args_echo()
 {
     if [ "$(term_sd_test_args "$@")" = 0 ] && [ ! "$@" = "--null" ];then # 测试输入值是参数还是选项
-        term_sd_echo "未知参数 \"$@\""
+        term_sd_echo "未知参数: \"$@\""
     fi
 }
 
@@ -239,23 +244,23 @@ term_sd_test_empty_dir()
 term_sd_loading_bar_setting()
 {
     if [ -z "$*" ];then
-        term_sd_echo "未指定Term-SD初始化进度条的显示模式"
+        term_sd_echo "未指定 Term-SD 初始化进度条的显示模式"
     else
         case $@ in
             none)
                 echo "none" > term-sd/config/term-sd-bar.conf
-                term_sd_echo "禁用Term-SD初始化进度显示"
+                term_sd_echo "禁用 Term-SD 初始化进度显示"
                 ;;
             normal)
                 rm -f term-sd/config/term-sd-bar.conf
-                term_sd_echo "使用默认Term-SD初始化进度显示模式"
+                term_sd_echo "使用默认 Term-SD 初始化进度显示模式"
                 ;;
             new)
                 echo "new" > term-sd/config/term-sd-bar.conf
-                term_sd_echo "使用新的Term-SD初始化进度显示模式"
+                term_sd_echo "使用新的 Term-SD 初始化进度显示模式"
                 ;;
             *)
-                term_sd_echo "未知的Term-SD初始化进度条显示模式"
+                term_sd_echo "未知的 Term-SD 初始化进度条显示模式"
                 ;;
         esac
     fi
@@ -373,12 +378,12 @@ term_sd_auto_update()
     if [ $? = 0 ];then # 网络连接正常时再进行更新
         term_sd_remote_hash=$(echo $term_sd_remote_hash | awk '{print $1}')
         if [ ! $term_sd_local_hash = $term_sd_remote_hash ];then
-            term_sd_echo "检测到Term-SD有新版本"
+            term_sd_echo "检测到 Term-SD 有新版本"
             term_sd_echo "是否选择更新(yes/no)?"
-            term_sd_echo "提示:输入yes或no后回车"
+            term_sd_echo "提示: 输入 yes 或 no 后回车"
             case $(term_sd_read) in
                 yes|y|YES|Y)
-                    term_sd_echo "更新Term-SD中"
+                    term_sd_echo "更新 Term-SD 中"
                     cd term-sd
                     git pull
                     if [ $? = 0 ];then
@@ -386,22 +391,22 @@ term_sd_auto_update()
                         cp -f term-sd/term-sd.sh .
                         chmod +x term-sd.sh
                         term_sd_restart_info=0
-                        term_sd_echo "Term-SD更新成功"
+                        term_sd_echo " Term-SD 更新成功"
                     else
                         cd ..
-                        term_sd_echo "Term-SD更新失败"
+                        term_sd_echo "Term-SD 更新失败"
                     fi
                     ;;
                 *)
-                    term_sd_echo "跳过Term-SD的更新"
+                    term_sd_echo "跳过 Term-SD 的更新"
                     ;;
             esac
         else
-            term_sd_echo "Term-SD已经是最新版本"
+            term_sd_echo "Term-SD 已经是最新版本"
         fi
     else
-        term_sd_echo "Term-SD连接更新源失败,跳过更新"
-        term_sd_echo "提示:请检查网络连接是否正常,若网络正常,可尝试更换更新源或使用科学上网解决"
+        term_sd_echo "Term-SD 连接更新源失败, 跳过更新"
+        term_sd_echo "提示: 请检查网络连接是否正常, 若网络正常, 可尝试更换更新源或使用科学上网解决"
     fi
 }
 
@@ -410,26 +415,26 @@ term_sd_install_mirror_select()
 {
     while true
     do
-        term_sd_echo "请选择Term-SD下载源"
-        term_sd_echo "1、github源"
-        term_sd_echo "2、gitlab源"
-        term_sd_echo "3、gitee源"
+        term_sd_echo "请选择 Term-SD 下载源"
+        term_sd_echo "1、Github 源"
+        term_sd_echo "2、Gitlab 源"
+        term_sd_echo "3、Gitee 源"
         term_sd_echo "4、极狐源"
-        term_sd_echo "5、代理源(mirror.ghproxy.com)"
-        term_sd_echo "提示:输入数字后回车"
+        term_sd_echo "5、代理源 (mirror.ghproxy.com)"
+        term_sd_echo "提示: 输入数字后回车"
         case $(term_sd_read) in
             1)
-                term_sd_echo "选择github源"
+                term_sd_echo "选择 Github 源"
                 term_sd_install_mirror="https://github.com/licyk/term-sd"
                 break
                 ;;
             2)
-                term_sd_echo "选择gitlab源"
+                term_sd_echo "选择 Gitlab 源"
                 term_sd_install_mirror="https://gitlab.com/licyk/term-sd"
                 break
                 ;;
             3)
-                term_sd_echo "选择gitee源"
+                term_sd_echo "选择 Gitee 源"
                 term_sd_install_mirror="https://gitee.com/four-dishes/term-sd"
                 break
                 ;;
@@ -439,12 +444,12 @@ term_sd_install_mirror_select()
                 break
                 ;;
             5)
-                term_sd_echo "选择代理源(mirror.ghproxy.com)"
+                term_sd_echo "选择代理源 (mirror.ghproxy.com)"
                 term_sd_install_mirror="https://mirror.ghproxy.com/github.com/licyk/term-sd"
                 break
                 ;;
             *)
-                term_sd_echo "输入有误,请重试"
+                term_sd_echo "输入有误, 请重试"
                 ;;
         esac
     done
@@ -454,58 +459,58 @@ term_sd_install_mirror_select()
 term_sd_install()
 {
     if [ ! -d "term-sd" ];then
-        term_sd_echo "检测到Term-SD未安装,是否进行安装(yes/no)?"
-        term_sd_echo "提示:输入yes或no后回车"
+        term_sd_echo "检测到 Term-SD 未安装, 是否进行安装(yes/no)?"
+        term_sd_echo "提示: 输入 yes 或 no 后回车"
         case $(term_sd_read) in
             yes|y|YES|Y)
                 term_sd_install_mirror_select
-                term_sd_echo "下载Term-SD中"
+                term_sd_echo "下载 Term-SD 中"
                 git clone $term_sd_install_mirror
                 if [ $? = 0 ];then
                     cp -f term-sd/term-sd.sh .
                     chmod +x term-sd.sh
                     term_sd_restart_info=0
-                    term_sd_echo "Term-SD安装成功"
+                    term_sd_echo "Term-SD 安装成功"
                     echo "3" > term-sd/config/term-sd-watch-retry.conf
                     export term_sd_cmd_retry=3
-                    term_sd_echo "Term-SD命令执行监测设置已自动设置"
+                    term_sd_echo "Term-SD 命令执行监测设置已自动设置"
                     touch term-sd/config/term-sd-auto-update.lock
                     date +'%Y-%m-%d %H:%M:%S' > term-sd/config/term-sd-auto-update-time.conf
-                    term_sd_echo "Term-SD自动更新已自动设置"
+                    term_sd_echo "Term-SD 自动更新已自动设置"
                 else
-                    term_sd_echo "Term-SD安装失败"
+                    term_sd_echo "Term-SD 安装失败"
                     exit 1
                 fi
                 ;;
             *)
-                term_sd_echo "退出Term-SD"
+                term_sd_echo "退出 Term-SD"
                 exit 0
                 ;;
         esac
     elif [ ! -d "term-sd/.git" ];then
-        term_sd_echo "检测到Term-SD的.git目录不存在,将会导致Term-SD无法更新,是否重新安装(yes/no)?"
-        term_sd_echo "警告:该操作将永久删除Term-SD目录中的所有文件,包括AI软件下载的部分模型文件(存在于Term-SD目录中的\"cache\"文件夹,如有必要,请备份该文件夹)"
-        term_sd_echo "提示:输入yes或no后回车"
+        term_sd_echo "检测到 Term-SD 的 .git 目录不存在, 将会导致 Term-SD 无法更新, 是否重新安装(yes/no)?"
+        term_sd_echo "警告: 该操作将永久删除 Term-SD 目录中的所有文件, 包括 AI 软件下载的部分模型文件 (存在于 Term-SD 目录中的 \"cache\" 文件夹, 如有必要, 请备份该文件夹)"
+        term_sd_echo "提示: 输入 yes 或 no 后回车"
         case $(term_sd_read) in
             yes|y|YES|Y)
                 term_sd_install_mirror_select
-                term_sd_echo "清除Term-SD文件中"
+                term_sd_echo "清除 Term-SD 文件中"
                 rm -rf term-sd
-                term_sd_echo "清除完成,开始安装Term-SD"
+                term_sd_echo "清除完成, 开始安装 Term-SD"
                 git clone $term_sd_install_mirror
                 if [ $? = 0 ];then
                     cp -f term-sd/term-sd.sh .
                     chmod +x term-sd.sh
                     term_sd_restart_info=0
-                    term_sd_echo "Term-SD安装成功"
+                    term_sd_echo "Term-SD 安装成功"
                     echo "3" > term-sd/config/term-sd-watch-retry.conf
                     export term_sd_cmd_retry=3
-                    term_sd_echo "Term-SD命令执行监测设置已自动设置"
+                    term_sd_echo "Term-SD 命令执行监测设置已自动设置"
                     touch term-sd/config/term-sd-auto-update.lock
                     date +'%Y-%m-%d %H:%M:%S' > term-sd/config/term-sd-auto-update-time.conf
-                    term_sd_echo "Term-SD自动更新已自动设置"
+                    term_sd_echo "Term-SD 自动更新已自动设置"
                 else
-                    term_sd_echo "Term-SD安装失败"
+                    term_sd_echo "Term-SD 安装失败"
                     exit 1
                 fi
                 ;;
@@ -520,34 +525,34 @@ term_sd_install()
 term_sd_reinstall()
 {
     if which git > /dev/null 2>&1 ;then
-        term_sd_echo "是否重新安装Term-SD(yes/no)?"
-        term_sd_echo "警告:该操作将永久删除Term-SD目录中的所有文件,包括AI软件下载的部分模型文件(存在于Term-SD目录中的\"cache\"文件夹,如有必要,请备份该文件夹)"
-        term_sd_echo "提示:输入yes或no后回车"
+        term_sd_echo "是否重新安装 Term-SD (yes/no)?"
+        term_sd_echo "警告: 该操作将永久删除 Term-SD 目录中的所有文件, 包括 AI 软件下载的部分模型文件 (存在于 Term-SD 目录中的 \"cache\" 文件夹, 如有必要, 请备份该文件夹)"
+        term_sd_echo "提示: 输入 yes 或 no 后回车"
         case $(term_sd_read) in
             yes|y|YES|Y)
                 term_sd_install_mirror_select
-                term_sd_echo "清除Term-SD文件中"
+                term_sd_echo "清除 Term-SD 文件中"
                 rm -rf term-sd
-                term_sd_echo "清除完成,开始安装Term-SD"
+                term_sd_echo "清除完成, 开始安装 Term-SD"
                 git clone $term_sd_install_mirror
                 if [ $? = 0 ];then
                     cp -f term-sd/term-sd.sh .
                     chmod +x term-sd.sh
                     term_sd_restart_info=0
-                    term_sd_echo "Term-SD安装成功"
+                    term_sd_echo "Term-SD 安装成功"
                     echo "3" > term-sd/config/term-sd-watch-retry.conf
                     export term_sd_cmd_retry=3
-                    term_sd_echo "Term-SD命令执行监测设置已自动设置"
+                    term_sd_echo "Term-SD 命令执行监测设置已自动设置"
                     touch term-sd/config/term-sd-auto-update.lock
                     date +'%Y-%m-%d %H:%M:%S' > term-sd/config/term-sd-auto-update-time.conf
-                    term_sd_echo "Term-SD自动更新已自动设置"
+                    term_sd_echo "Term-SD 自动更新已自动设置"
                 else
-                    term_sd_echo "Term-SD安装失败"
+                    term_sd_echo "Term-SD 安装失败"
                     exit 1
                 fi
                 ;;
             *)
-                term_sd_echo "退出Term-SD"
+                term_sd_echo "退出 Term-SD"
                 exit 0
                 ;;
         esac
@@ -557,18 +562,18 @@ term_sd_reinstall()
 # term-sd卸载功能
 term_sd_remove()
 {
-    term_sd_echo "是否卸载Term-SD"
-    term_sd_echo "警告:该操作将永久删除Term-SD目录中的所有文件,包括AI软件下载的部分模型文件(存在于Term-SD目录中的\"cache\"文件夹,如有必要,请备份该文件夹)"
-    term_sd_echo "提示:输入yes或no后回车"
+    term_sd_echo "是否卸载 Term-SD?"
+    term_sd_echo "警告: 该操作将永久删除 Term-SD 目录中的所有文件, 包括 AI 软件下载的部分模型文件 (存在于 Term-SD 目录中的 \"cache\" 文件夹, 如有必要, 请备份该文件夹)"
+    term_sd_echo "提示: 输入 yes 或 no 后回车"
     case $(term_sd_read) in
         y|yes|YES|Y)
-            term_sd_echo "开始卸载Term-SD"
+            term_sd_echo "开始卸载 Term-SD"
             rm -rf term-sd
             rm -rf term-sd.sh
             if [ $user_shell = bash ] || [ $user_shell = zsh ];then
                 remove_config_from_shell
             fi
-            term_sd_echo "Term-SD卸载完成"
+            term_sd_echo "Term-SD 卸载完成"
             ;;
         *)
             term_sd_echo "取消操作"
@@ -584,12 +589,12 @@ install_cmd_to_shell()
     do
         case $user_shell in
             bash|zsh)
-                term_sd_echo "是否将Term-SD快捷启动指令添加到shell环境中?"
-                term_sd_echo "添加后可使用\"term_sd\",\"tsd\"指令启动Term-SD"
+                term_sd_echo "是否将 Term-SD 快捷启动指令添加到 Shell 环境中?"
+                term_sd_echo "添加后可使用 \"term_sd\" , \"tsd\" 指令启动 Term-SD"
                 term_sd_echo "1、添加"
                 term_sd_echo "2、删除"
                 term_sd_echo "3、退出"
-                term_sd_echo "提示:输入数字后回车"
+                term_sd_echo "提示: 输入数字后回车"
                 case $(term_sd_read) in
                     1)
                         install_config_to_shell
@@ -603,12 +608,12 @@ install_cmd_to_shell()
                         exit 1
                         ;;
                     *)
-                        term_sd_echo "输入有误,请重试"
+                        term_sd_echo "输入有误, 请重试"
                         ;;
                 esac
                 ;;
             *)
-                term_sd_echo "不支持该shell"
+                term_sd_echo "不支持该 Shell"
                 ;;
         esac
     done
@@ -618,12 +623,12 @@ install_cmd_to_shell()
 install_config_to_shell()
 {
     if cat ~/.${user_shell}rc | grep term_sd > /dev/null ;then
-        term_sd_echo "配置已存在,添加前请删除原有配置"
+        term_sd_echo "配置已存在, 添加前请删除原有配置"
     else
         echo "# Term-SD" >> ~/.${user_shell}rc
         echo "term_sd(){ local term_sd_start_path=\$(pwd) ; cd \"$(pwd)\" ; ./term-sd.sh \"\$@\" ; cd \"\$term_sd_start_path\" > /dev/null ; }" >> ~/.${user_shell}rc
         echo "alias tsd='term_sd'" >> ~/.${user_shell}rc
-        term_sd_echo "配置添加完成,重启shell以生效"
+        term_sd_echo "配置添加完成, 重启 Shell 以生效"
     fi
 }
 
@@ -633,7 +638,7 @@ remove_config_from_shell()
     sed -i '/# Term-SD/d' ~/.${user_shell}rc
     sed -i '/term_sd(){/d' ~/.${user_shell}rc
     sed -i '/alias tsd/d' ~/.${user_shell}rc
-    term_sd_echo "配置已删除,重启shell以生效"
+    term_sd_echo "配置已删除, 重启 Shell 以生效"
 }
 
 # 手动指定python路径功能
@@ -644,30 +649,30 @@ set_python_path()
     while true
     do
         if [ -z "$*" ];then
-            term_sd_echo "请输入Python解释器的路径"
-            term_sd_echo "提示:输入完后请回车保存,或者输入exit退出"
+            term_sd_echo "请输入 Python 解释器的路径"
+            term_sd_echo "提示: 输入完后请回车保存, 或者输入 \"exit\" 退出"
             read -p "===============================> " set_python_path_option
             if [ -z "$set_python_path_option" ];then
-                term_sd_echo "未输入，请重试"
+                term_sd_echo "未输入, 请重试"
             elif [ "$set_python_path_option" = "exit" ];then
-                term_sd_echo "退出Python路径指定功能"
+                term_sd_echo "退出 Python 解释器路径指定功能"
                 break
             else
                 term_sd_python_path="$set_python_path_option"
                 echo $term_sd_python_path > term-sd/config/python-path.conf
-                term_sd_echo "Python解释器路径指定完成"
+                term_sd_echo "Python 解释器路径指定完成"
                 term_sd_echo "提示:"
-                term_sd_echo "使用--set-python-path重新设置Python解释器路径"
-                term_sd_echo "使用--unset-python-path删除Python解释器路径设置"
+                term_sd_echo "使用 \"--set-python-path\" 重新设置 Python 解释器路径"
+                term_sd_echo "使用 \"--unset-python-path\" 删除 Python 解释器路径设置"
                 break
             fi
         else # 直接将选项后面的参数作为路径
-            term_sd_echo "设置Python解释器路径: $@"
+            term_sd_echo "设置 Python 解释器路径: $@"
             echo "$@" > term-sd/config/python-path.conf
-            term_sd_echo "Python解释器路径指定完成"
+            term_sd_echo "Python 解释器路径指定完成"
             term_sd_echo "提示:"
-            term_sd_echo "使用--set-python-path重新设置Python解释器路径"
-            term_sd_echo "使用--unset-python-path删除Python解释器路径设置"
+            term_sd_echo "使用 \"--set-python-path\" 重新设置 Python 解释器路径"
+            term_sd_echo "使用 \"--unset-python-path\" 删除 Python 解释器路径设置"
             break
         fi
     done
@@ -677,7 +682,7 @@ set_python_path()
 prepare_tcmalloc()
 {
     if [[ "${OSTYPE}" == "linux"* ]] && [[ -z "${NO_TCMALLOC}" ]] && [[ -z "${LD_PRELOAD}" ]]; then
-        term_sd_echo "检测到系统为Linux, 尝试启用内存优化"
+        term_sd_echo "检测到系统为 Linux, 尝试启用内存优化"
         # 检查glibc版本
         LIBC_VER=$(echo $(ldd --version | awk 'NR==1 {print $NF}') | grep -oP '\d+\.\d+')
         term_sd_echo "glibc 版本为 $LIBC_VER"
@@ -754,10 +759,10 @@ term_sd_print_line "Term-SD"
 # 检测term-sd是直接启动还是重启
 case $term_sd_env_prepare_info in
     0) # 检测到是重启
-        term_sd_echo "重启Term-SD中"
+        term_sd_echo "重启 Term-SD 中"
         ;;
     *)
-        term_sd_echo "Term-SD初始化中"
+        term_sd_echo "Term-SD 初始化中"
         term_sd_launch_args_manager "$@" # 处理用户输入的参数
         ;;
 esac
@@ -765,15 +770,15 @@ esac
 # 目录结构检测,防止用户直接运行Term-SD目录内的term-sd.sh
 if [ ! -d "term-sd" ] && [ -d ".git" ] && [ -d "modules" ] && [ -f "modules/init.sh" ] && [ -d "extra" ];then
     term_sd_echo "检测到目录错误"
-    term_sd_echo "禁止用户直接在Term-SD目录里运行Term-SD"
-    term_sd_echo "请将term-sd.sh文件复制到Term-SD目录外面(和Term-SD目录放在一起)"
-    term_sd_echo "再运行目录外面的term-sd.sh"
-    term_sd_echo "退出Term-SD"
+    term_sd_echo "禁止用户直接在 Term-SD 目录里运行 Term-SD"
+    term_sd_echo "请将 term-sd.sh 文件复制到 Term-SD 目录外面(和 Term-SD 目录放在一起)"
+    term_sd_echo "再运行目录外面的 term-sd.sh"
+    term_sd_echo "退出 Term-SD"
     exit 1
 elif [ ! "$(dirname "$(echo $0)")" = "." ];then
-    term_sd_echo "检测到未在term-sd.sh文件所在目录运行Term-SD"
-    term_sd_echo "请进入term-sd.sh文件所在目录后再次运行Term-SD"
-    term_sd_echo "退出Term-SD"
+    term_sd_echo "检测到未在 term-sd.sh 文件所在目录运行 Term-SD"
+    term_sd_echo "请进入 term-sd.sh 文件所在目录后再次运行 Term-SD"
+    term_sd_echo "退出 Term-SD"
     exit 1
 fi
 
@@ -947,12 +952,12 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
             fi
         else
             if which "$term_sd_python_path" > /dev/null 2>&1 ;then
-                term_sd_echo "使用自定义Python解释器路径:$term_sd_python_path"
+                term_sd_echo "使用自定义 Python 解释器路径: $term_sd_python_path"
             else
-                term_sd_echo "手动指定的Python路径错误"
+                term_sd_echo "手动指定的 Python 路径错误"
                 term_sd_echo "提示:"
-                term_sd_echo "使用--set-python-path重新设置Python解释器路径"
-                term_sd_echo "使用--unset-python-path删除Python解释器路径设置"
+                term_sd_echo "使用 \"--set-python-path\" 重新设置 Python 解释器路径"
+                term_sd_echo "使用 \"--unset-python-path\" 删除 Python 解释器路径设置"
                 missing_depend_info=1
                 missing_depend="$missing_depend python,"
             fi
@@ -1002,21 +1007,21 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
                 print_line_to_shell "缺少以下依赖"
                 echo $missing_depend_macos
                 print_line_to_shell
-                term_sd_echo "缺少依赖将影响AI软件的安装,请退出Term-SD并使用homebrew(如果没有homebrew,则先安装homebrew,再用homebrew去安装其他缺少依赖)安装缺少的依赖后重试"
+                term_sd_echo "缺少依赖将影响 AI 软件的安装, 请退出 Term-SD 并使用 Homebrew (如果没有 Homebrew, 则先安装 Homebrew, 再用 Homebrew 去安装其他缺少依赖) 安装缺少的依赖后重试"
                 sleep 5
             fi
         fi
 
         # 判断依赖检测结果
         if [ $missing_depend_info = 0 ];then
-            term_sd_echo "依赖检测完成,无缺失依赖"
+            term_sd_echo "依赖检测完成, 无缺失依赖"
             prepare_tcmalloc # 配置内存优化(Linux)
             term_sd_install
             if [ -d "term-sd/modules" ];then # 找到目录后才启动
                 term_sd_auto_update_trigger
                 export term_sd_env_prepare_info=0 # 用于检测term-sd的启动状态
             else
-                term_sd_echo "Term-SD模块丢失,\"输入./term-sd.sh --reinstall-term-sd\"重新安装Term-SD"
+                term_sd_echo "Term-SD 模块丢失 ,输入 \"./term-sd.sh --reinstall-term-sd\" 重新安装 Term-SD"
                 exit 1
             fi
         else
@@ -1066,6 +1071,6 @@ case $term_sd_extra_scripts_name in
 esac
 
 # 启动terrm-sd
-term_sd_echo "启动Term-SD中"
+term_sd_echo "启动 Term-SD 中"
 term_sd_version
 main

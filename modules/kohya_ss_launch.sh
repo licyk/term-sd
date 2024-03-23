@@ -7,13 +7,17 @@ kohya_ss_launch_args_setting()
     local kohya_ss_launch_args_setting_dialog
     local launch_args
 
-    kohya_ss_launch_args_setting_dialog=$(
-        dialog --erase-on-exit --notags --title "kohya_ss管理" --backtitle "kohya_ss启动参数选项" --ok-label "确认" --cancel-label "取消" --checklist "请选择kohya_ss启动参数,确认之后将覆盖原有启动参数配置" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
-        "1" "(listen)开放远程连接" OFF \
-        "2" "(inbrowser)启动webui完成后自动启动浏览器" ON \
-        "3" "(share)启用Gradio共享" OFF \
-        "4" "(language zh-CN)启用中文界面" ON \
-        "5" "(headless)禁用文件浏览按钮" OFF \
+    kohya_ss_launch_args_setting_dialog=$(dialog --erase-on-exit --notags \
+        --title "kohya_ss 管理" \
+        --backtitle "kohya_ss 启动参数选项" \
+        --ok-label "确认" --cancel-label "取消" \
+        --checklist "请选择 kohya_ss 启动参数, 确认之后将覆盖原有启动参数配置" \
+        $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        "1" "(listen) 开放远程连接" OFF \
+        "2" "(inbrowser) 启动 WebUI 完成后自动启动浏览器" ON \
+        "3" "(share) 启用 Gradio 共享" OFF \
+        "4" "(language zh-CN) 启用中文界面" ON \
+        "5" "(headless) 禁用文件浏览按钮" OFF \
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
@@ -58,8 +62,12 @@ kohya_ss_launch()
 
     while true
     do
-        kohya_ss_launch_dialog=$(
-            dialog --erase-on-exit --notags --title "kohya_ss管理" --backtitle "kohya_ss启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动kohya_ss/修改kohya_ss启动参数\n当前启动参数:\n$([ $venv_setup_status = 0 ] && echo python || echo "$term_sd_python_path") $(cat "$start_path"/term-sd/config/kohya_ss-launch.conf)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        kohya_ss_launch_dialog=$(dialog --erase-on-exit --notags \
+            --title "kohya_ss 管理" \
+            --backtitle "kohya_ss 启动选项" \
+            --ok-label "确认" --cancel-label "取消" \
+            --menu "请选择启动 kohya_ss / 修改 kohya_ss 启动参数\n当前启动参数: \n$([ $venv_setup_status = 0 ] && echo python || echo "$term_sd_python_path") $(cat "$start_path"/term-sd/config/kohya_ss-launch.conf)"\
+             $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
             "0" "> 返回" \
             "1" "> 启动" \
             "2" "> 配置预设启动参数" \
@@ -88,7 +96,14 @@ kohya_ss_launch_args_revise()
 {
     local kohya_ss_launch_args
 
-    kohya_ss_launch_args=$(dialog --erase-on-exit --title "kohya_ss管理" --backtitle "kohya_ss自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入kohya_ss启动参数" $term_sd_dialog_height $term_sd_dialog_width "$(cat "$start_path"/term-sd/config/kohya_ss-launch.conf | awk '{sub("kohya_gui.py ","")}1')" 3>&1 1>&2 2>&3)
+    kohya_ss_launch_args=$(dialog --erase-on-exit \
+        --title "kohya_ss 管理" \
+        --backtitle "kohya_ss 自定义启动参数选项" \
+        --ok-label "确认" --cancel-label "取消" \
+        --inputbox "请输入 kohya_ss 启动参数" \
+        $term_sd_dialog_height $term_sd_dialog_width \
+        "$(cat "$start_path"/term-sd/config/kohya_ss-launch.conf | awk '{sub("kohya_gui.py ","")}1')" \
+        3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
         term_sd_echo "设置启动参数: $kohya_ss_launch_args"

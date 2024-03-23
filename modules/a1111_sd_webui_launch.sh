@@ -7,72 +7,76 @@ a1111_sd_webui_launch_args_setting()
     local a1111_sd_webui_launch_args_dialog
     local launch_args
 
-    a1111_sd_webui_launch_args_dialog=$(
-        dialog --erase-on-exit --notags --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI启动参数选项" --ok-label "确认" --cancel-label "取消" --checklist "请选择A1111-Stable-Diffusion-Webui启动参数,确认之后将覆盖原有启动参数配置" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
-        "1" "(update-all-extensions)启动时更新所有扩展" OFF \
-        "2" "(skip-python-version-check)跳过检查Python版本" OFF \
-        "3" "(skip-torch-cuda-test)跳过CUDA可用性检查" OFF \
-        "4" "(reinstall-xformers)启动时重新安装xformers" OFF \
-        "5" "(reinstall-torch)启动时重新安装PyTorch" OFF \
-        "6" "(update-check)启动时检查更新" OFF \
-        "7" "(test-server)配置测试服务器" OFF \
-        "8" "(log-startup)显示详细启动日志" OFF \
-        "9" "(skip-prepare-environment)跳过所有环境准备工作" OFF \
-        "10" "(skip-install)跳过软件包的安装" OFF \
-        "11" "(dump-sysinfo)将系统信息文件保存到磁盘并退出" OFF \
-        "12" "(do-not-download-clip)跳过下载CLIP模型" OFF \
-        "13" "(no-half)关闭模型半精度优化" OFF \
-        "14" "(no-half-vae)关闭VAE模型半精度优化" OFF \
-        "15" "(no-progressbar-hiding)不隐藏gradio UI中进度条" OFF \
-        "16" "(allow-code)允许从webui执行自定义脚本" OFF \
-        "17" "(medvram)启用显存优化(显存<6g时推荐使用)" OFF \
-        "18" "(medvram-sdxl)仅在SDXL模型启用显存优化(显存<8g时推荐使用)" OFF \
-        "19" "(lowvram)启用显存优化(显存<4g时推荐使用)" OFF \
-        "20" "(lowram)将模型加载到显存中而不是内存中" OFF \
-        "21" "(precision full)使用模型全精度" OFF \
-        "22" "(upcast-sampling)使用向上采样法提高精度" OFF \
-        "23" "(share)通过gradio共享" OFF \
-        "24" "(enable-insecure-extension-access)允许在开放远程访问时安装插件" OFF \
-        "25" "(xformers)尝试使用xformers优化" ON \
-        "26" "(force-enable-xformers)强制使用xformers优化" OFF \
-        "27" "(xformers-flash-attention)使用xformers-flash优化(仅支持SD2.x以上)" OFF \
-        "28" "(opt-split-attention)使用split优化" OFF \
-        "29" "(opt-sub-quad-attention)使用sub-quad优化" OFF \
-        "30" "(opt-split-attention-invokeai)使用sub-quad-invokeai优化" OFF \
-        "31" "(opt-split-attention-v1)使用sub-quad-v1优化" OFF \
-        "32" "(opt-sdp-attention)使用sdp优化(仅限PyTorch2.0以上)" OFF \
-        "33" "(opt-sdp-no-mem-attention)使用无高效内存使用的sdp优化" OFF \
-        "34" "(disable-opt-split-attention)禁用split优化" OFF \
-        "35" "(disable-nan-check)禁用潜空间NAN检查" OFF \
-        "36" "(use-cpu)使用CPU进行生图" OFF \
-        "37" "(disable-model-loading-ram-optimization)禁用减少内存使用的优化" OFF \
-        "38" "(listen)开放远程连接" OFF \
-        "39" "(hide-ui-dir-config)隐藏webui目录配置" OFF \
-        "40" "(freeze-settings)冻结webui设置" OFF \
-        "41" "(gradio-debug)以debug模式启用gradio" OFF \
-        "42" "(opt-channelslast)使用channelslast内存格式优化" OFF \
-        "43" "(autolaunch)启动webui完成后自动启动浏览器" ON \
-        "44" "(theme dark)使用黑暗主题" ON \
-        "45" "(use-textbox-seed)使用文本框在webui中生成的种子" OFF \
-        "46" "(disable-console-progressbars)禁用控制台进度条显示" OFF \
-        "47" "(enable-console-prompts)启用在生图时输出提示词到控制台" OFF \
-        "48" "(disable-safe-unpickle)禁用检查模型是否包含恶意代码" OFF \
-        "49" "(api)启用api" OFF \
-        "50" "(api-log)启用输出所有api请求的日志记录" OFF \
-        "51" "(nowebui)不加载webui界面" OFF \
-        "52" "(ui-debug-mode)不加载模型启动webui(ui debug)" OFF \
-        "53" "(administrator)启用管理员权限" OFF \
-        "54" "(disable-tls-verify)禁用tls证书验证" OFF \
-        "55" "(no-gradio-queue)禁用gradio队列" OFF \
-        "56" "(skip-version-check)禁用PyTorch,xformers版本检查" OFF \
-        "57" "(no-hashing)禁用模型hash检查" OFF \
-        "58" "(no-download-sd-model)禁用自动下载模型,即使模型路径无模型" OFF \
-        "59" "(add-stop-route)添加/_stop路由以停止服务器" OFF \
-        "60" "(api-server-stop)通过API启用服务器停止/重启/终止功能" OFF \
-        "61" "(disable-all-extensions)禁用所有扩展运行" OFF \
-        "62" "(disable-extra-extensions)禁用非内置的扩展运行" OFF \
-        "63" "(use-ipex)使用intel XPU作为生图后端" OFF \
-        "64" "(skip-load-model-at-start)启动webui时不加载模型,加速启动" ON \
+    a1111_sd_webui_launch_args_dialog=$(dialog --erase-on-exit --notags \
+        --title "Stable-Diffusion-WebUI 管理" \
+        --backtitle "Stable-Diffusion-WebUI 启动参数选项" \
+        --ok-label "确认" --cancel-label "取消" \
+        --checklist "请选择 A1111-Stable-Diffusion-WebUI 启动参数, 确认之后将覆盖原有启动参数配置" \
+        $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        "1" "(update-all-extensions) 启动时更新所有扩展" OFF \
+        "2" "(skip-python-version-check) 跳过检查 Python 版本" OFF \
+        "3" "(skip-torch-cuda-test) 跳过 CUDA 可用性检查" OFF \
+        "4" "(reinstall-xformers) 启动时重新安装 xFormers" OFF \
+        "5" "(reinstall-torch) 启动时重新安装 PyTorch" OFF \
+        "6" "(update-check) 启动时检查更新" OFF \
+        "7" "(test-server) 配置测试服务器" OFF \
+        "8" "(log-startup) 显示详细启动日志" OFF \
+        "9" "(skip-prepare-environment) 跳过所有环境准备工作" OFF \
+        "10" "(skip-install) 跳过软件包的安装" OFF \
+        "11" "(dump-sysinfo) 将系统信息文件保存到磁盘并退出" OFF \
+        "12" "(do-not-download-clip) 跳过下载 CLIP 模型" OFF \
+        "13" "(no-half) 关闭 UNet 半精度优化" OFF \
+        "14" "(no-half-vae) 关闭 VAE 模型半精度优化" OFF \
+        "15" "(no-progressbar-hiding) 不隐藏 Gradio UI 中进度条" OFF \
+        "16" "(allow-code) 允许从 WebUI 执行自定义脚本" OFF \
+        "17" "(medvram) 启用显存优化 (显存 < 6g 时推荐使用)" OFF \
+        "18" "(medvram-sdxl) 仅在 SDXL 模型启用显存优化 (显存 < 8g 时推荐使用)" OFF \
+        "19" "(lowvram) 启用显存优化 (显存 < 4g 时推荐使用)" OFF \
+        "20" "(lowram) 将模型加载到显存中而不是内存中" OFF \
+        "21" "(precision full) 使用模型全精度" OFF \
+        "22" "(upcast-sampling) 使用向上采样法提高精度" OFF \
+        "23" "(share) 通过 Gradio 共享" OFF \
+        "24" "(enable-insecure-extension-access) 允许在开放远程访问时安装插件" OFF \
+        "25" "(xformers) 尝试使用 xFormers 优化" ON \
+        "26" "(force-enable-xformers) 强制使用 xFormers 优化" OFF \
+        "27" "(xformers-flash-attention) 使用 xFormers-Flash优化 (仅支持 SD2.x 以上)" OFF \
+        "28" "(opt-split-attention) 使用 Split 优化" OFF \
+        "29" "(opt-sub-quad-attention) 使用 Sub-Quad 优化" OFF \
+        "30" "(opt-split-attention-invokeai) 使用 Sub-Quad-InvokeAI 优化" OFF \
+        "31" "(opt-split-attention-v1) 使用 Sub-Quad-V1 优化" OFF \
+        "32" "(opt-sdp-attention) 使用 Sdp 优化 (仅限 PyTorch2.0 以上)" OFF \
+        "33" "(opt-sdp-no-mem-attention) 使用无高效内存使用的 Sdp 优化" OFF \
+        "34" "(disable-opt-split-attention) 禁用 Split 优化" OFF \
+        "35" "(disable-nan-check) 禁用潜空间 NAN 检查" OFF \
+        "36" "(use-cpu) 使用 CPU 进行生图" OFF \
+        "37" "(disable-model-loading-ram-optimization) 禁用减少内存使用的优化" OFF \
+        "38" "(listen) 开放远程连接" OFF \
+        "39" "(hide-ui-dir-config) 隐藏 WebUI 目录配置" OFF \
+        "40" "(freeze-settings) 冻结 WebUI 设置" OFF \
+        "41" "(gradio-debug) 以 Debug 模式启用 Gradio" OFF \
+        "42" "(opt-channelslast) 使用 Channelslast 内存格式优化" OFF \
+        "43" "(autolaunch) 启动 WebUI 完成后自动启动浏览器" ON \
+        "44" "(theme dark) 使用黑暗主题" ON \
+        "45" "(use-textbox-seed) 使用文本框在 WebUI 中生成的种子" OFF \
+        "46" "(disable-console-progressbars) 禁用控制台进度条显示" OFF \
+        "47" "(enable-console-prompts) 启用在生图时输出提示词到控制台" OFF \
+        "48" "(disable-safe-unpickle) 禁用检查模型是否包含恶意代码" OFF \
+        "49" "(api) 启用 API" OFF \
+        "50" "(api-log) 启用输出所有 API 请求的日志记录" OFF \
+        "51" "(nowebui) 不加载 WebUI 界面" OFF \
+        "52" "(ui-debug-mode) 不加载模型启动 WebUI (UI Debug)" OFF \
+        "53" "(administrator) 启用管理员权限" OFF \
+        "54" "(disable-tls-verify) 禁用 TLS 证书验证" OFF \
+        "55" "(no-gradio-queue) 禁用 Gradio 队列" OFF \
+        "56" "(skip-version-check) 禁用 PyTorch, xFormers 版本检查" OFF \
+        "57" "(no-hashing) 禁用模型 Hash 检查" OFF \
+        "58" "(no-download-sd-model) 禁用自动下载模型, 即使模型路径无模型" OFF \
+        "59" "(add-stop-route) 添加 /_stop 路由以停止服务器" OFF \
+        "60" "(api-server-stop) 通过 API 启用服务器停止/重启/终止功能" OFF \
+        "61" "(disable-all-extensions) 禁用所有扩展运行" OFF \
+        "62" "(disable-extra-extensions) 禁用非内置的扩展运行" OFF \
+        "63" "(use-ipex) 使用 Intel XPU 作为生图后端" OFF \
+        "64" "(skip-load-model-at-start) 启动 WebUI 时不加载模型, 加速启动" ON \
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
@@ -288,14 +292,18 @@ a1111_sd_webui_launch()
     local a1111_sd_webui_launch_dialog
 
     if [ ! -f "$start_path/term-sd/config/sd-webui-launch.conf" ]; then # 找不到启动配置时默认生成一个
-        term_sd_echo "未找到启动配置文件,创建中"
+        term_sd_echo "未找到启动配置文件, 创建中"
         echo "launch.py --theme dark --autolaunch --xformers --api --skip-load-model-at-start" > "$start_path"/term-sd/config/sd-webui-launch.conf
     fi
 
     while true
     do
-        a1111_sd_webui_launch_dialog=$(
-            dialog --erase-on-exit --notags --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI启动选项" --ok-label "确认" --cancel-label "取消" --menu "请选择启动Stable-Diffusion-WebUI/修改Stable-Diffusion-WebUI启动参数\n当前启动参数:\n$([ $venv_setup_status = 0 ] && echo python || echo "$term_sd_python_path") $(cat "$start_path"/term-sd/config/sd-webui-launch.conf)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        a1111_sd_webui_launch_dialog=$(dialog --erase-on-exit --notags \
+            --title "Stable-Diffusion-WebUI 管理" \
+            --backtitle "Stable-Diffusion-WebUI 启动选项" \
+            --ok-label "确认" --cancel-label "取消" \
+            --menu "请选择启动 Stable-Diffusion-WebUI / 修改 Stable-Diffusion-WebUI 启动参数\n当前启动参数:\n$([ $venv_setup_status = 0 ] && echo python || echo "$term_sd_python_path") $(cat "$start_path"/term-sd/config/sd-webui-launch.conf)" \
+            $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
             "0" "> 返回" \
             "1" "> 启动" \
             "2" "> 配置预设启动参数" \
@@ -324,7 +332,14 @@ a1111_sd_webui_launch_args_revise()
 {
     local a1111_sd_webui_launch_args
 
-    a1111_sd_webui_launch_args=$(dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI自定义启动参数选项" --ok-label "确认" --cancel-label "取消" --inputbox "请输入Stable-Diffusion-WebUI启动参数" $term_sd_dialog_height $term_sd_dialog_width "$(cat "$start_path"/term-sd/config/sd-webui-launch.conf | awk '{sub("launch.py ","")}1')" 3>&1 1>&2 2>&3)
+    a1111_sd_webui_launch_args=$(dialog --erase-on-exit \
+        --title "Stable-Diffusion-WebUI 管理" \
+        --backtitle "Stable-Diffusion-WebUI 自定义启动参数选项" \
+        --ok-label "确认" --cancel-label "取消" \
+        --inputbox "请输入 Stable-Diffusion-WebUI 启动参数" \
+        $term_sd_dialog_height $term_sd_dialog_width \
+        "$(cat "$start_path"/term-sd/config/sd-webui-launch.conf | awk '{sub("launch.py ","")}1')" \
+        3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
         term_sd_echo "设置启动参数: $a1111_sd_webui_launch_args"

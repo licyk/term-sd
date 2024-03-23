@@ -10,9 +10,9 @@ install_sd_webui()
     if [ -f "$start_path/term-sd/task/sd_webui_install.sh" ];then # 检测到有未完成的安装任务时直接执行安装任务
         cmd_sum=$(( $(cat "$start_path/term-sd/task/sd_webui_install.sh" | wc -l) + 1 )) # 统计命令行数
         term_sd_print_line "Stable-Diffusion-WebUI 安装"
-        for ((cmd_point=1;cmd_point<=cmd_sum;cmd_point++))
+        for ((cmd_point=1; cmd_point <= cmd_sum; cmd_point++))
         do
-            term_sd_echo "Stable-Diffusion-WebUI安装进度:[$cmd_point/$cmd_sum]"
+            term_sd_echo "Stable-Diffusion-WebUI 安装进度: [$cmd_point/$cmd_sum]"
             install_cmd=$(term_sd_get_task_cmd $(cat "$start_path/term-sd/task/sd_webui_install.sh" | awk 'NR=='${cmd_point}'{print$0}'))
 
             if [ -z "$(echo "$(cat "$start_path/term-sd/task/sd_webui_install.sh" | awk 'NR=='${cmd_point}'{print$0}')" | grep -o __term_sd_task_done_ )" ];then # 检测命令是否需要执行
@@ -28,10 +28,17 @@ install_sd_webui()
                 term_sd_task_cmd_revise "$start_path/term-sd/task/sd_webui_install.sh" ${cmd_point} # 将执行成功的命令标记为完成
             else
                 if [ $term_sd_install_mode = 0 ];then
-                    term_sd_echo "安装命令执行失败,终止安装程序"
+                    term_sd_echo "安装命令执行失败, 终止安装程序"
                     term_sd_tmp_enable_proxy # 恢复代理
                     term_sd_pause
-                    dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI安装结果" --ok-label "确认" --msgbox "Stable-Diffusion-WebUI安装进程执行失败,请重试" $term_sd_dialog_height $term_sd_dialog_width
+
+                    dialog --erase-on-exit \
+                        --title "Stable-Diffusion-WebUI 管理" \
+                        --backtitle "Stable-Diffusion-WebUI 安装结果" \
+                        --ok-label "确认" \
+                        --msgbox "Stable-Diffusion-WebUI 安装进程执行失败, 请重试" \
+                        $term_sd_dialog_height $term_sd_dialog_width
+
                     return 1
                 else
                     term_sd_echo "忽略执行失败的命令"
@@ -40,11 +47,18 @@ install_sd_webui()
         done
 
         term_sd_tmp_enable_proxy # 恢复代理
-        term_sd_echo "Stable-Diffusion-WebUI安装结束"
+        term_sd_echo "Stable-Diffusion-WebUI 安装结束"
         rm -f "$start_path/term-sd/task/sd_webui_install.sh" # 删除任务文件
         rm -f "$start_path/term-sd/task/cache.sh"
         term_sd_print_line
-        dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI安装结果" --ok-label "确认" --msgbox "Stable-Diffusion-WebUI安装结束,选择确定进入管理界面" $term_sd_dialog_height $term_sd_dialog_width
+
+        dialog --erase-on-exit \
+            --title "Stable-Diffusion-WebUI 管理" \
+            --backtitle "Stable-Diffusion-WebUI 安装结果" \
+            --ok-label "确认" \
+            --msgbox "Stable-Diffusion-WebUI 安装结束, 选择确定进入管理界面" \
+            $term_sd_dialog_height $term_sd_dialog_width
+
         sd_webui_manager # 进入管理界面
     else # 生成安装任务并执行安装任务
         # 安装前的准备
@@ -52,7 +66,7 @@ install_sd_webui()
         pytorch_version_select # pytorch版本选择
         sd_webui_extension_install_select # 插件选择
         pip_install_mode_select # 安装方式选择
-        term_sd_install_confirm "是否安装Stable-Diffusion-WebUI?" # 安装确认
+        term_sd_install_confirm "是否安装 Stable-Diffusion-WebUI ?" # 安装确认
         if [ $? = 0 ];then
             term_sd_print_line "Stable-Diffusion-WebUI 安装"
             term_sd_echo "生成安装任务中"
@@ -77,12 +91,12 @@ install_sd_webui()
             fi
 
             term_sd_echo "任务队列生成完成"
-            term_sd_echo "开始安装Stable-Diffusion-WebUI"
+            term_sd_echo "开始安装 Stable-Diffusion-WebUI"
 
             cmd_sum=$(( $(cat "$start_path/term-sd/task/sd_webui_install.sh" | wc -l) + 1 )) # 统计命令行数
-            for ((cmd_point=1;cmd_point<=cmd_sum;cmd_point++))
+            for ((cmd_point=1; cmd_point <= cmd_sum; cmd_point++))
             do
-                term_sd_echo "Stable-Diffusion-WebUI安装进度:[$cmd_point/$cmd_sum]"
+                term_sd_echo "Stable-Diffusion-WebUI 安装进度: [$cmd_point/$cmd_sum]"
                 install_cmd=$(term_sd_get_task_cmd $(cat "$start_path/term-sd/task/sd_webui_install.sh" | awk 'NR=='${cmd_point}'{print$0}'))
 
                 if [ -z "$(echo "$(cat "$start_path/term-sd/task/sd_webui_install.sh" | awk 'NR=='${cmd_point}'{print$0}')" | grep -o __term_sd_task_done_ )" ];then # 检测命令是否需要执行
@@ -98,10 +112,17 @@ install_sd_webui()
                     term_sd_task_cmd_revise "$start_path/term-sd/task/sd_webui_install.sh" ${cmd_point} # 将执行成功的命令标记为完成
                 else
                     if [ $term_sd_install_mode = 0 ];then
-                        term_sd_echo "安装命令执行失败,终止安装程序"
+                        term_sd_echo "安装命令执行失败, 终止安装程序"
                         term_sd_tmp_enable_proxy # 恢复代理
                         term_sd_pause
-                        dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI安装结果" --ok-label "确认" --msgbox "Stable-Diffusion-WebUI安装进程执行失败,请重试" $term_sd_dialog_height $term_sd_dialog_width
+
+                        dialog --erase-on-exit \
+                            --title "Stable-Diffusion-WebUI 管理" \
+                            --backtitle "Stable-Diffusion-WebUI 安装结果" \
+                            --ok-label "确认" \
+                            --msgbox "Stable-Diffusion-WebUI 安装进程执行失败, 请重试" \
+                            $term_sd_dialog_height $term_sd_dialog_width
+
                         return 1
                     else
                         term_sd_echo "忽略执行失败的命令"
@@ -110,11 +131,18 @@ install_sd_webui()
             done
 
             term_sd_tmp_enable_proxy # 恢复代理
-            term_sd_echo "Stable-Diffusion-WebUI安装结束"
+            term_sd_echo "Stable-Diffusion-WebUI 安装结束"
             rm -f "$start_path/term-sd/task/sd_webui_install.sh" # 删除任务文件
             rm -f "$start_path/term-sd/task/cache.sh"
             term_sd_print_line
-            dialog --erase-on-exit --title "Stable-Diffusion-WebUI管理" --backtitle "Stable-Diffusion-WebUI安装结果" --ok-label "确认" --msgbox "Stable-Diffusion-WebUI安装结束,选择确定进入管理界面" $term_sd_dialog_height $term_sd_dialog_width
+
+            dialog --erase-on-exit \
+                --title "Stable-Diffusion-WebUI 管理" \
+                --backtitle "Stable-Diffusion-WebUI 安装结果" \
+                --ok-label "确认" \
+                --msgbox "Stable-Diffusion-WebUI 安装结束, 选择确定进入管理界面" \
+                $term_sd_dialog_height $term_sd_dialog_width
+
             sd_webui_manager # 进入管理界面
         fi
     fi
@@ -124,9 +152,14 @@ install_sd_webui()
 sd_webui_extension_install_select()
 {
     sd_webui_extension_install_select_list=$(
-        dialog --erase-on-exit --notags --title "Stable-Diffusion-WebUI安装" --backtitle "Stable-Diffusion-WebUI插件安装选项" --ok-label "确认" --no-cancel --checklist "请选择需要安装的Stable-Diffusion-Webui插件" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
-        $(cat "$start_path/term-sd/install/sd_webui/dialog_sd_webui_extension.sh") \
-        3>&1 1>&2 2>&3)
+        dialog --erase-on-exit --notags \
+            --title "Stable-Diffusion-WebUI 安装" \
+            --backtitle "Stable-Diffusion-WebUI 插件安装选项" \
+            --ok-label "确认" --no-cancel \
+            --checklist "请选择需要安装的 Stable-Diffusion-Webui 插件" \
+            $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+            $(cat "$start_path/term-sd/install/sd_webui/dialog_sd_webui_extension.sh") \
+            3>&1 1>&2 2>&3)
 }
 
 # sd-webui配置文件

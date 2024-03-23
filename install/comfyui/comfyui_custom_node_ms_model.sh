@@ -1,4 +1,4 @@
-__term_sd_task_pre_ext_38 term_sd_echo "下载controlnet模型中"
+__term_sd_task_pre_ext_38 term_sd_echo "下载 Controlnet 模型中"
 __term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1/master/control_v11e_sd15_ip2p_fp16.safetensors "$comfyui_path"/models/controlnet
 __term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1/master/control_v11e_sd15_shuffle_fp16.safetensors "$comfyui_path"/models/controlnet
 __term_sd_task_pre_ext_38 get_modelscope_model licyks/controlnet_v1.1/master/control_v11f1e_sd15_tile_fp16.safetensors "$comfyui_path"/models/controlnet
@@ -66,10 +66,10 @@ __term_sd_task_pre_ext_38 get_modelscope_model licyks/comfyui-extension-models/m
 __term_sd_task_pre_ext_38 get_modelscope_model licyks/comfyui-extension-models/master/comfyui_controlnet_aux/yzd-v/DWPose/dw-ll_ucoco_384.onnx "$comfyui_path"/custom_nodes/comfyui_controlnet_aux/ckpts/yzd-v/DWPose
 __term_sd_task_pre_ext_38 get_modelscope_model licyks/comfyui-extension-models/master/comfyui_controlnet_aux/yzd-v/DWPose/yolox_l.onnx "$comfyui_path"/custom_nodes/comfyui_controlnet_aux/ckpts/yzd-v/DWPose
 
-__term_sd_task_pre_ext_44 term_sd_echo "下载animatediff模型中"
+__term_sd_task_pre_ext_44 term_sd_echo "下载 Animatediff 模型中"
 __term_sd_task_pre_ext_44 get_modelscope_model licyks/sd-extensions-model/master/sd-webui-animatediff/mm_sd_v15_v2.ckpt "$comfyui_path"/custom_nodes/ComfyUI-AnimateDiff-Evolved/models
 
-__term_sd_task_pre_ext_46 term_sd_echo "下载ip-adapter模型中"
+__term_sd_task_pre_ext_46 term_sd_echo "下载 IP-Adapter 模型中"
 __term_sd_task_pre_ext_46 get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter_sd15.pth "$comfyui_path"/custom_nodes/ComfyUI_IPAdapter_plus/models
 __term_sd_task_pre_ext_46 get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter_sd15_light.pth "$comfyui_path"/custom_nodes/ComfyUI_IPAdapter_plus/models
 __term_sd_task_pre_ext_46 get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter_sd15_plus.pth "$comfyui_path"/custom_nodes/ComfyUI_IPAdapter_plus/models
@@ -80,14 +80,14 @@ __term_sd_task_pre_ext_46 get_modelscope_model licyks/controlnet_v1.1_annotator/
 __term_sd_task_pre_ext_46 get_modelscope_model licyks/controlnet_v1.1_annotator/master/clip_vision/clip_h.pth "$comfyui_path"/models/clip_vision
 __term_sd_task_pre_ext_46 get_modelscope_model licyks/controlnet_v1.1_annotator/master/clip_vision/clip_vitl.pth "$comfyui_path"/models/clip_vision
 
-__term_sd_task_pre_ext_7 term_sd_echo "下载ComfyUI-Impact-Pack模型中"
+__term_sd_task_pre_ext_7 term_sd_echo "下载 ComfyUI-Impact-Pack 模型中"
 __term_sd_task_pre_ext_7 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-Impact-Pack/face_yolov8m.pt "$comfyui_path"/models/ultralytics/bbox
 __term_sd_task_pre_ext_7 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-Impact-Pack/mmdet_anime-face_yolov3.pth "$comfyui_path"/models/ultralytics/bbox
 __term_sd_task_pre_ext_7 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-Impact-Pack/sam_vit_b_01ec64.pth "$comfyui_path"/models/sams
 __term_sd_task_pre_ext_7 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-Impact-Pack/hand_yolov8s.pt "$comfyui_path"/models/ultralytics/bbox
 __term_sd_task_pre_ext_7 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-Impact-Pack/person_yolov8m-seg.pt "$comfyui_path"/models/ultralytics/segm
 
-__term_sd_task_pre_ext_61 term_sd_echo "下载ComfyUI-Marigold模型中"
+__term_sd_task_pre_ext_61 term_sd_echo "下载 ComfyUI-Marigold 模型中"
 __term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-Marigold/model_index.json "$comfyui_path"/diffusers
 __term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-Marigold/scheduler/scheduler_config.json "$comfyui_path"/diffusers/scheduler
 __term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-Marigold/text_encoder/config.json "$comfyui_path"/diffusers/text_encoder
@@ -101,7 +101,7 @@ __term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extension-models/m
 __term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-Marigold/vae/config.json "$comfyui_path"/diffusers/vae
 __term_sd_task_pre_ext_61 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-Marigold/vae/diffusion_pytorch_model.safetensors "$comfyui_path"/diffusers/vae
 
-__term_sd_task_pre_ext_54 term_sd_echo "下载ComfyUI-WD14-Tagger模型中"
+__term_sd_task_pre_ext_54 term_sd_echo "下载 ComfyUI-WD14-Tagger 模型中"
 __term_sd_task_pre_ext_54 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-WD14-Tagger/wd-v1-4-convnext-tagger-v2.csv "$comfyui_path"/custom_nodes/ComfyUI-WD14-Tagger/models
 __term_sd_task_pre_ext_54 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-WD14-Tagger/wd-v1-4-convnext-tagger-v2.onnx "$comfyui_path"/custom_nodes/ComfyUI-WD14-Tagger/models
 __term_sd_task_pre_ext_54 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-WD14-Tagger/wd-v1-4-convnext-tagger.csv "$comfyui_path"/custom_nodes/ComfyUI-WD14-Tagger/models
@@ -113,7 +113,7 @@ __term_sd_task_pre_ext_54 get_modelscope_model licyks/comfyui-extension-models/m
 __term_sd_task_pre_ext_54 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-WD14-Tagger/wd-v1-4-vit-tagger-v2.csv "$comfyui_path"/custom_nodes/ComfyUI-WD14-Tagger/models
 __term_sd_task_pre_ext_54 get_modelscope_model licyks/comfyui-extension-models/master/ComfyUI-WD14-Tagger/wd-v1-4-vit-tagger-v2.onnx "$comfyui_path"/custom_nodes/ComfyUI-WD14-Tagger/models
 
-__term_sd_task_pre_ext_64 term_sd_echo "下载ComfyUI-layerdiffusion模型"
+__term_sd_task_pre_ext_64 term_sd_echo "下载 ComfyUI-layerdiffusion 模型"
 __term_sd_task_pre_ext_64 get_modelscope_model licyks/layerdiffusion/master/layer_xl_bg2ble.safetensors "$comfyui_path"/models/layer_model
 __term_sd_task_pre_ext_64 get_modelscope_model licyks/layerdiffusion/master/layer_xl_bgble2fg.safetensors "$comfyui_path"/models/layer_model
 __term_sd_task_pre_ext_64 get_modelscope_model licyks/layerdiffusion/master/layer_xl_fg2ble.safetensors "$comfyui_path"/models/layer_model

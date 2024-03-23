@@ -42,14 +42,14 @@ get_modelscope_model()
     fi
     
     if [ ! -f "$local_file_path" ];then
-        term_sd_echo "下载${modelscope_model_name}中"
+        term_sd_echo "下载 ${modelscope_model_name} 中"
         term_sd_try aria2c -c $aria2_multi_threaded $modelscope_model_url -d "$local_file_parent_path" -o "$modelscope_model_name"
     else
         if [ -f "$local_aria_cache_path" ];then
-            term_sd_echo "恢复下载${modelscope_model_name}中"
+            term_sd_echo "恢复下载 ${modelscope_model_name} 中"
             term_sd_try aria2c -c $aria2_multi_threaded $modelscope_model_url -d "$local_file_parent_path" -o "$modelscope_model_name"
         else
-            term_sd_echo "${modelscope_model_name}文件已存在,跳过下载该文件"
+            term_sd_echo "${modelscope_model_name} 文件已存在, 跳过下载该文件"
         fi
     fi
 }

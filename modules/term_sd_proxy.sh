@@ -7,7 +7,7 @@ term_sd_tmp_disable_proxy()
     if [ ! -z $http_proxy ];then
         case $term_sd_only_proxy in
             0)
-                term_sd_echo "huggingface/github下载源独占代理已启用,临时取消代理配置"
+                term_sd_echo "HuggingFace / Github 下载源独占代理已启用, 临时取消代理配置"
                 term_sd_proxy=$https_proxy # 将代理配置储存到临时变量
                 http_proxy= # 将代理配置删除
                 https_proxy=

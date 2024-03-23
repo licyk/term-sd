@@ -8,24 +8,28 @@
 # 模型选择
 invokeai_model_select()
 {
-    invokeai_model_select_dialog=$(
-        dialog --erase-on-exit --notags --title "IovokeAI管理" --backtitle "IovokeAI模型下载" --ok-label "确认" --cancel-label "取消" --checklist "请选择需要下载的InvokeAI模型" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
-        "invokeai_embed" ">-----embedding模型列表-----" ON \
+    invokeai_model_select_dialog=$(dialog --erase-on-exit --notags \
+        --title "IovokeAI 管理" \
+        --backtitle "IovokeAI 模型下载" \
+        --ok-label "确认" --cancel-label "取消" \
+        --checklist "请选择需要下载的 InvokeAI 模型" \
+        $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        "invokeai_embed" ">-----Embedding 模型列表-----" ON \
         "__invokeai_model_embed_sd15_1" "EasyNegative" OFF \
         "__invokeai_model_embed_sdxl_1" "ahx-beta-453407d" OFF \
         "invokeai_model" ">-----stable-diffusion模型列表-----" ON \
-        "invokeai_model_sd15" "-----SD1.5模型列表-----" ON \
+        "invokeai_model_sd15" "-----SD1.5 模型列表-----" ON \
         "__invokeai_model_sd15_openjourney" "openjourney" OFF \
         "__invokeai_model_sd15_official" "stable-diffusion-1.5" OFF \
         "__invokeai_model_sd15_inpaint_official" "stable-diffusion-1.5-inpaint" OFF \
-        "invokeai_model_sd21" "-----SD2.1模型列表-----" ON \
+        "invokeai_model_sd21" "-----SD2.1 模型列表-----" ON \
         "__invokeai_model_sd21_official" "stable-diffusion-2.1" OFF \
         "__invokeai_model_sd21_inpaint_official" "stable-diffusion-2.1-inpaint" OFF \
-        "invokeai_model_sdxl" "-----SDXL模型列表-----" ON \
+        "invokeai_model_sdxl" "-----SDXL 模型列表-----" ON \
         "__invokeai_model_sdxl_official" "stable-diffusion-xl" OFF \
         "__invokeai_model_sdxl_vae_official" "stable-diffusion-xl-vae" OFF \
         "__invokeai_model_sdxl_refind_official" "stable-diffusion-xl-refind" OFF \
-        "invokeai_cn" ">-----Controlnet模型列表-----" ON \
+        "invokeai_cn" ">-----Controlnet 模型列表-----" ON \
         "__invokeai_model_cn_sd15_canny" "cn-canny" OFF \
         "__invokeai_model_cn_sd15_depth" "cn-depth" OFF \
         "__invokeai_model_cn_sd15_inpaint" "cn-inpaint" OFF \
@@ -41,7 +45,7 @@ invokeai_model_select()
         "__invokeai_model_cn_sd15_shuffle" "cn-shuffle" OFF \
         "__invokeai_model_cn_sd15_softedge" "cn-softedge" OFF \
         "__invokeai_model_cn_sd15_tile" "cn-tile" OFF \
-        "invokeai_t2i" ">-----t2i-adapter模型列表-----" ON \
+        "invokeai_t2i" ">-----T2I-Adapter 模型列表-----" ON \
         "__invokeai_model_t2i_sd15_canny" "t2i-canny-sd1.5" OFF \
         "__invokeai_model_t2i_sd15_depth" "t2i-depth-sd1.5" OFF \
         "__invokeai_model_t2i_sd15_sketch" "t2i-sketch-sd1.5" OFF \
@@ -50,7 +54,7 @@ invokeai_model_select()
         "__invokeai_model_t2i_sdxl_lineart" "t2i-lineart-sdxl" OFF \
         "__invokeai_model_t2i_sdxl_sketch" "t2i-sketch-sdxl" OFF \
         "__invokeai_model_t2i_sdxl_zoedepth" "t2i-zoedepth-sdxl" OFF \
-        "invokeai_ip_adapt" ">-----ip-adapter模型列表-----" ON \
+        "invokeai_ip_adapt" ">-----IP-Adapter 模型列表-----" ON \
         "__invokeai_model_ip_adapt_sd15_clip" "ip-adapt-clip-sd1.5" OFF \
         "__invokeai_model_ip_adapt_sd15_plus_face" "ip-adapt-plus-face-sd1.5" OFF \
         "__invokeai_model_ip_adapt_sd15_plus" "ip-adapt-plus-sd1.5" OFF \
@@ -325,7 +329,7 @@ invokeai_model_download()
             invokeai_model_list | grep -w $i >> "$start_path/term-sd/task/invokeai_model_download.sh"
         done
         term_sd_echo "任务队列生成完成"
-        term_sd_echo "开始下载InvokeAI模型"
+        term_sd_echo "开始下载 InvokeAI 模型"
         cmd_sum=$(cat "$start_path/term-sd/task/invokeai_model_download.sh" | wc -l)
         for ((cmd_point=1;cmd_point<=cmd_sum;cmd_point++))
         do
@@ -342,5 +346,5 @@ invokeai_model_download()
 if [ -d "$invokeai_path" ];then
     invokeai_model_download
 else
-    term_sd_echo "未安装InvokeAI"
+    term_sd_echo "未安装 InvokeAI"
 fi

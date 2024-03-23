@@ -12,8 +12,12 @@ comfyui_manager()
         while true
         do
             cd "$comfyui_path"
-            comfyui_manager_dialog=$(
-                dialog --erase-on-exit --notags --title "ComfyUI管理" --backtitle "ComfyUI管理选项" --ok-label "确认" --cancel-label "取消" --menu "请选择ComfyUI管理选项的功能\n当前更新源:$(git_remote_display)\n当前分支:$(git_branch_display)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+            comfyui_manager_dialog=$(dialog --erase-on-exit --notags \
+                --title "ComfyUI 管理" \
+                --backtitle "ComfyUI 管理选项" \
+                --ok-label "确认" --cancel-label "取消" \
+                --menu "请选择 ComfyUI 管理选项的功能\n当前更新源: $(git_remote_display)\n当前分支: $(git_branch_display)" \
+                $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
                 "0" "> 返回" \
                 "1" "> 启动" \
                 "2" "> 更新" \
@@ -23,9 +27,9 @@ comfyui_manager()
                 "6" "> 切换版本" \
                 "7" "> 更新源替换" \
                 "8" "> 更新依赖" \
-                "9" "> Python软件包安装/重装/卸载" \
+                "9" "> Python 软件包安装 / 重装 / 卸载" \
                 "10" "> 依赖库版本管理" \
-                "11" "> 重新安装PyTorch" \
+                "11" "> 重新安装 PyTorch" \
                 "12" "> 修复虚拟环境" \
                 "13" "> 重新构建虚拟环境" \
                 "14" "> 重新安装" \
@@ -37,23 +41,44 @@ comfyui_manager()
                     comfyui_launch
                     ;;
                 2)
-                    term_sd_echo "更新ComfyUI中"
+                    term_sd_echo "更新 ComfyUI 中"
                     git_pull_repository
                     case $? in
                         0)
-                            dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI更新结果" --ok-label "确认" --msgbox "ComfyUI更新成功" $term_sd_dialog_height $term_sd_dialog_width
+                            dialog --erase-on-exit \
+                                --title "ComfyUI 管理" \
+                                --backtitle "ComfyUI 更新结果" \
+                                --ok-label "确认" \
+                                --msgbox "ComfyUI 更新成功" \
+                                $term_sd_dialog_height $term_sd_dialog_width
                             ;;
                         10)
-                            dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI更新结果" --ok-label "确认" --msgbox "ComfyUI非git安装,无法更新" $term_sd_dialog_height $term_sd_dialog_width
+                            dialog --erase-on-exit \
+                                --title "ComfyUI 管理" \
+                                --backtitle "ComfyUI 更新结果" \
+                                --ok-label "确认" \
+                                --msgbox "ComfyUI 非 Git 安装, 无法更新" \
+                                $term_sd_dialog_height $term_sd_dialog_width
                             ;;
                         *)
-                            dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI更新结果" --ok-label "确认" --msgbox "ComfyUI更新失败" $term_sd_dialog_height $term_sd_dialog_width
+                            dialog --erase-on-exit \
+                                --title "ComfyUI 管理" \
+                                --backtitle "ComfyUI 更新结果" \
+                                --ok-label "确认" \
+                                --msgbox "ComfyUI 更新失败" \
+                                $term_sd_dialog_height $term_sd_dialog_width
                             ;;
                     esac
                     ;;
                 
                 3)
-                    if (dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI更新修复选项" --yes-label "是" --no-label "否" --yesno "是否修复ComfyUI更新?" $term_sd_dialog_height $term_sd_dialog_width) then
+                    if (dialog --erase-on-exit \
+                        --title "ComfyUI 管理" \
+                        --backtitle "ComfyUI 更新修复选项" \
+                        --yes-label "是" --no-label "否" \
+                        --yesno "是否修复 ComfyUI 更新?" \
+                        $term_sd_dialog_height $term_sd_dialog_width) then
+
                         git_fix_pointer_offset
                     fi
                     ;;
@@ -69,7 +94,13 @@ comfyui_manager()
                     git_ver_switch
                     ;;
                 7)
-                    if (dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI更新源切换选项" --yes-label "是" --no-label "否" --yesno "是否切换ComfyUI更新源?" $term_sd_dialog_height $term_sd_dialog_width) then
+                    if (dialog --erase-on-exit \
+                        --title "ComfyUI 管理" \
+                        --backtitle "ComfyUI 更新源切换选项" \
+                        --yes-label "是" --no-label "否" \
+                        --yesno "是否切换 ComfyUI 更新源?" \
+                        $term_sd_dialog_height $term_sd_dialog_width) then
+
                         comfyui_remote_revise
                     fi
                     ;;
@@ -78,7 +109,13 @@ comfyui_manager()
                     comfyui_update_depend
                     ;;
                 9)
-                    if (dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI的Python软件包安装/重装/卸载选项" --yes-label "是" --no-label "否" --yesno "是否进入Python软件包安装/重装/卸载选项?" $term_sd_dialog_height $term_sd_dialog_width) then
+                    if (dialog --erase-on-exit \
+                        --title "ComfyUI 管理" \
+                        --backtitle "ComfyUI 的 Python 软件包安装 / 重装 / 卸载选项" \
+                        --yes-label "是" --no-label "否" \
+                        --yesno "是否进入 Python 软件包安装 / 重装 / 卸载选项?" \
+                        $term_sd_dialog_height $term_sd_dialog_width) then
+
                         python_package_manager
                     fi
                     ;;
@@ -90,24 +127,52 @@ comfyui_manager()
                     ;;
                 12)
                     if [ $venv_setup_status = 0 ];then
-                        if (dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI虚拟环境修复选项" --yes-label "是" --no-label "否" --yesno "是否修复ComfyUI的虚拟环境" $term_sd_dialog_height $term_sd_dialog_width);then
+                        if (dialog --erase-on-exit \
+                            --title "ComfyUI 管理" \
+                            --backtitle "ComfyUI 虚拟环境修复选项" \
+                            --yes-label "是" --no-label "否" \
+                            --yesno "是否修复 ComfyUI 的虚拟环境" \
+                            $term_sd_dialog_height $term_sd_dialog_width) then
+
                             fix_venv
                         fi
                     else
-                        dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI虚拟环境修复选项" --ok-label "确认" --msgbox "虚拟环境功能已禁用,无法使用该功能" $term_sd_dialog_height $term_sd_dialog_width
+                        dialog --erase-on-exit \
+                            --title "ComfyUI 管理" \
+                            --backtitle "ComfyUI 虚拟环境修复选项" \
+                            --ok-label "确认" \
+                            --msgbox "虚拟环境功能已禁用, 无法使用该功能" \
+                            $term_sd_dialog_height $term_sd_dialog_width
                     fi
                     ;;
                 13)
                     if [ $venv_setup_status = 0 ];then
-                        if (dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI虚拟环境重建选项" --yes-label "是" --no-label "否" --yesno "是否重建ComfyUI的虚拟环境" $term_sd_dialog_height $term_sd_dialog_width);then
+                        if (dialog --erase-on-exit \
+                            --title "ComfyUI 管理" \
+                            --backtitle "ComfyUI 虚拟环境重建选项" \
+                            --yes-label "是" --no-label "否" \
+                            --yesno "是否重建 ComfyUI 的虚拟环境?" \
+                            $term_sd_dialog_height $term_sd_dialog_width) then
+
                             comfyui_venv_rebuild
                         fi
                     else
-                        dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI虚拟环境重建选项" --ok-label "确认" --msgbox "虚拟环境功能已禁用,无法使用该功能" $term_sd_dialog_height $term_sd_dialog_width
+                        dialog --erase-on-exit \
+                            --title "ComfyUI 管理" \
+                            --backtitle "ComfyUI 虚拟环境重建选项" \
+                            --ok-label "确认" \
+                            --msgbox "虚拟环境功能已禁用, 无法使用该功能" \
+                            $term_sd_dialog_height $term_sd_dialog_width
                     fi
                     ;;
                 14)
-                    if (dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI重新安装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装ComfyUI?" $term_sd_dialog_height $term_sd_dialog_width) then
+                    if (dialog --erase-on-exit \
+                        --title "ComfyUI 管理" \
+                        --backtitle "ComfyUI 重新安装选项" \
+                        --yes-label "是" --no-label "否" \
+                        --yesno "是否重新安装 ComfyUI ?" \
+                        $term_sd_dialog_height $term_sd_dialog_width) then
+
                         cd "$start_path"
                         rm -f "$start_path/term-sd/task/comfyui_install.sh"
                         exit_venv
@@ -116,17 +181,29 @@ comfyui_manager()
                     fi
                     ;;
                 15)
-                    if (dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI删除选项" --yes-label "是" --no-label "否" --yesno "是否删除ComfyUI?" $term_sd_dialog_height $term_sd_dialog_width) then
-                        term_sd_echo "请再次确认是否删除ComfyUI(yes/no)?"
-                        term_sd_echo "警告:该操作将永久删除ComfyUI"
-                        term_sd_echo "提示:输入yes或no后回车"
+                    if (dialog --erase-on-exit \
+                        --title "ComfyUI 管理" \
+                        --backtitle "ComfyUI 删除选项" \
+                        --yes-label "是" --no-label "否" \
+                        --yesno "是否删除 ComfyUI?" \
+                        $term_sd_dialog_height $term_sd_dialog_width) then
+
+                        term_sd_echo "请再次确认是否删除 ComfyUI (yes/no)?"
+                        term_sd_echo "警告: 该操作将永久删除 ComfyUI"
+                        term_sd_echo "提示: 输入 yes 或 no 后回车"
                         case $(term_sd_read) in
                             yes|y|YES|Y)
-                                term_sd_echo "删除ComfyUI中"
+                                term_sd_echo "删除 ComfyUI 中"
                                 exit_venv
                                 cd ..
                                 rm -rf "$comfyui_folder"
-                                dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI删除选项" --ok-label "确认" --msgbox "删除ComfyUI完成" $term_sd_dialog_height $term_sd_dialog_width
+
+                                dialog --erase-on-exit \
+                                    --title "ComfyUI 管理" \
+                                    --backtitle "ComfyUI 删除选项" \
+                                    --ok-label "确认" \
+                                    --msgbox "删除 ComfyUI 完成" \
+                                    $term_sd_dialog_height $term_sd_dialog_width
                                 break
                                 ;;
                             *)
@@ -143,7 +220,13 @@ comfyui_manager()
             esac
         done
     else
-        if (dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI安装选项" --yes-label "是" --no-label "否" --yesno "检测到当前未安装ComfyUI,是否进行安装?" $term_sd_dialog_height $term_sd_dialog_width) then
+        if (dialog --erase-on-exit \
+            --title "ComfyUI 管理" \
+            --backtitle "ComfyUI 安装选项" \
+            --yes-label "是" --no-label "否" \
+            --yesno "检测到当前未安装 ComfyUI , 是否进行安装?" \
+            $term_sd_dialog_height $term_sd_dialog_width) then
+
             rm -f "$start_path/term-sd/task/comfyui_install.sh"
             install_comfyui
         fi
@@ -153,22 +236,28 @@ comfyui_manager()
 # comfyui依赖更新功能
 comfyui_update_depend()
 {
-    if (dialog --erase-on-exit --title "ComfyUI管理" --backtitle "ComfyUI依赖更新选项" --yes-label "是" --no-label "否" --yesno "是否更新ComfyUI的依赖?" $term_sd_dialog_height $term_sd_dialog_width);then
+    if (dialog --erase-on-exit \
+        --title "ComfyUI 管理" \
+        --backtitle "ComfyUI 依赖更新选项" \
+        --yes-label "是" --no-label "否" \
+        --yesno "是否更新 ComfyUI 的依赖?" \
+        $term_sd_dialog_height $term_sd_dialog_width) then
+
         # 更新前的准备
         download_mirror_select # 下载镜像源选择
         pip_install_mode_select # 安装方式选择
-        term_sd_install_confirm "是否更新ComfyUI依赖?" # 安装前确认
+        term_sd_install_confirm "是否更新 ComfyUI 依赖?" # 安装前确认
 
         if [ $? = 0 ];then
-            term_sd_print_line "ComfyUI依赖更新"
-            term_sd_echo "更新ComfyUI依赖中"
+            term_sd_print_line "ComfyUI 依赖更新"
+            term_sd_echo "更新 ComfyUI 依赖中"
             term_sd_tmp_disable_proxy
             create_venv
             enter_venv
             python_package_update "requirements.txt"
             exit_venv
             term_sd_tmp_enable_proxy
-            term_sd_echo "更新ComfyUI依赖结束"
+            term_sd_echo "更新 ComfyUI 依赖结束"
             term_sd_pause
         fi
     fi

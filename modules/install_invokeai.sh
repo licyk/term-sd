@@ -10,9 +10,9 @@ install_invokeai()
     if [ -f "$start_path/term-sd/task/invokeai_install.sh" ];then # 检测到有未完成的安装任务时直接执行安装任务
         cmd_sum=$(( $(cat "$start_path/term-sd/task/invokeai_install.sh" | wc -l) + 1 )) # 统计命令行数
         term_sd_print_line "InvokeAI 安装"
-        for ((cmd_point=1;cmd_point<=cmd_sum;cmd_point++))
+        for ((cmd_point=1; cmd_point <= cmd_sum; cmd_point++))
         do
-            term_sd_echo "InvokeAI安装进度:[$cmd_point/$cmd_sum]"
+            term_sd_echo "InvokeAI 安装进度: [$cmd_point/$cmd_sum]"
             install_cmd=$(term_sd_get_task_cmd $(cat "$start_path/term-sd/task/invokeai_install.sh" | awk 'NR=='${cmd_point}'{print$0}'))
 
             if [ -z "$(echo "$(cat "$start_path/term-sd/task/invokeai_install.sh" | awk 'NR=='${cmd_point}'{print$0}')" | grep -o __term_sd_task_done_ )" ];then # 检测命令是否需要执行
@@ -28,10 +28,17 @@ install_invokeai()
                 term_sd_task_cmd_revise "$start_path/term-sd/task/invokeai_install.sh" ${cmd_point} # 将执行成功的命令标记为完成
             else
                 if [ $term_sd_install_mode = 0 ];then
-                    term_sd_echo "安装命令执行失败,终止安装程序"
+                    term_sd_echo "安装命令执行失败, 终止安装程序"
                     term_sd_tmp_enable_proxy # 恢复代理
                     term_sd_pause
-                    dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI安装结果" --ok-label "确认" --msgbox "InvokeAI安装进程执行失败,请重试" $term_sd_dialog_height $term_sd_dialog_width
+
+                    dialog --erase-on-exit \
+                        --title "InvokeAI 管理" \
+                        --backtitle "InvokeAI 安装结果" \
+                        --ok-label "确认" \
+                        --msgbox "InvokeAI 安装进程执行失败, 请重试" \
+                        $term_sd_dialog_height $term_sd_dialog_width
+
                     return 1
                 else
                     term_sd_echo "忽略执行失败的命令"
@@ -40,18 +47,25 @@ install_invokeai()
         done
 
         term_sd_tmp_enable_proxy # 恢复代理
-        term_sd_echo "InvokeAI安装结束"
+        term_sd_echo "InvokeAI 安装结束"
         rm -f "$start_path/term-sd/task/invokeai_install.sh" # 删除任务文件
         rm -f "$start_path/term-sd/task/cache.sh"
         term_sd_print_line
-        dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI安装结果" --ok-label "确认" --msgbox "InvokeAI安装结束,选择确定进入管理界面\n注:\n安装完成后,在启动选项需要选择“(configure --skip-sd-weights)启动配置程序并只下载核心模型”选项或者“(configure)启动配置界面”选项进行配置,配置完成后再选择”(web)启动webui界面“选项启动webui界面\n" $term_sd_dialog_height $term_sd_dialog_width
+
+        dialog --erase-on-exit \
+            --title "InvokeAI 管理" \
+            --backtitle "InvokeAI 安装结果" \
+            --ok-label "确认" \
+            --msgbox "InvokeAI 安装结束, 选择确定进入管理界面\n注:\n安装完成后, 在启动选项需要选择 “(configure --skip-sd-weights) 启动配置程序并只下载核心模型” 选项或者 “(configure)启动配置界面” 选项进行配置, 配置完成后再选择 ”(web)启动webui界面“ 选项启动webui界面\n" \
+            $term_sd_dialog_height $term_sd_dialog_width
+
         invokeai_manager # 进入管理界面
     else # 生成安装任务并执行安装任务
         # 安装前的准备
         download_mirror_select # 下载镜像源选择
         pytorch_version_select # pytorch版本选择
         pip_install_mode_select # 安装方式选择
-        term_sd_install_confirm "是否安装InvokeAI?" # 安装确认
+        term_sd_install_confirm "是否安装 InvokeAI ?" # 安装确认
         if [ $? = 0 ];then
             term_sd_print_line "InvokeAI 安装"
             term_sd_echo "生成安装任务中"
@@ -65,12 +79,12 @@ install_invokeai()
             fi
 
             term_sd_echo "任务队列生成完成"
-            term_sd_echo "开始安装InvokeAI"
+            term_sd_echo "开始安装 InvokeAI"
 
             cmd_sum=$(( $(cat "$start_path/term-sd/task/invokeai_install.sh" | wc -l) + 1 )) # 统计命令行数
-            for ((cmd_point=1;cmd_point<=cmd_sum;cmd_point++))
+            for ((cmd_point=1; cmd_point <= cmd_sum; cmd_point++))
             do
-                term_sd_echo "InvokeAI安装进度:[$cmd_point/$cmd_sum]"
+                term_sd_echo "InvokeAI 安装进度: [$cmd_point/$cmd_sum]"
                 install_cmd=$(term_sd_get_task_cmd $(cat "$start_path/term-sd/task/invokeai_install.sh" | awk 'NR=='${cmd_point}'{print$0}'))
 
                 if [ -z "$(echo "$(cat "$start_path/term-sd/task/invokeai_install.sh" | awk 'NR=='${cmd_point}'{print$0}')" | grep -o __term_sd_task_done_ )" ];then # 检测命令是否需要执行
@@ -86,10 +100,17 @@ install_invokeai()
                     term_sd_task_cmd_revise "$start_path/term-sd/task/invokeai_install.sh" ${cmd_point} # 将执行成功的命令标记为完成
                 else
                     if [ $term_sd_install_mode = 0 ];then
-                        term_sd_echo "安装命令执行失败,终止安装程序"
+                        term_sd_echo "安装命令执行失败, 终止安装程序"
                         term_sd_tmp_enable_proxy # 恢复代理
                         term_sd_pause
-                        dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI安装结果" --ok-label "确认" --msgbox "InvokeAI安装进程执行失败,请重试" $term_sd_dialog_height $term_sd_dialog_width
+
+                        dialog --erase-on-exit \
+                            --title "InvokeAI 管理" \
+                            --backtitle "InvokeAI 安装结果" \
+                            --ok-label "确认" \
+                            --msgbox "InvokeAI 安装进程执行失败, 请重试" \
+                            $term_sd_dialog_height $term_sd_dialog_width
+
                         return 1
                     else
                         term_sd_echo "忽略执行失败的命令"
@@ -98,11 +119,18 @@ install_invokeai()
             done
 
             term_sd_tmp_enable_proxy # 恢复代理
-            term_sd_echo "InvokeAI安装结束"
+            term_sd_echo "InvokeAI 安装结束"
             rm -f "$start_path/term-sd/task/invokeai_install.sh" # 删除任务文件
             rm -f "$start_path/term-sd/task/cache.sh"
             term_sd_print_line
-            dialog --erase-on-exit --title "InvokeAI管理" --backtitle "InvokeAI安装结果" --ok-label "确认" --msgbox "InvokeAI安装结束,选择确定进入管理界面\n注:\n安装完成后,在启动选项需要选择“(configure --skip-sd-weights)启动配置程序并只下载核心模型”选项或者“(configure)启动配置界面”选项进行配置,配置完成后再选择”(web)启动webui界面“选项启动webui界面\n" $term_sd_dialog_height $term_sd_dialog_width
+
+            dialog --erase-on-exit \
+                --title "InvokeAI 管理" \
+                --backtitle "InvokeAI 安装结果" \
+                --ok-label "确认" \
+                --msgbox "InvokeAI 安装结束, 选择确定进入管理界面\n注:\n安装完成后, 在启动选项需要选择 “(configure --skip-sd-weights) 启动配置程序并只下载核心模型” 选项或者 “(configure) 启动配置界面” 选项进行配置, 配置完成后再选择 ”(web)启动webui界面“ 选项启动webui界面\n" \
+                $term_sd_dialog_height $term_sd_dialog_width
+
             invokeai_manager # 进入管理界面
         fi
     fi

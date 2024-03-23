@@ -137,12 +137,12 @@ exit_venv()
 pip_package_manager_update()
 {
     if [ $pip_manager_update = 0 ];then
-        term_sd_echo "开始更新pip包管理器"
+        term_sd_echo "开始更新 Pip 包管理器"
         term_sd_python -m pip install --upgrade pip
         if [ $? = 0 ];then
-            term_sd_echo "pip包管理器更新成功"
+            term_sd_echo "Pip 包管理器更新成功"
         else
-            term_sd_echo "pip包管理器更新失败"
+            term_sd_echo "Pip 包管理器更新失败"
         fi
     fi
 }

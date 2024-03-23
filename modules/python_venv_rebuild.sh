@@ -7,12 +7,12 @@ sd_webui_venv_rebuild()
     download_mirror_select # 下载镜像源选择
     pytorch_version_select # pytorch版本选择
     pip_install_mode_select # 安装方式选择
-    term_sd_install_confirm "是否重新构建Stable-Diffusion-WebUI的虚拟环境?" # 安装前确认
+    term_sd_install_confirm "是否重新构建 Stable-Diffusion-WebUI 的虚拟环境?" # 安装前确认
 
     if [ $? = 0 ];then
         term_sd_print_line "$term_sd_manager_info 虚拟环境重建"
         term_sd_tmp_disable_proxy
-        term_sd_echo "开始重新构建Stable-Diffusion-WebUI的虚拟环境"
+        term_sd_echo "开始重新构建 Stable-Diffusion-WebUI 的虚拟环境"
         term_sd_echo "删除原有虚拟环境中"
         rm -rf venv
         term_sd_echo "删除完成"
@@ -24,7 +24,7 @@ sd_webui_venv_rebuild()
         term_sd_try term_sd_pip install -r repositories/CodeFormer/requirements.txt $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary
         term_sd_try term_sd_pip install -r requirements.txt $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary #安装stable-diffusion-webui的依赖
 
-        term_sd_echo "重新构建Stable-Diffusion-WebUI的虚拟环境结束"
+        term_sd_echo "重新构建 Stable-Diffusion-WebUI 的虚拟环境结束"
         exit_venv
         term_sd_tmp_enable_proxy
         term_sd_pause
@@ -38,12 +38,12 @@ comfyui_venv_rebuild()
     download_mirror_select # 下载镜像源选择
     pytorch_version_select # pytorch版本选择
     pip_install_mode_select # 安装方式选择
-    term_sd_install_confirm "是否重新构建ComfyUI的虚拟环境?" # 安装前确认
+    term_sd_install_confirm "是否重新构建 ComfyUI 的虚拟环境?" # 安装前确认
 
     if [ $? = 0 ];then
         term_sd_print_line "$term_sd_manager_info 虚拟环境重建"
         term_sd_tmp_disable_proxy
-        term_sd_echo "开始重新构建ComfyUI的虚拟环境"
+        term_sd_echo "开始重新构建 ComfyUI 的虚拟环境"
         term_sd_echo "删除原有虚拟环境中"
         rm -rf venv
         term_sd_echo "删除完成"
@@ -53,7 +53,7 @@ comfyui_venv_rebuild()
         install_pytorch # 安装pytorch
         term_sd_try term_sd_pip install -r requirements.txt $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary
 
-        term_sd_echo "重新构建ComfyUI的虚拟环境结束"
+        term_sd_echo "重新构建 ComfyUI 的虚拟环境结束"
         exit_venv
         term_sd_tmp_enable_proxy
         term_sd_pause
@@ -67,12 +67,12 @@ invokeai_venv_rebuild()
     download_mirror_select # 下载镜像源选择
     pytorch_version_select # pytorch版本选择
     pip_install_mode_select # 安装方式选择
-    term_sd_install_confirm "是否重新构建InvokeAI的虚拟环境?" # 安装前确认
+    term_sd_install_confirm "是否重新构建 InvokeAI 的虚拟环境?" # 安装前确认
 
     if [ $? = 0 ];then
         term_sd_print_line "$term_sd_manager_info 虚拟环境重建"
         term_sd_tmp_disable_proxy
-        term_sd_echo "开始重新构建InvokeAI的虚拟环境"
+        term_sd_echo "开始重新构建 InvokeAI 的虚拟环境"
         term_sd_echo "删除原有虚拟环境中"
         rm -rf venv
         term_sd_echo "删除完成"
@@ -82,7 +82,7 @@ invokeai_venv_rebuild()
         install_pytorch # 安装pytorch
         term_sd_try term_sd_pip install invokeai $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary
 
-        term_sd_echo "重新构建InvokeAI的虚拟环境结束"
+        term_sd_echo "重新构建 InvokeAI 的虚拟环境结束"
         exit_venv
         term_sd_tmp_enable_proxy
         term_sd_pause
@@ -96,12 +96,12 @@ fooocus_venv_rebuild()
     download_mirror_select # 下载镜像源选择
     pytorch_version_select # pytorch版本选择
     pip_install_mode_select # 安装方式选择
-    term_sd_install_confirm "是否重新构建Fooocus的虚拟环境?" # 安装前确认
+    term_sd_install_confirm "是否重新构建 Fooocus 的虚拟环境?" # 安装前确认
 
     if [ $? = 0 ];then
         term_sd_print_line "$term_sd_manager_info 虚拟环境重建"
         term_sd_tmp_disable_proxy
-        term_sd_echo "开始重新构建Fooocus的虚拟环境"
+        term_sd_echo "开始重新构建 Fooocus 的虚拟环境"
         term_sd_echo "删除原有虚拟环境中"
         rm -rf venv
         term_sd_echo "删除完成"
@@ -111,7 +111,7 @@ fooocus_venv_rebuild()
         install_pytorch # 安装pytorch
         term_sd_try term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade -r requirements_versions.txt
 
-        term_sd_echo "重新构建Fooocus的虚拟环境结束"
+        term_sd_echo "重新构建 Fooocus 的虚拟环境结束"
         exit_venv
         term_sd_tmp_enable_proxy
         term_sd_pause
@@ -125,12 +125,12 @@ lora_scripts_venv_rebuild()
     download_mirror_select # 下载镜像源选择
     pytorch_version_select # pytorch版本选择
     pip_install_mode_select # 安装方式选择
-    term_sd_install_confirm "是否重新构建lora-scripts的虚拟环境?" # 安装前确认
+    term_sd_install_confirm "是否重新构建 lora-scripts 的虚拟环境?" # 安装前确认
 
     if [ $? = 0 ];then
         term_sd_print_line "$term_sd_manager_info 虚拟环境重建"
         term_sd_tmp_disable_proxy
-        term_sd_echo "开始重新构建lora-scripts的虚拟环境"
+        term_sd_echo "开始重新构建 lora-scripts 的虚拟环境"
         term_sd_echo "删除原有虚拟环境中"
         rm -rf venv
         term_sd_echo "删除完成"
@@ -145,7 +145,7 @@ lora_scripts_venv_rebuild()
         term_sd_try term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade -r requirements.txt # lora-scripts安装依赖
         term_sd_try term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade bitsandbytes
 
-        term_sd_echo "重新构建lora-scripts的虚拟环境结束"
+        term_sd_echo "重新构建 lora-scripts 的虚拟环境结束"
         exit_venv
         term_sd_tmp_enable_proxy
         term_sd_pause
@@ -159,12 +159,12 @@ kohya_ss_venv_rebuild()
     download_mirror_select # 下载镜像源选择
     pytorch_version_select # pytorch版本选择
     pip_install_mode_select # 安装方式选择
-    term_sd_install_confirm "是否重新构建kohya_ss的虚拟环境?" # 安装前确认
+    term_sd_install_confirm "是否重新构建 kohya_ss 的虚拟环境?" # 安装前确认
 
     if [ $? = 0 ];then
         term_sd_print_line "$term_sd_manager_info 虚拟环境重建"
         term_sd_tmp_disable_proxy
-        term_sd_echo "开始重新构建kohya_ss的虚拟环境"
+        term_sd_echo "开始重新构建 kohya_ss 的虚拟环境"
         term_sd_echo "删除原有虚拟环境中"
         rm -rf venv
         term_sd_echo "删除完成"
@@ -176,7 +176,7 @@ kohya_ss_venv_rebuild()
         term_sd_try term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade -r requirements.txt # kohya_ss安装依赖
         term_sd_try term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade bitsandbytes
 
-        term_sd_echo "重新构建kohya_ss的虚拟环境结束"
+        term_sd_echo "重新构建 kohya_ss 的虚拟环境结束"
         exit_venv
         term_sd_tmp_enable_proxy
         term_sd_pause

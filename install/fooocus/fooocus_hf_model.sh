@@ -1,5 +1,5 @@
 __term_sd_task_sys term_sd_echo "下载模型中"
-__term_sd_task_sys term_sd_echo "使用huggingface模型下载源"
+__term_sd_task_sys term_sd_echo "使用 HuggingFace模型下载源"
 __term_sd_task_sys term_sd_tmp_enable_proxy
 __term_sd_task_pre_model aria2_download https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0_0.9vae.safetensors "$fooocus_path"/models/checkpoints
 __term_sd_task_pre_model aria2_download https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0_0.9vae.safetensors "$fooocus_path"/models/checkpoints

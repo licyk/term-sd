@@ -13,22 +13,27 @@ download_mirror_select()
     term_sd_only_proxy=1
     use_modelscope_model=1
     github_mirror="https://github.com/term_sd_git_user/term_sd_git_repo"
-    github_mirror_name="官方源(github.com)"
+    github_mirror_name="官方源 (github.com)"
     term_sd_proxy=$https_proxy
 
-    download_mirror_select_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "安装镜像选项" --title "Term-SD" --ok-label "确认" --no-cancel --checklist "请选择镜像\n注:\n1、当同时启用多个github镜像源时,优先选择最下面的github镜像源;勾选\"github镜像源自动选择\"时,将覆盖手动设置的github镜像源\n2、强制使用pip一般情况下不选" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
-        "1" "启用pip镜像源(使用pip国内镜像源下载Python软件包)" ON \
-        "2" "强制使用pip(无视系统警告强制使用pip安装Python软件包)" OFF \
-        "3" "使用modelscope模型下载源(将huggingface下载源改为modelscope下载源)" ON \
-        "4" "huggingface/github下载源独占代理(仅在下载huggingface/github上的文件时启用代理)" ON \
-        "5" "github镜像源自动选择(测试可用的镜像源并选择自动选择)" $([ ! -z $1 ] && [ $1 = "auto_github_mirrror" ] && echo "ON" || echo "OFF") \
-        "6" "启用github镜像源1(使用ghproxy镜像站下载github上的源码)" OFF \
-        "7" "启用github镜像源2(使用gitclone镜像站下载github上的源码)" OFF  \
-        "8" "启用github镜像源3(使用gh-proxy镜像站下载github上的源码)" OFF \
-        "9" "启用github镜像源4(使用ghps镜像站下载github上的源码)" OFF \
-        "10" "启用github镜像源5(使用gh.idayer镜像站下载github上的源码)" OFF \
-        "11" "启用github镜像源6(使用ghproxy.net镜像站下载github上的源码)" $([ ! -z $1 ] && [ $1 = "auto_github_mirrror" ] && echo "OFF" || echo "ON") \
+    download_mirror_select_dialog=$(dialog --erase-on-exit --notags \
+        --title "Term-SD" \
+        --backtitle "安装镜像选项" \
+        --title "Term-SD" \
+        --ok-label "确认" --no-cancel \
+        --checklist "请选择镜像\n注:\n1、当同时启用多个 Github 镜像源时, 优先选择最下面的 Github 镜像源; 勾选 \"Github 镜像源自动选择\" 时, 将覆盖手动设置的 Github 镜像源\n2、\"强制使用 Pip \"一般情况下不选" \
+        $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        "1" "启用 Pip 镜像源 (使用 Pip 国内镜像源下载 Python 软件包)" ON \
+        "2" "强制使用 Pip(无视系统警告强制使用 Pip 安装 Python 软件包)" OFF \
+        "3" "使用 ModelScope 模型下载源 (将 HuggingFace下载源改为 ModelScope 下载源)" ON \
+        "4" "Huggingface / Github 下载源独占代理 (仅在下载 Huggingface / Github 上的文件时启用代理)" ON \
+        "5" "Github 镜像源自动选择 (测试可用的镜像源并选择自动选择)" $([ ! -z $1 ] && [ $1 = "auto_github_mirrror" ] && echo "ON" || echo "OFF") \
+        "6" "启用 Github 镜像源1 (使用 ghproxy 镜像站下载 Github 上的源码)" OFF \
+        "7" "启用 Github 镜像源2 (使用 gitclone 镜像站下载 Github 上的源码)" OFF  \
+        "8" "启用 Github 镜像源3 (使用 gh-proxy 镜像站下载 Github 上的源码)" OFF \
+        "9" "启用 Github 镜像源4 (使用 ghps 镜像站下载 Github 上的源码)" OFF \
+        "10" "启用 Github 镜像源5 (使用 gh.idayer 镜像站下载 Github 上的源码)" OFF \
+        "11" "启用 Github 镜像源6 (使用 ghproxy.net 镜像站下载 Github 上的源码)" $([ ! -z $1 ] && [ $1 = "auto_github_mirrror" ] && echo "OFF" || echo "ON") \
         3>&1 1>&2 2>&3)
 
     for i in $download_mirror_select_dialog; do
@@ -53,36 +58,36 @@ download_mirror_select()
                 ;;
             6)
                 github_mirror="https://mirror.ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo"
-                github_mirror_name="镜像源1(mirror.ghproxy.com)"
+                github_mirror_name="镜像源1 (mirror.ghproxy.com)"
                 ;;
             7)
                 github_mirror="https://gitclone.com/github.com/term_sd_git_user/term_sd_git_repo"
-                github_mirror_name="镜像源2(gitclone.com)"
+                github_mirror_name="镜像源2 (gitclone.com)"
                 ;;
             8)
                 github_mirror="https://gh-proxy.com/https://github.com/term_sd_git_user/term_sd_git_repo"
-                github_mirror_name="镜像源3(gh-proxy.com)"
+                github_mirror_name="镜像源3 (gh-proxy.com)"
                 ;;
             9)
                 github_mirror="https://ghps.cc/https://github.com/term_sd_git_user/term_sd_git_repo"
-                github_mirror_name="镜像源4(ghps.cc)"
+                github_mirror_name="镜像源4 (ghps.cc)"
                 ;;
             10)
                 github_mirror="https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo"
-                github_mirror_name="镜像源5(gh.idayer.com)"
+                github_mirror_name="镜像源5 (gh.idayer.com)"
                 ;;
             11)
                 github_mirror="https://ghproxy.net/https://github.com/term_sd_git_user/term_sd_git_repo"
-                github_mirror_name="镜像源6(ghproxy.net)"
+                github_mirror_name="镜像源6 (ghproxy.net)"
                 ;;
         esac
     done
 
     if [ $auto_select_github_mirror = 0 ];then # 测试可用的镜像源
-        term_sd_echo "测试可用的github镜像源中"
+        term_sd_echo "测试可用的 Github 镜像源中"
         github_mirror=$(github_mirror_test)
-        github_mirror_name="镜像源($(echo $github_mirror | awk '{sub("https://","")}1' | awk -F '/' '{print$NR}'))"
-        term_sd_echo "镜像源测试结束,镜像源选择: $github_mirror_name"
+        github_mirror_name="镜像源 ($(echo $github_mirror | awk '{sub("https://","")}1' | awk -F '/' '{print$NR}'))"
+        term_sd_echo "镜像源测试结束, 镜像源选择: $github_mirror_name"
     fi
 }
 
@@ -92,30 +97,34 @@ pytorch_version_select()
     local pytorch_version_select_dialog
     pytorch_install_version=
 
-    pytorch_version_select_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "PyTorch安装版本选项" --ok-label "确认" --no-cancel --menu "请选择要安装的PyTorch版本" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
-        "1" "> Torch+xFormers" \
+    pytorch_version_select_dialog=$(dialog --erase-on-exit --notags \
+        --title "Term-SD" \
+        --backtitle "PyTorch 安装版本选项" \
+        --ok-label "确认" --no-cancel \
+        --menu "请选择要安装的 PyTorch 版本" \
+        $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        "1" "> Torch + xFormers" \
         "2" "> Torch" \
-        "3" "> Torch 2.0.0(Directml)" \
-        "4" "> Torch 2.2.1+CPU" \
-        "5" "> Torch 2.0.1+RoCM 5.4.2" \
-        "6" "> Torch 2.1.0+RoCM 5.6" \
-        "7" "> Torch 2.2.1+RoCM 5.7" \
-        "8" "> Torch 2.0.0+IPEX" \
-        "9" "> Torch 2.1.0+IPEX" \
-        "10" "> Torch 1.12.1(CUDA11.3)+xFormers 0.0.14" \
-        "11" "> Torch 1.13.1(CUDA11.7)+xFormers 0.0.16" \
-        "12" "> Torch 2.0.0(CUDA11.8)+xFormers 0.0.18" \
-        "13" "> Torch 2.0.1(CUDA11.8)+xFormers 0.0.22" \
-        "14" "> Torch 2.1.1(CUDA11.8)+xFormers 0.0.23" \
-        "15" "> Torch 2.1.1(CUDA12.1)+xFormers 0.0.23" \
-        "16" "> Torch 2.1.2(CUDA11.8)+xFormers 0.0.23.post1" \
-        "17" "> Torch 2.1.2(CUDA12.1)+xFormers 0.0.23.post1" \
-        "18" "> Torch 2.2.0(CUDA11.8)+xFormers 0.0.24" \
-        "19" "> Torch 2.2.0(CUDA12.1)+xFormers 0.0.24" \
-        "20" "> Torch 2.2.1(CUDA11.8)+xFormers 0.0.25" \
-        "21" "> Torch 2.2.1(CUDA12.1)+xFormers 0.0.25" \
-        "50" "> 跳过安装Torch" \
+        "3" "> Torch 2.0.0 (Directml)" \
+        "4" "> Torch 2.2.1 + CPU" \
+        "5" "> Torch 2.0.1 + RoCM 5.4.2" \
+        "6" "> Torch 2.1.0 + RoCM 5.6" \
+        "7" "> Torch 2.2.1 + RoCM 5.7" \
+        "8" "> Torch 2.0.0 + IPEX" \
+        "9" "> Torch 2.1.0 + IPEX" \
+        "10" "> Torch 1.12.1 (CUDA11.3)+ xFormers 0.0.14" \
+        "11" "> Torch 1.13.1 (CUDA11.7)+ xFormers 0.0.16" \
+        "12" "> Torch 2.0.0 (CUDA11.8) + xFormers 0.0.18" \
+        "13" "> Torch 2.0.1 (CUDA11.8) + xFormers 0.0.22" \
+        "14" "> Torch 2.1.1 (CUDA11.8) + xFormers 0.0.23" \
+        "15" "> Torch 2.1.1 (CUDA12.1) + xFormers 0.0.23" \
+        "16" "> Torch 2.1.2 (CUDA11.8) + xFormers 0.0.23.post1" \
+        "17" "> Torch 2.1.2 (CUDA12.1) + xFormers 0.0.23.post1" \
+        "18" "> Torch 2.2.0 (CUDA11.8) + xFormers 0.0.24" \
+        "19" "> Torch 2.2.0 (CUDA12.1) + xFormers 0.0.24" \
+        "20" "> Torch 2.2.1 (CUDA11.8) + xFormers 0.0.25" \
+        "21" "> Torch 2.2.1 (CUDA12.1) + xFormers 0.0.25" \
+        "50" "> 跳过安装 PyTorch" \
         3>&1 1>&2 2>&3)
 
     case $pytorch_version_select_dialog in
@@ -194,10 +203,14 @@ pip_install_mode_select()
     local pip_install_methon_dialog
     pip_install_mode=
 
-    pip_install_methon_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "pip安装模式选项" --ok-label "确认" --no-cancel --menu "请选择pip安装方式\n1、常规安装可能会有问题,但速度较快\n2、标准构建安装可解决一些报错问题,但速度较慢(对安装时间不在意的话推荐启用)" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
-        "1" "> 常规安装(setup.py)" \
-        "2" "> 标准构建安装(--use-pep517)" \
+    pip_install_methon_dialog=$(dialog --erase-on-exit --notags \
+        --title "Term-SD" \
+        --backtitle "Pip 安装模式选项" \
+        --ok-label "确认" --no-cancel \
+        --menu "请选择 Pip 安装方式\n1、常规安装可能会有问题, 但速度较快\n2、标准构建安装可解决一些报错问题, 但速度较慢 (对安装时间不在意的话推荐启用)" \
+        $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        "1" "> 常规安装 (setup.py)" \
+        "2" "> 标准构建安装 (--use-pep517)" \
         3>&1 1>&2 2>&3)
 
     case $pip_install_methon_dialog in
@@ -216,8 +229,12 @@ pip_force_reinstall_select()
     local pip_force_reinstall_select_dialog
     pip_force_reinstall_mode=
 
-    pip_force_reinstall_select_dialog=$(
-        dialog --erase-on-exit --notags --title "Term-SD" --backtitle "pip安装模式选项" --ok-label "确认" --no-cancel --menu "pip安装软件包时,是否使用强制重新安装,请选择" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+    pip_force_reinstall_select_dialog=$(dialog --erase-on-exit --notags \
+        --title "Term-SD" \
+        --backtitle "Pip 安装模式选项" \
+        --ok-label "确认" --no-cancel \
+        --menu "Pip 安装软件包时, 是否使用强制重新安装, 请选择" \
+        $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "1" "> 安装" \
         "2" "> 强制重新安装" \
         3>&1 1>&2 2>&3)
@@ -238,15 +255,19 @@ pip_force_reinstall_select()
 # term_sd_install_confirm <提示内容>
 term_sd_install_confirm()
 {
-    if (dialog --erase-on-exit --title "Term-SD" --backtitle "安装确认选项" --yes-label "是" --no-label "否" --yesno "${@}\n
-pip镜像源:$([ -z "$pip_extra_index_mirror" ] && echo "禁用" || echo "启用")\n
-github镜像:$github_mirror_name\n
-huggingface/github下载源独占代理:$([ $term_sd_only_proxy = 0 ] && echo "启用" || echo "禁用")\n
-使用modelscope模型下载源:$([ $use_modelscope_model = 0 ] && echo "启用" || echo "禁用")\n
-强制使用pip:$([ -z "$pip_break_system_package" ] && echo "禁用" || echo "启用")\n
-PyTorch版本:$([ ! -z "$(echo $pytorch_install_version | awk '{gsub(/[=+]/, "")}1')" ] && echo $pytorch_install_version || echo "无")\n
-pip安装方式:$([ -z $pip_install_mode ] && echo "常规安装(setup.py)" || echo "标准构建安装(--use-pep517)")\n
-" $term_sd_dialog_height $term_sd_dialog_width);then
+    if (dialog --erase-on-exit \
+        --title "Term-SD" \
+        --backtitle "安装确认选项" \
+        --yes-label "是" --no-label "否" \
+        --yesno "${@}\n
+Pip 镜像源: $([ $use_pip_mirror = 0 ] && echo "禁用" || echo "启用")\n
+Github 镜像: $github_mirror_name\n
+Huggingface / Github下载源独占代理: $([ $term_sd_only_proxy = 0 ] && echo "启用" || echo "禁用")\n
+使用 ModelScope 模型下载源: $([ $use_modelscope_model = 0 ] && echo "启用" || echo "禁用")\n
+强制使用Pip: $([ -z "$pip_break_system_package" ] && echo "禁用" || echo "启用")\n
+PyTorch 版本: $([ ! -z "$(echo $pytorch_install_version | awk '{gsub(/[=+]/, "")}1')" ] && echo $pytorch_install_version || echo "无")\n
+Pip 安装方式: $([ -z $pip_install_mode ] && echo "常规安装 (setup.py)" || echo "标准构建安装 (--use-pep517)")\n
+" $term_sd_dialog_height $term_sd_dialog_width) then
         term_sd_echo "确认进行安装"
         return 0
     else

@@ -5,16 +5,20 @@ git_ver_switch()
 {
     if [ -d ".git" ];then # 检测目录中是否有.git文件夹
         local git_repository_commit
-        term_sd_echo "获取$(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')版本信息"
-        git_repository_commit=$(
-            dialog --erase-on-exit --title "Term-SD" --backtitle "项目切换版本选项" --ok-label "确认" --cancel-label "取消" --menu "请选择要切换的版本\n当前版本:\n$(git show -s --format="%h %cd" --date=format:"%Y-%m-%d %H:%M:%S")" $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        term_sd_echo "获取 $(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1') 版本信息"
+        git_repository_commit=$(dialog --erase-on-exit \
+            --title "Term-SD" \
+            --backtitle "$(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1') 切换版本选项" \
+            --ok-label "确认" --cancel-label "取消" \
+            --menu "请选择要切换的版本\n当前版本: \n$(git show -s --format="%h %cd" --date=format:"%Y-%m-%d %H:%M:%S")" \
+            $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
             "-->返回<--" "<-------------------" \
             $(git log --all --date=short --pretty=format:"%h %cd" --date=format:"%Y-%m-%d|%H:%M:%S" | awk -F  ' ' ' {print $1 " " $2} ') \
             3>&1 1>&2 2>&3)
 
         if [ $? = 0 ];then
             if [ ! $git_repository_commit = "-->返回<--" ];then
-                term_sd_echo "切换$(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')版本中"
+                term_sd_echo "切换 $(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1') 版本中"
                 case $1 in
                     --submod)
                         git reset --hard $git_repository_commit
@@ -34,7 +38,7 @@ git_ver_switch()
             term_sd_echo "取消版本切换操作"
         fi
     else
-        term_sd_echo "$(basename $(pwd))非git安装,无法切换版本"
+        term_sd_echo "$(basename $(pwd)) 非 Git 安装, 无法切换版本"
         return 10
     fi
 }
@@ -45,7 +49,7 @@ git_fix_pointer_offset()
     local repo_main_branch
     # 当git在子文件夹中找不到.git文件夹时,将会自动在父文件夹中寻找,以此类推,直到找到.git文件夹。用户的安装方式可能是直接下载源码压缩包,导致安装后的文件夹没有.git文件夹,直接执行git会导致不良的后果
     if [ -d ".git" ];then # 检测目录中是否有.git文件夹
-        term_sd_echo "修复$(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')分支签出状态"
+        term_sd_echo "修复 $(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1') 分支签出状态"
         git remote prune origin # 删除无用分支
         git submodule init # 初始化git子模块
         repo_main_branch=$(git branch -a | grep /HEAD | awk -F'/' '{print $NF}') # 查询远程HEAD所指分支
@@ -53,9 +57,9 @@ git_fix_pointer_offset()
         git reset --recurse-submodules --hard origin/$repo_main_branch # 回退到远程分支的版本
         git reset --recurse-submodules --hard HEAD # 回退版本,解决git pull异常
         git restore --recurse-submodules --source=HEAD :/ # 重置工作区
-        term_sd_echo "修复$(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1')完成"
+        term_sd_echo "修复 $(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1') 完成"
     else
-        term_sd_echo "$(basename $(pwd))非git安装,无法修复更新"
+        term_sd_echo "$(basename $(pwd)) 非 Git 安装, 无法修复更新"
         return 10
     fi
 }
@@ -164,7 +168,7 @@ git_pull_repository()
                 ;;
         esac
     else
-        term_sd_echo "$(basename $(pwd))非git安装,无法更新"
+        term_sd_echo "$(basename $(pwd)) 非 Git 安装, 无法更新"
         return 10
     fi
 }
@@ -187,7 +191,7 @@ git_branch_display()
         fi
         echo ${ref#refs/heads/} ${git_commit_hash}
     else
-        echo "非git安装,无分支"
+        echo "非 Git 安装, 无分支"
     fi
 }
 
@@ -197,7 +201,7 @@ git_remote_display()
     if [ -d ".git" ];then
         echo $(git remote -v 2> /dev/null | awk 'NR==1 {print $2}')
     else
-        echo "非git安装,无更新源"
+        echo "非 Git 安装, 无更新源"
     fi
 }
 

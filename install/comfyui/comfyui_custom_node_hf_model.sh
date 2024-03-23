@@ -1,4 +1,4 @@
-__term_sd_task_pre_ext_38 term_sd_echo "下载controlnet模型中"
+__term_sd_task_pre_ext_38 term_sd_echo "下载 ControlNet 模型中"
 __term_sd_task_pre_ext_38 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11e_sd15_ip2p_fp16.safetensors "$comfyui_path"/models/controlnet
 __term_sd_task_pre_ext_38 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11e_sd15_shuffle_fp16.safetensors "$comfyui_path"/models/controlnet
 __term_sd_task_pre_ext_38 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11f1e_sd15_tile_fp16.safetensors "$comfyui_path"/models/controlnet
@@ -66,10 +66,10 @@ __term_sd_task_pre_ext_38 aria2_download https://huggingface.co/licyk/comfyui-ex
 __term_sd_task_pre_ext_38 aria2_download https://huggingface.co/licyk/comfyui-extension-models/resolve/main/comfyui_controlnet_aux/yzd-v/DWPose/dw-ll_ucoco_384.onnx "$comfyui_path"/custom_nodes/comfyui_controlnet_aux/ckpts/yzd-v/DWPose
 __term_sd_task_pre_ext_38 aria2_download https://huggingface.co/licyk/comfyui-extension-models/resolve/main/comfyui_controlnet_aux/yzd-v/DWPose/yolox_l.onnx "$comfyui_path"/custom_nodes/comfyui_controlnet_aux/ckpts/yzd-v/DWPose
 
-__term_sd_task_pre_ext_44 term_sd_echo "下载animatediff模型中"
+__term_sd_task_pre_ext_44 term_sd_echo "下载 Animatediff 模型中"
 __term_sd_task_pre_ext_44 aria2_download https://huggingface.co/guoyww/animatediff/resolve/main/mm_sd_v15_v2.ckpt "$comfyui_path"/custom_nodes/ComfyUI-AnimateDiff-Evolved/models
 
-__term_sd_task_pre_ext_46 term_sd_echo "下载ip-adapter模型中"
+__term_sd_task_pre_ext_46 term_sd_echo "下载 IP-Adapter 模型中"
 __term_sd_task_pre_ext_46 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sd15.pth "$comfyui_path"/custom_nodes/ComfyUI_IPAdapter_plus/models
 __term_sd_task_pre_ext_46 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sd15_light.pth "$comfyui_path"/custom_nodes/ComfyUI_IPAdapter_plus/models
 __term_sd_task_pre_ext_46 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sd15_plus.pth "$comfyui_path"/custom_nodes/ComfyUI_IPAdapter_plus/models
@@ -80,14 +80,14 @@ __term_sd_task_pre_ext_46 aria2_download https://huggingface.co/licyk/controlnet
 __term_sd_task_pre_ext_46 aria2_download https://huggingface.co/licyk/controlnet_v1.1_annotator/resolve/main/clip_vision/clip_h.pth "$comfyui_path"/models/clip_vision
 __term_sd_task_pre_ext_46 aria2_download https://huggingface.co/licyk/controlnet_v1.1_annotator/resolve/main/clip_vision/clip_vitl.pth "$comfyui_path"/models/clip_vision
 
-__term_sd_task_pre_ext_7 term_sd_echo "下载ComfyUI-Impact-Pack模型中"
+__term_sd_task_pre_ext_7 term_sd_echo "下载 ComfyUI-Impact-Pack 模型中"
 __term_sd_task_pre_ext_7 aria2_download https://huggingface.co/licyk/comfyui-extension-models/resolve/main/ComfyUI-Impact-Pack/face_yolov8m.pt "$comfyui_path"/models/ultralytics/bbox
 __term_sd_task_pre_ext_7 aria2_download https://huggingface.co/licyk/comfyui-extension-models/resolve/main/ComfyUI-Impact-Pack/mmdet_anime-face_yolov3.pth "$comfyui_path"/models/ultralytics/bbox
 __term_sd_task_pre_ext_7 aria2_download https://huggingface.co/licyk/comfyui-extension-models/resolve/main/ComfyUI-Impact-Pack/sam_vit_b_01ec64.pth "$comfyui_path"/models/sams
 __term_sd_task_pre_ext_7 aria2_download https://huggingface.co/licyk/comfyui-extension-models/resolve/main/ComfyUI-Impact-Pack/hand_yolov8s.pt "$comfyui_path"/models/ultralytics/bbox
 __term_sd_task_pre_ext_7 aria2_download https://huggingface.co/licyk/comfyui-extension-models/resolve/main/ComfyUI-Impact-Pack/person_yolov8m-seg.pt "$comfyui_path"/models/ultralytics/segm
 
-__term_sd_task_pre_ext_61 term_sd_echo "下载ComfyUI-Marigold模型中"
+__term_sd_task_pre_ext_61 term_sd_echo "下载 ComfyUI-Marigold 模型中"
 __term_sd_task_pre_ext_61 aria2_download https://huggingface.co/licyk/comfyui-extension-models/resolve/main/ComfyUI-Marigold/model_index.json "$comfyui_path"/diffusers
 __term_sd_task_pre_ext_61 aria2_download https://huggingface.co/licyk/comfyui-extension-models/resolve/main/ComfyUI-Marigold/scheduler/scheduler_config.json "$comfyui_path"/diffusers/scheduler
 __term_sd_task_pre_ext_61 aria2_download https://huggingface.co/licyk/comfyui-extension-models/resolve/main/ComfyUI-Marigold/text_encoder/config.json "$comfyui_path"/diffusers/text_encoder
@@ -101,7 +101,7 @@ __term_sd_task_pre_ext_61 aria2_download https://huggingface.co/licyk/comfyui-ex
 __term_sd_task_pre_ext_61 aria2_download https://huggingface.co/licyk/comfyui-extension-models/resolve/main/ComfyUI-Marigold/vae/config.json "$comfyui_path"/diffusers/vae
 __term_sd_task_pre_ext_61 aria2_download https://huggingface.co/licyk/comfyui-extension-models/resolve/main/ComfyUI-Marigold/vae/diffusion_pytorch_model.safetensors "$comfyui_path"/diffusers/vae
 
-__term_sd_task_pre_ext_54 term_sd_echo "下载ComfyUI-WD14-Tagger模型中"
+__term_sd_task_pre_ext_54 term_sd_echo "下载 ComfyUI-WD14-Tagger 模型中"
 __term_sd_task_pre_ext_54 aria2_download https://huggingface.co/licyk/comfyui-extension-models/resolve/main/ComfyUI-WD14-Tagger/wd-v1-4-convnext-tagger-v2.csv "$comfyui_path"/custom_nodes/ComfyUI-WD14-Tagger/models
 __term_sd_task_pre_ext_54 aria2_download https://huggingface.co/licyk/comfyui-extension-models/resolve/main/ComfyUI-WD14-Tagger/wd-v1-4-convnext-tagger-v2.onnx "$comfyui_path"/custom_nodes/ComfyUI-WD14-Tagger/models
 __term_sd_task_pre_ext_54 aria2_download https://huggingface.co/licyk/comfyui-extension-models/resolve/main/ComfyUI-WD14-Tagger/wd-v1-4-convnext-tagger.csv "$comfyui_path"/custom_nodes/ComfyUI-WD14-Tagger/models
@@ -113,7 +113,7 @@ __term_sd_task_pre_ext_54 aria2_download https://huggingface.co/licyk/comfyui-ex
 __term_sd_task_pre_ext_54 aria2_download https://huggingface.co/licyk/comfyui-extension-models/resolve/main/ComfyUI-WD14-Tagger/wd-v1-4-vit-tagger-v2.csv "$comfyui_path"/custom_nodes/ComfyUI-WD14-Tagger/models
 __term_sd_task_pre_ext_54 aria2_download https://huggingface.co/licyk/comfyui-extension-models/resolve/main/ComfyUI-WD14-Tagger/wd-v1-4-vit-tagger-v2.onnx "$comfyui_path"/custom_nodes/ComfyUI-WD14-Tagger/models
 
-__term_sd_task_pre_ext_64 term_sd_echo "下载ComfyUI-layerdiffusion模型"
+__term_sd_task_pre_ext_64 term_sd_echo "下载 ComfyUI-layerdiffusion 模型"
 __term_sd_task_pre_ext_64 aria2_download https://huggingface.co/licyk/layerdiffusion/resolve/main/layer_xl_bg2ble.safetensors "$comfyui_path"/models/layer_model
 __term_sd_task_pre_ext_64 aria2_download https://huggingface.co/licyk/layerdiffusion/resolve/main/layer_xl_bgble2fg.safetensors "$comfyui_path"/models/layer_model
 __term_sd_task_pre_ext_64 aria2_download https://huggingface.co/licyk/layerdiffusion/resolve/main/layer_xl_fg2ble.safetensors "$comfyui_path"/models/layer_model

@@ -1,5 +1,5 @@
 __term_sd_task_sys term_sd_echo "下载模型中"
-__term_sd_task_sys term_sd_echo "使用modelscope模型下载源"
+__term_sd_task_sys term_sd_echo "使用 ModelScope 模型下载源"
 __term_sd_task_pre_model get_modelscope_model licyks/invokeai-core-model/master/models/core/convert/bert-base-uncased/special_tokens_map.json "$invokeai_path"/invokeai/models/core/convert/bert-base-uncased
 __term_sd_task_pre_model get_modelscope_model licyks/invokeai-core-model/master/models/core/convert/bert-base-uncased/tokenizer.json "$invokeai_path"/invokeai/models/core/convert/bert-base-uncased
 __term_sd_task_pre_model get_modelscope_model licyks/invokeai-core-model/master/models/core/convert/bert-base-uncased/tokenizer_config.json "$invokeai_path"/invokeai/models/core/convert/bert-base-uncased

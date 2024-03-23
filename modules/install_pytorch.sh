@@ -3,24 +3,30 @@
 # pytorch重装
 pytorch_reinstall()
 {
-    if (dialog --erase-on-exit --title "Term-SD" --backtitle "PyTorch重装选项" --yes-label "是" --no-label "否" --yesno "是否重新安装PyTorch?" $term_sd_dialog_height $term_sd_dialog_width);then
+    if (dialog --erase-on-exit \
+        --title "Term-SD" \
+        --backtitle "PyTorch 重装选项" \
+        --yes-label "是" --no-label "否" \
+        --yesno "是否重新安装 PyTorch ?" \
+        $term_sd_dialog_height $term_sd_dialog_width) then
+
         # 安装前的准备
         download_mirror_select # 下载镜像源选择
         pytorch_version_select # pytorch版本选择
         pip_install_mode_select # 安装方式选择
         pip_force_reinstall_select # 强制重装选择
-        term_sd_install_confirm "是否重新安装PyTorch?" # 安装前确认
+        term_sd_install_confirm "是否重新安装 PyTorch ?" # 安装前确认
 
         if [ $? = 0 ];then
             # 开始安装pytorch
-            term_sd_print_line "PyTorch安装"
+            term_sd_print_line "PyTorch 安装"
             term_sd_tmp_disable_proxy
             create_venv
             enter_venv
             install_pytorch
             exit_venv
             term_sd_tmp_enable_proxy
-            term_sd_echo "PyTorch安装结束"
+            term_sd_echo "PyTorch 安装结束"
             term_sd_pause
         fi
     fi
@@ -40,6 +46,7 @@ install_pytorch()
     if [ ! -z "$pytorch_install_version" ];then
         if grep ipex <<<$pytorch_install_version > /dev/null 2>&1 ;then
             torch_ipex_ver=$(echo $pytorch_install_version | awk '{print$2}')
+            pytorch_install_version= # 清除PyTorch版本选择
             case $OS in
                 Windows_NT)
                     case $torch_ipex_ver in
@@ -65,6 +72,7 @@ install_pytorch()
         else
             torch_ver=$(echo $pytorch_install_version | awk '{print $1 " " $2 " " $3}')
             xformers_ver=$(echo $pytorch_install_version | awk '{print $4}')
+            pytorch_install_version= # 清除PyTorch版本选择
             # 安装PyTorch
             term_sd_try term_sd_pip install $torch_ver $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
             [ ! $? = 0 ] && return 1
@@ -75,7 +83,7 @@ install_pytorch()
                 fi
 
                 if [ $use_pip_mirror = 0 ];then # 镜像源
-                    if grep cu121 <<<$pytorch_install_version > /dev/null 2>&1 ;then # cuda12.1
+                    if grep cu121 <<<$torch_ver > /dev/null 2>&1 ;then # cuda12.1
                         PIP_EXTRA_INDEX_URL="https://mirror.sjtu.edu.cn/pytorch-wheels/cu121" \
                         PIP_FIND_LINKS="https://mirror.sjtu.edu.cn/pytorch-wheels/cu121/torch_stable.html" \
                         term_sd_try term_sd_pip install $xformers_ver $pip_index_mirror $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
@@ -84,7 +92,7 @@ install_pytorch()
                     fi
                     [ ! $? = 0 ] && return 1
                 else # 官方源
-                    if grep cu121 <<<$pytorch_install_version > /dev/null 2>&1 ;then # cuda12.1
+                    if grep cu121 <<<$torch_ver > /dev/null 2>&1 ;then # cuda12.1
                         PIP_EXTRA_INDEX_URL="https://download.pytorch.org/whl/cu121" \
                         PIP_FIND_LINKS="https://download.pytorch.org/whl/cu121/torch_stable.html" \
                         term_sd_try term_sd_pip install $xformers_ver $pip_index_mirror $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
@@ -95,7 +103,8 @@ install_pytorch()
                 fi
             fi
         fi
+        
     else
-        term_sd_echo "未指定PyTorch版本,跳过安装"
+        term_sd_echo "未指定 PyTorch 版本, 跳过安装"
     fi
 }
