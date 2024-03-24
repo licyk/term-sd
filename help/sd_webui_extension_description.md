@@ -340,3 +340,7 @@ AUTOMATIC1111-stable-diffusion-webui插件说明：
 85、Kohaku-NAI：
 描述：novelai_api调用工具
 链接：https://github.com/KohakuBlueleaf/Kohaku-NAI
+
+86、a1111-sd-webui-dtg：
+描述：使用Danboou风格对tag进行润色，使出图效果更好，内容更丰富
+链接：https://github.com/KohakuBlueleaf/a1111-sd-webui-dtg

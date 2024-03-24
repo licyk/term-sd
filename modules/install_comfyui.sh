@@ -65,34 +65,60 @@ install_comfyui()
         pytorch_version_select # pytorch版本选择
         comfyui_extension_install_select # 插件选择
         comfyui_custom_node_install_select # 自定义节点选择
+        comfyui_download_model_select # 模型选择
         pip_install_mode_select # 安装方式选择
         term_sd_install_confirm "是否安装 ComfUI ?" # 安装确认
+
         if [ $? = 0 ];then
             term_sd_print_line "ComfyUI 安装"
             term_sd_echo "生成安装任务中"
             term_sd_set_install_env_value >> "$start_path/term-sd/task/comfyui_install.sh" # 环境变量
             cat "$start_path/term-sd/install/comfyui/comfyui_core.sh" >> "$start_path/term-sd/task/comfyui_install.sh" # 核心组件
-            
-            [ ! -z "$comfyui_extension_install_select_list" ] && echo "" >> "$start_path/term-sd/task/comfyui_install.sh" && echo "__term_sd_task_sys term_sd_echo "安装插件中"" >> "$start_path/term-sd/task/comfyui_install.sh" && echo "__term_sd_task_sys term_sd_tmp_enable_proxy" >> "$start_path/term-sd/task/comfyui_install.sh"
-            for i in $comfyui_extension_install_select_list ;do
-                cat "$start_path/term-sd/install/comfyui/comfyui_extension.sh" | grep -w $i | awk '{sub(" ON "," ") ; sub(" OFF "," ")}1' >> "$start_path/term-sd/task/comfyui_install.sh" # 插件
-            done
-            [ ! -z "$comfyui_extension_install_select_list" ] && echo "__term_sd_task_sys term_sd_tmp_disable_proxy" >> "$start_path/term-sd/task/comfyui_install.sh"
 
-            [ ! -z "$comfyui_custom_node_install_select_list" ] && echo "" >> "$start_path/term-sd/task/comfyui_install.sh" && echo "__term_sd_task_sys term_sd_echo "安装自定义节点中"" >> "$start_path/term-sd/task/comfyui_install.sh" && echo "__term_sd_task_sys term_sd_tmp_enable_proxy" >> "$start_path/term-sd/task/comfyui_install.sh"
-            for i in $comfyui_custom_node_install_select_list ;do
-                cat "$start_path/term-sd/install/comfyui/comfyui_custom_node.sh" | grep -w $i | awk '{sub(" ON "," ") ; sub(" OFF "," ")}1' >> "$start_path/term-sd/task/comfyui_install.sh" # 插件
-            done
-            [ ! -z "$comfyui_custom_node_install_select_list" ] && echo "__term_sd_task_sys term_sd_tmp_disable_proxy" >> "$start_path/term-sd/task/comfyui_install.sh"
+            # 启用代理
+            term_sd_add_blank_line "$start_path/term-sd/task/comfyui_install.sh" && \
+            echo "__term_sd_task_sys term_sd_tmp_enable_proxy" >> "$start_path/term-sd/task/comfyui_install.sh"
 
-            if [ $use_modelscope_model = 1 ];then
-                cat "$start_path/term-sd/install/comfyui/comfyui_hf_model.sh" >> "$start_path/term-sd/task/comfyui_install.sh" # 模型
+            # 读取安装插件命令
+            if [ ! -z "$comfyui_extension_install_select_list" ];then
+                echo "__term_sd_task_sys term_sd_echo "安装插件中"" >> "$start_path/term-sd/task/comfyui_install.sh"
+                # 读取安装插件命令列表
+                for i in $comfyui_extension_install_select_list ;do
+                    cat "$start_path/term-sd/install/comfyui/comfyui_extension.sh" | grep -w $i | awk '{sub(" ON "," ") ; sub(" OFF "," ")}1' >> "$start_path/term-sd/task/comfyui_install.sh" # 插件
+                done
+            fi
+
+            # 读取安装自定义节点命令
+            if [ ! -z "$comfyui_custom_node_install_select_list" ];then
+                echo "__term_sd_task_sys term_sd_echo "安装自定义节点中"" >> "$start_path/term-sd/task/comfyui_install.sh"
+                # 读取安装自定义节点列表
                 for i in $comfyui_custom_node_install_select_list ;do
+                    cat "$start_path/term-sd/install/comfyui/comfyui_custom_node.sh" | grep -w $i | awk '{sub(" ON "," ") ; sub(" OFF "," ")}1' >> "$start_path/term-sd/task/comfyui_install.sh" # 插件
+                done
+            fi
+
+            # 取消代理
+            echo "__term_sd_task_sys term_sd_tmp_disable_proxy" >> "$start_path/term-sd/task/comfyui_install.sh"
+
+            # 读取模型下载命令
+            if [ $use_modelscope_model = 1 ];then
+                # 恢复代理
+                echo "__term_sd_task_sys term_sd_tmp_enable_proxy" >> "$start_path/term-sd/task/comfyui_install.sh"
+                # 读取模型
+                for i in $comfyui_download_model_select_list ;do
+                    cat "$start_path/term-sd/install/sd_webui/comfyui_hf_model.sh" | grep -w $i >> "$start_path/term-sd/task/sd_webui_install.sh" # 插件所需的模型
+                done
+                # 读取扩展的模型
+                for i in $comfyui_download_model_select_list ;do
                     cat "$start_path/term-sd/install/comfyui/comfyui_custom_node_hf_model.sh" | grep -w $i >> "$start_path/term-sd/task/comfyui_install.sh" # 自定义节点所需的模型
                 done
             else
-                cat "$start_path/term-sd/install/comfyui/comfyui_ms_model.sh" >> "$start_path/term-sd/task/comfyui_install.sh" # 模型
-                for i in $comfyui_custom_node_install_select_list ;do
+                # 读取模型
+                for i in $comfyui_download_model_select_list ;do
+                    cat "$start_path/term-sd/install/sd_webui/comfyui_ms_model.sh" | grep -w $i >> "$start_path/term-sd/task/sd_webui_install.sh" # 插件所需的模型
+                done
+                # 读取扩展的模型
+                for i in $comfyui_download_model_select_list ;do
                     cat "$start_path/term-sd/install/comfyui/comfyui_custom_node_ms_model.sh" | grep -w $i >> "$start_path/term-sd/task/comfyui_install.sh" # 自定义节点所需的模型
                 done
             fi
@@ -100,6 +126,7 @@ install_comfyui()
             term_sd_echo "任务队列生成完成"
             term_sd_echo "开始安装 ComfyUI"
 
+            # 执行安装命令
             cmd_sum=$(( $(cat "$start_path/term-sd/task/comfyui_install.sh" | wc -l) + 1 )) # 统计命令行数
             for ((cmd_point=1; cmd_point <= cmd_sum; cmd_point++))
             do
@@ -181,4 +208,37 @@ comfyui_custom_node_install_select()
             $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
             $(cat "$start_path/term-sd/install/comfyui/dialog_comfyui_custom_node.sh") \
             3>&1 1>&2 2>&3)
+}
+
+# 模型选择
+comfyui_download_model_select()
+{
+    local comfyui_custom_node_model_list_file
+    local comfyui_custom_node_model_list
+    # 插件模型列表选择
+    if [ $use_modelscope_model = 0 ];then
+        comfyui_custom_node_model_list_file="comfyui_custom_node_ms_model.sh"
+    else
+        comfyui_custom_node_model_list_file="comfyui_custom_node_hf_model.sh"
+    fi
+
+    term_sd_echo "生成模型选择列表中"
+    # 查找插件对应模型的编号
+    for i in $comfyui_extension_install_select_list
+    do
+        comfyui_custom_node_model_list="$comfyui_custom_node_model_list $(cat "$start_path"/term-sd/install/comfyui/$comfyui_custom_node_model_list_file | grep -w $i | awk 'NR==1{if ($NF!="") {print $1 " " $(NF-1) " " $NF} }')"
+    done
+
+    # 模型选择(包含基础模型和插件的模型)
+    comfyui_download_model_select_list=$(dialog --erase-on-exit --notags \
+        --title "ComfyUI 安装" \
+        --backtitle "ComfyUI 模型下载选项" \
+        --ok-label "确认" --no-cancel \
+        --checklist "请选择需要下载的 ComfyUI 模型" \
+        $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        "_null_" "====基础模型选择====" ON \
+        $(cat "$start_path/term-sd/install/comfyui/dialog_comfyui_model.sh") \
+        "_null_" "====插件模型选择====" ON \
+        $comfyui_custom_node_model_list \
+        3>&1 1>&2 2>&3)
 }

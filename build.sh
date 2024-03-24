@@ -9,23 +9,29 @@ build_list()
     local args_3
     local count=1
     local flag=0
-    local input_file="$@"
-    
-    while (($flag==0))
+    local input_file="$1"
+    local output_file="$2"
+
+    while true
     do
         args_1=$(cat $input_file | awk 'NR=='${count}' {print$1}')
         args_2=$(cat $input_file | awk 'NR=='${count}' {print$4}')
         args_3=$(cat $input_file | awk 'NR=='${count}' {print$6}')
         args_2=$(echo $args_2 | awk -F '/' '{print$NF}')
         if [ -z "$args_1" ];then
-            flag=1
+            break
         else
             if [ -z "$(echo $args_1 | grep __term_sd_task_sys)" ];then
-                echo $args_1 $args_2 $args_3
+                echo "$args_1 $args_2 $args_3" >> $output_file
             fi
         fi
         count=$(($count + 1))
     done
+}
+
+build_list_for_model()
+{
+    cat $1 | awk '{if ($NF!="") {print $1 " " $(NF-1) " " $NF} }' >> $2
 }
 
 build_dialog_list()
@@ -41,14 +47,14 @@ build_dialog_list()
     if [ -f "$output_file" ];then
         rm -f $output_file
     fi
-    echo "生成${output_file}中"
+    echo "生成 ${output_file} 中"
     cat $input_file | awk '{sub(" --submod","")}1' >> $cache_file
-    echo $(build_list $cache_file) >> $output_file
+    build_list $cache_file $output_file
     rm -f $cache_file
     end_time=$(date +'%Y-%m-%d %H:%M:%S')
     end_time_seconds=$(date --date="$end_time" +%s)
     time_span=$(( $end_time_seconds - $start_time_seconds )) # 计算相隔时间
-    echo "完成,用时:${time_span} sec"
+    echo "完成, 用时: ${time_span} sec"
 }
 
 build_dialog_list_sd_webui()
@@ -66,7 +72,7 @@ build_dialog_list_sd_webui()
     if [ -f "$output_file" ];then
         rm -f $output_file
     fi
-    echo "生成${output_file}中"
+    echo "生成 ${output_file} 中"
     cat $input_file | awk '{sub(" --submod","")}1' >> $cache_file
     echo "AUTOMATIC1111-stable-diffusion-webui插件说明：" >> $output_file
     echo "注：有些插件因为年久失修，可能会出现兼容性问题。具体介绍请在github上搜索项目" >> $output_file
@@ -93,7 +99,7 @@ build_dialog_list_sd_webui()
     end_time=$(date +'%Y-%m-%d %H:%M:%S')
     end_time_seconds=$(date --date="$end_time" +%s)
     time_span=$(( $end_time_seconds - $start_time_seconds )) # 计算相隔时间
-    echo "完成,用时:${time_span} sec"
+    echo "完成, 用时: ${time_span} sec"
 }
 
 build_dialog_list_comfyui()
@@ -169,7 +175,27 @@ build_dialog_list_comfyui()
     end_time=$(date +'%Y-%m-%d %H:%M:%S')
     end_time_seconds=$(date --date="$end_time" +%s)
     time_span=$(( $end_time_seconds - $start_time_seconds )) # 计算相隔时间
-    echo "完成,用时:${time_span} sec"
+    echo "完成, 用时: ${time_span} sec"
+}
+
+build_dialog_list_model()
+{
+    local start_time=$(date +'%Y-%m-%d %H:%M:%S')
+    local start_time_seconds=$(date --date="$start_time" +%s)
+    local input_file="$1"
+    local output_file="$2"
+    local end_time
+    local end_time_seconds
+    local time_span
+    if [ -f "$output_file" ];then
+        rm -f $output_file
+    fi
+    echo "生成 ${output_file} 中"
+    build_list_for_model $input_file $output_file
+    end_time=$(date +'%Y-%m-%d %H:%M:%S')
+    end_time_seconds=$(date --date="$end_time" +%s)
+    time_span=$(( $end_time_seconds - $start_time_seconds )) # 计算相隔时间
+    echo "完成, 用时: ${time_span} sec"
 }
 
 
@@ -202,6 +228,12 @@ if [ ! -z "$*" ];then
                 build_dialog_list install/sd_webui/sd_webui_extension.sh install/sd_webui/dialog_sd_webui_extension.sh
                 build_dialog_list_sd_webui install/sd_webui/sd_webui_extension.sh help/sd_webui_extension_description.md
                 build_dialog_list_comfyui install/comfyui/comfyui_extension.sh install/comfyui/comfyui_custom_node.sh help/comfyui_extension_description.md
+                build_dialog_list_model install/sd_webui/sd_webui_ms_model.sh install/sd_webui/dialog_sd_webui_model.sh
+                build_dialog_list_model install/comfyui/comfyui_ms_model.sh install/comfyui/dialog_comfyui_model.sh
+                build_dialog_list_model install/fooocus/fooocus_ms_model.sh install/fooocus/dialog_fooocus_model.sh
+                build_dialog_list_model install/invokeai/invokeai_ms_model.sh install/invokeai/dialog_invokeai_model.sh
+                build_dialog_list_model install/lora_scripts/lora_scripts_ms_model.sh install/lora_scripts/dialog_lora_scripts_model.sh
+                build_dialog_list_model install/kohya_ss/kohya_ss_ms_model.sh install/kohya_ss/dialog_kohya_ss_model.sh
                 ;;
             *)
                 echo "未知参数\"$n\""
@@ -213,7 +245,7 @@ if [ ! -z "$*" ];then
     end_time_sum=$(date +'%Y-%m-%d %H:%M:%S')
     end_time_seconds_sum=$(date --date="$end_time_sum" +%s)
     time_span_sum=$(( $end_time_seconds_sum - $start_time_seconds_sum )) # 计算相隔时间
-    echo "总共用时:${time_span_sum} sec"
+    echo "总共用时: ${time_span_sum} sec"
 else
     echo "使用："
     echo "build.sh [--fix] [--build]"

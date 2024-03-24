@@ -121,3 +121,9 @@ term_sd_set_install_env_value()
     echo "__term_sd_task_sys pip_install_mode=\"$pip_install_mode\""
     echo "__term_sd_task_sys term_sd_only_proxy=\"$term_sd_only_proxy\""
 }
+
+# 为安装命令列表添加空行
+term_sd_add_blank_line()
+{
+    echo "" >> "$@"
+}

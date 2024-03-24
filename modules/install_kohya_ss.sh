@@ -64,18 +64,29 @@ install_kohya_ss()
         # 安装前的准备
         download_mirror_select auto_github_mirrror # 下载镜像源选择
         pytorch_version_select # pytorch版本选择
+        kohya_ss_download_model_select # 模型选择
         pip_install_mode_select # 安装方式选择
         term_sd_install_confirm "是否安装 kohya_ss ?" # 安装确认
+
         if [ $? = 0 ];then
             term_sd_print_line "kohya_ss 安装"
             term_sd_echo "生成安装任务中"
             term_sd_set_install_env_value >> "$start_path/term-sd/task/kohya_ss_install.sh" # 环境变量
             cat "$start_path/term-sd/install/kohya_ss/kohya_ss_core.sh" >> "$start_path/term-sd/task/kohya_ss_install.sh" # 核心组件
+            term_sd_add_blank_line "$start_path/term-sd/task/kohya_ss_install.sh"
 
+            # 模型下载
             if [ $use_modelscope_model = 1 ];then
-                cat "$start_path/term-sd/install/kohya_ss/kohya_ss_hf_model.sh" >> "$start_path/term-sd/task/kohya_ss_install.sh" # 模型
+                # 恢复代理
+                echo "__term_sd_task_sys term_sd_tmp_enable_proxy" >> "$start_path/term-sd/task/kohya_ss_install.sh"
+                # 读取模型
+                for i in $kohya_ss_download_model_select_list ;do
+                    cat "$start_path/term-sd/install/sd_webui/kohya_ss_hf_model.sh" | grep -w $i >> "$start_path/term-sd/task/kohya_ss_install.sh" # 插件所需的模型
+                done
             else
-                cat "$start_path/term-sd/install/kohya_ss/kohya_ss_ms_model.sh" >> "$start_path/term-sd/task/kohya_ss_install.sh" # 模型
+                for i in $kohya_ss_download_model_select_list ;do
+                    cat "$start_path/term-sd/install/sd_webui/kohya_ss_ms_model.sh" | grep -w $i >> "$start_path/term-sd/task/kohya_ss_install.sh" # 插件所需的模型
+                done
             fi
 
             term_sd_echo "任务队列生成完成"
@@ -134,4 +145,23 @@ install_kohya_ss()
             kohya_ss_manager # 进入管理界面
         fi
     fi
+}
+
+# 模型选择
+kohya_ss_download_model_select()
+{
+    local kohya_ss_custom_node_model_list
+
+    term_sd_echo "生成模型选择列表中"
+
+    # 模型选择
+    kohya_ss_download_model_select_list=$(dialog --erase-on-exit --notags \
+        --title "kohya_ss 安装" \
+        --backtitle "kohya_ss 模型下载选项" \
+        --ok-label "确认" --no-cancel \
+        --checklist "请选择需要下载的 kohya_ss 模型" \
+        $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        "_null_" "====基础模型选择====" ON \
+        $(cat "$start_path/term-sd/install/kohya_ss/dialog_kohya_ss_model.sh") \
+        3>&1 1>&2 2>&3)
 }

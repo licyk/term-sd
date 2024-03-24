@@ -83,3 +83,4 @@ __term_sd_task_pre_ext_82 git_clone_repository ${github_mirror} https://github.c
 __term_sd_task_pre_ext_83 git_clone_repository ${github_mirror} https://github.com/Firetheft/sd-webui-next-style "$sd_webui_path"/extensions OFF # 提示词预设风格选择工具，增加了汉化并添加Fooocus全部风格模板
 __term_sd_task_pre_ext_84 git_clone_repository ${github_mirror} https://github.com/KohakuBlueleaf/a1111-sd-webui-haku-img "$sd_webui_path"/extensions OFF # 图像处理工具
 __term_sd_task_pre_ext_85 git_clone_repository ${github_mirror} https://github.com/KohakuBlueleaf/Kohaku-NAI "$sd_webui_path"/extensions OFF # novelai_api调用工具
+__term_sd_task_pre_ext_86 git_clone_repository ${github_mirror} https://github.com/KohakuBlueleaf/a1111-sd-webui-dtg "$sd_webui_path"/extensions OFF # 使用Danboou风格对tag进行润色，使出图效果更好，内容更丰富
