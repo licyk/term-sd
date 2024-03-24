@@ -60,6 +60,8 @@ fooocus_launch_args_setting()
         "45" "(preset lcm) 使用 LCM 模型预设" OFF \
         "46" "(preset anime) 使用 Anime 模型预设" OFF \
         "47" "(preset realistic) 使用 Realistic 模型预设" OFF \
+        "48" "(preset term_sd) 使用 Term-SD 模型预设" OFF \
+        "49" "(share) 启用 Gradio 共享" OFF \
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
@@ -206,6 +208,12 @@ fooocus_launch_args_setting()
                 47)
                     fooocus_launch_args="--preset realistic"
                     ;;
+                48)
+                    fooocus_launch_args="--preset term_sd"
+                    ;;
+                49)
+                    fooocus_launch_args="--share"
+                    ;;
             esac
             launch_args="$fooocus_launch_args $launch_args"
         done
@@ -224,7 +232,7 @@ fooocus_launch()
 
     if [ ! -f "$start_path/term-sd/config/fooocus-launch.conf" ]; then # 找不到启动配置时默认生成一个
         term_sd_echo "未找到启动配置文件, 创建中"
-        echo "launch.py --language zh --preset sai" > "$start_path"/term-sd/config/fooocus-launch.conf
+        echo "launch.py --language zh --preset term_sd" > "$start_path"/term-sd/config/fooocus-launch.conf
     fi
 
     while true
