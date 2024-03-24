@@ -74,8 +74,8 @@ build_dialog_list_sd_webui()
     fi
     echo "生成 ${output_file} 中"
     cat $input_file | awk '{sub(" --submod","")}1' >> $cache_file
-    echo "AUTOMATIC1111-stable-diffusion-webui插件说明：" >> $output_file
-    echo "注：有些插件因为年久失修，可能会出现兼容性问题。具体介绍请在github上搜索项目" >> $output_file
+    echo "Stable Diffusion WebUI 插件说明：" >> $output_file
+    echo "注：有些插件因为年久失修，可能会出现兼容性问题。具体介绍请在 Github 上搜索项目" >> $output_file
 
     while (($flag==0))
     do
@@ -123,8 +123,8 @@ build_dialog_list_comfyui()
     echo "生成${output_file}中"
     cat $input_file_1 | awk '{sub(" --submod","")}1' >> $cache_file_1
     cat $input_file_2 | awk '{sub(" --submod","")}1' >> $cache_file_2
-    echo "ComfyUI插件/自定义节点说明：" >> $output_file
-    echo "注：有些插件/自定义节点因为年久失修，可能会出现兼容性问题。具体介绍请在github上搜索项目" >> $output_file
+    echo "ComfyUI 插件 / 自定义节点说明：" >> $output_file
+    echo "注：有些插件 / 自定义节点因为年久失修，可能会出现兼容性问题。具体介绍请在 Github 上搜索项目" >> $output_file
     echo "" >> $output_file
     echo "插件：" >> $output_file
 

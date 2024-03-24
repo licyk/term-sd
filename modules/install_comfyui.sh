@@ -106,7 +106,7 @@ install_comfyui()
                 echo "__term_sd_task_sys term_sd_tmp_enable_proxy" >> "$start_path/term-sd/task/comfyui_install.sh"
                 # 读取模型
                 for i in $comfyui_download_model_select_list ;do
-                    cat "$start_path/term-sd/install/sd_webui/comfyui_hf_model.sh" | grep -w $i >> "$start_path/term-sd/task/sd_webui_install.sh" # 插件所需的模型
+                    cat "$start_path/term-sd/install/comfyui/comfyui_hf_model.sh" | grep -w $i >> "$start_path/term-sd/task/comfyui_install.sh" # 插件所需的模型
                 done
                 # 读取扩展的模型
                 for i in $comfyui_download_model_select_list ;do
@@ -115,7 +115,7 @@ install_comfyui()
             else
                 # 读取模型
                 for i in $comfyui_download_model_select_list ;do
-                    cat "$start_path/term-sd/install/sd_webui/comfyui_ms_model.sh" | grep -w $i >> "$start_path/term-sd/task/sd_webui_install.sh" # 插件所需的模型
+                    cat "$start_path/term-sd/install/comfyui/comfyui_ms_model.sh" | grep -w $i >> "$start_path/term-sd/task/comfyui_install.sh" # 插件所需的模型
                 done
                 # 读取扩展的模型
                 for i in $comfyui_download_model_select_list ;do
@@ -224,7 +224,7 @@ comfyui_download_model_select()
 
     term_sd_echo "生成模型选择列表中"
     # 查找插件对应模型的编号
-    for i in $comfyui_extension_install_select_list
+    for i in $comfyui_custom_node_install_select_list
     do
         comfyui_custom_node_model_list="$comfyui_custom_node_model_list $(cat "$start_path"/term-sd/install/comfyui/$comfyui_custom_node_model_list_file | grep -w $i | awk 'NR==1{if ($NF!="") {print $1 " " $(NF-1) " " $NF} }')"
     done

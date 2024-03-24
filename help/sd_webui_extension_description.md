@@ -1,5 +1,5 @@
-AUTOMATIC1111-stable-diffusion-webui插件说明：
-注：有些插件因为年久失修，可能会出现兼容性问题。具体介绍请在github上搜索项目
+Stable Diffusion WebUI 插件说明：
+注：有些插件因为年久失修，可能会出现兼容性问题。具体介绍请在 Github 上搜索项目
 
 1、kohya-config-webui：
 描述：一个用于生成kohya-ss训练脚本使用的toml配置文件的WebUI

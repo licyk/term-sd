@@ -34,7 +34,7 @@ __term_sd_task_pre_ext_33 sd-webui-segment-anything OFF
 __term_sd_task_pre_ext_34 sd-webui-controlnet ON
 __term_sd_task_pre_ext_35 sd-webui-prompt-all-in-one ON
 __term_sd_task_pre_ext_36 sd-webui-comfyui OFF
-__term_sd_task_pre_ext_37 sd-webui-animatediff OFF
+__term_sd_task_pre_ext_37 sd-webui-animatediff ON
 __term_sd_task_pre_ext_38 sd-webui-photopea-embed OFF
 __term_sd_task_pre_ext_39 sd-webui-openpose-editor ON
 __term_sd_task_pre_ext_40 sd-webui-llul OFF

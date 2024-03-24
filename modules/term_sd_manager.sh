@@ -35,6 +35,9 @@ term_sd_launch()
             if echo $(cat "$start_path"/term-sd/config/$launch_sd_config) | grep "\-\-language zh" > /dev/null 2>&1 ;then # 添加中文配置
                 fooocus_lang_config_file > language/zh.json
             fi
+            if echo $(cat "$start_path"/term-sd/config/$launch_sd_config) | grep "\-\-preset term_sd" > /dev/null 2>&1 ;then # 添加Term-SD风格的预设
+                fooocus_preset_file > "$fooocus_path"/presets/term_sd.json
+            fi
             ;;
         lora-scripts)
             launch_sd_config="lora-scripts-launch.conf"
@@ -76,7 +79,7 @@ term_sd_try()
                     return 1
                     break # 超出重试次数后终端循环
                 fi
-                term_sd_echo "[$count/$term_sd_cmd_retry]命令执行失败, 重试中"
+                term_sd_echo "[$count/$term_sd_cmd_retry] 命令执行失败, 重试中"
             fi
         done
     fi
@@ -157,7 +160,7 @@ term_sd_manager()
     term_sd_manager_dialog=$(dialog --erase-on-exit --notags \
         --title "Term-SD" \
         --backtitle "主界面" \
-        --ok-label "确认" --cancel-label "取消" \
+        --ok-label "确认" --cancel-label "退出" \
         --menu "请选择Term-SD的功能\n当前虚拟环境状态: $([ $venv_setup_status = 0 ] && echo "启用" || echo "禁用")\n当前代理设置: $([ -z $http_proxy ] && echo "无" || echo $http_proxy)" \
         $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> Term-SD 更新管理" \
@@ -167,9 +170,9 @@ term_sd_manager()
         "4" "> Fooocus 管理" \
         "5" "> lora-scripts 管理" \
         "6" "> kohya_ss 管理" \
-        "7" "> 设置" \
-        "8" "> 帮助" \
-        "9" "> 退出" \
+        "7" "> Term-SD 设置" \
+        "8" "> Term-SD 帮助" \
+        "9" "> 退出 Term-SD" \
         3>&1 1>&2 2>&3 )
 
     case $term_sd_manager_dialog in
@@ -241,7 +244,7 @@ term_sd_help()
                 ;;
             2)
                 less --mouse \
-                --prompt="[Term-SD]提示\:使用方向键\/\"U\",\"D\"键\/鼠标滚轮进行翻页,按下\"Q\"键返回帮助列表" term-sd/help/how_to_use_term_sd.md
+                --prompt="[Term-SD] 提示\: 使用方向键 \ /\"U\", \"D\" 键 \/ 鼠标滚轮进行翻页, 按下 \"Q\" 键返回帮助列表" term-sd/help/how_to_use_term_sd.md
                 ;;
             3)
                 dialog --erase-on-exit \

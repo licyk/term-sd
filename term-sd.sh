@@ -729,7 +729,7 @@ prepare_tcmalloc()
 
 #############################
 
-export term_sd_version_info="1.2.19" # term-sd版本
+export term_sd_version_info="1.3.0" # term-sd版本
 export user_shell=$(basename $SHELL) # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题
@@ -1058,7 +1058,7 @@ if [ $term_sd_restart_info = 0 ];then
     . ./term-sd.sh
 fi
 
-term_sd_echo "Term-SD版本: $term_sd_version_info"
+term_sd_echo "Term-SD 版本: $term_sd_version_info"
 term_sd_echo "Commit: $(git --git-dir="term-sd/.git" show -s --format="%h %cd" --date=format:"%Y-%m-%d %H:%M:%S")"
 
 case $term_sd_extra_scripts_name in

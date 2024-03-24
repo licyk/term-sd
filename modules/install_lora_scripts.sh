@@ -79,11 +79,11 @@ install_lora_scripts()
                 echo "__term_sd_task_sys term_sd_tmp_enable_proxy" >> "$start_path/term-sd/task/lora_scripts_install.sh"
                 # 读取模型
                 for i in $lora_scripts_download_model_select_list ;do
-                    cat "$start_path/term-sd/install/sd_webui/lora_scripts_hf_model.sh" | grep -w $i >> "$start_path/term-sd/task/lora_scripts_install.sh" # 插件所需的模型
+                    cat "$start_path/term-sd/install/lora_scripts/lora_scripts_hf_model.sh" | grep -w $i >> "$start_path/term-sd/task/lora_scripts_install.sh" # 插件所需的模型
                 done
             else
                 for i in $lora_scripts_download_model_select_list ;do
-                    cat "$start_path/term-sd/install/sd_webui/lora_scripts_ms_model.sh" | grep -w $i >> "$start_path/term-sd/task/lora_scripts_install.sh" # 插件所需的模型
+                    cat "$start_path/term-sd/install/lora_scripts/lora_scripts_ms_model.sh" | grep -w $i >> "$start_path/term-sd/task/lora_scripts_install.sh" # 插件所需的模型
                 done
             fi
 

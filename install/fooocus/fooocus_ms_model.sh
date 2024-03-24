@@ -1,6 +1,6 @@
-__term_sd_task_pre_model_1 get_modelscope_model licyks/sd-model/master/sdxl_1.0/sd_xl_base_1.0_0.9vae.safetensors "$fooocus_path"/models/checkpoints # sd_xl_base_1.0_0.9vae ON
-__term_sd_task_pre_model_2 get_modelscope_model licyks/sd-model/master/sdxl_1.0/sd_xl_refiner_1.0_0.9vae.safetensors "$fooocus_path"/models/checkpoints # sd_xl_refiner_1.0_0.9vae ON
-__term_sd_task_pre_model_3 get_modelscope_model licyks/sd-model/master/sdxl_1.0/animagine-xl-3.0.safetensors "$fooocus_path"/models/checkpoints # animagine-xl-3.0 OFF
+__term_sd_task_pre_model_1 get_modelscope_model licyks/sd-model/master/sdxl_1.0/sd_xl_base_1.0_0.9vae.safetensors "$fooocus_path"/models/checkpoints # sd_xl_base_1.0_0.9vae OFF
+__term_sd_task_pre_model_2 get_modelscope_model licyks/sd-model/master/sdxl_1.0/sd_xl_refiner_1.0_0.9vae.safetensors "$fooocus_path"/models/checkpoints # sd_xl_refiner_1.0_0.9vae OFF
+__term_sd_task_pre_model_3 get_modelscope_model licyks/sd-model/master/sdxl_1.0/animagine-xl-3.0.safetensors "$fooocus_path"/models/checkpoints # animagine-xl-3.0 ON
 __term_sd_task_pre_model_4 get_modelscope_model licyks/fooocus-model/master/loras/sd_xl_offset_example-lora_1.0.safetensors "$fooocus_path"/models/loras # sd_xl_offset_example-lora_1.0 ON
 __term_sd_task_pre_model_5 get_modelscope_model licyks/fooocus-model/master/inpaint/inpaint.fooocus.patch "$fooocus_path"/models/inpaint # inpaint.fooocus ON
 __term_sd_task_pre_model_6 get_modelscope_model licyks/fooocus-model/master/inpaint/fooocus_inpaint_head.pth "$fooocus_path"/models/inpaint # fooocus_inpaint_head ON

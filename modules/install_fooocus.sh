@@ -80,11 +80,11 @@ install_fooocus()
                 echo "__term_sd_task_sys term_sd_tmp_enable_proxy" >> "$start_path/term-sd/task/fooocus_install.sh"
                 # 读取模型
                 for i in $fooocus_download_model_select_list ;do
-                    cat "$start_path/term-sd/install/sd_webui/fooocus_hf_model.sh" | grep -w $i >> "$start_path/term-sd/task/fooocus_install.sh" # 插件所需的模型
+                    cat "$start_path/term-sd/install/fooocus/fooocus_hf_model.sh" | grep -w $i >> "$start_path/term-sd/task/fooocus_install.sh" # 插件所需的模型
                 done
             else
                 for i in $fooocus_download_model_select_list ;do
-                    cat "$start_path/term-sd/install/sd_webui/fooocus_ms_model.sh" | grep -w $i >> "$start_path/term-sd/task/fooocus_install.sh" # 插件所需的模型
+                    cat "$start_path/term-sd/install/fooocus/fooocus_ms_model.sh" | grep -w $i >> "$start_path/term-sd/task/fooocus_install.sh" # 插件所需的模型
                 done
             fi
 
@@ -164,6 +164,103 @@ fooocus_download_model_select()
         "_null_" "====基础模型选择====" ON \
         $(cat "$start_path/term-sd/install/fooocus/dialog_fooocus_model.sh") \
         3>&1 1>&2 2>&3)
+}
+
+# fooocus预设文件
+fooocus_preset_file()
+{
+    cat<<EOF
+{
+    "default_model": "animagine-xl-3.0.safetensors",
+    "default_refiner": "None",
+    "default_refiner_switch": 0.8,
+    "default_loras": [
+        [
+            "sd_xl_offset_example-lora_1.0.safetensors",
+            0.5
+        ],
+        [
+            "None",
+            1.0
+        ],
+        [
+            "None",
+            1.0
+        ],
+        [
+            "None",
+            1.0
+        ],
+        [
+            "None",
+            1.0
+        ]
+    ],
+    "default_cfg_scale": 7.0,
+    "default_sample_sharpness": 2.0,
+    "default_sampler": "dpmpp_2m_sde_gpu",
+    "default_scheduler": "karras",
+    "default_performance": "Speed",
+    "default_prompt": "",
+    "default_prompt_negative": "lowres,bad anatomy,bad hands,text,error,missing fingers,extra digit,fewer digits,cropped,worst quality,low quality,normal quality,jpeg artifacts,signature,watermark,username,high contrast,blurry,",
+    "default_styles": [
+    ],
+    "default_image_number": 1,
+    "default_aspect_ratio": "756*1344",
+    "checkpoint_downloads": {},
+    "embeddings_downloads": {},
+    "lora_downloads": {},
+    "available_aspect_ratios": [
+        "704*1408",
+        "704*1344",
+        "768*1344",
+        "768*1280",
+        "832*1216",
+        "832*1152",
+        "896*1152",
+        "896*1088",
+        "960*1088",
+        "960*1024",
+        "1024*1024",
+        "1024*960",
+        "1088*960",
+        "1088*896",
+        "1152*896",
+        "1152*832",
+        "1216*832",
+        "1280*768",
+        "1344*768",
+        "1344*704",
+        "1408*704",
+        "1472*704",
+        "1536*640",
+        "1600*640",
+        "1664*576",
+        "1728*576",
+        "1920*1080",
+        "1080*1920",
+        "576*1024",
+        "768*1024",
+        "1024*576",
+        "1024*768",
+        "1024*1024",
+        "1536*864",
+        "864*1536",
+        "1472*828",
+        "828*1472",
+        "1344*756",
+        "756*1344",
+        "1344*1008",
+        "1008*1344",
+        "1536*1152",
+        "1152*1536",
+        "1472*1104",
+        "1104*1472"
+    ],
+    "default_save_metadata_to_images": true,
+    "default_metadata_scheme": "a1111"
+}
+EOF
 }
 
 # fooocus翻译配置文件

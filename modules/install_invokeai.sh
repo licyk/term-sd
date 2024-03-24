@@ -81,11 +81,11 @@ install_invokeai()
                 echo "__term_sd_task_sys term_sd_tmp_enable_proxy" >> "$start_path/term-sd/task/invokeai_install.sh"
                 # 读取模型
                 for i in $invokeai_download_model_select_list ;do
-                    cat "$start_path/term-sd/install/sd_webui/invokeai_hf_model.sh" | grep -w $i >> "$start_path/term-sd/task/invokeai_install.sh" # 插件所需的模型
+                    cat "$start_path/term-sd/install/invokeai/invokeai_hf_model.sh" | grep -w $i >> "$start_path/term-sd/task/invokeai_install.sh" # 插件所需的模型
                 done
             else
                 for i in $invokeai_download_model_select_list ;do
-                    cat "$start_path/term-sd/install/sd_webui/invokeai_ms_model.sh" | grep -w $i >> "$start_path/term-sd/task/invokeai_install.sh" # 插件所需的模型
+                    cat "$start_path/term-sd/install/invokeai/invokeai_ms_model.sh" | grep -w $i >> "$start_path/term-sd/task/invokeai_install.sh" # 插件所需的模型
                 done
             fi
 

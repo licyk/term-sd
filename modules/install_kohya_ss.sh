@@ -81,11 +81,11 @@ install_kohya_ss()
                 echo "__term_sd_task_sys term_sd_tmp_enable_proxy" >> "$start_path/term-sd/task/kohya_ss_install.sh"
                 # 读取模型
                 for i in $kohya_ss_download_model_select_list ;do
-                    cat "$start_path/term-sd/install/sd_webui/kohya_ss_hf_model.sh" | grep -w $i >> "$start_path/term-sd/task/kohya_ss_install.sh" # 插件所需的模型
+                    cat "$start_path/term-sd/install/kohya_ss/kohya_ss_hf_model.sh" | grep -w $i >> "$start_path/term-sd/task/kohya_ss_install.sh" # 插件所需的模型
                 done
             else
                 for i in $kohya_ss_download_model_select_list ;do
-                    cat "$start_path/term-sd/install/sd_webui/kohya_ss_ms_model.sh" | grep -w $i >> "$start_path/term-sd/task/kohya_ss_install.sh" # 插件所需的模型
+                    cat "$start_path/term-sd/install/kohya_ss/kohya_ss_ms_model.sh" | grep -w $i >> "$start_path/term-sd/task/kohya_ss_install.sh" # 插件所需的模型
                 done
             fi
 
