@@ -239,9 +239,9 @@ comfyui_download_model_select()
         --ok-label "确认" --no-cancel \
         --checklist "请选择需要下载的 ComfyUI 模型" \
         $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
-        "_null_" "====基础模型选择====" ON \
+        "_null_" "=====基础模型选择=====" ON \
         $(cat "$start_path/term-sd/install/comfyui/$comfyui_model_list_file") \
-        "_null_" "====插件模型选择====" ON \
+        "_null_" "=====插件模型选择=====" ON \
         $comfyui_custom_node_model_list \
         3>&1 1>&2 2>&3)
 }

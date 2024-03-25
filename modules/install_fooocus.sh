@@ -167,7 +167,7 @@ fooocus_download_model_select()
         --ok-label "确认" --no-cancel \
         --checklist "请选择需要下载的 Fooocus 模型" \
         $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
-        "_null_" "====基础模型选择====" ON \
+        "_null_" "=====基础模型选择=====" ON \
         $(cat "$start_path/term-sd/install/fooocus/$fooocus_model_list_file") \
         3>&1 1>&2 2>&3)
 }
