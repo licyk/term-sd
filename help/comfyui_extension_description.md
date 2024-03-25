@@ -276,3 +276,7 @@ ComfyUI 插件 / 自定义节点说明：
 66、ComfyUI-N-Sidebar：
 描述：节点快捷收藏整理工具
 链接：https://github.com/Nuked88/ComfyUI-N-Sidebar
+
+67、ComfyUI_DanTagGen：
+描述：使用Danboou风格对tag进行润色，使出图效果更好，内容更丰富
+链接：https://github.com/huchenlei/ComfyUI_DanTagGen

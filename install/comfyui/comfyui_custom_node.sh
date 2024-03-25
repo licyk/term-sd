@@ -64,3 +64,4 @@ __term_sd_task_pre_ext_63 git_clone_repository ${github_mirror} https://github.c
 __term_sd_task_pre_ext_64 git_clone_repository ${github_mirror} https://github.com/huchenlei/ComfyUI-layerdiffusion "$comfyui_path"/custom_nodes OFF # LayerDiffusion节点
 __term_sd_task_pre_ext_65 git_clone_repository ${github_mirror} https://github.com/chflame163/ComfyUI_LayerStyle "$comfyui_path"/custom_nodes OFF # 图层和蒙版合成节点
 __term_sd_task_pre_ext_66 git_clone_repository ${github_mirror} https://github.com/Nuked88/ComfyUI-N-Sidebar "$comfyui_path"/custom_nodes OFF # 节点快捷收藏整理工具
+__term_sd_task_pre_ext_67 git_clone_repository ${github_mirror} https://github.com/huchenlei/ComfyUI_DanTagGen "$comfyui_path"/custom_nodes OFF # 使用Danboou风格对tag进行润色，使出图效果更好，内容更丰富

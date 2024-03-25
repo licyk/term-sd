@@ -64,3 +64,4 @@ __term_sd_task_pre_ext_63 ComfyUI-Crystools OFF
 __term_sd_task_pre_ext_64 ComfyUI-layerdiffusion OFF
 __term_sd_task_pre_ext_65 ComfyUI_LayerStyle OFF
 __term_sd_task_pre_ext_66 ComfyUI-N-Sidebar OFF
+__term_sd_task_pre_ext_67 ComfyUI_DanTagGen OFF

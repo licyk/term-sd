@@ -211,10 +211,11 @@ sort_head_point()
 {
     local cmd_sum
     local cmd_point
-    local input_file="$1"
-    local input_file_name=$(basename "$1")
+    local input_file="$2"
+    local input_file_name=$(basename "$2")
     local start_time=$(date +'%Y-%m-%d %H:%M:%S')
     local start_time_seconds=$(date --date="$start_time" +%s)
+    local head_point="$1"
     local end_time
     local end_time_seconds
     local time_span
@@ -228,7 +229,7 @@ sort_head_point()
     do
         install_cmd=$(get_task_cmd $(cat "task/$input_file_name" | awk 'NR=='${cmd_point}'{print$0}'))
         if [ ! -z "$install_cmd" ];then
-            echo "__term_sd_task_pre_model_${cmd_point} $install_cmd" >> "$input_file"
+            echo "${head_point}${cmd_point} $install_cmd" >> "$input_file"
         fi
     done
 
@@ -297,23 +298,27 @@ if [ ! -z "$*" ];then
                 build_dialog_list_model install/kohya_ss/kohya_ss_ms_model.sh install/kohya_ss/dialog_kohya_ss_ms_model.sh
                 ;;
             --sort)
-                sort_head_point install/sd_webui/sd_webui_hf_model.sh
-                sort_head_point install/sd_webui/sd_webui_ms_model.sh
+                sort_head_point __term_sd_task_pre_model_ install/sd_webui/sd_webui_hf_model.sh
+                sort_head_point __term_sd_task_pre_model_ install/sd_webui/sd_webui_ms_model.sh
 
-                sort_head_point install/comfyui/comfyui_hf_model.sh
-                sort_head_point install/comfyui/comfyui_ms_model.sh
+                sort_head_point __term_sd_task_pre_model_ install/comfyui/comfyui_hf_model.sh
+                sort_head_point __term_sd_task_pre_model_ install/comfyui/comfyui_ms_model.sh
 
-                sort_head_point install/fooocus/fooocus_hf_model.sh
-                sort_head_point install/fooocus/fooocus_ms_model.sh
+                sort_head_point __term_sd_task_pre_model_ install/fooocus/fooocus_hf_model.sh
+                sort_head_point __term_sd_task_pre_model_ install/fooocus/fooocus_ms_model.sh
 
-                sort_head_point install/invokeai/invokeai_hf_model.sh
-                sort_head_point install/invokeai/invokeai_ms_model.sh
+                sort_head_point __term_sd_task_pre_model_ install/invokeai/invokeai_hf_model.sh
+                sort_head_point __term_sd_task_pre_model_ install/invokeai/invokeai_ms_model.sh
 
-                sort_head_point install/lora_scripts/lora_scripts_hf_model.sh
-                sort_head_point install/lora_scripts/lora_scripts_ms_model.sh
+                sort_head_point __term_sd_task_pre_model_ install/lora_scripts/lora_scripts_hf_model.sh
+                sort_head_point __term_sd_task_pre_model_ install/lora_scripts/lora_scripts_ms_model.sh
 
-                sort_head_point install/kohya_ss/kohya_ss_hf_model.sh
-                sort_head_point install/kohya_ss/kohya_ss_ms_model.sh
+                sort_head_point __term_sd_task_pre_model_ install/kohya_ss/kohya_ss_hf_model.sh
+                sort_head_point __term_sd_task_pre_model_ install/kohya_ss/kohya_ss_ms_model.sh
+
+                sort_head_point __term_sd_task_pre_ext_ install/comfyui/comfyui_custom_node.sh
+                sort_head_point __term_sd_task_pre_ext_ install/comfyui/comfyui_extension.sh
+                sort_head_point __term_sd_task_pre_ext_ install/sd_webui/sd_webui_extension.sh
                 ;;
             *)
                 echo "未知参数: \"$n\""
