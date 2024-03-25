@@ -151,8 +151,14 @@ install_fooocus()
 fooocus_download_model_select()
 {
     local fooocus_custom_node_model_list
+    local fooocus_model_list_file
 
     term_sd_echo "生成模型选择列表中"
+    if [ $use_modelscope_model = 0 ];then
+        fooocus_model_list_file="dialog_fooocus_ms_model.sh"
+    else
+        fooocus_model_list_file="dialog_fooocus_hf_model.sh"
+    fi
 
     # 模型选择
     fooocus_download_model_select_list=$(dialog --erase-on-exit --notags \
@@ -162,7 +168,7 @@ fooocus_download_model_select()
         --checklist "请选择需要下载的 Fooocus 模型" \
         $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "_null_" "====基础模型选择====" ON \
-        $(cat "$start_path/term-sd/install/fooocus/dialog_fooocus_model.sh") \
+        $(cat "$start_path/term-sd/install/fooocus/$fooocus_model_list_file") \
         3>&1 1>&2 2>&3)
 }
 

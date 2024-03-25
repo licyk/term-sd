@@ -64,6 +64,7 @@ install_lora_scripts()
         # 安装前的准备
         download_mirror_select auto_github_mirrror # 下载镜像源选择
         pytorch_version_select # pytorch版本选择
+        lora_scripts_download_model_select # 模型选择
         pip_install_mode_select # 安装方式选择
         term_sd_install_confirm "是否安装 lora-scripts ?" # 安装确认
         if [ $? = 0 ];then
@@ -150,8 +151,14 @@ install_lora_scripts()
 lora_scripts_download_model_select()
 {
     local lora_scripts_custom_node_model_list
+    local lora_scripts_model_list_file
 
     term_sd_echo "生成模型选择列表中"
+    if [ $use_modelscope_model = 0 ];then
+        lora_scripts_model_list_file="dialog_lora_scripts_ms_model.sh"
+    else
+        lora_scripts_model_list_file="dialog_lora_scripts_hf_model.sh"
+    fi
 
     # 模型选择
     lora_scripts_download_model_select_list=$(dialog --erase-on-exit --notags \
@@ -161,6 +168,6 @@ lora_scripts_download_model_select()
         --checklist "请选择需要下载的 lora-scripts 模型" \
         $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "_null_" "====基础模型选择====" ON \
-        $(cat "$start_path/term-sd/install/lora_scripts/dialog_lora_scripts_model.sh") \
+        $(cat "$start_path/term-sd/install/lora_scripts/$lora_scripts_model_list_file") \
         3>&1 1>&2 2>&3)
 }

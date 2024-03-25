@@ -151,8 +151,14 @@ install_kohya_ss()
 kohya_ss_download_model_select()
 {
     local kohya_ss_custom_node_model_list
+    local kohya_ss_model_list_file
 
     term_sd_echo "生成模型选择列表中"
+    if [ $use_modelscope_model = 0 ];then
+        kohya_ss_model_list_file="dialog_kohya_ss_ms_model.sh"
+    else
+        kohya_ss_model_list_file="dialog_kohya_ss_hf_model.sh"
+    fi
 
     # 模型选择
     kohya_ss_download_model_select_list=$(dialog --erase-on-exit --notags \
@@ -162,6 +168,6 @@ kohya_ss_download_model_select()
         --checklist "请选择需要下载的 kohya_ss 模型" \
         $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "_null_" "====基础模型选择====" ON \
-        $(cat "$start_path/term-sd/install/kohya_ss/dialog_kohya_ss_model.sh") \
+        $(cat "$start_path/term-sd/install/kohya_ss/$kohya_ss_model_list_file") \
         3>&1 1>&2 2>&3)
 }

@@ -191,11 +191,14 @@ sd_webui_download_model_select()
 {
     local sd_webui_extension_model_list_file
     local sd_webui_extension_model_list
+    local sd_webui_model_list_file
     # 插件模型列表选择
     if [ $use_modelscope_model = 0 ];then
         sd_webui_extension_model_list_file="sd_webui_extension_ms_model.sh"
+        sd_webui_model_list_file="dialog_sd_webui_ms_model.sh"
     else
         sd_webui_extension_model_list_file="sd_webui_extension_hf_model.sh"
+        sd_webui_model_list_file="dialog_sd_webui_hf_model.sh"
     fi
 
     term_sd_echo "生成模型选择列表中"
@@ -213,7 +216,7 @@ sd_webui_download_model_select()
         --checklist "请选择需要下载的 Stable-Diffusion-WebUI 模型" \
         $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "_null_" "====基础模型选择====" ON \
-        $(cat "$start_path/term-sd/install/sd_webui/dialog_sd_webui_model.sh") \
+        $(cat "$start_path/term-sd/install/sd_webui/$sd_webui_model_list_file") \
         "_null_" "====插件模型选择====" ON \
         $sd_webui_extension_model_list \
         3>&1 1>&2 2>&3)

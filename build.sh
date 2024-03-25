@@ -226,14 +226,27 @@ if [ ! -z "$*" ];then
                 build_dialog_list install/comfyui/comfyui_custom_node.sh install/comfyui/dialog_comfyui_custom_node.sh
                 build_dialog_list install/comfyui/comfyui_extension.sh install/comfyui/dialog_comfyui_extension.sh
                 build_dialog_list install/sd_webui/sd_webui_extension.sh install/sd_webui/dialog_sd_webui_extension.sh
+
                 build_dialog_list_sd_webui install/sd_webui/sd_webui_extension.sh help/sd_webui_extension_description.md
                 build_dialog_list_comfyui install/comfyui/comfyui_extension.sh install/comfyui/comfyui_custom_node.sh help/comfyui_extension_description.md
-                build_dialog_list_model install/sd_webui/sd_webui_ms_model.sh install/sd_webui/dialog_sd_webui_model.sh
-                build_dialog_list_model install/comfyui/comfyui_ms_model.sh install/comfyui/dialog_comfyui_model.sh
-                build_dialog_list_model install/fooocus/fooocus_ms_model.sh install/fooocus/dialog_fooocus_model.sh
-                build_dialog_list_model install/invokeai/invokeai_ms_model.sh install/invokeai/dialog_invokeai_model.sh
-                build_dialog_list_model install/lora_scripts/lora_scripts_ms_model.sh install/lora_scripts/dialog_lora_scripts_model.sh
-                build_dialog_list_model install/kohya_ss/kohya_ss_ms_model.sh install/kohya_ss/dialog_kohya_ss_model.sh
+
+                build_dialog_list_model install/sd_webui/sd_webui_hf_model.sh install/sd_webui/dialog_sd_webui_hf_model.sh
+                build_dialog_list_model install/sd_webui/sd_webui_ms_model.sh install/sd_webui/dialog_sd_webui_ms_model.sh
+
+                build_dialog_list_model install/comfyui/comfyui_hf_model.sh install/comfyui/dialog_comfyui_hf_model.sh
+                build_dialog_list_model install/comfyui/comfyui_ms_model.sh install/comfyui/dialog_comfyui_ms_model.sh
+
+                build_dialog_list_model install/fooocus/fooocus_hf_model.sh install/fooocus/dialog_fooocus_hf_model.sh
+                build_dialog_list_model install/fooocus/fooocus_ms_model.sh install/fooocus/dialog_fooocus_ms_model.sh
+
+                build_dialog_list_model install/invokeai/invokeai_hf_model.sh install/invokeai/dialog_invokeai_hf_model.sh
+                build_dialog_list_model install/invokeai/invokeai_ms_model.sh install/invokeai/dialog_invokeai_ms_model.sh
+
+                build_dialog_list_model install/lora_scripts/lora_scripts_hf_model.sh install/lora_scripts/dialog_lora_scripts_hf_model.sh
+                build_dialog_list_model install/lora_scripts/lora_scripts_ms_model.sh install/lora_scripts/dialog_lora_scripts_ms_model.sh
+                
+                build_dialog_list_model install/kohya_ss/kohya_ss_hf_model.sh install/kohya_ss/dialog_kohya_ss_hf_model.sh
+                build_dialog_list_model install/kohya_ss/kohya_ss_ms_model.sh install/kohya_ss/dialog_kohya_ss_ms_model.sh
                 ;;
             *)
                 echo "未知参数\"$n\""

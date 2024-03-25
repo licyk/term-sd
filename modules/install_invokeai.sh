@@ -152,8 +152,14 @@ install_invokeai()
 invokeai_download_model_select()
 {
     local invokeai_custom_node_model_list
+    local invokeai_model_list_file
 
     term_sd_echo "生成模型选择列表中"
+    if [ $use_modelscope_model = 0 ];then
+        invokeai_model_list_file="dialog_invokeai_ms_model.sh"
+    else
+        invokeai_model_list_file="dialog_invokeai_hf_model.sh"
+    fi
 
     # 模型选择
     invokeai_download_model_select_list=$(dialog --erase-on-exit --notags \
@@ -163,6 +169,6 @@ invokeai_download_model_select()
         --checklist "请选择需要下载的 InvokeAI 模型" \
         $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "_null_" "====基础模型选择====" ON \
-        $(cat "$start_path/term-sd/install/invokeai/dialog_invokeai_model.sh") \
+        $(cat "$start_path/term-sd/install/invokeai/$invokeai_model_list_file") \
         3>&1 1>&2 2>&3)
 }

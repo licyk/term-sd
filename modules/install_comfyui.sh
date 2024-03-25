@@ -214,12 +214,15 @@ comfyui_custom_node_install_select()
 comfyui_download_model_select()
 {
     local comfyui_custom_node_model_list_file
+    local comfyui_model_list_file
     local comfyui_custom_node_model_list
     # 插件模型列表选择
     if [ $use_modelscope_model = 0 ];then
         comfyui_custom_node_model_list_file="comfyui_custom_node_ms_model.sh"
+        comfyui_model_list_file="dialog_comfyui_ms_model.sh"
     else
         comfyui_custom_node_model_list_file="comfyui_custom_node_hf_model.sh"
+        comfyui_model_list_file="dialog_comfyui_hf_model.sh"
     fi
 
     term_sd_echo "生成模型选择列表中"
@@ -237,7 +240,7 @@ comfyui_download_model_select()
         --checklist "请选择需要下载的 ComfyUI 模型" \
         $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "_null_" "====基础模型选择====" ON \
-        $(cat "$start_path/term-sd/install/comfyui/dialog_comfyui_model.sh") \
+        $(cat "$start_path/term-sd/install/comfyui/$comfyui_model_list_file") \
         "_null_" "====插件模型选择====" ON \
         $comfyui_custom_node_model_list \
         3>&1 1>&2 2>&3)
