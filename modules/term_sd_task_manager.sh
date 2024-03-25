@@ -131,7 +131,7 @@ term_sd_add_blank_line()
 # 在安装过程中检测ai软件是否下载下来,当检测到未下载下来时返回错误并终止,防止文件散落
 is_sd_repo_exist()
 {
-    if [ ! -z "$@" ];then
+    if [ ! -d "$@" ];then
         term_sd_echo "检测到核心未能成功下载, 为了防止接下来的安装操作产生的文件散落出来, Term-SD将终止安装进程"
         term_sd_echo "已终止安装进程"
         term_sd_echo "退出 Term-SD"
