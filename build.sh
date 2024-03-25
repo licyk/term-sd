@@ -198,8 +198,56 @@ build_dialog_list_model()
     echo "完成, 用时: ${time_span} sec"
 }
 
+get_task_cmd()
+{
+    local task_cmd_sign
+    local task_cmd
+    task_cmd_sign=$(echo $@ | awk '{print $1}')
+    task_cmd=$(echo $@ | awk '{sub("'$task_cmd_sign' ","")}1')
+    echo $task_cmd
+}
+
+sort_head_point()
+{
+    local cmd_sum
+    local cmd_point
+    local input_file="$1"
+    local input_file_name=$(basename "$1")
+    local start_time=$(date +'%Y-%m-%d %H:%M:%S')
+    local start_time_seconds=$(date --date="$start_time" +%s)
+    local end_time
+    local end_time_seconds
+    local time_span
+
+    echo "生成 ${input_file} 中"
+    mv $input_file task/
+
+    cmd_sum=$(( $(cat "task/$input_file_name" | wc -l) + 1)) # 统计命令行数
+
+    for ((cmd_point=1; cmd_point <= cmd_sum; cmd_point++))
+    do
+        install_cmd=$(get_task_cmd $(cat "task/$input_file_name" | awk 'NR=='${cmd_point}'{print$0}'))
+        if [ ! -z "$install_cmd" ];then
+            echo "__term_sd_task_pre_model_${cmd_point} $install_cmd" >> "$input_file"
+        fi
+    done
+
+    rm task/$input_file_name
+
+    end_time=$(date +'%Y-%m-%d %H:%M:%S')
+    end_time_seconds=$(date --date="$end_time" +%s)
+    time_span=$(( $end_time_seconds - $start_time_seconds )) # 计算相隔时间
+    echo "完成, 用时: ${time_span} sec"
+}
+
+
+#############################
+
 
 if [ ! -d "modules" ] || [ ! -d "install" ] || [ ! -d "task" ] || [ ! -d "help" ];then
+    echo "目录错误"
+    exit 1
+elif [ ! "$(dirname "$(echo $0)")" = "." ];then
     echo "目录错误"
     exit 1
 fi
@@ -248,8 +296,27 @@ if [ ! -z "$*" ];then
                 build_dialog_list_model install/kohya_ss/kohya_ss_hf_model.sh install/kohya_ss/dialog_kohya_ss_hf_model.sh
                 build_dialog_list_model install/kohya_ss/kohya_ss_ms_model.sh install/kohya_ss/dialog_kohya_ss_ms_model.sh
                 ;;
+            --sort)
+                sort_head_point install/sd_webui/sd_webui_hf_model.sh
+                sort_head_point install/sd_webui/sd_webui_ms_model.sh
+
+                sort_head_point install/comfyui/comfyui_hf_model.sh
+                sort_head_point install/comfyui/comfyui_ms_model.sh
+
+                sort_head_point install/fooocus/fooocus_hf_model.sh
+                sort_head_point install/fooocus/fooocus_ms_model.sh
+
+                sort_head_point install/invokeai/invokeai_hf_model.sh
+                sort_head_point install/invokeai/invokeai_ms_model.sh
+
+                sort_head_point install/lora_scripts/lora_scripts_hf_model.sh
+                sort_head_point install/lora_scripts/lora_scripts_ms_model.sh
+
+                sort_head_point install/kohya_ss/kohya_ss_hf_model.sh
+                sort_head_point install/kohya_ss/kohya_ss_ms_model.sh
+                ;;
             *)
-                echo "未知参数\"$n\""
+                echo "未知参数: \"$n\""
                 ;;
         esac
     done
@@ -261,6 +328,6 @@ if [ ! -z "$*" ];then
     echo "总共用时: ${time_span_sum} sec"
 else
     echo "使用："
-    echo "build.sh [--fix] [--build]"
+    echo "build.sh [--fix] [--build] [--sort]"
     echo "未指定操作"
 fi

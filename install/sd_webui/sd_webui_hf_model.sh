@@ -20,7 +20,7 @@ __term_sd_task_pre_model_19 aria2_download https://huggingface.co/licyk/sd-upsca
 __term_sd_task_pre_model_20 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/RealESRGAN/RealESRGAN_x4plus.pth "$sd_webui_path"/models/RealESRGAN # RealESRGAN_x4plus ON
 __term_sd_task_pre_model_21 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/RealESRGAN/RealESRGAN_x4plus_anime_6B.pth "$sd_webui_path"/models/RealESRGAN # RealESRGAN_x4plus_anime_6B ON
 __term_sd_task_pre_model_22 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/BLIP/model_base_caption_capfilt_large.pth "$sd_webui_path"/models/BLIP # BLIP模型 model_base_caption_capfilt_large OFF
-__term_sd_task_pre_model_23 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/torch_deepdanbooru/model-resnet_custom_v3.pt  "$sd_webui_path"/models/torch_deepdanbooru # deepdanbooru模型 model-resnet_custom_v3 OFF
+__term_sd_task_pre_model_23 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/torch_deepdanbooru/model-resnet_custom_v3.pt "$sd_webui_path"/models/torch_deepdanbooru # deepdanbooru模型 model-resnet_custom_v3 OFF
 __term_sd_task_pre_model_24 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/Codeformer/codeformer-v0.1.0.pth "$sd_webui_path"/models/Codeformer # Codeformer模型 codeformer-v0.1.0 OFF
 __term_sd_task_pre_model_25 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/EasyNegativeV2.safetensors "$sd_webui_path"/embeddings # embeddings模型 EasyNegativeV2 ON
 __term_sd_task_pre_model_26 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-artist-anime.pt "$sd_webui_path"/embeddings # bad-artist-anime ON
