@@ -56,11 +56,11 @@ fooocus_launch_args_setting()
         "41" "(disable-image-log) 禁用将图像和日志写入硬盘" OFF \
         "42" "(disable-analytics) 禁用 Gradio 分析" OFF \
         "43" "(preset default) 使用默认模型预设" OFF \
-        "44" "(preset sai) 使用 SAI 模型预设" ON \
+        "44" "(preset sai) 使用 SAI 模型预设" OFF \
         "45" "(preset lcm) 使用 LCM 模型预设" OFF \
         "46" "(preset anime) 使用 Anime 模型预设" OFF \
         "47" "(preset realistic) 使用 Realistic 模型预设" OFF \
-        "48" "(preset term_sd) 使用 Term-SD 模型预设" OFF \
+        "48" "(preset term_sd) 使用 Term-SD 模型预设" ON \
         "49" "(share) 启用 Gradio 共享" OFF \
         3>&1 1>&2 2>&3)
 

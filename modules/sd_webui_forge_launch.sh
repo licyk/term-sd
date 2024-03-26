@@ -61,7 +61,7 @@ sd_webui_forge_launch_args_setting()
         "46" "(disable-console-progressbars) 禁用控制台进度条显示" OFF \
         "47" "(enable-console-prompts) 启用在生图时输出提示词到控制台" OFF \
         "48" "(disable-safe-unpickle) 禁用检查模型是否包含恶意代码" OFF \
-        "49" "(api) 启用 API" OFF \
+        "49" "(api) 启用 API" ON \
         "50" "(api-log) 启用输出所有 API 请求的日志记录" OFF \
         "51" "(nowebui) 不加载 WebUI 界面" OFF \
         "52" "(ui-debug-mode) 不加载模型启动 WebUI (UI Debug)" OFF \
@@ -453,7 +453,7 @@ sd_webui_forge_launch()
 
     if [ ! -f "$start_path/term-sd/config/sd-webui-forge-launch.conf" ]; then # 找不到启动配置时默认生成一个
         term_sd_echo "未找到启动配置文件, 创建中"
-        echo "launch.py --theme dark --autolaunch --xformers" > "$start_path"/term-sd/config/sd-webui-forge-launch.conf
+        echo "launch.py --theme dark --autolaunch --xformers --api" > "$start_path"/term-sd/config/sd-webui-forge-launch.conf
     fi
 
     while true
