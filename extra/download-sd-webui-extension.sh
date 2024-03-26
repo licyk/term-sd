@@ -11,13 +11,38 @@ install_sd_webui_extension()
 {
     [ -f "$start_path/term-sd/task/sd_webui_install_extension.sh" ] && rm -f "$start_path/term-sd/task/sd_webui_install_extension.sh"
     download_mirror_select auto_github_mirrror # 下载镜像源选择
-        sd_webui_extension_install_select_list=$(dialog --erase-on-exit --notags \
+    
+    sd_webui_extension_install_select_list=$(dialog --erase-on-exit --notags \
         --title "Stable-Diffusion-WebUI 安装" \
         --backtitle "Stable-Diffusion-WebUI 插件安装选项" \
         --ok-label "确认" --no-cancel \
         --checklist "请选择需要安装的 Stable-Diffusion-WebUI 插件" \
         $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
-        $(cat "$start_path/term-sd/install/sd_webui/dialog_sd_webui_extension.sh" | awk '{gsub(" ON"," OFF")}1') \
+        $(cat "$start_path/term-sd/install/sd_webui/dialog_sd_webui_extension.sh" | awk '{sub($3,"OFF")}1') \
+        3>&1 1>&2 2>&3)
+
+    # 插件模型列表选择
+    if [ $use_modelscope_model = 0 ];then
+        sd_webui_extension_model_list_file="sd_webui_extension_ms_model.sh"
+    else
+        sd_webui_extension_model_list_file="sd_webui_extension_hf_model.sh"
+    fi
+
+    term_sd_echo "生成模型选择列表中"
+    # 查找插件对应模型的编号
+    for i in $sd_webui_extension_install_select_list
+    do
+        sd_webui_extension_model_list="$sd_webui_extension_model_list $(cat "$start_path"/term-sd/install/sd_webui/$sd_webui_extension_model_list_file | grep -w $i | awk 'NR==1{if ($NF!="") {print $1 " " $(NF-1) " " $NF} }')"
+    done
+
+    # 模型选择(包含基础模型和插件的模型)
+    sd_webui_download_model_select_list=$(dialog --erase-on-exit --notags \
+        --title "Stable-Diffusion-WebUI 安装" \
+        --backtitle "Stable-Diffusion-WebUI 插件模型下载选项" \
+        --ok-label "确认" --no-cancel \
+        --checklist "请选择需要下载的 Stable-Diffusion-WebUI 模型" \
+        $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        $sd_webui_extension_model_list \
         3>&1 1>&2 2>&3)
 
     term_sd_install_confirm "是否安装 Stable-Diffusion-WebUI 插件?" # 安装确认
@@ -29,11 +54,11 @@ install_sd_webui_extension()
         done
 
         if [ $use_modelscope_model = 1 ];then
-            for i in $sd_webui_extension_install_select_list ;do
+            for i in $sd_webui_download_model_select_list ;do
                 cat "$start_path/term-sd/install/sd_webui/sd_webui_extension_hf_model.sh" | grep -w $i >> "$start_path/term-sd/task/sd_webui_install_extension.sh" # 插件所需的模型
             done
         else
-            for i in $sd_webui_extension_install_select_list ;do
+            for i in $sd_webui_download_model_select_list ;do
                 cat "$start_path/term-sd/install/sd_webui/sd_webui_extension_ms_model.sh" | grep -w $i >> "$start_path/term-sd/task/sd_webui_install_extension.sh" # 插件所需的模型
             done
         fi
@@ -64,6 +89,36 @@ install_sd_webui_extension()
     else
         term_sd_echo "取消下载 Stable-Diffusion-WebUI 插件"
     fi
+}
+
+# 模型选择
+sd_webui_download_model_select()
+{
+    local sd_webui_extension_model_list_file
+    local sd_webui_extension_model_list
+    # 插件模型列表选择
+    if [ $use_modelscope_model = 0 ];then
+        sd_webui_extension_model_list_file="sd_webui_extension_ms_model.sh"
+    else
+        sd_webui_extension_model_list_file="sd_webui_extension_hf_model.sh"
+    fi
+
+    term_sd_echo "生成模型选择列表中"
+    # 查找插件对应模型的编号
+    for i in $sd_webui_extension_install_select_list
+    do
+        sd_webui_extension_model_list="$sd_webui_extension_model_list $(cat "$start_path"/term-sd/install/sd_webui/$sd_webui_extension_model_list_file | grep -w $i | awk 'NR==1{if ($NF!="") {print $1 " " $(NF-1) " " $NF} }')"
+    done
+
+    # 模型选择(包含基础模型和插件的模型)
+    sd_webui_download_model_select_list=$(dialog --erase-on-exit --notags \
+        --title "Stable-Diffusion-WebUI 安装" \
+        --backtitle "Stable-Diffusion-WebUI 模型下载选项" \
+        --ok-label "确认" --no-cancel \
+        --checklist "请选择需要下载的 Stable-Diffusion-WebUI 模型" \
+        $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        $sd_webui_extension_model_list \
+        3>&1 1>&2 2>&3)
 }
 
 if [ -d "$sd_webui_path" ];then

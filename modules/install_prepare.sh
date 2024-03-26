@@ -260,12 +260,12 @@ term_sd_install_confirm()
         --backtitle "安装确认选项" \
         --yes-label "是" --no-label "否" \
         --yesno "${@}\n
-Pip 镜像源: $([ $use_pip_mirror = 0 ] && echo "禁用" || echo "启用")\n
+Pip 镜像源: $([ $use_pip_mirror = 0 ] && echo "启用" || echo "禁用")\n
 Github 镜像: $github_mirror_name\n
 Huggingface / Github下载源独占代理: $([ $term_sd_only_proxy = 0 ] && echo "启用" || echo "禁用")\n
 使用 ModelScope 模型下载源: $([ $use_modelscope_model = 0 ] && echo "启用" || echo "禁用")\n
 强制使用 Pip: $([ -z "$pip_break_system_package" ] && echo "禁用" || echo "启用")\n
-PyTorch 版本: $([ ! -z "$(echo $pytorch_install_version | awk '{gsub(/[=+]/, "")}1')" ] && echo $pytorch_install_version || echo "无")\n
+PyTorch 版本: $([ ! -z "$pytorch_install_version" ] && echo $pytorch_install_version || echo "无")\n
 Pip 安装方式: $([ -z $pip_install_mode ] && echo "常规安装 (setup.py)" || echo "标准构建安装 (--use-pep517)")\n
 " $term_sd_dialog_height $term_sd_dialog_width) then
         term_sd_echo "确认进行安装"
