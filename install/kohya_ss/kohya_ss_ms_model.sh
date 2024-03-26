@@ -9,3 +9,4 @@ __term_sd_task_pre_model_8 # =====VAE模型===== OFF
 __term_sd_task_pre_model_9 get_modelscope_model licyks/sd-vae/master/sd_1.5/vae-ft-ema-560000-ema-pruned.safetensors "$kohya_ss_path"/models/ # vae-ft-ema-560000-ema-pruned OFF
 __term_sd_task_pre_model_10 get_modelscope_model licyks/sd-vae/master/sd_1.5/vae-ft-mse-840000-ema-pruned.safetensors "$kohya_ss_path"/models/ # vae-ft-mse-840000-ema-pruned OFF
 __term_sd_task_pre_model_11 get_modelscope_model licyks/sd-vae/master/sdxl_1.0/sdxl_fp16_fix_vae.safetensors "$kohya_ss_path"/models/ # sdxl_fp16_fix_vae OFF
+__term_sd_task_pre_model_12 get_modelscope_model licyks/sd-vae/master/sdxl_1.0/sdxl_vae.safetensors "$kohya_ss_path"/models/ # sdxl_vae OFF

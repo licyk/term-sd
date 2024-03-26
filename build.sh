@@ -120,7 +120,7 @@ build_dialog_list_comfyui()
         rm -f $output_file
     fi
 
-    echo "生成${output_file}中"
+    echo "生成 ${output_file} 中"
     cat $input_file_1 | awk '{sub(" --submod","")}1' >> $cache_file_1
     cat $input_file_2 | awk '{sub(" --submod","")}1' >> $cache_file_2
     echo "ComfyUI 插件 / 自定义节点说明：" >> $output_file
@@ -260,7 +260,7 @@ if [ ! -z "$*" ];then
     for n in $@ ;do
         case $n in
             --fix)
-                echo "格式转换"
+                echo ":: 格式转换"
                 list=$(find extra config help install modules task)
                 for i in $list; do
                     if [ -f $i ];then
@@ -272,6 +272,7 @@ if [ ! -z "$*" ];then
                 dos2unix README.md
                 ;;
             --build)
+                echo ":: 构建列表"
                 build_dialog_list install/comfyui/comfyui_custom_node.sh install/comfyui/dialog_comfyui_custom_node.sh
                 build_dialog_list install/comfyui/comfyui_extension.sh install/comfyui/dialog_comfyui_extension.sh
                 build_dialog_list install/sd_webui/sd_webui_extension.sh install/sd_webui/dialog_sd_webui_extension.sh
@@ -298,6 +299,7 @@ if [ ! -z "$*" ];then
                 build_dialog_list_model install/kohya_ss/kohya_ss_ms_model.sh install/kohya_ss/dialog_kohya_ss_ms_model.sh
                 ;;
             --sort)
+                echo ":: 头标签排序"
                 sort_head_point __term_sd_task_pre_model_ install/sd_webui/sd_webui_hf_model.sh
                 sort_head_point __term_sd_task_pre_model_ install/sd_webui/sd_webui_ms_model.sh
 

@@ -9,3 +9,4 @@ __term_sd_task_pre_model_8 =====VAE模型===== OFF
 __term_sd_task_pre_model_9 vae-ft-ema-560000-ema-pruned OFF
 __term_sd_task_pre_model_10 vae-ft-mse-840000-ema-pruned OFF
 __term_sd_task_pre_model_11 sdxl_fp16_fix_vae OFF
+__term_sd_task_pre_model_12 sdxl_vae OFF

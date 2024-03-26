@@ -9,3 +9,4 @@ __term_sd_task_pre_model_8 # =====VAE模型===== OFF
 __term_sd_task_pre_model_9 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sd_1.5/vae-ft-ema-560000-ema-pruned.safetensors "$lora_scripts_path"/sd-models/ # vae-ft-ema-560000-ema-pruned OFF
 __term_sd_task_pre_model_10 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sd_1.5/vae-ft-mse-840000-ema-pruned.safetensors "$lora_scripts_path"/sd-models/ # vae-ft-mse-840000-ema-pruned OFF
 __term_sd_task_pre_model_11 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sdxl_1.0/sdxl_fp16_fix_vae.safetensors "$lora_scripts_path"/sd-models/ # sdxl_fp16_fix_vae OFF
+__term_sd_task_pre_model_12 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sdxl_1.0/sdxl_vae.safetensors "$lora_scripts_path"/sd-models/ # sdxl_vae OFF
