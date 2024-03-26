@@ -278,17 +278,28 @@ term_sd_proxy_setting()
 {
     local term_sd_proxy_config
     local term_sd_proxy_setting_dialog
+    local proxy_address_available
     export http_proxy
     export https_proxy
     export term_sd_proxy
 
     while true
     do
+        if [ ! -z "$http_proxy" ];then
+            term_sd_echo "测试代理地址连通性中"
+            curl -s --connect-timeout 1 "$http_proxy"
+            if [ $? = 0 ];then
+                proxy_address_available="(可用 ✓)"
+            else
+                proxy_address_available="(连接异常 ×)"
+            fi
+        fi
+
         term_sd_proxy_setting_dialog=$(dialog --erase-on-exit --notags \
             --title "Term-SD" \
             --backtitle "代理设置界面" \
             --ok-label "确认" --cancel-label "取消" \
-            --menu "该功能用于设置代理服务器, 解决 AI 软件和 Term-SD 因网络环境导致无法连接上服务器, 而出现报错的问题\n当前代理设置: $([ -z $http_proxy ] && echo "无" || echo $http_proxy)\n请选择要设置的代理协议" \
+            --menu "该功能用于设置代理服务器, 解决 AI 软件和 Term-SD 因网络环境导致无法连接上服务器, 而出现报错的问题\n当前代理设置: $([ -z $http_proxy ] && echo "无" || echo "$http_proxy ${proxy_address_available}")\n请选择要设置的代理协议" \
             $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
             "0" "> 返回" \
             "1" "> Http 协议" \

@@ -153,15 +153,27 @@ Curl: $(curl --version | awk 'NR==1{print$2}')\n
 term_sd_manager()
 {
     local term_sd_manager_dialog
+    local proxy_address_available
     export term_sd_manager_info=
     cd "$start_path" # 回到最初路径
     exit_venv # 确保进行下一步操作前已退出其他虚拟环境
+
+    # 检测代理地址是否可用
+    if [ ! -z "$http_proxy" ];then
+        term_sd_echo "测试代理地址连通性中"
+        curl -s --connect-timeout 1 "$http_proxy"
+        if [ $? = 0 ];then
+            proxy_address_available="(可用 ✓)"
+        else
+            proxy_address_available="(连接异常 ×)"
+        fi
+    fi
 
     term_sd_manager_dialog=$(dialog --erase-on-exit --notags \
         --title "Term-SD" \
         --backtitle "主界面" \
         --ok-label "确认" --cancel-label "退出" \
-        --menu "请选择Term-SD的功能\n当前虚拟环境状态: $([ $venv_setup_status = 0 ] && echo "启用" || echo "禁用")\n当前代理设置: $([ -z $http_proxy ] && echo "无" || echo $http_proxy)" \
+        --menu "请选择Term-SD的功能\n当前虚拟环境状态: $([ $venv_setup_status = 0 ] && echo "启用" || echo "禁用")\n当前代理设置: $([ -z $http_proxy ] && echo "无" || echo "$http_proxy ${proxy_address_available}")" \
         $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> Term-SD 更新管理" \
         "1" "> Stable-Diffusion-WebUI 管理" \
