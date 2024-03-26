@@ -44,7 +44,7 @@ install_comfyui_extension()
     done
 
     # 模型选择(包含基础模型和插件的模型)
-    if [ -z "$comfyui_custom_node_model_list" ];then
+    if [ ! -z "$comfyui_custom_node_model_list" ];then
         comfyui_download_model_select_list=$(dialog --erase-on-exit --notags \
             --title "ComfyUI 安装" \
             --backtitle "ComfyUI 模型下载选项" \

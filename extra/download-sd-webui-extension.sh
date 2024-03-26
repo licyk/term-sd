@@ -36,14 +36,18 @@ install_sd_webui_extension()
     done
 
     # 模型选择(包含基础模型和插件的模型)
-    sd_webui_download_model_select_list=$(dialog --erase-on-exit --notags \
-        --title "Stable-Diffusion-WebUI 安装" \
-        --backtitle "Stable-Diffusion-WebUI 插件模型下载选项" \
-        --ok-label "确认" --no-cancel \
-        --checklist "请选择需要下载的 Stable-Diffusion-WebUI 模型" \
-        $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
-        $sd_webui_extension_model_list \
-        3>&1 1>&2 2>&3)
+    if [ ! -z "$sd_webui_extension_model_list" ];then
+        sd_webui_download_model_select_list=$(dialog --erase-on-exit --notags \
+            --title "Stable-Diffusion-WebUI 安装" \
+            --backtitle "Stable-Diffusion-WebUI 插件模型下载选项" \
+            --ok-label "确认" --no-cancel \
+            --checklist "请选择需要下载的 Stable-Diffusion-WebUI 模型" \
+            $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+            $sd_webui_extension_model_list \
+            3>&1 1>&2 2>&3)
+    else
+        term_sd_echo "无可选扩展的模型, 跳过模型选择"
+    fi
 
     term_sd_install_confirm "是否安装 Stable-Diffusion-WebUI 插件?" # 安装确认
     if [ $? = 0 ];then
