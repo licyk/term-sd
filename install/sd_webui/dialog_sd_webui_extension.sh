@@ -83,5 +83,5 @@ __term_sd_task_pre_ext_82 sd-danbooru-tags-upsampler OFF
 __term_sd_task_pre_ext_83 Stylez OFF
 __term_sd_task_pre_ext_84 sd-webui-next-style OFF
 __term_sd_task_pre_ext_85 a1111-sd-webui-haku-img OFF
-__term_sd_task_pre_ext_86 Kohaku-NAI OFF
+__term_sd_task_pre_ext_86 Kohaku-NAI ON
 __term_sd_task_pre_ext_87 sd-webui-cli-interruption OFF

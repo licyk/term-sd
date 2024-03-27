@@ -43,19 +43,16 @@ install_comfyui_extension()
         comfyui_custom_node_model_list="$comfyui_custom_node_model_list $(cat "$start_path"/term-sd/install/comfyui/$comfyui_custom_node_model_list_file | grep -w $i | awk 'NR==1{if ($NF!="") {print $1 " " $(NF-1) " " $NF} }' | awk '{sub($NF,"OFF")}1')"
     done
 
-    # 模型选择(包含基础模型和插件的模型)
-    if [ ! -z "$comfyui_custom_node_model_list" ];then
-        comfyui_download_model_select_list=$(dialog --erase-on-exit --notags \
-            --title "ComfyUI 安装" \
-            --backtitle "ComfyUI 模型下载选项" \
-            --ok-label "确认" --no-cancel \
-            --checklist "请选择需要下载的 ComfyUI 扩展模型" \
-            $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
-            $comfyui_custom_node_model_list \
-            3>&1 1>&2 2>&3)
-    else
-        term_sd_echo "无可选扩展的模型, 跳过模型选择"
-    fi
+    # 模型选择
+    comfyui_download_model_select_list=$(dialog --erase-on-exit --notags \
+        --title "ComfyUI 安装" \
+        --backtitle "ComfyUI 模型下载选项" \
+        --ok-label "确认" --no-cancel \
+        --checklist "请选择需要下载的 ComfyUI 扩展模型" \
+        $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        "_null_" "=====扩展模型选择=====" ON \
+        $comfyui_custom_node_model_list \
+        3>&1 1>&2 2>&3)
 
     term_sd_install_confirm "是否安装 ComfyUI 插件 / 自定义节点?" # 安装确认
     if [ $? = 0 ];then
