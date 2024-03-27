@@ -32,7 +32,7 @@ install_sd_webui_extension()
     # 查找插件对应模型的编号
     for i in $sd_webui_extension_install_select_list
     do
-        sd_webui_extension_model_list="$sd_webui_extension_model_list $(cat "$start_path"/term-sd/install/sd_webui/$sd_webui_extension_model_list_file | grep -w $i | awk 'NR==1{if ($NF!="") {print $1 " " $(NF-1) " " $NF} }')"
+        sd_webui_extension_model_list="$sd_webui_extension_model_list $(cat "$start_path"/term-sd/install/sd_webui/$sd_webui_extension_model_list_file | grep -w $i | awk 'NR==1{if ($NF!="") {print $1 " " $(NF-1) " " $NF} }' | awk '{sub($NF,"OFF")}1')"
     done
 
     # 模型选择(包含基础模型和插件的模型)
