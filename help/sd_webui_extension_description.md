@@ -344,3 +344,7 @@ Stable Diffusion WebUI 插件说明：
 86、Kohaku-NAI：
 描述：novelai_api调用工具
 链接：https://github.com/KohakuBlueleaf/Kohaku-NAI
+
+87、sd-webui-cli-interruption：
+描述：当在终端中按下Ctrl+C时，若此时正在生图，则将Ctrl+C的终止程序信号更改为终止生图的信号
+链接：https://github.com/light-and-ray/sd-webui-cli-interruption

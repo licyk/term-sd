@@ -84,3 +84,4 @@ __term_sd_task_pre_ext_83 git_clone_repository ${github_mirror} https://github.c
 __term_sd_task_pre_ext_84 git_clone_repository ${github_mirror} https://github.com/Firetheft/sd-webui-next-style "$sd_webui_path"/extensions OFF # 提示词预设风格选择工具，增加了汉化并添加Fooocus全部风格模板
 __term_sd_task_pre_ext_85 git_clone_repository ${github_mirror} https://github.com/KohakuBlueleaf/a1111-sd-webui-haku-img "$sd_webui_path"/extensions OFF # 图像处理工具
 __term_sd_task_pre_ext_86 git_clone_repository ${github_mirror} https://github.com/KohakuBlueleaf/Kohaku-NAI "$sd_webui_path"/extensions OFF # novelai_api调用工具
+__term_sd_task_pre_ext_87 git_clone_repository ${github_mirror} https://github.com/light-and-ray/sd-webui-cli-interruption "$sd_webui_path"/extensions OFF # 当在终端中按下Ctrl+C时，若此时正在生图，则将Ctrl+C的终止程序信号更改为终止生图的信号
