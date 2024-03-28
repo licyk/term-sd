@@ -112,6 +112,12 @@ __term_sd_task_pre_ext_6 aria2_download https://huggingface.co/licyk/comfyui-ext
 __term_sd_task_pre_ext_6 aria2_download https://huggingface.co/licyk/comfyui-extension-models/resolve/main/ComfyUI-WD14-Tagger/wd-v1-4-moat-tagger-v2.onnx "$comfyui_path"/custom_nodes/ComfyUI-WD14-Tagger/models
 __term_sd_task_pre_ext_6 aria2_download https://huggingface.co/licyk/comfyui-extension-models/resolve/main/ComfyUI-WD14-Tagger/wd-v1-4-vit-tagger-v2.csv "$comfyui_path"/custom_nodes/ComfyUI-WD14-Tagger/models
 __term_sd_task_pre_ext_6 aria2_download https://huggingface.co/licyk/comfyui-extension-models/resolve/main/ComfyUI-WD14-Tagger/wd-v1-4-vit-tagger-v2.onnx "$comfyui_path"/custom_nodes/ComfyUI-WD14-Tagger/models
+__term_sd_task_pre_ext_6 aria2_download https://huggingface.co/licyk/comfyui-extension-models/resolve/main/ComfyUI-WD14-Tagger/wd-convnext-tagger-v3.csv "$comfyui_path"/custom_nodes/ComfyUI-WD14-Tagger/models
+__term_sd_task_pre_ext_6 aria2_download https://huggingface.co/licyk/comfyui-extension-models/resolve/main/ComfyUI-WD14-Tagger/wd-convnext-tagger-v3.onnx "$comfyui_path"/custom_nodes/ComfyUI-WD14-Tagger/models
+__term_sd_task_pre_ext_6 aria2_download https://huggingface.co/licyk/comfyui-extension-models/resolve/main/ComfyUI-WD14-Tagger/wd-swinv2-tagger-v3.csv "$comfyui_path"/custom_nodes/ComfyUI-WD14-Tagger/models
+__term_sd_task_pre_ext_6 aria2_download https://huggingface.co/licyk/comfyui-extension-models/resolve/main/ComfyUI-WD14-Tagger/wd-swinv2-tagger-v3.onnx "$comfyui_path"/custom_nodes/ComfyUI-WD14-Tagger/models
+__term_sd_task_pre_ext_6 aria2_download https://huggingface.co/licyk/comfyui-extension-models/resolve/main/ComfyUI-WD14-Tagger/wd-vit-tagger-v3.csv "$comfyui_path"/custom_nodes/ComfyUI-WD14-Tagger/models
+__term_sd_task_pre_ext_6 aria2_download https://huggingface.co/licyk/comfyui-extension-models/resolve/main/ComfyUI-WD14-Tagger/wd-vit-tagger-v3.onnx "$comfyui_path"/custom_nodes/ComfyUI-WD14-Tagger/models
 
 __term_sd_task_pre_ext_7 term_sd_echo "下载 ComfyUI-layerdiffusion 模型" # LayerDiffusion ON
 __term_sd_task_pre_ext_7 aria2_download https://huggingface.co/licyk/layerdiffusion/resolve/main/layer_xl_bg2ble.safetensors "$comfyui_path"/models/layer_model
