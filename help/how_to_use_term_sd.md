@@ -18,7 +18,7 @@ Term-SD 在下载好后，只会有一个基础的配置脚本`term-sd.sh`，当
 如果下载失败，Term-SD 将会自动退出，这时再次运行 Term-SD，选择其他下载源来重新下载  
 当成功下载时，Term-SD 将会自动初始化模块，并启动
 
->成功进入 Term-SD 的界面后，使用`方向键`、`Tab键`移动光标，`方向键`翻页（鼠标滚轮无法翻页），`Enter键`进行选择，`Space键`勾选或取消勾选，（已勾选时显示`[*]`），`Ctrl+Shift+V`粘贴文本，`Ctrl+C`可中断指令的运行，`鼠标左键`可点击按钮（右键无效）
+>成功进入 Term-SD 的界面后，使用`方向键`、`Tab键`移动光标，`方向键`/`F`，`B`键翻页（鼠标滚轮无法翻页），`Enter键`进行选择，`Space键`勾选或取消勾选，（已勾选时显示`[*]`），`Ctrl+Shift+V`粘贴文本，`Ctrl+C`可中断指令的运行，`鼠标左键`可点击按钮（右键无效）
 
 ***
 
@@ -655,7 +655,7 @@ ip：`127.0.0.1`
 Term-SD 包含了一些扩展脚本，扩充 Term-SD 的功能
 - 1、download-hanamizuki：下载绘世启动器，并自动放入绘世启动器支持的 AI 软件的目录中
 - 2、list：列出可用的扩展脚本
-- 3、invokeai-model-download：下载 InvokeAI 模型，包含 ControlNet 模型和部分大模型模型，解决使用官方配置程序因无法访问 HuggingFace 而下载失败的问题
+- 3、download-model：使用 Term-SD 的模型库下载模型
 - 4、download-sd-webui-extension：下载 Stable Diffusion WebUI 插件（脚本包含的插件列表在 Term-SD 的帮助中有说明）
 - 5、download-comfyui-extension：下载 ComfyUI 插件（脚本包含的插件列表在 Term-SD 的帮助中有说明）
 - 6、file-backup：备份 / 恢复 AI 软件的数据，备份文件储存在 Term-SD 的`backup`文件夹中
