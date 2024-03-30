@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# 下载源选择
 download_hanamizuki_resource_select()
 {
     while true
@@ -29,6 +30,7 @@ download_hanamizuki_resource_select()
     done
 }
 
+# 绘世启动器下载
 download_hanamizuki()
 {
     aria2c $download_hanamizuki_resource -d term-sd/task -o "绘世.exe"
@@ -70,6 +72,8 @@ download_hanamizuki()
         term_sd_echo "下载失败"
     fi
 }
+
+#############################
 
 if [ -d "$sd_webui_path" ] || [ -d "$comfyui_path" ] || [ -d "$fooocus_path" ];then
     if [ ! -f "$sd_webui_path/绘世.exe" ] || [ ! -f "$comfyui_path/绘世.exe" ] || [ ! -f "$fooocus_path/绘世.exe" ];then

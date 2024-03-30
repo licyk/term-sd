@@ -7,6 +7,7 @@
 . ./term-sd/modules/term_sd_manager.sh
 . ./term-sd/modules/term_sd_proxy.sh
 
+# 插件选择和下载
 install_comfyui_extension()
 {
     [ -f "$start_path/term-sd/task/comfyui_install_extension.sh" ] && rm -f "$start_path/term-sd/task/comfyui_install_extension.sh"
@@ -50,7 +51,7 @@ install_comfyui_extension()
         --ok-label "确认" --no-cancel \
         --checklist "请选择需要下载的 ComfyUI 扩展模型" \
         $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
-        "_null_" "=====扩展模型选择=====" ON \
+        "_null_" "=====扩展模型选择=====" OFF \
         $comfyui_custom_node_model_list \
         3>&1 1>&2 2>&3)
 
@@ -114,6 +115,8 @@ install_comfyui_extension()
         term_sd_echo "取消下载 ComfyUI 插件 / 自定义节点"
     fi
 }
+
+#############################
 
 if [ -d "$comfyui_path" ];then
     install_comfyui_extension

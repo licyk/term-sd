@@ -7,6 +7,7 @@
 . ./term-sd/modules/term_sd_manager.sh
 . ./term-sd/modules/term_sd_proxy.sh
 
+# 插件选择和下载
 install_sd_webui_extension()
 {
     [ -f "$start_path/term-sd/task/sd_webui_install_extension.sh" ] && rm -f "$start_path/term-sd/task/sd_webui_install_extension.sh"
@@ -42,7 +43,7 @@ install_sd_webui_extension()
         --ok-label "确认" --no-cancel \
         --checklist "请选择需要下载的 Stable-Diffusion-WebUI 插件模型" \
         $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
-        "_null_" "=====插件模型选择=====" ON \
+        "_null_" "=====插件模型选择=====" OFF \
         $sd_webui_extension_model_list \
         3>&1 1>&2 2>&3)
 
@@ -124,6 +125,8 @@ sd_webui_download_model_select()
         $sd_webui_extension_model_list \
         3>&1 1>&2 2>&3)
 }
+
+#############################
 
 if [ -d "$sd_webui_path" ];then
     install_sd_webui_extension

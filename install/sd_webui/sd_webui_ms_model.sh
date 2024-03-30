@@ -51,15 +51,18 @@ __term_sd_task_pre_model_50 get_modelscope_model licyks/sd-upscaler-models/maste
 __term_sd_task_pre_model_51 get_modelscope_model licyks/sd-upscaler-models/master/RealESRGAN/RealESRGAN_x4plus.pth "$sd_webui_path"/models/RealESRGAN # RealESRGAN_x4plus ON
 __term_sd_task_pre_model_52 get_modelscope_model licyks/sd-upscaler-models/master/RealESRGAN/RealESRGAN_x4plus_anime_6B.pth "$sd_webui_path"/models/RealESRGAN # RealESRGAN_x4plus_anime_6B ON
 __term_sd_task_pre_model_53 get_modelscope_model licyks/sd-upscaler-models/master/Codeformer/codeformer-v0.1.0.pth "$sd_webui_path"/models/Codeformer # Codeformer模型 codeformer-v0.1.0 OFF
-__term_sd_task_pre_model_54 =====图生图反推Tag模型===== OFF
-__term_sd_task_pre_model_55 get_modelscope_model licyks/sd-upscaler-models/master/BLIP/model_base_caption_capfilt_large.pth "$sd_webui_path"/models/BLIP # BLIP模型 model_base_caption_capfilt_large OFF
-__term_sd_task_pre_model_56 get_modelscope_model licyks/sd-upscaler-models/master/torch_deepdanbooru/model-resnet_custom_v3.pt "$sd_webui_path"/models/torch_deepdanbooru # deepdanbooru模型 model-resnet_custom_v3 OFF
-__term_sd_task_pre_model_57 # =====Embedding模型===== OFF
-__term_sd_task_pre_model_58 get_modelscope_model licyks/sd-embeddings/master/sd_1.5/EasyNegativeV2.safetensors "$sd_webui_path"/embeddings # embeddings模型 EasyNegativeV2 ON
-__term_sd_task_pre_model_59 get_modelscope_model licyks/sd-embeddings/master/sd_1.5/bad-artist-anime.pt "$sd_webui_path"/embeddings # bad-artist-anime ON
-__term_sd_task_pre_model_60 get_modelscope_model licyks/sd-embeddings/master/sd_1.5/bad-artist.pt "$sd_webui_path"/embeddings # bad-artist ON
-__term_sd_task_pre_model_61 get_modelscope_model licyks/sd-embeddings/master/sd_1.5/bad-hands-5.pt "$sd_webui_path"/embeddings # bad-hands-5 ON
-__term_sd_task_pre_model_62 get_modelscope_model licyks/sd-embeddings/master/sd_1.5/bad-image-v2-39000.pt "$sd_webui_path"/embeddings # bad-image-v2-39000 ON
-__term_sd_task_pre_model_63 get_modelscope_model licyks/sd-embeddings/master/sd_1.5/bad_prompt_version2.pt "$sd_webui_path"/embeddings # bad_prompt_version2 ON
-__term_sd_task_pre_model_64 get_modelscope_model licyks/sd-embeddings/master/sd_1.5/ng_deepnegative_v1_75t.pt "$sd_webui_path"/embeddings # ng_deepnegative_v1_75t ON
-__term_sd_task_pre_model_65 get_modelscope_model licyks/sd-embeddings/master/sd_1.5/verybadimagenegative_v1.3.pt "$sd_webui_path"/embeddings # verybadimagenegative_v1.3 ON
+__term_sd_task_pre_model_54 get_modelscope_model licyks/sd-upscaler-models/master/DAT/DAT_x2.pth "$sd_webui_path"/models/DAT # DAT_x2 OFF
+__term_sd_task_pre_model_55 get_modelscope_model licyks/sd-upscaler-models/master/DAT/DAT_x3.pth "$sd_webui_path"/models/DAT # DAT_x3 OFF
+__term_sd_task_pre_model_56 get_modelscope_model licyks/sd-upscaler-models/master/DAT/DAT_x4.pth "$sd_webui_path"/models/DAT # DAT_x4 OFF
+__term_sd_task_pre_model_57 # =====图生图反推Tag模型===== OFF
+__term_sd_task_pre_model_58 get_modelscope_model licyks/sd-upscaler-models/master/BLIP/model_base_caption_capfilt_large.pth "$sd_webui_path"/models/BLIP # BLIP模型 model_base_caption_capfilt_large OFF
+__term_sd_task_pre_model_59 get_modelscope_model licyks/sd-upscaler-models/master/torch_deepdanbooru/model-resnet_custom_v3.pt "$sd_webui_path"/models/torch_deepdanbooru # deepdanbooru模型 model-resnet_custom_v3 OFF
+__term_sd_task_pre_model_60 # =====Embedding模型===== OFF
+__term_sd_task_pre_model_61 get_modelscope_model licyks/sd-embeddings/master/sd_1.5/EasyNegativeV2.safetensors "$sd_webui_path"/embeddings # embeddings模型 EasyNegativeV2 ON
+__term_sd_task_pre_model_62 get_modelscope_model licyks/sd-embeddings/master/sd_1.5/bad-artist-anime.pt "$sd_webui_path"/embeddings # bad-artist-anime ON
+__term_sd_task_pre_model_63 get_modelscope_model licyks/sd-embeddings/master/sd_1.5/bad-artist.pt "$sd_webui_path"/embeddings # bad-artist ON
+__term_sd_task_pre_model_64 get_modelscope_model licyks/sd-embeddings/master/sd_1.5/bad-hands-5.pt "$sd_webui_path"/embeddings # bad-hands-5 ON
+__term_sd_task_pre_model_65 get_modelscope_model licyks/sd-embeddings/master/sd_1.5/bad-image-v2-39000.pt "$sd_webui_path"/embeddings # bad-image-v2-39000 ON
+__term_sd_task_pre_model_66 get_modelscope_model licyks/sd-embeddings/master/sd_1.5/bad_prompt_version2.pt "$sd_webui_path"/embeddings # bad_prompt_version2 ON
+__term_sd_task_pre_model_67 get_modelscope_model licyks/sd-embeddings/master/sd_1.5/ng_deepnegative_v1_75t.pt "$sd_webui_path"/embeddings # ng_deepnegative_v1_75t ON
+__term_sd_task_pre_model_68 get_modelscope_model licyks/sd-embeddings/master/sd_1.5/verybadimagenegative_v1.3.pt "$sd_webui_path"/embeddings # verybadimagenegative_v1.3 ON

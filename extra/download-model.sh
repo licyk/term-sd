@@ -7,7 +7,7 @@
 . ./term-sd/modules/install_prepare.sh
 . ./term-sd/modules/term_sd_proxy.sh
 
-# 模型选择
+# ai软件选择
 sd_model_download_select()
 {
     local file_manager_dialog
@@ -70,6 +70,7 @@ sd_model_download_select()
     done
 }
 
+# 模型选择和下载
 mdoel_download_interface()
 {
     local model_download_interface_dialog
