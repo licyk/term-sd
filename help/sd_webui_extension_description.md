@@ -29,9 +29,9 @@ Stable Diffusion WebUI 插件说明：
 描述：LayerDiffusion插件，仅支持sd-webui-forge
 链接：https://github.com/layerdiffusion/sd-forge-layerdiffusion
 
-8、a1111-sd-webui-dtg：
+8、z-a1111-sd-webui-dtg：
 描述：使用Danboou风格对tag进行润色，使出图效果更好，内容更丰富
-链接：https://github.com/KohakuBlueleaf/a1111-sd-webui-dtg
+链接：https://github.com/KohakuBlueleaf/z-a1111-sd-webui-dtg
 
 9、kohya-config-webui：
 描述：一个用于生成kohya-ss训练脚本使用的toml配置文件的WebUI
