@@ -95,11 +95,31 @@ term_sd_get_task_cmd()
 }
 
 # 安装命令执行
-# 用于执行"term-sd/task"下的"cache.sh"文件
-# cache.sh为执行任务队列时产生
+# 使用:
+# term_sd_exec_cmd <命令文件> <指定行数>
 term_sd_exec_cmd()
 {
-    . "$start_path/term-sd/task/cache.sh"
+    local cmd_file=$1
+    local cmd_point=$2
+    local install_cmd
+    local exec_req
+
+    install_cmd=$(term_sd_get_task_cmd $(cat "$cmd_file" | awk 'NR=='${cmd_point}'{print $0}'))
+
+    if [ -z "$(echo $install_cmd | awk 'NR=='${cmd_point}' {print $0}' | grep -o __term_sd_task_done_ )" ];then # 检测命令是否需要执行
+        [ $term_sd_debug_mode = 0 ] && term_sd_echo "执行命令: \"$install_cmd\""
+        eval "$install_cmd" # 执行命令
+    else
+        [ $term_sd_debug_mode = 0 ] && term_sd_echo "跳过执行命令: \"$install_cmd\""
+    fi
+
+    exec_req=$?
+
+    if [ $exec_req = 0 ];then # 检测命令是否执行成功
+        term_sd_task_cmd_revise "$cmd_file" $cmd_point # 将执行成功的命令标记为完成
+    fi
+
+    return $exec_req
 }
 
 # 安装任务命令标记修改(将未完成标记为已完成)

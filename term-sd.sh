@@ -729,7 +729,7 @@ prepare_tcmalloc()
 
 #############################
 
-export term_sd_version_info="1.3.3" # term-sd版本
+export term_sd_version_info="1.3.4" # term-sd版本
 export user_shell=$(basename $SHELL) # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题
@@ -780,6 +780,23 @@ elif [ ! "$(dirname "$(echo $0)")" = "." ];then
     term_sd_echo "请进入 term-sd.sh 文件所在目录后再次运行 Term-SD"
     term_sd_echo "退出 Term-SD"
     exit 1
+fi
+
+# root权限检测
+if [ $(id -u) -eq 0 ];then
+    term_sd_echo "检测到使用 root 权限运行 Term-SD, 这可能会导致不良后果"
+    term_sd_echo "是否继续运行 Term-SD (yes/no)?"
+    term_sd_echo "提示: 输入 yes 或 no 后回车"
+    case $(term_sd_read) in
+        yes|y|YES|Y)
+            term_sd_echo "继续初始化 Term-SD"
+            ;;
+        *)
+            term_sd_echo "终止 Term-SD 初始化进程"
+            term_sd_echo "退出 Term-SD"
+            exit 1
+            ;;
+    esac
 fi
 
 # dialog使用文档https://manpages.debian.org/bookworm/dialog/dialog.1.en.html

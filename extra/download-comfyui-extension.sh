@@ -94,23 +94,14 @@ install_comfyui_extension()
         for ((cmd_point=1;cmd_point<=cmd_sum;cmd_point++))
         do
             term_sd_echo "ComfyUI 安装进度: [$cmd_point/$cmd_sum]"
-            install_cmd=$(term_sd_get_task_cmd $(cat "$start_path/term-sd/task/comfyui_install_extension.sh" | awk 'NR=='${cmd_point}'{print$0}'))
             
-            if [ -z "$(echo "$(cat "$start_path/term-sd/task/comfyui_install_extension.sh" | awk 'NR=='${cmd_point}'{print$0}')" | grep -o __term_sd_task_done_ )" ];then # 检测命令是否需要执行
-                echo "$install_cmd" > "$start_path/term-sd/task/cache.sh" # 取出命令并放入缓存文件中
-                [ $term_sd_debug_mode = 0 ] && term_sd_echo "执行命令: \"$install_cmd\""
-                term_sd_exec_cmd # 执行命令
-            else
-                [ $term_sd_debug_mode = 0 ] && term_sd_echo "跳过执行命令: \"$install_cmd\""
-                true
-            fi
+            term_sd_exec_cmd "$start_path/term-sd/task/comfyui_install_extension.sh" $cmd_point
 
         done
 
         term_sd_tmp_enable_proxy # 恢复代理
         term_sd_echo "ComfyUI 插件 / 自定义节点下载结束"
         rm -f "$start_path/term-sd/task/comfyui_install_extension.sh" # 删除任务文件
-        rm -f "$start_path/term-sd/task/cache.sh"
     else
         term_sd_echo "取消下载 ComfyUI 插件 / 自定义节点"
     fi

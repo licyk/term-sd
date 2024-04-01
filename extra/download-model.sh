@@ -111,13 +111,11 @@ mdoel_download_interface()
         for ((cmd_point=1;cmd_point<=cmd_sum;cmd_point++))
         do
             term_sd_echo "${1} 模型下载进度: [$cmd_point/$cmd_sum]"
-            install_cmd=$(term_sd_get_task_cmd $(cat "$start_path/term-sd/task/model_download.sh" | awk 'NR=='${cmd_point}'{print$0}'))
-            echo "$install_cmd" > "$start_path/term-sd/task/cache.sh" # 取出命令并放入缓存文件中
-            term_sd_exec_cmd # 执行命令
+
+            term_sd_exec_cmd "$start_path/term-sd/task/model_download.sh" $cmd_point
         done
 
         rm -f "$start_path/term-sd/task/model_download.sh" # 删除任务文件
-        rm -f "$start_path/term-sd/task/cache.sh"
         term_sd_echo "${1} 模型下载结束"
 
     else

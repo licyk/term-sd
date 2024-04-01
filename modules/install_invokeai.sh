@@ -13,20 +13,10 @@ install_invokeai()
         for ((cmd_point=1; cmd_point <= cmd_sum; cmd_point++))
         do
             term_sd_echo "InvokeAI 安装进度: [$cmd_point/$cmd_sum]"
-            install_cmd=$(term_sd_get_task_cmd $(cat "$start_path/term-sd/task/invokeai_install.sh" | awk 'NR=='${cmd_point}'{print$0}'))
 
-            if [ -z "$(echo "$(cat "$start_path/term-sd/task/invokeai_install.sh" | awk 'NR=='${cmd_point}'{print$0}')" | grep -o __term_sd_task_done_ )" ];then # 检测命令是否需要执行
-                echo "$install_cmd" > "$start_path/term-sd/task/cache.sh" # 取出命令并放入缓存文件中
-                [ $term_sd_debug_mode = 0 ] && term_sd_echo "执行命令: \"$install_cmd\""
-                term_sd_exec_cmd # 执行命令
-            else
-                [ $term_sd_debug_mode = 0 ] && term_sd_echo "跳过执行命令: \"$install_cmd\""
-                true
-            fi
+            term_sd_exec_cmd "$start_path/term-sd/task/invokeai_install.sh" $cmd_point
 
-            if [ $? = 0 ];then
-                term_sd_task_cmd_revise "$start_path/term-sd/task/invokeai_install.sh" ${cmd_point} # 将执行成功的命令标记为完成
-            else
+            if [ ! $? = 0 ];then
                 if [ $term_sd_install_mode = 0 ];then
                     term_sd_echo "安装命令执行失败, 终止安装程序"
                     term_sd_tmp_enable_proxy # 恢复代理
@@ -49,7 +39,6 @@ install_invokeai()
         term_sd_tmp_enable_proxy # 恢复代理
         term_sd_echo "InvokeAI 安装结束"
         rm -f "$start_path/term-sd/task/invokeai_install.sh" # 删除任务文件
-        rm -f "$start_path/term-sd/task/cache.sh"
         term_sd_print_line
 
         dialog --erase-on-exit \
@@ -97,20 +86,10 @@ install_invokeai()
             for ((cmd_point=1; cmd_point <= cmd_sum; cmd_point++))
             do
                 term_sd_echo "InvokeAI 安装进度: [$cmd_point/$cmd_sum]"
-                install_cmd=$(term_sd_get_task_cmd $(cat "$start_path/term-sd/task/invokeai_install.sh" | awk 'NR=='${cmd_point}'{print$0}'))
 
-                if [ -z "$(echo "$(cat "$start_path/term-sd/task/invokeai_install.sh" | awk 'NR=='${cmd_point}'{print$0}')" | grep -o __term_sd_task_done_ )" ];then # 检测命令是否需要执行
-                    echo "$install_cmd" > "$start_path/term-sd/task/cache.sh" # 取出命令并放入缓存文件中
-                    [ $term_sd_debug_mode = 0 ] && term_sd_echo "执行命令: \"$install_cmd\""
-                    term_sd_exec_cmd # 执行命令
-                else
-                    [ $term_sd_debug_mode = 0 ] && term_sd_echo "跳过执行命令: \"$install_cmd\""
-                    true
-                fi
+                term_sd_exec_cmd "$start_path/term-sd/task/invokeai_install.sh" $cmd_point
 
-                if [ $? = 0 ];then
-                    term_sd_task_cmd_revise "$start_path/term-sd/task/invokeai_install.sh" ${cmd_point} # 将执行成功的命令标记为完成
-                else
+                if [ ! $? = 0 ];then
                     if [ $term_sd_install_mode = 0 ];then
                         term_sd_echo "安装命令执行失败, 终止安装程序"
                         term_sd_tmp_enable_proxy # 恢复代理
@@ -133,7 +112,6 @@ install_invokeai()
             term_sd_tmp_enable_proxy # 恢复代理
             term_sd_echo "InvokeAI 安装结束"
             rm -f "$start_path/term-sd/task/invokeai_install.sh" # 删除任务文件
-            rm -f "$start_path/term-sd/task/cache.sh"
             term_sd_print_line
 
             dialog --erase-on-exit \
