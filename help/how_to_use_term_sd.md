@@ -11,8 +11,7 @@ Term-SD 在下载好后，只会有一个基础的配置脚本`term-sd.sh`，当
 - 1、Github 源
 - 2、Gitee 源
 - 3、Gitlab 源
-- 4、极狐源
-- 5、代理源 (ghproxy.com)
+- 4、代理源 (ghproxy.net)
 
 一般情况下选择任意一种都可以进行下载  
 如果下载失败，Term-SD 将会自动退出，这时再次运行 Term-SD，选择其他下载源来重新下载  
@@ -527,7 +526,7 @@ numpy -U
 ## Term-SD更新管理
 该功能用于对 Term-SD 自身的更新等进行管理，共有以下选项
 - 1、更新：更新 Term-SD
-- 2、切换更新源：Term-SD 有多个下载源，用于解决某些更新源更新慢或者无法更新的问题，一般来说github源的版本变化较快，其他源的版本变化会有延后（大约延迟一天，因为其他源每隔一天同步一次 Github仓库）
+- 2、切换更新源：Term-SD 有多个下载源，用于解决某些更新源更新慢或者无法更新的问题，一般来说 Github 源的版本变化较快，其他源的版本变化会有延后（大约延迟一天，因为其他源每隔一天同步一次 Github 仓库）
 - 3、切换分支：Term-SD 总共有两个分支，主分支和测试分支，一般不需要切换
 - 4、修复更新：当用户手动修改 Term-SD 的文件后，在更新 Term-SD 时就容易出现更新失败的问题，该功能可修复该问题（会把用户自行修改的部分还原）
 - 5、设置自动更新：启用后 Term-SD 在启动时会检测是否有更新，当有新版本时会提示用户进行更新
@@ -633,8 +632,7 @@ ip：`127.0.0.1`
 - (1) 设置安装路径：自定义 AI 软件的安装路径
 - (2) 恢复默认安装路径设置：恢复AI软件默认的安装路径，默认安装路径和Term-SD所在路径同级
 
->- 1、路径最好使用绝对路径（目前没有见过哪个软件使用相对路径来安装软件的）  
->- 2、如果是 Windows 系统，请使用 MSYS2 可识别的路径格式，如:`D:\\Downloads\\webui`要写成`/d/Downloads/webui`
+>路径最好使用绝对路径（目前没有见过哪个软件使用相对路径来安装软件的）  
 
 ### 空间占用分析
 该功能用于统计各个 AI 软件的空间占用和 Term-SD 重定向的缓存占用情况
@@ -745,8 +743,8 @@ Term-SD 包含了一些扩展脚本，扩充 Term-SD 的功能
 ||绘世启动器依赖|
 |---|---
 |↓|[Microsoft Visual C++](https://aka.ms/vs/17/release/vc_redist.x64.exe)|
-|↓|[.NET 6.0](https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/sdk-6.0.417-windows-x64-installer)|
-|↓|[.NET 8.0](https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/sdk-8.0.100-windows-x64-installer)|
+|↓|[.NET 6.0](https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/sdk-6.0.420-windows-x64-installer)|
+|↓|[.NET 8.0](https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/sdk-8.0.203-windows-x64-installer)|
 >使用绘世前需要安装依赖
 
 ||绘世启动器|

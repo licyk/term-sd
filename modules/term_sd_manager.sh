@@ -135,7 +135,7 @@ term_sd_version()
         --ok-label "确认" \
         --msgbox "版本信息:\n\n
 系统: $([ ! -z $OS ] && [ $OS = "Windows_NT" ] && echo Windows || uname -o)\n
-Term-SD: $term_sd_version_info\n
+Term-SD: $term_sd_version_info $(git -C term-sd show -s --format="%cd" --date=format:"%Y-%m-%d %H:%M:%S")\n
 Python: $(term_sd_python --version | awk 'NR==1{print$2}')\n
 Pip: $(term_sd_pip --version | awk 'NR==1{print$2}')\n
 Aria2: $(aria2c --version | awk 'NR==1{print$3}')\n

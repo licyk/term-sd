@@ -419,8 +419,7 @@ term_sd_install_mirror_select()
         term_sd_echo "1、Github 源"
         term_sd_echo "2、Gitlab 源"
         term_sd_echo "3、Gitee 源"
-        term_sd_echo "4、极狐源"
-        term_sd_echo "5、代理源 (mirror.ghproxy.com)"
+        term_sd_echo "4、代理源 (ghproxy.net)"
         term_sd_echo "提示: 输入数字后回车"
         case $(term_sd_read) in
             1)
@@ -439,13 +438,8 @@ term_sd_install_mirror_select()
                 break
                 ;;
             4)
-                term_sd_echo "选择极狐源"
-                term_sd_install_mirror="https://jihulab.com/licyk/term-sd"
-                break
-                ;;
-            5)
-                term_sd_echo "选择代理源 (mirror.ghproxy.com)"
-                term_sd_install_mirror="https://mirror.ghproxy.com/github.com/licyk/term-sd"
+                term_sd_echo "选择代理源 (ghproxy.net)"
+                term_sd_install_mirror="https://ghproxy.net/github.com/licyk/term-sd"
                 break
                 ;;
             *)
@@ -729,7 +723,7 @@ prepare_tcmalloc()
 
 #############################
 
-export term_sd_version_info="1.3.4" # term-sd版本
+export term_sd_version_info="1.3.5" # term-sd版本
 export user_shell=$(basename $SHELL) # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题
