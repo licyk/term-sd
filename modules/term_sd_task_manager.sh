@@ -106,11 +106,12 @@ term_sd_exec_cmd()
 
     install_cmd=$(term_sd_get_task_cmd $(cat "$cmd_file" | awk 'NR=='${cmd_point}'{print $0}'))
 
-    if [ -z "$(echo $install_cmd | awk 'NR=='${cmd_point}' {print $0}' | grep -o __term_sd_task_done_ )" ];then # 检测命令是否需要执行
+    if [ -z "$(cat "$cmd_file" | awk 'NR=='${cmd_point}' {print $1}' | grep -o __term_sd_task_done_ )" ];then # 检测命令是否需要执行
         [ $term_sd_debug_mode = 0 ] && term_sd_echo "执行命令: \"$install_cmd\""
         eval "$install_cmd" # 执行命令
     else
         [ $term_sd_debug_mode = 0 ] && term_sd_echo "跳过执行命令: \"$install_cmd\""
+        true
     fi
 
     exec_req=$?

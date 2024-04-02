@@ -322,7 +322,7 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 最后一个是安装确认，选择`是`开始安装  
 安装时间根据网络速度和电脑性能决定
 
->1、安装完成后，在启动选项需要选择`(configure --skip-sd-weights)`进行配置，配置完成后再选择`(web)`启动 WebUI 界面
+>1、安装完成后，在启动选项选择`(web)`启动 WebUI 界面
 >2、设置中文：进入 InvokeAI 界面，点击右上角的三条横杠的图标，点击`Settings`，然后找到`Language`选项，点击文字下方的选项框，找到`简体中文`并选中，InvokeAI 就会把界面切换成中文
 
 ### Fooocus安装
@@ -520,6 +520,7 @@ numpy -U
 - Stable Diffusion WebUI：`repositories`
 - Fooocus：`repositories`
 - lora-scripts：`frontend`、`sd-scripts`、`mikazuki/dataset-tag-editor`
+- kohya_ss：`sd-scripts`
 
 ***
 

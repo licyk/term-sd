@@ -29,8 +29,9 @@ kohya_ss_manager()
                 "9" "> 重新安装 PyTorch" \
                 "10" "> 修复虚拟环境" \
                 "11" "> 重新构建虚拟环境" \
-                "12" "> 重新安装" \
-                "13" "> 卸载" \
+                "12" "> 重新安装后端组件" \
+                "13" "> 重新安装" \
+                "14" "> 卸载" \
                 3>&1 1>&2 2>&3)
 
             case $kohya_ss_manager_dialog in
@@ -154,6 +155,9 @@ kohya_ss_manager()
                     fi
                     ;;
                 12)
+                    kohya_ss_backend_repo_reinstall
+                    ;;
+                13)
                     if (dialog --erase-on-exit \
                         --title "kohya_ss 管理" \
                         --backtitle "kohya_ss 重新安装选项" \
@@ -168,7 +172,7 @@ kohya_ss_manager()
                         break
                     fi
                     ;;
-                13)
+                14)
                     if (dialog --erase-on-exit \
                         --title "kohya_ss 管理" \
                         --backtitle "kohya_ss 删除选项" \
@@ -247,6 +251,34 @@ kohya_ss_update_depend()
             exit_venv
             term_sd_tmp_enable_proxy
             term_sd_echo "更新 kohya_ss 依赖结束"
+            term_sd_pause
+        fi
+    fi
+}
+
+# 后端组件重装
+kohya_ss_backend_repo_reinstall()
+{
+    if (dialog --erase-on-exit \
+        --title "kohya_ss 管理" \
+        --backtitle "kohya_ss 后端组件重装选项" \
+        --yes-label "是" --no-label "否" \
+        --yesno "是否重新安装 kohya_ss 后端组件?" \
+        $term_sd_dialog_height $term_sd_dialog_width) then
+
+        download_mirror_select # 下载镜像源选择
+        term_sd_install_confirm "是否重新安装 kohya_ss 后端组件?" # 安装前确认
+
+        if [ $? = 0 ];then
+            term_sd_print_line "kohya_ss 后端组件重装"
+            term_sd_echo "删除原有 kohya_ss 后端组件中"
+            rm -rf sd-scripts
+            term_sd_mkdir sd-scripts
+            term_sd_echo "重新下载 kohya_ss 后端组件中"
+            git_clone_repository ${github_mirror} https://github.com/kohya-ss/sd-scripts "$kohya_ss_path" sd-scripts # kohya_ss后端
+            git submodule init
+            git submodule update
+            term_sd_echo "重装 kohya_ss 后端组件结束"
             term_sd_pause
         fi
     fi
