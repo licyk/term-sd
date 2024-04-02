@@ -51,7 +51,7 @@ term_sd_launch()
     enter_venv
     case $term_sd_manager_info in
         InvokeAI)
-            invokeai-web --root invokeai $(cat "$start_path"/term-sd/config/$launch_sd_config)
+            invokeai-web --root "$invokeai_path"/invokeai $(cat "$start_path"/term-sd/config/$launch_sd_config)
             ;;
         *)
             term_sd_python $(cat "$start_path"/term-sd/config/$launch_sd_config)

@@ -107,5 +107,5 @@ lora-scripts
 kohya_ss目录的部分说明（只列举比较重要的）：
 kohya_ss
 ├── output                  模型保存路径
-├── sd-models                  训练底模路径
+├── sd-models               训练底模路径
 └── train                   训练集路径

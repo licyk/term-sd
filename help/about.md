@@ -1,7 +1,7 @@
 关于 Term-SD：
 Term-SD 是基于终端显示（使用 GNU 提供的 Dialog 渲染界面）的 AI 管理器，可以安装 AI 软件，对 AI 软件进行简单的管理
 支持的 AI 软件如下：
-1、AUTOMATIC1111-stable-diffusion-webui（支持切换成SD.Next/stable-diffusion-webui-directml/stable-diffusion-webui-forge）
+1、AUTOMATIC1111-stable-diffusion-webui（支持切换成 SD.Next / stable-diffusion-webui-directml / stable-diffusion-webui-forge）
 2、ComfyUI
 3、InvokeAI
 4、Fooocus
@@ -11,6 +11,7 @@ Term-SD 是基于终端显示（使用 GNU 提供的 Dialog 渲染界面）的 A
 
 Term-SD 的编写参考了 https://gitee.com/skymysky/linux（制作 Term-SD 早期的灵感来源）
 
+-----------------------------
 
 相关链接
 - Stable Diffusion 模型下载 
@@ -20,6 +21,7 @@ Term-SD 的编写参考了 https://gitee.com/skymysky/linux（制作 Term-SD 早
     https://www.esheep.com
     https://tusiart.com
 - Controlnet模型下载
+    https://modelscope.cn/models/licyks/controlnet_v1.1
     https://huggingface.co/lllyasviel/Annotators
     https://huggingface.co/lllyasviel/ControlNet-v1-1
     https://huggingface.co/lllyasviel/sd_control_collection
@@ -107,3 +109,7 @@ Term-SD 的编写参考了 https://gitee.com/skymysky/linux（制作 Term-SD 早
     bilibili@大江户战士
     bilibili@独立研究员-星空
     bilibili@自带马赛克属性的阿尼
+
+-----------------------------
+
+by licyk
