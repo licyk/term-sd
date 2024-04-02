@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # invokeai启动界面
+# 参考: https://invoke-ai.github.io/InvokeAI/features/UTILITIES
 invokeai_launch()
 {
     if [ ! -f ""$start_path"/term-sd/config/invokeai-launch.conf" ]; then # 找不到启动配置时默认生成一个
@@ -96,7 +97,6 @@ invokeai_launch()
                 invokeai-db-maintenance --operation all --root "$invokeai_path"/invokeai
                 term_sd_pause
                 ;;
-            
             *)
                 break
                 ;;
