@@ -87,32 +87,32 @@ term_sd_args_help()
 {
     cat<<EOF
     Term-SD启动参数使用方法:
-    term-sd.sh [--help] [--extra script_name] [--reinstall-term-sd] [--remove-term-sd] [--quick-cmd] [--set-python-path python_path] [--unset-python-path] [--update-pip] [--bar display_mode] [--debug]
+        term-sd.sh [--help] [--extra script_name] [--reinstall-term-sd] [--remove-term-sd] [--quick-cmd] [--set-python-path python_path] [--unset-python-path] [--update-pip] [--bar display_mode] [--debug]
 
     选项:
-    --help
-        显示启动参数帮助
-    --extra script_name
-        启动扩展脚本选择列表, 当选项后面输入了脚本名, 则直接启动指定的脚本, 否则启动扩展脚本选择界面
-    --reinstall-term-sd
-        重新安装 Term-SD
-    --remove-term-sd
-        卸载 Term-SD
-    --quick-cmd
-        添加 Term-SD 快捷启动命令到 Shell
-    --set-python-path python_path
-        手动指定 Python 解释器路径, 当选项后面输入了路径, 则直接使用输入的路径来设 置Python 解释器路径 (建议用" "把路径括起来, 防止路径输入错误), 否则启动设置界面
-    --unset-python-path
-        删除自定义 Python 解释器路径配置
-    --update-pip
-        进入虚拟环境时更新 Pip 软件包管理器
-    --bar display_mode
-        设置 Term-SD 初始化进度条的显示样式, 有以下显示模式:
-            none: 禁用进度条显示
-            normal: 使用默认的显示模式
-            new: 使用新的进度条显示
-    --debug
-        显示 Term-SD 安装 AI 软件时使用的命令
+        --help
+            显示启动参数帮助
+        --extra script_name
+            启动扩展脚本选择列表, 当选项后面输入了脚本名, 则直接启动指定的脚本, 否则启动扩展脚本选择界面
+        --reinstall-term-sd
+            重新安装 Term-SD
+        --remove-term-sd
+            卸载 Term-SD
+        --quick-cmd
+            添加 Term-SD 快捷启动命令到 Shell
+        --set-python-path python_path
+            手动指定 Python 解释器路径, 当选项后面输入了路径, 则直接使用输入的路径来设 置Python 解释器路径 (建议用" "把路径括起来, 防止路径输入错误), 否则启动设置界面
+        --unset-python-path
+            删除自定义 Python 解释器路径配置
+        --update-pip
+            进入虚拟环境时更新 Pip 软件包管理器
+        --bar display_mode
+            设置 Term-SD 初始化进度条的显示样式, 有以下显示模式:
+                none: 禁用进度条显示
+                normal: 使用默认的显示模式
+                new: 使用新的进度条显示
+        --debug
+            显示 Term-SD 安装 AI 软件时使用的命令
 EOF
 }
 

@@ -70,6 +70,10 @@ Term-SD 的编写参考了 https://gitee.com/skymysky/linux（制作 Term-SD 早
   - 图片语义分割
       https://huggingface.co/spaces/shi-labs/OneFormer
       https://huggingface.co/spaces/yizhangliu/Grounded-Segment-Anything
+  - 密码的nai3 tag创想
+      https://docs.qq.com/doc/DRVBjRVdBWld4THBV
+  - 森林的NAI-V3法典
+      https://docs.qq.com/doc/DSU9CZHhLRERRbllw
 
 - ComfyUI
   - 工作流示范
