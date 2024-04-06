@@ -16,15 +16,6 @@ __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_
 __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v1p_sd15_brightness.safetensors "$sd_webui_path"/models/ControlNet
 __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v1p_sd15_illumination.safetensors "$sd_webui_path"/models/ControlNet
 __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v1p_sd15_qrcode_monster.safetensors "$sd_webui_path"/models/ControlNet
-__term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/t2iadapter_canny_sd15v2.pth "$sd_webui_path"/models/ControlNet
-__term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/t2iadapter_color_sd14v1.pth "$sd_webui_path"/models/ControlNet
-__term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/t2iadapter_depth_sd15v2.pth "$sd_webui_path"/models/ControlNet
-__term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/t2iadapter_keypose_sd14v1.pth "$sd_webui_path"/models/ControlNet
-__term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/t2iadapter_openpose_sd14v1.pth "$sd_webui_path"/models/ControlNet
-__term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/t2iadapter_seg_sd14v1.pth "$sd_webui_path"/models/ControlNet
-__term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/t2iadapter_sketch_sd15v2.pth "$sd_webui_path"/models/ControlNet
-__term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/t2iadapter_style_sd14v1.pth "$sd_webui_path"/models/ControlNet
-__term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/t2iadapter_zoedepth_sd15v1.pth "$sd_webui_path"/models/ControlNet
 __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sd15.pth "$sd_webui_path"/models/ControlNet
 __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sd15_light.pth "$sd_webui_path"/models/ControlNet
 __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sd15_plus.pth "$sd_webui_path"/models/ControlNet

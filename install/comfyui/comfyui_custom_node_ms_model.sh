@@ -16,15 +16,6 @@ __term_sd_task_pre_ext_1 get_modelscope_model licyks/controlnet_v1.1/master/cont
 __term_sd_task_pre_ext_1 get_modelscope_model licyks/controlnet_v1.1/master/control_v1p_sd15_brightness.safetensors "$comfyui_path"/models/controlnet
 __term_sd_task_pre_ext_1 get_modelscope_model licyks/controlnet_v1.1/master/control_v1p_sd15_illumination.safetensors "$comfyui_path"/models/controlnet
 __term_sd_task_pre_ext_1 get_modelscope_model licyks/controlnet_v1.1/master/control_v1p_sd15_qrcode_monster.safetensors "$comfyui_path"/models/controlnet
-__term_sd_task_pre_ext_1 get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_canny_sd15v2.pth "$comfyui_path"/models/controlnet
-__term_sd_task_pre_ext_1 get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_color_sd14v1.pth "$comfyui_path"/models/controlnet
-__term_sd_task_pre_ext_1 get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_depth_sd15v2.pth "$comfyui_path"/models/controlnet
-__term_sd_task_pre_ext_1 get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_keypose_sd14v1.pth "$comfyui_path"/models/controlnet
-__term_sd_task_pre_ext_1 get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_openpose_sd14v1.pth "$comfyui_path"/models/controlnet
-__term_sd_task_pre_ext_1 get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_seg_sd14v1.pth "$comfyui_path"/models/controlnet
-__term_sd_task_pre_ext_1 get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_sketch_sd15v2.pth "$comfyui_path"/models/controlnet
-__term_sd_task_pre_ext_1 get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_style_sd14v1.pth "$comfyui_path"/models/controlnet
-__term_sd_task_pre_ext_1 get_modelscope_model licyks/controlnet_v1.1/master/t2iadapter_zoedepth_sd15v1.pth "$comfyui_path"/models/controlnet
 __term_sd_task_pre_ext_1 get_modelscope_model licyks/comfyui-extension-models/master/comfyui_controlnet_aux/LayerNorm/DensePose-TorchScript-with-hint-image/densepose_r101_fpn_dl.torchscript "$comfyui_path"/custom_nodes/comfyui_controlnet_aux/ckpts/LayerNorm/DensePose-TorchScript-with-hint-image
 __term_sd_task_pre_ext_1 get_modelscope_model licyks/comfyui-extension-models/master/comfyui_controlnet_aux/LayerNorm/DensePose-TorchScript-with-hint-image/densepose_r50_fpn_dl.torchscript "$comfyui_path"/custom_nodes/comfyui_controlnet_aux/ckpts/LayerNorm/DensePose-TorchScript-with-hint-image
 __term_sd_task_pre_ext_1 get_modelscope_model licyks/comfyui-extension-models/master/comfyui_controlnet_aux/LiheYoung/Depth-Anything/checkpoints/depth_anything_vitl14.pth "$comfyui_path"/custom_nodes/comfyui_controlnet_aux/ckpts/LiheYoung/Depth-Anything/checkpoints
