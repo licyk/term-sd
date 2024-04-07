@@ -2,7 +2,6 @@
 
 install_comfyui()
 {
-    local install_cmd
     local cmd_sum
     local cmd_point
 

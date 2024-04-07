@@ -3,7 +3,6 @@
 # Fooocus安装
 install_fooocus()
 {
-    local install_cmd
     local cmd_sum
     local cmd_point
 
@@ -292,8 +291,10 @@ fooocus_lang_config_file()
     "Setting": "设置",
     "Style": "样式",
     "Performance": "性能",
-    "Speed": "速度",
+    "Speed": "均衡",
     "Quality": "质量",
+    "Extreme Speed": "速度",
+    "Lightning": "极速",
     "Aspect Ratios": "宽高比",
     "896\u00d71152": "896\u00d71152",
     "width \u00d7 height": "宽 \u00d7 高",
@@ -765,8 +766,6 @@ fooocus_lang_config_file()
     "Image Prompt parameters are not included. Use png and a1111 for compatibility with Civitai.": "使用默认设置时图片提示词参数不包括在内。使用 png 图片保存格式和 A1111 SD WebUI 的图片信息保存风格的图片更适合在 Civitai 进行分享。",
     "fooocus (json)": "fooocus 风格（json）",
     "a1111 (plain text)": "A1111 SD WebUI 风格（纯文本）",
-    "Extreme Speed": "极速",
-    "Lightning": "闪速",
     "Refiner Switch At": "Refind 切换时机",
     "Use 0.4 for SD1.5 realistic models; or 0.667 for SD1.5 anime models; or 0.8 for XL-refiners; or any value for switching two SDXL models.": "SD1.5 真实模型使用 0.4，SD1.5 动漫模型为 0.667，XLRefind 机为 0.8，或用于切换两个 SDXL 模型的任何值。",
     "Waiting for task to start ...": "等待任务开始 ...",

@@ -1,11 +1,11 @@
 __term_sd_task_pre_model_1 =====SDXL大模型===== OFF
 __term_sd_task_pre_model_2 sd_xl_base_1.0_0.9vae OFF
 __term_sd_task_pre_model_3 sd_xl_refiner_1.0_0.9vae OFF
-__term_sd_task_pre_model_4 animagine-xl-3.0 OFF
+__term_sd_task_pre_model_4 animagine-xl-3.0 ON
 __term_sd_task_pre_model_5 AnythingXL_xl OFF
 __term_sd_task_pre_model_6 abyssorangeXLElse_v10 OFF
 __term_sd_task_pre_model_7 animaPencilXL_v200 OFF
-__term_sd_task_pre_model_8 animagine-xl-3.1 ON
+__term_sd_task_pre_model_8 animagine-xl-3.1 OFF
 __term_sd_task_pre_model_9 heartOfAppleXL_v20 OFF
 __term_sd_task_pre_model_10 baxlBartstylexlBlueArchiveFlatCelluloid_xlv1 OFF
 __term_sd_task_pre_model_11 kohaku-xl-delta-rev1 OFF

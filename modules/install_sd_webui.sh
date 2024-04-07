@@ -3,7 +3,6 @@
 # sd-webui安装
 install_sd_webui()
 {
-    local install_cmd
     local cmd_sum
     local cmd_point
 

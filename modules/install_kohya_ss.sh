@@ -3,7 +3,6 @@
 # kohya_ss安装功能
 install_kohya_ss()
 {
-    local install_cmd
     local cmd_sum
     local cmd_point
 

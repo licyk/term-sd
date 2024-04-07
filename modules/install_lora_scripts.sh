@@ -3,7 +3,6 @@
 # lora-scripts安装
 install_lora_scripts()
 {
-    local install_cmd
     local cmd_sum
     local cmd_point
 

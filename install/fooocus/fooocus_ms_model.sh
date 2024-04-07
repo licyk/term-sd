@@ -1,11 +1,11 @@
 __term_sd_task_pre_model_1 # =====SDXL大模型===== OFF
 __term_sd_task_pre_model_2 get_modelscope_model licyks/sd-model/master/sdxl_1.0/sd_xl_base_1.0_0.9vae.safetensors "$fooocus_path"/models/checkpoints # sd_xl_base_1.0_0.9vae OFF
 __term_sd_task_pre_model_3 get_modelscope_model licyks/sd-model/master/sdxl_1.0/sd_xl_refiner_1.0_0.9vae.safetensors "$fooocus_path"/models/checkpoints # sd_xl_refiner_1.0_0.9vae OFF
-__term_sd_task_pre_model_4 get_modelscope_model licyks/sd-model/master/sdxl_1.0/animagine-xl-3.0.safetensors "$fooocus_path"/models/checkpoints # animagine-xl-3.0 OFF
+__term_sd_task_pre_model_4 get_modelscope_model licyks/sd-model/master/sdxl_1.0/animagine-xl-3.0.safetensors "$fooocus_path"/models/checkpoints # animagine-xl-3.0 ON
 __term_sd_task_pre_model_5 get_modelscope_model licyks/sd-model/master/sdxl_1.0/AnythingXL_xl.safetensors # AnythingXL_xl OFF
 __term_sd_task_pre_model_6 get_modelscope_model licyks/sd-model/master/sdxl_1.0/abyssorangeXLElse_v10.safetensors # abyssorangeXLElse_v10 OFF
 __term_sd_task_pre_model_7 get_modelscope_model licyks/sd-model/master/sdxl_1.0/animaPencilXL_v200.safetensors # animaPencilXL_v200 OFF
-__term_sd_task_pre_model_8 get_modelscope_model licyks/sd-model/master/sdxl_1.0/animagine-xl-3.1.safetensors # animagine-xl-3.1 ON
+__term_sd_task_pre_model_8 get_modelscope_model licyks/sd-model/master/sdxl_1.0/animagine-xl-3.1.safetensors # animagine-xl-3.1 OFF
 __term_sd_task_pre_model_9 get_modelscope_model licyks/sd-model/master/sdxl_1.0/heartOfAppleXL_v20.safetensors # heartOfAppleXL_v20 OFF
 __term_sd_task_pre_model_10 get_modelscope_model licyks/sd-model/master/sdxl_1.0/baxlBartstylexlBlueArchiveFlatCelluloid_xlv1.safetensors # baxlBartstylexlBlueArchiveFlatCelluloid_xlv1 OFF
 __term_sd_task_pre_model_11 get_modelscope_model licyks/sd-model/master/sdxl_1.0/kohaku-xl-delta-rev1.safetensors # kohaku-xl-delta-rev1 OFF
