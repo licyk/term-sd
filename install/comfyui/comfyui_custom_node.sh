@@ -65,3 +65,17 @@ __term_sd_task_pre_ext_64 git_clone_repository ${github_mirror} https://github.c
 __term_sd_task_pre_ext_65 git_clone_repository ${github_mirror} https://github.com/crystian/ComfyUI-Crystools "$comfyui_path"/custom_nodes OFF # 资源监视器
 __term_sd_task_pre_ext_66 git_clone_repository ${github_mirror} https://github.com/chflame163/ComfyUI_LayerStyle "$comfyui_path"/custom_nodes OFF # 图层和蒙版合成节点
 __term_sd_task_pre_ext_67 git_clone_repository ${github_mirror} https://github.com/Nuked88/ComfyUI-N-Sidebar "$comfyui_path"/custom_nodes OFF # 节点快捷收藏整理工具
+__term_sd_task_pre_ext_68 git_clone_repository ${github_mirror} https://github.com/brianfitzgerald/style_aligned_comfy "$comfyui_path"/custom_nodes OFF # 使用StyleAligned保持多张图片一致性
+__term_sd_task_pre_ext_69 git_clone_repository ${github_mirror} https://github.com/flowtyone/ComfyUI-Flowty-TripoSR "$comfyui_path"/custom_nodes OFF # 添加TripoSR支持
+__term_sd_task_pre_ext_70 git_clone_repository ${github_mirror} https://github.com/city96/ComfyUI_ExtraModels "$comfyui_path"/custom_nodes OFF #
+__term_sd_task_pre_ext_71 git_clone_repository ${github_mirror} https://github.com/kijai/ComfyUI-SUPIR "$comfyui_path"/custom_nodes OFF # 添加DiT，PixArt，T5和一些自定义VAE模型的支持
+__term_sd_task_pre_ext_72 git_clone_repository ${github_mirror} https://github.com/ZHO-ZHO-ZHO/ComfyUI-YoloWorld-EfficientSAM "$comfyui_path"/custom_nodes OFF # 对象检测与分割
+__term_sd_task_pre_ext_73 git_clone_repository ${github_mirror} https://github.com/ZHO-ZHO-ZHO/ComfyUI-PixArt-alpha-Diffusers "$comfyui_path"/custom_nodes OFF # 添加PixArt-α模型支持
+__term_sd_task_pre_ext_74 git_clone_repository ${github_mirror} https://github.com/ZHO-ZHO-ZHO/ComfyUI-BiRefNet-ZHO "$comfyui_path"/custom_nodes OFF # 对象蒙版生成
+__term_sd_task_pre_ext_75 git_clone_repository ${github_mirror} https://github.com/ZHO-ZHO-ZHO/ComfyUI-DepthFM "$comfyui_path"/custom_nodes OFF # 深度图生成
+__term_sd_task_pre_ext_76 git_clone_repository ${github_mirror} https://github.com/ZHO-ZHO-ZHO/ComfyUI-APISR "$comfyui_path"/custom_nodes OFF # 图像放大
+__term_sd_task_pre_ext_77 git_clone_repository ${github_mirror} https://github.com/ZHO-ZHO-ZHO/ComfyUI-ArtGallery "$comfyui_path"/custom_nodes OFF # 可视化风格提示词预设选择
+__term_sd_task_pre_ext_78 git_clone_repository ${github_mirror} https://github.com/ZHO-ZHO-ZHO/ComfyUI-BRIA_AI-RMBG "$comfyui_path"/custom_nodes OFF # 图片背景移除
+__term_sd_task_pre_ext_79 git_clone_repository ${github_mirror} https://github.com/ZHO-ZHO-ZHO/ComfyUI-I2VGenXL "$comfyui_path"/custom_nodes OFF # 添加I2VGenXL的支持
+__term_sd_task_pre_ext_80 git_clone_repository ${github_mirror} https://github.com/ZHO-ZHO-ZHO/ComfyUI-SegMoE "$comfyui_path"/custom_nodes OFF # 添加SegMoE的支持
+__term_sd_task_pre_ext_81 git_clone_repository ${github_mirror} https://github.com/ZHO-ZHO-ZHO/ComfyUI-AnyText "$comfyui_path"/custom_nodes OFF # 添加AnyText的支持

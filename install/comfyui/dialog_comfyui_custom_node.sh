@@ -65,3 +65,17 @@ __term_sd_task_pre_ext_64 PowerNoiseSuite ON
 __term_sd_task_pre_ext_65 ComfyUI-Crystools OFF
 __term_sd_task_pre_ext_66 ComfyUI_LayerStyle OFF
 __term_sd_task_pre_ext_67 ComfyUI-N-Sidebar OFF
+__term_sd_task_pre_ext_68 style_aligned_comfy OFF
+__term_sd_task_pre_ext_69 ComfyUI-Flowty-TripoSR OFF
+__term_sd_task_pre_ext_70 ComfyUI_ExtraModels OFF
+__term_sd_task_pre_ext_71 ComfyUI-SUPIR OFF
+__term_sd_task_pre_ext_72 ComfyUI-YoloWorld-EfficientSAM OFF
+__term_sd_task_pre_ext_73 ComfyUI-PixArt-alpha-Diffusers OFF
+__term_sd_task_pre_ext_74 ComfyUI-BiRefNet-ZHO OFF
+__term_sd_task_pre_ext_75 ComfyUI-DepthFM OFF
+__term_sd_task_pre_ext_76 ComfyUI-APISR OFF
+__term_sd_task_pre_ext_77 ComfyUI-ArtGallery OFF
+__term_sd_task_pre_ext_78 ComfyUI-BRIA_AI-RMBG OFF
+__term_sd_task_pre_ext_79 ComfyUI-I2VGenXL OFF
+__term_sd_task_pre_ext_80 ComfyUI-SegMoE OFF
+__term_sd_task_pre_ext_81 ComfyUI-AnyText OFF
