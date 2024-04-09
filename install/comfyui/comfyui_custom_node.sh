@@ -79,3 +79,6 @@ __term_sd_task_pre_ext_78 git_clone_repository ${github_mirror} https://github.c
 __term_sd_task_pre_ext_79 git_clone_repository ${github_mirror} https://github.com/ZHO-ZHO-ZHO/ComfyUI-I2VGenXL "$comfyui_path"/custom_nodes OFF # 添加I2VGenXL的支持
 __term_sd_task_pre_ext_80 git_clone_repository ${github_mirror} https://github.com/ZHO-ZHO-ZHO/ComfyUI-SegMoE "$comfyui_path"/custom_nodes OFF # 添加SegMoE的支持
 __term_sd_task_pre_ext_81 git_clone_repository ${github_mirror} https://github.com/ZHO-ZHO-ZHO/ComfyUI-AnyText "$comfyui_path"/custom_nodes OFF # 添加AnyText的支持
+__term_sd_task_pre_ext_82 git_clone_repository ${github_mirror} https://github.com/Clybius/ComfyUI-Extra-Samplers "$comfyui_path"/custom_nodes OFF # 添加额外的采样器
+__term_sd_task_pre_ext_83 git_clone_repository ${github_mirror} https://github.com/blepping/ComfyUI-sonar "$comfyui_path"/custom_nodes OFF # 添加sonar采样器
+__term_sd_task_pre_ext_84 git_clone_repository ${github_mirror} https://github.com/ssitu/ComfyUI_restart_sampling "$comfyui_path"/custom_nodes OFF # 添加restart采样器

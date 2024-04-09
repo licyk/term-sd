@@ -79,3 +79,6 @@ __term_sd_task_pre_ext_78 ComfyUI-BRIA_AI-RMBG OFF
 __term_sd_task_pre_ext_79 ComfyUI-I2VGenXL OFF
 __term_sd_task_pre_ext_80 ComfyUI-SegMoE OFF
 __term_sd_task_pre_ext_81 ComfyUI-AnyText OFF
+__term_sd_task_pre_ext_82 ComfyUI-Extra-Samplers OFF
+__term_sd_task_pre_ext_83 ComfyUI-sonar OFF
+__term_sd_task_pre_ext_84 ComfyUI_restart_sampling OFF

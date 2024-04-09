@@ -336,3 +336,15 @@ ComfyUI 插件 / 自定义节点说明：
 81、ComfyUI-AnyText：
 描述：添加AnyText的支持
 链接：https://github.com/ZHO-ZHO-ZHO/ComfyUI-AnyText
+
+82、ComfyUI-Extra-Samplers：
+描述：添加额外的采样器
+链接：https://github.com/Clybius/ComfyUI-Extra-Samplers
+
+83、ComfyUI-sonar：
+描述：添加sonar采样器
+链接：https://github.com/blepping/ComfyUI-sonar
+
+84、ComfyUI_restart_sampling：
+描述：添加restart采样器
+链接：https://github.com/ssitu/ComfyUI_restart_sampling
