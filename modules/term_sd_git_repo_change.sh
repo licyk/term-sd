@@ -49,12 +49,12 @@ git_remote_url_select()
         $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
         "1" "> 官方源 (github.com)" \
-        "2" "> 代理源1 (mirror.ghproxy.com)" \
-        "3" "> 代理源2 (gitclone.com)" \
-        "4" "> 代理源3 (gh-proxy.com)" \
-        "5" "> 代理源4 (ghps.cc)" \
-        "6" "> 代理源5 (gh.idayer.com)" \
-        "7" "> 代理源6 (ghproxy.net)" \
+        "2" "> 镜像源1 (mirror.ghproxy.com)" \
+        "3" "> 镜像源2 (gitclone.com)" \
+        "4" "> 镜像源3 (gh-proxy.com)" \
+        "5" "> 镜像源4 (ghps.cc)" \
+        "6" "> 镜像源5 (gh.idayer.com)" \
+        "7" "> 镜像源6 (ghproxy.net)" \
         3>&1 1>&2 2>&3)
 
     case $git_remote_url_select_dialog in
@@ -116,12 +116,12 @@ git_remote_url_select_single()
             $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
             "0" "> 返回" \
             "1" "> 官方源 (github.com)" \
-            "2" "> 代理源1 (mirror.ghproxy.com)" \
-            "3" "> 代理源2 (gitclone.com)" \
-            "4" "> 代理源3 (gh-proxy.com)" \
-            "5" "> 代理源4 (ghps.cc)" \
-            "6" "> 代理源5 (gh.idayer.com)" \
-            "7" "> 代理源6 (ghproxy.net)" \
+            "2" "> 镜像源1 (mirror.ghproxy.com)" \
+            "3" "> 镜像源2 (gitclone.com)" \
+            "4" "> 镜像源3 (gh-proxy.com)" \
+            "5" "> 镜像源4 (ghps.cc)" \
+            "6" "> 镜像源5 (gh.idayer.com)" \
+            "7" "> 镜像源6 (ghproxy.net)" \
             3>&1 1>&2 2>&3)
 
         case $git_remote_url_select_single_dialog in

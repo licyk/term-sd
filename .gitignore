@@ -2,6 +2,7 @@
 /task/*.sh
 /config/*.lock
 /config/*.conf
+/config/.gitconfig
 /requirements-backup
 /backup
 /github_mirror_test

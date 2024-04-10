@@ -47,7 +47,7 @@ term_sd_launch()
             ;;
     esac
     term_sd_print_line "${term_sd_manager_info} 启动"
-    term_sd_echo "提示: 可以使用 \"Ctrl+C\" 终止 AI 软件的运行"
+    term_sd_echo "提示: 可以按下 \"Ctrl+C\" 键终止 AI 软件的运行"
     enter_venv
     case $term_sd_manager_info in
         InvokeAI)
@@ -58,31 +58,6 @@ term_sd_launch()
             ;;
     esac
     term_sd_pause
-}
-
-# 进程监测
-term_sd_try()
-{
-    local count=0
-    if [ $term_sd_cmd_retry = 0 ];then
-        "$@" # 执行输入的命令
-    else
-        while (( $count <= $term_sd_cmd_retry ));do  
-            count=$(( $count + 1 ))
-            "$@" # 执行输入的命令
-            if [ $? = 0 ];then
-                break # 运行成功并中断循环
-            else
-                if [ $count -gt $term_sd_cmd_retry ];then
-                    term_sd_echo "超出重试次数, 终止重试"
-                    term_sd_echo "执行失败的命令: \"$@\""
-                    return 1
-                    break # 超出重试次数后终端循环
-                fi
-                term_sd_echo "[$count/$term_sd_cmd_retry] 命令执行失败, 重试中"
-            fi
-        done
-    fi
 }
 
 # aria2下载工具
@@ -173,7 +148,7 @@ term_sd_manager()
         --title "Term-SD" \
         --backtitle "主界面" \
         --ok-label "确认" --cancel-label "退出" \
-        --menu "请选择Term-SD的功能\n当前虚拟环境状态: $([ $venv_setup_status = 0 ] && echo "启用" || echo "禁用")\n当前代理设置: $([ -z $http_proxy ] && echo "无" || echo "$http_proxy ${proxy_address_available}")" \
+        --menu "请选择Term-SD的功能\n当前虚拟环境状态: $([ $venv_setup_status = 0 ] && echo "启用" || echo "禁用")\n当前 Github 镜像源设置: $([ -f "term-sd/config/set-global-github-mirror.conf" ] && echo "$(cat term-sd/config/set-global-github-mirror.conf)" || echo "未设置")\n当前 HuggingFace 镜像源设置: $([ -f "term-sd/config/set-global-huggingface-mirror.conf" ] && echo "$HF_ENDPOINT" || echo "未设置")\n当前代理设置: $([ -z $http_proxy ] && echo "无" || echo "$http_proxy ${proxy_address_available}")" \
         $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> Term-SD 更新管理" \
         "1" "> Stable-Diffusion-WebUI 管理" \

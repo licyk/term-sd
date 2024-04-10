@@ -70,6 +70,7 @@ _！Windows 平台可阅读图文版[《Windows 平台如何配置 Term-SD 运�
 
 - 4、配置 Windows 终端
 
+>[!NOTE]  
 >Windows10 需在开始菜单中找到`Micorsoft Store`，搜索`Windows Terminal`进行安装
 
 右键桌面或者文件管理器空的位置，点击`在终端中打开`，在标题栏点击向下的箭头，打开 Windows 终端设置，点击`添加新配置文件`  

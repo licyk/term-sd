@@ -92,7 +92,7 @@ term_sd_remote_revise()
             "1" "> Github 源" \
             "2" "> Gitlab 源" \
             "3" "> Gitee 源" \
-            "4" "> 代理源 (ghproxy.net)" \
+            "4" "> Bitbucket 源" \
             3>&1 1>&2 2>&3)
         
         case $term_sd_remote_revise_dialog in
@@ -124,7 +124,7 @@ term_sd_remote_revise()
                     $term_sd_dialog_height $term_sd_dialog_width
                 ;;
             4)
-                git -C term-sd remote set-url origin "https://ghproxy.net/github.com/licyk/term-sd"
+                git -C term-sd remote set-url origin "https://licyk@bitbucket.org/licyks/term-sd"
                 dialog --erase-on-exit \
                     --title "Term-SD" \
                     --backtitle "Term-SD 更新源切换选项" \

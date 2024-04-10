@@ -93,7 +93,7 @@ enter_venv()
     fi
 }
 
-# 退出虚拟环境功能(改了一下python官方的退出脚本)
+# 退出虚拟环境功能(功能来自python官方的退出虚拟环境脚本)
 exit_venv()
 {
     if [ ! -z "$VIRTUAL_ENV" ];then # 检测是否在虚拟环境中
@@ -102,12 +102,12 @@ exit_venv()
         if [ -n "${_OLD_VIRTUAL_PATH:-}" ] ; then
             PATH="${_OLD_VIRTUAL_PATH:-}"
             export PATH
-            export _OLD_VIRTUAL_PATH=
+            unset _OLD_VIRTUAL_PATH
         fi
         if [ -n "${_OLD_VIRTUAL_PYTHONHOME:-}" ] ; then
             PYTHONHOME="${_OLD_VIRTUAL_PYTHONHOME:-}"
             export PYTHONHOME
-            export _OLD_VIRTUAL_PYTHONHOME=
+            unset _OLD_VIRTUAL_PYTHONHOME
         fi
 
         # This should detect bash and zsh, which have a hash command that must
@@ -120,14 +120,14 @@ exit_venv()
         if [ -n "${_OLD_VIRTUAL_PS1:-}" ] ; then
             PS1="${_OLD_VIRTUAL_PS1:-}"
             export PS1
-            export _OLD_VIRTUAL_PS1=
+            unset _OLD_VIRTUAL_PS1
         fi
 
-        export VIRTUAL_ENV=
-        export VIRTUAL_ENV_PROMPT=
+        unset VIRTUAL_ENV
+        unset VIRTUAL_ENV_PROMPT
         if [ ! "${1:-}" = "nondestructive" ] ; then
         # Self destruct!
-            unset -f deactivate 2> /dev/null
+            unset -f deactivate
         fi
         term_sd_echo "退出虚拟环境完成"
     fi

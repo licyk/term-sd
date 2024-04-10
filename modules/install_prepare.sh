@@ -282,8 +282,8 @@ github_mirror_test()
 {
     # 镜像源列表
     local github_mirror_list="https://ghproxy.net/https://github.com/term_sd_git_user/term_sd_git_repo https://mirror.ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo https://gh-proxy.com/https://github.com/term_sd_git_user/term_sd_git_repo https://ghps.cc/https://github.com/term_sd_git_user/term_sd_git_repo https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo https://gitclone.com/github.com/term_sd_git_user/term_sd_git_repo"
-    local github_mirror_avaliable=1
     local git_req
+    local i
     local http_proxy
     local https_proxy
     http_proxy= # 临时清除配置好的代理,防止干扰测试
@@ -295,9 +295,8 @@ github_mirror_test()
         rm -rf "$start_path/term-sd/github_mirror_test" > /dev/null 2>&1
         if [ $git_req = 0 ];then
             echo $i
-            github_mirror_avaliable=0
-            break
+            return
         fi
     done
-    [ $github_mirror_avaliable = 1 ] && echo https://github.com/term_sd_git_user/term_sd_git_repo # 只有上面所有的镜像源无法使用才使用github源
+    echo https://github.com/term_sd_git_user/term_sd_git_repo # 只有上面所有的镜像源无法使用才使用github源
 }

@@ -419,7 +419,7 @@ term_sd_install_mirror_select()
         term_sd_echo "1、Github 源"
         term_sd_echo "2、Gitlab 源"
         term_sd_echo "3、Gitee 源"
-        term_sd_echo "4、代理源 (ghproxy.net)"
+        term_sd_echo "4、Bitbucket 源"
         term_sd_echo "提示: 输入数字后回车"
         case $(term_sd_read) in
             1)
@@ -438,8 +438,8 @@ term_sd_install_mirror_select()
                 break
                 ;;
             4)
-                term_sd_echo "选择代理源 (ghproxy.net)"
-                term_sd_install_mirror="https://ghproxy.net/github.com/licyk/term-sd"
+                term_sd_echo "选择 Bitbucket 源"
+                term_sd_install_mirror="https://licyk@bitbucket.org/licyks/term-sd"
                 break
                 ;;
             *)
@@ -471,6 +471,8 @@ term_sd_install()
                     touch term-sd/config/term-sd-auto-update.lock
                     date +'%Y-%m-%d %H:%M:%S' > term-sd/config/term-sd-auto-update-time.conf
                     term_sd_echo "Term-SD 自动更新已自动设置"
+                    echo "2" > term-sd/config/term-sd-pip-mirror.conf
+                    term_sd_echo "Term-SD 设置 Pip 镜像源为国内镜像源"
                 else
                     term_sd_echo "Term-SD 安装失败"
                     exit 1
@@ -503,6 +505,8 @@ term_sd_install()
                     touch term-sd/config/term-sd-auto-update.lock
                     date +'%Y-%m-%d %H:%M:%S' > term-sd/config/term-sd-auto-update-time.conf
                     term_sd_echo "Term-SD 自动更新已自动设置"
+                    echo "2" > term-sd/config/term-sd-pip-mirror.conf
+                    term_sd_echo "Term-SD 设置 Pip 镜像源为国内镜像源"
                 else
                     term_sd_echo "Term-SD 安装失败"
                     exit 1
@@ -540,6 +544,8 @@ term_sd_reinstall()
                     touch term-sd/config/term-sd-auto-update.lock
                     date +'%Y-%m-%d %H:%M:%S' > term-sd/config/term-sd-auto-update-time.conf
                     term_sd_echo "Term-SD 自动更新已自动设置"
+                    echo "2" > term-sd/config/term-sd-pip-mirror.conf
+                    term_sd_echo "Term-SD 设置 Pip 镜像源为国内镜像源"
                 else
                     term_sd_echo "Term-SD 安装失败"
                     exit 1
@@ -716,14 +722,14 @@ prepare_tcmalloc()
         done
         if [[ -z "${LD_PRELOAD}" ]]; then
             term_sd_echo "无法定位 TCMalloc。未在系统上找到 tcmalloc 或 google-perftool"
-            sleep 3
+            sleep 2
         fi
     fi
 }
 
 #############################
 
-export term_sd_version_info="1.3.5" # term-sd版本
+export term_sd_version_info="1.3.6" # term-sd版本
 export user_shell=$(basename $SHELL) # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题
@@ -869,14 +875,24 @@ if [ -f "term-sd/config/cuda-memory-alloc.conf" ];then
 fi
 
 # 设置pip镜像源
-if [ -f "term-sd/config/disable-pip-mirror.lock" ];then
-    export PIP_INDEX_URL="https://pypi.python.org/simple"
-    export PIP_EXTRA_INDEX_URL=""
-    export PIP_FIND_LINKS="https://download.pytorch.org/whl/torch_stable.html"
-else
-    export PIP_INDEX_URL="https://mirrors.cloud.tencent.com/pypi/simple"
-    export PIP_EXTRA_INDEX_URL="https://mirror.baidu.com/pypi/simple https://mirrors.bfsu.edu.cn/pypi/web/simple https://mirror.nju.edu.cn/pypi/web/simple"
-    export PIP_FIND_LINKS="https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
+if [ -f "term-sd/config/term-sd-pip-mirror.conf" ];then
+    case $(cat term-sd/config/term-sd-pip-mirror.conf) in
+        1)
+            export PIP_INDEX_URL="https://pypi.python.org/simple"
+            export PIP_EXTRA_INDEX_URL=""
+            export PIP_FIND_LINKS="https://download.pytorch.org/whl/torch_stable.html"
+            ;;
+        2)
+            export PIP_INDEX_URL="https://mirrors.cloud.tencent.com/pypi/simple"
+            export PIP_EXTRA_INDEX_URL="https://mirror.baidu.com/pypi/simple https://mirrors.bfsu.edu.cn/pypi/web/simple https://mirror.nju.edu.cn/pypi/web/simple"
+            export PIP_FIND_LINKS="https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
+            ;;
+        *)
+            export PIP_INDEX_URL="https://mirrors.cloud.tencent.com/pypi/simple"
+            export PIP_EXTRA_INDEX_URL="https://mirror.baidu.com/pypi/simple https://mirrors.bfsu.edu.cn/pypi/web/simple https://mirror.nju.edu.cn/pypi/web/simple"
+            export PIP_FIND_LINKS="https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
+            ;;
+    esac
 fi
 
 # 设置ai软件路径
@@ -938,6 +954,16 @@ else
     export kohya_ss_path="$start_path/kohya_ss"
     export kohya_ss_folder="kohya_ss"
     export kohya_ss_parent_path=$start_path
+fi
+
+# github镜像源设置
+if [ -f "term-sd/config/set-global-github-mirror.conf" ];then
+    export GIT_CONFIG_GLOBAL="$start_path/term-sd/config/.gitconfig"
+fi
+
+# huggingface镜像源设置
+if [ -f "term-sd/config/set-global-huggingface-mirror.conf" ];then
+    export HF_ENDPOINT=$(cat term-sd/config/set-global-huggingface-mirror.conf)
 fi
 
 # 依赖检测

@@ -7,7 +7,7 @@ Term-SD 是基于终端显示（使用 GNU 提供的 Dialog 渲染界面）的 A
 4、Fooocus
 5、lora-scripts
 6、kohya_ss
-注：AI 软件基于Stable Diffusion
+注：AI 软件基于 Stable Diffusion
 
 Term-SD 的编写参考了 https://gitee.com/skymysky/linux（制作 Term-SD 早期的灵感来源）
 
@@ -20,11 +20,14 @@ Term-SD 的编写参考了 https://gitee.com/skymysky/linux（制作 Term-SD 早
     https://www.liblib.ai
     https://www.esheep.com
     https://tusiart.com
-- Controlnet模型下载
+- Controlnet 模型下载
     https://modelscope.cn/models/licyks/controlnet_v1.1
     https://huggingface.co/lllyasviel/Annotators
     https://huggingface.co/lllyasviel/ControlNet-v1-1
     https://huggingface.co/lllyasviel/sd_control_collection
+- LayerDiffusion 模型下载：
+    https://huggingface.co/LayerDiffusion/layerdiffusion-v1
+    https://modelscope.cn/models/licyks/layerdiffusion
  
 - Stable Diffusion WebUI:
   - Stable Diffusion 潜工具书
