@@ -11,7 +11,7 @@ term_sd_git_global_mirror_setting()
             --title "Term-SD" \
             --backtitle "Github 镜像源选项" \
             --ok-label "确认" --cancel-label "取消" \
-            --menu "该功能用于设置 Github 镜像源, 加速国内下载 Github 文件的速度\n当前 Github 镜像源配置: $([ -f "term-sd/config/set-global-github-mirror.conf" ] && echo "$(cat term-sd/config/set-global-github-mirror.conf)" || echo "未设置")\n请选择对 Github 镜像源的操作" \
+            --menu "该功能用于设置 Github 镜像源, 加速国内下载 Github 文件的速度\n当前 Github 镜像源配置: $([ -f "term-sd/config/set-global-github-mirror.conf" ] && echo "$(cat term-sd/config/set-global-github-mirror.conf | awk '{sub("/https://github.com","") sub("/github.com","")}1')" || echo "未设置")\n请选择对 Github 镜像源的操作" \
             $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
             "0" "> 返回" \
             "1" "> 设置 Github 镜像源" \
@@ -26,7 +26,7 @@ term_sd_git_global_mirror_setting()
                         --title "Term-SD" \
                         --backtitle "Github 镜像源选项" \
                         --ok-label "确认" \
-                        --msgbox "设置 Github 镜像源代理完成\n当前使用的 Github 镜像源: $(echo $term_sd_github_mirror | awk '{sub("https://github.com","") sub("github.com","")}1')" \
+                        --msgbox "设置 Github 镜像源代理完成\n当前使用的 Github 镜像源: $(echo $term_sd_github_mirror | awk '{sub("/https://github.com","") sub("/github.com","")}1')" \
                         $term_sd_dialog_height $term_sd_dialog_width
                 else
                     term_sd_echo "取消设置 Github 镜像源"

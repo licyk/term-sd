@@ -148,7 +148,7 @@ term_sd_manager()
         --title "Term-SD" \
         --backtitle "主界面" \
         --ok-label "确认" --cancel-label "退出" \
-        --menu "请选择Term-SD的功能\n当前虚拟环境状态: $([ $venv_setup_status = 0 ] && echo "启用" || echo "禁用")\n当前 Github 镜像源设置: $([ -f "term-sd/config/set-global-github-mirror.conf" ] && echo "$(cat term-sd/config/set-global-github-mirror.conf)" || echo "未设置")\n当前 HuggingFace 镜像源设置: $([ -f "term-sd/config/set-global-huggingface-mirror.conf" ] && echo "$HF_ENDPOINT" || echo "未设置")\n当前代理设置: $([ -z $http_proxy ] && echo "无" || echo "$http_proxy ${proxy_address_available}")" \
+        --menu "请选择Term-SD的功能\n当前虚拟环境状态: $([ $venv_setup_status = 0 ] && echo "启用" || echo "禁用")\n当前 Github 镜像源设置: $([ -f "term-sd/config/set-global-github-mirror.conf" ] && echo "$(cat term-sd/config/set-global-github-mirror.conf | awk '{sub("/https://github.com","") sub("/github.com","")}1')" || echo "未设置")\n当前 HuggingFace 镜像源设置: $([ -f "term-sd/config/set-global-huggingface-mirror.conf" ] && echo "$HF_ENDPOINT" || echo "未设置")\n当前代理设置: $([ -z $http_proxy ] && echo "无" || echo "$http_proxy ${proxy_address_available}")" \
         $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> Term-SD 更新管理" \
         "1" "> Stable-Diffusion-WebUI 管理" \

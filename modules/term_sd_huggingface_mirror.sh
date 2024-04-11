@@ -114,7 +114,7 @@ term_sd_test_avaliable_huggingface_mirror()
     http_proxy= # 临时清除配置好的代理,防止干扰测试
     https_proxy=
     for i in $huggingface_mirror_list ;do
-        curl ${i}/licyk/sd-model/resolve/main/README.md -o /dev/null --connect-timeout 5
+        curl ${i}/licyk/sd-model/resolve/main/README.md -o /dev/null --connect-timeout 10
         if [ $? = 0 ];then
             term_sd_huggingface_mirror=$i
             return

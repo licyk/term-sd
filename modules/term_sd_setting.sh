@@ -20,7 +20,7 @@ term_sd_setting()
             "3" "> Pip 镜像源设置 (环境变量)($([ ! -z $(echo $PIP_INDEX_URL | grep "pypi.python.org") ] && echo "官方源" || echo "国内镜像源"))" \
             "4" "> Pip 缓存清理" \
             "5" "> 代理设置 ($([ -z $http_proxy ] && echo "无" || echo "代理地址:$(echo $http_proxy | awk '{print substr($1,1,40)}')"))" \
-            "6" "> Github 镜像源设置（$([ -f "term-sd/config/set-global-github-mirror.conf" ] && echo "镜像源: $(cat term-sd/config/set-global-github-mirror.conf)" || echo "未设置")）" \
+            "6" "> Github 镜像源设置（$([ -f "term-sd/config/set-global-github-mirror.conf" ] && echo "镜像源: $(cat term-sd/config/set-global-github-mirror.conf | awk '{sub("/https://github.com","") sub("/github.com","")}1')" || echo "未设置")）" \
             "7" "> HuggingFace 镜像源设置（$([ -f "term-sd/config/set-global-huggingface-mirror.conf" ] && echo "镜像源: $HF_ENDPOINT" || echo "未设置")）" \
             "8" "> 命令执行监测设置 ($([ -f "term-sd/config/term-sd-watch-retry.conf" ] && echo "启用(重试次数:$(cat term-sd/config/term-sd-watch-retry.conf))" || echo "禁用"))" \
             "9" "> Term-SD 安装模式 ($([ ! -f "term-sd/config/term-sd-disable-strict-install-mode.lock" ] && echo "严格模式" || echo "宽容模式"))" \
@@ -575,13 +575,14 @@ kohya_ss: $kohya_ss_space_stat\n
 # 网络连接测试
 term_sd_network_test()
 {
-    local network_test
+    local http_return_code
     local req
+    local i
     local network_test_url
     local count
     local sum
     count=1
-    network_test_url="google.com huggingface.co modelscope.cn github.com mirror.ghproxy.com gitclone.com gh-proxy.com ghps.cc gh.idayer.com ghproxy.net"
+    network_test_url="google.com huggingface.co modelscope.cn github.com mirror.ghproxy.com gitclone.com gh-proxy.com ghps.cc gh.idayer.com ghproxy.net hf-mirror.com huggingface.sukaka.top"
     sum=$(echo $network_test_url | wc -w)
     term_sd_echo "获取网络信息"
     [ -f "term-sd/task/ipinfo.sh" ] && rm -f term-sd/task/ipinfo.sh
@@ -590,12 +591,15 @@ term_sd_network_test()
     for i in $network_test_url; do
         term_sd_echo "[$count/$sum] 测试链接访问: $i"
         count=$(( $count + 1 ))
-        curl --connect-timeout 10 $i > /dev/null 2>&1
-        if [ $? = 0 ];then
-            req="$req $i: 成功 ✓\n"
-        else
-            req="$req $i: 失败 ×\n"
-        fi
+        http_return_code=$(curl --connect-timeout 10 -s -o /dev/null -w "%{http_code}" https://${i})
+        case $http_return_code in
+            200|301)
+                req="$req $i: 成功 ✓\n"
+                ;;
+            *)
+                req="$req $i: 失败 ×\n"
+            ;;
+        esac
     done
 
     dialog --erase-on-exit \
@@ -612,7 +616,7 @@ $(cat term-sd/task/ipinfo.sh | grep \"city\"\: | awk '{gsub(/[\\"]/,"") ; sub("c
 $(cat term-sd/task/ipinfo.sh | grep \"org\"\: | awk '{gsub(/[\\"]/,"") ; sub("org:","网络提供商: ")}1')\n
 ${term_sd_delimiter}\n
 网站访问:\n
-$req\n
+$req\
 ${term_sd_delimiter}\n
 " $term_sd_dialog_height $term_sd_dialog_width
 
