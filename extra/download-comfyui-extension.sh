@@ -6,6 +6,7 @@
 . ./term-sd/modules/term_sd_task_manager.sh
 . ./term-sd/modules/term_sd_manager.sh
 . ./term-sd/modules/term_sd_proxy.sh
+. ./term-sd/modules/term_sd_try.sh
 
 # 插件选择和下载
 install_comfyui_extension()

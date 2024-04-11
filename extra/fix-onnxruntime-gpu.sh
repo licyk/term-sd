@@ -3,6 +3,7 @@
 . ./term-sd/modules/term_sd_manager.sh
 . ./term-sd/modules/python_venv.sh
 . ./term-sd/modules/term_sd_python_cmd.sh
+. ./term-sd/modules/term_sd_try.sh
 
 # 主界面
 term_sd_fix_onnxruntime()

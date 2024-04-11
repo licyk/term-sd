@@ -6,6 +6,7 @@
 . ./term-sd/modules/get_modelscope_model.sh
 . ./term-sd/modules/install_prepare.sh
 . ./term-sd/modules/term_sd_proxy.sh
+. ./term-sd/modules/term_sd_try.sh
 
 # ai软件选择
 sd_model_download_select()

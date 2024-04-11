@@ -1,5 +1,8 @@
 #!/bin/bash
 
+. ./term-sd/modules/term_sd_try.sh
+. ./term-sd/modules/term_sd_manager.sh
+
 # 下载源选择
 download_hanamizuki_resource_select()
 {
@@ -33,7 +36,7 @@ download_hanamizuki_resource_select()
 # 绘世启动器下载
 download_hanamizuki()
 {
-    aria2c $download_hanamizuki_resource -d term-sd/task -o "绘世.exe"
+    aria2_download $download_hanamizuki_resource term-sd/task "绘世.exe"
     if [ $? = 0 ];then
         if [ -d "$sd_webui_path" ];then
             if [ ! -f "$sd_webui_path/绘世.exe" ];then
