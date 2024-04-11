@@ -124,3 +124,6 @@ __term_sd_task_pre_ext_8 term_sd_echo "下载 DanTagGen 模型" # DanTagGen OFF
 __term_sd_task_pre_ext_8 get_modelscope_model licyks/sd-extensions-model/master/a1111-sd-webui-dtg/ggml-model-Q6_K.gguf "$comfyui_path"/custom_nodes/ComfyUI_DanTagGen/models
 __term_sd_task_pre_ext_8 get_modelscope_model licyks/sd-extensions-model/master/a1111-sd-webui-dtg/ggml-model-Q8_0.gguf "$comfyui_path"/custom_nodes/ComfyUI_DanTagGen/models
 __term_sd_task_pre_ext_8 get_modelscope_model licyks/sd-extensions-model/master/a1111-sd-webui-dtg/ggml-model-f16.gguf "$comfyui_path"/custom_nodes/ComfyUI_DanTagGen/models
+
+__term_sd_task_pre_ext_9 term_sd_echo "下载 Comfyui-StableSR 模型" # StableSR ON
+__term_sd_task_pre_ext_9 get_modelscope_model licyks/sd-extensions-model/master/sd-webui-stablesr/webui_768v_139.ckpt "$comfyui_path"/models/stablesr

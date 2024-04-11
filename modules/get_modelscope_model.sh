@@ -17,7 +17,9 @@ get_modelscope_model()
     local modelscope_user=$(echo $@ | awk '{gsub(/[/]/, " ")}1' | awk '{print$1}')
     local modelscope_name=$(echo $@ | awk '{gsub(/[/]/, " ")}1' | awk '{print$2}')
     local modelscope_branch=$(echo $@ | awk '{gsub(/[/]/, " ")}1' | awk '{print$3}')
-    local modelscope_model_path=$(echo $1 | awk '{sub("'${modelscope_user}/${modelscope_name}/${modelscope_branch}/'","")}1')
+    # local modelscope_model_path=$(echo $1 | awk '{sub("'${modelscope_user}/${modelscope_name}/${modelscope_branch}/'","")}1')
+    # modelscope把 / 换成了 %2F
+    local modelscope_model_path=$(echo $1 | awk '{sub("'${modelscope_user}/${modelscope_name}/${modelscope_branch}/'","")}1' | awk '{gsub("/","%2F")}1')
     local modelscope_model_url="https://modelscope.cn/api/v1/models/${modelscope_user}/${modelscope_name}/repo?Revision=${modelscope_branch}&FilePath=${modelscope_model_path}"
     local local_file_parent_path
     local modelscope_model_name
