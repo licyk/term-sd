@@ -48,13 +48,14 @@ term_sd_launch()
     esac
     term_sd_print_line "${term_sd_manager_info} 启动"
     term_sd_echo "提示: 可以按下 \"Ctrl+C\" 键终止 AI 软件的运行"
-    enter_venv
     case $term_sd_manager_info in
         InvokeAI)
             invokeai-web --root "$invokeai_path"/invokeai $(cat "$start_path"/term-sd/config/$launch_sd_config)
             ;;
         *)
+            enter_venv
             term_sd_python $(cat "$start_path"/term-sd/config/$launch_sd_config)
+            exit_venv
             ;;
     esac
     term_sd_pause
