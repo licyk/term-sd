@@ -764,7 +764,7 @@ fooocus_lang_config_file()
     "Save Metadata to Images": "保存元数据到图像中",
     "Metadata Scheme": "元数据格式",
     "Image Prompt parameters are not included. Use png and a1111 for compatibility with Civitai.": "使用默认设置时图片提示词参数不包括在内。使用 png 图片保存格式和 A1111 SD WebUI 的图片信息保存风格的图片更适合在 Civitai 进行分享。",
-    "fooocus (json)": "fooocus 风格（json）",
+    "fooocus (json)": "Fooocus 风格（json）",
     "a1111 (plain text)": "A1111 SD WebUI 风格（纯文本）",
     "Refiner Switch At": "Refind 切换时机",
     "Use 0.4 for SD1.5 realistic models; or 0.667 for SD1.5 anime models; or 0.8 for XL-refiners; or any value for switching two SDXL models.": "SD1.5 真实模型使用 0.4，SD1.5 动漫模型为 0.667，XLRefind 机为 0.8，或用于切换两个 SDXL 模型的任何值。",
