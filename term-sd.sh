@@ -123,7 +123,7 @@ term_sd_extra_scripts_launch()
         term_sd_extra_scripts
     else
         if [ -f "term-sd/extra/$(echo $@ | awk '{sub(".sh","")}1').sh" ];then
-            term_sd_print_line "${extra_script_dir_list_select} 脚本启动"
+            term_sd_print_line "$(echo $@ | awk '{sub(".sh","")}1') 脚本启动"
             term_sd_echo "启动 $(echo $@ | awk '{sub(".sh","")}1') 脚本中"
             . ./term-sd/extra/$(echo $@ | awk '{sub(".sh","")}1').sh
             term_sd_print_line
@@ -170,7 +170,7 @@ term_sd_extra_scripts()
                     exit 0
                     ;;
                 *)
-                    term_sd_print_line "${extra_script_dir_list_select} 脚本启动"
+                    term_sd_print_line "$(echo $extra_script_dir_list_select | awk '{sub(".sh","")}1') 脚本启动"
                     . ./term-sd/extra/$extra_script_dir_list_select
                     term_sd_print_line
                     term_sd_echo "退出 $(echo $extra_script_dir_list_select | awk '{sub(".sh","")}1') 脚本"

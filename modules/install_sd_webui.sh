@@ -216,7 +216,8 @@ sd_webui_config_file()
     "localization": "zh-Hans (Stable)",
     "show_progress_every_n_steps": 1,
     "js_live_preview_in_modal_lightbox": true,
-    "upscaler_for_img2img": "Lanczos"
+    "upscaler_for_img2img": "Lanczos",
+    "samples_filename_pattern": "[datetime<%Y%m%d_%H%M%S>]_[model_name]_[sampler]"
 }
 EOF
 }

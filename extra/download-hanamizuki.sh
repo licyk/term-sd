@@ -78,15 +78,25 @@ download_hanamizuki()
 
 #############################
 
-if [ -d "$sd_webui_path" ] || [ -d "$comfyui_path" ] || [ -d "$fooocus_path" ];then
-    if [ ! -f "$sd_webui_path/绘世.exe" ] || [ ! -f "$comfyui_path/绘世.exe" ] || [ ! -f "$fooocus_path/绘世.exe" ];then
-        download_hanamizuki_resource_select
-        if [ $? = 0 ];then
-            download_hanamizuki
+if [ $OS = "Windows_NT" ];then
+    if  [ -d "$sd_webui_path" ] || \
+        [ -d "$comfyui_path" ] || \
+        [ -d "$fooocus_path" ];then
+
+        if  [ ! -f "$sd_webui_path/绘世.exe" ] || \
+            [ ! -f "$comfyui_path/绘世.exe" ] || \
+            [ ! -f "$fooocus_path/绘世.exe" ];then
+
+            download_hanamizuki_resource_select
+            if [ $? = 0 ];then
+                download_hanamizuki
+            fi
+        else
+            term_sd_echo "绘世启动器已存在 Stable-Diffusion-WebUI, ComfyUI, Fooocus 文件夹中"
         fi
     else
-        term_sd_echo "绘世启动器已存在 Stable-Diffusion-WebUI, ComfyUI, Fooocus 文件夹中"
+        term_sd_echo "未找到 Stable-Diffusion-WebUI, ComfyUI, Fooocus 文件夹"
     fi
 else
-    term_sd_echo "未找到 Stable-Diffusion-WebUI, ComfyUI, Fooocus 文件夹"
+    term_sd_echo "检测到系统不是 Windows, 无法使用绘世启动器"
 fi
