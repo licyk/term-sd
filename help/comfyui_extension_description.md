@@ -352,3 +352,7 @@ ComfyUI 插件 / 自定义节点说明：
 85、ComfyUI_restart_sampling：
 描述：添加restart采样器
 链接：https://github.com/ssitu/ComfyUI_restart_sampling
+
+86、ComfyUI-Diffusers-X-Adapter：
+描述：添加x-adapter支持
+链接：https://github.com/kijai/ComfyUI-Diffusers-X-Adapter
