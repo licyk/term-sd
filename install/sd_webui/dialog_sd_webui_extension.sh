@@ -16,7 +16,7 @@ __term_sd_task_pre_ext_15 sd-webui-cutoff ON
 __term_sd_task_pre_ext_16 sd-webui-model-converter ON
 __term_sd_task_pre_ext_17 sd-webui-supermerger ON
 __term_sd_task_pre_ext_18 stable-diffusion-webui-localization-zh_Hans ON
-__term_sd_task_pre_ext_19 stable-diffusion-webui-wd14-tagger ON
+__term_sd_task_pre_ext_19 sd-webui-wd14-tagger ON
 __term_sd_task_pre_ext_20 sd-webui-regional-prompter ON
 __term_sd_task_pre_ext_21 sd-webui-infinite-image-browsing ON
 __term_sd_task_pre_ext_22 stable-diffusion-webui-anti-burn ON

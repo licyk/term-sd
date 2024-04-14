@@ -73,9 +73,9 @@ Stable Diffusion WebUI 插件说明：
 描述：WEBUI中文扩展
 链接：https://github.com/hanamizuki-ai/stable-diffusion-webui-localization-zh_Hans
 
-19、stable-diffusion-webui-wd14-tagger：
+19、sd-webui-wd14-tagger：
 描述：图片tag反推
-链接：https://github.com/picobyte/stable-diffusion-webui-wd14-tagger
+链接：https://github.com/Akegarasu/sd-webui-wd14-tagger
 
 20、sd-webui-regional-prompter：
 描述：图片区域分割
