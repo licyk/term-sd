@@ -4,9 +4,80 @@
 term_sd_setting()
 {
     local term_sd_setting_dialog
+    local pip_mirror_setup_info
+    local venv_setup_info
+    local http_proxy_setup_info
+    local github_mirror_setup_info
+    local term_sd_cmd_retry_setup_info
+    local term_sd_install_mode_setup_info
+    local aria2_thread_setup_info
+    local term_sd_path_redirect_setup_info
+    local cuda_memory_alloc_setup_info
 
     while true
     do
+        if [ $venv_setup_status = 0 ];then
+            venv_setup_info="启用"
+        else
+            venv_setup_info="禁用"
+        fi
+
+        if [ -z "$PIP_INDEX_URL" ];then
+            pip_mirror_setup_info="未设置"
+        elif [ ! -z $(echo $PIP_INDEX_URL | grep "pypi.python.org") ];then
+            pip_mirror_setup_info="官方源"
+        else
+            pip_mirror_setup_info="国内镜像源"
+        fi
+
+        if [ -z $http_proxy ];then
+            http_proxy_setup_info="无"
+        else
+            http_proxy_setup_info="代理地址: $(echo $http_proxy | awk '{print substr($1,1,40)}')"
+        fi
+
+        if [ -f "term-sd/config/set-global-github-mirror.conf" ];then
+            github_mirror_setup_info="镜像源: $(cat term-sd/config/set-global-github-mirror.conf)"
+        else
+            github_mirror_setup_info="未设置"
+        fi
+
+        if [ -f "term-sd/config/set-global-huggingface-mirror.conf" ];then
+            huggingface_mirror_setup_info="镜像源: $HF_ENDPOINT"
+        else
+            huggingface_mirror_setup_info="未设置"
+        fi
+
+        if [ -f "term-sd/config/term-sd-watch-retry.conf" ];then
+            term_sd_cmd_retry_setup_info="启用(重试次数: $(cat term-sd/config/term-sd-watch-retry.conf))"
+        else
+            term_sd_cmd_retry_setup_info="禁用"
+        fi
+
+        if [ ! -f "term-sd/config/term-sd-disable-strict-install-mode.lock" ];then
+            term_sd_install_mode_setup_info="严格模式"
+        else
+            term_sd_install_mode_setup_info="宽容模式"
+        fi
+
+        if [ -f "term-sd/config/aria2-thread.conf" ];then
+            aria2_thread_setup_info="启用 (线程数: $(cat term-sd/config/aria2-thread.conf | awk '{sub("-x ","")}1'))"
+        else
+            aria2_thread_setup_info="禁用"
+        fi
+
+        if [ ! -f "term-sd/config/disable-cache-path-redirect.lock" ];then
+            term_sd_path_redirect_setup_info="启用"
+        else
+            term_sd_path_redirect_setup_info="禁用"
+        fi
+
+        if [ -f "term-sd/config/cuda-memory-alloc.conf" ];then
+            cuda_memory_alloc_setup_info=$([ ! -z $(cat term-sd/config/cuda-memory-alloc.conf | grep cudaMallocAsync) ] && echo "CUDA内置异步分配器" || echo "PyTorch原生分配器")
+        else
+            cuda_memory_alloc_setup_info="未设置"
+        fi
+
         term_sd_setting_dialog=$(dialog --erase-on-exit --notags \
             --title "Term-SD" \
             --backtitle "Term-SD 设置选项" \
@@ -15,18 +86,18 @@ term_sd_setting()
             --menu "请选择 Term-SD 设置" \
             $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
             "0" "> 返回" \
-            "1" "> 虚拟环境设置 ($([ $venv_setup_status = 0 ] && echo "启用" || echo "禁用"))" \
+            "1" "> 虚拟环境设置 ($venv_setup_info)" \
             "2" "> Pip 镜像源设置 (配置文件)" \
-            "3" "> Pip 镜像源设置 (环境变量)($([ ! -z $(echo $PIP_INDEX_URL | grep "pypi.python.org") ] && echo "官方源" || echo "国内镜像源"))" \
+            "3" "> Pip 镜像源设置 (环境变量)($pip_mirror_setup_info)" \
             "4" "> Pip 缓存清理" \
-            "5" "> 代理设置 ($([ -z $http_proxy ] && echo "无" || echo "代理地址:$(echo $http_proxy | awk '{print substr($1,1,40)}')"))" \
-            "6" "> Github 镜像源设置（$([ -f "term-sd/config/set-global-github-mirror.conf" ] && echo "镜像源: $(cat term-sd/config/set-global-github-mirror.conf | awk '{sub("/https://github.com","") sub("/github.com","")}1')" || echo "未设置")）" \
-            "7" "> HuggingFace 镜像源设置（$([ -f "term-sd/config/set-global-huggingface-mirror.conf" ] && echo "镜像源: $HF_ENDPOINT" || echo "未设置")）" \
-            "8" "> 命令执行监测设置 ($([ -f "term-sd/config/term-sd-watch-retry.conf" ] && echo "启用(重试次数:$(cat term-sd/config/term-sd-watch-retry.conf))" || echo "禁用"))" \
-            "9" "> Term-SD 安装模式 ($([ ! -f "term-sd/config/term-sd-disable-strict-install-mode.lock" ] && echo "严格模式" || echo "宽容模式"))" \
-            "10" "> Aria2 线程设置 ($([ -f "term-sd/config/aria2-thread.conf" ] && echo "启用(线程数:$(cat term-sd/config/aria2-thread.conf | awk '{sub("-x ","")}1'))" || echo "禁用"))" \
-            "11" "> 缓存重定向设置 ($([ ! -f "term-sd/config/disable-cache-path-redirect.lock" ] && echo "启用" || echo "禁用"))" \
-            "12" "> CUDA 内存分配设置 ($([ -f "term-sd/config/cuda-memory-alloc.conf" ] && echo $([ ! -z $(cat term-sd/config/cuda-memory-alloc.conf | grep cudaMallocAsync) ] && echo "CUDA内置异步分配器" || echo "PyTorch原生分配器") || echo "未设置"))" \
+            "5" "> 代理设置 ($http_proxy_setup_info)" \
+            "6" "> Github 镜像源设置 ($github_mirror_setup_info)" \
+            "7" "> HuggingFace 镜像源设置 ($huggingface_mirror_setup_info)" \
+            "8" "> 命令执行监测设置 ($term_sd_cmd_retry_setup_info)" \
+            "9" "> Term-SD 安装模式 ($term_sd_install_mode_setup_info)" \
+            "10" "> Aria2 线程设置 ($aria2_thread_setup_info)" \
+            "11" "> 缓存重定向设置 ($term_sd_path_redirect_setup_info)" \
+            "12" "> CUDA 内存分配设置 ($cuda_memory_alloc_setup_info)" \
             "13" "> 自定义安装路径" \
             "14" "> 空间占用分析" \
             "15" "> 网络连接测试" \

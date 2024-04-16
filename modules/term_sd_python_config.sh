@@ -121,17 +121,26 @@ pip_mirrors_setting()
 pip_mirrors_env_setting()
 {
     local pip_mirrors_env_setting_dialog
+    local pip_mirror_setup_info
     export PIP_INDEX_URL
     export PIP_EXTRA_INDEX_URL
     export PIP_FIND_LINKS
 
     while true
     do
+        if [ -z "$PIP_INDEX_URL" ];then
+            pip_mirror_setup_info="未设置"
+        elif [ ! -z $(echo $PIP_INDEX_URL | grep "pypi.python.org") ];then
+            pip_mirror_setup_info="官方源"
+        else
+            pip_mirror_setup_info="国内镜像源"
+        fi
+
         pip_mirrors_env_setting_dialog=$(dialog --erase-on-exit --notags \
             --title "Term-SD" \
             --backtitle "Pip 镜像源 (环境变量) 选项" \
             --ok-label "确认" --cancel-label "取消" \
-            --menu "该功能用于设置 Pip 镜像源 (环境变量) (优先级大于全局配置), 加速国内下载 Python 软件包的速度\n当前 Pip 环境变量配置: $([ -z "$PIP_INDEX_URL" ] && echo "未设置" || [ ! -z $(echo $PIP_INDEX_URL | grep "pypi.python.org") ] && echo "官方源" ||  echo "国内镜像源")\n请选择设置的 Pip 镜像源 (环境变量)" \
+            --menu "该功能用于设置 Pip 镜像源 (环境变量) (优先级大于全局配置), 加速国内下载 Python 软件包的速度\n当前 Pip 环境变量配置: $pip_mirror_setup_info\n请选择设置的 Pip 镜像源 (环境变量)" \
             $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
             "0" "> 返回" \
             "1" "> 设置官方源" \
@@ -171,6 +180,13 @@ pip_mirrors_env_setting()
                 unset PIP_EXTRA_INDEX_URL
                 unset PIP_FIND_LINKS
                 rm -f term-sd/config/term-sd-pip-mirror.conf
+
+                dialog --erase-on-exit \
+                    --title "Term-SD" \
+                    --backtitle "Pip 镜像源 (环境变量) 选项" \
+                    --ok-label "确认" \
+                    --msgbox "删除镜像源配置成功" \
+                    $term_sd_dialog_height $term_sd_dialog_width
                 ;;
             *)
                 break
