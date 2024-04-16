@@ -45,11 +45,12 @@ Term-SD 在使用安装、管理 AI 软件的功能时，会使用准备功能�
 ### 1、安装镜像选项
 有以下选项：
 - 1、启用 Pip 镜像源：Term-SD 调用 Pip 下载 Python 软件包时使用国内镜像源进行下载
-- 2、HuggingFace / Github独占代理：Term-SD 安装 AI 软件的过程仅为 HuggingFace / Github 下载源启用代理，减少代理流量的消耗
-- 3、强制使用 Pip：强制使用 Pip 安装 Python 软件包，忽略系统的警告，一般只有在禁用虚拟环境后才需要启用 
-- 4、使用 Modelscope 模型下载源：将安装时使用的 HuggingFace 模型下载源改为 Modelscope 模型下载源（HuggingFace 在国内无法直接访问）
-- 5、Github 镜像源自动选择：测试可用的 Github 镜像源并选择自动选择，选择该选项后将覆盖手动设置的 Github 镜像源
-- 6、启用 Github 镜像源：Term-SD 从 Github 克隆源代码时使用 Github 镜像站进行克隆
+- 2、使用全局 Pip 镜像源：使用 Term-SD 设置中配置的 Pip 镜像源，而不是安装准备界面中所选择的 Pip 镜像源
+- 3、HuggingFace / Github独占代理：Term-SD 安装 AI 软件的过程仅为 HuggingFace / Github 下载源启用代理，减少代理流量的消耗
+- 4、强制使用 Pip：强制使用 Pip 安装 Python 软件包，忽略系统的警告，一般只有在禁用虚拟环境后才需要启用
+- 5、使用 Modelscope 模型下载源：将安装时使用的 HuggingFace 模型下载源改为 Modelscope 模型下载源（HuggingFace 在国内无法直接访问）
+- 6、Github 镜像源自动选择：测试可用的 Github 镜像源并选择自动选择，选择该选项后将覆盖手动设置的 Github 镜像源
+- 7、启用 Github 镜像源：Term-SD 从 Github 克隆源代码时使用 Github 镜像站进行克隆
 
 一般这些选项保持默认即可
 
@@ -206,11 +207,12 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 #### 1、安装镜像选项
 第一个是安装镜像选项，共有以下选项
 - 1、启用 Pip 镜像源：Term-SD 调用 Pip 下载 Python 软件包时使用国内镜像源进行下载
-- 2、HuggingFace / Github独占代理：Term-SD 安装 AI 软件的过程仅为 HuggingFace / Github 下载源启用代理，减少代理流量的消耗
-- 3、强制使用 Pip：强制使用 Pip 安装 Python 软件包，忽略系统的警告，一般只有在禁用虚拟环境后才需要启用 
-- 4、使用 Modelscope 模型下载源：将安装时使用的 HuggingFace 模型下载源改为 Modelscope 模型下载源（HuggingFace 在国内无法直接访问）
-- 5、Github 镜像源自动选择：测试可用的 Github 镜像源并选择自动选择，选择该选项后将覆盖手动设置的 Github 镜像源
-- 6、启用 Github 镜像源：Term-SD 从 Github 克隆源代码时使用 Github 镜像站进行克隆
+- 2、使用全局 Pip 镜像源：使用 Term-SD 设置中配置的 Pip 镜像源，而不是安装准备界面中所选择的 Pip 镜像源
+- 3、HuggingFace / Github独占代理：Term-SD 安装 AI 软件的过程仅为 HuggingFace / Github 下载源启用代理，减少代理流量的消耗
+- 4、强制使用 Pip：强制使用 Pip 安装 Python 软件包，忽略系统的警告，一般只有在禁用虚拟环境后才需要启用
+- 5、使用 Modelscope 模型下载源：将安装时使用的 HuggingFace 模型下载源改为 Modelscope 模型下载源（HuggingFace 在国内无法直接访问）
+- 6、Github 镜像源自动选择：测试可用的 Github 镜像源并选择自动选择，选择该选项后将覆盖手动设置的 Github 镜像源
+- 7、启用 Github 镜像源：Term-SD 从 Github 克隆源代码时使用 Github 镜像站进行克隆
 
 一般这些选项保持默认即可
 

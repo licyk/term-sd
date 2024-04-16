@@ -24,7 +24,7 @@ download_mirror_select()
         --checklist "请选择镜像\n注:\n1、当同时启用多个 Github 镜像源时, 优先选择最下面的 Github 镜像源; 勾选 \"Github 镜像源自动选择\" 时, 将覆盖手动设置的 Github 镜像源\n2、\"强制使用 Pip\"一般情况下不选" \
         $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "1" "启用 Pip 镜像源 (使用 Pip 国内镜像源下载 Python 软件包)" OFF \
-        "2" "使用全局 Pip 镜像源配置" ON \
+        "2" "使用全局 Pip 镜像源配置 (使用 Term-SD 设置中配置的 Pip 镜像源)" ON \
         "3" "强制使用 Pip(无视系统警告强制使用 Pip 安装 Python 软件包)" OFF \
         "4" "使用 ModelScope 模型下载源 (将 HuggingFace下载源改为 ModelScope 下载源)" ON \
         "5" "Huggingface / Github 下载源独占代理 (仅在下载 Huggingface / Github 上的文件时启用代理)" ON \
