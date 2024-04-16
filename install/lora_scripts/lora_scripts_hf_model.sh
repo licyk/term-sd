@@ -8,10 +8,11 @@ __term_sd_task_pre_model_7 aria2_download https://huggingface.co/licyk/sd-model/
 __term_sd_task_pre_model_8 # =====SDXL大模型===== OFF
 __term_sd_task_pre_model_9 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/sd_xl_base_1.0_0.9vae.safetensors "$lora_scripts_path"/sd-models/ # sd_xl_base_1.0_0.9vae OFF
 __term_sd_task_pre_model_10 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/animagine-xl-3.0.safetensors "$lora_scripts_path"/sd-models/ # animagine-xl-3.0 OFF
-__term_sd_task_pre_model_11 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/kohaku-xl-delta-rev1.safetensors "$lora_scripts_path"/sd-models/ # kohaku-xl-delta-rev1 OFF
-__term_sd_task_pre_model_12 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/kohakuXLEpsilon_rev1.safetensors "$lora_scripts_path"/sd-models/ # kohakuXLEpsilon_rev1 OFF
-__term_sd_task_pre_model_13 # =====VAE模型===== OFF
-__term_sd_task_pre_model_14 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sd_1.5/vae-ft-ema-560000-ema-pruned.safetensors "$lora_scripts_path"/sd-models/ # vae-ft-ema-560000-ema-pruned OFF
-__term_sd_task_pre_model_15 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sd_1.5/vae-ft-mse-840000-ema-pruned.safetensors "$lora_scripts_path"/sd-models/ # vae-ft-mse-840000-ema-pruned OFF
-__term_sd_task_pre_model_16 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sdxl_1.0/sdxl_fp16_fix_vae.safetensors "$lora_scripts_path"/sd-models/ # sdxl_fp16_fix_vae OFF
-__term_sd_task_pre_model_17 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sdxl_1.0/sdxl_vae.safetensors "$lora_scripts_path"/sd-models/ # sdxl_vae OFF
+__term_sd_task_pre_model_11 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/animagine-xl-3.1.safetensors "$lora_scripts_path"/sd-models/ # animagine-xl-3.1 OFF
+__term_sd_task_pre_model_12 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/kohaku-xl-delta-rev1.safetensors "$lora_scripts_path"/sd-models/ # kohaku-xl-delta-rev1 OFF
+__term_sd_task_pre_model_13 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/kohakuXLEpsilon_rev1.safetensors "$lora_scripts_path"/sd-models/ # kohakuXLEpsilon_rev1 OFF
+__term_sd_task_pre_model_14 # =====VAE模型===== OFF
+__term_sd_task_pre_model_15 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sd_1.5/vae-ft-ema-560000-ema-pruned.safetensors "$lora_scripts_path"/sd-models/ # vae-ft-ema-560000-ema-pruned OFF
+__term_sd_task_pre_model_16 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sd_1.5/vae-ft-mse-840000-ema-pruned.safetensors "$lora_scripts_path"/sd-models/ # vae-ft-mse-840000-ema-pruned OFF
+__term_sd_task_pre_model_17 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sdxl_1.0/sdxl_fp16_fix_vae.safetensors "$lora_scripts_path"/sd-models/ # sdxl_fp16_fix_vae OFF
+__term_sd_task_pre_model_18 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sdxl_1.0/sdxl_vae.safetensors "$lora_scripts_path"/sd-models/ # sdxl_vae OFF

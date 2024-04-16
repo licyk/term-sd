@@ -82,12 +82,14 @@ Term-SD 在使用安装、管理 AI 软件的功能时，会使用准备功能�
 - 19、Torch 2.2.0（CUDA12.1）+ xFormers 0.0.24
 - 20、Torch 2.2.1（CUDA11.8）+ xFormers 0.0.25
 - 21、Torch 2.2.1（CUDA12.1）+ xFormers 0.0.25
+- 22、Torch 2.2.2（CUDA11.8）+ xFormers 0.0.25.post1
+- 23、Torch 2.2.2（CUDA12.1）+ xFormers 0.0.25.post1
 
 选择版本时需要根据系统类型和显卡选择
 - 在 Windows 系统中，Nvidia 显卡选择 Torch（CUDA）+ xFormers 的版本，AMD 显卡选择 Torch (Directml) 的版本，Intel 显卡选择Torch + IPEX 的版本
-- 在 Linux 系统中，Nvidia 显卡选择 Torch（CUDA）+ xFormers 的版本，AMD 显卡选择 Torch + RoCM 的版本，Intel 显卡选择 Torch+IPEX 版本
+- 在 Linux 系统中，Nvidia 显卡选择 Torch（CUDA）+ xFormers 的版本，AMD 显卡选择 Torch + RoCM 的版本，Intel 显卡选择 Torch + IPEX 版本
 - 在 MacOS 系统中，选择 Torch 版本
-- 如果想要使用 CPU 进行跑图，选择 Torch+CPU 的版本
+- 如果想要使用 CPU 进行跑图，选择 Torch + CPU 的版本
 
 ### 3、pip安装模式选项
 该功能用于选择 Pip 的安装模式，可解决某些情况下安装 Python 软件包失败的问题，如果不在意安装时间，可以选择标准构建安装（--use-pep517），保证安装成功；选择常规安装（setup.py）也可以，安装速度会比较快，但可能会出现安装失败的问题  
@@ -241,12 +243,14 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 - 19、Torch 2.2.0（CUDA12.1）+ xFormers 0.0.24
 - 20、Torch 2.2.1（CUDA11.8）+ xFormers 0.0.25
 - 21、Torch 2.2.1（CUDA12.1）+ xFormers 0.0.25
+- 22、Torch 2.2.2（CUDA11.8）+ xFormers 0.0.25.post1
+- 23、Torch 2.2.2（CUDA12.1）+ xFormers 0.0.25.post1
 
 选择版本时需要根据系统类型和显卡选择
 - 在 Windows 系统中，Nvidia 显卡选择 Torch（CUDA）+ xFormers 的版本，AMD 显卡选择 Torch (Directml) 的版本，Intel 显卡选择Torch + IPEX 的版本
-- 在 Linux 系统中，Nvidia 显卡选择 Torch（CUDA）+ xFormers 的版本，AMD 显卡选择 Torch + RoCM 的版本，Intel 显卡选择 Torch+IPEX 版本
+- 在 Linux 系统中，Nvidia 显卡选择 Torch（CUDA）+ xFormers 的版本，AMD 显卡选择 Torch + RoCM 的版本，Intel 显卡选择 Torch + IPEX 版本
 - 在 MacOS 系统中，选择 Torch 版本
-- 如果想要使用 CPU 进行跑图，选择 Torch+CPU 的版本
+- 如果想要使用 CPU 进行跑图，选择 Torch + CPU 的版本
 
 #### 3、插件选择
 第三个是插件选择，Term-SD 默认已经勾选一些比较有用的插件，可以根据个人需求进行选择  

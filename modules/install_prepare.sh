@@ -124,6 +124,8 @@ pytorch_version_select()
         "19" "> Torch 2.2.0 (CUDA12.1) + xFormers 0.0.24" \
         "20" "> Torch 2.2.1 (CUDA11.8) + xFormers 0.0.25" \
         "21" "> Torch 2.2.1 (CUDA12.1) + xFormers 0.0.25" \
+        "22" "> Torch 2.2.2 (CUDA11.8) + xFormers 0.0.25.post1" \
+        "23" "> Torch 2.2.2 (CUDA12.1) + xFormers 0.0.25.post1" \
         "50" "> 跳过安装 PyTorch" \
         3>&1 1>&2 2>&3)
 
@@ -193,6 +195,12 @@ pytorch_version_select()
             ;;
         21)
             pytorch_install_version="torch==2.2.1+cu121 torchvision==0.17.1+cu121 torchaudio==2.2.1+cu121 xformers==0.0.25"
+            ;;
+        22)
+            pytorch_install_version="torch==2.2.2+cu118 torchvision==0.17.2+cu118 torchaudio==2.2.2+cu118 xformers==0.0.25.post1+cu118"
+            ;;
+        23)
+            pytorch_install_version="torch==2.2.2+cu121 torchvision==0.17.2+cu121 torchaudio==2.2.2+cu121 xformers==0.0.25.post1"
             ;;
     esac
 }
