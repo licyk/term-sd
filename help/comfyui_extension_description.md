@@ -356,3 +356,11 @@ ComfyUI 插件 / 自定义节点说明：
 86、ComfyUI-Diffusers-X-Adapter：
 描述：添加x-adapter支持
 链接：https://github.com/kijai/ComfyUI-Diffusers-X-Adapter
+
+87、ComfyUI-BrushNet：
+描述：添加brushnet支持，用于精准重绘
+链接：https://github.com/nullquant/ComfyUI-BrushNet
+
+88、ComfyUI-BrushNet-Wrapper：
+描述：添加brushnet支持，用于精准重绘
+链接：https://github.com/kijai/ComfyUI-BrushNet-Wrapper

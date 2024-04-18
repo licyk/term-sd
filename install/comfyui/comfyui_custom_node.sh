@@ -84,3 +84,5 @@ __term_sd_task_pre_ext_83 git_clone_repository ${github_mirror} https://github.c
 __term_sd_task_pre_ext_84 git_clone_repository ${github_mirror} https://github.com/blepping/ComfyUI-sonar "$comfyui_path"/custom_nodes OFF # 添加sonar采样器
 __term_sd_task_pre_ext_85 git_clone_repository ${github_mirror} https://github.com/ssitu/ComfyUI_restart_sampling "$comfyui_path"/custom_nodes OFF # 添加restart采样器
 __term_sd_task_pre_ext_86 git_clone_repository ${github_mirror} https://github.com/kijai/ComfyUI-Diffusers-X-Adapter "$comfyui_path"/custom_nodes OFF # 添加x-adapter支持
+__term_sd_task_pre_ext_87 git_clone_repository ${github_mirror} https://github.com/nullquant/ComfyUI-BrushNet "$comfyui_path"/custom_nodes OFF # 添加brushnet支持，用于精准重绘
+__term_sd_task_pre_ext_88 git_clone_repository ${github_mirror} https://github.com/kijai/ComfyUI-BrushNet-Wrapper "$comfyui_path"/custom_nodes OFF # 添加brushnet支持，用于精准重绘
