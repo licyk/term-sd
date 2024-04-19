@@ -85,3 +85,10 @@ __term_sd_task_pre_ext_84 sd-webui-next-style OFF
 __term_sd_task_pre_ext_85 a1111-sd-webui-haku-img OFF
 __term_sd_task_pre_ext_86 Kohaku-NAI ON
 __term_sd_task_pre_ext_87 sd-webui-cli-interruption OFF
+__term_sd_task_pre_ext_88 sdwebui-close-confirmation-dialogue OFF
+__term_sd_task_pre_ext_89 sd-webui-hires-fix-tweaks OFF
+__term_sd_task_pre_ext_90 sd-webui-custom-autolaunch OFF
+__term_sd_task_pre_ext_91 sd-webui-triposr OFF
+__term_sd_task_pre_ext_92 sd-webui-qic-console OFF
+__term_sd_task_pre_ext_93 sd-webui-qrcode-toolkit OFF
+__term_sd_task_pre_ext_94 sd-webui-controlnet-marigold OFF
