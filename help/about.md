@@ -77,6 +77,8 @@ Term-SD 的编写参考了 https://gitee.com/skymysky/linux（制作 Term-SD 早
       https://docs.qq.com/doc/DRVBjRVdBWld4THBV
   - 森林的NAI-V3法典
       https://docs.qq.com/doc/DSU9CZHhLRERRbllw
+  - 大葉起居注
+      https://docs.qq.com/doc/DT2l1SERWbmp0WW1r
 
 - ComfyUI
   - 工作流示范
