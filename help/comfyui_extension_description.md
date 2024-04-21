@@ -364,3 +364,7 @@ ComfyUI 插件 / 自定义节点说明：
 88、ComfyUI-BrushNet-Wrapper：
 描述：添加brushnet支持，用于精准重绘
 链接：https://github.com/kijai/ComfyUI-BrushNet-Wrapper
+
+89、Euler-Smea-Dyn-Sampler：
+描述：添加Eular-SMEA-Dy采样算法
+链接：https://github.com/Koishi-Star/Euler-Smea-Dyn-Sampler

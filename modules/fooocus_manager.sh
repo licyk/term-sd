@@ -30,9 +30,8 @@ fooocus_manager()
                 "9" "> 重新安装 PyTorch" \
                 "10" "> 修复虚拟环境" \
                 "11" "> 重新构建虚拟环境" \
-                "12" "> 重新安装后端组件" \
-                "13" "> 重新安装" \
-                "14" "> 卸载" \
+                "12" "> 重新安装" \
+                "13" "> 卸载" \
                 3>&1 1>&2 2>&3)
 
             case $fooocus_manager_dialog in
@@ -42,10 +41,7 @@ fooocus_manager()
                 2)
                     term_sd_echo "更新 Fooocus 中"
                     git_pull_repository
-                    git_req=$?
-                    cd repositories/ComfyUI-from-StabilityAI-Official
-                    git_pull_repository
-                    case $git_req in
+                    case $? in
                         0)
                             dialog --erase-on-exit \
                                 --title "Fooocus 管理" \
@@ -81,8 +77,6 @@ fooocus_manager()
                         $term_sd_dialog_height $term_sd_dialog_width) then
 
                         git_fix_pointer_offset # 修复Fooocus
-                        cd repositories/Fooocus-from-StabilityAI-Official
-                        git_fix_pointer_offset # 修复Fooocus的核心ComfyUI
                     fi
                     ;;
                 4)
@@ -159,10 +153,7 @@ fooocus_manager()
                             $term_sd_dialog_height $term_sd_dialog_width
                     fi
                     ;;
-                12)
-                    foooucs_backend_repo_reinstall
-                    ;;
-                13)
+                 12)
                     if (dialog --erase-on-exit \
                         --title "Fooocus 管理" \
                         --backtitle "Fooocus 重新安装选项" \
@@ -177,7 +168,7 @@ fooocus_manager()
                         break
                     fi
                     ;;
-                14)
+                13)
                     if (dialog --erase-on-exit \
                         --title "Fooocus 管理" \
                         --backtitle "Fooocus 删除选项" \
@@ -256,31 +247,6 @@ fooocus_update_depend()
             exit_venv
             term_sd_tmp_enable_proxy
             term_sd_echo "更新 Fooocus 依赖结束"
-            term_sd_pause
-        fi
-    fi
-}
-
-# fooocus后端重装
-foooucs_backend_repo_reinstall()
-{
-    if (dialog --erase-on-exit \
-        --title "Fooocus 管理" \
-        --backtitle "Fooocus 后端组件重装选项" \
-        --yes-label "是" --no-label "否" \
-        --yesno "是否重新安装 Fooocus 后端组件?" \
-        $term_sd_dialog_height $term_sd_dialog_width) then
-
-        download_mirror_select # 下载镜像源选择
-        term_sd_install_confirm "是否重装 Fooocus 后端组件?" # 安装前确认
-
-        if [ $? = 0 ];then
-            term_sd_print_line "Fooocus 后端组件重装"
-            term_sd_echo "删除原有 Fooocus 后端组件中"
-            rm -rf repositories/*
-            term_sd_echo "重新下载 Fooocus 后端组件中"
-            git_clone_repository ${github_mirror} https://github.com/comfyanonymous/ComfyUI repositories ComfyUI-from-StabilityAI-Official
-            term_sd_echo "重装 Fooocus 后端组件结束"
             term_sd_pause
         fi
     fi

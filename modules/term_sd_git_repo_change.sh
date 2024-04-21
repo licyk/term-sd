@@ -322,8 +322,6 @@ fooocus_remote_revise()
     if [ $? = 0 ];then
         term_sd_echo "开始替换 Fooocus 更新源"
         $git_repo_remote_revise_cmd
-        cd "$fooocus_path"/repositories/ComfyUI-from-StabilityAI-Official
-        $git_repo_remote_revise_cmd
         term_sd_echo "Fooocus 更新源替换结束"
         term_sd_print_line
 

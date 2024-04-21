@@ -86,3 +86,4 @@ __term_sd_task_pre_ext_85 ComfyUI_restart_sampling OFF
 __term_sd_task_pre_ext_86 ComfyUI-Diffusers-X-Adapter OFF
 __term_sd_task_pre_ext_87 ComfyUI-BrushNet OFF
 __term_sd_task_pre_ext_88 ComfyUI-BrushNet-Wrapper OFF
+__term_sd_task_pre_ext_89 Euler-Smea-Dyn-Sampler OFF

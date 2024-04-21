@@ -376,3 +376,11 @@ Stable Diffusion WebUI 插件说明：
 94、sd-webui-controlnet-marigold：
 描述：为controlnet插件添加marigold深度预处理器
 链接：https://github.com/huchenlei/sd-webui-controlnet-marigold
+
+95、Euler-Smea-Dyn-Sampler：
+描述：添加Eular-SMEA-Dy采样算法
+链接：https://github.com/Koishi-Star/Euler-Smea-Dyn-Sampler
+
+96、advanced_euler_sampler_extension：
+描述：添加Eular-SMEA-Dy，Eular-SMEA采样算法
+链接：https://github.com/licyk/advanced_euler_sampler_extension
