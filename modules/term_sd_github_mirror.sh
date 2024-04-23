@@ -164,11 +164,11 @@ term_sd_test_avaliable_github_mirror()
     local https_proxy
     http_proxy= # 临时清除配置好的代理,防止干扰测试
     https_proxy=
-    [ -d "$start_path/term-sd/github_mirror_test" ] && rm -rf "$start_path/term-sd/github_mirror_test" > /dev/null 2>&1
+    [ -d "$start_path/term-sd/github_mirror_test" ] && rm -rf "$start_path/term-sd/github_mirror_test" &> /dev/null
     for i in $github_mirror_list ;do
-        git clone $(git_format_repository_url $i https://github.com/licyk/empty) "$start_path/term-sd/github_mirror_test" --depth=1 > /dev/null 2>&1 # 测试镜像源是否正常连接
+        git clone $(git_format_repository_url $i https://github.com/licyk/empty) "$start_path/term-sd/github_mirror_test" --depth=1 &> /dev/null # 测试镜像源是否正常连接
         git_req=$?
-        rm -rf "$start_path/term-sd/github_mirror_test" > /dev/null 2>&1
+        rm -rf "$start_path/term-sd/github_mirror_test" &> /dev/null
         if [ $git_req = 0 ];then
             term_sd_github_mirror=$(echo $i | awk '{sub("/term_sd_git_user/term_sd_git_repo","")}1')
             return

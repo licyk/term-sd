@@ -74,6 +74,10 @@ term_sd_launch_args_manager()
                 term_sd_echo "显示 Term-SD 调试信息"
                 export term_sd_debug_mode=0
                 ;;
+            --unset-tcmalloc)
+                use_tcmalloc=1
+                term_sd_echo "禁用加载 TCMalloc 内存优化"
+                ;;
             *)
                 term_sd_unknown_args_echo $i
                 ;;
@@ -113,6 +117,8 @@ term_sd_args_help()
                 new: 使用新的进度条显示
         --debug
             显示 Term-SD 安装 AI 软件时使用的命令
+        --unset-tcmalloc
+            禁用加载内存优化
 EOF
 }
 
@@ -522,7 +528,7 @@ term_sd_install()
 # term-sd重新安装功能
 term_sd_reinstall()
 {
-    if which git > /dev/null 2>&1 ;then
+    if which git &> /dev/null ;then
         term_sd_echo "是否重新安装 Term-SD (yes/no)?"
         term_sd_echo "警告: 该操作将永久删除 Term-SD 目录中的所有文件, 包括 AI 软件下载的部分模型文件 (存在于 Term-SD 目录中的 \"cache\" 文件夹, 如有必要, 请备份该文件夹)"
         term_sd_echo "提示: 输入 yes 或 no 后回车"
@@ -681,50 +687,58 @@ set_python_path()
 # 配置内存优化(仅限Linux)
 prepare_tcmalloc()
 {
-    if [[ "${OSTYPE}" == "linux"* ]] && [[ -z "${NO_TCMALLOC}" ]] && [[ -z "${LD_PRELOAD}" ]]; then
-        term_sd_echo "检测到系统为 Linux, 尝试启用内存优化"
-        # 检查glibc版本
-        LIBC_VER=$(echo $(ldd --version | awk 'NR==1 {print $NF}') | grep -oP '\d+\.\d+')
-        term_sd_echo "glibc 版本为 $LIBC_VER"
-        libc_vernum=$(expr $LIBC_VER)
-        # 从 2.34 开始，libpthread 已经集成到 libc.so 中
-        libc_v234=2.34
-        # 定义 Tcmalloc 库数组
-        TCMALLOC_LIBS=("libtcmalloc(_minimal|)\.so\.\d" "libtcmalloc\.so\.\d")
-        # 遍历数组
-        for lib in "${TCMALLOC_LIBS[@]}"
-        do
-            # 确定库支持的 Tcmalloc 类型
-            TCMALLOC="$(PATH=/usr/sbin:$PATH ldconfig -p | grep -P $lib | head -n 1)"
-            TC_INFO=(${TCMALLOC//=>/})
-            if [[ ! -z "${TC_INFO}" ]]; then
-                term_sd_echo "检查 TCMalloc: ${TC_INFO}"
-                # 确定库是否链接到 libpthread 和解析未定义符号: pthread_key_create
-                if [ $(echo "$libc_vernum < $libc_v234" | bc) -eq 1 ]; then
-                    # glibc < 2.34，pthread_key_create 在 libpthread.so 中。检查链接到 libpthread.so
-                    if ldd ${TC_INFO[2]} | grep -q 'libpthread'; then
-                        term_sd_echo "$TC_INFO 链接到 libpthread, 执行 LD_PRELOAD=${TC_INFO[2]}"
-                        # 设置完整路径 LD_PRELOAD
-                        export LD_PRELOAD="${TC_INFO[2]}"
-                        break
-                    else
-                        term_sd_echo "$TC_INFO 没有链接到 libpthread, 将触发未定义符号: pthread_Key_create 错误"
+    case $use_tcmalloc in
+        1)
+            term_sd_echo "取消加载内存优化"
+            ;;
+        *)
+            if [[ "${OSTYPE}" == "linux"* ]] && [[ -z "${NO_TCMALLOC}" ]] && [[ -z "${LD_PRELOAD}" ]]; then
+                term_sd_echo "检测到系统为 Linux, 尝试启用内存优化"
+                # 检查glibc版本
+                LIBC_VER=$(echo $(ldd --version | awk 'NR==1 {print $NF}') | grep -oP '\d+\.\d+')
+                term_sd_echo "glibc 版本为 $LIBC_VER"
+                libc_vernum=$(expr $LIBC_VER)
+                # 从 2.34 开始，libpthread 已经集成到 libc.so 中
+                libc_v234=2.34
+                # 定义 Tcmalloc 库数组
+                TCMALLOC_LIBS=("libtcmalloc(_minimal|)\.so\.\d" "libtcmalloc\.so\.\d")
+                # 遍历数组
+                for lib in "${TCMALLOC_LIBS[@]}"
+                do
+                    # 确定库支持的 Tcmalloc 类型
+                    TCMALLOC="$(PATH=/usr/sbin:$PATH ldconfig -p | grep -P $lib | head -n 1)"
+                    TC_INFO=(${TCMALLOC//=>/})
+                    if [[ ! -z "${TC_INFO}" ]]; then
+                        term_sd_echo "检查 TCMalloc: ${TC_INFO}"
+                        # 确定库是否链接到 libpthread 和解析未定义符号: pthread_key_create
+                        if [ $(echo "$libc_vernum < $libc_v234" | bc) -eq 1 ]; then
+                            # glibc < 2.34，pthread_key_create 在 libpthread.so 中。检查链接到 libpthread.so
+                            if ldd ${TC_INFO[2]} | grep -q 'libpthread'; then
+                                term_sd_echo "$TC_INFO 链接到 libpthread, 执行 LD_PRELOAD=${TC_INFO[2]}"
+                                # 设置完整路径 LD_PRELOAD
+                                export LD_PRELOAD="${TC_INFO[2]}"
+                                break
+                            else
+                                term_sd_echo "$TC_INFO 没有链接到 libpthread, 将触发未定义符号: pthread_Key_create 错误"
+                            fi
+                        else
+                            # libc.so（glibc）的2.34版本已将pthread库集成到glibc内部。在Ubuntu 22.04系统以及现代Linux系统和WSL（Windows Subsystem for Linux）环境下
+                            # libc.so（glibc）链接了一个几乎能在所有Linux用户态环境中运行的库，因此通常无需额外检查
+                            term_sd_echo "$TC_INFO 链接到 libc.so, 执行 LD_PRELOAD=${TC_INFO[2]}"
+                            # 设置完整路径 LD_PRELOAD
+                            export LD_PRELOAD="${TC_INFO[2]}"
+                            break
+                        fi
                     fi
-                else
-                    # libc.so（glibc）的2.34版本已将pthread库集成到glibc内部。在Ubuntu 22.04系统以及现代Linux系统和WSL（Windows Subsystem for Linux）环境下
-                    # libc.so（glibc）链接了一个几乎能在所有Linux用户态环境中运行的库，因此通常无需额外检查
-                    term_sd_echo "$TC_INFO 链接到 libc.so, 执行 LD_PRELOAD=${TC_INFO[2]}"
-                    # 设置完整路径 LD_PRELOAD
-                    export LD_PRELOAD="${TC_INFO[2]}"
-                    break
+                done
+                if [[ -z "${LD_PRELOAD}" ]]; then
+                    term_sd_echo "无法定位 TCMalloc。未在系统上找到 tcmalloc 或 google-perftool"
+                    term_sd_echo "取消加载内存优化"
+                    sleep 2
                 fi
             fi
-        done
-        if [[ -z "${LD_PRELOAD}" ]]; then
-            term_sd_echo "无法定位 TCMalloc。未在系统上找到 tcmalloc 或 google-perftool"
-            sleep 2
-        fi
-    fi
+            ;;
+    esac
 }
 
 #############################
@@ -977,7 +991,7 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
 
         # 检测可用的python命令,并检测是否手动指定python路径
         if [ -z "$term_sd_python_path" ];then
-            if python3 --version > /dev/null 2>&1 || python --version > /dev/null 2>&1 ;then # 判断是否有可用的python
+            if python3 --version &> /dev/null || python --version &> /dev/null ;then # 判断是否有可用的python
                 if [ ! -z "$(python3 --version 2> /dev/null)" ];then
                     export term_sd_python_path=$(which python3)
                 elif [ ! -z "$(python --version 2> /dev/null)" ];then
@@ -988,7 +1002,7 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
                 missing_depend="$missing_depend python,"
             fi
         else
-            if which "$term_sd_python_path" > /dev/null 2>&1 ;then
+            if which "$term_sd_python_path" &> /dev/null ;then
                 term_sd_echo "使用自定义 Python 解释器路径: $term_sd_python_path"
             else
                 term_sd_echo "手动指定的 Python 路径错误"
@@ -1001,14 +1015,24 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
         fi
 
         # 检测可用的pip命令
-        if ! "$term_sd_python_path" -m pip -V > /dev/null 2>&1 ;then
+        if ! "$term_sd_python_path" -m pip -V &> /dev/null ;then
             missing_depend_info=1
             missing_depend="$missing_depend pip,"
         fi
 
+        # 检测python模块是否安装
+        term_sd_depend_python="venv tkinter"
+        for i in $term_sd_depend_python
+        do
+            if ! "$term_sd_python_path" -c "import $i" &> /dev/null ;then
+                missing_depend_info=1
+                missing_depend="$missing_depend python_module: $i,"
+            fi
+        done
+
         #判断系统是否安装必须使用的软件
         for i in $term_sd_depend ; do
-            if ! which $i > /dev/null 2>&1 ;then
+            if ! which $i &> /dev/null ;then
                 case $i in
                     aria2c)
                         i=aria2
@@ -1022,7 +1046,7 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
         #依赖检测(MacOS)
         if [ $(uname) = "Darwin" ];then
             for i in $term_sd_depend_macos ; do
-                if ! which $i > /dev/null 2>&1 ;then
+                if ! which $i &> /dev/null ;then
                     #转换名称
                     case $i in
                         rustc)

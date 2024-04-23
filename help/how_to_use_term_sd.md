@@ -790,6 +790,33 @@ Term-SD 包含了一些扩展脚本，扩充 Term-SD 的功能
 
 显示调试信息
 
+
+- 14、unset-tcmalloc
+
+禁用加载内存优化
+
+***
+
+## 安装tcmalloc内存优化
+在 Linux 系统中可以启用 gperftools 来优化内存的占用，不同 Linux 发行版的安装方式如下。
+
+- Debain（Ubuntu系）系：
+```bash
+sudo apt install google-perftools
+```
+- ArchLinux 系：
+```bash
+sudo pacman -S gperftools
+```
+- OpenSEUS：
+```bash
+sudo zypper install gperftools
+```
+- NixOS：
+```bash
+nix-env -i gperftools
+```
+
 ***
 
 ## 绘世启动器的使用

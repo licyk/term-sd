@@ -32,10 +32,10 @@ term_sd_launch()
             ;;
         Fooocus)
             launch_sd_config="fooocus-launch.conf"
-            if echo $(cat "$start_path"/term-sd/config/$launch_sd_config) | grep "\-\-language zh" > /dev/null 2>&1 ;then # 添加中文配置
+            if echo $(cat "$start_path"/term-sd/config/$launch_sd_config) | grep "\-\-language zh" &> /dev/null ;then # 添加中文配置
                 fooocus_lang_config_file > language/zh.json
             fi
-            if echo $(cat "$start_path"/term-sd/config/$launch_sd_config) | grep "\-\-preset term_sd" > /dev/null 2>&1 ;then # 添加Term-SD风格的预设
+            if echo $(cat "$start_path"/term-sd/config/$launch_sd_config) | grep "\-\-preset term_sd" &> /dev/null ;then # 添加Term-SD风格的预设
                 fooocus_preset_file > "$fooocus_path"/presets/term_sd.json
             fi
             ;;

@@ -44,7 +44,7 @@ install_pytorch()
     local torch_ver
     local xformers_ver
     if [ ! -z "$pytorch_install_version" ];then
-        if grep ipex <<<$pytorch_install_version > /dev/null 2>&1 ;then
+        if grep ipex <<<$pytorch_install_version &> /dev/null ;then
             torch_ipex_ver=$(echo $pytorch_install_version | awk '{print$2}')
             pytorch_install_version= # 清除PyTorch版本选择
             case $OS in
@@ -83,7 +83,7 @@ install_pytorch()
                 fi
 
                 if [ $use_pip_mirror = 0 ];then # 镜像源
-                    if grep cu121 <<<$torch_ver > /dev/null 2>&1 ;then # cuda12.1
+                    if grep cu121 <<<$torch_ver &> /dev/null ;then # cuda12.1
                         PIP_EXTRA_INDEX_URL="https://mirror.sjtu.edu.cn/pytorch-wheels/cu121" \
                         PIP_FIND_LINKS="https://mirror.sjtu.edu.cn/pytorch-wheels/cu121/torch_stable.html" \
                         term_sd_try term_sd_pip install $xformers_ver $pip_index_mirror $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
@@ -92,7 +92,7 @@ install_pytorch()
                     fi
                     [ ! $? = 0 ] && return 1
                 else # 官方源
-                    if grep cu121 <<<$torch_ver > /dev/null 2>&1 ;then # cuda12.1
+                    if grep cu121 <<<$torch_ver &> /dev/null ;then # cuda12.1
                         PIP_EXTRA_INDEX_URL="https://download.pytorch.org/whl/cu121" \
                         PIP_FIND_LINKS="https://download.pytorch.org/whl/cu121/torch_stable.html" \
                         term_sd_try term_sd_pip install $xformers_ver $pip_index_mirror $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
