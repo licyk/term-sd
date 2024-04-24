@@ -384,3 +384,7 @@ Stable Diffusion WebUI 插件说明：
 96、advanced_euler_sampler_extension：
 描述：添加Eular-SMEA-Dy，Eular-SMEA采样算法
 链接：https://github.com/licyk/advanced_euler_sampler_extension
+
+97、sd-webui-cd-tuner：
+描述：图像颜色/细节调整
+链接：https://github.com/hako-mikan/sd-webui-cd-tuner

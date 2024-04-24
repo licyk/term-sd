@@ -94,3 +94,4 @@ __term_sd_task_pre_ext_93 sd-webui-qrcode-toolkit OFF
 __term_sd_task_pre_ext_94 sd-webui-controlnet-marigold OFF
 __term_sd_task_pre_ext_95 Euler-Smea-Dyn-Sampler OFF
 __term_sd_task_pre_ext_96 advanced_euler_sampler_extension OFF
+__term_sd_task_pre_ext_97 sd-webui-cd-tuner OFF

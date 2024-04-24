@@ -94,3 +94,4 @@ __term_sd_task_pre_ext_93 git_clone_repository ${github_mirror} https://github.c
 __term_sd_task_pre_ext_94 git_clone_repository ${github_mirror} https://github.com/huchenlei/sd-webui-controlnet-marigold "$sd_webui_path"/extensions OFF # 为controlnet插件添加marigold深度预处理器
 __term_sd_task_pre_ext_95 git_clone_repository ${github_mirror} https://github.com/Koishi-Star/Euler-Smea-Dyn-Sampler "$sd_webui_path"/extensions OFF # 添加Eular-SMEA-Dy采样算法
 __term_sd_task_pre_ext_96 git_clone_repository ${github_mirror} https://github.com/licyk/advanced_euler_sampler_extension "$sd_webui_path"/extensions OFF # 添加Eular-SMEA-Dy，Eular-SMEA采样算法
+__term_sd_task_pre_ext_97 git_clone_repository ${github_mirror} https://github.com/hako-mikan/sd-webui-cd-tuner "$sd_webui_path"/extensions OFF # 图像颜色/细节调整
