@@ -388,3 +388,7 @@ Stable Diffusion WebUI 插件说明：
 97、sd-webui-cd-tuner：
 描述：图像颜色/细节调整
 链接：https://github.com/hako-mikan/sd-webui-cd-tuner
+
+98、sd-webui-vectorscope-cc：
+描述：噪声偏移插件，可用于调整亮度，对比度和颜色
+链接：https://github.com/Haoming02/sd-webui-vectorscope-cc
