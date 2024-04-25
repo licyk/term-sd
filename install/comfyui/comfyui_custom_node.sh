@@ -87,3 +87,4 @@ __term_sd_task_pre_ext_86 git_clone_repository ${github_mirror} https://github.c
 __term_sd_task_pre_ext_87 git_clone_repository ${github_mirror} https://github.com/nullquant/ComfyUI-BrushNet "$comfyui_path"/custom_nodes OFF # 添加brushnet支持，用于精准重绘
 __term_sd_task_pre_ext_88 git_clone_repository ${github_mirror} https://github.com/kijai/ComfyUI-BrushNet-Wrapper "$comfyui_path"/custom_nodes OFF # 添加brushnet支持，用于精准重绘
 __term_sd_task_pre_ext_89 git_clone_repository ${github_mirror} https://github.com/Koishi-Star/Euler-Smea-Dyn-Sampler "$comfyui_path"/custom_nodes OFF # 添加Eular-SMEA-Dy采样算法
+__term_sd_task_pre_ext_90 git_clone_repository ${github_mirror} https://github.com/blepping/ComfyUI-bleh "$comfyui_path"/custom_nodes OFF # 改进hypertile和deepshrink节点，提供更好的生成预览算法

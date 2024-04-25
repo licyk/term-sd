@@ -368,3 +368,7 @@ ComfyUI 插件 / 自定义节点说明：
 89、Euler-Smea-Dyn-Sampler：
 描述：添加Eular-SMEA-Dy采样算法
 链接：https://github.com/Koishi-Star/Euler-Smea-Dyn-Sampler
+
+90、ComfyUI-bleh：
+描述：改进hypertile和deepshrink节点，提供更好的生成预览算法
+链接：https://github.com/blepping/ComfyUI-bleh
