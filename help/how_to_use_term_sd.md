@@ -69,25 +69,26 @@ Term-SD 在使用安装、管理 AI 软件的功能时，会使用准备功能�
 - 5、Torch 2.0.1 + RoCM 5.4.2
 - 6、Torch 2.1.0 + RoCM 5.6
 - 7、Torch 2.2.1 + RoCM 5.7
-- 8、Torch 2.0.0 + IPEX
-- 9、Torch 2.1.0 + IPEX
-- 10、Torch 1.12.1（CUDA11.3）+ xFormers 0.0.14
-- 11、Torch 1.13.1（CUDA11.7）+ xFormers 0.0.16
-- 12、Torch 2.0.0（CUDA11.8）+ xFormers 0.0.18
-- 13、Torch 2.0.1（CUDA11.8）+ xFormers 0.0.22
-- 14、Torch 2.1.1（CUDA11.8）+ xFormers 0.0.23
-- 15、Torch 2.1.1（CUDA12.1）+ xFormers 0.0.23
-- 16、Torch 2.1.2（CUDA11.8）+ xFormers 0.0.23.post1
-- 17、Torch 2.1.2（CUDA12.1）+ xFormers 0.0.23.post1
-- 18、Torch 2.2.0（CUDA11.8）+ xFormers 0.0.24
-- 19、Torch 2.2.0（CUDA12.1）+ xFormers 0.0.24
-- 20、Torch 2.2.1（CUDA11.8）+ xFormers 0.0.25
-- 21、Torch 2.2.1（CUDA12.1）+ xFormers 0.0.25
-- 22、Torch 2.2.2（CUDA11.8）+ xFormers 0.0.25.post1
-- 23、Torch 2.2.2（CUDA12.1）+ xFormers 0.0.25.post1
+- 8、Torch 2.0.0 + IPEX (Arc)
+- 9、Torch 2.1.0 + IPEX (Arc)
+- 10、Torch 2.1.0 + IPEX (Core Ultra)
+- 11、Torch 1.12.1（CUDA11.3）+ xFormers 0.0.14
+- 12、Torch 1.13.1（CUDA11.7）+ xFormers 0.0.16
+- 13、Torch 2.0.0（CUDA11.8）+ xFormers 0.0.18
+- 14、Torch 2.0.1（CUDA11.8）+ xFormers 0.0.22
+- 15、Torch 2.1.1（CUDA11.8）+ xFormers 0.0.23
+- 16、Torch 2.1.1（CUDA12.1）+ xFormers 0.0.23
+- 17、Torch 2.1.2（CUDA11.8）+ xFormers 0.0.23.post1
+- 18、Torch 2.1.2（CUDA12.1）+ xFormers 0.0.23.post1
+- 19、Torch 2.2.0（CUDA11.8）+ xFormers 0.0.24
+- 20、Torch 2.2.0（CUDA12.1）+ xFormers 0.0.24
+- 21、Torch 2.2.1（CUDA11.8）+ xFormers 0.0.25
+- 22、Torch 2.2.1（CUDA12.1）+ xFormers 0.0.25
+- 23、Torch 2.2.2（CUDA11.8）+ xFormers 0.0.25.post1
+- 24、Torch 2.2.2（CUDA12.1）+ xFormers 0.0.25.post1
 
 选择版本时需要根据系统类型和显卡选择
-- 在 Windows 系统中，Nvidia 显卡选择 Torch（CUDA）+ xFormers 的版本，AMD 显卡选择 Torch (Directml) 的版本，Intel 显卡选择Torch + IPEX 的版本
+- 在 Windows 系统中，Nvidia 显卡选择 Torch（CUDA）+ xFormers 的版本，AMD 显卡选择 Torch (Directml) 的版本，Intel 显卡选择 Torch + IPEX 的版本（核显选择 Core Ultra 版本，独显选择 Arc 版本）
 - 在 Linux 系统中，Nvidia 显卡选择 Torch（CUDA）+ xFormers 的版本，AMD 显卡选择 Torch + RoCM 的版本，Intel 显卡选择 Torch + IPEX 版本
 - 在 MacOS 系统中，选择 Torch 版本
 - 如果想要使用 CPU 进行跑图，选择 Torch + CPU 的版本
@@ -231,25 +232,26 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 - 5、Torch 2.0.1 + RoCM 5.4.2
 - 6、Torch 2.1.0 + RoCM 5.6
 - 7、Torch 2.2.1 + RoCM 5.7
-- 8、Torch 2.0.0 + IPEX
-- 9、Torch 2.1.0 + IPEX
-- 10、Torch 1.12.1（CUDA11.3）+ xFormers 0.0.14
-- 11、Torch 1.13.1（CUDA11.7）+ xFormers 0.0.16
-- 12、Torch 2.0.0（CUDA11.8）+ xFormers 0.0.18
-- 13、Torch 2.0.1（CUDA11.8）+ xFormers 0.0.22
-- 14、Torch 2.1.1（CUDA11.8）+ xFormers 0.0.23
-- 15、Torch 2.1.1（CUDA12.1）+ xFormers 0.0.23
-- 16、Torch 2.1.2（CUDA11.8）+ xFormers 0.0.23.post1
-- 17、Torch 2.1.2（CUDA12.1）+ xFormers 0.0.23.post1
-- 18、Torch 2.2.0（CUDA11.8）+ xFormers 0.0.24
-- 19、Torch 2.2.0（CUDA12.1）+ xFormers 0.0.24
-- 20、Torch 2.2.1（CUDA11.8）+ xFormers 0.0.25
-- 21、Torch 2.2.1（CUDA12.1）+ xFormers 0.0.25
-- 22、Torch 2.2.2（CUDA11.8）+ xFormers 0.0.25.post1
-- 23、Torch 2.2.2（CUDA12.1）+ xFormers 0.0.25.post1
+- 8、Torch 2.0.0 + IPEX (Arc)
+- 9、Torch 2.1.0 + IPEX (Arc)
+- 10、Torch 2.1.0 + IPEX (Core Ultra)
+- 11、Torch 1.12.1（CUDA11.3）+ xFormers 0.0.14
+- 12、Torch 1.13.1（CUDA11.7）+ xFormers 0.0.16
+- 13、Torch 2.0.0（CUDA11.8）+ xFormers 0.0.18
+- 14、Torch 2.0.1（CUDA11.8）+ xFormers 0.0.22
+- 15、Torch 2.1.1（CUDA11.8）+ xFormers 0.0.23
+- 16、Torch 2.1.1（CUDA12.1）+ xFormers 0.0.23
+- 17、Torch 2.1.2（CUDA11.8）+ xFormers 0.0.23.post1
+- 18、Torch 2.1.2（CUDA12.1）+ xFormers 0.0.23.post1
+- 19、Torch 2.2.0（CUDA11.8）+ xFormers 0.0.24
+- 20、Torch 2.2.0（CUDA12.1）+ xFormers 0.0.24
+- 21、Torch 2.2.1（CUDA11.8）+ xFormers 0.0.25
+- 22、Torch 2.2.1（CUDA12.1）+ xFormers 0.0.25
+- 23、Torch 2.2.2（CUDA11.8）+ xFormers 0.0.25.post1
+- 24、Torch 2.2.2（CUDA12.1）+ xFormers 0.0.25.post1
 
 选择版本时需要根据系统类型和显卡选择
-- 在 Windows 系统中，Nvidia 显卡选择 Torch（CUDA）+ xFormers 的版本，AMD 显卡选择 Torch (Directml) 的版本，Intel 显卡选择Torch + IPEX 的版本
+- 在 Windows 系统中，Nvidia 显卡选择 Torch（CUDA）+ xFormers 的版本，AMD 显卡选择 Torch (Directml) 的版本，Intel 显卡选择 Torch + IPEX 的版本（核显选择 Core Ultra 版本，独显选择 Arc 版本）
 - 在 Linux 系统中，Nvidia 显卡选择 Torch（CUDA）+ xFormers 的版本，AMD 显卡选择 Torch + RoCM 的版本，Intel 显卡选择 Torch + IPEX 版本
 - 在 MacOS 系统中，选择 Torch 版本
 - 如果想要使用 CPU 进行跑图，选择 Torch + CPU 的版本
@@ -677,7 +679,7 @@ ip：`127.0.0.1`
 当选择其中一项子设置时，即可修改该设置对应的 AI 软件的安装路径  
 子设置中有以下选项
 - (1) 设置安装路径：自定义 AI 软件的安装路径
-- (2) 恢复默认安装路径设置：恢复AI软件默认的安装路径，默认安装路径和Term-SD所在路径同级
+- (2) 恢复默认安装路径设置：恢复 AI 软件默认的安装路径，默认安装路径和 Term-SD 所在路径同级
 
 >[!NOTE]
 >路径最好使用绝对路径（目前没有见过哪个软件使用相对路径来安装软件的）  
@@ -758,14 +760,14 @@ Term-SD 包含了一些扩展脚本，扩充 Term-SD 的功能
 路径的参考格式如下：
 ```
 /usr/bin/python
-/c/Python/python.exe
-/c/Program Files/Python310/python
+/c/Python/python
+C:\Program Files\Python310\python.exe
 /d/Program Files/Python310/python.exe
 /usr/bin/python3
 ```
 
 >[!NOTE]
->根据自己安装的路径来填。在 Windows 系统中，每个文件夹的分隔符不要使用反斜杠，Windows 系统中的盘符，如`C:`，`D:`，要改成`/c`，`/d`，因为 MSYS2 不认识这些路径符号
+>根据自己安装的路径来填。
 
 
 - 7、unset-python-path
@@ -797,7 +799,7 @@ Term-SD 包含了一些扩展脚本，扩充 Term-SD 的功能
 
 ***
 
-## 安装tcmalloc内存优化
+## 安装 gperftools 内存优化
 在 Linux 系统中可以启用 gperftools 来优化内存的占用，不同 Linux 发行版的安装方式如下。
 
 - Debain（Ubuntu系）系：

@@ -47,14 +47,14 @@ build_dialog_list()
     if [ -f "$output_file" ];then
         rm -f $output_file
     fi
-    echo "生成 ${output_file} 中"
+    echo ":: 生成 ${output_file} 中"
     cat $input_file | awk '{sub(" --submod","")}1' >> $cache_file
     build_list $cache_file $output_file
     rm -f $cache_file
     end_time=$(date +'%Y-%m-%d %H:%M:%S')
     end_time_seconds=$(date --date="$end_time" +%s)
     time_span=$(( $end_time_seconds - $start_time_seconds )) # 计算相隔时间
-    echo "完成, 用时: ${time_span} sec"
+    echo ":: 完成, 用时: ${time_span} sec"
 }
 
 build_dialog_list_sd_webui()
@@ -72,7 +72,7 @@ build_dialog_list_sd_webui()
     if [ -f "$output_file" ];then
         rm -f $output_file
     fi
-    echo "生成 ${output_file} 中"
+    echo ":: 生成 ${output_file} 中"
     cat $input_file | awk '{sub(" --submod","")}1' >> $cache_file
     echo "Stable Diffusion WebUI 插件说明：" >> $output_file
     echo "注：有些插件因为年久失修，可能会出现兼容性问题。具体介绍请在 Github 上搜索项目" >> $output_file
@@ -99,7 +99,7 @@ build_dialog_list_sd_webui()
     end_time=$(date +'%Y-%m-%d %H:%M:%S')
     end_time_seconds=$(date --date="$end_time" +%s)
     time_span=$(( $end_time_seconds - $start_time_seconds )) # 计算相隔时间
-    echo "完成, 用时: ${time_span} sec"
+    echo ":: 完成, 用时: ${time_span} sec"
 }
 
 build_dialog_list_comfyui()
@@ -120,7 +120,7 @@ build_dialog_list_comfyui()
         rm -f $output_file
     fi
 
-    echo "生成 ${output_file} 中"
+    echo ":: 生成 ${output_file} 中"
     cat $input_file_1 | awk '{sub(" --submod","")}1' >> $cache_file_1
     cat $input_file_2 | awk '{sub(" --submod","")}1' >> $cache_file_2
     echo "ComfyUI 插件 / 自定义节点说明：" >> $output_file
@@ -175,7 +175,7 @@ build_dialog_list_comfyui()
     end_time=$(date +'%Y-%m-%d %H:%M:%S')
     end_time_seconds=$(date --date="$end_time" +%s)
     time_span=$(( $end_time_seconds - $start_time_seconds )) # 计算相隔时间
-    echo "完成, 用时: ${time_span} sec"
+    echo ":: 完成, 用时: ${time_span} sec"
 }
 
 build_dialog_list_model()
@@ -190,12 +190,12 @@ build_dialog_list_model()
     if [ -f "$output_file" ];then
         rm -f $output_file
     fi
-    echo "生成 ${output_file} 中"
+    echo ":: 生成 ${output_file} 中"
     build_list_for_model $input_file $output_file
     end_time=$(date +'%Y-%m-%d %H:%M:%S')
     end_time_seconds=$(date --date="$end_time" +%s)
     time_span=$(( $end_time_seconds - $start_time_seconds )) # 计算相隔时间
-    echo "完成, 用时: ${time_span} sec"
+    echo ":: 完成, 用时: ${time_span} sec"
 }
 
 get_task_cmd()
@@ -238,7 +238,67 @@ sort_head_point()
     end_time=$(date +'%Y-%m-%d %H:%M:%S')
     end_time_seconds=$(date --date="$end_time" +%s)
     time_span=$(( $end_time_seconds - $start_time_seconds )) # 计算相隔时间
-    echo "完成, 用时: ${time_span} sec"
+    echo ":: 完成, 用时: ${time_span} sec"
+}
+
+detect_uplicate()
+{
+    local list_type=$1
+    local file_path=$2
+    local cmd_sum=$(( $(cat "$file_path" | wc -l) + 1)) # 统计命令行数
+    local start_time=$(date +'%Y-%m-%d %H:%M:%S')
+    local start_time_seconds=$(date --date="$start_time" +%s)
+    local end_time
+    local end_time_seconds
+    local time_span
+    local flag=0
+    local install_cmd_1
+    local install_cmd_2
+
+    if [ "$list_type" = "model" ];then
+        list_column=3
+        type_name="模型链接"
+    elif [ "$list_type" = "extension" ];then
+        list_column=4
+        type_name="扩展链接"
+    fi
+
+    echo ":: 检测 $file_path 中重复的${type_name}中"
+
+    for ((i = 1; i <= cmd_sum; i++))
+    do
+        if [ "$list_type" = "model" ];then
+            install_cmd_1=$(cat "$file_path" | awk 'NR=='${i}' { print $3 }')
+        elif [ "$list_type" = "extension" ];then
+            install_cmd_1=$(cat "$file_path" | awk 'NR=='${i}' { print $4 }')
+        fi
+
+        for ((j = i; j <= cmd_sum; j++))
+        do
+            [ $i = $j ] && continue
+
+            if [ "$list_type" = "model" ];then
+                install_cmd_2=$(cat "$file_path" | awk 'NR=='${j}'{print $3}')
+            elif [ "$list_type" = "extension" ];then
+                install_cmd_2=$(cat "$file_path" | awk 'NR=='${j}'{print $4}')
+            fi
+
+            if [ "$install_cmd_1" = "$install_cmd_2" ];then
+                echo ":: 检测到重复${type_name}, 出现在第 $i 行和第 $j 行"
+                flag=1
+            fi
+        done
+    done
+
+    end_time=$(date +'%Y-%m-%d %H:%M:%S')
+    end_time_seconds=$(date --date="$end_time" +%s)
+    time_span=$(( $end_time_seconds - $start_time_seconds )) # 计算相隔时间
+    if [ $flag = 0 ];then
+        echo ":: 无重复${type_name}"
+    else
+        echo ":: 出现重复${type_name}, 待解决"
+    fi
+    echo ":: 完成, 用时: ${time_span} sec"
 }
 
 
@@ -246,10 +306,10 @@ sort_head_point()
 
 
 if [ ! -d "modules" ] || [ ! -d "install" ] || [ ! -d "task" ] || [ ! -d "help" ];then
-    echo "目录错误"
+    echo ":: 目录错误"
     exit 1
 elif [ ! "$(dirname "$(echo $0)")" = "." ];then
-    echo "目录错误"
+    echo ":: 目录错误"
     exit 1
 fi
 
@@ -322,8 +382,32 @@ if [ ! -z "$*" ];then
                 sort_head_point __term_sd_task_pre_ext_ install/comfyui/comfyui_extension.sh
                 sort_head_point __term_sd_task_pre_ext_ install/sd_webui/sd_webui_extension.sh
                 ;;
+            --check)
+                echo ":: 重复链接检测"
+                detect_uplicate model install/sd_webui/sd_webui_hf_model.sh
+                detect_uplicate model install/sd_webui/sd_webui_ms_model.sh
+
+                detect_uplicate model install/comfyui/comfyui_hf_model.sh
+                detect_uplicate model install/comfyui/comfyui_ms_model.sh
+
+                detect_uplicate model install/fooocus/fooocus_hf_model.sh
+                detect_uplicate model install/fooocus/fooocus_ms_model.sh
+
+                detect_uplicate model install/invokeai/invokeai_hf_model.sh
+                detect_uplicate model install/invokeai/invokeai_ms_model.sh
+
+                detect_uplicate model install/lora_scripts/lora_scripts_hf_model.sh
+                detect_uplicate model install/lora_scripts/lora_scripts_ms_model.sh
+
+                detect_uplicate model install/kohya_ss/kohya_ss_hf_model.sh
+                detect_uplicate model install/kohya_ss/kohya_ss_ms_model.sh
+
+                detect_uplicate extension install/comfyui/comfyui_custom_node.sh
+                detect_uplicate extension install/comfyui/comfyui_extension.sh
+                detect_uplicate extension install/sd_webui/sd_webui_extension.sh
+                ;;
             *)
-                echo "未知参数: \"$n\""
+                echo ":: 未知参数: \"$n\""
                 ;;
         esac
     done
@@ -332,9 +416,9 @@ if [ ! -z "$*" ];then
     end_time_sum=$(date +'%Y-%m-%d %H:%M:%S')
     end_time_seconds_sum=$(date --date="$end_time_sum" +%s)
     time_span_sum=$(( $end_time_seconds_sum - $start_time_seconds_sum )) # 计算相隔时间
-    echo "总共用时: ${time_span_sum} sec"
+    echo ":: 总共用时: ${time_span_sum} sec"
 else
-    echo "使用："
-    echo "build.sh [--fix] [--build] [--sort]"
-    echo "未指定操作"
+    echo ":: 使用："
+    echo "build.sh [--fix] [--build] [--sort] [--check]"
+    echo ":: 未指定操作"
 fi

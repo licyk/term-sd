@@ -39,7 +39,8 @@ install_pytorch()
     # local ipex_win_url_2="https://gitcode.net/rubble7343/nuullll-intel-extension-for-pytorch/-/raw/master/torch-2.1.0a0+cxx11.abi-cp310-cp310-win_amd64.whl https://gitcode.net/rubble7343/nuullll-intel-extension-for-pytorch/-/raw/master/torchvision-0.16.0a0+cxx11.abi-cp310-cp310-win_amd64.whl https://gitcode.net/rubble7343/nuullll-intel-extension-for-pytorch/-/raw/master/intel_extension_for_pytorch-2.1.10+xpu-cp310-cp310-win_amd64.whl"
     # local ipex_win_url_3="https://gitcode.net/rubble7343/nuullll-intel-extension-for-pytorch/-/raw/master/torch-2.1.0a0+cxx11.abi-cp311-cp311-win_amd64.whl https://gitcode.net/rubble7343/nuullll-intel-extension-for-pytorch/-/raw/master/torchvision-0.16.0a0+cxx11.abi-cp311-cp311-win_amd64.whl https://gitcode.net/rubble7343/nuullll-intel-extension-for-pytorch/-/raw/master/intel_extension_for_pytorch-2.1.10+xpu-cp311-cp311-win_amd64.whl"
     local ipex_win_url="--find-links https://www.modelscope.cn/api/v1/studio/hanamizukiai/resolver/gradio/pypi-index/torch.html"
-    local ipex_url="--find-links https://pytorch-extension.intel.com/release-whl/stable/xpu/us"
+    local ipex_url_cn="--extra-index-url https://pytorch-extension.intel.com/release-whl/stable/xpu/cn"
+    local ipex_url_us="--extra-index-url https://pytorch-extension.intel.com/release-whl/stable/xpu/us"
     local torch_ipex_ver
     local torch_ver
     local xformers_ver
@@ -49,24 +50,43 @@ install_pytorch()
             pytorch_install_version= # 清除PyTorch版本选择
             case $OS in
                 Windows_NT)
+                    # Windows平台
+                    # IPEX(Windows): https://arc.nuullll.com/resource/
                     case $torch_ipex_ver in
                         2.0.0)
                             term_sd_try term_sd_pip install torch==2.0.0a0+gite9ebda2 torchvision==0.15.2a0+fa99a53 intel_extension_for_pytorch==2.0.110+gitc6ea20b $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $ipex_win_url $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
                             ;;
                         2.1.0)
-                            term_sd_try term_sd_pip install torch==2.1.0a0+cxx11.abi torchvision==0.16.0a0+cxx11.abi intel_extension_for_pytorch==2.1.10+xpu $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $ipex_win_url $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
+                            if grep "Core_Ultra" <<<$pytorch_install_version &> /dev/null ;then # 核显
+                                term_sd_try term_sd_pip install torch==2.1.0a0+git7bcf7da torchvision==0.16.0+fbb4cc5 torchaudio==2.1.0+6ea1133 intel_extension_for_pytorch==2.1.20+git4849f3b $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $ipex_win_url $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
+                            else
+                                term_sd_try term_sd_pip install torch==2.1.0a0+cxx11.abi torchvision==0.16.0a0+cxx11.abi torchaudio==2.1.0a0+cxx11.abi intel_extension_for_pytorch==2.1.10+xpu $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $ipex_win_url $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
+                            fi
                             ;;
                     esac
                     ;;
                 *)
-                    case $torch_ipex_ver in
-                        2.0.0)
-                            term_sd_try term_sd_pip install torch==2.0.1a0 torchvision==0.15.2a0 intel-extension-for-pytorch $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $ipex_url $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
-                            ;;
-                        2.1.0)
-                            term_sd_try term_sd_pip install torch==2.1.0a0 torchvision==0.16.0a0 intel-extension-for-pytorch $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $ipex_url $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
-                            ;;
-                    esac
+                    # 其他平台
+                    # IPEX: https://intel.github.io/intel-extension-for-pytorch/#installation
+                    if [ $use_pip_mirror = 0 ];then # 国内镜像
+                        case $torch_ipex_ver in
+                            2.0.0)
+                                term_sd_try term_sd_pip install torch==2.0.1a0 torchvision==0.15.2a0 intel-extension-for-pytorch==2.0.120+xpu $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $ipex_url_cn $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
+                                ;;
+                            2.1.0)
+                                term_sd_try term_sd_pip install torch==2.1.0.post0 torchvision==0.16.0.post0 torchaudio==2.1.0.post0 intel-extension-for-pytorch==2.1.20 $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $ipex_url_cn $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
+                                ;;
+                        esac
+                    else
+                        case $torch_ipex_ver in
+                            2.0.0)
+                                term_sd_try term_sd_pip install torch==2.0.1a0 torchvision==0.15.2a0 intel-extension-for-pytorch==2.0.120+xpu $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $ipex_url_us $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
+                                ;;
+                            2.1.0)
+                                term_sd_try term_sd_pip install torch==2.1.0.post0 torchvision==0.16.0.post0 torchaudio==2.1.0.post0 intel-extension-for-pytorch==2.1.20 $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $ipex_url_us $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
+                                ;;
+                        esac
+                    fi
                 ;;
             esac
         else
