@@ -220,7 +220,7 @@ sort_head_point()
     local end_time_seconds
     local time_span
 
-    echo "生成 ${input_file} 中"
+    echo ":: 生成 ${input_file} 中"
     mv $input_file task/
 
     cmd_sum=$(( $(cat "task/$input_file_name" | wc -l) + 1)) # 统计命令行数
