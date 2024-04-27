@@ -701,7 +701,7 @@ term_sd_uninstall_interface()
         --title "Term-SD" \
         --backtitle "Term-SD 卸载界面" \
         --yes-label "是" --no-label "否" \
-        --yesno "警告: 该操作将永久删除 Term-SD 目录中的所有文件, 包括 AI 软件下载的部分模型文件 (存在于 Term-SD 目录中的 \"cache\" 文件夹, 如有必要, 请备份该文件夹)\n是否卸载 Term-SD ?" \
+        --yesno "警告: 该操作将永久删除 Term-SD 目录中的所有文件, 包括 AI 软件下载的部分模型文件 (存在于 Term-SD 目录中的 cache 文件夹, 如有必要, 请备份该文件夹)\n是否卸载 Term-SD ?" \
         $term_sd_dialog_height $term_sd_dialog_width) then
 
         term_sd_echo "请再次确认是否删除 Term-SD (yes/no)?"

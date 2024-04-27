@@ -43,13 +43,13 @@ git_ver_switch()
     fi
 }
 
-# git分支签出恢复
+# git分支游离恢复
 git_fix_pointer_offset()
 {
     local repo_main_branch
     # 当git在子文件夹中找不到.git文件夹时,将会自动在父文件夹中寻找,以此类推,直到找到.git文件夹。用户的安装方式可能是直接下载源码压缩包,导致安装后的文件夹没有.git文件夹,直接执行git会导致不良的后果
     if [ -d ".git" ];then # 检测目录中是否有.git文件夹
-        term_sd_echo "修复 $(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1') 分支签出状态"
+        term_sd_echo "修复 $(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1') 分支游离状态"
         git remote prune origin # 删除无用分支
         git submodule init # 初始化git子模块
         repo_main_branch=$(git branch -a | grep /HEAD | awk -F'/' '{print $NF}') # 查询远程HEAD所指分支
@@ -59,7 +59,7 @@ git_fix_pointer_offset()
         git restore --recurse-submodules --source=HEAD :/ # 重置工作区
         term_sd_echo "修复 $(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1') 完成"
     else
-        term_sd_echo "$(basename $(pwd)) 非 Git 安装, 无法修复更新"
+        term_sd_echo "$(basename $(pwd)) 非 Git 安装, 无法修复分支游离"
         return 10
     fi
 }
@@ -160,10 +160,12 @@ git_pull_repository()
     if [ -d ".git" ];then # 检测目录中是否有.git文件夹
         case $1 in
             --submod)
+                git_auto_fix_pointer_offset # 检测分支是否游离
                 git submodule init # 初始化git子模块
                 term_sd_try git pull --recurse-submodules
                 ;;
             *)
+                git_auto_fix_pointer_offset
                 term_sd_try git pull
                 ;;
         esac
@@ -179,6 +181,7 @@ git_branch_display()
     local ref
     local req
     local git_commit_hash
+    local git_pointer_status
 
     if [ -d ".git" ];then
         ref=$(git symbolic-ref --quiet HEAD 2> /dev/null)
@@ -186,10 +189,11 @@ git_branch_display()
         if [ $req = 0 ]; then
             git_commit_hash=$(git show -s --format="%h %cd" --date=format:"%Y-%m-%d %H:%M:%S")
         else
-            ref=$(git rev-parse --short HEAD 2> /dev/null) || return
+            ref=$(git rev-parse --short HEAD 2> /dev/null)
             git_commit_hash=$(git show -s --format="%cd" --date=format:"%Y-%m-%d %H:%M:%S")
+            git_pointer_status="(分支游离)"
         fi
-        echo ${ref#refs/heads/} ${git_commit_hash}
+        echo ${ref#refs/heads/} ${git_pointer_status} ${git_commit_hash}
     else
         echo "非 Git 安装, 无分支"
     fi
@@ -219,4 +223,14 @@ term_sd_is_git_repository_exist()
         fi
     done
     [ $flag = 0 ] && echo 0
+}
+
+# git分支游离自动修复
+git_auto_fix_pointer_offset()
+{
+    git symbolic-ref HEAD &> /dev/null
+    if [ ! $? = 0 ];then
+        term_sd_echo "检测到 $(basename "$(pwd)") 出现分支游离, 尝试修复中"
+        git_fix_pointer_offset
+    fi
 }
