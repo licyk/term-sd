@@ -372,3 +372,7 @@ ComfyUI 插件 / 自定义节点说明：
 90、ComfyUI-bleh：
 描述：改进hypertile和deepshrink节点，提供更好的生成预览算法
 链接：https://github.com/blepping/ComfyUI-bleh
+
+91、comfyui-tcd-scheduler：
+描述：添加TCD采样器
+链接：https://github.com/dfl/comfyui-tcd-scheduler
