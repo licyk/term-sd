@@ -51,16 +51,16 @@ python_package_manager()
         if [ $req = 0 ];then
             dialog --erase-on-exit \
                 --title "Term-SD" \
-                --backtitle "Python 软件包"$pip_manage_package_methon_info"结果" \
+                --backtitle "Python 软件包${pip_manage_package_methon_info}结果" \
                 --ok-label "确认" \
-                --msgbox "以下 Python 软件包"$pip_manage_package_methon_info"成功\n${term_sd_delimiter}\n$python_package_name\n${term_sd_delimiter}" \
+                --msgbox "以下 Python 软件包${pip_manage_package_methon_info}成功\n${term_sd_delimiter}\n$python_package_name\n${term_sd_delimiter}" \
                 $term_sd_dialog_height $term_sd_dialog_width
         else
             dialog --erase-on-exit \
                 --title "Term-SD" \
-                --backtitle "Python 软件包"$pip_manage_package_methon_info"结果" \
+                --backtitle "Python 软件包${pip_manage_package_methon_info}结果" \
                 --ok-label "确认" \
-                --msgbox "以下 Python 软件包"$pip_manage_package_methon_info"失败\n${term_sd_delimiter}\n$python_package_name\n${term_sd_delimiter}" \
+                --msgbox "以下 Python 软件包${pip_manage_package_methon_info}失败\n${term_sd_delimiter}\n$python_package_name\n${term_sd_delimiter}" \
                 $term_sd_dialog_height $term_sd_dialog_width
         fi
     else
