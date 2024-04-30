@@ -86,6 +86,8 @@ Term-SD 在使用安装、管理 AI 软件的功能时，会使用准备功能�
 - 22、Torch 2.2.1（CUDA12.1）+ xFormers 0.0.25
 - 23、Torch 2.2.2（CUDA11.8）+ xFormers 0.0.25.post1
 - 24、Torch 2.2.2（CUDA12.1）+ xFormers 0.0.25.post1
+- 25、Torch 2.3.0（CUDA11.8）+ xFormers 0.0.26.post1
+- 26、Torch 2.3.0（CUDA12.1）+ xFormers 0.0.26.post1
 
 选择版本时需要根据系统类型和显卡选择
 - 在 Windows 系统中，Nvidia 显卡选择 Torch（CUDA）+ xFormers 的版本，AMD 显卡选择 Torch (Directml) 的版本，Intel 显卡选择 Torch + IPEX 的版本（核显选择 Core Ultra 版本，独显选择 Arc 版本）
@@ -249,6 +251,8 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 - 22、Torch 2.2.1（CUDA12.1）+ xFormers 0.0.25
 - 23、Torch 2.2.2（CUDA11.8）+ xFormers 0.0.25.post1
 - 24、Torch 2.2.2（CUDA12.1）+ xFormers 0.0.25.post1
+- 25、Torch 2.3.0（CUDA11.8）+ xFormers 0.0.26.post1
+- 26、Torch 2.3.0（CUDA12.1）+ xFormers 0.0.26.post1
 
 选择版本时需要根据系统类型和显卡选择
 - 在 Windows 系统中，Nvidia 显卡选择 Torch（CUDA）+ xFormers 的版本，AMD 显卡选择 Torch (Directml) 的版本，Intel 显卡选择 Torch + IPEX 的版本（核显选择 Core Ultra 版本，独显选择 Arc 版本）

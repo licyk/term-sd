@@ -98,7 +98,7 @@ install_pytorch()
             [ ! $? = 0 ] && return 1
             # 安装xFormers
             if [ ! -z "$xformers_ver" ];then
-                if term_sd_pip freeze | grep -q xformers ;then # 将原有的xofmers卸载
+                if term_sd_pip freeze | grep -q xformers ;then # 将原有的xFormers卸载
                     term_sd_try term_sd_pip uninstall xformers -y
                 fi
 
