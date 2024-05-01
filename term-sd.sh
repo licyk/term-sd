@@ -125,7 +125,7 @@ EOF
 # 扩展脚本启动功能
 term_sd_extra_scripts_launch()
 {
-    if [ -z "$@" ];then
+    if [ -z "$*" ];then
         term_sd_extra_scripts
     else
         if [ -f "term-sd/extra/$(echo $@ | awk '{sub(".sh","")}1').sh" ];then
@@ -791,7 +791,6 @@ export term_sd_delimiter
 export SAFETENSORS_FAST_GPU=1 # 强制所有模型使用 GPU 加载
 missing_depend_info=0 # 依赖缺失状态
 missing_depend_macos_info=0
-term_sd_extra_scripts_name="null" # Term-SD扩展脚本
 term_sd_restart_info=1 # term-sd重启
 term_sd_shell_width=$(stty size | awk '{print $2}') # 获取终端宽度
 term_sd_shell_height=$(stty size | awk '{print $1}') # 获取终端高度
@@ -811,6 +810,7 @@ case $term_sd_env_prepare_info in
         ;;
     *)
         term_sd_echo "Term-SD 初始化中"
+        term_sd_extra_scripts_name="null"  # Term-SD扩展脚本
         term_sd_launch_args_manager "$@" # 处理用户输入的参数
         ;;
 esac
