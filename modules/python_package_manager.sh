@@ -18,8 +18,8 @@ python_package_manager()
         $term_sd_dialog_height $term_sd_dialog_width 3>&1 1>&2 2>&3)
 
     if [ $? = 0 ] && [ ! -z "$(echo $python_package_name | awk '{gsub(/[=+<>]/, "")}1')" ];then
-        term_sd_print_line "Python软件包$pip_manage_package_methon_info"
-        term_sd_echo "将"$pip_manage_package_methon_info"以下Python软件包"
+        term_sd_print_line "Python 软件包$pip_manage_package_methon_info"
+        term_sd_echo "将"$pip_manage_package_methon_info"以下 Python 软件包"
         echo $python_package_name
         term_sd_print_line
         enter_venv
@@ -77,7 +77,7 @@ pip_manage_package_methon_select()
         --title "Term-SD" \
         --backtitle "Pip 操作方式选项" \
         --ok-label "确认" --no-cancel \
-        --menu "请选择 Pip 操作方式\n1、常规安装用于安装缺失的软件包\n2、强制重装可解决软件包损坏问题, 但同时重新安装软件包所需的依赖, 速度较慢\n3、卸载软件包\n注: 带有 \"仅\" 的功能是在安装时只安装用户输入的软件包, 而不安装这些软件包的依赖\n安装 / 重装软件包时可以只写包名, 也可以指定包名版本\n可以输入多个软件包的包名, 并使用空格隔开\n如果想要更新某个软件包的版本, 可以加上 \"-U\" 参数\n例:\nxformers\nxformers==0.0.21\nxformers==0.0.21 numpy\nnumpy -U" \
+        --menu "请选择 Pip 操作方式\n1、常规安装用于安装缺失的软件包\n2、强制重装可解决软件包损坏问题, 但同时重新安装软件包所需的依赖, 速度较慢\n3、卸载软件包\n注: 带有 \"仅\" 的功能是在安装时只安装用户输入的软件包, 而不安装这些软件包的依赖\n安装 / 重装软件包时可以只写包名, 也可以指定包名版本\n可以输入多个软件包的包名, 并使用空格隔开\n如果想要更新某个软件包的版本, 可以加上 -U 参数\n例:\nxformers\nxformers==0.0.21\nxformers==0.0.21 numpy\nnumpy -U" \
         $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "1" "> 常规安装 (install)" \
         "2" "> 仅安装 (--no-deps)" \

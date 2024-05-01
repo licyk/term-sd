@@ -174,5 +174,5 @@ term_sd_test_avaliable_github_mirror()
             return
         fi
     done
-    term_sd_github_mirror="https://ghproxy.net/https://github.com" # 只有上面所有的镜像源无法使用才使用github源
+    term_sd_github_mirror="https://ghproxy.net/https://github.com"
 }

@@ -198,12 +198,12 @@ pip_mirrors_env_setting()
 # pip缓存清理功能
 pip_cache_clean()
 {
-    term_sd_echo "统计pip缓存信息"
+    term_sd_echo "统计 Pip 缓存信息"
     if (dialog --erase-on-exit \
         --title "Term-SD" \
-        --backtitle "Pip缓存清理选项" \
+        --backtitle "Pip 缓存清理选项" \
         --yes-label "是" --no-label "否" \
-        --yesno "Pip 缓存信息:\nPip缓存路径: $(term_sd_pip cache dir)\n包索引页面缓存大小: $(term_sd_pip cache info | grep "Package index page cache size" | awk -F ':'  '{print $2 $3 $4}')\n本地构建的 WHELL 包大小: $(term_sd_pip cache info | grep "Locally built wheels size" | awk -F ':'  '{print $2 $3 $4}')\n是否删除 Pip 缓存?" \
+        --yesno "Pip 缓存信息:\nPip 缓存路径: $(term_sd_pip cache dir)\n包索引页面缓存大小: $(term_sd_pip cache info | grep "Package index page cache size" | awk -F ':'  '{print $2 $3 $4}')\n本地构建的 WHELL 包大小: $(term_sd_pip cache info | grep "Locally built wheels size" | awk -F ':'  '{print $2 $3 $4}')\n是否删除 Pip 缓存?" \
         $term_sd_dialog_height $term_sd_dialog_width) then
         term_sd_pip cache purge
 

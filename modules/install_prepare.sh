@@ -302,7 +302,7 @@ term_sd_install_confirm()
         --yesno "${@}\n
 Pip 镜像源: $([ $use_pip_mirror = 0 ] && echo "启用" || echo "禁用")\n
 Github 镜像: $github_mirror_name\n
-Huggingface / Github下载源独占代理: $([ $term_sd_only_proxy = 0 ] && echo "启用" || echo "禁用")\n
+Huggingface / Github 下载源独占代理: $([ $term_sd_only_proxy = 0 ] && echo "启用" || echo "禁用")\n
 使用 ModelScope 模型下载源: $([ $use_modelscope_model = 0 ] && echo "启用" || echo "禁用")\n
 强制使用 Pip: $([ -z "$pip_break_system_package" ] && echo "禁用" || echo "启用")\n
 PyTorch 版本: $([ ! -z "$pytorch_install_version" ] && echo $pytorch_install_version || echo "无")\n

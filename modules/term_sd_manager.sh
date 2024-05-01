@@ -47,7 +47,7 @@ term_sd_launch()
             ;;
     esac
     term_sd_print_line "${term_sd_manager_info} 启动"
-    term_sd_echo "提示: 可以按下 \"Ctrl+C\" 键终止 AI 软件的运行"
+    term_sd_echo "提示: 可以按下 Ctrl+C 键终止 AI 软件的运行"
     case $term_sd_manager_info in
         InvokeAI)
             invokeai-web --root "$invokeai_path"/invokeai $(cat "$start_path"/term-sd/config/$launch_sd_config)
@@ -120,8 +120,8 @@ Dialog: $(dialog --version | awk 'NR==1{print$2}')\n
 Curl: $(curl --version | awk 'NR==1{print$2}')\n
 \n
 提示:\n
-使用方向键, \"Tab\" 键移动光标, 方向键 / \"F\", \"B\" 键翻页 (鼠标滚轮无法翻页) , \"Enter\" 键进行选择, \"Space\"键勾选或取消勾选 (已勾选时显示 [*] ), \"Ctrl+Shift+V\" 快捷键粘贴文本, 鼠标左键可点击按钮 (右键无效)\n
-第一次使用 Term-SD 时先在主界面选择 \"帮助\" 查看使用说明, 参数说明和注意的地方, 内容不定期更新" \
+使用方向键, Tab 键移动光标, 方向键 / F, B 键翻页 (鼠标滚轮无法翻页) , Enter 键进行选择, Space 键勾选或取消勾选 (已勾选时显示 [*] ), Ctrl+Shift+V 快捷键粘贴文本, 鼠标左键可点击按钮 (右键无效)\n
+第一次使用 Term-SD 时先在主界面选择 Term-SD 帮助查看使用说明, 参数说明和注意的地方, 内容不定期更新" \
     $term_sd_dialog_height $term_sd_dialog_width
 }
 
@@ -232,7 +232,7 @@ term_sd_help()
                 ;;
             2)
                 less --mouse \
-                --prompt="[Term-SD] 提示\: 使用方向键 \/ \"U\", \"D\" 键 \/ 鼠标滚轮进行翻页, 按下 \"Q\" 键返回帮助列表" term-sd/help/how_to_use_term_sd.md
+                --prompt="[Term-SD] 提示\: 使用方向键 \/ U, D 键 \/ 鼠标滚轮进行翻页, 按下 Q 键返回帮助列表" term-sd/help/how_to_use_term_sd.md
                 ;;
             3)
                 dialog --erase-on-exit \

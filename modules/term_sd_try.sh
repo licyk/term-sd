@@ -15,7 +15,7 @@ term_sd_try()
             else
                 if [ $count -gt $term_sd_cmd_retry ];then
                     term_sd_echo "超出重试次数, 终止重试"
-                    term_sd_echo "执行失败的命令: \"$@\""
+                    [ $term_sd_debug_mode = 0 ] && term_sd_echo "执行失败的命令: \"$@\""
                     return 1
                     break # 超出重试次数后终端循环
                 fi
