@@ -27,12 +27,8 @@ term_sd_update_manager()
                 1)
                     term_sd_echo "更新 Term-SD 中"
                     [ -f "term-sd/config/term-sd-auto-update.lock" ] && date +'%Y-%m-%d %H:%M:%S' > term-sd/config/term-sd-auto-update-time.conf # 记录更新时间
-                    cd term-sd
-                    git_auto_fix_pointer_offset
-                    term_sd_try git pull
-                    req=$?
-                    cd ..
-                    if [ $req = 0 ];then
+                    term_sd_try git -C term-sd pull
+                    if [ $? = 0 ];then
                         cp -f term-sd/term-sd.sh .
                         chmod +x term-sd.sh
 
