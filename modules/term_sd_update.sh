@@ -30,8 +30,8 @@ term_sd_update_manager()
                     cd term-sd
                     git_auto_fix_pointer_offset
                     term_sd_try git pull
-                    cd ..
                     req=$?
+                    cd ..
                     if [ $req = 0 ];then
                         cp -f term-sd/term-sd.sh .
                         chmod +x term-sd.sh
