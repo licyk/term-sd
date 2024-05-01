@@ -23,7 +23,7 @@ fix_venv()
 
     # 虚拟环境路径
     if [ ! -z "$@" ];then
-        term_sd_venv_path="$@/venv"
+        term_sd_venv_path="$(term_sd_win2unix_path "$@")/venv"
     else
         term_sd_venv_path="$(pwd)/venv"
     fi
@@ -77,7 +77,7 @@ enter_venv()
 
     # 虚拟环境路径
     if [ ! -z "$@" ];then
-        term_sd_venv_path="$@/venv"
+        term_sd_venv_path="$(term_sd_win2unix_path "$@")/venv"
     else
         term_sd_venv_path="$(pwd)/venv"
     fi
