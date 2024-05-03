@@ -805,7 +805,8 @@ fooocus_lang_config_file()
     "Return Type(s)": "返回类型",
     "47 API endpoints": "47 个 API 接口",
     "copy": "复制",
-    "copied!": "已复制！"
+    "copied!": "已复制！",
+    "JSON.parse: unexpected character at line 1 column 1 of the JSON data": "JAVA 解析：JSON 数据第 1 行第 1 列出现意外字符"
 }
 EOF
 }
