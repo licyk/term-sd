@@ -96,3 +96,4 @@ __term_sd_task_pre_ext_95 git_clone_repository ${github_mirror} https://github.c
 __term_sd_task_pre_ext_96 git_clone_repository ${github_mirror} https://github.com/licyk/advanced_euler_sampler_extension "$sd_webui_path"/extensions OFF # 添加Eular-SMEA-Dy，Eular-SMEA采样算法
 __term_sd_task_pre_ext_97 git_clone_repository ${github_mirror} https://github.com/Haoming02/sd-webui-vectorscope-cc "$sd_webui_path"/extensions OFF # 噪声偏移插件，可用于调整亮度，对比度和颜色
 __term_sd_task_pre_ext_98 git_clone_repository ${github_mirror} https://github.com/AG-w/sd-webui-smea "$sd_webui_path"/extensions OFF # 添加Eular-Smea采样器和TCD采样器
+__term_sd_task_pre_ext_99 git_clone_repository ${github_mirror} https://github.com/ljleb/sd-webui-neutral-prompt "$sd_webui_path"/extensions OFF # 添加AND_PERP、AND_SALT、AND_TOPK提示词用法

@@ -392,3 +392,7 @@ Stable Diffusion WebUI 插件说明：
 98、sd-webui-smea：
 描述：添加Eular-Smea采样器和TCD采样器
 链接：https://github.com/AG-w/sd-webui-smea
+
+99、sd-webui-neutral-prompt：
+描述：添加AND_PERP、AND_SALT、AND_TOPK提示词用法
+链接：https://github.com/ljleb/sd-webui-neutral-prompt
