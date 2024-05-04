@@ -11,8 +11,9 @@ __term_sd_task_pre_model_10 get_modelscope_model licyks/sd-model/master/sdxl_1.0
 __term_sd_task_pre_model_11 get_modelscope_model licyks/sd-model/master/sdxl_1.0/animagine-xl-3.1.safetensors "$lora_scripts_path"/sd-models/ # animagine-xl-3.1 OFF
 __term_sd_task_pre_model_12 get_modelscope_model licyks/sd-model/master/sdxl_1.0/kohaku-xl-delta-rev1.safetensors "$lora_scripts_path"/sd-models/ # kohaku-xl-delta-rev1 OFF
 __term_sd_task_pre_model_13 get_modelscope_model licyks/sd-model/master/sdxl_1.0/kohakuXLEpsilon_rev1.safetensors "$lora_scripts_path"/sd-models/ # kohakuXLEpsilon_rev1 OFF
-__term_sd_task_pre_model_14 # =====VAE模型===== OFF
-__term_sd_task_pre_model_15 get_modelscope_model licyks/sd-vae/master/sd_1.5/vae-ft-ema-560000-ema-pruned.safetensors "$lora_scripts_path"/sd-models/ # vae-ft-ema-560000-ema-pruned OFF
-__term_sd_task_pre_model_16 get_modelscope_model licyks/sd-vae/master/sd_1.5/vae-ft-mse-840000-ema-pruned.safetensors "$lora_scripts_path"/sd-models/ # vae-ft-mse-840000-ema-pruned OFF
-__term_sd_task_pre_model_17 get_modelscope_model licyks/sd-vae/master/sdxl_1.0/sdxl_fp16_fix_vae.safetensors "$lora_scripts_path"/sd-models/ # sdxl_fp16_fix_vae OFF
-__term_sd_task_pre_model_18 get_modelscope_model licyks/sd-vae/master/sdxl_1.0/sdxl_vae.safetensors "$lora_scripts_path"/sd-models/ # sdxl_vae OFF
+__term_sd_task_pre_model_14 get_modelscope_model licyks/sd-model/master/sdxl_1.0/ponyDiffusionV6XL_v6StartWithThisOne.safetensors "$lora_scripts_path"/sd-models/ # ponyDiffusionV6XL_v6 OFF
+__term_sd_task_pre_model_15 # =====VAE模型===== OFF
+__term_sd_task_pre_model_16 get_modelscope_model licyks/sd-vae/master/sd_1.5/vae-ft-ema-560000-ema-pruned.safetensors "$lora_scripts_path"/sd-models/ # vae-ft-ema-560000-ema-pruned OFF
+__term_sd_task_pre_model_17 get_modelscope_model licyks/sd-vae/master/sd_1.5/vae-ft-mse-840000-ema-pruned.safetensors "$lora_scripts_path"/sd-models/ # vae-ft-mse-840000-ema-pruned OFF
+__term_sd_task_pre_model_18 get_modelscope_model licyks/sd-vae/master/sdxl_1.0/sdxl_fp16_fix_vae.safetensors "$lora_scripts_path"/sd-models/ # sdxl_fp16_fix_vae OFF
+__term_sd_task_pre_model_19 get_modelscope_model licyks/sd-vae/master/sdxl_1.0/sdxl_vae.safetensors "$lora_scripts_path"/sd-models/ # sdxl_vae OFF
