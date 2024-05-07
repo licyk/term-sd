@@ -18,19 +18,11 @@ invokeai_launch()
             --menu "请选择 InvokeAI 启动参数\n当前自定义启动参数:\ninvokeai-web $(cat "$start_path"/term-sd/config/invokeai-launch.conf)" \
             $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
             "0" "> 返回" \
-            "1" "> (自定义参数) 启动 WebUI 界面" \
+            "1" "> (invokeai-web) 启动 WebUI 界面" \
             "2" "> 配置预设启动参数" \
             "3" "> 修改自定义启动参数" \
-            "4" "> (configure) 启动配置界面" \
-            "5" "> (configure skip-sd-weights) 启动配置程序并只下载核心模型" \
-            "6" "> (configure skip-sd-weights skip-support-models) 启动配置程序并生成配置文件" \
-            "7" "> (web) 启动 WebUI 界面" \
-            "8" "> (web host) 启动带有远程连接 WebUI 界面" \
-            "9" "> (web ignore_missing_core_models) 启动 WebUI 界面并禁用缺失模型检查" \
-            "10" "> (ti gui) 启动模型训练界面" \
-            "11" "> (merge gui) 启动模型合并界面" \
-            "12" "> (import-images) 启动图库导入界面" \
-            "13" "> (db-maintenance) 启动数据库修复" \
+            "4" "> (import-images) 启动图库导入界面" \
+            "5" "> (db-maintenance) 启动数据库修复" \
             3>&1 1>&2 2>&3)
 
         case $invokeai_launch_dialog in
@@ -45,54 +37,10 @@ invokeai_launch()
                 ;;
             4)
                 term_sd_print_line "$term_sd_manager_info 启动"
-                invokeai-configure --root "$invokeai_path"/invokeai
-                term_sd_pause
-                ;;
-            5)
-                term_sd_print_line "$term_sd_manager_info 启动"
-                invokeai-configure --skip-sd-weights --yes --root "$invokeai_path"/invokeai
-                term_sd_pause
-                ;;
-            6)
-                term_sd_print_line "$term_sd_manager_info 启动"
-                invokeai-configure --skip-sd-weights --skip-support-models --yes --root "$invokeai_path"/invokeai
-                term_sd_pause
-                ;;
-            7)
-                term_sd_print_line "$term_sd_manager_info 启动"
-                term_sd_echo "提示: 可以使用 \"Ctrl+C\" 终止 AI 软件的运行"
-                invokeai-web --root "$invokeai_path"/invokeai
-                term_sd_pause
-                ;;
-            8)
-                term_sd_print_line "$term_sd_manager_info 启动"
-                term_sd_echo "提示: 可以使用 \"Ctrl+C\" 终止 AI 软件的运行"
-                invokeai-web --host 0.0.0.0 --root "$invokeai_path"/invokeai
-                term_sd_pause
-                ;;
-            9)
-                term_sd_print_line "$term_sd_manager_info 启动"
-                term_sd_echo "提示: 可以使用 \"Ctrl+C\" 终止 AI 软件的运行"
-                invokeai-web --ignore_missing_core_models --root "$invokeai_path"/invokeai
-                term_sd_pause
-                ;;
-            
-            10)
-                term_sd_print_line "$term_sd_manager_info 启动"
-                invokeai-ti --gui --root "$invokeai_path"/invokeai
-                term_sd_pause
-                ;;
-            11)
-                term_sd_print_line "$term_sd_manager_info 启动"
-                invokeai-merge --gui --root "$invokeai_path"/invokeai
-                term_sd_pause
-                ;;
-            12)
-                term_sd_print_line "$term_sd_manager_info 启动"
                 invokeai-import-images --root "$invokeai_path"/invokeai
                 term_sd_pause
                 ;;
-            13)
+            5)
                 term_sd_print_line "$term_sd_manager_info 启动"
                 invokeai-db-maintenance --operation all --root "$invokeai_path"/invokeai
                 term_sd_pause
@@ -115,7 +63,7 @@ invokeai_launch_args_setting()
         --title "InvokeAI 管理" \
         --backtitle "InvokeAI 启动参数选项" \
         --ok-label "确认" --cancel-label "取消" \
-        --checklist "请选择 InvokeAI 启动参数, 确认之后将覆盖原有启动参数配置" \
+        --checklist "请选择 InvokeAI 启动参数, 确认之后将覆盖原有启动参数配置\n注: InvokeAI 4.x 已移除该列表中的启动参数, 若使用将导致 InvokeAI 报错导致无法启动, 需使用修改自定义启动参数功能将所有启动参数清除。" \
         $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "1" "(host) 开放远程连接" OFF \
         "2" "(no-esrgan) 禁用 ESRGAN 进行画面修复" OFF \
