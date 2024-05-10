@@ -396,3 +396,7 @@ Stable Diffusion WebUI 插件说明：
 99、sd-webui-neutral-prompt：
 描述：添加AND_PERP、AND_SALT、AND_TOPK提示词用法
 链接：https://github.com/ljleb/sd-webui-neutral-prompt
+
+100、sd-webui-tabs-extension：
+描述：优化WebUI选项卡的排版
+链接：https://github.com/Haoming02/sd-webui-tabs-extension

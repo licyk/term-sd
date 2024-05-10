@@ -97,3 +97,4 @@ __term_sd_task_pre_ext_96 advanced_euler_sampler_extension OFF
 __term_sd_task_pre_ext_97 sd-webui-vectorscope-cc OFF
 __term_sd_task_pre_ext_98 sd-webui-smea OFF
 __term_sd_task_pre_ext_99 sd-webui-neutral-prompt OFF
+__term_sd_task_pre_ext_100 sd-webui-tabs-extension OFF
