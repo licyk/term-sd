@@ -46,22 +46,30 @@ download_mirror_select()
                 pip_find_mirror="--find-links https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html --find-links https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
                 ;;
             2)
-                term_sd_echo "使用全局 Pip 镜像源配置"
-                pip_index_mirror=
-                pip_extra_index_mirror=
-                pip_find_mirror=
-                if [ ! -z $PIP_INDEX_URL ] && [ ! "$PIP_INDEX_URL" = "https://pypi.python.org/simple" ];then
-                    term_sd_echo "使用 Pip 镜像源"
-                    use_pip_mirror=0
-                elif [ ! -z $PIP_INDEX_URL ] && [ "$PIP_INDEX_URL" = "https://pypi.python.org/simple" ];then
-                    term_sd_echo "使用 Pip 官方源"
-                    use_pip_mirror=1
-                elif term_sd_pip config list | grep -E "global.index-url" | grep "https://pypi.python.org/simple" &> /dev/null ;then
-                    term_sd_echo "使用 Pip 官方源"
-                    use_pip_mirror=1
+                if [ ! -z $PIP_INDEX_URL ] || [ ! -z $(term_sd_pip config list | grep -E "global.index-url") ] ;then # 确保存在镜像源
+                    term_sd_echo "使用全局 Pip 镜像源配置"
+                    pip_index_mirror=
+                    pip_extra_index_mirror=
+                    pip_find_mirror=
+                    if [ ! -z $PIP_INDEX_URL ] && [ ! "$PIP_INDEX_URL" = "https://pypi.python.org/simple" ];then
+                        term_sd_echo "使用 Pip 镜像源"
+                        use_pip_mirror=0
+                    elif [ ! -z $PIP_INDEX_URL ] && [ "$PIP_INDEX_URL" = "https://pypi.python.org/simple" ];then
+                        term_sd_echo "使用 Pip 官方源"
+                        use_pip_mirror=1
+                    elif term_sd_pip config list | grep -E "global.index-url" | grep "https://pypi.python.org/simple" &> /dev/null ;then
+                        term_sd_echo "使用 Pip 官方源"
+                        use_pip_mirror=1
+                    else
+                        term_sd_echo "使用 Pip 镜像源"
+                        use_pip_mirror=0
+                    fi
                 else
-                    term_sd_echo "使用 Pip 镜像源"
+                    term_sd_echo "未设置任何镜像源，默认使用 Pip 国内镜像源"
                     use_pip_mirror=0
+                    pip_index_mirror="--index-url https://mirrors.cloud.tencent.com/pypi/simple"
+                    pip_extra_index_mirror="--extra-index-url https://mirror.baidu.com/pypi/simple --extra-index-url https://mirrors.bfsu.edu.cn/pypi/web/simple --extra-index-url https://mirror.nju.edu.cn/pypi/web/simple"
+                    pip_find_mirror="--find-links https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html --find-links https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
                 fi
                 ;;
             3)
