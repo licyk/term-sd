@@ -147,49 +147,67 @@ term_sd_branch_switch()
 {
     local term_sd_branch_switch_dialog
 
-    term_sd_branch_switch_dialog=$(dialog --erase-on-exit --notags \
-        --title "Term-SD" \
-        --backtitle "Term-SD 分支切换界面" \
-        --ok-label "确认" --cancel-label "取消" \
-        --menu "请选择 Term-SD 的分支\n当前 Term-SD 分支: $(cd term-sd ; git_branch_display)" \
-        $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
-        "0" "> 返回" \
-        "1" "> 主分支" \
-        "2" "> 测试分支" \
-        3>&1 1>&2 2>&3)
+    while true
+    do
+        term_sd_branch_switch_dialog=$(dialog --erase-on-exit --notags \
+            --title "Term-SD" \
+            --backtitle "Term-SD 分支切换界面" \
+            --ok-label "确认" --cancel-label "取消" \
+            --menu "请选择 Term-SD 的分支\n当前 Term-SD 分支: $(cd term-sd ; git_branch_display)" \
+            $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+            "0" "> 返回" \
+            "1" "> 主分支" \
+            "2" "> 测试分支" \
+            3>&1 1>&2 2>&3)
     
-    if [ $? = 0 ];then
-        if (dialog --erase-on-exit \
-                    --title "Term-SD" \
-                    --backtitle "Term-SD 分支切换界面" \
-                    --yes-label "是" --no-label "否" \
-                    --yesno "是否切换 Term-SD 的分支?" \
-                    $term_sd_dialog_height $term_sd_dialog_width) then
-
+        if [ $? = 0 ];then
             case $term_sd_branch_switch_dialog in
                 1)
-                    git -C term-sd checkout main
-                    cp -f term-sd/term-sd.sh .
-                    chmod +x term-sd.sh
-                    term_sd_echo "切换到 Term-SD 主分支"
-                    term_sd_echo "即将重启 Term-SD"
-                    sleep 1
-                    . ./term-sd.sh
+                    if (dialog --erase-on-exit \
+                        --title "Term-SD" \
+                        --backtitle "Term-SD 分支切换界面" \
+                        --yes-label "是" --no-label "否" \
+                        --yesno "是否切换 Term-SD 的主分支?" \
+                        $term_sd_dialog_height $term_sd_dialog_width) then
+
+                        git -C term-sd checkout main
+                        cp -f term-sd/term-sd.sh .
+                        chmod +x term-sd.sh
+                        term_sd_echo "切换到 Term-SD 主分支"
+                        term_sd_echo "即将重启 Term-SD"
+                        term_sd_sleep 3
+                        . ./term-sd.sh
+                    else
+                        term_sd_echo "取消切换 Term-SD 分支操作"
+                    fi
                     ;;
                 2)
-                    git -C term-sd checkout dev
-                    cp -f term-sd/term-sd.sh .
-                    chmod +x term-sd.sh
-                    term_sd_echo "切换到 Term-SD 测试分支"
-                    term_sd_echo "即将重启 Term-SD"
-                    sleep 1
-                    . ./term-sd.sh
+                    if (dialog --erase-on-exit \
+                        --title "Term-SD" \
+                        --backtitle "Term-SD 分支切换界面" \
+                        --yes-label "是" --no-label "否" \
+                        --yesno "是否切换 Term-SD 的测试分支?" \
+                        $term_sd_dialog_height $term_sd_dialog_width) then
+
+                        git -C term-sd checkout dev
+                        cp -f term-sd/term-sd.sh .
+                        chmod +x term-sd.sh
+                        term_sd_echo "切换到 Term-SD 测试分支"
+                        term_sd_echo "即将重启 Term-SD"
+                        term_sd_sleep 3
+                        . ./term-sd.sh
+                    else
+                       term_sd_echo "取消切换 Term-SD 分支操作"
+                    fi
+                    ;;
+                *)
+                    break
                     ;;
             esac
         else
-            term_sd_echo "取消切换 Term-SD 分支操作"
+            break
         fi
-    fi
+    done
 }
 
 # 自动更新设置
