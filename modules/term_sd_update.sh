@@ -13,7 +13,7 @@ term_sd_update_manager()
                 --title "Term-SD" \
                 --backtitle "Term-SD 更新选项" \
                 --ok-label "确认" --cancel-label "取消" \
-                --menu "请选择 Term-SD 的更新源\n当前Term-SD更新源: $(cd term-sd ; git_remote_display)\n当前Term-SD分支: $(cd term-sd ; git_branch_display)\nTerm-SD自动更新: $([ -f "term-sd/config/term-sd-auto-update.lock" ] && echo "启用" || echo "禁用")\n当前Term-SD版本: ${term_sd_version_info}" \
+                --menu "请选择 Term-SD 的更新源\n当前 Term-SD 更新源: $(cd term-sd ; git_remote_display)\n当前 Term-SD 分支: $(cd term-sd ; git_branch_display)\nTerm-SD 自动更新: $([ -f "term-sd/config/term-sd-auto-update.lock" ] && echo "启用" || echo "禁用")\n当前 Term-SD 版本: ${term_sd_version_info}" \
                 $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
                 "0" "> 返回" \
                 "1" "> 更新" \
@@ -81,6 +81,8 @@ term_sd_update_manager()
 # term-sd更新源切换功能
 term_sd_remote_revise()
 {
+    local term_sd_remote_revise_dialog
+
     while true
     do
         term_sd_remote_revise_dialog=$(dialog --erase-on-exit --notags \
@@ -143,6 +145,8 @@ term_sd_remote_revise()
 # term-sd分支切换
 term_sd_branch_switch()
 {
+    local term_sd_branch_switch_dialog
+
     term_sd_branch_switch_dialog=$(dialog --erase-on-exit --notags \
         --title "Term-SD" \
         --backtitle "Term-SD 分支切换界面" \
@@ -155,26 +159,36 @@ term_sd_branch_switch()
         3>&1 1>&2 2>&3)
     
     if [ $? = 0 ];then
-        case $term_sd_branch_switch_dialog in
-            1)
-                git -C term-sd checkout main
-                cp -f term-sd/term-sd.sh .
-                chmod +x term-sd.sh
-                term_sd_echo "切换到主分支"
-                term_sd_echo "即将重启 Term-SD"
-                sleep 1
-                . ./term-sd.sh
-                ;;
-            2)
-                git -C term-sd checkout dev
-                cp -f term-sd/term-sd.sh .
-                chmod +x term-sd.sh
-                term_sd_echo "切换到测试分支"
-                term_sd_echo "即将重启 Term-SD"
-                sleep 1
-                . ./term-sd.sh
-                ;;
-        esac
+        if (dialog --erase-on-exit \
+                    --title "Term-SD" \
+                    --backtitle "Term-SD 分支切换界面" \
+                    --yes-label "是" --no-label "否" \
+                    --yesno "是否切换 Term-SD 的分支?" \
+                    $term_sd_dialog_height $term_sd_dialog_width) then
+
+            case $term_sd_branch_switch_dialog in
+                1)
+                    git -C term-sd checkout main
+                    cp -f term-sd/term-sd.sh .
+                    chmod +x term-sd.sh
+                    term_sd_echo "切换到 Term-SD 主分支"
+                    term_sd_echo "即将重启 Term-SD"
+                    sleep 1
+                    . ./term-sd.sh
+                    ;;
+                2)
+                    git -C term-sd checkout dev
+                    cp -f term-sd/term-sd.sh .
+                    chmod +x term-sd.sh
+                    term_sd_echo "切换到 Term-SD 测试分支"
+                    term_sd_echo "即将重启 Term-SD"
+                    sleep 1
+                    . ./term-sd.sh
+                    ;;
+            esac
+        else
+            term_sd_echo "取消切换 Term-SD 分支操作"
+        fi
     fi
 }
 
@@ -203,7 +217,7 @@ term_sd_auto_update_setting()
                     --title "Term-SD" \
                     --backtitle "Term-SD 自动更新选项" \
                     --ok-label "确认" \
-                    --msgbox "启用成功" $term_sd_dialog_height $term_sd_dialog_width
+                    --msgbox "启用 Term-SD 自动更新成功" $term_sd_dialog_height $term_sd_dialog_width
                 ;;
             2)
                 rm -f term-sd/config/term-sd-auto-update.lock
@@ -212,7 +226,7 @@ term_sd_auto_update_setting()
                     --title "Term-SD" \
                     --backtitle "Term-SD 自动更新选项" \
                     --ok-label "确认" \
-                    --msgbox "禁用成功" \
+                    --msgbox "禁用 Term-SD 自动更新成功" \
                     $term_sd_dialog_height $term_sd_dialog_width
                 ;;
             *)
