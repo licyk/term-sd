@@ -46,7 +46,7 @@ download_mirror_select()
                 pip_find_mirror="--find-links https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html --find-links https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
                 ;;
             2)
-                if [ ! -z $PIP_INDEX_URL ] || [ ! -z $(term_sd_pip config list | grep -E "global.index-url") ] ;then # 确保存在镜像源
+                if [ ! -z "$PIP_INDEX_URL" ] || [ ! -z "$(pip config list | grep -E "global.index-url")" ] && [ ! -z "$(pip config list | grep -E "global.find-links")" ] ;then # 确保存在镜像源
                     term_sd_echo "使用全局 Pip 镜像源配置"
                     pip_index_mirror=
                     pip_extra_index_mirror=

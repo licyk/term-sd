@@ -493,10 +493,6 @@ term_sd_install()
                 term_sd_echo "下载 Term-SD 中"
                 git clone $term_sd_install_mirror
                 if [ $? = 0 ];then
-                    cp -f term-sd/term-sd.sh .
-                    chmod +x term-sd.sh
-                    term_sd_restart_info=0
-                    term_sd_echo "Term-SD 安装成功"
                     echo "3" > term-sd/config/term-sd-watch-retry.conf
                     export term_sd_cmd_retry=3
                     term_sd_echo "Term-SD 命令执行监测设置已自动设置"
@@ -505,6 +501,10 @@ term_sd_install()
                     term_sd_echo "Term-SD 自动更新已自动设置"
                     echo "2" > term-sd/config/term-sd-pip-mirror.conf
                     term_sd_echo "Term-SD 设置 Pip 镜像源为国内镜像源"
+                    term_sd_restart_info=0
+                    cp -f term-sd/term-sd.sh .
+                    chmod +x term-sd.sh
+                    term_sd_echo "Term-SD 安装成功"
                 else
                     term_sd_echo "Term-SD 安装失败"
                     exit 1
@@ -517,20 +517,18 @@ term_sd_install()
         esac
     elif [ ! -d "term-sd/.git" ];then
         term_sd_echo "检测到 Term-SD 的 .git 目录不存在, 将会导致 Term-SD 无法更新, 是否重新安装(yes/no)?"
-        term_sd_echo "警告: 该操作将永久删除 Term-SD 目录中的所有文件, 包括 AI 软件下载的部分模型文件 (存在于 Term-SD 目录中的 cache 文件夹, 如有必要, 请备份该文件夹)"
+        term_sd_echo "警告: 该操作将永久删除 Term-SD 目录中的所有文件 (除了 cache 文件夹将备份到临时文件夹并在安装完成还原)"
         term_sd_echo "提示: 输入 yes 或 no 后回车"
         case $(term_sd_read) in
             yes|y|YES|Y)
                 term_sd_install_mirror_select
+                term_sd_backup_cache
                 term_sd_echo "清除 Term-SD 文件中"
                 rm -rf term-sd
                 term_sd_echo "清除完成, 开始安装 Term-SD"
                 git clone $term_sd_install_mirror
                 if [ $? = 0 ];then
-                    cp -f term-sd/term-sd.sh .
-                    chmod +x term-sd.sh
-                    term_sd_restart_info=0
-                    term_sd_echo "Term-SD 安装成功"
+                    term_sd_restore_cache
                     echo "3" > term-sd/config/term-sd-watch-retry.conf
                     export term_sd_cmd_retry=3
                     term_sd_echo "Term-SD 命令执行监测设置已自动设置"
@@ -539,6 +537,11 @@ term_sd_install()
                     term_sd_echo "Term-SD 自动更新已自动设置"
                     echo "2" > term-sd/config/term-sd-pip-mirror.conf
                     term_sd_echo "Term-SD 设置 Pip 镜像源为国内镜像源"
+                    term_sd_restart_info=0
+                    cp -f term-sd/term-sd.sh .
+                    chmod +x term-sd.sh
+                    term_sd_echo "Term-SD 安装成功"
+
                 else
                     term_sd_echo "Term-SD 安装失败"
                     exit 1
@@ -556,20 +559,18 @@ term_sd_reinstall()
 {
     if which git &> /dev/null ;then
         term_sd_echo "是否重新安装 Term-SD (yes/no)?"
-        term_sd_echo "警告: 该操作将永久删除 Term-SD 目录中的所有文件, 包括 AI 软件下载的部分模型文件 (存在于 Term-SD 目录中的 cache 文件夹, 如有必要, 请备份该文件夹)"
+        term_sd_echo "警告: 该操作将永久删除 Term-SD 目录中的所有文件 (除了 cache 文件夹将备份到临时文件夹并在安装完成还原)"
         term_sd_echo "提示: 输入 yes 或 no 后回车"
         case $(term_sd_read) in
             yes|y|YES|Y)
                 term_sd_install_mirror_select
+                term_sd_backup_cache
                 term_sd_echo "清除 Term-SD 文件中"
                 rm -rf term-sd
                 term_sd_echo "清除完成, 开始安装 Term-SD"
                 git clone $term_sd_install_mirror
                 if [ $? = 0 ];then
-                    cp -f term-sd/term-sd.sh .
-                    chmod +x term-sd.sh
-                    term_sd_restart_info=0
-                    term_sd_echo "Term-SD 安装成功"
+                    term_sd_restore_cache
                     echo "3" > term-sd/config/term-sd-watch-retry.conf
                     export term_sd_cmd_retry=3
                     term_sd_echo "Term-SD 命令执行监测设置已自动设置"
@@ -578,6 +579,10 @@ term_sd_reinstall()
                     term_sd_echo "Term-SD 自动更新已自动设置"
                     echo "2" > term-sd/config/term-sd-pip-mirror.conf
                     term_sd_echo "Term-SD 设置 Pip 镜像源为国内镜像源"
+                    term_sd_restart_info=0
+                    cp -f term-sd/term-sd.sh .
+                    chmod +x term-sd.sh
+                    term_sd_echo "Term-SD 安装成功"
                 else
                     term_sd_echo "Term-SD 安装失败"
                     exit 1
@@ -588,6 +593,26 @@ term_sd_reinstall()
                 exit 0
                 ;;
         esac
+    fi
+}
+
+# 备份cache文件夹
+term_sd_backup_cache()
+{
+    if [ -d "term-sd/cache" ];then
+        term_sd_echo "备份 Term-SD 缓存文件夹中"
+        term_sd_mkdir "term-sd-tmp"
+        mv term-sd/cache term-sd-tmp
+    fi
+}
+
+# 恢复cache文件夹
+term_sd_restore_cache()
+{
+    if [ -d "term-sd-tmp/cache" ];then
+        term_sd_echo "恢复 Term-SD 缓存文件夹中"
+        mv -f term-sd-tmp/cache term-sd
+        rm -rf term-sd-tmp
     fi
 }
 
@@ -1116,7 +1141,7 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
                 term_sd_auto_update_trigger
                 export term_sd_env_prepare_info=0 # 用于检测term-sd的启动状态
             else
-                term_sd_echo "Term-SD 模块丢失 ,输入 ./term-sd.sh --reinstall-term-sd 重新安装 Term-SD"
+                term_sd_echo "Term-SD 模块丢失, 输入 ./term-sd.sh --reinstall-term-sd 重新安装 Term-SD"
                 exit 1
             fi
         else
@@ -1150,11 +1175,12 @@ fi
 
 # 自动更新成功时重载环境
 if [ $term_sd_restart_info = 0 ];then
+    term_sd_echo "重载 Term-SD 启动脚本中"
     . ./term-sd.sh
 fi
 
 term_sd_echo "Term-SD 版本: $term_sd_version_info"
-term_sd_echo "Commit: $(git --git-dir="term-sd/.git" show -s --format="%h %cd" --date=format:"%Y-%m-%d %H:%M:%S")"
+[ -d "term-sd/.git" ] && term_sd_echo "Commit: $(git --git-dir="term-sd/.git" show -s --format="%h %cd" --date=format:"%Y-%m-%d %H:%M:%S")"
 
 case $term_sd_extra_scripts_name in
     null)
