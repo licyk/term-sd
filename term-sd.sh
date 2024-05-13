@@ -493,14 +493,7 @@ term_sd_install()
                 term_sd_echo "下载 Term-SD 中"
                 git clone $term_sd_install_mirror
                 if [ $? = 0 ];then
-                    echo "3" > term-sd/config/term-sd-watch-retry.conf
-                    export term_sd_cmd_retry=3
-                    term_sd_echo "Term-SD 命令执行监测设置已自动设置"
-                    touch term-sd/config/term-sd-auto-update.lock
-                    date +'%Y-%m-%d %H:%M:%S' > term-sd/config/term-sd-auto-update-time.conf
-                    term_sd_echo "Term-SD 自动更新已自动设置"
-                    echo "2" > term-sd/config/term-sd-pip-mirror.conf
-                    term_sd_echo "Term-SD 设置 Pip 镜像源为国内镜像源"
+                    term_sd_set_up_normal_setting
                     term_sd_restart_info=0
                     cp -f term-sd/term-sd.sh .
                     chmod +x term-sd.sh
@@ -522,21 +515,14 @@ term_sd_install()
         case $(term_sd_read) in
             yes|y|YES|Y)
                 term_sd_install_mirror_select
-                term_sd_backup_cache
+                term_sd_backup_config
                 term_sd_echo "清除 Term-SD 文件中"
                 rm -rf term-sd
                 term_sd_echo "清除完成, 开始安装 Term-SD"
                 git clone $term_sd_install_mirror
                 if [ $? = 0 ];then
-                    term_sd_restore_cache
-                    echo "3" > term-sd/config/term-sd-watch-retry.conf
-                    export term_sd_cmd_retry=3
-                    term_sd_echo "Term-SD 命令执行监测设置已自动设置"
-                    touch term-sd/config/term-sd-auto-update.lock
-                    date +'%Y-%m-%d %H:%M:%S' > term-sd/config/term-sd-auto-update-time.conf
-                    term_sd_echo "Term-SD 自动更新已自动设置"
-                    echo "2" > term-sd/config/term-sd-pip-mirror.conf
-                    term_sd_echo "Term-SD 设置 Pip 镜像源为国内镜像源"
+                    term_sd_restore_config
+                    term_sd_set_up_normal_setting
                     term_sd_restart_info=0
                     cp -f term-sd/term-sd.sh .
                     chmod +x term-sd.sh
@@ -564,27 +550,20 @@ term_sd_reinstall()
         case $(term_sd_read) in
             yes|y|YES|Y)
                 term_sd_install_mirror_select
-                term_sd_backup_cache
+                term_sd_backup_config
                 term_sd_echo "清除 Term-SD 文件中"
                 rm -rf term-sd
                 term_sd_echo "清除完成, 开始安装 Term-SD"
                 git clone $term_sd_install_mirror
                 if [ $? = 0 ];then
-                    term_sd_restore_cache
-                    echo "3" > term-sd/config/term-sd-watch-retry.conf
-                    export term_sd_cmd_retry=3
-                    term_sd_echo "Term-SD 命令执行监测设置已自动设置"
-                    touch term-sd/config/term-sd-auto-update.lock
-                    date +'%Y-%m-%d %H:%M:%S' > term-sd/config/term-sd-auto-update-time.conf
-                    term_sd_echo "Term-SD 自动更新已自动设置"
-                    echo "2" > term-sd/config/term-sd-pip-mirror.conf
-                    term_sd_echo "Term-SD 设置 Pip 镜像源为国内镜像源"
+                    term_sd_restore_config
+                    term_sd_set_up_normal_setting
                     term_sd_restart_info=0
                     cp -f term-sd/term-sd.sh .
                     chmod +x term-sd.sh
-                    term_sd_echo "Term-SD 安装成功"
+                    term_sd_echo "Term-SD 重新安装成功"
                 else
-                    term_sd_echo "Term-SD 安装失败"
+                    term_sd_echo "Term-SD 重新安装失败"
                     exit 1
                 fi
                 ;;
@@ -597,23 +576,50 @@ term_sd_reinstall()
 }
 
 # 备份cache文件夹
-term_sd_backup_cache()
+term_sd_backup_config()
 {
     if [ -d "term-sd/cache" ];then
-        term_sd_echo "备份 Term-SD 缓存文件夹中"
+        term_sd_echo "备份 Term-SD 缓存文件夹和配置文件中"
         term_sd_mkdir "term-sd-tmp"
+        term_sd_mkdir "term-sd-tmp/config"
+        rm -f term-sd/config/note.md
+        mv term-sd/config/* term-sd-tmp/config
         mv term-sd/cache term-sd-tmp
     fi
 }
 
 # 恢复cache文件夹
-term_sd_restore_cache()
+term_sd_restore_config()
 {
     if [ -d "term-sd-tmp/cache" ];then
-        term_sd_echo "恢复 Term-SD 缓存文件夹中"
+        term_sd_echo "恢复 Term-SD 缓存文件夹和配置文件中"
         mv -f term-sd-tmp/cache term-sd
+        mv -f term-sd-tmp/config/* term-sd/config
         rm -rf term-sd-tmp
     fi
+}
+
+# 设置默认term-sd设置
+term_sd_set_up_normal_setting()
+{
+    if [ ! -f "term-sd/config/term-sd-watch-retry.conf" ];then
+        echo "3" > term-sd/config/term-sd-watch-retry.conf
+        export term_sd_cmd_retry=3
+        term_sd_echo "Term-SD 命令执行监测设置已自动设置"
+    fi
+
+    if [ ! -f "term-sd/config/term-sd-auto-update.lock" ];then
+        touch term-sd/config/term-sd-auto-update.lock
+        date +'%Y-%m-%d %H:%M:%S' > term-sd/config/term-sd-auto-update-time.conf
+        term_sd_echo "Term-SD 自动更新已自动设置"
+    fi
+
+    if [ ! -f "term-sd/config/term-sd-pip-mirror.conf" ];then
+        echo "2" > term-sd/config/term-sd-pip-mirror.conf
+        term_sd_echo "Term-SD 设置 Pip 镜像源为国内镜像源"
+    fi
+
+    touch term-sd/.install_by_launch_script
 }
 
 # term-sd卸载功能
@@ -848,7 +854,11 @@ if [ ! -d "term-sd" ] && [ -d ".git" ] && [ -d "modules" ] && [ -f "modules/init
     term_sd_echo "再运行目录外面的 term-sd.sh"
     term_sd_echo "退出 Term-SD"
     exit 1
-elif [ ! "$(dirname "$(echo $0)")" = "." ];then
+fi
+
+if [ "$(dirname "$(echo $0)")" = "." ] || [ "$(dirname "$(echo $0)")" = "$(pwd)" ];then
+    true
+else
     term_sd_echo "检测到未在 term-sd.sh 文件所在目录运行 Term-SD"
     term_sd_echo "请进入 term-sd.sh 文件所在目录后再次运行 Term-SD"
     term_sd_echo "退出 Term-SD"
@@ -1150,6 +1160,10 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
             term_sd_print_line
             term_sd_echo "请安装缺少的依赖后重试"
             exit 1
+        fi
+
+        if [ ! -f "term-sd/.install_by_launch_script" ];then # 检测是否通过启动脚本安装term-sd
+            term_sd_set_up_normal_setting # 非启动脚本安装时设置默认term-sd设置
         fi
         ;;
 esac
