@@ -63,7 +63,7 @@ invokeai_launch_args_setting()
         --title "InvokeAI 管理" \
         --backtitle "InvokeAI 启动参数选项" \
         --ok-label "确认" --cancel-label "取消" \
-        --checklist "请选择 InvokeAI 启动参数, 确认之后将覆盖原有启动参数配置\n注: InvokeAI 4.x 已移除该列表中的启动参数, 若使用将导致 InvokeAI 报错导致无法启动, 需使用修改自定义启动参数功能将所有启动参数清除。" \
+        --checklist "请选择 InvokeAI 启动参数, 确认之后将覆盖原有启动参数配置\n注: InvokeAI 4.x 已移除该列表中的启动参数, 若使用将导致 InvokeAI 报错导致无法启动, 需使用修改自定义启动参数功能将所有启动参数清除" \
         $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "1" "(host) 开放远程连接" OFF \
         "2" "(no-esrgan) 禁用 ESRGAN 进行画面修复" OFF \
