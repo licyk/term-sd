@@ -526,10 +526,10 @@ term_sd_install()
                     term_sd_restart_info=0
                     cp -f term-sd/term-sd.sh .
                     chmod +x term-sd.sh
-                    term_sd_echo "Term-SD 安装成功"
+                    term_sd_echo "Term-SD 重新安装成功"
 
                 else
-                    term_sd_echo "Term-SD 安装失败"
+                    term_sd_echo "Term-SD 重新安装失败"
                     exit 1
                 fi
                 ;;
@@ -583,8 +583,8 @@ term_sd_backup_config()
         term_sd_mkdir "term-sd-tmp"
         term_sd_mkdir "term-sd-tmp/config"
         rm -f term-sd/config/note.md
-        mv term-sd/config/* term-sd-tmp/config
-        mv term-sd/cache term-sd-tmp
+        mv -f term-sd/config/* term-sd-tmp/config
+        mv -f term-sd/cache term-sd-tmp
     fi
 }
 
