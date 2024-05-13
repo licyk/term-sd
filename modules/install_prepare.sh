@@ -5,6 +5,7 @@ download_mirror_select()
 {
     local download_mirror_select_dialog
     local auto_select_github_mirror=1
+    local env_pip_mirror=1
     pip_index_mirror="--index-url https://pypi.python.org/simple"
     pip_extra_index_mirror=
     pip_find_mirror="--find-links https://download.pytorch.org/whl/torch_stable.html"
@@ -46,7 +47,15 @@ download_mirror_select()
                 pip_find_mirror="--find-links https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html --find-links https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
                 ;;
             2)
-                if [ ! -z "$PIP_INDEX_URL" ] || [ ! -z "$(term_sd_pip config list | grep -E "global.index-url")" ] && [ ! -z "$(term_sd_pip config list | grep -E "global.find-links")" ] ;then # 确保存在镜像源
+                if [ ! -z "$PIP_INDEX_URL" ];then # 确保存在镜像源
+                    env_pip_mirror=0
+                elif [ ! -z "$(term_sd_pip config list | grep -E "global.index-url")" ] && [ ! -z "$(term_sd_pip config list | grep -E "global.find-links")" ] ;then
+                    env_pip_mirror=0
+                else
+                    env_pip_mirror=1
+                fi
+
+                if [ $env_pip_mirror = 0 ];then
                     term_sd_echo "使用全局 Pip 镜像源配置"
                     pip_index_mirror=
                     pip_extra_index_mirror=
