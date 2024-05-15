@@ -4,8 +4,37 @@
 term_sd_launch()
 {
     local launch_sd_config
+    local use_mirror_for_sd_webui=1
+    local use_mirror_for_sd_webui_state=0
+    local sd_webui_extension_list_url
+    local github_mirror_url
+    local i
+    local ignore_github_mirror
+
     case $term_sd_manager_info in
         stable-diffusion-webui)
+            if [ -f "$start_path/term-sd/config/set-global-github-mirror.conf" ];then # 检测是否设置了github全局镜像源
+                ignore_github_mirror="gitclone.com"
+                # 判断是否为可使用的镜像源
+                for i in $ignore_github_mirror
+                do
+                    if [ ! -z $(cat "$start_path"/term-sd/config/set-global-github-mirror.conf | grep $i) ];then
+                        use_mirror_for_sd_webui_state=1
+                    fi
+                done
+                if [ $use_mirror_for_sd_webui_state = 0 ];then
+                    use_mirror_for_sd_webui=0
+                fi
+            fi
+
+            # 为sd webui的插件列表设置镜像源
+            if [ $use_mirror_for_sd_webui = 0 ];then
+                term_sd_echo "检测到启用了 Github 镜像源, 为 Stable Diffusion WebUI 可下载的插件列表设置镜像源"
+                github_mirror_url=$(cat "$start_path"/term-sd/config/set-global-github-mirror.conf | awk '{sub("github.com","raw.githubusercontent.com")}1')
+                sd_webui_extension_list_url=$(echo https://raw.githubusercontent.com/AUTOMATIC1111/stable-diffusion-webui-extensions/master/index.json | awk '{sub("https://raw.githubusercontent.com","'$github_mirror_url'")}1')
+                export WEBUI_EXTENSIONS_INDEX=$sd_webui_extension_list_url
+            fi
+
             case $(git remote -v | awk 'NR==1 {print $2}' | awk -F'/' '{print $NF}') in # 分支判断
                 stable-diffusion-webui|stable-diffusion-webui.git)
                     launch_sd_config="sd-webui-launch.conf"
@@ -46,6 +75,7 @@ term_sd_launch()
             launch_sd_config="kohya_ss-launch.conf"
             ;;
     esac
+
     term_sd_print_line "${term_sd_manager_info} 启动"
     term_sd_echo "提示: 可以按下 Ctrl+C 键终止 AI 软件的运行"
     case $term_sd_manager_info in
@@ -58,6 +88,10 @@ term_sd_launch()
             exit_venv
             ;;
     esac
+
+    if [ $use_mirror_for_sd_webui = 0 ];then # 取消sd webui的插件列表镜像源
+        unset WEBUI_EXTENSIONS_INDEX
+    fi
     term_sd_pause
 }
 
