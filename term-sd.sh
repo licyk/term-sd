@@ -423,7 +423,7 @@ term_sd_auto_update()
                         cp -f term-sd/term-sd.sh .
                         chmod +x term-sd.sh
                         term_sd_restart_info=0
-                        term_sd_echo " Term-SD 更新成功"
+                        term_sd_echo "Term-SD 更新成功"
                     else
                         cd ..
                         term_sd_echo "Term-SD 更新失败"
@@ -510,7 +510,7 @@ term_sd_install()
         esac
     elif [ ! -d "term-sd/.git" ];then
         term_sd_echo "检测到 Term-SD 的 .git 目录不存在, 将会导致 Term-SD 无法更新, 是否重新安装(yes/no)?"
-        term_sd_echo "警告: 该操作将永久删除 Term-SD 目录中的所有文件 (除了 cache 文件夹将备份到临时文件夹并在安装完成还原)"
+        term_sd_echo "警告: 该操作将永久删除 Term-SD 目录中的所有文件 (除了 Term-SD 缓存文件夹和配置文件将备份到临时文件夹并在安装完成还原)"
         term_sd_echo "提示: 输入 yes 或 no 后回车"
         case $(term_sd_read) in
             yes|y|YES|Y)
@@ -545,7 +545,7 @@ term_sd_reinstall()
 {
     if which git &> /dev/null ;then
         term_sd_echo "是否重新安装 Term-SD (yes/no)?"
-        term_sd_echo "警告: 该操作将永久删除 Term-SD 目录中的所有文件 (除了 cache 文件夹将备份到临时文件夹并在安装完成还原)"
+        term_sd_echo "警告: 该操作将永久删除 Term-SD 目录中的所有文件 (除了 Term-SD 缓存文件夹和配置文件将备份到临时文件夹并在安装完成还原)"
         term_sd_echo "提示: 输入 yes 或 no 后回车"
         case $(term_sd_read) in
             yes|y|YES|Y)
@@ -799,6 +799,7 @@ prepare_tcmalloc()
                 if [[ -z "${LD_PRELOAD}" ]]; then
                     term_sd_echo "无法定位 TCMalloc。未在系统上找到 tcmalloc 或 google-perftool"
                     term_sd_echo "取消加载内存优化"
+                    term_sd_echo "提示: 可根据 Term-SD 帮助文档安装 google-perftool"
                     term_sd_sleep 3
                 fi
             fi
