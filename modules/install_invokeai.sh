@@ -149,3 +149,41 @@ invokeai_download_model_select()
         $(cat "$start_path/term-sd/install/invokeai/$invokeai_model_list_file") \
         3>&1 1>&2 2>&3)
 }
+
+# 安装pypatchmatch(仅限windows)
+install_pypatchmatch_for_windows()
+{
+    local pypatchmatch_path=$(term_sd_python -c "$(py_get_pypatchmatch_path)")
+    if is_windows_platform ;then
+        if [ ! $pypatchmatch_path = "None" ];then
+            term_sd_echo "下载 PyPatchMatch 中"
+            if [ $use_modelscope_model = 0 ];then
+                get_modelscope_model licyks/invokeai-core-model/master/pypatchmatch/libpatchmatch_windows_amd64.dll "$pypatchmatch_path" libpatchmatch_windows_amd64.dll
+                get_modelscope_model licyks/invokeai-core-model/master/pypatchmatch/opencv_world460.dll "$pypatchmatch_path" opencv_world460.dll
+            else
+                aria2_download https://huggingface.co/licyk/invokeai-core-model/resolve/main/pypatchmatch/libpatchmatch_windows_amd64.dll "$pypatchmatch_path" libpatchmatch_windows_amd64.dll
+                aria2_download https://huggingface.co/licyk/invokeai-core-model/resolve/main/pypatchmatch/opencv_world460.dll "$pypatchmatch_path" opencv_world460.dll
+            fi
+        fi
+    fi
+}
+
+# 获取patchmatch路径
+py_get_pypatchmatch_path()
+{
+    cat<<EOF
+import importlib.metadata
+import pathlib
+
+package = "pypatchmatch"
+
+try:
+    # dist = importlib.metadata.files("ll")
+    util = [p for p in importlib.metadata.files(package) if '__init__.py' in str(p)][0]
+    path = pathlib.Path(util.locate()).parents[0]
+    print(path.as_posix())
+except importlib.metadata.PackageNotFoundError:
+    print("None")
+
+EOF
+}

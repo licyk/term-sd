@@ -135,6 +135,31 @@ aria2_download()
     fi
 }
 
+# 系统判断
+is_windows_platform()
+{
+    local sys_platform=$(term_sd_python -c "$(py_is_windows_platform)")
+
+    if [ $sys_platform = "win32" ];then
+        return 0
+    else
+        return 1
+    fi
+}
+
+# 系统判断.py
+py_is_windows_platform()
+{
+    cat<<EOF
+import sys
+
+if sys.platform == "win32":
+    print("win32")
+else:
+    print("other")
+EOF
+}
+
 # 显示版本信息
 term_sd_version()
 {

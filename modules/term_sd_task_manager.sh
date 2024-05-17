@@ -133,6 +133,7 @@ term_sd_task_cmd_revise()
 # 设置安装时使用的环境变量
 term_sd_set_install_env_value()
 {
+    echo "__term_sd_task_sys use_pip_mirror=$use_pip_mirror"
     echo "__term_sd_task_sys pip_index_mirror=\"$pip_index_mirror\""
     echo "__term_sd_task_sys pip_extra_index_mirror=\"$pip_extra_index_mirror\""
     echo "__term_sd_task_sys pip_find_mirror=\"$pip_find_mirror\""
@@ -141,7 +142,7 @@ term_sd_set_install_env_value()
     echo "__term_sd_task_sys pytorch_install_version=\"$pytorch_install_version\""
     echo "__term_sd_task_sys pip_install_mode=\"$pip_install_mode\""
     echo "__term_sd_task_sys term_sd_only_proxy=$term_sd_only_proxy"
-    echo "__term_sd_task_sys use_pip_mirror=$use_pip_mirror"
+    echo "__term_sd_task_sys use_modelscope_model=$use_modelscope_model"
 }
 
 # 为安装命令列表添加空行
