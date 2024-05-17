@@ -5,6 +5,7 @@ invokeai_manager()
 {
     local invokeai_manager_dialog
     export term_sd_manager_info="InvokeAI"
+    export INVOKEAI_ROOT="$invokeai_path/invokeai"
     cd "$start_path" # 回到最初路径
     exit_venv # 确保进行下一步操作前已退出其他虚拟环境
     if [ -d "$invokeai_path" ];then # 找到invokeai文件夹
