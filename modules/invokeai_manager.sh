@@ -196,6 +196,8 @@ invokeai_manager()
                     rm -f "$start_path/term-sd/task/invokeai_install.sh"
                     install_invokeai
                     break
+                else
+                    break
                 fi
             fi
         done
