@@ -179,7 +179,7 @@ fooocus_preset_file()
             1.0
         ]
     ],
-    "default_cfg_scale": 7.0,
+    "default_cfg_scale": 5.0,
     "default_sample_sharpness": 2.0,
     "default_sampler": "dpmpp_2m_sde_gpu",
     "default_scheduler": "karras",
