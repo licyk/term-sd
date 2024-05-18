@@ -57,47 +57,44 @@ install_pytorch()
             term_sd_echo "将要安装的 PyTorch 版本组合:"
             term_sd_echo "PyTorch: PyTorch IPEX $torch_ipex_ver $ipex_type"
             term_sd_echo "开始安装 PyTorch"
-            case $OS in
-                Windows_NT)
-                    # Windows平台
-                    # IPEX(Windows): https://arc.nuullll.com/resource/
+            if is_windows_platform ;then
+                # Windows平台
+                # IPEX(Windows): https://arc.nuullll.com/resource/
+                case $torch_ipex_ver in
+                    2.0.0)
+                        term_sd_try term_sd_pip install torch==2.0.0a0+gite9ebda2 torchvision==0.15.2a0+fa99a53 intel_extension_for_pytorch==2.0.110+gitc6ea20b $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $ipex_win_url $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
+                        ;;
+                    2.1.0)
+                        if [ $ipex_type = "Core_Ultra" ] ;then # 核显
+                            term_sd_try term_sd_pip install torch==2.1.0a0+git7bcf7da torchvision==0.16.0+fbb4cc5 torchaudio==2.1.0+6ea1133 intel_extension_for_pytorch==2.1.20+git4849f3b $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $ipex_win_url $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
+                        else # 独显
+                            term_sd_try term_sd_pip install torch==2.1.0a0+cxx11.abi torchvision==0.16.0a0+cxx11.abi torchaudio==2.1.0a0+cxx11.abi intel_extension_for_pytorch==2.1.10+xpu $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $ipex_win_url $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
+                        fi
+                        ;;
+                esac
+            else
+                # 其他平台
+                # IPEX: https://intel.github.io/intel-extension-for-pytorch/#installation
+                if [ $use_pip_mirror = 0 ];then # 国内镜像
                     case $torch_ipex_ver in
                         2.0.0)
-                            term_sd_try term_sd_pip install torch==2.0.0a0+gite9ebda2 torchvision==0.15.2a0+fa99a53 intel_extension_for_pytorch==2.0.110+gitc6ea20b $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $ipex_win_url $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
+                            term_sd_try term_sd_pip install torch==2.0.1a0 torchvision==0.15.2a0 intel-extension-for-pytorch==2.0.120+xpu $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $ipex_url_cn $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
                             ;;
                         2.1.0)
-                            if [ $ipex_type = "Core_Ultra" ] ;then # 核显
-                                term_sd_try term_sd_pip install torch==2.1.0a0+git7bcf7da torchvision==0.16.0+fbb4cc5 torchaudio==2.1.0+6ea1133 intel_extension_for_pytorch==2.1.20+git4849f3b $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $ipex_win_url $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
-                            else # 独显
-                                term_sd_try term_sd_pip install torch==2.1.0a0+cxx11.abi torchvision==0.16.0a0+cxx11.abi torchaudio==2.1.0a0+cxx11.abi intel_extension_for_pytorch==2.1.10+xpu $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $ipex_win_url $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
-                            fi
+                            term_sd_try term_sd_pip install torch==2.1.0.post0 torchvision==0.16.0.post0 torchaudio==2.1.0.post0 intel-extension-for-pytorch==2.1.20 $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $ipex_url_cn $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
                             ;;
                     esac
-                    ;;
-                *)
-                    # 其他平台
-                    # IPEX: https://intel.github.io/intel-extension-for-pytorch/#installation
-                    if [ $use_pip_mirror = 0 ];then # 国内镜像
-                        case $torch_ipex_ver in
-                            2.0.0)
-                                term_sd_try term_sd_pip install torch==2.0.1a0 torchvision==0.15.2a0 intel-extension-for-pytorch==2.0.120+xpu $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $ipex_url_cn $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
-                                ;;
-                            2.1.0)
-                                term_sd_try term_sd_pip install torch==2.1.0.post0 torchvision==0.16.0.post0 torchaudio==2.1.0.post0 intel-extension-for-pytorch==2.1.20 $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $ipex_url_cn $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
-                                ;;
-                        esac
-                    else
-                        case $torch_ipex_ver in
-                            2.0.0)
-                                term_sd_try term_sd_pip install torch==2.0.1a0 torchvision==0.15.2a0 intel-extension-for-pytorch==2.0.120+xpu $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $ipex_url_us $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
-                                ;;
-                            2.1.0)
-                                term_sd_try term_sd_pip install torch==2.1.0.post0 torchvision==0.16.0.post0 torchaudio==2.1.0.post0 intel-extension-for-pytorch==2.1.20 $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $ipex_url_us $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
-                                ;;
-                        esac
-                    fi
-                ;;
-            esac
+                else
+                    case $torch_ipex_ver in
+                        2.0.0)
+                            term_sd_try term_sd_pip install torch==2.0.1a0 torchvision==0.15.2a0 intel-extension-for-pytorch==2.0.120+xpu $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $ipex_url_us $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
+                            ;;
+                        2.1.0)
+                            term_sd_try term_sd_pip install torch==2.1.0.post0 torchvision==0.16.0.post0 torchaudio==2.1.0.post0 intel-extension-for-pytorch==2.1.20 $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $ipex_url_us $pip_break_system_package $pip_install_mode $pip_force_reinstall_mode --prefer-binary
+                            ;;
+                    esac
+                fi
+            fi
             if [ $? = 0 ];then
                 term_sd_echo "PyTorch 安装成功"
             else

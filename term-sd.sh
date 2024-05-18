@@ -252,14 +252,11 @@ term_sd_sleep()
 # 路径格式转换(将windows格式的文件路径转换成linux/unix格式的路径)
 term_sd_win2unix_path()
 {
-    case $OS in
-        Windows_NT)
-            echo "$(cd "$(dirname "$@" 2> /dev/null)" ; pwd)/$(basename "$@" 2> /dev/null)"
-            ;;
-        *)
-            echo "$@"
-            ;;
-    esac
+    if is_windows_platform ;then
+        echo "$(cd "$(dirname "$@" 2> /dev/null)" ; pwd)/$(basename "$@" 2> /dev/null)"
+    else
+        echo "$@"
+    fi
 }
 
 # 检测目录是否为空,为空是返回0,不为空返回1
@@ -270,6 +267,44 @@ term_sd_test_empty_dir()
     else
         echo 1
     fi
+}
+
+# 系统判断
+is_windows_platform()
+{
+    local sys_platform
+
+    if term_sd_python --version &> /dev/null ;then
+        sys_platform=$(term_sd_python -c "$(py_is_windows_platform)")
+    else
+        case $OS in
+            Windows_NT)
+                sys_platform="win32"
+                ;;
+            *)
+                sys_platform="other"
+                ;;
+        esac
+    fi
+
+    if [ $sys_platform = "win32" ];then
+        return 0
+    else
+        return 1
+    fi
+}
+
+# 系统判断.py
+py_is_windows_platform()
+{
+    cat<<EOF
+import sys
+
+if sys.platform == "win32":
+    print("win32")
+else:
+    print("other")
+EOF
 }
 
 # 加载进度条设置

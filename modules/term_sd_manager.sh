@@ -135,31 +135,6 @@ aria2_download()
     fi
 }
 
-# 系统判断
-is_windows_platform()
-{
-    local sys_platform=$(term_sd_python -c "$(py_is_windows_platform)")
-
-    if [ $sys_platform = "win32" ];then
-        return 0
-    else
-        return 1
-    fi
-}
-
-# 系统判断.py
-py_is_windows_platform()
-{
-    cat<<EOF
-import sys
-
-if sys.platform == "win32":
-    print("win32")
-else:
-    print("other")
-EOF
-}
-
 # 显示版本信息
 term_sd_version()
 {
@@ -169,7 +144,7 @@ term_sd_version()
         --backtitle "Term-SD开始界面" \
         --ok-label "确认" \
         --msgbox "版本信息:\n\n
-系统: $([ ! -z $OS ] && [ $OS = "Windows_NT" ] && echo Windows || uname -o)\n
+系统: $(is_windows_platform && echo Windows || uname -o)\n
 Term-SD: $term_sd_version_info - $(git -C term-sd show -s --format="%cd" --date=format:"%Y-%m-%d %H:%M:%S")\n
 Python: $(term_sd_python --version | awk 'NR==1{print$2}')\n
 Pip: $(term_sd_pip --version | awk 'NR==1{print$2}')\n

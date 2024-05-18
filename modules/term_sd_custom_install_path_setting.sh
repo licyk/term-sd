@@ -110,7 +110,7 @@ sd_webui_custom_install_path_setting()
                             --title "Term-SD" \
                             --backtitle "Stable-Diffusion-WebUI 安装路径设置界面" \
                             --ok-label "确认" \
-                            --msgbox "Stable-Diffusion-WebUI 安装路径设置成功\n安装路径: $custom_install_path\n$([ ! $(echo $custom_install_path | awk '{print substr($0,1,1)}') = "/" ] && [ ! "$OS" = "Windows_NT" ] && echo "检测到安装路径不是绝对路径, 可能会导致一些问题")" \
+                            --msgbox "Stable-Diffusion-WebUI 安装路径设置成功\n安装路径: $custom_install_path\n$([ ! $(echo $custom_install_path | awk '{print substr($0,1,1)}') = "/" ] && ! is_windows_platform && echo "检测到安装路径不是绝对路径, 可能会导致一些问题")" \
                             $term_sd_dialog_height $term_sd_dialog_width
                     fi
                 fi
@@ -207,7 +207,7 @@ comfyui_custom_install_path_setting()
                             --title "Term-SD" \
                             --backtitle "ComfyUI 安装路径设置界面" \
                             --ok-label "确认" \
-                            --msgbox "ComfyUI 安装路径设置成功\n安装路径: $custom_install_path\n$([ ! $(echo $custom_install_path | awk '{print substr($0,1,1)}') = "/" ] && [ ! "$OS" = "Windows_NT" ] && echo "检测到安装路径不是绝对路径, 可能会导致一些问题")" \
+                            --msgbox "ComfyUI 安装路径设置成功\n安装路径: $custom_install_path\n$([ ! $(echo $custom_install_path | awk '{print substr($0,1,1)}') = "/" ] && ! is_windows_platform && echo "检测到安装路径不是绝对路径, 可能会导致一些问题")" \
                             $term_sd_dialog_height $term_sd_dialog_width
                     fi
                 fi
@@ -302,7 +302,7 @@ invokeai_custom_install_path_setting()
                             --title "Term-SD" \
                             --backtitle "InvokeAI 安装路径设置界面" \
                             --ok-label "确认" \
-                            --msgbox "InvokeAI 安装路径设置成功\n安装路径: $custom_install_path\n$([ ! $(echo $custom_install_path | awk '{print substr($0,1,1)}') = "/" ] && [ ! "$OS" = "Windows_NT" ] && echo "检测到安装路径不是绝对路径,可能会导致一些问题")" \
+                            --msgbox "InvokeAI 安装路径设置成功\n安装路径: $custom_install_path\n$([ ! $(echo $custom_install_path | awk '{print substr($0,1,1)}') = "/" ] && ! is_windows_platform && echo "检测到安装路径不是绝对路径,可能会导致一些问题")" \
                             $term_sd_dialog_height $term_sd_dialog_width
                     fi
                 fi
@@ -397,7 +397,7 @@ fooocus_custom_install_path_setting()
                             --title "Term-SD" \
                             --backtitle "Fooocus 安装路径设置界面" \
                             --ok-label "确认" \
-                            --msgbox "Fooocus 安装路径设置成功\n安装路径: $custom_install_path\n$([ ! $(echo $custom_install_path | awk '{print substr($0,1,1)}') = "/" ] && [ ! "$OS" = "Windows_NT" ] && echo "检测到安装路径不是绝对路径,可能会导致一些问题")" \
+                            --msgbox "Fooocus 安装路径设置成功\n安装路径: $custom_install_path\n$([ ! $(echo $custom_install_path | awk '{print substr($0,1,1)}') = "/" ] && ! is_windows_platform && echo "检测到安装路径不是绝对路径,可能会导致一些问题")" \
                             $term_sd_dialog_height $term_sd_dialog_width
                     fi
                 fi
@@ -491,7 +491,7 @@ lora_scripts_custom_install_path_setting()
                             --title "Term-SD" \
                             --backtitle "lora-scripts 安装路径设置界面" \
                             --ok-label "确认" \
-                            --msgbox "lora-scripts 安装路径设置成功\n安装路径: $custom_install_path\n$([ ! $(echo $custom_install_path | awk '{print substr($0,1,1)}') = "/" ] && [ ! "$OS" = "Windows_NT" ] && echo "检测到安装路径不是绝对路径,可能会导致一些问题")" \
+                            --msgbox "lora-scripts 安装路径设置成功\n安装路径: $custom_install_path\n$([ ! $(echo $custom_install_path | awk '{print substr($0,1,1)}') = "/" ] && ! is_windows_platform && echo "检测到安装路径不是绝对路径,可能会导致一些问题")" \
                             $term_sd_dialog_height $term_sd_dialog_width
                     fi
                 fi
@@ -586,7 +586,7 @@ kohya_ss_custom_install_path_setting()
                             --title "Term-SD" \
                             --backtitle "kohya_ss 安装路径设置界面" \
                             --ok-label "确认" \
-                            --msgbox "kohya_ss 安装路径设置成功\n安装路径: $custom_install_path\n$([ ! $(echo $custom_install_path | awk '{print substr($0,1,1)}') = "/" ] && [ ! "$OS" = "Windows_NT" ] && echo "检测到安装路径不是绝对路径,可能会导致一些问题")" \
+                            --msgbox "kohya_ss 安装路径设置成功\n安装路径: $custom_install_path\n$([ ! $(echo $custom_install_path | awk '{print substr($0,1,1)}') = "/" ] && ! is_windows_platform && echo "检测到安装路径不是绝对路径,可能会导致一些问题")" \
                             $term_sd_dialog_height $term_sd_dialog_width
                     fi
                 fi

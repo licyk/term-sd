@@ -78,7 +78,7 @@ download_hanamizuki()
 
 #############################
 
-if [ $OS = "Windows_NT" ];then
+if is_windows_platform ;then
     if  [ -d "$sd_webui_path" ] || \
         [ -d "$comfyui_path" ] || \
         [ -d "$fooocus_path" ];then
