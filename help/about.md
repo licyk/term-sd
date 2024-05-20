@@ -45,6 +45,8 @@ Term-SD 的编写参考了 https://gitee.com/skymysky/linux（制作 Term-SD 早
       https://hazn93ygkcs.feishu.cn/wiki/JRydwXpCti1bxJkN6zNc4a8qnAe
   - Stable Diffusion 潜工具书
       https://docs.qq.com/doc/p/230e7ada2a60d8e347d639edd5521f5e62332fe9
+  - SD Note - 基础 AI 绘画知识与报错解答
+      https://sdnote.netlify.app
   - Stable Diffusion WebUI使用手册
       https://ivonblog.com/posts/stable-diffusion-webui-manuals/zh-cn
   - SD常见报错合集

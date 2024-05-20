@@ -40,7 +40,8 @@ Term-SD 支持在 Linux，Windows，MacOS 上运行，在使用 Term-SD 前先�
 >Python 的版本建议使用 3.9 ~ 3.11，推荐使用 3.10。这里推荐一些 Python 版本管理器。  
 >1. [miniconda](https://docs.anaconda.com/free/miniconda/index.html)
 >2. [micromamba](https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html)
->3. [pyenv](https://github.com/pyenv/pyenv)（Windows 系统上使用 [pyenv-win](https://github.com/pyenv-win/pyenv-win)）  
+>3. [pyenv](https://github.com/pyenv/pyenv)（Windows 系统上使用 [pyenv-win](https://github.com/pyenv-win/pyenv-win)）
+>
 >在 Linux 上安装指定版本的 Python 并不方便，所以可以用上面的方法安装 Python，并在启动 Term-SD 时加上`--set-python-path`启动参数来指定 Python 的路径。
 
 ***
