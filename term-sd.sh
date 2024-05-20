@@ -105,7 +105,7 @@ term_sd_args_help()
         --quick-cmd
             添加 Term-SD 快捷启动命令到 Shell
         --set-python-path python_path
-            手动指定 Python 解释器路径, 当选项后面输入了路径, 则直接使用输入的路径来设 置Python 解释器路径 (建议用" "把路径括起来, 防止路径输入错误), 否则启动设置界面
+            手动指定 Python 解释器路径, 当选项后面输入了路径, 则直接使用输入的路径来设置Python 解释器路径 (建议用" "把路径括起来, 防止路径输入错误), 否则启动设置界面
         --unset-python-path
             删除自定义 Python 解释器路径配置
         --update-pip
