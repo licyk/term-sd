@@ -849,7 +849,7 @@ export user_shell=$(basename $SHELL) # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题
 export PYTHONIOENCODING=utf8
-export PIP_TIMEOUT=120 # 设置pip的超时时间
+export PIP_TIMEOUT=30 # 设置pip的超时时间
 export PIP_RETRIES=5 # 设置pip的重试次数
 export PIP_DISABLE_PIP_VERSION_CHECK # 禁用pip版本版本检查
 export pip_manager_update # Term-SD自动更新pip
