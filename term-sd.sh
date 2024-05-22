@@ -40,10 +40,18 @@ term_sd_launch_args_manager()
                 term_sd_print_line
                 term_sd_args_help
                 term_sd_print_line
-                exit 1
+                exit 0
                 ;;
             --reinstall-term-sd)
-                term_sd_reinstall
+                # 防止重启后再执行重装
+                case $term_sd_reinstall_info in
+                    0)
+                        ;;
+                    *)
+                        term_sd_reinstall_info=0
+                        term_sd_reinstall
+                        ;;
+                esac
                 ;;
             --set-python-path)
                 term_sd_launch_args_input="--set-python-path"
@@ -65,7 +73,7 @@ term_sd_launch_args_manager()
                 ;;
             --quick-cmd)
                 install_cmd_to_shell
-                exit 1
+                exit 0
                 ;;
             --extra)
                 term_sd_launch_args_input="--extra"
@@ -477,45 +485,6 @@ term_sd_auto_update()
     fi
 }
 
-# term-sd下载源选择
-term_sd_install_mirror_select()
-{
-    while true
-    do
-        term_sd_echo "请选择 Term-SD 下载源"
-        term_sd_echo "1、Github 源"
-        term_sd_echo "2、Gitlab 源"
-        term_sd_echo "3、Gitee 源"
-        term_sd_echo "4、Bitbucket 源"
-        term_sd_echo "提示: 输入数字后回车"
-        case $(term_sd_read) in
-            1)
-                term_sd_echo "选择 Github 源"
-                term_sd_install_mirror="https://github.com/licyk/term-sd"
-                break
-                ;;
-            2)
-                term_sd_echo "选择 Gitlab 源"
-                term_sd_install_mirror="https://gitlab.com/licyk/term-sd"
-                break
-                ;;
-            3)
-                term_sd_echo "选择 Gitee 源"
-                term_sd_install_mirror="https://gitee.com/four-dishes/term-sd"
-                break
-                ;;
-            4)
-                term_sd_echo "选择 Bitbucket 源"
-                term_sd_install_mirror="https://licyk@bitbucket.org/licyks/term-sd"
-                break
-                ;;
-            *)
-                term_sd_echo "输入有误, 请重试"
-                ;;
-        esac
-    done
-}
-
 # term-sd安装功能
 term_sd_install()
 {
@@ -524,9 +493,7 @@ term_sd_install()
         term_sd_echo "提示: 输入 yes 或 no 后回车"
         case $(term_sd_read) in
             yes|y|YES|Y)
-                term_sd_install_mirror_select
-                term_sd_echo "下载 Term-SD 中"
-                git clone $term_sd_install_mirror
+                term_sd_clone_modules
                 if [ $? = 0 ];then
                     term_sd_set_up_normal_setting
                     term_sd_restart_info=0
@@ -549,12 +516,11 @@ term_sd_install()
         term_sd_echo "提示: 输入 yes 或 no 后回车"
         case $(term_sd_read) in
             yes|y|YES|Y)
-                term_sd_install_mirror_select
                 term_sd_backup_config
                 term_sd_echo "清除 Term-SD 文件中"
                 rm -rf term-sd
-                term_sd_echo "清除完成, 开始安装 Term-SD"
-                git clone $term_sd_install_mirror
+                term_sd_echo "Term-SD 文件清除完成"
+                term_sd_clone_modules
                 if [ $? = 0 ];then
                     term_sd_restore_config
                     term_sd_set_up_normal_setting
@@ -584,12 +550,11 @@ term_sd_reinstall()
         term_sd_echo "提示: 输入 yes 或 no 后回车"
         case $(term_sd_read) in
             yes|y|YES|Y)
-                term_sd_install_mirror_select
                 term_sd_backup_config
                 term_sd_echo "清除 Term-SD 文件中"
                 rm -rf term-sd
-                term_sd_echo "清除完成, 开始安装 Term-SD"
-                git clone $term_sd_install_mirror
+                term_sd_echo "Term-SD 文件清除完成"
+                term_sd_clone_modules
                 if [ $? = 0 ];then
                     term_sd_restore_config
                     term_sd_set_up_normal_setting
@@ -607,7 +572,35 @@ term_sd_reinstall()
                 exit 0
                 ;;
         esac
+    else
+        term_sd_echo "缺少 Git, 无法重新安装 Term-SD"
     fi
+}
+
+# 下载term-sd
+term_sd_clone_modules()
+{
+    local i
+    local count=0
+    local repo_urls="https://github.com/licyk/term-sd https://gitlab.com/licyk/term-sd https://licyk@bitbucket.org/licyks/term-sd https://gitee.com/licyk/term-sd"
+
+    term_sd_echo "下载 Term-SD 中"
+    for i in $repo_urls
+    do
+        count=$((count + 1))
+        git clone $i
+        if [ $? = 0 ];then
+            term_sd_echo "Term-SD 下载成功"
+            return 0
+        else
+            term_sd_echo "Term-SD 下载失败"
+            if [ $count -lt $(echo $repo_urls | wc --words) ];then
+                term_sd_echo "更换 Term-SD 下载源进行下载中"
+            else
+                return 1
+            fi
+        fi
+    done
 }
 
 # 备份cache文件夹
@@ -844,7 +837,7 @@ prepare_tcmalloc()
 
 #############################
 
-export term_sd_version_info="1.3.10" # term-sd版本
+export term_sd_version_info="1.3.11" # term-sd版本
 export user_shell=$(basename $SHELL) # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题
@@ -858,7 +851,7 @@ export term_sd_delimiter
 export SAFETENSORS_FAST_GPU=1 # 强制所有模型使用 GPU 加载
 missing_depend_info=0 # 依赖缺失状态
 missing_depend_macos_info=0
-term_sd_restart_info=1 # term-sd重启
+term_sd_restart_info=1 # term-sd重启状态
 term_sd_shell_width=$(stty size | awk '{print $2}') # 获取终端宽度
 term_sd_shell_height=$(stty size | awk '{print $1}') # 获取终端高度
 
@@ -1241,7 +1234,7 @@ case $term_sd_extra_scripts_name in
         ;;
 esac
 
-# 启动terrm-sd
+# 启动term-sd
 term_sd_echo "启动 Term-SD 中"
 term_sd_version
 main

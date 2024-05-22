@@ -42,7 +42,7 @@ Term-SD 支持在 Linux，Windows，MacOS 上运行，在使用 Term-SD 前先�
 >2. [micromamba](https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html)
 >3. [pyenv](https://github.com/pyenv/pyenv)（Windows 系统上使用 [pyenv-win](https://github.com/pyenv-win/pyenv-win)）
 >
->在 Linux 上安装指定版本的 Python 并不方便，所以可以用上面的方法安装 Python，并在启动 Term-SD 时加上`--set-python-path`启动参数来指定 Python 的路径。
+>在 Linux 上安装指定版本的 Python 并不方便，所以可以用上面的 Python 版本管理器安装 Python，并在启动 Term-SD 时加上`--set-python-path`启动参数来指定 Python 的路径。
 
 ***
 
@@ -238,7 +238,7 @@ aria2c https://gitlab.com/licyk/term-sd/-/raw/main/term-sd.sh && chmod +x term-s
 ./term-sd.sh
 ```
 
-启动后按照提示安装 Term-SD 组件后即可正常使用，如果下载失败就更换其他下载源  
+启动后按照提示安装 Term-SD 组件后即可正常使用  
 每次启动一定要在 Term-SD 所在目录才能启动，除非使用`term_sd`命令或者`tsd`命令启动  
 而这些快捷命令需要通过`--quick-cmd`启动参数进行安装  
 更多信息请阅读[帮助文档](#帮助文档)
