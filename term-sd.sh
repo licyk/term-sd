@@ -849,6 +849,12 @@ export pip_manager_update # Term-SD自动更新pip
 export term_sd_debug_mode # # debug模式
 export term_sd_delimiter
 export SAFETENSORS_FAST_GPU=1 # 强制所有模型使用 GPU 加载
+export term_sd_pip_index_url="https://mirrors.cloud.tencent.com/pypi/simple"
+export term_sd_pip_extra_index_url="https://mirror.baidu.com/pypi/simple"
+export term_sd_pip_find_links="https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
+export term_sd_pip_index_url_args=""
+export term_sd_pip_extra_index_url_args=""
+export term_sd_pip_find_links_args=""
 missing_depend_info=0 # 依赖缺失状态
 missing_depend_macos_info=0
 term_sd_restart_info=1 # term-sd重启状态
@@ -986,6 +992,25 @@ if [ -f "term-sd/config/cuda-memory-alloc.conf" ];then
     export PYTORCH_CUDA_ALLOC_CONF=$(cat term-sd/config/cuda-memory-alloc.conf)
 fi
 
+# pip镜像源
+for i in $term_sd_pip_index_url
+do
+    term_sd_pip_index_url_args="$term_sd_pip_index_url_args --index-url $i"
+done
+term_sd_pip_index_url_args=$(echo $term_sd_pip_index_url_args) # 去除多余空格
+
+for i in $term_sd_pip_extra_index_url
+do
+    term_sd_pip_extra_index_url_args="$term_sd_pip_extra_index_url_args --extra-index-url $i"
+done
+term_sd_pip_extra_index_url_args=$(echo $term_sd_pip_extra_index_url_args) # 去除多余空格
+
+for i in $term_sd_pip_find_links
+do
+    term_sd_pip_find_links_args="$term_sd_pip_find_links_args --find-links $i"
+done
+term_sd_pip_find_links_args=$(echo $term_sd_pip_find_links_args) # 去除多余空格
+
 # 设置pip镜像源
 if [ -f "term-sd/config/term-sd-pip-mirror.conf" ];then
     case $(cat term-sd/config/term-sd-pip-mirror.conf) in
@@ -995,14 +1020,14 @@ if [ -f "term-sd/config/term-sd-pip-mirror.conf" ];then
             export PIP_FIND_LINKS="https://download.pytorch.org/whl/torch_stable.html"
             ;;
         2)
-            export PIP_INDEX_URL="https://mirrors.cloud.tencent.com/pypi/simple"
-            export PIP_EXTRA_INDEX_URL="https://mirror.baidu.com/pypi/simple https://mirrors.bfsu.edu.cn/pypi/web/simple https://mirror.nju.edu.cn/pypi/web/simple"
-            export PIP_FIND_LINKS="https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
+            export PIP_INDEX_URL=$term_sd_pip_index_url
+            export PIP_EXTRA_INDEX_URL=$term_sd_pip_extra_index_url
+            export PIP_FIND_LINKS=$term_sd_pip_find_links
             ;;
         *)
-            export PIP_INDEX_URL="https://mirrors.cloud.tencent.com/pypi/simple"
-            export PIP_EXTRA_INDEX_URL="https://mirror.baidu.com/pypi/simple https://mirrors.bfsu.edu.cn/pypi/web/simple https://mirror.nju.edu.cn/pypi/web/simple"
-            export PIP_FIND_LINKS="https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
+            export PIP_INDEX_URL=$term_sd_pip_index_url
+            export PIP_EXTRA_INDEX_URL=$term_sd_pip_extra_index_url
+            export PIP_FIND_LINKS=$term_sd_pip_find_links
             ;;
     esac
 fi

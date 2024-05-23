@@ -118,7 +118,7 @@ term_sd_remote_revise()
                     $term_sd_dialog_height $term_sd_dialog_width
                 ;;
             3)
-                git -C term-sd remote set-url origin "https://gitee.com/four-dishes/term-sd"
+                git -C term-sd remote set-url origin "https://gitee.com/licyk/term-sd"
                 dialog --erase-on-exit \
                     --title "Term-SD" \
                     --backtitle "Term-SD 更新源切换选项" \

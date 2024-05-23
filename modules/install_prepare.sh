@@ -42,9 +42,9 @@ download_mirror_select()
         case $i in
             1)
                 use_pip_mirror=0
-                pip_index_mirror="--index-url https://mirrors.cloud.tencent.com/pypi/simple"
-                pip_extra_index_mirror="--extra-index-url https://mirror.baidu.com/pypi/simple --extra-index-url https://mirrors.bfsu.edu.cn/pypi/web/simple --extra-index-url https://mirror.nju.edu.cn/pypi/web/simple"
-                pip_find_mirror="--find-links https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html --find-links https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
+                pip_index_mirror=$term_sd_pip_index_url_args
+                pip_extra_index_mirror=$term_sd_pip_extra_index_url_args
+                pip_find_mirror=$term_sd_pip_find_links_args
                 ;;
             2)
                 if [ ! -z "$PIP_INDEX_URL" ];then # 确保存在镜像源
@@ -76,9 +76,9 @@ download_mirror_select()
                 else
                     term_sd_echo "未设置任何镜像源，默认使用 Pip 国内镜像源"
                     use_pip_mirror=0
-                    pip_index_mirror="--index-url https://mirrors.cloud.tencent.com/pypi/simple"
-                    pip_extra_index_mirror="--extra-index-url https://mirror.baidu.com/pypi/simple --extra-index-url https://mirrors.bfsu.edu.cn/pypi/web/simple --extra-index-url https://mirror.nju.edu.cn/pypi/web/simple"
-                    pip_find_mirror="--find-links https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html --find-links https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
+                    pip_index_mirror=$term_sd_pip_index_url_args
+                    pip_extra_index_mirror=$term_sd_pip_extra_index_url_args
+                    pip_find_mirror=$term_sd_pip_find_links_args
                 fi
                 ;;
             3)

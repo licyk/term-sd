@@ -85,9 +85,9 @@ pip_mirrors_setting()
                 ;;
             2)
                 term_sd_echo "设置 Pip 镜像源为国内镜像源"
-                term_sd_pip config set global.index-url "https://mirrors.cloud.tencent.com/pypi/simple"
-                term_sd_pip config set global.extra-index-url "https://mirror.baidu.com/pypi/simple https://mirrors.bfsu.edu.cn/pypi/web/simple https://mirror.nju.edu.cn/pypi/web/simple"
-                term_sd_pip config set global.find-links "https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
+                term_sd_pip config set global.index-url "$term_sd_pip_index_url"
+                term_sd_pip config set global.extra-index-url "$term_sd_pip_extra_index_url"
+                term_sd_pip config set global.find-links "$term_sd_pip_find_links"
 
                 dialog --erase-on-exit \
                     --title "Term-SD" \
@@ -163,9 +163,9 @@ pip_mirrors_env_setting()
                     $term_sd_dialog_height $term_sd_dialog_width
                 ;;
             2)
-                PIP_INDEX_URL="https://mirrors.cloud.tencent.com/pypi/simple"
-                PIP_EXTRA_INDEX_URL="https://mirror.baidu.com/pypi/simple https://mirrors.bfsu.edu.cn/pypi/web/simple https://mirror.nju.edu.cn/pypi/web/simple"
-                PIP_FIND_LINKS="https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
+                PIP_INDEX_URL=$term_sd_pip_index_url
+                PIP_EXTRA_INDEX_URL=$term_sd_pip_extra_index_url
+                PIP_FIND_LINKS=$term_sd_pip_find_links
                 echo "2" > term-sd/config/term-sd-pip-mirror.conf
 
                 dialog --erase-on-exit \
