@@ -154,7 +154,7 @@ fooocus_preset_file()
 {
     cat<<EOF
 {
-    "default_model": "animagine-xl-3.0.safetensors",
+    "default_model": "animagine-xl-3.1.safetensors",
     "default_refiner": "None",
     "default_refiner_switch": 0.8,
     "default_loras": [
@@ -185,7 +185,7 @@ fooocus_preset_file()
     "default_scheduler": "exponential",
     "default_performance": "Speed",
     "default_prompt": "",
-    "default_prompt_negative": "lowres,bad anatomy,bad hands,text,error,missing fingers,extra digit,fewer digits,cropped,worst quality,low quality,normal quality,jpeg artifacts,signature,watermark,username,high contrast,",
+    "default_prompt_negative": "worst quality,low quality,lowres,bad hands,bad anatomy,",
     "default_styles": [
     ],
     "default_image_number": 1,

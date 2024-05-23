@@ -1,11 +1,11 @@
 __term_sd_task_pre_model_1 # =====SDXL大模型===== OFF
 __term_sd_task_pre_model_2 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/sd_xl_base_1.0_0.9vae.safetensors "$fooocus_path"/models/checkpoints # sd_xl_base_1.0_0.9vae OFF
 __term_sd_task_pre_model_3 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/sd_xl_refiner_1.0_0.9vae.safetensors "$fooocus_path"/models/checkpoints # sd_xl_refiner_1.0_0.9vae OFF
-__term_sd_task_pre_model_4 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/animagine-xl-3.0.safetensors "$fooocus_path"/models/checkpoints # animagine-xl-3.0 ON
+__term_sd_task_pre_model_4 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/animagine-xl-3.0.safetensors "$fooocus_path"/models/checkpoints # animagine-xl-3.0 OFF
 __term_sd_task_pre_model_5 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/AnythingXL_xl.safetensors "$fooocus_path"/models/checkpoints # AnythingXL_xl OFF
 __term_sd_task_pre_model_6 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/abyssorangeXLElse_v10.safetensors "$fooocus_path"/models/checkpoints # abyssorangeXLElse_v10 OFF
 __term_sd_task_pre_model_7 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/animaPencilXL_v200.safetensors "$fooocus_path"/models/checkpoints # animaPencilXL_v200 OFF
-__term_sd_task_pre_model_8 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/animagine-xl-3.1.safetensors "$fooocus_path"/models/checkpoints # animagine-xl-3.1 OFF
+__term_sd_task_pre_model_8 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/animagine-xl-3.1.safetensors "$fooocus_path"/models/checkpoints # animagine-xl-3.1 ON
 __term_sd_task_pre_model_9 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/heartOfAppleXL_v20.safetensors "$fooocus_path"/models/checkpoints # heartOfAppleXL_v20 OFF
 __term_sd_task_pre_model_10 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/baxlBartstylexlBlueArchiveFlatCelluloid_xlv1.safetensors "$fooocus_path"/models/checkpoints # baxlBartstylexlBlueArchiveFlatCelluloid_xlv1 OFF
 __term_sd_task_pre_model_11 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/kohaku-xl-delta-rev1.safetensors "$fooocus_path"/models/checkpoints # kohaku-xl-delta-rev1 OFF
