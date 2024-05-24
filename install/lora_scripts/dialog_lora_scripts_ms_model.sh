@@ -12,8 +12,9 @@ __term_sd_task_pre_model_11 animagine-xl-3.1 OFF
 __term_sd_task_pre_model_12 kohaku-xl-delta-rev1 OFF
 __term_sd_task_pre_model_13 kohakuXLEpsilon_rev1 OFF
 __term_sd_task_pre_model_14 ponyDiffusionV6XL_v6 OFF
-__term_sd_task_pre_model_15 =====VAE模型===== OFF
-__term_sd_task_pre_model_16 vae-ft-ema-560000-ema-pruned OFF
-__term_sd_task_pre_model_17 vae-ft-mse-840000-ema-pruned OFF
-__term_sd_task_pre_model_18 sdxl_fp16_fix_vae OFF
-__term_sd_task_pre_model_19 sdxl_vae OFF
+__term_sd_task_pre_model_15 kohaku-xl-epsilon-rev2 OFF
+__term_sd_task_pre_model_16 =====VAE模型===== OFF
+__term_sd_task_pre_model_17 vae-ft-ema-560000-ema-pruned OFF
+__term_sd_task_pre_model_18 vae-ft-mse-840000-ema-pruned OFF
+__term_sd_task_pre_model_19 sdxl_fp16_fix_vae OFF
+__term_sd_task_pre_model_20 sdxl_vae OFF

@@ -20,6 +20,7 @@ Term-SD 的编写参考了 https://gitee.com/skymysky/linux（制作 Term-SD 早
     https://www.liblib.ai
     https://www.esheep.com
     https://tusiart.com
+    https://tensor.art
 - Controlnet 模型下载
     https://modelscope.cn/models/licyks/controlnet_v1.1
     https://huggingface.co/lllyasviel/Annotators

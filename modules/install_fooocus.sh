@@ -185,7 +185,7 @@ fooocus_preset_file()
     "default_scheduler": "exponential",
     "default_performance": "Speed",
     "default_prompt": "",
-    "default_prompt_negative": "worst quality,low quality,lowres,bad hands,bad anatomy,",
+    "default_prompt_negative": "low quality,worst quality,normal quality,text,signature,jpeg artifacts,bad anatomy,old,early,copyright name,watermark,artist name,signature,",
     "default_styles": [
     ],
     "default_image_number": 1,
