@@ -30,12 +30,12 @@ download_mirror_select()
         "4" "使用 ModelScope 模型下载源 (将 HuggingFace下载源改为 ModelScope 下载源)" ON \
         "5" "Huggingface / Github 下载源独占代理 (仅在下载 Huggingface / Github 上的文件时启用代理)" ON \
         "6" "Github 镜像源自动选择 (测试可用的镜像源并选择自动选择)" $([ ! -z $1 ] && [ $1 = "auto_github_mirrror" ] && echo "ON" || echo "OFF") \
-        "7" "启用 Github 镜像源1 (使用 ghproxy 镜像站下载 Github 上的源码)" OFF \
-        "8" "启用 Github 镜像源2 (使用 gitclone 镜像站下载 Github 上的源码)" OFF  \
-        "9" "启用 Github 镜像源3 (使用 gh-proxy 镜像站下载 Github 上的源码)" OFF \
-        "10" "启用 Github 镜像源4 (使用 ghps 镜像站下载 Github 上的源码)" OFF \
-        "11" "启用 Github 镜像源5 (使用 gh.idayer 镜像站下载 Github 上的源码)" OFF \
-        "12" "启用 Github 镜像源6 (使用 ghproxy.net 镜像站下载 Github 上的源码)" $([ ! -z $1 ] && [ $1 = "auto_github_mirrror" ] && echo "OFF" || echo "ON") \
+        "7" "启用 Github 镜像源1 (使用 mirror.ghproxy.com 镜像站下载 Github 上的源码)" $([ ! -z $1 ] && [ $1 = "auto_github_mirrror" ] && echo "OFF" || echo "ON") \
+        "8" "启用 Github 镜像源2 (使用 gitclone.com 镜像站下载 Github 上的源码)" OFF  \
+        "9" "启用 Github 镜像源3 (使用 gh-proxy.com 镜像站下载 Github 上的源码)" OFF \
+        "10" "启用 Github 镜像源4 (使用 ghps.cc 镜像站下载 Github 上的源码)" OFF \
+        "11" "启用 Github 镜像源5 (使用 gh.idayer.com 镜像站下载 Github 上的源码)" OFF \
+        "12" "启用 Github 镜像源6 (使用 ghproxy.net 镜像站下载 Github 上的源码)" OFF \
         3>&1 1>&2 2>&3)
 
     for i in $download_mirror_select_dialog; do
@@ -342,7 +342,7 @@ Pip 安装方式: $([ -z $pip_install_mode ] && echo "常规安装 (setup.py)" |
 github_mirror_test()
 {
     # 镜像源列表
-    local github_mirror_list="https://ghproxy.net/https://github.com/term_sd_git_user/term_sd_git_repo https://mirror.ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo https://gh-proxy.com/https://github.com/term_sd_git_user/term_sd_git_repo https://ghps.cc/https://github.com/term_sd_git_user/term_sd_git_repo https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo https://gitclone.com/github.com/term_sd_git_user/term_sd_git_repo"
+    local github_mirror_list="https://mirror.ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo https://ghproxy.net/https://github.com/term_sd_git_user/term_sd_git_repo https://gh-proxy.com/https://github.com/term_sd_git_user/term_sd_git_repo https://ghps.cc/https://github.com/term_sd_git_user/term_sd_git_repo https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo https://gitclone.com/github.com/term_sd_git_user/term_sd_git_repo"
     local git_req
     local i
     local http_proxy
@@ -359,5 +359,5 @@ github_mirror_test()
             return
         fi
     done
-    echo https://github.com/term_sd_git_user/term_sd_git_repo # 只有上面所有的镜像源无法使用才使用github源
+    echo "https://mirror.ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo" # 只有上面所有的镜像源无法使用才使用github源
 }

@@ -158,7 +158,7 @@ term_sd_set_github_mirror()
 term_sd_test_avaliable_github_mirror()
 {
     # 镜像源列表
-    local github_mirror_list="https://ghproxy.net/https://github.com/term_sd_git_user/term_sd_git_repo https://mirror.ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo https://gh-proxy.com/https://github.com/term_sd_git_user/term_sd_git_repo https://ghps.cc/https://github.com/term_sd_git_user/term_sd_git_repo https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo https://gitclone.com/github.com/term_sd_git_user/term_sd_git_repo"
+    local github_mirror_list="https://mirror.ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo https://ghproxy.net/https://github.com/term_sd_git_user/term_sd_git_repo https://gh-proxy.com/https://github.com/term_sd_git_user/term_sd_git_repo https://ghps.cc/https://github.com/term_sd_git_user/term_sd_git_repo https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo https://gitclone.com/github.com/term_sd_git_user/term_sd_git_repo"
     local git_req
     local http_proxy
     local https_proxy
@@ -174,5 +174,5 @@ term_sd_test_avaliable_github_mirror()
             return
         fi
     done
-    term_sd_github_mirror="https://ghproxy.net/https://github.com"
+    term_sd_github_mirror="https://mirror.ghproxy.com/https://github.com"
 }
