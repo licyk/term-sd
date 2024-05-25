@@ -19,10 +19,9 @@ sd_webui_venv_rebuild()
         create_venv
         enter_venv
 
-        install_pytorch # 安装pytorch #"--default-timeout=100 --retries 5"在网络差导致下载中断时重试下载
-        term_sd_try term_sd_pip install git+$(git_format_repository_url $github_mirror https://github.com/openai/CLIP) $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary
-        term_sd_try term_sd_pip install -r repositories/CodeFormer/requirements.txt $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary
-        term_sd_try term_sd_pip install -r requirements.txt $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary #安装stable-diffusion-webui的依赖
+        install_pytorch # 安装pytorch
+        install_python_package git+$(git_format_repository_url $github_mirror https://github.com/openai/CLIP)
+        install_python_package -r requirements.txt # 安装stable-diffusion-webui的依赖
 
         term_sd_echo "重新构建 Stable-Diffusion-WebUI 的虚拟环境结束"
         exit_venv
@@ -51,7 +50,7 @@ comfyui_venv_rebuild()
         enter_venv
 
         install_pytorch # 安装pytorch
-        term_sd_try term_sd_pip install -r requirements.txt $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary
+        install_python_package -r requirements.txt
 
         term_sd_echo "重新构建 ComfyUI 的虚拟环境结束"
         exit_venv
@@ -80,7 +79,7 @@ invokeai_venv_rebuild()
         enter_venv
 
         install_pytorch # 安装pytorch
-        term_sd_try term_sd_pip install invokeai $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary
+        install_python_package invokeai
 
         term_sd_echo "重新构建 InvokeAI 的虚拟环境结束"
         exit_venv
@@ -109,7 +108,7 @@ fooocus_venv_rebuild()
         enter_venv
 
         install_pytorch # 安装pytorch
-        term_sd_try term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade -r requirements_versions.txt
+        install_python_package --upgrade -r requirements_versions.txt
 
         term_sd_echo "重新构建 Fooocus 的虚拟环境结束"
         exit_venv
@@ -139,11 +138,10 @@ lora_scripts_venv_rebuild()
 
         install_pytorch # 安装pytorch
         cd sd-scripts
-        term_sd_try term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade -r requirements.txt # sd-scripts目录下还有个_typos.toml，在安装requirements.txt里的依赖时会指向这个文件
+        install_python_package --upgrade -r requirements.txt # sd-scripts目录下还有个_typos.toml，在安装requirements.txt里的依赖时会指向这个文件
         cd ..
-        term_sd_try term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade lion-pytorch dadaptation prodigyopt lycoris-lora fastapi uvicorn wandb scipy
-        term_sd_try term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade -r requirements.txt # lora-scripts安装依赖
-        term_sd_try term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade bitsandbytes
+        install_python_package --upgrade -r requirements.txt # lora-scripts安装依赖
+        install_python_package --upgrade bitsandbytes
 
         term_sd_echo "重新构建 lora-scripts 的虚拟环境结束"
         exit_venv
@@ -172,9 +170,11 @@ kohya_ss_venv_rebuild()
         enter_venv
 
         install_pytorch # 安装pytorch
-        term_sd_try term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade lion-pytorch dadaptation prodigyopt lycoris-lora fastapi uvicorn wandb scipy bitsandbytes tensorflow tensorboard
-        term_sd_try term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade -r requirements.txt # kohya_ss安装依赖
-        term_sd_try term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade bitsandbytes
+        cd sd-scripts
+        install_python_package --upgrade -r requirements.txt # sd-scripts目录下还有个_typos.toml，在安装requirements.txt里的依赖时会指向这个文件
+        cd ..
+        install_python_package --upgrade -r requirements.txt # kohya_ss安装依赖
+        install_python_package --upgrade bitsandbytes
 
         term_sd_echo "重新构建 kohya_ss 的虚拟环境结束"
         exit_venv

@@ -7,4 +7,4 @@ __term_sd_task_sys is_sd_repo_exist "$comfyui_path"
 __term_sd_task_sys create_venv "$comfyui_path"
 __term_sd_task_sys enter_venv "$comfyui_path"
 __term_sd_task_pre_core install_pytorch # 安装pytorch
-__term_sd_task_pre_core term_sd_try term_sd_pip install -r "$comfyui_path"/requirements.txt --prefer-binary $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode
+__term_sd_task_pre_core install_python_package -r "$comfyui_path"/requirements.txt

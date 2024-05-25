@@ -13,7 +13,9 @@ __term_sd_task_sys enter_venv "$kohya_ss_path"
 __term_sd_task_pre_core term_sd_mkdir "$kohya_ss_path"/output
 __term_sd_task_pre_core term_sd_mkdir "$kohya_ss_path"/train
 __term_sd_task_pre_core install_pytorch # 安装pytorch
-__term_sd_task_pre_core term_sd_try term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade lion-pytorch dadaptation prodigyopt lycoris-lora fastapi uvicorn wandb scipy bitsandbytes tensorflow tensorboard
-__term_sd_task_pre_core term_sd_try term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade -r requirements.txt # 依赖列表中有"-e .",需要在kohya_ss目录中进行
-__term_sd_task_pre_core term_sd_try term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade bitsandbytes
+__term_sd_task_sys cd sd-scripts
+__term_sd_task_pre_core install_python_package --upgrade -r requirements.txt # 依赖列表中有"-e .",需要在kohya_ss目录中进行
+__term_sd_task_sys cd ..
+__term_sd_task_pre_core install_python_package --upgrade -r requirements.txt
+__term_sd_task_pre_core install_python_package --upgrade bitsandbytes
 __term_sd_task_sys cd ..

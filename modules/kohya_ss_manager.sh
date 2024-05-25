@@ -246,7 +246,6 @@ kohya_ss_update_depend()
             term_sd_tmp_disable_proxy
             create_venv
             enter_venv
-            term_sd_try term_sd_pip install $pip_index_mirror $pip_extra_index_mirror $pip_find_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade lion-pytorch dadaptation prodigyopt lycoris-lora fastapi uvicorn wandb scipy
             python_package_update "requirements.txt" # kohya_ss安装依赖
             exit_venv
             term_sd_tmp_enable_proxy

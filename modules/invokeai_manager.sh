@@ -50,7 +50,7 @@ invokeai_manager()
                         if [ $? = 0 ];then
                             term_sd_echo "更新 InvokeAI 中"
                             term_sd_tmp_disable_proxy # 临时取消代理,避免一些不必要的网络减速
-                            term_sd_try term_sd_pip install $pip_mirror $extra_pip_mirror $pip_break_system_package $pip_install_mode --prefer-binary --upgrade invokeai
+                            install_python_package --upgrade invokeai
                             if [ $? = 0 ];then
                                 dialog --erase-on-exit \
                                     --title "InvokeAI 管理" \
@@ -100,7 +100,7 @@ invokeai_manager()
 
                                 fix_venv
                                 enter_venv
-                                term_sd_try term_sd_pip install $(term_sd_pip freeze | grep -i invokeai) --no-deps --force-reinstall # 重新安装invokeai
+                                install_python_package $(term_sd_pip freeze | grep -i invokeai) --no-deps --force-reinstall # 重新安装invokeai
                             fi
                         else
                             dialog --erase-on-exit \

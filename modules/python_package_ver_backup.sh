@@ -199,7 +199,7 @@ restore_python_package_ver()
         cat "$start_path"/term-sd/requirements-backup/$backup_req_sd_name/$python_package_ver_backup_list_dialog
         term_sd_print_line
         term_sd_echo "恢复依赖库版本中"
-        term_sd_try term_sd_pip install -r "$start_path"/term-sd/requirements-backup/$backup_req_sd_name/$python_package_ver_backup_list_dialog --prefer-binary # 安装原有版本的依赖包
+        install_python_package -r "$start_path"/term-sd/requirements-backup/$backup_req_sd_name/$python_package_ver_backup_list_dialog # 安装原有版本的依赖包
         term_sd_tmp_enable_proxy # 恢复原有的代理
         term_sd_echo "恢复依赖库版本完成"
         term_sd_pause
