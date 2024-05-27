@@ -109,7 +109,7 @@ comfyui_extension_depend_install_single()
         --title "ComfyUI选项" \
         --backtitle "ComfyUI${1}依赖安装结果" \
         --ok-label "确认" \
-        --msgbox "当前依赖的安装情况列表\n${term_sd_delimiter}\n$comfyui_extension_depend_install_req${term_sd_delimiter}" \
+        --msgbox "当前依赖的安装情况列表\n${term_sd_delimiter}${comfyui_extension_depend_install_req}${term_sd_delimiter}" \
         $term_sd_dialog_height $term_sd_dialog_width
 }
 

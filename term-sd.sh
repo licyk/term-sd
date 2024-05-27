@@ -606,25 +606,25 @@ term_sd_clone_modules()
 # 备份cache文件夹
 term_sd_backup_config()
 {
-    if [ -d "term-sd/cache" ];then
-        term_sd_echo "备份 Term-SD 缓存文件夹和配置文件中"
-        term_sd_mkdir "term-sd-tmp"
-        term_sd_mkdir "term-sd-tmp/config"
-        rm -f term-sd/config/note.md
-        mv -f term-sd/config/* term-sd-tmp/config
-        mv -f term-sd/cache term-sd-tmp
-    fi
+    term_sd_echo "备份 Term-SD 缓存文件夹和配置文件中"
+    term_sd_mkdir "term-sd-tmp"
+    term_sd_mkdir "term-sd-tmp/config"
+    rm -f term-sd/config/note.md
+    [ -d "term-sd/config" ] && mv -f term-sd/config/* term-sd-tmp/config
+    [ -d "term-sd/cache" ] && mv -f term-sd/cache term-sd-tmp
+    [ -d "term-sd/requirements-backup" ] && mv -f term-sd/requirements-backup term-sd-tmp
+    [ -d "term-sd/backup" ] && mv -f term-sd/backup term-sd-tmp
 }
 
 # 恢复cache文件夹
 term_sd_restore_config()
 {
-    if [ -d "term-sd-tmp/cache" ];then
-        term_sd_echo "恢复 Term-SD 缓存文件夹和配置文件中"
-        mv -f term-sd-tmp/cache term-sd
-        mv -f term-sd-tmp/config/* term-sd/config
-        rm -rf term-sd-tmp
-    fi
+    term_sd_echo "恢复 Term-SD 缓存文件夹和配置文件中"
+    [ -d "term-sd-tmp/cache" ] && mv -f term-sd-tmp/cache term-sd
+    [ -d "term-sd-tmp/config" ] && mv -f term-sd-tmp/config/* term-sd/config
+    [ -d "term-sd-tmp/requirements-backup" ] && mv -f term-sd-tmp/requirements-backup term-sd
+    [ -d "term-sd-tmp/backup" ] && mv -f term-sd-tmp/backup term-sd
+    rm -rf term-sd-tmp
 }
 
 # 设置默认term-sd设置
