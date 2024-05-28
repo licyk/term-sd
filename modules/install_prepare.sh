@@ -6,6 +6,8 @@ download_mirror_select()
     local download_mirror_select_dialog
     local auto_select_github_mirror=1
     local env_pip_mirror=1
+    local use_global_github_mirror=1
+    local use_global_pip_mirror=1
     pip_index_mirror="--index-url https://pypi.python.org/simple"
     pip_extra_index_mirror=
     pip_find_mirror="--find-links https://download.pytorch.org/whl/torch_stable.html"
@@ -26,16 +28,17 @@ download_mirror_select()
         $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "1" "启用 Pip 镜像源 (使用 Pip 国内镜像源下载 Python 软件包)" OFF \
         "2" "使用全局 Pip 镜像源配置 (使用 Term-SD 设置中配置的 Pip 镜像源)" ON \
-        "3" "强制使用 Pip(无视系统警告强制使用 Pip 安装 Python 软件包)" OFF \
+        "3" "强制使用 Pip (无视系统警告强制使用 Pip 安装 Python 软件包)" OFF \
         "4" "使用 ModelScope 模型下载源 (将 HuggingFace下载源改为 ModelScope 下载源)" ON \
         "5" "Huggingface / Github 下载源独占代理 (仅在下载 Huggingface / Github 上的文件时启用代理)" ON \
-        "6" "Github 镜像源自动选择 (测试可用的镜像源并选择自动选择)" $([ ! -z $1 ] && [ $1 = "auto_github_mirrror" ] && echo "ON" || echo "OFF") \
-        "7" "启用 Github 镜像源1 (使用 mirror.ghproxy.com 镜像站下载 Github 上的源码)" $([ ! -z $1 ] && [ $1 = "auto_github_mirrror" ] && echo "OFF" || echo "ON") \
-        "8" "启用 Github 镜像源2 (使用 gitclone.com 镜像站下载 Github 上的源码)" OFF  \
-        "9" "启用 Github 镜像源3 (使用 gh-proxy.com 镜像站下载 Github 上的源码)" OFF \
-        "10" "启用 Github 镜像源4 (使用 ghps.cc 镜像站下载 Github 上的源码)" OFF \
-        "11" "启用 Github 镜像源5 (使用 gh.idayer.com 镜像站下载 Github 上的源码)" OFF \
-        "12" "启用 Github 镜像源6 (使用 ghproxy.net 镜像站下载 Github 上的源码)" OFF \
+        "6" "使用全局 Github 镜像源配置 (当设置了全局 Github 镜像源时禁用 Github 镜像自动选择)" ON \
+        "7" "Github 镜像源自动选择 (测试可用的镜像源并选择自动选择)" $([ ! -z $1 ] && [ $1 = "auto_github_mirrror" ] && echo "ON" || echo "OFF") \
+        "8" "启用 Github 镜像源1 (使用 mirror.ghproxy.com 镜像站下载 Github 上的源码)" $([ ! -z $1 ] && [ $1 = "auto_github_mirrror" ] && echo "OFF" || echo "ON") \
+        "9" "启用 Github 镜像源2 (使用 gitclone.com 镜像站下载 Github 上的源码)" OFF  \
+        "10" "启用 Github 镜像源3 (使用 gh-proxy.com 镜像站下载 Github 上的源码)" OFF \
+        "11" "启用 Github 镜像源4 (使用 ghps.cc 镜像站下载 Github 上的源码)" OFF \
+        "12" "启用 Github 镜像源5 (使用 gh.idayer.com 镜像站下载 Github 上的源码)" OFF \
+        "13" "启用 Github 镜像源6 (使用 ghproxy.net 镜像站下载 Github 上的源码)" OFF \
         3>&1 1>&2 2>&3)
 
     for i in $download_mirror_select_dialog; do
@@ -47,39 +50,7 @@ download_mirror_select()
                 pip_find_mirror=$term_sd_pip_find_links_args
                 ;;
             2)
-                if [ ! -z "$PIP_INDEX_URL" ];then # 确保存在镜像源
-                    env_pip_mirror=0
-                elif [ ! -z "$(term_sd_pip config list | grep -E "global.index-url")" ] && [ ! -z "$(term_sd_pip config list | grep -E "global.find-links")" ] ;then
-                    env_pip_mirror=0
-                else
-                    env_pip_mirror=1
-                fi
-
-                if [ $env_pip_mirror = 0 ];then
-                    term_sd_echo "使用全局 Pip 镜像源配置"
-                    pip_index_mirror=
-                    pip_extra_index_mirror=
-                    pip_find_mirror=
-                    if [ ! -z $PIP_INDEX_URL ] && [ ! "$PIP_INDEX_URL" = "https://pypi.python.org/simple" ];then
-                        term_sd_echo "使用 Pip 镜像源"
-                        use_pip_mirror=0
-                    elif [ ! -z $PIP_INDEX_URL ] && [ "$PIP_INDEX_URL" = "https://pypi.python.org/simple" ];then
-                        term_sd_echo "使用 Pip 官方源"
-                        use_pip_mirror=1
-                    elif term_sd_pip config list | grep -E "global.index-url" | grep "https://pypi.python.org/simple" &> /dev/null ;then
-                        term_sd_echo "使用 Pip 官方源"
-                        use_pip_mirror=1
-                    else
-                        term_sd_echo "使用 Pip 镜像源"
-                        use_pip_mirror=0
-                    fi
-                else
-                    term_sd_echo "未设置任何镜像源，默认使用 Pip 国内镜像源"
-                    use_pip_mirror=0
-                    pip_index_mirror=$term_sd_pip_index_url_args
-                    pip_extra_index_mirror=$term_sd_pip_extra_index_url_args
-                    pip_find_mirror=$term_sd_pip_find_links_args
-                fi
+                use_global_pip_mirror=0
                 ;;
             3)
                 pip_break_system_package="--break-system-packages"
@@ -91,40 +62,87 @@ download_mirror_select()
                 term_sd_only_proxy=0
                 ;;
             6)
-                auto_select_github_mirror=0
+                if [ -f "term-sd/config/set-global-github-mirror.conf" ];then
+                    use_global_github_mirror=0
+                fi
                 ;;
             7)
+                auto_select_github_mirror=0               
+                ;;
+            8)
                 github_mirror="https://mirror.ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo"
                 github_mirror_name="镜像源1 (mirror.ghproxy.com)"
                 ;;
-            8)
+            9)
                 github_mirror="https://gitclone.com/github.com/term_sd_git_user/term_sd_git_repo"
                 github_mirror_name="镜像源2 (gitclone.com)"
                 ;;
-            9)
+            10)
                 github_mirror="https://gh-proxy.com/https://github.com/term_sd_git_user/term_sd_git_repo"
                 github_mirror_name="镜像源3 (gh-proxy.com)"
                 ;;
-            10)
+            11)
                 github_mirror="https://ghps.cc/https://github.com/term_sd_git_user/term_sd_git_repo"
                 github_mirror_name="镜像源4 (ghps.cc)"
                 ;;
-            11)
+            12)
                 github_mirror="https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo"
                 github_mirror_name="镜像源5 (gh.idayer.com)"
                 ;;
-            12)
+            13)
                 github_mirror="https://ghproxy.net/https://github.com/term_sd_git_user/term_sd_git_repo"
                 github_mirror_name="镜像源6 (ghproxy.net)"
                 ;;
         esac
     done
 
+    if [ $use_global_pip_mirror = 0 ];then
+        if [ ! -z "$PIP_INDEX_URL" ];then # 确保存在镜像源
+            env_pip_mirror=0
+        elif [ ! -z "$(term_sd_pip config list | grep -E "global.index-url")" ] && [ ! -z "$(term_sd_pip config list | grep -E "global.find-links")" ] ;then
+            env_pip_mirror=0
+        else
+            env_pip_mirror=1
+        fi
+
+        if [ $env_pip_mirror = 0 ];then
+            term_sd_echo "使用全局 Pip 镜像源配置"
+            pip_index_mirror=
+            pip_extra_index_mirror=
+            pip_find_mirror=
+            if [ ! -z $PIP_INDEX_URL ] && [ ! "$PIP_INDEX_URL" = "https://pypi.python.org/simple" ];then
+                term_sd_echo "使用 Pip 镜像源"
+                use_pip_mirror=0
+            elif [ ! -z $PIP_INDEX_URL ] && [ "$PIP_INDEX_URL" = "https://pypi.python.org/simple" ];then
+                term_sd_echo "使用 Pip 官方源"
+                use_pip_mirror=1
+            elif term_sd_pip config list | grep -E "global.index-url" | grep "https://pypi.python.org/simple" &> /dev/null ;then
+                term_sd_echo "使用 Pip 官方源"
+                use_pip_mirror=1
+            else
+                term_sd_echo "使用 Pip 镜像源"
+                use_pip_mirror=0
+            fi
+        else
+            term_sd_echo "未设置任何镜像源，默认使用 Pip 国内镜像源"
+            use_pip_mirror=0
+            pip_index_mirror=$term_sd_pip_index_url_args
+            pip_extra_index_mirror=$term_sd_pip_extra_index_url_args
+            pip_find_mirror=$term_sd_pip_find_links_args
+        fi
+    fi
+
     if [ $auto_select_github_mirror = 0 ];then # 测试可用的镜像源
-        term_sd_echo "测试可用的 Github 镜像源中"
-        github_mirror=$(github_mirror_test)
-        github_mirror_name="镜像源 ($(echo $github_mirror | awk '{sub("https://","")}1' | awk -F '/' '{print$NR}'))"
-        term_sd_echo "镜像源测试结束, 镜像源选择: $github_mirror_name"
+        if [ $use_global_github_mirror = 0 ];then
+            term_sd_echo "使用全局 Github 镜像源"
+            github_mirror="https://github.com/term_sd_git_user/term_sd_git_repo"
+            github_mirror_name="全局镜像源 ($(cat term-sd/config/set-global-github-mirror.conf | awk '{sub("/https://github.com","") sub("/github.com","")}1'))"
+        else
+            term_sd_echo "测试可用的 Github 镜像源中"
+            github_mirror=$(github_mirror_test)
+            github_mirror_name="镜像源 ($(echo $github_mirror | awk '{sub("https://","")}1' | awk -F '/' '{print$NR}'))"
+            term_sd_echo "镜像源测试结束, 镜像源选择: $github_mirror_name"
+        fi
     fi
 }
 
