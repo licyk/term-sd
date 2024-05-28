@@ -400,3 +400,7 @@ Stable Diffusion WebUI 插件说明：
 100、sd-webui-tabs-extension：
 描述：优化WebUI选项卡的排版
 链接：https://github.com/Haoming02/sd-webui-tabs-extension
+
+101、sd-forge-ic-light：
+描述：为sd-webui-forge添加ic-light支持
+链接：https://github.com/huchenlei/sd-forge-ic-light

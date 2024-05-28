@@ -372,3 +372,7 @@ ComfyUI 插件 / 自定义节点说明：
 90、comfyui-tcd-scheduler：
 描述：添加TCD采样器
 链接：https://github.com/dfl/comfyui-tcd-scheduler
+
+91、ComfyUI-IC-Light-Native：
+描述：添加ic-light支持
+链接：https://github.com/huchenlei/ComfyUI-IC-Light-Native

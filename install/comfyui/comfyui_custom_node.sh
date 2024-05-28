@@ -88,3 +88,4 @@ __term_sd_task_pre_ext_87 git_clone_repository ${github_mirror} https://github.c
 __term_sd_task_pre_ext_88 git_clone_repository ${github_mirror} https://github.com/Koishi-Star/Euler-Smea-Dyn-Sampler "$comfyui_path"/custom_nodes OFF # 添加Eular-SMEA-Dy采样算法
 __term_sd_task_pre_ext_89 git_clone_repository ${github_mirror} https://github.com/blepping/ComfyUI-bleh "$comfyui_path"/custom_nodes OFF # 改进hypertile和deepshrink节点，提供更好的生成预览算法
 __term_sd_task_pre_ext_90 git_clone_repository ${github_mirror} https://github.com/dfl/comfyui-tcd-scheduler "$comfyui_path"/custom_nodes OFF # 添加TCD采样器
+__term_sd_task_pre_ext_91 git_clone_repository ${github_mirror} https://github.com/huchenlei/ComfyUI-IC-Light-Native "$comfyui_path"/custom_nodes OFF # 添加ic-light支持
