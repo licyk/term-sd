@@ -217,6 +217,7 @@ sd_webui_config_file()
     "show_progress_every_n_steps": 1,
     "js_live_preview_in_modal_lightbox": true,
     "upscaler_for_img2img": "Lanczos",
+    "emphasis": "No norm",
     "samples_filename_pattern": "[datetime<%Y%m%d_%H%M%S>]_[model_name]_[sampler]"
 }
 EOF
