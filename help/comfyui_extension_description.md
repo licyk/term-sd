@@ -376,3 +376,7 @@ ComfyUI 插件 / 自定义节点说明：
 91、ComfyUI-IC-Light-Native：
 描述：添加ic-light支持
 链接：https://github.com/huchenlei/ComfyUI-IC-Light-Native
+
+92、comfyui-inpaint-nodes：
+描述：添加fooocus的重绘模型支持
+链接：https://github.com/Acly/comfyui-inpaint-nodes

@@ -89,3 +89,4 @@ __term_sd_task_pre_ext_88 git_clone_repository ${github_mirror} https://github.c
 __term_sd_task_pre_ext_89 git_clone_repository ${github_mirror} https://github.com/blepping/ComfyUI-bleh "$comfyui_path"/custom_nodes OFF # 改进hypertile和deepshrink节点，提供更好的生成预览算法
 __term_sd_task_pre_ext_90 git_clone_repository ${github_mirror} https://github.com/dfl/comfyui-tcd-scheduler "$comfyui_path"/custom_nodes OFF # 添加TCD采样器
 __term_sd_task_pre_ext_91 git_clone_repository ${github_mirror} https://github.com/huchenlei/ComfyUI-IC-Light-Native "$comfyui_path"/custom_nodes OFF # 添加ic-light支持
+__term_sd_task_pre_ext_92 git_clone_repository ${github_mirror} https://github.com/Acly/comfyui-inpaint-nodes "$comfyui_path"/custom_nodes OFF # 添加fooocus的重绘模型支持

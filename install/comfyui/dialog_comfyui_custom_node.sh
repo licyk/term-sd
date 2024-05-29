@@ -89,3 +89,4 @@ __term_sd_task_pre_ext_88 Euler-Smea-Dyn-Sampler OFF
 __term_sd_task_pre_ext_89 ComfyUI-bleh OFF
 __term_sd_task_pre_ext_90 comfyui-tcd-scheduler OFF
 __term_sd_task_pre_ext_91 ComfyUI-IC-Light-Native OFF
+__term_sd_task_pre_ext_92 comfyui-inpaint-nodes OFF
