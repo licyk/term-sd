@@ -8,7 +8,7 @@ __term_sd_task_pre_ext_7 ComfyUI-layerdiffusion OFF
 __term_sd_task_pre_ext_8 ComfyUI_DanTagGen OFF
 __term_sd_task_pre_ext_9 Comfyui-StableSR OFF
 __term_sd_task_pre_ext_10 was-node-suite-comfyui OFF
-__term_sd_task_pre_ext_11 ComfyUI_Cutoff OFF
+__term_sd_task_pre_ext_11 ComfyUI_Cutoff ON
 __term_sd_task_pre_ext_12 ComfyUI_TiledKSampler ON
 __term_sd_task_pre_ext_13 ComfyUI_ADV_CLIP_emb OFF
 __term_sd_task_pre_ext_14 ComfyUI_Noise OFF
@@ -53,7 +53,7 @@ __term_sd_task_pre_ext_52 cd-tuner_negpip-ComfyUI OFF
 __term_sd_task_pre_ext_53 ComfyUI-Easy-Use OFF
 __term_sd_task_pre_ext_54 sdxl_prompt_styler OFF
 __term_sd_task_pre_ext_55 comfyui-workspace-manager ON
-__term_sd_task_pre_ext_56 comfyui-browser OFF
+__term_sd_task_pre_ext_56 comfyui-browser ON
 __term_sd_task_pre_ext_57 cg-use-everywhere OFF
 __term_sd_task_pre_ext_58 ComfyUI-Inspire-Pack ON
 __term_sd_task_pre_ext_59 sd-dynamic-thresholding OFF

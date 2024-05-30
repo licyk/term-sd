@@ -48,7 +48,7 @@ build_dialog_list()
         rm -f $output_file
     fi
     echo ":: 生成 ${output_file} 中"
-    cat $input_file | awk '{sub(" --submod","")}1' >> $cache_file
+    cat $input_file | awk '{sub(" --submod "," ")}1' >> $cache_file
     build_list $cache_file $output_file
     rm -f $cache_file
     end_time=$(date +'%Y-%m-%d %H:%M:%S')
@@ -73,9 +73,11 @@ build_dialog_list_sd_webui()
         rm -f $output_file
     fi
     echo ":: 生成 ${output_file} 中"
-    cat $input_file | awk '{sub(" --submod","")}1' >> $cache_file
+    cat $input_file | awk '{sub(" --submod "," ")}1' >> $cache_file
     echo "Stable Diffusion WebUI 插件说明：" >> $output_file
-    echo "注：有些插件因为年久失修，可能会出现兼容性问题。具体介绍请在 Github 上搜索项目" >> $output_file
+    echo "注：" >> $output_file
+    echo "1、有些插件因为年久失修，可能会出现兼容性问题。具体介绍请在 Github 上搜索项目" >> $output_file
+    echo "2、在名称右上角标 * 的为安装时默认勾选的插件" >> $output_file
 
     while (($flag==0))
     do
@@ -83,12 +85,13 @@ build_dialog_list_sd_webui()
         extension_name=$(cat $cache_file | awk 'NR=='${count}' {print$4}' | awk -F '/' '{print$NF}')
         extension_description=$(cat $cache_file | awk 'NR=='${count}' {print$8}')
         list_head=$(cat $cache_file | awk 'NR=='${count}' {print$1}')
+        normal_install_info=$([ "$(cat $cache_file | awk 'NR=='${count}' {print$6}')" = "ON" ] && echo "*")
         if [ -z "$list_head" ];then
             flag=1
         else
             if [ -z "$(echo $list_head | grep __term_sd_task_sys)" ];then
                 echo "" >> $output_file
-                echo "$count、$extension_name："  >> $output_file
+                echo "$count、${extension_name}${normal_install_info}"  >> $output_file
                 echo "描述：$extension_description" >> $output_file
                 echo "链接：$extension_url" >> $output_file
             fi
@@ -121,10 +124,12 @@ build_dialog_list_comfyui()
     fi
 
     echo ":: 生成 ${output_file} 中"
-    cat $input_file_1 | awk '{sub(" --submod","")}1' >> $cache_file_1
-    cat $input_file_2 | awk '{sub(" --submod","")}1' >> $cache_file_2
+    cat $input_file_1 | awk '{sub(" --submod "," ")}1' >> $cache_file_1
+    cat $input_file_2 | awk '{sub(" --submod "," ")}1' >> $cache_file_2
     echo "ComfyUI 插件 / 自定义节点说明：" >> $output_file
-    echo "注：有些插件 / 自定义节点因为年久失修，可能会出现兼容性问题。具体介绍请在 Github 上搜索项目" >> $output_file
+    echo "注：" >> $output_file
+    echo "1、有些插件因为年久失修，可能会出现兼容性问题。具体介绍请在 Github 上搜索项目" >> $output_file
+    echo "2、在名称右上角标 * 的为安装时默认勾选的插件" >> $output_file
     echo "" >> $output_file
     echo "插件：" >> $output_file
 
@@ -134,12 +139,13 @@ build_dialog_list_comfyui()
         extension_name=$(cat $cache_file_1 | awk 'NR=='${count}' {print$4}' | awk -F '/' '{print$NF}')
         extension_description=$(cat $cache_file_1 | awk 'NR=='${count}' {print$8}')
         list_head=$(cat $cache_file_1 | awk 'NR=='${count}' {print$1}')
+        normal_install_info=$([ "$(cat $input_file_1 | awk 'NR=='${count}' {print$6}')" = "ON" ] && echo "*")
         if [ -z "$list_head" ];then
             flag=1
         else
             if [ -z "$(echo $list_head | grep __term_sd_task_sys)" ];then
                 echo "" >> $output_file
-                echo "$count、$extension_name："  >> $output_file
+                echo "$count、${extension_name}${normal_install_info}"  >> $output_file
                 echo "描述：$extension_description" >> $output_file
                 echo "链接：$extension_url" >> $output_file
             fi
@@ -158,12 +164,13 @@ build_dialog_list_comfyui()
         extension_name=$(cat $cache_file_2 | awk 'NR=='${count}' {print$4}' | awk -F '/' '{print$NF}')
         extension_description=$(cat $cache_file_2 | awk 'NR=='${count}' {print$8}')
         list_head=$(cat $cache_file_2 | awk 'NR=='${count}' {print$1}')
+        normal_install_info=$([ "$(cat $cache_file_2 | awk 'NR=='${count}' {print$6}')" = "ON" ] && echo "*")
         if [ -z "$list_head" ];then
             flag=1
         else
             if [ -z "$(echo $list_head | grep __term_sd_task_sys)" ];then
                 echo "" >> $output_file
-                echo "$count、$extension_name："  >> $output_file
+                echo "$count、${extension_name}${normal_install_info}"  >> $output_file
                 echo "描述：$extension_description" >> $output_file
                 echo "链接：$extension_url" >> $output_file
             fi
