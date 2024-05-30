@@ -98,4 +98,6 @@ __term_sd_task_pre_ext_97 git_clone_repository ${github_mirror} https://github.c
 __term_sd_task_pre_ext_98 git_clone_repository ${github_mirror} https://github.com/AG-w/sd-webui-smea "$sd_webui_path"/extensions OFF # 添加Eular-Smea采样器和TCD采样器
 __term_sd_task_pre_ext_99 git_clone_repository ${github_mirror} https://github.com/ljleb/sd-webui-neutral-prompt "$sd_webui_path"/extensions OFF # 添加AND_PERP、AND_SALT、AND_TOPK提示词用法
 __term_sd_task_pre_ext_100 git_clone_repository ${github_mirror} https://github.com/Haoming02/sd-webui-tabs-extension "$sd_webui_path"/extensions OFF # 优化WebUI选项卡的排版
-__term_sd_task_pre_ext_101 git_clone_repository ${github_mirror} https://github.com/huchenlei/sd-forge-ic-light "$sd_webui_path"/extensions OFF # 为sd-webui-forge添加ic-light支持
+__term_sd_task_pre_ext_101 git_clone_repository ${github_mirror} https://github.com/huchenlei/sd-forge-ic-light "$sd_webui_path"/extensions OFF # 添加ic-light支持，仅支持sd-webui-forge
+__term_sd_task_pre_ext_102 git_clone_repository ${github_mirror} https://github.com/power88/webui-fooocus-prompt-expansion "$sd_webui_path"/extensions OFF # 添加fooocus的提示词扩写支持
+__term_sd_task_pre_ext_103 git_clone_repository ${github_mirror} https://github.com/huchenlei/sd-webui-model-patcher "$sd_webui_path"/extensions OFF # ComfyUI样式的LDM修补插件

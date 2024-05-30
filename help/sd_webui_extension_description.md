@@ -402,5 +402,13 @@ Stable Diffusion WebUI 插件说明：
 链接：https://github.com/Haoming02/sd-webui-tabs-extension
 
 101、sd-forge-ic-light：
-描述：为sd-webui-forge添加ic-light支持
+描述：添加ic-light支持，仅支持sd-webui-forge
 链接：https://github.com/huchenlei/sd-forge-ic-light
+
+102、webui-fooocus-prompt-expansion：
+描述：添加fooocus的提示词扩写支持
+链接：https://github.com/power88/webui-fooocus-prompt-expansion
+
+103、sd-webui-model-patcher：
+描述：ComfyUI样式的LDM修补插件
+链接：https://github.com/huchenlei/sd-webui-model-patcher

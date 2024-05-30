@@ -99,3 +99,5 @@ __term_sd_task_pre_ext_98 sd-webui-smea OFF
 __term_sd_task_pre_ext_99 sd-webui-neutral-prompt OFF
 __term_sd_task_pre_ext_100 sd-webui-tabs-extension OFF
 __term_sd_task_pre_ext_101 sd-forge-ic-light OFF
+__term_sd_task_pre_ext_102 webui-fooocus-prompt-expansion OFF
+__term_sd_task_pre_ext_103 sd-webui-model-patcher OFF
