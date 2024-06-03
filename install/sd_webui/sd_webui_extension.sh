@@ -101,3 +101,4 @@ __term_sd_task_pre_ext_100 git_clone_repository ${github_mirror} https://github.
 __term_sd_task_pre_ext_101 git_clone_repository ${github_mirror} https://github.com/huchenlei/sd-forge-ic-light "$sd_webui_path"/extensions OFF # 添加ic-light支持，仅支持sd-webui-forge
 __term_sd_task_pre_ext_102 git_clone_repository ${github_mirror} https://github.com/power88/webui-fooocus-prompt-expansion "$sd_webui_path"/extensions OFF # 添加fooocus的提示词扩写支持
 __term_sd_task_pre_ext_103 git_clone_repository ${github_mirror} https://github.com/huchenlei/sd-webui-model-patcher "$sd_webui_path"/extensions OFF # ComfyUI样式的LDM修补插件
+__term_sd_task_pre_ext_104 git_clone_repository ${github_mirror} https://github.com/a2569875/lora-prompt-tool "$sd_webui_path"/extensions OFF # 快捷管理lora模型的触发词

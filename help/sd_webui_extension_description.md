@@ -414,3 +414,7 @@ Stable Diffusion WebUI 插件说明：
 103、sd-webui-model-patcher
 描述：ComfyUI样式的LDM修补插件
 链接：https://github.com/huchenlei/sd-webui-model-patcher
+
+104、lora-prompt-tool
+描述：快捷管理lora模型的触发词
+链接：https://github.com/a2569875/lora-prompt-tool
