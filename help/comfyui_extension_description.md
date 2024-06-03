@@ -382,3 +382,7 @@ ComfyUI 插件 / 自定义节点说明：
 92、comfyui-inpaint-nodes
 描述：添加fooocus的重绘模型支持
 链接：https://github.com/Acly/comfyui-inpaint-nodes
+
+93、ComfyUI_TensorRT
+描述：添加TensorRT加速
+链接：https://github.com/comfyanonymous/ComfyUI_TensorRT
