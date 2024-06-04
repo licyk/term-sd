@@ -474,3 +474,7 @@ Stable Diffusion WebUI 插件说明：
 118、sd-webui-moar-generate
 描述：添加了另一个生成按钮，用于当有太多活动扩展但不想每次都一直向上滚动时
 链接：https://github.com/Haoming02/sd-webui-moar-generate
+
+119、metadata_utils
+描述：为sd-webui-supermerger融合的模型添加元数据
+链接：https://github.com/Tzigo/metadata_utils
