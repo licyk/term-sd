@@ -102,3 +102,17 @@ __term_sd_task_pre_ext_101 sd-forge-ic-light OFF
 __term_sd_task_pre_ext_102 webui-fooocus-prompt-expansion OFF
 __term_sd_task_pre_ext_103 sd-webui-model-patcher OFF
 __term_sd_task_pre_ext_104 lora-prompt-tool OFF
+__term_sd_task_pre_ext_105 sd-webui-easy-tag-insert OFF
+__term_sd_task_pre_ext_106 sd-webui-i2i-ancestral-tree OFF
+__term_sd_task_pre_ext_107 sd-forge-couple OFF
+__term_sd_task_pre_ext_108 sd-webui-advanced-xyz OFF
+__term_sd_task_pre_ext_109 sd-webui-mosaic-outpaint OFF
+__term_sd_task_pre_ext_110 sd-webui-image-comparison OFF
+__term_sd_task_pre_ext_111 sd-webui-diffusion-cg OFF
+__term_sd_task_pre_ext_112 sd-webui-resharpen OFF
+__term_sd_task_pre_ext_113 sd-webui-mobile-friendly OFF
+__term_sd_task_pre_ext_114 sd-webui-prompt-format OFF
+__term_sd_task_pre_ext_115 sd-webui-aaa OFF
+__term_sd_task_pre_ext_116 sd-webui-clear-screen OFF
+__term_sd_task_pre_ext_117 sd-webui-auto-res OFF
+__term_sd_task_pre_ext_118 sd-webui-moar-generate OFF

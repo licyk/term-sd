@@ -91,3 +91,11 @@ __term_sd_task_pre_ext_90 comfyui-tcd-scheduler OFF
 __term_sd_task_pre_ext_91 ComfyUI-IC-Light-Native OFF
 __term_sd_task_pre_ext_92 comfyui-inpaint-nodes OFF
 __term_sd_task_pre_ext_93 ComfyUI_TensorRT OFF
+__term_sd_task_pre_ext_94 comfyui-diffusion-cg OFF
+__term_sd_task_pre_ext_95 comfyui-floodgate OFF
+__term_sd_task_pre_ext_96 comfyui-resharpen OFF
+__term_sd_task_pre_ext_97 comfyui-menu-anchor OFF
+__term_sd_task_pre_ext_98 comfyui-tab-handler OFF
+__term_sd_task_pre_ext_99 comfyui-clear-screen OFF
+__term_sd_task_pre_ext_100 comfyui-node-beautify OFF
+__term_sd_task_pre_ext_101 comfyui-prompt-format OFF
