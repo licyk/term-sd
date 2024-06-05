@@ -418,3 +418,11 @@ ComfyUI 插件 / 自定义节点说明：
 101、comfyui-prompt-format
 描述：提示词格式化工具
 链接：https://github.com/Haoming02/comfyui-prompt-format
+
+102、ComfyUI_omost
+描述：添加omost模型支持
+链接：https://github.com/huchenlei/ComfyUI_omost
+
+103、ComfyUI-Anyline
+描述：添加anyline预处理器
+链接：https://github.com/TheMistoAI/ComfyUI-Anyline

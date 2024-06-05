@@ -99,3 +99,5 @@ __term_sd_task_pre_ext_98 comfyui-tab-handler OFF
 __term_sd_task_pre_ext_99 comfyui-clear-screen OFF
 __term_sd_task_pre_ext_100 comfyui-node-beautify OFF
 __term_sd_task_pre_ext_101 comfyui-prompt-format OFF
+__term_sd_task_pre_ext_102 ComfyUI_omost OFF
+__term_sd_task_pre_ext_103 ComfyUI-Anyline OFF

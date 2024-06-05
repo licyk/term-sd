@@ -99,3 +99,5 @@ __term_sd_task_pre_ext_98 git_clone_repository ${github_mirror} https://github.c
 __term_sd_task_pre_ext_99 git_clone_repository ${github_mirror} https://github.com/Haoming02/comfyui-clear-screen "$comfyui_path"/custom_nodes OFF # 清理控制台输出
 __term_sd_task_pre_ext_100 git_clone_repository ${github_mirror} https://github.com/Haoming02/comfyui-node-beautify "$comfyui_path"/custom_nodes OFF # 节点美化
 __term_sd_task_pre_ext_101 git_clone_repository ${github_mirror} https://github.com/Haoming02/comfyui-prompt-format "$comfyui_path"/custom_nodes OFF # 提示词格式化工具
+__term_sd_task_pre_ext_102 git_clone_repository ${github_mirror} https://github.com/huchenlei/ComfyUI_omost "$comfyui_path"/custom_nodes OFF # 添加omost模型支持
+__term_sd_task_pre_ext_103 git_clone_repository ${github_mirror} https://github.com/TheMistoAI/ComfyUI-Anyline "$comfyui_path"/custom_nodes OFF # 添加anyline预处理器
