@@ -45,7 +45,8 @@ sd_webui_branch_switch()
             "4" "> vladmandic - SD.NEXT测试分支" \
             "5" "> lshqqytiger - Stable-Diffusion-WebUI-DirectML 主分支" \
             "6" "> lshqqytiger - Stable-Diffusion-WebUI-DirectML 测试分支" \
-            "7" "> lllyasviel - Stable-Diffusion-WebUI-Forge 分支" \
+            "7" "> lllyasviel - Stable-Diffusion-WebUI-Forge 主分支" \
+            "8" "> lllyasviel - Stable-Diffusion-WebUI-Forge 测试分支" \
             3>&1 1>&2 2>&3)
     
     case $sd_webui_branch_switch_dialog in
@@ -135,7 +136,7 @@ sd_webui_branch_switch()
             ;;
         7)
             term_sd_print_line "$term_sd_manager_info 分支切换"
-            term_sd_echo "切换到 lllyasviel - Stable-Diffusion-WebUI-Forge 分支"
+            term_sd_echo "切换到 lllyasviel - Stable-Diffusion-WebUI-Forge 主分支"
             git remote set-url origin $(git_format_repository_url $github_mirror https://github.com/lllyasviel/stable-diffusion-webui-forge)
             git submodule deinit --all -f
             term_sd_try git fetch
@@ -146,8 +147,20 @@ sd_webui_branch_switch()
             term_sd_echo "分支切换完成"
             term_sd_pause
             ;;
+        8)
+            term_sd_print_line "$term_sd_manager_info 分支切换"
+            term_sd_echo "切换到 lllyasviel - Stable-Diffusion-WebUI-Forge 测试分支"
+            git remote set-url origin $(git_format_repository_url $github_mirror https://github.com/lllyasviel/stable-diffusion-webui-forge)
+            git submodule deinit --all -f
+            term_sd_try git fetch
+            git checkout dev2
+            term_sd_try git pull --rebase
+            mv -f repositories/blip repositories/BLIP
+            sd_webui_branch_file_restore
+            term_sd_echo "分支切换完成"
+            term_sd_pause
+            ;;
     esac
-
 }
 
 # sd-webui分支切换后的重置功能
