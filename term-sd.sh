@@ -470,6 +470,7 @@ term_sd_auto_update()
                     else
                         cd ..
                         term_sd_echo "Term-SD 更新失败"
+                        term_sd_sleep 3
                     fi
                     ;;
                 *)
