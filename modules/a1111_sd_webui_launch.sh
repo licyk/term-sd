@@ -33,50 +33,51 @@ a1111_sd_webui_launch_args_setting()
         "18" "(medvram-sdxl) 仅在 SDXL 模型启用显存优化 (显存 < 8g 时推荐使用)" OFF \
         "19" "(lowvram) 启用显存优化 (显存 < 4g 时推荐使用)" OFF \
         "20" "(lowram) 将模型加载到显存中而不是内存中" OFF \
-        "21" "(precision full) 使用模型全精度" OFF \
-        "22" "(upcast-sampling) 使用向上采样法提高精度" OFF \
-        "23" "(share) 通过 Gradio 共享" OFF \
-        "24" "(enable-insecure-extension-access) 允许在开放远程访问时安装插件" OFF \
-        "25" "(xformers) 尝试使用 xFormers 优化" ON \
-        "26" "(force-enable-xformers) 强制使用 xFormers 优化" OFF \
-        "27" "(xformers-flash-attention) 使用 xFormers-Flash优化 (仅支持 SD2.x 以上)" OFF \
-        "28" "(opt-split-attention) 使用 Split 优化" OFF \
-        "29" "(opt-sub-quad-attention) 使用 Sub-Quad 优化" OFF \
-        "30" "(opt-split-attention-invokeai) 使用 Sub-Quad-InvokeAI 优化" OFF \
-        "31" "(opt-split-attention-v1) 使用 Sub-Quad-V1 优化" OFF \
-        "32" "(opt-sdp-attention) 使用 Sdp 优化 (仅限 PyTorch2.0 以上)" OFF \
-        "33" "(opt-sdp-no-mem-attention) 使用无高效内存使用的 Sdp 优化" OFF \
-        "34" "(disable-opt-split-attention) 禁用 Split 优化" OFF \
-        "35" "(disable-nan-check) 禁用潜空间 NAN 检查" OFF \
-        "36" "(use-cpu) 使用 CPU 进行生图" OFF \
-        "37" "(disable-model-loading-ram-optimization) 禁用减少内存使用的优化" OFF \
-        "38" "(listen) 开放远程连接" OFF \
-        "39" "(hide-ui-dir-config) 隐藏 WebUI 目录配置" OFF \
-        "40" "(freeze-settings) 冻结 WebUI 设置" OFF \
-        "41" "(gradio-debug) 以 Debug 模式启用 Gradio" OFF \
-        "42" "(opt-channelslast) 使用 Channelslast 内存格式优化" OFF \
-        "43" "(autolaunch) 启动 WebUI 完成后自动启动浏览器" ON \
-        "44" "(theme dark) 使用黑暗主题" ON \
-        "45" "(use-textbox-seed) 使用文本框在 WebUI 中生成的种子" OFF \
-        "46" "(disable-console-progressbars) 禁用控制台进度条显示" OFF \
-        "47" "(enable-console-prompts) 启用在生图时输出提示词到控制台" OFF \
-        "48" "(disable-safe-unpickle) 禁用检查模型是否包含恶意代码" OFF \
-        "49" "(api) 启用 API" ON \
-        "50" "(api-log) 启用输出所有 API 请求的日志记录" OFF \
-        "51" "(nowebui) 不加载 WebUI 界面" OFF \
-        "52" "(ui-debug-mode) 不加载模型启动 WebUI (UI Debug)" OFF \
-        "53" "(administrator) 启用管理员权限" OFF \
-        "54" "(disable-tls-verify) 禁用 TLS 证书验证" OFF \
-        "55" "(no-gradio-queue) 禁用 Gradio 队列" OFF \
-        "56" "(skip-version-check) 禁用 PyTorch, xFormers 版本检查" OFF \
-        "57" "(no-hashing) 禁用模型 Hash 检查" OFF \
-        "58" "(no-download-sd-model) 禁用自动下载模型, 即使模型路径无模型" OFF \
-        "59" "(add-stop-route) 添加 /_stop 路由以停止服务器" OFF \
-        "60" "(api-server-stop) 通过 API 启用服务器停止/重启/终止功能" OFF \
-        "61" "(disable-all-extensions) 禁用所有扩展运行" OFF \
-        "62" "(disable-extra-extensions) 禁用非内置的扩展运行" OFF \
-        "63" "(use-ipex) 使用 Intel XPU 作为生图后端" OFF \
-        "64" "(skip-load-model-at-start) 启动 WebUI 时不加载模型, 加速启动" ON \
+        "21" "(precision half) 使用模型半精度" OFF \
+        "22" "(precision full) 使用模型全精度" OFF \
+        "23" "(upcast-sampling) 使用向上采样法提高精度" OFF \
+        "24" "(share) 通过 Gradio 共享" OFF \
+        "25" "(enable-insecure-extension-access) 允许在开放远程访问时安装插件" OFF \
+        "26" "(xformers) 尝试使用 xFormers 优化" ON \
+        "27" "(force-enable-xformers) 强制使用 xFormers 优化" OFF \
+        "28" "(xformers-flash-attention) 使用 xFormers-Flash优化 (仅支持 SD2.x 以上)" OFF \
+        "29" "(opt-split-attention) 使用 Split 优化" OFF \
+        "30" "(opt-sub-quad-attention) 使用 Sub-Quad 优化" OFF \
+        "31" "(opt-split-attention-invokeai) 使用 Sub-Quad-InvokeAI 优化" OFF \
+        "32" "(opt-split-attention-v1) 使用 Sub-Quad-V1 优化" OFF \
+        "33" "(opt-sdp-attention) 使用 Sdp 优化 (仅限 PyTorch2.0 以上)" OFF \
+        "34" "(opt-sdp-no-mem-attention) 使用无高效内存使用的 Sdp 优化" OFF \
+        "35" "(disable-opt-split-attention) 禁用 Split 优化" OFF \
+        "36" "(disable-nan-check) 禁用潜空间 NAN 检查" OFF \
+        "37" "(use-cpu) 使用 CPU 进行生图" OFF \
+        "38" "(disable-model-loading-ram-optimization) 禁用减少内存使用的优化" OFF \
+        "39" "(listen) 开放远程连接" OFF \
+        "40" "(hide-ui-dir-config) 隐藏 WebUI 目录配置" OFF \
+        "41" "(freeze-settings) 冻结 WebUI 设置" OFF \
+        "42" "(gradio-debug) 以 Debug 模式启用 Gradio" OFF \
+        "43" "(opt-channelslast) 使用 Channelslast 内存格式优化" OFF \
+        "44" "(autolaunch) 启动 WebUI 完成后自动启动浏览器" ON \
+        "45" "(theme dark) 使用黑暗主题" ON \
+        "46" "(use-textbox-seed) 使用文本框在 WebUI 中生成的种子" OFF \
+        "47" "(disable-console-progressbars) 禁用控制台进度条显示" OFF \
+        "48" "(enable-console-prompts) 启用在生图时输出提示词到控制台" OFF \
+        "49" "(disable-safe-unpickle) 禁用检查模型是否包含恶意代码" OFF \
+        "50" "(api) 启用 API" ON \
+        "51" "(api-log) 启用输出所有 API 请求的日志记录" OFF \
+        "52" "(nowebui) 不加载 WebUI 界面" OFF \
+        "53" "(ui-debug-mode) 不加载模型启动 WebUI (UI Debug)" OFF \
+        "54" "(administrator) 启用管理员权限" OFF \
+        "55" "(disable-tls-verify) 禁用 TLS 证书验证" OFF \
+        "56" "(no-gradio-queue) 禁用 Gradio 队列" OFF \
+        "57" "(skip-version-check) 禁用 PyTorch, xFormers 版本检查" OFF \
+        "58" "(no-hashing) 禁用模型 Hash 检查" OFF \
+        "59" "(no-download-sd-model) 禁用自动下载模型, 即使模型路径无模型" OFF \
+        "60" "(add-stop-route) 添加 /_stop 路由以停止服务器" OFF \
+        "61" "(api-server-stop) 通过 API 启用服务器停止/重启/终止功能" OFF \
+        "62" "(disable-all-extensions) 禁用所有扩展运行" OFF \
+        "63" "(disable-extra-extensions) 禁用非内置的扩展运行" OFF \
+        "64" "(use-ipex) 使用 Intel XPU 作为生图后端" OFF \
+        "65" "(skip-load-model-at-start) 启动 WebUI 时不加载模型, 加速启动" ON \
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
@@ -143,135 +144,138 @@ a1111_sd_webui_launch_args_setting()
                     a1111_sd_webui_launch_args="--lowram"
                     ;;
                 21)
-                    a1111_sd_webui_launch_args="--precision full"
+                    a1111_sd_webui_launch_args="--precision half"
                     ;;
                 22)
-                    a1111_sd_webui_launch_args="--upcast-sampling"
+                    a1111_sd_webui_launch_args="--precision full"
                     ;;
                 23)
-                    a1111_sd_webui_launch_args="--share"
+                    a1111_sd_webui_launch_args="--upcast-sampling"
                     ;;
                 24)
-                    a1111_sd_webui_launch_args="--enable-insecure-extension-access"
+                    a1111_sd_webui_launch_args="--share"
                     ;;
                 25)
-                    a1111_sd_webui_launch_args="--xformers"
+                    a1111_sd_webui_launch_args="--enable-insecure-extension-access"
                     ;;
                 26)
-                    a1111_sd_webui_launch_args="--force-enable-xformers"
+                    a1111_sd_webui_launch_args="--xformers"
                     ;;
                 27)
-                    a1111_sd_webui_launch_args="--xformers-flash-attention"
+                    a1111_sd_webui_launch_args="--force-enable-xformers"
                     ;;
                 28)
-                    a1111_sd_webui_launch_args="--opt-split-attention"
+                    a1111_sd_webui_launch_args="--xformers-flash-attention"
                     ;;
                 29)
-                    a1111_sd_webui_launch_args="--opt-sub-quad-attention"
+                    a1111_sd_webui_launch_args="--opt-split-attention"
                     ;;
                 30)
-                    a1111_sd_webui_launch_args="--opt-split-attention-invokeai"
+                    a1111_sd_webui_launch_args="--opt-sub-quad-attention"
                     ;;
                 31)
-                    a1111_sd_webui_launch_args="--opt-split-attention-v1"
+                    a1111_sd_webui_launch_args="--opt-split-attention-invokeai"
                     ;;
                 32)
-                    a1111_sd_webui_launch_args="--opt-sdp-attention"
+                    a1111_sd_webui_launch_args="--opt-split-attention-v1"
                     ;;
                 33)
-                    a1111_sd_webui_launch_args="--opt-sdp-no-mem-attention"
+                    a1111_sd_webui_launch_args="--opt-sdp-attention"
                     ;;
                 34)
-                    a1111_sd_webui_launch_args="--disable-opt-split-attention"
+                    a1111_sd_webui_launch_args="--opt-sdp-no-mem-attention"
                     ;;
                 35)
-                    a1111_sd_webui_launch_args="--disable-nan-check"
+                    a1111_sd_webui_launch_args="--disable-opt-split-attention"
                     ;;
                 36)
-                    a1111_sd_webui_launch_args="--use-cpu all"
+                    a1111_sd_webui_launch_args="--disable-nan-check"
                     ;;
                 37)
-                    a1111_sd_webui_launch_args="--disable-model-loading-ram-optimization"
+                    a1111_sd_webui_launch_args="--use-cpu all"
                     ;;
                 38)
-                    a1111_sd_webui_launch_args="--listen"
+                    a1111_sd_webui_launch_args="--disable-model-loading-ram-optimization"
                     ;;
                 39)
-                    a1111_sd_webui_launch_args="--hide-ui-dir-config"
+                    a1111_sd_webui_launch_args="--listen"
                     ;;
                 40)
-                    a1111_sd_webui_launch_args="--freeze-settings"
+                    a1111_sd_webui_launch_args="--hide-ui-dir-config"
                     ;;
                 41)
-                    a1111_sd_webui_launch_args="--gradio-debug"
+                    a1111_sd_webui_launch_args="--freeze-settings"
                     ;;
                 42)
-                    a1111_sd_webui_launch_args="--opt-channelslast"
+                    a1111_sd_webui_launch_args="--gradio-debug"
                     ;;
                 43)
-                    a1111_sd_webui_launch_args="--autolaunch"
+                    a1111_sd_webui_launch_args="--opt-channelslast"
                     ;;
                 44)
-                    a1111_sd_webui_launch_args="--theme dark"
+                    a1111_sd_webui_launch_args="--autolaunch"
                     ;;
                 45)
-                    a1111_sd_webui_launch_args="--use-textbox-seed"
+                    a1111_sd_webui_launch_args="--theme dark"
                     ;;
                 46)
-                    a1111_sd_webui_launch_args="--disable-console-progressbars"
+                    a1111_sd_webui_launch_args="--use-textbox-seed"
                     ;;
                 47)
-                    a1111_sd_webui_launch_args="--enable-console-prompts"
+                    a1111_sd_webui_launch_args="--disable-console-progressbars"
                     ;;
                 48)
-                    a1111_sd_webui_launch_args="--disable-safe-unpickle"
+                    a1111_sd_webui_launch_args="--enable-console-prompts"
                     ;;
                 49)
-                    a1111_sd_webui_launch_args="--api"
+                    a1111_sd_webui_launch_args="--disable-safe-unpickle"
                     ;;
                 50)
-                    a1111_sd_webui_launch_args="--api-log"
+                    a1111_sd_webui_launch_args="--api"
                     ;;
                 51)
-                    a1111_sd_webui_launch_args="--nowebui"
+                    a1111_sd_webui_launch_args="--api-log"
                     ;;
                 52)
-                    a1111_sd_webui_launch_args="--ui-debug-mode"
+                    a1111_sd_webui_launch_args="--nowebui"
                     ;;
                 53)
-                    a1111_sd_webui_launch_args="--administrator"
+                    a1111_sd_webui_launch_args="--ui-debug-mode"
                     ;;
                 54)
-                    a1111_sd_webui_launch_args="--disable-tls-verify"
+                    a1111_sd_webui_launch_args="--administrator"
                     ;;
                 55)
-                    a1111_sd_webui_launch_args="--no-gradio-queue"
+                    a1111_sd_webui_launch_args="--disable-tls-verify"
                     ;;
                 56)
-                    a1111_sd_webui_launch_args="--skip-version-check"
+                    a1111_sd_webui_launch_args="--no-gradio-queue"
                     ;;
                 57)
-                    a1111_sd_webui_launch_args="--no-hashing"
+                    a1111_sd_webui_launch_args="--skip-version-check"
                     ;;
                 58)
-                    a1111_sd_webui_launch_args="--no-download-sd-model"
+                    a1111_sd_webui_launch_args="--no-hashing"
                     ;;
                 59)
-                    a1111_sd_webui_launch_args="--add-stop-route"
+                    a1111_sd_webui_launch_args="--no-download-sd-model"
                     ;;
                 60)
-                    a1111_sd_webui_launch_args="--api-server-stop"
+                    a1111_sd_webui_launch_args="--add-stop-route"
                     ;;
                 61)
-                    a1111_sd_webui_launch_args="--disable-all-extensions"
+                    a1111_sd_webui_launch_args="--api-server-stop"
                     ;;
                 62)
-                    a1111_sd_webui_launch_args="--disable-extra-extensions"
+                    a1111_sd_webui_launch_args="--disable-all-extensions"
                     ;;
                 63)
-                    a1111_sd_webui_launch_args="--use-ipex"
+                    a1111_sd_webui_launch_args="--disable-extra-extensions"
                     ;;
                 64)
+                    a1111_sd_webui_launch_args="--use-ipex"
+                    ;;
+                65)
                     a1111_sd_webui_launch_args="--skip-load-model-at-start"
                     ;;
             esac
