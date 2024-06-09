@@ -17,8 +17,9 @@ __term_sd_task_pre_model_16 aria2_download https://huggingface.co/licyk/sd-model
 __term_sd_task_pre_model_17 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/starryXLV52_v52.safetensors "$kohya_ss_path"/models/ # starryXLV52_v52 OFF
 __term_sd_task_pre_model_18 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/heartOfAppleXL_v20.safetensors "$kohya_ss_path"/models/ # heartOfAppleXL_v20 OFF
 __term_sd_task_pre_model_19 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/heartOfAppleXL_v30.safetensors "$kohya_ss_path"/models/ # heartOfAppleXL_v30 OFF
-__term_sd_task_pre_model_20 # =====VAE模型===== OFF
-__term_sd_task_pre_model_21 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sd_1.5/vae-ft-ema-560000-ema-pruned.safetensors "$kohya_ss_path"/models/ # vae-ft-ema-560000-ema-pruned OFF
-__term_sd_task_pre_model_22 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sd_1.5/vae-ft-mse-840000-ema-pruned.safetensors "$kohya_ss_path"/models/ # vae-ft-mse-840000-ema-pruned OFF
-__term_sd_task_pre_model_23 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sdxl_1.0/sdxl_fp16_fix_vae.safetensors "$kohya_ss_path"/models/ # sdxl_fp16_fix_vae OFF
-__term_sd_task_pre_model_24 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sdxl_1.0/sdxl_vae.safetensors "$kohya_ss_path"/models/ # sdxl_vae OFF
+__term_sd_task_pre_model_20 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/kohaku-xl-epsilon-rev3.safetensors "$kohya_ss_path"/models/ # kohaku-xl-epsilon-rev3 OFF
+__term_sd_task_pre_model_21 # =====VAE模型===== OFF
+__term_sd_task_pre_model_22 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sd_1.5/vae-ft-ema-560000-ema-pruned.safetensors "$kohya_ss_path"/models/ # vae-ft-ema-560000-ema-pruned OFF
+__term_sd_task_pre_model_23 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sd_1.5/vae-ft-mse-840000-ema-pruned.safetensors "$kohya_ss_path"/models/ # vae-ft-mse-840000-ema-pruned OFF
+__term_sd_task_pre_model_24 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sdxl_1.0/sdxl_fp16_fix_vae.safetensors "$kohya_ss_path"/models/ # sdxl_fp16_fix_vae OFF
+__term_sd_task_pre_model_25 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sdxl_1.0/sdxl_vae.safetensors "$kohya_ss_path"/models/ # sdxl_vae OFF

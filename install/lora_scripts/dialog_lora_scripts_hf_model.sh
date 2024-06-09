@@ -17,8 +17,9 @@ __term_sd_task_pre_model_16 pdForAnime_v20 OFF
 __term_sd_task_pre_model_17 starryXLV52_v52 OFF
 __term_sd_task_pre_model_18 heartOfAppleXL_v20 OFF
 __term_sd_task_pre_model_19 heartOfAppleXL_v30 OFF
-__term_sd_task_pre_model_20 =====VAE模型===== OFF
-__term_sd_task_pre_model_21 vae-ft-ema-560000-ema-pruned OFF
-__term_sd_task_pre_model_22 vae-ft-mse-840000-ema-pruned OFF
-__term_sd_task_pre_model_23 sdxl_fp16_fix_vae OFF
-__term_sd_task_pre_model_24 sdxl_vae OFF
+__term_sd_task_pre_model_20 kohaku-xl-epsilon-rev3 OFF
+__term_sd_task_pre_model_21 =====VAE模型===== OFF
+__term_sd_task_pre_model_22 vae-ft-ema-560000-ema-pruned OFF
+__term_sd_task_pre_model_23 vae-ft-mse-840000-ema-pruned OFF
+__term_sd_task_pre_model_24 sdxl_fp16_fix_vae OFF
+__term_sd_task_pre_model_25 sdxl_vae OFF
