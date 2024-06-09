@@ -94,9 +94,9 @@ __term_sd_task_pre_ext_7 get_modelscope_model licyks/layerdiffusion/master/vae_t
 __term_sd_task_pre_ext_7 get_modelscope_model licyks/layerdiffusion/master/vae_transparent_encoder.safetensors "$sd_webui_path"/models/layer_model
 
 __term_sd_task_pre_ext_8 term_sd_echo "下载 DanTagGen 模型" # DanTagGen OFF
-__term_sd_task_pre_ext_8 get_modelscope_model licyks/sd-extensions-model/master/a1111-sd-webui-dtg/ggml-model-Q6_K.gguf "$sd_webui_path"/extensions/a1111-sd-webui-dtg/models
-__term_sd_task_pre_ext_8 get_modelscope_model licyks/sd-extensions-model/master/a1111-sd-webui-dtg/ggml-model-Q8_0.gguf "$sd_webui_path"/extensions/a1111-sd-webui-dtg/models
-__term_sd_task_pre_ext_8 get_modelscope_model licyks/sd-extensions-model/master/a1111-sd-webui-dtg/ggml-model-f16.gguf "$sd_webui_path"/extensions/a1111-sd-webui-dtg/models
+__term_sd_task_pre_ext_8 get_modelscope_model licyks/sd-extensions-model/master/a1111-sd-webui-dtg/DanTagGen-delta-rev2_ggml-model-Q6_K.gguf "$sd_webui_path"/extensions/a1111-sd-webui-dtg/models
+__term_sd_task_pre_ext_8 get_modelscope_model licyks/sd-extensions-model/master/a1111-sd-webui-dtg/DanTagGen-delta-rev2_ggml-model-Q8_0.gguf "$sd_webui_path"/extensions/a1111-sd-webui-dtg/models
+__term_sd_task_pre_ext_8 get_modelscope_model licyks/sd-extensions-model/master/a1111-sd-webui-dtg/DanTagGen-delta-rev2_ggml-model-f16.gguf "$sd_webui_path"/extensions/a1111-sd-webui-dtg/models
 
 __term_sd_task_pre_ext_9 term_sd_echo "下载 sd-webui-stablesr 模型" # StableSR ON
 __term_sd_task_pre_ext_9 get_modelscope_model licyks/sd-extensions-model/master/sd-webui-stablesr/webui_768v_139.ckpt "$sd_webui_path"/extensions/sd-webui-stablesr/models
