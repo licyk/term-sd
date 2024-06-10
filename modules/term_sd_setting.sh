@@ -516,17 +516,17 @@ term_sd_cache_redirect_setting()
                 ;;
             2)
                 touch -f term-sd/config/disable-cache-path-redirect.lock
-                CACHE_HOME=
-                HF_HOME=
-                MATPLOTLIBRC=
-                MODELSCOPE_CACHE=
-                MS_CACHE_HOME=
-                SYCL_CACHE_DIR=
-                TORCH_HOME=
-                U2NET_HOME=
-                XDG_CACHE_HOME=
-                PIP_CACHE_DIR=
-                PYTHONPYCACHEPREFIX=
+                unset CACHE_HOME
+                unset HF_HOME
+                unset MATPLOTLIBRC
+                unset MODELSCOPE_CACHE
+                unset MS_CACHE_HOME
+                unset SYCL_CACHE_DIR
+                unset TORCH_HOME
+                unset U2NET_HOME
+                unset XDG_CACHE_HOME
+                unset PIP_CACHE_DIR
+                unset PYTHONPYCACHEPREFIX
 
                 dialog --erase-on-exit \
                     --title "Term-SD" \
