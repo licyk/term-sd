@@ -5,7 +5,18 @@ git_ver_switch()
 {
     if [ -d ".git" ];then # 检测目录中是否有.git文件夹
         local git_repository_commit
+        local origin_branch
+        local ref
         term_sd_echo "获取 $(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1') 版本信息"
+
+        # 获取当前所在分支
+        ref=$(git symbolic-ref --quiet HEAD 2> /dev/null)
+        if [ $? = 0 ];then # 未出现分支游离
+            origin_branch="origin/${ref#refs/heads/}"
+        else # 出现分支游离时查询HEAD所指的分支
+            origin_branch="origin/$(git branch -a | grep /HEAD | awk -F'/' '{print $NF}')"
+        fi
+
         git_repository_commit=$(dialog --erase-on-exit \
             --title "Term-SD" \
             --backtitle "$(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1') 切换版本选项" \
@@ -13,7 +24,7 @@ git_ver_switch()
             --menu "请选择要切换的版本\n当前版本: \n$(git show -s --format="%h %cd" --date=format:"%Y-%m-%d %H:%M:%S")" \
             $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
             "-->返回<--" "<-------------------" \
-            $(git log --all --date=short --pretty=format:"%h %cd" --date=format:"%Y-%m-%d|%H:%M:%S" | awk -F  ' ' ' {print $1 " " $2} ') \
+            $(git log $origin_branch --date=short --pretty=format:"%h %cd" --date=format:"%Y-%m-%d|%H:%M:%S" | awk -F  ' ' ' {print $1 " " $2} ') \
             3>&1 1>&2 2>&3)
 
         if [ $? = 0 ];then
