@@ -426,3 +426,7 @@ ComfyUI 插件 / 自定义节点说明：
 103、ComfyUI-Anyline
 描述：添加anyline预处理器
 链接：https://github.com/TheMistoAI/ComfyUI-Anyline
+
+104、ComfyUI-TiledDiffusion
+描述：TiledDiffusion分块放大工具
+链接：https://github.com/shiimizu/ComfyUI-TiledDiffusion

@@ -101,3 +101,4 @@ __term_sd_task_pre_ext_100 git_clone_repository ${github_mirror} https://github.
 __term_sd_task_pre_ext_101 git_clone_repository ${github_mirror} https://github.com/Haoming02/comfyui-prompt-format "$comfyui_path"/custom_nodes OFF # 提示词格式化工具
 __term_sd_task_pre_ext_102 git_clone_repository ${github_mirror} https://github.com/huchenlei/ComfyUI_omost "$comfyui_path"/custom_nodes OFF # 添加omost模型支持
 __term_sd_task_pre_ext_103 git_clone_repository ${github_mirror} https://github.com/TheMistoAI/ComfyUI-Anyline "$comfyui_path"/custom_nodes OFF # 添加anyline预处理器
+__term_sd_task_pre_ext_104 git_clone_repository ${github_mirror} https://github.com/shiimizu/ComfyUI-TiledDiffusion "$comfyui_path"/custom_nodes OFF # TiledDiffusion分块放大工具
