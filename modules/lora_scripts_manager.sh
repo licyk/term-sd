@@ -39,7 +39,7 @@ lora_scripts_manager()
                     ;;
                 2)
                     term_sd_echo "更新 lora-scripts 中"
-                    git_pull_repository --submod # 版本不对应,有时会出现各种奇怪的报错
+                    git_pull_repository
                     case $? in
                         0)
                             dialog --erase-on-exit \

@@ -169,17 +169,13 @@ git_repository_remote_revise()
 git_pull_repository()
 {
     if [ -d ".git" ];then # 检测目录中是否有.git文件夹
-        case $1 in
-            --submod)
-                git_auto_fix_pointer_offset # 检测分支是否游离
-                git submodule init # 初始化git子模块
-                term_sd_try git pull --recurse-submodules
-                ;;
-            *)
-                git_auto_fix_pointer_offset
-                term_sd_try git pull
-                ;;
-        esac
+        git_auto_fix_pointer_offset # 检测分支是否游离并修复
+        if [ ! -z "$(git submodule status)" ];then # 检测是否有子模块
+            git submodule init # 初始化git子模块
+            term_sd_try git pull --recurse-submodules
+        else
+            term_sd_try git pull
+        fi
     else
         term_sd_echo "$(basename $(pwd)) 非 Git 安装, 无法更新"
         return 10
