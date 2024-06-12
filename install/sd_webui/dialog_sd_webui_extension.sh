@@ -117,3 +117,4 @@ __term_sd_task_pre_ext_116 sd-webui-clear-screen OFF
 __term_sd_task_pre_ext_117 sd-webui-auto-res OFF
 __term_sd_task_pre_ext_118 sd-webui-moar-generate OFF
 __term_sd_task_pre_ext_119 metadata_utils OFF
+__term_sd_task_pre_ext_120 sd-webui-xyz-addon OFF

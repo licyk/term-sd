@@ -478,3 +478,7 @@ Stable Diffusion WebUI 插件说明：
 119、metadata_utils
 描述：为sd-webui-supermerger融合的模型添加元数据
 链接：https://github.com/Tzigo/metadata_utils
+
+120、sd-webui-xyz-addon
+描述：为xyz脚本添加更多功能
+链接：https://github.com/w-e-w/sd-webui-xyz-addon
