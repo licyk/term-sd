@@ -838,7 +838,38 @@ prepare_tcmalloc()
 
 #############################
 
-export term_sd_version_info="1.3.12" # term-sd版本
+# 切换到term-sd.sh所在位置
+cd "$(cd "$(dirname "$0")" ; pwd)"
+
+# 目录结构检测,防止用户直接运行Term-SD目录内的term-sd.sh
+if [ ! -d "term-sd" ] && [ -d ".git" ] && [ -d "modules" ] && [ -f "modules/init.sh" ] && [ -d "extra" ];then
+    term_sd_echo "检测到目录错误"
+    term_sd_echo "禁止用户直接在 Term-SD 目录里运行 Term-SD"
+    term_sd_echo "请将 term-sd.sh 文件复制到 Term-SD 目录外面(和 Term-SD 目录放在一起)"
+    term_sd_echo "再运行目录外面的 term-sd.sh"
+    term_sd_echo "退出 Term-SD"
+    exit 1
+fi
+
+# root权限检测
+if [ $(id -u) -eq 0 ];then
+    term_sd_echo "检测到使用 root 权限运行 Term-SD, 这可能会导致不良后果"
+    term_sd_echo "是否继续运行 Term-SD (yes/no)?"
+    term_sd_echo "提示: 输入 yes 或 no 后回车"
+    case $(term_sd_read) in
+        yes|y|YES|Y)
+            term_sd_echo "继续初始化 Term-SD"
+            ;;
+        *)
+            term_sd_echo "终止 Term-SD 初始化进程"
+            term_sd_echo "退出 Term-SD"
+            exit 1
+            ;;
+    esac
+fi
+
+# 变量初始化
+export term_sd_version_info="1.3.13" # term-sd版本
 export user_shell=$(basename $SHELL) # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题
@@ -881,42 +912,6 @@ case $term_sd_env_prepare_info in
         term_sd_launch_args_manager "$@" # 处理用户输入的参数
         ;;
 esac
-
-# 目录结构检测,防止用户直接运行Term-SD目录内的term-sd.sh
-if [ ! -d "term-sd" ] && [ -d ".git" ] && [ -d "modules" ] && [ -f "modules/init.sh" ] && [ -d "extra" ];then
-    term_sd_echo "检测到目录错误"
-    term_sd_echo "禁止用户直接在 Term-SD 目录里运行 Term-SD"
-    term_sd_echo "请将 term-sd.sh 文件复制到 Term-SD 目录外面(和 Term-SD 目录放在一起)"
-    term_sd_echo "再运行目录外面的 term-sd.sh"
-    term_sd_echo "退出 Term-SD"
-    exit 1
-fi
-
-if [ "$(dirname "$(echo $0)")" = "." ] || [ "$(dirname "$(echo $0)")" = "$(pwd)" ];then
-    true
-else
-    term_sd_echo "检测到未在 term-sd.sh 文件所在目录运行 Term-SD"
-    term_sd_echo "请进入 term-sd.sh 文件所在目录后再次运行 Term-SD"
-    term_sd_echo "退出 Term-SD"
-    exit 1
-fi
-
-# root权限检测
-if [ $(id -u) -eq 0 ];then
-    term_sd_echo "检测到使用 root 权限运行 Term-SD, 这可能会导致不良后果"
-    term_sd_echo "是否继续运行 Term-SD (yes/no)?"
-    term_sd_echo "提示: 输入 yes 或 no 后回车"
-    case $(term_sd_read) in
-        yes|y|YES|Y)
-            term_sd_echo "继续初始化 Term-SD"
-            ;;
-        *)
-            term_sd_echo "终止 Term-SD 初始化进程"
-            term_sd_echo "退出 Term-SD"
-            exit 1
-            ;;
-    esac
-fi
 
 # dialog使用文档https://manpages.debian.org/bookworm/dialog/dialog.1.en.html
 # 设置dialog界面的大小
