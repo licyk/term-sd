@@ -841,14 +841,17 @@ prepare_tcmalloc()
 # 切换到term-sd.sh所在位置
 cd "$(cd "$(dirname "$0")" ; pwd)"
 
-# 目录结构检测,防止用户直接运行Term-SD目录内的term-sd.sh
-if [ ! -d "term-sd" ] && [ -d ".git" ] && [ -d "modules" ] && [ -f "modules/init.sh" ] && [ -d "extra" ];then
-    term_sd_echo "检测到目录错误"
-    term_sd_echo "禁止用户直接在 Term-SD 目录里运行 Term-SD"
-    term_sd_echo "请将 term-sd.sh 文件复制到 Term-SD 目录外面(和 Term-SD 目录放在一起)"
-    term_sd_echo "再运行目录外面的 term-sd.sh"
-    term_sd_echo "退出 Term-SD"
-    exit 1
+# 目录结构检测,发现错误时修正路径
+if  [ ! -d "term-sd" ] &&\
+    [ -d ".git" ] &&\
+    [ -d "modules" ] &&\
+    [ -f "modules/init.sh" ] &&\
+    [ -d "extra" ] &&\
+    [ -d "install" ] &&\
+    [ -d "task" ] &&\
+    [ -d "help" ] &&\
+    [ -d "config" ];then
+    cd ..
 fi
 
 # root权限检测
