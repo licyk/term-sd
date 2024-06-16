@@ -39,7 +39,7 @@ term_sd_update_manager()
                             --msgbox "Term-SD 更新成功, 选择确定后重启" \
                             $term_sd_dialog_height $term_sd_dialog_width
 
-                        . ./term-sd.sh
+                        . ./term-sd/term-sd.sh
                     else
                         dialog --erase-on-exit \
                             --title "Term-SD" \

@@ -1243,7 +1243,7 @@ fi
 # 自动更新成功时重载环境
 if [ $term_sd_restart_info = 0 ];then
     term_sd_echo "重载 Term-SD 启动脚本中"
-    . ./term-sd.sh
+    . ./term-sd/term-sd.sh
 fi
 
 term_sd_echo "Term-SD 版本: $term_sd_version_info"
