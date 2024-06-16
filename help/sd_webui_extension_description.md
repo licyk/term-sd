@@ -482,3 +482,7 @@ Stable Diffusion WebUI 插件说明：
 120、sd-webui-xyz-addon
 描述：为xyz脚本添加更多功能
 链接：https://github.com/w-e-w/sd-webui-xyz-addon
+
+121、sd-webui-flash-attention-zluda-win
+描述：为zluda添加flash-attension优化
+链接：https://github.com/Repeerc/sd-webui-flash-attention-zluda-win

@@ -118,3 +118,4 @@ __term_sd_task_pre_ext_117 git_clone_repository ${github_mirror} https://github.
 __term_sd_task_pre_ext_118 git_clone_repository ${github_mirror} https://github.com/Haoming02/sd-webui-moar-generate "$sd_webui_path"/extensions OFF # 添加了另一个生成按钮，用于当有太多活动扩展但不想每次都一直向上滚动时
 __term_sd_task_pre_ext_119 git_clone_repository ${github_mirror} https://github.com/Tzigo/metadata_utils "$sd_webui_path"/extensions OFF # 为sd-webui-supermerger融合的模型添加元数据
 __term_sd_task_pre_ext_120 git_clone_repository ${github_mirror} https://github.com/w-e-w/sd-webui-xyz-addon "$sd_webui_path"/extensions OFF # 为xyz脚本添加更多功能
+__term_sd_task_pre_ext_121 git_clone_repository ${github_mirror} https://github.com/Repeerc/sd-webui-flash-attention-zluda-win "$sd_webui_path"/extensions OFF # 为zluda添加flash-attension优化
