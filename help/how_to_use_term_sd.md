@@ -720,9 +720,10 @@ Term-SD 包含了一些扩展脚本，扩充 Term-SD 的功能
 - 6、file-backup：备份 / 恢复 AI 软件的数据，备份文件储存在 Term-SD 的`backup`文件夹中
 - 7、fix-onnxruntime-gpu：当 PyTorch 所带的 CUDA 版本为 12.1 时，但本地安装的 onnxruntime-gpu 为适用于 CUDA 11.8 的版本时，将导致 onnxruntime 的运行无法使用 GPU 进行加速，该脚本可将 onnxruntime-gpu 重装至支持 CUDA 12.1 的版本
 - 8、fix-pkg_resources：修复因 setuptools 版本高于 65 时导致启动 stable-diffusion-webui 出现 ImportError: cannot import name 'packaging' from 'pkg_resources' 报错的问题
+- 9、clean-cache：使用`git gc`清理和优化`.git`文件夹，减小`.git`文件夹占用，并使用`python -m pip cache purge`清理 Pip 产生的缓存
 
 >[!NOTE]
->如果需要使用扩展脚本，则在启动 Term-SD 前加入`--extra`启动参数即可使用扩展脚本
+>如果需要使用扩展脚本，则在启动 Term-SD 前加入`--extra`启动参数，或者`--extra <script_name>`即可使用扩展脚本
 
 ### 启动参数
 在使用命令 Term-SD 时，可以添加启动参数来使用 Term-SD 额外的功能
