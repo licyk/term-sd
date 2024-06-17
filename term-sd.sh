@@ -442,36 +442,30 @@ term_sd_auto_update_trigger()
 # term-sd自动更新功能
 term_sd_auto_update()
 {
-    local term_sd_local_branch
-    local term_sd_local_hash
-    local term_sd_remote_hash
+    local ref
+    local origin_branch
+    local commit_hash
+    local local_commit_hash
 
     term_sd_echo "检查更新中"
-    term_sd_local_branch=$(git --git-dir="term-sd/.git" branch | grep \* | awk -F "*" '{gsub(/[" "]/,"") ; print $NF}') # term-sd分支
-    term_sd_local_hash=$(git --git-dir="term-sd/.git" rev-parse HEAD) # term-sd本地hash
-    term_sd_remote_hash=$(git --git-dir="term-sd/.git" ls-remote origin refs/remotes/origin/$term_sd_local_branch $term_sd_local_branch 2> /dev/null) # term-sd远程hash
-    if [ $? = 0 ];then # 网络连接正常时再进行更新
-        term_sd_remote_hash=$(echo $term_sd_remote_hash | awk '{print $1}')
-        if [ ! $term_sd_local_hash = $term_sd_remote_hash ];then
+    git -C term-sd fetch
+    if [ $? = 0 ];then # 拉取远端内容成功后再更新
+        ref=$(git -C term-sd symbolic-ref --quiet HEAD 2> /dev/null)
+        origin_branch="origin/${ref#refs/heads/}"
+        commit_hash=$(git -C term-sd log --branches $origin_branch --max-count 1 --format="%h")
+        local_commit_hash=$(git -C term-sd show -s --format="%h")
+        if [ ! $commit_hash = $local_commit_hash ];then
             term_sd_echo "检测到 Term-SD 有新版本"
             term_sd_echo "是否选择更新(yes/no)?"
             term_sd_echo "提示: 输入 yes 或 no 后回车"
             case $(term_sd_read) in
                 yes|y|YES|Y)
                     term_sd_echo "更新 Term-SD 中"
-                    cd term-sd
-                    git pull
-                    if [ $? = 0 ];then
-                        cd ..
-                        cp -f term-sd/term-sd.sh .
-                        chmod +x term-sd.sh
-                        term_sd_restart_info=0
-                        term_sd_echo "Term-SD 更新成功"
-                    else
-                        cd ..
-                        term_sd_echo "Term-SD 更新失败"
-                        term_sd_sleep 3
-                    fi
+                    git -C term-sd reset --hard $commit_hash
+                    cp -f term-sd/term-sd.sh .
+                    chmod +x term-sd.sh
+                    term_sd_restart_info=0
+                    term_sd_echo "Term-SD 更新完成"
                     ;;
                 *)
                     term_sd_echo "跳过 Term-SD 的更新"

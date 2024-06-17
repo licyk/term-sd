@@ -5,7 +5,11 @@ term_sd_update_manager()
 {
     local term_sd_update_manager_dialog
     local req
-
+    local commit_hash
+    local local_commit_hash
+    local origin_branch
+    local ref
+    
     if [ -d "term-sd/.git" ];then # 检测目录中是否有.git文件夹
         while true
         do
@@ -27,19 +31,34 @@ term_sd_update_manager()
                 1)
                     term_sd_echo "更新 Term-SD 中"
                     [ -f "term-sd/config/term-sd-auto-update.lock" ] && date +'%Y-%m-%d %H:%M:%S' > term-sd/config/term-sd-auto-update-time.conf # 记录更新时间
-                    term_sd_try git -C term-sd pull
+                    term_sd_echo "拉取 Term-SD 远端更新内容"
+                    term_sd_try git -C term-sd fetch
                     if [ $? = 0 ];then
-                        cp -f term-sd/term-sd.sh .
-                        chmod +x term-sd.sh
+                        ref=$(git -C term-sd symbolic-ref --quiet HEAD 2> /dev/null)
+                        origin_branch="origin/${ref#refs/heads/}"
+                        commit_hash=$(git -C term-sd log --branches $origin_branch --max-count 1 --format="%h")
+                        local_commit_hash=$(git -C term-sd show -s --format="%h")
+                        git -C term-sd reset --hard $commit_hash
+                        if [ $commit_hash = $local_commit_hash ];then
+                            dialog --erase-on-exit \
+                                --title "Term-SD" \
+                                --backtitle "Term-SD 更新结果" \
+                                --ok-label "确定" \
+                                --msgbox "Term-SD 已是最新版本" \
+                                $term_sd_dialog_height $term_sd_dialog_width
+                        else
+                            cp -f term-sd/term-sd.sh .
+                            chmod +x term-sd.sh
 
-                        dialog --erase-on-exit \
-                            --title "Term-SD" \
-                            --backtitle "Term-SD 更新结果" \
-                            --ok-label "确定" \
-                            --msgbox "Term-SD 更新成功, 选择确定后重启" \
-                            $term_sd_dialog_height $term_sd_dialog_width
+                            dialog --erase-on-exit \
+                                --title "Term-SD" \
+                                --backtitle "Term-SD 更新结果" \
+                                --ok-label "确定" \
+                                --msgbox "Term-SD 更新成功, 选择确定后重启" \
+                                $term_sd_dialog_height $term_sd_dialog_width
 
-                        . ./term-sd/term-sd.sh
+                            . ./term-sd/term-sd.sh
+                        fi
                     else
                         dialog --erase-on-exit \
                             --title "Term-SD" \

@@ -49,7 +49,7 @@ git_ver_switch()
             term_sd_echo "取消版本切换操作"
         fi
     else
-        term_sd_echo "$(basename $(pwd)) 非 Git 安装, 无法切换版本"
+        term_sd_echo "$(basename "$(pwd)") 非 Git 安装, 无法切换版本"
         return 10
     fi
 }
@@ -70,7 +70,7 @@ git_fix_pointer_offset()
         git restore --recurse-submodules --source=HEAD :/ # 重置工作区
         term_sd_echo "修复 $(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1') 完成"
     else
-        term_sd_echo "$(basename $(pwd)) 非 Git 安装, 无法修复分支游离"
+        term_sd_echo "$(basename "$(pwd)") 非 Git 安装, 无法修复分支游离"
         return 10
     fi
 }
@@ -170,15 +170,50 @@ git_pull_repository()
 {
     if [ -d ".git" ];then # 检测目录中是否有.git文件夹
         git_auto_fix_pointer_offset # 检测分支是否游离并修复
-        if [ ! -z "$(git submodule status)" ];then # 检测是否有子模块
-            git submodule init # 初始化git子模块
-            term_sd_try git pull --recurse-submodules
-        else
-            term_sd_try git pull
-        fi
+        git_get_latest_ver
     else
-        term_sd_echo "$(basename $(pwd)) 非 Git 安装, 无法更新"
+        term_sd_echo "$(basename "$(pwd)") 非 Git 安装, 无法更新"
         return 10
+    fi
+}
+
+# git拉取更新内容并更新
+git_get_latest_ver()
+{
+    local commit_hash
+    local origin_branch
+    local ref
+    local use_submodules
+    local local_commit_hash
+    local req
+
+    if [ -d ".git" ];then
+        if [ ! -z "$(git submodule status)" ];then # 检测是否有子模块
+            term_sd_echo "初始化 Git 子模块"
+            use_submodules="--recurse-submodules"
+            git submodule init # 初始化git子模块
+        fi
+
+        term_sd_echo "拉取 $(basename "$(pwd)") 远端更新内容"
+        term_sd_try git fetch $use_submodules
+        if [ $? = 0 ];then
+            term_sd_echo "应用 $(basename "$(pwd)") 远端更新内容"
+            ref=$(git symbolic-ref --quiet HEAD 2> /dev/null)
+            origin_branch="origin/${ref#refs/heads/}"
+            commit_hash=$(git log --branches $origin_branch --max-count 1 --format="%h")
+            local_commit_hash=$(git show -s --format="%h")
+            git reset --hard $commit_hash $use_submodules
+            req=$?
+            if [ $commit_hash = $local_commit_hash ];then
+                term_sd_echo "$(basename "$(pwd)") 已是最新"
+            else
+                term_sd_echo "$(basename "$(pwd)") 版本变动: $local_commit_hash -> $commit_hash"
+            fi
+            return $req
+        else
+            term_sd_echo "拉取 $(basename "$(pwd)") 远端更新内容失败"
+            return 1
+        fi
     fi
 }
 
