@@ -190,12 +190,13 @@ term_sd_branch_switch()
                         $term_sd_dialog_height $term_sd_dialog_width) then
 
                         git -C term-sd checkout main
+                        git -C term-sd reset --hard origin/main
                         cp -f term-sd/term-sd.sh .
                         chmod +x term-sd.sh
                         term_sd_echo "切换到 Term-SD 主分支"
                         term_sd_echo "即将重启 Term-SD"
                         term_sd_sleep 3
-                        . ./term-sd.sh
+                        . ./term-sd/term-sd.sh
                     else
                         term_sd_echo "取消切换 Term-SD 分支操作"
                     fi
@@ -209,12 +210,13 @@ term_sd_branch_switch()
                         $term_sd_dialog_height $term_sd_dialog_width) then
 
                         git -C term-sd checkout dev
+                        git -C term-sd reset --hard origin/dev
                         cp -f term-sd/term-sd.sh .
                         chmod +x term-sd.sh
                         term_sd_echo "切换到 Term-SD 测试分支"
                         term_sd_echo "即将重启 Term-SD"
                         term_sd_sleep 3
-                        . ./term-sd.sh
+                        . ./term-sd/term-sd.sh
                     else
                        term_sd_echo "取消切换 Term-SD 分支操作"
                     fi
