@@ -42,7 +42,10 @@ term_sd_update_manager()
                         fi
                         commit_hash=$(git -C term-sd log --branches $origin_branch --max-count 1 --format="%h")
                         local_commit_hash=$(git -C term-sd show -s --format="%h")
+                        term_sd_echo "应用 Term-SD 远端更新内容"
                         git -C term-sd reset --hard $commit_hash
+                        cp -f term-sd/term-sd.sh .
+                        chmod +x term-sd.sh
                         if [ $commit_hash = $local_commit_hash ];then
                             dialog --erase-on-exit \
                                 --title "Term-SD" \
@@ -51,9 +54,6 @@ term_sd_update_manager()
                                 --msgbox "Term-SD 已是最新版本" \
                                 $term_sd_dialog_height $term_sd_dialog_width
                         else
-                            cp -f term-sd/term-sd.sh .
-                            chmod +x term-sd.sh
-
                             dialog --erase-on-exit \
                                 --title "Term-SD" \
                                 --backtitle "Term-SD 更新结果" \
@@ -76,6 +76,8 @@ term_sd_update_manager()
                     cd term-sd
                     git_fix_pointer_offset
                     cd ..
+                    cp -f term-sd/term-sd.sh .
+                    chmod +x term-sd.sh
                     ;;
                 3)
                     term_sd_auto_update_setting
