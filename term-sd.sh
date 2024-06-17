@@ -451,7 +451,11 @@ term_sd_auto_update()
     git -C term-sd fetch
     if [ $? = 0 ];then # 拉取远端内容成功后再更新
         ref=$(git -C term-sd symbolic-ref --quiet HEAD 2> /dev/null)
-        origin_branch="origin/${ref#refs/heads/}"
+        if [ $? = 0 ];then # 未出现分支游离
+            origin_branch="origin/${ref#refs/heads/}"
+        else # 出现分支游离时查询HEAD所指的分支
+            origin_branch="origin/$(git -C term-sd branch -a | grep /HEAD | awk -F'/' '{print $NF}')"
+        fi
         commit_hash=$(git -C term-sd log --branches $origin_branch --max-count 1 --format="%h")
         local_commit_hash=$(git -C term-sd show -s --format="%h")
         if [ ! $commit_hash = $local_commit_hash ];then

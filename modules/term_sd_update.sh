@@ -35,7 +35,11 @@ term_sd_update_manager()
                     term_sd_try git -C term-sd fetch
                     if [ $? = 0 ];then
                         ref=$(git -C term-sd symbolic-ref --quiet HEAD 2> /dev/null)
-                        origin_branch="origin/${ref#refs/heads/}"
+                        if [ $? = 0 ];then # 未出现分支游离
+                            origin_branch="origin/${ref#refs/heads/}"
+                        else # 出现分支游离时查询HEAD所指的分支
+                            origin_branch="origin/$(git -C term-sd branch -a | grep /HEAD | awk -F'/' '{print $NF}')"
+                        fi
                         commit_hash=$(git -C term-sd log --branches $origin_branch --max-count 1 --format="%h")
                         local_commit_hash=$(git -C term-sd show -s --format="%h")
                         git -C term-sd reset --hard $commit_hash
