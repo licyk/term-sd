@@ -54,7 +54,7 @@ __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_
 __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1_annotator/resolve/main/openpose/rtmpose-m_simcc-ap10k_pt-aic-coco_210e-256x256-7a041aa1_20230206.onnx "$sd_webui_path"/extensions/sd-webui-controlnet/annotator/downloads/openpose
 
 __term_sd_task_pre_ext_2 term_sd_echo "下载 Animatediff 模型" # AnimateDiff OFF
-__term_sd_task_pre_ext_2 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/sd-webui-animatediff/mm_sd_v15_v2.ckpt "$sd_webui_path"/extensions/sd-webui-animatediff/model
+__term_sd_task_pre_ext_2 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/sd-webui-animatediff/v3_sd15_mm.ckpt "$sd_webui_path"/extensions/sd-webui-animatediff/model
 
 __term_sd_task_pre_ext_3 term_sd_echo "下载 Adetailer 模型" # Adetailer OFF
 __term_sd_task_pre_ext_3 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/adetailer/deepfashion2_yolov8s-seg.pt "$sd_webui_path"/models/adetailer # adetailer模型

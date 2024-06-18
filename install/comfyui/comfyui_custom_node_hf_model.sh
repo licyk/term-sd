@@ -58,7 +58,7 @@ __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/comfyui-ext
 __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/comfyui-extension-models/resolve/main/comfyui_controlnet_aux/yzd-v/DWPose/yolox_l.onnx "$comfyui_path"/custom_nodes/comfyui_controlnet_aux/ckpts/yzd-v/DWPose
 
 __term_sd_task_pre_ext_2 term_sd_echo "下载 Animatediff 模型中" # AnimateDiff OFF
-__term_sd_task_pre_ext_2 aria2_download https://huggingface.co/guoyww/animatediff/resolve/main/mm_sd_v15_v2.ckpt "$comfyui_path"/custom_nodes/ComfyUI-AnimateDiff-Evolved/models
+__term_sd_task_pre_ext_2 aria2_download https://huggingface.co/guoyww/animatediff/resolve/main/v3_sd15_mm.ckpt "$comfyui_path"/custom_nodes/ComfyUI-AnimateDiff-Evolved/models
 
 __term_sd_task_pre_ext_3 term_sd_echo "下载 IP-Adapter 模型中" # IP-Adapter ON
 __term_sd_task_pre_ext_3 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sd15.pth "$comfyui_path"/custom_nodes/ComfyUI_IPAdapter_plus/models
