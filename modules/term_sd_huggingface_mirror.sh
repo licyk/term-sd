@@ -42,6 +42,7 @@ term_sd_huggingface_global_mirror_setting()
 
                     term_sd_echo "删除 HuggingFace 镜像源"
                     rm -f "$start_path"/term-sd/config/set-global-huggingface-mirror.conf
+                    rm -f "$start_path"/term-sd/config/set-dynamic-global-huggingface-mirror.lock
                     unset HF_ENDPOINT
 
                     dialog --erase-on-exit \
@@ -56,7 +57,6 @@ term_sd_huggingface_global_mirror_setting()
                 break
                 ;;
         esac
-
     done
 }
 
@@ -69,29 +69,45 @@ term_sd_set_huggingface_mirror()
         --backtitle "HuggingFace 镜像源选项" \
         --ok-label "确认" \
         --cancel-label "取消" \
-        --menu "选择要使用的 HuggingFace 镜像源" \
+        --menu "选择要使用的 HuggingFace 镜像源, 推荐设置动态 HuggingFace 镜像源" \
         $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
         "0" "> 返回" \
-        "1" "> 自动选择 HuggingFace 镜像源" \
-        "2" "> HuggingFace 镜像源1 (hf-mirror.com)" \
-        "3" "> HuggingFace 镜像源2 (huggingface.sukaka.top)" \
+        "1" "> 设置动态 HuggingFace 镜像源" \
+        "2" "> 自动选择 HuggingFace 镜像源" \
+        "3" "> HuggingFace 镜像源1 (hf-mirror.com)" \
+        "4" "> HuggingFace 镜像源2 (huggingface.sukaka.top)" \
         3>&1 1>&2 2>&3)
 
     case $term_sd_set_huggingface_mirror_dialog in
         1)
+            term_sd_echo "启用动态 HuggingFace 镜像源中"
+            touch "$start_path"/term-sd/config/set-dynamic-global-huggingface-mirror.lock
+            term_sd_auto_setup_huggingface_mirror
+            if [ -f "$start_path/term-sd/config/set-global-huggingface-mirror.conf" ];then
+                term_sd_huggingface_mirror=$(cat "$start_path/term-sd/config/set-global-huggingface-mirror.conf")
+            else
+                term_sd_huggingface_mirror="无"
+            fi
+            term_sd_echo "启用动态 HuggingFace 镜像源完成"
+            return 0
+            ;;
+        2)
+            rm -f "$start_path"/term-sd/config/set-dynamic-global-huggingface-mirror.lock
             term_sd_echo "测试可用 HuggingFace 镜像源"
             term_sd_test_avaliable_huggingface_mirror
             echo "$term_sd_huggingface_mirror" > "$start_path"/term-sd/config/set-global-huggingface-mirror.conf
             export HF_ENDPOINT=$term_sd_huggingface_mirror
             return 0
             ;;
-        2)
+        3)
+            rm -f "$start_path"/term-sd/config/set-dynamic-global-huggingface-mirror.lock
             term_sd_huggingface_mirror="https://hf-mirror.com"
             echo "$term_sd_huggingface_mirror" > "$start_path"/term-sd/config/set-global-huggingface-mirror.conf
             export HF_ENDPOINT=$term_sd_huggingface_mirror
             return 0
             ;;
-        3)
+        4)
+            rm -f "$start_path"/term-sd/config/set-dynamic-global-huggingface-mirror.lock
             term_sd_huggingface_mirror="https://huggingface.sukaka.top"
             echo "$term_sd_huggingface_mirror" > "$start_path"/term-sd/config/set-global-huggingface-mirror.conf
             export HF_ENDPOINT=$term_sd_huggingface_mirror
@@ -106,14 +122,14 @@ term_sd_set_huggingface_mirror()
 # 测试可用的huggingface镜像源
 term_sd_test_avaliable_huggingface_mirror()
 {
-    local huggingface_mirror_list="https://hf-mirror.com https://huggingface.sukaka.top"
+    local mirror_list=$huggingface_mirror_list
     local req
     local i
     local http_proxy
     local https_proxy
     http_proxy= # 临时清除配置好的代理,防止干扰测试
     https_proxy=
-    for i in $huggingface_mirror_list ;do
+    for i in $mirror_list ;do
         curl ${i}/licyk/sd-model/resolve/main/README.md -o /dev/null --connect-timeout 10 --silent
         if [ $? = 0 ];then
             term_sd_huggingface_mirror=$i

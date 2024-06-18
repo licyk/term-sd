@@ -522,7 +522,6 @@ term_sd_install()
                 term_sd_clone_modules
                 if [ $? = 0 ];then
                     term_sd_restore_config
-                    term_sd_set_up_normal_setting
                     term_sd_restart_info=0
                     cp -f term-sd/term-sd.sh .
                     chmod +x term-sd.sh
@@ -556,7 +555,6 @@ term_sd_reinstall()
                 term_sd_clone_modules
                 if [ $? = 0 ];then
                     term_sd_restore_config
-                    term_sd_set_up_normal_setting
                     term_sd_restart_info=0
                     cp -f term-sd/term-sd.sh .
                     chmod +x term-sd.sh
@@ -613,6 +611,8 @@ term_sd_backup_config()
     [ -d "term-sd/cache" ] && mv -f term-sd/cache term-sd-tmp
     [ -d "term-sd/requirements-backup" ] && mv -f term-sd/requirements-backup term-sd-tmp
     [ -d "term-sd/backup" ] && mv -f term-sd/backup term-sd-tmp
+    [ -d "term-sd/.agree_user_agreement" ] && mv -f term-sd/.agree_user_agreement term-sd-tmp
+    [ -d "term-sd/.install_by_launch_script" ] && mv -f term-sd/.install_by_launch_script term-sd-tmp
 }
 
 # 恢复cache文件夹
@@ -623,6 +623,8 @@ term_sd_restore_config()
     [ -d "term-sd-tmp/config" ] && mv -f term-sd-tmp/config/* term-sd/config
     [ -d "term-sd-tmp/requirements-backup" ] && mv -f term-sd-tmp/requirements-backup term-sd
     [ -d "term-sd-tmp/backup" ] && mv -f term-sd-tmp/backup term-sd
+    [ -d "term-sd-tmp/.agree_user_agreement" ] && mv -f term-sd-tmp/.agree_user_agreement term-sd
+    [ -d "term-sd-tmp/.install_by_launch_script" ] && mv -f term-sd-tmp/.install_by_launch_script term-sd
     rm -rf term-sd-tmp
 }
 
@@ -644,6 +646,16 @@ term_sd_set_up_normal_setting()
     if [ ! -f "term-sd/config/term-sd-pip-mirror.conf" ];then
         echo "2" > term-sd/config/term-sd-pip-mirror.conf
         term_sd_echo "Term-SD 设置 Pip 镜像源为国内镜像源"
+    fi
+
+    if [ ! -f "$start_path/term-sd/config/set-dynamic-global-github-mirror.lock" ];then
+        touch "$start_path"/term-sd/config/set-dynamic-global-github-mirror.lock
+        term_sd_echo "Term-SD 启用 Github 镜像源"
+    fi
+
+    if [ ! -f "$start_path/term-sd/config/set-dynamic-global-huggingface-mirror.lock" ];then
+        touch "$start_path"/term-sd/config/set-dynamic-global-huggingface-mirror.lock
+        term_sd_echo "Term-SD 启用 HuggingFace 镜像源"
     fi
 
     touch term-sd/.install_by_launch_script
@@ -784,7 +796,7 @@ prepare_tcmalloc()
             term_sd_echo "取消加载内存优化"
             ;;
         *)
-            if [[ "${OSTYPE}" == "linux"* ]] && [[ -z "${NO_TCMALLOC}" ]] && [[ -z "${LD_PRELOAD}" ]]; then
+            if [[ "${OSTYPE}" == "linux"* ]] && [[ -z "${LD_PRELOAD}" ]]; then
                 term_sd_echo "检测到系统为 Linux, 尝试启用内存优化"
                 # 检查glibc版本
                 LIBC_VER=$(echo $(ldd --version | awk 'NR==1 {print $NF}') | grep -oP '\d+\.\d+')
@@ -832,6 +844,99 @@ prepare_tcmalloc()
             fi
             ;;
     esac
+}
+
+# 自动选择github镜像源
+term_sd_auto_setup_github_mirror()
+{
+    if [ -f "term-sd/config/set-dynamic-global-github-mirror.lock" ];then
+        export GIT_CONFIG_GLOBAL="$start_path/term-sd/config/.gitconfig"
+        local mirror_status=1
+        local i
+        local git_repository_url
+
+        rm -f "$start_path"/term-sd/config/.gitconfig
+        rm -f "$start_path"/term-sd/config/set-global-github-mirror.conf
+        for i in $github_mirror_list
+        do
+            [ -d "$start_path/term-sd/github_mirror_test" ] && rm -rf "$start_path/term-sd/github_mirror_test" &> /dev/null
+            term_sd_github_mirror=$(echo $i | awk '{sub("/term_sd_git_user/term_sd_git_repo","")}1')
+            term_sd_echo "测试 Github 镜像源: $term_sd_github_mirror"
+            git_repository_url=$(echo $i | awk '{sub("term_sd_git_user","licyk")}1' | awk '{sub("term_sd_git_repo","empty")}1') # 生成格式化之后的链接
+            git clone $git_repository_url "$start_path/term-sd/github_mirror_test" --depth=1 &> /dev/null # 测试镜像源是否正常连接
+            git_req=$?
+            rm -rf "$start_path/term-sd/github_mirror_test" &> /dev/null
+            if [ $git_req = 0 ];then
+                term_sd_echo "该 Github 镜像源可用"
+                mirror_status=0
+                break
+            fi
+        done
+
+        if [ $mirror_status = 0 ];then
+            term_sd_echo "设置 Github 镜像源"
+            git config --global url."$term_sd_github_mirror".insteadOf "https://github.com"
+            echo "$term_sd_github_mirror" > "$start_path"/term-sd/config/set-global-github-mirror.conf
+        else
+            term_sd_echo "无可用 Github 镜像源, 取消使用 Github 镜像源"
+            unset term_sd_github_mirror
+            unset GIT_CONFIG_GLOBAL
+        fi
+    fi
+}
+
+# 自动选择huggingface镜像源
+term_sd_auto_setup_huggingface_mirror()
+{
+    if [ -f "term-sd/config/set-dynamic-global-huggingface-mirror.lock" ];then
+        local mirror_status=1
+        local i
+        rm -f "$start_path"/term-sd/config/set-global-huggingface-mirror.conf
+
+        for i in $huggingface_mirror_list
+        do
+            term_sd_echo "测试 HuggingFace 镜像源: $i"
+            curl ${i}/licyk/sd-model/resolve/main/README.md -o /dev/null --connect-timeout 10 --silent
+            if [ $? = 0 ];then
+                term_sd_echo "该 HuggingFace 镜像源可用"
+                term_sd_huggingface_mirror=$i
+                mirror_status=0
+                break
+            fi
+        done
+
+        if [ $mirror_status = 0 ];then
+            term_sd_echo "设置 HuggingFace 镜像源"
+            export HF_ENDPOINT=$term_sd_huggingface_mirror
+            echo "$term_sd_huggingface_mirror" > "$start_path"/term-sd/config/set-global-huggingface-mirror.conf
+        else
+            term_sd_echo "无可用 HuggingFace 镜像源, 取消设置 HuggingFace 镜像源"
+            unset term_sd_huggingface_mirror
+        fi
+    fi
+}
+
+# 用户协议
+term_sd_user_agreement()
+{
+    if [ ! -f "term-sd/.agree_user_agreement" ];then
+        term_sd_print_line "用户协议"
+        cat term-sd/help/user_agreement.md
+        echo
+        term_sd_print_line
+        term_sd_echo "是否同意该用户协议 (yes/no)?"
+        case $(term_sd_read) in
+            yes|y|YES|Y)
+                touch term-sd/.agree_user_agreement
+                term_sd_echo "确认同意该用户协议"
+                ;;
+            *)
+                term_sd_echo "取消同意该用户协议"
+                term_sd_echo "退出 Term-SD"
+                exit 0
+                ;;
+        esac
+    fi
 }
 
 #############################
@@ -888,6 +993,8 @@ export term_sd_pip_find_links="https://mirrors.aliyun.com/pytorch-wheels/torch_s
 export term_sd_pip_index_url_args=""
 export term_sd_pip_extra_index_url_args=""
 export term_sd_pip_find_links_args=""
+export github_mirror_list="https://mirror.ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo https://ghproxy.net/https://github.com/term_sd_git_user/term_sd_git_repo https://gh-proxy.com/https://github.com/term_sd_git_user/term_sd_git_repo https://ghps.cc/https://github.com/term_sd_git_user/term_sd_git_repo https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo ttps://gitclone.com/github.com/term_sd_git_user/term_sd_git_repo"
+export huggingface_mirror_list="https://hf-mirror.com https://huggingface.sukaka.top"
 missing_depend_info=0 # 依赖缺失状态
 missing_depend_macos_info=0
 term_sd_restart_info=1 # term-sd重启状态
@@ -1090,16 +1197,6 @@ else
     export kohya_ss_parent_path=$start_path
 fi
 
-# github镜像源设置
-if [ -f "term-sd/config/set-global-github-mirror.conf" ];then
-    export GIT_CONFIG_GLOBAL="$start_path/term-sd/config/.gitconfig"
-fi
-
-# huggingface镜像源设置
-if [ -f "term-sd/config/set-global-huggingface-mirror.conf" ];then
-    export HF_ENDPOINT=$(cat term-sd/config/set-global-huggingface-mirror.conf)
-fi
-
 # 依赖检测
 case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的值为空,且不需要定义就可以使用,不像c语言中要求那么严格)
     0)
@@ -1216,6 +1313,10 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
         if [ ! -f "term-sd/.install_by_launch_script" ];then # 检测是否通过启动脚本安装term-sd
             term_sd_set_up_normal_setting # 非启动脚本安装时设置默认term-sd设置
         fi
+
+        term_sd_auto_setup_github_mirror # 配置github镜像源
+        term_sd_auto_setup_huggingface_mirror # 配置huggingface镜像源
+        term_sd_user_agreement # 用户协议
         ;;
 esac
 
@@ -1234,6 +1335,16 @@ if [ ! -f "term-sd/config/disable-cache-path-redirect.lock" ];then
     export PIP_CACHE_DIR="$start_path/term-sd/cache/pip"
     export PYTHONPYCACHEPREFIX="$start_path/term-sd/cache/pycache"
     # export TRANSFORMERS_CACHE="$start_path/term-sd/cache/huggingface/transformers"
+fi
+
+# github镜像源设置
+if [ ! -f "term-sd/config/set-dynamic-global-github-mirror.lock" ] && [ -f "term-sd/config/set-global-github-mirror.conf" ];then
+    export GIT_CONFIG_GLOBAL="$start_path/term-sd/config/.gitconfig"
+fi
+
+# huggingface镜像源设置
+if [ ! -f "term-sd/config/set-dynamic-global-huggingface-mirror.lock" ] && [ -f "term-sd/config/set-global-huggingface-mirror.conf" ];then
+    export HF_ENDPOINT=$(cat term-sd/config/set-global-huggingface-mirror.conf)
 fi
 
 #############################

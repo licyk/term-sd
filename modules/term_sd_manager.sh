@@ -253,6 +253,7 @@ term_sd_help()
             "3" "> 目录说明" \
             "4" "> Stable-Diffusion-WebUI 插件说明" \
             "5" "> ComfyUI 插件 / 自定义节点说明" \
+            "6" "> 用户协议" \
             3>&1 1>&2 2>&3)
 
         case $term_sd_help_dialog in
@@ -290,6 +291,14 @@ term_sd_help()
                     --backtitle "Term-SD 帮助选项" \
                     --ok-label "确认" \
                     --msgbox "$(cat term-sd/help/comfyui_extension_description.md)" \
+                    $term_sd_dialog_height $term_sd_dialog_width
+                ;;
+            6)
+                dialog --erase-on-exit \
+                    --title "Term-SD" \
+                    --backtitle "Term-SD 帮助选项" \
+                    --ok-label "确认" \
+                    --msgbox "$(cat term-sd/help/user_agreement.md)" \
                     $term_sd_dialog_height $term_sd_dialog_width
                 ;;
             *)

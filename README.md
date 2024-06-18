@@ -251,7 +251,7 @@ aria2c https://gitlab.com/licyk/term-sd/-/raw/main/term-sd.sh && chmod +x term-s
 介绍 Windows 平台下如何配置 Term-SD 运行环境
 
 ### [《Term-SD界面操作方法》](https://github.com/licyk/README-collection/blob/main/term-sd/README_how_to_use_dialog.md)
-介绍 Term-SD 界面(Dialog) 的操作方法
+介绍 Term-SD 界面 (Dialog) 的操作方法
 
 ### [《如何使用Term-SD》](https://github.com/licyk/README-collection/blob/main/term-sd/README_how_to_use_term_sd.md)
 介绍 Term-SD 的使用方法，包括安装，管理 AI 软件，和 Term-SD 一些功能的使用

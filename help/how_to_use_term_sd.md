@@ -174,9 +174,11 @@ Term-SD 默认已配置该选项，可忽略
 
 ~~在 Term-SD 设置选择`命令执行监测设置`，选择启用，输入重试次数（推荐 3），这时就设置好安装重试功能了，在安装 AI 软件时如果遇到网络不稳定导致命令执行的中断时，将会重新执行中断的命令，保证安装的顺利进行~~
 
-- 4、设置 Github / HuggingFace 全局镜像源（可选，当没有代理时可尝试配置）
+- 4、设置 Github / HuggingFace 全局镜像源（推荐）
 
-在 Term-SD 的设置中可以看到`Github 镜像源设置`和`HuggingFace 镜像源设置`，进入设置后可以看到不同的镜像源，可使用自动选择镜像源的功能来设置一个可用的镜像源。
+Term-SD 默认已配置该选项，可忽略
+
+~~在 Term-SD 的设置中可以看到`Github 镜像源设置`和`HuggingFace 镜像源设置`，进入设置后可以看到不同的镜像源，可使用自动选择镜像源的功能来设置一个可用的镜像源。~~
 
 进行上面的步骤后就可以进行 AI 软件的安装
 
@@ -809,9 +811,9 @@ C:\Program Files\Python310\python.exe
 ***
 
 ## 安装 GPerfTools 工具进行内存优化
-在 Linux 系统中可以安装 GPerfTools 来优化内存的占用，不同 Linux 发行版的安装方式如下。
+在 Linux 系统中可以安装 GPerfTools，使用该工具提供的 TCmalloc 来优化内存的占用，不同 Linux 发行版的安装方式如下。
 
-- Debain（Ubuntu系）系：
+- Debian（Ubuntu系）系：
 ```bash
 sudo apt install google-perftools
 ```
