@@ -7,6 +7,13 @@ term_sd_echo "开始清理缓存中"
 if [ -d "$sd_webui_path" ];then
     term_sd_echo "清理 Stable-Diffusion—WebUI 缓存中"
     git -C "$sd_webui_path" gc
+    for i in "$sd_webui_path"/repositories/*
+    do
+        if [ -d "$i/.git" ];then
+            term_sd_echo "清理 $(basename "$i") 组件缓存中"
+            git -C "$i" gc
+        fi
+    done
     term_sd_echo "清理 Stable-Diffusion—WebUI 插件缓存中"
     for i in "$sd_webui_path"/extensions/*
     do
