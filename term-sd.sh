@@ -611,8 +611,8 @@ term_sd_backup_config()
     [ -d "term-sd/cache" ] && mv -f term-sd/cache term-sd-tmp
     [ -d "term-sd/requirements-backup" ] && mv -f term-sd/requirements-backup term-sd-tmp
     [ -d "term-sd/backup" ] && mv -f term-sd/backup term-sd-tmp
-    [ -d "term-sd/.agree_user_agreement" ] && mv -f term-sd/.agree_user_agreement term-sd-tmp
-    [ -d "term-sd/.install_by_launch_script" ] && mv -f term-sd/.install_by_launch_script term-sd-tmp
+    [ -f "term-sd/.agree_user_agreement" ] && mv -f term-sd/.agree_user_agreement term-sd-tmp
+    [ -f "term-sd/.install_by_launch_script" ] && mv -f term-sd/.install_by_launch_script term-sd-tmp
 }
 
 # 恢复cache文件夹
@@ -623,8 +623,8 @@ term_sd_restore_config()
     [ -d "term-sd-tmp/config" ] && mv -f term-sd-tmp/config/* term-sd/config
     [ -d "term-sd-tmp/requirements-backup" ] && mv -f term-sd-tmp/requirements-backup term-sd
     [ -d "term-sd-tmp/backup" ] && mv -f term-sd-tmp/backup term-sd
-    [ -d "term-sd-tmp/.agree_user_agreement" ] && mv -f term-sd-tmp/.agree_user_agreement term-sd
-    [ -d "term-sd-tmp/.install_by_launch_script" ] && mv -f term-sd-tmp/.install_by_launch_script term-sd
+    [ -f "term-sd-tmp/.agree_user_agreement" ] && mv -f term-sd-tmp/.agree_user_agreement term-sd
+    [ -f "term-sd-tmp/.install_by_launch_script" ] && mv -f term-sd-tmp/.install_by_launch_script term-sd
     rm -rf term-sd-tmp
 }
 
@@ -975,7 +975,7 @@ if [ $(id -u) -eq 0 ];then
 fi
 
 # 变量初始化
-export term_sd_version_info="1.3.14" # term-sd版本
+export term_sd_version_info="1.3.15" # term-sd版本
 export user_shell=$(basename $SHELL) # 读取用户所使用的shell
 export start_path=$(pwd) # 设置启动时脚本路径
 export PYTHONUTF8=1 # 强制Python解释器使用UTF-8编码来处理字符串,避免乱码问题
