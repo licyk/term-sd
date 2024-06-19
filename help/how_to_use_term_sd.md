@@ -838,8 +838,8 @@ nix-env -i gperftools
 ||绘世启动器依赖|
 |---|---
 |↓|[Microsoft Visual C++](https://aka.ms/vs/17/release/vc_redist.x64.exe)|
-|↓|[.NET 6.0](https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/sdk-6.0.420-windows-x64-installer)|
-|↓|[.NET 8.0](https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/sdk-8.0.203-windows-x64-installer)|
+|↓|[.NET 6.0](https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/sdk-6.0.423-windows-x64-installer)|
+|↓|[.NET 8.0](https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/sdk-8.0.302-windows-x64-installer)|
 
 >[!NOTE]
 >使用绘世启动器前需要安装依赖

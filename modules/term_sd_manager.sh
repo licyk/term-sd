@@ -138,20 +138,51 @@ aria2_download()
 # 显示版本信息
 term_sd_version()
 {
+    local platform_info
+    local term_sd_ver
+    local python_ver
+    local python_major_version
+    local python_minor_version
+    local pip_ver
+    local aria2_ver
+    local git_ver
+    local dialog_ver
+    local curl_ver
+
     term_sd_echo "统计版本信息中"
+    platform_info=$(is_windows_platform && echo Windows || uname -o)
+    term_sd_ver="$term_sd_version_info - $(git -C term-sd show -s --format="%cd" --date=format:"%Y-%m-%d %H:%M:%S")"
+    python_ver=$(term_sd_python --version | awk 'NR==1 {print $2}')
+    python_major_version=$(echo $python_ver | awk -F '.' '{print $1}')
+    python_minor_version=$(echo $python_ver | awk -F '.' '{print $2}')
+    if [ $python_major_version = 3 ];then
+        if [ $python_minor_version -ge 9 ] && [ $python_minor_version -le 11 ];then
+            true
+        else
+            python_ver="$python_ver (版本不兼容!)"
+        fi
+    else
+        python_ver="$python_ver (版本不兼容!)"
+    fi
+    pip_ver=$(term_sd_pip --version | awk 'NR==1{print $2}')
+    aria2_ver=$(aria2c --version | awk 'NR==1{print $3}')
+    git_ver=$(git --version | awk 'NR==1{print $3}')
+    dialog_ver=$(dialog --version | awk 'NR==1{print $2}')
+    curl_ver=$(curl --version | awk 'NR==1{print $2}')
+
     dialog --erase-on-exit \
         --title "Term-SD" \
         --backtitle "Term-SD开始界面" \
         --ok-label "确认" \
         --msgbox "版本信息:\n\n
-系统: $(is_windows_platform && echo Windows || uname -o)\n
-Term-SD: $term_sd_version_info - $(git -C term-sd show -s --format="%cd" --date=format:"%Y-%m-%d %H:%M:%S")\n
-Python: $(term_sd_python --version | awk 'NR==1{print$2}')\n
-Pip: $(term_sd_pip --version | awk 'NR==1{print$2}')\n
-Aria2: $(aria2c --version | awk 'NR==1{print$3}')\n
-Git: $(git --version | awk 'NR==1{print$3}')\n
-Dialog: $(dialog --version | awk 'NR==1{print$2}')\n
-Curl: $(curl --version | awk 'NR==1{print$2}')\n
+系统: $platform_info\n
+Term-SD: $term_sd_ver\n
+Python: $python_ver\n
+Pip: $pip_ver\n
+Aria2: $aria2_ver\n
+Git: $git_ver\n
+Dialog: $dialog_ver\n
+Curl: $curl_ver\n
 \n
 提示:\n
 使用方向键, Tab 键移动光标, 方向键 / F, B 键翻页 (鼠标滚轮无法翻页) , Enter 键进行选择, Space 键勾选或取消勾选 (已勾选时显示 [*] ), Ctrl+Shift+V 快捷键粘贴文本, 鼠标左键可点击按钮 (右键无效)\n

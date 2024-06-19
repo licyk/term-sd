@@ -38,64 +38,42 @@ download_hanamizuki()
 {
     aria2_download $download_hanamizuki_resource term-sd/task "绘世.exe"
     if [ $? = 0 ];then
-        if [ -d "$sd_webui_path" ];then
-            if [ ! -f "$sd_webui_path/绘世.exe" ];then
-                cp -f "term-sd/task/绘世.exe" "$sd_webui_path"
-                term_sd_echo "已将绘世启动器复制到 Stable-Diffusion-WebUI 文件夹"
-            else
-                term_sd_echo "Stable-Diffusion-WebUI 文件夹中已存在绘世启动器"
-            fi
-        else
-            term_sd_echo "未找到 Stable-Diffusion-WebUI 文件夹"
-        fi
-
-        if [ -d "$comfyui_path" ];then
-            if [ ! -f "$comfyui_path/绘世.exe" ];then
-                cp -f "term-sd/task/绘世.exe" "$comfyui_path"
-                term_sd_echo "已将绘世启动器复制到 ComfyUI 文件夹"
-            else
-                term_sd_echo "ComfyUI 文件夹中已存在绘世启动器"
-            fi
-        else
-            term_sd_echo "未找到 ComfyUI 文件夹"
-        fi
-
-        if [ -d "$fooocus_path" ];then
-            if [ ! -f "$fooocus_path/绘世.exe" ];then
-                cp -f "term-sd/task/绘世.exe" "$fooocus_path"
-                term_sd_echo "已将绘世启动器复制到 Fooocus 文件夹"
-            else
-                term_sd_echo "Fooocus 文件夹中已存在绘世启动器"
-            fi
-        else
-            term_sd_echo "未找到 Fooocus 文件夹"
-        fi
+        install_hanamizuki "$sd_webui_path" "Stable-Diffusion-WebUI"
+        install_hanamizuki "$comfyui_path" "ComfyUI"
+        install_hanamizuki "$fooocus_path" "Fooocus"
         rm -f "term-sd/task/绘世.exe"
     else
         term_sd_echo "下载失败"
     fi
 }
 
+# 将绘世启动器复制到ai软件目录中
+install_hanamizuki()
+{
+    local install_path=$1
+    local sd_name=$2
+
+    if [ -d "$install_path" ];then
+        if  [ -f "$install_path"/*绘世*.exe ] ||\
+            [ -f "$install_path"/A*.exe ] ||\
+            [ -f "$install_path"/*启动器.exe ];then
+            term_sd_echo "绘世启动器已存在于 $sd_name 文件夹中"
+        else
+            term_sd_echo "将绘世启动器复制到 $sd_name 文件夹: $install_path"
+            cp -f "term-sd/task/绘世.exe" "$install_path"
+        fi
+    else
+        term_sd_echo "$sd_name 未安装"
+    fi
+}
+
 #############################
 
 if is_windows_platform ;then
-    if  [ -d "$sd_webui_path" ] || \
-        [ -d "$comfyui_path" ] || \
-        [ -d "$fooocus_path" ];then
-
-        if  [ ! -f "$sd_webui_path/绘世.exe" ] || \
-            [ ! -f "$comfyui_path/绘世.exe" ] || \
-            [ ! -f "$fooocus_path/绘世.exe" ];then
-
-            download_hanamizuki_resource_select
-            if [ $? = 0 ];then
-                download_hanamizuki
-            fi
-        else
-            term_sd_echo "绘世启动器已存在 Stable-Diffusion-WebUI, ComfyUI, Fooocus 文件夹中"
-        fi
+    if download_hanamizuki_resource_select ;then
+        download_hanamizuki
     else
-        term_sd_echo "未找到 Stable-Diffusion-WebUI, ComfyUI, Fooocus 文件夹"
+        term_sd_echo "取消下载绘世启动器"
     fi
 else
     term_sd_echo "检测到系统不是 Windows, 无法使用绘世启动器"
