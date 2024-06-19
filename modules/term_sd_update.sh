@@ -40,7 +40,7 @@ term_sd_update_manager()
                         else # 出现分支游离时查询HEAD所指的分支
                             origin_branch="origin/$(git -C term-sd branch -a | grep /HEAD | awk -F'/' '{print $NF}')"
                         fi
-                        commit_hash=$(git -C term-sd log --branches $origin_branch --max-count 1 --format="%h")
+                        commit_hash=$(git -C term-sd log $origin_branch --max-count 1 --format="%h")
                         local_commit_hash=$(git -C term-sd show -s --format="%h")
                         term_sd_echo "应用 Term-SD 远端更新内容"
                         git -C term-sd reset --hard $commit_hash

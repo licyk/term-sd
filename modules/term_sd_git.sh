@@ -200,7 +200,7 @@ git_get_latest_ver()
             term_sd_echo "应用 $(basename "$(pwd)") 远端更新内容"
             ref=$(git symbolic-ref --quiet HEAD 2> /dev/null)
             origin_branch="origin/${ref#refs/heads/}"
-            commit_hash=$(git log --branches $origin_branch --max-count 1 --format="%h")
+            commit_hash=$(git log $origin_branch --max-count 1 --format="%h")
             local_commit_hash=$(git show -s --format="%h")
             git reset --hard $commit_hash $use_submodules
             req=$?
