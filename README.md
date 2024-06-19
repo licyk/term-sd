@@ -109,7 +109,7 @@ sed -i "s#https\?://mirror.msys2.org/#https://mirrors.tuna.tsinghua.edu.cn/msys2
 pacman -Sy
 ```
 
-- 5、安装 Git, Dialog，Curl，Aria2
+- 5、安装 Git，Dialog，Curl，Aria2
 
 输入以下内容并回车。
 
@@ -148,7 +148,7 @@ nix-env -i python311Full aria git dialog curl
 完成上面的步骤后 Term-SD 的运行环境就配置好了，可以在下面的步骤 [安装Term-SD](#安装term-sd)。
 
 >[!NOTE]  
->一些 Linux 方法没法安装指定版本的 Python，不过可以用[安装要求](#安装要求)部分推荐的 Python 版本管理器安装 Python，并在启动 Term-SD 时加上`--set-python-path`启动参数来指定 Python 的路径。
+>一些 Linux 发行版没法安装指定版本的 Python，导致 Python 版本不合适，造成 AI 软件运行出错，所以可以用[安装要求](#安装要求)部分推荐的 Python 版本管理器安装 Python，并在启动 Term-SD 时加上`--set-python-path`启动参数来指定 Python 的路径。
 
 ### MacOS
 
@@ -200,7 +200,7 @@ brew install git aria2 dialog python@3.10 rust cmake protobuf wget curl
 
 ***
 
-## 安装Term-SD
+## 安装 Term-SD
 - 1、下载 Term-SD
 
 打开终端，输入以下命令下载 Term-SD。
