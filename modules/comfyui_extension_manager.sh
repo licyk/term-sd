@@ -175,7 +175,7 @@ comfyui_extension_interface()
                     --title "ComfyUI 管理" \
                     --backtitle "ComfyUI 插件修复更新" \
                     --yes-label "是" --no-label "否" \
-                    --yesno "是否修复 ${comfyui_extension_name} 自定义节点更新?" \
+                    --yesno "是否修复 ${comfyui_extension_name} 插件更新?" \
                     $term_sd_dialog_height $term_sd_dialog_width) then
 
                     git_fix_pointer_offset
@@ -193,7 +193,15 @@ comfyui_extension_interface()
                 comfyui_extension_depend_install_single "插件"
                 ;;
             4)
-                git_ver_switch
+                if (dialog --erase-on-exit \
+                    --title "ComfyUI 管理" \
+                    --backtitle "ComfyUI 插件版本切换" \
+                    --yes-label "是" --no-label "否" \
+                    --yesno "是否切换 ${comfyui_extension_name} 插件版本?" \
+                    $term_sd_dialog_height $term_sd_dialog_width) then
+
+                    git_ver_switch
+                fi
                 [ $? = 10 ] && \
                 dialog --erase-on-exit \
                     --title "ComfyUI 管理" \

@@ -91,7 +91,15 @@ comfyui_manager()
                     comfyui_extension_manager
                     ;;
                 6)
-                    git_ver_switch
+                    if (dialog --erase-on-exit \
+                        --title "ComfyUI 管理" \
+                        --backtitle "ComfyUI 版本切换选项" \
+                        --yes-label "是" --no-label "否" \
+                        --yesno "是否切换 ComfyUI 版本?" \
+                        $term_sd_dialog_height $term_sd_dialog_width) then
+
+                        git_ver_switch
+                    fi
                     ;;
                 7)
                     if (dialog --erase-on-exit \

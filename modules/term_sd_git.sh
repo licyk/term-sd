@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# git版本切换(加上--submod将同时切换子模块版本)
+# git版本切换
 git_ver_switch()
 {
     if [ -d ".git" ];then # 检测目录中是否有.git文件夹
@@ -21,7 +21,7 @@ git_ver_switch()
             --title "Term-SD" \
             --backtitle "$(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1') 切换版本选项" \
             --ok-label "确认" --cancel-label "取消" \
-            --menu "请选择要切换的版本\n当前版本: \n$(git show -s --format="%h %cd" --date=format:"%Y-%m-%d %H:%M:%S")" \
+            --menu "请选择要切换的版本\n当前版本: $(git show -s --format="%h %cd" --date=format:"%Y-%m-%d %H:%M:%S")" \
             $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
             "-->返回<--" "<-------------------" \
             $(git log $origin_branch --date=short --pretty=format:"%h %cd" --date=format:"%Y-%m-%d|%H:%M:%S" | awk -F  ' ' ' {print $1 " " $2} ') \
@@ -30,17 +30,7 @@ git_ver_switch()
         if [ $? = 0 ];then
             if [ ! $git_repository_commit = "-->返回<--" ];then
                 term_sd_echo "切换 $(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1') 版本中"
-                case $1 in
-                    --submod)
-                        git reset --hard $git_repository_commit
-                        git submodule init # 同时切换子模块的版本
-                        git submodule update --recursive
-                        ;;
-                    *)
-                        # 这里切换版本不使用git checkout,因为这样会导致分支签出,在git pull时会出现"当前不在一个分支上",需要重新git checkout回去
-                        git reset --hard $git_repository_commit # 将整个工作区回退到指定commit
-                        ;;
-                esac
+                git reset --recurse-submodules --hard $git_repository_commit
                 term_sd_echo "版本切换完成,版本日期: $(git show -s --format="%ai" $git_repository_commit)"
             else
                 term_sd_echo "取消版本切换操作"
@@ -165,7 +155,7 @@ git_repository_remote_revise()
     fi
 }
 
-# git拉取更新(加上--submod将同时更新模块)
+# git拉取更新
 git_pull_repository()
 {
     if [ -d ".git" ];then # 检测目录中是否有.git文件夹

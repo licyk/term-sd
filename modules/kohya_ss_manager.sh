@@ -80,7 +80,14 @@ kohya_ss_manager()
                     fi
                     ;;
                 4)
-                    git_ver_switch --submod
+                    if (dialog --erase-on-exit \
+                        --title "kohya_ss 管理" \
+                        --backtitle "kohya_ss 版本切换选项" \
+                        --yes-label "是" --no-label "否" \
+                        --yesno "是否切换 kohya_ss 版本?" $term_sd_dialog_height $term_sd_dialog_width) then
+
+                        git_ver_switch
+                    fi
                     ;;
                 5)
                     if (dialog --erase-on-exit \

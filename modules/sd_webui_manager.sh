@@ -105,7 +105,15 @@ sd_webui_manager()
                     sd_webui_extension_manager
                     ;;
                 5)
-                    git_ver_switch
+                    if (dialog --erase-on-exit \
+                        --title "Stable-Diffusion-WebUI 管理" \
+                        --backtitle "Stable-Diffusion-WebUI 版本切换选项" \
+                        --yes-label "是" --no-label "否" \
+                        --yesno "是否切换 Stable-Diffusion-Webui 版本?" \
+                        $term_sd_dialog_height $term_sd_dialog_width) then
+
+                        git_ver_switch
+                    fi
                     ;;
                 6)
                     if (dialog --erase-on-exit \

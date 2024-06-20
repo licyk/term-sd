@@ -189,7 +189,15 @@ comfyui_custom_node_interface()
                 comfyui_extension_depend_install_single "自定义节点"
                 ;;
             4)
-                git_ver_switch
+               if (dialog --erase-on-exit \
+                    --title "ComfyUI管理" \
+                    --backtitle "ComfyUI自定义节点版本切换" \
+                    --yes-label "是" --no-label "否" \
+                    --yesno "是否切换 ${comfyui_custom_node_name} 自定义节点版本?" \
+                    $term_sd_dialog_height $term_sd_dialog_width) then
+
+                    git_ver_switch
+                fi
 
                 [ $? = 10 ] && \
                 dialog --erase-on-exit \
