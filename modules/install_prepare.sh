@@ -360,22 +360,22 @@ Pip 安装方式: $([ -z $pip_install_mode ] && echo "常规安装 (setup.py)" |
 github_mirror_test()
 {
     # 镜像源列表
-    local github_mirror_list="https://mirror.ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo https://ghproxy.net/https://github.com/term_sd_git_user/term_sd_git_repo https://gh-proxy.com/https://github.com/term_sd_git_user/term_sd_git_repo https://ghps.cc/https://github.com/term_sd_git_user/term_sd_git_repo https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo https://gitclone.com/github.com/term_sd_git_user/term_sd_git_repo"
+    local mirror_list=$github_mirror_list
     local git_req
     local i
     local http_proxy
     local https_proxy
     http_proxy= # 临时清除配置好的代理,防止干扰测试
     https_proxy=
-    [ -d "$start_path/term-sd/github_mirror_test" ] && rm -rf "$start_path/term-sd/github_mirror_test" &> /dev/null
-    for i in $github_mirror_list ;do
-        git clone $(git_format_repository_url $i https://github.com/licyk/empty) "$start_path/term-sd/github_mirror_test" --depth=1 &> /dev/null # 测试镜像源是否正常连接
+    [ -d "$start_path/term-sd/task/github_mirror_test" ] && rm -rf "$start_path/term-sd/task/github_mirror_test" &> /dev/null
+    for i in $mirror_list ;do
+        git clone $(git_format_repository_url $i https://github.com/licyk/empty) "$start_path/term-sd/task/github_mirror_test" --depth=1 &> /dev/null # 测试镜像源是否正常连接
         git_req=$?
-        rm -rf "$start_path/term-sd/github_mirror_test" &> /dev/null
+        rm -rf "$start_path/term-sd/task/github_mirror_test" &> /dev/null
         if [ $git_req = 0 ];then
             echo $i
             return
         fi
     done
-    echo "https://mirror.ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo" # 只有上面所有的镜像源无法使用才使用github源
+    echo "https://github.com/term_sd_git_user/term_sd_git_repo"
 }

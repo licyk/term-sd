@@ -488,27 +488,18 @@ term_sd_auto_update()
 term_sd_install()
 {
     if [ ! -d "term-sd" ];then
-        term_sd_echo "检测到 Term-SD 未安装, 是否进行安装(yes/no)?"
-        term_sd_echo "提示: 输入 yes 或 no 后回车"
-        case $(term_sd_read) in
-            yes|y|YES|Y)
-                term_sd_clone_modules
-                if [ $? = 0 ];then
-                    term_sd_set_up_normal_setting
-                    term_sd_restart_info=0
-                    cp -f term-sd/term-sd.sh .
-                    chmod +x term-sd.sh
-                    term_sd_echo "Term-SD 安装成功"
-                else
-                    term_sd_echo "Term-SD 安装失败"
-                    exit 1
-                fi
-                ;;
-            *)
-                term_sd_echo "退出 Term-SD"
-                exit 0
-                ;;
-        esac
+        term_sd_echo "检测到 Term-SD 组件未安装, 开始下载组件中"
+        term_sd_clone_modules
+        if [ $? = 0 ];then
+            term_sd_set_up_normal_setting
+            term_sd_restart_info=0
+            cp -f term-sd/term-sd.sh .
+            chmod +x term-sd.sh
+            term_sd_echo "Term-SD 安装成功"
+        else
+            term_sd_echo "Term-SD 安装失败, 可尝试重新运行"
+            exit 1
+        fi
     elif [ ! -d "term-sd/.git" ];then
         term_sd_echo "检测到 Term-SD 的 .git 目录不存在, 将会导致 Term-SD 无法更新, 是否重新安装(yes/no)?"
         term_sd_echo "警告: 该操作将永久删除 Term-SD 目录中的所有文件 (除了 Term-SD 缓存文件夹和配置文件将备份到临时文件夹并在安装完成还原)"
@@ -611,8 +602,6 @@ term_sd_backup_config()
     [ -d "term-sd/cache" ] && mv -f term-sd/cache term-sd-tmp
     [ -d "term-sd/requirements-backup" ] && mv -f term-sd/requirements-backup term-sd-tmp
     [ -d "term-sd/backup" ] && mv -f term-sd/backup term-sd-tmp
-    [ -f "term-sd/.agree_user_agreement" ] && mv -f term-sd/.agree_user_agreement term-sd-tmp
-    [ -f "term-sd/.install_by_launch_script" ] && mv -f term-sd/.install_by_launch_script term-sd-tmp
 }
 
 # 恢复cache文件夹
@@ -623,8 +612,6 @@ term_sd_restore_config()
     [ -d "term-sd-tmp/config" ] && mv -f term-sd-tmp/config/* term-sd/config
     [ -d "term-sd-tmp/requirements-backup" ] && mv -f term-sd-tmp/requirements-backup term-sd
     [ -d "term-sd-tmp/backup" ] && mv -f term-sd-tmp/backup term-sd
-    [ -f "term-sd-tmp/.agree_user_agreement" ] && mv -f term-sd-tmp/.agree_user_agreement term-sd
-    [ -f "term-sd-tmp/.install_by_launch_script" ] && mv -f term-sd-tmp/.install_by_launch_script term-sd
     rm -rf term-sd-tmp
 }
 
@@ -658,7 +645,7 @@ term_sd_set_up_normal_setting()
         term_sd_echo "Term-SD 启用 HuggingFace 镜像源"
     fi
 
-    touch term-sd/.install_by_launch_script
+    touch term-sd/config/install-by-launch-script.lock
 }
 
 # term-sd卸载功能
@@ -854,18 +841,22 @@ term_sd_auto_setup_github_mirror()
         local mirror_status=1
         local i
         local git_repository_url
+        local http_proxy
+        local https_proxy
+        http_proxy=
+        https_proxy=
 
         rm -f "$start_path"/term-sd/config/.gitconfig
         rm -f "$start_path"/term-sd/config/set-global-github-mirror.conf
         for i in $github_mirror_list
         do
-            [ -d "$start_path/term-sd/github_mirror_test" ] && rm -rf "$start_path/term-sd/github_mirror_test" &> /dev/null
+            [ -d "$start_path/term-sd/task/github_mirror_test" ] && rm -rf "$start_path/term-sd/task/github_mirror_test" &> /dev/null
             term_sd_github_mirror=$(echo $i | awk '{sub("/term_sd_git_user/term_sd_git_repo","")}1')
             term_sd_echo "测试 Github 镜像源: $term_sd_github_mirror"
             git_repository_url=$(echo $i | awk '{sub("term_sd_git_user","licyk")}1' | awk '{sub("term_sd_git_repo","empty")}1') # 生成格式化之后的链接
-            git clone $git_repository_url "$start_path/term-sd/github_mirror_test" --depth=1 &> /dev/null # 测试镜像源是否正常连接
+            git clone $git_repository_url "$start_path/term-sd/task/github_mirror_test" --depth=1 &> /dev/null # 测试镜像源是否正常连接
             git_req=$?
-            rm -rf "$start_path/term-sd/github_mirror_test" &> /dev/null
+            rm -rf "$start_path/term-sd/task/github_mirror_test" &> /dev/null
             if [ $git_req = 0 ];then
                 term_sd_echo "该 Github 镜像源可用"
                 mirror_status=0
@@ -891,6 +882,10 @@ term_sd_auto_setup_huggingface_mirror()
     if [ -f "term-sd/config/set-dynamic-global-huggingface-mirror.lock" ];then
         local mirror_status=1
         local i
+        local http_proxy
+        local https_proxy
+        http_proxy=
+        https_proxy=
         rm -f "$start_path"/term-sd/config/set-global-huggingface-mirror.conf
 
         for i in $huggingface_mirror_list
@@ -919,7 +914,7 @@ term_sd_auto_setup_huggingface_mirror()
 # 用户协议
 term_sd_user_agreement()
 {
-    if [ ! -f "term-sd/.agree_user_agreement" ];then
+    if [ ! -f "term-sd/config/agree-user-agreement.lock" ];then
         term_sd_print_line "用户协议"
         cat term-sd/help/user_agreement.md
         echo
@@ -927,7 +922,7 @@ term_sd_user_agreement()
         term_sd_echo "是否同意该用户协议 (yes/no)?"
         case $(term_sd_read) in
             yes|y|YES|Y)
-                touch term-sd/.agree_user_agreement
+                touch term-sd/config/agree-user-agreement.lock
                 term_sd_echo "确认同意该用户协议"
                 ;;
             *)
@@ -1115,27 +1110,6 @@ do
 done
 term_sd_pip_find_links_args=$(echo $term_sd_pip_find_links_args) # 去除多余空格
 
-# 设置pip镜像源
-if [ -f "term-sd/config/term-sd-pip-mirror.conf" ];then
-    case $(cat term-sd/config/term-sd-pip-mirror.conf) in
-        1)
-            export PIP_INDEX_URL="https://pypi.python.org/simple"
-            export PIP_EXTRA_INDEX_URL=""
-            export PIP_FIND_LINKS="https://download.pytorch.org/whl/torch_stable.html"
-            ;;
-        2)
-            export PIP_INDEX_URL=$term_sd_pip_index_url
-            export PIP_EXTRA_INDEX_URL=$term_sd_pip_extra_index_url
-            export PIP_FIND_LINKS=$term_sd_pip_find_links
-            ;;
-        *)
-            export PIP_INDEX_URL=$term_sd_pip_index_url
-            export PIP_EXTRA_INDEX_URL=$term_sd_pip_extra_index_url
-            export PIP_FIND_LINKS=$term_sd_pip_find_links
-            ;;
-    esac
-fi
-
 # 设置ai软件路径
 if [ -f "term-sd/config/sd-webui-path.conf" ];then
     export sd_webui_path=$(cat term-sd/config/sd-webui-path.conf)
@@ -1310,7 +1284,7 @@ case $term_sd_env_prepare_info in # 判断启动状态(在shell中,新变量的�
             exit 1
         fi
 
-        if [ ! -f "term-sd/.install_by_launch_script" ];then # 检测是否通过启动脚本安装term-sd
+        if [ ! -f "term-sd/config/install-by-launch-script.lock" ];then # 检测是否通过启动脚本安装term-sd
             term_sd_set_up_normal_setting # 非启动脚本安装时设置默认term-sd设置
         fi
 
@@ -1335,6 +1309,27 @@ if [ ! -f "term-sd/config/disable-cache-path-redirect.lock" ];then
     export PIP_CACHE_DIR="$start_path/term-sd/cache/pip"
     export PYTHONPYCACHEPREFIX="$start_path/term-sd/cache/pycache"
     # export TRANSFORMERS_CACHE="$start_path/term-sd/cache/huggingface/transformers"
+fi
+
+# 设置pip镜像源
+if [ -f "term-sd/config/term-sd-pip-mirror.conf" ];then
+    case $(cat term-sd/config/term-sd-pip-mirror.conf) in
+        1)
+            export PIP_INDEX_URL="https://pypi.python.org/simple"
+            export PIP_EXTRA_INDEX_URL=""
+            export PIP_FIND_LINKS="https://download.pytorch.org/whl/torch_stable.html"
+            ;;
+        2)
+            export PIP_INDEX_URL=$term_sd_pip_index_url
+            export PIP_EXTRA_INDEX_URL=$term_sd_pip_extra_index_url
+            export PIP_FIND_LINKS=$term_sd_pip_find_links
+            ;;
+        *)
+            export PIP_INDEX_URL=$term_sd_pip_index_url
+            export PIP_EXTRA_INDEX_URL=$term_sd_pip_extra_index_url
+            export PIP_FIND_LINKS=$term_sd_pip_find_links
+            ;;
+    esac
 fi
 
 # github镜像源设置

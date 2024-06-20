@@ -13,7 +13,7 @@ _✨一个小巧，多功能的 AI 软件管理器_
     - [Windows](#windows)
     - [Linux](#linux)
     - [MacOS](#macos)
-  - [安装Term-SD](#安装term-sd)
+  - [安装 Term-SD](#安装-term-sd)
   - [帮助文档](#帮助文档)
     - [《Windows平台如何配置Term-SD运行环境》](#windows平台如何配置term-sd运行环境)
     - [《Term-SD界面操作方法》](#term-sd界面操作方法)
@@ -93,7 +93,7 @@ C:\msys64\ucrt64.ico
 >[!NOTE]  
 >`C:\msys64`为安装目录，根据具体安装的目录修改。
 
-保存后生效，在标题栏点击向下的箭头就可以看到`MSYS2 UCRT64`，打开后就可以下载和运行 Term-SD（一定要用在`Windows 终端`配置好的`MSYS2 UCRT64`运行 Term-SD，`PowerShell`和`CMD`是没法运行 Term-SD 的）。
+保存后生效，在标题栏点击向下的箭头就可以看到`MSYS2 UCRT64`，打开后就可以下载和运行 Term-SD（一定要用在`Windows 终端`配置好的`MSYS2 UCRT64`运行 Term-SD，`powershell`和`cmd`是没法运行 Term-SD 的）。
 
 >[!NOTE]  
 >Windows 终端默认启动 PowerShell，如果想要启动时直接启动`MSYS2 UCRT64`，可以在Windows 终端设置，`启动` -> `默认配置文件`，将`Windows Powershell`改成`MSYS2 UCRT64`，这样每次打开 Windows 终端时默认就会打开 MSYS2 UCRT64。  
@@ -227,7 +227,7 @@ aria2c https://gitlab.com/licyk/term-sd/-/raw/main/term-sd.sh && chmod +x term-s
 ./term-sd.sh
 ```
 
-启动后按照提示安装 Term-SD 组件后即可正常使用。  
+启动后等待安装 Term-SD 组件后即可正常使用。  
 每次启动一定要在 Term-SD 所在目录才能启动，除非使用`term_sd`命令或者`tsd`命令启动。  
 而这些快捷命令需要通过`--quick-cmd`启动参数进行安装。  
 更多信息请阅读[帮助文档](#帮助文档)。
