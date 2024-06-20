@@ -61,80 +61,114 @@ sd_webui_manager()
                     sd_webui_launch
                     ;;
                 2)
-                    term_sd_echo "更新 Stable-Diffusion-WebUI 中"
-                    git_pull_repository
-                    case $? in
-                        0)
+                    if is_git_repo ;then
+                        term_sd_echo "更新 Stable-Diffusion-WebUI 中"
+                        git_pull_repository
+                        if [ $? = 0 ];then
                             dialog --erase-on-exit \
                                 --title "Stable-Diffusion-WebUI 管理" \
                                 --backtitle "Stable-Diffusion-WebUI 更新结果" \
                                 --ok-label "确认" \
                                 --msgbox "Stable-Diffusion-WebUI 更新成功" \
                                 $term_sd_dialog_height $term_sd_dialog_width
-                            ;;
-                        10)
-                            dialog --erase-on-exit \
-                                --title "Stable-Diffusion-WebUI 管理" \
-                                --backtitle "Stable-Diffusion-WebUI 更新结果" \
-                                --ok-label "确认" \
-                                --msgbox "Stable-Diffusion-WebUI 非 Git 安装, 无法更新" \
-                                $term_sd_dialog_height $term_sd_dialog_width
-                            ;;
-                        *)
+                        else
                             dialog --erase-on-exit \
                                 --title "Stable-Diffusion-WebUI 管理" \
                                 --backtitle "Stable-Diffusion-WebUI 更新结果" \
                                 --ok-label "确认" \
                                 --msgbox "Stable-Diffusion-WebUI 更新失败" \
                                 $term_sd_dialog_height $term_sd_dialog_width
-                            ;;
-                    esac
+                        fi
+                    else
+                        dialog --erase-on-exit \
+                            --title "Stable-Diffusion-WebUI 管理" \
+                            --backtitle "Stable-Diffusion-WebUI 更新结果" \
+                            --ok-label "确认" \
+                            --msgbox "Stable-Diffusion-WebUI 非 Git 安装, 无法更新" \
+                            $term_sd_dialog_height $term_sd_dialog_width
+                    fi
                     ;;
                 3)
-                    if (dialog --erase-on-exit \
-                        --title "Stable-Diffusion-WebUI 管理" \
-                        --backtitle "Stable-Diffusion-WebUI 更新修复选项" \
-                        --yes-label "是" --no-label "否" \
-                        --yesno "是否修复 Stable-Diffusion-Webui 更新?" \
-                        $term_sd_dialog_height $term_sd_dialog_width) then
+                    if is_git_repo ;then
+                        if (dialog --erase-on-exit \
+                            --title "Stable-Diffusion-WebUI 管理" \
+                            --backtitle "Stable-Diffusion-WebUI 更新修复选项" \
+                            --yes-label "是" --no-label "否" \
+                            --yesno "是否修复 Stable-Diffusion-Webui 更新?" \
+                            $term_sd_dialog_height $term_sd_dialog_width) then
 
-                        git_fix_pointer_offset
+                            git_fix_pointer_offset
+                        fi
+                    else
+                        dialog --erase-on-exit \
+                            --title "Stable-Diffusion-WebUI 管理" \
+                            --backtitle "Stable-Diffusion-WebUI 更新修复选项" \
+                            --ok-label "确认" \
+                            --msgbox "Stable-Diffusion-WebUI 非 Git 安装, 无法修复更新" \
+                            $term_sd_dialog_height $term_sd_dialog_width
                     fi
                     ;;
                 4)
                     sd_webui_extension_manager
                     ;;
                 5)
-                    if (dialog --erase-on-exit \
-                        --title "Stable-Diffusion-WebUI 管理" \
-                        --backtitle "Stable-Diffusion-WebUI 版本切换选项" \
-                        --yes-label "是" --no-label "否" \
-                        --yesno "是否切换 Stable-Diffusion-Webui 版本?" \
-                        $term_sd_dialog_height $term_sd_dialog_width) then
+                    if is_git_repo ;then
+                        if (dialog --erase-on-exit \
+                            --title "Stable-Diffusion-WebUI 管理" \
+                            --backtitle "Stable-Diffusion-WebUI 版本切换选项" \
+                            --yes-label "是" --no-label "否" \
+                            --yesno "是否切换 Stable-Diffusion-Webui 版本?" \
+                            $term_sd_dialog_height $term_sd_dialog_width) then
 
-                        git_ver_switch
+                            git_ver_switch
+                        fi
+                    else
+                        dialog --erase-on-exit \
+                            --title "Stable-Diffusion-WebUI 管理" \
+                            --backtitle "Stable-Diffusion-WebUI 版本切换选项" \
+                            --ok-label "确认" \
+                            --msgbox "Stable-Diffusion-WebUI 非 Git 安装, 无法切换版本" \
+                            $term_sd_dialog_height $term_sd_dialog_width
                     fi
                     ;;
                 6)
-                    if (dialog --erase-on-exit \
-                        --title "Stable-Diffusion-WebUI 管理" \
-                        --backtitle "Stable-Diffusion-WebUI 更新源切换选项" \
-                        --yes-label "是" --no-label "否" \
-                        --yesno "是否切换 Stable-Diffusion-WebUI 更新源?" \
-                        $term_sd_dialog_height $term_sd_dialog_width) then
+                    if is_git_repo ;then
+                        if (dialog --erase-on-exit \
+                            --title "Stable-Diffusion-WebUI 管理" \
+                            --backtitle "Stable-Diffusion-WebUI 更新源切换选项" \
+                            --yes-label "是" --no-label "否" \
+                            --yesno "是否切换 Stable-Diffusion-WebUI 更新源?" \
+                            $term_sd_dialog_height $term_sd_dialog_width) then
 
-                        sd_webui_remote_revise
+                            sd_webui_remote_revise
+                        fi
+                    else
+                        dialog --erase-on-exit \
+                            --title "Stable-Diffusion-WebUI 管理" \
+                            --backtitle "Stable-Diffusion-WebUI 更新源切换选项" \
+                            --ok-label "确认" \
+                            --msgbox "Stable-Diffusion-WebUI 非 Git 安装, 无法切换更新源" \
+                            $term_sd_dialog_height $term_sd_dialog_width
                     fi
                     ;;
                 7)
-                    if (dialog --erase-on-exit \
-                        --title "Stable-Diffusion-WebUI 管理" \
-                        --backtitle "Stable-Diffusion-WebUI 分支切换选项" \
-                        --yes-label "是" --no-label "否" \
-                        --yesno "是否切换 Stable-Diffusion-WebUI分支?" \
-                        $term_sd_dialog_height $term_sd_dialog_width) then
+                    if is_git_repo ;then
+                        if (dialog --erase-on-exit \
+                            --title "Stable-Diffusion-WebUI 管理" \
+                            --backtitle "Stable-Diffusion-WebUI 分支切换选项" \
+                            --yes-label "是" --no-label "否" \
+                            --yesno "是否切换 Stable-Diffusion-WebUI 分支?" \
+                            $term_sd_dialog_height $term_sd_dialog_width) then
 
-                        sd_webui_branch_switch
+                            sd_webui_branch_switch
+                        fi
+                    else
+                        dialog --erase-on-exit \
+                            --title "Stable-Diffusion-WebUI 管理" \
+                            --backtitle "Stable-Diffusion-WebUI 分支切换选项" \
+                            --ok-label "确认" \
+                            --msgbox "Stable-Diffusion-WebUI 非 Git 安装, 无法切换分支" \
+                            $term_sd_dialog_height $term_sd_dialog_width
                     fi
                     ;;
                 8)

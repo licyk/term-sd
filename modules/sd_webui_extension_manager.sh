@@ -136,81 +136,92 @@ sd_webui_extension_interface()
 
         case $sd_webui_extension_interface_dialog in
             1)
-                term_sd_echo "更新 $(echo $sd_webui_extension_name | awk -F "/" '{print $NF}') 插件中"
-                git_pull_repository
-                case $? in
-                    0)
+                if is_git_repo ;then
+                    term_sd_echo "更新 $(echo $sd_webui_extension_name | awk -F "/" '{print $NF}') 插件中"
+                    git_pull_repository
+                    if [ $? = 0 ];then
                         dialog --erase-on-exit \
                             --title "Stable-Diffusion-WebUI 管理" \
                             --backtitle "Stable-Diffusion-WebUI 插件更新结果" \
                             --ok-label "确认" \
                             --msgbox "${sd_webui_extension_name} 插件更新成功" \
                             $term_sd_dialog_height $term_sd_dialog_width
-                        ;;
-                    10)
-                        dialog --erase-on-exit \
-                            --title "Stable-Diffusion-WebUI 管理" \
-                            --backtitle "Stable-Diffusion-WebUI 插件更新结果" \
-                            --ok-label "确认" \
-                            --msgbox "${sd_webui_extension_name} 插件非 Git 安装, 无法更新" \
-                            $term_sd_dialog_height $term_sd_dialog_width
-                        ;;
-                    *)
+                    else
                         dialog --erase-on-exit \
                             --title "Stable-Diffusion-WebUI 管理" \
                             --backtitle "Stable-Diffusion-WebUI 插件更新结果" \
                             --ok-label "确认" \
                             --msgbox "${sd_webui_extension_name} 插件更新失败" \
                             $term_sd_dialog_height $term_sd_dialog_width
-                        ;;
-                esac
-                ;;
-            
-            2)
-                if (dialog --erase-on-exit \
-                    --title "Stable-Diffusion-WebUI 管理" \
-                    --backtitle "Stable-Diffusion-WebUI 插件修复更新" \
-                    --yes-label "是" --no-label "否" \
-                    --yesno "是否修复 ${sd_webui_extension_name} 插件更新?" \
-                    $term_sd_dialog_height $term_sd_dialog_width) then
-
-                    git_fix_pointer_offset
+                    fi
+                else
+                    dialog --erase-on-exit \
+                        --title "Stable-Diffusion-WebUI 管理" \
+                        --backtitle "Stable-Diffusion-WebUI 插件更新结果" \
+                        --ok-label "确认" \
+                        --msgbox "${sd_webui_extension_name} 插件非 Git 安装, 无法更新" \
+                        $term_sd_dialog_height $term_sd_dialog_width
                 fi
-                [ $? = 10 ] && \
-                dialog --erase-on-exit \
-                    --title "Stable-Diffusion-WebUI 管理" \
-                    --backtitle "Stable-Diffusion-WebUI 插件修复更新" \
-                    --ok-label "确认" \
-                    --msgbox "${sd_webui_extension_name} 插件非 Git 安装, 无法修复更新" \
-                    $term_sd_dialog_height $term_sd_dialog_width
+                ;;
+            2)
+                if is_git_repo ;then
+                    if (dialog --erase-on-exit \
+                        --title "Stable-Diffusion-WebUI 管理" \
+                        --backtitle "Stable-Diffusion-WebUI 插件修复更新" \
+                        --yes-label "是" --no-label "否" \
+                        --yesno "是否修复 ${sd_webui_extension_name} 插件更新?" \
+                        $term_sd_dialog_height $term_sd_dialog_width) then
+
+                        git_fix_pointer_offset
+                    fi
+                else
+                    dialog --erase-on-exit \
+                        --title "Stable-Diffusion-WebUI 管理" \
+                        --backtitle "Stable-Diffusion-WebUI 插件修复更新" \
+                        --ok-label "确认" \
+                        --msgbox "${sd_webui_extension_name} 插件非 Git 安装, 无法修复更新" \
+                        $term_sd_dialog_height $term_sd_dialog_width
+                fi
                 ;;
             3)
-                if (dialog --erase-on-exit \
-                    --title "Stable-Diffusion-WebUI 管理" \
-                    --backtitle "Stable-Diffusion-WebUI 插件版本切换" \
-                    --yes-label "是" --no-label "否" \
-                    --yesno "是否切换 ${sd_webui_extension_name} 插件版本?" \
-                    $term_sd_dialog_height $term_sd_dialog_width) then
+                if is_git_repo ;then
+                    if (dialog --erase-on-exit \
+                        --title "Stable-Diffusion-WebUI 管理" \
+                        --backtitle "Stable-Diffusion-WebUI 插件版本切换" \
+                        --yes-label "是" --no-label "否" \
+                        --yesno "是否切换 ${sd_webui_extension_name} 插件版本?" \
+                        $term_sd_dialog_height $term_sd_dialog_width) then
 
-                    git_ver_switch
+                        git_ver_switch
+                    fi
+                else
+                    dialog --erase-on-exit \
+                        --title "Stable-Diffusion-WebUI 管理" \
+                        --backtitle "Stable-Diffusion-WebUI 插件版本切换" \
+                        --ok-label "确认" \
+                        --msgbox "${sd_webui_extension_name} 插件非 Git 安装, 无法进行版本切换" \
+                        $term_sd_dialog_height $term_sd_dialog_width
                 fi
-                [ $? = 10 ] && \
-                dialog --erase-on-exit \
-                    --title "Stable-Diffusion-WebUI 管理" \
-                    --backtitle "Stable-Diffusion-WebUI 插件版本切换" \
-                    --ok-label "确认" \
-                    --msgbox "${sd_webui_extension_name} 插件非 Git 安装, 无法进行版本切换" \
-                    $term_sd_dialog_height $term_sd_dialog_width
                 ;;
             4)
-                git_remote_url_select_single
-                [ $? = 10 ] && \
-                dialog --erase-on-exit \
-                    --title "Stable-Diffusion-WebUI 管理" \
-                    --backtitle "Stable-Diffusion-WebUI 插件更新源切换" \
-                    --ok-label "确认" \
-                    --msgbox "${sd_webui_extension_name} 插件非 Git 安装, 无法进行更新源切换" \
-                    $term_sd_dialog_height $term_sd_dialog_width
+                if is_git_repo ;then
+                    if (dialog --erase-on-exit \
+                        --title "Stable-Diffusion-WebUI 管理" \
+                        --backtitle "Stable-Diffusion-WebUI 插件更新源切换" \
+                        --yes-label "是" --no-label "否" \
+                        --yesno "是否切换 ${sd_webui_extension_name} 插件更新源?" \
+                        $term_sd_dialog_height $term_sd_dialog_width) then
+
+                        git_remote_url_select_single
+                    fi
+                else
+                    dialog --erase-on-exit \
+                        --title "Stable-Diffusion-WebUI 管理" \
+                        --backtitle "Stable-Diffusion-WebUI 插件更新源切换" \
+                        --ok-label "确认" \
+                        --msgbox "${sd_webui_extension_name} 插件非 Git 安装, 无法进行更新源切换" \
+                        $term_sd_dialog_height $term_sd_dialog_width
+                fi
                 ;;
             5)
                 if (dialog --erase-on-exit \

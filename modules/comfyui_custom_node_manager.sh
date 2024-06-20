@@ -137,85 +137,95 @@ comfyui_custom_node_interface()
 
         case $comfyui_custom_node_interface_dialog in
             1)
-                term_sd_echo "更新 $(echo $comfyui_custom_node_name | awk -F "/" '{print $NF}') 自定义节点中"
-                git_pull_repository
-                case $? in
-                    0)
+                if is_git_repo ;then
+                    term_sd_echo "更新 $(echo $comfyui_custom_node_name | awk -F "/" '{print $NF}') 自定义节点中"
+                    git_pull_repository
+                    if [ $? = 0 ];then
                         dialog --erase-on-exit \
                             --title "ComfyUI 管理" \
                             --backtitle "ComfyUI 自定义节点更新结果" \
                             --ok-label "确认" \
                             --msgbox "${comfyui_custom_node_name} 自定义节点更新成功" \
                             $term_sd_dialog_height $term_sd_dialog_width
-                        ;;
-                    10)
-                        dialog --erase-on-exit \
-                            --title "ComfyUI 管理" \
-                            --backtitle "ComfyUI自定义节点更新结果" \
-                            --ok-label "确认" \
-                            --msgbox "${comfyui_custom_node_name} 自定义节点非 Git 安装, 无法更新" \
-                            $term_sd_dialog_height $term_sd_dialog_width
-                        ;;
-                    *)
+                    else
                         dialog --erase-on-exit \
                             --title "ComfyUI 管理" \
                             --backtitle "ComfyUI 自定义节点更新结果" \
                             --ok-label "确认" \
                             --msgbox "${comfyui_custom_node_name} 自定义节点更新失败" \
                             $term_sd_dialog_height $term_sd_dialog_width
-                        ;;
-                esac
+                    fi
+                else
+                    dialog --erase-on-exit \
+                        --title "ComfyUI 管理" \
+                        --backtitle "ComfyUI 自定义节点更新结果" \
+                        --ok-label "确认" \
+                        --msgbox "${comfyui_custom_node_name} 自定义节点非 Git 安装, 无法更新" \
+                        $term_sd_dialog_height $term_sd_dialog_width
+                fi
                 ;;
             2)
-                if (dialog --erase-on-exit \
-                    --title "ComfyUI管理" \
-                    --backtitle "ComfyUI自定义节点修复更新" \
-                    --yes-label "是" --no-label "否" \
-                    --yesno "是否修复 ${comfyui_custom_node_name} 自定义节点更新?" \
-                    $term_sd_dialog_height $term_sd_dialog_width) then
+                if is_git_repo ;then
+                    if (dialog --erase-on-exit \
+                        --title "ComfyUI 管理" \
+                        --backtitle "ComfyUI 自定义节点修复更新" \
+                        --yes-label "是" --no-label "否" \
+                        --yesno "是否修复 ${comfyui_custom_node_name} 自定义节点更新?" \
+                        $term_sd_dialog_height $term_sd_dialog_width) then
 
-                    git_fix_pointer_offset
+                        git_fix_pointer_offset
+                    fi
+                else
+                    dialog --erase-on-exit \
+                        --title "ComfyUI 管理" \
+                        --backtitle "ComfyUI 自定义节点修复更新" \
+                        --ok-label "确认" \
+                        --msgbox "${comfyui_custom_node_name} 自定义节点非 Git 安装, 无法修复更新" \
+                        $term_sd_dialog_height $term_sd_dialog_width
                 fi
-
-                [ $? = 10 ] && \
-                dialog --erase-on-exit \
-                    --title "ComfyUI管理" \
-                    --backtitle "ComfyUI自定义节点修复更新" \
-                    --ok-label "确认" \
-                    --msgbox "${comfyui_custom_node_name} 自定义节点非 Git 安装, 无法修复更新" \
-                    $term_sd_dialog_height $term_sd_dialog_width
                 ;;
             3) # comfyui并不像a1111-sd-webui自动为插件安装依赖,所以只能手动装
                 comfyui_extension_depend_install_single "自定义节点"
                 ;;
             4)
-               if (dialog --erase-on-exit \
-                    --title "ComfyUI管理" \
-                    --backtitle "ComfyUI自定义节点版本切换" \
-                    --yes-label "是" --no-label "否" \
-                    --yesno "是否切换 ${comfyui_custom_node_name} 自定义节点版本?" \
-                    $term_sd_dialog_height $term_sd_dialog_width) then
+                if is_git_repo ;then
+                    if (dialog --erase-on-exit \
+                        --title "ComfyUI 管理" \
+                        --backtitle "ComfyUI 自定义节点版本切换" \
+                        --yes-label "是" --no-label "否" \
+                        --yesno "是否切换 ${comfyui_custom_node_name} 自定义节点版本?" \
+                        $term_sd_dialog_height $term_sd_dialog_width) then
 
-                    git_ver_switch
+                        git_ver_switch
+                    fi
+                else
+                    dialog --erase-on-exit \
+                        --title "ComfyUI 管理" \
+                        --backtitle "ComfyUI自定义节点版本切换" \
+                        --ok-label "确认" \
+                        --msgbox "${comfyui_custom_node_name} 自定义节点非 Git 安装,无法进行版本切换" \
+                        $term_sd_dialog_height $term_sd_dialog_width
                 fi
-
-                [ $? = 10 ] && \
-                dialog --erase-on-exit \
-                    --title "ComfyUI管理" \
-                    --backtitle "ComfyUI自定义节点版本切换" \
-                    --ok-label "确认" \
-                    --msgbox "${comfyui_custom_node_name} 自定义节点非 Git 安装,无法进行版本切换" $term_sd_dialog_height $term_sd_dialog_width
                 ;;
             5)
-                git_remote_url_select_single
+                if is_git_repo ;then
+                    if (dialog --erase-on-exit \
+                        --title "ComfyUI 管理" \
+                        --backtitle "ComfyUI 自定义节点更新源切换" \
+                        --yes-label "是" --no-label "否" \
+                        --yesno "是否切换 ${comfyui_custom_node_name} 自定义节点更新源?" \
+                        $term_sd_dialog_height $term_sd_dialog_width) then
 
-                [ $? = 10 ] && \
-                dialog --erase-on-exit \
-                    --title "ComfyUI管理" \
-                    --backtitle "ComfyUI自定义节点更新源切换" \
-                    --ok-label "确认" \
-                    --msgbox "${comfyui_custom_node_name} 自定义节点非 Git 安装, 无法进行更新源切换" \
-                    $term_sd_dialog_height $term_sd_dialog_width
+                        git_remote_url_select_single
+                    fi
+                else
+                    dialog --erase-on-exit \
+                        --title "ComfyUI 管理" \
+                        --backtitle "ComfyUI 自定义节点更新源切换" \
+                        --ok-label "确认" \
+                        --msgbox "${comfyui_custom_node_name} 自定义节点非 Git 安装, 无法进行更新源切换" \
+                        $term_sd_dialog_height $term_sd_dialog_width
+                fi
                 ;;
             6)
                 if (dialog --erase-on-exit \

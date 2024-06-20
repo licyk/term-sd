@@ -39,66 +39,91 @@ fooocus_manager()
                     fooocus_launch
                     ;;
                 2)
-                    term_sd_echo "更新 Fooocus 中"
-                    git_pull_repository
-                    case $? in
-                        0)
+                    if is_git_repo ;then
+                        term_sd_echo "更新 Fooocus 中"
+                        git_pull_repository
+                        if [ $? = 0 ];then
                             dialog --erase-on-exit \
                                 --title "Fooocus 管理" \
                                 --backtitle "Fooocus 更新结果" \
                                 --ok-label "确认" \
                                 --msgbox "Fooocus 更新成功" \
                                 $term_sd_dialog_height $term_sd_dialog_width
-                            ;;
-                        10)
-                            dialog --erase-on-exit \
-                                --title "Fooocus 管理" \
-                                --backtitle "Fooocus 更新结果" \
-                                --ok-label "确认" \
-                                --msgbox "Fooocus 非 Git 安装, 无法更新" \
-                                $term_sd_dialog_height $term_sd_dialog_width
-                            ;;
-                        *)
+                        else
                             dialog --erase-on-exit \
                                 --title "Fooocus 管理" \
                                 --backtitle "Fooocus 更新结果" \
                                 --ok-label "确认" \
                                 --msgbox "Fooocus 更新失败" \
                                 $term_sd_dialog_height $term_sd_dialog_width
-                            ;;
-                    esac
+                        fi
+                    else
+                        dialog --erase-on-exit \
+                            --title "Fooocus 管理" \
+                            --backtitle "Fooocus 更新结果" \
+                            --ok-label "确认" \
+                            --msgbox "Fooocus 非 Git 安装, 无法更新" \
+                            $term_sd_dialog_height $term_sd_dialog_width
+                    fi
                     ;;
                 3)
-                    if (dialog --erase-on-exit \
-                        --title "Fooocus 管理" \
-                        --backtitle "Fooocus 更新修复选项" \
-                        --yes-label "是" --no-label "否" \
-                        --yesno "是否修复 Fooocus 更新?" \
-                        $term_sd_dialog_height $term_sd_dialog_width) then
+                    if is_git_repo ;then
+                        if (dialog --erase-on-exit \
+                            --title "Fooocus 管理" \
+                            --backtitle "Fooocus 更新修复选项" \
+                            --yes-label "是" --no-label "否" \
+                            --yesno "是否修复 Fooocus 更新?" \
+                            $term_sd_dialog_height $term_sd_dialog_width) then
 
-                        git_fix_pointer_offset # 修复Fooocus
+                            git_fix_pointer_offset # 修复Fooocus
+                        fi
+                    else
+                        dialog --erase-on-exit \
+                            --title "Fooocus 管理" \
+                            --backtitle "Fooocus 更新修复选项" \
+                            --ok-label "确认" \
+                            --msgbox "Fooocus 非 Git 安装, 无法修复更新" \
+                            $term_sd_dialog_height $term_sd_dialog_width
                     fi
                     ;;
                 4)
-                    if (dialog --erase-on-exit \
-                        --title "Fooocus 管理" \
-                        --backtitle "Fooocus 版本切换选项" \
-                        --yes-label "是" --no-label "否" \
-                        --yesno "是否切换 Fooocus 版本?" \
-                        $term_sd_dialog_height $term_sd_dialog_width) then
+                    if is_git_repo ;then
+                        if (dialog --erase-on-exit \
+                            --title "Fooocus 管理" \
+                            --backtitle "Fooocus 版本切换选项" \
+                            --yes-label "是" --no-label "否" \
+                            --yesno "是否切换 Fooocus 版本?" \
+                            $term_sd_dialog_height $term_sd_dialog_width) then
 
-                        git_ver_switch
+                            git_ver_switch
+                        fi
+                    else
+                        dialog --erase-on-exit \
+                            --title "Fooocus 管理" \
+                            --backtitle "Fooocus 版本切换选项" \
+                            --ok-label "确认" \
+                            --msgbox "Fooocus 非 Git 安装, 无法修复更新" \
+                            $term_sd_dialog_height $term_sd_dialog_width
                     fi
                     ;;
                 5)
-                    if (dialog --erase-on-exit \
-                        --title "Fooocus 管理" \
-                        --backtitle "Fooocus 更新源切换选项" \
-                        --yes-label "是" --no-label "否" \
-                        --yesno "是否切换 Fooocus 更新源?" \
-                        $term_sd_dialog_height $term_sd_dialog_width) then
+                    if is_git_repo ;then
+                        if (dialog --erase-on-exit \
+                            --title "Fooocus 管理" \
+                            --backtitle "Fooocus 更新源切换选项" \
+                            --yes-label "是" --no-label "否" \
+                            --yesno "是否切换 Fooocus 更新源?" \
+                            $term_sd_dialog_height $term_sd_dialog_width) then
 
-                        fooocus_remote_revise
+                            fooocus_remote_revise
+                        fi
+                    else
+                        dialog --erase-on-exit \
+                            --title "Fooocus 管理" \
+                            --backtitle "Fooocus 更新源切换选项" \
+                            --ok-label "确认" \
+                            --msgbox "Fooocus 非 Git 安装, 无法切换更新源" \
+                            $term_sd_dialog_height $term_sd_dialog_width
                     fi
                     ;;
                 6)

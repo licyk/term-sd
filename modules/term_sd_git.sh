@@ -3,7 +3,7 @@
 # git版本切换
 git_ver_switch()
 {
-    if [ -d ".git" ];then # 检测目录中是否有.git文件夹
+    if is_git_repo ;then # 检测目录中是否有.git文件夹
         local git_repository_commit
         local origin_branch
         local ref
@@ -49,7 +49,7 @@ git_fix_pointer_offset()
 {
     local repo_main_branch
     # 当git在子文件夹中找不到.git文件夹时,将会自动在父文件夹中寻找,以此类推,直到找到.git文件夹。用户的安装方式可能是直接下载源码压缩包,导致安装后的文件夹没有.git文件夹,直接执行git会导致不良的后果
-    if [ -d ".git" ];then # 检测目录中是否有.git文件夹
+    if is_git_repo ;then # 检测目录中是否有.git文件夹
         term_sd_echo "修复 $(git remote -v | awk 'NR==1 {print $2}' | awk -F "/" '{print $NF}' | awk '{sub(".git","")}1') 分支游离状态"
         git remote prune origin # 删除无用分支
         git submodule init # 初始化git子模块
@@ -158,7 +158,7 @@ git_repository_remote_revise()
 # git拉取更新
 git_pull_repository()
 {
-    if [ -d ".git" ];then # 检测目录中是否有.git文件夹
+    if is_git_repo ;then # 检测目录中是否有.git文件夹
         git_auto_fix_pointer_offset # 检测分支是否游离并修复
         git_get_latest_ver
     else
@@ -177,7 +177,7 @@ git_get_latest_ver()
     local local_commit_hash
     local req
 
-    if [ -d ".git" ];then
+    if is_git_repo ;then
         if [ ! -z "$(git submodule status)" ];then # 检测是否有子模块
             term_sd_echo "初始化 Git 子模块"
             use_submodules="--recurse-submodules"
@@ -215,7 +215,7 @@ git_branch_display()
     local git_commit_hash
     local git_pointer_status
 
-    if [ -d ".git" ];then
+    if is_git_repo ;then
         ref=$(git symbolic-ref --quiet HEAD 2> /dev/null)
         req=$?
         if [ $req = 0 ]; then
@@ -234,7 +234,7 @@ git_branch_display()
 # git远程源地址展示
 git_remote_display()
 {
-    if [ -d ".git" ];then
+    if is_git_repo ;then
         echo $(git remote -v 2> /dev/null | awk 'NR==1 {print $2}')
     else
         echo "非 Git 安装, 无更新源"
@@ -264,5 +264,23 @@ git_auto_fix_pointer_offset()
     if [ ! $? = 0 ];then
         term_sd_echo "检测到 $(basename "$(pwd)") 出现分支游离, 尝试修复中"
         git_fix_pointer_offset
+    fi
+}
+
+# 检测是否为git仓库
+is_git_repo()
+{
+    if [ -z "$*" ];then
+        if [ -d ".git" ] && git rev-parse &> /dev/null ;then
+            return 0
+        else
+            return 1
+        fi
+    else
+        if [ -d "$@/.git" ] && git -C "$@" rev-parse &> /dev/null ;then
+            return 0
+        else
+            return 1
+        fi
     fi
 }
