@@ -6,7 +6,7 @@ kohya_ss_manager()
     export term_sd_manager_info="kohya_ss"
     cd "$start_path" # 回到最初路径
     exit_venv # 确保进行下一步操作前已退出其他虚拟环境
-    if [ -d "$kohya_ss_path" ] && [ $(term_sd_test_empty_dir "$kohya_ss_path") = 1 ];then
+    if [ -d "$kohya_ss_path" ] && ! term_sd_test_empty_dir "$kohya_ss_path" ;then
         while true
         do
             cd "$kohya_ss_path"

@@ -430,3 +430,7 @@ ComfyUI 插件 / 自定义节点说明：
 104、ComfyUI-TiledDiffusion
 描述：TiledDiffusion分块放大工具
 链接：https://github.com/shiimizu/ComfyUI-TiledDiffusion
+
+105、ComfyUI-DynamiCrafterWrapper
+描述：ToonCrafter节点
+链接：https://github.com/kijai/ComfyUI-DynamiCrafterWrapper

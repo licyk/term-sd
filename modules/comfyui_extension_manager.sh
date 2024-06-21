@@ -92,7 +92,7 @@ comfyui_extension_install()
 
     if [ ! -z "$comfyui_extension_url" ]; then
         term_sd_echo "安装 $(basename "$comfyui_extension_url" | awk -F '.git' '{print$1}') 插件中"
-        if [ $(term_sd_is_git_repository_exist "$comfyui_extension_url") = 0 ];then
+        if ! term_sd_is_git_repository_exist "$comfyui_extension_url" ;then
             term_sd_try git clone --recurse-submodules $comfyui_extension_url
             if [ $? = 0 ];then
                 comfyui_custom_node_dep_notice="$(basename "$comfyui_extension_url" | awk -F '.git' '{print$1}') 插件安装成功"

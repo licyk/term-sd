@@ -109,8 +109,10 @@ git_clone_repository()
             if [ ! -d "$git_clone_repository_path" ];then
                 term_sd_try git clone --recurse-submodules "$git_clone_repository_url" "$git_clone_repository_path"
             else # 出现同名文件夹时检测是否执行
-                if [ $(term_sd_test_empty_dir "$git_clone_repository_path") = 0 ];then
+                if term_sd_test_empty_dir "$git_clone_repository_path" ;then
                     term_sd_try git clone --recurse-submodules "$git_clone_repository_url" "$git_clone_repository_path"
+                else
+                    term_sd_echo "$(basename "$git_clone_repository_url") 已存在"
                 fi
             fi
             ;;
@@ -129,8 +131,10 @@ git_clone_repository()
             if [ ! -d "$git_clone_repository_path" ];then
                 term_sd_try git clone "$git_clone_repository_url" "$git_clone_repository_path"
             else # 出现同名文件夹时检测是否执行
-                if [ $(term_sd_test_empty_dir "$git_clone_repository_path") = 0 ];then
+                if term_sd_test_empty_dir "$git_clone_repository_path" ;then
                     term_sd_try git clone "$git_clone_repository_url" "$git_clone_repository_path"
+                else
+                    term_sd_echo "$(basename "$git_clone_repository_url") 已存在"
                 fi
             fi
             ;;
@@ -241,20 +245,17 @@ git_remote_display()
     fi
 }
 
-# 检测需要克隆的git仓库是否已存在本地,已存在返回1,否则返回0
+# 检测需要克隆的git仓库是否已存在本地,已存在返回0,否则返回1
 term_sd_is_git_repository_exist()
 {
-    local flag=0
     local i
     local folder_name=$(basename "$@" | awk -F '.git' '{print$1}')
     for i in ./* ;do # 检测本地同名的文件夹
-        if [ "$(basename "$i")" = "$folder_name" ] && [ $(term_sd_test_empty_dir "$folder_name") = 1 ];then
-            flag=1
-            echo 1
-            break
+        if [ "$(basename "$i")" = "$folder_name" ] && ! term_sd_test_empty_dir "$folder_name" ;then
+            return 0
         fi
     done
-    [ $flag = 0 ] && echo 0
+    return 1
 }
 
 # git分支游离自动修复

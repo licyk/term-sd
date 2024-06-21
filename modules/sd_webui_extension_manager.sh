@@ -53,7 +53,7 @@ sd_webui_extension_install()
 
     if [ ! -z "$sd_webui_extension_url" ]; then
         term_sd_echo "安装 $(basename "$sd_webui_extension_url" | awk -F '.git' '{print$1}') 插件中"
-        if [ $(term_sd_is_git_repository_exist "$sd_webui_extension_url") = 0 ];then
+        if ! term_sd_is_git_repository_exist "$sd_webui_extension_url" ;then
             term_sd_try git clone --recurse-submodules $sd_webui_extension_url
             if [ $? = 0 ];then
                 dialog --erase-on-exit \

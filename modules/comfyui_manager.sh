@@ -8,7 +8,7 @@ comfyui_manager()
 
     cd "$start_path" # 回到最初路径
     exit_venv # 确保进行下一步操作前已退出其他虚拟环境
-    if [ -d "$comfyui_path" ] && [ $(term_sd_test_empty_dir "$comfyui_path") = 1 ];then
+    if [ -d "$comfyui_path" ] && ! term_sd_test_empty_dir "$comfyui_path" ;then
         while true
         do
             cd "$comfyui_path"

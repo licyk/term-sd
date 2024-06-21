@@ -102,3 +102,4 @@ __term_sd_task_pre_ext_101 comfyui-prompt-format OFF
 __term_sd_task_pre_ext_102 ComfyUI_omost OFF
 __term_sd_task_pre_ext_103 ComfyUI-Anyline OFF
 __term_sd_task_pre_ext_104 ComfyUI-TiledDiffusion OFF
+__term_sd_task_pre_ext_105 ComfyUI-DynamiCrafterWrapper OFF

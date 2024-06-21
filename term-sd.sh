@@ -271,9 +271,9 @@ term_sd_win2unix_path()
 term_sd_test_empty_dir()
 {
     if [ $(ls "$@" -al --format=horizontal | wc --words) -le 2 ];then
-        echo 0
+        return 0
     else
-        echo 1
+        return 1
     fi
 }
 

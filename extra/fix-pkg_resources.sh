@@ -5,7 +5,7 @@
 . ./term-sd/modules/term_sd_python_cmd.sh
 . ./term-sd/modules/term_sd_try.sh
 
-if [ -d "$sd_webui_path" ] && [ $(term_sd_test_empty_dir "$sd_webui_path") = 1 ];then
+if [ -d "$sd_webui_path" ] && ! term_sd_test_empty_dir "$sd_webui_path" ;then
     term_sd_echo "检测到 stable-diffusion-webui 已安装"
     enter_venv "$sd_webui_path"
     term_sd_echo "检测 setuptools 版本"

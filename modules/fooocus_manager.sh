@@ -8,7 +8,7 @@ fooocus_manager()
     export term_sd_manager_info="Fooocus"
     cd "$start_path" # 回到最初路径
     exit_venv # 确保进行下一步操作前已退出其他虚拟环境
-    if [ -d "$fooocus_path" ] && [ $(term_sd_test_empty_dir "$fooocus_path") = 1 ];then
+    if [ -d "$fooocus_path" ] && ! term_sd_test_empty_dir "$fooocus_path" ;then
         while true
         do
             cd "$fooocus_path"

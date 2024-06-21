@@ -6,7 +6,7 @@ lora_scripts_manager()
     export term_sd_manager_info="lora-scripts"
     cd "$start_path" # 回到最初路径
     exit_venv # 确保进行下一步操作前已退出其他虚拟环境
-    if [ -d "$lora_scripts_path" ] && [ $(term_sd_test_empty_dir "$lora_scripts_path") = 1 ];then
+    if [ -d "$lora_scripts_path" ] && ! term_sd_test_empty_dir "$lora_scripts_path" ;then
         while true
         do
             cd "$lora_scripts_path"

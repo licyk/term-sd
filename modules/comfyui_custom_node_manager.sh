@@ -58,7 +58,7 @@ comfyui_custom_node_install()
 
     if [ ! -z "$comfyui_custom_node_url" ]; then
         term_sd_echo "安装 $(basename "$comfyui_custom_node_url" | awk -F '.git' '{print$1}') 自定义节点中"
-        if [ $(term_sd_is_git_repository_exist "$comfyui_custom_node_url") = 0 ];then
+        if ! term_sd_is_git_repository_exist "$comfyui_custom_node_url" ;then
             term_sd_try git clone --recurse-submodules $comfyui_custom_node_url
             if [ $? = 0 ];then
                 comfyui_custom_node_dep_notice="$(basename "$comfyui_custom_node_url" | awk -F '.git' '{print$1}') 自定义节点安装成功"
