@@ -49,40 +49,41 @@ __term_sd_task_pre_model_48 aria2_download https://huggingface.co/licyk/sd-model
 __term_sd_task_pre_model_49 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/kohaku-xl-epsilon-rev3.safetensors "$sd_webui_path"/models/Stable-diffusion # kohaku-xl-epsilon-rev3 OFF
 __term_sd_task_pre_model_50 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/holodayo-xl-2.1.safetensors "$sd_webui_path"/models/Stable-diffusion # holodayo-xl-2.1 OFF
 __term_sd_task_pre_model_51 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/kivotos-xl-2.0.safetensors "$sd_webui_path"/models/Stable-diffusion # kivotos-xl-2.0 OFF
-__term_sd_task_pre_model_52 # =====VAE模型===== OFF
-__term_sd_task_pre_model_53 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sd_1.5/vae-ft-ema-560000-ema-pruned.safetensors "$sd_webui_path"/models/VAE # vae-ft-ema-560000-ema-pruned OFF
-__term_sd_task_pre_model_54 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sd_1.5/vae-ft-mse-840000-ema-pruned.safetensors "$sd_webui_path"/models/VAE # VAE模型 vae-ft-mse-840000-ema-pruned ON
-__term_sd_task_pre_model_55 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sdxl_1.0/sdxl_vae.safetensors "$sd_webui_path"/models/VAE # sdxl_vae OFF
-__term_sd_task_pre_model_56 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sdxl_1.0/sdxl_fp16_fix_vae.safetensors "$sd_webui_path"/models/VAE # sdxl_fp16_fix_vae OFF
-__term_sd_task_pre_model_57 # =====VAE-approx模型===== OFF
-__term_sd_task_pre_model_58 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/vae-approx/model.pt "$sd_webui_path"/models/VAE-approx # VAE-approx模型 model ON
-__term_sd_task_pre_model_59 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/vae-approx/vaeapprox-sdxl.pt "$sd_webui_path"/models/VAE-approx # vaeapprox-sdxl ON
-__term_sd_task_pre_model_60 # =====放大模型===== OFF
-__term_sd_task_pre_model_61 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x-UltraSharp.pth "$sd_webui_path"/models/ESRGAN # upscaler模型 4x-UltraSharp OFF
-__term_sd_task_pre_model_62 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/BSRGAN.pth "$sd_webui_path"/models/ESRGAN # BSRGAN OFF
-__term_sd_task_pre_model_63 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/ESRGAN_4x.pth "$sd_webui_path"/models/ESRGAN # ESRGAN_4x OFF
-__term_sd_task_pre_model_64 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x_NMKD-Superscale-Artisoftject_210000_G.pth "$sd_webui_path"/models/ESRGAN # 4x_NMKD-Superscale-Artisoftject_210000_G OFF
-__term_sd_task_pre_model_65 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x_NMKD-Superscale-SP_178000_G.pth "$sd_webui_path"/models/ESRGAN # 4x_NMKD-Superscale-SP_178000_G ON
-__term_sd_task_pre_model_66 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/8x_NMKD-Superscale_150000_G.pth "$sd_webui_path"/models/ESRGAN # 8x_NMKD-Superscale_150000_G OFF
-__term_sd_task_pre_model_67 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/detection_Resnet50_Final.pth "$sd_webui_path"/models/GFPGAN # detection_Resnet50_Final OFF
-__term_sd_task_pre_model_68 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/GFPGANv1.4.pth "$sd_webui_path"/models/GFPGAN # GFPGANv1.4 OFF
-__term_sd_task_pre_model_69 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/parsing_bisenet.pth "$sd_webui_path"/models/GFPGAN # parsing_bisenet OFF
-__term_sd_task_pre_model_70 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/parsing_parsenet.pth "$sd_webui_path"/models/GFPGAN # parsing_parsenet OFF
-__term_sd_task_pre_model_71 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/RealESRGAN/RealESRGAN_x4plus.pth "$sd_webui_path"/models/RealESRGAN # RealESRGAN_x4plus ON
-__term_sd_task_pre_model_72 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/RealESRGAN/RealESRGAN_x4plus_anime_6B.pth "$sd_webui_path"/models/RealESRGAN # RealESRGAN_x4plus_anime_6B ON
-__term_sd_task_pre_model_73 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/Codeformer/codeformer-v0.1.0.pth "$sd_webui_path"/models/Codeformer # Codeformer模型 codeformer-v0.1.0 OFF
-__term_sd_task_pre_model_74 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/DAT/DAT_x2.pth "$sd_webui_path"/models/DAT # DAT_x2 OFF
-__term_sd_task_pre_model_75 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/DAT/DAT_x3.pth "$sd_webui_path"/models/DAT # DAT_x3 OFF
-__term_sd_task_pre_model_76 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/DAT/DAT_x4.pth "$sd_webui_path"/models/DAT # DAT_x4 OFF
-__term_sd_task_pre_model_77 # =====图生图反推Tag模型===== OFF
-__term_sd_task_pre_model_78 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/BLIP/model_base_caption_capfilt_large.pth "$sd_webui_path"/models/BLIP # BLIP模型 model_base_caption_capfilt_large OFF
-__term_sd_task_pre_model_79 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/torch_deepdanbooru/model-resnet_custom_v3.pt "$sd_webui_path"/models/torch_deepdanbooru # deepdanbooru模型 model-resnet_custom_v3 OFF
-__term_sd_task_pre_model_80 # =====Embedding模型===== OFF
-__term_sd_task_pre_model_81 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/EasyNegativeV2.safetensors "$sd_webui_path"/embeddings # embeddings模型 EasyNegativeV2 ON
-__term_sd_task_pre_model_82 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-artist-anime.pt "$sd_webui_path"/embeddings # bad-artist-anime ON
-__term_sd_task_pre_model_83 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-artist.pt "$sd_webui_path"/embeddings # bad-artist ON
-__term_sd_task_pre_model_84 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-hands-5.pt "$sd_webui_path"/embeddings # bad-hands-5 ON
-__term_sd_task_pre_model_85 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-image-v2-39000.pt "$sd_webui_path"/embeddings # bad-image-v2-39000 ON
-__term_sd_task_pre_model_86 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad_prompt_version2.pt "$sd_webui_path"/embeddings # bad_prompt_version2 ON
-__term_sd_task_pre_model_87 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/ng_deepnegative_v1_75t.pt "$sd_webui_path"/embeddings # ng_deepnegative_v1_75t ON
-__term_sd_task_pre_model_88 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/verybadimagenegative_v1.3.pt "$sd_webui_path"/embeddings # verybadimagenegative_v1.3 ON
+__term_sd_task_pre_model_52 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/omegaPonyXLAnime_v20.safetensors "$sd_webui_path"/models/Stable-diffusion # omegaPonyXLAnime_v20 OFF
+__term_sd_task_pre_model_53 # =====VAE模型===== OFF
+__term_sd_task_pre_model_54 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sd_1.5/vae-ft-ema-560000-ema-pruned.safetensors "$sd_webui_path"/models/VAE # vae-ft-ema-560000-ema-pruned OFF
+__term_sd_task_pre_model_55 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sd_1.5/vae-ft-mse-840000-ema-pruned.safetensors "$sd_webui_path"/models/VAE # VAE模型 vae-ft-mse-840000-ema-pruned ON
+__term_sd_task_pre_model_56 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sdxl_1.0/sdxl_vae.safetensors "$sd_webui_path"/models/VAE # sdxl_vae OFF
+__term_sd_task_pre_model_57 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sdxl_1.0/sdxl_fp16_fix_vae.safetensors "$sd_webui_path"/models/VAE # sdxl_fp16_fix_vae OFF
+__term_sd_task_pre_model_58 # =====VAE-approx模型===== OFF
+__term_sd_task_pre_model_59 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/vae-approx/model.pt "$sd_webui_path"/models/VAE-approx # VAE-approx模型 model ON
+__term_sd_task_pre_model_60 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/vae-approx/vaeapprox-sdxl.pt "$sd_webui_path"/models/VAE-approx # vaeapprox-sdxl ON
+__term_sd_task_pre_model_61 # =====放大模型===== OFF
+__term_sd_task_pre_model_62 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x-UltraSharp.pth "$sd_webui_path"/models/ESRGAN # upscaler模型 4x-UltraSharp OFF
+__term_sd_task_pre_model_63 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/BSRGAN.pth "$sd_webui_path"/models/ESRGAN # BSRGAN OFF
+__term_sd_task_pre_model_64 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/ESRGAN_4x.pth "$sd_webui_path"/models/ESRGAN # ESRGAN_4x OFF
+__term_sd_task_pre_model_65 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x_NMKD-Superscale-Artisoftject_210000_G.pth "$sd_webui_path"/models/ESRGAN # 4x_NMKD-Superscale-Artisoftject_210000_G OFF
+__term_sd_task_pre_model_66 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x_NMKD-Superscale-SP_178000_G.pth "$sd_webui_path"/models/ESRGAN # 4x_NMKD-Superscale-SP_178000_G ON
+__term_sd_task_pre_model_67 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/8x_NMKD-Superscale_150000_G.pth "$sd_webui_path"/models/ESRGAN # 8x_NMKD-Superscale_150000_G OFF
+__term_sd_task_pre_model_68 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/detection_Resnet50_Final.pth "$sd_webui_path"/models/GFPGAN # detection_Resnet50_Final OFF
+__term_sd_task_pre_model_69 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/GFPGANv1.4.pth "$sd_webui_path"/models/GFPGAN # GFPGANv1.4 OFF
+__term_sd_task_pre_model_70 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/parsing_bisenet.pth "$sd_webui_path"/models/GFPGAN # parsing_bisenet OFF
+__term_sd_task_pre_model_71 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/parsing_parsenet.pth "$sd_webui_path"/models/GFPGAN # parsing_parsenet OFF
+__term_sd_task_pre_model_72 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/RealESRGAN/RealESRGAN_x4plus.pth "$sd_webui_path"/models/RealESRGAN # RealESRGAN_x4plus ON
+__term_sd_task_pre_model_73 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/RealESRGAN/RealESRGAN_x4plus_anime_6B.pth "$sd_webui_path"/models/RealESRGAN # RealESRGAN_x4plus_anime_6B ON
+__term_sd_task_pre_model_74 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/Codeformer/codeformer-v0.1.0.pth "$sd_webui_path"/models/Codeformer # Codeformer模型 codeformer-v0.1.0 OFF
+__term_sd_task_pre_model_75 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/DAT/DAT_x2.pth "$sd_webui_path"/models/DAT # DAT_x2 OFF
+__term_sd_task_pre_model_76 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/DAT/DAT_x3.pth "$sd_webui_path"/models/DAT # DAT_x3 OFF
+__term_sd_task_pre_model_77 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/DAT/DAT_x4.pth "$sd_webui_path"/models/DAT # DAT_x4 OFF
+__term_sd_task_pre_model_78 # =====图生图反推Tag模型===== OFF
+__term_sd_task_pre_model_79 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/BLIP/model_base_caption_capfilt_large.pth "$sd_webui_path"/models/BLIP # BLIP模型 model_base_caption_capfilt_large OFF
+__term_sd_task_pre_model_80 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/torch_deepdanbooru/model-resnet_custom_v3.pt "$sd_webui_path"/models/torch_deepdanbooru # deepdanbooru模型 model-resnet_custom_v3 OFF
+__term_sd_task_pre_model_81 # =====Embedding模型===== OFF
+__term_sd_task_pre_model_82 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/EasyNegativeV2.safetensors "$sd_webui_path"/embeddings # embeddings模型 EasyNegativeV2 ON
+__term_sd_task_pre_model_83 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-artist-anime.pt "$sd_webui_path"/embeddings # bad-artist-anime ON
+__term_sd_task_pre_model_84 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-artist.pt "$sd_webui_path"/embeddings # bad-artist ON
+__term_sd_task_pre_model_85 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-hands-5.pt "$sd_webui_path"/embeddings # bad-hands-5 ON
+__term_sd_task_pre_model_86 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-image-v2-39000.pt "$sd_webui_path"/embeddings # bad-image-v2-39000 ON
+__term_sd_task_pre_model_87 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad_prompt_version2.pt "$sd_webui_path"/embeddings # bad_prompt_version2 ON
+__term_sd_task_pre_model_88 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/ng_deepnegative_v1_75t.pt "$sd_webui_path"/embeddings # ng_deepnegative_v1_75t ON
+__term_sd_task_pre_model_89 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/verybadimagenegative_v1.3.pt "$sd_webui_path"/embeddings # verybadimagenegative_v1.3 ON
