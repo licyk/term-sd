@@ -434,3 +434,7 @@ ComfyUI 插件 / 自定义节点说明：
 105、ComfyUI-DynamiCrafterWrapper
 描述：ToonCrafter节点
 链接：https://github.com/kijai/ComfyUI-DynamiCrafterWrapper
+
+106、comfyui-sixgod_prompt
+描述：提示词辅助工具
+链接：https://github.com/thisjam/comfyui-sixgod_prompt

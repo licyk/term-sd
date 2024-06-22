@@ -119,3 +119,5 @@ __term_sd_task_pre_ext_118 sd-webui-moar-generate OFF
 __term_sd_task_pre_ext_119 metadata_utils OFF
 __term_sd_task_pre_ext_120 sd-webui-xyz-addon OFF
 __term_sd_task_pre_ext_121 sd-webui-flash-attention-zluda-win OFF
+__term_sd_task_pre_ext_122 sd-webui-split-layout OFF
+__term_sd_task_pre_ext_123 sd-webui-oldsix-prompt OFF

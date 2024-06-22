@@ -486,3 +486,11 @@ Stable Diffusion WebUI 插件说明：
 121、sd-webui-flash-attention-zluda-win
 描述：为zluda添加flash-attension优化
 链接：https://github.com/Repeerc/sd-webui-flash-attention-zluda-win
+
+122、sd-webui-split-layout
+描述：调整界面布局
+链接：https://github.com/thisjam/sd-webui-split-layout
+
+123、sd-webui-oldsix-prompt
+描述：提示词辅助工具
+链接：https://github.com/thisjam/sd-webui-oldsix-prompt
