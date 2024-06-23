@@ -104,3 +104,10 @@ __term_sd_task_pre_ext_103 ComfyUI-Anyline OFF
 __term_sd_task_pre_ext_104 ComfyUI-TiledDiffusion OFF
 __term_sd_task_pre_ext_105 ComfyUI-DynamiCrafterWrapper OFF
 __term_sd_task_pre_ext_106 comfyui-sixgod_prompt OFF
+__term_sd_task_pre_ext_107 ComfyUI_densediffusion OFF
+__term_sd_task_pre_ext_108 omost_region_editor OFF
+__term_sd_task_pre_ext_109 ComfyUI-openpose-editor OFF
+__term_sd_task_pre_ext_110 ComfyUI-IC-Light OFF
+__term_sd_task_pre_ext_111 ComfyUI-IC-Light-Native OFF
+__term_sd_task_pre_ext_112 ComfyUI-KJNodes OFF
+__term_sd_task_pre_ext_113 ComfyUI_essentials OFF
