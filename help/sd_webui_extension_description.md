@@ -494,3 +494,7 @@ Stable Diffusion WebUI 插件说明：
 123、sd-webui-oldsix-prompt
 描述：提示词辅助工具
 链接：https://github.com/thisjam/sd-webui-oldsix-prompt
+
+124、sd-webui-incantations
+描述：调整生图质量和提示词效果
+链接：https://github.com/v0xie/sd-webui-incantations
