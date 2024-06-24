@@ -43,7 +43,8 @@ Term-SD 支持在 Linux，Windows，MacOS 上运行，在使用 Term-SD 前先�
 >2. [micromamba](https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html)
 >3. [miniconda](https://docs.anaconda.com/free/miniconda/index.html)
 >
->在 Linux 上安装指定版本的 Python 并不方便，所以可以用上面的 Python 版本管理器安装 Python，并在启动 Term-SD 时加上`--set-python-path`启动参数来指定 Python 的路径。
+>在 Linux 上安装指定版本的 Python 并不方便，所以可以用上面的 Python 版本管理器安装 Python，并在启动 Term-SD 时加上`--set-python-path`启动参数来指定 Python 的路径。  
+>具体方法可参考该文档：[在 Linux 上使用 Python 版本管理器安装 Python](#在-linux-上使用-python-版本管理器安装-python)
 
 ***
 
@@ -151,11 +152,11 @@ sudo zypper install python3 python3-pip python-venvs python-tk git aria2 dialog 
 nix-env -i python311Full aria git dialog curl
 ```
 
-完成上面的步骤后 Term-SD 的运行环境就配置好了，可以在下面的步骤 [安装Term-SD](#安装term-sd)。
-
 >[!NOTE]  
 >一些 Linux 发行版没法安装指定版本的 Python，导致 Python 版本不合适，造成 AI 软件运行出错，所以可以用[安装要求](#安装要求)部分推荐的 Python 版本管理器安装 Python，并在启动 Term-SD 时加上`--set-python-path`启动参数来指定 Python 的路径。  
 >参考该教程：[在 Linux 上使用 Python 版本管理器安装 Python](#在-linux-上使用-python-版本管理器安装-python)
+
+完成上面的步骤后 Term-SD 的运行环境就配置好了，可以在下面的步骤 [安装Term-SD](#安装term-sd)。
 
 ### MacOS
 
