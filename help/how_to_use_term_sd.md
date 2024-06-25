@@ -831,16 +831,13 @@ nix-env -i gperftools
 ***
 
 ## 绘世启动器的使用
-目前绘世启动器支持启动 Stable Diffusion WebUI（A1111-SD-WebUI / vlad-SD.NEXT / SD-WebUI-DirectML）、ComfyUI、Fooocus。使用Term-SD 部署 Stable Diffusion WebUI、ComfyUI、或者 Fooocus 后，将绘世启动器放入 Stable Diffusion WebUI 文件夹、ComfyUI 文件夹或者 Fooocus 文件夹后就可以使用绘世启动器启动对应的 AI 软件了（可以使用 Term-SD 扩展脚本中的 download-hanamizuki 脚本来下载绘世启动器，并且脚本会自动将绘世启动器放入上述文件夹中）
+目前绘世启动器支持启动 Stable Diffusion WebUI（A1111-SD-WebUI / vlad-SD.NEXT / SD-WebUI-DirectML）、ComfyUI、Fooocus。使用 Term-SD 部署 Stable Diffusion WebUI、ComfyUI、或者 Fooocus 后，将绘世启动器放入 Stable Diffusion WebUI 文件夹、ComfyUI 文件夹或者 Fooocus 文件夹后就可以使用绘世启动器启动对应的 AI 软件了
 
-||绘世启动器依赖|
-|---|---
-|↓|[Microsoft Visual C++](https://aka.ms/vs/17/release/vc_redist.x64.exe)|
-|↓|[.NET 6.0](https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/sdk-6.0.423-windows-x64-installer)|
-|↓|[.NET 8.0](https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/sdk-8.0.302-windows-x64-installer)|
+可以使用 Term-SD 扩展脚本中的 download-hanamizuki 脚本来下载绘世启动器，并且脚本会自动将绘世启动器放入上述文件夹中
 
->[!NOTE]
->使用绘世启动器前需要安装依赖
+打开绘世启动器时，如果检测到缺少 .NET 运行库，绘世启动器会弹窗提示缺少依赖，根据提示去下载并安装 .NET 运行时即可
+
+如果遇到绘世启动器打不开，生成锁文件，可尝试更新 Intel 核显驱动，或者将绘世启动器的文件名中的中文删去
 
 ||绘世启动器|
 |---|---|
