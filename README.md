@@ -76,6 +76,8 @@ _！Windows 平台可阅读图文版[《Windows 平台如何配置 Term-SD 运�
 
 下载 [Visual C++ Runtime](https://aka.ms/vs/17/release/vc_redist.x64.exe) 并安装。
 
+>[!NOTE]  
+>缺失 Visual C++ Runtime 可能会导致 PyTorch 无法正常调用 GPU，参考：[[Bug]: Missing requirement for VC_redist.x64.exe causes "RuntimeError: Torch is not able to use GPU" · Issue #16032 · AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui/issues/16032)
 
 - 4、配置 Windows 终端
 
@@ -100,7 +102,7 @@ C:\msys64\ucrt64.ico
 >[!NOTE]  
 >`C:\msys64`为安装目录，根据具体安装的目录修改。
 
-保存后生效，在标题栏点击向下的箭头就可以看到`MSYS2 UCRT64`，打开后就可以下载和运行 Term-SD（一定要用在`Windows 终端`配置好的`MSYS2 UCRT64`运行 Term-SD，`powershell`和`cmd`是没法运行 Term-SD 的）。
+保存后生效，在标题栏点击向下的箭头就可以看到`MSYS2 UCRT64`，打开后就可以下载和运行 Term-SD（一定要用在`Windows 终端`配置好的`MSYS2 UCRT64`运行 Term-SD，PowerShell 和 CMD 是没法运行 Term-SD 的）。
 
 >[!NOTE]  
 >Windows 终端默认启动 PowerShell，如果想要启动时直接启动`MSYS2 UCRT64`，可以在Windows 终端设置，`启动` -> `默认配置文件`，将`Windows Powershell`改成`MSYS2 UCRT64`，这样每次打开 Windows 终端时默认就会打开 MSYS2 UCRT64，不过 MSYS2 UCRT64 并不兼容 PowerShell 或者 CMD 的命令。  
