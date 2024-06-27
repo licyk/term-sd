@@ -8,7 +8,7 @@ sd_webui_forge_launch_args_setting()
     local launch_args
 
     sd_webui_forge_launch_args_dialog=$(dialog --erase-on-exit --notags \
-        --title "Stable-Diffusion-WebUI-Forge 管理" \
+        --title "Stable-Diffusion-WebUI 管理" \
         --backtitle "Stable-Diffusion-WebUI-Forge 启动参数选项" \
         --ok-label "确认" --cancel-label "取消" \
         --checklist "请选择 Stable-Diffusion-WebUI-Forge 启动参数, 确认之后将覆盖原有启动参数配置" \
@@ -451,15 +451,12 @@ sd_webui_forge_launch()
 {
     local sd_webui_forge_launch_dialog
 
-    if [ ! -f "$start_path/term-sd/config/sd-webui-forge-launch.conf" ]; then # 找不到启动配置时默认生成一个
-        term_sd_echo "未找到启动配置文件, 创建中"
-        echo "launch.py --theme dark --autolaunch --xformers --api" > "$start_path"/term-sd/config/sd-webui-forge-launch.conf
-    fi
+    add_sd_webui_forge_normal_launch_args
 
     while true
     do
         sd_webui_forge_launch_dialog=$(dialog --erase-on-exit --notags \
-            --title "Stable-Diffusion-WebUI-Forge 管理" \
+            --title "Stable-Diffusion-WebUI 管理" \
             --backtitle "Stable-Diffusion-WebUI-Forge 启动选项" \
             --ok-label "确认" --cancel-label "取消" \
             --menu "请选择启动 Stable-Diffusion-WebUI-Forge / 修改 Stable-Diffusion-WebUI-Forge 启动参数\n当前启动参数:\n$([ $venv_setup_status = 0 ] && echo python || echo "$term_sd_python_path") $(cat "$start_path"/term-sd/config/sd-webui-forge-launch.conf)" \
@@ -468,8 +465,9 @@ sd_webui_forge_launch()
             "1" "> 启动" \
             "2" "> 配置预设启动参数" \
             "3" "> 修改自定义启动参数" \
+            "4" "> 重置启动参数" \
             3>&1 1>&2 2>&3)
-        
+
         case $sd_webui_forge_launch_dialog in
             1)
                 term_sd_launch
@@ -479,6 +477,9 @@ sd_webui_forge_launch()
                 ;;
             3)
                 sd_webui_forge_launch_args_revise
+                ;;
+            4)
+                restore_sd_webui_forge_launch_args
                 ;;
             *)
                 break
@@ -493,7 +494,7 @@ sd_webui_forge_launch_args_revise()
     local sd_webui_forge_launch_args
 
     sd_webui_forge_launch_args=$(dialog --erase-on-exit \
-        --title "Stable-Diffusion-WebUI-Forge 管理" \
+        --title "Stable-Diffusion-WebUI 管理" \
         --backtitle "Stable-Diffusion-WebUI-Forge 自定义启动参数选项" \
         --ok-label "确认" --cancel-label "取消" \
         --inputbox "请输入 Stable-Diffusion-WebUI-Forge 启动参数" \
@@ -506,5 +507,31 @@ sd_webui_forge_launch_args_revise()
         echo "launch.py $sd_webui_forge_launch_args" > "$start_path"/term-sd/config/sd-webui-forge-launch.conf
     else
         term_sd_echo "取消启动参数修改"
+    fi
+}
+
+# 添加默认启动参数配置
+add_sd_webui_forge_normal_launch_args()
+{
+    if [ ! -f "$start_path/term-sd/config/sd-webui-forge-launch.conf" ]; then # 找不到启动配置时默认生成一个
+        echo "launch.py --theme dark --autolaunch --xformers --api" > "$start_path"/term-sd/config/sd-webui-forge-launch.conf
+    fi
+}
+
+# 重置启动参数
+restore_sd_webui_forge_launch_args()
+{
+    if (dialog --erase-on-exit \
+        --title "Stable-Diffusion-WebUI 管理" \
+        --backtitle "Stable-Diffusion-WebUI-Forge 重置启动参数选项选项" \
+        --yes-label "是" --no-label "否" \
+        --yesno "是否重置 Stable-Diffusion-WebUI-Forge 启动参数" \
+        $term_sd_dialog_height $term_sd_dialog_width) then
+
+        term_sd_echo "重置启动参数"
+        rm -f "$start_path"/term-sd/config/sd-webui-forge-launch.conf
+        add_sd_webui_forge_normal_launch_args
+    else
+        term_sd_echo "取消重置操作"
     fi
 }

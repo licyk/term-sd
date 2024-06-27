@@ -719,6 +719,7 @@ term_sd_uninstall_interface()
                     sed -i '/alias tsd/d' ~/."$user_shell"rc
                 fi
                 term_sd_echo "Term-SD 卸载完成"
+                exec $SHELL
                 exit 0
                 ;;
             *)

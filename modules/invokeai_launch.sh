@@ -4,10 +4,9 @@
 # 参考: https://invoke-ai.github.io/InvokeAI/features/UTILITIES
 invokeai_launch()
 {
-    if [ ! -f ""$start_path"/term-sd/config/invokeai-launch.conf" ]; then # 找不到启动配置时默认生成一个
-        term_sd_echo "未找到启动配置文件, 创建中"
-        echo "" > "$start_path"/term-sd/config/invokeai-launch.conf
-    fi
+    local invokeai_launch_dialog
+
+    add_invokeai_normal_launch_args
 
     while true
     do
@@ -21,8 +20,9 @@ invokeai_launch()
             "1" "> (invokeai-web) 启动 WebUI 界面" \
             "2" "> 配置预设启动参数" \
             "3" "> 修改自定义启动参数" \
-            "4" "> (import-images) 启动图库导入界面" \
-            "5" "> (db-maintenance) 启动数据库修复" \
+            "4" "> 重置启动参数" \
+            "5" "> (import-images) 启动图库导入界面" \
+            "6" "> (db-maintenance) 启动数据库修复" \
             3>&1 1>&2 2>&3)
 
         case $invokeai_launch_dialog in
@@ -36,11 +36,14 @@ invokeai_launch()
                 invokeai_manual_launch
                 ;;
             4)
+                restore_invokeai_launch_args
+                ;;
+            5)
                 term_sd_print_line "$term_sd_manager_info 启动"
                 invokeai-import-images --root "$invokeai_path"/invokeai
                 term_sd_pause
                 ;;
-            5)
+            6)
                 term_sd_print_line "$term_sd_manager_info 启动"
                 invokeai-db-maintenance --operation all --root "$invokeai_path"/invokeai
                 term_sd_pause
@@ -160,5 +163,31 @@ invokeai_manual_launch()
         echo "$invokeai_launch_args" > "$start_path"/term-sd/config/invokeai-launch.conf
     else
         term_sd_echo "取消启动参数修改"
+    fi
+}
+
+# 添加默认启动参数配置
+add_invokeai_normal_launch_args()
+{
+    if [ ! -f ""$start_path"/term-sd/config/invokeai-launch.conf" ]; then # 找不到启动配置时默认生成一个
+        echo "" > "$start_path"/term-sd/config/invokeai-launch.conf
+    fi
+}
+
+# 重置启动参数
+restore_invokeai_launch_args()
+{
+    if (dialog --erase-on-exit \
+        --title "InvokeAI 管理" \
+        --backtitle "InvokeAI 重置启动参数选项选项" \
+        --yes-label "是" --no-label "否" \
+        --yesno "是否重置 InvokeAI 启动参数" \
+        $term_sd_dialog_height $term_sd_dialog_width) then
+
+        term_sd_echo "重置启动参数"
+        rm -f "$start_path"/term-sd/config/invokeai-launch.conf
+        add_invokeai_normal_launch_args
+    else
+        term_sd_echo "取消重置操作"
     fi
 }

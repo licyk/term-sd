@@ -55,10 +55,7 @@ kohya_ss_launch()
 {
     local kohya_ss_launch_dialog
 
-    if [ ! -f ""$start_path"/term-sd/config/kohya_ss-launch.conf" ]; then # 找不到启动配置时默认生成一个
-        term_sd_echo "未找到启动配置文件,创建中"
-        echo "kohya_gui.py --inbrowser --language zh-CN" > "$start_path"/term-sd/config/kohya_ss-launch.conf
-    fi
+    add_kohya_ss_normal_launch_args
 
     while true
     do
@@ -72,6 +69,7 @@ kohya_ss_launch()
             "1" "> 启动" \
             "2" "> 配置预设启动参数" \
             "3" "> 修改自定义启动参数" \
+            "4" "> 重置启动参数" \
             3>&1 1>&2 2>&3)
 
         case $kohya_ss_launch_dialog in
@@ -83,6 +81,9 @@ kohya_ss_launch()
                 ;;
             3)
                 kohya_ss_launch_args_revise
+                ;;
+            4)
+                restore_kohya_ss_launch_args
                 ;;
             *)
                 break
@@ -110,5 +111,31 @@ kohya_ss_launch_args_revise()
         echo "kohya_gui.py $kohya_ss_launch_args" > "$start_path"/term-sd/config/kohya_ss-launch.conf
     else
         term_sd_echo "取消启动参数修改"
+    fi
+}
+
+# 添加默认启动参数配置
+add_kohya_ss_normal_launch_args()
+{
+    if [ ! -f ""$start_path"/term-sd/config/kohya_ss-launch.conf" ]; then # 找不到启动配置时默认生成一个
+        echo "kohya_gui.py --inbrowser --language zh-CN" > "$start_path"/term-sd/config/kohya_ss-launch.conf
+    fi
+}
+
+# 重置启动参数
+restore_kohya_ss_launch_args()
+{
+    if (dialog --erase-on-exit \
+        --title "kohya_ss 管理" \
+        --backtitle "kohya_ss 重置启动参数选项选项" \
+        --yes-label "是" --no-label "否" \
+        --yesno "是否重置 kohya_ss 启动参数" \
+        $term_sd_dialog_height $term_sd_dialog_width) then
+
+        term_sd_echo "重置启动参数"
+        rm -f "$start_path"/term-sd/config/kohya_ss-launch.conf
+        add_kohya_ss_normal_launch_args
+    else
+        term_sd_echo "取消重置操作"
     fi
 }

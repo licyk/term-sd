@@ -201,10 +201,7 @@ vlad_sd_webui_launch()
 {
     local vlad_sd_webui_launch_dialog
 
-    if [ ! -f "$start_path/term-sd/config/vlad-sd-webui-launch.conf" ]; then # 找不到启动配置时默认生成一个
-        term_sd_echo "未找到启动配置文件, 创建中"
-        echo "launch.py --autolaunch --use-cuda --use-xformers" > "$start_path"/term-sd/config/vlad-sd-webui-launch.conf
-    fi
+    add_vlad_sd_webui_normal_launch_args
 
     while true
     do
@@ -218,8 +215,9 @@ vlad_sd_webui_launch()
             "1" "> 启动" \
             "2" "> 配置预设启动参数" \
             "3" "> 修改自定义启动参数" \
+            "4" "> 重置启动参数" \
             3>&1 1>&2 2>&3)
-        
+
         case $vlad_sd_webui_launch_dialog in
             1)
                 term_sd_launch
@@ -229,6 +227,9 @@ vlad_sd_webui_launch()
                 ;;
             3)
                 vlad_sd_webui_launch_args_revise
+                ;;
+            4)
+                add_vlad_sd_webui_normal_launch_args
                 ;;
             *)
                 break
@@ -255,5 +256,31 @@ vlad_sd_webui_launch_args_revise()
         echo "launch.py $vlad_sd_webui_launch_args" > "$start_path"/term-sd/config/vlad-sd-webui-launch.conf
     else
         term_sd_echo "取消启动参数修改"
+    fi
+}
+
+# 添加默认启动参数配置
+add_vlad_sd_webui_normal_launch_args()
+{
+    if [ ! -f "$start_path/term-sd/config/vlad-sd-webui-launch.conf" ]; then # 找不到启动配置时默认生成一个
+        echo "launch.py --autolaunch --use-cuda --use-xformers" > "$start_path"/term-sd/config/vlad-sd-webui-launch.conf
+    fi
+}
+
+# 重置启动参数
+restore_vlad_sd_webui_launch_args()
+{
+    if (dialog --erase-on-exit \
+        --title "Stable-Diffusion-WebUI 管理" \
+        --backtitle "SD.NEXT 重置启动参数选项选项" \
+        --yes-label "是" --no-label "否" \
+        --yesno "是否重置 SD.NEXT 启动参数" \
+        $term_sd_dialog_height $term_sd_dialog_width) then
+
+        term_sd_echo "重置启动参数"
+        rm -f "$start_path"/term-sd/config/vlad-sd-webui-launch.conf
+        add_vlad_sd_webui_normal_launch_args
+    else
+        term_sd_echo "取消重置操作"
     fi
 }

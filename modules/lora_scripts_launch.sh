@@ -55,10 +55,7 @@ lora_scripts_launch()
 {
     local lora_scripts_launch_dialog
 
-    if [ ! -f ""$start_path"/term-sd/config/lora-scripts-launch.conf" ]; then # 找不到启动配置时默认生成一个
-        term_sd_echo "未找到启动配置文件, 创建中"
-        echo "gui.py" > "$start_path"/term-sd/config/lora-scripts-launch.conf
-    fi
+    add_lora_scripts_normal_launch_args
 
     while true
     do
@@ -72,6 +69,7 @@ lora_scripts_launch()
             "1" "> 启动" \
             "2" "> 配置预设启动参数" \
             "3" "> 修改自定义启动参数" \
+            "4" "> 重置启动参数" \
             3>&1 1>&2 2>&3)
 
         case $lora_scripts_launch_dialog in
@@ -83,6 +81,9 @@ lora_scripts_launch()
                 ;;
             3)
                 lora_scripts_launch_args_revise
+                ;;
+            4)
+                restore_lora_scripts_launch_args
                 ;;
             *)
                 break
@@ -110,5 +111,31 @@ lora_scripts_launch_args_revise()
         echo "gui.py $lora_scripts_launch_args" > "$start_path"/term-sd/config/lora-scripts-launch.conf
     else
         term_sd_echo "取消启动参数修改"
+    fi
+}
+
+# 添加默认启动参数配置
+add_lora_scripts_normal_launch_args()
+{
+    if [ ! -f ""$start_path"/term-sd/config/lora-scripts-launch.conf" ]; then # 找不到启动配置时默认生成一个
+        echo "gui.py" > "$start_path"/term-sd/config/lora-scripts-launch.conf
+    fi
+}
+
+# 重置启动参数
+restore_lora_scripts_launch_args()
+{
+    if (dialog --erase-on-exit \
+        --title "lora-scripts 管理" \
+        --backtitle "lora-scripts 重置启动参数选项选项" \
+        --yes-label "是" --no-label "否" \
+        --yesno "是否重置 lora-scripts 启动参数" \
+        $term_sd_dialog_height $term_sd_dialog_width) then
+
+        term_sd_echo "重置启动参数"
+        rm -f "$start_path"/term-sd/config/lora-scripts-launch.conf
+        add_lora_scripts_normal_launch_args
+    else
+        term_sd_echo "取消重置操作"
     fi
 }

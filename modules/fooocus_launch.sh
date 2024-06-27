@@ -230,10 +230,7 @@ fooocus_launch()
 {
     local fooocus_launch_dialog
 
-    if [ ! -f "$start_path/term-sd/config/fooocus-launch.conf" ]; then # 找不到启动配置时默认生成一个
-        term_sd_echo "未找到启动配置文件, 创建中"
-        echo "launch.py --language zh --preset term_sd" > "$start_path"/term-sd/config/fooocus-launch.conf
-    fi
+    add_fooocus_normal_launch_args
 
     while true
     do
@@ -247,6 +244,7 @@ fooocus_launch()
             "1" "> 启动" \
             "2" "> 配置预设启动参数" \
             "3" "> 修改自定义启动参数" \
+            "4" "> 重置启动参数"
             3>&1 1>&2 2>&3)
 
         case $fooocus_launch_dialog in
@@ -258,6 +256,9 @@ fooocus_launch()
                 ;;
             3)
                 fooocus_manual_launch
+                ;;
+            4)
+                restore_fooocus_launch_args
                 ;;
             *)
                 break
@@ -285,5 +286,31 @@ fooocus_manual_launch()
         echo "launch.py $fooocus_launch_args" > "$start_path"/term-sd/config/fooocus-launch.conf
     else
         term_sd_echo "取消启动参数修改"
+    fi
+}
+
+# 添加默认启动参数配置
+add_fooocus_normal_launch_args()
+{
+    if [ ! -f "$start_path/term-sd/config/fooocus-launch.conf" ]; then # 找不到启动配置时默认生成一个
+        echo "launch.py --language zh --preset term_sd" > "$start_path"/term-sd/config/fooocus-launch.conf
+    fi
+}
+
+# 重置启动参数
+restore_fooocus_launch_args()
+{
+    if (dialog --erase-on-exit \
+        --title "Fooocus 管理" \
+        --backtitle "Fooocus 重置启动参数选项选项" \
+        --yes-label "是" --no-label "否" \
+        --yesno "是否重置 Fooocus 启动参数" \
+        $term_sd_dialog_height $term_sd_dialog_width) then
+
+        term_sd_echo "重置启动参数"
+        rm -f "$start_path"/term-sd/config/fooocus-launch.conf
+        add_fooocus_normal_launch_args
+    else
+        term_sd_echo "取消重置操作"
     fi
 }
