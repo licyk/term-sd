@@ -80,10 +80,12 @@ term_sd_launch()
     term_sd_echo "提示: 可以按下 Ctrl+C 键终止 AI 软件的运行"
     case $term_sd_manager_info in
         InvokeAI)
+            fallback_numpy_version
             invokeai-web --root "$invokeai_path"/invokeai $(cat "$start_path"/term-sd/config/$launch_sd_config)
             ;;
         *)
             enter_venv
+            fallback_numpy_version
             term_sd_python $(cat "$start_path"/term-sd/config/$launch_sd_config)
             exit_venv
             ;;
@@ -93,6 +95,26 @@ term_sd_launch()
         unset WEBUI_EXTENSIONS_INDEX
     fi
     term_sd_pause
+}
+
+# 回滚numpy版本
+fallback_numpy_version()
+{
+    local np_ver
+    local np_major_ver
+
+    np_ver=$(term_sd_pip freeze | grep "numpy==" | awk -F '==' '{print $NF}')
+    np_major_ver=$(echo $np_ver | awk -F '.' '{print $1}')
+
+    if [ $np_major_ver -gt 1 ];then
+        term_sd_echo "检测到 Numpy 版本过高, 尝试回退版本中"
+        install_python_package numpy==1.26.4
+        if [ $? = 0 ];then
+            term_sd_echo "Numpy 版本回退成功"
+        else
+            term_sd_echo "Numpy 版本回退失败"
+        fi
+    fi
 }
 
 # aria2下载工具
