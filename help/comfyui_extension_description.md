@@ -466,3 +466,11 @@ ComfyUI 插件 / 自定义节点说明：
 113、ComfyUI_essentials
 描述：自定义节点集合
 链接：https://github.com/cubiq/ComfyUI_essentials
+
+114、ComfyUI-Restart-Sampler
+描述：为ComfyUI添加Restart采样算法
+链接：https://github.com/licyk/ComfyUI-Restart-Sampler
+
+115、ComfyUI-TCD-Sampler
+描述：为ComfyUI添加TCD采样算法
+链接：https://github.com/licyk/ComfyUI-TCD-Sampler

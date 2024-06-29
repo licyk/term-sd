@@ -111,3 +111,5 @@ __term_sd_task_pre_ext_110 ComfyUI-IC-Light OFF
 __term_sd_task_pre_ext_111 ComfyUI-IC-Light-Native OFF
 __term_sd_task_pre_ext_112 ComfyUI-KJNodes OFF
 __term_sd_task_pre_ext_113 ComfyUI_essentials OFF
+__term_sd_task_pre_ext_114 ComfyUI-Restart-Sampler OFF
+__term_sd_task_pre_ext_115 ComfyUI-TCD-Sampler OFF
