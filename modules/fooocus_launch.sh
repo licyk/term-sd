@@ -62,6 +62,14 @@ fooocus_launch_args_setting()
         "47" "(preset realistic) 使用 Realistic 模型预设" OFF \
         "48" "(preset term_sd) 使用 Term-SD 模型预设" ON \
         "49" "(share) 启用 Gradio 共享" OFF \
+        "50" "(disable-offload-from-vram) 禁用显存自动卸载" ON \
+        "51" "(multi-user) 启用多用户支持" OFF \
+        "52" "(disable-image-log) 禁用保存图片日志" OFF \
+        "53" "(disable-analytics) 禁用 Gradio 分析" OFF \
+        "54" "(disable-metadata) 禁用保存生图信息到图片中" OFF \
+        "55" "(disable-preset-download) 禁用下载预设中的模型" OFF \
+        "56" "(enable-describe-uov-image) 为 uov 图像描述提示词" OFF \
+        "57" "(always-download-new-model) 总是下载最新的模型" OFF \
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
@@ -214,6 +222,30 @@ fooocus_launch_args_setting()
                 49)
                     fooocus_launch_args="--share"
                     ;;
+                50)
+                    fooocus_launch_args="--disable-offload-from-vram"
+                    ;;
+                51)
+                    fooocus_launch_args="--multi-user"
+                    ;;
+                52)
+                    fooocus_launch_args="--disable-image-log"
+                    ;;
+                53)
+                    fooocus_launch_args="--disable-analytics"
+                    ;;
+                54)
+                    fooocus_launch_args="--disable-metadata"
+                    ;;
+                55)
+                    fooocus_launch_args="--disable-preset-download"
+                    ;;
+                56)
+                    fooocus_launch_args="--enable-describe-uov-image"
+                    ;;
+                57)
+                    fooocus_launch_args="--always-download-new-model"
+                    ;;
             esac
             launch_args="$fooocus_launch_args $launch_args"
         done
@@ -293,7 +325,7 @@ fooocus_manual_launch()
 add_fooocus_normal_launch_args()
 {
     if [ ! -f "$start_path/term-sd/config/fooocus-launch.conf" ]; then # 找不到启动配置时默认生成一个
-        echo "launch.py --language zh --preset term_sd" > "$start_path"/term-sd/config/fooocus-launch.conf
+        echo "launch.py --language zh --preset term_sd --disable-offload-from-vram" > "$start_path"/term-sd/config/fooocus-launch.conf
     fi
 }
 

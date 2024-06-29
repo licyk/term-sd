@@ -16,7 +16,7 @@ comfyui_launch_args_setting()
         "1" "(listen) 开放远程连接" OFF \
         "2" "(auto-launch) 启动 WebUI 完成后自动启动浏览器" ON \
         "3" "(disable-auto-launch) 禁用在启动 WebUI 完成后自动启动浏览器" OFF \
-        "4" "(cuda-malloc) 启用CUDA流顺序内存分配器 (Torch2.0+ 默认启用)" OFF \
+        "4" "(cuda-malloc) 启用 CUDA 流顺序内存分配器 (Torch2.0+ 默认启用)" OFF \
         "5" "(disable-cuda-malloc) 禁用 CUDA 流顺序内存分配器" OFF \
         "6" "(dont-upcast-attention) 禁用向上注意力优化" OFF \
         "7" "(force-fp32) 强制使用 FP32" OFF \
@@ -27,25 +27,28 @@ comfyui_launch_args_setting()
         "12" "(bf16-vae) 使用 BF16 精度运行 VAE" OFF \
         "13" "(disable-ipex-optimize) 禁用 IPEX 优化" OFF \
         "14" "(preview-method none) 不使用图片预览" OFF \
-        "15" "(preview-method latent2rgb) 使用 Latent2Rgb 图片预览" OFF \
-        "16" "(preview-method taesd) 使用 TAESD 图片预览" OFF \
-        "17" "(use-split-cross-attention) 使用 Split优化" OFF \
-        "18" "(use-quad-cross-attention) 使用 Quad 优化" OFF \
-        "19" "(use-pytorch-cross-attention) 使用 PyTorch 方案优化" OFF \
-        "20" "(disable-xformers) 禁用 xFormers 优化" OFF \
-        "21" "(gpu-only) 将所有模型, 文本编码器储存在 GPU 中" OFF \
-        "22" "(highvram) 不使用显存优化 (生图完成后将模型继续保存在显存中)" OFF \
-        "23" "(normalvram) 使用默认显存优化" OFF \
-        "24" "(lowvram) 使用显存优化 (将会降低生图速度)" OFF \
-        "25" "(novram) 使用显存优化 (将会大量降低生图速度)" OFF \
-        "26" "(cpu) 使用CPU进行生图" OFF \
-        "27" "(disable-smart-memory) 强制保持模型储存在显存中而不是自动卸载到内存中" OFF \
-        "28" "(dont-print-server) 禁用日志输出" OFF \
-        "29" "(quick-test-for-ci) 快速测试 CI" OFF \
-        "30" "(windows-standalone-build) 启用 Windows 独占功能" OFF \
-        "31" "(disable-metadata) 禁用在文件中保存提示元数据" OFF \
-        "32" "(fp8_e4m3fn-text-enc) 使用 FP8 精度 (e4m3fn)" OFF \
-        "33" "(fp8_e5m2-text-enc) 使用 FP8 精度 (e5m2)" OFF \
+        "15" "(preview-method auto) 自动选择图片预览方式" ON \
+        "16" "(preview-method latent2rgb) 使用 Latent2Rgb 图片预览" OFF \
+        "17" "(preview-method taesd) 使用 TAESD 图片预览" OFF \
+        "18" "(use-split-cross-attention) 使用 Split优化" OFF \
+        "19" "(use-quad-cross-attention) 使用 Quad 优化" OFF \
+        "20" "(use-pytorch-cross-attention) 使用 PyTorch 方案优化" OFF \
+        "21" "(disable-xformers) 禁用 xFormers 优化" OFF \
+        "22" "(gpu-only) 将所有模型, 文本编码器储存在 GPU 中" OFF \
+        "23" "(highvram) 不使用显存优化 (生图完成后将模型继续保存在显存中)" OFF \
+        "24" "(normalvram) 使用默认显存优化" OFF \
+        "25" "(lowvram) 使用显存优化 (将会降低生图速度)" OFF \
+        "26" "(novram) 使用显存优化 (将会大量降低生图速度)" OFF \
+        "27" "(cpu) 使用CPU进行生图" OFF \
+        "28" "(disable-smart-memory) 强制保持模型储存在显存中而不是自动卸载到内存中" ON \
+        "29" "(dont-print-server) 禁用日志输出" OFF \
+        "30" "(quick-test-for-ci) 快速测试 CI" OFF \
+        "31" "(windows-standalone-build) 启用 Windows 独占功能" OFF \
+        "32" "(disable-metadata) 禁用在文件中保存提示元数据" OFF \
+        "33" "(fp8_e4m3fn-text-enc) 使用 FP8 精度 (e4m3fn)" OFF \
+        "34" "(fp8_e5m2-text-enc) 使用 FP8 精度 (e5m2)" OFF \
+        "35" "(multi-user) 启用多用户支持" OFF \
+        "36" "(verbose) 显示更多调试信息" OFF \
         3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
@@ -94,61 +97,70 @@ comfyui_launch_args_setting()
                     comfyui_launch_args="--preview-method none"
                     ;;
                 15)
-                    comfyui_launch_args="--preview-method latent2rgb"
+                    comfyui_launch_args="--preview-method auto"
                     ;;
                 16)
-                    comfyui_launch_args="--preview-method taesd"
+                    comfyui_launch_args="--preview-method latent2rgb"
                     ;;
                 17)
-                    comfyui_launch_args="--use-split-cross-attention"
+                    comfyui_launch_args="--preview-method taesd"
                     ;;
                 18)
-                    comfyui_launch_args="--use-quad-cross-attention"
+                    comfyui_launch_args="--use-split-cross-attention"
                     ;;
                 19)
-                    comfyui_launch_args="--use-pytorch-cross-attention"
+                    comfyui_launch_args="--use-quad-cross-attention"
                     ;;
                 20)
-                    comfyui_launch_args="--disable-xformers"
+                    comfyui_launch_args="--use-pytorch-cross-attention"
                     ;;
                 21)
-                    comfyui_launch_args="--gpu-only"
+                    comfyui_launch_args="--disable-xformers"
                     ;;
                 22)
-                    comfyui_launch_args="--highvram"
+                    comfyui_launch_args="--gpu-only"
                     ;;
                 23)
-                    comfyui_launch_args="--normalvram"
+                    comfyui_launch_args="--highvram"
                     ;;
                 24)
-                    comfyui_launch_args="--lowvram"
+                    comfyui_launch_args="--normalvram"
                     ;;
                 25)
-                    comfyui_launch_args="--novram"
+                    comfyui_launch_args="--lowvram"
                     ;;
                 26)
-                    comfyui_launch_args="--cpu"
+                    comfyui_launch_args="--novram"
                     ;;
                 27)
-                    comfyui_launch_args="--disable-smart-memory"
+                    comfyui_launch_args="--cpu"
                     ;;
                 28)
-                    comfyui_launch_args="--dont-print-server"
+                    comfyui_launch_args="--disable-smart-memory"
                     ;;
                 29)
-                    comfyui_launch_args="--quick-test-for-ci"
+                    comfyui_launch_args="--dont-print-server"
                     ;;
                 30)
-                    comfyui_launch_args="--windows-standalone-build"
+                    comfyui_launch_args="--quick-test-for-ci"
                     ;;
                 31)
-                    comfyui_launch_args="--disable-metadata"
+                    comfyui_launch_args="--windows-standalone-build"
                     ;;
                 32)
-                    comfyui_launch_args="--fp8_e4m3fn-text-enc"
+                    comfyui_launch_args="--disable-metadata"
                     ;;
                 33)
+                    comfyui_launch_args="--fp8_e4m3fn-text-enc"
+                    ;;
+                34)
                     comfyui_launch_args="--fp8_e5m2-text-enc"
+                    ;;
+                35)
+                    comfyui_launch_args="--multi-user"
+                    ;;
+                36)
+                    comfyui_launch_args="--verbose"
                     ;;
             esac
             launch_args="$comfyui_launch_args $launch_args"
@@ -230,7 +242,7 @@ comfyui_launch_args_revise()
 add_comfyui_normal_launch_args()
 {
     if [ ! -f ""$start_path"/term-sd/config/comfyui-launch.conf" ]; then # 找不到启动配置时默认生成一个
-        echo "main.py --auto-launch" > "$start_path"/term-sd/config/comfyui-launch.conf
+        echo "main.py --auto-launch --preview-method auto --disable-smart-memory" > "$start_path"/term-sd/config/comfyui-launch.conf
     fi
 }
 
