@@ -630,6 +630,11 @@ term_sd_set_up_normal_setting()
         term_sd_echo "Term-SD 自动更新已自动设置"
     fi
 
+    if [ ! -f "term-sd/config/aria2-thread.conf" ];then
+        echo "-x 16" > term-sd/config/aria2-thread.conf
+        term_sd_echo "Term-SD 设置 Aria2 下载线程为 16"
+    fi
+
     if [ ! -f "term-sd/config/term-sd-pip-mirror.conf" ];then
         echo "2" > term-sd/config/term-sd-pip-mirror.conf
         term_sd_echo "Term-SD 设置 Pip 镜像源为国内镜像源"
@@ -1079,13 +1084,6 @@ else # 没有配置文件时使用默认值
     export term_sd_cmd_retry=0
 fi
 
-# 设置安装ai软件时下载模型的线程数
-if [ -f "term-sd/config/aria2-thread.conf" ];then
-    export aria2_multi_threaded=$(cat term-sd/config/aria2-thread.conf)
-else
-    export aria2_multi_threaded="-x 1"
-fi
-
 # 设置虚拟环境
 if [ -f "term-sd/config/term-sd-venv-disable.lock" ];then # 找到term-sd-venv-disable.lock文件,禁用虚拟环境
     export venv_setup_status="1"
@@ -1355,6 +1353,13 @@ fi
 # huggingface镜像源设置
 if [ ! -f "term-sd/config/set-dynamic-global-huggingface-mirror.lock" ] && [ -f "term-sd/config/set-global-huggingface-mirror.conf" ];then
     export HF_ENDPOINT=$(cat term-sd/config/set-global-huggingface-mirror.conf)
+fi
+
+# 设置安装ai软件时下载模型的线程数
+if [ -f "term-sd/config/aria2-thread.conf" ];then
+    export aria2_multi_threaded=$(cat term-sd/config/aria2-thread.conf)
+else
+    export aria2_multi_threaded="-x 1"
 fi
 
 #############################

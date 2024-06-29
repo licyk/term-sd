@@ -420,7 +420,7 @@ aria2_multi_threaded_setting()
                                 --title "Term-SD" \
                                 --backtitle "Aria2 线程设置界面" \
                                 --ok-label "确认" \
-                                --msgbox "启用成功, Aria2线程数: $aria2_multi_threaded" \
+                                --msgbox "启用成功, Aria2线程数: $(echo $aria2_multi_threaded | awk '{sub("-x ","")}1')" \
                                 $term_sd_dialog_height $term_sd_dialog_width
                         else
                             echo "-x 16" > term-sd/config/aria2-thread.conf
@@ -430,7 +430,7 @@ aria2_multi_threaded_setting()
                                 --title "Term-SD" \
                                 --backtitle "Aria2 线程设置界面" \
                                 --ok-label "确认" \
-                                --msgbox "启用成功, Aria2线程数: $aria2_multi_threaded" \
+                                --msgbox "启用成功, Aria2线程数: $(echo $aria2_multi_threaded | awk '{sub("-x ","")}1')" \
                                 $term_sd_dialog_height $term_sd_dialog_width
                         fi
                     else
@@ -446,7 +446,7 @@ aria2_multi_threaded_setting()
                 ;;
             2)
                 rm -rf term-sd/config/aria2-thread.conf
-                aria2_multi_threaded=
+                aria2_multi_threaded="-x 1"
 
                 dialog --erase-on-exit \
                     --title "Term-SD" \
