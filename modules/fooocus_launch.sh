@@ -65,7 +65,7 @@ fooocus_launch_args_setting()
         "50" "(disable-offload-from-vram) 禁用显存自动卸载" ON \
         "51" "(multi-user) 启用多用户支持" OFF \
         "52" "(disable-image-log) 禁用保存图片日志" OFF \
-        "53" "(disable-analytics) 禁用 Gradio 分析" OFF \
+        "53" "(disable-analytics) 禁用 Gradio 分析" ON \
         "54" "(disable-metadata) 禁用保存生图信息到图片中" OFF \
         "55" "(disable-preset-download) 禁用下载预设中的模型" OFF \
         "56" "(enable-describe-uov-image) 为 uov 图像描述提示词" OFF \
@@ -325,7 +325,7 @@ fooocus_manual_launch()
 add_fooocus_normal_launch_args()
 {
     if [ ! -f "$start_path/term-sd/config/fooocus-launch.conf" ]; then # 找不到启动配置时默认生成一个
-        echo "launch.py --language zh --preset term_sd --disable-offload-from-vram" > "$start_path"/term-sd/config/fooocus-launch.conf
+        echo "launch.py --language zh --preset term_sd --disable-offload-from-vram --disable-analytics" > "$start_path"/term-sd/config/fooocus-launch.conf
     fi
 }
 
