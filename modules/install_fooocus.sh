@@ -159,8 +159,8 @@ fooocus_preset_file()
     "default_refiner_switch": 0.8,
     "default_loras": [
         [
-            "sd_xl_offset_example-lora_1.0.safetensors",
-            0.5
+            "None",
+            1.0
         ],
         [
             "None",

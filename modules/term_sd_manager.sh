@@ -10,6 +10,7 @@ term_sd_launch()
     local github_mirror_url
     local i
     local ignore_github_mirror
+    local hf_mirror_for_fooocus
 
     case $term_sd_manager_info in
         stable-diffusion-webui)
@@ -64,8 +65,14 @@ term_sd_launch()
             if echo $(cat "$start_path"/term-sd/config/$launch_sd_config) | grep "\-\-language zh" &> /dev/null ;then # 添加中文配置
                 fooocus_lang_config_file > language/zh.json
             fi
+
             if echo $(cat "$start_path"/term-sd/config/$launch_sd_config) | grep "\-\-preset term_sd" &> /dev/null ;then # 添加Term-SD风格的预设
                 fooocus_preset_file > "$fooocus_path"/presets/term_sd.json
+            fi
+
+            if [ -f "$start_path/term-sd/config/set-global-huggingface-mirror.conf" ];then
+                term_sd_echo "检测到启用了 HuggingFace 镜像源, 为 Fooocus 设置 HuggingFace 镜像源"
+                hf_mirror_for_fooocus="--hf-mirror $HF_ENDPOINT"
             fi
             ;;
         lora-scripts)
@@ -86,7 +93,7 @@ term_sd_launch()
         *)
             enter_venv
             fallback_numpy_version
-            term_sd_python $(cat "$start_path"/term-sd/config/$launch_sd_config)
+            term_sd_python $(cat "$start_path"/term-sd/config/$launch_sd_config) $hf_mirror_for_fooocus
             exit_venv
             ;;
     esac
