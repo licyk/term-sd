@@ -498,3 +498,7 @@ Stable Diffusion WebUI 插件说明：
 124、sd-webui-incantations
 描述：调整生图质量和提示词效果
 链接：https://github.com/v0xie/sd-webui-incantations
+
+125、sd-webui-ipex-enhancement
+描述：优化IPEX后端的运行体验
+链接：https://github.com/Nuullll/sd-webui-ipex-enhancement
