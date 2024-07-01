@@ -737,7 +737,7 @@ install_cmd_to_shell()
 install_config_to_shell()
 {
     echo "# Term-SD" >> ~/.${user_shell}rc
-    echo "term_sd(){ local term_sd_path=\"$(pwd)/term-sd.sh\" ; if [ -f \"\$term_sd_path\" ];then ; \"\$term_sd_path\" ; else ; echo -e \"[\\\033[33m\$(date \"+%Y-%m-%d %H:%M:%S\")\\\033[0m][\\\033[36mTerm-SD\\\033[0m]\\\033[36m::\\\033[0m Term-SD 启动脚本未找到\" ; fi ; }" >> ~/.${user_shell}rc
+    echo "term_sd(){ local term_sd_path=\"$(pwd)/term-sd.sh\" ; if [ -f \"\$term_sd_path\" ];then ; \"\$term_sd_path\" \"\$@\" ; else ; echo -e \"[\\\033[33m\$(date \"+%Y-%m-%d %H:%M:%S\")\\\033[0m][\\\033[36mTerm-SD\\\033[0m]\\\033[36m::\\\033[0m Term-SD 启动脚本未找到\" ; fi ; }" >> ~/.${user_shell}rc
     echo "alias tsd='term_sd'" >> ~/.${user_shell}rc
 }
 
