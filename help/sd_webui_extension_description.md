@@ -59,7 +59,7 @@ Stable Diffusion WebUI 插件说明：
 描述：解决使用更高的CFGScale而出现颜色问题
 链接：https://github.com/mcmonkeyprojects/sd-dynamic-thresholding
 
-15、sd-webui-cutoff*
+15、sd-webui-cutoff
 描述：解决tag污染
 链接：https://github.com/hnmr293/sd-webui-cutoff
 
@@ -87,7 +87,7 @@ Stable Diffusion WebUI 插件说明：
 描述：强大的图像管理器
 链接：https://github.com/zanllp/sd-webui-infinite-image-browsing
 
-22、stable-diffusion-webui-anti-burn*
+22、stable-diffusion-webui-anti-burn
 描述：通过跳过最后几个步骤并将它们之前的一些图像平均在一起来平滑生成的图像，加快点击停止生成图像后WEBUI的响应速度
 链接：https://github.com/klimaleksus/stable-diffusion-webui-anti-burn
 
@@ -323,7 +323,7 @@ Stable Diffusion WebUI 插件说明：
 描述：civitai助手升级版，支持更多功能
 链接：https://github.com/BlafKing/sd-civitai-browser-plus
 
-81、sd-webui-weight-helper
+81、sd-webui-weight-helper*
 描述：快捷调整lora分层参数
 链接：https://github.com/nihedon/sd-webui-weight-helper
 
@@ -506,3 +506,11 @@ Stable Diffusion WebUI 插件说明：
 126、sd-webui-udav2
 描述：添加DepthAnythingV2支持
 链接：https://github.com/MackinationsAi/sd-webui-udav2
+
+127、sd-webui-cn-sam-preprocessor
+描述：为ControlNet插件添加SegmentAnything预处理器
+链接：https://github.com/light-and-ray/sd-webui-cn-sam-preprocessor
+
+128、sd-webui-pnginfo-beautify
+描述：将图片下方的生图信息进行美化排版
+链接：https://github.com/bluelovers/sd-webui-pnginfo-beautify

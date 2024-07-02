@@ -12,14 +12,14 @@ __term_sd_task_pre_ext_11 sd-webui-additional-networks OFF
 __term_sd_task_pre_ext_12 a1111-sd-webui-tagcomplete ON
 __term_sd_task_pre_ext_13 multidiffusion-upscaler-for-automatic1111 ON
 __term_sd_task_pre_ext_14 sd-dynamic-thresholding ON
-__term_sd_task_pre_ext_15 sd-webui-cutoff ON
+__term_sd_task_pre_ext_15 sd-webui-cutoff OFF
 __term_sd_task_pre_ext_16 sd-webui-model-converter ON
 __term_sd_task_pre_ext_17 sd-webui-supermerger ON
 __term_sd_task_pre_ext_18 stable-diffusion-webui-localization-zh_Hans ON
 __term_sd_task_pre_ext_19 sd-webui-wd14-tagger ON
 __term_sd_task_pre_ext_20 sd-webui-regional-prompter ON
 __term_sd_task_pre_ext_21 sd-webui-infinite-image-browsing ON
-__term_sd_task_pre_ext_22 stable-diffusion-webui-anti-burn ON
+__term_sd_task_pre_ext_22 stable-diffusion-webui-anti-burn OFF
 __term_sd_task_pre_ext_23 loopback_scaler OFF
 __term_sd_task_pre_ext_24 latentcoupleregionmapper OFF
 __term_sd_task_pre_ext_25 ultimate-upscale-for-automatic1111 ON
@@ -78,7 +78,7 @@ __term_sd_task_pre_ext_77 image-deduplicate-cluster-webui OFF
 __term_sd_task_pre_ext_78 stable-diffusion-webui-composable-lora OFF
 __term_sd_task_pre_ext_79 sdweb-merge-block-weighted-gui OFF
 __term_sd_task_pre_ext_80 sd-civitai-browser-plus OFF
-__term_sd_task_pre_ext_81 sd-webui-weight-helper OFF
+__term_sd_task_pre_ext_81 sd-webui-weight-helper ON
 __term_sd_task_pre_ext_82 sd-danbooru-tags-upsampler OFF
 __term_sd_task_pre_ext_83 Stylez OFF
 __term_sd_task_pre_ext_84 sd-webui-next-style OFF
@@ -124,3 +124,5 @@ __term_sd_task_pre_ext_123 sd-webui-oldsix-prompt OFF
 __term_sd_task_pre_ext_124 sd-webui-incantations OFF
 __term_sd_task_pre_ext_125 sd-webui-ipex-enhancement OFF
 __term_sd_task_pre_ext_126 sd-webui-udav2 OFF
+__term_sd_task_pre_ext_127 sd-webui-cn-sam-preprocessor OFF
+__term_sd_task_pre_ext_128 sd-webui-pnginfo-beautify OFF
