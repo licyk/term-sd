@@ -123,3 +123,4 @@ __term_sd_task_pre_ext_122 git_clone_repository ${github_mirror} https://github.
 __term_sd_task_pre_ext_123 git_clone_repository ${github_mirror} https://github.com/thisjam/sd-webui-oldsix-prompt "$sd_webui_path"/extensions OFF # 提示词辅助工具
 __term_sd_task_pre_ext_124 git_clone_repository ${github_mirror} https://github.com/v0xie/sd-webui-incantations "$sd_webui_path"/extensions OFF # 调整生图质量和提示词效果
 __term_sd_task_pre_ext_125 git_clone_repository ${github_mirror} https://github.com/Nuullll/sd-webui-ipex-enhancement "$sd_webui_path"/extensions OFF # 优化IPEX后端的运行体验
+__term_sd_task_pre_ext_126 git_clone_repository ${github_mirror} https://github.com/MackinationsAi/sd-webui-udav2 "$sd_webui_path"/extensions OFF # 添加DepthAnythingV2支持

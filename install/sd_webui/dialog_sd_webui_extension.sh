@@ -123,3 +123,4 @@ __term_sd_task_pre_ext_122 sd-webui-split-layout OFF
 __term_sd_task_pre_ext_123 sd-webui-oldsix-prompt OFF
 __term_sd_task_pre_ext_124 sd-webui-incantations OFF
 __term_sd_task_pre_ext_125 sd-webui-ipex-enhancement OFF
+__term_sd_task_pre_ext_126 sd-webui-udav2 OFF

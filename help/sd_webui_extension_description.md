@@ -502,3 +502,7 @@ Stable Diffusion WebUI 插件说明：
 125、sd-webui-ipex-enhancement
 描述：优化IPEX后端的运行体验
 链接：https://github.com/Nuullll/sd-webui-ipex-enhancement
+
+126、sd-webui-udav2
+描述：添加DepthAnythingV2支持
+链接：https://github.com/MackinationsAi/sd-webui-udav2
