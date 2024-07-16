@@ -42,6 +42,9 @@ fix_venv() {
                 term_sd_echo "恢复虚拟环境库文件中"
                 mv -f term-sd-tmp/Lib venv # 移入原有的库
                 rm -rf term-sd-tmp # 清理临时文件夹
+                if [ ! -d "${venv_path}/Lib" ];then
+                    term_sd_python -m venv "${venv_path}" &> /dev/null
+                fi
                 term_sd_echo "修复虚拟环境完成"
             elif [[ -d "${venv_path}/bin" ]]; then # Linux / MacOS端的 venv 结构
                 term_sd_echo "将虚拟环境的库转移到临时文件夹中"
@@ -54,6 +57,9 @@ fix_venv() {
                 term_sd_echo "恢复虚拟环境库文件中"
                 mv -f term-sd-tmp/lib venv # 移入原有的库
                 rm -rf term-sd-tmp # 清理临时文件夹
+                if [ ! -d "${venv_path}/lib" ];then
+                    term_sd_python -m venv "${venv_path}" &> /dev/null
+                fi
                 term_sd_echo "修复虚拟环境完成"
             else # 未判断出类型
                 term_sd_echo "创建虚拟环境中"

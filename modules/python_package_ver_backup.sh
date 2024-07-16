@@ -13,30 +13,34 @@ python_package_ver_backup_manager() {
         stable-diffusion-webui)
             term_sd_mkdir "${START_PATH}"/term-sd/requirements-backup/stable-diffusion-webui
             backup_req_file_name="stable-diffusion-webui"
+            enter_venv "${SD_WEBUI_PATH}"
             ;;
         ComfyUI)
             term_sd_mkdir "${START_PATH}"/term-sd/requirements-backup/ComfyUI
             backup_req_file_name="ComfyUI"
+            enter_venv "${COMFYUI_PATH}"
             ;;
         InvokeAI)
             term_sd_mkdir "${START_PATH}"/term-sd/requirements-backup/InvokeAI
             backup_req_file_name="InvokeAI"
+            enter_venv "${INVOKEAI_PATH}"
             ;;
         Fooocus)
             term_sd_mkdir "${START_PATH}"/term-sd/requirements-backup/Fooocus
             backup_req_file_name="Fooocus"
+            enter_venv "${FOOOCUS_PATH}"
             ;;
         lora-scripts)
             term_sd_mkdir "${START_PATH}"/term-sd/requirements-backup/lora-scripts
             backup_req_file_name="lora-scripts"
+            enter_venv "${LORA_SCRIPTS_PATH}"
             ;;
         kohya_ss)
             term_sd_mkdir "${START_PATH}"/term-sd/requirements-backup/kohya_ss
             backup_req_file_name="kohya_ss"
+            enter_venv "${KOHYA_SS_PATH}"
             ;;
     esac
-
-    enter_venv # 进入虚拟环境进行操作
 
     while true; do
         if term_sd_is_dir_empty "${START_PATH}"/term-sd/requirements-backup/"${backup_req_file_name}"; then
@@ -60,12 +64,19 @@ python_package_ver_backup_manager() {
             1)
                 if (dialog --erase-on-exit \
                     --title "Term-SD" \
-                    --backtitle "依赖库版本备份选项" \
+                    --backtitle "${backup_req_file_name} 依赖库版本备份选项" \
                     --yes-label "是" --no-label "否" \
                     --yesno "是否备份 ${backup_req_file_name} 依赖库 ?" \
                     $(get_dialog_size)); then
 
                     backup_python_package_ver "${backup_req_file_name}"
+
+                    dialog --erase-on-exit \
+                        --title "Term-SD" \
+                        --backtitle "${backup_req_file_name} 依赖库版本备份选项" \
+                        --ok-label "确认" \
+                        --msgbox "${backup_req_file_name} 依赖库版本备份完成" \
+                        $(get_dialog_size)
                 fi
                 ;;
             2)
