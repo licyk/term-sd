@@ -17,7 +17,8 @@ git_repo_remote_revise() {
     local name
     local url_format=$1
 
-    name=$(git remote get-url origin | awk '{sub(".git","")}1') # 获取项目名称
+    name=$(git remote get-url origin | awk -F '/' '{print $NF}') # 获取项目名称
+    name=${name%.git}
     if git_remote_url_type_is_github; then # 判断远程源种类
         git_repository_remote_revise "${url_format}" # 执行远程源替换
         if [[ "$?" == 0 ]]; then

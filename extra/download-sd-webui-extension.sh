@@ -1,12 +1,12 @@
 #!/bin/bash
 
-. ./term-sd/modules/install_prepare.sh
-. ./term-sd/modules/get_modelscope_model.sh
-. ./term-sd/modules/term_sd_git.sh
-. ./term-sd/modules/term_sd_task_manager.sh
-. ./term-sd/modules/term_sd_manager.sh
-. ./term-sd/modules/term_sd_proxy.sh
-. ./term-sd/modules/term_sd_try.sh
+. "${START_PATH}"/term-sd/modules/install_prepare.sh
+. "${START_PATH}"/term-sd/modules/get_modelscope_model.sh
+. "${START_PATH}"/term-sd/modules/term_sd_git.sh
+. "${START_PATH}"/term-sd/modules/term_sd_task_manager.sh
+. "${START_PATH}"/term-sd/modules/term_sd_manager.sh
+. "${START_PATH}"/term-sd/modules/term_sd_proxy.sh
+. "${START_PATH}"/term-sd/modules/term_sd_try.sh
 
 
 if [[ ! -d "${SD_WEBUI_PATH}" ]]; then
@@ -52,7 +52,7 @@ else
         3>&1 1>&2 2>&3)
 
     # 安装确认
-    if term_sd_install_confirm "是否安装 Stable-Diffusion-WebUI 插件?"; then
+    if term_sd_install_confirm "是否安装 Stable-Diffusion-WebUI 插件 ?"; then
         term_sd_echo "生成任务队列"
         touch "${START_PATH}/term-sd/task/sd_webui_install_extension.sh"
 

@@ -40,9 +40,9 @@ python_package_ver_backup_manager() {
 
     while true; do
         if term_sd_is_dir_empty "${START_PATH}"/term-sd/requirements-backup/"${backup_req_file_name}"; then
-            req_file_info=$(ls -lrh "${START_PATH}"/term-sd/requirements-backup/${backup_req_file_name} --time-style=+"%Y-%m-%d" | awk 'NR==2 {print $7}' )
-        else
             req_file_info="无"
+        else
+            req_file_info=$(ls -lrh "${START_PATH}"/term-sd/requirements-backup/${backup_req_file_name} --time-style=+"%Y-%m-%d" | awk 'NR==2 {print $7}' )
         fi
 
         dialog_arg=$(dialog --erase-on-exit --notags \
@@ -101,7 +101,7 @@ backup_python_package_ver() {
 python_package_ver_backup_list() {
     local backup_name=$@
     while true; do
-        get_dir_folder_list "${START_PATH}"/term-sd/requirements-backup/"${backup_name}" # 获取当前目录下的所有文件夹
+        get_dir_list "${START_PATH}/term-sd/requirements-backup/${backup_name}" # 获取当前目录下的所有文件夹
 
         if term_sd_is_bash_ver_lower; then # Bash 版本低于 4 时使用旧版列表显示方案
             req_file_name=$(dialog --erase-on-exit \
@@ -130,6 +130,13 @@ python_package_ver_backup_list() {
                 break
             elif [[ -f "${START_PATH}/term-sd/requirements-backup/${backup_name}/${req_file_name}" ]]; then # 选择的是文件
                 process_python_package_ver_backup "${backup_name}" "${req_file_name}"
+            elif [[ -f "${START_PATH}/term-sd/requirements-backup/${backup_name}/${req_file_name}" ]]; then # 选择的是文件夹
+                dialog --erase-on-exit \
+                    --title "Term-SD" \
+                    --backtitle "${backup_name} 依赖库版本记录列表选项" \
+                    --ok-label "确认" \
+                    --msgbox "选中的项目不是依赖记录文件, 请重新选择" \
+                    $(get_dialog_size)
             fi
         else
             break
@@ -163,7 +170,7 @@ process_python_package_ver_backup() {
                     --title "Term-SD" \
                     --backtitle "依赖库版本恢复确认选项" \
                     --yes-label "是" --no-label "否" \
-                    --yesno "是否恢复该版本记录?" \
+                    --yesno "是否恢复该版本记录 ?" \
                     $(get_dialog_size)); then
 
                     restore_python_package_ver "${backup_name}" "${req_file_name}"
@@ -174,11 +181,18 @@ process_python_package_ver_backup() {
                     --title "Term-SD" \
                     --backtitle "安装确认选项" \
                     --yes-label "是" --no-label "否" \
-                    --yesno "是否删除该版本记录?" \
+                    --yesno "是否删除该版本记录 ?" \
                     $(get_dialog_size)); then
 
                     term_sd_echo "删除 ${req_file_name%.txt} 记录中"
                     rm -f "${START_PATH}/term-sd/requirements-backup/${backup_name}/${req_file_name}"
+                    dialog --erase-on-exit \
+                        --title "Term-SD" \
+                        --backtitle "${backup_name} 依赖库版本记录列表选项" \
+                        --ok-label "确认" \
+                        --msgbox "${req_file_name%.txt} 记录删除完成" \
+                        $(get_dialog_size)
+
                     break
                 fi
                 ;;
@@ -199,11 +213,11 @@ restore_python_package_ver() {
     # 安装前的准备
     download_mirror_select # 下载镜像源选择
     pip_install_mode_select # 安装方式选择
-    term_sd_install_confirm "是否恢复依赖库版本 ?" # 安装前确认
 
     if term_sd_install_confirm "是否恢复依赖库版本 ?"; then
         term_sd_print_line "Python 软件包版本恢复"
         term_sd_echo "开始恢复依赖库版本中, 版本: ${req_file_name%.txt}"
+        term_sd_echo "统计需要安装和卸载的 Python 软件包中"
 
         # 这里不要用"",不然会出问题
         cat "${START_PATH}"/term-sd/requirements-backup/${backup_name}/${req_file_name} | awk -F'==' '{print $1}' > tmp-python-pkg-no-vers-bak.txt # 生成一份无版本的备份列表

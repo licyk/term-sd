@@ -1,12 +1,12 @@
 #!/bin/bash
 
-. ./term-sd/modules/install_prepare.sh
-. ./term-sd/modules/get_modelscope_model.sh
-. ./term-sd/modules/term_sd_git.sh
-. ./term-sd/modules/term_sd_task_manager.sh
-. ./term-sd/modules/term_sd_manager.sh
-. ./term-sd/modules/term_sd_proxy.sh
-. ./term-sd/modules/term_sd_try.sh
+. "${START_PATH}"/term-sd/modules/install_prepare.sh
+. "${START_PATH}"/term-sd/modules/get_modelscope_model.sh
+. "${START_PATH}"/term-sd/modules/term_sd_git.sh
+. "${START_PATH}"/term-sd/modules/term_sd_task_manager.sh
+. "${START_PATH}"/term-sd/modules/term_sd_manager.sh
+. "${START_PATH}"/term-sd/modules/term_sd_proxy.sh
+. "${START_PATH}"/term-sd/modules/term_sd_try.sh
 
 
 if [[ ! -d "${COMFYUI_PATH}" ]]; then
@@ -59,7 +59,7 @@ else
         3>&1 1>&2 2>&3)
 
     # 安装确认
-    if term_sd_install_confirm "是否安装 ComfyUI 插件 / 自定义节点?"; then
+    if term_sd_install_confirm "是否安装 ComfyUI 插件 / 自定义节点 ?"; then
         term_sd_echo "生成任务队列"
         touch "${START_PATH}/term-sd/task/comfyui_install_extension.sh"
 
@@ -103,9 +103,7 @@ else
         for ((cmd_point=1;cmd_point<=cmd_sum;cmd_point++))
         do
             term_sd_echo "ComfyUI 安装进度: [$cmd_point/$cmd_sum]"
-            
-            term_sd_exec_cmd "${START_PATH}/term-sd/task/comfyui_install_extension.sh" $cmd_point
-
+            term_sd_exec_cmd "${START_PATH}/term-sd/task/comfyui_install_extension.sh" ${cmd_point}
         done
 
         term_sd_tmp_enable_proxy # 恢复代理

@@ -1,7 +1,7 @@
 #!/bin/bash
 
-. ./term-sd/modules/term_sd_python_cmd.sh
-. ./term-sd/modules/term_sd_git.sh
+. "${START_PATH}"/term-sd/modules/term_sd_python_cmd.sh
+. "${START_PATH}"/term-sd/modules/term_sd_git.sh
 
 term_sd_echo "开始清理缓存中"
 

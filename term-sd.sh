@@ -265,7 +265,7 @@ term_sd_win2unix_path() {
     fi
 }
 
-# 检测目录是否为空,为空是返回0,不为空返回1
+# 检测目录是否为空, 为空是返回 0, 不为空返回 1
 term_sd_is_dir_empty() {
     if [[ $(ls "$@" -al --format=horizontal | wc --words) -le 2 ]]; then
         return 0
@@ -464,7 +464,7 @@ term_sd_auto_update() {
         local_commit_hash=$(git -C "${START_PATH}/term-sd" show -s --format="%h")
         if [[ ! "${commit_hash}" == "${local_commit_hash}" ]]; then
             term_sd_echo "检测到 Term-SD 有新版本"
-            term_sd_echo "是否选择更新(yes/no)?"
+            term_sd_echo "是否选择更新(yes/no) ?"
             term_sd_echo "提示: 输入 yes 或 no 后回车"
             case "$(term_sd_read)" in
                 yes|y|YES|Y)
@@ -504,7 +504,7 @@ term_sd_install() {
             exit 1
         fi
     elif [[ ! -d "${START_PATH}/term-sd/.git" ]]; then
-        term_sd_echo "检测到 Term-SD 的 .git 目录不存在, 将会导致 Term-SD 无法更新, 是否重新安装(yes/no)?"
+        term_sd_echo "检测到 Term-SD 的 .git 目录不存在, 将会导致 Term-SD 无法更新, 是否重新安装(yes/no) ?"
         term_sd_echo "警告: 该操作将永久删除 Term-SD 目录中的所有文件 (除了 Term-SD 缓存文件夹和配置文件将备份到临时文件夹并在安装完成还原)"
         term_sd_echo "提示: 输入 yes 或 no 后回车"
         case "$(term_sd_read)" in
@@ -536,7 +536,7 @@ term_sd_install() {
 # 使用 TERM_SD_TO_RESTART 全局变量标记 Term-SD 需要进行重载
 term_sd_reinstall() {
     if which git &> /dev/null; then
-        term_sd_echo "是否重新安装 Term-SD (yes/no)?"
+        term_sd_echo "是否重新安装 Term-SD (yes/no) ?"
         term_sd_echo "警告: 该操作将永久删除 Term-SD 目录中的所有文件 (除了 Term-SD 缓存文件夹和配置文件将备份到临时文件夹并在安装完成还原)"
         term_sd_echo "提示: 输入 yes 或 no 后回车"
         case "$(term_sd_read)" in
@@ -655,7 +655,7 @@ term_sd_set_up_normal_setting() {
 
 # Term-SD 卸载功能
 term_sd_remove() {
-    term_sd_echo "是否卸载 Term-SD?"
+    term_sd_echo "是否卸载 Term-SD ?"
     term_sd_echo "警告: 该操作将永久删除 Term-SD 目录中的所有文件, 包括 AI 软件下载的部分模型文件 (存在于 Term-SD 目录中的 cache 文件夹, 如有必要, 请备份该文件夹)"
     term_sd_echo "提示: 输入 yes 或 no 后回车"
     case "$(term_sd_read)" in
@@ -682,7 +682,7 @@ install_cmd_to_shell() {
     while true; do
         case "${USER_SHELL}" in
             bash|zsh)
-                term_sd_echo "是否将 Term-SD 快捷启动命令添加到 Shell 环境中?"
+                term_sd_echo "是否将 Term-SD 快捷启动命令添加到 Shell 环境中 ?"
                 term_sd_echo "添加后可使用 term_sd, tsd 命令启动 Term-SD"
                 term_sd_echo "1、添加"
                 term_sd_echo "2、删除"
@@ -691,7 +691,7 @@ install_cmd_to_shell() {
                 case "$(term_sd_read)" in
                     1)
                         if cat ~/."${USER_SHELL}"rc | grep term_sd > /dev/null; then
-                            term_sd_echo "Term-SD 快捷启动命令已存在, 是否刷新? (yes/no)"
+                            term_sd_echo "Term-SD 快捷启动命令已存在, 是否刷新 (yes/no) ? "
                             term_sd_echo "提示: 输入 yes 或 no 后回车"
                             case "$(term_sd_read)" in
                                 y|yes|YES|Y)
@@ -942,7 +942,7 @@ term_sd_user_agreement() {
         cat term-sd/help/user_agreement.md
         echo
         term_sd_print_line
-        term_sd_echo "是否同意该用户协议 (yes/no)?"
+        term_sd_echo "是否同意该用户协议 (yes/no) ?"
         case "$(term_sd_read)" in
             yes|y|YES|Y)
                 touch "${START_PATH}/term-sd/config/agree-user-agreement.lock"
@@ -987,7 +987,7 @@ main() {
     # root 权限检测
     if [[ $(id -u) -eq 0 ]]; then
         term_sd_echo "检测到使用 root 权限运行 Term-SD, 这可能会导致不良后果"
-        term_sd_echo "是否继续运行 Term-SD (yes/no)?"
+        term_sd_echo "是否继续运行 Term-SD (yes/no) ?"
         term_sd_echo "提示: 输入 yes 或 no 后回车"
         case "$(term_sd_read)" in
             yes|y|YES|Y)
@@ -1002,7 +1002,7 @@ main() {
     fi
 
     # 变量初始化
-    TERM_SD_VER="1.4.0.rc1" # term-sd版本
+    TERM_SD_VER="1.4.0.rc2" # term-sd版本
     USER_SHELL=$(basename "${SHELL}") # 读取用户所使用的 Shell
     START_PATH=$(pwd) # 设置启动时脚本路径
     export PYTHONUTF8=1 # 强制 Python 解释器使用 UTF-8 编码来处理字符串, 避免乱码问题

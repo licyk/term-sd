@@ -303,7 +303,7 @@ term_sd_proxy_setting() {
                     --title "Term-SD" \
                     --backtitle "代理参数删除界面" \
                     --yes-label "是" --no-label "否" \
-                    --yesno "是否删除代理配置?" \
+                    --yesno "是否删除代理配置 ?" \
                     $(get_dialog_size)); then
 
                     unset HTTP_PROXY
@@ -402,7 +402,7 @@ aria2_multi_threaded_setting() {
             --title "Term-SD" \
             --backtitle "Aria2线程设置界面" \
             --ok-label "确认" --cancel-label "取消" \
-            --menu "该功能用于增加 Term-SD 在使用 Aria2 下载模型时的线程数, 在一定程度上提高下载速度\n当前状态: ${aria2_thread_info}\n是否启用 Aria2 多线程下载?" \
+            --menu "该功能用于增加 Term-SD 在使用 Aria2 下载模型时的线程数, 在一定程度上提高下载速度\n当前状态: ${aria2_thread_info}\n是否启用 Aria2 多线程下载 ?" \
             $(get_dialog_size_menu) \
             "0" "> 返回" \
             "1" "> 启用" \
@@ -509,7 +509,7 @@ term_sd_cache_redirect_setting() {
             --backtitle "缓存重定向设置界面" \
             --ok-label "确认" \
             --cancel-label "取消" \
-            --menu "该功能将会把 AI 软件产生的缓存重定向至 Term-SD 中 (便于清理)\n当前状态: ${cache_redirect_info}\n是否启用缓存重定向?" \
+            --menu "该功能将会把 AI 软件产生的缓存重定向至 Term-SD 中 (便于清理)\n当前状态: ${cache_redirect_info}\n是否启用缓存重定向 ?" \
             $(get_dialog_size_menu) \
             "0" "> 返回" \
             "1" "> 启用" \
@@ -756,7 +756,7 @@ term_sd_uninstall_interface() {
         --yesno "警告: 该操作将永久删除 Term-SD 目录中的所有文件, 包括 AI 软件下载的部分模型文件 (存在于 Term-SD 目录中的 cache 文件夹, 如有必要, 请备份该文件夹)\n是否卸载 Term-SD ?" \
         $(get_dialog_size)); then
 
-        term_sd_echo "请再次确认是否删除 Term-SD (yes/no)?"
+        term_sd_echo "请再次确认是否删除 Term-SD (yes/no) ?"
         term_sd_echo "警告: 该操作将永久删除 Term-SD"
         term_sd_echo "提示: 输入 yes 或 no 后回车"
         case $(term_sd_read) in

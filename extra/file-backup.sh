@@ -91,7 +91,7 @@ data_backup_manager() {
 
         case "${dialog_arg}" in
             1)
-                term_sd_echo "是否备份 ${name} 数据 (yes/no)?"
+                term_sd_echo "是否备份 ${name} 数据 (yes/no) ?"
                 term_sd_echo "提示: 输入 yes 或 no 后回车"
                 case "$(term_sd_read)" in
                     y|yes|YES|Y)
@@ -111,7 +111,7 @@ data_backup_manager() {
                 esac
                 ;;
             2)
-                term_sd_echo "是否恢复 ${name} 数据 (yes/no)?"
+                term_sd_echo "是否恢复 ${name} 数据 (yes/no) ?"
                 term_sd_echo "提示: 输入 yes 或 no 后回车"
                 case "$(term_sd_read)" in
                     y|yes|YES|Y)
@@ -140,7 +140,7 @@ data_backup_manager() {
                 esac
                 ;;
             3)
-                term_sd_echo "是否删除 ${name} 数据备份 (yes/no)?"
+                term_sd_echo "是否删除 ${name} 数据备份 (yes/no) s?"
                 term_sd_echo "提示: 输入 yes 或 no 后回车"
                 case "$(term_sd_read)" in
                     y|yes|YES|Y)

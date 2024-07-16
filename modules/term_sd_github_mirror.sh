@@ -47,7 +47,7 @@ term_sd_git_global_mirror_setting() {
                     --title "Term-SD" \
                     --backtitle "Github 镜像源选项" \
                     --yes-label "是" --no-label "否" \
-                    --yesno "是否删除 Github 镜像源配置?" \
+                    --yesno "是否删除 Github 镜像源配置 ?" \
                     $(get_dialog_size)); then
 
                     term_sd_echo "删除 Github 镜像源"

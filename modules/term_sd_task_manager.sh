@@ -67,7 +67,7 @@ term_sd_install_task_manager() {
             --title "Term-SD" \
             --backtitle "AI 软件安装提示界面" \
             --ok-label "确认" --cancel-label "取消" \
-            --menu "检测到 ${install_task_name} 有未完成的安装任务, 是否继续进行?" \
+            --menu "检测到 ${install_task_name} 有未完成的安装任务, 是否继续进行 ?" \
             $(get_dialog_size_menu) \
             "0" "> 返回" \
             "1" "> 继续执行安装任务" \

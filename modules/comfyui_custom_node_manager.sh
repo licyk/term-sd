@@ -58,7 +58,7 @@ comfyui_custom_node_manager() {
                     --title "ComfyUI 管理" \
                     --backtitle "ComfyUI 自定义节点管理" \
                     --yes-label "是" --no-label "否" \
-                    --yesno "是否安装所有 ComfyUI 自定义节点的依赖?" \
+                    --yesno "是否安装所有 ComfyUI 自定义节点的依赖 ?" \
                     $(get_dialog_size)); then
 
                     comfyui_extension_depend_install "自定义节点"
@@ -272,7 +272,7 @@ comfyui_custom_node_interface() {
                         --title "ComfyUI 管理" \
                         --backtitle "ComfyUI 自定义节点版本切换" \
                         --yes-label "是" --no-label "否" \
-                        --yesno "是否切换 ${custom_node_name} 自定义节点版本?" \
+                        --yesno "是否切换 ${custom_node_name} 自定义节点版本 ?" \
                         $(get_dialog_size)); then
 
                         git_ver_switch
@@ -317,7 +317,7 @@ comfyui_custom_node_interface() {
                     --title "ComfyUI 选项" \
                     --backtitle "ComfyUI 自定义节点删除选项" \
                     --yes-label "是" --no-label "否" \
-                    --yesno "是否删除 ${custom_node_name} 自定义节点?" \
+                    --yesno "是否删除 ${custom_node_name} 自定义节点 ?" \
                     $(get_dialog_size)); then
 
                     term_sd_echo "请再次确认是否删除 ${custom_node_name} 自定义节点 (yes/no) ?"

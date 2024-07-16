@@ -10,7 +10,7 @@ python_venv_setting() {
             --title "Term-SD" \
             --backtitle "虚拟环境设置界面" \
             --ok-label "确认" --cancel-label "取消" \
-            --menu "该功能用于给 AI 软件启用虚拟环境, 隔离不同 AI 软件的 Python 库, 防止 Python 库中软件包版本和 AI 软件的版本要求不对应\n当前虚拟环境状态: $(is_use_venv && echo "启用" || echo "禁用")\n是否启用虚拟环境? (推荐启用)" \
+            --menu "该功能用于给 AI 软件启用虚拟环境, 隔离不同 AI 软件的 Python 库, 防止 Python 库中软件包版本和 AI 软件的版本要求不对应\n当前虚拟环境状态: $(is_use_venv && echo "启用" || echo "禁用")\n是否启用虚拟环境 ? (推荐启用)" \
             $(get_dialog_size_menu) \
             "0" "> 返回" \
             "1" "> 启用" \
@@ -199,7 +199,7 @@ pip_cache_clean() {
         --title "Term-SD" \
         --backtitle "Pip 缓存清理选项" \
         --yes-label "是" --no-label "否" \
-        --yesno "Pip 缓存信息:\nPip 缓存路径: $(term_sd_pip cache dir)\n包索引页面缓存大小: $(term_sd_pip cache info | grep "Package index page cache size" | awk -F ':'  '{print $2 $3 $4}')\n本地构建的 WHELL 包大小: $(term_sd_pip cache info | grep "Locally built wheels size" | awk -F ':'  '{print $2 $3 $4}')\n是否删除 Pip 缓存?" \
+        --yesno "Pip 缓存信息:\nPip 缓存路径: $(term_sd_pip cache dir)\n包索引页面缓存大小: $(term_sd_pip cache info | grep "Package index page cache size" | awk -F ':'  '{print $2 $3 $4}')\n本地构建的 WHELL 包大小: $(term_sd_pip cache info | grep "Locally built wheels size" | awk -F ':'  '{print $2 $3 $4}')\n是否删除 Pip 缓存 ?" \
         $(get_dialog_size)); then
         term_sd_pip cache purge
 

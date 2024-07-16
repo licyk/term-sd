@@ -21,7 +21,7 @@ sd_webui_venv_rebuild() {
 
         install_pytorch # 安装 PyTorch
         install_python_package git+$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/openai/CLIP)
-        install_python_package -r requirements.txt # 安装stable-diffusion-webui的依赖
+        install_python_package -r requirements_versions.txt # 安装stable-diffusion-webui的依赖
 
         term_sd_echo "重新构建 Stable-Diffusion-WebUI 的虚拟环境结束"
         exit_venv

@@ -11,69 +11,79 @@ python_package_manager() {
     download_mirror_select # 下载镜像源选择
     pip_install_mode_select # 安装方式选择
     pip_force_reinstall_select # 强制安装选择
+    pip_manage_package_methon_select # Python 软件包操作方式选择
 
     dialog_arg=$(dialog --erase-on-exit \
         --title "Term-SD" \
-        --backtitle "$TERM_SD_MANAGE_OBJECT Python 软件包安装 / 重装 / 卸载选项" \
+        --backtitle "${TERM_SD_MANAGE_OBJECT} Python 软件包安装 / 重装 / 卸载选项" \
         --ok-label "确认" --cancel-label "取消" \
         --inputbox "请输入需要安装 / 重装 / 卸载的 Python 软件包名" \
         $(get_dialog_size) 3>&1 1>&2 2>&3)
 
     if [[ "$?" == 0 ]] && [ ! -z "$(echo ${dialog_arg} | awk '{gsub(/[=+<>]/, "")}1')" ]; then
-        term_sd_print_line "Python 软件包${PIP_PACKAGE_MANAGER_METHON_NAME}"
-        term_sd_echo "将${PIP_PACKAGE_MANAGER_METHON_NAME}以下 Python 软件包"
-        for i in ${dialog_arg}; do
-            echo ${i}
-        done
-        term_sd_print_line
-        enter_venv
-        term_sd_tmp_disable_proxy
+        if term_sd_install_confirm "是否${PIP_PACKAGE_MANAGER_METHON_NAME}输入的 Python 软件包 ?"; then
+            term_sd_print_line "Python 软件包${PIP_PACKAGE_MANAGER_METHON_NAME}"
+            term_sd_echo "将${PIP_PACKAGE_MANAGER_METHON_NAME}以下 Python 软件包"
+            for i in ${dialog_arg}; do
+                echo ${i}
+            done
+            term_sd_print_line
+            enter_venv
+            term_sd_tmp_disable_proxy
 
-        case "${PIP_PACKAGE_MANAGER_METHON}" in # 选择pip包管理器管理方法
-            1)
-                # 常规安装
-                install_python_package ${dialog_arg}
-                ;;
-            2)
-                # 仅安装
-                install_python_package --no-deps ${dialog_arg}
-                ;;
-            3)
-                # 强制重装
-                install_python_package --force-reinstall ${dialog_arg}
-                ;;
-            4)
-                # 仅强制重装
-                install_python_package --force-reinstall --no-deps ${dialog_arg}
-                ;;
-            5)
-                # 卸载
-                term_sd_try term_sd_pip uninstall -y ${dialog_arg}
-                ;;
-        esac
-        req=$?
+            case "${PIP_PACKAGE_MANAGER_METHON}" in # 选择pip包管理器管理方法
+                1)
+                    # 常规安装
+                    install_python_package ${dialog_arg}
+                    ;;
+                2)
+                    # 仅安装
+                    install_python_package --no-deps ${dialog_arg}
+                    ;;
+                3)
+                    # 强制重装
+                    install_python_package --force-reinstall ${dialog_arg}
+                    ;;
+                4)
+                    # 仅强制重装
+                    install_python_package --force-reinstall --no-deps ${dialog_arg}
+                    ;;
+                5)
+                    # 卸载
+                    term_sd_try term_sd_pip uninstall -y ${dialog_arg}
+                    ;;
+            esac
+            req=$?
 
-        term_sd_echo "${PIP_PACKAGE_MANAGER_METHON_NAME} Python 软件包结束"
-        term_sd_tmp_enable_proxy
-        term_sd_print_line
+            term_sd_echo "${PIP_PACKAGE_MANAGER_METHON_NAME} Python 软件包结束"
+            term_sd_tmp_enable_proxy
+            term_sd_print_line
 
-        if [[ "${req}" == 0 ]]; then
-            dialog --erase-on-exit \
-                --title "Term-SD" \
-                --backtitle "Python 软件包${PIP_PACKAGE_MANAGER_METHON_NAME}结果" \
-                --ok-label "确认" \
-                --msgbox "以下 Python 软件包${PIP_PACKAGE_MANAGER_METHON_NAME}成功\n${TERM_SD_DELIMITER}\n${dialog_arg}\n${TERM_SD_DELIMITER}" \
-                $(get_dialog_size)
+            if [[ "${req}" == 0 ]]; then
+                dialog --erase-on-exit \
+                    --title "Term-SD" \
+                    --backtitle "Python 软件包${PIP_PACKAGE_MANAGER_METHON_NAME}结果" \
+                    --ok-label "确认" \
+                    --msgbox "以下 Python 软件包${PIP_PACKAGE_MANAGER_METHON_NAME}成功\n${TERM_SD_DELIMITER}\n${dialog_arg}\n${TERM_SD_DELIMITER}" \
+                    $(get_dialog_size)
+            else
+                dialog --erase-on-exit \
+                    --title "Term-SD" \
+                    --backtitle "Python 软件包${PIP_PACKAGE_MANAGER_METHON_NAME}结果" \
+                    --ok-label "确认" \
+                    --msgbox "以下 Python 软件包${PIP_PACKAGE_MANAGER_METHON_NAME}失败\n${TERM_SD_DELIMITER}\n${dialog_arg}\n${TERM_SD_DELIMITER}" \
+                    $(get_dialog_size)
+            fi
         else
-            dialog --erase-on-exit \
-                --title "Term-SD" \
-                --backtitle "Python 软件包${PIP_PACKAGE_MANAGER_METHON_NAME}结果" \
-                --ok-label "确认" \
-                --msgbox "以下 Python 软件包${PIP_PACKAGE_MANAGER_METHON_NAME}失败\n${TERM_SD_DELIMITER}\n${dialog_arg}\n${TERM_SD_DELIMITER}" \
-                $(get_dialog_size)
+            term_sd_echo "取消${PIP_PACKAGE_MANAGER_METHON_NAME} Python 软件包操作"
         fi
     else
-        term_sd_echo "输入的 Python 软件包名为空, 不执行操作"
+        dialog --erase-on-exit \
+            --title "Term-SD" \
+            --backtitle "${TERM_SD_MANAGE_OBJECT} Python 软件包安装 / 重装 / 卸载选项" \
+            --ok-label "确认" \
+            --msgbox "未输入 Python 软件包名, 不执行 Python 软件包操作" \
+            $(get_dialog_size)
     fi
 
     unset PIP_PACKAGE_MANAGER_METHON
@@ -139,8 +149,10 @@ python_package_update() {
         sed -i '/'$i'/d' tmp-python-package-update-list.txt 2> /dev/null  # 将忽略的软件包从名单删除
     done
     if term_sd_is_debug; then
+        term_sd_print_line "Python 软件包更新列表"
         term_sd_echo "要进行更新的软件包名单:"
         cat tmp-python-package-update-list.txt
+        term_sd_print_line
         term_sd_echo "cmd: install_python_package -r tmp-python-package-update-list.txt --upgrade"
     fi
     # 更新 Python 软件包

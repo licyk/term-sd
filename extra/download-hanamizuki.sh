@@ -1,7 +1,7 @@
 #!/bin/bash
 
-. ./term-sd/modules/term_sd_try.sh
-. ./term-sd/modules/term_sd_manager.sh
+. "${START_PATH}"/term-sd/modules/term_sd_try.sh
+. "${START_PATH}"/term-sd/modules/term_sd_manager.sh
 
 # 下载源选择
 download_hanamizuki_resource_select() {

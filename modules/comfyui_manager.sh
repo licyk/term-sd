@@ -129,7 +129,7 @@ comfyui_manager() {
                             --title "ComfyUI 管理" \
                             --backtitle "ComfyUI 更新源切换选项" \
                             --yes-label "是" --no-label "否" \
-                            --yesno "是否切换 ComfyUI 更新源?" \
+                            --yesno "是否切换 ComfyUI 更新源 ?" \
                             $(get_dialog_size)); then
 
                             comfyui_remote_revise
@@ -178,7 +178,7 @@ comfyui_manager() {
                             --title "ComfyUI 管理" \
                             --backtitle "ComfyUI 虚拟环境修复选项" \
                             --yes-label "是" --no-label "否" \
-                            --yesno "是否修复 ComfyUI 的虚拟环境? " \
+                            --yesno "是否修复 ComfyUI 的虚拟环境 ? " \
                             $(get_dialog_size)); then
 
                             fix_venv
@@ -244,7 +244,7 @@ comfyui_manager() {
                         --title "ComfyUI 管理" \
                         --backtitle "ComfyUI 删除选项" \
                         --yes-label "是" --no-label "否" \
-                        --yesno "是否删除 ComfyUI?" \
+                        --yesno "是否删除 ComfyUI ?" \
                         $(get_dialog_size)); then
 
                         term_sd_echo "请再次确认是否删除 ComfyUI (yes/no) ?"

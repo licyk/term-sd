@@ -206,7 +206,7 @@ sd_webui_extension_interface() {
                         --title "Stable-Diffusion-WebUI 管理" \
                         --backtitle "Stable-Diffusion-WebUI 插件修复更新" \
                         --yes-label "是" --no-label "否" \
-                        --yesno "是否修复 ${extension_name} 插件更新?" \
+                        --yesno "是否修复 ${extension_name} 插件更新 ?" \
                         $(get_dialog_size)); then
 
                         git_fix_pointer_offset
@@ -226,10 +226,16 @@ sd_webui_extension_interface() {
                         --title "Stable-Diffusion-WebUI 管理" \
                         --backtitle "Stable-Diffusion-WebUI 插件版本切换" \
                         --yes-label "是" --no-label "否" \
-                        --yesno "是否切换 ${extension_name} 插件版本?" \
+                        --yesno "是否切换 ${extension_name} 插件版本 ?" \
                         $(get_dialog_size)); then
 
                         git_ver_switch
+                        dialog --erase-on-exit \
+                            --title "Stable-Diffusion-WebUI 管理" \
+                            --backtitle "Stable-Diffusion-WebUI 自定义节点版本切换" \
+                            --ok-label "确认" \
+                            --msgbox "${extension_name} 自定义节点版本切换完成, 当前版本为: $(git_branch_display)" \
+                            $(get_dialog_size)
                     fi
                 else
                     dialog --erase-on-exit \
@@ -246,7 +252,7 @@ sd_webui_extension_interface() {
                         --title "Stable-Diffusion-WebUI 管理" \
                         --backtitle "Stable-Diffusion-WebUI 插件更新源切换" \
                         --yes-label "是" --no-label "否" \
-                        --yesno "是否切换 ${extension_name} 插件更新源?" \
+                        --yesno "是否切换 ${extension_name} 插件更新源 ?" \
                         $(get_dialog_size)); then
 
                         git_remote_url_select_single
@@ -265,10 +271,10 @@ sd_webui_extension_interface() {
                     --title "Stable-Diffusion-WebUI 管理" \
                     --backtitle "Stable-Diffusion-WebUI 插件删除选项" \
                     --yes-label "是" --no-label "否" \
-                    --yesno "是否删除 ${extension_name} 插件?" \
+                    --yesno "是否删除 ${extension_name} 插件 ?" \
                     $(get_dialog_size)); then
 
-                    term_sd_echo "请再次确认是否删除 ${extension_name} (yes/no)?"
+                    term_sd_echo "请再次确认是否删除 ${extension_name} (yes/no) ?"
                     term_sd_echo "警告: 该操作将永久删除 ${extension_name}"
                     term_sd_echo "提示: 输入 yes 或 no 后回车"
                     case "$(term_sd_read)" in
@@ -287,7 +293,7 @@ sd_webui_extension_interface() {
                             break                            
                             ;;
                         *)
-                            term_sd_echo "取消删除操作"
+                            term_sd_echo "取消删除 ${extension_name} 插件操作"
                             ;;
                     esac
                 fi

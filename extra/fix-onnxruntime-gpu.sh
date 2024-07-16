@@ -1,9 +1,9 @@
 #!/bin/bash
 
-. ./term-sd/modules/term_sd_manager.sh
-. ./term-sd/modules/python_venv.sh
-. ./term-sd/modules/term_sd_python_cmd.sh
-. ./term-sd/modules/term_sd_try.sh
+. "${START_PATH}"/term-sd/modules/term_sd_manager.sh
+. "${START_PATH}"/term-sd/modules/python_venv.sh
+. "${START_PATH}"/term-sd/modules/term_sd_python_cmd.sh
+. "${START_PATH}"/term-sd/modules/term_sd_try.sh
 
 # 主界面
 term_sd_fix_onnxruntime() {
@@ -47,7 +47,7 @@ term_sd_fix_onnxruntime() {
                 ;;
         esac
         if is_sd_folder_exist "${fix_onnxruntime_select}"; then
-            term_sd_echo "是否修复 ${fix_onnxruntime_select} 的 onnxruntime-gpu (yes/no)?"
+            term_sd_echo "是否修复 ${fix_onnxruntime_select} 的 onnxruntime-gpu (yes/no) ?"
             term_sd_echo "提示: 输入 yes 或 no 后回车"
             case "$(term_sd_read)" in
                 y|yes|Y|YES)

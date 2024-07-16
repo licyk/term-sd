@@ -47,7 +47,7 @@ comfyui_extension_manager() {
                     --title "ComfyUI 管理" \
                     --backtitle "ComfyUI 插件管理" \
                     --yes-label "是" --no-label "否" \
-                    --yesno "是否更新所有 ComfyUI 插件?" \
+                    --yesno "是否更新所有 ComfyUI 插件 ?" \
                     $(get_dialog_size)); then
 
                     update_all_extension
@@ -59,7 +59,7 @@ comfyui_extension_manager() {
                     --title "ComfyUI 管理" \
                     --backtitle "ComfyUI 插件管理" \
                     --yes-label "是" --no-label "否" \
-                    --yesno "是否安装所有 ComfyUI 插件的依赖?" \
+                    --yesno "是否安装所有 ComfyUI 插件的依赖 ?" \
                     $(get_dialog_size)); then
 
                     comfyui_extension_depend_install "插件"
@@ -239,7 +239,7 @@ comfyui_extension_interface() {
                         --title "ComfyUI 管理" \
                         --backtitle "ComfyUI 插件修复更新" \
                         --yes-label "是" --no-label "否" \
-                        --yesno "是否修复 ${extension_name} 插件更新?" \
+                        --yesno "是否修复 ${extension_name} 插件更新 ?" \
                         $(get_dialog_size)); then
 
                         git_fix_pointer_offset
@@ -279,7 +279,7 @@ comfyui_extension_interface() {
                         --title "ComfyUI 管理" \
                         --backtitle "ComfyUI 插件版本切换" \
                         --yes-label "是" --no-label "否" \
-                        --yesno "是否切换 ${extension_name} 插件版本?" \
+                        --yesno "是否切换 ${extension_name} 插件版本 ?" \
                         $(get_dialog_size)); then
 
                         git_ver_switch
@@ -305,7 +305,7 @@ comfyui_extension_interface() {
                         --title "ComfyUI 管理" \
                         --backtitle "ComfyUI 插件版本切换" \
                         --yes-label "是" --no-label "否" \
-                        --yesno "是否切换 ${extension_name} 插件版本?" \
+                        --yesno "是否切换 ${extension_name} 插件版本 ?" \
                         $(get_dialog_size)); then
 
                         git_remote_url_select_single
@@ -324,7 +324,7 @@ comfyui_extension_interface() {
                     --title "ComfyUI 管理" \
                     --backtitle "ComfyUI 插件删除选项" \
                     --yes-label "是" --no-label "否" \
-                    --yesno "是否删除 ${extension_name} 插件?" \
+                    --yesno "是否删除 ${extension_name} 插件 ?" \
                     $(get_dialog_size)); then
 
                     term_sd_echo "请再次确认是否删除 ${extension_name} 插件 (yes/no) ?"

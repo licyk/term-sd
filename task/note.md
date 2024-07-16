@@ -48,9 +48,9 @@ __term_sd_task_pre_ext_1 git_clone_repository <链接格式> <原链接> <下载
 
 这是原始文件
 ```
-__term_sd_task_pre_ext_1 git_clone_repository ${GITHUB_MIRROR} https://github.com/WSH032/kohya-config-webui "$SD_WEBUI_PATH"/extensions OFF # 一个用于生成kohya-ss训练脚本使用的toml配置文件的WebUI
-__term_sd_task_pre_ext_2 git_clone_repository ${GITHUB_MIRROR} https://github.com/kohya-ss/sd-webui-additional-networks "$SD_WEBUI_PATH"/extensions OFF # 将LoRA等模型添加到stablediffusion以生成图像的扩展
-__term_sd_task_pre_ext_58 git_clone_repository --submod ${GITHUB_MIRROR} https://github.com/zero01101/openOutpaint-webUI-extension "$SD_WEBUI_PATH"/extensions OFF # 提供类似InvokeAI的统一画布的功能
+__term_sd_task_pre_ext_1 git_clone_repository https://github.com/WSH032/kohya-config-webui "$SD_WEBUI_PATH"/extensions OFF # 一个用于生成kohya-ss训练脚本使用的toml配置文件的WebUI
+__term_sd_task_pre_ext_2 git_clone_repository https://github.com/kohya-ss/sd-webui-additional-networks "$SD_WEBUI_PATH"/extensions OFF # 将LoRA等模型添加到stablediffusion以生成图像的扩展
+__term_sd_task_pre_ext_58 git_clone_repository https://github.com/zero01101/openOutpaint-webUI-extension "$SD_WEBUI_PATH"/extensions OFF # 提供类似InvokeAI的统一画布的功能
 ```
 
 处理后会生成两个列表

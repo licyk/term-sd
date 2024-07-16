@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # 加载模块
-. ./term-sd/modules/term_sd_manager.sh
-. ./term-sd/modules/term_sd_task_manager.sh
-. ./term-sd/modules/get_modelscope_model.sh
-. ./term-sd/modules/install_prepare.sh
-. ./term-sd/modules/term_sd_proxy.sh
-. ./term-sd/modules/term_sd_try.sh
+. "${START_PATH}"/term-sd/modules/term_sd_manager.sh
+. "${START_PATH}"/term-sd/modules/term_sd_task_manager.sh
+. "${START_PATH}"/term-sd/modules/get_modelscope_model.sh
+. "${START_PATH}"/term-sd/modules/install_prepare.sh
+. "${START_PATH}"/term-sd/modules/term_sd_proxy.sh
+. "${START_PATH}"/term-sd/modules/term_sd_try.sh
 
 # ai软件选择
 sd_model_download_select() {
@@ -88,7 +88,7 @@ model_download_interface() {
         $(cat "${START_PATH}"/term-sd/install/$(get_model_list_file_path ${name} dialog) | awk '{sub($3,"OFF")}1') \
         3>&1 1>&2 2>&3)
 
-    if term_sd_install_confirm "是否下载 ${name} 模型?"; then
+    if term_sd_install_confirm "是否下载 ${name} 模型 ?"; then
         term_sd_echo "生成任务队列"
         rm -f "${START_PATH}/term-sd/task/model_download.sh" # 删除上次未清除的任务列表
 

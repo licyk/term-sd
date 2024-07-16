@@ -184,7 +184,7 @@ term_sd_branch_switch() {
                         --title "Term-SD" \
                         --backtitle "Term-SD 分支切换界面" \
                         --yes-label "是" --no-label "否" \
-                        --yesno "是否切换 Term-SD 的主分支?" \
+                        --yesno "是否切换 Term-SD 的主分支 ?" \
                         $(get_dialog_size)); then
 
                         git -C "${START_PATH}/term-sd" checkout main
@@ -204,7 +204,7 @@ term_sd_branch_switch() {
                         --title "Term-SD" \
                         --backtitle "Term-SD 分支切换界面" \
                         --yes-label "是" --no-label "否" \
-                        --yesno "是否切换 Term-SD 的测试分支?" \
+                        --yesno "是否切换 Term-SD 的测试分支 ?" \
                         $(get_dialog_size)); then
 
                         git -C "${START_PATH}/term-sd" checkout dev
@@ -247,7 +247,7 @@ term_sd_auto_update_setting() {
             --title "Term-SD" \
             --backtitle "Term-SD 自动更新选项" \
             --ok-label "确认" --cancel-label "取消" \
-            --menu "是否启用 Term-SD 自动更新?\nTerm-SD 自动更新: ${auto_update_info}" \
+            --menu "是否启用 Term-SD 自动更新 ?\nTerm-SD 自动更新: ${auto_update_info}" \
             $(get_dialog_size_menu) \
             "0" "> 返回" \
             "1" "> 启用" \

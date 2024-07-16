@@ -12,13 +12,13 @@ git_ver_switch() {
     local current_commit_hash
 
     if [[ -z "$@" ]]; then
-        path="."
+        path=$(pwd)
     else
         path=$@
     fi
 
     if is_git_repo "${path}"; then # 检测目录中是否有.git文件夹
-        name=$(git -C "${path}" remote get-url origin)
+        name=$(git -C "${path}" remote get-url origin | awk -F '/' '{print $NF}')
         name=${name%.git}
         term_sd_echo "获取 ${name} 版本信息"
         current_commit_hash=$(git -C "${path}" show -s --format="%h %cd" --date=format:"%Y-%m-%d %H:%M:%S")
@@ -68,14 +68,15 @@ git_fix_pointer_offset() {
     local path
 
     if [[ -z "$@" ]]; then
-        path="."
+        path=$(pwd)
     else
         path=$@
     fi
 
     # 当git在子文件夹中找不到.git文件夹时,将会自动在父文件夹中寻找,以此类推,直到找到.git文件夹。用户的安装方式可能是直接下载源码压缩包,导致安装后的文件夹没有.git文件夹,直接执行git会导致不良的后果
     if is_git_repo "${path}"; then # 检测目录中是否有.git文件夹
-        name=$(git -C "${path}" remote get-url origin | awk '{sub(".git","")}1')
+        name=$(git -C "${path}" remote get-url origin | awk -F '/' '{print $NF}')
+        name=${name%.git}
         term_sd_echo "修复 ${name} 分支游离状态"
         git -C "${path}" remote prune origin # 删除无用分支
         git -C "${path}" submodule init # 初始化git子模块
@@ -163,7 +164,7 @@ git_clone_repository() {
 
     if [[ ! -d "${repo_path}" ]]; then
         term_sd_echo "开始下载 ${name}, 路径: ${repo_path}"
-        term_sd_try git clone "${use_submodules}" "${url}" "${repo_path}"
+        term_sd_try git clone ${use_submodules} "${url}" "${repo_path}"
         if [[ "$?" == 0 ]]; then
             term_sd_echo "${name} 下载成功"
         else
@@ -205,7 +206,7 @@ git_pull_repository() {
     local path
 
     if [[ -z "$@" ]]; then
-        path="."
+        path=$(pwd)
     else
         path=$@
     fi
@@ -232,7 +233,7 @@ git_get_latest_ver() {
     local path
 
     if [[ -z "$@" ]]; then
-        path="."
+        path=$(pwd)
     else
         path=$@
     fi
@@ -245,14 +246,14 @@ git_get_latest_ver() {
         fi
 
         term_sd_echo "拉取 $(basename "$(pwd)") 远端更新内容"
-        term_sd_try git -C "${path}" fetch "${use_submodules}"
+        term_sd_try git -C "${path}" ${use_submodules} fetch
         if [[ "$?" == 0 ]]; then
             term_sd_echo "应用 $(basename "$(pwd)") 远端更新内容"
             ref=$(git -C "${path}" symbolic-ref --quiet HEAD 2> /dev/null)
             origin_branch="origin/${ref#refs/heads/}"
             commit_hash=$(git -C "${path}" log "${origin_branch}" --max-count 1 --format="%h")
             local_commit_hash=$(git -C "${path}" show -s --format="%h")
-            git -C "${path}" reset --hard "${commit_hash}" "${use_submodules}"
+            git -C "${path}" reset ${use_submodules} --hard "${commit_hash}"
             req=$?
             if [[ "${commit_hash}" == "${local_commit_hash}" ]]; then
                 term_sd_echo "$(basename "$(pwd)") 已是最新"
@@ -278,7 +279,7 @@ git_branch_display() {
     local path
 
     if [[ -z "$@" ]]; then
-        path="."
+        path=$(pwd)
     else
         path=$@
     fi
@@ -292,7 +293,7 @@ git_branch_display() {
             git_commit_hash=$(git -C "${path}" show -s --format="%cd" --date=format:"%Y-%m-%d %H:%M:%S")
             git_pointer_status="(分支游离)"
         fi
-        echo "${ref#refs/heads/} ${git_pointer_status} ${git_commit_hash}"
+        echo ${ref#refs/heads/} ${git_pointer_status} ${git_commit_hash}
     else
         echo "非 Git 安装, 无分支"
     fi
@@ -305,7 +306,7 @@ git_remote_display() {
     local path
 
     if [[ -z "$@" ]]; then
-        path="."
+        path=$(pwd)
     else
         path=$@
     fi
@@ -343,12 +344,12 @@ git_auto_fix_pointer_offset() {
     local path
 
     if [[ -z "$@" ]]; then
-        path="."
+        path=$(pwd)
     else
         path=$@
     fi
 
-    if ! git —C "${path}" symbolic-ref HEAD &> /dev/null; then
+    if ! git -C "${path}" symbolic-ref HEAD &> /dev/null; then
         term_sd_echo "检测到 $(basename "$(pwd)") 出现分支游离, 尝试修复中"
         git_fix_pointer_offset "${path}"
     fi

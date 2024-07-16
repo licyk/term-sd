@@ -322,9 +322,9 @@ lora_scripts_backend_repo_reinstall() {
         term_sd_mkdir frontend
         term_sd_mkdir mikazuki/dataset-tag-editor
         term_sd_echo "重新下载 lora-scripts 后端组件中"
-        git_clone_repository ${GITHUB_MIRROR} https://github.com/kohya-ss/sd-scripts "${LORA_SCRIPTS_PATH}" sd-scripts # lora-scripts后端
-        git_clone_repository ${GITHUB_MIRROR} https://github.com/hanamizuki-ai/lora-gui-dist "${LORA_SCRIPTS_PATH}" frontend # lora-scripts前端
-        git_clone_repository ${GITHUB_MIRROR} https://github.com/Akegarasu/dataset-tag-editor "${LORA_SCRIPTS_PATH}"/mikazuki dataset-tag-editor # 标签编辑器
+        git_clone_repository https://github.com/kohya-ss/sd-scripts "${LORA_SCRIPTS_PATH}" sd-scripts # lora-scripts后端
+        git_clone_repository https://github.com/hanamizuki-ai/lora-gui-dist "${LORA_SCRIPTS_PATH}" frontend # lora-scripts前端
+        git_clone_repository https://github.com/Akegarasu/dataset-tag-editor "${LORA_SCRIPTS_PATH}"/mikazuki dataset-tag-editor # 标签编辑器
         git submodule init
         git submodule update
         term_sd_echo "重装 lora-scripts 后端组件结束"

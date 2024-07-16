@@ -328,7 +328,7 @@ kohya_ss_backend_repo_reinstall() {
         rm -rf sd-scripts
         term_sd_mkdir sd-scripts
         term_sd_echo "重新下载 kohya_ss 后端组件中"
-        git_clone_repository ${GITHUB_MIRROR} https://github.com/kohya-ss/sd-scripts "${KOHYA_SS_PATH}" sd-scripts # kohya_ss后端
+        git_clone_repository https://github.com/kohya-ss/sd-scripts "${KOHYA_SS_PATH}" sd-scripts # kohya_ss后端
         git submodule init
         git submodule update
         term_sd_echo "重装 kohya_ss 后端组件结束"

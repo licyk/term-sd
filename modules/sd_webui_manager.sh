@@ -92,7 +92,7 @@ sd_webui_manager() {
                             --title "Stable-Diffusion-WebUI 管理" \
                             --backtitle "Stable-Diffusion-WebUI 更新修复选项" \
                             --yes-label "是" --no-label "否" \
-                            --yesno "是否修复 Stable-Diffusion-Webui 更新?" \
+                            --yesno "是否修复 Stable-Diffusion-Webui 更新 ?" \
                             $(get_dialog_size)); then
 
                             git_fix_pointer_offset
@@ -121,7 +121,7 @@ sd_webui_manager() {
                             --title "Stable-Diffusion-WebUI 管理" \
                             --backtitle "Stable-Diffusion-WebUI 版本切换选项" \
                             --yes-label "是" --no-label "否" \
-                            --yesno "是否切换 Stable-Diffusion-Webui 版本?" \
+                            --yesno "是否切换 Stable-Diffusion-Webui 版本 ?" \
                             $(get_dialog_size)); then
 
                             git_ver_switch
@@ -147,7 +147,7 @@ sd_webui_manager() {
                             --title "Stable-Diffusion-WebUI 管理" \
                             --backtitle "Stable-Diffusion-WebUI 更新源切换选项" \
                             --yes-label "是" --no-label "否" \
-                            --yesno "是否切换 Stable-Diffusion-WebUI 更新源?" \
+                            --yesno "是否切换 Stable-Diffusion-WebUI 更新源 ?" \
                             $(get_dialog_size)); then
 
                             sd_webui_remote_revise
@@ -167,7 +167,7 @@ sd_webui_manager() {
                             --title "Stable-Diffusion-WebUI 管理" \
                             --backtitle "Stable-Diffusion-WebUI 分支切换选项" \
                             --yes-label "是" --no-label "否" \
-                            --yesno "是否切换 Stable-Diffusion-WebUI 分支?" \
+                            --yesno "是否切换 Stable-Diffusion-WebUI 分支 ?" \
                             $(get_dialog_size)); then
 
                             sd_webui_branch_switch
@@ -186,7 +186,7 @@ sd_webui_manager() {
                         --title "Stable-Diffusion-WebUI 管理" \
                         --backtitle "Stable-Diffusion-WebUI 依赖更新选项" \
                         --yes-label "是" --no-label "否" \
-                        --yesno "是否更新 Stable-Diffusion-WebUI 的依赖?" \
+                        --yesno "是否更新 Stable-Diffusion-WebUI 的依赖 ?" \
                         $(get_dialog_size)); then
 
                         sd_webui_update_depend
@@ -197,7 +197,7 @@ sd_webui_manager() {
                         --title "Stable-Diffusion-WebUI 管理" \
                         --backtitle "Stable-Diffusion-WebUI 的 Python 软件包安装 / 重装 / 卸载选项" \
                         --yes-label "是" --no-label "否" \
-                        --yesno "是否进入 Python 软件包安装 / 重装 / 卸载选项?" \
+                        --yesno "是否进入 Python 软件包安装 / 重装 / 卸载选项 ?" \
                         $(get_dialog_size)); then
 
                         python_package_manager
@@ -235,7 +235,7 @@ sd_webui_manager() {
                             --title "Stable-Diffusion-WebUI 管理" \
                             --backtitle "Stable-Diffusion-WebUI 虚拟环境重建选项" \
                             --yes-label "是" --no-label "否" \
-                            --yesno "是否重建 Stable-Diffusion-WebUI 的虚拟环境?" \
+                            --yesno "是否重建 Stable-Diffusion-WebUI 的虚拟环境 ?" \
                             $(get_dialog_size));then
 
                             sd_webui_venv_rebuild
@@ -254,7 +254,7 @@ sd_webui_manager() {
                         --title "Stable-Diffusion-WebUI 管理" \
                         --backtitle "Stable-Diffusion-WebUI 后端组件重装选项" \
                         --yes-label "是" --no-label "否" \
-                        --yesno "是否重新安装 Stable-Diffusion-WebUI 后端组件?" \
+                        --yesno "是否重新安装 Stable-Diffusion-WebUI 后端组件 ?" \
                         $(get_dialog_size)); then
 
                         sd_webui_backend_repo_reinstall
@@ -283,7 +283,7 @@ sd_webui_manager() {
                         --yesno "是否删除 Stable-Diffusion-WebUI ?" \
                         $(get_dialog_size)); then
 
-                        term_sd_echo "请再次确认是否删除 Stable-Diffusion-WebUI (yes/no)?"
+                        term_sd_echo "请再次确认是否删除 Stable-Diffusion-WebUI (yes/no) ?"
                         term_sd_echo "警告: 该操作将永久删除 Stable-Diffusion-WebUI"
                         term_sd_echo "提示: 输入 yes 或 no 后回车"
                         case "$(term_sd_read)" in
@@ -318,7 +318,7 @@ sd_webui_manager() {
             --title "Stable-Diffusion-WebUI 管理" \
             --backtitle "Stable-Diffusion-WebUI 安装选项" \
             --yes-label "是" --no-label "否" \
-            --yesno "检测到当前未安装 Stable-Diffusion-WebUI , 是否进行安装?" \
+            --yesno "检测到当前未安装 Stable-Diffusion-WebUI , 是否进行安装 ?" \
             $(get_dialog_size)); then
 
             install_sd_webui
@@ -332,13 +332,13 @@ sd_webui_update_depend() {
     download_mirror_select # 下载镜像源选择
     pip_install_mode_select # 安装方式选择
 
-    if term_sd_install_confirm "是否更新 Stable-Diffusion-WebUI 依赖?"; then
+    if term_sd_install_confirm "是否更新 Stable-Diffusion-WebUI 依赖 ?"; then
         term_sd_print_line "Stable-Diffusion-WebUI 依赖更新"
         term_sd_echo "更新 Stable-Diffusion-WebUI 依赖中"
         term_sd_tmp_disable_proxy
         create_venv
         enter_venv
-        python_package_update "requirements.txt"
+        python_package_update "requirements_versions.txt"
         install_python_package git+$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/openai/CLIP)
         exit_venv
         term_sd_tmp_enable_proxy
@@ -352,17 +352,17 @@ sd_webui_update_depend() {
 sd_webui_backend_repo_reinstall() {
     download_mirror_select # 下载镜像源选择
 
-    if term_sd_install_confirm "是否重新安装 Stable-Diffusion-WebUI 后端组件?"; then
+    if term_sd_install_confirm "是否重新安装 Stable-Diffusion-WebUI 后端组件 ?"; then
         term_sd_print_line "Stable-Diffusion-WebUI 后端组件重装"
         term_sd_echo "删除原有 Stable-Diffusion-WebUI 后端组件中"
         rm -rf repositories/*
         term_sd_echo "重新下载 Stable-Diffusion-WebUI 后端组件中"
-        git_clone_repository "${GITHUB_MIRROR}" https://github.com/sczhou/CodeFormer repositories CodeFormer
-        git_clone_repository "${GITHUB_MIRROR}" https://github.com/salesforce/BLIP repositories BLIP
-        git_clone_repository "${GITHUB_MIRROR}" https://github.com/Stability-AI/stablediffusion repositories stable-diffusion-stability-ai
-        git_clone_repository "${GITHUB_MIRROR}" https://github.com/Stability-AI/generative-models repositories generative-models
-        git_clone_repository "${GITHUB_MIRROR}" https://github.com/crowsonkb/k-diffusion repositories k-diffusion
-        git_clone_repository "${GITHUB_MIRROR}" https://github.com/AUTOMATIC1111/stable-diffusion-webui-assets repositories stable-diffusion-webui-assets
+        git_clone_repository https://github.com/sczhou/CodeFormer "${SD_WEBUI_PATH}"/repositories CodeFormer
+        git_clone_repository https://github.com/salesforce/BLIP "${SD_WEBUI_PATH}"/repositories BLIP
+        git_clone_repository https://github.com/Stability-AI/stablediffusion "${SD_WEBUI_PATH}"/repositories stable-diffusion-stability-ai
+        git_clone_repository https://github.com/Stability-AI/generative-models "${SD_WEBUI_PATH}"/repositories generative-models
+        git_clone_repository https://github.com/crowsonkb/k-diffusion "${SD_WEBUI_PATH}"/repositories k-diffusion
+        git_clone_repository https://github.com/AUTOMATIC1111/stable-diffusion-webui-assets "${SD_WEBUI_PATH}"/repositories stable-diffusion-webui-assets
         term_sd_echo "重装 Stable-Diffusion-WebUI 后端组件结束"
         term_sd_pause
     fi

@@ -175,7 +175,7 @@ sd_webui_custom_install_path_setting() {
                     --title "Term-SD" \
                     --backtitle "Stable-Diffusion-WebUI 安装路径设置界面" \
                     --yes-label "是" --no-label "否" \
-                    --yesno "是否重置 Stable-Diffusion-WebUI 安装路径?" \
+                    --yesno "是否重置 Stable-Diffusion-WebUI 安装路径 ?" \
                     $(get_dialog_size)); then
 
                     rm -f "${START_PATH}/term-sd/config/sd-webui-path.conf"
@@ -280,7 +280,7 @@ comfyui_custom_install_path_setting() {
                     --title "Term-SD" \
                     --backtitle "ComfyUI安装路径设置界面" \
                     --yes-label "是" --no-label "否" \
-                    --yesno "是否重置 ComfyUI 安装路径?" \
+                    --yesno "是否重置 ComfyUI 安装路径 ?" \
                     $(get_dialog_size)); then
 
                     rm -f "${START_PATH}/term-sd/config/comfyui-path.conf"
@@ -383,7 +383,7 @@ invokeai_custom_install_path_setting() {
                     --title "Term-SD" \
                     --backtitle "InvokeAI 安装路径设置界面" \
                     --yes-label "是" --no-label "否" \
-                    --yesno "是否重置 InvokeAI 安装路径?" \
+                    --yesno "是否重置 InvokeAI 安装路径 ?" \
                     $(get_dialog_size)); then
 
                     rm -f "${START_PATH}/term-sd/config/invokeai-path.conf"
@@ -486,7 +486,7 @@ fooocus_custom_install_path_setting() {
                 --title "Term-SD" \
                 --backtitle "Fooocus 安装路径设置界面" \
                 --yes-label "是" --no-label "否" \
-                --yesno "是否重置 Fooocus 安装路径?" \
+                --yesno "是否重置 Fooocus 安装路径 ?" \
                 $(get_dialog_size)); then
 
                     rm -f "${START_PATH}/term-sd/config/fooocus-path.conf"
@@ -589,7 +589,7 @@ lora_scripts_custom_install_path_setting() {
                     --title "Term-SD" \
                     --backtitle "lora-scripts 安装路径设置界面" \
                     --yes-label "是" --no-label "否" \
-                    --yesno "是否重置 lora-scripts 安装路径?" \
+                    --yesno "是否重置 lora-scripts 安装路径 ?" \
                     $(get_dialog_size)); then
 
                     rm -f "${START_PATH}/term-sd/config/lora-scripts-path.conf"
@@ -692,7 +692,7 @@ kohya_ss_custom_install_path_setting() {
                     --title "Term-SD" \
                     --backtitle "kohya_ss 安装路径设置界面" \
                     --yes-label "是" --no-label "否" \
-                    --yesno "是否重置 kohya_ss 安装路径?" \
+                    --yesno "是否重置 kohya_ss 安装路径 ?" \
                     $(get_dialog_size)); then
 
                     rm -f "${START_PATH}/term-sd/config/kohya_ss-path.conf"
