@@ -113,3 +113,4 @@ __term_sd_task_pre_ext_112 git_clone_repository https://github.com/kijai/ComfyUI
 __term_sd_task_pre_ext_113 git_clone_repository https://github.com/cubiq/ComfyUI_essentials "${COMFYUI_PATH}"/custom_nodes OFF # 自定义节点集合
 __term_sd_task_pre_ext_114 git_clone_repository https://github.com/licyk/ComfyUI-Restart-Sampler "${COMFYUI_PATH}"/custom_nodes OFF # 为ComfyUI添加Restart采样算法
 __term_sd_task_pre_ext_115 git_clone_repository https://github.com/licyk/ComfyUI-TCD-Sampler "${COMFYUI_PATH}"/custom_nodes OFF # 为ComfyUI添加TCD采样算法
+__term_sd_task_pre_ext_116 git_clone_repository https://github.com/chrisgoringe/cg-noise "$comfyui_path"/custom_nodes OFF # 添加变异种子支持

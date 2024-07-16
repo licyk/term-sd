@@ -474,3 +474,7 @@ ComfyUI 插件 / 自定义节点说明：
 115、ComfyUI-TCD-Sampler
 描述：为ComfyUI添加TCD采样算法
 链接：https://github.com/licyk/ComfyUI-TCD-Sampler
+
+116、cg-noise
+描述：添加变异种子支持
+链接：https://github.com/chrisgoringe/cg-noise
