@@ -1,20 +1,20 @@
 #!/bin/bash
 
-# vlad-sd-webui启动参数生成
-vlad_sd_webui_launch_args_setting()
-{
-    # 清空启动参数
-    local vlad_sd_webui_launch_args_setting_dialog
-    local vlad_sd_webui_launch_args
+# Vlad SD WebUI 启动参数配置
+# 启动参数保存在 <Start Path>/term-sd/config/vlad-sd-webui-launch.conf
+vlad_sd_webui_launch_args_setting() {
+    local dialog_arg
+    local arg
     local launch_args
+    local i
 
     # 展示启动参数选项
-    vlad_sd_webui_launch_args_setting_dialog=$(dialog --erase-on-exit --notags \
+    dialog_arg=$(dialog --erase-on-exit --notags \
         --title "Stable-Diffusion-WebUI 管理" \
-        --backtitle "SD.NEXT 启动参数选项" \
+        --backtitle "Stable-Diffusion-WebUI 启动参数选项" \
         --ok-label "确认" --cancel-label "取消" \
         --checklist "请选择 SD.NEXT 启动参数, 确认之后将覆盖原有启动参数配置" \
-        $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        $(get_dialog_size_menu) \
         "1" "(medvram) 启用显存优化 (显存 < 6g 时推荐使用)" OFF \
         "2" "(lowvram) 启用显存优化(显存 <4g 时推荐使用)" OFF \
         "3" "(allow-code) 允许从 WebUI 执行自定义脚本" OFF \
@@ -58,159 +58,166 @@ vlad_sd_webui_launch_args_setting()
         "41" "(safe) 在安全模式下运行, 不使用用户扩展" OFF \
         3>&1 1>&2 2>&3)
 
-    if [ $? = 0 ];then
-        for i in $vlad_sd_webui_launch_args_setting_dialog; do
-            case $i in
+    if [[ "$?" == 0 ]]; then
+        for i in ${dialog_arg}; do
+            case "${i}" in
                 1)
-                    vlad_sd_webui_launch_args="--medvram"
+                    arg="--medvram"
                     ;;
                 2)
-                    vlad_sd_webui_launch_args="--lowvram"
+                    arg="--lowvram"
                     ;;
                 3)
-                    vlad_sd_webui_launch_args="--allow-code"
+                    arg="--allow-code"
                     ;;
                 4)
-                    vlad_sd_webui_launch_args="--share"
+                    arg="--share"
                     ;;
                 5)
-                    vlad_sd_webui_launch_args="--insecure"
+                    arg="--insecure"
                     ;;
                 6)
-                    vlad_sd_webui_launch_args="--use-cpu all"
+                    arg="--use-cpu all"
                     ;;
                 7)
-                    vlad_sd_webui_launch_args="--listen"
+                    arg="--listen"
                     ;;
                 8)
-                    vlad_sd_webui_launch_args="--freeze"
+                    arg="--freeze"
                     ;;
                 9)
-                    vlad_sd_webui_launch_args="--autolaunch"
+                    arg="--autolaunch"
                     ;;
                 10)
-                    vlad_sd_webui_launch_args="--docs"
+                    arg="--docs"
                     ;;
                 11)
-                    vlad_sd_webui_launch_args="--api-only"
+                    arg="--api-only"
                     ;;
                 12)
-                    vlad_sd_webui_launch_args="--api-log"
+                    arg="--api-log"
                     ;;
                 13)
-                    vlad_sd_webui_launch_args="--tls-selfsign"
+                    arg="--tls-selfsign"
                     ;;
                 14)
-                    vlad_sd_webui_launch_args="--no-hashing"
+                    arg="--no-hashing"
                     ;;
                 15)
-                    vlad_sd_webui_launch_args="--no-metadata"
+                    arg="--no-metadata"
                     ;;
                 16)
-                    vlad_sd_webui_launch_args="--no-download"
+                    arg="--no-download"
                     ;;
                 17)
-                    vlad_sd_webui_launch_args="--profile"
+                    arg="--profile"
                     ;;
                 18)
-                    vlad_sd_webui_launch_args="--disable-queue"
+                    arg="--disable-queue"
                     ;;
                 19)
-                    vlad_sd_webui_launch_args="--backend original"
+                    arg="--backend original"
                     ;;
                 20)
-                    vlad_sd_webui_launch_args="--backend diffusers"
+                    arg="--backend diffusers"
                     ;;
                 21)
-                    vlad_sd_webui_launch_args="--debug"
+                    arg="--debug"
                     ;;
                 22)
-                    vlad_sd_webui_launch_args="--reset"
+                    arg="--reset"
                     ;;
                 23)
-                    vlad_sd_webui_launch_args="--upgrade"
+                    arg="--upgrade"
                     ;;
                 24)
-                    vlad_sd_webui_launch_args="--requirements"
+                    arg="--requirements"
                     ;;
                 25)
-                    vlad_sd_webui_launch_args="--quick"
+                    arg="--quick"
                     ;;
                 26)
-                    vlad_sd_webui_launch_args="--use-directml"
+                    arg="--use-directml"
                     ;;
                 27)
-                    vlad_sd_webui_launch_args="--use-openvino"
+                    arg="--use-openvino"
                     ;;
                 28)
-                    vlad_sd_webui_launch_args="--use-ipex"
+                    arg="--use-ipex"
                     ;;
                 29)
-                    vlad_sd_webui_launch_args="--use-cuda"
+                    arg="--use-cuda"
                     ;;
                 30)
-                    vlad_sd_webui_launch_args="--use-rocm"
+                    arg="--use-rocm"
                     ;;
                 31)
-                    vlad_sd_webui_launch_args="--use-xformers"
+                    arg="--use-xformers"
                     ;;
                 32)
-                    vlad_sd_webui_launch_args="--skip-requirements"
+                    arg="--skip-requirements"
                     ;;
                 33)
-                    vlad_sd_webui_launch_args="--skip-extensions"
+                    arg="--skip-extensions"
                     ;;
                 34)
-                    vlad_sd_webui_launch_args="--skip-git"
+                    arg="--skip-git"
                     ;;
                 35)
-                    vlad_sd_webui_launch_args="--skip-torch"
+                    arg="--skip-torch"
                     ;;
                 36)
-                    vlad_sd_webui_launch_args="--skip-all"
+                    arg="--skip-all"
                     ;;
                 37)
-                    vlad_sd_webui_launch_args="--experimental"
+                    arg="--experimental"
                     ;;
                 38)
-                    vlad_sd_webui_launch_args="--reinstall"
+                    arg="--reinstall"
                     ;;
                 39)
-                    vlad_sd_webui_launch_args="--test"
+                    arg="--test"
                     ;;
                 40)
-                    vlad_sd_webui_launch_args="--ignore"
+                    arg="--ignore"
                     ;;
                 41)
-                    vlad_sd_webui_launch_args="--safe"
+                    arg="--safe"
                     ;;
             esac
-            launch_args="$vlad_sd_webui_launch_args $launch_args"
+            launch_args="${arg} ${launch_args}"
         done
     
         # 生成启动脚本
-        term_sd_echo "设置启动参数: $launch_args"
-        echo "launch.py $launch_args" > "$start_path"/term-sd/config/vlad-sd-webui-launch.conf
+        term_sd_echo "设置 SD.NEXT 启动参数: ${launch_args}"
+        echo "launch.py ${launch_args}" > "${START_PATH}"/term-sd/config/vlad-sd-webui-launch.conf
     else
-        term_sd_echo "取消设置启动参数"
+        term_sd_echo "取消设置 SD.NEXT 启动参数"
     fi
 }
 
-# vlad-sd-webui启动界面
-vlad_sd_webui_launch()
-{
-    local vlad_sd_webui_launch_dialog
+# Vlad SD WebUI 启动界面
+vlad_sd_webui_launch() {
+    local dialog_arg
+    local launch_args
 
     add_vlad_sd_webui_normal_launch_args
 
-    while true
-    do
-        vlad_sd_webui_launch_dialog=$(dialog --erase-on-exit --notags \
+    while true; do
+        launch_args=$(cat "${START_PATH}"/term-sd/config/vlad-sd-webui-launch.conf)
+
+        if is_use_venv; then
+            launch_args="python ${launch_args}"
+        else
+            launch_args="${TERM_SD_PYTHON_PATH} ${launch_args}"
+        fi
+
+        dialog_arg=$(dialog --erase-on-exit --notags \
             --title "Stable-Diffusion-WebUI 管理" \
-            --backtitle "SD.NEXT 启动选项" \
+            --backtitle "Stable-Diffusion-WebUI 启动选项" \
             --ok-label "确认" --cancel-label "取消" \
-            --menu "请选择启动 SD.NEXT / 修改 SD.NEXT 启动参数\n当前启动参数: \n$([ $venv_setup_status = 0 ] && echo python || echo "$term_sd_python_path") $(cat "$start_path"/term-sd/config/vlad-sd-webui-launch.conf)" \
-            $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+            --menu "请选择启动 SD.NEXT / 修改 SD.NEXT 启动参数\n当前启动参数: ${launch_args}" \
+            $(get_dialog_size_menu) \
             "0" "> 返回" \
             "1" "> 启动" \
             "2" "> 配置预设启动参数" \
@@ -218,7 +225,7 @@ vlad_sd_webui_launch()
             "4" "> 重置启动参数" \
             3>&1 1>&2 2>&3)
 
-        case $vlad_sd_webui_launch_dialog in
+        case "${dialog_arg}" in
             1)
                 term_sd_launch
                 ;;
@@ -238,47 +245,50 @@ vlad_sd_webui_launch()
     done
 }
 
-# vlad-sd-webui手动输入启动参数界面
-vlad_sd_webui_launch_args_revise()
-{
-    local vlad_sd_webui_launch_args
-    vlad_sd_webui_launch_args=$(dialog --erase-on-exit \
+# Vlad SD WebUI 启动参数修改界面
+# 修改前从 <Start Path>/term-sd/config/vlad-sd-webui-launch.conf 读取启动参数
+# 可在上次的基础上修改
+vlad_sd_webui_launch_args_revise() {
+    local dialog_arg
+    local launch_args
+
+    launch_args=$(cat "${START_PATH}"/term-sd/config/vlad-sd-webui-launch.conf | awk '{sub("launch.py ","")}1')
+
+    dialog_arg=$(dialog --erase-on-exit \
         --title "Stable-Diffusion-WebUI 管理" \
-        --backtitle "SD.NEXT 自定义启动参数选项" \
+        --backtitle "Stable-Diffusion-WebUI 自定义启动参数选项" \
         --ok-label "确认" --cancel-label "取消" \
         --inputbox "请输入 SD.NEXT 启动参数" \
-        $term_sd_dialog_height $term_sd_dialog_width \
-        "$(cat "$start_path"/term-sd/config/vlad-sd-webui-launch.conf | awk '{sub("launch.py ","")}1')" \
+        $(get_dialog_size) \
+        "${launch_args}" \
         3>&1 1>&2 2>&3)
 
-    if [ $? = 0 ];then
-        term_sd_echo "设置启动参数: $vlad_sd_webui_launch_args"
-        echo "launch.py $vlad_sd_webui_launch_args" > "$start_path"/term-sd/config/vlad-sd-webui-launch.conf
+    if [[ "$?" == 0 ]]; then
+        term_sd_echo "设置 SD.NEXT 启动参数: ${dialog_arg}"
+        echo "launch.py ${dialog_arg}" > "${START_PATH}"/term-sd/config/vlad-sd-webui-launch.conf
     else
-        term_sd_echo "取消启动参数修改"
+        term_sd_echo "取消修改 SD.NEXT 启动参数"
     fi
 }
 
 # 添加默认启动参数配置
-add_vlad_sd_webui_normal_launch_args()
-{
-    if [ ! -f "$start_path/term-sd/config/vlad-sd-webui-launch.conf" ]; then # 找不到启动配置时默认生成一个
-        echo "launch.py --autolaunch --use-cuda --use-xformers" > "$start_path"/term-sd/config/vlad-sd-webui-launch.conf
+add_vlad_sd_webui_normal_launch_args() {
+    if [[ ! -f "${START_PATH}/term-sd/config/vlad-sd-webui-launch.conf" ]]; then # 找不到启动配置时默认生成一个
+        echo "launch.py --autolaunch --use-cuda --use-xformers" > "${START_PATH}"/term-sd/config/vlad-sd-webui-launch.conf
     fi
 }
 
 # 重置启动参数
-restore_vlad_sd_webui_launch_args()
-{
+restore_vlad_sd_webui_launch_args() {
     if (dialog --erase-on-exit \
         --title "Stable-Diffusion-WebUI 管理" \
-        --backtitle "SD.NEXT 重置启动参数选项选项" \
+        --backtitle "Stable-Diffusion-WebUI 重置启动参数选项选项" \
         --yes-label "是" --no-label "否" \
         --yesno "是否重置 SD.NEXT 启动参数" \
-        $term_sd_dialog_height $term_sd_dialog_width) then
+        $(get_dialog_size)); then
 
         term_sd_echo "重置启动参数"
-        rm -f "$start_path"/term-sd/config/vlad-sd-webui-launch.conf
+        rm -f "${START_PATH}"/term-sd/config/vlad-sd-webui-launch.conf
         add_vlad_sd_webui_normal_launch_args
     else
         term_sd_echo "取消重置操作"

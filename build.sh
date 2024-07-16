@@ -14,37 +14,39 @@ build_list()
 
     while true
     do
-        args_1=$(cat $input_file | awk 'NR=='${count}' {print$1}')
-        args_2=$(cat $input_file | awk 'NR=='${count}' {print$4}')
-        args_3=$(cat $input_file | awk 'NR=='${count}' {print$6}')
-        args_2=$(echo $args_2 | awk -F '/' '{print$NF}')
-        if [ -z "$args_1" ];then
+        args_1=$(cat ${input_file} | awk 'NR=='${count}' {print $1}')
+        args_2=$(cat ${input_file} | awk 'NR=='${count}' {print $4}')
+        args_3=$(cat ${input_file} | awk 'NR=='${count}' {print $6}')
+        args_2=$(echo ${args_2} | awk -F '/' '{print $NF}')
+        if [ -z "${args_1}" ]; then
             break
         else
-            if [ -z "$(echo $args_1 | grep __term_sd_task_sys)" ];then
-                echo "$args_1 $args_2 $args_3" >> $output_file
+            if [ -z "$(echo ${args_1} | grep __term_sd_task_sys)" ]; then
+                echo "${args_1} ${args_2} ${args_3}" >> ${output_file}
             fi
         fi
-        count=$(($count + 1))
+        count=$(( count + 1 ))
     done
 }
 
 build_list_for_model()
 {
-    cat $1 | awk '{if ($NF!="") {print $1 " " $(NF-1) " " $NF} }' >> $2
+    local input_file=$1
+    local output_file=$2
+    cat ${input_file} | awk '{if ($NF!="") {print $1 " " $(NF-1) " " $NF} }' >> ${output_file}
 }
 
 build_dialog_list()
 {
     local start_time=$(date +'%Y-%m-%d %H:%M:%S')
-    local start_time_seconds=$(date --date="$start_time" +%s)
+    local start_time_seconds=$(date --date="${start_time}" +%s)
     local input_file="$1"
     local cache_file="task/dialog_cache.sh"
     local output_file="$2"
     local end_time
     local end_time_seconds
     local time_span
-    if [ -f "$output_file" ];then
+    if [ -f "$output_file" ]; then
         rm -f $output_file
     fi
     echo ":: 生成 ${output_file} 中"
@@ -69,7 +71,7 @@ build_dialog_list_sd_webui()
     local end_time
     local end_time_seconds
     local time_span
-    if [ -f "$output_file" ];then
+    if [ -f "$output_file" ]; then
         rm -f $output_file
     fi
     echo ":: 生成 ${output_file} 中"
@@ -86,10 +88,10 @@ build_dialog_list_sd_webui()
         extension_description=$(cat $cache_file | awk 'NR=='${count}' {print$8}')
         list_head=$(cat $cache_file | awk 'NR=='${count}' {print$1}')
         normal_install_info=$([ "$(cat $cache_file | awk 'NR=='${count}' {print$6}')" = "ON" ] && echo "*")
-        if [ -z "$list_head" ];then
+        if [ -z "$list_head" ]; then
             flag=1
         else
-            if [ -z "$(echo $list_head | grep __term_sd_task_sys)" ];then
+            if [ -z "$(echo $list_head | grep __term_sd_task_sys)" ]; then
                 echo "" >> $output_file
                 echo "$count、${extension_name}${normal_install_info}"  >> $output_file
                 echo "描述：$extension_description" >> $output_file
@@ -119,7 +121,7 @@ build_dialog_list_comfyui()
     local end_time
     local end_time_seconds
     local time_span
-    if [ -f "$output_file" ];then
+    if [ -f "$output_file" ]; then
         rm -f $output_file
     fi
 
@@ -140,10 +142,10 @@ build_dialog_list_comfyui()
         extension_description=$(cat $cache_file_1 | awk 'NR=='${count}' {print$8}')
         list_head=$(cat $cache_file_1 | awk 'NR=='${count}' {print$1}')
         normal_install_info=$([ "$(cat $input_file_1 | awk 'NR=='${count}' {print$6}')" = "ON" ] && echo "*")
-        if [ -z "$list_head" ];then
+        if [ -z "$list_head" ]; then
             flag=1
         else
-            if [ -z "$(echo $list_head | grep __term_sd_task_sys)" ];then
+            if [ -z "$(echo $list_head | grep __term_sd_task_sys)" ]; then
                 echo "" >> $output_file
                 echo "$count、${extension_name}${normal_install_info}"  >> $output_file
                 echo "描述：$extension_description" >> $output_file
@@ -165,10 +167,10 @@ build_dialog_list_comfyui()
         extension_description=$(cat $cache_file_2 | awk 'NR=='${count}' {print$8}')
         list_head=$(cat $cache_file_2 | awk 'NR=='${count}' {print$1}')
         normal_install_info=$([ "$(cat $cache_file_2 | awk 'NR=='${count}' {print$6}')" = "ON" ] && echo "*")
-        if [ -z "$list_head" ];then
+        if [ -z "$list_head" ]; then
             flag=1
         else
-            if [ -z "$(echo $list_head | grep __term_sd_task_sys)" ];then
+            if [ -z "$(echo $list_head | grep __term_sd_task_sys)" ]; then
                 echo "" >> $output_file
                 echo "$count、${extension_name}${normal_install_info}"  >> $output_file
                 echo "描述：$extension_description" >> $output_file
@@ -194,7 +196,7 @@ build_dialog_list_model()
     local end_time
     local end_time_seconds
     local time_span
-    if [ -f "$output_file" ];then
+    if [ -f "$output_file" ]; then
         rm -f $output_file
     fi
     echo ":: 生成 ${output_file} 中"
@@ -235,7 +237,7 @@ sort_head_point()
     for ((cmd_point=1; cmd_point <= cmd_sum; cmd_point++))
     do
         install_cmd=$(get_task_cmd $(cat "task/$input_file_name" | awk 'NR=='${cmd_point}'{print$0}'))
-        if [ ! -z "$install_cmd" ];then
+        if [ ! -z "$install_cmd" ]; then
             echo "${head_point}${cmd_point} $install_cmd" >> "$input_file"
         fi
     done
@@ -262,10 +264,10 @@ detect_uplicate()
     local install_cmd_1
     local install_cmd_2
 
-    if [ "$list_type" = "model" ];then
+    if [ "$list_type" = "model" ]; then
         list_column=3
         type_name="模型链接"
-    elif [ "$list_type" = "extension" ];then
+    elif [ "$list_type" = "extension" ]; then
         list_column=4
         type_name="扩展链接"
     fi
@@ -274,9 +276,9 @@ detect_uplicate()
 
     for ((i = 1; i <= cmd_sum; i++))
     do
-        if [ "$list_type" = "model" ];then
+        if [ "$list_type" = "model" ]; then
             install_cmd_1=$(cat "$file_path" | awk 'NR=='${i}' { print $3 }')
-        elif [ "$list_type" = "extension" ];then
+        elif [ "$list_type" = "extension" ]; then
             install_cmd_1=$(cat "$file_path" | awk 'NR=='${i}' { print $4 }')
         fi
 
@@ -284,13 +286,13 @@ detect_uplicate()
         do
             [ $i = $j ] && continue
 
-            if [ "$list_type" = "model" ];then
+            if [ "$list_type" = "model" ]; then
                 install_cmd_2=$(cat "$file_path" | awk 'NR=='${j}'{print $3}')
-            elif [ "$list_type" = "extension" ];then
+            elif [ "$list_type" = "extension" ]; then
                 install_cmd_2=$(cat "$file_path" | awk 'NR=='${j}'{print $4}')
             fi
 
-            if [ "$install_cmd_1" = "$install_cmd_2" ];then
+            if [ "$install_cmd_1" = "$install_cmd_2" ]; then
                 echo ":: 检测到重复${type_name}, 出现在第 $i 行和第 $j 行"
                 flag=1
             fi
@@ -300,7 +302,7 @@ detect_uplicate()
     end_time=$(date +'%Y-%m-%d %H:%M:%S')
     end_time_seconds=$(date --date="$end_time" +%s)
     time_span=$(( $end_time_seconds - $start_time_seconds )) # 计算相隔时间
-    if [ $flag = 0 ];then
+    if [ $flag = 0 ]; then
         echo ":: 无重复${type_name}"
     else
         echo ":: 出现重复${type_name}, 待解决"
@@ -312,15 +314,15 @@ detect_uplicate()
 #############################
 
 
-if [ ! -d "modules" ] || [ ! -d "install" ] || [ ! -d "task" ] || [ ! -d "help" ];then
+if [ ! -d "modules" ] || [ ! -d "install" ] || [ ! -d "task" ] || [ ! -d "help" ]; then
     echo ":: 目录错误"
     exit 1
-elif [ ! "$(dirname "$(echo $0)")" = "." ];then
+elif [ ! "$(dirname "$(echo $0)")" = "." ]; then
     echo ":: 目录错误"
     exit 1
 fi
 
-if [ ! -z "$*" ];then
+if [ ! -z "$*" ]; then
     echo "----------build----------"
     start_time_sum=$(date +'%Y-%m-%d %H:%M:%S')
     start_time_seconds_sum=$(date --date="$start_time_sum" +%s)
@@ -330,7 +332,7 @@ if [ ! -z "$*" ];then
                 echo ":: 格式转换"
                 list=$(find extra config help install modules task)
                 for i in $list; do
-                    if [ -f $i ];then
+                    if [ -f $i ]; then
                     dos2unix $i
                     fi
                 done

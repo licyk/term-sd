@@ -1,18 +1,19 @@
 #!/bin/bash
 
-# lora-scripts启动脚本生成部分
-lora_scripts_launch_args_setting()
-{
-    local lora_scripts_launch_args
-    local lora_scripts_launch_args_setting_dialog
+# lora-scripts 启动参数配置
+# 设置的启动参数将保存在 <Start Path>/term-sd/config/lora-scripts-launch.conf
+lora_scripts_launch_args_setting() {
+    local arg
+    local dialog_arg
     local launch_args
+    local i
 
-    lora_scripts_launch_args_setting_dialog=$(dialog --erase-on-exit --notags \
+    dialog_arg=$(dialog --erase-on-exit --notags \
         --title "lora-scripts 管理" \
         --backtitle "lora-scripts 启动参数选项" \
         --ok-label "确认" --cancel-label "取消" \
         --checklist "请选择 lora-scripts 启动参数, 确认之后将覆盖原有启动参数配置" \
-        $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        $(get_dialog_size_menu) \
         "1" "(listen) 开放远程连接" OFF \
         "2" "(skip-prepare-environment) 跳过环境检查" OFF \
         "3" "(disable-tensorboard)禁用 TernsorBoard" OFF \
@@ -20,51 +21,59 @@ lora_scripts_launch_args_setting()
         "5" "(dev) 启用开发版功能" OFF \
         3>&1 1>&2 2>&3)
 
-    if [ $? = 0 ];then
-        for i in $lora_scripts_launch_args_setting_dialog; do
-            case $i in
+    if [[ "$?" == 0 ]]; then
+        for i in ${dialog_arg}; do
+            case "${i}" in
                 1)
-                    lora_scripts_launch_args="--listen"
+                    arg="--listen"
                     ;;
                 2)    
-                    lora_scripts_launch_args="--skip-prepare-environment"
+                    arg="--skip-prepare-environment"
                     ;;
                 3)
-                    lora_scripts_launch_args="--disable-tensorboard"
+                    arg="--disable-tensorboard"
                     ;;
                 4)
-                    lora_scripts_launch_args="--disable-tageditor"
+                    arg="--disable-tageditor"
                     ;;
                 5)
-                    lora_scripts_launch_args="--dev"
+                    arg="--dev"
                     ;;
             esac
-            launch_args="$lora_scripts_launch_args $launch_args"
+            launch_args="${arg} ${launch_args}"
         done
 
         # 生成启动脚本
-        term_sd_echo "设置启动参数: $launch_args"
-        echo "gui.py $launch_args" > "$start_path"/term-sd/config/lora-scripts-launch.conf
+        term_sd_echo "设置 lora-scripts 启动参数: ${launch_args}"
+        echo "gui.py ${launch_args}" > "${START_PATH}"/term-sd/config/lora-scripts-launch.conf
     else
-        term_sd_echo "取消设置启动参数"
+        term_sd_echo "取消设置 lora-scripts 启动参数"
     fi
 }
 
-# lora-scripts启动界面
-lora_scripts_launch()
-{
-    local lora_scripts_launch_dialog
+# lora-scripts 启动界面
+lora_scripts_launch() {
+    local dialog_arg
+    local launch_args
 
     add_lora_scripts_normal_launch_args
 
-    while true
-    do
-        lora_scripts_launch_dialog=$(dialog --erase-on-exit --notags \
+    while true; do
+
+        launch_args=$(cat "${START_PATH}"/term-sd/config/lora-scripts-launch.conf)
+
+        if is_use_venv; then
+            launch_args="python ${launch_args}"
+        else
+            launch_args="${TERM_SD_PYTHON_PATH} ${launch_args}"
+        fi
+
+        dialog_arg=$(dialog --erase-on-exit --notags \
             --title "lora-scripts 管理" \
             --backtitle "lora-scripts 启动选项" \
             --ok-label "确认" --cancel-label "取消" \
-            --menu "请选择启动 lora-scripts / 修改 lora-scripts 启动参数\n当前启动参数:\n$([ $venv_setup_status = 0 ] && echo python || echo "$term_sd_python_path") $(cat "$start_path"/term-sd/config/lora-scripts-launch.conf)"\
-             $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+            --menu "请选择启动 lora-scripts / 修改 lora-scripts 启动参数\n当前启动参数: ${launch_args})" \
+            $(get_dialog_size_menu) \
             "0" "> 返回" \
             "1" "> 启动" \
             "2" "> 配置预设启动参数" \
@@ -72,7 +81,7 @@ lora_scripts_launch()
             "4" "> 重置启动参数" \
             3>&1 1>&2 2>&3)
 
-        case $lora_scripts_launch_dialog in
+        case "${dialog_arg}" in
             1)
                 term_sd_launch
                 ;;
@@ -92,50 +101,52 @@ lora_scripts_launch()
     done
 }
 
-# lora-scripts手动输入启动参数界面
-lora_scripts_launch_args_revise()
-{
-    local lora_scripts_launch_args
+# lora-scripts 启动参数修改
+# 修改启动参数前从 term-sd/config/lora-scripts-launch.conf 读取启动参数
+# 可在原来的基础上修改
+lora_scripts_launch_args_revise() {
+    local dialog_arg
+    local launch_args
 
-    lora_scripts_launch_args=$(dialog --erase-on-exit \
+    launch_args=$(cat "${START_PATH}"/term-sd/config/lora-scripts-launch.conf | awk '{sub("gui.py ","")}1')
+
+    dialog_arg=$(dialog --erase-on-exit \
         --title "lora-scripts 管理" \
         --backtitle "lora-scripts 自定义启动参数选项" \
         --ok-label "确认" --cancel-label "取消" \
         --inputbox "请输入 lora-scripts 启动参数" \
-        $term_sd_dialog_height $term_sd_dialog_width \
-        "$(cat "$start_path"/term-sd/config/lora-scripts-launch.conf | awk '{sub("gui.py ","")}1')" \
+        $(get_dialog_size) \
+        "${launch_args}" \
         3>&1 1>&2 2>&3)
 
-    if [ $? = 0 ];then
-        term_sd_echo "设置启动参数: $lora_scripts_launch_args"
-        echo "gui.py $lora_scripts_launch_args" > "$start_path"/term-sd/config/lora-scripts-launch.conf
+    if [[ "$?" == 0 ]]; then
+        term_sd_echo "设置 lora-scripts 启动参数: ${dialog_arg}"
+        echo "gui.py ${dialog_arg}" > "${START_PATH}"/term-sd/config/lora-scripts-launch.conf
     else
-        term_sd_echo "取消启动参数修改"
+        term_sd_echo "取消修改 lora-scripts 启动参数"
     fi
 }
 
 # 添加默认启动参数配置
-add_lora_scripts_normal_launch_args()
-{
-    if [ ! -f ""$start_path"/term-sd/config/lora-scripts-launch.conf" ]; then # 找不到启动配置时默认生成一个
-        echo "gui.py" > "$start_path"/term-sd/config/lora-scripts-launch.conf
+add_lora_scripts_normal_launch_args() {
+    if [ ! -f ""${START_PATH}"/term-sd/config/lora-scripts-launch.conf" ]; then # 找不到启动配置时默认生成一个
+        echo "gui.py" > "${START_PATH}"/term-sd/config/lora-scripts-launch.conf
     fi
 }
 
 # 重置启动参数
-restore_lora_scripts_launch_args()
-{
+restore_lora_scripts_launch_args() {
     if (dialog --erase-on-exit \
         --title "lora-scripts 管理" \
         --backtitle "lora-scripts 重置启动参数选项选项" \
         --yes-label "是" --no-label "否" \
-        --yesno "是否重置 lora-scripts 启动参数" \
-        $term_sd_dialog_height $term_sd_dialog_width) then
+        --yesno "是否重置 lora-scripts 启动参数 ?" \
+        $(get_dialog_size)); then
 
-        term_sd_echo "重置启动参数"
-        rm -f "$start_path"/term-sd/config/lora-scripts-launch.conf
+        term_sd_echo "重置 lora-scripts 启动参数"
+        rm -f "${START_PATH}"/term-sd/config/lora-scripts-launch.conf
         add_lora_scripts_normal_launch_args
     else
-        term_sd_echo "取消重置操作"
+        term_sd_echo "取消重置 lora-scripts 启动参数操作"
     fi
 }

@@ -1,10 +1,10 @@
-__term_sd_task_sys term_sd_mkdir "$invokeai_parent_path"
-__term_sd_task_sys cd "$invokeai_parent_path"
-__term_sd_task_sys term_sd_tmp_disable_proxy # 临时取消代理,避免一些不必要的网络减速
-__term_sd_task_sys term_sd_mkdir "$invokeai_folder"
-__term_sd_task_sys is_sd_repo_exist "$invokeai_path"
-__term_sd_task_sys create_venv "$invokeai_path"
-__term_sd_task_sys enter_venv "$invokeai_path"
-__term_sd_task_pre_core install_pytorch # 安装pytorch
+__term_sd_task_sys term_sd_mkdir "${INVOKEAI_PARENT_PATH}"
+__term_sd_task_sys cd "${INVOKEAI_PARENT_PATH}"
+__term_sd_task_sys term_sd_tmp_disable_proxy # 临时取消代理, 避免一些不必要的网络减速
+__term_sd_task_sys term_sd_mkdir "${INVOKEAI_FOLDER}"
+__term_sd_task_sys is_sd_repo_exist "${INVOKEAI_PATH}"
+__term_sd_task_sys create_venv "${INVOKEAI_PATH}"
+__term_sd_task_sys enter_venv "${INVOKEAI_PATH}"
+__term_sd_task_pre_core install_pytorch # 安装 PyTorch
 __term_sd_task_pre_core install_python_package invokeai
-__term_sd_task_pre_core install_pypatchmatch_for_windows # 下载pypatchmatch
+__term_sd_task_pre_core install_pypatchmatch_for_windows # 下载 PyPatchMatch

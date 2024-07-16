@@ -1,24 +1,25 @@
 #!/bin/bash
 
-# lora-scripts安装
-install_lora_scripts()
-{
+# lora-scripts 安装功能
+# 使用 LORA_SCRIPTS_DOWNLOAD_MODEL_LIST 全局变量读取需要安装的模型
+install_lora_scripts() {
     local cmd_sum
     local cmd_point
+    local i
 
-    if [ -f "$start_path/term-sd/task/lora_scripts_install.sh" ];then # 检测到有未完成的安装任务时直接执行安装任务
-        cmd_sum=$(( $(cat "$start_path/term-sd/task/lora_scripts_install.sh" | wc -l) + 1 )) # 统计命令行数
+    if [[ -f "${START_PATH}/term-sd/task/lora_scripts_install.sh" ]]; then # 检测到有未完成的安装任务时直接执行安装任务
+        cmd_sum=$(( $(cat "${START_PATH}/term-sd/task/lora_scripts_install.sh" | wc -l) + 1 )) # 统计命令行数
         term_sd_print_line "lora-scripts 安装"
-        for ((cmd_point=1; cmd_point <= cmd_sum; cmd_point++))
-        do
-            term_sd_echo "lora-scripts安装进度: [$cmd_point/$cmd_sum]"
+        for (( cmd_point=1; cmd_point <= cmd_sum; cmd_point++ )); do
+            term_sd_echo "lora-script 安装进度: [${cmd_point}/${cmd_sum}]"
 
-            term_sd_exec_cmd "$start_path/term-sd/task/lora_scripts_install.sh" $cmd_point
+            term_sd_exec_cmd "${START_PATH}/term-sd/task/lora_scripts_install.sh" "${cmd_point}"
 
-            if [ ! $? = 0 ];then
-                if [ $term_sd_install_mode = 0 ];then
-                    term_sd_echo "安装命令执行失败, 终止安装程序"
+            if [[ ! "$?" == 0 ]]; then
+                if term_sd_is_use_strict_install_mode; then
+                    term_sd_echo "安装命令执行失败, 终止安装程序, 请检查控制台输出的报错信息"
                     term_sd_tmp_enable_proxy # 恢复代理
+                    clean_install_config # 清理安装参数
                     term_sd_pause
 
                     dialog --erase-on-exit \
@@ -26,18 +27,20 @@ install_lora_scripts()
                         --backtitle "lora-scripts 安装结果" \
                         --ok-label "确认" \
                         --msgbox "lora-scripts 安装进程执行失败, 请重试" \
-                        $term_sd_dialog_height $term_sd_dialog_width
+                        $(get_dialog_size)
 
                     return 1
                 else
                     term_sd_echo "忽略执行失败的命令"
+                    term_sd_echo "提示: 忽略执行失败的命令可能会导致安装不完整或者缺失文件"
                 fi
             fi
         done
 
         term_sd_tmp_enable_proxy # 恢复代理
+        clean_install_config # 清理安装参数
         term_sd_echo "lora-scripts 安装结束"
-        rm -f "$start_path/term-sd/task/lora_scripts_install.sh" # 删除任务文件
+        rm -f "${START_PATH}/term-sd/task/lora_scripts_install.sh" # 删除任务文件
         term_sd_print_line
 
         dialog --erase-on-exit \
@@ -45,7 +48,7 @@ install_lora_scripts()
             --backtitle "lora-scripts 安装结果" \
             --ok-label "确认" \
             --msgbox "lora-scripts 安装结束, 选择确定进入管理界面" \
-            $term_sd_dialog_height $term_sd_dialog_width
+            $(get_dialog_size)
 
         lora_scripts_manager # 进入管理界面
     else # 生成安装任务并执行安装任务
@@ -54,43 +57,47 @@ install_lora_scripts()
         pytorch_version_select # pytorch版本选择
         lora_scripts_download_model_select # 模型选择
         pip_install_mode_select # 安装方式选择
-        term_sd_install_confirm "是否安装 lora-scripts ?" # 安装确认
-        if [ $? = 0 ];then
+
+        if term_sd_install_confirm "是否安装 lora-scripts ?"; then
             term_sd_print_line "lora-scripts 安装"
             term_sd_echo "生成安装任务中"
-            term_sd_set_install_env_value >> "$start_path/term-sd/task/lora_scripts_install.sh" # 环境变量
-            cat "$start_path/term-sd/install/lora_scripts/lora_scripts_core.sh" >> "$start_path/term-sd/task/lora_scripts_install.sh" # 核心组件
-            term_sd_add_blank_line "$start_path/term-sd/task/lora_scripts_install.sh"
+            term_sd_set_install_env_value >> "${START_PATH}/term-sd/task/lora_scripts_install.sh" # 环境变量
+            cat "${START_PATH}/term-sd/install/lora_scripts/lora_scripts_core.sh" >> "${START_PATH}/term-sd/task/lora_scripts_install.sh" # 核心组件
 
             # 模型下载
-            if [ $use_modelscope_model = 1 ];then
-                # 恢复代理
-                echo "__term_sd_task_sys term_sd_tmp_enable_proxy" >> "$start_path/term-sd/task/lora_scripts_install.sh"
-                # 读取模型
-                for i in $lora_scripts_download_model_select_list ;do
-                    cat "$start_path/term-sd/install/lora_scripts/lora_scripts_hf_model.sh" | grep -w $i >> "$start_path/term-sd/task/lora_scripts_install.sh" # 插件所需的模型
-                done
-            else
-                for i in $lora_scripts_download_model_select_list ;do
-                    cat "$start_path/term-sd/install/lora_scripts/lora_scripts_ms_model.sh" | grep -w $i >> "$start_path/term-sd/task/lora_scripts_install.sh" # 插件所需的模型
-                done
+            if [[ ! -z "${LORA_SCRIPTS_DOWNLOAD_MODEL_LIST}" ]]; then
+                echo "__term_sd_task_sys term_sd_echo \"下载模型中\"" >> "${START_PATH}/term-sd/task/lora_scripts_install.sh"
+                if is_use_modelscope_src; then
+                    # 读取模型
+                    for i in ${LORA_SCRIPTS_DOWNLOAD_MODEL_LIST}; do
+                        cat "${START_PATH}/term-sd/install/lora_scripts/lora_scripts_ms_model.sh" | grep -w ${i} >> "${START_PATH}/term-sd/task/lora_scripts_install.sh" # 插件所需的模型
+                    done
+                else
+                    # 恢复代理
+                    echo "__term_sd_task_sys term_sd_tmp_enable_proxy" >> "${START_PATH}/term-sd/task/lora_scripts_install.sh"
+                    for i in ${LORA_SCRIPTS_DOWNLOAD_MODEL_LIST}; do
+                        cat "${START_PATH}/term-sd/install/lora_scripts/lora_scripts_hf_model.sh" | grep -w ${i} >> "${START_PATH}/term-sd/task/lora_scripts_install.sh" # 插件所需的模型
+                    done
+                fi
             fi
+
+            unset LORA_SCRIPTS_DOWNLOAD_MODEL_LIST
 
             term_sd_echo "任务队列生成完成"
             term_sd_echo "开始安装 lora-scripts"
 
             # 执行命令
-            cmd_sum=$(( $(cat "$start_path/term-sd/task/lora_scripts_install.sh" | wc -l) + 1 )) # 统计命令行数
-            for ((cmd_point=1; cmd_point <= cmd_sum; cmd_point++))
-            do
-                term_sd_echo "lora-scripts安装进度: [$cmd_point/$cmd_sum]"
+            cmd_sum=$(( $(cat "${START_PATH}/term-sd/task/lora_scripts_install.sh" | wc -l) + 1 )) # 统计命令行数
+            for (( cmd_point=1; cmd_point <= cmd_sum; cmd_point++ )); do
+                term_sd_echo "lora-scripts 安装进度: [${cmd_point}/${cmd_sum}]"
 
-                term_sd_exec_cmd "$start_path/term-sd/task/lora_scripts_install.sh" $cmd_point
+                term_sd_exec_cmd "${START_PATH}/term-sd/task/lora_scripts_install.sh" "${cmd_point}"
 
-                if [ ! $? = 0 ];then
-                    if [ $term_sd_install_mode = 0 ];then
-                        term_sd_echo "安装命令执行失败, 终止安装程序"
+                if [[ ! "$?" == 0 ]]; then
+                    if term_sd_is_use_strict_install_mode; then
+                        term_sd_echo "安装命令执行失败, 终止安装程序, 请检查控制台输出的报错信息"
                         term_sd_tmp_enable_proxy # 恢复代理
+                        clean_install_config # 清理安装参数
                         term_sd_pause
 
                         dialog --erase-on-exit \
@@ -98,18 +105,20 @@ install_lora_scripts()
                             --backtitle "lora-scripts 安装结果" \
                             --ok-label "确认" \
                             --msgbox "lora-scripts 安装进程执行失败, 请重试" \
-                            $term_sd_dialog_height $term_sd_dialog_width
+                            $(get_dialog_size)
 
                         return 1
                     else
                         term_sd_echo "忽略执行失败的命令"
+                        term_sd_echo "提示: 忽略执行失败的命令可能会导致安装不完整或者缺失文件"
                     fi
                 fi
             done
 
             term_sd_tmp_enable_proxy # 恢复代理
+            clean_install_config # 清理安装参数
             term_sd_echo "lora-scripts 安装结束"
-            rm -f "$start_path/term-sd/task/lora_scripts_install.sh" # 删除任务文件
+            rm -f "${START_PATH}/term-sd/task/lora_scripts_install.sh" # 删除任务文件
             term_sd_print_line
 
             dialog --erase-on-exit \
@@ -117,34 +126,36 @@ install_lora_scripts()
                 --backtitle "lora-scripts 安装结果" \
                 --ok-label "确认" \
                 --msgbox "lora-scripts 安装结束, 选择确定进入管理界面" \
-                $term_sd_dialog_height $term_sd_dialog_width
+                $(get_dialog_size)
 
             lora_scripts_manager # 进入管理界面
+        else
+            unset LORA_SCRIPTS_DOWNLOAD_MODEL_LIST
+            clean_install_config # 清理安装参数
         fi
     fi
 }
 
 # 模型选择
-lora_scripts_download_model_select()
-{
-    local lora_scripts_custom_node_model_list
-    local lora_scripts_model_list_file
+# 将选择的模型保存在 LORA_SCRIPTS_DOWNLOAD_MODEL_LIST 全局变量中
+lora_scripts_download_model_select() {
+    local dialog_list_file
 
     term_sd_echo "生成模型选择列表中"
-    if [ $use_modelscope_model = 0 ];then
-        lora_scripts_model_list_file="dialog_lora_scripts_ms_model.sh"
+    if is_use_modelscope_src; then
+        dialog_list_file="dialog_lora_scripts_ms_model.sh"
     else
-        lora_scripts_model_list_file="dialog_lora_scripts_hf_model.sh"
+        dialog_list_file="dialog_lora_scripts_hf_model.sh"
     fi
 
     # 模型选择
-    lora_scripts_download_model_select_list=$(dialog --erase-on-exit --notags \
+    LORA_SCRIPTS_DOWNLOAD_MODEL_LIST=$(dialog --erase-on-exit --notags \
         --title "lora-scripts 安装" \
         --backtitle "lora-scripts 模型下载选项" \
         --ok-label "确认" --no-cancel \
         --checklist "请选择需要下载的 lora-scripts 模型" \
-        $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        $(get_dialog_size_menu) \
         "_null_" "=====基础模型选择=====" ON \
-        $(cat "$start_path/term-sd/install/lora_scripts/$lora_scripts_model_list_file") \
+        $(cat "${START_PATH}/term-sd/install/lora_scripts/${dialog_list_file}") \
         3>&1 1>&2 2>&3)
 }

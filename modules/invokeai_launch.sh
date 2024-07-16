@@ -1,21 +1,23 @@
 #!/bin/bash
 
-# invokeai启动界面
+# InvokeAI 启动界面
 # 参考: https://invoke-ai.github.io/InvokeAI/features/UTILITIES
-invokeai_launch()
-{
-    local invokeai_launch_dialog
+invokeai_launch() {
+    local dialog_arg
+    local launch_args
+    local i
 
     add_invokeai_normal_launch_args
 
-    while true
-    do
-        invokeai_launch_dialog=$(dialog --erase-on-exit --notags \
+    while true; do
+        launch_args="invokeai-web $(cat "${START_PATH}"/term-sd/config/invokeai-launch.conf)"
+
+        dialog_arg=$(dialog --erase-on-exit --notags \
             --title "InvokeAI 管理" \
             --backtitle "InvokeAI 启动参数选项" \
             --ok-label "确认" --cancel-label "取消" \
-            --menu "请选择 InvokeAI 启动参数\n当前自定义启动参数:\ninvokeai-web $(cat "$start_path"/term-sd/config/invokeai-launch.conf)" \
-            $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+            --menu "请选择 InvokeAI 启动参数\n当前自定义启动参数: ${launch_args}" \
+            $(get_dialog_size_menu) \
             "0" "> 返回" \
             "1" "> (invokeai-web) 启动 WebUI 界面" \
             "2" "> 配置预设启动参数" \
@@ -25,7 +27,7 @@ invokeai_launch()
             "6" "> (db-maintenance) 启动数据库修复" \
             3>&1 1>&2 2>&3)
 
-        case $invokeai_launch_dialog in
+        case "${dialog_arg}" in
             1)
                 term_sd_launch
                 ;;
@@ -39,13 +41,13 @@ invokeai_launch()
                 restore_invokeai_launch_args
                 ;;
             5)
-                term_sd_print_line "$term_sd_manager_info 启动"
-                invokeai-import-images --root "$invokeai_path"/invokeai
+                term_sd_print_line "${TERM_SD_MANAGE_OBJECT} 启动"
+                invokeai-import-images --root "${INVOKEAI_PATH}"/invokeai
                 term_sd_pause
                 ;;
             6)
-                term_sd_print_line "$term_sd_manager_info 启动"
-                invokeai-db-maintenance --operation all --root "$invokeai_path"/invokeai
+                term_sd_print_line "${TERM_SD_MANAGE_OBJECT} 启动"
+                invokeai-db-maintenance --operation all --root "${INVOKEAI_PATH}"/invokeai
                 term_sd_pause
                 ;;
             *)
@@ -56,18 +58,19 @@ invokeai_launch()
 }
 
 # 启动参数预设选择
-invokeai_launch_args_setting()
-{
-    local invokeai_launch_args_setting_dialog
-    local invokeai_launch_args
+# 启动参数保存在 <Start Path>/term-sd/config/invokeai-launch.conf
+invokeai_launch_args_setting() {
+    local dialog_arg
+    local arg
     local launch_args
+    local i
 
-    invokeai_launch_args_setting_dialog=$(dialog --erase-on-exit --notags \
+    dialog_arg=$(dialog --erase-on-exit --notags \
         --title "InvokeAI 管理" \
         --backtitle "InvokeAI 启动参数选项" \
         --ok-label "确认" --cancel-label "取消" \
         --checklist "请选择 InvokeAI 启动参数, 确认之后将覆盖原有启动参数配置\n注: InvokeAI 4.x 已移除该列表中的启动参数, 若使用将导致 InvokeAI 报错导致无法启动, 需使用修改自定义启动参数功能将所有启动参数清除" \
-        $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        $(get_dialog_size_menu) \
         "1" "(host) 开放远程连接" OFF \
         "2" "(no-esrgan) 禁用 ESRGAN 进行画面修复" OFF \
         "3" "(no-internet_available) 启用离线模式" OFF \
@@ -85,107 +88,109 @@ invokeai_launch_args_setting()
         "15" "(tiled_decode) 启用分块 VAE 解码, 降低显存占用" OFF \
         3>&1 1>&2 2>&3)
 
-    if [ $? = 0 ];then
-        for i in $invokeai_launch_args_setting_dialog; do
-            case $i in
+    if [[ "$?" == 0 ]]; then
+        for i in ${dialog_arg}; do
+            case "${i}" in
                 1)
-                    invokeai_launch_args="--host 0.0.0.0"
+                    arg="--host 0.0.0.0"
                     ;;
                 2)
-                    invokeai_launch_args="--no-esrgan"
+                    arg="--no-esrgan"
                     ;;
                 3)
-                    invokeai_launch_args="--no-internet_available"
+                    arg="--no-internet_available"
                     ;;
                 4)
-                    invokeai_launch_args="--log_tokenization"
+                    arg="--log_tokenization"
                     ;;
                 5)
-                    invokeai_launch_args="--no-patchmatch"
+                    arg="--no-patchmatch"
                     ;;
                 6)
-                    invokeai_launch_args="--ignore_missing_core_models"
+                    arg="--ignore_missing_core_models"
                     ;;
                 7)
-                    invokeai_launch_args="--log_format plain"
+                    arg="--log_format plain"
                     ;;
                 8)
-                    invokeai_launch_args="--log_format color"
+                    arg="--log_format color"
                     ;;
                 9)
-                    invokeai_launch_args="--log_format syslog"
+                    arg="--log_format syslog"
                     ;;
                 10)
-                    invokeai_launch_args="--log_format legacy"
+                    arg="--log_format legacy"
                     ;;
                 11)
-                    invokeai_launch_args="--log_sql"
+                    arg="--log_sql"
                     ;;
                 12)
-                    invokeai_launch_args="--dev_reload"
+                    arg="--dev_reload"
                     ;;
                 13)
-                    invokeai_launch_args="--log_memory_usage"
+                    arg="--log_memory_usage"
                     ;;
                 14)
-                    invokeai_launch_args="--always_use_cpu"
+                    arg="--always_use_cpu"
                     ;;
                 15)
-                    invokeai_launch_args="--tiled_decode"
+                    arg="--tiled_decode"
                     ;;
             esac
-            launch_args="$invokeai_launch_args $launch_args"
+            launch_args="${arg} ${launch_args}"
         done
 
-        term_sd_echo "设置启动参数: $launch_args"
-        echo "$launch_args" > "$start_path"/term-sd/config/invokeai-launch.conf
+        term_sd_echo "设置 InvokeAI 启动参数: ${launch_args}"
+        echo "${launch_args}" > "${START_PATH}"/term-sd/config/invokeai-launch.conf
     else
-        term_sd_echo "取消设置启动参数"
+        term_sd_echo "取消设置 InvokeAI 启动参数"
     fi
 }
 
 # 启动参数修改
-invokeai_manual_launch()
-{
-    local invokeai_launch_args
+# 修改参数前将从 <Start Path>/term-sd/config/invokeai-launch.conf 中读取启动参数
+# 可在原来的基础上修改
+invokeai_manual_launch() {
+    local dialog_arg
+    local launch_args
 
-    invokeai_launch_args=$(dialog --erase-on-exit \
+    launch_args=$(cat "${START_PATH}"/term-sd/config/invokeai-launch.conf)
+
+    dialog_arg=$(dialog --erase-on-exit \
         --title "InvokeAI 管理" \
         --backtitle "InvokeAI 自定义启动参数选项" \
         --ok-label "确认" --cancel-label "取消" \
         --inputbox "请输入 InvokeAI 启动参数" \
-        $term_sd_dialog_height $term_sd_dialog_width \
-        "$(cat "$start_path"/term-sd/config/invokeai-launch.conf)" \
+        $(get_dialog_size) \
+        "${launch_args}" \
         3>&1 1>&2 2>&3)
 
-    if [ $? = 0 ];then
-        term_sd_echo "设置启动参数: $invokeai_launch_args"
-        echo "$invokeai_launch_args" > "$start_path"/term-sd/config/invokeai-launch.conf
+    if [[ "$?" == 0 ]]; then
+        term_sd_echo "设置 InvokeAI 启动参数: ${dialog_arg}"
+        echo "${dialog_arg}" > "${START_PATH}"/term-sd/config/invokeai-launch.conf
     else
-        term_sd_echo "取消启动参数修改"
+        term_sd_echo "取消 InvokeAI 启动参数修改"
     fi
 }
 
 # 添加默认启动参数配置
-add_invokeai_normal_launch_args()
-{
-    if [ ! -f ""$start_path"/term-sd/config/invokeai-launch.conf" ]; then # 找不到启动配置时默认生成一个
-        echo "" > "$start_path"/term-sd/config/invokeai-launch.conf
+add_invokeai_normal_launch_args() {
+    if [ ! -f "${START_PATH}/term-sd/config/invokeai-launch.conf" ]; then # 找不到启动配置时默认生成一个
+        echo "" > "${START_PATH}"/term-sd/config/invokeai-launch.conf
     fi
 }
 
 # 重置启动参数
-restore_invokeai_launch_args()
-{
+restore_invokeai_launch_args() {
     if (dialog --erase-on-exit \
         --title "InvokeAI 管理" \
         --backtitle "InvokeAI 重置启动参数选项选项" \
         --yes-label "是" --no-label "否" \
-        --yesno "是否重置 InvokeAI 启动参数" \
-        $term_sd_dialog_height $term_sd_dialog_width) then
+        --yesno "是否重置 InvokeAI 启动参数 ?" \
+        $(get_dialog_size)); then
 
         term_sd_echo "重置启动参数"
-        rm -f "$start_path"/term-sd/config/invokeai-launch.conf
+        rm -f "${START_PATH}"/term-sd/config/invokeai-launch.conf
         add_invokeai_normal_launch_args
     else
         term_sd_echo "取消重置操作"

@@ -1,18 +1,19 @@
 #!/bin/bash
 
-# a1111-sd-webui启动脚本参数设置
-a1111_sd_webui_launch_args_setting()
-{
-    local a1111_sd_webui_launch_args
-    local a1111_sd_webui_launch_args_dialog
+# A1111 SD WebUI 启动脚本参数设置
+# 启动参数保存在 <Start Path>/term-sd/config/sd-webui-launch.conf
+a1111_sd_webui_launch_args_setting() {
+    local arg
+    local dialog_arg
     local launch_args
+    local i
 
-    a1111_sd_webui_launch_args_dialog=$(dialog --erase-on-exit --notags \
+    dialog_arg=$(dialog --erase-on-exit --notags \
         --title "Stable-Diffusion-WebUI 管理" \
         --backtitle "Stable-Diffusion-WebUI 启动参数选项" \
         --ok-label "确认" --cancel-label "取消" \
         --checklist "请选择 A1111-Stable-Diffusion-WebUI 启动参数, 确认之后将覆盖原有启动参数配置" \
-        $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        $(get_dialog_size_menu) \
         "1" "(update-all-extensions) 启动时更新所有扩展" OFF \
         "2" "(skip-python-version-check) 跳过检查 Python 版本" OFF \
         "3" "(skip-torch-cuda-test) 跳过 CUDA 可用性检查" OFF \
@@ -80,231 +81,237 @@ a1111_sd_webui_launch_args_setting()
         "65" "(skip-load-model-at-start) 启动 WebUI 时不加载模型, 加速启动" ON \
         3>&1 1>&2 2>&3)
 
-    if [ $? = 0 ];then
-        for i in $a1111_sd_webui_launch_args_dialog; do
-            case $i in
+    if [[ "$?" == 0 ]]; then
+        for i in ${dialog_arg}; do
+            case "${i}" in
                 1)
-                    a1111_sd_webui_launch_args="--update-all-extensions"
+                    arg="--update-all-extensions"
                     ;;
                 2)
-                    a1111_sd_webui_launch_args="--skip-python-version-check"
+                    arg="--skip-python-version-check"
                     ;;
                 3)
-                    a1111_sd_webui_launch_args="--skip-torch-cuda-test"
+                    arg="--skip-torch-cuda-test"
                     ;;
                 4)
-                    a1111_sd_webui_launch_args="--reinstall-xformers"
+                    arg="--reinstall-xformers"
                     ;;
                 5)
-                    a1111_sd_webui_launch_args="--reinstall-torch"
+                    arg="--reinstall-torch"
                     ;;
                 6)
-                    a1111_sd_webui_launch_args="--update-check"
+                    arg="--update-check"
                     ;;
                 7)
-                    a1111_sd_webui_launch_args="--test-server"
+                    arg="--test-server"
                     ;;
                 8)
-                    a1111_sd_webui_launch_args="--log-startup"
+                    arg="--log-startup"
                     ;;
                 9)
-                    a1111_sd_webui_launch_args="--skip-prepare-environment"
+                    arg="--skip-prepare-environment"
                     ;;
                 10)
-                    a1111_sd_webui_launch_args="--skip-install"
+                    arg="--skip-install"
                     ;;
                 11)
-                    a1111_sd_webui_launch_args="--dump-sysinfo"
+                    arg="--dump-sysinfo"
                     ;;
                 12)
-                    a1111_sd_webui_launch_args="--do-not-download-clip"
+                    arg="--do-not-download-clip"
                     ;;
                 13)
-                    a1111_sd_webui_launch_args="--no-half"
+                    arg="--no-half"
                     ;;
                 14)
-                    a1111_sd_webui_launch_args="--no-half-vae"
+                    arg="--no-half-vae"
                     ;;
                 15)
-                    a1111_sd_webui_launch_args="--no-progressbar-hiding"
+                    arg="--no-progressbar-hiding"
                     ;;
                 16)
-                    a1111_sd_webui_launch_args="--allow-code"
+                    arg="--allow-code"
                     ;;
                 17)
-                    a1111_sd_webui_launch_args="--medvram"
+                    arg="--medvram"
                     ;;
                 18)
-                    a1111_sd_webui_launch_args="--medvram-sdxl"
+                    arg="--medvram-sdxl"
                     ;;
                 19)
-                    a1111_sd_webui_launch_args="--lowvram"
+                    arg="--lowvram"
                     ;;
                 20)
-                    a1111_sd_webui_launch_args="--lowram"
+                    arg="--lowram"
                     ;;
                 21)
-                    a1111_sd_webui_launch_args="--precision half"
+                    arg="--precision half"
                     ;;
                 22)
-                    a1111_sd_webui_launch_args="--precision full"
+                    arg="--precision full"
                     ;;
                 23)
-                    a1111_sd_webui_launch_args="--upcast-sampling"
+                    arg="--upcast-sampling"
                     ;;
                 24)
-                    a1111_sd_webui_launch_args="--share"
+                    arg="--share"
                     ;;
                 25)
-                    a1111_sd_webui_launch_args="--enable-insecure-extension-access"
+                    arg="--enable-insecure-extension-access"
                     ;;
                 26)
-                    a1111_sd_webui_launch_args="--xformers"
+                    arg="--xformers"
                     ;;
                 27)
-                    a1111_sd_webui_launch_args="--force-enable-xformers"
+                    arg="--force-enable-xformers"
                     ;;
                 28)
-                    a1111_sd_webui_launch_args="--xformers-flash-attention"
+                    arg="--xformers-flash-attention"
                     ;;
                 29)
-                    a1111_sd_webui_launch_args="--opt-split-attention"
+                    arg="--opt-split-attention"
                     ;;
                 30)
-                    a1111_sd_webui_launch_args="--opt-sub-quad-attention"
+                    arg="--opt-sub-quad-attention"
                     ;;
                 31)
-                    a1111_sd_webui_launch_args="--opt-split-attention-invokeai"
+                    arg="--opt-split-attention-invokeai"
                     ;;
                 32)
-                    a1111_sd_webui_launch_args="--opt-split-attention-v1"
+                    arg="--opt-split-attention-v1"
                     ;;
                 33)
-                    a1111_sd_webui_launch_args="--opt-sdp-attention"
+                    arg="--opt-sdp-attention"
                     ;;
                 34)
-                    a1111_sd_webui_launch_args="--opt-sdp-no-mem-attention"
+                    arg="--opt-sdp-no-mem-attention"
                     ;;
                 35)
-                    a1111_sd_webui_launch_args="--disable-opt-split-attention"
+                    arg="--disable-opt-split-attention"
                     ;;
                 36)
-                    a1111_sd_webui_launch_args="--disable-nan-check"
+                    arg="--disable-nan-check"
                     ;;
                 37)
-                    a1111_sd_webui_launch_args="--use-cpu all"
+                    arg="--use-cpu all"
                     ;;
                 38)
-                    a1111_sd_webui_launch_args="--disable-model-loading-ram-optimization"
+                    arg="--disable-model-loading-ram-optimization"
                     ;;
                 39)
-                    a1111_sd_webui_launch_args="--listen"
+                    arg="--listen"
                     ;;
                 40)
-                    a1111_sd_webui_launch_args="--hide-ui-dir-config"
+                    arg="--hide-ui-dir-config"
                     ;;
                 41)
-                    a1111_sd_webui_launch_args="--freeze-settings"
+                    arg="--freeze-settings"
                     ;;
                 42)
-                    a1111_sd_webui_launch_args="--gradio-debug"
+                    arg="--gradio-debug"
                     ;;
                 43)
-                    a1111_sd_webui_launch_args="--opt-channelslast"
+                    arg="--opt-channelslast"
                     ;;
                 44)
-                    a1111_sd_webui_launch_args="--autolaunch"
+                    arg="--autolaunch"
                     ;;
                 45)
-                    a1111_sd_webui_launch_args="--theme dark"
+                    arg="--theme dark"
                     ;;
                 46)
-                    a1111_sd_webui_launch_args="--use-textbox-seed"
+                    arg="--use-textbox-seed"
                     ;;
                 47)
-                    a1111_sd_webui_launch_args="--disable-console-progressbars"
+                    arg="--disable-console-progressbars"
                     ;;
                 48)
-                    a1111_sd_webui_launch_args="--enable-console-prompts"
+                    arg="--enable-console-prompts"
                     ;;
                 49)
-                    a1111_sd_webui_launch_args="--disable-safe-unpickle"
+                    arg="--disable-safe-unpickle"
                     ;;
                 50)
-                    a1111_sd_webui_launch_args="--api"
+                    arg="--api"
                     ;;
                 51)
-                    a1111_sd_webui_launch_args="--api-log"
+                    arg="--api-log"
                     ;;
                 52)
-                    a1111_sd_webui_launch_args="--nowebui"
+                    arg="--nowebui"
                     ;;
                 53)
-                    a1111_sd_webui_launch_args="--ui-debug-mode"
+                    arg="--ui-debug-mode"
                     ;;
                 54)
-                    a1111_sd_webui_launch_args="--administrator"
+                    arg="--administrator"
                     ;;
                 55)
-                    a1111_sd_webui_launch_args="--disable-tls-verify"
+                    arg="--disable-tls-verify"
                     ;;
                 56)
-                    a1111_sd_webui_launch_args="--no-gradio-queue"
+                    arg="--no-gradio-queue"
                     ;;
                 57)
-                    a1111_sd_webui_launch_args="--skip-version-check"
+                    arg="--skip-version-check"
                     ;;
                 58)
-                    a1111_sd_webui_launch_args="--no-hashing"
+                    arg="--no-hashing"
                     ;;
                 59)
-                    a1111_sd_webui_launch_args="--no-download-sd-model"
+                    arg="--no-download-sd-model"
                     ;;
                 60)
-                    a1111_sd_webui_launch_args="--add-stop-route"
+                    arg="--add-stop-route"
                     ;;
                 61)
-                    a1111_sd_webui_launch_args="--api-server-stop"
+                    arg="--api-server-stop"
                     ;;
                 62)
-                    a1111_sd_webui_launch_args="--disable-all-extensions"
+                    arg="--disable-all-extensions"
                     ;;
                 63)
-                    a1111_sd_webui_launch_args="--disable-extra-extensions"
+                    arg="--disable-extra-extensions"
                     ;;
                 64)
-                    a1111_sd_webui_launch_args="--use-ipex"
+                    arg="--use-ipex"
                     ;;
                 65)
-                    a1111_sd_webui_launch_args="--skip-load-model-at-start"
+                    arg="--skip-load-model-at-start"
                     ;;
             esac
-            launch_args="$a1111_sd_webui_launch_args $launch_args"
+            launch_args="${arg} ${launch_args}"
         done
 
         # 生成启动脚本
-        term_sd_echo "设置启动参数: $launch_args"
-        echo "launch.py $launch_args" > "$start_path"/term-sd/config/sd-webui-launch.conf
+        term_sd_echo "设置 A1111-Stable-Diffusion-WebUI 启动参数: ${launch_args}"
+        echo "launch.py ${launch_args}" > "${START_PATH}"/term-sd/config/sd-webui-launch.conf
     else
-        term_sd_echo "取消设置启动参数"
+        term_sd_echo "取消设置 A1111-Stable-Diffusion-WebUI 启动参数"
     fi
 }
 
-# a1111-sd-webui启动界面
-a1111_sd_webui_launch()
-{
-    local a1111_sd_webui_launch_dialog
+# A1111 SD WebUI 启动界面
+a1111_sd_webui_launch() {
+    local dialog_arg
+    local launch_args
 
-    add_a1111_sd_webui_normal_launch_args
+    add_a1111_sd_webui_normal_launch_args # 当没有设置启动参数时默认生成一个启动参数
 
-    while true
-    do
-        a1111_sd_webui_launch_dialog=$(dialog --erase-on-exit --notags \
+    while true; do
+        launch_args=$(cat "${START_PATH}"/term-sd/config/sd-webui-launch.conf)
+        if is_use_venv; then
+            launch_args="python ${launch_args}"
+        else
+            launch_args="${TERM_SD_PYTHON_PATH} ${launch_args}"
+        fi
+
+        dialog_arg=$(dialog --erase-on-exit --notags \
             --title "Stable-Diffusion-WebUI 管理" \
             --backtitle "Stable-Diffusion-WebUI 启动选项" \
             --ok-label "确认" --cancel-label "取消" \
-            --menu "请选择启动 Stable-Diffusion-WebUI / 修改 Stable-Diffusion-WebUI 启动参数\n当前启动参数:\n$([ $venv_setup_status = 0 ] && echo python || echo "$term_sd_python_path") $(cat "$start_path"/term-sd/config/sd-webui-launch.conf)" \
-            $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+            --menu "请选择启动 A1111-Stable-Diffusion-WebUI / 修改 A1111-Stable-Diffusion-WebUI 启动参数\n当前启动参数: ${launch_args}" \
+            $(get_dialog_size_menu) \
             "0" "> 返回" \
             "1" "> 启动" \
             "2" "> 配置预设启动参数" \
@@ -312,7 +319,7 @@ a1111_sd_webui_launch()
             "4" "> 重置启动参数" \
             3>&1 1>&2 2>&3)
 
-        case $a1111_sd_webui_launch_dialog in
+        case "${dialog_arg}" in
             1)
                 term_sd_launch
                 ;;
@@ -332,54 +339,56 @@ a1111_sd_webui_launch()
     done
 }
 
-# a1111-sd-webui启动参数修改
-a1111_sd_webui_launch_args_revise()
-{
-    local a1111_sd_webui_launch_args
+# A1111 SD WebUI 启动参数修改
+# 启动修改界面时将从 <Start Path>/term-sd/config/sd-webui-launch.conf 中读取启动参数
+# 可接着上次的启动参数进行修改
+a1111_sd_webui_launch_args_revise() {
+    local dialog_arg
+    local launch_args
 
-    a1111_sd_webui_launch_args=$(dialog --erase-on-exit \
+    launch_args=$(cat "${START_PATH}"/term-sd/config/sd-webui-launch.conf | awk '{sub("launch.py ","")}1')
+
+    dialog_arg=$(dialog --erase-on-exit \
         --title "Stable-Diffusion-WebUI 管理" \
         --backtitle "Stable-Diffusion-WebUI 自定义启动参数选项" \
         --ok-label "确认" --cancel-label "取消" \
-        --inputbox "请输入 Stable-Diffusion-WebUI 启动参数" \
-        $term_sd_dialog_height $term_sd_dialog_width \
-        "$(cat "$start_path"/term-sd/config/sd-webui-launch.conf | awk '{sub("launch.py ","")}1')" \
+        --inputbox "请输入 A1111-Stable-Diffusion-WebUI 启动参数" \
+        $(get_dialog_size) \
+        "${launch_args}" \
         3>&1 1>&2 2>&3)
 
-    if [ $? = 0 ];then
-        term_sd_echo "设置启动参数: $a1111_sd_webui_launch_args"
-        echo "launch.py $a1111_sd_webui_launch_args" > "$start_path"/term-sd/config/sd-webui-launch.conf
+    if [[ "$?" == 0 ]]; then
+        term_sd_echo "设置 A1111-Stable-Diffusion-WebUI 启动参数: ${dialog_arg}"
+        echo "launch.py ${dialog_arg}" > "${START_PATH}"/term-sd/config/sd-webui-launch.conf
     else
-        term_sd_echo "取消启动参数修改"
+        term_sd_echo "取消修改 A1111-Stable-Diffusion-WebUI 启动参数"
     fi
 }
 
 # 添加默认启动参数配置
-add_a1111_sd_webui_normal_launch_args()
-{
-    if [ ! -f "$start_path/term-sd/config/sd-webui-launch.conf" ]; then # 找不到启动配置时默认生成一个
-        if [ "$OSTYPE" = "darwin"* ];then
-            echo "launch.py --theme dark --autolaunch --api --skip-load-model-at-start --skip-torch-cuda-test --upcast-sampling --no-half-vae --use-cpu interrogate" > "$start_path"/term-sd/config/sd-webui-launch.conf
+add_a1111_sd_webui_normal_launch_args() {
+    if [ ! -f "${START_PATH}/term-sd/config/sd-webui-launch.conf" ]; then # 找不到启动配置时默认生成一个
+        if [[ "${OSTYPE}" == "darwin"* ]]; then
+            echo "launch.py --theme dark --autolaunch --api --skip-load-model-at-start --skip-torch-cuda-test --upcast-sampling --no-half-vae --use-cpu interrogate" > "${START_PATH}"/term-sd/config/sd-webui-launch.conf
         else
-            echo "launch.py --theme dark --autolaunch --xformers --api --skip-load-model-at-start" > "$start_path"/term-sd/config/sd-webui-launch.conf
+            echo "launch.py --theme dark --autolaunch --xformers --api --skip-load-model-at-start" > "${START_PATH}"/term-sd/config/sd-webui-launch.conf
         fi
     fi
 }
 
 # 重置启动参数
-restore_a1111_sd_webui_launch_args()
-{
+restore_a1111_sd_webui_launch_args() {
     if (dialog --erase-on-exit \
         --title "Stable-Diffusion-WebUI 管理" \
         --backtitle "Stable-Diffusion-WebUI 重置启动参数选项选项" \
         --yes-label "是" --no-label "否" \
-        --yesno "是否重置 Stable-Diffusion-WebUI 启动参数" \
-        $term_sd_dialog_height $term_sd_dialog_width) then
+        --yesno "是否重置 A1111-Stable-Diffusion-WebUI 启动参数 ?" \
+        $(get_dialog_size)); then
 
-        term_sd_echo "重置启动参数"
-        rm -f "$start_path"/term-sd/config/sd-webui-launch.conf
+        term_sd_echo "重置 A1111-Stable-Diffusion-WebUI 启动参数"
+        rm -f "${START_PATH}"/term-sd/config/sd-webui-launch.conf
         add_a1111_sd_webui_normal_launch_args
     else
-        term_sd_echo "取消重置操作"
+        term_sd_echo "取消重置 A1111-Stable-Diffusion-WebUI 启动参数操作"
     fi
 }

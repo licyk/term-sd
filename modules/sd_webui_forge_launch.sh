@@ -1,18 +1,19 @@
 #!/bin/bash
 
-# sd-webui-forge启动脚本参数设置
-sd_webui_forge_launch_args_setting()
-{
-    local sd_webui_forge_launch_args
-    local sd_webui_forge_launch_args_dialog
+# SD WebUI Forge 启动参数配置
+# 启动参数将保存在 <Start Path>/term-sd/config/sd-webui-forge-launch.conf
+sd_webui_forge_launch_args_setting() {
+    local arg
+    local dialog_arg
     local launch_args
+    local i
 
-    sd_webui_forge_launch_args_dialog=$(dialog --erase-on-exit --notags \
+    dialog_arg=$(dialog --erase-on-exit --notags \
         --title "Stable-Diffusion-WebUI 管理" \
-        --backtitle "Stable-Diffusion-WebUI-Forge 启动参数选项" \
+        --backtitle "Stable-Diffusion-WebUI 启动参数选项" \
         --ok-label "确认" --cancel-label "取消" \
         --checklist "请选择 Stable-Diffusion-WebUI-Forge 启动参数, 确认之后将覆盖原有启动参数配置" \
-        $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        $(get_dialog_size_menu) \
         "1" "(update-all-extensions) 启动时更新所有扩展" OFF \
         "2" "(skip-python-version-check) 跳过检查 Python 版本" OFF \
         "3" "(skip-torch-cuda-test) 跳过 CUDA 可用性检查" OFF \
@@ -119,348 +120,355 @@ sd_webui_forge_launch_args_setting()
         "104" "(multi-user) 启用多用户模式" OFF \
         3>&1 1>&2 2>&3)
 
-    if [ $? = 0 ];then
-        for i in $sd_webui_forge_launch_args_dialog; do
-            case $i in
+    if [[ "$?" == 0 ]]; then
+        for i in ${dialog_arg}; do
+            case "${i}" in
                 1)
-                    sd_webui_forge_launch_args="--update-all-extensions"
+                    arg="--update-all-extensions"
                     ;;
                 2)
-                    sd_webui_forge_launch_args="--skip-python-version-check"
+                    arg="--skip-python-version-check"
                     ;;
                 3)
-                    sd_webui_forge_launch_args="--skip-torch-cuda-test"
+                    arg="--skip-torch-cuda-test"
                     ;;
                 4)
-                    sd_webui_forge_launch_args="--reinstall-xformers"
+                    arg="--reinstall-xformers"
                     ;;
                 5)
-                    sd_webui_forge_launch_args="--reinstall-torch"
+                    arg="--reinstall-torch"
                     ;;
                 6)
-                    sd_webui_forge_launch_args="--update-check"
+                    arg="--update-check"
                     ;;
                 7)
-                    sd_webui_forge_launch_args="--test-server"
+                    arg="--test-server"
                     ;;
                 8)
-                    sd_webui_forge_launch_args="--log-startup"
+                    arg="--log-startup"
                     ;;
                 9)
-                    sd_webui_forge_launch_args="--skip-prepare-environment"
+                    arg="--skip-prepare-environment"
                     ;;
                 10)
-                    sd_webui_forge_launch_args="--skip-install"
+                    arg="--skip-install"
                     ;;
                 11)
-                    sd_webui_forge_launch_args="--dump-sysinfo"
+                    arg="--dump-sysinfo"
                     ;;
                 12)
-                    sd_webui_forge_launch_args="--do-not-download-clip"
+                    arg="--do-not-download-clip"
                     ;;
                 13)
-                    sd_webui_forge_launch_args="--no-half"
+                    arg="--no-half"
                     ;;
                 14)
-                    sd_webui_forge_launch_args="--no-half-vae"
+                    arg="--no-half-vae"
                     ;;
                 15)
-                    sd_webui_forge_launch_args="--no-progressbar-hiding"
+                    arg="--no-progressbar-hiding"
                     ;;
                 16)
-                    sd_webui_forge_launch_args="--allow-code"
+                    arg="--allow-code"
                     ;;
                 17)
-                    sd_webui_forge_launch_args="--medvram"
+                    arg="--medvram"
                     ;;
                 18)
-                    sd_webui_forge_launch_args="--medvram-sdxl"
+                    arg="--medvram-sdxl"
                     ;;
                 19)
-                    sd_webui_forge_launch_args="--lowvram"
+                    arg="--lowvram"
                     ;;
                 20)
-                    sd_webui_forge_launch_args="--lowram"
+                    arg="--lowram"
                     ;;
                 21)
-                    sd_webui_forge_launch_args="--precision full"
+                    arg="--precision full"
                     ;;
                 22)
-                    sd_webui_forge_launch_args="--upcast-sampling"
+                    arg="--upcast-sampling"
                     ;;
                 23)
-                    sd_webui_forge_launch_args="--share"
+                    arg="--share"
                     ;;
                 24)
-                    sd_webui_forge_launch_args="--enable-insecure-extension-access"
+                    arg="--enable-insecure-extension-access"
                     ;;
                 25)
-                    sd_webui_forge_launch_args="--xformers"
+                    arg="--xformers"
                     ;;
                 26)
-                    sd_webui_forge_launch_args="--force-enable-xformers"
+                    arg="--force-enable-xformers"
                     ;;
                 27)
-                    sd_webui_forge_launch_args="--xformers-flash-attention"
+                    arg="--xformers-flash-attention"
                     ;;
                 28)
-                    sd_webui_forge_launch_args="--opt-split-attention"
+                    arg="--opt-split-attention"
                     ;;
                 29)
-                    sd_webui_forge_launch_args="--opt-sub-quad-attention"
+                    arg="--opt-sub-quad-attention"
                     ;;
                 30)
-                    sd_webui_forge_launch_args="--opt-split-attention-invokeai"
+                    arg="--opt-split-attention-invokeai"
                     ;;
                 31)
-                    sd_webui_forge_launch_args="--opt-split-attention-v1"
+                    arg="--opt-split-attention-v1"
                     ;;
                 32)
-                    sd_webui_forge_launch_args="--opt-sdp-attention"
+                    arg="--opt-sdp-attention"
                     ;;
                 33)
-                    sd_webui_forge_launch_args="--opt-sdp-no-mem-attention"
+                    arg="--opt-sdp-no-mem-attention"
                     ;;
                 34)
-                    sd_webui_forge_launch_args="--disable-opt-split-attention"
+                    arg="--disable-opt-split-attention"
                     ;;
                 35)
-                    sd_webui_forge_launch_args="--disable-nan-check"
+                    arg="--disable-nan-check"
                     ;;
                 36)
-                    sd_webui_forge_launch_args="--use-cpu all"
+                    arg="--use-cpu all"
                     ;;
                 37)
-                    sd_webui_forge_launch_args="--disable-model-loading-ram-optimization"
+                    arg="--disable-model-loading-ram-optimization"
                     ;;
                 38)
-                    sd_webui_forge_launch_args="--listen"
+                    arg="--listen"
                     ;;
                 39)
-                    sd_webui_forge_launch_args="--hide-ui-dir-config"
+                    arg="--hide-ui-dir-config"
                     ;;
                 40)
-                    sd_webui_forge_launch_args="--freeze-settings"
+                    arg="--freeze-settings"
                     ;;
                 41)
-                    sd_webui_forge_launch_args="--gradio-debug"
+                    arg="--gradio-debug"
                     ;;
                 42)
-                    sd_webui_forge_launch_args="--opt-channelslast"
+                    arg="--opt-channelslast"
                     ;;
                 43)
-                    sd_webui_forge_launch_args="--autolaunch"
+                    arg="--autolaunch"
                     ;;
                 44)
-                    sd_webui_forge_launch_args="--theme dark"
+                    arg="--theme dark"
                     ;;
                 45)
-                    sd_webui_forge_launch_args="--use-textbox-seed"
+                    arg="--use-textbox-seed"
                     ;;
                 46)
-                    sd_webui_forge_launch_args="--disable-console-progressbars"
+                    arg="--disable-console-progressbars"
                     ;;
                 47)
-                    sd_webui_forge_launch_args="--enable-console-prompts"
+                    arg="--enable-console-prompts"
                     ;;
                 48)
-                    sd_webui_forge_launch_args="--disable-safe-unpickle"
+                    arg="--disable-safe-unpickle"
                     ;;
                 49)
-                    sd_webui_forge_launch_args="--api"
+                    arg="--api"
                     ;;
                 50)
-                    sd_webui_forge_launch_args="--api-log"
+                    arg="--api-log"
                     ;;
                 51)
-                    sd_webui_forge_launch_args="--nowebui"
+                    arg="--nowebui"
                     ;;
                 52)
-                    sd_webui_forge_launch_args="--ui-debug-mode"
+                    arg="--ui-debug-mode"
                     ;;
                 53)
-                    sd_webui_forge_launch_args="--administrator"
+                    arg="--administrator"
                     ;;
                 54)
-                    sd_webui_forge_launch_args="--disable-tls-verify"
+                    arg="--disable-tls-verify"
                     ;;
                 55)
-                    sd_webui_forge_launch_args="--no-gradio-queue"
+                    arg="--no-gradio-queue"
                     ;;
                 56)
-                    sd_webui_forge_launch_args="--skip-version-check"
+                    arg="--skip-version-check"
                     ;;
                 57)
-                    sd_webui_forge_launch_args="--no-hashing"
+                    arg="--no-hashing"
                     ;;
                 58)
-                    sd_webui_forge_launch_args="--no-download-sd-model"
+                    arg="--no-download-sd-model"
                     ;;
                 59)
-                    sd_webui_forge_launch_args="--add-stop-route"
+                    arg="--add-stop-route"
                     ;;
                 60)
-                    sd_webui_forge_launch_args="--api-server-stop"
+                    arg="--api-server-stop"
                     ;;
                 61)
-                    sd_webui_forge_launch_args="--disable-all-extensions"
+                    arg="--disable-all-extensions"
                     ;;
                 62)
-                    sd_webui_forge_launch_args="--disable-extra-extensions"
+                    arg="--disable-extra-extensions"
                     ;;
                 63)
-                    sd_webui_forge_launch_args="--use-ipex"
+                    arg="--use-ipex"
                     ;;
                 64)
-                    sd_webui_forge_launch_args="--skip-load-model-at-start"
+                    arg="--skip-load-model-at-start"
                     ;;
                 65)
-                    sd_webui_forge_launch_args="--in-browser"
+                    arg="--in-browser"
                     ;;
                 66)
-                    sd_webui_forge_launch_args="--disable-in-browser"
+                    arg="--disable-in-browser"
                     ;;
                 67)
-                    sd_webui_forge_launch_args="--async-cuda-allocation"
+                    arg="--async-cuda-allocation"
                     ;;
                 68)
-                    sd_webui_forge_launch_args="--disable-async-cuda-allocation"
+                    arg="--disable-async-cuda-allocation"
                     ;;
                 69)
-                    sd_webui_forge_launch_args="--disable-attention-upcast"
+                    arg="--disable-attention-upcast"
                     ;;
                 70)
-                    sd_webui_forge_launch_args="--all-in-fp32"
+                    arg="--all-in-fp32"
                     ;;
                 71)
-                    sd_webui_forge_launch_args="--all-in-fp16"
+                    arg="--all-in-fp16"
                     ;;
                 72)
-                    sd_webui_forge_launch_args="--unet-in-bf16"
+                    arg="--unet-in-bf16"
                     ;;
                 73)
-                    sd_webui_forge_launch_args="--unet-in-fp16"
+                    arg="--unet-in-fp16"
                     ;;
                 74)
-                    sd_webui_forge_launch_args="--unet-in-fp8-e4m3fn"
+                    arg="--unet-in-fp8-e4m3fn"
                     ;;
                 75)
-                    sd_webui_forge_launch_args="--unet-in-fp8-e5m2"
+                    arg="--unet-in-fp8-e5m2"
                     ;;
                 76)
-                    sd_webui_forge_launch_args="--vae-in-fp16"
+                    arg="--vae-in-fp16"
                     ;;
                 77)
-                    sd_webui_forge_launch_args="--vae-in-fp32"
+                    arg="--vae-in-fp32"
                     ;;
                 78)
-                    sd_webui_forge_launch_args="--vae-in-bf16"
+                    arg="--vae-in-bf16"
                     ;;
                 79)
-                    sd_webui_forge_launch_args="--vae-in-cpu"
+                    arg="--vae-in-cpu"
                     ;;
                 80)
-                    sd_webui_forge_launch_args="--clip-in-fp8-e4m3fn"
+                    arg="--clip-in-fp8-e4m3fn"
                     ;;
                 81)
-                    sd_webui_forge_launch_args="--clip-in-fp8-e5m2"
+                    arg="--clip-in-fp8-e5m2"
                     ;;
                 82)
-                    sd_webui_forge_launch_args="--clip-in-fp16"
+                    arg="--clip-in-fp16"
                     ;;
                 83)
-                    sd_webui_forge_launch_args="--clip-in-fp32"
+                    arg="--clip-in-fp32"
                     ;;
                 84)
-                    sd_webui_forge_launch_args="--disable-ipex-hijack"
+                    arg="--disable-ipex-hijack"
                     ;;
                 85)
-                    sd_webui_forge_launch_args="--preview-option none"
+                    arg="--preview-option none"
                     ;;
                 86)
-                    sd_webui_forge_launch_args="--preview-option fast"
+                    arg="--preview-option fast"
                     ;;
                 87)
-                    sd_webui_forge_launch_args="--preview-option taesd"
+                    arg="--preview-option taesd"
                     ;;
                 88)
-                    sd_webui_forge_launch_args="--attention-split"
+                    arg="--attention-split"
                     ;;
                 89)
-                    sd_webui_forge_launch_args="--attention-quad"
+                    arg="--attention-quad"
                     ;;
                 90)
-                    sd_webui_forge_launch_args="--attention-pytorch"
+                    arg="--attention-pytorch"
                     ;;
                 91)
-                    sd_webui_forge_launch_args="--disable-xformers"
+                    arg="--disable-xformers"
                     ;;
                 92)
-                    sd_webui_forge_launch_args="--always-gpu"
+                    arg="--always-gpu"
                     ;;
                 93)
-                    sd_webui_forge_launch_args="--always-high-vram"
+                    arg="--always-high-vram"
                     ;;
                 94)
-                    sd_webui_forge_launch_args="--always-normal-vram"
+                    arg="--always-normal-vram"
                     ;;
                 95)
-                    sd_webui_forge_launch_args="--always-low-vram"
+                    arg="--always-low-vram"
                     ;;
                 96)
-                    sd_webui_forge_launch_args="--always-no-vram"
+                    arg="--always-no-vram"
                     ;;
                 97)
-                    sd_webui_forge_launch_args="--always-cpu"
+                    arg="--always-cpu"
                     ;;
                 98)
-                    sd_webui_forge_launch_args="--always-offload-from-vram"
+                    arg="--always-offload-from-vram"
                     ;;
                 99)
-                    sd_webui_forge_launch_args="--pytorch-deterministic"
+                    arg="--pytorch-deterministic"
                     ;;
                 100)
-                    sd_webui_forge_launch_args="--disable-server-log"
+                    arg="--disable-server-log"
                     ;;
                 101)
-                    sd_webui_forge_launch_args="--debug-mode"
+                    arg="--debug-mode"
                     ;;
                 102)
-                    sd_webui_forge_launch_args="--is-windows-embedded-python"
+                    arg="--is-windows-embedded-python"
                     ;;
                 103)
-                    sd_webui_forge_launch_args="--disable-server-info"
+                    arg="--disable-server-info"
                     ;;
                 104)
-                    sd_webui_forge_launch_args="--multi-user"
+                    arg="--multi-user"
                     ;;
             esac
-            launch_args="$sd_webui_forge_launch_args $launch_args"
+            launch_args="${arg} ${launch_args}"
         done
     
         # 生成启动脚本
-        term_sd_echo "设置启动参数: $launch_args"
-        echo "launch.py $launch_args" > "$start_path"/term-sd/config/sd-webui-forge-launch.conf
+        term_sd_echo "设置 Stable-Diffusion-WebUI-Forge 启动参数: ${launch_args}"
+        echo "launch.py ${launch_args}" > "${START_PATH}"/term-sd/config/sd-webui-forge-launch.conf
     else
-        term_sd_echo "取消设置启动参数"
+        term_sd_echo "取消设置 Stable-Diffusion-WebUI-Forge 启动参数"
     fi
 }
 
-# sd-webui-forge启动界面
-sd_webui_forge_launch()
-{
-    local sd_webui_forge_launch_dialog
+# SD WebUI Forge 启动界面
+sd_webui_forge_launch() {
+    local dialog_arg
+    local launch_args
 
     add_sd_webui_forge_normal_launch_args
 
-    while true
-    do
-        sd_webui_forge_launch_dialog=$(dialog --erase-on-exit --notags \
+    while true; do
+        launch_args=$(cat "${START_PATH}"/term-sd/config/sd-webui-forge-launch.conf)
+
+        if is_use_venv; then
+            launch_args="python ${launch_args}"
+        else
+            launch_args="${TERM_SD_PYTHON_PATH} ${launch_args}"
+        fi
+
+        dialog_arg=$(dialog --erase-on-exit --notags \
             --title "Stable-Diffusion-WebUI 管理" \
-            --backtitle "Stable-Diffusion-WebUI-Forge 启动选项" \
+            --backtitle "Stable-Diffusion-WebUI 启动选项" \
             --ok-label "确认" --cancel-label "取消" \
-            --menu "请选择启动 Stable-Diffusion-WebUI-Forge / 修改 Stable-Diffusion-WebUI-Forge 启动参数\n当前启动参数:\n$([ $venv_setup_status = 0 ] && echo python || echo "$term_sd_python_path") $(cat "$start_path"/term-sd/config/sd-webui-forge-launch.conf)" \
-            $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+            --menu "请选择启动 Stable-Diffusion-WebUI-Forge / 修改 Stable-Diffusion-WebUI-Forge 启动参数\n当前启动参数: ${launch_args}" \
+            $(get_dialog_size_menu) \
             "0" "> 返回" \
             "1" "> 启动" \
             "2" "> 配置预设启动参数" \
@@ -468,7 +476,7 @@ sd_webui_forge_launch()
             "4" "> 重置启动参数" \
             3>&1 1>&2 2>&3)
 
-        case $sd_webui_forge_launch_dialog in
+        case "${dialog_arg}" in
             1)
                 term_sd_launch
                 ;;
@@ -488,50 +496,50 @@ sd_webui_forge_launch()
     done
 }
 
-# sd-webui-forge启动参数修改
-sd_webui_forge_launch_args_revise()
-{
-    local sd_webui_forge_launch_args
+# SD WebUI Forge 启动参数修改
+sd_webui_forge_launch_args_revise() {
+    local dialog_arg
+    local launch_args
 
-    sd_webui_forge_launch_args=$(dialog --erase-on-exit \
+    launch_args=$(cat "${START_PATH}"/term-sd/config/sd-webui-forge-launch.conf | awk '{sub("launch.py ","")}1')
+
+    dialog_arg=$(dialog --erase-on-exit \
         --title "Stable-Diffusion-WebUI 管理" \
-        --backtitle "Stable-Diffusion-WebUI-Forge 自定义启动参数选项" \
+        --backtitle "Stable-Diffusion-WebUI 自定义启动参数选项" \
         --ok-label "确认" --cancel-label "取消" \
         --inputbox "请输入 Stable-Diffusion-WebUI-Forge 启动参数" \
-        $term_sd_dialog_height $term_sd_dialog_width \
-        "$(cat "$start_path"/term-sd/config/sd-webui-forge-launch.conf | awk '{sub("launch.py ","")}1')" \
+        $(get_dialog_size) \
+        "${launch_args}" \
         3>&1 1>&2 2>&3)
 
-    if [ $? = 0 ];then
-        term_sd_echo "设置启动参数: $sd_webui_forge_launch_args"
-        echo "launch.py $sd_webui_forge_launch_args" > "$start_path"/term-sd/config/sd-webui-forge-launch.conf
+    if [[ "$?" == 0 ]]; then
+        term_sd_echo "设置 Stable-Diffusion-WebUI-Forge 启动参数: ${dialog_arg}"
+        echo "launch.py ${dialog_arg}" > "${START_PATH}"/term-sd/config/sd-webui-forge-launch.conf
     else
-        term_sd_echo "取消启动参数修改"
+        term_sd_echo "取消修改 Stable-Diffusion-WebUI-Forge 启动参数"
     fi
 }
 
 # 添加默认启动参数配置
-add_sd_webui_forge_normal_launch_args()
-{
-    if [ ! -f "$start_path/term-sd/config/sd-webui-forge-launch.conf" ]; then # 找不到启动配置时默认生成一个
-        echo "launch.py --theme dark --autolaunch --xformers --api" > "$start_path"/term-sd/config/sd-webui-forge-launch.conf
+add_sd_webui_forge_normal_launch_args() {
+    if [ ! -f "${START_PATH}/term-sd/config/sd-webui-forge-launch.conf" ]; then # 找不到启动配置时默认生成一个
+        echo "launch.py --theme dark --autolaunch --xformers --api" > "${START_PATH}"/term-sd/config/sd-webui-forge-launch.conf
     fi
 }
 
 # 重置启动参数
-restore_sd_webui_forge_launch_args()
-{
+restore_sd_webui_forge_launch_args() {
     if (dialog --erase-on-exit \
         --title "Stable-Diffusion-WebUI 管理" \
-        --backtitle "Stable-Diffusion-WebUI-Forge 重置启动参数选项选项" \
+        --backtitle "Stable-Diffusion-WebUI 重置启动参数选项选项" \
         --yes-label "是" --no-label "否" \
         --yesno "是否重置 Stable-Diffusion-WebUI-Forge 启动参数" \
-        $term_sd_dialog_height $term_sd_dialog_width) then
+        $(get_dialog_size)); then
 
-        term_sd_echo "重置启动参数"
-        rm -f "$start_path"/term-sd/config/sd-webui-forge-launch.conf
+        term_sd_echo "重置 Stable-Diffusion-WebUI-Forge 启动参数"
+        rm -f "${START_PATH}"/term-sd/config/sd-webui-forge-launch.conf
         add_sd_webui_forge_normal_launch_args
     else
-        term_sd_echo "取消重置操作"
+        term_sd_echo "取消重置 Stable-Diffusion-WebUI-Forge 启动参数操作"
     fi
 }

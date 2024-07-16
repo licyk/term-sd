@@ -1,18 +1,19 @@
 #!/bin/bash
 
-# comfyui启动脚本生成部分
-comfyui_launch_args_setting()
-{
-    local comfyui_launch_args
-    local comfyui_launch_args_setting_dialog
+# ComfyUI 启动脚本生成部分
+# 启动参数保存在 <Start Path>/term-sd/config/comfyui-launch.conf
+comfyui_launch_args_setting() {
+    local arg
+    local dialog_arg
     local launch_args
+    local i
 
-    comfyui_launch_args_setting_dialog=$(dialog --erase-on-exit --notags \
+    dialog_arg=$(dialog --erase-on-exit --notags \
         --title "ComfyUI 管理" \
         --backtitle "ComfyUI 启动参数选项" \
         --ok-label "确认" --cancel-label "取消" \
         --checklist "请选择 ComfyUI 启动参数, 确认之后将覆盖原有启动参数配置" \
-        $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+        $(get_dialog_size_menu) \
         "1" "(listen) 开放远程连接" OFF \
         "2" "(auto-launch) 启动 WebUI 完成后自动启动浏览器" ON \
         "3" "(disable-auto-launch) 禁用在启动 WebUI 完成后自动启动浏览器" OFF \
@@ -51,144 +52,150 @@ comfyui_launch_args_setting()
         "36" "(verbose) 显示更多调试信息" OFF \
         3>&1 1>&2 2>&3)
 
-    if [ $? = 0 ];then
-        for i in $comfyui_launch_args_setting_dialog; do
-            case $i in
+    if [[ "$?" == 0 ]]; then
+        for i in ${dialog_arg}; do
+            case "${i}" in
                 1)
-                    comfyui_launch_args="--listen"
+                    arg="--listen"
                     ;;
                 2)    
-                    comfyui_launch_args="--auto-launch"
+                    arg="--auto-launch"
                     ;;
                 3)
-                    comfyui_launch_args="--disable-auto-launch"
+                    arg="--disable-auto-launch"
                     ;;
                 4)
-                    comfyui_launch_args="--cuda-malloc"
+                    arg="--cuda-malloc"
                     ;;
                 5)
-                    comfyui_launch_args="--disable-cuda-malloc"
+                    arg="--disable-cuda-malloc"
                     ;;
                 6)
-                    comfyui_launch_args="--dont-upcast-attention"
+                    arg="--dont-upcast-attention"
                     ;;
                 7)
-                    comfyui_launch_args="--force-fp32"
+                    arg="--force-fp32"
                     ;;
                 8)
-                    comfyui_launch_args="--force-fp16"
+                    arg="--force-fp16"
                     ;;
                 9)
-                    comfyui_launch_args="--bf16-unet"
+                    arg="--bf16-unet"
                     ;;
                 10)
-                    comfyui_launch_args="--fp16-vae"
+                    arg="--fp16-vae"
                     ;;
                 11)
-                    comfyui_launch_args="--fp32-vae"
+                    arg="--fp32-vae"
                     ;;
                 12)
-                    comfyui_launch_args="--bf16-vae"
+                    arg="--bf16-vae"
                     ;;
                 13)
-                    comfyui_launch_args="--disable-ipex-optimize"
+                    arg="--disable-ipex-optimize"
                     ;;
                 14)
-                    comfyui_launch_args="--preview-method none"
+                    arg="--preview-method none"
                     ;;
                 15)
-                    comfyui_launch_args="--preview-method auto"
+                    arg="--preview-method auto"
                     ;;
                 16)
-                    comfyui_launch_args="--preview-method latent2rgb"
+                    arg="--preview-method latent2rgb"
                     ;;
                 17)
-                    comfyui_launch_args="--preview-method taesd"
+                    arg="--preview-method taesd"
                     ;;
                 18)
-                    comfyui_launch_args="--use-split-cross-attention"
+                    arg="--use-split-cross-attention"
                     ;;
                 19)
-                    comfyui_launch_args="--use-quad-cross-attention"
+                    arg="--use-quad-cross-attention"
                     ;;
                 20)
-                    comfyui_launch_args="--use-pytorch-cross-attention"
+                    arg="--use-pytorch-cross-attention"
                     ;;
                 21)
-                    comfyui_launch_args="--disable-xformers"
+                    arg="--disable-xformers"
                     ;;
                 22)
-                    comfyui_launch_args="--gpu-only"
+                    arg="--gpu-only"
                     ;;
                 23)
-                    comfyui_launch_args="--highvram"
+                    arg="--highvram"
                     ;;
                 24)
-                    comfyui_launch_args="--normalvram"
+                    arg="--normalvram"
                     ;;
                 25)
-                    comfyui_launch_args="--lowvram"
+                    arg="--lowvram"
                     ;;
                 26)
-                    comfyui_launch_args="--novram"
+                    arg="--novram"
                     ;;
                 27)
-                    comfyui_launch_args="--cpu"
+                    arg="--cpu"
                     ;;
                 28)
-                    comfyui_launch_args="--disable-smart-memory"
+                    arg="--disable-smart-memory"
                     ;;
                 29)
-                    comfyui_launch_args="--dont-print-server"
+                    arg="--dont-print-server"
                     ;;
                 30)
-                    comfyui_launch_args="--quick-test-for-ci"
+                    arg="--quick-test-for-ci"
                     ;;
                 31)
-                    comfyui_launch_args="--windows-standalone-build"
+                    arg="--windows-standalone-build"
                     ;;
                 32)
-                    comfyui_launch_args="--disable-metadata"
+                    arg="--disable-metadata"
                     ;;
                 33)
-                    comfyui_launch_args="--fp8_e4m3fn-text-enc"
+                    arg="--fp8_e4m3fn-text-enc"
                     ;;
                 34)
-                    comfyui_launch_args="--fp8_e5m2-text-enc"
+                    arg="--fp8_e5m2-text-enc"
                     ;;
                 35)
-                    comfyui_launch_args="--multi-user"
+                    arg="--multi-user"
                     ;;
                 36)
-                    comfyui_launch_args="--verbose"
+                    arg="--verbose"
                     ;;
             esac
-            launch_args="$comfyui_launch_args $launch_args"
+            launch_args="${arg} ${launch_args}"
         done
 
         # 生成启动脚本
-        term_sd_echo "设置启动参数: $launch_args"
-        echo "main.py $launch_args" > "$start_path"/term-sd/config/comfyui-launch.conf
+        term_sd_echo "设置 ComfyUI 启动参数: ${launch_args}"
+        echo "main.py ${launch_args}" > "${START_PATH}"/term-sd/config/comfyui-launch.conf
     else
-        term_sd_echo "取消设置启动参数"
+        term_sd_echo "取消设置 ComfyUI 启动参数"
     fi
 }
 
-# comfyui启动界面
-comfyui_launch()
-{
-    local comfyui_launch_dialog
+# ComfyUI 启动界面
+comfyui_launch() {
+    local dialog_arg
+    local launch_args
 
-    add_comfyui_normal_launch_args
+    add_comfyui_normal_launch_args # 没有启动参数时自动生成一个
 
-    while true
-    do
-        comfyui_launch_dialog=$(dialog --erase-on-exit --notags \
+    while true; do
+        launch_args=$(cat "${START_PATH}"/term-sd/config/comfyui-launch.conf)
+        if is_use_venv; then
+            launch_args="python ${launch_args}"
+        else
+            launch_args=${TERM_SD_PYTHON_PATH}" ${launch_args}"
+        fi
+
+        dialog_arg=$(dialog --erase-on-exit --notags \
             --title "ComfyUI 管理" \
             --backtitle "ComfyUI 启动选项" \
             --ok-label "确认" --cancel-label "取消" \
-            --menu "请选择启动 ComfyUI / 修改 ComfyUI 启动参数\n当前启动参数:\n$([ $venv_setup_status = 0 ] && echo python || echo "$term_sd_python_path") $(cat "$start_path"/term-sd/config/comfyui-launch.conf)" \
-            $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+            --menu "请选择启动 ComfyUI / 修改 ComfyUI 启动参数\n当前启动参数: ${launch_args}" \
+            $(get_dialog_size_menu) \
             "0" "> 返回" \
             "1" "> 启动" \
             "2" "> 配置预设启动参数" \
@@ -196,7 +203,7 @@ comfyui_launch()
             "4" "> 重置启动参数" \
             3>&1 1>&2 2>&3)
 
-        case $comfyui_launch_dialog in
+        case "${dialog_arg}" in
             1)
                 term_sd_launch
                 ;;
@@ -216,50 +223,52 @@ comfyui_launch()
     done
 }
 
-# comfyui手动输入启动参数界面
-comfyui_launch_args_revise()
-{
-    local comfyui_launch_args
+# ComfyUI 手动输入启动参数界面
+# 启动修改界面时将从 <Strat Path>/term-sd/config/comfyui-launch.conf 中读取启动参数
+# 可接着上次的启动参数进行修改
+comfyui_launch_args_revise() {
+    local dialog_arg
+    local launch_args
 
-    comfyui_launch_args=$(dialog --erase-on-exit \
+    launch_args=$(cat "${START_PATH}"/term-sd/config/comfyui-launch.conf | awk '{sub("main.py ","")}1')
+
+    dialog_arg=$(dialog --erase-on-exit \
         --title "ComfyUI 管理" \
         --backtitle "ComfyUI 自定义启动参数选项" \
         --ok-label "确认" --cancel-label "取消" \
         --inputbox "请输入 ComfyUI 启动参数" \
-        $term_sd_dialog_height $term_sd_dialog_width \
-        "$(cat "$start_path"/term-sd/config/comfyui-launch.conf | awk '{sub("main.py ","")}1')" \
+        $(get_dialog_size) \
+        "${launch_args}" \
         3>&1 1>&2 2>&3)
 
-    if [ $? = 0 ];then
-        term_sd_echo "设置启动参数: $comfyui_launch_args"
-        echo "main.py $comfyui_launch_args" > "$start_path"/term-sd/config/comfyui-launch.conf
+    if [[ "$?" == 0 ]]; then
+        term_sd_echo "设置 ComfyUI 启动参数: ${dialog_arg}"
+        echo "main.py ${dialog_arg}" > "${START_PATH}"/term-sd/config/comfyui-launch.conf
     else
-        term_sd_echo "取消启动参数修改"
+        term_sd_echo "取消修改 ComfyUI 启动参数"
     fi
 }
 
-# 添加默认启动参数配置
-add_comfyui_normal_launch_args()
-{
-    if [ ! -f ""$start_path"/term-sd/config/comfyui-launch.conf" ]; then # 找不到启动配置时默认生成一个
-        echo "main.py --auto-launch --preview-method auto --disable-smart-memory" > "$start_path"/term-sd/config/comfyui-launch.conf
+# 添加 ComfyUI 默认启动参数配置
+add_comfyui_normal_launch_args() {
+    if [ ! -f "${START_PATH}/term-sd/config/comfyui-launch.conf" ]; then # 找不到启动配置时默认生成一个
+        echo "main.py --auto-launch --preview-method auto --disable-smart-memory" > "${START_PATH}"/term-sd/config/comfyui-launch.conf
     fi
 }
 
 # 重置启动参数
-restore_comfyui_launch_args()
-{
+restore_comfyui_launch_args() {
     if (dialog --erase-on-exit \
         --title "ComfyUI 管理" \
         --backtitle "ComfyUI 重置启动参数选项选项" \
         --yes-label "是" --no-label "否" \
-        --yesno "是否重置 ComfyUI 启动参数" \
-        $term_sd_dialog_height $term_sd_dialog_width) then
+        --yesno "是否重置 ComfyUI 启动参数 ?" \
+        $(get_dialog_size)); then
 
-        term_sd_echo "重置启动参数"
-        rm -f "$start_path"/term-sd/config/comfyui-launch.conf
+        term_sd_echo "重置 ComfyUI 启动参数"
+        rm -f "${START_PATH}"/term-sd/config/comfyui-launch.conf
         add_comfyui_normal_launch_args
     else
-        term_sd_echo "取消重置操作"
+        term_sd_echo "取消重置 ComfyUI 启动参数操作"
     fi
 }

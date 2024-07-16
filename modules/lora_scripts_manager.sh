@@ -1,21 +1,20 @@
 #!/bin/bash
 
-# lora-scripts选项
-lora_scripts_manager()
-{
-    export term_sd_manager_info="lora-scripts"
-    cd "$start_path" # 回到最初路径
+# lora-scripts 管理
+lora_scripts_manager() {
+    local dialog_arg
+
+    cd "${START_PATH}" # 回到最初路径
     exit_venv # 确保进行下一步操作前已退出其他虚拟环境
-    if [ -d "$lora_scripts_path" ] && ! term_sd_test_empty_dir "$lora_scripts_path" ;then
-        while true
-        do
-            cd "$lora_scripts_path"
-            lora_scripts_manager_dialog=$(dialog --erase-on-exit --notags \
+    if [[ -d "$LORA_SCRIPTS_PATH" ]] && ! term_sd_is_dir_empty "${LORA_SCRIPTS_PATH}"; then
+        while true; do
+            cd "${LORA_SCRIPTS_PATH}"
+            dialog_arg=$(dialog --erase-on-exit --notags \
                 --title "lora-scripts 管理" \
                 --backtitle "lora-scripts 管理选项" \
                 --ok-label "确认" --cancel-label "取消" \
                 --menu "请选择 lora-scripts 管理选项的功能\n当前更新源: $(git_remote_display)\n当前分支: $(git_branch_display)" \
-                $term_sd_dialog_height $term_sd_dialog_width $term_sd_dialog_menu_height \
+                $(get_dialog_size_menu) \
                 "0" "> 返回" \
                 "1" "> 启动" \
                 "2" "> 更新" \
@@ -33,28 +32,28 @@ lora_scripts_manager()
                 "14" "> 卸载" \
                 3>&1 1>&2 2>&3)
 
-            case $lora_scripts_manager_dialog in
+            case "${dialog_arg}" in
                 1)
                     lora_scripts_launch
                     ;;
                 2)
-                    if is_git_repo ;then
+                    if is_git_repo; then
                         term_sd_echo "更新 lora-scripts 中"
                         git_pull_repository
-                        if [ $? = 0 ];then
+                        if [[ "$?" == 0 ]]; then
                             dialog --erase-on-exit \
                                 --title "lora-scripts 管理" \
                                 --backtitle "lora-scripts 更新结果" \
                                 --ok-label "确认" \
                                 --msgbox "lora-scripts 更新成功" \
-                                $term_sd_dialog_height $term_sd_dialog_width
+                                $(get_dialog_size)
                         else
                             dialog --erase-on-exit \
                                 --title "lora-scripts 管理" \
                                 --backtitle "lora-scripts 更新结果" \
                                 --ok-label "确认" \
                                 --msgbox "lora-scripts 更新失败" \
-                                $term_sd_dialog_height $term_sd_dialog_width
+                                $(get_dialog_size)
                         fi
                     else
                         dialog --erase-on-exit \
@@ -62,20 +61,26 @@ lora_scripts_manager()
                             --backtitle "lora-scripts 更新结果" \
                             --ok-label "确认" \
                             --msgbox "lora-scripts 非 Git 安装, 无法更新" \
-                            $term_sd_dialog_height $term_sd_dialog_width
+                            $(get_dialog_size)
                     fi
                     ;;
                 
                 3)
-                    if is_git_repo ;then
+                    if is_git_repo; then
                         if (dialog --erase-on-exit \
                             --title "lora-scripts 管理" \
                             --backtitle "lora-scripts 更新修复选项" \
                             --yes-label "是" --no-label "否" \
-                            --yesno "是否修复 lora-scripts 更新?" \
-                            $term_sd_dialog_height $term_sd_dialog_width) then
+                            --yesno "是否修复 lora-scripts 更新 ?" \
+                            $(get_dialog_size)); then
 
                             git_fix_pointer_offset
+                            dialog --erase-on-exit \
+                                --title "lora-scripts 管理" \
+                                --backtitle "lora-scripts 更新修复选项" \
+                                --ok-label "确认" \
+                                --msgbox "lora-scripts 更新修复完成" \
+                                $(get_dialog_size)
                         fi
                     else
                         dialog --erase-on-exit \
@@ -83,19 +88,25 @@ lora_scripts_manager()
                             --backtitle "lora-scripts 更新修复选项" \
                             --ok-label "确认" \
                             --msgbox "lora-scripts 非 Git 安装, 无法修复更新" \
-                            $term_sd_dialog_height $term_sd_dialog_width
+                            $(get_dialog_size)
                     fi
                     ;;
                 4)
-                    if is_git_repo ;then
+                    if is_git_repo; then
                         if (dialog --erase-on-exit \
                             --title "lora-scripts 管理" \
                             --backtitle "lora-scripts 版本切换选项" \
                             --yes-label "是" --no-label "否" \
-                            --yesno "是否切换 lora-scripts 版本?" \
-                            $term_sd_dialog_height $term_sd_dialog_width) then
+                            --yesno "是否切换 lora-scripts 版本 ?" \
+                            $(get_dialog_size)); then
 
                             git_ver_switch
+                            dialog --erase-on-exit \
+                                --title "lora-scripts 管理" \
+                                --backtitle "lora-scripts 版本切换选项" \
+                                --ok-label "确认" \
+                                --msgbox "lora-scripts 版本切换完成, 当前版本为: $(git_branch_display)" \
+                                $(get_dialog_size)
                         fi
                     else
                         dialog --erase-on-exit \
@@ -103,17 +114,17 @@ lora_scripts_manager()
                             --backtitle "lora-scripts 版本切换选项" \
                             --ok-label "确认" \
                             --msgbox "lora-scripts 非 Git 安装, 无法切换更新" \
-                            $term_sd_dialog_height $term_sd_dialog_width
+                            $(get_dialog_size)
                     fi
                     ;;
                 5)
-                    if is_git_repo ;then
+                    if is_git_repo; then
                         if (dialog --erase-on-exit \
                             --title "lora-scripts 管理" \
                             --backtitle "lora-scripts 更新源切换选项" \
                             --yes-label "是" --no-label "否" \
-                            --yesno "是否切换 lora-scripts 更新源?" \
-                            $term_sd_dialog_height $term_sd_dialog_width) then
+                            --yesno "是否切换 lora-scripts 更新源 ?" \
+                            $(get_dialog_size)); then
 
                             lora_scripts_remote_revise
                         fi
@@ -123,20 +134,28 @@ lora_scripts_manager()
                             --backtitle "lora-scripts 更新源切换选项" \
                             --ok-label "确认" \
                             --msgbox "lora-scripts 非 Git 安装, 无法切换更新源" \
-                            $term_sd_dialog_height $term_sd_dialog_width
+                            $(get_dialog_size)
                     fi
                     ;;
                 
                 6)
-                    lora_scripts_update_depend
+                    if (dialog --erase-on-exit \
+                        --title "lora-scripts 管理" \
+                        --backtitle "lora-scripts 依赖更新选项" \
+                        --yes-label "是" --no-label "否" \
+                        --yesno "是否更新 lora-scripts 的依赖 ?" \
+                        $(get_dialog_size)); then
+
+                        lora_scripts_update_depend
+                    fi
                     ;;
                 7)
                     if (dialog --erase-on-exit \
                         --title "lora-scripts 管理" \
                         --backtitle "lora-scripts 的 Python 软件包安装 / 重装/ 卸载选项" \
                         --yes-label "是" --no-label "否" \
-                        --yesno "是否进入 Python 软件包安装/ 重装 / 卸载选项?" \
-                        $term_sd_dialog_height $term_sd_dialog_width) then
+                        --yesno "是否进入 Python 软件包安装/ 重装 / 卸载选项 ?" \
+                        $(get_dialog_size)); then
 
                         python_package_manager
                     fi
@@ -148,13 +167,13 @@ lora_scripts_manager()
                     pytorch_reinstall
                     ;;
                 10)
-                    if [ $venv_setup_status = 0 ];then
+                    if is_use_venv; then
                         if (dialog --erase-on-exit \
                             --title "lora-scripts 管理" \
                             --backtitle "lora-scripts 虚拟环境修复选项" \
                             --yes-label "是" --no-label "否" \
-                            --yesno "是否修复 lora-scripts 的虚拟环境" \
-                            $term_sd_dialog_height $term_sd_dialog_width) then
+                            --yesno "是否修复 lora-scripts 的虚拟环境 ?" \
+                            $(get_dialog_size)); then
 
                             fix_venv
                         fi
@@ -164,17 +183,17 @@ lora_scripts_manager()
                             --backtitle "lora-scripts 虚拟环境修复选项" \
                             --ok-label "确认" \
                             --msgbox "虚拟环境功能已禁用, 无法使用该功能" \
-                            $term_sd_dialog_height $term_sd_dialog_width
+                            $(get_dialog_size)
                     fi
                     ;;
                 11)
-                    if [ $venv_setup_status = 0 ];then
+                    if is_use_venv; then
                         if (dialog --erase-on-exit \
                             --title "lora-scripts 管理" \
                             --backtitle "lora-scripts 虚拟环境重建选项" \
                             --yes-label "是" --no-label "否" \
-                            --yesno "是否重建 lora-scripts 的虚拟环境?" \
-                            $term_sd_dialog_height $term_sd_dialog_width) then
+                            --yesno "是否重建 lora-scripts 的虚拟环境 ?" \
+                            $(get_dialog_size)); then
 
                             lora_scripts_venv_rebuild
                         fi
@@ -184,11 +203,19 @@ lora_scripts_manager()
                             --backtitle "lora-scripts 虚拟环境重建选项" \
                             --ok-label "确认" \
                             --msgbox "虚拟环境功能已禁用, 无法使用该功能" \
-                            $term_sd_dialog_height $term_sd_dialog_width
+                            $(get_dialog_size)
                     fi
                     ;;
                 12)
-                    lora_scripts_backend_repo_reinstall
+                    if (dialog --erase-on-exit \
+                        --title "lora-scripts 管理" \
+                        --backtitle "lora-scripts 后端组件重装选项" \
+                        --yes-label "是" --no-label "否" \
+                        --yesno "是否重新安装 lora-scripts 后端组件 ?" \
+                        $(get_dialog_size)); then
+
+                        lora_scripts_backend_repo_reinstall
+                    fi
                     ;;
                 13)
                     if (dialog --erase-on-exit \
@@ -196,10 +223,10 @@ lora_scripts_manager()
                         --backtitle "lora-scripts 重新安装选项" \
                         --yes-label "是" --no-label "否" \
                         --yesno "是否重新安装 lora-scripts ?" \
-                        $term_sd_dialog_height $term_sd_dialog_width) then
+                        $(get_dialog_size)); then
 
-                        cd "$start_path"
-                        rm -f "$start_path/term-sd/task/lora_scripts_install.sh"
+                        cd "${START_PATH}"
+                        rm -f "${START_PATH}/term-sd/task/lora_scripts_install.sh"
                         exit_venv
                         install_lora_scripts
                         break
@@ -211,33 +238,31 @@ lora_scripts_manager()
                         --backtitle "lora-scripts 删除选项" \
                         --yes-label "是" --no-label "否" \
                         --yesno "是否删除 lora-scripts ?" \
-                        $term_sd_dialog_height $term_sd_dialog_width) then
+                        $(get_dialog_size)); then
 
-                        term_sd_echo "请再次确认是否删除 lora-scripts (yes/no)?"
+                        term_sd_echo "请再次确认是否删除 lora-scripts (yes/no) ?"
                         term_sd_echo "警告: 该操作将永久删除 lora-scripts"
                         term_sd_echo "提示: 输入 yes 或 no 后回车"
-                        case $(term_sd_read) in
+                        case "$(term_sd_read)" in
                             yes|y|YES|Y)
                                 term_sd_echo "删除 lora-scripts 中"
                                 exit_venv
                                 cd ..
-                                rm -rf "$lora_scripts_folder"
+                                rm -rf "${LORA_SCRIPTS_FOLDER}"
 
                                 dialog --erase-on-exit \
                                     --title "lora-scripts 管理" \
                                     --backtitle "lora-scripts 删除选项" \
                                     --ok-label "确认" \
                                     --msgbox "删除 lora-scripts 完成" \
-                                    $term_sd_dialog_height $term_sd_dialog_width
+                                    $(get_dialog_size)
 
                                 break
                                 ;;
                             *)
-                                term_sd_echo "取消删除操作"
+                                term_sd_echo "取消删除 lora-scripts 操作"
                                 ;;
                         esac
-                    else
-                        term_sd_echo "取消删除操作"
                     fi
                     ;;
                 *)
@@ -250,78 +275,60 @@ lora_scripts_manager()
             --title "lora-scripts 管理" \
             --backtitle "lora-scripts 安装选项" \
             --yes-label "是" --no-label "否" \
-            --yesno "检测到当前未安装 lora_scripts , 是否进行安装?" \
-            $term_sd_dialog_height $term_sd_dialog_width) then
+            --yesno "检测到当前未安装 lora_scripts, 是否进行安装 ?" \
+            $(get_dialog_size)); then
 
-            rm -f "$start_path/term-sd/task/lora_scripts_install.sh"
+            rm -f "${START_PATH}/term-sd/task/lora_scripts_install.sh"
             install_lora_scripts
         fi
     fi
 }
 
-# lora-scripts依赖更新功能
-lora_scripts_update_depend()
-{
-    if (dialog --erase-on-exit \
-        --title "lora-scripts 管理" \
-        --backtitle "lora-scripts 依赖更新选项" \
-        --yes-label "是" --no-label "否" \
-        --yesno "是否更新 lora-scripts 的依赖?" \
-        $term_sd_dialog_height $term_sd_dialog_width) then
+# lora-scripts 依赖更新功能
+lora_scripts_update_depend() {
+    # 更新前的准备
+    download_mirror_select # 下载镜像源选择
+    pip_install_mode_select # 安装方式选择
 
-        # 更新前的准备
-        download_mirror_select # 下载镜像源选择
-        pip_install_mode_select # 安装方式选择
-        term_sd_install_confirm "是否更新 lora-scripts 依赖?" # 安装前确认
-
-        if [ $? = 0 ];then
-            term_sd_print_line "lora-scripts 依赖更新"
-            term_sd_echo "更新 lora-scripts 依赖中"
-            term_sd_tmp_disable_proxy
-            create_venv
-            enter_venv
-            cd sd-scripts
-            python_package_update requirements.txt # sd-scripts目录下还有个_typos.toml，在安装requirements.txt里的依赖时会指向这个文件
-            cd ..
-            python_package_update requirements.txt # lora-scripts安装依赖
-            exit_venv
-            term_sd_tmp_enable_proxy
-            term_sd_echo "更新 lora-scripts 依赖结束"
-            term_sd_pause
-        fi
+    if term_sd_install_confirm "是否更新 lora-scripts 依赖 ?"; then
+        term_sd_print_line "lora-scripts 依赖更新"
+        term_sd_echo "更新 lora-scripts 依赖中"
+        term_sd_tmp_disable_proxy
+        create_venv
+        enter_venv
+        cd sd-scripts
+        python_package_update requirements.txt # sd-scripts目录下还有个_typos.toml，在安装requirements.txt里的依赖时会指向这个文件
+        cd ..
+        python_package_update requirements.txt # lora-scripts安装依赖
+        exit_venv
+        term_sd_tmp_enable_proxy
+        term_sd_echo "更新 lora-scripts 依赖结束"
+        term_sd_pause
     fi
+    clean_install_config # 清理安装参数
 }
 
 # 后端组件重装
-lora_scripts_backend_repo_reinstall()
-{
-    if (dialog --erase-on-exit \
-        --title "lora-scripts 管理" \
-        --backtitle "lora-scripts 后端组件重装选项" \
-        --yes-label "是" --no-label "否" \
-        --yesno "是否重新安装 lora-scripts 后端组件?" \
-        $term_sd_dialog_height $term_sd_dialog_width) then
+lora_scripts_backend_repo_reinstall() {
+    download_mirror_select # 下载镜像源选择
 
-        download_mirror_select # 下载镜像源选择
-        term_sd_install_confirm "是否重新安装 lora-scripts 后端组件?" # 安装前确认
-
-        if [ $? = 0 ];then
-            term_sd_print_line "lora-scripts 后端组件重装"
-            term_sd_echo "删除原有 lora-scripts 后端组件中"
-            rm -rf sd-scripts
-            rm -rf frontend
-            rm -rf mikazuki/dataset-tag-editor
-            term_sd_mkdir sd-scripts
-            term_sd_mkdir frontend
-            term_sd_mkdir mikazuki/dataset-tag-editor
-            term_sd_echo "重新下载 lora-scripts 后端组件中"
-            git_clone_repository ${github_mirror} https://github.com/kohya-ss/sd-scripts "$lora_scripts_path" sd-scripts # lora-scripts后端
-            git_clone_repository ${github_mirror} https://github.com/hanamizuki-ai/lora-gui-dist "$lora_scripts_path" frontend # lora-scripts前端
-            git_clone_repository ${github_mirror} https://github.com/Akegarasu/dataset-tag-editor "$lora_scripts_path"/mikazuki dataset-tag-editor # 标签编辑器
-            git submodule init
-            git submodule update
-            term_sd_echo "重装 lora-scripts 后端组件结束"
-            term_sd_pause
-        fi
+    if term_sd_install_confirm "是否重新安装 lora-scripts 后端组件 ?"; then
+        term_sd_print_line "lora-scripts 后端组件重装"
+        term_sd_echo "删除原有 lora-scripts 后端组件中"
+        rm -rf sd-scripts
+        rm -rf frontend
+        rm -rf mikazuki/dataset-tag-editor
+        term_sd_mkdir sd-scripts
+        term_sd_mkdir frontend
+        term_sd_mkdir mikazuki/dataset-tag-editor
+        term_sd_echo "重新下载 lora-scripts 后端组件中"
+        git_clone_repository ${GITHUB_MIRROR} https://github.com/kohya-ss/sd-scripts "${LORA_SCRIPTS_PATH}" sd-scripts # lora-scripts后端
+        git_clone_repository ${GITHUB_MIRROR} https://github.com/hanamizuki-ai/lora-gui-dist "${LORA_SCRIPTS_PATH}" frontend # lora-scripts前端
+        git_clone_repository ${GITHUB_MIRROR} https://github.com/Akegarasu/dataset-tag-editor "${LORA_SCRIPTS_PATH}"/mikazuki dataset-tag-editor # 标签编辑器
+        git submodule init
+        git submodule update
+        term_sd_echo "重装 lora-scripts 后端组件结束"
+        term_sd_pause
     fi
+    clean_install_config # 清理安装参数
 }
