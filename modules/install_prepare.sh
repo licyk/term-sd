@@ -404,7 +404,7 @@ Huggingface / Github 下载源独占代理: ${enable_only_proxy_info}\n
 强制使用 Pip: ${use_break_system_package_info}\n
 PyTorch 版本: ${pytorch_ver_info}\n
 Pip 安装方式: ${use_pep517_info}\n
-使用强制重装: ${use_force_reinstall_info}\
+Pip 强制重装: ${use_force_reinstall_info}\
 " $(get_dialog_size)); then
         term_sd_echo "确认进行安装"
         return 0

@@ -1,4 +1,4 @@
-__term_sd_task_pre_ext_1 term_sd_echo "下载 Controlnet 模型中" # ControlNet ON
+__term_sd_task_pre_ext_1 term_sd_echo "下载 Controlnet 模型中" # ControlNet(32.92g) ON
 __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11e_sd15_ip2p_fp16.safetensors "${SD_WEBUI_PATH}"/models/ControlNet
 __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11e_sd15_shuffle_fp16.safetensors "${SD_WEBUI_PATH}"/models/ControlNet
 __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11f1e_sd15_tile_fp16.safetensors "${SD_WEBUI_PATH}"/models/ControlNet
@@ -53,10 +53,10 @@ __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_
 __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1_annotator/resolve/main/hand_refiner/hr16/ControlNet-HandRefiner-pruned/hrnetv2_w64_imagenet_pretrained.pth "${SD_WEBUI_PATH}"/extensions/sd-webui-controlnet/annotator/downloads/hand_refiner/hr16/ControlNet-HandRefiner-pruned
 __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1_annotator/resolve/main/openpose/rtmpose-m_simcc-ap10k_pt-aic-coco_210e-256x256-7a041aa1_20230206.onnx "${SD_WEBUI_PATH}"/extensions/sd-webui-controlnet/annotator/downloads/openpose
 
-__term_sd_task_pre_ext_2 term_sd_echo "下载 Animatediff 模型" # AnimateDiff OFF
+__term_sd_task_pre_ext_2 term_sd_echo "下载 Animatediff 模型" # AnimateDiff(1.67g) OFF
 __term_sd_task_pre_ext_2 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/sd-webui-animatediff/v3_sd15_mm.ckpt "${SD_WEBUI_PATH}"/extensions/sd-webui-animatediff/model
 
-__term_sd_task_pre_ext_3 term_sd_echo "下载 Adetailer 模型" # Adetailer OFF
+__term_sd_task_pre_ext_3 term_sd_echo "下载 Adetailer 模型" # Adetailer(224.8m) OFF
 __term_sd_task_pre_ext_3 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/adetailer/deepfashion2_yolov8s-seg.pt "${SD_WEBUI_PATH}"/models/adetailer # adetailer模型
 __term_sd_task_pre_ext_3 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/adetailer/face_yolov8m.pt "${SD_WEBUI_PATH}"/models/adetailer
 __term_sd_task_pre_ext_3 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/adetailer/face_yolov8n.pt "${SD_WEBUI_PATH}"/models/adetailer
@@ -68,22 +68,22 @@ __term_sd_task_pre_ext_3 aria2_download https://huggingface.co/licyk/sd-extensio
 __term_sd_task_pre_ext_3 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/adetailer/person_yolov8n-seg.pt "${SD_WEBUI_PATH}"/models/adetailer
 __term_sd_task_pre_ext_3 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/adetailer/person_yolov8s-seg.pt "${SD_WEBUI_PATH}"/models/adetailer
 
-__term_sd_task_pre_ext_4 term_sd_echo "下载 IS-NET 模型" # IS-NET ON
+__term_sd_task_pre_ext_4 term_sd_echo "下载 IS-NET 模型" # IS-NET(176.6m) ON
 __term_sd_task_pre_ext_4 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/sd-webui-IS-NET-pro/isnet-general-use.pth "${SD_WEBUI_PATH}"/extensions/sd-webui-IS-NET-pro/saved_models/IS-Net
 
-__term_sd_task_pre_ext_5 term_sd_echo "下载 SD-WebUI-Segment-Anything模型" # Segment-Anything ON
+__term_sd_task_pre_ext_5 term_sd_echo "下载 SD-WebUI-Segment-Anything模型" # Segment-Anything(5.81g) ON
 __term_sd_task_pre_ext_5 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/sd-webui-segment-anything/sam_vit_h_4b8939.pth "${SD_WEBUI_PATH}"/extensions/sd-webui-segment-anything/models/sam
 __term_sd_task_pre_ext_5 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/sd-webui-segment-anything/sam_vit_l_0b3195.pth "${SD_WEBUI_PATH}"/extensions/sd-webui-segment-anything/models/sam
 __term_sd_task_pre_ext_5 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/sd-webui-segment-anything/sam_vit_b_01ec64.pth "${SD_WEBUI_PATH}"/extensions/sd-webui-segment-anything/models/sam
 __term_sd_task_pre_ext_5 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/sd-webui-segment-anything/groundingdino_swint_ogc.pth  "${SD_WEBUI_PATH}"/extensions/sd-webui-segment-anything/models/grounding-dino
 __term_sd_task_pre_ext_5 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/sd-webui-segment-anything/groundingdino_swinb_cogcoor.pth "${SD_WEBUI_PATH}"/extensions/sd-webui-segment-anything/models/grounding-dino
 
-__term_sd_task_pre_ext_6 term_sd_echo "下载 SD-WebUII-Inpaint-Anything 模型" # Inpaint-Anything ON
+__term_sd_task_pre_ext_6 term_sd_echo "下载 SD-WebUII-Inpaint-Anything 模型" # Inpaint-Anything(4.18g) ON
 __term_sd_task_pre_ext_6 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/sd-webui-segment-anything/sam_vit_h_4b8939.pth "${SD_WEBUI_PATH}"/extensions/sd-webui-inpaint-anything/models
 __term_sd_task_pre_ext_6 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/sd-webui-segment-anything/sam_vit_l_0b3195.pth "${SD_WEBUI_PATH}"/extensions/sd-webui-inpaint-anything/models
 __term_sd_task_pre_ext_6 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/sd-webui-segment-anything/sam_vit_b_01ec64.pth "${SD_WEBUI_PATH}"/extensions/sd-webui-inpaint-anything/models
 
-__term_sd_task_pre_ext_7 term_sd_echo "下载 SD-Forge-LayerDiffusion 模型" # LayerDiffusion ON
+__term_sd_task_pre_ext_7 term_sd_echo "下载 SD-Forge-LayerDiffusion 模型" # LayerDiffusion(10.29g) ON
 __term_sd_task_pre_ext_7 aria2_download https://huggingface.co/licyk/layerdiffusion/resolve/main/layer_xl_bg2ble.safetensors "${SD_WEBUI_PATH}"/models/layer_model
 __term_sd_task_pre_ext_7 aria2_download https://huggingface.co/licyk/layerdiffusion/resolve/main/layer_xl_bgble2fg.safetensors "${SD_WEBUI_PATH}"/models/layer_model
 __term_sd_task_pre_ext_7 aria2_download https://huggingface.co/licyk/layerdiffusion/resolve/main/layer_xl_fg2ble.safetensors "${SD_WEBUI_PATH}"/models/layer_model
@@ -93,10 +93,10 @@ __term_sd_task_pre_ext_7 aria2_download https://huggingface.co/licyk/layerdiffus
 __term_sd_task_pre_ext_7 aria2_download https://huggingface.co/licyk/layerdiffusion/resolve/main/vae_transparent_decoder.safetensors "${SD_WEBUI_PATH}"/models/layer_model
 __term_sd_task_pre_ext_7 aria2_download https://huggingface.co/licyk/layerdiffusion/resolve/main/vae_transparent_encoder.safetensors "${SD_WEBUI_PATH}"/models/layer_model
 
-__term_sd_task_pre_ext_8 term_sd_echo "下载 DanTagGen 模型" # DanTagGen OFF
+__term_sd_task_pre_ext_8 term_sd_echo "下载 DanTagGen 模型" # DanTagGen(1.53g) OFF
 __term_sd_task_pre_ext_8 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/a1111-sd-webui-dtg/DanTagGen-delta-rev2_ggml-model-Q6_K.gguf "${SD_WEBUI_PATH}"/extensions/a1111-sd-webui-dtg/models
 __term_sd_task_pre_ext_8 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/a1111-sd-webui-dtg/DanTagGen-delta-rev2_ggml-model-Q8_0.gguf "${SD_WEBUI_PATH}"/extensions/a1111-sd-webui-dtg/models
 __term_sd_task_pre_ext_8 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/a1111-sd-webui-dtg/DanTagGen-delta-rev2_ggml-model-f16.gguf "${SD_WEBUI_PATH}"/extensions/a1111-sd-webui-dtg/models
 
-__term_sd_task_pre_ext_9 term_sd_echo "下载 sd-webui-stablesr 模型" # StableSR ON
+__term_sd_task_pre_ext_9 term_sd_echo "下载 sd-webui-stablesr 模型" # StableSR(422.3m) ON
 __term_sd_task_pre_ext_9 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/sd-webui-stablesr/webui_768v_139.ckpt "${SD_WEBUI_PATH}"/extensions/sd-webui-stablesr/models

@@ -215,7 +215,7 @@ git_pull_repository() {
         git_auto_fix_pointer_offset "${path}" # 检测分支是否游离并修复
         git_get_latest_ver "${path}"
     else
-        term_sd_echo "$(basename "$(pwd)") 非 Git 安装, 无法更新"
+        term_sd_echo "$(basename "${path}") 非 Git 安装, 无法更新"
         return 10
     fi
 }
@@ -231,12 +231,15 @@ git_get_latest_ver() {
     local local_commit_hash
     local req
     local path
+    local name
 
     if [[ -z "$@" ]]; then
         path=$(pwd)
     else
         path=$@
     fi
+
+    name=$(basename "${path}")
 
     if is_git_repo "${path}"; then
         if [[ ! -z "$(git -C "${path}" submodule status)" ]]; then # 检测是否有子模块
@@ -245,10 +248,10 @@ git_get_latest_ver() {
             git -C "${path}" submodule init # 初始化 Git 子模块
         fi
 
-        term_sd_echo "拉取 $(basename "$(pwd)") 远端更新内容"
+        term_sd_echo "拉取 ${name} 远端更新内容"
         term_sd_try git -C "${path}" ${use_submodules} fetch
         if [[ "$?" == 0 ]]; then
-            term_sd_echo "应用 $(basename "$(pwd)") 远端更新内容"
+            term_sd_echo "应用 ${name} 远端更新内容"
             ref=$(git -C "${path}" symbolic-ref --quiet HEAD 2> /dev/null)
             origin_branch="origin/${ref#refs/heads/}"
             commit_hash=$(git -C "${path}" log "${origin_branch}" --max-count 1 --format="%h")
@@ -256,13 +259,13 @@ git_get_latest_ver() {
             git -C "${path}" reset ${use_submodules} --hard "${commit_hash}"
             req=$?
             if [[ "${commit_hash}" == "${local_commit_hash}" ]]; then
-                term_sd_echo "$(basename "$(pwd)") 已是最新"
+                term_sd_echo "${name} 已是最新"
             else
-                term_sd_echo "$(basename "$(pwd)") 版本变动: ${local_commit_hash} -> ${commit_hash}"
+                term_sd_echo "${name} 版本变动: ${local_commit_hash} -> ${commit_hash}"
             fi
             return ${req}
         else
-            term_sd_echo "拉取 $(basename "$(pwd)") 远端更新内容失败"
+            term_sd_echo "拉取 ${name} 远端更新内容失败"
             return 1
         fi
     fi
@@ -350,7 +353,7 @@ git_auto_fix_pointer_offset() {
     fi
 
     if ! git -C "${path}" symbolic-ref HEAD &> /dev/null; then
-        term_sd_echo "检测到 $(basename "$(pwd)") 出现分支游离, 尝试修复中"
+        term_sd_echo "检测到 $(basename "${path}") 出现分支游离, 尝试修复中"
         git_fix_pointer_offset "${path}"
     fi
 }

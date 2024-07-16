@@ -201,7 +201,7 @@ sd_webui_download_model_select() {
         --title "Stable-Diffusion-WebUI 安装" \
         --backtitle "Stable-Diffusion-WebUI 模型下载选项" \
         --ok-label "确认" --no-cancel \
-        --checklist "请选择需要下载的 Stable-Diffusion-WebUI 模型" \
+        --checklist "请选择需要下载的 Stable-Diffusion-WebUI 模型\n注:\n1、模型后面括号内数字为模型的大小\n2、需要根据自己的需求勾选需要下载的模型" \
         $(get_dialog_size_menu) \
         "_null_" "=====基础模型选择=====" ON \
         $(cat "${START_PATH}/term-sd/install/sd_webui/${sd_webui_model_list_file}") \

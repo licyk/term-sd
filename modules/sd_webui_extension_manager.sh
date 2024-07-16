@@ -72,7 +72,7 @@ sd_webui_extension_install() {
         3>&1 1>&2 2>&3)
 
     if [ ! -z "${repo_url}" ]; then
-        name$(basename "${repo_url}" | awk -F '.git' '{print $1}')
+        name=$(basename "${repo_url}" | awk -F '.git' '{print $1}')
         term_sd_echo "安装 ${name} 插件中"
         if ! term_sd_is_git_repository_exist "${repo_url}" ;then
             term_sd_try git clone --recurse-submodules "${repo_url}"

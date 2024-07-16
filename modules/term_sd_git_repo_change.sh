@@ -178,13 +178,13 @@ sd_webui_remote_revise() {
         term_sd_echo "开始替换 Stable-Diffusion-WebUI 更新源"
         # 执行替换功能
         # 主体部分
-        "${GIT_REPO_REMOTE_REVISE_CMD}"
+        ${GIT_REPO_REMOTE_REVISE_CMD}
 
         # 组件部分
         for i in "${SD_WEBUI_PATH}"/repositories/*; do
             if is_git_repo "${i}"; then
                 cd "${i}"
-                "${GIT_REPO_REMOTE_REVISE_CMD}"
+                ${GIT_REPO_REMOTE_REVISE_CMD}
                 cd - &> /dev/null
             fi
         done
@@ -193,7 +193,7 @@ sd_webui_remote_revise() {
         for i in "${SD_WEBUI_PATH}"/extensions/*; do
             if is_git_repo "${i}"; then
                 cd "${i}"
-                "${GIT_REPO_REMOTE_REVISE_CMD}"
+                ${GIT_REPO_REMOTE_REVISE_CMD}
                 cd - &> /dev/null
             fi
         done
@@ -221,13 +221,13 @@ comfyui_remote_revise() {
         term_sd_echo "开始替换 ComfyUI 更新源"
         # 执行替换功能
         # 主体部分
-        "${GIT_REPO_REMOTE_REVISE_CMD}"
+        ${GIT_REPO_REMOTE_REVISE_CMD}
 
         # 插件
         for i in "$COMFYUI_PATH"/web/extensions/*; do
             if is_git_repo "${i}"; then
                 cd "${i}"
-                "${GIT_REPO_REMOTE_REVISE_CMD}"
+                ${GIT_REPO_REMOTE_REVISE_CMD}
                 cd - &> /dev/null
             fi
         done
@@ -236,7 +236,7 @@ comfyui_remote_revise() {
         for i in "$COMFYUI_PATH"/custom_nodes/*; do
             if is_git_repo "${i}"; then
                 cd "${i}"
-                "${GIT_REPO_REMOTE_REVISE_CMD}"
+                ${GIT_REPO_REMOTE_REVISE_CMD}
                 cd - &> /dev/null
             fi
         done
@@ -261,13 +261,13 @@ comfyui_remote_revise() {
 lora_scripts_remote_revise() {
     if git_remote_url_select; then # 选择更新源
         term_sd_echo "开始替换 lora-scripts 更新源"
-        "${GIT_REPO_REMOTE_REVISE_CMD}"
+        ${GIT_REPO_REMOTE_REVISE_CMD}
         cd "$LORA_SCRIPTS_PATH"/frontend
-        "${GIT_REPO_REMOTE_REVISE_CMD}"
+        ${GIT_REPO_REMOTE_REVISE_CMD}
         cd "$LORA_SCRIPTS_PATH"/sd-scripts
-        "${GIT_REPO_REMOTE_REVISE_CMD}"
+        ${GIT_REPO_REMOTE_REVISE_CMD}
         cd "$LORA_SCRIPTS_PATH"/mikazuki/dataset-tag-editor
-        "${GIT_REPO_REMOTE_REVISE_CMD}"
+        ${GIT_REPO_REMOTE_REVISE_CMD}
         term_sd_echo "lora-scripts 更新源替换结束"
         term_sd_print_line
 
@@ -288,7 +288,7 @@ lora_scripts_remote_revise() {
 fooocus_remote_revise() {
     if git_remote_url_select; then # 选择更新源
         term_sd_echo "开始替换 Fooocus 更新源"
-        "${GIT_REPO_REMOTE_REVISE_CMD}"
+        ${GIT_REPO_REMOTE_REVISE_CMD}
         term_sd_echo "Fooocus 更新源替换结束"
         term_sd_print_line
 
@@ -309,7 +309,7 @@ fooocus_remote_revise() {
 kohya_ss_remote_revise() {
     if git_remote_url_select; then # 选择更新源
         term_sd_echo "开始替换 kohya_ss 更新源"
-        "${GIT_REPO_REMOTE_REVISE_CMD}"
+        ${GIT_REPO_REMOTE_REVISE_CMD}
         term_sd_echo "kohya_ss 更新源替换结束"
         term_sd_print_line
 

@@ -153,7 +153,7 @@ invokeai_download_model_select() {
         --title "InvokeAI 安装" \
         --backtitle "InvokeAI 模型下载选项" \
         --ok-label "确认" --no-cancel \
-        --checklist "请选择需要下载的 InvokeAI 模型" \
+        --checklist "请选择需要下载的 InvokeAI 模型\n注:\n1、模型后面括号内数字为模型的大小, 未有括号标注的模型大小均小于 0.1m\n2、不建议使用 Term-SD 下载 InvokeAI 的模型, 建议使用 InvokeAI 自带的模型管理器下载模型" \
         $(get_dialog_size_menu) \
         "_null_" "=====基础模型选择=====" ON \
         $(cat "${START_PATH}/term-sd/install/invokeai/${dialog_list_file}") \

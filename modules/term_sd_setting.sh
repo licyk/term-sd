@@ -205,7 +205,7 @@ term_sd_proxy_setting() {
                     --title "Term-SD" \
                     --backtitle "代理参数设置界面" \
                     --ok-label "确认" --cancel-label "取消" \
-                    --inputbox "请输入代理地址\n格式: <ip>:<port>" \
+                    --inputbox "请输入代理地址\n格式: <IP>:<端口>" \
                     $(get_dialog_size) \
                     "$(echo ${HTTP_PROXY} | awk -F '://' '{print $NF}')" \
                     3>&1 1>&2 2>&3)
@@ -221,7 +221,7 @@ term_sd_proxy_setting() {
                         --title "Term-SD" \
                         --backtitle "代理参数设置界面" \
                         --ok-label "确认" \
-                        --msgbox "代理地址: \"$HTTP_PROXY\"\n代理协议: \"$(echo $HTTP_PROXY | awk -F '://' '{print$NR}')\"\n设置代理完成" \
+                        --msgbox "代理地址: ${HTTP_PROXY}\n代理协议: $(echo ${HTTP_PROXY} | awk -F '://' '{print$NR}')\n设置代理完成" \
                         $(get_dialog_size)
                 fi
                 ;;
@@ -230,7 +230,7 @@ term_sd_proxy_setting() {
                     --title "Term-SD" \
                     --backtitle "代理参数设置界面" \
                     --ok-label "确认" --cancel-label "取消" \
-                    --inputbox "请输入代理地址\n格式: <ip>:<port>" \
+                    --inputbox "请输入代理地址\n格式: <IP>:<端口>" \
                     $(get_dialog_size) "$(echo ${HTTP_PROXY} | awk -F'://' '{print $NF}')" \
                     3>&1 1>&2 2>&3)
 
@@ -245,7 +245,7 @@ term_sd_proxy_setting() {
                         --title "Term-SD" \
                         --backtitle "代理参数设置界面" \
                         --ok-label "确认" \
-                        --msgbox "代理地址: \"${HTTP_PROXY}\"\n代理协议: \"$(echo ${HTTP_PROXY} | awk -F '://' '{print$NR}')\"\n设置代理完成" \
+                        --msgbox "代理地址: ${HTTP_PROXY}\n代理协议: $(echo ${HTTP_PROXY} | awk -F '://' '{print$NR}')\n设置代理完成" \
                         $(get_dialog_size)
                 fi
                 ;;
@@ -254,7 +254,7 @@ term_sd_proxy_setting() {
                     --title "Term-SD" \
                     --backtitle "代理参数设置界面" \
                     --ok-label "确认" --cancel-label "取消" \
-                    --inputbox "请输入代理地址\n格式: <ip>:<port>" \
+                    --inputbox "请输入代理地址\n格式: <IP>:<端口>" \
                     $(get_dialog_size) "$(echo ${HTTP_PROXY} | awk -F'://' '{print $NF}')" \
                     3>&1 1>&2 2>&3)
 
@@ -269,7 +269,7 @@ term_sd_proxy_setting() {
                         --title "Term-SD" \
                         --backtitle "代理参数设置界面" \
                         --ok-label "确认" \
-                        --msgbox "代理地址: \"${HTTP_PROXY}\"\n代理协议: \"$(echo ${HTTP_PROXY} | awk -F '://' '{print$NR}')\"\n设置代理完成" \
+                        --msgbox "代理地址: ${HTTP_PROXY}\n代理协议: $(echo ${HTTP_PROXY} | awk -F '://' '{print $NR}')\n设置代理完成" \
                         $(get_dialog_size)
                 fi
                 ;;
@@ -278,7 +278,7 @@ term_sd_proxy_setting() {
                     --title "Term-SD" \
                     --backtitle "代理参数设置界面" \
                     --ok-label "确认" --cancel-label "取消" \
-                    --inputbox "请输入代理地址\n格式: <protocol>://<ip>:<port>" \
+                    --inputbox "请输入代理地址\n格式: <代理协议>://<IP>:<端口>" \
                     $(get_dialog_size) \
                     "${HTTP_PROXY}" \
                     3>&1 1>&2 2>&3)
@@ -294,7 +294,7 @@ term_sd_proxy_setting() {
                         --title "Term-SD" \
                         --backtitle "代理参数设置界面" \
                         --ok-label "确认" \
-                        --msgbox "代理地址: \"${HTTP_PROXY}\"\n代理协议: \"$(echo ${HTTP_PROXY} | awk -F '://' '{print$NR}')\"\n设置代理完成" \
+                        --msgbox "代理地址: ${HTTP_PROXY}\n代理协议: $(echo ${HTTP_PROXY} | awk -F '://' '{print $NR}')\n设置代理完成" \
                         $(get_dialog_size)
                 fi
                 ;;
