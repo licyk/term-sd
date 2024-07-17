@@ -9,8 +9,6 @@ python_package_manager() {
     local i
     # 安装前的准备
     download_mirror_select # 下载镜像源选择
-    pip_install_mode_select # 安装方式选择
-    pip_force_reinstall_select # 强制安装选择
     pip_manage_package_methon_select # Python 软件包操作方式选择
 
     dialog_arg=$(dialog --erase-on-exit \

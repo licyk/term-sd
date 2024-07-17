@@ -102,12 +102,14 @@ term_sd_launch() {
     case "${TERM_SD_MANAGE_OBJECT}" in
         InvokeAI)
             fallback_numpy_version
-            invokeai-web --root "$INVOKEAI_PATH"/invokeai $(cat "${START_PATH}"/term-sd/config/${launch_sd_config})
+            invokeai-web --root "${INVOKEAI_PATH}"/invokeai $(cat "${START_PATH}/term-sd/config/${launch_sd_config}")
+            [[ ! "$?" == 0 ]] && term_sd_echo "${TERM_SD_MANAGE_OBJECT} 退出状态异常"
             ;;
         *)
             enter_venv
             fallback_numpy_version
-            term_sd_python $(cat "${START_PATH}"/term-sd/config/${launch_sd_config}) ${hf_mirror_for_fooocus}
+            term_sd_python $(cat "${START_PATH}/term-sd/config/${launch_sd_config}") ${hf_mirror_for_fooocus}
+            [[ ! "$?" == 0 ]] && term_sd_echo "${TERM_SD_MANAGE_OBJECT} 退出状态异常"
             exit_venv
             ;;
     esac
@@ -121,23 +123,31 @@ term_sd_launch() {
 
 # 回滚 Numpy 版本
 fallback_numpy_version() {
-    local np_ver
     local np_major_ver
 
-    np_ver=$(term_sd_pip freeze 2> /dev/null)
-    if [[ "$?" == 0 ]]; then
-        np_major_ver=$(echo ${np_ver} | grep "numpy==" | awk -F '==' '{print $NF}' | awk -F '.' '{print $1}')
+    np_major_ver=$(term_sd_python -c "$(py_get_numpy_ver)")
 
-        if (( np_major_ver > 1)); then
-            term_sd_echo "检测到 Numpy 版本过高, 尝试回退版本中"
-            install_python_package numpy==1.26.4
-            if [[ "$?" == 0 ]]; then
-                term_sd_echo "Numpy 版本回退成功"
-            else
-                term_sd_echo "Numpy 版本回退失败"
-            fi
+    if (( np_major_ver > 1)); then
+        term_sd_echo "检测到 Numpy 版本过高, 尝试回退版本中"
+        install_python_package numpy==1.26.4
+        if [[ "$?" == 0 ]]; then
+            term_sd_echo "Numpy 版本回退成功"
+        else
+            term_sd_echo "Numpy 版本回退失败"
         fi
     fi
+}
+
+# 获取 Numpy 大版本
+py_get_numpy_ver() {
+    cat<<EOF
+import importlib.metadata
+from importlib.metadata import version
+try:
+    print(version("numpy").split(".")[0])
+except importlib.metadata.PackageNotFoundError:
+    print("-1")
+EOF
 }
 
 # Aria2 下载工具
