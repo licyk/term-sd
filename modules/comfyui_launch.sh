@@ -15,7 +15,7 @@ comfyui_launch_args_setting() {
         --checklist "请选择 ComfyUI 启动参数, 确认之后将覆盖原有启动参数配置" \
         $(get_dialog_size_menu) \
         "1" "(listen) 开放远程连接" OFF \
-        "2" "(auto-launch) 启动 WebUI 完成后自动启动浏览器" ON \
+        "2" "(auto-launch) 启动 WebUI 完成后自动启动浏览器" OFF \
         "3" "(disable-auto-launch) 禁用在启动 WebUI 完成后自动启动浏览器" OFF \
         "4" "(cuda-malloc) 启用 CUDA 流顺序内存分配器 (Torch2.0+ 默认启用)" OFF \
         "5" "(disable-cuda-malloc) 禁用 CUDA 流顺序内存分配器" OFF \
@@ -28,7 +28,7 @@ comfyui_launch_args_setting() {
         "12" "(bf16-vae) 使用 BF16 精度运行 VAE" OFF \
         "13" "(disable-ipex-optimize) 禁用 IPEX 优化" OFF \
         "14" "(preview-method none) 不使用图片预览" OFF \
-        "15" "(preview-method auto) 自动选择图片预览方式" ON \
+        "15" "(preview-method auto) 自动选择图片预览方式" OFF \
         "16" "(preview-method latent2rgb) 使用 Latent2Rgb 图片预览" OFF \
         "17" "(preview-method taesd) 使用 TAESD 图片预览" OFF \
         "18" "(use-split-cross-attention) 使用 Split优化" OFF \
@@ -41,7 +41,7 @@ comfyui_launch_args_setting() {
         "25" "(lowvram) 使用显存优化 (将会降低生图速度)" OFF \
         "26" "(novram) 使用显存优化 (将会大量降低生图速度)" OFF \
         "27" "(cpu) 使用CPU进行生图" OFF \
-        "28" "(disable-smart-memory) 强制保持模型储存在显存中而不是自动卸载到内存中" ON \
+        "28" "(disable-smart-memory) 强制保持模型储存在显存中而不是自动卸载到内存中" OFF \
         "29" "(dont-print-server) 禁用日志输出" OFF \
         "30" "(quick-test-for-ci) 快速测试 CI" OFF \
         "31" "(windows-standalone-build) 启用 Windows 独占功能" OFF \

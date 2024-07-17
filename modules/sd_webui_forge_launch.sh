@@ -38,7 +38,7 @@ sd_webui_forge_launch_args_setting() {
         "22" "(upcast-sampling) 使用向上采样法提高精度" OFF \
         "23" "(share) 通过 Gradio 共享" OFF \
         "24" "(enable-insecure-extension-access) 允许在开放远程访问时安装插件" OFF \
-        "25" "(xformers) 尝试使用 xFormers 优化" ON \
+        "25" "(xformers) 尝试使用 xFormers 优化" OFF \
         "26" "(force-enable-xformers) 强制使用 xFormers 优化" OFF \
         "27" "(xformers-flash-attention) 使用 xFormers-Flash优化 (仅支持 SD2.x 以上)" OFF \
         "28" "(opt-split-attention) 使用 Split 优化" OFF \
@@ -56,13 +56,13 @@ sd_webui_forge_launch_args_setting() {
         "40" "(freeze-settings) 冻结 WebUI 设置" OFF \
         "41" "(gradio-debug) 以 Debug 模式启用 Gradio" OFF \
         "42" "(opt-channelslast) 使用 ChannelsLast 内存格式优化" OFF \
-        "43" "(autolaunch) 启动 WebUI 完成后自动启动浏览器" ON \
-        "44" "(theme dark) 使用黑暗主题" ON \
+        "43" "(autolaunch) 启动 WebUI 完成后自动启动浏览器" OFF \
+        "44" "(theme dark) 使用黑暗主题" OFF \
         "45" "(use-textbox-seed) 使用文本框在 WebUI 中生成的种子" OFF \
         "46" "(disable-console-progressbars) 禁用控制台进度条显示" OFF \
         "47" "(enable-console-prompts) 启用在生图时输出提示词到控制台" OFF \
         "48" "(disable-safe-unpickle) 禁用检查模型是否包含恶意代码" OFF \
-        "49" "(api) 启用 API" ON \
+        "49" "(api) 启用 API" OFF \
         "50" "(api-log) 启用输出所有 API 请求的日志记录" OFF \
         "51" "(nowebui) 不加载 WebUI 界面" OFF \
         "52" "(ui-debug-mode) 不加载模型启动 WebUI (UI Debug)" OFF \

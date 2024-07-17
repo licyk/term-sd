@@ -18,7 +18,7 @@ stable-diffusion-webui
     ├── ESRGAN              放大模型存放位置
     ├── GFPGAN              放大模型存放位置
     ├── hypernetworks       Hypernetworks 模型存放位置
-    ├── Lora                Lora 模型存放位置
+    ├── Lora                LoRA 模型存放位置
     ├── RealESRGAN          放大模型存放位置
     ├── Stable-diffusion    大模型存放位置
     └── VAE                 VAE 模型存放位置
@@ -33,7 +33,7 @@ ComfyUI
 │   ├── controlnet          ControlNet 模型存放位置
 │   ├── embeddings          Embeddings 模型存放位置
 │   ├── hypernetworks       Hypernetworks模型存放位置
-│   ├── loras               Lora 模型存放位置
+│   ├── loras               LoRA 模型存放位置
 │   ├── upscale_models      放大模型存放位置
 │   └── vae                 VAE 模型存放位置
 ├── output                  生成图片的保存位置
@@ -51,7 +51,7 @@ InvokeAI目录的部分说明（只列举比较重要的）：
 │   ├── sd-1                SD 1.5 模型的存放位置
 │   │   ├── controlnet      ControlNet 模型存放位置
 │   │   ├── embedding       Embeddings 模型存放位置
-│   │   ├── lora            Lora 模型存放位置
+│   │   ├── lora            LoRA 模型存放位置
 │   │   ├── main
 │   │   ├── onnx
 │   │   └── vae             VAE 模型存放位置
@@ -87,7 +87,7 @@ Fooocus
 │   ├── controlnet          ControlNet 模型存放位置
 │   ├── embeddings          Embeddings 模型存放位置
 │   ├── hypernetworks       Hypernetworks 模型存放位置
-│   ├── loras               Lora 模型存放位置
+│   ├── loras               LoRA 模型存放位置
 │   ├── upscale_models      放大模型存放位置
 │   └── vae                 VAE 模型存放位置
 ├── output                  生成图片的保存位置

@@ -31,6 +31,7 @@ Term-SD 在使用安装、管理 AI 软件的功能时，会使用准备功能�
 >[!NOTE]
 >这些功能会经常出现
 
+
 ### 1、安装镜像选项
 有以下选项：
 - 1、启用 Pip 镜像源：Term-SD 调用 Pip 下载 Python 软件包时使用国内镜像源进行下载
@@ -45,10 +46,11 @@ Term-SD 在使用安装、管理 AI 软件的功能时，会使用准备功能�
 一般这些选项保持默认即可
 
 >[!NOTE]
->1、`强制使用pip`一般不需要启用，该选项向 Pip 传达`--break-system-packages`参数进行安装，忽略系统的警告，参考：https://stackoverflow.com/questions/75602063/pip-install-r-requirements-txt-is-failing-this-environment-is-externally-mana  
->2、在使用`虚拟网卡模式`或者`TUN模式`的代理软件时，`HuggingFace / Github 独占代理`功能无效，因为代理软件会强制让所有网络流量走代理  
->3、Github 镜像源有多个，可以根据 Term-SD 的`Term-SD 设置` -> `代理设置` -> `网络连接测试`的测试结果来选择，或者勾选`Github镜像源自动选择`让 Term-SD 自动选择  
->4、当所有 Github 镜像源都不可用时，只能把所有的`启用github镜像源`、`github镜像源自动选择`选项取消勾选
+>1、`强制使用 Pip`一般不需要启用，该选项向 Pip 传达 --break-system-packages 参数进行安装，忽略系统的警告，参考https://stackoverflow.com/questions/75602063/pip-install-r-requirements-txt-is-failing-this-environment-is-externally-mana  
+>2、在使用驱动模式或者 TUN 模式的代理软件时，`HuggingFace / Github 独占代理`功能无效，因为代理软件会强制让所有网络流量走代理  
+>3、Github 镜像源有多个，可以根据 Term-SD 的`设置`->`网络连接测试`的测试结果来选择，或者勾选`Github 镜像源自动选择`让 Term-SD 自动选择  
+>4、当所有 Github 镜像源都不可用时，只能把所有的`启用 Github 镜像源`、`Github 镜像源自动选择`选项取消勾选
+
 
 ### 2、PyTorch 版本选项
 有以下版本组合：
@@ -87,14 +89,17 @@ Term-SD 在使用安装、管理 AI 软件的功能时，会使用准备功能�
 - 如果想要使用 CPU 进行跑图，选择 Torch + CPU 的版本
 - 一般来说找到对应显卡的型号后，选择最新版本的就行
 
+
 ### 3、Pip 安装模式选项
-该功能用于选择 Pip 的安装模式，可解决某些情况下安装 Python 软件包失败的问题，如果不在意安装时间，可以选择标准构建安装（--use-pep517），保证安装成功；选择常规安装（setup.py）也可以，安装速度会比较快，但可能会出现安装失败的问题  
-该界面共有2种模式可以选择
+该功能用于选择 Pip 的安装模式，可解决某些情况下安装 Python 软件包失败的问题，如果不在意安装时间，可以选择标准构建安装（--use-pep517），保证安装成功；选择常规安装（setup.py）也可以，安装速度会比较快，但可能会出现安装失败的问题
+
+该界面共有2种模式可以选择：
 - 1、常规安装（setup.py）：使用传统方式进行安装，默认使用二进制软件包进行安装，速度较快
 - 2、标准构建安装（--use-pep517）：使用标准编译安装，使用源码编译成二进制软件包再进行安装，耗时比较久，但可以解决一些 Python 软件包安装失败的问题
 
 >[!NOTE]
 >在 Linux 系统中使用常规安装（setup.py）可能会出现安装失败的问题，所以推荐使用标准构建安装（--use-pep517）
+
 
 ### 4、Pip 操作方式
 该功能用于选择对 Python 软件包的操作方式  
@@ -112,14 +117,17 @@ Term-SD 在使用安装、管理 AI 软件的功能时，会使用准备功能�
 >[!NOTE]
 >该选项仅在`Python 软件包安装 / 重装 / 卸载`功能出现
 
+
 ### 5、Pip 强制重装选择
 该功能用于在 Pip 发现将要安装的 Python 软件包已存在且版本相同时，是否强制重新安装  
 该界面有以下选项
 - 1、安装：正常安装 Python 软件包，当发现将要安装的 Python 软件包已存在且版本相同时，跳过安装
 - 2、强制重装：当发现将要安装的 Python 软件包已存在且版本相同时，强制重新安装
 
+
 ### 6、安装确认选项
 该功能用于展示部分安装信息，并确认是否安装
+
 
 ### 7、安装进度恢复选项
 当 Term-SD 在因为某些原因中断安装进程时，再次进入管理界面即可恢复上次的安装进度（Term-SD 依然会从头遍历安装命令，但已经执行成功的命令将不会执行）  
@@ -198,12 +206,14 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 >2、当 AI 软件安装好后，能启动且无报错时，最好使用`依赖库版本管理`将依赖库的软件包版本备份下来，当AI软件因为软件包版本问题导致AI软件出现报错时就可以用这个功能恢复原来的依赖库版本
 >3、Term-SD 支持自定义 AI 软件的安装目录，可以在 Term-SD 的`设置` -> `自定义安装路径`中进行设置
 
+
 ### Stable Diffusion WebUI 安装
 >[!NOTE]
 >Stable Diffusion WebUI 是一款功能丰富，社区资源丰富的 AI 绘画软件，支持扩展
 
 选中Stable Diffusion WebUI 管理后，Term-SD 会检测该 AI 是否安装，如果没有安装，Term-SD 会提示用户是否进行安装  
 选择`是`之后，Term-SD 会进入安装准备选项
+
 
 #### 1、安装镜像选项
 第一个是安装镜像选项，共有以下选项
@@ -219,10 +229,11 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 一般这些选项保持默认即可
 
 >[!NOTE]
->1、`强制使用pip`一般不需要启用，该选项向pip传达--break-system-packages参数进行安装，忽略系统的警告，参考https://stackoverflow.com/questions/75602063/pip-install-r-requirements-txt-is-failing-this-environment-is-externally-mana  
->2、在使用驱动模式或者TUN模式的代理软件时，`huggingface/github独占代理`功能无效，因为代理软件会强制让所有网络流量走代理  
->3、github镜像源有多个，可以根据Term-SD的`设置`->`网络连接测试`的测试结果来选择，或者勾选`github镜像源自动选择`让Term-SD自动选择  
->4、当所有github镜像源都不可用时，只能把所有的`启用github镜像源`、`github镜像源自动选择`选项取消勾选
+>1、`强制使用 Pip`一般不需要启用，该选项向 Pip 传达 --break-system-packages 参数进行安装，忽略系统的警告，参考https://stackoverflow.com/questions/75602063/pip-install-r-requirements-txt-is-failing-this-environment-is-externally-mana  
+>2、在使用驱动模式或者 TUN 模式的代理软件时，`HuggingFace / Github 独占代理`功能无效，因为代理软件会强制让所有网络流量走代理  
+>3、Github 镜像源有多个，可以根据 Term-SD 的`设置`->`网络连接测试`的测试结果来选择，或者勾选`Github 镜像源自动选择`让 Term-SD 自动选择  
+>4、当所有 Github 镜像源都不可用时，只能把所有的`启用 Github 镜像源`、`Github 镜像源自动选择`选项取消勾选
+
 
 #### 2、PyTorch 版本选择
 第二个是PyTorch版本的选择界面，有以下版本组合
@@ -261,9 +272,11 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 - 如果想要使用 CPU 进行跑图，选择 Torch + CPU 的版本
 - 一般来说找到对应显卡的型号后，选择最新版本的就行
 
+
 #### 3、插件选择
 第三个是插件选择，Term-SD 默认已经勾选一些比较有用的插件，可以根据个人需求进行选择  
 在 Term-SD 的帮助列表中可以查看插件功能的描述，了解插件的用途
+
 
 #### 4、模型选择
 第四个时模型选择，这里可以选择 Term-SD 要下载的模型，Term-SD 默认帮你勾选了一些模型，可根据自己需求来选择
@@ -279,13 +292,16 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 >[!NOTE]
 >在Linux系统中使用常规安装（setup.py）可能会出现安装失败的问题，所以推荐使用标准构建安装（--use-pep517）
 
+
 #### 6、安装确认
 最后一个是安装确认，选择`是`开始安装  
 安装时间根据网络速度和电脑性能决定
 
 >[!NOTE]
 >1、Stable Diffusion WebUI 安装成功后，可以前往 Stable Diffusion WebUI 设置调成中文界面（前提是`stable-diffusion-webui-localization-zh_Hans`扩展已经成功安装，在Stable Diffusion WebUI的`Extensions（扩展）`选项卡中查看）  
->2、在 Stable Diffusion WebUI 界面点击`Settings`->`User interface`->`Localization`，点击右边的刷新按钮，再选择（防止不显示出来），在列表中选择`zh-Hans（stable）`，再点击上面的`Apply settings`，最后点击`Reload UI`生效
+>2、在 Stable Diffusion WebUI 界面点击`Settings`->`User interface`->`Localization`，点击右边的刷新按钮，再选择（防止不显示出来），在列表中选择`zh-Hans（stable）`，再点击上面的`Apply settings`，最后点击`Reload UI`生效  
+>3、首次启动 Stable Diffusion WebUI 时在检查依赖完整性过程耗时较长，需要耐心等待。
+
 
 ### ComfyUI 安装
 >[!NOTE]
@@ -294,11 +310,14 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 选中 ComfyUI 管理后，Term-SD 会检测该 AI 是否安装，如果没有安装，Term-SD 会提示用户是否进行安装  
 选择`是`之后，Term-SD 会进入安装准备选项
 
+
 #### 1、安装镜像选项
 和 Stable Diffusion WebUI 的选择方法相同
 
+
 #### 2、PyTorch 版本选择
 和 Stable Diffusion WebUI 的选择方法相同
+
 
 #### 3、插件安装
 第三个是插件选择，这里不需要勾选任何插件，直接回车进入自定义节点的安装选项
@@ -307,15 +326,19 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 >保留这个选项的原因是因为 ComfyUI 确实存在这个东西，只不过接近废弃  
 >参考：https://github.com/comfyanonymous/ComfyUI/discussions/631
 
+
 #### 4、自定义节点安装
 第四个是自定义节点选择，Term-SD 默认已经勾选一些比较有用的自定义节点，可以根据个人需求进行选择  
 在 Term-SD 的帮助列表中可以查看自定义节点功能的描述，了解自定义节点的用途
 
+
 #### 5、模型选择
 和 Stable Diffusion WebUI 的选择方法相同
 
+
 #### 6、Pip 安装模式选择
 和 Stable Diffusion WebUI 的选择方法相同
+
 
 #### 7、安装确认
 最后一个是安装确认，选择`是`开始安装  
@@ -326,6 +349,7 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 >2、如果扩展`ComfyUI-Manager`成功安装，可以不用执行`安装全部全部自定义节点依赖`，因为`ComfyUI-Manager`能够自动为扩展安装依赖（`ComfyUI-Manager`把ComfyUI缺失的这个功能给补上了（？），不过`ComfyUI-Manager`很多情况下不会自动为其它扩展装依赖，所以需要在`ComfyUI管理`->`自定义节点管理`里运行`安装全部全部自定义节点依赖`手动装一下）。
 >3、设置中文：进入 ComfyUI 界面，点击右上角的齿轮图标进入设置，找到`AGLTranslation-langualge`，选择`中文[Chinese Simplified]`，ComfyUI 将会自动切换中文
 
+
 ### InvokeAI 安装
 >[!NOTE]
 >InvokeAI 是一款操作界面简单的 AI 绘画软件，功能较少，但拥有特色功能`统一画布`，用户可以在画布上不断扩展图片的大小。  
@@ -334,22 +358,28 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 选中 InvokeAI 管理后，Term-SD 会检测该 AI 是否安装，如果没有安装，Term-SD 会提示用户是否进行安装  
 选择`是`之后，Term-SD 会进入安装准备选项
 
+
 #### 1、安装镜像选项
 和 Stable Diffusion WebUI 的选择方法相同
+
 
 #### 2、PyTorch 版本选择
 和 Stable Diffusion WebUI 的选择方法相同
 
-#### 3、Pip安 装模式选择
+
+#### 3、Pip 安装模式选择
 和 Stable Diffusion WebUI 的选择方法相同
+
 
 #### 4、安装确认
 最后一个是安装确认，选择`是`开始安装  
 安装时间根据网络速度和电脑性能决定
 
 >[!NOTE]
->1、安装完成后，在启动选项选择`(web)`启动 WebUI 界面
->2、设置中文：进入 InvokeAI 界面，点击右上角的三条横杠的图标，点击`Settings`，然后找到`Language`选项，点击文字下方的选项框，找到`简体中文`并选中，InvokeAI 就会把界面切换成中文
+>1、安装完成后，在启动选项选择`(web)`启动 WebUI 界面  
+>2、设置中文：进入 InvokeAI 界面，点击右上角的三条横杠的图标，点击`Settings`，然后找到`Language`选项，点击文字下方的选项框，找到`简体中文`并选中，InvokeAI 就会把界面切换成中文  
+>3、如果发现生图速度较慢，显卡没有占用，可能是 PyTorch 的版本出现了问题，需要使用管理界面中`重新安装 PyTorch`功能选择正确的 PyTorch 版本进行安装
+
 
 ### Fooocus 安装
 >[!NOTE]
@@ -358,14 +388,18 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 选中 Fooocus 管理后，Term-SD 会检测该 AI 是否安装，如果没有安装，Term-SD 会提示用户是否进行安装  
 选择`是`之后，Term-SD 会进入安装准备选项
 
+
 #### 1、安装镜像选项
 和 Stable Diffusion WebUI 的选择方法相同
+
 
 #### 2、PyTorch 版本选择
 和 Stable Diffusion WebUI 的选择方法相同
 
+
 #### 3、Pip 安装模式选择
 和 Stable Diffusion WebUI 的选择方法相同
+
 
 #### 4、安装确认
 最后一个是安装确认，选择`是`开始安装  
@@ -379,14 +413,18 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 选中 lora-scripts 管理后，Term-SD 会检测该 AI 是否安装，如果没有安装，Term-SD 会提示用户是否进行安装  
 选择`是`之后，Term-SD 会进入安装准备选项
 
+
 #### 1、安装镜像选项
 和 Stable Diffusion WebUI 的选择方法相同
+
 
 #### 2、PyTorch 版本选择
 和 Stable Diffusion WebUI 的选择方法相同
 
+
 #### 3、Pip 安装模式选择
 和 Stable Diffusion WebUI 的选择方法相同
+
 
 #### 4、安装确认
 最后一个是安装确认，选择`是`开始安装  
@@ -400,14 +438,18 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 选中 kohya_ss 管理后，Term-SD 会检测该 AI 是否安装，如果没有安装，Term-SD 会提示用户是否进行安装  
 选择`是`之后，Term-SD 会进入安装准备选项
 
+
 #### 1、安装镜像选项
 和 Stable Diffusion WebUI 的选择方法相同
+
 
 #### 2、PyTorch 版本选择
 和 Stable Diffusion WebUI 的选择方法相同
 
+
 #### 3、Pip 安装模式选择
 和 Stable Diffusion WebUI 的选择方法相同
+
 
 #### 4、安装确认
 最后一个是安装确认，选择`是`开始安装  
@@ -419,6 +461,7 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 当 AI 软件成功安装后，就可以使用 Term-SD 的管理功能来启动或者管理 AI 了  
 在 6 个 AI 管理界面中，包含一些功能对 AI 进行管理
 
+
 ### 1、更新
 更新 AI 软件。
 
@@ -426,11 +469,14 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 >1、有时候扩展和 AI 软件的版本不匹配时（AI 软件的版本很新，而扩展的版本很旧），就容易出现报错，此时就可以通过更新解决  
 >2、在出现 Git 分支游离时，`修复更新`将在更新时自动运行
 
+
 ### 2、卸载
 卸载 AI 软件，且该操作无法恢复，请谨慎选择
 
+
 ### 3、修复更新
 该功能用于修复 Git 分支游离或者还原被修改的源代码，使用时将会把分支切换成主分支并还原被修改的源代码
+
 
 ### 4、插件管理
 该功能用于管理插件，包含以下功能
@@ -451,6 +497,7 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 >[!NOTE]
 >1、如果安装了`ComfyUI-Manager`这个扩展，就不需要使用`安装全部插件依赖`这个功能了（`ComfyUI-Manager`把ComfyUI缺失的这个功能给补上了（？），不过`ComfyUI-Manager`有时候不会自动为其它扩展装依赖，这时就使用`安装全部插件依赖`来手动安装依赖）  
 >2、有时候扩展和 AI 软件的版本不匹配时（AI 软件的版本很新，而扩展的版本很旧），就容易出现报错，此时就可以通过更新解决
+
 
 ### 5、自定义节点管理
 用于管理自定义节点，包含以下功能
@@ -474,14 +521,17 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 >1、如果安装了`ComfyUI-Manager`这个扩展，就不需要使用`安装全部自定义节点依赖`这个功能了（`ComfyUI-Manager`把ComfyUI缺失的这个功能给补上了，不过`ComfyUI-Manager`有时候不会自动为其它扩展装依赖，这时就使用`安装全部自定义节点依赖`来手动安装依赖）    
 >2、有时候扩展和 AI 软件的版本不匹配时（AI 软件的版本很新，而扩展的版本很旧），就容易出现报错，此时就可以通过更新解决
 
+
 ### 6、切换版本
 该功能将会列出所有版本的 Hash 值和对应的日期，可根据这些进行版本选择并切换过去
+
 
 ### 7、更新源切换
 该功能用于切换更新源，加速下载；当某个 Github 镜像源无法使用导致无法更新插件时，也可以使用该功能将更新源切换到可用的 Github 镜像源或者切换成 Github 源
 
 >[!NOTE]
 >有时候某个 Github 镜像源无法使用的时候，使用更新功能时就会导致更新失败，可以通过该功能把更新源切换成其他的 Github 镜像源，如果镜像源都无法使用时，就把更新源切换成 Github 源
+
 
 ### 8、启动
 该功能用于启动 AI 软件  
@@ -490,14 +540,17 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 >1、在 Stable Diffusion WebUI、ComfyUI、InvokeAI，Fooocus 中可以选择`配置预设启动参数`或者`修改自定义启动参数`，从而使用一些功能  
 >2、当使用`配置预设启动参数`来配置启动参数时，将会删除之前设置的启动参数。而使用`修改自定义启动参数`可以修改上次设置的启动参数
 
+
 ### 9、更新依赖
 该功能用于更新 AI 软件依赖的 Python 软件包，可用于解决 AI 软件的部分依赖版本太旧导致运行报错，一般用不上
 
 >[!NOTE]
 >有时通过更新 AI 软件依赖可解决报错问题
 
+
 ### 10、重新安装
 该功能用于重新执行 AI 软件的安装过程，一般用不上
+
 
 ### 11、重新安装 PyTorch
 该功能用于切换 PyTorch 的版本  
@@ -508,12 +561,14 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 >[!NOTE]
 >在重新安装 PyTorch 前，Term-SD 将弹出 PyTorch 版本的选择、是否使用标准编译安装、是否使用强制安装的的选项，选择完成后会弹出确认安装的选项，选择确定进行安装
 
+
 ### 12、修复虚拟环境
 该功能用于修复生成 AI 软件使用的虚拟环境，一般在移动 AI 软件的位置，AI 软件运行出现问题后才用
 
 >[!NOTE]
 >1、虚拟环境在移动位置后就出现问题，这是一个特性。当然这个功能可以解决这个问题  
 >2、该功能已改成自动执行，当检测到虚拟环境出现问题时将自动执行修复
+
 
 ### 13、重新构建虚拟环境
 该功能用于重新构建 AI 软件使用的虚拟环境，一般用在移动AI软件的位置后、AI 软件运行出现报错（有一些时候是 Python 依赖库出现了版本错误或者损坏，或者装了一些插件后出现问题，删除插件后问题依然没有解决）、安装 AI 软件前禁用了虚拟环境，安装后启用了虚拟环境，需要修复虚拟环境  
@@ -522,11 +577,13 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 >[!NOTE]
 >这个功能可以解决环境出现严重问题、环境因为安装一些东西而炸掉。如果这个功能还不能解决报错，有可能是因为 AI 本体和插件的版本冲突， Python 版本过新或者过旧等问题。在这种情况下只能自行查找原因
 
+
 ### 14、分支切换
 >[!NOTE]
 >仅限Stable Diffusion WebUI
 
 该功能用于把`AUTOMATIC1111/Stable Diffusion WebUI`的分支切换成`vladmandic/SD.NEXT`或者`lshqqytiger/Stable Diffusion WebUI-DirectML`（或者切换回来），或者切换成主分支或者测试分支
+
 
 ### 15、Python 软件包安装 / 重装 / 卸载
 该功能用于安装/重装/卸载 Python 软件包，处理 Python 软件包的问题  
@@ -551,11 +608,13 @@ xformers==0.0.21 numpy
 numpy -U
 ```
 
+
 ### 16、依赖库版本管理
 该功能用于记录 Python 依赖库的版本，在 AI 软件运行正常时，可以用该功能记录 Python 依赖库的各个软件包版本，当因为装插件等导致依赖库的软件包版本出现错误而导致报错时，可用该功能恢复原来依赖库的各个软件包版本，从而解决报错
 
 >[!NOTE]
 >比如安装 TensorRT 前，先使用这个功能备份依赖库的版本，然后再安装 TensorRT。当 TensorRT 把依赖库环境搞炸的时候（有概率），把 TernsorRT 卸载，并使用该功能恢复依赖库。如果还没恢复，只能使用`重新构建虚拟环境`来修复
+
 
 ### 17、重新安装后端组件
 >[!NOTE]
@@ -581,8 +640,10 @@ numpy -U
 ## Term-SD 设置
 该界面提供了各种配置运行环境的设置，设置如下：
 
+
 ### 虚拟环境设置
 配置 Term-SD 在安装，管理 AI 时是否使用虚拟环境，建议保持启用（默认）。虚拟环境创建了一个隔离环境，保证不同的 AI 软件的 Python 依赖库不会互相干扰，也防止系统中的 Python 依赖库不会互相干扰，因为 AI 软件对同一个 Python 软件包的要求版本不一致
+
 
 ### Pip 镜像源设置 (配置文件)
 该功能通过修改 Pip 配置文件来修改pip的下载源，而 Term-SD 也包含另一个修改 Pip 镜像源的功能`Pip 镜像源设置 (环境变量)`（环境变量的优先级比配置文件高，所以 Pip 优先使用环境变量的配置），也是类似的功能，只不过不需要修改 Pip 配置文件，个人建议这个设置不用调（因为 Term-SD 默认通过 Pip 镜像源设置(环境变量)来设置 Pip 镜像源）  
@@ -591,14 +652,17 @@ numpy -U
 - 2、设置国内镜像源：将 Pip 的下载源切换成国内镜像源，解决官方源下载慢或者下载失败的问题，推荐选择
 - 3、删除镜像源配置：将 Pip 的下载源配置清除
 
+
 ### Pip 镜像源设置 (环境变量)
 该功能通过设置环境变量来设置 Pip 镜像源（环境变量设置的优先级比配置文件的设置高），而该设置默认选择国内的镜像源，所以一般来说不用修改
 设置中有以下选项
 - 1、设置官方源：将 Pip 的下载源切换成官方源，但可能会导致下载慢或者下载失败的问题
 - 2、设置国内镜像源：将 Pip 的下载源切换成国内镜像源，解决官方源下载慢或者下载失败的问题，推荐选择
 
+
 ### Pip 缓存清理
 显示 Pip 下载软件包产生的缓存路径和大小，也可以清理 Pip 下载 Python 软件包产生的缓存
+
 
 ### 代理设置
 该功能为了设置下载时使用的网络代理，解决部分下载源下载失败的问题，因为一些代理软件的代理模式并不能让终端环境使用代理，除了`TUN模式`或者`虚拟网卡模式`可以让终端环境使用代理。一般代理软件都会开放一个 IP 和端口用于代理，Term-SD 可以通过手动设置 IP 和端口使终端环境使用代理，解决 AI 软件因无法连接到部分地址（如HuggingFace）而导致报错。对于有`TUN模式`或者`虚拟网卡模式`的代理软件，个人建议不使用这类模式，因为这会让 Term-SD 的所有流量走代理，增大代理流量的消耗（代理流量多的可以不用在意），所以建议使用该功能设置代理  
@@ -632,17 +696,25 @@ ip：`127.0.0.1`
 >2、Term-SD 和 AI 软件的运行环境为终端，而终端并不会直接使用代理，所以需要手动设置。这是因为当系统配置了代理后，是否使用系统的代理由软件自己决定，比如浏览器就使用系统的代理，而终端不使用系统的代理，它使用代理是通过设置环境变量。  
 >有关终端设置代理的方法可参考https://blog.csdn.net/Dancen/article/details/128045261
 
+
 ### Github 镜像源设置
 该功能用于设置全局的 Github 的镜像源，解决 Github 无法访问导致插件下载失败或者是插件更新失败的问题
 
+如果需要设置 Github 镜像源，建议选择`设置动态 Github 镜像源`，让 Term-SD 自动寻找可用的 Github 镜像源。
+
+
 ### HuggingFace 镜像源设置
 该功能用于设置全局的 HuggingFace 的镜像源，解决无代理时 HuggingFace 无法访问导致某些报错问题，如 Tagger 插件无法下载反推模型且没有代理来解决这个问题时，就可以通过设置全局的 HuggingFace 的镜像源来解决
+
+如果需要设置 HuggingFace 镜像源，建议选择`设置动态 HuggingFace 镜像源`，让 Term-SD 自动寻找可用的 HuggingFace 镜像源。
+
 
 ### 命令执行监测设置
 该功能用于监测命令的运行情况，若设置了重试次数，Term-SD 将重试执行失败的命令(有些命令需要联网，在网络不稳定的时候容易导致命令执行失败)，保证命令执行成功
 
 >[!NOTE]
 >Term-SD 在安装成功后默认启用并设置为 3
+
 
 ### Term-SD 安装模式
 该功能用于设置 Term-SD 安装 AI 软件的工作模式。当启用`严格模式`后，Term-SD 在安转 AI 软件时出现执行失败的命令时将停止安装进程(Term-SD 支持断点恢复，可恢复上次安装进程中断的位置)，而`宽容模式`在安转 AI 软件时出现执行失败的命令时忽略执行失败的命令继续执行完成安装任务。默认设置为`严格模式`  
@@ -655,14 +727,20 @@ ip：`127.0.0.1`
 >2、`严格模式`这个模式主要用于防止意外结果发生的，比如框架没有能够成功下载下来，之后 Term-SD 执行其他的命令时，就有可能导致其他文件散落在安装目录中（不会清理电脑垃圾的遇到这种问题还是很头疼的）  
 >3、`严格模式`搭配上 Term-SD 的伪断点恢复功能（只为 AI 软件的安装设计了这个功能），可以在安装中断后重新恢复安装进度
 
+
 ### Aria2 线程设置
 该功能用于增加 Term-SD 在使用 Aria2 下载模型时的线程数，在一定程度上提高下载速度
+
+>[!NOTE]
+>Term-SD 在安装成功后默认启用并设置为 16
+
 
 ### 缓存重定向设置
 该功能将会把 AI 软件产生的缓存重定向至 Term-SD 目录中，位于 cache 文件夹，不过有些 AI 软件会把模型下载到缓存目录中，存在于`unet`文件夹和`huggingface`文件夹中，在清理缓存中需要注意
 
 >[!NOTE]
 >该设置默认启用，为了方便清理 AI 软件产生的缓存
+
 
 ### CUDA 内存分配设置
 该功能用于设置 CUDA 分配显存使用的分配器，当 CUDA 版本大于 11.4+ 且 PyTorch 版本大于 2.0.0 时，可以设置为`CUDA(11.4+) 内置异步分配器`，加速 AI 软件的运行，否则设置为`PyTorch 原生分配器`或者不设置  
@@ -673,6 +751,7 @@ ip：`127.0.0.1`
 
 >[!NOTE]
 >该功能仅限在 Nvidia 显卡上使用
+
 
 ### 自定义安装路径
 该功能用于自定义 AI 软件的安装路径，当保持默认时， AI 软件的安装路径与 Term-SD 所在路径同级  
@@ -691,14 +770,17 @@ ip：`127.0.0.1`
 >[!NOTE]
 >路径最好使用绝对路径（目前没有见过哪个软件使用相对路径来安装软件的）  
 
+
 ### 空间占用分析
 该功能用于统计各个 AI 软件的空间占用和 Term-SD 重定向的缓存占用情况
 
 >[!NOTE]
 >统计占用的时间可能会很长
 
+
 ### 网络连接测试
 测试网络环境，用于测试代理是否可用。该功能将会测试网络连接是否正常，并测试 Google，HuggingFace，Github，Ghproxy 等能否访问。在安装时出现的`代理设置`中，有的 Github 镜像源可能无法访问，可以通过该功能查看哪些镜像源可用
+
 
 ### 卸载 Term-SD
 卸载 Term-SD 本体程序，保留已下载的 AI 软件
@@ -724,8 +806,10 @@ Term-SD 包含了一些扩展脚本，扩充 Term-SD 的功能
 >[!NOTE]
 >如果需要使用扩展脚本，则在启动 Term-SD 前加入`--extra`启动参数，或者`--extra <script_name>`即可使用扩展脚本
 
+
 ### 启动参数
 在使用命令 Term-SD 时，可以添加启动参数来使用 Term-SD 额外的功能
+
 
 #### 启动参数的使用方法
 ```
@@ -735,6 +819,7 @@ Term-SD 包含了一些扩展脚本，扩充 Term-SD 的功能
 >[!NOTE]
 >中括号`[]`仅用来展示，在使用的时候不要输入进去  
 当使用`--quick-cmd`安装了快捷命令，可将`./term-sd.sh`替换成`term_sd`或者`tsd`
+
 
 #### 启动参数的功能解析
 - 1、help

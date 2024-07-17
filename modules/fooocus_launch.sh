@@ -52,7 +52,7 @@ fooocus_launch_args_setting() {
         "36" "(debug-mode) 启用 Debug 模式" OFF \
         "37" "(is-windows-embedded-python) 启用 Windows 独占功能" OFF \
         "38" "(disable-server-info) 禁用服务端信息输出" OFF \
-        "39" "(language zh) 启用中文" ON \
+        "39" "(language zh) 启用中文" OFF \
         "40" "(theme dark) 使用黑暗主题" OFF \
         "41" "(disable-image-log) 禁用将图像和日志写入硬盘" OFF \
         "42" "(disable-analytics) 禁用 Gradio 分析" OFF \
@@ -61,12 +61,12 @@ fooocus_launch_args_setting() {
         "45" "(preset lcm) 使用 LCM 模型预设" OFF \
         "46" "(preset anime) 使用 Anime 模型预设" OFF \
         "47" "(preset realistic) 使用 Realistic 模型预设" OFF \
-        "48" "(preset term_sd) 使用 Term-SD 模型预设" ON \
+        "48" "(preset term_sd) 使用 Term-SD 模型预设" OFF \
         "49" "(share) 启用 Gradio 共享" OFF \
-        "50" "(disable-offload-from-vram) 禁用显存自动卸载" ON \
+        "50" "(disable-offload-from-vram) 禁用显存自动卸载" OFF \
         "51" "(multi-user) 启用多用户支持" OFF \
         "52" "(disable-image-log) 禁用保存图片日志" OFF \
-        "53" "(disable-analytics) 禁用 Gradio 分析" ON \
+        "53" "(disable-analytics) 禁用 Gradio 分析" OFF \
         "54" "(disable-metadata) 禁用保存生图信息到图片中" OFF \
         "55" "(disable-preset-download) 禁用下载预设中的模型" OFF \
         "56" "(enable-describe-uov-image) 为 uov 图像描述提示词" OFF \

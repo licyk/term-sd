@@ -23,7 +23,7 @@ vlad_sd_webui_launch_args_setting() {
         "6" "(use-cpu) 使用 CPU 进行生图" OFF \
         "7" "(listen) 开放远程连接" OFF \
         "8" "(freeze) 冻结 WebUI 设置" OFF \
-        "9" "(autolaunch) 启动 WebUI 完成后自动启动浏览器" ON \
+        "9" "(autolaunch) 启动 WebUI 完成后自动启动浏览器" OFF \
         "10" "(docs) 在 /docs 处挂载 Gradio 文档" OFF \
         "11" "(api-only) 在无 WebUI 界面时启用 API" OFF \
         "12" "(api-log) 启用输出所有 API 请求的日志记录" OFF \
@@ -43,9 +43,9 @@ vlad_sd_webui_launch_args_setting() {
         "26" "(use-directml) 使用 DirectML 作为后端进行生图" OFF \
         "27" "(use-openvino) 使用 OpenVINO 作为后端进行生图" OFF \
         "28" "(use-ipex) 使用 IPEX 作为后端进行生图" OFF \
-        "29" "(use-cuda) 使用 CUDA 作为后端进行生图" ON \
+        "29" "(use-cuda) 使用 CUDA 作为后端进行生图" OFF \
         "30" "(use-rocm) 使用 ROCM 作为后端进行生图" OFF \
-        "31" "(use-xformers) 使用 xFormers 优化" ON \
+        "31" "(use-xformers) 使用 xFormers 优化" OFF \
         "32" "(skip-requirements) 跳过依赖检查" OFF \
         "33" "(skip-extensions) 跳过运行单个扩展安装程序" OFF \
         "34" "(skip-git) 跳过所有 Git 操作" OFF \

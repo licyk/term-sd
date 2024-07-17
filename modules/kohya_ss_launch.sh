@@ -15,9 +15,9 @@ kohya_ss_launch_args_setting() {
         --checklist "请选择 kohya_ss 启动参数, 确认之后将覆盖原有启动参数配置" \
         $(get_dialog_size_menu) \
         "1" "(listen) 开放远程连接" OFF \
-        "2" "(inbrowser) 启动 WebUI 完成后自动启动浏览器" ON \
+        "2" "(inbrowser) 启动 WebUI 完成后自动启动浏览器" OFF \
         "3" "(share) 启用 Gradio 共享" OFF \
-        "4" "(language zh-CN) 启用中文界面" ON \
+        "4" "(language zh-CN) 启用中文界面" OFF \
         "5" "(headless) 禁用文件浏览按钮" OFF \
         3>&1 1>&2 2>&3)
 

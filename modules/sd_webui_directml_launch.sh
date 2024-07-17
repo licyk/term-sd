@@ -16,7 +16,7 @@ sd_webui_directml_launch_args_setting() {
         $(get_dialog_size_menu) \
         "1" "(update-all-extensions) 启动时更新所有扩展" OFF \
         "2" "(skip-python-version-check) 跳过检查 Python 版本" OFF \
-        "3" "(skip-torch-cuda-test) 跳过 CUDA 可用性检查" ON \
+        "3" "(skip-torch-cuda-test) 跳过 CUDA 可用性检查" OFF \
         "4" "(reinstall-xformers) 启动时重新安装 xFormers" OFF \
         "5" "(reinstall-torch) 启动时重新安装 PyTorch" OFF \
         "6" "(update-check) 启动时检查更新" OFF \
@@ -56,20 +56,20 @@ sd_webui_directml_launch_args_setting() {
         "40" "(freeze-settings) 冻结 WebUI 设置" OFF \
         "41" "(gradio-debug) 以 Debug 模式启用 Gradio" OFF \
         "42" "(opt-channelslast) 使用 ChannelsLast 内存格式优化" OFF \
-        "43" "(autolaunch) 启动 WebUI 完成后自动启动浏览器" ON \
-        "44" "(theme dark) 使用黑暗主题" ON \
+        "43" "(autolaunch) 启动 WebUI 完成后自动启动浏览器" OFF \
+        "44" "(theme dark) 使用黑暗主题" OFF \
         "45" "(use-textbox-seed) 使用文本框在 WebUI 中生成的种子" OFF \
         "46" "(disable-console-progressbars) 禁用控制台进度条显示" OFF \
         "47" "(enable-console-prompts) 启用在生图时输出提示词到控制台" OFF \
         "48" "(disable-safe-unpickle) 禁用检查模型是否包含恶意代码" OFF \
-        "49" "(api) 启用 API" ON \
+        "49" "(api) 启用 API" OFF \
         "50" "(api-log) 启用输出所有 API 请求的日志记录" OFF \
         "51" "(nowebui) 不加载 WebUI 界面" OFF \
         "52" "(onnx) 使用 ONNX 模型" OFF \
         "53" "(olive) 使用 OLIVE 模型" OFF \
         "54" "(backend cuda) 使用 CUDA 作为后端进行生图" OFF \
         "55" "(backend rocm) 使用 ROCM 作为后端进行生图" OFF \
-        "56" "(backend directml) 使用 DirectML 作为后端进行生图" ON \
+        "56" "(backend directml) 使用 DirectML 作为后端进行生图" OFF \
         "57" "(ui-debug-mode) 不加载模型启动 WebUI (UI Debug)" OFF \
         "58" "(administrator) 启用管理员权限" OFF \
         "59" "(disable-tls-verify) 禁用 TLS 证书验证" OFF \

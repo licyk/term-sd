@@ -39,7 +39,7 @@ a1111_sd_webui_launch_args_setting() {
         "23" "(upcast-sampling) 使用向上采样法提高精度" OFF \
         "24" "(share) 通过 Gradio 共享" OFF \
         "25" "(enable-insecure-extension-access) 允许在开放远程访问时安装插件" OFF \
-        "26" "(xformers) 尝试使用 xFormers 优化" ON \
+        "26" "(xformers) 尝试使用 xFormers 优化" OFF \
         "27" "(force-enable-xformers) 强制使用 xFormers 优化" OFF \
         "28" "(xformers-flash-attention) 使用 xFormers-Flash优化 (仅支持 SD2.x 以上)" OFF \
         "29" "(opt-split-attention) 使用 Split 优化" OFF \
@@ -57,13 +57,13 @@ a1111_sd_webui_launch_args_setting() {
         "41" "(freeze-settings) 冻结 WebUI 设置" OFF \
         "42" "(gradio-debug) 以 Debug 模式启用 Gradio" OFF \
         "43" "(opt-channelslast) 使用 Channelslast 内存格式优化" OFF \
-        "44" "(autolaunch) 启动 WebUI 完成后自动启动浏览器" ON \
-        "45" "(theme dark) 使用黑暗主题" ON \
+        "44" "(autolaunch) 启动 WebUI 完成后自动启动浏览器" OFF \
+        "45" "(theme dark) 使用黑暗主题" OFF \
         "46" "(use-textbox-seed) 使用文本框在 WebUI 中生成的种子" OFF \
         "47" "(disable-console-progressbars) 禁用控制台进度条显示" OFF \
         "48" "(enable-console-prompts) 启用在生图时输出提示词到控制台" OFF \
         "49" "(disable-safe-unpickle) 禁用检查模型是否包含恶意代码" OFF \
-        "50" "(api) 启用 API" ON \
+        "50" "(api) 启用 API" OFF \
         "51" "(api-log) 启用输出所有 API 请求的日志记录" OFF \
         "52" "(nowebui) 不加载 WebUI 界面" OFF \
         "53" "(ui-debug-mode) 不加载模型启动 WebUI (UI Debug)" OFF \
@@ -78,7 +78,7 @@ a1111_sd_webui_launch_args_setting() {
         "62" "(disable-all-extensions) 禁用所有扩展运行" OFF \
         "63" "(disable-extra-extensions) 禁用非内置的扩展运行" OFF \
         "64" "(use-ipex) 使用 Intel XPU 作为生图后端" OFF \
-        "65" "(skip-load-model-at-start) 启动 WebUI 时不加载模型, 加速启动" ON \
+        "65" "(skip-load-model-at-start) 启动 WebUI 时不加载模型, 加速启动" OFF \
         3>&1 1>&2 2>&3)
 
     if [[ "$?" == 0 ]]; then
