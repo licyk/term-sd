@@ -47,6 +47,7 @@ term_sd_launch() {
                 term_sd_echo "检测到启用了 Github 镜像源, 为 Stable Diffusion WebUI 可下载的插件列表设置镜像源"
                 github_mirror_url=$(cat "${START_PATH}"/term-sd/config/set-global-github-mirror.conf | awk '{sub("github.com","raw.githubusercontent.com")}1')
                 export WEBUI_EXTENSIONS_INDEX="${github_mirror_url}/AUTOMATIC1111/stable-diffusion-webui-extensions/master/index.json"
+                export CLIP_PACKAGE="git+$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/openai/CLIP)"
             fi
 
             case "$(git remote get-url origin | awk -F '/' '{print $NF}')" in # 分支判断
@@ -113,6 +114,7 @@ term_sd_launch() {
 
     if [[ "${use_mirror_for_sd_webui}" == 1 ]]; then # 取消 SD WebUIs 的插件列表镜像源
         unset WEBUI_EXTENSIONS_INDEX
+        unset CLIP_PACKAGE
     fi
     term_sd_pause
 }
@@ -122,16 +124,18 @@ fallback_numpy_version() {
     local np_ver
     local np_major_ver
 
-    np_ver=$(term_sd_pip freeze | grep "numpy==" | awk -F '==' '{print $NF}')
-    np_major_ver=$(echo ${np_ver} | awk -F '.' '{print $1}')
+    np_ver=$(term_sd_pip freeze 2> /dev/null)
+    if [[ "$?" == 0 ]]; then
+        np_major_ver=$(echo ${np_ver} | grep "numpy==" | awk -F '==' '{print $NF}' | awk -F '.' '{print $1}')
 
-    if (( np_major_ver > 1)); then
-        term_sd_echo "检测到 Numpy 版本过高, 尝试回退版本中"
-        install_python_package numpy==1.26.4
-        if [[ "$?" == 0 ]]; then
-            term_sd_echo "Numpy 版本回退成功"
-        else
-            term_sd_echo "Numpy 版本回退失败"
+        if (( np_major_ver > 1)); then
+            term_sd_echo "检测到 Numpy 版本过高, 尝试回退版本中"
+            install_python_package numpy==1.26.4
+            if [[ "$?" == 0 ]]; then
+                term_sd_echo "Numpy 版本回退成功"
+            else
+                term_sd_echo "Numpy 版本回退失败"
+            fi
         fi
     fi
 }

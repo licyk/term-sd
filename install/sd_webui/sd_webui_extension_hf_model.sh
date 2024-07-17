@@ -22,7 +22,7 @@ __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_
 __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sd15_vit-G.safetensors "${SD_WEBUI_PATH}"/models/ControlNet
 __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sdxl.safetensors "${SD_WEBUI_PATH}"/models/ControlNet
 __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter-plus_sdxl_vit-h.safetensors "${SD_WEBUI_PATH}"/models/ControlNet
-__term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1_annotator/resolve/main/clip_vision/clip_g.pth "${SD_WEBUI_PATH}"/extensions/sd-webui-controlnet/annotator/downloads/clip_vision #controlnet预处理器
+__term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1_annotator/resolve/main/clip_vision/clip_g.pth "${SD_WEBUI_PATH}"/extensions/sd-webui-controlnet/annotator/downloads/clip_vision
 __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1_annotator/resolve/main/clip_vision/clip_h.pth "${SD_WEBUI_PATH}"/extensions/sd-webui-controlnet/annotator/downloads/clip_vision
 __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1_annotator/resolve/main/clip_vision/clip_vitl.pth "${SD_WEBUI_PATH}"/extensions/sd-webui-controlnet/annotator/downloads/clip_vision
 __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1_annotator/resolve/main/hed/ControlNetHED.pth "${SD_WEBUI_PATH}"/extensions/sd-webui-controlnet/annotator/downloads/hed
@@ -57,7 +57,7 @@ __term_sd_task_pre_ext_2 term_sd_echo "下载 Animatediff 模型" # AnimateDiff(
 __term_sd_task_pre_ext_2 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/sd-webui-animatediff/v3_sd15_mm.ckpt "${SD_WEBUI_PATH}"/extensions/sd-webui-animatediff/model
 
 __term_sd_task_pre_ext_3 term_sd_echo "下载 Adetailer 模型" # Adetailer(224.8m) OFF
-__term_sd_task_pre_ext_3 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/adetailer/deepfashion2_yolov8s-seg.pt "${SD_WEBUI_PATH}"/models/adetailer # adetailer模型
+__term_sd_task_pre_ext_3 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/adetailer/deepfashion2_yolov8s-seg.pt "${SD_WEBUI_PATH}"/models/adetailer
 __term_sd_task_pre_ext_3 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/adetailer/face_yolov8m.pt "${SD_WEBUI_PATH}"/models/adetailer
 __term_sd_task_pre_ext_3 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/adetailer/face_yolov8n.pt "${SD_WEBUI_PATH}"/models/adetailer
 __term_sd_task_pre_ext_3 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/adetailer/face_yolov8n_v2.pt "${SD_WEBUI_PATH}"/models/adetailer

@@ -5,6 +5,7 @@
 sd_webui_branch_switch() {
     local sd_webui_branch
     local dialog_arg
+    local remote_url
 
     case "$(git remote get-url origin | awk -F '/' '{print $NF}')" in # 分支判断
         stable-diffusion-webui|stable-diffusion-webui.git)
@@ -53,139 +54,75 @@ sd_webui_branch_switch() {
         1)
             term_sd_print_line "Stable-Diffusion-WebUI 分支切换"
             term_sd_echo "切换到 AUTOMATIC1111 - Stable-Diffusion-WebUI 主分支"
-            git remote set-url origin $(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/AUTOMATIC1111/stable-diffusion-webui)
-            git submodule deinit --all -f
-            term_sd_try git fetch
-            git checkout master
-            term_sd_try git pull --rebase
-            mv -f repositories/blip repositories/BLIP
-            sd_webui_branch_file_restore
-            term_sd_echo "分支切换完成"
+            remote_url=$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/AUTOMATIC1111/stable-diffusion-webui)
+            git_switch_branch "${remote_url}" master
+            mv -f "${SD_WEBUI_PATH}"/repositories/blip "${SD_WEBUI_PATH}"/repositories/BLIP &> /dev/null
+            term_sd_echo "Stable-Diffusion-WebUI 分支切换完成"
             term_sd_pause
             ;;
         2)
             term_sd_print_line "Stable-Diffusion-WebUI 分支切换"
             term_sd_echo "切换到 AUTOMATIC1111 - Stable-Diffusion-WebUI 测试分支"
-            git remote set-url origin $(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/AUTOMATIC1111/stable-diffusion-webui)
-            git submodule deinit --all -f
-            term_sd_try git fetch
-            git checkout dev
-            term_sd_try git pull --rebase
-            mv -f repositories/blip repositories/BLIP
-            sd_webui_branch_file_restore
-            term_sd_echo "分支切换完成"
+            remote_url=$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/AUTOMATIC1111/stable-diffusion-webui)
+            git_switch_branch "${remote_url}" dev
+            mv -f "${SD_WEBUI_PATH}"/repositories/blip "${SD_WEBUI_PATH}"/repositories/BLIP &> /dev/null
+            term_sd_echo "Stable-Diffusion-WebUI 分支切换完成"
             term_sd_pause
             ;;
         3)
             term_sd_print_line "Stable-Diffusion-WebUI 分支切换"
             term_sd_echo "切换到 vladmandic - SD.NEXT 主分支"
-            git remote set-url origin $(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/vladmandic/automatic)
-            term_sd_try git fetch --recurse-submodules
-            git checkout master
-            git submodule init
-            term_sd_try git submodule update
-            term_sd_try git pull --rebase --recurse-submodules
-            git submodule init
-            term_sd_try git pull --recurse-submodules
-            mv -f repositories/BLIP repositories/blip
-            sd_webui_branch_file_restore sd_next
-            term_sd_echo "分支切换完成"
+            remote_url=$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/vladmandic/automatic)
+            git_switch_branch "${remote_url}" master --submod
+            mv -f "${SD_WEBUI_PATH}"/repositories/BLIP "${SD_WEBUI_PATH}"/repositories/blip &> /dev/null
+            term_sd_echo "Stable-Diffusion-WebUI 分支切换完成"
             term_sd_pause
             ;;
         4)
             term_sd_print_line "Stable-Diffusion-WebUI 分支切换"
             term_sd_echo "切换到 vladmandic - SD.NEXT 测试分支"
-            git remote set-url origin $(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/vladmandic/automatic)
-            term_sd_try git fetch --recurse-submodules
-            git checkout dev
-            git submodule init
-            term_sd_try git submodule update
-            term_sd_try git pull --rebase --recurse-submodules
-            git submodule init
-            term_sd_try git pull --recurse-submodules
-            mv -f repositories/BLIP repositories/blip
-            sd_webui_branch_file_restore sd_next
-            term_sd_echo "分支切换完成"
+            remote_url=$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/vladmandic/automatic)
+            git_switch_branch "${remote_url}" dev --submod
+            mv -f "${SD_WEBUI_PATH}"/repositories/BLIP "${SD_WEBUI_PATH}"/repositories/blip &> /dev/null
+            term_sd_echo "Stable-Diffusion-WebUI 分支切换完成"
             term_sd_pause
             ;;
         5)
             term_sd_print_line "Stable-Diffusion-WebUI 分支切换"
             term_sd_echo "切换到 lshqqytiger - Stable-Diffusion-WebUI-DirectML 主分支"
-            git remote set-url origin $(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/lshqqytiger/stable-diffusion-webui-directml)
-            git submodule deinit --all -f
-            term_sd_try git fetch
-            git checkout master
-            term_sd_try git pull --rebase
-            mv -f repositories/blip repositories/BLIP
-            sd_webui_branch_file_restore
-            term_sd_echo "分支切换完成"
+            remote_url=$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/lshqqytiger/stable-diffusion-webui-directml)
+            git_switch_branch "${remote_url}" master
+            mv -f "${SD_WEBUI_PATH}"/repositories/blip "${SD_WEBUI_PATH}"/repositories/BLIP &> /dev/null
+            term_sd_echo "Stable-Diffusion-WebUI 分支切换完成"
             term_sd_pause
             ;;
         6)
             term_sd_print_line "Stable-Diffusion-WebUI 分支切换"
             term_sd_echo "切换到 lshqqytiger - Stable-Diffusion-WebUI-DirectML 测试分支"
-            git remote set-url origin $(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/lshqqytiger/stable-diffusion-webui-directml)
-            git submodule deinit --all -f
-            term_sd_try git fetch
-            git checkout dev
-            term_sd_try git pull --rebase
-            mv -f repositories/blip repositories/BLIP
-            sd_webui_branch_file_restore
-            term_sd_echo "分支切换完成"
+            remote_url=$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/lshqqytiger/stable-diffusion-webui-directml)
+            git_switch_branch "${remote_url}" dev
+            mv -f "${SD_WEBUI_PATH}"/repositories/blip "${SD_WEBUI_PATH}"/repositories/BLIP &> /dev/null
+            term_sd_echo "Stable-Diffusion-WebUI 分支切换完成"
             term_sd_pause
             ;;
         7)
             term_sd_print_line "Stable-Diffusion-WebUI 分支切换"
             term_sd_echo "切换到 lllyasviel - Stable-Diffusion-WebUI-Forge 主分支"
-            git remote set-url origin $(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/lllyasviel/stable-diffusion-webui-forge)
-            git submodule deinit --all -f
-            term_sd_try git fetch
-            git checkout main
-            term_sd_try git pull --rebase
-            mv -f repositories/blip repositories/BLIP
-            sd_webui_branch_file_restore
-            term_sd_echo "分支切换完成"
+            remote_url=$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/lllyasviel/stable-diffusion-webui-forge)
+            git_switch_branch "${remote_url}" main
+            mv -f "${SD_WEBUI_PATH}"/repositories/blip "${SD_WEBUI_PATH}"/repositories/BLIP &> /dev/null
+            term_sd_echo "Stable-Diffusion-WebUI 分支切换完成"
             term_sd_pause
             ;;
         8)
             term_sd_print_line "Stable-Diffusion-WebUI 分支切换"
             term_sd_echo "切换到 lllyasviel - Stable-Diffusion-WebUI-Forge 测试分支"
-            git remote set-url origin $(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/lllyasviel/stable-diffusion-webui-forge)
-            git submodule deinit --all -f
-            term_sd_try git fetch
-            git checkout dev2
-            term_sd_try git pull --rebase
-            mv -f repositories/blip repositories/BLIP
-            sd_webui_branch_file_restore
-            term_sd_echo "分支切换完成"
+            remote_url=$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/lllyasviel/stable-diffusion-webui-forge)
+            git_switch_branch "${remote_url}" dev2
+            mv -f "${SD_WEBUI_PATH}"/repositories/blip "${SD_WEBUI_PATH}"/repositories/BLIP &> /dev/null
+            term_sd_echo "Stable-Diffusion-WebUI 分支切换完成"
             term_sd_pause
             ;;
     esac
     clean_install_config # 清理安装参数
-}
-
-# SD WebUI 分支切换后的重置功能
-sd_webui_branch_file_restore() {
-    local i
-    local type=$@
-    if [[ -d "repositories" ]]; then
-        cd repositories
-        for i in ./*; do
-            [ ! -d "${i}/.git" ] && continue # 排除没有.git文件夹的目录
-            cd "${i}"
-            git reset --recurse-submodules --hard HEAD
-            git restore --recurse-submodules --source=HEAD :/
-            cd ..
-        done
-        cd ..
-    fi
-    case "${type}" in
-        sd_next)
-            ;;
-        *)
-            rm -rf extensions-builtin
-            ;;
-    esac
-    git reset --recurse-submodules --hard HEAD
-    git restore --recurse-submodules --source=HEAD :/
 }

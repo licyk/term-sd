@@ -79,12 +79,10 @@ git_fix_pointer_offset() {
         name=${name%.git}
         term_sd_echo "修复 ${name} 分支游离状态"
         git -C "${path}" remote prune origin # 删除无用分支
-        git -C "${path}" submodule init # 初始化git子模块
+        git -C "${path}" submodule init # 初始化 Git 子模块
         repo_main_branch=$(git -C "${path}" branch -a | grep "/HEAD" | awk -F '/' '{print $NF}') # 查询 HEAD 所指分支
         git -C "${path}" checkout ${repo_main_branch} # 切换到主分支
         git -C "${path}" reset --recurse-submodules --hard origin/${repo_main_branch} # 回退到远程分支的版本
-        git -C "${path}" reset --recurse-submodules --hard HEAD # 回退版本,解决git pull异常
-        git -C "${path}" restore --recurse-submodules --source=HEAD :/ # 重置工作区
         term_sd_echo "修复 ${name} 完成"
     else
         term_sd_echo "$(basename "$(pwd)") 非 Git 安装, 无法修复分支游离"
@@ -162,7 +160,7 @@ git_clone_repository() {
         term_sd_echo "cmd: git clone ${use_submodules} ${url} ${repo_path}"
     fi
 
-    if [[ ! -d "${repo_path}" ]]; then
+    if [[ ! -d "${repo_path}" ]] || term_sd_is_dir_empty "${repo_path}"; then
         term_sd_echo "开始下载 ${name}, 路径: ${repo_path}"
         term_sd_try git clone ${use_submodules} "${url}" "${repo_path}"
         if [[ "$?" == 0 ]]; then
@@ -239,7 +237,7 @@ git_get_latest_ver() {
         path=$@
     fi
 
-    name=$(basename "${path}")
+    name=$(git -C "${path}" remote get-url origin | awk -F '/' '{print $NF}')
 
     if is_git_repo "${path}"; then
         if [[ ! -z "$(git -C "${path}" submodule status)" ]]; then # 检测是否有子模块
@@ -345,6 +343,7 @@ term_sd_is_git_repository_exist() {
 # Git 分支游离自动修复
 git_auto_fix_pointer_offset() {
     local path
+    local name
 
     if [[ -z "$@" ]]; then
         path=$(pwd)
@@ -352,8 +351,10 @@ git_auto_fix_pointer_offset() {
         path=$@
     fi
 
+    name=$(git -C "${path}" remote get-url origin | awk -F '/' '{print $NF}')
+
     if ! git -C "${path}" symbolic-ref HEAD &> /dev/null; then
-        term_sd_echo "检测到 $(basename "${path}") 出现分支游离, 尝试修复中"
+        term_sd_echo "检测到 ${name} 出现分支游离, 尝试修复中"
         git_fix_pointer_offset "${path}"
     fi
 }
@@ -373,4 +374,72 @@ is_git_repo() {
             return 1
         fi
     fi
+}
+
+# Git 切换仓库分支
+# 使用:
+# git_switch_branch <切换成的的远程源> <要切换的分支> <--submod>
+git_switch_branch() {
+    local commit_hash
+    local remote_url=$1
+    local branch=$2
+    local use_submodules=$3
+
+    if [[ "$3" == "--submod" ]]; then
+        use_submod=1
+        use_submodules="--recurse-submodules"
+    else
+        use_submod=0
+        unset use_submodules
+    fi
+
+    if term_sd_is_debug; then
+        term_sd_echo "branch: ${branch}"
+        term_sd_echo "remote_url: ${remote_url}"
+        term_sd_echo "use_submodules: ${use_submodules}"
+    fi
+
+    term_sd_echo "远程源替换: $(git remote get-url origin) -> ${remote_url}"
+    git remote set-url origin "${remote_url}" # 替换远程源
+
+    # 处理 Git 子模块
+    if [[ "${use_submod}" == 1 ]]; then
+        term_sd_echo "更新 Git 子模块信息"
+        git submodule update --init --recursive
+    else
+        term_sd_echo "禁用 Git 子模块"
+        git submodule deinit --all -f
+    fi
+
+    term_sd_echo "拉取远程源更新"
+    term_sd_try git fetch ${use_submodules} # 拉取远程源内容
+    commit_hash=$(git log "origin/${branch}" --max-count 1 --format="%h") # 获取最新的提交内容的 Hash
+    term_sd_echo "切换分支至 ${branch}"
+    git checkout ${branch} # 切换分支
+    term_sd_echo "应用远程源的更新"
+    git reset ${use_submodules} --hard "${commit_hash}" # 切换到最新的提交内容上
+    if term_sd_is_debug; then
+        term_sd_echo "cmd: git fetch ${use_submodules}"
+        term_sd_echo "cmd: git checkout ${branch}"
+        term_sd_echo "cmd: git reset ${use_submodules} --hard ${commit_hash}"
+    fi
+}
+
+# 移动 Git 子模块的配置文件到主仓库
+git_init_submodule() {
+    local path
+    local name
+
+    name=$(git -C "${path}" remote get-url origin | awk -F '/' '{print $NF}')
+
+    if [[ -z "$@" ]]; then
+        path=$(pwd)
+    else
+        path=$@
+    fi
+
+    term_sd_echo "初始化 ${name} 的 Git 子模块"
+    git submodule init
+    term_sd_try git -C "${path}" submodule update
+    term_sd_try git -C "${path}" reset --hard --recurse-submodules
 }

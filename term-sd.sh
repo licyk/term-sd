@@ -504,7 +504,7 @@ term_sd_install() {
             exit 1
         fi
     elif [[ ! -d "${START_PATH}/term-sd/.git" ]]; then
-        term_sd_echo "检测到 Term-SD 的 .git 目录不存在, 将会导致 Term-SD 无法更新, 是否重新安装(yes/no) ?"
+        term_sd_echo "检测到 Term-SD 的 .git 目录不存在, 将会导致 Term-SD 无法更新, 是否重新安装 (yes/no) ?"
         term_sd_echo "警告: 该操作将永久删除 Term-SD 目录中的所有文件 (除了 Term-SD 缓存文件夹和配置文件将备份到临时文件夹并在安装完成还原)"
         term_sd_echo "提示: 输入 yes 或 no 后回车"
         case "$(term_sd_read)" in
@@ -1002,7 +1002,7 @@ main() {
     fi
 
     # 变量初始化
-    TERM_SD_VER="1.4.0.rc3" # term-sd版本
+    TERM_SD_VER="1.4.0.rc4" # term-sd版本
     USER_SHELL=$(basename "${SHELL}") # 读取用户所使用的 Shell
     START_PATH=$(pwd) # 设置启动时脚本路径
     export PYTHONUTF8=1 # 强制 Python 解释器使用 UTF-8 编码来处理字符串, 避免乱码问题
@@ -1019,7 +1019,7 @@ main() {
     TERM_SD_PIP_FIND_LINKS_ARG=""
     # Github 镜像源列表
     GITHUB_MIRROR_LIST="https://mirror.ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo https://ghproxy.net/https://github.com/term_sd_git_user/term_sd_git_repo https://gh-proxy.com/https://github.com/term_sd_git_user/term_sd_git_repo https://ghps.cc/https://github.com/term_sd_git_user/term_sd_git_repo https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo ttps://gitclone.com/github.com/term_sd_git_user/term_sd_git_repo"
-    HUGGINGFACE_MIRROR_LIST="https://hf-mirror.com https://huggingface.sukaka.top"
+    HUGGINGFACE_MIRROR_LIST="https://hf-mirror.com https://huggingface.sukaka.top" # HuggingFace 镜像源列表
     TERM_SD_IS_MISSING_DEP=0 # 依赖缺失标记
     TERM_SD_IS_MISSING_MACOS_DEP=0
     TERM_SD_TO_RESTART=0 # Term-SD 是否需要重启的标志

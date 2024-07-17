@@ -22,7 +22,7 @@ __term_sd_task_pre_ext_1 get_modelscope_model licyks/controlnet_v1.1/master/ip-a
 __term_sd_task_pre_ext_1 get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter_sd15_vit-G.safetensors "${SD_WEBUI_PATH}"/models/ControlNet
 __term_sd_task_pre_ext_1 get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter_sdxl.safetensors "${SD_WEBUI_PATH}"/models/ControlNet
 __term_sd_task_pre_ext_1 get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter-plus_sdxl_vit-h.safetensors "${SD_WEBUI_PATH}"/models/ControlNet
-__term_sd_task_pre_ext_1 get_modelscope_model licyks/controlnet_v1.1_annotator/master/clip_vision/clip_g.pth "${SD_WEBUI_PATH}"/extensions/sd-webui-controlnet/annotator/downloads/clip_vision # controlnet预处理器
+__term_sd_task_pre_ext_1 get_modelscope_model licyks/controlnet_v1.1_annotator/master/clip_vision/clip_g.pth "${SD_WEBUI_PATH}"/extensions/sd-webui-controlnet/annotator/downloads/clip_vision
 __term_sd_task_pre_ext_1 get_modelscope_model licyks/controlnet_v1.1_annotator/master/clip_vision/clip_h.pth "${SD_WEBUI_PATH}"/extensions/sd-webui-controlnet/annotator/downloads/clip_vision
 __term_sd_task_pre_ext_1 get_modelscope_model licyks/controlnet_v1.1_annotator/master/clip_vision/clip_vitl.pth "${SD_WEBUI_PATH}"/extensions/sd-webui-controlnet/annotator/downloads/clip_vision
 __term_sd_task_pre_ext_1 get_modelscope_model licyks/controlnet_v1.1_annotator/master/hed/ControlNetHED.pth "${SD_WEBUI_PATH}"/extensions/sd-webui-controlnet/annotator/downloads/hed
@@ -57,7 +57,7 @@ __term_sd_task_pre_ext_2 term_sd_echo "下载 AnimateDiff 模型" # AnimateDiff(
 __term_sd_task_pre_ext_2 get_modelscope_model licyks/sd-extensions-model/master/sd-webui-animatediff/v3_sd15_mm.ckpt "${SD_WEBUI_PATH}"/extensions/sd-webui-animatediff/model
 
 __term_sd_task_pre_ext_3 term_sd_echo "下载 Adetailer 模型" # Adetailer(224.8m) OFF
-__term_sd_task_pre_ext_3 get_modelscope_model licyks/sd-extensions-model/master/adetailer/deepfashion2_yolov8s-seg.pt "${SD_WEBUI_PATH}"/models/adetailer # adetailer模型
+__term_sd_task_pre_ext_3 get_modelscope_model licyks/sd-extensions-model/master/adetailer/deepfashion2_yolov8s-seg.pt "${SD_WEBUI_PATH}"/models/adetailer
 __term_sd_task_pre_ext_3 get_modelscope_model licyks/sd-extensions-model/master/adetailer/face_yolov8m.pt "${SD_WEBUI_PATH}"/models/adetailer
 __term_sd_task_pre_ext_3 get_modelscope_model licyks/sd-extensions-model/master/adetailer/face_yolov8n.pt "${SD_WEBUI_PATH}"/models/adetailer
 __term_sd_task_pre_ext_3 get_modelscope_model licyks/sd-extensions-model/master/adetailer/face_yolov8n_v2.pt "${SD_WEBUI_PATH}"/models/adetailer

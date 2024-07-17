@@ -514,3 +514,7 @@ Stable Diffusion WebUI 插件说明：
 128、sd-webui-pnginfo-beautify
 描述：将图片下方的生图信息进行美化排版
 链接：https://github.com/bluelovers/sd-webui-pnginfo-beautify
+
+129、sd-webui-resource-monitor
+描述：性能监测
+链接：https://github.com/Haoming02/sd-webui-resource-monitor
