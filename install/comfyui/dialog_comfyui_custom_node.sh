@@ -114,3 +114,4 @@ __term_sd_task_pre_ext_113 ComfyUI_essentials OFF
 __term_sd_task_pre_ext_114 ComfyUI-Restart-Sampler OFF
 __term_sd_task_pre_ext_115 ComfyUI-TCD-Sampler OFF
 __term_sd_task_pre_ext_116 cg-noise OFF
+__term_sd_task_pre_ext_117 ComfyUX OFF
