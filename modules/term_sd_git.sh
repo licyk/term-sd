@@ -247,7 +247,7 @@ git_get_latest_ver() {
         fi
 
         term_sd_echo "拉取 ${name} 远端更新内容"
-        term_sd_try git -C "${path}" ${use_submodules} fetch
+        term_sd_try git -C "${path}" fetch ${use_submodules}
         if [[ "$?" == 0 ]]; then
             term_sd_echo "应用 ${name} 远端更新内容"
             ref=$(git -C "${path}" symbolic-ref --quiet HEAD 2> /dev/null)
