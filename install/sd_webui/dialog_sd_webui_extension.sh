@@ -127,3 +127,4 @@ __term_sd_task_pre_ext_126 sd-webui-udav2 OFF
 __term_sd_task_pre_ext_127 sd-webui-cn-sam-preprocessor OFF
 __term_sd_task_pre_ext_128 sd-webui-pnginfo-beautify OFF
 __term_sd_task_pre_ext_129 sd-webui-resource-monitor OFF
+__term_sd_task_pre_ext_130 chara-searcher OFF

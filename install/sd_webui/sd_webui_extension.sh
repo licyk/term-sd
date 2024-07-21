@@ -127,3 +127,4 @@ __term_sd_task_pre_ext_126 git_clone_repository https://github.com/MackinationsA
 __term_sd_task_pre_ext_127 git_clone_repository https://github.com/light-and-ray/sd-webui-cn-sam-preprocessor "${SD_WEBUI_PATH}"/extensions OFF # 为ControlNet插件添加SegmentAnything预处理器
 __term_sd_task_pre_ext_128 git_clone_repository https://github.com/bluelovers/sd-webui-pnginfo-beautify "${SD_WEBUI_PATH}"/extensions OFF # 将图片下方的生图信息进行美化排版
 __term_sd_task_pre_ext_129 git_clone_repository https://github.com/Haoming02/sd-webui-resource-monitor "${SD_WEBUI_PATH}"/extensions OFF # 性能监测
+__term_sd_task_pre_ext_130 git_clone_repository https://github.com/NON906/chara-searcher "${SD_WEBUI_PATH}"/extensions OFF # 角色图片搜索

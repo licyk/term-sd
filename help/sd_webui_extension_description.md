@@ -518,3 +518,7 @@ Stable Diffusion WebUI 插件说明：
 129、sd-webui-resource-monitor
 描述：性能监测
 链接：https://github.com/Haoming02/sd-webui-resource-monitor
+
+130、chara-searcher
+描述：角色图片搜索
+链接：https://github.com/NON906/chara-searcher
