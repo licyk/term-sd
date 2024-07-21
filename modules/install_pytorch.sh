@@ -67,7 +67,9 @@ install_pytorch() {
                         ipex_win_url="--find-links https://licyk.github.io/t/pypi/index.html"
                         ;;
                 esac
-                    
+
+                ipex_win_url="--find-links https://licyk.github.io/t/pypi/index_ms_mirror.html"
+
                 case "${torch_ipex_ver}" in
                     2.0.0)
                         install_python_package torch==2.0.0a0+gite9ebda2 torchvision==0.15.2a0+fa99a53 intel_extension_for_pytorch==2.0.110+gitc6ea20b ${ipex_win_url}

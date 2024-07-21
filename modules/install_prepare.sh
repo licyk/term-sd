@@ -29,7 +29,7 @@ download_mirror_select() {
         --backtitle "安装镜像选项" \
         --title "Term-SD" \
         --ok-label "确认" --no-cancel \
-        --checklist "请选择镜像\n注:\n当同时启用多个 Github 镜像源时, 优先选择最下面的 Github 镜像源; 勾选 \"Github 镜像源自动选择\" 时, 将覆盖手动设置的 Github 镜像源" \
+        --checklist "请选择镜像\n注:\n1. 当同时启用多个 Github 镜像源时, 优先选择最下面的 Github 镜像源; 勾选 \"Github 镜像源自动选择\" 时, 将覆盖手动设置的 Github 镜像源\n2. 启用全局镜像源后, 优先使用设置中的镜像源\n3. 通常情况下保持默认即可" \
         $(get_dialog_size_menu) \
         "1" "启用 Pip 镜像源 (使用 Pip 国内镜像源下载 Python 软件包)" OFF \
         "2" "使用全局 Pip 镜像源配置 (使用 Term-SD 设置中配置的 Pip 镜像源)" ON \
@@ -157,7 +157,7 @@ pytorch_version_select() {
         --title "Term-SD" \
         --backtitle "PyTorch 安装版本选项" \
         --ok-label "确认" --no-cancel \
-        --menu "请选择要安装的 PyTorch 版本" \
+        --menu "请选择要安装的 PyTorch 版本\n注: 1. Nvidia 显卡选择 CUDA 的版本\n2. AMD 显卡选择 RoCM(Linux) / DirectML(Windows) 版本\n3. Intel 显卡选择 IPEX Arc(独显) / Core Ultra(核显)\n4. Apple M 系列芯片选择无特殊标识版本\n5. 使用 CPU 运算选择 CPU 版本" \
         $(get_dialog_size_menu) \
         "1" "> Torch + xFormers" \
         "2" "> Torch" \
@@ -292,7 +292,7 @@ pip_install_mode_select() {
         --title "Term-SD" \
         --backtitle "Pip 安装模式选项" \
         --ok-label "确认" --no-cancel \
-        --checklist "请选择 Pip 安装方式\n注: 标准构建安装可解决一些报错问题, 但速度较慢" \
+        --checklist "请选择 Pip 安装方式\n注: 1. 安装时更新软件包\n2. 标准构建安装可解决一些报错问题, 但速度较慢\n3. 软件包存在时将重新安装\n4. 忽略系统警告强制使用 Pip 安装软件包\n5. 优先使用预编译好的软件包进行安装, 加快安装速度" \
         $(get_dialog_size_menu) \
         "1" "> 更新软件包 (--upgrade)" OFF \
         "2" "> 标准构建安装 (--use-pep517)" OFF \
@@ -383,7 +383,7 @@ term_sd_install_confirm() {
         use_force_reinstall_info="禁用"
     fi
 
-    if [[ -z "${PIP_UPDATE_PACKAGE_ARG}" ]]; then
+    if [[ ! -z "${PIP_UPDATE_PACKAGE_ARG}" ]]; then
         use_upgrade_info="启用"
     else
         use_upgrade_info="禁用"
