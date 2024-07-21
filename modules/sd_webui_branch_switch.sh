@@ -56,8 +56,12 @@ sd_webui_branch_switch() {
             term_sd_echo "切换到 AUTOMATIC1111 - Stable-Diffusion-WebUI 主分支"
             remote_url=$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/AUTOMATIC1111/stable-diffusion-webui)
             git_switch_branch "${remote_url}" master
-            mv -f "${SD_WEBUI_PATH}"/repositories/blip "${SD_WEBUI_PATH}"/repositories/BLIP &> /dev/null
-            term_sd_echo "Stable-Diffusion-WebUI 分支切换完成"
+            if [[ "$?" == 0 ]];then
+                mv -f "${SD_WEBUI_PATH}"/repositories/blip "${SD_WEBUI_PATH}"/repositories/BLIP &> /dev/null
+                term_sd_echo "Stable-Diffusion-WebUI 分支切换完成"
+            else
+                term_sd_echo "Stable-Diffusion-WebUI 分支切换失败"
+            fi
             term_sd_pause
             ;;
         2)
@@ -65,8 +69,12 @@ sd_webui_branch_switch() {
             term_sd_echo "切换到 AUTOMATIC1111 - Stable-Diffusion-WebUI 测试分支"
             remote_url=$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/AUTOMATIC1111/stable-diffusion-webui)
             git_switch_branch "${remote_url}" dev
-            mv -f "${SD_WEBUI_PATH}"/repositories/blip "${SD_WEBUI_PATH}"/repositories/BLIP &> /dev/null
-            term_sd_echo "Stable-Diffusion-WebUI 分支切换完成"
+            if [[ "$?" == 0 ]];then
+                mv -f "${SD_WEBUI_PATH}"/repositories/blip "${SD_WEBUI_PATH}"/repositories/BLIP &> /dev/null
+                term_sd_echo "Stable-Diffusion-WebUI 分支切换完成"
+            else
+                term_sd_echo "Stable-Diffusion-WebUI 分支切换失败"
+            fi
             term_sd_pause
             ;;
         3)
@@ -74,8 +82,12 @@ sd_webui_branch_switch() {
             term_sd_echo "切换到 vladmandic - SD.NEXT 主分支"
             remote_url=$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/vladmandic/automatic)
             git_switch_branch "${remote_url}" master --submod
-            mv -f "${SD_WEBUI_PATH}"/repositories/BLIP "${SD_WEBUI_PATH}"/repositories/blip &> /dev/null
-            term_sd_echo "Stable-Diffusion-WebUI 分支切换完成"
+            if [[ "$?" == 0 ]];then
+                mv -f "${SD_WEBUI_PATH}"/repositories/BLIP "${SD_WEBUI_PATH}"/repositories/blip &> /dev/null
+                term_sd_echo "Stable-Diffusion-WebUI 分支切换完成"
+            else
+                term_sd_echo "Stable-Diffusion-WebUI 分支切换失败"
+            fi
             term_sd_pause
             ;;
         4)
@@ -83,8 +95,12 @@ sd_webui_branch_switch() {
             term_sd_echo "切换到 vladmandic - SD.NEXT 测试分支"
             remote_url=$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/vladmandic/automatic)
             git_switch_branch "${remote_url}" dev --submod
-            mv -f "${SD_WEBUI_PATH}"/repositories/BLIP "${SD_WEBUI_PATH}"/repositories/blip &> /dev/null
-            term_sd_echo "Stable-Diffusion-WebUI 分支切换完成"
+            if [[ "$?" == 0 ]];then
+                mv -f "${SD_WEBUI_PATH}"/repositories/BLIP "${SD_WEBUI_PATH}"/repositories/blip &> /dev/null
+                term_sd_echo "Stable-Diffusion-WebUI 分支切换完成"
+            else
+                term_sd_echo "Stable-Diffusion-WebUI 分支切换失败"
+            fi
             term_sd_pause
             ;;
         5)
@@ -92,8 +108,12 @@ sd_webui_branch_switch() {
             term_sd_echo "切换到 lshqqytiger - Stable-Diffusion-WebUI-DirectML 主分支"
             remote_url=$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/lshqqytiger/stable-diffusion-webui-directml)
             git_switch_branch "${remote_url}" master
-            mv -f "${SD_WEBUI_PATH}"/repositories/blip "${SD_WEBUI_PATH}"/repositories/BLIP &> /dev/null
-            term_sd_echo "Stable-Diffusion-WebUI 分支切换完成"
+            if [[ "$?" == 0 ]];then
+                mv -f "${SD_WEBUI_PATH}"/repositories/blip "${SD_WEBUI_PATH}"/repositories/BLIP &> /dev/null
+                term_sd_echo "Stable-Diffusion-WebUI 分支切换完成"
+            else
+                term_sd_echo "Stable-Diffusion-WebUI 分支切换失败"
+            fi
             term_sd_pause
             ;;
         6)
@@ -101,8 +121,12 @@ sd_webui_branch_switch() {
             term_sd_echo "切换到 lshqqytiger - Stable-Diffusion-WebUI-DirectML 测试分支"
             remote_url=$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/lshqqytiger/stable-diffusion-webui-directml)
             git_switch_branch "${remote_url}" dev
-            mv -f "${SD_WEBUI_PATH}"/repositories/blip "${SD_WEBUI_PATH}"/repositories/BLIP &> /dev/null
-            term_sd_echo "Stable-Diffusion-WebUI 分支切换完成"
+            if [[ "$?" == 0 ]];then
+                mv -f "${SD_WEBUI_PATH}"/repositories/blip "${SD_WEBUI_PATH}"/repositories/BLIP &> /dev/null
+                term_sd_echo "Stable-Diffusion-WebUI 分支切换完成"
+            else
+                term_sd_echo "Stable-Diffusion-WebUI 分支切换失败"
+            fi
             term_sd_pause
             ;;
         7)
@@ -110,8 +134,12 @@ sd_webui_branch_switch() {
             term_sd_echo "切换到 lllyasviel - Stable-Diffusion-WebUI-Forge 主分支"
             remote_url=$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/lllyasviel/stable-diffusion-webui-forge)
             git_switch_branch "${remote_url}" main
-            mv -f "${SD_WEBUI_PATH}"/repositories/blip "${SD_WEBUI_PATH}"/repositories/BLIP &> /dev/null
-            term_sd_echo "Stable-Diffusion-WebUI 分支切换完成"
+            if [[ "$?" == 0 ]];then
+                mv -f "${SD_WEBUI_PATH}"/repositories/blip "${SD_WEBUI_PATH}"/repositories/BLIP &> /dev/null
+                term_sd_echo "Stable-Diffusion-WebUI 分支切换完成"
+            else
+                term_sd_echo "Stable-Diffusion-WebUI 分支切换失败"
+            fi
             term_sd_pause
             ;;
         8)
@@ -119,8 +147,12 @@ sd_webui_branch_switch() {
             term_sd_echo "切换到 lllyasviel - Stable-Diffusion-WebUI-Forge 测试分支"
             remote_url=$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/lllyasviel/stable-diffusion-webui-forge)
             git_switch_branch "${remote_url}" dev2
-            mv -f "${SD_WEBUI_PATH}"/repositories/blip "${SD_WEBUI_PATH}"/repositories/BLIP &> /dev/null
-            term_sd_echo "Stable-Diffusion-WebUI 分支切换完成"
+            if [[ "$?" == 0 ]];then
+                mv -f "${SD_WEBUI_PATH}"/repositories/blip "${SD_WEBUI_PATH}"/repositories/BLIP &> /dev/null
+                term_sd_echo "Stable-Diffusion-WebUI 分支切换完成"
+            else
+                term_sd_echo "Stable-Diffusion-WebUI 分支切换失败"
+            fi
             term_sd_pause
             ;;
     esac

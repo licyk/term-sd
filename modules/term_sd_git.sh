@@ -381,9 +381,14 @@ is_git_repo() {
 # git_switch_branch <切换成的的远程源> <要切换的分支> <--submod>
 git_switch_branch() {
     local commit_hash
+    local name
+    local preview_url
     local remote_url=$1
     local branch=$2
     local use_submodules=$3
+
+    preview_url=$(git remote get-url origin)
+    name=$(awk -F '/' '{print $NF}' <<< ${preview_url})
 
     if [[ "$3" == "--submod" ]]; then
         use_submod=1
@@ -399,29 +404,42 @@ git_switch_branch() {
         term_sd_echo "use_submodules: ${use_submodules}"
     fi
 
-    term_sd_echo "远程源替换: $(git remote get-url origin) -> ${remote_url}"
+    term_sd_echo "${name} 远程源替换: ${preview_url} -> ${remote_url}"
     git remote set-url origin "${remote_url}" # 替换远程源
 
     # 处理 Git 子模块
     if [[ "${use_submod}" == 1 ]]; then
-        term_sd_echo "更新 Git 子模块信息"
+        term_sd_echo "更新 ${name} 的 Git 子模块信息"
         git submodule update --init --recursive
     else
-        term_sd_echo "禁用 Git 子模块"
+        term_sd_echo "禁用 ${name} 的 Git 子模块"
         git submodule deinit --all -f
     fi
 
     term_sd_echo "拉取远程源更新"
     term_sd_try git fetch ${use_submodules} # 拉取远程源内容
-    commit_hash=$(git log "origin/${branch}" --max-count 1 --format="%h") # 获取最新的提交内容的 Hash
-    term_sd_echo "切换分支至 ${branch}"
-    git checkout ${branch} # 切换分支
-    term_sd_echo "应用远程源的更新"
-    git reset ${use_submodules} --hard "${commit_hash}" # 切换到最新的提交内容上
-    if term_sd_is_debug; then
-        term_sd_echo "cmd: git fetch ${use_submodules}"
-        term_sd_echo "cmd: git checkout ${branch}"
-        term_sd_echo "cmd: git reset ${use_submodules} --hard ${commit_hash}"
+    if [[ "$?" == 0 ]]; then
+        commit_hash=$(git log "origin/${branch}" --max-count 1 --format="%h") # 获取最新的提交内容的 Hash
+        term_sd_echo "切换分支至 ${branch}"
+        git checkout "${branch}" # 切换分支
+        term_sd_echo "应用远程源的更新"
+        git reset ${use_submodules} --hard "${commit_hash}" # 切换到最新的提交内容上
+        if term_sd_is_debug; then
+            term_sd_echo "cmd: git fetch ${use_submodules}"
+            term_sd_echo "cmd: git checkout ${branch}"
+            term_sd_echo "cmd: git reset ${use_submodules} --hard ${commit_hash}"
+        fi
+    else
+        term_sd_echo "拉取 ${name} 远程源更新失败, 取消分支切换"
+        term_sd_echo "尝试回退 ${name} 的更改"
+        git remote set-url origin "${preview_url}"
+        if [[ "${use_submod}" == 1 ]]; then
+            git submodule deinit --all -f
+        else
+            git submodule update --init --recursive
+        fi
+        term_sd_echo "回退更改完成"
+        return 1
     fi
 }
 
@@ -430,13 +448,13 @@ git_init_submodule() {
     local path
     local name
 
-    name=$(git -C "${path}" remote get-url origin | awk -F '/' '{print $NF}')
-
     if [[ -z "$@" ]]; then
         path=$(pwd)
     else
         path=$@
     fi
+
+    name=$(git -C "${path}" remote get-url origin | awk -F '/' '{print $NF}')
 
     term_sd_echo "初始化 ${name} 的 Git 子模块"
     git submodule init
