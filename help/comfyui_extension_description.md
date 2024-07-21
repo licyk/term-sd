@@ -55,7 +55,7 @@ ComfyUI 插件 / 自定义节点说明：
 描述：适用于ComfyUI的广泛节点套件，包含190多个新节点
 链接：https://github.com/WASasquatch/was-node-suite-comfyui
 
-11、ComfyUI_Cutoff*
+11、ComfyUI_Cutoff
 描述：解决tag污染
 链接：https://github.com/BlenderNeko/ComfyUI_Cutoff
 
@@ -203,7 +203,7 @@ ComfyUI 插件 / 自定义节点说明：
 描述：添加fooocus噪声生成器支持
 链接：https://github.com/hustille/ComfyUI_Fooocus_KSampler
 
-48、FreeU_Advanced*
+48、FreeU_Advanced
 描述：生图加速
 链接：https://github.com/WASasquatch/FreeU_Advanced
 

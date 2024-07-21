@@ -297,7 +297,7 @@ sd_webui_manager() {
                                     --title "Stable-Diffusion-WebUI 管理" \
                                     --backtitle "Stable-Diffusion-WebUI 删除选项" \
                                     --ok-label "确认" \
-                                    --msgbox "删除Stable-Diffusion-WebUI完成" \
+                                    --msgbox "删除 Stable-Diffusion-WebUI 完成" \
                                     $(get_dialog_size)
 
                                 break

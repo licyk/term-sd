@@ -8,7 +8,7 @@ __term_sd_task_pre_ext_7 ComfyUI-layerdiffusion OFF
 __term_sd_task_pre_ext_8 ComfyUI_DanTagGen OFF
 __term_sd_task_pre_ext_9 Comfyui-StableSR OFF
 __term_sd_task_pre_ext_10 was-node-suite-comfyui OFF
-__term_sd_task_pre_ext_11 ComfyUI_Cutoff ON
+__term_sd_task_pre_ext_11 ComfyUI_Cutoff OFF
 __term_sd_task_pre_ext_12 ComfyUI_TiledKSampler ON
 __term_sd_task_pre_ext_13 ComfyUI_ADV_CLIP_emb OFF
 __term_sd_task_pre_ext_14 ComfyUI_Noise OFF
@@ -45,7 +45,7 @@ __term_sd_task_pre_ext_44 ComfyUI_Custom_Nodes_AlekPet ON
 __term_sd_task_pre_ext_45 AIGODLIKE-COMFYUI-TRANSLATION ON
 __term_sd_task_pre_ext_46 stability-ComfyUI-nodes ON
 __term_sd_task_pre_ext_47 ComfyUI_Fooocus_KSampler OFF
-__term_sd_task_pre_ext_48 FreeU_Advanced ON
+__term_sd_task_pre_ext_48 FreeU_Advanced OFF
 __term_sd_task_pre_ext_49 ControlNet-LLLite-ComfyUI ON
 __term_sd_task_pre_ext_50 comfyui-tooling-nodes OFF
 __term_sd_task_pre_ext_51 efficiency-nodes-comfyui ON
