@@ -54,7 +54,7 @@ install_kohya_ss() {
     else # 生成安装任务并执行安装任务
         # 安装前的准备
         download_mirror_select auto_github_mirrror # 下载镜像源选择
-        pytorch_version_select # pytorch版本选择
+        pytorch_version_select # PyTorch 版本选择
         kohya_ss_download_model_select # 模型选择
         pip_install_mode_select # 安装方式选择
 

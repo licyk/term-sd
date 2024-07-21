@@ -6,19 +6,19 @@
 # 用于设置其他参数
 # 选择后将设置以下变量:
 # PIP_INDEX_MIRROR, PIP_EXTRA_INDEX_MIRROR, PIP_FIND_LINKS_MIRROR
-# USE_PIP_MIRROR, PIP_BREAK_SYSTEM_PACKAGE_ARG, TERM_SD_ENABLE_ONLY_PROXY
 # USE_MODELSCOPE_MODEL_SRC, GITHUB_MIRROR, GITHUB_MIRROR_NAME
+# USE_PIP_MIRROR, TERM_SD_ENABLE_ONLY_PROXY
 download_mirror_select() {
     local dialog_arg
     local auto_select_github_mirror=0
     local use_env_pip_mirror=0
     local use_global_github_mirror=0
     local use_global_pip_mirror=0
+    local i
     PIP_INDEX_MIRROR="--index-url https://pypi.python.org/simple"
     unset PIP_EXTRA_INDEX_MIRROR
     PIP_FIND_LINKS_MIRROR="--find-links https://download.pytorch.org/whl/torch_stable.html"
     USE_PIP_MIRROR=0
-    unset PIP_BREAK_SYSTEM_PACKAGE_ARG
     TERM_SD_ENABLE_ONLY_PROXY=0
     USE_MODELSCOPE_MODEL_SRC=0
     GITHUB_MIRROR="https://github.com/term_sd_git_user/term_sd_git_repo"
@@ -29,21 +29,20 @@ download_mirror_select() {
         --backtitle "安装镜像选项" \
         --title "Term-SD" \
         --ok-label "确认" --no-cancel \
-        --checklist "请选择镜像\n注:\n1、当同时启用多个 Github 镜像源时, 优先选择最下面的 Github 镜像源; 勾选 \"Github 镜像源自动选择\" 时, 将覆盖手动设置的 Github 镜像源\n2、\"强制使用 Pip\"一般情况下不选" \
+        --checklist "请选择镜像\n注:\n当同时启用多个 Github 镜像源时, 优先选择最下面的 Github 镜像源; 勾选 \"Github 镜像源自动选择\" 时, 将覆盖手动设置的 Github 镜像源" \
         $(get_dialog_size_menu) \
         "1" "启用 Pip 镜像源 (使用 Pip 国内镜像源下载 Python 软件包)" OFF \
         "2" "使用全局 Pip 镜像源配置 (使用 Term-SD 设置中配置的 Pip 镜像源)" ON \
-        "3" "强制使用 Pip (无视系统警告强制使用 Pip 安装 Python 软件包)" OFF \
-        "4" "使用 ModelScope 模型下载源 (将 HuggingFace下载源改为 ModelScope 下载源)" ON \
-        "5" "Huggingface / Github 下载源独占代理 (仅在下载 Huggingface / Github 上的文件时启用代理)" ON \
-        "6" "使用全局 Github 镜像源配置 (当设置了全局 Github 镜像源时禁用 Github 镜像自动选择)" ON \
-        "7" "Github 镜像源自动选择 (测试可用的镜像源并选择自动选择)" $([[ "$1" == "auto_github_mirrror" ]] && echo "ON" || echo "OFF") \
-        "8" "启用 Github 镜像源1 (使用 mirror.ghproxy.com 镜像站下载 Github 上的源码)" $([[ "$1" == "auto_github_mirrror" ]] && echo "OFF" || echo "ON") \
-        "9" "启用 Github 镜像源2 (使用 gitclone.com 镜像站下载 Github 上的源码)" OFF  \
-        "10" "启用 Github 镜像源3 (使用 gh-proxy.com 镜像站下载 Github 上的源码)" OFF \
-        "11" "启用 Github 镜像源4 (使用 ghps.cc 镜像站下载 Github 上的源码)" OFF \
-        "12" "启用 Github 镜像源5 (使用 gh.idayer.com 镜像站下载 Github 上的源码)" OFF \
-        "13" "启用 Github 镜像源6 (使用 ghproxy.net 镜像站下载 Github 上的源码)" OFF \
+        "3" "使用 ModelScope 模型下载源 (将 HuggingFace下载源改为 ModelScope 下载源)" ON \
+        "4" "Huggingface / Github 下载源独占代理 (仅在下载 Huggingface / Github 上的文件时启用代理)" ON \
+        "5" "使用全局 Github 镜像源配置 (当设置了全局 Github 镜像源时禁用 Github 镜像自动选择)" ON \
+        "6" "Github 镜像源自动选择 (测试可用的镜像源并选择自动选择)" $([[ "$1" == "auto_github_mirrror" ]] && echo "ON" || echo "OFF") \
+        "7" "启用 Github 镜像源1 (使用 mirror.ghproxy.com 镜像站下载 Github 上的源码)" $([[ "$1" == "auto_github_mirrror" ]] && echo "OFF" || echo "ON") \
+        "8" "启用 Github 镜像源2 (使用 gitclone.com 镜像站下载 Github 上的源码)" OFF  \
+        "9" "启用 Github 镜像源3 (使用 gh-proxy.com 镜像站下载 Github 上的源码)" OFF \
+        "10" "启用 Github 镜像源4 (使用 ghps.cc 镜像站下载 Github 上的源码)" OFF \
+        "11" "启用 Github 镜像源5 (使用 gh.idayer.com 镜像站下载 Github 上的源码)" OFF \
+        "12" "启用 Github 镜像源6 (使用 ghproxy.net 镜像站下载 Github 上的源码)" OFF \
         3>&1 1>&2 2>&3)
 
     for i in ${dialog_arg}; do
@@ -58,43 +57,40 @@ download_mirror_select() {
                 use_global_pip_mirror=1
                 ;;
             3)
-                PIP_BREAK_SYSTEM_PACKAGE_ARG="--break-system-packages"
-                ;;
-            4)
                 USE_MODELSCOPE_MODEL_SRC=1
                 ;;
-            5)
+            4)
                 TERM_SD_ENABLE_ONLY_PROXY=1
                 ;;
-            6)
+            5)
                 if [[ -f "${START_PATH}/term-sd/config/set-global-github-mirror.conf" ]]; then
                     use_global_github_mirror=1
                 fi
                 ;;
-            7)
+            6)
                 auto_select_github_mirror=1
                 ;;
-            8)
+            7)
                 GITHUB_MIRROR="https://mirror.ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo"
                 GITHUB_MIRROR_NAME="镜像源1 (mirror.ghproxy.com)"
                 ;;
-            9)
+            8)
                 GITHUB_MIRROR="https://gitclone.com/github.com/term_sd_git_user/term_sd_git_repo"
                 GITHUB_MIRROR_NAME="镜像源2 (gitclone.com)"
                 ;;
-            10)
+            9)
                 GITHUB_MIRROR="https://gh-proxy.com/https://github.com/term_sd_git_user/term_sd_git_repo"
                 GITHUB_MIRROR_NAME="镜像源3 (gh-proxy.com)"
                 ;;
-            11)
+            10)
                 GITHUB_MIRROR="https://ghps.cc/https://github.com/term_sd_git_user/term_sd_git_repo"
                 GITHUB_MIRROR_NAME="镜像源4 (ghps.cc)"
                 ;;
-            12)
+            11)
                 GITHUB_MIRROR="https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo"
                 GITHUB_MIRROR_NAME="镜像源5 (gh.idayer.com)"
                 ;;
-            13)
+            12)
                 GITHUB_MIRROR="https://ghproxy.net/https://github.com/term_sd_git_user/term_sd_git_repo"
                 GITHUB_MIRROR_NAME="镜像源6 (ghproxy.net)"
                 ;;
@@ -281,56 +277,49 @@ pytorch_version_select() {
     esac
 }
 
-# 在 Pip 中是否使用 --use-pep517 进行安装
-# 选择后设置 PIP_USE_PEP517_ARG 全局变量
+# 设置 Pip 的安装模式
+# 选择后设置 PIP_UPDATE_PACKAGE_ARG, PIP_USE_PEP517_ARG, PIP_FORCE_REINSTALL_ARG, PIP_BREAK_SYSTEM_PACKAGE_ARG, PIP_PREFER_BINARY_ARG 全局变量
 pip_install_mode_select() {
     local dialog_arg
+    local i
+    unset PIP_UPDATE_PACKAGE_ARG
     unset PIP_USE_PEP517_ARG
-
-    dialog_arg=$(dialog --erase-on-exit --notags \
-        --title "Term-SD" \
-        --backtitle "Pip 安装模式选项" \
-        --ok-label "确认" --no-cancel \
-        --menu "请选择 Pip 安装方式\n1、常规安装可能会有问题, 但速度较快\n2、标准构建安装可解决一些报错问题, 但速度较慢 (对安装时间不在意的话推荐启用)" \
-        $(get_dialog_size_menu) \
-        "1" "> 常规安装 (setup.py)" \
-        "2" "> 标准构建安装 (--use-pep517)" \
-        3>&1 1>&2 2>&3)
-
-    case "${dialog_arg}" in
-        1)
-            unset PIP_USE_PEP517_ARG
-            ;;
-        2)
-            PIP_USE_PEP517_ARG="--use-pep517"
-            ;;
-    esac
-}
-
-# 在 Pip 中是否使用 --force-reinstall 参数进行强制重装
-# 选择后设置 PIP_FORCE_REINSTALL_ARG 全局变量
-pip_force_reinstall_select() {
-    local dialog_arg
     unset PIP_FORCE_REINSTALL_ARG
+    unset PIP_BREAK_SYSTEM_PACKAGE_ARG
+    unset PIP_PREFER_BINARY_ARG
 
     dialog_arg=$(dialog --erase-on-exit --notags \
         --title "Term-SD" \
         --backtitle "Pip 安装模式选项" \
         --ok-label "确认" --no-cancel \
-        --menu "Pip 安装软件包时, 是否使用强制重新安装, 请选择" \
+        --checklist "请选择 Pip 安装方式\n注: 标准构建安装可解决一些报错问题, 但速度较慢" \
         $(get_dialog_size_menu) \
-        "1" "> 安装" \
-        "2" "> 强制重新安装" \
+        "1" "> 更新软件包 (--upgrade)" OFF \
+        "2" "> 标准构建安装 (--use-pep517)" OFF \
+        "3" "> 强制重新安装 (--force-reinstall)" OFF \
+        "4" "> 强制使用 Pip 安装 (--break-system-packages)" OFF \
+        "5" "> 优先使用预编译好的安装包 (--prefer-binary)" ON \
         3>&1 1>&2 2>&3)
 
-    case "${dialog_arg}" in
-        1)
-            unset PIP_FORCE_REINSTALL_ARG
-            ;;
-        2)
-            PIP_FORCE_REINSTALL_ARG="--force-reinstall"
-            ;;
-    esac
+    for i in ${dialog_arg}; do
+        case "${dialog_arg}" in
+            1)
+                PIP_UPDATE_PACKAGE_ARG="--upgrade"
+                ;;
+            2)
+                PIP_USE_PEP517_ARG="--use-pep517"
+                ;;
+            3)
+                PIP_FORCE_REINSTALL_ARG="--force-reinstall"
+                ;;
+            4)
+                PIP_BREAK_SYSTEM_PACKAGE_ARG="--break-system-packages"
+                ;;
+            5)
+                PIP_PREFER_BINARY_ARG="--prefer-binary"
+                ;;
+        esac
+    done
 }
 
 # 安装前确认界面
@@ -347,6 +336,8 @@ term_sd_install_confirm() {
     local use_break_system_package_info
     local use_pep517_info
     local use_force_reinstall_info
+    local use_upgrade_info
+    local use_prefer_binary_info
 
     if is_use_pip_mirror; then
         use_pip_info="启用"
@@ -392,6 +383,18 @@ term_sd_install_confirm() {
         use_force_reinstall_info="禁用"
     fi
 
+    if [[ -z "${PIP_UPDATE_PACKAGE_ARG}" ]]; then
+        use_upgrade_info="启用"
+    else
+        use_upgrade_info="禁用"
+    fi
+
+    if [[ ! -z "${PIP_PREFER_BINARY_ARG}" ]]; then
+        use_prefer_binary_info="启用"
+    else
+        use_prefer_binary_info="禁用"
+    fi
+
     if (dialog --erase-on-exit \
         --title "Term-SD" \
         --backtitle "安装确认选项" \
@@ -404,7 +407,9 @@ Huggingface / Github 下载源独占代理: ${enable_only_proxy_info}\n
 强制使用 Pip: ${use_break_system_package_info}\n
 PyTorch 版本: ${pytorch_ver_info}\n
 Pip 安装方式: ${use_pep517_info}\n
-Pip 强制重装: ${use_force_reinstall_info}\
+Pip 强制重装: ${use_force_reinstall_info}\n
+Pip 更新软件包: ${use_upgrade_info}\n
+Pip 优先使用预编译包: ${use_prefer_binary_info}\
 " $(get_dialog_size)); then
         term_sd_echo "确认进行安装"
         return 0
@@ -457,6 +462,8 @@ clean_install_config() {
         term_sd_echo "INSTALL_PYTORCH_VERSION: ${INSTALL_PYTORCH_VERSION}"
         term_sd_echo "PIP_USE_PEP517_ARG: ${PIP_USE_PEP517_ARG}"
         term_sd_echo "PIP_FORCE_REINSTALL_ARG: ${PIP_FORCE_REINSTALL_ARG}"
+        term_sd_echo "PIP_UPDATE_PACKAGE_ARG: ${PIP_UPDATE_PACKAGE_ARG}"
+        term_sd_echo "PIP_PREFER_BINARY_ARG: ${PIP_PREFER_BINARY_ARG}"
     fi
 
     unset PIP_INDEX_MIRROR # 指定 Pip 镜像源的参数
@@ -471,6 +478,8 @@ clean_install_config() {
     unset INSTALL_PYTORCH_VERSION # 要安装的 PyTorch 版本和 xFormers 版本
     unset PIP_USE_PEP517_ARG # 是否在 Pip 使用 --use-pep517 参数
     unset PIP_FORCE_REINSTALL_ARG # 是否在 Pip 使用 --force-reinstall 参数
+    unset PIP_UPDATE_PACKAGE_ARG # 是否更新软件包
+    unset PIP_PREFER_BINARY_ARG # 优先使用编译好的 Python 软件包进行安装
 }
 
 # 如果启用了 Pip 镜像源, 则返回0

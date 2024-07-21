@@ -11,9 +11,8 @@ pytorch_reinstall() {
 
         # 安装前的准备
         download_mirror_select # 下载镜像源选择
-        pytorch_version_select # pytorch版本选择
+        pytorch_version_select # PyTorch 版本选择
         pip_install_mode_select # 安装方式选择
-        pip_force_reinstall_select # 强制重装选择
 
         if term_sd_install_confirm "是否重新安装 PyTorch ?"; then
             # 开始安装pytorch
@@ -137,17 +136,17 @@ install_pytorch() {
                     if grep cu121 <<< ${torch_ver} &> /dev/null; then # CUDA 12.1
                         PIP_EXTRA_INDEX_URL="https://mirror.sjtu.edu.cn/pytorch-wheels/cu121" \
                         PIP_FIND_LINKS="https://mirror.sjtu.edu.cn/pytorch-wheels/cu121/torch_stable.html" \
-                        term_sd_try term_sd_pip install ${xformers_ver} ${PIP_INDEX_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} --prefer-binary --no-deps
+                        term_sd_try term_sd_pip install ${xformers_ver} ${PIP_INDEX_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} --no-deps
                     else # CUDA < 12.1
-                        term_sd_try term_sd_pip install ${xformers_ver} ${PIP_INDEX_MIRROR} ${PIP_EXTRA_INDEX_MIRROR} ${PIP_FIND_LINKS_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} --prefer-binary --no-deps
+                        term_sd_try term_sd_pip install ${xformers_ver} ${PIP_INDEX_MIRROR} ${PIP_EXTRA_INDEX_MIRROR} ${PIP_FIND_LINKS_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} --no-deps
                     fi
                 else # 官方源
                     if grep cu121 <<< ${torch_ver} &> /dev/null ;then # CUDA 12.1
                         PIP_EXTRA_INDEX_URL="https://download.pytorch.org/whl/cu121" \
                         PIP_FIND_LINKS="https://download.pytorch.org/whl/cu121/torch_stable.html" \
-                        term_sd_try term_sd_pip install ${xformers_ver} ${PIP_INDEX_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} --prefer-binary --no-deps
+                        term_sd_try term_sd_pip install ${xformers_ver} ${PIP_INDEX_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} --no-deps
                     else # CUDA < 12.1
-                        term_sd_try term_sd_pip install ${xformers_ver} ${PIP_INDEX_MIRROR} ${PIP_EXTRA_INDEX_MIRROR} ${PIP_FIND_LINKS_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} --prefer-binary --no-deps
+                        term_sd_try term_sd_pip install ${xformers_ver} ${PIP_INDEX_MIRROR} ${PIP_EXTRA_INDEX_MIRROR} ${PIP_FIND_LINKS_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} --no-deps
                     fi
                 fi
             fi

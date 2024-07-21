@@ -27,7 +27,7 @@ __term_sd_task_pre_ext_26 masquerade-nodes-comfyui OFF
 __term_sd_task_pre_ext_27 ComfyUI-post-processing-nodes OFF
 __term_sd_task_pre_ext_28 images-grid-comfy-plugin ON
 __term_sd_task_pre_ext_29 ComfyUI-CLIPSeg OFF
-__term_sd_task_pre_ext_30 rembg-comfyui-node OM
+__term_sd_task_pre_ext_30 rembg-comfyui-node OFF
 __term_sd_task_pre_ext_31 ComfyUI_tinyterraNodes OFF
 __term_sd_task_pre_ext_32 yk-node-suite-comfyui OFF
 __term_sd_task_pre_ext_33 ComfyUI_experiments ON
