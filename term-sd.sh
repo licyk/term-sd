@@ -650,6 +650,11 @@ term_sd_set_up_normal_setting() {
         term_sd_echo "Term-SD 启用 HuggingFace 镜像源"
     fi
 
+    if [[ ! -f "${START_PATH}/term-sd/config/set-cuda-memory-alloc.lock" ]];then
+        touch "${START_PATH}/term-sd/config/set-cuda-memory-alloc.lock"
+        term_sd_echo "Term-SD 启用 CUDA 内存分配器设置"
+    fi
+
     touch "${START_PATH}/term-sd/config/install-by-launch-script.lock"
 }
 
@@ -1115,11 +1120,6 @@ main() {
         TERM_SD_ENABLE_STRICT_INSTALL_MODE=1
     fi
 
-    # CUDA 内存分配方案设置
-    if [[ -f "${START_PATH}/term-sd/config/cuda-memory-alloc.conf" ]]; then
-        export PYTORCH_CUDA_ALLOC_CONF=$(cat "${START_PATH}/term-sd/config/cuda-memory-alloc.conf")
-    fi
-
     # 生成设置 Pip 镜像源的参数
     for i in ${TERM_SD_PIP_INDEX_URL}; do
         TERM_SD_PIP_INDEX_URL_ARG="$TERM_SD_PIP_INDEX_URL_ARG --index-url ${i}"
@@ -1392,7 +1392,7 @@ main() {
     # TERM_SD_SCRIPT_NAME 全局变量不为空时执行启动 Term-SD 扩展脚本的功能
     case "${TERM_SD_SCRIPT_NAME}" in
         null)
-            . "${START_PATH}"/term-sd/modules/init.sh # 加载term-sd模块
+            . "${START_PATH}"/term-sd/modules/init.sh # 加载 Term-SD 模块
             ;;
         *)
             term_sd_extra_scripts_launch "${TERM_SD_SCRIPT_NAME}"

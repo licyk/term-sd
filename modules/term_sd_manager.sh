@@ -21,6 +21,7 @@ term_sd_launch() {
     local launch_sd_config
     local use_mirror_for_sd_webui=0
     local use_mirror_for_sd_webui_state=1
+    local use_cuda_malloc=0
     local sd_webui_extension_list_url
     local github_mirror_url
     local i
@@ -97,8 +98,25 @@ term_sd_launch() {
             ;;
     esac
 
+    if [[ -f "${START_PATH}/term-sd/config/set-cuda-memory-alloc.lock" ]]; then
+        term_sd_echo "检查显卡是否为 Nvidia 显卡"
+        if check_gpu_is_nvidia_drive; then
+            use_cuda_malloc=0
+            term_sd_echo "显卡为 Nvidia 显卡, 可设置 CUDA 内存分配器"
+            if is_cuda_malloc_avaliable; then
+                term_sd_echo "设置 CUDA 内存分配器为 PyTorch 原生分配器"
+                export PYTORCH_CUDA_ALLOC_CONF="backend:cudaMallocAsync"
+            else
+                term_sd_echo "设置 CUDA 内存分配器为 CUDA 内置异步分配器"
+                export PYTORCH_CUDA_ALLOC_CONF="garbage_collection_threshold:0.9,max_split_size_mb:512"
+            fi
+        else
+            term_sd_echo "显卡非 Nvidia 显卡, 无法设置 CUDA 内存分配器"
+        fi
+    fi
+
     term_sd_print_line "${TERM_SD_MANAGE_OBJECT} 启动"
-    term_sd_echo "提示: 可以按下 Ctrl+C 键终止 AI 软件的运行"
+    term_sd_echo "提示: 可以按下 Ctrl + C 键终止 AI 软件的运行"
     case "${TERM_SD_MANAGE_OBJECT}" in
         InvokeAI)
             fallback_numpy_version
@@ -118,6 +136,11 @@ term_sd_launch() {
         unset WEBUI_EXTENSIONS_INDEX
         unset CLIP_PACKAGE
     fi
+
+    if [[ "${use_cuda_malloc}" == 1 ]];then
+        unset PYTORCH_CUDA_ALLOC_CONF
+    fi
+
     term_sd_pause
 }
 

@@ -330,7 +330,7 @@ sd_webui_manager() {
 sd_webui_update_depend() {
     # 更新前的准备
     download_mirror_select # 下载镜像源选择
-    pip_install_mode_select # 安装方式选择
+    pip_install_mode_select upgrade # 安装方式选择
 
     if term_sd_install_confirm "是否更新 Stable-Diffusion-WebUI 依赖 ?"; then
         term_sd_print_line "Stable-Diffusion-WebUI 依赖更新"

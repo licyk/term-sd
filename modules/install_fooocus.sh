@@ -53,10 +53,10 @@ install_fooocus() {
         fooocus_manager # 进入管理界面
     else # 生成安装任务并执行安装任务
         # 安装前的准备
-        download_mirror_select auto_github_mirrror # 下载镜像源选择
+        download_mirror_select # 下载镜像源选择
         pytorch_version_select # PyTorch 版本选择
         fooocus_download_model_select # 模型选择
-        pip_install_mode_select # 安装方式选择
+        pip_install_mode_select upgrade # 安装方式选择
 
         if term_sd_install_confirm "是否安装 Fooocus ?"; then
             term_sd_print_line "Fooocus 安装"

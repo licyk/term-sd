@@ -151,10 +151,10 @@ python_package_update() {
         term_sd_echo "要进行更新的软件包名单:"
         cat tmp-python-package-update-list.txt
         term_sd_print_line
-        term_sd_echo "cmd: install_python_package -r tmp-python-package-update-list.txt --upgrade"
+        term_sd_echo "cmd: install_python_package -r tmp-python-package-update-list.txt"
     fi
     # 更新 Python 软件包
-    install_python_package -r tmp-python-package-update-list.txt --upgrade
+    install_python_package -r tmp-python-package-update-list.txt
     rm -f tmp-python-package-update-list.txt # 删除列表缓存
 }
 

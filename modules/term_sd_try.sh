@@ -18,7 +18,7 @@ term_sd_try() {
                     term_sd_is_debug && term_sd_echo "执行失败的命令: \"$@\""
                     return 1
                 fi
-                term_sd_echo "[$count/$TERM_SD_CMD_RETRY] 命令执行失败, 重试中"
+                term_sd_echo "[${count}/${TERM_SD_CMD_RETRY}] 命令执行失败, 重试中"
             fi
         done
     fi

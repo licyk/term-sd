@@ -95,7 +95,7 @@ fooocus_venv_rebuild() {
     # 安装前的准备
     download_mirror_select # 下载镜像源选择
     pytorch_version_select # PyTorch 版本选择
-    pip_install_mode_select # 安装方式选择
+    pip_install_mode_select upgrade # 安装方式选择
 
     if term_sd_install_confirm "是否重新构建 Fooocus 的虚拟环境 ?"; then
         term_sd_print_line "${TERM_SD_MANAGE_OBJECT} 虚拟环境重建"
@@ -108,7 +108,7 @@ fooocus_venv_rebuild() {
         enter_venv
 
         install_pytorch # 安装 PyTorch
-        install_python_package --upgrade -r requirements_versions.txt
+        install_python_package -r requirements_versions.txt
 
         term_sd_echo "重新构建 Fooocus 的虚拟环境结束"
         exit_venv
@@ -124,7 +124,7 @@ lora_scripts_venv_rebuild() {
     # 安装前的准备
     download_mirror_select # 下载镜像源选择
     pytorch_version_select # PyTorch 版本选择
-    pip_install_mode_select # 安装方式选择
+    pip_install_mode_select upgrade # 安装方式选择
 
     if term_sd_install_confirm "是否重新构建 lora-scripts 的虚拟环境 ?"; then
         term_sd_print_line "${TERM_SD_MANAGE_OBJECT} 虚拟环境重建"
@@ -138,9 +138,9 @@ lora_scripts_venv_rebuild() {
 
         install_pytorch # 安装 PyTorch
         cd sd-scripts
-        install_python_package --upgrade -r requirements.txt # sd-scripts 目录下还有个 _typos.toml, 在安装 requirements.txt 里的依赖时会指向这个文件
+        install_python_package -r requirements.txt # sd-scripts 目录下还有个 _typos.toml, 在安装 requirements.txt 里的依赖时会指向这个文件
         cd ..
-        install_python_package --upgrade -r requirements.txt # lora-scripts 安装依赖
+        install_python_package -r requirements.txt # lora-scripts 安装依赖
 
         term_sd_echo "重新构建 lora-scripts 的虚拟环境结束"
         exit_venv
@@ -156,7 +156,7 @@ kohya_ss_venv_rebuild() {
     # 安装前的准备
     download_mirror_select # 下载镜像源选择
     pytorch_version_select # PyTorch 版本选择
-    pip_install_mode_select # 安装方式选择
+    pip_install_mode_select upgrade # 安装方式选择
 
     if term_sd_install_confirm "是否重新构建 kohya_ss 的虚拟环境 ?"; then
         term_sd_print_line "${TERM_SD_MANAGE_OBJECT} 虚拟环境重建"
@@ -170,9 +170,9 @@ kohya_ss_venv_rebuild() {
 
         install_pytorch # 安装 PyTorch
         cd sd-scripts
-        install_python_package --upgrade -r requirements.txt # sd-scripts 目录下还有个 _typos.toml, 在安装 requirements.txt 里的依赖时会指向这个文件
+        install_python_package -r requirements.txt # sd-scripts 目录下还有个 _typos.toml, 在安装 requirements.txt 里的依赖时会指向这个文件
         cd ..
-        install_python_package --upgrade -r requirements.txt # kohya_ss 安装依赖
+        install_python_package -r requirements.txt # kohya_ss 安装依赖
 
         term_sd_echo "重新构建 kohya_ss 的虚拟环境结束"
         exit_venv

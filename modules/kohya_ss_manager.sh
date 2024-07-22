@@ -301,7 +301,7 @@ kohya_ss_manager() {
 kohya_ss_update_depend() {
     # 更新前的准备
     download_mirror_select # 下载镜像源选择
-    pip_install_mode_select # 安装方式选择
+    pip_install_mode_select upgrade # 安装方式选择
 
     if term_sd_install_confirm "是否更新 kohya_ss 依赖 ?"; then
         term_sd_print_line "kohya_ss 依赖更新"

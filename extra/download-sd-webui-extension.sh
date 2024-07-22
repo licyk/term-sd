@@ -14,7 +14,7 @@ if [[ ! -d "${SD_WEBUI_PATH}" ]]; then
 else
     # 删除 SD WebUI 插件安装任务文件
     rm -f "${START_PATH}/term-sd/task/sd_webui_install_extension.sh"
-    download_mirror_select auto_github_mirrror # 下载镜像源选择
+    download_mirror_select # 下载镜像源选择
 
     # 插件选择
     SD_WEBUI_INSTALL_EXTENSION_LIST=$(dialog --erase-on-exit --notags \

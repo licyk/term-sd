@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # 安装前镜像选择
-# 后面加上 auto_github_mirrror 参数将自动勾选 "Github 镜像源自动选择"
 # 该函数需要使用 TERM_SD_PIP_INDEX_URL_ARG, TERM_SD_PIP_EXTRA_INDEX_URL_ARG, TERM_SD_PIP_FIND_LINKS_ARG 变量
 # 用于设置其他参数
 # 选择后将设置以下变量:
@@ -29,15 +28,15 @@ download_mirror_select() {
         --backtitle "安装镜像选项" \
         --title "Term-SD" \
         --ok-label "确认" --no-cancel \
-        --checklist "请选择镜像, 注:\n1. 当同时启用多个 Github 镜像源时, 优先选择最下面的 Github 镜像源; 勾选 \"Github 镜像源自动选择\" 时, 将覆盖手动设置的 Github 镜像源\n2. 启用全局镜像源后, 优先使用设置中的镜像源\n3. 通常情况下保持默认即可" \
+        --checklist "请选择镜像, 注:\n1. 当同时启用多个 Github 镜像源时, 优先选择最下面的 Github 镜像源; 勾选 \"Github 镜像源自动选择\" 时, 将覆盖手动设置的 Github 镜像源\n2. 启用全局镜像源后, 优先使用设置中的镜像源\n3. 如果需要保持安装全程使用代理, 需要将 \"Huggingface / Github 下载源独占代理\" 关闭\n4. 通常情况下保持默认即可" \
         $(get_dialog_size_menu) \
         "1" "启用 Pip 镜像源 (使用 Pip 国内镜像源下载 Python 软件包)" OFF \
         "2" "使用全局 Pip 镜像源配置 (使用 Term-SD 设置中配置的 Pip 镜像源)" ON \
         "3" "使用 ModelScope 模型下载源 (将 HuggingFace下载源改为 ModelScope 下载源)" ON \
         "4" "Huggingface / Github 下载源独占代理 (仅在下载 Huggingface / Github 上的文件时启用代理)" ON \
         "5" "使用全局 Github 镜像源配置 (当设置了全局 Github 镜像源时禁用 Github 镜像自动选择)" ON \
-        "6" "Github 镜像源自动选择 (测试可用的镜像源并选择自动选择)" $([[ "$1" == "auto_github_mirrror" ]] && echo "ON" || echo "OFF") \
-        "7" "启用 Github 镜像源1 (使用 mirror.ghproxy.com 镜像站下载 Github 上的源码)" $([[ "$1" == "auto_github_mirrror" ]] && echo "OFF" || echo "ON") \
+        "6" "Github 镜像源自动选择 (测试可用的镜像源并选择自动选择)" ON \
+        "7" "启用 Github 镜像源1 (使用 mirror.ghproxy.com 镜像站下载 Github 上的源码)" OFF \
         "8" "启用 Github 镜像源2 (使用 gitclone.com 镜像站下载 Github 上的源码)" OFF  \
         "9" "启用 Github 镜像源3 (使用 gh-proxy.com 镜像站下载 Github 上的源码)" OFF \
         "10" "启用 Github 镜像源4 (使用 ghps.cc 镜像站下载 Github 上的源码)" OFF \
@@ -279,14 +278,43 @@ pytorch_version_select() {
 
 # 设置 Pip 的安装模式
 # 选择后设置 PIP_UPDATE_PACKAGE_ARG, PIP_USE_PEP517_ARG, PIP_FORCE_REINSTALL_ARG, PIP_BREAK_SYSTEM_PACKAGE_ARG, PIP_PREFER_BINARY_ARG 全局变量
+# 使用:
+# pip_install_mode_select <要默认启用的参数>
+# 参数对应的选项:
+# upgrade: 更新软件包 (--upgrade)
+# pep517: 标准构建安装 (--use-pep517)
+# force_reinstall: 强制重新安装 (--force-reinstall)
+# break_system_package: 强制使用 Pip 安装 (--break-system-packages)
 pip_install_mode_select() {
     local dialog_arg
     local i
+    local use_upgrade="OFF"
+    local use_pep517="OFF"
+    local use_force_reinstall="OFF"
+    local use_break_system_package="OFF"
     unset PIP_UPDATE_PACKAGE_ARG
     unset PIP_USE_PEP517_ARG
     unset PIP_FORCE_REINSTALL_ARG
     unset PIP_BREAK_SYSTEM_PACKAGE_ARG
     unset PIP_PREFER_BINARY_ARG
+
+    # 界面预设
+    for i in $@; do
+        case "${i}" in
+            upgrade)
+                use_upgrade="ON"
+                ;;
+            pep517)
+                use_pep517="ON"
+                ;;
+            force_reinstall)
+                use_force_reinstall="ON"
+                ;;
+            break_system_package)
+                use_break_system_package="ON"
+                ;;
+        esac
+    done
 
     dialog_arg=$(dialog --erase-on-exit --notags \
         --title "Term-SD" \
@@ -294,10 +322,10 @@ pip_install_mode_select() {
         --ok-label "确认" --no-cancel \
         --checklist "请选择 Pip 安装方式, 注:\n1. 安装时更新软件包\n2. 标准构建安装可解决一些报错问题, 但速度较慢\n3. 软件包存在时将重新安装\n4. 忽略系统警告强制使用 Pip 安装软件包\n5. 优先使用预编译好的软件包进行安装, 加快安装速度" \
         $(get_dialog_size_menu) \
-        "1" "> 更新软件包 (--upgrade)" OFF \
-        "2" "> 标准构建安装 (--use-pep517)" OFF \
-        "3" "> 强制重新安装 (--force-reinstall)" OFF \
-        "4" "> 强制使用 Pip 安装 (--break-system-packages)" OFF \
+        "1" "> 更新软件包 (--upgrade)" "${use_upgrade}" \
+        "2" "> 标准构建安装 (--use-pep517)" "${use_pep517}" \
+        "3" "> 强制重新安装 (--force-reinstall)" "${use_force_reinstall}" \
+        "4" "> 强制使用 Pip 安装 (--break-system-packages)" "${use_break_system_package}" \
         "5" "> 优先使用预编译好的安装包 (--prefer-binary)" ON \
         3>&1 1>&2 2>&3)
 
@@ -479,7 +507,7 @@ clean_install_config() {
     unset PIP_USE_PEP517_ARG # 是否在 Pip 使用 --use-pep517 参数
     unset PIP_FORCE_REINSTALL_ARG # 是否在 Pip 使用 --force-reinstall 参数
     unset PIP_UPDATE_PACKAGE_ARG # 是否更新软件包
-    unset PIP_PREFER_BINARY_ARG # 优先使用编译好的 Python 软件包进行安装
+    unset PIP_PREFER_BINARY_ARG # 使用 --prefer-binary 使 Pip 优先使用编译好的 Python 软件包进行安装
 }
 
 # 如果启用了 Pip 镜像源, 则返回0

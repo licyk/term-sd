@@ -70,10 +70,10 @@ term_sd_setting() {
             term_sd_path_redirect_setup_info="禁用"
         fi
 
-        if [[ -f "${START_PATH}/term-sd/config/cuda-memory-alloc.conf" ]]; then
-            cuda_memory_alloc_setup_info=$([[ ! -z "$(cat "${START_PATH}/term-sd/config/cuda-memory-alloc.conf" | grep cudaMallocAsync)" ]] && echo "CUDA内置异步分配器" || echo "PyTorch原生分配器")
+        if [[ -f "${START_PATH}/term-sd/config/set-cuda-memory-alloc.lock" ]]; then
+            cuda_memory_alloc_setup_info="启用"
         else
-            cuda_memory_alloc_setup_info="未设置"
+            cuda_memory_alloc_setup_info="禁用"
         fi
 
         dialog_arg=$(dialog --erase-on-exit --notags \
@@ -570,67 +570,48 @@ term_sd_cache_redirect_setting() {
 # 参考:
 # https://blog.csdn.net/MirageTanker/article/details/127998036
 # https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Optimizations
-# CUDA 内存分配配置保存在 <Start Path>/term-sd/config/cuda-memory-alloc.conf
-# 通过 PYTORCH_CUDA_ALLOC_CONF 环境变量设置 PyTorch 内存分配器
+# CUDA 内存分配配置保存在 <Start Path>/term-sd/config/set-cuda-memory-alloc.lock
 cuda_memory_alloc_setting() {
     local dialog_arg
     local cuda_alloc_info
 
     while true; do
-        if [[ -f "${START_PATH}/term-sd/config/cuda-memory-alloc.conf" ]]; then
-            if [[ ! -z "$(cat "${START_PATH}/term-sd/config/cuda-memory-alloc.conf" | grep "cudaMallocAsync")" ]]; then
-                cuda_alloc_info="CUDA 内置异步分配器"
-            else
-                cuda_alloc_info="PyTorch 原生分配器"
-            fi
+        if [[ -f "${START_PATH}/term-sd/config/set-cuda-memory-alloc.lock" ]]; then
+            cuda_alloc_info="启用"
         else
-            cuda_alloc_info="未设置"
+            cuda_alloc_info="禁用"
         fi
             
         dialog_arg=$(dialog --erase-on-exit --notags \
             --title "Term-SD" \
             --backtitle "CUDA 内存分配设置界面" \
             --ok-label "确认" --cancel-label "取消" \
-            --menu "该功能用于更换底层 CUDA 内存分配器 (仅支持 Nvidia 显卡, 且 CUDA 版本需要大于 11.4)\n当前内存分配器: ${cuda_alloc_info}\n请选择 CUDA 内存分配器" \
+            --menu "该功能用于更换底层 CUDA 内存分配器 (仅支持 Nvidia 显卡, 且 CUDA 版本需要大于 11.4)\n当前内存分配器设置: ${cuda_alloc_info}\n是否启用 CUDA 内存分配器 ?" \
             $(get_dialog_size_menu) \
             "0" "> 返回" \
-            "1" "> PyTorch 原生分配器" \
-            "2" "> CUDA (11.4+) 内置异步分配器" \
-            "3" "> 清除设置" \
+            "1" "> 启用" \
+            "2" "> 禁用" \
             3>&1 1>&2 2>&3)
 
         case "${dialog_arg}" in
             1)
-                export PYTORCH_CUDA_ALLOC_CONF="garbage_collection_threshold:0.9,max_split_size_mb:512"
-                echo "garbage_collection_threshold:0.9,max_split_size_mb:512" > "${START_PATH}/term-sd/config/cuda-memory-alloc.conf"
+                touch "${START_PATH}/term-sd/config/set-cuda-memory-alloc.lock"
 
                 dialog --erase-on-exit \
                     --title "Term-SD" \
                     --backtitle "CUDA 内存分配设置界面" \
                     --ok-label "确认" \
-                    --msgbox "设置 CUDA 内存分配器为 PyTorch 原生分配器成功" \
+                    --msgbox "启用 CUDA 内存分配器成功" \
                     $(get_dialog_size)
                 ;;
             2)
-                export PYTORCH_CUDA_ALLOC_CONF="backend:cudaMallocAsync"
-                echo "backend:cudaMallocAsync" > "${START_PATH}/term-sd/config/cuda-memory-alloc.conf"
+                rm -f "${START_PATH}/term-sd/config/set-cuda-memory-alloc.lock"
 
                 dialog --erase-on-exit \
                     --title "Term-SD" \
                     --backtitle "CUDA 内存分配设置界面" \
                     --ok-label "确认" \
-                    --msgbox "设置 CUDA 内存分配器为 CUDA 内置异步分配器成功" \
-                    $(get_dialog_size)
-                ;;
-            3)
-                unset PYTORCH_CUDA_ALLOC_CONF
-                rm -f "${START_PATH}/term-sd/config/cuda-memory-alloc.conf"
-
-                dialog --erase-on-exit \
-                    --title "Term-SD" \
-                    --backtitle "CUDA内存分配设置界面" \
-                    --ok-label "确认" \
-                    --msgbox "清除CUDA内存分配器设置成功" \
+                    --msgbox "禁用 CUDA 内存分配器成功" \
                     $(get_dialog_size)
                 ;;
             *)

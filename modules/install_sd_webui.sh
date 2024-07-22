@@ -54,7 +54,7 @@ install_sd_webui() {
         sd_webui_manager # 进入管理界面
     else # 生成安装任务并执行安装任务
         # 安装前的准备
-        download_mirror_select auto_github_mirrror # 下载镜像源选择
+        download_mirror_select # 下载镜像源选择
         pytorch_version_select # PyTorch 版本选择
         sd_webui_extension_install_select # 插件选择
         sd_webui_download_model_select # 模型选择

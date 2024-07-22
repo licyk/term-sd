@@ -13,7 +13,7 @@ if [[ ! -d "${COMFYUI_PATH}" ]]; then
     term_sd_echo "未安装 ComfyUI"
 else
     rm -f "${START_PATH}/term-sd/task/comfyui_install_extension.sh"
-    download_mirror_select auto_github_mirrror # 下载镜像源选择
+    download_mirror_select # 下载镜像源选择
 
     # 插件选择
     COMFYUI_EXTENSION_INSTALL_LIST=$(dialog --erase-on-exit --notags \

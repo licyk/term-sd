@@ -44,11 +44,11 @@ invokeai_manager() {
                     2)
                         # 更新前的准备
                         download_mirror_select # 下载镜像源选择
-                        pip_install_mode_select # 安装方式选择
+                        pip_install_mode_select upgrade # 安装方式选择
                         if term_sd_install_confirm "是否更新 InvokeAI ?"; then
                             term_sd_echo "更新 InvokeAI 中"
                             term_sd_tmp_disable_proxy # 临时取消代理,避免一些不必要的网络减速
-                            install_python_package --upgrade invokeai
+                            install_python_package invokeai
                             if [[ "$?" == 0 ]]; then
                                 dialog --erase-on-exit \
                                     --title "InvokeAI 管理" \
@@ -232,7 +232,7 @@ invokeai_manager() {
 invokeai_update_depend() {
     # 更新前的准备
     download_mirror_select # 下载镜像源选择
-    pip_install_mode_select # 安装方式选择
+    pip_install_mode_select upgrade # 安装方式选择
 
     if term_sd_install_confirm "是否更新 InvokeAI 依赖 ?"; then
         term_sd_print_line "InvokeAI 依赖更新"
