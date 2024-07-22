@@ -104,10 +104,10 @@ term_sd_launch() {
             use_cuda_malloc=0
             term_sd_echo "显卡为 Nvidia 显卡, 可设置 CUDA 内存分配器"
             if is_cuda_malloc_avaliable; then
-                term_sd_echo "设置 CUDA 内存分配器为 PyTorch 原生分配器"
+                term_sd_echo "设置 CUDA 内存分配器为 CUDA 内置异步分配器"
                 export PYTORCH_CUDA_ALLOC_CONF="backend:cudaMallocAsync"
             else
-                term_sd_echo "设置 CUDA 内存分配器为 CUDA 内置异步分配器"
+                term_sd_echo "设置 CUDA 内存分配器为 PyTorch 原生分配器"
                 export PYTORCH_CUDA_ALLOC_CONF="garbage_collection_threshold:0.9,max_split_size_mb:512"
             fi
         else

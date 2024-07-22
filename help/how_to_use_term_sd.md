@@ -37,11 +37,10 @@ Term-SD 在使用安装、管理 AI 软件的功能时，会使用准备功能�
 - 1、启用 Pip 镜像源：Term-SD 调用 Pip 下载 Python 软件包时使用国内镜像源进行下载
 - 2、使用全局 Pip 镜像源：使用 Term-SD 设置中配置的 Pip 镜像源，而不是安装准备界面中所选择的 Pip 镜像源
 - 3、HuggingFace / Github独占代理：Term-SD 安装 AI 软件的过程仅为 HuggingFace / Github 下载源启用代理，减少代理流量的消耗
-- 4、强制使用 Pip：强制使用 Pip 安装 Python 软件包，忽略系统的警告，一般只有在禁用虚拟环境后才需要启用
-- 5、使用 Modelscope 模型下载源：将安装时使用的 HuggingFace 模型下载源改为 Modelscope 模型下载源（HuggingFace 在国内无法直接访问）
-- 6、Github 镜像源自动选择：测试可用的 Github 镜像源并选择自动选择，选择该选项后将覆盖手动设置的 Github 镜像源
-- 7、使用全局 Github 镜像源配置：当设置了全局 Github 镜像源时，禁用 Github 镜像自动选择
-- 8、启用 Github 镜像源：Term-SD 从 Github 克隆源代码时使用 Github 镜像站进行克隆
+- 4、使用 Modelscope 模型下载源：将安装时使用的 HuggingFace 模型下载源改为 Modelscope 模型下载源（HuggingFace 在国内无法直接访问）
+- 5、Github 镜像源自动选择：测试可用的 Github 镜像源并选择自动选择，选择该选项后将覆盖手动设置的 Github 镜像源
+- 6、使用全局 Github 镜像源配置：当设置了全局 Github 镜像源时，禁用 Github 镜像自动选择
+- 7、启用 Github 镜像源：Term-SD 从 Github 克隆源代码时使用 Github 镜像站进行克隆
 
 一般这些选项保持默认即可
 
@@ -91,11 +90,14 @@ Term-SD 在使用安装、管理 AI 软件的功能时，会使用准备功能�
 
 
 ### 3、Pip 安装模式选项
-该功能用于选择 Pip 的安装模式，可解决某些情况下安装 Python 软件包失败的问题，如果不在意安装时间，可以选择标准构建安装（--use-pep517），保证安装成功；选择常规安装（setup.py）也可以，安装速度会比较快，但可能会出现安装失败的问题
+该功能用于选择 Pip 的安装模式
 
-该界面共有2种模式可以选择：
-- 1、常规安装（setup.py）：使用传统方式进行安装，默认使用二进制软件包进行安装，速度较快
-- 2、标准构建安装（--use-pep517）：使用标准编译安装，使用源码编译成二进制软件包再进行安装，耗时比较久，但可以解决一些 Python 软件包安装失败的问题
+该界面共有 5 种模式可以选择：
+- 1、更新软件包 (--upgrade)：安装时将更新软件包
+- 2、标准构建安装 (--use-pep517)：使用标准构建安装 Python 软件包，可以解决部分软件包无法正常安装的问题，但安装耗时较长
+- 3、强制重新安装 (--force-reinstall)：如果要安装的软件已存在时则重新安装
+- 4、强制使用 Pip 安装 (--break-system-packages)：强制使用 Pip 安装 Python 软件包，忽略系统的警告，一般只有在禁用虚拟环境后才需要启用
+- 5、优先使用预编译好的安装包 (--prefer-binary)：安装 Python 软件包时优先使用预编译好的安装包进行安装
 
 >[!NOTE]
 >在 Linux 系统中使用常规安装（setup.py）可能会出现安装失败的问题，所以推荐使用标准构建安装（--use-pep517）
@@ -116,13 +118,6 @@ Term-SD 在使用安装、管理 AI 软件的功能时，会使用准备功能�
 
 >[!NOTE]
 >该选项仅在`Python 软件包安装 / 重装 / 卸载`功能出现
-
-
-### 5、Pip 强制重装选择
-该功能用于在 Pip 发现将要安装的 Python 软件包已存在且版本相同时，是否强制重新安装  
-该界面有以下选项
-- 1、安装：正常安装 Python 软件包，当发现将要安装的 Python 软件包已存在且版本相同时，跳过安装
-- 2、强制重装：当发现将要安装的 Python 软件包已存在且版本相同时，强制重新安装
 
 
 ### 6、安装确认选项
@@ -279,18 +274,23 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 
 
 #### 4、模型选择
-第四个时模型选择，这里可以选择 Term-SD 要下载的模型，Term-SD 默认帮你勾选了一些模型，可根据自己需求来选择
+第四个时模型选择，这里可以选择 Term-SD 要下载的模型，Term-SD 默认帮你勾选了一些模型，可根据自己需求来选择，在选项后的括号内标注了模型的大小
 
 
-#### 5、Pip 安装模式选择
-第四个是 Pip 包管理器的安装模式选择，共有 2 种模式
-- 1、常规安装（setup.py）：使用传统方式进行安装，默认使用二进制软件包进行安装，速度较快
-- 2、标准构建安装（--use-pep517）：使用标准编译安装，使用源码编译成二进制软件包再进行安装，耗时比较久，但可以解决一些 Python 软件包安装失败的问题
+#### 5、Pip 安装模式选项
+该功能用于选择 Pip 的安装模式
 
-一般使用常规安装（setup.py）就行，如果想要保证安装成功，可以选择标准构建安装（--use-pep517）
+该界面共有 5 种模式可以选择：
+- 1、更新软件包 (--upgrade)：安装时将更新软件包
+- 2、标准构建安装 (--use-pep517)：使用标准构建安装 Python 软件包，可以解决部分软件包无法正常安装的问题，但安装耗时较长
+- 3、强制重新安装 (--force-reinstall)：如果要安装的软件已存在时则重新安装
+- 4、强制使用 Pip 安装 (--break-system-packages)：强制使用 Pip 安装 Python 软件包，忽略系统的警告，一般只有在禁用虚拟环境后才需要启用
+- 5、优先使用预编译好的安装包 (--prefer-binary)：安装 Python 软件包时优先使用预编译好的安装包进行安装
+
+通常情况下保持默认即可
 
 >[!NOTE]
->在Linux系统中使用常规安装（setup.py）可能会出现安装失败的问题，所以推荐使用标准构建安装（--use-pep517）
+>在 Linux 系统中如果不使用标准构建安装（--use-pep517）可能会出现安装失败的问题，如果不追求安装速度，可尝试勾选该选项，但是勾选后将增加安装 Python 软件包的时长
 
 
 #### 6、安装确认
@@ -298,9 +298,7 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 安装时间根据网络速度和电脑性能决定
 
 >[!NOTE]
->1、Stable Diffusion WebUI 安装成功后，可以前往 Stable Diffusion WebUI 设置调成中文界面（前提是`stable-diffusion-webui-localization-zh_Hans`扩展已经成功安装，在Stable Diffusion WebUI的`Extensions（扩展）`选项卡中查看）  
->2、在 Stable Diffusion WebUI 界面点击`Settings`->`User interface`->`Localization`，点击右边的刷新按钮，再选择（防止不显示出来），在列表中选择`zh-Hans（stable）`，再点击上面的`Apply settings`，最后点击`Reload UI`生效  
->3、首次启动 Stable Diffusion WebUI 时在检查依赖完整性过程耗时较长，需要耐心等待。
+>首次启动 Stable Diffusion WebUI 时在检查依赖完整性过程耗时较长，需要耐心等待。
 
 
 ### ComfyUI 安装
