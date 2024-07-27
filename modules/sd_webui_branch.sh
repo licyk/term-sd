@@ -16,6 +16,9 @@ sd_webui_launch() {
         stable-diffusion-webui-forge|stable-diffusion-webui-forge.git)
             sd_webui_forge_launch
             ;;
+        stable-diffusion-webui-reForge|stable-diffusion-webui-reForge.git)
+            sd_webui_forge_launch
+            ;;
         *)
             a1111_sd_webui_launch
             ;;

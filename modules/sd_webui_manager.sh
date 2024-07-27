@@ -25,6 +25,9 @@ sd_webui_manager() {
                 stable-diffusion-webui-forge|stable-diffusion-webui-forge.git)
                     sd_webui_branch="lllyasviel webui $(git_branch_display)"
                     ;;
+                stable-diffusion-webui-reForge|stable-diffusion-webui-reForge.git)
+                    sd_webui_branch="Panchovix webui $(git_branch_display)"
+                    ;;
                 *)
                     sd_webui_branch="null (Git文件损坏)"
             esac
