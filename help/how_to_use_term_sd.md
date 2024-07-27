@@ -56,30 +56,35 @@ Term-SD 在使用安装、管理 AI 软件的功能时，会使用准备功能�
 - 1、Torch + xFormers
 - 2、Torch
 - 3、Torch 2.0.0（Directml）
-- 4、Torch 2.2.1 + CPU
-- 5、Torch 2.0.1 + RoCM 5.4.2
-- 6、Torch 2.1.0 + RoCM 5.6
-- 7、Torch 2.2.1 + RoCM 5.7
-- 8、Torch 2.3.0 + RoCM 6.0
-- 9、Torch 2.0.0 + IPEX (Arc)
-- 10、Torch 2.1.0 + IPEX (Arc)
-- 11、Torch 2.1.0 + IPEX (Core Ultra)
-- 12、Torch 1.12.1（CUDA11.3）+ xFormers 0.0.14
-- 13、Torch 1.13.1（CUDA11.7）+ xFormers 0.0.16
-- 14、Torch 2.0.0（CUDA11.8）+ xFormers 0.0.18
-- 15、Torch 2.0.1（CUDA11.8）+ xFormers 0.0.22
-- 16、Torch 2.1.1（CUDA11.8）+ xFormers 0.0.23
-- 17、Torch 2.1.1（CUDA12.1）+ xFormers 0.0.23
-- 18、Torch 2.1.2（CUDA11.8）+ xFormers 0.0.23.post1
-- 19、Torch 2.1.2（CUDA12.1）+ xFormers 0.0.23.post1
-- 20、Torch 2.2.0（CUDA11.8）+ xFormers 0.0.24
-- 21、Torch 2.2.0（CUDA12.1）+ xFormers 0.0.24
-- 22、Torch 2.2.1（CUDA11.8）+ xFormers 0.0.25
-- 23、Torch 2.2.1（CUDA12.1）+ xFormers 0.0.25
-- 24、Torch 2.2.2（CUDA11.8）+ xFormers 0.0.25.post1
-- 25、Torch 2.2.2（CUDA12.1）+ xFormers 0.0.25.post1
-- 26、Torch 2.3.0（CUDA11.8）+ xFormers 0.0.26.post1
-- 27、Torch 2.3.0（CUDA12.1）+ xFormers 0.0.26.post1
+- 4、Torch 2.3.1（Directml）
+- 5、Torch 2.2.1 + CPU
+- 6、Torch 2.0.1 + RoCM 5.4.2
+- 7、Torch 2.1.0 + RoCM 5.6
+- 8、Torch 2.2.1 + RoCM 5.7
+- 9、Torch 2.3.0 + RoCM 6.0
+- 10、Torch 2.0.0 + IPEX (Arc)
+- 11、Torch 2.1.0 + IPEX (Arc)
+- 12、Torch 2.1.0 + IPEX (Core Ultra)
+- 13、Torch 1.12.1（CUDA11.3）+ xFormers 0.0.14
+- 14、Torch 1.13.1（CUDA11.7）+ xFormers 0.0.16
+- 15、Torch 2.0.0（CUDA11.8）+ xFormers 0.0.18
+- 16、Torch 2.0.1（CUDA11.8）+ xFormers 0.0.22
+- 17、Torch 2.1.1（CUDA11.8）+ xFormers 0.0.23
+- 18、Torch 2.1.1（CUDA12.1）+ xFormers 0.0.23
+- 19、Torch 2.1.2（CUDA11.8）+ xFormers 0.0.23.post1
+- 20、Torch 2.1.2（CUDA12.1）+ xFormers 0.0.23.post1
+- 21、Torch 2.2.0（CUDA11.8）+ xFormers 0.0.24
+- 22、Torch 2.2.0（CUDA12.1）+ xFormers 0.0.24
+- 23、Torch 2.2.1（CUDA11.8）+ xFormers 0.0.25
+- 24、Torch 2.2.1（CUDA12.1）+ xFormers 0.0.25
+- 25、Torch 2.2.2（CUDA11.8）+ xFormers 0.0.25.post1
+- 26、Torch 2.2.2（CUDA12.1）+ xFormers 0.0.25.post1
+- 27、Torch 2.3.0（CUDA11.8）+ xFormers 0.0.26.post1
+- 28、Torch 2.3.0（CUDA12.1）+ xFormers 0.0.26.post1
+- 29、Torch 2.3.1（CUDA11.8）+ xFormers 0.0.27
+- 29、Torch 2.3.1（CUDA12.1）+ xFormers 0.0.27
+- 31、Torch 2.4.0（CUDA11.8）+ xFormers 0.0.27.post2
+- 32、Torch 2.4.0（CUDA12.1）+ xFormers 0.0.27.post2
 
 选择版本时需要根据系统类型和显卡选择
 - 在 Windows 系统中，Nvidia 显卡选择 Torch（CUDA）+ xFormers 的版本，AMD 显卡选择 Torch (Directml) 的版本，Intel 显卡选择 Torch + IPEX 的版本（核显选择 Core Ultra 版本，独显选择 Arc 版本）
@@ -235,30 +240,35 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 - 1、Torch + xFormers
 - 2、Torch
 - 3、Torch 2.0.0（Directml）
-- 4、Torch 2.2.1 + CPU
-- 5、Torch 2.0.1 + RoCM 5.4.2
-- 6、Torch 2.1.0 + RoCM 5.6
-- 7、Torch 2.2.1 + RoCM 5.7
-- 8、Torch 2.3.0 + RoCM 6.0
-- 9、Torch 2.0.0 + IPEX (Arc)
-- 10、Torch 2.1.0 + IPEX (Arc)
-- 11、Torch 2.1.0 + IPEX (Core Ultra)
-- 12、Torch 1.12.1（CUDA11.3）+ xFormers 0.0.14
-- 13、Torch 1.13.1（CUDA11.7）+ xFormers 0.0.16
-- 14、Torch 2.0.0（CUDA11.8）+ xFormers 0.0.18
-- 15、Torch 2.0.1（CUDA11.8）+ xFormers 0.0.22
-- 16、Torch 2.1.1（CUDA11.8）+ xFormers 0.0.23
-- 17、Torch 2.1.1（CUDA12.1）+ xFormers 0.0.23
-- 18、Torch 2.1.2（CUDA11.8）+ xFormers 0.0.23.post1
-- 19、Torch 2.1.2（CUDA12.1）+ xFormers 0.0.23.post1
-- 20、Torch 2.2.0（CUDA11.8）+ xFormers 0.0.24
-- 21、Torch 2.2.0（CUDA12.1）+ xFormers 0.0.24
-- 22、Torch 2.2.1（CUDA11.8）+ xFormers 0.0.25
-- 23、Torch 2.2.1（CUDA12.1）+ xFormers 0.0.25
-- 24、Torch 2.2.2（CUDA11.8）+ xFormers 0.0.25.post1
-- 25、Torch 2.2.2（CUDA12.1）+ xFormers 0.0.25.post1
-- 26、Torch 2.3.0（CUDA11.8）+ xFormers 0.0.26.post1
-- 27、Torch 2.3.0（CUDA12.1）+ xFormers 0.0.26.post1
+- 4、Torch 2.3.1（Directml）
+- 5、Torch 2.2.1 + CPU
+- 6、Torch 2.0.1 + RoCM 5.4.2
+- 7、Torch 2.1.0 + RoCM 5.6
+- 8、Torch 2.2.1 + RoCM 5.7
+- 9、Torch 2.3.0 + RoCM 6.0
+- 10、Torch 2.0.0 + IPEX (Arc)
+- 11、Torch 2.1.0 + IPEX (Arc)
+- 12、Torch 2.1.0 + IPEX (Core Ultra)
+- 13、Torch 1.12.1（CUDA11.3）+ xFormers 0.0.14
+- 14、Torch 1.13.1（CUDA11.7）+ xFormers 0.0.16
+- 15、Torch 2.0.0（CUDA11.8）+ xFormers 0.0.18
+- 16、Torch 2.0.1（CUDA11.8）+ xFormers 0.0.22
+- 17、Torch 2.1.1（CUDA11.8）+ xFormers 0.0.23
+- 18、Torch 2.1.1（CUDA12.1）+ xFormers 0.0.23
+- 19、Torch 2.1.2（CUDA11.8）+ xFormers 0.0.23.post1
+- 20、Torch 2.1.2（CUDA12.1）+ xFormers 0.0.23.post1
+- 21、Torch 2.2.0（CUDA11.8）+ xFormers 0.0.24
+- 22、Torch 2.2.0（CUDA12.1）+ xFormers 0.0.24
+- 23、Torch 2.2.1（CUDA11.8）+ xFormers 0.0.25
+- 24、Torch 2.2.1（CUDA12.1）+ xFormers 0.0.25
+- 25、Torch 2.2.2（CUDA11.8）+ xFormers 0.0.25.post1
+- 26、Torch 2.2.2（CUDA12.1）+ xFormers 0.0.25.post1
+- 27、Torch 2.3.0（CUDA11.8）+ xFormers 0.0.26.post1
+- 28、Torch 2.3.0（CUDA12.1）+ xFormers 0.0.26.post1
+- 29、Torch 2.3.1（CUDA11.8）+ xFormers 0.0.27
+- 29、Torch 2.3.1（CUDA12.1）+ xFormers 0.0.27
+- 31、Torch 2.4.0（CUDA11.8）+ xFormers 0.0.27.post2
+- 32、Torch 2.4.0（CUDA12.1）+ xFormers 0.0.27.post2
 
 选择版本时需要根据系统类型和显卡选择
 - 在 Windows 系统中，Nvidia 显卡选择 Torch（CUDA）+ xFormers 的版本，AMD 显卡选择 Torch (Directml) 的版本，Intel 显卡选择 Torch + IPEX 的版本（核显选择 Core Ultra 版本，独显选择 Arc 版本）

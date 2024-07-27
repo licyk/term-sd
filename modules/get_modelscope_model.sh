@@ -60,14 +60,14 @@ get_modelscope_model() {
     fi
     
     if [[ ! -f "${file_path}" ]]; then
-        term_sd_echo "下载 ${name} 中, 路径: ${path}"
+        term_sd_echo "下载 ${name} 中, 路径: ${file_path}"
         term_sd_try aria2c --file-allocation=none --summary-interval=0 --console-log-level=error -s 64 -c -x "${ARIA2_MULTI_THREAD}" "${url}" -d "${path}" -o "${name}"
     else
         if [[ -f "${aria2_tmp_path}" ]]; then
-            term_sd_echo "恢复下载 ${name} 中, 路径: ${path}"
+            term_sd_echo "恢复下载 ${name} 中, 路径: ${file_path}"
             term_sd_try aria2c --file-allocation=none --summary-interval=0 --console-log-level=error -s 64 -c -x "${ARIA2_MULTI_THREAD}" "${url}" -d "${path}" -o "${name}"
         else
-            term_sd_echo "${name} 文件已存在, 路径: ${path}"
+            term_sd_echo "${name} 文件已存在, 路径: ${file_path}"
         fi
     fi
 }
