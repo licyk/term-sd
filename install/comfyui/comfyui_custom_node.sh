@@ -115,3 +115,4 @@ __term_sd_task_pre_ext_114 git_clone_repository https://github.com/licyk/ComfyUI
 __term_sd_task_pre_ext_115 git_clone_repository https://github.com/licyk/ComfyUI-TCD-Sampler "${COMFYUI_PATH}"/custom_nodes OFF # 为ComfyUI添加TCD采样算法
 __term_sd_task_pre_ext_116 git_clone_repository https://github.com/chrisgoringe/cg-noise "${COMFYUI_PATH}"/custom_nodes OFF # 添加变异种子支持
 __term_sd_task_pre_ext_117 git_clone_repository https://github.com/googincheng/ComfyUX "${COMFYUI_PATH}"/custom_nodes OFF # 优化ComfyUI界面，使整理节点更方便
+__term_sd_task_pre_ext_118 git_clone_repository https://github.com/ZHO-ZHO-ZHO/ComfyUI-UltraEdit-ZHO "${COMFYUI_PATH}"/custom_nodes OFF # 添加UltraEdit支持

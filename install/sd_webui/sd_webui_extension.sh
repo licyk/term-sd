@@ -128,3 +128,4 @@ __term_sd_task_pre_ext_127 git_clone_repository https://github.com/light-and-ray
 __term_sd_task_pre_ext_128 git_clone_repository https://github.com/bluelovers/sd-webui-pnginfo-beautify "${SD_WEBUI_PATH}"/extensions OFF # 将图片下方的生图信息进行美化排版
 __term_sd_task_pre_ext_129 git_clone_repository https://github.com/Haoming02/sd-webui-resource-monitor "${SD_WEBUI_PATH}"/extensions OFF # 性能监测
 __term_sd_task_pre_ext_130 git_clone_repository https://github.com/NON906/chara-searcher "${SD_WEBUI_PATH}"/extensions OFF # 角色图片搜索
+__term_sd_task_pre_ext_131 git_clone_repository https://github.com/MakkiShizu/sd-webui-to_top_button "${SD_WEBUI_PATH}"/extensions OFF # 添加一个回滚至顶部按钮

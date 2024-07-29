@@ -522,3 +522,7 @@ Stable Diffusion WebUI 插件说明：
 130、chara-searcher
 描述：角色图片搜索
 链接：https://github.com/NON906/chara-searcher
+
+131、sd-webui-to_top_button
+描述：添加一个回滚至顶部按钮
+链接：https://github.com/MakkiShizu/sd-webui-to_top_button

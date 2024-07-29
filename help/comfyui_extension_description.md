@@ -482,3 +482,7 @@ ComfyUI 插件 / 自定义节点说明：
 117、ComfyUX
 描述：优化ComfyUI界面，使整理节点更方便
 链接：https://github.com/googincheng/ComfyUX
+
+118、ComfyUI-UltraEdit-ZHO
+描述：添加UltraEdit支持
+链接：https://github.com/ZHO-ZHO-ZHO/ComfyUI-UltraEdit-ZHO
