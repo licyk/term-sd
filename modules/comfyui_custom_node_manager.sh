@@ -177,14 +177,31 @@ comfyui_custom_node_list() {
 # comfyui_custom_node_interface <自定义节点的文件夹名>
 comfyui_custom_node_interface() {
     local dialog_arg
-    local custom_node_name=$@
+    local custom_node_name=
+    local custom_node_folder=$@
+    local dialog_buttom
+    local status_display
+    local custom_node_status
+    local tmp_folder_name
 
     while true; do
+        if [[ "$(awk -F '.' '{print $NF}' <<< ${custom_node_folder})" == "disabled" ]]; then
+            custom_node_status=0
+            status_display="已禁用"
+            dialog_buttom="启用"
+        else
+            custom_node_status=1
+            status_display="已启用"
+            dialog_buttom="禁用"
+        fi
+
+        custom_node_name=$(awk -F '.disabled' '{print $1}' <<< ${custom_node_folder})
+
         dialog_arg=$(dialog --erase-on-exit --notags \
             --title "ComfyUI 选项" \
             --backtitle "ComfyUI 自定义节点管理选项" \
             --ok-label "确认" --cancel-label "取消" \
-            --menu "请选择对 ${custom_node_name} 自定义节点的管理功能\n当前更新源: $(git_remote_display)\n当前分支: $(git_branch_display)" \
+            --menu "请选择对 ${custom_node_name} 自定义节点的管理功能\n当前更新源: $(git_remote_display)\n当前分支: $(git_branch_display)\n当前状态: ${status_display}" \
             $(get_dialog_size_menu) \
             "0" "> 返回" \
             "1" "> 更新" \
@@ -192,7 +209,8 @@ comfyui_custom_node_interface() {
             "3" "> 安装依赖" \
             "4" "> 版本切换" \
             "5" "> 更新源切换" \
-            "6" "> 卸载" \
+            "6" "> ${dialog_buttom}自定义节点" \
+            "7" "> 卸载" \
             3>&1 1>&2 2>&3)
 
         case "${dialog_arg}" in
@@ -261,7 +279,7 @@ comfyui_custom_node_interface() {
                     --yesno "是否安装 ${custom_node_name} 自定义节点依赖 ?" \
                     $(get_dialog_size)); then
 
-                    comfyui_extension_depend_install_single "自定义节点" "${custom_node_name}"
+                    comfyui_extension_depend_install_single "自定义节点" "${custom_node_folder}"
                 else
                     term_sd_echo "取消安装 ${custom_node_name} 自定义节点依赖"
                 fi
@@ -313,6 +331,49 @@ comfyui_custom_node_interface() {
                 fi
                 ;;
             6)
+                if [[ "${custom_node_status}" == 0 ]]; then
+                    if (dialog --erase-on-exit \
+                        --title "ComfyUI 管理" \
+                        --backtitle "ComfyUI 自定义节点更新源切换" \
+                        --yes-label "是" --no-label "否" \
+                        --yesno "是否启用 ${custom_node_name} 自定义节点 ?" \
+                        $(get_dialog_size)); then
+
+                        tmp_folder_name=$custom_node_folder
+                        custom_node_folder=$(awk -F '.disabled' '{print $1}' <<< ${custom_node_folder})
+                        cd ..
+                        mv "${tmp_folder_name}" "${custom_node_folder}"
+                        cd "${custom_node_folder}"
+                    else
+                        continue
+                    fi
+                else
+                    if (dialog --erase-on-exit \
+                        --title "ComfyUI 管理" \
+                        --backtitle "ComfyUI 自定义节点更新源切换" \
+                        --yes-label "是" --no-label "否" \
+                        --yesno "是否启用 ${custom_node_name} 自定义节点 ?" \
+                        $(get_dialog_size)); then
+
+                        tmp_folder_name=$custom_node_folder
+                        custom_node_folder="${custom_node_folder}.disabled"
+                        cd ..
+                        mv -f "${tmp_folder_name}" "${custom_node_folder}"
+                        cd "${custom_node_folder}"
+                    else
+                        continue
+                    fi
+                fi
+
+                dialog --erase-on-exit \
+                    --title "ComfyUI 管理" \
+                    --backtitle "ComfyUI 自定义节点删除选项" \
+                    --ok-label "确认" \
+                    --msgbox "${dialog_buttom} ${custom_node_name} 自定义节点成功" \
+                    $(get_dialog_size)
+                
+                ;;
+            7)
                 if (dialog --erase-on-exit \
                     --title "ComfyUI 选项" \
                     --backtitle "ComfyUI 自定义节点删除选项" \
@@ -327,7 +388,7 @@ comfyui_custom_node_interface() {
                         yes|y|YES|Y)
                             term_sd_echo "删除 ${custom_node_name} 自定义节点中"
                             cd ..
-                            rm -rf "${custom_node_name}"
+                            rm -rf "${custom_node_folder}"
 
                             dialog --erase-on-exit \
                             --title "ComfyUI 管理" \

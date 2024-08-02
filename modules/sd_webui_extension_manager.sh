@@ -155,20 +155,35 @@ sd_webui_extension_list() {
 sd_webui_extension_interface() {
     local dialog_arg
     local extension_name=$@
+    local extension_status
+    local dialog_buttom
+    local status_display
 
     while true; do
+
+        if is_sd_webui_extension_disabled "${extension_name}"; then
+            extension_status=0
+            dialog_buttom="启用"
+            status_display="已禁用"
+        else
+            extension_status=1
+            dialog_buttom="禁用"
+            status_display="已启用"
+        fi
+
         dialog_arg=$(dialog --erase-on-exit --notags \
             --title "Stable-Diffusion-WebUI 管理" \
             --backtitle "Stable-Diffusion-WebUI 插件管理选项" \
             --ok-label "确认" --cancel-label "取消" \
-            --menu "请选择对 ${extension_name} 插件的管理功能\n当前更新源: $(git_remote_display)\n当前分支: $(git_branch_display)" \
+            --menu "请选择对 ${extension_name} 插件的管理功能\n当前更新源: $(git_remote_display)\n当前分支: $(git_branch_display)\n当前状态: ${status_display}" \
             $(get_dialog_size_menu) \
             "0" "> 返回" \
             "1" "> 更新" \
             "2" "> 修复更新" \
             "3" "> 版本切换" \
             "4" "> 更新源切换" \
-            "5" "> 卸载" \
+            "5" "> ${dialog_buttom}插件" \
+            "6" "> 卸载" \
             3>&1 1>&2 2>&3)
 
         case "${dialog_arg}" in
@@ -267,6 +282,49 @@ sd_webui_extension_interface() {
                 fi
                 ;;
             5)
+                if [[ "${extension_status}" == 0 ]]; then
+                    if (dialog --erase-on-exit \
+                        --title "Stable-Diffusion-WebUI 管理" \
+                        --backtitle "Stable-Diffusion-WebUI 插件更新源切换" \
+                        --yes-label "是" --no-label "否" \
+                        --yesno "是否启用 ${extension_name} 插件 ?" \
+                        $(get_dialog_size)); then
+
+                        switch_sd_webui_enable_extension_status "${extension_name}"
+                    else
+                        continue
+                    fi
+                else
+                    if (dialog --erase-on-exit \
+                        --title "Stable-Diffusion-WebUI 管理" \
+                        --backtitle "Stable-Diffusion-WebUI 插件更新源切换" \
+                        --yes-label "是" --no-label "否" \
+                        --yesno "是否禁用 ${extension_name} 插件 ?" \
+                        $(get_dialog_size)); then
+
+                        switch_sd_webui_enable_extension_status "${extension_name}"
+                    else
+                        continue
+                    fi
+                fi
+
+                if [[ "$?" == 0 ]]; then
+                    dialog --erase-on-exit \
+                        --title "Stable-Diffusion-WebUI 管理" \
+                        --backtitle "Stable-Diffusion-WebUI 插件删除选项" \
+                        --ok-label "确认" \
+                        --msgbox "${dialog_buttom} ${extension_name} 插件成功" \
+                        $(get_dialog_size)
+                else
+                    dialog --erase-on-exit \
+                        --title "Stable-Diffusion-WebUI 管理" \
+                        --backtitle "Stable-Diffusion-WebUI 插件删除选项" \
+                        --ok-label "确认" \
+                        --msgbox "${dialog_buttom} ${extension_name} 插件失败" \
+                        $(get_dialog_size)
+                fi
+                ;;
+            6)
                 if (dialog --erase-on-exit \
                     --title "Stable-Diffusion-WebUI 管理" \
                     --backtitle "Stable-Diffusion-WebUI 插件删除选项" \
@@ -303,4 +361,221 @@ sd_webui_extension_interface() {
                 ;;
         esac
     done
+}
+
+# 切换插件的启用状态
+# 使用:
+# switch_sd_webui_enable_extension_status <插件名称>
+# 通过修改 <SD WebUI Path>/config.json 文件调整插件的启用状态
+# 当插件启用时, 执行该函数将禁用插件, 反过来同理
+switch_sd_webui_enable_extension_status() {
+    local extension_name=$@
+    local status
+
+    if is_sd_webui_extension_disabled "${extension_name}"; then
+        # 插件被禁用时
+        term_sd_echo "尝试启用 ${extension_name} 插件"
+        status="True"
+    else
+        # 插件启用时
+        term_sd_echo "尝试禁用 ${extension_name} 插件"
+        status="False"
+    fi
+
+    if set_sd_webui_extension_status "${extension_name}" "${status}"; then
+        term_sd_echo "操作 ${extension_name} 插件成功"
+        return 0
+    else
+        term_sd_echo "操作 ${extension_name} 插件失败"
+        return 1
+    fi
+}
+
+# 查询插件是否被禁用
+# 使用:
+# is_sd_webui_extension_disabled <插件名>
+is_sd_webui_extension_disabled() {
+    local config_path
+    local extension_name=$@
+
+    config_path="${SD_WEBUI_PATH}/config.json"
+
+    # 没有配置文件时返回 1 说明插件未被禁用
+    if [[ ! -f "${config_path}" ]]; then
+        return 1
+    fi
+
+    result=$(term_sd_python -c "$(py_is_sd_webui_extension_disabled "${config_path}" "${extension_name}")")
+
+    if [[ "${result}" == "True" ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+# 修改插件的启用状态
+# 使用:
+# set_sd_webui_extension_status <插件名> <True / False>
+set_sd_webui_extension_status() {
+    local extension_name=$1
+    local status=$2
+    local config_path
+    local result
+
+    config_path="${SD_WEBUI_PATH}/config.json"
+
+    if [[ ! -f "${config_path}" ]]; then
+        echo "{}" > "${config_path}"
+    fi
+    
+    result=$(term_sd_python -c "$(py_set_sd_webui_extension_status "${config_path}" "${extension_name}" "${status}")")
+
+    if [[ "${result}" == "True" ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+# 查询插件是否被禁用
+# 使用:
+# py_is_sd_webui_extension_disabled <配置文件路径> <插件名>
+# 运行后返回完整的 python 代码
+py_is_sd_webui_extension_disabled() {
+    local config_path=$1
+    local extension_name=$2
+
+    cat<<EOF
+def get_key_map(file_path):
+    import os
+    import pathlib
+    import json
+    file_name = pathlib.Path(file_path)
+    if os.path.exists(file_name):
+        try:
+            with open(file_name, "r", encoding="utf8") as file:
+                data = json.load(file)
+        except Exception:
+            # json 文件格式出现问题
+            data = {}
+    else:
+        data = {}
+
+    return data
+
+
+def search_key(data, key, value):
+    key_map = data.get(key)
+    if key_map is not None:
+        for i in key_map:
+            if value in i:
+                return True
+        return False
+    else:
+        return False
+
+
+json_path = "${config_path}"
+key_name = "disabled_extensions"
+extension_name = "${extension_name}"
+
+if search_key(get_key_map(json_path), key_name, extension_name):
+    print(True)
+else:
+    print(False)
+EOF
+}
+
+# 修改插件的启用状态
+# 使用:
+# py_set_sd_webui_extension_status <配置文件路径> <插件名> <True / False>
+# 运行后返回完整的 python 代码
+py_set_sd_webui_extension_status() {
+    local config_path=$1
+    local extension_name=$2
+    local status=$3
+
+    cat<<EOF
+def get_key_map(file_path):
+    import os
+    import pathlib
+    import json
+    file_name = pathlib.Path(file_path)
+    if os.path.exists(file_name):
+        try:
+            with open(file_name, "r", encoding="utf8") as file:
+                data = json.load(file)
+        except Exception:
+            # json 文件格式出现问题
+            data = {}
+    else:
+        data = {}
+
+    return data
+
+
+def check_json(file_path):
+    import os
+    import pathlib
+    import json
+    file_name = pathlib.Path(file_path)
+    if os.path.exists(file_name):
+        try:
+            with open(file_name, "r", encoding="utf8") as file:
+                data = json.load(file)
+            return True
+        except Exception:
+            # json 文件格式出现问题
+            return False
+    else:
+        return False
+
+
+def search_key(data, key, value):
+    key_map = data.get(key)
+    if key_map is not None:
+        if value in key_map:
+            return True
+        else:
+            return False
+    else:
+        return False
+
+
+def save(data, filename):
+    import json
+    with open(filename, "w", encoding="utf8") as file:
+        json.dump(data, file, indent = 4, ensure_ascii = False)
+
+
+def set_extension_status(json_path, extension_name, status):
+    key_name = "disabled_extensions"
+    # 检查 json 格式是否正确
+    if check_json(json_path):
+        data = get_key_map(json_path)
+        # 缺少 disabled_extensions 这个值时自动补上
+        if data.get(key_name) is None:
+            data[key_name] = []
+
+        if status:
+            if search_key(data, key_name, extension_name):
+                data[key_name].remove(extension_name)
+                save(data, json_path)
+        else:
+            if search_key(data, key_name, extension_name) is False:
+                data[key_name].append(extension_name)
+                save(data, json_path)
+        print(True)
+    else:
+        print(False)
+
+
+
+json_path = "${config_path}"
+extension_name = "${extension_name}"
+status = ${status}
+
+set_extension_status(json_path, extension_name, status)
+EOF
 }
