@@ -574,7 +574,7 @@ term_sd_clone_modules() {
     local repo_urls="https://github.com/licyk/term-sd https://gitlab.com/licyk/term-sd https://licyk@bitbucket.org/licyks/term-sd https://gitee.com/licyk/term-sd"
 
     term_sd_echo "下载 Term-SD 中"
-    for i in "${repo_urls}"; do
+    for i in ${repo_urls}; do
         count=$((count + 1))
         git clone "${i}" "${START_PATH}/term-sd"
         if [[ "$?" == 0 ]]; then
