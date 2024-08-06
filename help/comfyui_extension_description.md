@@ -486,3 +486,7 @@ ComfyUI 插件 / 自定义节点说明：
 118、ComfyUI-UltraEdit-ZHO
 描述：添加UltraEdit支持
 链接：https://github.com/ZHO-ZHO-ZHO/ComfyUI-UltraEdit-ZHO
+
+119、WeiLin-ComfyUI-prompt-all-in-one
+描述：Prompt-all-in-one-app项目的修改版本，能够在ComfyUI中创建节点使用tag功能
+链接：https://github.com/weilin9999/WeiLin-ComfyUI-prompt-all-in-one

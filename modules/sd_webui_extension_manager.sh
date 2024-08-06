@@ -114,7 +114,7 @@ sd_webui_extension_list() {
 
         if term_sd_is_bash_ver_lower; then # Bash 版本低于 4 时使用旧版列表显示方案
             extension_name=$(dialog --erase-on-exit \
-                --yes-label "确认" --no-label "取消" \
+                --ok-label "确认" --cancel-label "取消" \
                 --title "Stable-Diffusion-WebUI 管理" \
                 --backtitle "Stable-Diffusion-WebUI 插件列表" \
                 --menu "使用上下键选择要操作的插件并回车确认" \
@@ -124,7 +124,7 @@ sd_webui_extension_list() {
                 3>&1 1>&2 2>&3)
         else
             extension_name=$(dialog --erase-on-exit \
-                --yes-label "确认" --no-label "取消" \
+                --ok-label "确认" --cancel-label "取消" \
                 --title "Stable-Diffusion-WebUI 管理" \
                 --backtitle "Stable-Diffusion-WebUI 插件列表" \
                 --menu "使用上下键选择要操作的插件并回车确认" \

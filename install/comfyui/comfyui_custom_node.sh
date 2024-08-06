@@ -116,3 +116,4 @@ __term_sd_task_pre_ext_115 git_clone_repository https://github.com/licyk/ComfyUI
 __term_sd_task_pre_ext_116 git_clone_repository https://github.com/chrisgoringe/cg-noise "${COMFYUI_PATH}"/custom_nodes OFF # 添加变异种子支持
 __term_sd_task_pre_ext_117 git_clone_repository https://github.com/googincheng/ComfyUX "${COMFYUI_PATH}"/custom_nodes OFF # 优化ComfyUI界面，使整理节点更方便
 __term_sd_task_pre_ext_118 git_clone_repository https://github.com/ZHO-ZHO-ZHO/ComfyUI-UltraEdit-ZHO "${COMFYUI_PATH}"/custom_nodes OFF # 添加UltraEdit支持
+__term_sd_task_pre_ext_119 git_clone_repository https://github.com/weilin9999/WeiLin-ComfyUI-prompt-all-in-one "${COMFYUI_PATH}"/custom_nodes OFF # Prompt-all-in-one-app项目的修改版本，能够在ComfyUI中创建节点使用tag功能

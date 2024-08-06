@@ -129,7 +129,7 @@ comfyui_custom_node_list() {
 
         if term_sd_is_bash_ver_lower; then # Bash 版本低于 4 时使用旧版列表显示方案
             custom_node_name=$(dialog --erase-on-exit \
-                --yes-label "确认" --no-label "取消" \
+                --ok-label "确认" --cancel-label "取消" \
                 --title "ComfyUI 管理" \
                 --backtitle "ComfyUI 自定义节点列表" \
                 --menu "使用上下键选择要操作的自定义节点并回车确认" \
@@ -139,7 +139,7 @@ comfyui_custom_node_list() {
                 3>&1 1>&2 2>&3)
         else
             custom_node_name=$(dialog --erase-on-exit \
-                --yes-label "确认" --no-label "取消" \
+                --ok-label "确认" --cancel-label "取消" \
                 --title "ComfyUI 管理" \
                 --backtitle "ComfyUI 自定义节点列表" \
                 --menu "使用上下键选择要操作的自定义节点并回车确认" \

@@ -72,7 +72,7 @@ lora_scripts_launch() {
             --title "lora-scripts 管理" \
             --backtitle "lora-scripts 启动选项" \
             --ok-label "确认" --cancel-label "取消" \
-            --menu "请选择启动 lora-scripts / 修改 lora-scripts 启动参数\n当前启动参数: ${launch_args})" \
+            --menu "请选择启动 lora-scripts / 修改 lora-scripts 启动参数\n当前启动参数: ${launch_args}" \
             $(get_dialog_size_menu) \
             "0" "> 返回" \
             "1" "> 启动" \

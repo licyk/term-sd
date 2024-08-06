@@ -116,7 +116,7 @@ python_package_ver_backup_list() {
 
         if term_sd_is_bash_ver_lower; then # Bash 版本低于 4 时使用旧版列表显示方案
             req_file_name=$(dialog --erase-on-exit \
-                --yes-label "确认" --no-label "取消" \
+                --ok-label "确认" --cancel-label "取消" \
                 --title "Term-SD" \
                 --backtitle "${backup_name} 依赖库版本记录列表选项" \
                 --menu "使用上下键请选择依赖库版本记录" \
@@ -126,7 +126,7 @@ python_package_ver_backup_list() {
                 3>&1 1>&2 2>&3)
         else
             req_file_name=$(dialog --erase-on-exit \
-                --yes-label "确认" --no-label "取消" \
+                --ok-label "确认" --cancel-label "取消" \
                 --title "Term-SD" \
                 --backtitle "${backup_name} 依赖库版本记录列表选项" \
                 --menu "使用上下键请选择依赖库版本记录" \
