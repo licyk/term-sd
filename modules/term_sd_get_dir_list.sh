@@ -20,7 +20,7 @@ get_dir_folder_list() {
     fi
 
     if term_sd_is_debug; then
-        if term_sd_is_dir_empty; then
+        if term_sd_is_dir_empty "${path}"; then
             term_sd_echo "路径 ${path} 为空"
         else
             list=$(ls "${path}")
@@ -63,7 +63,7 @@ get_dir_list() {
     fi
 
     if term_sd_is_debug; then
-        if term_sd_is_dir_empty; then
+        if term_sd_is_dir_empty "${path}"; then
             term_sd_echo "路径 ${path} 为空"
         else
             list=$(ls "${path}")
