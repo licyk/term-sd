@@ -129,3 +129,5 @@ __term_sd_task_pre_ext_128 git_clone_repository https://github.com/bluelovers/sd
 __term_sd_task_pre_ext_129 git_clone_repository https://github.com/Haoming02/sd-webui-resource-monitor "${SD_WEBUI_PATH}"/extensions OFF # 性能监测
 __term_sd_task_pre_ext_130 git_clone_repository https://github.com/NON906/chara-searcher "${SD_WEBUI_PATH}"/extensions OFF # 角色图片搜索
 __term_sd_task_pre_ext_131 git_clone_repository https://github.com/MakkiShizu/sd-webui-to_top_button "${SD_WEBUI_PATH}"/extensions OFF # 添加一个回滚至顶部按钮
+__term_sd_task_pre_ext_132 git_clone_repository https://github.com/AndreyRGW/sd-webui-aurasr "${SD_WEBUI_PATH}"/extensions OFF # 添加AuraSR放大算法支持
+__term_sd_task_pre_ext_133 git_clone_repository https://github.com/quanghuyn94/a1111-intelli-prompt "${SD_WEBUI_PATH}"/extensions OFF # 提示词辅助插件

@@ -526,3 +526,11 @@ Stable Diffusion WebUI 插件说明：
 131、sd-webui-to_top_button
 描述：添加一个回滚至顶部按钮
 链接：https://github.com/MakkiShizu/sd-webui-to_top_button
+
+132、sd-webui-aurasr
+描述：添加AuraSR放大算法支持
+链接：https://github.com/AndreyRGW/sd-webui-aurasr
+
+133、a1111-intelli-prompt
+描述：提示词辅助插件
+链接：https://github.com/quanghuyn94/a1111-intelli-prompt

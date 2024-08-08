@@ -56,19 +56,23 @@ install_pytorch() {
             if is_windows_platform ;then
                 # Windows 平台
                 # IPEX(Windows): https://arc.nuullll.com/resource/
-                case "${HF_ENDPOINT}" in # 选择镜像源
-                    "https://hf-mirror.com")
-                        ipex_win_url="--find-links https://licyk.github.io/t/pypi/index_hf_mirror.html"
-                        ;;
-                    "https://huggingface.sukaka.top")
-                        ipex_win_url="--find-links https://licyk.github.io/t/pypi/index_sk_mirror.html"
-                        ;;
-                    *)
-                        ipex_win_url="--find-links https://licyk.github.io/t/pypi/index.html"
-                        ;;
-                esac
 
-                ipex_win_url="--find-links https://licyk.github.io/t/pypi/index_ms_mirror.html"
+                if is_use_pip_mirror; then
+                    ipex_win_url="--find-links https://licyk.github.io/t/pypi/index_ms_mirror.html"
+                else
+                    case "${HF_ENDPOINT}" in # 选择镜像源
+                        "https://hf-mirror.com")
+                            ipex_win_url="--find-links https://licyk.github.io/t/pypi/index_hf_mirror.html"
+                            ;;
+                        "https://huggingface.sukaka.top")
+                            ipex_win_url="--find-links https://licyk.github.io/t/pypi/index_sk_mirror.html"
+                            ;;
+                        *)
+                            # ipex_win_url="--find-links https://licyk.github.io/t/pypi/index.html"
+                            ipex_win_url="--find-links https://licyk.github.io/t/pypi/index_hf.html"
+                            ;;
+                    esac
+                fi
 
                 case "${torch_ipex_ver}" in
                     2.0.0)
