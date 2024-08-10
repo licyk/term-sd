@@ -50,11 +50,10 @@ sd_webui_branch_switch() {
         "5" "> lshqqytiger - Stable-Diffusion-WebUI-DirectML 主分支" \
         "6" "> lshqqytiger - Stable-Diffusion-WebUI-DirectML 测试分支" \
         "7" "> lllyasviel - Stable-Diffusion-WebUI-Forge 主分支" \
-        "8" "> lllyasviel - Stable-Diffusion-WebUI-Forge 旧分支" \
-        "9" "> Panchovix - stable-diffusion-webui-reForge 主分支" \
-        "10" "> Panchovix - stable-diffusion-webui-reForge 测试分支" \
+        "8" "> Panchovix - stable-diffusion-webui-reForge 主分支" \
+        "9" "> Panchovix - stable-diffusion-webui-reForge 测试分支" \
         3>&1 1>&2 2>&3)
-    
+
     case "${dialog_arg}" in
         1)
             term_sd_print_line "Stable-Diffusion-WebUI 分支切换"
@@ -149,19 +148,6 @@ sd_webui_branch_switch() {
             ;;
         8)
             term_sd_print_line "Stable-Diffusion-WebUI 分支切换"
-            term_sd_echo "切换到 lllyasviel - Stable-Diffusion-WebUI-Forge 旧分支"
-            remote_url=$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/lllyasviel/stable-diffusion-webui-forge)
-            git_switch_branch "${remote_url}" on_hold
-            if [[ "$?" == 0 ]];then
-                mv -f "${SD_WEBUI_PATH}"/repositories/blip "${SD_WEBUI_PATH}"/repositories/BLIP &> /dev/null
-                term_sd_echo "Stable-Diffusion-WebUI 分支切换完成"
-            else
-                term_sd_echo "Stable-Diffusion-WebUI 分支切换失败"
-            fi
-            term_sd_pause
-            ;;
-        9)
-            term_sd_print_line "Stable-Diffusion-WebUI 分支切换"
             term_sd_echo "切换到 Panchovix - stable-diffusion-webui-reForge 主分支"
             remote_url=$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/Panchovix/stable-diffusion-webui-reForge)
             git_switch_branch "${remote_url}" main
@@ -173,7 +159,7 @@ sd_webui_branch_switch() {
             fi
             term_sd_pause
             ;;
-        10)
+        9)
             term_sd_print_line "Stable-Diffusion-WebUI 分支切换"
             term_sd_echo "切换到 Panchovix - stable-diffusion-webui-reForge 测试分支"
             remote_url=$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/Panchovix/stable-diffusion-webui-reForge)
