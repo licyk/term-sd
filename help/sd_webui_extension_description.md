@@ -534,3 +534,7 @@ Stable Diffusion WebUI 插件说明：
 133、a1111-intelli-prompt
 描述：提示词辅助插件
 链接：https://github.com/quanghuyn94/a1111-intelli-prompt
+
+134、sd-webui-decadetw-auto-prompt-llm
+描述：使用LLM辅助编写提示词
+链接：https://github.com/xlinx/sd-webui-decadetw-auto-prompt-llm

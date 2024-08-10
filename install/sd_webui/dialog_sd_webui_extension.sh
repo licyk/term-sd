@@ -131,3 +131,4 @@ __term_sd_task_pre_ext_130 chara-searcher OFF
 __term_sd_task_pre_ext_131 sd-webui-to_top_button OFF
 __term_sd_task_pre_ext_132 sd-webui-aurasr OFF
 __term_sd_task_pre_ext_133 a1111-intelli-prompt OFF
+__term_sd_task_pre_ext_134 sd-webui-decadetw-auto-prompt-llm OFF

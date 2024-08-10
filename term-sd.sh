@@ -35,7 +35,7 @@ term_sd_launch_arg_parse() {
 
         ####################
 
-        # 选项检测部分(如果选项要跟参数值,则将启动选项赋值给argument_input)
+        # 选项检测部分(如果选项要跟参数值,则将启动选项赋值给 argument_input)
         case "${i}" in
             --help)
                 term_sd_print_line
@@ -340,6 +340,7 @@ term_sd_loading_bar_setting() {
 # 终端横线显示功能
 # 使用:
 # term_sd_print_line <输出的文本>
+# 使用 SHELL_WIDTH 全局变量获取终端宽度
 term_sd_print_line() {
     local shell_width
     local input_text
@@ -354,8 +355,8 @@ term_sd_print_line() {
     else
         shell_width=$SHELL_WIDTH # 获取终端宽度
         input_text=$(echo "$@" | awk '{gsub(/ /,"-")}1') # 将空格转换为"-"
-        input_text_length=$(( $(echo "$input_text" | wc -c) - 1 )) # 总共的字符长度
-        input_zh_text_length=$(( $(echo "$input_text" | awk '{gsub(/[a-zA-Z]/,"") ; gsub(/[0-9]/, "") ; gsub(/[=+()（）、。,./\-_\\]/, "")}1' | wc -c) - 1 )) # 计算中文字符的长度
+        input_text_length=$(( $(echo "${input_text}" | wc -c) - 1 )) # 总共的字符长度
+        input_zh_text_length=$(( $(echo "${input_text}" | awk '{gsub(/[a-zA-Z]/,"") ; gsub(/[0-9]/, "") ; gsub(/[=+()（）、。,./\-_\\]/, "")}1' | wc -c) - 1 )) # 计算中文字符的长度
         input_text_length=$(( input_text_length - input_zh_text_length )) # 除去中文之后的长度
         # 中文的字符长度为3,但终端中只占2个字符位
         input_zh_text_length=$(( input_zh_text_length / 3 * 2 )) # 转换中文在终端占用的实际字符长度
@@ -368,7 +369,7 @@ term_sd_print_line() {
         shell_width_info=$(( shell_width % 2 ))
         # 判断字符宽度大小是否是单双数
         text_length_info=$(( input_text_length % 2 ))
-        
+
         case "${shell_width_info}" in
             0)
                 # 如果终端宽度大小是双数
@@ -1025,8 +1026,8 @@ main() {
     # Github 镜像源列表
     GITHUB_MIRROR_LIST="https://mirror.ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo https://ghproxy.net/https://github.com/term_sd_git_user/term_sd_git_repo https://gh-proxy.com/https://github.com/term_sd_git_user/term_sd_git_repo https://ghps.cc/https://github.com/term_sd_git_user/term_sd_git_repo https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo ttps://gitclone.com/github.com/term_sd_git_user/term_sd_git_repo"
     HUGGINGFACE_MIRROR_LIST="https://hf-mirror.com https://huggingface.sukaka.top" # HuggingFace 镜像源列表
-    TERM_SD_IS_MISSING_DEP=0 # 依赖缺失标记
-    TERM_SD_IS_MISSING_MACOS_DEP=0
+    local term_sd_is_missing_dep=0 # 依赖缺失标记
+    local term_sd_is_missing_macos_dep=0
     TERM_SD_TO_RESTART=0 # Term-SD 是否需要重启的标志
     SHELL_WIDTH=$(stty size | awk '{print $2}') # 获取终端宽度
     SHELL_HEIGHT=$(stty size | awk '{print $1}') # 获取终端高度
@@ -1220,18 +1221,18 @@ main() {
                         TERM_SD_PYTHON_PATH=$(which python)
                     fi
                 else
-                    TERM_SD_IS_MISSING_DEP=1
+                    term_sd_is_missing_dep=1
                     MISSING_DEPEND_NAME="${MISSING_DEPEND_NAME} python,"
                 fi
             else
-                if which "${TERM_SD_PYTHON_PATH}" &> /dev/null; then
+                if "${TERM_SD_PYTHON_PATH}" --version &> /dev/null; then
                     term_sd_echo "使用自定义 Python 解释器路径: ${TERM_SD_PYTHON_PATH}"
                 else
                     term_sd_echo "手动指定的 Python 路径错误"
                     term_sd_echo "提示:"
                     term_sd_echo "使用 --set-python-path 重新设置 Python 解释器路径"
                     term_sd_echo "使用 --unset-python-path 删除 Python 解释器路径设置"
-                    TERM_SD_IS_MISSING_DEP=1
+                    term_sd_is_missing_dep=1
                     MISSING_DEPEND_NAME="${MISSING_DEPEND_NAME} python,"
                 fi
             fi
@@ -1239,7 +1240,7 @@ main() {
             # 检测 Python 模块是否安装
             for i in ${TERM_SD_DEPEND_PYTHON}; do
                 if ! "$TERM_SD_PYTHON_PATH" -c "import ${i}" &> /dev/null; then
-                    TERM_SD_IS_MISSING_DEP=1
+                    term_sd_is_missing_dep=1
                     MISSING_DEPEND_NAME="${MISSING_DEPEND_NAME} python_module:${i},"
                 fi
             done
@@ -1253,7 +1254,7 @@ main() {
                             ;;
                     esac
                     MISSING_DEPEND_NAME="${MISSING_DEPEND_NAME} ${i},"
-                    TERM_SD_IS_MISSING_DEP=1
+                    term_sd_is_missing_dep=1
                 fi
             done
 
@@ -1272,11 +1273,11 @@ main() {
                                 ;;
                         esac
                         MISSING_DEPEND_MACOS_NAME="${MISSING_DEPEND_MACOS_NAME} ${i},"
-                        TERM_SD_IS_MISSING_MACOS_DEP=1
+                        term_sd_is_missing_macos_dep=1
                     fi
                 done
 
-                if [[ "${TERM_SD_IS_MISSING_MACOS_DEP}" == 1 ]]; then
+                if [[ "${term_sd_is_missing_macos_dep}" == 1 ]]; then
                     print_line_to_shell "缺少以下依赖"
                     for i in ${MISSING_DEPEND_MACOS_NAME}; do
                         echo "${i}"
@@ -1289,7 +1290,7 @@ main() {
             fi
 
             # 判断依赖检测结果
-            if [[ "${TERM_SD_IS_MISSING_DEP}" == 0 ]]; then
+            if [[ "${term_sd_is_missing_dep}" == 0 ]]; then
                 term_sd_echo "依赖检测完成, 无缺失依赖"
                 prepare_tcmalloc # 配置内存优化(Linux)
                 term_sd_install
