@@ -228,10 +228,10 @@ brew install git aria2 dialog python@3.10 rust cmake protobuf wget curl
 aria2c https://github.com/licyk/term-sd/raw/main/term-sd.sh && chmod +x term-sd.sh
 ```
 
-如果下载失败可以打开科学上网，再输入刚才的指令，或者使用 Gitlab 仓库地址下载。
+如果下载失败可以打开科学上网，再输入刚才的指令，或者使用 Gitee 仓库地址下载。
 
 ```
-aria2c https://gitlab.com/licyk/term-sd/-/raw/main/term-sd.sh && chmod +x term-sd.sh
+aria2c https://gitee.com/licyk/term-sd/raw/main/term-sd.sh && chmod +x term-sd.sh
 ```
 
 >[!NOTE]  
