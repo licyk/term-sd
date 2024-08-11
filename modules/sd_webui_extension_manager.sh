@@ -398,7 +398,7 @@ is_sd_webui_extension_disabled() {
     local config_path
     local extension_name=$@
 
-    config_path="${SD_WEBUI_PATH}/config.json"
+    config_path=$(get_sd_webui_config_path)
 
     # 没有配置文件时返回 1 说明插件未被禁用
     if [[ ! -f "${config_path}" ]]; then
@@ -423,7 +423,7 @@ set_sd_webui_extension_status() {
     local config_path
     local result
 
-    config_path="${SD_WEBUI_PATH}/config.json"
+    config_path=$(get_sd_webui_config_path)
 
     if [[ ! -f "${config_path}" ]]; then
         echo "{}" > "${config_path}"
@@ -436,6 +436,15 @@ set_sd_webui_extension_status() {
     else
         return 1
     fi
+}
+
+# 获取 SD WebUI 配置文件路径
+get_sd_webui_config_path() {
+    local result
+
+    result=$(cd "${SD_WEBUI_PATH}" ; term_sd_python -c "$(py_get_sd_webui_config_path)")
+
+    echo "${result}"
 }
 
 # 查询插件是否被禁用
@@ -577,5 +586,14 @@ extension_name = "${extension_name}"
 status = ${status}
 
 set_extension_status(json_path, extension_name, status)
+EOF
+}
+
+# 获取 SD WebUI 配置文件路径
+# 运行后返回完整的 Python 代码
+py_get_sd_webui_config_path() {
+    cat<<EOF
+import os
+print(os.path.abspath("config.json"))
 EOF
 }

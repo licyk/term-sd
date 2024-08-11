@@ -717,7 +717,8 @@ kohya_ss_custom_install_path_setting() {
 
 # 检测是否为相对路径, 是相对路径则返回0, 不是则返回1
 term_sd_is_rel_path() {
-    if [[ "$(echo $@ | awk '{print substr($0,1,1)}')" == "/" ]]; then
+    if [[ ! "$(echo $@ | awk '{print substr($0,1,1)}')" == "/" ]]; then
+        # 路径不是 "/"" 开头
         if is_windows_platform; then
             return 1
         else
