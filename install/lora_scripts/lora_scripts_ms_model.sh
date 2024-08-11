@@ -18,8 +18,10 @@ __term_sd_task_pre_model_17 get_modelscope_model licyks/sd-model/master/sdxl_1.0
 __term_sd_task_pre_model_18 get_modelscope_model licyks/sd-model/master/sdxl_1.0/heartOfAppleXL_v20.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # heartOfAppleXL_v20(6.94g) OFF
 __term_sd_task_pre_model_19 get_modelscope_model licyks/sd-model/master/sdxl_1.0/heartOfAppleXL_v30.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # heartOfAppleXL_v30(6.94g) OFF
 __term_sd_task_pre_model_20 get_modelscope_model licyks/sd-model/master/sdxl_1.0/kohaku-xl-epsilon-rev3.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # kohaku-xl-epsilon-rev3(6.94g) OFF
-__term_sd_task_pre_model_21 # =====VAE模型===== OFF
-__term_sd_task_pre_model_22 get_modelscope_model licyks/sd-vae/master/sd_1.5/vae-ft-ema-560000-ema-pruned.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # vae-ft-ema-560000-ema-pruned(334.6m) OFF
-__term_sd_task_pre_model_23 get_modelscope_model licyks/sd-vae/master/sd_1.5/vae-ft-mse-840000-ema-pruned.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # vae-ft-mse-840000-ema-pruned(334.6m) OFF
-__term_sd_task_pre_model_24 get_modelscope_model licyks/sd-vae/master/sdxl_1.0/sdxl_fp16_fix_vae.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # sdxl_fp16_fix_vae(334.6m) OFF
-__term_sd_task_pre_model_25 get_modelscope_model licyks/sd-vae/master/sdxl_1.0/sdxl_vae.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # sdxl_vae(334.6m) OFF
+__term_sd_task_pre_model_21 get_modelscope_model licyks/sd-model/master/sdxl_1.0/artiwaifuDiffusion_v10.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # artiwaifuDiffusion_v10(6.94g) OFF
+__term_sd_task_pre_model_22 get_modelscope_model licyks/sd-model/master/sdxl_1.0/animagine-xl-3.0-base.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # animagine-xl-3.0-base(6.94g) OFF
+__term_sd_task_pre_model_23 # =====VAE模型===== OFF
+__term_sd_task_pre_model_24 get_modelscope_model licyks/sd-vae/master/sd_1.5/vae-ft-ema-560000-ema-pruned.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # vae-ft-ema-560000-ema-pruned(334.6m) OFF
+__term_sd_task_pre_model_25 get_modelscope_model licyks/sd-vae/master/sd_1.5/vae-ft-mse-840000-ema-pruned.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # vae-ft-mse-840000-ema-pruned(334.6m) OFF
+__term_sd_task_pre_model_26 get_modelscope_model licyks/sd-vae/master/sdxl_1.0/sdxl_fp16_fix_vae.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # sdxl_fp16_fix_vae(334.6m) OFF
+__term_sd_task_pre_model_27 get_modelscope_model licyks/sd-vae/master/sdxl_1.0/sdxl_vae.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # sdxl_vae(334.6m) OFF

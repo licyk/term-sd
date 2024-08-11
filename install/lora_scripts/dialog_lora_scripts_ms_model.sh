@@ -18,8 +18,10 @@ __term_sd_task_pre_model_17 starryXLV52_v52(6.94g) OFF
 __term_sd_task_pre_model_18 heartOfAppleXL_v20(6.94g) OFF
 __term_sd_task_pre_model_19 heartOfAppleXL_v30(6.94g) OFF
 __term_sd_task_pre_model_20 kohaku-xl-epsilon-rev3(6.94g) OFF
-__term_sd_task_pre_model_21 =====VAE模型===== OFF
-__term_sd_task_pre_model_22 vae-ft-ema-560000-ema-pruned(334.6m) OFF
-__term_sd_task_pre_model_23 vae-ft-mse-840000-ema-pruned(334.6m) OFF
-__term_sd_task_pre_model_24 sdxl_fp16_fix_vae(334.6m) OFF
-__term_sd_task_pre_model_25 sdxl_vae(334.6m) OFF
+__term_sd_task_pre_model_21 artiwaifuDiffusion_v10(6.94g) OFF
+__term_sd_task_pre_model_22 animagine-xl-3.0-base(6.94g) OFF
+__term_sd_task_pre_model_23 =====VAE模型===== OFF
+__term_sd_task_pre_model_24 vae-ft-ema-560000-ema-pruned(334.6m) OFF
+__term_sd_task_pre_model_25 vae-ft-mse-840000-ema-pruned(334.6m) OFF
+__term_sd_task_pre_model_26 sdxl_fp16_fix_vae(334.6m) OFF
+__term_sd_task_pre_model_27 sdxl_vae(334.6m) OFF
