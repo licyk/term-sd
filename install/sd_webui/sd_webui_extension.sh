@@ -132,3 +132,4 @@ __term_sd_task_pre_ext_131 git_clone_repository https://github.com/MakkiShizu/sd
 __term_sd_task_pre_ext_132 git_clone_repository https://github.com/AndreyRGW/sd-webui-aurasr "${SD_WEBUI_PATH}"/extensions OFF # 添加AuraSR放大算法支持
 __term_sd_task_pre_ext_133 git_clone_repository https://github.com/quanghuyn94/a1111-intelli-prompt "${SD_WEBUI_PATH}"/extensions OFF # 提示词辅助插件
 __term_sd_task_pre_ext_134 git_clone_repository https://github.com/xlinx/sd-webui-decadetw-auto-prompt-llm "${SD_WEBUI_PATH}"/extensions OFF # 使用LLM辅助编写提示词
+__term_sd_task_pre_ext_135 git_clone_repository https://github.com/Haoming02/sd-forge-temperature-settings "${SD_WEBUI_PATH}"/extensions OFF # 图片色温调节，仅支持Forge

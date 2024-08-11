@@ -538,3 +538,7 @@ Stable Diffusion WebUI 插件说明：
 134、sd-webui-decadetw-auto-prompt-llm
 描述：使用LLM辅助编写提示词
 链接：https://github.com/xlinx/sd-webui-decadetw-auto-prompt-llm
+
+135、sd-forge-temperature-settings
+描述：图片色温调节，仅支持Forge
+链接：https://github.com/Haoming02/sd-forge-temperature-settings
