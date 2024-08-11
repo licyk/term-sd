@@ -3,7 +3,9 @@
 # 远程源的种类检测
 # 如果是 Github 链接则返回 0, 不是则返回 1
 git_remote_url_type_is_github() {
-    if [ ! -z "$(git remote -v | awk 'NR==1 {print $2}' | grep github.com)" ]; then # 检测远程源的原地址是否属于github地址
+    local GIT_CONFIG_GLOBAL= # 临时取消 Git 配置, 防止影响远程源的判断
+
+    if [[ ! -z "$(git remote get-url origin | grep github.com)" ]]; then # 检测远程源的原地址是否属于 Github 地址
         return 0
     else
         return 1

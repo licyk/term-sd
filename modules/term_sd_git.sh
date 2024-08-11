@@ -181,8 +181,9 @@ git_repository_remote_revise() {
     local repo_url
     local repo_modify_url
     local url_format=$@
+    local GIT_CONFIG_GLOBAL= # 临时取消 Git 配置, 防止影响远程源的判断
 
-    repo_url=$(git remote -v | awk 'NR==1 {print $2}') # 获取远程源链接
+    repo_url=$(git remote get-url origin) # 获取远程源链接
     repo_modify_url=$(git_format_repository_url "${url_format}" "${repo_url}") # 生成格式化后的链接
 
     if [[ "${repo_url}" == "${repo_modify_url}" ]]; then # 当原链接和修改后的链接相同时不执行替换
