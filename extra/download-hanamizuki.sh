@@ -38,13 +38,14 @@ download_hanamizuki() {
         install_hanamizuki "$SD_WEBUI_PATH" "Stable-Diffusion-WebUI"
         install_hanamizuki "$COMFYUI_PATH" "ComfyUI"
         install_hanamizuki "$FOOOCUS_PATH" "Fooocus"
+        install_hanamizuki "$LORA_SCRIPTS_PATH" "lora-scripts"
         rm -f "term-sd/task/绘世.exe"
     else
         term_sd_echo "下载失败"
     fi
 }
 
-# 将绘世启动器复制到ai软件目录中
+# 将绘世启动器复制到 AI 软件目录中
 install_hanamizuki() {
     local install_path=$1
     local sd_name=$2
