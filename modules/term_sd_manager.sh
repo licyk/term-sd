@@ -76,7 +76,7 @@ term_sd_launch() {
             fi
 
             # 为 ControlNet 插件的依赖安装设置镜像源
-            if is_use_pip_mirror; then
+            if [[ -f "${START_PATH}/term-sd/config/term-sd-pip-mirror.conf" ]] && [[ "$(cat "${START_PATH}/term-sd/config/term-sd-pip-mirror.conf")" == 2 ]]; then
                 use_pip_mirror_for_controlnet_ext=1
                 export PIP_FIND_LINKS="${PIP_FIND_LINKS} https://licyk.github.io/t/pypi/index_ms_mirror.html"
                 export INSIGHTFACE_WHEEL="insightface"
