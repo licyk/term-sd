@@ -10,7 +10,7 @@ sd_webui_launch() {
         automatic|automatic.git)
             vlad_sd_webui_launch
             ;;
-        stable-diffusion-webui-directml|stable-diffusion-webui-directml.git)
+        stable-diffusion-webui-directml|stable-diffusion-webui-directml.git|stable-diffusion-webui-amdgpu|stable-diffusion-webui-amdgpu.git)
             sd_webui_directml_launch
             ;;
         stable-diffusion-webui-forge|stable-diffusion-webui-forge.git)

@@ -27,9 +27,29 @@ term_sd_launch() {
     local i
     local ignore_github_mirror
     local hf_mirror_for_fooocus
+    local is_sdnext=0
 
     case "${TERM_SD_MANAGE_OBJECT}" in
         stable-diffusion-webui)
+            case "$(git remote get-url origin | awk -F '/' '{print $NF}')" in # 分支判断
+                stable-diffusion-webui|stable-diffusion-webui.git)
+                    launch_sd_config="sd-webui-launch.conf"
+                    ;;
+                automatic|automatic.git)
+                    launch_sd_config="vlad-sd-webui-launch.conf"
+                    is_sdnext=1
+                    ;;
+                stable-diffusion-webui-directml|stable-diffusion-webui-directml.git)
+                    launch_sd_config="sd-webui-directml-launch.conf"
+                    ;;
+                stable-diffusion-webui-forge|stable-diffusion-webui-forge.git)
+                    launch_sd_config="sd-webui-forge-launch.conf"
+                    ;;
+                *)
+                    launch_sd_config="sd-webui-launch.conf"
+                    ;;
+            esac
+
             if [[ -f "${START_PATH}/term-sd/config/set-global-github-mirror.conf" ]]; then # 检测是否设置了github全局镜像源
                 ignore_github_mirror="gitclone.com"
                 # 判断是否为可使用的镜像源
@@ -47,27 +67,13 @@ term_sd_launch() {
             if [[ "${use_mirror_for_sd_webui}" == 1 ]]; then
                 term_sd_echo "检测到启用了 Github 镜像源, 为 Stable Diffusion WebUI 可下载的插件列表设置镜像源"
                 github_mirror_url=$(cat "${START_PATH}"/term-sd/config/set-global-github-mirror.conf | awk '{sub("github.com","raw.githubusercontent.com")}1')
-                export WEBUI_EXTENSIONS_INDEX="${github_mirror_url}/AUTOMATIC1111/stable-diffusion-webui-extensions/master/index.json"
+                if [[ "${is_sdnext}" == 1 ]]; then
+                    export WEBUI_EXTENSIONS_INDEX="https://vladmandic.github.io/sd-data/pages/extensions.json"
+                else
+                    export WEBUI_EXTENSIONS_INDEX="${github_mirror_url}/AUTOMATIC1111/stable-diffusion-webui-extensions/master/index.json"
+                fi
                 export CLIP_PACKAGE="git+$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/openai/CLIP)"
             fi
-
-            case "$(git remote get-url origin | awk -F '/' '{print $NF}')" in # 分支判断
-                stable-diffusion-webui|stable-diffusion-webui.git)
-                    launch_sd_config="sd-webui-launch.conf"
-                    ;;
-                automatic|automatic.git)
-                    launch_sd_config="vlad-sd-webui-launch.conf"
-                    ;;
-                stable-diffusion-webui-directml|stable-diffusion-webui-directml.git)
-                    launch_sd_config="sd-webui-directml-launch.conf"
-                    ;;
-                stable-diffusion-webui-forge|stable-diffusion-webui-forge.git)
-                    launch_sd_config="sd-webui-forge-launch.conf"
-                    ;;
-                *)
-                    launch_sd_config="sd-webui-launch.conf"
-                    ;;
-            esac
             ;;
         ComfyUI)
             launch_sd_config="comfyui-launch.conf"

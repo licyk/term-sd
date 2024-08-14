@@ -19,7 +19,7 @@ sd_webui_manager() {
                 automatic|automatic.git)
                     sd_webui_branch="vladmandic webui $(git_branch_display)"
                     ;;
-                stable-diffusion-webui-directml|stable-diffusion-webui-directml.git)
+                stable-diffusion-webui-directml|stable-diffusion-webui-directml.git|stable-diffusion-webui-amdgpu|stable-diffusion-webui-amdgpu.git)
                     sd_webui_branch="lshqqytiger webui $(git_branch_display)"
                     ;;
                 stable-diffusion-webui-forge|stable-diffusion-webui-forge.git)

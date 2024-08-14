@@ -586,6 +586,32 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 >1、在 Stable Diffusion WebUI、ComfyUI、InvokeAI，Fooocus 中可以选择`配置预设启动参数`或者`修改自定义启动参数`，从而使用一些功能  
 >2、当使用`配置预设启动参数`来配置启动参数时，将会删除之前设置的启动参数。而使用`修改自定义启动参数`可以修改上次设置的启动参数
 
+下面是一些特殊的启动参数
+
+- Stable Diffusion WebUI
+
+如果需要使用 CPU 作为生成引擎，需要使用以下启动参数`--use-cpu all --skip-torch-cuda-test --no-half --no-half-vae --precision full`
+
+
+- Stable Diffusion WebUI AMDGPU
+
+可使用`--use-cpu all`、`--use-directml`、`--use-zluda`、`--use-ipex`将生成引擎切换到`CPU`、`DirectML`、`ZLUDA`、`IPEX`。
+
+
+- Stable Diffusion WebUI Forge
+
+如果需要共享 Stable Diffusion WebUI 的模型，可以使用`--forge-ref-a1111-home <SD WebUI 路径>`
+
+>[!NOTE]  
+>https://github.com/lllyasviel/stable-diffusion-webui-forge/discussions/206
+
+SD WebUI Forge 有 3 个实验启动参数，可为图片生成进行加速：`--cuda-malloc --cuda-stream --pin-shared-memory`
+
+
+- InvokeAI
+
+InvokeAI 已经移除了启动参数，如果想要修改一些设置，需要修改 InvokeAI 的配置文件，具体可参考：https://invoke-ai.github.io/InvokeAI/features/CONFIGURATION
+
 
 ### 9、更新依赖
 该功能用于更新 AI 软件依赖的 Python 软件包，可用于解决 AI 软件的部分依赖版本太旧导致运行报错，一般用不上
@@ -961,7 +987,7 @@ nix-env -i gperftools
 ***
 
 ## 绘世启动器的使用
-目前绘世启动器支持启动 Stable Diffusion WebUI（A1111-SD-WebUI / vlad-SD.NEXT / SD-WebUI-DirectML）、ComfyUI、Fooocus。使用 Term-SD 部署 Stable Diffusion WebUI、ComfyUI、或者 Fooocus 后，将绘世启动器放入 Stable Diffusion WebUI 文件夹、ComfyUI 文件夹或者 Fooocus 文件夹后就可以使用绘世启动器启动对应的 AI 软件了
+目前绘世启动器支持启动 Stable Diffusion WebUI（A1111-SD-WebUI / vlad-SD.NEXT / SD-WebUI-AMDGPU / SD-WebUI-Forge）、ComfyUI、Fooocus、lora-scripts。使用 Term-SD 部署 Stable Diffusion WebUI、ComfyUI、或者 Fooocus 后，将绘世启动器放入 Stable Diffusion WebUI 文件夹、ComfyUI 文件夹或者 Fooocus 文件夹后就可以使用绘世启动器启动对应的 AI 软件了
 
 可以使用 Term-SD 扩展脚本中的 download-hanamizuki 脚本来下载绘世启动器，并且脚本会自动将绘世启动器放入上述文件夹中
 
