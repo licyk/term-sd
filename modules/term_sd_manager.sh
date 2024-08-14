@@ -67,9 +67,7 @@ term_sd_launch() {
             if [[ "${use_mirror_for_sd_webui}" == 1 ]]; then
                 term_sd_echo "检测到启用了 Github 镜像源, 为 Stable Diffusion WebUI 可下载的插件列表设置镜像源"
                 github_mirror_url=$(cat "${START_PATH}"/term-sd/config/set-global-github-mirror.conf | awk '{sub("github.com","raw.githubusercontent.com")}1')
-                if [[ "${is_sdnext}" == 1 ]]; then
-                    export WEBUI_EXTENSIONS_INDEX="https://vladmandic.github.io/sd-data/pages/extensions.json"
-                else
+                if [[ "${is_sdnext}" == 0 ]]; then
                     export WEBUI_EXTENSIONS_INDEX="${github_mirror_url}/AUTOMATIC1111/stable-diffusion-webui-extensions/master/index.json"
                 fi
                 export CLIP_PACKAGE="git+$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/openai/CLIP)"
