@@ -28,6 +28,8 @@ term_sd_launch() {
     local ignore_github_mirror
     local hf_mirror_for_fooocus
     local is_sdnext=0
+    local tmp_pip_find_links=$PIP_FIND_LINKS
+    local use_pip_mirror_for_controlnet_ext=0
 
     case "${TERM_SD_MANAGE_OBJECT}" in
         stable-diffusion-webui)
@@ -71,6 +73,15 @@ term_sd_launch() {
                     export WEBUI_EXTENSIONS_INDEX="${github_mirror_url}/AUTOMATIC1111/stable-diffusion-webui-extensions/master/index.json"
                 fi
                 export CLIP_PACKAGE="git+$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/openai/CLIP)"
+            fi
+
+            # 为 ControlNet 插件的依赖安装设置镜像源
+            if is_use_pip_mirror; then
+                use_pip_mirror_for_controlnet_ext=1
+                export PIP_FIND_LINKS="${PIP_FIND_LINKS} https://licyk.github.io/t/pypi/index_ms_mirror.html"
+                export INSIGHTFACE_WHEEL="insightface"
+                export DEPTH_ANYTHING_WHEEL="depth_anything"
+                export HANDREFINER_WHEEL="handrefinerportable"
             fi
             ;;
         ComfyUI)
@@ -143,6 +154,13 @@ term_sd_launch() {
 
     if [[ "${use_cuda_malloc}" == 1 ]];then
         unset PYTORCH_CUDA_ALLOC_CONF
+    fi
+
+    if [[ "${use_pip_mirror_for_controlnet_ext}" == 1 ]]; then
+        export PIP_FIND_LINKS=$tmp_pip_find_links
+        unset INSIGHTFACE_WHEEL
+        unset INSIGHTFACE_WHEEL
+        unset HANDREFINER_WHEEL
     fi
 
     term_sd_pause
