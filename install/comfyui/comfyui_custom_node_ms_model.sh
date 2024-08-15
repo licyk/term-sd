@@ -1,4 +1,4 @@
-__term_sd_task_pre_ext_1 term_sd_echo "下载 Controlnet 模型中" # ControlNet(23.42g) ON
+__term_sd_task_pre_ext_1 term_sd_echo "下载 Controlnet 模型中" # ControlNet(25.93g) ON
 __term_sd_task_pre_ext_1 get_modelscope_model licyks/controlnet_v1.1/master/control_v11e_sd15_ip2p_fp16.safetensors "${COMFYUI_PATH}"/models/controlnet
 __term_sd_task_pre_ext_1 get_modelscope_model licyks/controlnet_v1.1/master/control_v11e_sd15_shuffle_fp16.safetensors "${COMFYUI_PATH}"/models/controlnet
 __term_sd_task_pre_ext_1 get_modelscope_model licyks/controlnet_v1.1/master/control_v11f1e_sd15_tile_fp16.safetensors "${COMFYUI_PATH}"/models/controlnet
