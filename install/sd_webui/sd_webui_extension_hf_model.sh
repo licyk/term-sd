@@ -16,6 +16,7 @@ __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_
 __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v1p_sd15_brightness.safetensors "${SD_WEBUI_PATH}"/models/ControlNet
 __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v1p_sd15_illumination.safetensors "${SD_WEBUI_PATH}"/models/ControlNet
 __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v1p_sd15_qrcode_monster.safetensors "${SD_WEBUI_PATH}"/models/ControlNet
+__term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/sd_control_collection/resolve/main/xinsir-controlnet-union-sdxl-1.0-promax.safetensors "${SD_WEBUI_PATH}"/models/ControlNet
 __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sd15.pth "${SD_WEBUI_PATH}"/models/ControlNet
 __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sd15_light.pth "${SD_WEBUI_PATH}"/models/ControlNet
 __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sd15_plus.pth "${SD_WEBUI_PATH}"/models/ControlNet

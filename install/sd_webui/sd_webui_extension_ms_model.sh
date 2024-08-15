@@ -16,6 +16,7 @@ __term_sd_task_pre_ext_1 get_modelscope_model licyks/controlnet_v1.1/master/cont
 __term_sd_task_pre_ext_1 get_modelscope_model licyks/controlnet_v1.1/master/control_v1p_sd15_brightness.safetensors "${SD_WEBUI_PATH}"/models/ControlNet
 __term_sd_task_pre_ext_1 get_modelscope_model licyks/controlnet_v1.1/master/control_v1p_sd15_illumination.safetensors "${SD_WEBUI_PATH}"/models/ControlNet
 __term_sd_task_pre_ext_1 get_modelscope_model licyks/controlnet_v1.1/master/control_v1p_sd15_qrcode_monster.safetensors "${SD_WEBUI_PATH}"/models/ControlNet
+__term_sd_task_pre_ext_1 get_modelscope_model licyks/sd_control_collection/master/xinsir-controlnet-union-sdxl-1.0-promax.safetensors "${SD_WEBUI_PATH}"/models/ControlNet
 __term_sd_task_pre_ext_1 get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter_sd15.pth "${SD_WEBUI_PATH}"/models/ControlNet
 __term_sd_task_pre_ext_1 get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter_sd15_light.pth "${SD_WEBUI_PATH}"/models/ControlNet
 __term_sd_task_pre_ext_1 get_modelscope_model licyks/controlnet_v1.1/master/ip-adapter_sd15_plus.pth "${SD_WEBUI_PATH}"/models/ControlNet
