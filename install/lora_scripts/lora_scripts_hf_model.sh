@@ -20,8 +20,9 @@ __term_sd_task_pre_model_19 aria2_download https://huggingface.co/licyk/sd-model
 __term_sd_task_pre_model_20 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/kohaku-xl-epsilon-rev3.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # kohaku-xl-epsilon-rev3(6.94g) OFF
 __term_sd_task_pre_model_21 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/artiwaifuDiffusion_v10.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # artiwaifuDiffusion_v10(6.94g) OFF
 __term_sd_task_pre_model_22 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/animagine-xl-3.0-base.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # animagine-xl-3.0-base(6.94g) OFF
-__term_sd_task_pre_model_23 # =====VAE模型===== OFF
-__term_sd_task_pre_model_24 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sd_1.5/vae-ft-ema-560000-ema-pruned.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # vae-ft-ema-560000-ema-pruned(334.6m) OFF
-__term_sd_task_pre_model_25 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sd_1.5/vae-ft-mse-840000-ema-pruned.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # vae-ft-mse-840000-ema-pruned(334.6m) OFF
-__term_sd_task_pre_model_26 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sdxl_1.0/sdxl_fp16_fix_vae.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # sdxl_fp16_fix_vae(334.6m) OFF
-__term_sd_task_pre_model_27 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sdxl_1.0/sdxl_vae.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # sdxl_vae(334.6m) OFF
+__term_sd_task_pre_model_23 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/sanaexlAnimeV10_v10.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # sanaexlAnimeV10_v10(6.94g) OFF
+__term_sd_task_pre_model_24 # =====VAE模型===== OFF
+__term_sd_task_pre_model_25 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sd_1.5/vae-ft-ema-560000-ema-pruned.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # vae-ft-ema-560000-ema-pruned(334.6m) OFF
+__term_sd_task_pre_model_26 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sd_1.5/vae-ft-mse-840000-ema-pruned.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # vae-ft-mse-840000-ema-pruned(334.6m) OFF
+__term_sd_task_pre_model_27 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sdxl_1.0/sdxl_fp16_fix_vae.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # sdxl_fp16_fix_vae(334.6m) OFF
+__term_sd_task_pre_model_28 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sdxl_1.0/sdxl_vae.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # sdxl_vae(334.6m) OFF
