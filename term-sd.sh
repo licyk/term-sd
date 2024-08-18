@@ -740,9 +740,11 @@ install_cmd_to_shell() {
 
 # 将快捷命令写入 Shell 配置文件中
 install_config_to_shell() {
-    echo "# Term-SD" >> ~/."${USER_SHELL}"rc
-    echo "term_sd(){ local term_sd_path=\"$(pwd)/term-sd.sh\" ; if [ -f \"\$term_sd_path\" ]; then ; \"\$term_sd_path\" \"\$@\" ; else ; echo -e \"[\\\033[33m\$(date \"+%Y-%m-%d %H:%M:%S\")\\\033[0m][\\\033[36mTerm-SD\\\033[0m]\\\033[36m::\\\033[0m Term-SD 启动脚本未找到\" ; fi ; }" >> ~/."${USER_SHELL}"rc
-    echo "alias tsd='term_sd'" >> ~/."${USER_SHELL}"rc
+    cat<<EOF >> ~/."${USER_SHELL}"rc
+# Term-SD
+term_sd(){ "$(pwd)/term-sd.sh" "\$@" || echo -e "[\033[33m\$(date "+%Y-%m-%d %H:%M:%S")\033[0m][\033[36mTerm-SD\033[0m]\033[36m::\033[0m Term-SD 启动脚本未找到" ; }
+alias tsd="term_sd"
+EOF
 }
 
 # 将快捷命令从 Shell 配置文件中删除
