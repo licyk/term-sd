@@ -724,7 +724,7 @@ install_cmd_to_shell() {
                         break
                         ;;
                     3)
-                        exit 1
+                        exit 0
                         ;;
                     *)
                         term_sd_echo "输入有误, 请重试"
@@ -742,7 +742,7 @@ install_cmd_to_shell() {
 install_config_to_shell() {
     cat<<EOF >> ~/."${USER_SHELL}"rc
 # Term-SD
-term_sd(){ "$(pwd)/term-sd.sh" "\$@" || echo -e "[\033[33m\$(date "+%Y-%m-%d %H:%M:%S")\033[0m][\033[36mTerm-SD\033[0m]\033[36m::\033[0m Term-SD 启动脚本未找到" ; }
+term_sd(){ "$(pwd)/term-sd.sh" "\$@" || echo -e "[\033[33m\$(date "+%Y-%m-%d %H:%M:%S")\033[0m][\033[36mTerm-SD\033[0m]\033[36m::\033[0m Term-SD 异常退出" ; }
 alias tsd="term_sd"
 EOF
 }
@@ -1004,7 +1004,7 @@ main() {
             *)
                 term_sd_echo "终止 Term-SD 初始化进程"
                 term_sd_echo "退出 Term-SD"
-                exit 1
+                exit 0
                 ;;
         esac
     fi

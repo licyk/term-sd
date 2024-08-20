@@ -149,7 +149,6 @@ term_sd_launch() {
         echo "环境变量:"
         echo "ENV:"
         env 2> /dev/null
-        term_sd_print_line
     fi
 
     term_sd_print_line "${TERM_SD_MANAGE_OBJECT} 启动"
