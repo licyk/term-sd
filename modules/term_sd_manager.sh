@@ -30,6 +30,7 @@ term_sd_launch() {
     local is_sdnext=0
     local tmp_pip_find_links=$PIP_FIND_LINKS
     local use_pip_mirror_for_controlnet_ext=0
+    local github_mirror
 
     case "${TERM_SD_MANAGE_OBJECT}" in
         stable-diffusion-webui)
@@ -62,6 +63,7 @@ term_sd_launch() {
                 done
                 if [[ "${use_mirror_for_sd_webui_state}" == 1 ]]; then
                     use_mirror_for_sd_webui=1
+                    github_mirror="$(cat "${START_PATH}"/term-sd/config/set-global-github-mirror.conf)//term_sd_git_user/term_sd_git_repo"
                 fi
             fi
 
@@ -72,11 +74,12 @@ term_sd_launch() {
                 if [[ "${is_sdnext}" == 0 ]]; then
                     export WEBUI_EXTENSIONS_INDEX="${github_mirror_url}/AUTOMATIC1111/stable-diffusion-webui-extensions/master/index.json"
                 fi
-                export CLIP_PACKAGE="git+$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/openai/CLIP)"
+                export CLIP_PACKAGE="git+$(git_format_repository_url "${github_mirror}" https://github.com/openai/CLIP)"
             fi
 
             # 为 ControlNet 插件的依赖安装设置镜像源
-            if [[ -f "${START_PATH}/term-sd/config/term-sd-pip-mirror.conf" ]] && [[ "$(cat "${START_PATH}/term-sd/config/term-sd-pip-mirror.conf")" == 2 ]]; then
+            if [[ "$(cat "${START_PATH}/term-sd/config/term-sd-pip-mirror.conf" 2> /dev/null)" == 2 ]]; then
+                term_sd_echo "检测到启用了 Pip 镜像源, 为 ControlNet 插件的依赖下载启用镜像源"
                 use_pip_mirror_for_controlnet_ext=1
                 export PIP_FIND_LINKS="${PIP_FIND_LINKS} https://licyk.github.io/t/pypi/index_ms_mirror.html"
                 export INSIGHTFACE_WHEEL="insightface"
@@ -128,6 +131,25 @@ term_sd_launch() {
         else
             term_sd_echo "显卡非 Nvidia 显卡, 无法设置 CUDA 内存分配器"
         fi
+    fi
+
+    if term_sd_is_debug; then
+        term_sd_print_line
+        echo "当前配置:"
+        echo "launch_sd_config: ${launch_sd_config}"
+        echo "github_mirror: ${github_mirror}"
+        echo "WEBUI_EXTENSIONS_INDEX: ${WEBUI_EXTENSIONS_INDEX}"
+        echo "CLIP_PACKAGE: ${CLIP_PACKAGE}"
+        echo "PIP_FIND_LINKS: ${PIP_FIND_LINKS}"
+        echo "INSIGHTFACE_WHEEL: ${INSIGHTFACE_WHEEL}"
+        echo "DEPTH_ANYTHING_WHEEL: ${DEPTH_ANYTHING_WHEEL}"
+        echo "HANDREFINER_WHEEL: ${HANDREFINER_WHEEL}"
+        echo "PYTORCH_CUDA_ALLOC_CONF: ${PYTORCH_CUDA_ALLOC_CONF}"
+        term_sd_print_line
+        echo "环境变量:"
+        echo "ENV:"
+        env 2> /dev/null
+        term_sd_print_line
     fi
 
     term_sd_print_line "${TERM_SD_MANAGE_OBJECT} 启动"
