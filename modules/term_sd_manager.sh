@@ -95,15 +95,15 @@ term_sd_launch() {
             ;;
         Fooocus)
             launch_sd_config="fooocus-launch.conf"
-            if echo $(cat "${START_PATH}"/term-sd/config/${launch_sd_config}) | grep "\-\-language zh" &> /dev/null ;then # 添加中文配置
+            if echo $(cat "${START_PATH}"/term-sd/config/${launch_sd_config}) | grep "\-\-language zh" &> /dev/null; then # 添加中文配置
                 fooocus_lang_config_file > language/zh.json
             fi
 
-            if echo $(cat "${START_PATH}"/term-sd/config/${launch_sd_config}) | grep "\-\-preset term_sd" &> /dev/null ;then # 添加Term-SD风格的预设
+            if echo $(cat "${START_PATH}"/term-sd/config/${launch_sd_config}) | grep "\-\-preset term_sd" &> /dev/null; then # 添加Term-SD风格的预设
                 fooocus_preset_file > "$FOOOCUS_PATH"/presets/term_sd.json
             fi
 
-            if [ -f "${START_PATH}/term-sd/config/set-global-huggingface-mirror.conf" ]; then
+            if [[ -f "${START_PATH}/term-sd/config/set-global-huggingface-mirror.conf" ]]; then
                 term_sd_echo "检测到启用了 HuggingFace 镜像源, 为 Fooocus 设置 HuggingFace 镜像源"
                 hf_mirror_for_fooocus="--hf-mirror ${HF_ENDPOINT}"
             fi
@@ -193,7 +193,7 @@ fallback_numpy_version() {
 
     np_major_ver=$(term_sd_python -c "$(py_get_numpy_ver)")
 
-    if (( np_major_ver > 1)); then
+    if (( np_major_ver > 1 )); then
         term_sd_echo "检测到 Numpy 版本过高, 尝试回退版本中"
         install_python_package numpy==1.26.4
         if [[ "$?" == 0 ]]; then

@@ -222,6 +222,12 @@ sd_webui_manager() {
                             $(get_dialog_size)); then
 
                             fix_venv
+                            dialog --erase-on-exit \
+                                --title "Stable-Diffusion-WebUI 管理" \
+                                --backtitle "Stable-Diffusion-WebUI 虚拟环境修复选项" \
+                                --ok-label "确认" \
+                                --msgbox "Stable-Diffusion-WebUI 虚拟环境修复完成" \
+                                $(get_dialog_size)
                         fi
                     else
                         dialog --erase-on-exit \

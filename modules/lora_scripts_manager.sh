@@ -176,6 +176,12 @@ lora_scripts_manager() {
                             $(get_dialog_size)); then
 
                             fix_venv
+                            dialog --erase-on-exit \
+                                --title "lora-scripts 管理" \
+                                --backtitle "lora-scripts 虚拟环境修复选项" \
+                                --ok-label "确认" \
+                                --msgbox "lora-scripts 虚拟环境修复完成" \
+                                $(get_dialog_size)
                         fi
                     else
                         dialog --erase-on-exit \

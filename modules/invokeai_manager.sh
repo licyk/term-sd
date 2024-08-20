@@ -106,7 +106,13 @@ invokeai_manager() {
 
                                 fix_venv
                                 enter_venv
-                                install_python_package $(term_sd_pip freeze | grep -i invokeai) --no-deps --force-reinstall # 重新安装invokeai
+                                install_python_package $(term_sd_pip freeze | grep -i invokeai) --no-deps --force-reinstall # 重新安装 InvokeAI
+                                dialog --erase-on-exit \
+                                    --title "InvokeAI 管理" \
+                                    --backtitle "InvokeAI 虚拟环境修复选项" \
+                                    --ok-label "确认" \
+                                    --msgbox "InvokeAI 虚拟环境修复完成" \
+                                    $(get_dialog_size)
                             fi
                         else
                             dialog --erase-on-exit \

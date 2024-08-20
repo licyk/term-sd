@@ -173,6 +173,12 @@ fooocus_manager() {
                             $(get_dialog_size)); then
 
                             fix_venv
+                            dialog --erase-on-exit \
+                                --title "Fooocus 管理" \
+                                --backtitle "Fooocus 虚拟环境修复选项" \
+                                --ok-label "确认" \
+                                --msgbox "Fooocus 虚拟环境修复完成" \
+                                $(get_dialog_size)
                         fi
                     else
                         dialog --erase-on-exit \
