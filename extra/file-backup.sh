@@ -182,43 +182,46 @@ term_sd_file_manager_help() {
 以下为脚本备份的数据:
 
 Stable-Diffusion-WebUI
-├── cache.json      模型 Hash 缓存
-├── config.json     WebUI 设置
-├── embeddings      Embeddings 模型目录
-├── extensions      WebUI 插件目录
-├── models          模型路径
-├── outputs         图片保存路径
-├── params.txt      上次生图参数
-├── ui-config.json  界面设置
-└── styles.csv      提示词预设
+├── cache.json          模型 Hash 缓存
+├── config.json         WebUI 设置
+├── embeddings          Embedding 模型目录
+├── extensions          WebUI 插件目录
+├── models              模型路径
+├── outputs             图片保存路径
+├── params.txt          上次生图参数
+├── ui-config.json      界面设置
+└── styles.csv          提示词预设
 
 ComfyUI
-├── custom_nodes    自定义节点路径
-├── models          模型路径
-├── output          图片保存路径
-└── web
-    └── extensions  插件路径（少见）
+├── custom_nodes        自定义节点路径
+├── models              模型路径
+├── output              图片保存路径
+├──web
+    └── extensions      插件路径（少见）
+└──user
+    └──default
+        └──workflows    工作流保存路径
 
 InvokeAI
-└── invokeai        模型，图片，配置文件路径
+└── invokeai            模型，图片，配置文件路径
 
 Fooocus
-├── config.txt      Fooocus 设置
-├── models          模型目录
-└── outputs         图片保存路径
+├── config.txt          Fooocus 设置
+├── models              模型目录
+└── outputs             图片保存路径
 
 lora-scripts
 ├── config
-│   └── autosave    训练参数保存路径
-├── logs            日志路径
-├── output          模型保存路径
-├── sd-models       训练底模路径
-└── train           训练集路径
+│   └── autosave        训练参数保存路径
+├── logs                日志路径
+├── output              模型保存路径
+├── sd-models           训练底模路径
+└── train               训练集路径
 
 kohya_ss
-├── output          模型保存路径
-├── models          训练底模路径
-└── train           训练集路径
+├── output              模型保存路径
+├── models              训练底模路径
+└── train               训练集路径
 EOF
 }
 
@@ -303,7 +306,7 @@ term_sd_file_operate_time() {
     echo "用时: ${time_span} sec"
 }
 
-# sd-webui
+# SD WebUI
 sd_webui_data_backup() {
     term_sd_mkdir "${START_PATH}"/term-sd/backup/stable-diffusion-webui
     cp -rf "${SD_WEBUI_PATH}"/embeddings "${START_PATH}"/term-sd/backup/stable-diffusion-webui/
@@ -329,13 +332,14 @@ sd_webui_data_restore() {
     cp -f "${START_PATH}"/term-sd/backup/stable-diffusion-webui/styles.csv "${SD_WEBUI_PATH}"/
 }
 
-# comfyui
+# ComfyUI
 comfyui_data_backup() {
     term_sd_mkdir "${START_PATH}"/term-sd/backup/ComfyUI
     cp -rf "${COMFYUI_PATH}"/custom_nodes "${START_PATH}"/term-sd/backup/ComfyUI/
     cp -rf "${COMFYUI_PATH}"/models "${START_PATH}"/term-sd/backup/ComfyUI/
     cp -rf "${COMFYUI_PATH}"/output "${START_PATH}"/term-sd/backup/ComfyUI/
     cp -rf "${COMFYUI_PATH}"/web/extensions "${START_PATH}"/term-sd/backup/ComfyUI/
+    cp -rf "${COMFYUI_PATH}"/user/default/workflows "${START_PATH}"/term-sd/backup/ComfyUI/
     [[ -f "${COMFYUI_PATH}/extra_model_paths.yaml" ]] && cp -f "${COMFYUI_PATH}"/extra_model_paths.yaml "${START_PATH}"/term-sd/backup/ComfyUI/
     rm -rf "${START_PATH}"/term-sd/backup/ComfyUI/web/extensions/core
     rm -f "${START_PATH}"/term-sd/backup/ComfyUI/web/extensions/logging.js.example
@@ -346,10 +350,11 @@ comfyui_data_restore() {
     cp -rf "${START_PATH}"/term-sd/backup/ComfyUI/models "${COMFYUI_PATH}"/
     cp -rf "${START_PATH}"/term-sd/backup/ComfyUI/output "${COMFYUI_PATH}"/
     cp -rf "${START_PATH}"/term-sd/backup/ComfyUI/web/extensions "${COMFYUI_PATH}"/
+    cp -rf "${START_PATH}"/term-sd/backup/ComfyUI/user/default/workflows "${COMFYUI_PATH}"
     [ -f "${START_PATH}/term-sd/backup/ComfyUI/extra_model_paths.yaml" ] && cp -f "${START_PATH}"/term-sd/backup/ComfyUI/extra_model_paths.yaml "${COMFYUI_PATH}"/
 }
 
-# invokeai
+# InvokeAI
 invokeai_data_backup() {
     term_sd_mkdir "${START_PATH}"term-sd/backup/InvokeAI
     cp -rf "${INVOKEAI_PATH}"/invokeai/autoimport "${START_PATH}"/term-sd/backup/InvokeAI/
@@ -387,7 +392,7 @@ invokeai_data_restore() {
     cp -rf "${START_PATH}"/term-sd/backup/InvokeAI/models/sdxl-refiner "${INVOKEAI_PATH}"/invokeai/models/
 }
 
-# fooocus
+# Fooocus
 fooocus_data_backup() {
     term_sd_mkdir "${START_PATH}"term-sd/backup/Fooocus
     cp -rf "${FOOOCUS_PATH}"/models "${START_PATH}"term-sd/backup/Fooocus/
