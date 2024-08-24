@@ -26,3 +26,13 @@ __term_sd_task_pre_model_25 get_modelscope_model licyks/sd-vae/master/sd_1.5/vae
 __term_sd_task_pre_model_26 get_modelscope_model licyks/sd-vae/master/sd_1.5/vae-ft-mse-840000-ema-pruned.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # vae-ft-mse-840000-ema-pruned(334.6m) OFF
 __term_sd_task_pre_model_27 get_modelscope_model licyks/sd-vae/master/sdxl_1.0/sdxl_fp16_fix_vae.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # sdxl_fp16_fix_vae(334.6m) OFF
 __term_sd_task_pre_model_28 get_modelscope_model licyks/sd-vae/master/sdxl_1.0/sdxl_vae.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # sdxl_vae(334.6m) OFF
+__term_sd_task_pre_model_29 # =====FLUX模型===== OFF
+__term_sd_task_pre_model_30 get_modelscope_model licyks/flux-model/master/flux_1/flux1-dev-fp8.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # flux1-dev-fp8(17.2g) OFF
+__term_sd_task_pre_model_31 get_modelscope_model licyks/flux-model/master/flux_1/flux1-dev.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # flux1-dev(23.8g) OFF
+__term_sd_task_pre_model_32 get_modelscope_model licyks/flux-model/master/flux_1/flux1-schnell-fp8.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # flux1-schnell-fp8(17.2g) OFF
+__term_sd_task_pre_model_33 get_modelscope_model licyks/flux-model/master/flux_1/flux1-schnell.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # flux1-schnell(23.8g) OFF
+__term_sd_task_pre_model_34 # =====FLUX-文本编码器/VAE模型===== OFF
+__term_sd_task_pre_model_35 get_modelscope_model licyks/flux-model/master/flux_text_encoders/clip_l.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # clip_l(246.1m) OFF
+__term_sd_task_pre_model_36 get_modelscope_model licyks/flux-model/master/flux_text_encoders/t5xxl_fp16.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # t5xxl_fp16(9.79g) OFF
+__term_sd_task_pre_model_37 get_modelscope_model licyks/flux-model/master/flux_text_encoders/t5xxl_fp8_e4m3fn.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # t5xxl_fp8_e4m3fn(4.89g) OFF
+__term_sd_task_pre_model_38 get_modelscope_model licyks/flux-model/master/flux_vae/ae.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # ae(335m) OFF
