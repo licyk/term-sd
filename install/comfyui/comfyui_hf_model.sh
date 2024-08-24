@@ -81,39 +81,49 @@ __term_sd_task_pre_model_80 aria2_download https://huggingface.co/licyk/flux-mod
 __term_sd_task_pre_model_81 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_1/flux1-dev-Q4_K_S.gguf "${COMFYUI_PATH}"/models/unet # flux1-dev-Q4_K_S-gguf(6.81g) OFF
 __term_sd_task_pre_model_82 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_1/flux1-dev-Q5_K_S.gguf "${COMFYUI_PATH}"/models/unet # flux1-dev-Q5_K_S-gguf(8.29g) OFF
 __term_sd_task_pre_model_83 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_1/flux1-dev-Q6_K.gguf "${COMFYUI_PATH}"/models/unet # flux1-dev-Q6_K-gguf(9.86g) OFF
-__term_sd_task_pre_model_84 # =====FLUX-文本编码器/VAE模型===== OFF
-__term_sd_task_pre_model_85 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_text_encoders/clip_l.safetensors "${COMFYUI_PATH}"/models/clip # clip_l(246.1m) OFF
-__term_sd_task_pre_model_86 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_text_encoders/t5xxl_fp16.safetensors "${COMFYUI_PATH}"/models/clip # t5xxl_fp16(9.79g) OFF
-__term_sd_task_pre_model_87 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_text_encoders/t5xxl_fp8_e4m3fn.safetensors "${COMFYUI_PATH}"/models/clip # t5xxl_fp8_e4m3fn(4.89g) OFF
-__term_sd_task_pre_model_88 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_vae/ae.safetensors "${COMFYUI_PATH}"/models/vae # ae(335m) OFF
-__term_sd_task_pre_model_89 # =====VAE模型===== OFF
-__term_sd_task_pre_model_90 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sd_1.5/vae-ft-ema-560000-ema-pruned.safetensors "${COMFYUI_PATH}"/models/vae # vae-ft-ema-560000-ema-pruned(334.6m) OFF
-__term_sd_task_pre_model_91 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sd_1.5/vae-ft-mse-840000-ema-pruned.safetensors "${COMFYUI_PATH}"/models/vae # vae-ft-mse-840000-ema-pruned(334.6m) ON
-__term_sd_task_pre_model_92 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sdxl_1.0/sdxl_vae.safetensors "${COMFYUI_PATH}"/models/vae # sdxl_vae(334.6m) OFF
-__term_sd_task_pre_model_93 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sdxl_1.0/sdxl_fp16_fix_vae.safetensors "${COMFYUI_PATH}"/models/vae # sdxl_fp16_fix_vae(334.6m) OFF
-__term_sd_task_pre_model_94 # =====VAE-approx模型===== OFF
-__term_sd_task_pre_model_95 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/vae-approx/model.pt "${COMFYUI_PATH}"/models/vae_approx # VAE-approx模型 model(0.2m) ON
-__term_sd_task_pre_model_96 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/vae-approx/vaeapprox-sdxl.pt "${COMFYUI_PATH}"/models/vae_approx # vaeapprox-sdxl(0.2m) ON
-__term_sd_task_pre_model_97 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/vae-approx/vaeapprox-sd3.pt "${COMFYUI_PATH}"/models/vae_approx # vaeapprox-sd3(0.2m) OFF
-__term_sd_task_pre_model_98 # =====放大模型===== OFF
-__term_sd_task_pre_model_99 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x-UltraSharp.pth "${COMFYUI_PATH}"/models/upscale_models # upscaler模型 4x-UltraSharp(66.9m) OFF
-__term_sd_task_pre_model_100 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/BSRGAN.pth "${COMFYUI_PATH}"/models/upscale_models # BSRGAN(67m) OFF
-__term_sd_task_pre_model_101 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/ESRGAN_4x.pth "${COMFYUI_PATH}"/models/upscale_models # ESRGAN_4x(66.9m) OFF
-__term_sd_task_pre_model_102 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/detection_Resnet50_Final.pth "${COMFYUI_PATH}"/models/upscale_models # detection_Resnet50_Final(66.9m) OFF
-__term_sd_task_pre_model_103 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/GFPGANv1.4.pth "${COMFYUI_PATH}"/models/upscale_models # GFPGANv1.4(66.9m) OFF
-__term_sd_task_pre_model_104 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/parsing_bisenet.pth "${COMFYUI_PATH}"/models/upscale_models # parsing_bisenet(12.2m) OFF
-__term_sd_task_pre_model_105 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/parsing_parsenet.pth "${COMFYUI_PATH}"/models/upscale_models # parsing_parsenet(85.3m) OFF
-__term_sd_task_pre_model_106 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/RealESRGAN/RealESRGAN_x4plus.pth "${COMFYUI_PATH}"/models/upscale_models # RealESRGAN_x4plus(67m) ON
-__term_sd_task_pre_model_107 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/RealESRGAN/RealESRGAN_x4plus_anime_6B.pth "${COMFYUI_PATH}"/models/upscale_models # RealESRGAN_x4plus_anime_6B(17.9m) ON
-__term_sd_task_pre_model_108 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x_NMKD-Superscale-Artisoftject_210000_G.pth "${COMFYUI_PATH}"/models/upscale_models # 4x_NMKD-Superscale-Artisoftject_210000_G(66.9m) OFF
-__term_sd_task_pre_model_109 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x_NMKD-Superscale-SP_178000_G.pth "${COMFYUI_PATH}"/models/upscale_models # 4x_NMKD-Superscale-SP_178000_G(66.9m) ON
-__term_sd_task_pre_model_110 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/8x_NMKD-Superscale_150000_G.pth "${COMFYUI_PATH}"/models/upscale_models # 8x_NMKD-Superscale_150000_G(67.1m) OFF
-__term_sd_task_pre_model_111 # =====Embedding模型===== OFF
-__term_sd_task_pre_model_112 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/EasyNegativeV2.safetensors "${COMFYUI_PATH}"/models/embeddings/negative # embeddings模型 EasyNegativeV2(0.1m) ON
-__term_sd_task_pre_model_113 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-artist-anime.pt "${COMFYUI_PATH}"/models/embeddings/negative # bad-artist-anime(0.1m) ON
-__term_sd_task_pre_model_114 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-artist.pt "${COMFYUI_PATH}"/models/embeddings/negative # bad-artist(0.1m) ON
-__term_sd_task_pre_model_115 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-hands-5.pt "${COMFYUI_PATH}"/models/embeddings/negative # bad-hands-5(0.1m) ON
-__term_sd_task_pre_model_116 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-image-v2-39000.pt "${COMFYUI_PATH}"/models/embeddings/negative # bad-image-v2-39000(0.1m) ON
-__term_sd_task_pre_model_117 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad_prompt_version2.pt "${COMFYUI_PATH}"/models/embeddings/negative # bad_prompt_version2(0.1m) ON
-__term_sd_task_pre_model_118 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/ng_deepnegative_v1_75t.pt "${COMFYUI_PATH}"/models/embeddings/negative # ng_deepnegative_v1_75t(0.1m) ON
-__term_sd_task_pre_model_119 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/verybadimagenegative_v1.3.pt "${COMFYUI_PATH}"/models/embeddings/negative # verybadimagenegative_v1.3(0.1m) ON
+__term_sd_task_pre_model_84 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_1/flux1-schnell-Q2_K.gguf "${COMFYUI_PATH}"/models/unet # flux1-schnell-Q2_K-gguf(4.01g) OFF
+__term_sd_task_pre_model_85 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_1/flux1-schnell-Q3_K_S.gguf "${COMFYUI_PATH}"/models/unet # flux1-schnell-Q3_K_S-gguf(5.21g) OFF
+__term_sd_task_pre_model_86 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_1/flux1-schnell-Q4_0.gguf "${COMFYUI_PATH}"/models/unet # flux1-schnell-Q4_0-gguf(6.77g) OFF
+__term_sd_task_pre_model_87 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_1/flux1-schnell-Q4_1.gguf "${COMFYUI_PATH}"/models/unet # flux1-schnell-Q4_1-gguf(7.51g) OFF
+__term_sd_task_pre_model_88 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_1/flux1-schnell-Q4_K_S.gguf "${COMFYUI_PATH}"/models/unet # flux1-schnell-Q4_K_S-gguf(6.78g) OFF
+__term_sd_task_pre_model_89 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_1/flux1-schnell-Q5_0.gguf "${COMFYUI_PATH}"/models/unet # flux1-schnell-Q5_0-gguf(8.25g) OFF
+__term_sd_task_pre_model_90 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_1/flux1-schnell-Q5_1.gguf "${COMFYUI_PATH}"/models/unet # flux1-schnell-Q5_1-gguf(8.99g) OFF
+__term_sd_task_pre_model_91 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_1/flux1-schnell-Q5_K_S.gguf "${COMFYUI_PATH}"/models/unet # flux1-schnell-Q5_K_S-gguf(8.26g) OFF
+__term_sd_task_pre_model_92 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_1/flux1-schnell-Q6_K.gguf "${COMFYUI_PATH}"/models/unet # flux1-schnell-Q6_K-gguf(9.83g) OFF
+__term_sd_task_pre_model_93 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_1/flux1-schnell-Q8_0.gguf "${COMFYUI_PATH}"/models/unet # flux1-schnell-Q8_0-gguf(12.7g) OFF
+__term_sd_task_pre_model_94 # =====FLUX-文本编码器/VAE模型===== OFF
+__term_sd_task_pre_model_95 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_text_encoders/clip_l.safetensors "${COMFYUI_PATH}"/models/clip # clip_l(246.1m) OFF
+__term_sd_task_pre_model_96 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_text_encoders/t5xxl_fp16.safetensors "${COMFYUI_PATH}"/models/clip # t5xxl_fp16(9.79g) OFF
+__term_sd_task_pre_model_97 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_text_encoders/t5xxl_fp8_e4m3fn.safetensors "${COMFYUI_PATH}"/models/clip # t5xxl_fp8_e4m3fn(4.89g) OFF
+__term_sd_task_pre_model_98 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_vae/ae.safetensors "${COMFYUI_PATH}"/models/vae # ae(335m) OFF
+__term_sd_task_pre_model_99 # =====VAE模型===== OFF
+__term_sd_task_pre_model_100 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sd_1.5/vae-ft-ema-560000-ema-pruned.safetensors "${COMFYUI_PATH}"/models/vae # vae-ft-ema-560000-ema-pruned(334.6m) OFF
+__term_sd_task_pre_model_101 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sd_1.5/vae-ft-mse-840000-ema-pruned.safetensors "${COMFYUI_PATH}"/models/vae # vae-ft-mse-840000-ema-pruned(334.6m) ON
+__term_sd_task_pre_model_102 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sdxl_1.0/sdxl_vae.safetensors "${COMFYUI_PATH}"/models/vae # sdxl_vae(334.6m) OFF
+__term_sd_task_pre_model_103 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sdxl_1.0/sdxl_fp16_fix_vae.safetensors "${COMFYUI_PATH}"/models/vae # sdxl_fp16_fix_vae(334.6m) OFF
+__term_sd_task_pre_model_104 # =====VAE-approx模型===== OFF
+__term_sd_task_pre_model_105 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/vae-approx/model.pt "${COMFYUI_PATH}"/models/vae_approx # VAE-approx模型 model(0.2m) ON
+__term_sd_task_pre_model_106 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/vae-approx/vaeapprox-sdxl.pt "${COMFYUI_PATH}"/models/vae_approx # vaeapprox-sdxl(0.2m) ON
+__term_sd_task_pre_model_107 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/vae-approx/vaeapprox-sd3.pt "${COMFYUI_PATH}"/models/vae_approx # vaeapprox-sd3(0.2m) OFF
+__term_sd_task_pre_model_108 # =====放大模型===== OFF
+__term_sd_task_pre_model_109 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x-UltraSharp.pth "${COMFYUI_PATH}"/models/upscale_models # upscaler模型 4x-UltraSharp(66.9m) OFF
+__term_sd_task_pre_model_110 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/BSRGAN.pth "${COMFYUI_PATH}"/models/upscale_models # BSRGAN(67m) OFF
+__term_sd_task_pre_model_111 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/ESRGAN_4x.pth "${COMFYUI_PATH}"/models/upscale_models # ESRGAN_4x(66.9m) OFF
+__term_sd_task_pre_model_112 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/detection_Resnet50_Final.pth "${COMFYUI_PATH}"/models/upscale_models # detection_Resnet50_Final(66.9m) OFF
+__term_sd_task_pre_model_113 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/GFPGANv1.4.pth "${COMFYUI_PATH}"/models/upscale_models # GFPGANv1.4(66.9m) OFF
+__term_sd_task_pre_model_114 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/parsing_bisenet.pth "${COMFYUI_PATH}"/models/upscale_models # parsing_bisenet(12.2m) OFF
+__term_sd_task_pre_model_115 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/parsing_parsenet.pth "${COMFYUI_PATH}"/models/upscale_models # parsing_parsenet(85.3m) OFF
+__term_sd_task_pre_model_116 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/RealESRGAN/RealESRGAN_x4plus.pth "${COMFYUI_PATH}"/models/upscale_models # RealESRGAN_x4plus(67m) ON
+__term_sd_task_pre_model_117 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/RealESRGAN/RealESRGAN_x4plus_anime_6B.pth "${COMFYUI_PATH}"/models/upscale_models # RealESRGAN_x4plus_anime_6B(17.9m) ON
+__term_sd_task_pre_model_118 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x_NMKD-Superscale-Artisoftject_210000_G.pth "${COMFYUI_PATH}"/models/upscale_models # 4x_NMKD-Superscale-Artisoftject_210000_G(66.9m) OFF
+__term_sd_task_pre_model_119 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x_NMKD-Superscale-SP_178000_G.pth "${COMFYUI_PATH}"/models/upscale_models # 4x_NMKD-Superscale-SP_178000_G(66.9m) ON
+__term_sd_task_pre_model_120 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/8x_NMKD-Superscale_150000_G.pth "${COMFYUI_PATH}"/models/upscale_models # 8x_NMKD-Superscale_150000_G(67.1m) OFF
+__term_sd_task_pre_model_121 # =====Embedding模型===== OFF
+__term_sd_task_pre_model_122 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/EasyNegativeV2.safetensors "${COMFYUI_PATH}"/models/embeddings/negative # embeddings模型 EasyNegativeV2(0.1m) ON
+__term_sd_task_pre_model_123 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-artist-anime.pt "${COMFYUI_PATH}"/models/embeddings/negative # bad-artist-anime(0.1m) ON
+__term_sd_task_pre_model_124 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-artist.pt "${COMFYUI_PATH}"/models/embeddings/negative # bad-artist(0.1m) ON
+__term_sd_task_pre_model_125 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-hands-5.pt "${COMFYUI_PATH}"/models/embeddings/negative # bad-hands-5(0.1m) ON
+__term_sd_task_pre_model_126 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-image-v2-39000.pt "${COMFYUI_PATH}"/models/embeddings/negative # bad-image-v2-39000(0.1m) ON
+__term_sd_task_pre_model_127 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad_prompt_version2.pt "${COMFYUI_PATH}"/models/embeddings/negative # bad_prompt_version2(0.1m) ON
+__term_sd_task_pre_model_128 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/ng_deepnegative_v1_75t.pt "${COMFYUI_PATH}"/models/embeddings/negative # ng_deepnegative_v1_75t(0.1m) ON
+__term_sd_task_pre_model_129 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/verybadimagenegative_v1.3.pt "${COMFYUI_PATH}"/models/embeddings/negative # verybadimagenegative_v1.3(0.1m) ON
