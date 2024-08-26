@@ -56,7 +56,7 @@ install_kohya_ss() {
         download_mirror_select # 下载镜像源选择
         pytorch_version_select # PyTorch 版本选择
         kohya_ss_download_model_select # 模型选择
-        pip_install_mode_select upgrade # 安装方式选择
+        pip_install_mode_select # 安装方式选择
 
         if term_sd_install_confirm "是否安装 kohya_ss ?"; then
             term_sd_print_line "kohya_ss 安装"

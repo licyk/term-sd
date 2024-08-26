@@ -95,7 +95,7 @@ fooocus_venv_rebuild() {
     # 安装前的准备
     download_mirror_select # 下载镜像源选择
     pytorch_version_select # PyTorch 版本选择
-    pip_install_mode_select upgrade # 安装方式选择
+    pip_install_mode_select # 安装方式选择
 
     if term_sd_install_confirm "是否重新构建 Fooocus 的虚拟环境 ?"; then
         term_sd_print_line "${TERM_SD_MANAGE_OBJECT} 虚拟环境重建"
@@ -124,7 +124,7 @@ lora_scripts_venv_rebuild() {
     # 安装前的准备
     download_mirror_select # 下载镜像源选择
     pytorch_version_select # PyTorch 版本选择
-    pip_install_mode_select upgrade # 安装方式选择
+    pip_install_mode_select # 安装方式选择
 
     if term_sd_install_confirm "是否重新构建 lora-scripts 的虚拟环境 ?"; then
         term_sd_print_line "${TERM_SD_MANAGE_OBJECT} 虚拟环境重建"
@@ -156,7 +156,7 @@ kohya_ss_venv_rebuild() {
     # 安装前的准备
     download_mirror_select # 下载镜像源选择
     pytorch_version_select # PyTorch 版本选择
-    pip_install_mode_select upgrade # 安装方式选择
+    pip_install_mode_select # 安装方式选择
 
     if term_sd_install_confirm "是否重新构建 kohya_ss 的虚拟环境 ?"; then
         term_sd_print_line "${TERM_SD_MANAGE_OBJECT} 虚拟环境重建"

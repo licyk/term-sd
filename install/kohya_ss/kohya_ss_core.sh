@@ -13,7 +13,7 @@ __term_sd_task_pre_core term_sd_mkdir "${KOHYA_SS_PATH}"/output
 __term_sd_task_pre_core term_sd_mkdir "${KOHYA_SS_PATH}"/train
 __term_sd_task_pre_core install_pytorch # 安装 PyTorch
 __term_sd_task_sys cd sd-scripts
-__term_sd_task_pre_core install_python_package -r requirements.txt # sd-scripts 目录下还有个 _typos.toml, 在安装 requirements.txt  里的依赖时会指向这个文件
+__term_sd_task_pre_core install_python_package -r "${KOHYA_SS_PATH}"/sd-scripts/requirements.txt # sd-scripts 目录下还有个 _typos.toml, 在安装 requirements.txt  里的依赖时会指向这个文件
 __term_sd_task_sys cd ..
-__term_sd_task_pre_core install_python_package -r requirements.txt
+__term_sd_task_pre_core install_python_package -r "${KOHYA_SS_PATH}"/requirements.txt
 __term_sd_task_sys cd ..

@@ -234,7 +234,7 @@ invokeai_manager() {
     unset INVOKEAI_ROOT
 }
 
-# invokeai更新依赖
+# InvokeAI 更新依赖
 invokeai_update_depend() {
     # 更新前的准备
     download_mirror_select # 下载镜像源选择
