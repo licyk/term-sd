@@ -92,46 +92,59 @@ __term_sd_task_pre_model_91 get_modelscope_model licyks/flux-model/master/flux_1
 __term_sd_task_pre_model_92 get_modelscope_model licyks/flux-model/master/flux_1/flux1-schnell-Q5_K_S.gguf "${SD_WEBUI_PATH}"/models/Stable-diffusion # flux1-schnell-Q5_K_S-gguf(8.26g) OFF
 __term_sd_task_pre_model_93 get_modelscope_model licyks/flux-model/master/flux_1/flux1-schnell-Q6_K.gguf "${SD_WEBUI_PATH}"/models/Stable-diffusion # flux1-schnell-Q6_K-gguf(9.83g) OFF
 __term_sd_task_pre_model_94 get_modelscope_model licyks/flux-model/master/flux_1/flux1-schnell-Q8_0.gguf "${SD_WEBUI_PATH}"/models/Stable-diffusion # flux1-schnell-Q8_0-gguf(12.7g) OFF
-__term_sd_task_pre_model_95 # =====FLUX-文本编码器/VAE模型===== OFF
-__term_sd_task_pre_model_96 get_modelscope_model licyks/flux-model/master/flux_text_encoders/clip_l.safetensors "${SD_WEBUI_PATH}"/models/text_encoder # clip_l(246.1m) OFF
-__term_sd_task_pre_model_97 get_modelscope_model licyks/flux-model/master/flux_text_encoders/t5xxl_fp16.safetensors "${SD_WEBUI_PATH}"/models/text_encoder # t5xxl_fp16(9.79g) OFF
-__term_sd_task_pre_model_98 get_modelscope_model licyks/flux-model/master/flux_text_encoders/t5xxl_fp8_e4m3fn.safetensors "${SD_WEBUI_PATH}"/models/text_encoder # t5xxl_fp8_e4m3fn(4.89g) OFF
-__term_sd_task_pre_model_99 get_modelscope_model licyks/flux-model/master/flux_vae/ae.safetensors "${SD_WEBUI_PATH}"/models/VAE # ae(335m) OFF
-__term_sd_task_pre_model_100 # =====VAE模型===== OFF
-__term_sd_task_pre_model_101 get_modelscope_model licyks/sd-vae/master/sd_1.5/vae-ft-ema-560000-ema-pruned.safetensors "${SD_WEBUI_PATH}"/models/VAE # VAE模型 vae-ft-ema-560000-ema-pruned(334.6m) OFF
-__term_sd_task_pre_model_102 get_modelscope_model licyks/sd-vae/master/sd_1.5/vae-ft-mse-840000-ema-pruned.safetensors "${SD_WEBUI_PATH}"/models/VAE # vae-ft-mse-840000-ema-pruned(334.6m) ON
-__term_sd_task_pre_model_103 get_modelscope_model licyks/sd-vae/master/sdxl_1.0/sdxl_vae.safetensors "${SD_WEBUI_PATH}"/models/VAE # sdxl_vae(334.6m) OFF
-__term_sd_task_pre_model_104 get_modelscope_model licyks/sd-vae/master/sdxl_1.0/sdxl_fp16_fix_vae.safetensors "${SD_WEBUI_PATH}"/models/VAE # sdxl_fp16_fix_vae(334.6m) OFF
-__term_sd_task_pre_model_105 # =====VAE-approx模型===== OFF
-__term_sd_task_pre_model_106 get_modelscope_model licyks/sd-vae/master/vae-approx/model.pt "${SD_WEBUI_PATH}"/models/VAE-approx # VAE-approx模型 model(0.2m) ON
-__term_sd_task_pre_model_107 get_modelscope_model licyks/sd-vae/master/vae-approx/vaeapprox-sdxl.pt "${SD_WEBUI_PATH}"/models/VAE-approx # vaeapprox-sdxl(0.2m) ON
-__term_sd_task_pre_model_108 get_modelscope_model licyks/sd-vae/master/vae-approx/vaeapprox-sd3.pt "${SD_WEBUI_PATH}"/models/VAE-approx # vaeapprox-sd3(0.2m) OFF
-__term_sd_task_pre_model_109 # =====放大模型===== OFF
-__term_sd_task_pre_model_110 get_modelscope_model licyks/sd-upscaler-models/master/ESRGAN/4x-UltraSharp.pth "${SD_WEBUI_PATH}"/models/ESRGAN # upscaler模型 4x-UltraSharp(66.9m) OFF
-__term_sd_task_pre_model_111 get_modelscope_model licyks/sd-upscaler-models/master/ESRGAN/BSRGAN.pth "${SD_WEBUI_PATH}"/models/ESRGAN # BSRGAN(67m) OFF
-__term_sd_task_pre_model_112 get_modelscope_model licyks/sd-upscaler-models/master/ESRGAN/ESRGAN_4x.pth "${SD_WEBUI_PATH}"/models/ESRGN # ESRGAN_4x(66.9m) OFF
-__term_sd_task_pre_model_113 get_modelscope_model licyks/sd-upscaler-models/master/ESRGAN/4x_NMKD-Superscale-Artisoftject_210000_G.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 4x_NMKD-Superscale-Artisoftject_210000_G(66.9m) OFF
-__term_sd_task_pre_model_114 get_modelscope_model licyks/sd-upscaler-models/master/ESRGAN/4x_NMKD-Superscale-SP_178000_G.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 4x_NMKD-Superscale-SP_178000_G(66.9m) ON
-__term_sd_task_pre_model_115 get_modelscope_model licyks/sd-upscaler-models/master/ESRGAN/8x_NMKD-Superscale_150000_G.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 8x_NMKD-Superscale_150000_G(67.1m) OFF
-__term_sd_task_pre_model_116 get_modelscope_model licyks/sd-upscaler-models/master/GFPGAN/detection_Resnet50_Final.pth "${SD_WEBUI_PATH}"/models/GFPGAN # detection_Resnet50_Final(109.5m) OFF
-__term_sd_task_pre_model_117 get_modelscope_model licyks/sd-upscaler-models/master/GFPGAN/GFPGANv1.4.pth "${SD_WEBUI_PATH}"/models/GFPGAN # GFPGANv1.4(348.6m) OFF
-__term_sd_task_pre_model_118 get_modelscope_model licyks/sd-upscaler-models/master/GFPGAN/parsing_bisenet.pth "${SD_WEBUI_PATH}"/models/GFPGAN # parsing_bisenet(12.2m) OFF
-__term_sd_task_pre_model_119 get_modelscope_model licyks/sd-upscaler-models/master/GFPGAN/parsing_parsenet.pth "${SD_WEBUI_PATH}"/models/GFPGAN # parsing_parsenet(85.3m) OFF
-__term_sd_task_pre_model_120 get_modelscope_model licyks/sd-upscaler-models/master/RealESRGAN/RealESRGAN_x4plus.pth "${SD_WEBUI_PATH}"/models/RealESRGAN # RealESRGAN_x4plus(67m) ON
-__term_sd_task_pre_model_121 get_modelscope_model licyks/sd-upscaler-models/master/RealESRGAN/RealESRGAN_x4plus_anime_6B.pth "${SD_WEBUI_PATH}"/models/RealESRGAN # RealESRGAN_x4plus_anime_6B(17.9m) ON
-__term_sd_task_pre_model_122 get_modelscope_model licyks/sd-upscaler-models/master/Codeformer/codeformer-v0.1.0.pth "${SD_WEBUI_PATH}"/models/Codeformer # Codeformer模型 codeformer-v0.1.0(376.6m) OFF
-__term_sd_task_pre_model_123 get_modelscope_model licyks/sd-upscaler-models/master/DAT/DAT_x2.pth "${SD_WEBUI_PATH}"/models/DAT # DAT_x2(154m) OFF
-__term_sd_task_pre_model_124 get_modelscope_model licyks/sd-upscaler-models/master/DAT/DAT_x3.pth "${SD_WEBUI_PATH}"/models/DAT # DAT_x3(154m) OFF
-__term_sd_task_pre_model_125 get_modelscope_model licyks/sd-upscaler-models/master/DAT/DAT_x4.pth "${SD_WEBUI_PATH}"/models/DAT # DAT_x4(154m) OFF
-__term_sd_task_pre_model_126 # =====图生图反推Tag模型===== OFF
-__term_sd_task_pre_model_127 get_modelscope_model licyks/sd-upscaler-models/master/BLIP/model_base_caption_capfilt_large.pth "${SD_WEBUI_PATH}"/models/BLIP # BLIP模型 model_base_caption_capfilt_large(896m) OFF
-__term_sd_task_pre_model_128 get_modelscope_model licyks/sd-upscaler-models/master/torch_deepdanbooru/model-resnet_custom_v3.pt "${SD_WEBUI_PATH}"/models/torch_deepdanbooru # deepdanbooru模型 model-resnet_custom_v3(644.1m) OFF
-__term_sd_task_pre_model_129 # =====Embedding模型===== OFF
-__term_sd_task_pre_model_130 get_modelscope_model licyks/sd-embeddings/master/sd_1.5/EasyNegativeV2.safetensors "${SD_WEBUI_PATH}"/embeddings # embeddings模型 EasyNegativeV2(0.1m) ON
-__term_sd_task_pre_model_131 get_modelscope_model licyks/sd-embeddings/master/sd_1.5/bad-artist-anime.pt "${SD_WEBUI_PATH}"/embeddings # bad-artist-anime(0.1m) ON
-__term_sd_task_pre_model_132 get_modelscope_model licyks/sd-embeddings/master/sd_1.5/bad-artist.pt "${SD_WEBUI_PATH}"/embeddings # bad-artist(0.1m) ON
-__term_sd_task_pre_model_133 get_modelscope_model licyks/sd-embeddings/master/sd_1.5/bad-hands-5.pt "${SD_WEBUI_PATH}"/embeddings # bad-hands-5(0.1m) ON
-__term_sd_task_pre_model_134 get_modelscope_model licyks/sd-embeddings/master/sd_1.5/bad-image-v2-39000.pt "${SD_WEBUI_PATH}"/embeddings # bad-image-v2-39000(0.1m) ON
-__term_sd_task_pre_model_135 get_modelscope_model licyks/sd-embeddings/master/sd_1.5/bad_prompt_version2.pt "${SD_WEBUI_PATH}"/embeddings # bad_prompt_version2(0.1m) ON
-__term_sd_task_pre_model_136 get_modelscope_model licyks/sd-embeddings/master/sd_1.5/ng_deepnegative_v1_75t.pt "${SD_WEBUI_PATH}"/embeddings # ng_deepnegative_v1_75t(0.1m) ON
-__term_sd_task_pre_model_137 get_modelscope_model licyks/sd-embeddings/master/sd_1.5/verybadimagenegative_v1.3.pt "${SD_WEBUI_PATH}"/embeddings # verybadimagenegative_v1.3(0.1m) ON
+__term_sd_task_pre_model_95 get_modelscope_model licyks/flux-model/master/flux_1/flux1-schnell-F16.gguf "${SD_WEBUI_PATH}"/models/Stable-diffusion # flux1-schnell-F16-gguf(23.8g) OFF
+__term_sd_task_pre_model_96 get_modelscope_model licyks/flux-model/master/flux_1/flux1-dev-F16.gguf "${SD_WEBUI_PATH}"/models/Stable-diffusion # flux1-dev-F16-gguf(23.8g) OFF
+__term_sd_task_pre_model_97 # =====FLUX-文本编码器/VAE模型===== OFF
+__term_sd_task_pre_model_98 get_modelscope_model licyks/flux-model/master/flux_text_encoders/clip_l.safetensors "${SD_WEBUI_PATH}"/models/text_encoder # clip_l(246.1m) OFF
+__term_sd_task_pre_model_99 get_modelscope_model licyks/flux-model/master/flux_text_encoders/t5xxl_fp16.safetensors "${SD_WEBUI_PATH}"/models/text_encoder # t5xxl_fp16(9.79g) OFF
+__term_sd_task_pre_model_100 get_modelscope_model licyks/flux-model/master/flux_text_encoders/t5xxl_fp8_e4m3fn.safetensors "${SD_WEBUI_PATH}"/models/text_encoder # t5xxl_fp8_e4m3fn(4.89g) OFF
+__term_sd_task_pre_model_101 get_modelscope_model licyks/flux-model/master/flux_text_encoders/t5-v1_1-xxl-encoder-Q3_K_L.gguf "${SD_WEBUI_PATH}"/models/text_encoder # t5-v1_1-xxl-encoder-Q3_K_L-gguf(2.46g) OFF
+__term_sd_task_pre_model_102 get_modelscope_model licyks/flux-model/master/flux_text_encoders/t5-v1_1-xxl-encoder-Q3_K_M.gguf "${SD_WEBUI_PATH}"/models/text_encoder # t5-v1_1-xxl-encoder-Q3_K_M-gguf(2.3g) OFF
+__term_sd_task_pre_model_103 get_modelscope_model licyks/flux-model/master/flux_text_encoders/t5-v1_1-xxl-encoder-Q3_K_S.gguf "${SD_WEBUI_PATH}"/models/text_encoder # t5-v1_1-xxl-encoder-Q3_K_S-gguf(2.1g) OFF
+__term_sd_task_pre_model_104 get_modelscope_model licyks/flux-model/master/flux_text_encoders/t5-v1_1-xxl-encoder-Q4_K_M.gguf "${SD_WEBUI_PATH}"/models/text_encoder # t5-v1_1-xxl-encoder-Q4_K_M-gguf(2.9g) OFF
+__term_sd_task_pre_model_105 get_modelscope_model licyks/flux-model/master/flux_text_encoders/t5-v1_1-xxl-encoder-Q4_K_S.gguf "${SD_WEBUI_PATH}"/models/text_encoder # t5-v1_1-xxl-encoder-Q4_K_S-gguf(2.74g) OFF
+__term_sd_task_pre_model_106 get_modelscope_model licyks/flux-model/master/flux_text_encoders/t5-v1_1-xxl-encoder-Q5_K_M.gguf "${SD_WEBUI_PATH}"/models/text_encoder # t5-v1_1-xxl-encoder-Q5_K_M-gguf(3.39g) OFF
+__term_sd_task_pre_model_107 get_modelscope_model licyks/flux-model/master/flux_text_encoders/t5-v1_1-xxl-encoder-Q5_K_S.gguf "${SD_WEBUI_PATH}"/models/text_encoder # t5-v1_1-xxl-encoder-Q5_K_S-gguf(3.29g) OFF
+__term_sd_task_pre_model_108 get_modelscope_model licyks/flux-model/master/flux_text_encoders/t5-v1_1-xxl-encoder-Q6_K.gguf "${SD_WEBUI_PATH}"/models/text_encoder # t5-v1_1-xxl-encoder-Q6_K-gguf(3.91g) OFF
+__term_sd_task_pre_model_109 get_modelscope_model licyks/flux-model/master/flux_text_encoders/t5-v1_1-xxl-encoder-Q8_0.gguf "${SD_WEBUI_PATH}"/models/text_encoder # t5-v1_1-xxl-encoder-Q8_0-gguf(5.06g) OFF
+__term_sd_task_pre_model_110 get_modelscope_model licyks/flux-model/master/flux_text_encoders/t5-v1_1-xxl-encoder-f16.gguf "${SD_WEBUI_PATH}"/models/text_encoder # t5-v1_1-xxl-encoder-f16-gguf(9.53g) OFF
+__term_sd_task_pre_model_111 get_modelscope_model licyks/flux-model/master/flux_text_encoders/t5-v1_1-xxl-encoder-f32.gguf "${SD_WEBUI_PATH}"/models/text_encoder # t5-v1_1-xxl-encoder-f32-gguf(19.1g) OFF
+__term_sd_task_pre_model_112 get_modelscope_model licyks/flux-model/master/flux_vae/ae.safetensors "${SD_WEBUI_PATH}"/models/VAE # ae(335m) OFF
+__term_sd_task_pre_model_113 # =====VAE模型===== OFF
+__term_sd_task_pre_model_114 get_modelscope_model licyks/sd-vae/master/sd_1.5/vae-ft-ema-560000-ema-pruned.safetensors "${SD_WEBUI_PATH}"/models/VAE # VAE模型 vae-ft-ema-560000-ema-pruned(334.6m) OFF
+__term_sd_task_pre_model_115 get_modelscope_model licyks/sd-vae/master/sd_1.5/vae-ft-mse-840000-ema-pruned.safetensors "${SD_WEBUI_PATH}"/models/VAE # vae-ft-mse-840000-ema-pruned(334.6m) ON
+__term_sd_task_pre_model_116 get_modelscope_model licyks/sd-vae/master/sdxl_1.0/sdxl_vae.safetensors "${SD_WEBUI_PATH}"/models/VAE # sdxl_vae(334.6m) OFF
+__term_sd_task_pre_model_117 get_modelscope_model licyks/sd-vae/master/sdxl_1.0/sdxl_fp16_fix_vae.safetensors "${SD_WEBUI_PATH}"/models/VAE # sdxl_fp16_fix_vae(334.6m) OFF
+__term_sd_task_pre_model_118 # =====VAE-approx模型===== OFF
+__term_sd_task_pre_model_119 get_modelscope_model licyks/sd-vae/master/vae-approx/model.pt "${SD_WEBUI_PATH}"/models/VAE-approx # VAE-approx模型 model(0.2m) ON
+__term_sd_task_pre_model_120 get_modelscope_model licyks/sd-vae/master/vae-approx/vaeapprox-sdxl.pt "${SD_WEBUI_PATH}"/models/VAE-approx # vaeapprox-sdxl(0.2m) ON
+__term_sd_task_pre_model_121 get_modelscope_model licyks/sd-vae/master/vae-approx/vaeapprox-sd3.pt "${SD_WEBUI_PATH}"/models/VAE-approx # vaeapprox-sd3(0.2m) OFF
+__term_sd_task_pre_model_122 # =====放大模型===== OFF
+__term_sd_task_pre_model_123 get_modelscope_model licyks/sd-upscaler-models/master/ESRGAN/4x-UltraSharp.pth "${SD_WEBUI_PATH}"/models/ESRGAN # upscaler模型 4x-UltraSharp(66.9m) OFF
+__term_sd_task_pre_model_124 get_modelscope_model licyks/sd-upscaler-models/master/ESRGAN/BSRGAN.pth "${SD_WEBUI_PATH}"/models/ESRGAN # BSRGAN(67m) OFF
+__term_sd_task_pre_model_125 get_modelscope_model licyks/sd-upscaler-models/master/ESRGAN/ESRGAN_4x.pth "${SD_WEBUI_PATH}"/models/ESRGN # ESRGAN_4x(66.9m) OFF
+__term_sd_task_pre_model_126 get_modelscope_model licyks/sd-upscaler-models/master/ESRGAN/4x_NMKD-Superscale-Artisoftject_210000_G.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 4x_NMKD-Superscale-Artisoftject_210000_G(66.9m) OFF
+__term_sd_task_pre_model_127 get_modelscope_model licyks/sd-upscaler-models/master/ESRGAN/4x_NMKD-Superscale-SP_178000_G.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 4x_NMKD-Superscale-SP_178000_G(66.9m) ON
+__term_sd_task_pre_model_128 get_modelscope_model licyks/sd-upscaler-models/master/ESRGAN/8x_NMKD-Superscale_150000_G.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 8x_NMKD-Superscale_150000_G(67.1m) OFF
+__term_sd_task_pre_model_129 get_modelscope_model licyks/sd-upscaler-models/master/GFPGAN/detection_Resnet50_Final.pth "${SD_WEBUI_PATH}"/models/GFPGAN # detection_Resnet50_Final(109.5m) OFF
+__term_sd_task_pre_model_130 get_modelscope_model licyks/sd-upscaler-models/master/GFPGAN/GFPGANv1.4.pth "${SD_WEBUI_PATH}"/models/GFPGAN # GFPGANv1.4(348.6m) OFF
+__term_sd_task_pre_model_131 get_modelscope_model licyks/sd-upscaler-models/master/GFPGAN/parsing_bisenet.pth "${SD_WEBUI_PATH}"/models/GFPGAN # parsing_bisenet(12.2m) OFF
+__term_sd_task_pre_model_132 get_modelscope_model licyks/sd-upscaler-models/master/GFPGAN/parsing_parsenet.pth "${SD_WEBUI_PATH}"/models/GFPGAN # parsing_parsenet(85.3m) OFF
+__term_sd_task_pre_model_133 get_modelscope_model licyks/sd-upscaler-models/master/RealESRGAN/RealESRGAN_x4plus.pth "${SD_WEBUI_PATH}"/models/RealESRGAN # RealESRGAN_x4plus(67m) ON
+__term_sd_task_pre_model_134 get_modelscope_model licyks/sd-upscaler-models/master/RealESRGAN/RealESRGAN_x4plus_anime_6B.pth "${SD_WEBUI_PATH}"/models/RealESRGAN # RealESRGAN_x4plus_anime_6B(17.9m) ON
+__term_sd_task_pre_model_135 get_modelscope_model licyks/sd-upscaler-models/master/Codeformer/codeformer-v0.1.0.pth "${SD_WEBUI_PATH}"/models/Codeformer # Codeformer模型 codeformer-v0.1.0(376.6m) OFF
+__term_sd_task_pre_model_136 get_modelscope_model licyks/sd-upscaler-models/master/DAT/DAT_x2.pth "${SD_WEBUI_PATH}"/models/DAT # DAT_x2(154m) OFF
+__term_sd_task_pre_model_137 get_modelscope_model licyks/sd-upscaler-models/master/DAT/DAT_x3.pth "${SD_WEBUI_PATH}"/models/DAT # DAT_x3(154m) OFF
+__term_sd_task_pre_model_138 get_modelscope_model licyks/sd-upscaler-models/master/DAT/DAT_x4.pth "${SD_WEBUI_PATH}"/models/DAT # DAT_x4(154m) OFF
+__term_sd_task_pre_model_139 # =====图生图反推Tag模型===== OFF
+__term_sd_task_pre_model_140 get_modelscope_model licyks/sd-upscaler-models/master/BLIP/model_base_caption_capfilt_large.pth "${SD_WEBUI_PATH}"/models/BLIP # BLIP模型 model_base_caption_capfilt_large(896m) OFF
+__term_sd_task_pre_model_141 get_modelscope_model licyks/sd-upscaler-models/master/torch_deepdanbooru/model-resnet_custom_v3.pt "${SD_WEBUI_PATH}"/models/torch_deepdanbooru # deepdanbooru模型 model-resnet_custom_v3(644.1m) OFF
+__term_sd_task_pre_model_142 # =====Embedding模型===== OFF
+__term_sd_task_pre_model_143 get_modelscope_model licyks/sd-embeddings/master/sd_1.5/EasyNegativeV2.safetensors "${SD_WEBUI_PATH}"/embeddings # embeddings模型 EasyNegativeV2(0.1m) ON
+__term_sd_task_pre_model_144 get_modelscope_model licyks/sd-embeddings/master/sd_1.5/bad-artist-anime.pt "${SD_WEBUI_PATH}"/embeddings # bad-artist-anime(0.1m) ON
+__term_sd_task_pre_model_145 get_modelscope_model licyks/sd-embeddings/master/sd_1.5/bad-artist.pt "${SD_WEBUI_PATH}"/embeddings # bad-artist(0.1m) ON
+__term_sd_task_pre_model_146 get_modelscope_model licyks/sd-embeddings/master/sd_1.5/bad-hands-5.pt "${SD_WEBUI_PATH}"/embeddings # bad-hands-5(0.1m) ON
+__term_sd_task_pre_model_147 get_modelscope_model licyks/sd-embeddings/master/sd_1.5/bad-image-v2-39000.pt "${SD_WEBUI_PATH}"/embeddings # bad-image-v2-39000(0.1m) ON
+__term_sd_task_pre_model_148 get_modelscope_model licyks/sd-embeddings/master/sd_1.5/bad_prompt_version2.pt "${SD_WEBUI_PATH}"/embeddings # bad_prompt_version2(0.1m) ON
+__term_sd_task_pre_model_149 get_modelscope_model licyks/sd-embeddings/master/sd_1.5/ng_deepnegative_v1_75t.pt "${SD_WEBUI_PATH}"/embeddings # ng_deepnegative_v1_75t(0.1m) ON
+__term_sd_task_pre_model_150 get_modelscope_model licyks/sd-embeddings/master/sd_1.5/verybadimagenegative_v1.3.pt "${SD_WEBUI_PATH}"/embeddings # verybadimagenegative_v1.3(0.1m) ON

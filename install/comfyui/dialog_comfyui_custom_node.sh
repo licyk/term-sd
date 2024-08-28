@@ -117,3 +117,4 @@ __term_sd_task_pre_ext_116 cg-noise OFF
 __term_sd_task_pre_ext_117 ComfyUX OFF
 __term_sd_task_pre_ext_118 ComfyUI-UltraEdit-ZHO OFF
 __term_sd_task_pre_ext_119 WeiLin-ComfyUI-prompt-all-in-one OFF
+__term_sd_task_pre_ext_120 ComfyUI-GGUF OFF
