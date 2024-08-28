@@ -1020,7 +1020,8 @@ main() {
     export PIP_DISABLE_PIP_VERSION_CHECK # Pip 版本版本检查
     export SAFETENSORS_FAST_GPU=1 # 强制所有模型使用 GPU 加载
     TERM_SD_PIP_INDEX_URL="https://mirrors.cloud.tencent.com/pypi/simple" # 保存 Pip 镜像源地址
-    TERM_SD_PIP_EXTRA_INDEX_URL="https://mirror.baidu.com/pypi/simple"
+    # TERM_SD_PIP_EXTRA_INDEX_URL="https://mirror.baidu.com/pypi/simple"
+    TERM_SD_PIP_EXTRA_INDEX_URL="https://mirrors.cernet.edu.cn/pypi/web/simple"
     TERM_SD_PIP_FIND_LINKS="https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
     TERM_SD_PIP_INDEX_URL_ARG="" # 用于设置 Pip 镜像源的命令参数
     TERM_SD_PIP_EXTRA_INDEX_URL_ARG=""
