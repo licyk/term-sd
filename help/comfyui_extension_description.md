@@ -494,3 +494,7 @@ ComfyUI 插件 / 自定义节点说明：
 120、ComfyUI-GGUF
 描述：为ComfyUI添加gguf格式模型的支持
 链接：https://github.com/city96/ComfyUI-GGUF
+
+121、x-flux-comfyui
+描述：添加xlabs的controlnet模型支持
+链接：https://github.com/XLabs-AI/x-flux-comfyui
