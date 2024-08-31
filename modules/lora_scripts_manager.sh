@@ -302,10 +302,10 @@ lora_scripts_update_depend() {
         term_sd_tmp_disable_proxy
         create_venv
         enter_venv
-        cd sd-scripts
-        python_package_update requirements.txt # sd-scripts目录下还有个_typos.toml，在安装requirements.txt里的依赖时会指向这个文件
+        cd scripts
+        python_package_update requirements.txt # scripts 目录下还有个_typos.toml，在安装 requirements.txt 里的依赖时会指向这个文件
         cd ..
-        python_package_update requirements.txt # lora-scripts安装依赖
+        python_package_update requirements.txt # lora-scripts 安装依赖
         exit_venv
         term_sd_tmp_enable_proxy
         term_sd_echo "更新 lora-scripts 依赖结束"
@@ -321,15 +321,12 @@ lora_scripts_backend_repo_reinstall() {
     if term_sd_install_confirm "是否重新安装 lora-scripts 后端组件 ?"; then
         term_sd_print_line "lora-scripts 后端组件重装"
         term_sd_echo "删除原有 lora-scripts 后端组件中"
-        rm -rf sd-scripts
         rm -rf frontend
         rm -rf mikazuki/dataset-tag-editor
-        term_sd_mkdir sd-scripts
         term_sd_mkdir frontend
         term_sd_mkdir mikazuki/dataset-tag-editor
         term_sd_echo "重新下载 lora-scripts 后端组件中"
-        git_clone_repository https://github.com/kohya-ss/sd-scripts "${LORA_SCRIPTS_PATH}" sd-scripts # lora-scripts后端
-        git_clone_repository https://github.com/hanamizuki-ai/lora-gui-dist "${LORA_SCRIPTS_PATH}" frontend # lora-scripts前端
+        git_clone_repository https://github.com/hanamizuki-ai/lora-gui-dist "${LORA_SCRIPTS_PATH}" frontend # lora-scripts 前端
         git_clone_repository https://github.com/Akegarasu/dataset-tag-editor "${LORA_SCRIPTS_PATH}"/mikazuki dataset-tag-editor # 标签编辑器
         git submodule init
         git submodule update

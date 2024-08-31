@@ -690,11 +690,11 @@ numpy -U
 
 ### 17、重新安装后端组件
 >[!NOTE]
->仅限Stable Diffusion WebUI，lora-scripts、kohya_ss
+>仅限 Stable Diffusion WebUI，lora-scripts、kohya_ss
 
 该功能用于重新下载后端需要的组件，组件存在以下文件夹中  
 - Stable Diffusion WebUI：`repositories`
-- lora-scripts：`frontend`、`sd-scripts`、`mikazuki/dataset-tag-editor`
+- lora-scripts：`frontend`、`mikazuki/dataset-tag-editor`
 - kohya_ss：`sd-scripts`
 
 ***

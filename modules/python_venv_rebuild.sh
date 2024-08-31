@@ -137,8 +137,8 @@ lora_scripts_venv_rebuild() {
         enter_venv
 
         install_pytorch # 安装 PyTorch
-        cd sd-scripts
-        install_python_package -r requirements.txt # sd-scripts 目录下还有个 _typos.toml, 在安装 requirements.txt 里的依赖时会指向这个文件
+        cd scripts
+        install_python_package -r requirements.txt # scripts 目录下还有个 _typos.toml, 在安装 requirements.txt 里的依赖时会指向这个文件
         cd ..
         install_python_package -r requirements.txt # lora-scripts 安装依赖
 

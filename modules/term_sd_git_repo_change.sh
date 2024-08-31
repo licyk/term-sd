@@ -266,8 +266,6 @@ lora_scripts_remote_revise() {
         ${GIT_REPO_REMOTE_REVISE_CMD}
         cd "$LORA_SCRIPTS_PATH"/frontend
         ${GIT_REPO_REMOTE_REVISE_CMD}
-        cd "$LORA_SCRIPTS_PATH"/sd-scripts
-        ${GIT_REPO_REMOTE_REVISE_CMD}
         cd "$LORA_SCRIPTS_PATH"/mikazuki/dataset-tag-editor
         ${GIT_REPO_REMOTE_REVISE_CMD}
         term_sd_echo "lora-scripts 更新源替换结束"
