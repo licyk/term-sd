@@ -4,7 +4,7 @@ __term_sd_task_pre_ext_3 adetailer ON
 __term_sd_task_pre_ext_4 sd-webui-IS-NET-pro OFF
 __term_sd_task_pre_ext_5 sd-webui-segment-anything OFF
 __term_sd_task_pre_ext_6 sd-webui-inpaint-anything OFF
-__term_sd_task_pre_ext_7 sd-forge-layerdiffusion OFF
+__term_sd_task_pre_ext_7 sd-forge-layerdiffuse OFF
 __term_sd_task_pre_ext_8 z-a1111-sd-webui-dtg OFF
 __term_sd_task_pre_ext_9 sd-webui-stablesr OFF
 __term_sd_task_pre_ext_10 kohya-config-webui OFF

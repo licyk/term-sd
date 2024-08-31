@@ -27,9 +27,9 @@ Stable Diffusion WebUI 插件说明：
 描述：使用seg生成的蒙版进行图像重绘
 链接：https://github.com/Uminosachi/sd-webui-inpaint-anything
 
-7、sd-forge-layerdiffusion
+7、sd-forge-layerdiffuse
 描述：LayerDiffusion插件，仅支持sd-webui-forge
-链接：https://github.com/layerdiffusion/sd-forge-layerdiffusion
+链接：https://github.com/lllyasviel/sd-forge-layerdiffuse
 
 8、z-a1111-sd-webui-dtg
 描述：使用Danboou风格对tag进行润色，使出图效果更好，内容更丰富
