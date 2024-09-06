@@ -422,7 +422,7 @@ pip_install_mode_select() {
         3>&1 1>&2 2>&3)
 
     for i in ${dialog_arg}; do
-        case "${dialog_arg}" in
+        case "${i}" in
             1)
                 PIP_UPDATE_PACKAGE_ARG="--upgrade"
                 ;;
