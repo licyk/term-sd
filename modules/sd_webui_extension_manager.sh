@@ -447,7 +447,7 @@ get_sd_webui_config_path() {
     echo "${result}"
 }
 
-# 查询插件是否被禁用
+# 查询插件是否被禁用(Python)
 # 使用:
 # py_is_sd_webui_extension_disabled <配置文件路径> <插件名>
 # 运行后返回完整的 python 代码
@@ -496,7 +496,7 @@ else:
 EOF
 }
 
-# 修改插件的启用状态
+# 修改插件的启用状态(Python)
 # 使用:
 # py_set_sd_webui_extension_status <配置文件路径> <插件名> <True / False>
 # 运行后返回完整的 python 代码
@@ -589,7 +589,7 @@ set_extension_status(json_path, extension_name, status)
 EOF
 }
 
-# 获取 SD WebUI 配置文件路径
+# 获取 SD WebUI 配置文件路径(Python)
 # 运行后返回完整的 Python 代码
 py_get_sd_webui_config_path() {
     cat<<EOF

@@ -177,7 +177,7 @@ install_pypatchmatch_for_windows() {
     fi
 }
 
-# 获取 PyPatchMatch 路径
+# 获取 PyPatchMatch 路径(Python)
 py_get_pypatchmatch_path() {
     cat<<EOF
 import importlib.metadata

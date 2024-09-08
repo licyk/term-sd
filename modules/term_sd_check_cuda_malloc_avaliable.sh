@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 检查显卡是否可以支持 CUDA 内存分配器
+# 检查显卡是否可以支持 CUDA 内存分配器(Python)
 py_check_cuda_malloc_avaliable() {
     cat<<EOF
 import os
@@ -88,7 +88,7 @@ except:
 EOF
 }
 
-# 检查显卡是否为 Nvidia 显卡
+# 检查显卡是否为 Nvidia 显卡(Python)
 py_check_gpu_is_nvidia_drive() {
     cat<<EOF
 import os

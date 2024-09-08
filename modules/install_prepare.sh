@@ -146,8 +146,10 @@ download_mirror_select() {
     fi
 }
 
+# TODO 优化pytorch安装，如添加标志自动切换源，添加新版本的pytorch
 # PyTorch 安装版本选择
-# 选择后设置 INSTALL_PYTORCH_VERSION 全局变量
+# 选择后设置 INSTALL_PYTORCH_VERSION 全局变量保存 PyTorch 版本信息
+# PYTORCH_TYPE 保存使用的 PyTorch 镜像源种类, 如果为空则使用默认的镜像源
 pytorch_version_select() {
     local dialog_arg
     unset INSTALL_PYTORCH_VERSION
@@ -158,8 +160,9 @@ pytorch_version_select() {
         --ok-label "确认" --no-cancel \
         --menu "请选择要安装的 PyTorch 版本, 注:\n1. Nvidia 显卡选择 CUDA 的版本\n2. AMD 显卡选择 RoCM(Linux) / DirectML(Windows) 版本\n3. Intel 显卡选择 IPEX Arc(独显) / Core Ultra(核显)\n4. Apple M 系列芯片选择无特殊标识版本\n5. 使用 CPU 运算选择 CPU 版本" \
         $(get_dialog_size_menu) \
-        "50" "> Torch 2.4.0 (CUDA 11.8) + xFormers 0.0.27.post2" \
-        "49" "> Torch 2.4.0 (CUDA 12.1) + xFormers 0.0.27.post2" \
+        "51" "> Torch 2.4.0 (CUDA 11.8) + xFormers 0.0.27.post2" \
+        "50" "> Torch 2.4.0 (CUDA 12.1) + xFormers 0.0.27.post2" \
+        "49" "> Torch 2.4.0 (CUDA 12.4)" \
         "48" "> Torch 2.4.0 (CPU)" \
         "47" "> Torch 2.3.1 (CUDA 11.8) + xFormers 0.0.27" \
         "46" "> Torch 2.3.1 (CUDA 12.1) + xFormers 0.0.27" \
@@ -241,6 +244,7 @@ pytorch_version_select() {
             ;;
         9)
             INSTALL_PYTORCH_VERSION="torch(ipex_Arc) 2.0.0"
+            PYTORCH_TYPE="ipex"
             ;;
         10)
             INSTALL_PYTORCH_VERSION="torch==2.0.0+cu118 torchvision==0.15.1+cu118 torchaudio==2.0.0+cu118 xformers==0.0.18"
@@ -262,9 +266,11 @@ pytorch_version_select() {
             ;;
         16)
             INSTALL_PYTORCH_VERSION="torch(ipex_Core_Ultra) 2.1.0"
+            PYTORCH_TYPE="ipex"
             ;;
         17)
             INSTALL_PYTORCH_VERSION="torch(ipex_Arc) 2.1.0"
+            PYTORCH_TYPE="ipex"
             ;;
         18)
             INSTALL_PYTORCH_VERSION="torch==2.1.1+cpu torchvision==0.16.1+cpu torchaudio==2.1.1+cpu"
@@ -286,6 +292,7 @@ pytorch_version_select() {
             ;;
         24)
             INSTALL_PYTORCH_VERSION="torch==2.1.2+cu121 torchvision==0.16.2+cu121 torchaudio==2.1.2+cu121 xformers==0.0.23.post1"
+            PYTORCH_TYPE="cu121"
             ;;
         25)
             INSTALL_PYTORCH_VERSION="torch==2.1.2+cu118 torchvision==0.16.2+cu118 torchaudio==2.1.2+cu118 xformers==0.0.23.post1+cu118"
@@ -298,6 +305,7 @@ pytorch_version_select() {
             ;;
         28)
             INSTALL_PYTORCH_VERSION="torch==2.2.0+cu121 torchvision==0.17.0+cu121 torchaudio==2.2.0+cu121 xformers==0.0.24"
+            PYTORCH_TYPE="cu121"
             ;;
         29)
             INSTALL_PYTORCH_VERSION="torch==2.2.0+cu118 torchvision==0.17.0+cu118 torchaudio==2.2.0+cu118 xformers==0.0.24+cu118"
@@ -313,6 +321,7 @@ pytorch_version_select() {
             ;;
         33)
             INSTALL_PYTORCH_VERSION="torch==2.2.1+cu121 torchvision==0.17.1+cu121 torchaudio==2.2.1+cu121 xformers==0.0.25"
+            PYTORCH_TYPE="cu121"
             ;;
         34)
             INSTALL_PYTORCH_VERSION="torch==2.2.1+cu118 torchvision==0.17.1+cu118 torchaudio==2.2.1+cu118 xformers==0.0.25+cu118"
@@ -325,6 +334,7 @@ pytorch_version_select() {
             ;;
         37)
             INSTALL_PYTORCH_VERSION="torch==2.2.2+cu121 torchvision==0.17.2+cu121 torchaudio==2.2.2+cu121 xformers==0.0.25.post1"
+            PYTORCH_TYPE="cu121"
             ;;
         38)
             INSTALL_PYTORCH_VERSION="torch==2.2.2+cu118 torchvision==0.17.2+cu118 torchaudio==2.2.2+cu118 xformers==0.0.25.post1+cu118"
@@ -337,6 +347,7 @@ pytorch_version_select() {
             ;;
         41)
             INSTALL_PYTORCH_VERSION="torch==2.3.0+cu121 torchvision==0.18.0+cu121 torchaudio==2.3.0+cu121 xformers==0.0.26.post1"
+            PYTORCH_TYPE="cu121"
             ;;
         42)
             INSTALL_PYTORCH_VERSION="torch==2.3.0+cu118 torchvision==0.18.0+cu118 torchaudio==2.3.0+cu118 xformers==0.0.26.post1+cu118"
@@ -352,18 +363,26 @@ pytorch_version_select() {
             ;;
         46)
             INSTALL_PYTORCH_VERSION="torch==2.3.1+cu121 torchvision==0.18.1+cu121 torchaudio==2.3.1+cu121 xformers==0.0.27"
+            PYTORCH_TYPE="cu121"
             ;;
         47)
             INSTALL_PYTORCH_VERSION="torch==2.3.1+cu118 torchvision==0.18.1+cu118 torchaudio==2.3.1+cu118 xformers==0.0.27+cu118"
+            PYTORCH_TYPE="cu118"
             ;;
         48)
             INSTALL_PYTORCH_VERSION="torch==2.4.0+cpu torchvision==0.19.0+cpu torchaudio==2.4.0+cpu"
             ;;
         49)
-            INSTALL_PYTORCH_VERSION="torch==2.4.0+cu121 torchvision==0.19.0+cu121 torchaudio==2.4.0+cu121 xformers==0.0.27.post2"
+            INSTALL_PYTORCH_VERSION="torch==2.4.0+cu124 torchvision==0.19.0+cu124 torchaudio==2.4.0+cu124"
+            PYTORCH_TYPE="cu124"
             ;;
         50)
+            INSTALL_PYTORCH_VERSION="torch==2.4.0+cu121 torchvision==0.19.0+cu121 torchaudio==2.4.0+cu121 xformers==0.0.27.post2"
+            PYTORCH_TYPE="cu121"
+            ;;
+        51)
             INSTALL_PYTORCH_VERSION="torch==2.4.0+cu118 torchvision==0.19.0+cu118 torchaudio==2.4.0+cu118 xformers==0.0.27.post2+cu118"
+            PYTORCH_TYPE="cu118"
             ;;
     esac
 }
@@ -584,6 +603,7 @@ clean_install_config() {
         term_sd_echo "PIP_FORCE_REINSTALL_ARG: ${PIP_FORCE_REINSTALL_ARG}"
         term_sd_echo "PIP_UPDATE_PACKAGE_ARG: ${PIP_UPDATE_PACKAGE_ARG}"
         term_sd_echo "PIP_PREFER_BINARY_ARG: ${PIP_PREFER_BINARY_ARG}"
+        term_sd_echo "PYTORCH_TYPE: ${PYTORCH_TYPE}"
     fi
 
     unset PIP_INDEX_MIRROR # 指定 Pip 镜像源的参数
@@ -600,6 +620,7 @@ clean_install_config() {
     unset PIP_FORCE_REINSTALL_ARG # 是否在 Pip 使用 --force-reinstall 参数
     unset PIP_UPDATE_PACKAGE_ARG # 是否更新软件包
     unset PIP_PREFER_BINARY_ARG # 使用 --prefer-binary 使 Pip 优先使用编译好的 Python 软件包进行安装
+    unset PYTORCH_TYPE # PyTorch 种类, 用于切换 PyTorch 镜像源
 }
 
 # 如果启用了 Pip 镜像源, 则返回0
