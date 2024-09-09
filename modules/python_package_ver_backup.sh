@@ -71,12 +71,21 @@ python_package_ver_backup_manager() {
 
                     backup_python_package_ver "${backup_req_file_name}"
 
-                    dialog --erase-on-exit \
-                        --title "Term-SD" \
-                        --backtitle "${backup_req_file_name} 依赖库版本备份选项" \
-                        --ok-label "确认" \
-                        --msgbox "${backup_req_file_name} 依赖库版本备份完成" \
-                        $(get_dialog_size)
+                    if [[ "$?" == 0 ]]; then
+                        dialog --erase-on-exit \
+                            --title "Term-SD" \
+                            --backtitle "${backup_req_file_name} 依赖库版本备份选项" \
+                            --ok-label "确认" \
+                            --msgbox "${backup_req_file_name} 依赖库版本备份成功" \
+                            $(get_dialog_size)
+                    else
+                        dialog --erase-on-exit \
+                            --title "Term-SD" \
+                            --backtitle "${backup_req_file_name} 依赖库版本备份选项" \
+                            --ok-label "确认" \
+                            --msgbox "${backup_req_file_name} 依赖库版本备份失败" \
+                            $(get_dialog_size)
+                    fi
                 fi
                 ;;
             2)
@@ -103,7 +112,14 @@ backup_python_package_ver() {
 
     # 将python依赖库中各个包和包版本备份到文件中
     term_sd_pip freeze > "${START_PATH}/term-sd/requirements-backup/${backup_name}/${req_file}"
-    term_sd_echo "备份 ${backup_name} 依赖库版本完成"
+    if [ "$?" == 0 ]; then
+        term_sd_echo "备份 ${backup_name} 依赖库版本成功"
+        return 0
+    else
+        term_sd_echo "备份 ${backup_name} 依赖库版本失败"
+        rm -f "${START_PATH}/term-sd/requirements-backup/${backup_name}/${req_file}"
+        return 1
+    fi
 }
 
 # 备份文件列表浏览器
@@ -255,7 +271,7 @@ restore_python_package_ver() {
         cat "${START_PATH}/term-sd/requirements-backup/${backup_name}/${req_file_name}"
         term_sd_print_line
         term_sd_echo "恢复依赖库版本中"
-        install_python_package -r "${START_PATH}/term-sd/requirements-backup/${backup_name}/${req_file_name}" # 安装原有版本的依赖包
+        install_python_package -r "${START_PATH}/term-sd/requirements-backup/${backup_name}/${req_file_name}" --no-deps # 安装原有版本的依赖包
         term_sd_tmp_enable_proxy # 恢复原有的代理
         term_sd_echo "恢复依赖库版本完成"
         term_sd_pause

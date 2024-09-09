@@ -148,16 +148,22 @@ term_sd_task_cmd_revise() {
 
 # 设置安装时使用的环境变量
 term_sd_set_install_env_value() {
-    echo "__term_sd_task_sys USE_PIP_MIRROR=${USE_PIP_MIRROR}"
-    echo "__term_sd_task_sys PIP_INDEX_MIRROR=\"${PIP_INDEX_MIRROR}\""
-    echo "__term_sd_task_sys PIP_EXTRA_INDEX_MIRROR=\"${PIP_EXTRA_INDEX_MIRROR}\""
-    echo "__term_sd_task_sys PIP_FIND_LINKS_MIRROR=\"${PIP_FIND_LINKS_MIRROR}\""
-    echo "__term_sd_task_sys PIP_BREAK_SYSTEM_PACKAGE_ARG=\"${PIP_BREAK_SYSTEM_PACKAGE_ARG}\""
-    echo "__term_sd_task_sys GITHUB_MIRROR=\"${GITHUB_MIRROR}\""
-    echo "__term_sd_task_sys INSTALL_PYTORCH_VERSION=\"${INSTALL_PYTORCH_VERSION}\""
-    echo "__term_sd_task_sys PIP_USE_PEP517_ARG=\"${PIP_USE_PEP517_ARG}\""
-    echo "__term_sd_task_sys TERM_SD_ENABLE_ONLY_PROXY=${TERM_SD_ENABLE_ONLY_PROXY}"
-    echo "__term_sd_task_sys USE_MODELSCOPE_MODEL_SRC=${USE_MODELSCOPE_MODEL_SRC}"
+    cat<<EOF
+__term_sd_task_sys PIP_INDEX_MIRROR="${PIP_INDEX_MIRROR}"
+__term_sd_task_sys PIP_EXTRA_INDEX_MIRROR="${PIP_EXTRA_INDEX_MIRROR}"
+__term_sd_task_sys PIP_FIND_LINKS_MIRROR="${PIP_FIND_LINKS_MIRROR}"
+__term_sd_task_sys USE_PIP_MIRROR=${USE_PIP_MIRROR}
+__term_sd_task_sys PIP_BREAK_SYSTEM_PACKAGE_ARG="${PIP_BREAK_SYSTEM_PACKAGE_ARG}"
+__term_sd_task_sys PIP_USE_PEP517_ARG="${PIP_USE_PEP517_ARG}"
+__term_sd_task_sys PIP_FORCE_REINSTALL_ARG="${PIP_FORCE_REINSTALL_ARG}"
+__term_sd_task_sys PIP_UPDATE_PACKAGE_ARG="${PIP_UPDATE_PACKAGE_ARG}"
+__term_sd_task_sys PIP_PREFER_BINARY_ARG="${PIP_PREFER_BINARY_ARG}"
+__term_sd_task_sys GITHUB_MIRROR="${GITHUB_MIRROR}"
+__term_sd_task_sys INSTALL_PYTORCH_VERSION="${INSTALL_PYTORCH_VERSION}"
+__term_sd_task_sys PYTORCH_TYPE="${PYTORCH_TYPE}"
+__term_sd_task_sys TERM_SD_ENABLE_ONLY_PROXY=${TERM_SD_ENABLE_ONLY_PROXY}
+__term_sd_task_sys USE_MODELSCOPE_MODEL_SRC=${USE_MODELSCOPE_MODEL_SRC}
+EOF
 }
 
 # 为安装命令列表添加空行
