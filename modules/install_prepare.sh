@@ -146,7 +146,6 @@ download_mirror_select() {
     fi
 }
 
-# TODO 优化pytorch安装，如添加标志自动切换源，添加新版本的pytorch
 # PyTorch 安装版本选择
 # 选择后设置 INSTALL_PYTORCH_VERSION 全局变量保存 PyTorch 版本信息
 # PYTORCH_TYPE 保存使用的 PyTorch 镜像源种类, 如果为空则使用默认的镜像源
@@ -618,7 +617,7 @@ clean_install_config() {
     unset INSTALL_PYTORCH_VERSION # 要安装的 PyTorch 版本和 xFormers 版本
     unset PIP_USE_PEP517_ARG # 是否在 Pip 使用 --use-pep517 参数
     unset PIP_FORCE_REINSTALL_ARG # 是否在 Pip 使用 --force-reinstall 参数
-    unset PIP_UPDATE_PACKAGE_ARG # 是否更新软件包
+    unset PIP_UPDATE_PACKAGE_ARG # 是否更新软件包, 使用 --upgrade 参数
     unset PIP_PREFER_BINARY_ARG # 使用 --prefer-binary 使 Pip 优先使用编译好的 Python 软件包进行安装
     unset PYTORCH_TYPE # PyTorch 种类, 用于切换 PyTorch 镜像源
 }

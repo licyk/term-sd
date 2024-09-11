@@ -147,6 +147,7 @@ term_sd_task_cmd_revise() {
 }
 
 # 设置安装时使用的环境变量
+# 变量来源于 modules/install_prepare.sh
 term_sd_set_install_env_value() {
     cat<<EOF
 __term_sd_task_sys PIP_INDEX_MIRROR="${PIP_INDEX_MIRROR}"

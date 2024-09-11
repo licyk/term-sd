@@ -112,7 +112,7 @@ backup_python_package_ver() {
 
     # 将python依赖库中各个包和包版本备份到文件中
     term_sd_pip freeze > "${START_PATH}/term-sd/requirements-backup/${backup_name}/${req_file}"
-    if [ "$?" == 0 ]; then
+    if [[ "$?" == 0 ]]; then
         term_sd_echo "备份 ${backup_name} 依赖库版本成功"
         return 0
     else
