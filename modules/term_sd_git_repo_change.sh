@@ -52,12 +52,13 @@ git_remote_url_select() {
         $(get_dialog_size_menu) \
         "0" "> 返回" \
         "1" "> 官方源 (github.com)" \
-        "2" "> 镜像源1 (mirror.ghproxy.com)" \
-        "3" "> 镜像源2 (gitclone.com)" \
-        "4" "> 镜像源3 (gh-proxy.com)" \
-        "5" "> 镜像源4 (ghps.cc)" \
-        "6" "> 镜像源5 (gh.idayer.com)" \
-        "7" "> 镜像源6 (ghproxy.net)" \
+        "2" "> 镜像源 1 (ghp.ci)" \
+        "3" "> 镜像源 2 (mirror.ghproxy.com)" \
+        "4" "> 镜像源 3 (gitclone.com)" \
+        "5" "> 镜像源 4 (gh-proxy.com)" \
+        "6" "> 镜像源 5 (ghps.cc)" \
+        "7" "> 镜像源 6 (gh.idayer.com)" \
+        "8" "> 镜像源 7 (ghproxy.net)" \
         3>&1 1>&2 2>&3)
 
     case "${dialog_arg}" in
@@ -68,30 +69,35 @@ git_remote_url_select() {
             ;;
         2)
             term_sd_print_line "更新源一键替换"
-            GIT_REPO_REMOTE_REVISE_CMD="git_repo_remote_revise https://mirror.ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo"
+            GIT_REPO_REMOTE_REVISE_CMD="git_repo_remote_revise https://ghp.ci/https://github.com/term_sd_git_user/term_sd_git_repo"
             return 0
             ;;
         3)
             term_sd_print_line "更新源一键替换"
-            GIT_REPO_REMOTE_REVISE_CMD="git_repo_remote_revise https://gitclone.com/github.com/term_sd_git_user/term_sd_git_repo"
+            GIT_REPO_REMOTE_REVISE_CMD="git_repo_remote_revise https://mirror.ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo"
             return 0
             ;;
         4)
             term_sd_print_line "更新源一键替换"
-            GIT_REPO_REMOTE_REVISE_CMD="git_repo_remote_revise https://gh-proxy.com/https://github.com/term_sd_git_user/term_sd_git_repo"
+            GIT_REPO_REMOTE_REVISE_CMD="git_repo_remote_revise https://gitclone.com/github.com/term_sd_git_user/term_sd_git_repo"
             return 0
             ;;
         5)
             term_sd_print_line "更新源一键替换"
-            GIT_REPO_REMOTE_REVISE_CMD="git_repo_remote_revise https://ghps.cc/https://github.com/term_sd_git_user/term_sd_git_repo"
+            GIT_REPO_REMOTE_REVISE_CMD="git_repo_remote_revise https://gh-proxy.com/https://github.com/term_sd_git_user/term_sd_git_repo"
             return 0
             ;;
         6)
             term_sd_print_line "更新源一键替换"
-            GIT_REPO_REMOTE_REVISE_CMD="git_repo_remote_revise https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo"
+            GIT_REPO_REMOTE_REVISE_CMD="git_repo_remote_revise https://ghps.cc/https://github.com/term_sd_git_user/term_sd_git_repo"
             return 0
             ;;
         7)
+            term_sd_print_line "更新源一键替换"
+            GIT_REPO_REMOTE_REVISE_CMD="git_repo_remote_revise https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo"
+            return 0
+            ;;
+        8)
             term_sd_print_line "更新源一键替换"
             GIT_REPO_REMOTE_REVISE_CMD="git_repo_remote_revise https://ghproxy.net/https://github.com/term_sd_git_user/term_sd_git_repo"
             return 0
@@ -122,12 +128,13 @@ git_remote_url_select_single() {
             $(get_dialog_size_menu) \
             "0" "> 返回" \
             "1" "> 官方源 (github.com)" \
-            "2" "> 镜像源1 (mirror.ghproxy.com)" \
-            "3" "> 镜像源2 (gitclone.com)" \
-            "4" "> 镜像源3 (gh-proxy.com)" \
-            "5" "> 镜像源4 (ghps.cc)" \
-            "6" "> 镜像源5 (gh.idayer.com)" \
-            "7" "> 镜像源6 (ghproxy.net)" \
+            "2" "> 镜像源 1 (ghp.ci)" \
+            "3" "> 镜像源 2 (mirror.ghproxy.com)" \
+            "4" "> 镜像源 3 (gitclone.com)" \
+            "5" "> 镜像源 4 (gh-proxy.com)" \
+            "6" "> 镜像源 5 (ghps.cc)" \
+            "7" "> 镜像源 6 (gh.idayer.com)" \
+            "8" "> 镜像源 7 (ghproxy.net)" \
             3>&1 1>&2 2>&3)
 
         case "${dialog_arg}" in
@@ -135,21 +142,24 @@ git_remote_url_select_single() {
                 git_repo_remote_revise https://github.com/term_sd_git_user/term_sd_git_repo
                 ;;
             2)
-                git_repo_remote_revise https://mirror.ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo
+                git_repo_remote_revise https://ghp.ci/https://github.com/term_sd_git_user/term_sd_git_repo
                 ;;
             3)
-                git_repo_remote_revise https://gitclone.com/github.com/term_sd_git_user/term_sd_git_repo
+                git_repo_remote_revise https://mirror.ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo
                 ;;
             4)
-                git_repo_remote_revise https://gh-proxy.com/https://github.com/term_sd_git_user/term_sd_git_repo
+                git_repo_remote_revise https://gitclone.com/github.com/term_sd_git_user/term_sd_git_repo
                 ;;
             5)
-                git_repo_remote_revise https://ghps.cc/https://github.com/term_sd_git_user/term_sd_git_repo
+                git_repo_remote_revise https://gh-proxy.com/https://github.com/term_sd_git_user/term_sd_git_repo
                 ;;
             6)
-                git_repo_remote_revise https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo
+                git_repo_remote_revise https://ghps.cc/https://github.com/term_sd_git_user/term_sd_git_repo
                 ;;
             7)
+                git_repo_remote_revise https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo
+                ;;
+            8)
                 git_repo_remote_revise https://ghproxy.net/https://github.com/term_sd_git_user/term_sd_git_repo
                 
                 ;;

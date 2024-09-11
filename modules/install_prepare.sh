@@ -36,12 +36,13 @@ download_mirror_select() {
         "4" "Huggingface / Github 下载源独占代理 (仅在下载 Huggingface / Github 上的文件时启用代理)" ON \
         "5" "使用全局 Github 镜像源配置 (当设置了全局 Github 镜像源时禁用 Github 镜像自动选择)" ON \
         "6" "Github 镜像源自动选择 (测试可用的镜像源并选择自动选择)" ON \
-        "7" "启用 Github 镜像源1 (使用 mirror.ghproxy.com 镜像站下载 Github 上的源码)" OFF \
-        "8" "启用 Github 镜像源2 (使用 gitclone.com 镜像站下载 Github 上的源码)" OFF  \
-        "9" "启用 Github 镜像源3 (使用 gh-proxy.com 镜像站下载 Github 上的源码)" OFF \
-        "10" "启用 Github 镜像源4 (使用 ghps.cc 镜像站下载 Github 上的源码)" OFF \
-        "11" "启用 Github 镜像源5 (使用 gh.idayer.com 镜像站下载 Github 上的源码)" OFF \
-        "12" "启用 Github 镜像源6 (使用 ghproxy.net 镜像站下载 Github 上的源码)" OFF \
+        "7" "启用 Github 镜像源 1 (使用 ghp.ci 镜像站下载 Github 上的源码)" OFF \
+        "8" "启用 Github 镜像源 2 (使用 mirror.ghproxy.com 镜像站下载 Github 上的源码)" OFF \
+        "9" "启用 Github 镜像源 3 (使用 gitclone.com 镜像站下载 Github 上的源码)" OFF  \
+        "10" "启用 Github 镜像源 4 (使用 gh-proxy.com 镜像站下载 Github 上的源码)" OFF \
+        "11" "启用 Github 镜像源 5 (使用 ghps.cc 镜像站下载 Github 上的源码)" OFF \
+        "12" "启用 Github 镜像源 6 (使用 gh.idayer.com 镜像站下载 Github 上的源码)" OFF \
+        "13" "启用 Github 镜像源 7 (使用 ghproxy.net 镜像站下载 Github 上的源码)" OFF \
         3>&1 1>&2 2>&3)
 
     for i in ${dialog_arg}; do
@@ -70,28 +71,32 @@ download_mirror_select() {
                 auto_select_github_mirror=1
                 ;;
             7)
-                GITHUB_MIRROR="https://mirror.ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo"
-                GITHUB_MIRROR_NAME="镜像源1 (mirror.ghproxy.com)"
+                GITHUB_MIRROR="https://ghp.ci/https://github.com/term_sd_git_user/term_sd_git_repo"
+                GITHUB_MIRROR_NAME="镜像源 1 (ghp.ci)"
                 ;;
             8)
-                GITHUB_MIRROR="https://gitclone.com/github.com/term_sd_git_user/term_sd_git_repo"
-                GITHUB_MIRROR_NAME="镜像源2 (gitclone.com)"
+                GITHUB_MIRROR="https://mirror.ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo"
+                GITHUB_MIRROR_NAME="镜像源 2 (mirror.ghproxy.com)"
                 ;;
             9)
-                GITHUB_MIRROR="https://gh-proxy.com/https://github.com/term_sd_git_user/term_sd_git_repo"
-                GITHUB_MIRROR_NAME="镜像源3 (gh-proxy.com)"
+                GITHUB_MIRROR="https://gitclone.com/github.com/term_sd_git_user/term_sd_git_repo"
+                GITHUB_MIRROR_NAME="镜像源 3 (gitclone.com)"
                 ;;
             10)
-                GITHUB_MIRROR="https://ghps.cc/https://github.com/term_sd_git_user/term_sd_git_repo"
-                GITHUB_MIRROR_NAME="镜像源4 (ghps.cc)"
+                GITHUB_MIRROR="https://gh-proxy.com/https://github.com/term_sd_git_user/term_sd_git_repo"
+                GITHUB_MIRROR_NAME="镜像源 4 (gh-proxy.com)"
                 ;;
             11)
-                GITHUB_MIRROR="https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo"
-                GITHUB_MIRROR_NAME="镜像源5 (gh.idayer.com)"
+                GITHUB_MIRROR="https://ghps.cc/https://github.com/term_sd_git_user/term_sd_git_repo"
+                GITHUB_MIRROR_NAME="镜像源 5 (ghps.cc)"
                 ;;
             12)
+                GITHUB_MIRROR="https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo"
+                GITHUB_MIRROR_NAME="镜像源 6 (gh.idayer.com)"
+                ;;
+            13)
                 GITHUB_MIRROR="https://ghproxy.net/https://github.com/term_sd_git_user/term_sd_git_repo"
-                GITHUB_MIRROR_NAME="镜像源6 (ghproxy.net)"
+                GITHUB_MIRROR_NAME="镜像源 7 (ghproxy.net)"
                 ;;
         esac
     done
