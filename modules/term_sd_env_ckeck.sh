@@ -214,6 +214,12 @@ def is_installed(package: str) -> bool:
                 pkg_name, pkg_version = [x.strip() for x in pkg.split('>=')]
             elif '==' in pkg:
                 pkg_name, pkg_version = [x.strip() for x in pkg.split('==')]
+            elif '<=' in pkg:
+                pkg_name, pkg_version = [x.strip() for x in pkg.split('<=')]
+            elif '<' in pkg:
+                pkg_name, pkg_version = [x.strip() for x in pkg.split('<')]
+            elif '>' in pkg:
+                pkg_name, pkg_version = [x.strip() for x in pkg.split('>')]
             else:
                 pkg_name, pkg_version = pkg.strip(), None
 
@@ -228,12 +234,38 @@ def is_installed(package: str) -> bool:
             if spec is not None:
                 version = pkg_resources.get_distribution(pkg_name).version
 
-                # 判断版本是否符合要去
+                # 判断版本是否符合要求
                 if pkg_version is not None:
                     if '>=' in pkg:
-                        ok = version >= pkg_version
+                        # ok = version >= pkg_version
+                        if compare_versions(version, pkg_version) == 1 or compare_versions(version, pkg_version) == 0:
+                            ok = True
+                        else:
+                            ok = False
+                    elif '<=' in pkg:
+                        # ok = version <= pkg_version
+                        if compare_versions(version, pkg_version) == -1 or compare_versions(version, pkg_version) == 0:
+                            ok = True
+                        else:
+                            ok = False
+                    elif '>' in pkg:
+                        # ok = version > pkg_version
+                        if compare_versions(version, pkg_version) == 1:
+                            ok = True
+                        else:
+                            ok = False
+                    elif '<' in pkg:
+                        # ok = version < pkg_version
+                        if compare_versions(version, pkg_version) == -1:
+                            ok = True
+                        else:
+                            ok = False
                     else:
-                        ok = version == pkg_version
+                        # ok = version == pkg_version
+                        if compare_versions(version, pkg_version) == 0:
+                            ok = True
+                        else:
+                            ok = False
 
                     if not ok:
                         return False
@@ -285,7 +317,8 @@ def remove_duplicate(lists: list) -> list:
 
 # 获取包版本号
 def get_version(ver: str) -> str:
-    return "".join(re.findall(r"\d+", ver))
+    # return "".join(re.findall(r"\d+", ver))
+    return ver.split(">").pop().split("<").pop().split("=").pop()
 
 
 # 判断是否有版本号
@@ -301,8 +334,26 @@ def get_package_name(pkg: str) -> str:
     return pkg.split(">")[0].split("<")[0].split("==")[0]
 
 
+# 判断 2 个版本的大小, 前面大返回 1, 后面大返回 -1, 相同返回 0
+def compare_versions(version1, version2):
+    nums1 = version1.split(".")  # 将版本号 1 拆分成数字列表
+    nums2 = version2.split(".")  # 将版本号 2 拆分成数字列表
+
+    for i in range(max(len(nums1), len(nums2))):
+        num1 = int(nums1[i]) if i < len(nums1) else 0  # 如果版本号 1 的位数不够, 则补 0
+        num2 = int(nums2[i]) if i < len(nums2) else 0  # 如果版本号 2 的位数不够, 则补 0
+
+        if num1 == num2:
+            continue
+        elif num1 > num2:
+            return 1  # 版本号 1 更大
+        else:
+            return -1  # 版本号 2 更大
+
+    return 0  # 版本号相同
+
+
 def detect_conflict_package(pkg_1: str, pkg_2: str) -> bool:
-    # 如: numpy>2.0, numpy<1.9
     for i in range(2):
         if i == 1:
             tmp = pkg_1
@@ -314,7 +365,8 @@ def detect_conflict_package(pkg_1: str, pkg_2: str) -> bool:
             ver_2 = get_version(pkg_2.split("<=").pop())
             if ver_1 == "" or ver_2 == "":
                 return False
-            if ver_1 > ver_2:
+            if compare_versions(ver_1, ver_2) == 1:
+            # if ver_1 > ver_2:
                 return True
 
         if ">=" in pkg_1 and "<" in pkg_2:
@@ -322,7 +374,8 @@ def detect_conflict_package(pkg_1: str, pkg_2: str) -> bool:
             ver_2 = get_version(pkg_2.split("<").pop())
             if ver_1 == "" or ver_2 == "":
                 return False
-            if ver_1 > ver_2:
+            if compare_versions(ver_1, ver_2) == 1:
+            # if ver_1 > ver_2:
                 return True
 
         if ">" in pkg_1 and "<=" in pkg_2:
@@ -330,7 +383,8 @@ def detect_conflict_package(pkg_1: str, pkg_2: str) -> bool:
             ver_2 = get_version(pkg_2.split("<=").pop())
             if ver_1 == "" or ver_2 == "":
                 return False
-            if ver_1 > ver_2:
+            if compare_versions(ver_1, ver_2) == 1:
+            # if ver_1 > ver_2:
                 return True
 
         if ">" in pkg_1 and "<" in pkg_2:
@@ -338,7 +392,8 @@ def detect_conflict_package(pkg_1: str, pkg_2: str) -> bool:
             ver_2 = get_version(pkg_2.split("<").pop())
             if ver_1 == "" or ver_2 == "":
                 return False
-            if ver_1 > ver_2:
+            if compare_versions(ver_1, ver_2) == 1:
+            # if ver_1 > ver_2:
                 return True
 
         if ">" in pkg_1 and "==" in pkg_2:
@@ -346,7 +401,8 @@ def detect_conflict_package(pkg_1: str, pkg_2: str) -> bool:
             ver_2 = get_version(pkg_2.split("==").pop())
             if ver_1 == "" or ver_2 == "":
                 return False
-            if ver_1 > ver_2:
+            if compare_versions(ver_1, ver_2) == 1:
+            # if ver_1 > ver_2:
                 return True
 
         if "<" in pkg_1 and "==" in pkg_2:
@@ -354,13 +410,15 @@ def detect_conflict_package(pkg_1: str, pkg_2: str) -> bool:
             ver_2 = get_version(pkg_2.split("==").pop())
             if ver_1 == "" or ver_2 == "":
                 return False
-            if ver_1 < ver_2:
+            if compare_versions(ver_1, ver_2) == -1:
+            # if ver_1 < ver_2:
                 return True
         
         if "==" in pkg_1 and "==" in pkg_2:
             ver_1 = get_version(pkg_1.split("==").pop())
             ver_2 = get_version(pkg_2.split("==").pop())
-            if ver_1 != ver_2:
+            if compare_versions(ver_1, ver_2) != 0:
+            # if ver_1 != ver_2:
                 return True
 
     return False
@@ -572,6 +630,25 @@ import re
 
 
 
+# 判断 2 个版本的大小, 前面大返回 1, 后面大返回 -1, 相同返回 0
+def compare_versions(version1, version2):
+    nums1 = version1.split(".")  # 将版本号 1 拆分成数字列表
+    nums2 = version2.split(".")  # 将版本号 2 拆分成数字列表
+
+    for i in range(max(len(nums1), len(nums2))):
+        num1 = int(nums1[i]) if i < len(nums1) else 0  # 如果版本号 1 的位数不够, 则补 0
+        num2 = int(nums2[i]) if i < len(nums2) else 0  # 如果版本号 2 的位数不够, 则补 0
+
+        if num1 == num2:
+            continue
+        elif num1 > num2:
+            return 1  # 版本号 1 更大
+        else:
+            return -1  # 版本号 2 更大
+
+    return 0  # 版本号相同
+
+
 # 确认是否安装某个软件包
 def is_installed(package: str) -> bool:
     #
@@ -611,9 +688,35 @@ def is_installed(package: str) -> bool:
 
                 if pkg_version is not None:
                     if '>=' in pkg:
-                        ok = version >= pkg_version
+                        # ok = version >= pkg_version
+                        if compare_versions(version, pkg_version) == 1 or compare_versions(version, pkg_version) == 0:
+                            ok = True
+                        else:
+                            ok = False
+                    elif '<=' in pkg:
+                        # ok = version <= pkg_version
+                        if compare_versions(version, pkg_version) == -1 or compare_versions(version, pkg_version) == 0:
+                            ok = True
+                        else:
+                            ok = False
+                    elif '>' in pkg:
+                        # ok = version > pkg_version
+                        if compare_versions(version, pkg_version) == 1:
+                            ok = True
+                        else:
+                            ok = False
+                    elif '<' in pkg:
+                        # ok = version < pkg_version
+                        if compare_versions(version, pkg_version) == -1:
+                            ok = True
+                        else:
+                            ok = False
                     else:
-                        ok = version == pkg_version
+                        # ok = version == pkg_version
+                        if compare_versions(version, pkg_version) == 0:
+                            ok = True
+                        else:
+                            ok = False
 
                     if not ok:
                         return False
