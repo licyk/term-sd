@@ -164,13 +164,28 @@ term_sd_launch() {
             enter_venv
             fallback_numpy_version
             fix_pytorch
+            case "${TERM_SD_MANAGE_OBJECT}" in
+                ComfyUI)
+                    validate_requirements "${COMFYUI_PATH}/requirements.txt"
+                    check_comfyui_env
+                    ;;
+                Fooocus)
+                    validate_requirements "${FOOOCUS_PATH}/requirements_versions.txt"
+                    ;;
+                lora-scripts)
+                    validate_requirements "${LORA_SCRIPTS_PATH}/requirements.txt"
+                    ;;
+                kohya_ss)
+                    validate_requirements "${KOHYA_SS_PATH}/requirements.txt"
+                    ;;
+            esac
             term_sd_python $(cat "${START_PATH}/term-sd/config/${launch_sd_config}") ${hf_mirror_for_fooocus}
             [[ ! "$?" == 0 ]] && term_sd_echo "${TERM_SD_MANAGE_OBJECT} 退出状态异常"
             exit_venv
             ;;
     esac
 
-    if [[ "${use_mirror_for_sd_webui}" == 1 ]]; then # 取消 SD WebUIs 的插件列表镜像源
+    if [[ "${use_mirror_for_sd_webui}" == 1 ]]; then # 取消 SD WebUI 的插件列表镜像源
         unset WEBUI_EXTENSIONS_INDEX
         unset CLIP_PACKAGE
     fi
@@ -187,72 +202,6 @@ term_sd_launch() {
     fi
 
     term_sd_pause
-}
-
-# 回滚 Numpy 版本
-fallback_numpy_version() {
-    local np_major_ver
-
-    np_major_ver=$(term_sd_python -c "$(py_get_numpy_ver)")
-
-    if (( np_major_ver > 1 )); then
-        term_sd_echo "检测到 Numpy 版本过高, 尝试回退版本中"
-        install_python_package numpy==1.26.4
-        if [[ "$?" == 0 ]]; then
-            term_sd_echo "Numpy 版本回退成功"
-        else
-            term_sd_echo "Numpy 版本回退失败"
-        fi
-    fi
-}
-
-# 获取 Numpy 大版本(Python)
-py_get_numpy_ver() {
-    cat<<EOF
-import importlib.metadata
-from importlib.metadata import version
-try:
-    print(version("numpy").split(".")[0])
-except importlib.metadata.PackageNotFoundError:
-    print("-1")
-EOF
-}
-
-# 修复 PyTorch 的 libomp 问题
-fix_pytorch() {
-    if is_windows_platform; then
-        python -c "$(py_fix_pytorch)"
-    fi
-}
-
-# 修复 PyTorch 的 libomp 问题(Python)
-py_fix_pytorch() {
-    cat<<EOF
-import importlib.util
-import shutil
-import os
-import ctypes
-import logging
-
-
-torch_spec = importlib.util.find_spec("torch")
-for folder in torch_spec.submodule_search_locations:
-    lib_folder = os.path.join(folder, "lib")
-    test_file = os.path.join(lib_folder, "fbgemm.dll")
-    dest = os.path.join(lib_folder, "libomp140.x86_64.dll")
-    if os.path.exists(dest):
-        break
-
-    with open(test_file, 'rb') as f:
-        contents = f.read()
-        if b"libomp140.x86_64.dll" not in contents:
-            break
-    try:
-        mydll = ctypes.cdll.LoadLibrary(test_file)
-    except FileNotFoundError as e:
-        logging.warning("检测到 PyTorch 版本存在 libomp 问题, 进行修复")
-        shutil.copyfile(os.path.join(lib_folder, "libiomp5md.dll"), dest)
-EOF
 }
 
 # Aria2 下载工具
