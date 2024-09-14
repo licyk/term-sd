@@ -7,7 +7,7 @@ Term-SD 在下载好后，只会有一个基础的配置脚本`term-sd.sh`，当
 当成功下载时，Term-SD 将会自动初始化模块，并启动
 
 >[!NOTE]
->成功进入 Term-SD 的界面后，使用`方向键`、`Tab键`移动光标，`方向键`/`F`，`B`键翻页（鼠标滚轮无法翻页），`Enter键`进行选择，`Space键`勾选或取消勾选，（已勾选时显示`[*]`），`Ctrl+Shift+V`粘贴文本，`Ctrl+C`可中断指令的运行，`鼠标左键`可点击按钮（右键无效）
+>成功进入 Term-SD 的界面后，使用`方向键`、`Tab 键`移动光标，`方向键`/`F`，`B`键翻页（鼠标滚轮无法翻页），`Enter 键`进行选择，`Space 键`勾选或取消勾选，（已勾选时显示`[*]`），`Ctrl + Shift + V`粘贴文本，`Ctrl + C`可中断指令的运行，`鼠标左键`可点击按钮（右键无效）
 
 ***
 
@@ -53,9 +53,15 @@ Term-SD 在使用安装、管理 AI 软件的功能时，会使用准备功能�
 
 ### 2、PyTorch 版本选项
 有以下版本组合：
+- Torch 2.4.1 (CUDA 11.8) + xFormers 0.0.28
+- Torch 2.4.1 (CUDA 12.1) + xFormers 0.0.28
+- Torch 2.4.1 (CUDA 12.4) + xFormers 0.0.28
+- Torch 2.4.1 (RoCM 6.1) + xFormers 0.0.28
+- Torch 2.4.1 (CPU)
 - Torch 2.4.0 (CUDA 11.8) + xFormers 0.0.27.post2
 - Torch 2.4.0 (CUDA 12.1) + xFormers 0.0.27.post2
 - Torch 2.4.0 (CUDA 12.4)
+- Torch 2.4.0 (RoCM 6.0)
 - Torch 2.4.0 (CPU)
 - Torch 2.3.1 (CUDA 11.8) + xFormers 0.0.27
 - Torch 2.3.1 (CUDA 12.1) + xFormers 0.0.27
@@ -256,9 +262,15 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 
 #### 2、PyTorch 版本选择
 第二个是PyTorch版本的选择界面，有以下版本组合
+- Torch 2.4.1 (CUDA 11.8) + xFormers 0.0.28
+- Torch 2.4.1 (CUDA 12.1) + xFormers 0.0.28
+- Torch 2.4.1 (CUDA 12.4) + xFormers 0.0.28
+- Torch 2.4.1 (RoCM 6.1) + xFormers 0.0.28
+- Torch 2.4.1 (CPU)
 - Torch 2.4.0 (CUDA 11.8) + xFormers 0.0.27.post2
 - Torch 2.4.0 (CUDA 12.1) + xFormers 0.0.27.post2
 - Torch 2.4.0 (CUDA 12.4)
+- Torch 2.4.0 (RoCM 6.0)
 - Torch 2.4.0 (CPU)
 - Torch 2.3.1 (CUDA 11.8) + xFormers 0.0.27
 - Torch 2.3.1 (CUDA 12.1) + xFormers 0.0.27
@@ -825,6 +837,20 @@ ip：`127.0.0.1`
 
 >[!NOTE]
 >该功能仅限在 Nvidia 显卡上使用
+
+
+### 运行环境检测设置
+该功能用于设置运行环境检测设置, 运行环境检查包括以下几个: 
+- Numpy 版本检测
+- 依赖完整性检测
+- 冲突组件检测
+- PyTorch libomp 问题检测
+- onnxruntime-gpu 版本检测
+
+这些检测将找出运行环境中出现的问题并修复。如果是冲突组件检测发现环境中出现有冲突的组件，可选择忽略冲突并继续启动，或者按照顺序安装起冲突的组件依赖。如果需要彻底解决该问题，可尝试将起冲突的自定义节点禁用（如起冲突的依赖版本用了`==`进行标记的，类似的有`transformers==4.26.1`，需要这样的依赖的自定义节点可考虑禁用）
+
+>[!NOTE]  
+>注意, 禁用后可能会导致 Term-SD 无法发现并修复运行环境中存在的问题, 导致部分功能不可用
 
 
 ### 自定义安装路径

@@ -623,6 +623,11 @@ validate_requirements() {
     local dir_path
 
     term_sd_echo "检测 ${TERM_SD_MANAGE_OBJECT} 内核依赖完整性中"
+    if [[ ! -f "${path}" ]]; then
+        term_sd_echo "依赖表文件缺失, 无法进行检测"
+        return 1
+    fi
+
     dir_path=$(dirname "${path}")
     path=$(convert_path_format "${path}")
     status=$(term_sd_python -c "$(py_validate_requirements "${path}")")
