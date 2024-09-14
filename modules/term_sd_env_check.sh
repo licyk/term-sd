@@ -112,6 +112,8 @@ EOF
 }
 
 # 转换路径格式
+# 使用:
+# convert_path_format <路径>
 convert_path_format() {
     local path=$@
     local dir_path
@@ -126,8 +128,6 @@ convert_path_format() {
 }
 
 # 转换路径格式(Python)
-# 使用:
-# 
 py_convert_path_format() {
     local path_1=$1
     local path_2=$2
@@ -183,7 +183,7 @@ def get_requirement_list(requirement_list: dict) -> dict:
                     for line in f.readlines()
                     if line.strip() != ''
                     and not line.startswith("#")
-                    and not (line.startswith("-") 
+                    and not (line.startswith("-")
                     and not line.startswith("--index-url "))
                     and line is not None
                     and "# skip_verify" not in line
@@ -196,7 +196,7 @@ def get_requirement_list(requirement_list: dict) -> dict:
                 requirement_list[requirement_name] = {"requirements_path": requirements_path, "requirements": requirements}
         except:
             pass
-    
+
     return requirement_list
 
 
@@ -211,13 +211,13 @@ def get_pkg_ver_from_lib(pkg_name: str) -> str:
         try:
             ver = importlib.metadata.version(pkg_name.lower())
         except:
-            ver = None       
+            ver = None
 
     if ver is None:
         try:
             ver = importlib.metadata.version(pkg_name.replace("_", "-"))
         except:
-            ver = None       
+            ver = None
 
     return ver
 
@@ -304,7 +304,7 @@ def check_missing_requirement(requirement_list: dict) -> dict:
         requirement_name = i
         requirements_path = requirement_list.get(i).get("requirements_path")
         requirements = requirement_list.get(i).get("requirements")
-        
+
         missing_requirement = []
         for i in requirements:
             if not is_installed(i):
@@ -501,11 +501,11 @@ def sum_need_to_install(requirement_list: dict) -> list:
     for i in requirement_list:
         if len(requirement_list.get(i).get("missing_requirement")) != 0:
             path_list.append(requirement_list.get(i).get("requirements_path"))
-    
+
     for i in requirement_list:
         if requirement_list.get(i).get("has_conflict_package") is True:
             path_list.append(requirement_list.get(i).get("requirements_path"))
-    
+
     return path_list
 
 
@@ -616,6 +616,8 @@ EOF
 }
 
 # 验证内核依赖完整新
+# 使用:
+# validate_requirements <依赖表文件路径>
 validate_requirements() {
     local path=$@
     local status
@@ -691,13 +693,13 @@ def get_pkg_ver_from_lib(pkg_name: str) -> str:
         try:
             ver = importlib.metadata.version(pkg_name.lower())
         except:
-            ver = None       
+            ver = None
 
     if ver is None:
         try:
             ver = importlib.metadata.version(pkg_name.replace("_", "-"))
         except:
-            ver = None       
+            ver = None
 
     return ver
 
@@ -819,7 +821,7 @@ check_onnxruntime_gpu_ver() {
             term_sd_try term_sd_pip uninstall onnxruntime-gpu -y
         fi
         term_sd_echo "重新安装 onnxruntime-gpu"
-        term_sd_try term_sd_pip install onnxruntime-gpu --no-cache-dir
+        term_sd_try term_sd_pip install onnxruntime-gpu==1.18.1 --no-cache-dir
         if [[ "$?" == 0 ]]; then
             term_sd_echo "重新安装 onnxruntime-gpu 成功"
         else
@@ -862,7 +864,7 @@ def get_onnxruntime_version_file() -> str:
         info_path = Path(util.locate()).as_posix()
     except importlib.metadata.PackageNotFoundError:
         info_path = None
-    
+
     return info_path
 
 
@@ -932,7 +934,7 @@ def need_install_ort_ver():
     onnxruntime_support_cuda_ver = get_onnxruntime_support_cuda_version()
     if onnxruntime_support_cuda_ver is None:
         return None
-    
+
     onnxruntime_support_cuda_ver = get_version(onnxruntime_support_cuda_ver)
 
     # 判断 Torch 中的 CUDA 版本是否为 CUDA 12.1
