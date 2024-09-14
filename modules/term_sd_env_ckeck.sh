@@ -79,6 +79,7 @@ install_comfyui_requirement() {
         requirement_name=$(basename "${requirement_parent_path}")
 
         cd "${requirement_parent_path}"
+        term_sd_echo "[${cmd_point}/${cmd_sum}]:: 安装 ${requirement_name} 依赖中"
         install_python_package -r requirements.txt
         if [[ "$?" == 0 ]]; then
             term_sd_echo "[${cmd_point}/${cmd_sum}]:: 安装 ${requirement_name} 依赖成功"
@@ -379,12 +380,14 @@ def detect_conflict_package(pkg_1: str, pkg_2: str) -> bool:
     if not has_version(get_version(pkg_1)) or not has_version(get_version(pkg_2)):
         return False
 
+    # 进行 2 次循环, 第 2 次循环时交换版本后再进行判断
     for i in range(2):
         if i == 1:
             tmp = pkg_1
             pkg_1 = pkg_2
             pkg_2 = tmp
 
+        # >=, <=
         if ">=" in pkg_1 and "<=" in pkg_2:
             ver_1 = get_version(pkg_1.split(">=").pop())
             ver_2 = get_version(pkg_2.split("<=").pop())
@@ -392,41 +395,47 @@ def detect_conflict_package(pkg_1: str, pkg_2: str) -> bool:
             # if ver_1 > ver_2:
                 return True
 
-        if ">=" in pkg_1 and "<" in pkg_2:
+        # >=, <
+        if ">=" in pkg_1 and "<" in pkg_2 and "=" not in pkg_2:
             ver_1 = get_version(pkg_1.split(">=").pop())
             ver_2 = get_version(pkg_2.split("<").pop())
-            if compare_versions(ver_1, ver_2) == 1:
+            if compare_versions(ver_1, ver_2) == 0 or compare_versions(ver_1, ver_2) == 1:
             # if ver_1 > ver_2:
                 return True
 
-        if ">" in pkg_1 and "<=" in pkg_2:
+        # >, <=
+        if ">" in pkg_1 and "=" not in pkg_1 and "<=" in pkg_2:
             ver_1 = get_version(pkg_1.split(">").pop())
             ver_2 = get_version(pkg_2.split("<=").pop())
-            if compare_versions(ver_1, ver_2) == 1:
+            if compare_versions(ver_1, ver_2) == 0 or compare_versions(ver_1, ver_2) == 1:
             # if ver_1 > ver_2:
                 return True
 
-        if ">" in pkg_1 and "<" in pkg_2:
+        # >, <
+        if ">" in pkg_1 and "=" not in pkg_1 and "<" in pkg_2 and "=" not in pkg_2:
             ver_1 = get_version(pkg_1.split(">").pop())
             ver_2 = get_version(pkg_2.split("<").pop())
-            if compare_versions(ver_1, ver_2) == 1:
+            if compare_versions(ver_1, ver_2) == 0 or compare_versions(ver_1, ver_2) == 1:
             # if ver_1 > ver_2:
                 return True
 
-        if ">" in pkg_1 and "==" in pkg_2:
+        # >, ==
+        if ">" in pkg_1 and "=" not in pkg_1 and "==" in pkg_2:
             ver_1 = get_version(pkg_1.split(">").pop())
             ver_2 = get_version(pkg_2.split("==").pop())
-            if compare_versions(ver_1, ver_2) == 1:
+            if compare_versions(ver_1, ver_2) == 1 or compare_versions(ver_1, ver_2) == 0:
             # if ver_1 > ver_2:
                 return True
 
-        if "<" in pkg_1 and "==" in pkg_2:
+        # <, ==
+        if "<" in pkg_1 and "=" not in pkg_1 and "==" in pkg_2:
             ver_1 = get_version(pkg_1.split("<").pop())
             ver_2 = get_version(pkg_2.split("==").pop())
-            if compare_versions(ver_1, ver_2) == -1:
+            if compare_versions(ver_1, ver_2) == -1 or compare_versions(ver_1, ver_2) == 0:
             # if ver_1 < ver_2:
                 return True
-        
+
+        # ==, ==
         if "==" in pkg_1 and "==" in pkg_2:
             ver_1 = get_version(pkg_1.split("==").pop())
             ver_2 = get_version(pkg_2.split("==").pop())
