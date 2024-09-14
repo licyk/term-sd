@@ -540,6 +540,7 @@ EOF
 fallback_numpy_version() {
     local np_major_ver
 
+    term_sd_echo "检测 Numpy 版本中"
     np_major_ver=$(term_sd_python -c "$(py_get_numpy_ver)")
 
     if (( np_major_ver > 1 )); then
@@ -550,6 +551,8 @@ fallback_numpy_version() {
         else
             term_sd_echo "Numpy 版本回退失败"
         fi
+    else
+        term_sd_echo "Numpy 无版本问题"
     fi
 }
 
@@ -568,6 +571,7 @@ EOF
 # 修复 PyTorch 的 libomp 问题
 fix_pytorch() {
     if is_windows_platform; then
+        term_sd_echo "检测 PyTorch 的 libomp 问题"
         python -c "$(py_fix_pytorch)"
     fi
 }
@@ -788,6 +792,150 @@ EOF
 }
 
 # 检查 onnxruntime-gpu 版本
-detect_onnxruntime_gpu_ver() {
+check_onnxruntime_gpu_ver() {
     local status
+
+    term_sd_echo "检测 onnxruntime-gpu 所支持的 CUDA 版本是否匹配 PyTorch 所支持的 CUDA 版本"
+    status=$(term_sd_python -c "$(py_detect_onnxruntime_gpu_ver)")
+
+    if [[ "${status}" == "cu118" ]]; then
+        term_sd_echo "检测到 onnxruntime-gpu 所支持的 CUDA 版本 和 PyTorch 所支持的 CUDA 版本不匹配, 将执行重装操作"
+        if term_sd_pip freeze | grep -q "onnxruntime-gpu"; then
+            term_sd_echo "卸载原有 onnxruntime-gpu"
+            term_sd_try term_sd_pip uninstall onnxruntime-gpu -y
+        fi
+        term_sd_echo "重新安装 onnxruntime-gpu"
+        term_sd_try term_sd_pip install onnxruntime-gpu --no-cache-dir
+        if [[ "$?" == 0 ]]; then
+            term_sd_echo "重新安装 onnxruntime-gpu 成功"
+        else
+            term_sd_echo "重新安装 onnxruntime-gpu 失败, 这可能导致部分功能无法正常使用, 如使用反推模型无法正常调用 GPU 导致推理降速"
+        fi
+    elif [[ "${status}" == "cu121" ]]; then
+        term_sd_echo "检测到 onnxruntime-gpu 所支持的 CUDA 版本 和 PyTorch 所支持的 CUDA 版本不匹配, 将执行重装操作"
+        if term_sd_pip freeze | grep -q "onnxruntime-gpu"; then
+            term_sd_echo "卸载原有 onnxruntime-gpu"
+            term_sd_try term_sd_pip uninstall onnxruntime-gpu -y
+        fi
+        term_sd_echo "重新安装 onnxruntime-gpu"
+        PIP_INDEX_URL="https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple/" \
+        PIP_EXTRA_INDEX_URL="https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple" \
+        term_sd_try term_sd_pip install onnxruntime-gpu --no-cache-dir
+        if [[ "$?" == 0 ]]; then
+            term_sd_echo "重新安装 onnxruntime-gpu 成功"
+        else
+            term_sd_echo "重新安装 onnxruntime-gpu 失败, 这可能导致部分功能无法正常使用, 如使用反推模型无法正常调用 GPU 导致推理降速"
+        fi
+    else
+        term_sd_echo "onnxruntime-gpu 无版本问题"
+    fi
+}
+
+# 检查 onnxruntime-gpu 版本(Python)
+py_detect_onnxruntime_gpu_ver() {
+    cat<<EOF
+import re
+import importlib.metadata
+from pathlib import Path
+
+
+
+# 获取记录 onnxruntime 版本的文件路径
+def get_onnxruntime_version_file() -> str:
+    package = "onnxruntime-gpu"
+    try:
+        util = [p for p in importlib.metadata.files(package) if "onnxruntime/capi/version_info.py" in str(p)][0]
+        info_path = Path(util.locate()).as_posix()
+    except importlib.metadata.PackageNotFoundError:
+        info_path = None
+    
+    return info_path
+
+
+# 获取 onnxruntime 支持的 CUDA 版本
+def get_onnxruntime_support_cuda_version() -> str:
+    ver_path = get_onnxruntime_version_file()
+    try:
+        with open(ver_path, "r") as f:
+            for line in f:
+                if "cuda_version" in line:
+                    return line.strip()
+            return None
+    except:
+        return None
+
+
+# 截取版本号
+def get_version(ver: str) -> str:
+    return re.sub(r'[\'"]', '', ver).split("=").pop().strip()
+
+
+# 判断版本
+def compare_versions(version1: str, version2: str) -> str:
+    nums1 = version1.split(".")  # 将版本号 1 拆分成数字列表
+    nums2 = version2.split(".")  # 将版本号 2 拆分成数字列表
+
+    for i in range(max(len(nums1), len(nums2))):
+        num1 = int(nums1[i]) if i < len(nums1) else 0  # 如果版本号 1 的位数不够, 则补 0
+        num2 = int(nums2[i]) if i < len(nums2) else 0  # 如果版本号 2 的位数不够, 则补 0
+
+        if num1 == num2:
+            continue
+        elif num1 > num2:
+            return 1  # 版本号 1 更大
+        else:
+            return -1  # 版本号 2 更大
+
+    return 0  # 版本号相同
+
+
+# 获取 Torch 的 CUDA 版本
+def get_torch_cuda_ver() -> str:
+    try:
+        import torch
+        torch_version = torch.__version__
+        return torch_version
+    except:
+        return None
+
+
+# 检测 Torch 中的 CUDA 版本是否大于 12.1
+def torch_is_cuda12() -> bool:
+    if "cu12" in get_torch_cuda_ver():
+        return True
+    else:
+        return False
+
+
+# 判断需要安装的 onnxruntime 版本
+def need_install_ort_ver():
+    # 检测是否安装了 Torch
+    torch_ver = get_torch_cuda_ver()
+    if torch_ver is None:
+        return None
+
+    # 检测是否安装了 onnxruntime-gpu
+    onnxruntime_support_cuda_ver = get_onnxruntime_support_cuda_version()
+    if onnxruntime_support_cuda_ver is None:
+        return None
+    
+    onnxruntime_support_cuda_ver = get_version(onnxruntime_support_cuda_ver)
+
+    # 判断 Torch 中的 CUDA 版本是否为 CUDA 12.1
+    if "cu12" in torch_ver: # CUDA 12.1
+        # 比较 onnxtuntime 支持的 CUDA 版本是否和 Torch 中所带的 CUDA 版本匹配
+        if compare_versions(onnxruntime_support_cuda_ver, "12.0") == 1:
+            return None
+        else:
+            return "cu121"
+    else: # CUDA <= 11.8
+        if compare_versions(onnxruntime_support_cuda_ver, "12.0") == -1:
+            return None
+        else:
+            return "cu118"
+
+
+
+print(need_install_ort_ver())
+EOF
 }

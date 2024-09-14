@@ -156,8 +156,11 @@ term_sd_launch() {
     case "${TERM_SD_MANAGE_OBJECT}" in
         InvokeAI)
             if [[ ! -f "${START_PATH}/term-sd/config/disable-env-check.lock" ]]; then
-                fallback_numpy_version
+                term_sd_echo "检测运行环境中"
                 fix_pytorch
+                check_onnxruntime_gpu_ver
+                fallback_numpy_version
+                term_sd_echo "结束运行环境检测, 启动 ${TERM_SD_MANAGE_OBJECT} 中"
             fi
             invokeai-web --root "${INVOKEAI_PATH}"/invokeai $(cat "${START_PATH}/term-sd/config/${launch_sd_config}")
             [[ ! "$?" == 0 ]] && term_sd_echo "${TERM_SD_MANAGE_OBJECT} 退出状态异常"
@@ -165,8 +168,7 @@ term_sd_launch() {
         *)
             enter_venv
             if [[ ! -f "${START_PATH}/term-sd/config/disable-env-check.lock" ]]; then
-                fallback_numpy_version
-                fix_pytorch
+                term_sd_echo "检测运行环境中"
                 case "${TERM_SD_MANAGE_OBJECT}" in
                     ComfyUI)
                         validate_requirements "${COMFYUI_PATH}/requirements.txt"
@@ -182,6 +184,10 @@ term_sd_launch() {
                         validate_requirements "${KOHYA_SS_PATH}/requirements.txt"
                         ;;
                 esac
+                fix_pytorch
+                check_onnxruntime_gpu_ver
+                fallback_numpy_version
+                term_sd_echo "结束运行环境检测, 启动 ${TERM_SD_MANAGE_OBJECT} 中"
             fi
             term_sd_python $(cat "${START_PATH}/term-sd/config/${launch_sd_config}") ${hf_mirror_for_fooocus}
             [[ ! "$?" == 0 ]] && term_sd_echo "${TERM_SD_MANAGE_OBJECT} 退出状态异常"
