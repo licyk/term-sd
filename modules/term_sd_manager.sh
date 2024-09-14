@@ -155,30 +155,34 @@ term_sd_launch() {
     term_sd_echo "提示: 可以按下 Ctrl + C 键终止 AI 软件的运行"
     case "${TERM_SD_MANAGE_OBJECT}" in
         InvokeAI)
-            fallback_numpy_version
-            fix_pytorch
+            if [[ ! -f "${START_PATH}/term-sd/config/disable-env-check.lock" ]]; then
+                fallback_numpy_version
+                fix_pytorch
+            fi
             invokeai-web --root "${INVOKEAI_PATH}"/invokeai $(cat "${START_PATH}/term-sd/config/${launch_sd_config}")
             [[ ! "$?" == 0 ]] && term_sd_echo "${TERM_SD_MANAGE_OBJECT} 退出状态异常"
             ;;
         *)
             enter_venv
-            fallback_numpy_version
-            fix_pytorch
-            case "${TERM_SD_MANAGE_OBJECT}" in
-                ComfyUI)
-                    validate_requirements "${COMFYUI_PATH}/requirements.txt"
-                    check_comfyui_env
-                    ;;
-                Fooocus)
-                    validate_requirements "${FOOOCUS_PATH}/requirements_versions.txt"
-                    ;;
-                lora-scripts)
-                    validate_requirements "${LORA_SCRIPTS_PATH}/requirements.txt"
-                    ;;
-                kohya_ss)
-                    validate_requirements "${KOHYA_SS_PATH}/requirements.txt"
-                    ;;
-            esac
+            if [[ ! -f "${START_PATH}/term-sd/config/disable-env-check.lock" ]]; then
+                fallback_numpy_version
+                fix_pytorch
+                case "${TERM_SD_MANAGE_OBJECT}" in
+                    ComfyUI)
+                        validate_requirements "${COMFYUI_PATH}/requirements.txt"
+                        check_comfyui_env
+                        ;;
+                    Fooocus)
+                        validate_requirements "${FOOOCUS_PATH}/requirements_versions.txt"
+                        ;;
+                    lora-scripts)
+                        validate_requirements "${LORA_SCRIPTS_PATH}/requirements.txt"
+                        ;;
+                    kohya_ss)
+                        validate_requirements "${KOHYA_SS_PATH}/requirements.txt"
+                        ;;
+                esac
+            fi
             term_sd_python $(cat "${START_PATH}/term-sd/config/${launch_sd_config}") ${hf_mirror_for_fooocus}
             [[ ! "$?" == 0 ]] && term_sd_echo "${TERM_SD_MANAGE_OBJECT} 退出状态异常"
             exit_venv

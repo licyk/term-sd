@@ -15,10 +15,10 @@ _✨一个小巧，多功能的 AI 软件管理器_
     - [MacOS](#macos)
   - [安装 Term-SD](#安装-term-sd)
   - [帮助文档](#帮助文档)
-    - [《Windows平台如何配置Term-SD运行环境》](#windows平台如何配置term-sd运行环境)
+    - [《Windows 平台如何配置 Term-SD 运行环境》](#windows-平台如何配置-term-sd-运行环境)
     - [《在 Linux 上使用 Python 版本管理器安装 Python》](#在-linux-上使用-python-版本管理器安装-python)
-    - [《Term-SD界面操作方法》](#term-sd界面操作方法)
-    - [《如何使用Term-SD》](#如何使用term-sd)
+    - [《Term-SD 界面操作方法》](#term-sd-界面操作方法)
+    - [《如何使用 Term-SD》](#如何使用-term-sd)
 
 ***
 
@@ -257,14 +257,14 @@ aria2c https://gitee.com/licyk/term-sd/raw/main/term-sd.sh && chmod +x term-sd.s
 
 <h3>这里是有关 Term-SD 的使用方法文档。</h3>
 
-### [《Windows平台如何配置Term-SD运行环境》](https://github.com/licyk/README-collection/blob/main/term-sd/README_config_env.md)
+### [《Windows 平台如何配置 Term-SD 运行环境》](https://github.com/licyk/README-collection/blob/main/term-sd/README_config_env.md)
 介绍 Windows 平台下如何配置 Term-SD 运行环境。
 
 ### [《在 Linux 上使用 Python 版本管理器安装 Python》](https://github.com/licyk/README-collection/blob/main/term-sd/README_install_python_on_linux.md)
 介绍使用 Python 版本管理器安装指定版本的 Python。
 
-### [《Term-SD界面操作方法》](https://github.com/licyk/README-collection/blob/main/term-sd/README_how_to_use_dialog.md)
+### [《Term-SD 界面操作方法》](https://github.com/licyk/README-collection/blob/main/term-sd/README_how_to_use_dialog.md)
 介绍 Term-SD 界面 (Dialog) 的操作方法。
 
-### [《如何使用Term-SD》](https://github.com/licyk/README-collection/blob/main/term-sd/README_how_to_use_term_sd.md)
+### [《如何使用 Term-SD》](https://github.com/licyk/README-collection/blob/main/term-sd/README_how_to_use_term_sd.md)
 介绍 Term-SD 的使用方法，包括安装，管理 AI 软件，和 Term-SD 一些功能的使用。

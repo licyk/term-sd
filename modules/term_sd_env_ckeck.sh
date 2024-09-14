@@ -21,7 +21,7 @@ check_comfyui_env() {
     local path
     local term_sd_task_path
 
-    term_sd_echo "检查 ComfyUI 依赖完整性中"
+    term_sd_echo "检测 ComfyUI 依赖完整性中"
     rm -f "${START_PATH}/term-sd/task/comfyui_has_conflict_requirement_notice.sh"
     rm -f "${START_PATH}/term-sd/task/comfyui_depend_path_list.sh"
     path=$(get_comfyui_path)
@@ -86,7 +86,7 @@ install_comfyui_requirement() {
             term_sd_echo "[${cmd_point}/${cmd_sum}]:: 安装 ${requirement_name} 依赖失败, 这可能会影响部分功能"
         fi
 
-        if [[ -f "${requirement_parent_path}" ]]; then
+        if [[ -f "${requirement_parent_path}/install.py" ]]; then
             term_sd_echo "[${cmd_point}/${cmd_sum}]:: 执行 ${requirement_name} 安装脚本中"
             term_sd_try term_sd_python install.py
             if [[ "$?" == 0 ]]; then
@@ -125,6 +125,8 @@ convert_path_format() {
 }
 
 # 转换路径格式(Python)
+# 使用:
+# 
 py_convert_path_format() {
     local path_1=$1
     local path_2=$2
@@ -137,6 +139,8 @@ EOF
 }
 
 # 检查 ComfyUI 依赖完整性(Python)
+# 使用:
+# py_check_comfyui_env <ComfyUI 路径> <Term-SD 任务文件夹路径>
 py_check_comfyui_env() {
     local path=$1
     local term_sd_task_path=$2
@@ -144,7 +148,7 @@ py_check_comfyui_env() {
     cat<<EOF
 import os
 import re
-import pkg_resources
+import importlib.metadata
 from pathlib import Path
 
 
@@ -155,6 +159,8 @@ def get_requirement_file(path: str) -> dict:
     requirement_list["ComfyUI"] = {}
     requirement_list["ComfyUI"] = {"requirements_path": Path(os.path.join(path, "requirements.txt")).as_posix()}
     for custom_node_name in os.listdir(os.path.join(path, "custom_nodes")):
+        if custom_node_name.endswith(".disabled"):
+                continue
         custom_node_requirement = Path(os.path.join(path, "custom_nodes", custom_node_name, "requirements.txt")).as_posix()
         if os.path.exists(custom_node_requirement):
             requirement_list[custom_node_name] = {"requirements_path": custom_node_requirement}
@@ -193,6 +199,28 @@ def get_requirement_list(requirement_list: dict) -> dict:
     return requirement_list
 
 
+# 获取包版本号
+def get_pkg_ver_from_lib(pkg_name: str) -> str:
+    try:
+        ver = importlib.metadata.version(pkg_name)
+    except:
+        ver = None
+
+    if ver is None:
+        try:
+            ver = importlib.metadata.version(pkg_name.lower())
+        except:
+            ver = None       
+
+    if ver is None:
+        try:
+            ver = importlib.metadata.version(pkg_name.replace("_", "-"))
+        except:
+            ver = None       
+
+    return ver
+
+
 # 判断是否有软件包未安装
 def is_installed(package: str) -> bool:
     # 使用正则表达式删除括号和括号内的内容
@@ -224,16 +252,9 @@ def is_installed(package: str) -> bool:
                 pkg_name, pkg_version = pkg.strip(), None
 
             # 获取本地 Python 软件包信息
-            spec = pkg_resources.working_set.by_key.get(pkg_name, None)
+            version = get_pkg_ver_from_lib(pkg_name)
 
-            if spec is None:
-                spec = pkg_resources.working_set.by_key.get(pkg_name.lower(), None)
-            if spec is None:
-                spec = pkg_resources.working_set.by_key.get(pkg_name.replace('_', '-'), None)
-
-            if spec is not None:
-                version = pkg_resources.get_distribution(pkg_name).version
-
+            if version is not None:
                 # 判断版本是否符合要求
                 if pkg_version is not None:
                     if '>=' in pkg:
@@ -353,7 +374,11 @@ def compare_versions(version1, version2):
     return 0  # 版本号相同
 
 
+# 检测是否为冲突依赖
 def detect_conflict_package(pkg_1: str, pkg_2: str) -> bool:
+    if not has_version(get_version(pkg_1)) or not has_version(get_version(pkg_2)):
+        return False
+
     for i in range(2):
         if i == 1:
             tmp = pkg_1
@@ -363,8 +388,6 @@ def detect_conflict_package(pkg_1: str, pkg_2: str) -> bool:
         if ">=" in pkg_1 and "<=" in pkg_2:
             ver_1 = get_version(pkg_1.split(">=").pop())
             ver_2 = get_version(pkg_2.split("<=").pop())
-            if ver_1 == "" or ver_2 == "":
-                return False
             if compare_versions(ver_1, ver_2) == 1:
             # if ver_1 > ver_2:
                 return True
@@ -372,8 +395,6 @@ def detect_conflict_package(pkg_1: str, pkg_2: str) -> bool:
         if ">=" in pkg_1 and "<" in pkg_2:
             ver_1 = get_version(pkg_1.split(">=").pop())
             ver_2 = get_version(pkg_2.split("<").pop())
-            if ver_1 == "" or ver_2 == "":
-                return False
             if compare_versions(ver_1, ver_2) == 1:
             # if ver_1 > ver_2:
                 return True
@@ -381,8 +402,6 @@ def detect_conflict_package(pkg_1: str, pkg_2: str) -> bool:
         if ">" in pkg_1 and "<=" in pkg_2:
             ver_1 = get_version(pkg_1.split(">").pop())
             ver_2 = get_version(pkg_2.split("<=").pop())
-            if ver_1 == "" or ver_2 == "":
-                return False
             if compare_versions(ver_1, ver_2) == 1:
             # if ver_1 > ver_2:
                 return True
@@ -390,8 +409,6 @@ def detect_conflict_package(pkg_1: str, pkg_2: str) -> bool:
         if ">" in pkg_1 and "<" in pkg_2:
             ver_1 = get_version(pkg_1.split(">").pop())
             ver_2 = get_version(pkg_2.split("<").pop())
-            if ver_1 == "" or ver_2 == "":
-                return False
             if compare_versions(ver_1, ver_2) == 1:
             # if ver_1 > ver_2:
                 return True
@@ -399,8 +416,6 @@ def detect_conflict_package(pkg_1: str, pkg_2: str) -> bool:
         if ">" in pkg_1 and "==" in pkg_2:
             ver_1 = get_version(pkg_1.split(">").pop())
             ver_2 = get_version(pkg_2.split("==").pop())
-            if ver_1 == "" or ver_2 == "":
-                return False
             if compare_versions(ver_1, ver_2) == 1:
             # if ver_1 > ver_2:
                 return True
@@ -408,8 +423,6 @@ def detect_conflict_package(pkg_1: str, pkg_2: str) -> bool:
         if "<" in pkg_1 and "==" in pkg_2:
             ver_1 = get_version(pkg_1.split("<").pop())
             ver_2 = get_version(pkg_2.split("==").pop())
-            if ver_1 == "" or ver_2 == "":
-                return False
             if compare_versions(ver_1, ver_2) == -1:
             # if ver_1 < ver_2:
                 return True
@@ -624,9 +637,9 @@ py_validate_requirements() {
     local path=$@
 
     cat<<EOF
-import pkg_resources
 import os
 import re
+import importlib.metadata
 
 
 
@@ -647,6 +660,28 @@ def compare_versions(version1, version2):
             return -1  # 版本号 2 更大
 
     return 0  # 版本号相同
+
+
+# 获取包版本号
+def get_pkg_ver_from_lib(pkg_name: str) -> str:
+    try:
+        ver = importlib.metadata.version(pkg_name)
+    except:
+        ver = None
+
+    if ver is None:
+        try:
+            ver = importlib.metadata.version(pkg_name.lower())
+        except:
+            ver = None       
+
+    if ver is None:
+        try:
+            ver = importlib.metadata.version(pkg_name.replace("_", "-"))
+        except:
+            ver = None       
+
+    return ver
 
 
 # 确认是否安装某个软件包
@@ -677,15 +712,11 @@ def is_installed(package: str) -> bool:
             else:
                 pkg_name, pkg_version = pkg.strip(), None
 
-            spec = pkg_resources.working_set.by_key.get(pkg_name, None)
-            if spec is None:
-                spec = pkg_resources.working_set.by_key.get(pkg_name.lower(), None)
-            if spec is None:
-                spec = pkg_resources.working_set.by_key.get(pkg_name.replace('_', '-'), None)
+            # 获取本地 Python 软件包信息
+            version = get_pkg_ver_from_lib(pkg_name)
 
-            if spec is not None:
-                version = pkg_resources.get_distribution(pkg_name).version
-
+            if version is not None:
+                # 判断版本是否符合要求
                 if pkg_version is not None:
                     if '>=' in pkg:
                         # ok = version >= pkg_version
@@ -754,4 +785,9 @@ def validate_requirements(requirements_file: str):
 
 print(validate_requirements("${path}"))
 EOF
+}
+
+# 检查 onnxruntime-gpu 版本
+detect_onnxruntime_gpu_ver() {
+    local status
 }
