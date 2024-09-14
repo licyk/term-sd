@@ -55,7 +55,7 @@ Term-SD 支持在 Linux，Windows，MacOS 上运行，在使用 Term-SD 前先�
 
 ### Windows
 
-_！Windows 平台可阅读图文版[《Windows 平台如何配置 Term-SD 运行环境》](#windows平台如何配置term-sd运行环境)_
+_！Windows 平台可阅读图文版[《Windows 平台如何配置 Term-SD 运行环境》](#windows-平台如何配置-term-sd-运行环境)_
 
 1. 安装 MSYS2
 
@@ -134,7 +134,7 @@ pacman -S git mingw-w64-ucrt-x86_64-git-lfs dialog curl mingw-w64-ucrt-x86_64-ar
 输入`y`，回车，等待安装完成。
 
 
-完成上面的步骤后 Term-SD 的运行环境就配置好了，可以在下面的步骤 [安装Term-SD](#安装term-sd)。
+完成上面的步骤后 Term-SD 的运行环境就配置好了，可以在下面的步骤[安装 Term-SD](#安装-term-sd)。
 
 
 ### Linux
@@ -164,7 +164,7 @@ nix-env -i python311Full aria git dialog curl
 >一些 Linux 发行版没法安装指定版本的 Python，导致 Python 版本不合适，造成 AI 软件运行出错，所以可以用[安装要求](#安装要求)部分推荐的 Python 版本管理器安装 Python，并在启动 Term-SD 时加上`--set-python-path`启动参数来指定 Python 的路径。  
 >参考该教程：[《在 Linux 上使用 Python 版本管理器安装 Python》](#在-linux-上使用-python-版本管理器安装-python)
 
-完成上面的步骤后 Term-SD 的运行环境就配置好了，可以在下面的步骤 [安装Term-SD](#安装term-sd)。
+完成上面的步骤后 Term-SD 的运行环境就配置好了，可以在下面的步骤[安装 Term-SD](#安装-term-sd)。
 
 
 ### MacOS
@@ -215,7 +215,7 @@ brew update
 brew install git aria2 dialog python@3.10 rust cmake protobuf wget curl
 ```
 
-完成上面的步骤后 Term-SD 的运行环境就配置好了，可以在下面的步骤 [安装Term-SD](#安装term-sd)。
+完成上面的步骤后 Term-SD 的运行环境就配置好了，可以在下面的步骤[安装 Term-SD](#安装-term-sd)。
 
 ***
 
