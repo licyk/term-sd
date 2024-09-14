@@ -12,6 +12,7 @@ term_sd_setting() {
     local aria2_thread_setup_info
     local term_sd_path_redirect_setup_info
     local cuda_memory_alloc_setup_info
+    local env_check_setup_info
 
     while true; do
         if is_use_venv; then
@@ -76,6 +77,12 @@ term_sd_setting() {
             cuda_memory_alloc_setup_info="禁用"
         fi
 
+        if [[ ! -f "${START_PATH}/term-sd/config/disable-env-check.lock" ]]; then
+            env_check_setup_info="启用"
+        else
+            env_check_setup_info="禁用"
+        fi
+
         dialog_arg=$(dialog --erase-on-exit --notags \
             --title "Term-SD" \
             --backtitle "Term-SD 设置选项" \
@@ -96,10 +103,11 @@ term_sd_setting() {
             "10" "> Aria2 线程设置 (${aria2_thread_setup_info})" \
             "11" "> 缓存重定向设置 (${term_sd_path_redirect_setup_info})" \
             "12" "> CUDA 内存分配设置 (${cuda_memory_alloc_setup_info})" \
-            "13" "> 自定义安装路径" \
-            "14" "> 空间占用分析" \
-            "15" "> 网络连接测试" \
-            "16" "> 卸载 Term-SD" \
+            "13" "> 运行环境检测设置 (${env_check_setup_info})" \
+            "14" "> 自定义安装路径" \
+            "15" "> 空间占用分析" \
+            "16" "> 网络连接测试" \
+            "17" "> 卸载 Term-SD" \
             3>&1 1>&2 2>&3)
 
         case "${dialog_arg}" in
@@ -140,15 +148,18 @@ term_sd_setting() {
                 cuda_memory_alloc_setting
                 ;;
             13)
-                custom_install_path_setting
+                env_check_setting
                 ;;
             14)
-                term_sd_disk_space_stat
+                custom_install_path_setting
                 ;;
             15)
-                term_sd_network_test
+                term_sd_disk_space_stat
                 ;;
             16)
+                term_sd_network_test
+                ;;
+            17)
                 term_sd_uninstall_interface
                 ;;
             *)
@@ -557,61 +568,6 @@ term_sd_cache_redirect_setting() {
                     --backtitle "缓存重定向设置界面" \
                     --ok-label "确认" \
                     --msgbox "禁用成功" \
-                    $(get_dialog_size)
-                ;;
-            *)
-                break
-                ;;
-        esac
-    done
-}
-
-# CUDA 内存分配设置
-# 参考:
-# https://blog.csdn.net/MirageTanker/article/details/127998036
-# https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Optimizations
-# CUDA 内存分配配置保存在 <Start Path>/term-sd/config/set-cuda-memory-alloc.lock
-cuda_memory_alloc_setting() {
-    local dialog_arg
-    local cuda_alloc_info
-
-    while true; do
-        if [[ -f "${START_PATH}/term-sd/config/set-cuda-memory-alloc.lock" ]]; then
-            cuda_alloc_info="启用"
-        else
-            cuda_alloc_info="禁用"
-        fi
-            
-        dialog_arg=$(dialog --erase-on-exit --notags \
-            --title "Term-SD" \
-            --backtitle "CUDA 内存分配设置界面" \
-            --ok-label "确认" --cancel-label "取消" \
-            --menu "该功能用于更换底层 CUDA 内存分配器 (仅支持 Nvidia 显卡, 且 CUDA 版本需要大于 11.4)\n当前内存分配器设置: ${cuda_alloc_info}\n是否启用 CUDA 内存分配器 ?" \
-            $(get_dialog_size_menu) \
-            "0" "> 返回" \
-            "1" "> 启用" \
-            "2" "> 禁用" \
-            3>&1 1>&2 2>&3)
-
-        case "${dialog_arg}" in
-            1)
-                touch "${START_PATH}/term-sd/config/set-cuda-memory-alloc.lock"
-
-                dialog --erase-on-exit \
-                    --title "Term-SD" \
-                    --backtitle "CUDA 内存分配设置界面" \
-                    --ok-label "确认" \
-                    --msgbox "启用 CUDA 内存分配器成功" \
-                    $(get_dialog_size)
-                ;;
-            2)
-                rm -f "${START_PATH}/term-sd/config/set-cuda-memory-alloc.lock"
-
-                dialog --erase-on-exit \
-                    --title "Term-SD" \
-                    --backtitle "CUDA 内存分配设置界面" \
-                    --ok-label "确认" \
-                    --msgbox "禁用 CUDA 内存分配器成功" \
                     $(get_dialog_size)
                 ;;
             *)

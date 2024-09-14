@@ -948,3 +948,54 @@ def need_install_ort_ver():
 print(need_install_ort_ver())
 EOF
 }
+
+# 运行环境检测设置
+env_check_setting() {
+    local dialog_arg
+    local env_check_info
+
+    while true; do
+        if [[ ! -f "${START_PATH}/term-sd/config/disable-env-check.lock" ]]; then
+            env_check_info="启用"
+        else
+            env_check_info="禁用"
+        fi
+
+        dialog_arg=$(dialog --erase-on-exit --notags \
+            --title "Term-SD" \
+            --backtitle "运行环境检测设置" \
+            --ok-label "确认" --cancel-label "取消" \
+            --menu "该功能用于设置运行环境检测设置, 运行环境检查包括: Numpy 版本检测, 依赖完整性检测, 冲突组件检测, PyTorch libomp 问题检测, onnxruntime-gpu 版本检测. 这些检测将找出运行环境中出现的问题并修复, 注意, 禁用后可能会导致 Term-SD 无法发现并修复运行环境中存在的问题, 导致部分功能不可用\n当前运行环境检测: ${env_check_info}\n是否启用运行环境检测 ?" \
+            $(get_dialog_size_menu) \
+            "0" "> 返回" \
+            "1" "> 启用" \
+            "2" "> 禁用" \
+            3>&1 1>&2 2>&3)
+
+        case "${dialog_arg}" in
+            1)
+                rm -f "${START_PATH}/term-sd/config/disable-env-check.lock"
+
+                dialog --erase-on-exit \
+                    --title "Term-SD" \
+                    --backtitle "运行环境检测设置" \
+                    --ok-label "确认" \
+                    --msgbox "启用运行环境检测成功" \
+                    $(get_dialog_size)
+                ;;
+            2)
+                touch "${START_PATH}/term-sd/config/disable-env-check.lock"
+
+                dialog --erase-on-exit \
+                    --title "Term-SD" \
+                    --backtitle "运行环境检测设置" \
+                    --ok-label "确认" \
+                    --msgbox "禁用运行环境检测成功" \
+                    $(get_dialog_size)
+                ;;
+            *)
+                break
+                ;;
+        esac
+    done
+}
