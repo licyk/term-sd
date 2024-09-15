@@ -307,7 +307,7 @@ def check_missing_requirement(requirement_list: dict) -> dict:
 
         missing_requirement = []
         for i in requirements:
-            if not is_installed(i):
+            if not is_installed(i.split()[0].strip()):
                 missing_requirement.append(i)
 
         requirement_list[requirement_name] = {"requirements_path": requirements_path, "requirements": requirements, "missing_requirement": missing_requirement}
@@ -796,7 +796,7 @@ def validate_requirements(requirements_file: str):
             if line.startswith("--index-url "):
                 continue
 
-            if not is_installed(line):
+            if not is_installed(line.split()[0].strip()):
                 return False
 
     return True
@@ -887,7 +887,7 @@ def get_version(ver: str) -> str:
 
 
 # 判断版本
-def compare_versions(version1: str, version2: str) -> str:
+def compare_versions(version1: str, version2: str) -> int:
     nums1 = version1.split(".")  # 将版本号 1 拆分成数字列表
     nums2 = version2.split(".")  # 将版本号 2 拆分成数字列表
 
@@ -953,6 +953,109 @@ def need_install_ort_ver():
 
 
 print(need_install_ort_ver())
+EOF
+}
+
+# 获取 SD WebUI 的 PYTHONPATH
+get_sd_webui_python_path() {
+    local path
+
+    path=$(term_sd_python -c "$(py_get_sd_webui_python_path)")
+
+    echo "${path}"
+}
+
+# 获取 SD WebUI 的 PYTHONPATH
+py_get_sd_webui_python_path() {
+    cat<<EOF
+import os
+
+print(f"{os.getcwd()}{os.pathsep}{os.environ.get('PYTHONPATH', '')}")
+EOF
+}
+
+# 安装 SD WebUI 的插件依赖
+# 使用:
+# check_sd_webui_extension_requirement <SD WebUI 参数配置文件>
+check_sd_webui_extension_requirement() {
+    local py_path
+    local extension_name
+    local i
+    local status
+    local launch_sd_config=$@
+    local cancel_install_extension_requirement=0
+    local install_script_path
+
+    py_path=$(get_sd_webui_python_path)
+
+    # 检查启动参数中是否包含禁用所有插件的启动参数
+    if cat "${START_PATH}"/term-sd/config/${launch_sd_config} | grep "\-\-disable\-all\-extensions" &> /dev/null \
+        || cat "${START_PATH}"/term-sd/config/${launch_sd_config} | grep "\-\-disable\-extra\-extensions" &> /dev/null; then
+        
+        cancel_install_extension_requirement=1
+    fi
+
+    if ! is_sd_webui_disable_all_extension && [[ "${cancel_install_extension_requirement}" == 0 ]]; then
+        term_sd_echo "检查 ${TERM_SD_MANAGE_OBJECT} 插件依赖中"
+        for i in "${SD_WEBUI_PATH}/extensions"/*; do
+            if [[ -f "${i}" ]]; then
+                continue
+            fi
+
+            extension_name=$(basename "${i}")
+            install_script_path="${i}/install.py"
+            if ! is_sd_webui_extension_disabled "${extension_name}" && [[ -f "${install_script_path}" ]]; then
+                term_sd_echo "执行 ${extension_name} 插件的依赖安装脚本中"
+                PYTHONPATH=$py_path term_sd_try term_sd_python "${install_script_path}"
+                if [[ "$?" == 0 ]]; then
+                    term_sd_echo "${extension_name} 插件的依赖安装脚本执行成功"
+                else
+                    term_sd_echo "${extension_name} 插件的依赖安装脚本执行失败, 这可能会导致 ${extension_name} 插件部分功能无法正常使用"
+                fi
+            fi
+        done
+    fi
+}
+
+# 查询 SD WebUI 是否禁用了所有插件
+is_sd_webui_disable_all_extension() {
+    local status
+    local config_path
+
+    config_path=$(get_sd_webui_config_path)
+    status=$(term_sd_python -c "$(py_is_sd_webui_disable_all_extension "${config_path}")")
+
+    if [[ "${status}" == "True" ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+# 查询 SD WebUI 是否禁用了所有插件
+# 使用:
+# py_is_sd_webui_disable_all_extension <SD WebUI 配置文件路径>
+py_is_sd_webui_disable_all_extension() {
+    local path=$@
+
+    cat<<EOF
+import json
+
+settings = {}
+settings_file = "${path}"
+
+try:
+    with open(settings_file, "r", encoding="utf8") as file:
+        settings = json.load(file)
+except:
+    pass
+
+disable_all_extensions = settings.get('disable_all_extensions', 'none')
+
+if disable_all_extensions != 'none':
+    print(True)
+else:
+    print(False)
 EOF
 }
 

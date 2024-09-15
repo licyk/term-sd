@@ -594,6 +594,8 @@ EOF
 py_get_sd_webui_config_path() {
     cat<<EOF
 import os
-print(os.path.abspath("config.json"))
+from pathlib import Path
+
+print(Path(os.path.abspath("config.json")).as_posix())
 EOF
 }

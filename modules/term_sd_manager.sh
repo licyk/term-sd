@@ -95,11 +95,11 @@ term_sd_launch() {
             ;;
         Fooocus)
             launch_sd_config="fooocus-launch.conf"
-            if echo $(cat "${START_PATH}"/term-sd/config/${launch_sd_config}) | grep "\-\-language zh" &> /dev/null; then # 添加中文配置
+            if cat "${START_PATH}"/term-sd/config/${launch_sd_config} | grep "\-\-language zh" &> /dev/null; then # 添加中文配置
                 fooocus_lang_config_file > language/zh.json
             fi
 
-            if echo $(cat "${START_PATH}"/term-sd/config/${launch_sd_config}) | grep "\-\-preset term_sd" &> /dev/null; then # 添加Term-SD风格的预设
+            if cat "${START_PATH}"/term-sd/config/${launch_sd_config} | grep "\-\-preset term_sd" &> /dev/null; then # 添加Term-SD风格的预设
                 fooocus_preset_file > "$FOOOCUS_PATH"/presets/term_sd.json
             fi
 
@@ -171,6 +171,10 @@ term_sd_launch() {
             if [[ ! -f "${START_PATH}/term-sd/config/disable-env-check.lock" ]]; then
                 term_sd_echo "检测 ${TERM_SD_MANAGE_OBJECT} 运行环境中"
                 case "${TERM_SD_MANAGE_OBJECT}" in
+                    stable-diffusion-webui)
+                        validate_requirements "${SD_WEBUI_PATH}/requirements_versions.txt"
+                        check_sd_webui_extension_requirement "${launch_sd_config}"
+                        ;;
                     ComfyUI)
                         validate_requirements "${COMFYUI_PATH}/requirements.txt"
                         check_comfyui_env
