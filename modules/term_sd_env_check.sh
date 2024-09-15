@@ -358,8 +358,8 @@ def get_package_name(pkg: str) -> str:
 
 # 判断 2 个版本的大小, 前面大返回 1, 后面大返回 -1, 相同返回 0
 def compare_versions(version1, version2):
-    nums1 = version1.split(".")  # 将版本号 1 拆分成数字列表
-    nums2 = version2.split(".")  # 将版本号 2 拆分成数字列表
+    nums1 = re.sub(r'[a-zA-Z]+', '', version1).split(".")  # 将版本号 1 拆分成数字列表
+    nums2 = re.sub(r'[a-zA-Z]+', '', version2).split(".")  # 将版本号 2 拆分成数字列表
 
     for i in range(max(len(nums1), len(nums2))):
         num1 = int(nums1[i]) if i < len(nums1) else 0  # 如果版本号 1 的位数不够, 则补 0
@@ -665,8 +665,8 @@ import importlib.metadata
 
 # 判断 2 个版本的大小, 前面大返回 1, 后面大返回 -1, 相同返回 0
 def compare_versions(version1, version2):
-    nums1 = version1.split(".")  # 将版本号 1 拆分成数字列表
-    nums2 = version2.split(".")  # 将版本号 2 拆分成数字列表
+    nums1 = re.sub(r'[a-zA-Z]+', '', version1).split(".")  # 将版本号 1 拆分成数字列表
+    nums2 = re.sub(r'[a-zA-Z]+', '', version2).split(".")  # 将版本号 2 拆分成数字列表
 
     for i in range(max(len(nums1), len(nums2))):
         num1 = int(nums1[i]) if i < len(nums1) else 0  # 如果版本号 1 的位数不够, 则补 0
@@ -888,8 +888,8 @@ def get_version(ver: str) -> str:
 
 # 判断版本
 def compare_versions(version1: str, version2: str) -> int:
-    nums1 = version1.split(".")  # 将版本号 1 拆分成数字列表
-    nums2 = version2.split(".")  # 将版本号 2 拆分成数字列表
+    nums1 = re.sub(r'[a-zA-Z]+', '', version1).split(".")  # 将版本号 1 拆分成数字列表
+    nums2 = re.sub(r'[a-zA-Z]+', '', version2).split(".")  # 将版本号 2 拆分成数字列表
 
     for i in range(max(len(nums1), len(nums2))):
         num1 = int(nums1[i]) if i < len(nums1) else 0  # 如果版本号 1 的位数不够, 则补 0
