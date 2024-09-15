@@ -32,6 +32,9 @@ term_sd_launch() {
     local use_pip_mirror_for_controlnet_ext=0
     local github_mirror
 
+    term_sd_print_line "${TERM_SD_MANAGE_OBJECT} 启动"
+    term_sd_echo "提示: 可以按下 Ctrl + C 键终止 AI 软件的运行"
+
     case "${TERM_SD_MANAGE_OBJECT}" in
         stable-diffusion-webui)
             case "$(git remote get-url origin | awk -F '/' '{print $NF}')" in # 分支判断
@@ -151,8 +154,6 @@ term_sd_launch() {
         env 2> /dev/null
     fi
 
-    term_sd_print_line "${TERM_SD_MANAGE_OBJECT} 启动"
-    term_sd_echo "提示: 可以按下 Ctrl + C 键终止 AI 软件的运行"
     case "${TERM_SD_MANAGE_OBJECT}" in
         InvokeAI)
             if [[ ! -f "${START_PATH}/term-sd/config/disable-env-check.lock" ]]; then
@@ -480,7 +481,7 @@ term_sd_help() {
                     $(get_dialog_size)
                 ;;
             2)
-                less --mouse \
+                less --mouse --use-color \
                 --prompt="[Term-SD] 提示\: 使用方向键 \/ U, D 键 \/ 鼠标滚轮进行翻页, 按下 Q 键返回帮助列表" \
                 term-sd/help/how_to_use_term_sd.md
                 ;;
