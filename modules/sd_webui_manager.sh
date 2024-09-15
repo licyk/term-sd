@@ -366,7 +366,6 @@ sd_webui_backend_repo_reinstall() {
         term_sd_echo "删除原有 Stable-Diffusion-WebUI 后端组件中"
         rm -rf repositories/*
         term_sd_echo "重新下载 Stable-Diffusion-WebUI 后端组件中"
-        git_clone_repository https://github.com/sczhou/CodeFormer "${SD_WEBUI_PATH}"/repositories CodeFormer
         git_clone_repository https://github.com/salesforce/BLIP "${SD_WEBUI_PATH}"/repositories BLIP
         git_clone_repository https://github.com/Stability-AI/stablediffusion "${SD_WEBUI_PATH}"/repositories stable-diffusion-stability-ai
         git_clone_repository https://github.com/Stability-AI/generative-models "${SD_WEBUI_PATH}"/repositories generative-models

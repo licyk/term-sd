@@ -482,7 +482,7 @@ term_sd_help() {
                 ;;
             2)
                 less --mouse --use-color \
-                --prompt="[Term-SD] 提示\: 使用方向键 \/ U, D 键 \/ 鼠标滚轮进行翻页, 按下 Q 键返回帮助列表" \
+                --prompt="[Term-SD] Notice\: Use keyboard arrow keys \/ U, D key \/ mouse wheel to flip pages, enter Q key return help docs" \
                 term-sd/help/how_to_use_term_sd.md
                 ;;
             3)
