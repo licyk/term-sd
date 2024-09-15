@@ -239,6 +239,8 @@ def is_installed(package: str) -> bool:
         ]   # 如果软件包从网址获取则只截取名字
 
         for pkg in pkgs:
+            # 去除从 Git 链接安装的软件包后面的 .git
+            pkg = pkg.split(".git")[0] if pkg.endswith(".git") else pkg
             if '>=' in pkg:
                 pkg_name, pkg_version = [x.strip() for x in pkg.split('>=')]
             elif '==' in pkg:
@@ -329,6 +331,8 @@ def format_package_name(package: str) -> str:
     ]   # 如果软件包从网址获取则只截取名字
 
     for pkg in pkgs:
+        # 除去从 Git 链接中的 .git 后缀
+        pkg.split(".git")[0] if pkg.endswith(".git") else pkg
         return pkg
 
 
@@ -725,6 +729,8 @@ def is_installed(package: str) -> bool:
         ]   # get only package name if installing from URL
 
         for pkg in pkgs:
+            # 去除从 Git 链接安装的软件包后面的 .git
+            pkg = pkg.split(".git")[0] if pkg.endswith(".git") else pkg
             if '>=' in pkg:
                 pkg_name, pkg_version = [x.strip() for x in pkg.split('>=')]
             elif '==' in pkg:
