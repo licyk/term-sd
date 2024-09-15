@@ -61,10 +61,10 @@ Term-SD 在使用安装、管理 AI 软件的功能时，会使用准备功能�
 
 ### 2、PyTorch 版本选项
 有以下版本组合：
-- Torch 2.4.1 (CUDA 11.8) + xFormers 0.0.28
-- Torch 2.4.1 (CUDA 12.1) + xFormers 0.0.28
-- Torch 2.4.1 (CUDA 12.4) + xFormers 0.0.28
-- Torch 2.4.1 (RoCM 6.1) + xFormers 0.0.28
+- Torch 2.4.1 (CUDA 11.8) + xFormers 0.0.28.post1
+- Torch 2.4.1 (CUDA 12.1) + xFormers 0.0.28.post1
+- Torch 2.4.1 (CUDA 12.4) + xFormers 0.0.28.post1
+- Torch 2.4.1 (RoCM 6.1) + xFormers 0.0.28.post1
 - Torch 2.4.1 (CPU)
 - Torch 2.4.0 (CUDA 11.8) + xFormers 0.0.27.post2
 - Torch 2.4.0 (CUDA 12.1) + xFormers 0.0.27.post2
@@ -270,10 +270,10 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 
 #### 2、PyTorch 版本选择
 第二个是PyTorch版本的选择界面，有以下版本组合
-- Torch 2.4.1 (CUDA 11.8) + xFormers 0.0.28
-- Torch 2.4.1 (CUDA 12.1) + xFormers 0.0.28
-- Torch 2.4.1 (CUDA 12.4) + xFormers 0.0.28
-- Torch 2.4.1 (RoCM 6.1) + xFormers 0.0.28
+- Torch 2.4.1 (CUDA 11.8) + xFormers 0.0.28.post1
+- Torch 2.4.1 (CUDA 12.1) + xFormers 0.0.28.post1
+- Torch 2.4.1 (CUDA 12.4) + xFormers 0.0.28.post1
+- Torch 2.4.1 (RoCM 6.1) + xFormers 0.0.28.post1
 - Torch 2.4.1 (CPU)
 - Torch 2.4.0 (CUDA 11.8) + xFormers 0.0.27.post2
 - Torch 2.4.0 (CUDA 12.1) + xFormers 0.0.27.post2
