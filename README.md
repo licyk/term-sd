@@ -74,12 +74,12 @@ _！Windows 平台可阅读图文版[《Windows 平台如何配置 Term-SD 运�
 >2. `Disable path length limit`为启用 Windows 系统的长路径支持，具体查看微软官方文档[《最大路径长度限制》](https://learn.microsoft.com/zh-cn/windows/win32/fileio/maximum-file-path-limitation)，之前已经在 Windows 系统中启用该功能之后，选项`Disable path length limit`将不会显示。
 
 
-3. 安装 Visual C++ Runtime
+3. 安装 Microsoft Visual C++ Redistributable
 
-下载 [Visual C++ Runtime](https://aka.ms/vs/17/release/vc_redist.x64.exe) 并安装。
+下载 [Microsoft Visual C++ Redistributable](https://aka.ms/vs/17/release/vc_redist.x64.exe) 并安装。
 
 >[!NOTE]  
->缺失 Visual C++ Runtime 可能会导致 PyTorch 无法正常调用 GPU，参考：[[Bug]: Missing requirement for VC_redist.x64.exe causes "RuntimeError: Torch is not able to use GPU" · Issue #16032 · AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui/issues/16032)
+>缺失 Microsoft Visual C++ Redistributable 可能会导致 PyTorch 无法正常调用 GPU，参考：[[Bug]: Missing requirement for VC_redist.x64.exe causes "RuntimeError: Torch is not able to use GPU" · Issue #16032 · AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui/issues/16032)
 
 
 4. 配置 Windows 终端

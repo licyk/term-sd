@@ -1296,7 +1296,7 @@ main() {
             fi
 
             if [[ ! -f "${vc_runtime_dll_path}" ]]; then
-                term_sd_echo "检测到 Visual C++ Runtime 未安装, 这可能会导致部分功能异常或无法正常启动, 清安装 Visual C++ Runtime 后再试"
+                term_sd_echo "检测到 Microsoft Visual C++ Redistributable 未安装, 这可能会导致部分功能异常或无法正常启动, 请安装 Microsoft Visual C++ Redistributable 后再试"
                 term_sd_sleep 5
             fi
         fi
