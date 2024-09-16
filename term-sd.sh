@@ -1034,10 +1034,12 @@ main() {
     TERM_SD_TO_RESTART=0 # Term-SD 是否需要重启的标志
     SHELL_WIDTH=$(stty size | awk '{print $2}') # 获取终端宽度
     SHELL_HEIGHT=$(stty size | awk '{print $1}') # 获取终端高度
-    TERM_SD_DEPEND="git aria2c dialog curl" # Term-SD 依赖的软件包
-    TERM_SD_DEPEND_MACOS="wget rustc cmake protoc" # (MacOS)
-    TERM_SD_DEPEND_PYTHON="venv tkinter pip" # (Python 模块)
+    local term_sd_depend="git aria2c dialog curl" # Term-SD 依赖的软件包
+    local term_sd_depend_macos="wget rustc cmake protoc" # (MacOS)
+    local term_sd_depend_python="venv tkinter pip" # (Python 模块)
+    local missing_depend_name
     local i
+    local vc_runtime_dll_path
 
     # 在使用 HTTP_PROXY 变量后, 会出现 ValueError: When localhost is not accessible, a shareable link must be created. Please set share=True
     # 导致启动异常
@@ -1049,17 +1051,14 @@ main() {
     term_sd_print_line "Term-SD"
 
     # 判断直接启动 Term-SD 还是重启 Term-SD
-    case "${TERM_SD_IS_PREPARE_ENV}" in
-        1)
-            # 检测到是重启
-            term_sd_echo "重启 Term-SD 中"
-            ;;
-        *)
-            term_sd_echo "Term-SD 初始化中"
-            TERM_SD_SCRIPT_NAME="null"  # Term-SD 扩展脚本
-            term_sd_launch_arg_parse "$@" # 处理用户输入的参数
-            ;;
-    esac
+    if [[ "${TERM_SD_IS_PREPARE_ENV}" == 1 ]]; then
+        # 检测到是重启
+        term_sd_echo "重启 Term-SD 中"
+    else
+        term_sd_echo "Term-SD 初始化中"
+        TERM_SD_SCRIPT_NAME="null"  # Term-SD 扩展脚本
+        term_sd_launch_arg_parse "$@" # 处理用户输入的参数
+    fi
 
     # Dialog 使用文档: https://manpages.debian.org/bookworm/dialog/dialog.1.en.html
     # 设置 Dialog 界面的大小
@@ -1208,122 +1207,130 @@ main() {
     BASH_MAJOR_VERSION=$(awk -F '.' '{print $1}' <<< ${BASH_VERSION})
 
     # 依赖检测
-    case "${TERM_SD_IS_PREPARE_ENV}" in # 判断启动状态
-        1)
-            # 不执行环境依赖检测
-            ;;
-        *)
-            term_sd_echo "检测依赖软件是否安装"
+    if [[ ! "${TERM_SD_IS_PREPARE_ENV}" == 1 ]]; then # 判断启动状态
+        term_sd_echo "检测依赖软件是否安装"
 
-            # 检测可用的 Python命令, 并检测是否手动指定 Python 路径
-            if [[ -z "${TERM_SD_PYTHON_PATH}" ]]; then
-                if python3 --version &> /dev/null || python --version &> /dev/null; then # 判断是否有可用的 Python
-                    if [[ ! -z "$(python3 --version 2> /dev/null)" ]]; then
-                        TERM_SD_PYTHON_PATH=$(which python3)
-                    elif [[ ! -z "$(python --version 2> /dev/null)" ]]; then
-                        TERM_SD_PYTHON_PATH=$(which python)
-                    fi
-                else
-                    term_sd_is_missing_dep=1
-                    MISSING_DEPEND_NAME="${MISSING_DEPEND_NAME} python,"
+        # 检测可用的 Python命令, 并检测是否手动指定 Python 路径
+        if [[ -z "${TERM_SD_PYTHON_PATH}" ]]; then
+            if python3 --version &> /dev/null || python --version &> /dev/null; then # 判断是否有可用的 Python
+                if [[ ! -z "$(python3 --version 2> /dev/null)" ]]; then
+                    TERM_SD_PYTHON_PATH=$(which python3)
+                elif [[ ! -z "$(python --version 2> /dev/null)" ]]; then
+                    TERM_SD_PYTHON_PATH=$(which python)
                 fi
             else
-                if "${TERM_SD_PYTHON_PATH}" --version &> /dev/null; then
-                    term_sd_echo "使用自定义 Python 解释器路径: ${TERM_SD_PYTHON_PATH}"
-                else
-                    term_sd_echo "手动指定的 Python 路径错误"
-                    term_sd_echo "提示:"
-                    term_sd_echo "使用 --set-python-path 重新设置 Python 解释器路径"
-                    term_sd_echo "使用 --unset-python-path 删除 Python 解释器路径设置"
-                    term_sd_is_missing_dep=1
-                    MISSING_DEPEND_NAME="${MISSING_DEPEND_NAME} python,"
-                fi
+                term_sd_is_missing_dep=1
+                missing_depend_name="${missing_depend_name} python,"
             fi
+        else
+            if "${TERM_SD_PYTHON_PATH}" --version &> /dev/null; then
+                term_sd_echo "使用自定义 Python 解释器路径: ${TERM_SD_PYTHON_PATH}"
+            else
+                term_sd_echo "手动指定的 Python 路径错误"
+                term_sd_echo "提示:"
+                term_sd_echo "使用 --set-python-path 重新设置 Python 解释器路径"
+                term_sd_echo "使用 --unset-python-path 删除 Python 解释器路径设置"
+                term_sd_is_missing_dep=1
+                missing_depend_name="${missing_depend_name} python,"
+            fi
+        fi
 
-            # 检测 Python 模块是否安装
-            for i in ${TERM_SD_DEPEND_PYTHON}; do
-                if ! "$TERM_SD_PYTHON_PATH" -c "import ${i}" &> /dev/null; then
-                    term_sd_is_missing_dep=1
-                    MISSING_DEPEND_NAME="${MISSING_DEPEND_NAME} python_module:${i},"
-                fi
-            done
+        # 检测 Python 模块是否安装
+        for i in ${term_sd_depend_python}; do
+            if ! "$TERM_SD_PYTHON_PATH" -c "import ${i}" &> /dev/null; then
+                term_sd_is_missing_dep=1
+                missing_depend_name="${missing_depend_name} python_module:${i},"
+            fi
+        done
 
-            #判断系统是否安装必须使用的软件
-            for i in ${TERM_SD_DEPEND}; do
+        #判断系统是否安装必须使用的软件
+        for i in ${term_sd_depend}; do
+            if ! which "${i}" &> /dev/null; then
+                case "${i}" in
+                    aria2c)
+                        i=aria2
+                        ;;
+                esac
+                missing_depend_name="${missing_depend_name} ${i},"
+                term_sd_is_missing_dep=1
+            fi
+        done
+
+        # 依赖检测(MacOS)
+        if [[ "${OSTYPE}" == "darwin"* ]]; then
+            export PYTORCH_ENABLE_MPS_FALLBACK=1 # 启用自动回滚运算
+            for i in ${term_sd_depend_macos}; do
                 if ! which "${i}" &> /dev/null; then
+                    # 转换名称
                     case "${i}" in
-                        aria2c)
-                            i=aria2
+                        rustc)
+                            i=rust
+                            ;;
+                        protoc)
+                            i=protobuf
                             ;;
                     esac
-                    MISSING_DEPEND_NAME="${MISSING_DEPEND_NAME} ${i},"
-                    term_sd_is_missing_dep=1
+                    MISSING_DEPEND_MACOS_NAME="${MISSING_DEPEND_MACOS_NAME} ${i},"
+                    term_sd_is_missing_macos_dep=1
                 fi
             done
 
-            #依赖检测(MacOS)
-            if [[ "${OSTYPE}" == "darwin"* ]]; then
-                export PYTORCH_ENABLE_MPS_FALLBACK=1 # 启用自动回滚运算
-                for i in ${TERM_SD_DEPEND_MACOS}; do
-                    if ! which "${i}" &> /dev/null; then
-                        # 转换名称
-                        case "${i}" in
-                            rustc)
-                                i=rust
-                                ;;
-                            protoc)
-                                i=protobuf
-                                ;;
-                        esac
-                        MISSING_DEPEND_MACOS_NAME="${MISSING_DEPEND_MACOS_NAME} ${i},"
-                        term_sd_is_missing_macos_dep=1
-                    fi
-                done
-
-                if [[ "${term_sd_is_missing_macos_dep}" == 1 ]]; then
-                    print_line_to_shell "缺少以下依赖"
-                    for i in ${MISSING_DEPEND_MACOS_NAME}; do
-                        echo "${i}"
-                    done
-                    unset MISSING_DEPEND_MACOS_NAME
-                    print_line_to_shell
-                    term_sd_echo "缺少依赖将影响 AI 软件的安装, 请退出 Term-SD 并使用 Homebrew (如果没有 Homebrew, 则先安装 Homebrew, 再用 Homebrew 去安装其他缺少依赖) 安装缺少的依赖后重试"
-                    term_sd_sleep 5
-                fi
-            fi
-
-            # 判断依赖检测结果
-            if [[ "${term_sd_is_missing_dep}" == 0 ]]; then
-                term_sd_echo "依赖检测完成, 无缺失依赖"
-                prepare_tcmalloc # 配置内存优化(Linux)
-                term_sd_install
-                if [[ -d "term-sd/modules" ]]; then # 找到目录后才启动
-                    term_sd_auto_update_trigger
-                    TERM_SD_IS_PREPARE_ENV=1 # 用于检测 Term-SD 的启动状态, 设置后不再重新执行依赖检测
-                else
-                    term_sd_echo "Term-SD 模块丢失, 输入 ./term-sd.sh --reinstall-term-sd 重新安装 Term-SD"
-                    exit 1
-                fi
-            else
-                term_sd_print_line "缺少以下依赖"
-                for i in ${MISSING_DEPEND_NAME}; do
+            if [[ "${term_sd_is_missing_macos_dep}" == 1 ]]; then
+                print_line_to_shell "缺少以下依赖"
+                for i in ${MISSING_DEPEND_MACOS_NAME}; do
                     echo "${i}"
                 done
-                unset MISSING_DEPEND_NAME
-                term_sd_print_line
-                term_sd_echo "请安装缺少的依赖后重试"
+                unset MISSING_DEPEND_MACOS_NAME
+                print_line_to_shell
+                term_sd_echo "缺少依赖将影响 AI 软件的安装, 请退出 Term-SD 并使用 Homebrew (如果没有 Homebrew, 则先安装 Homebrew, 再用 Homebrew 去安装其他缺少依赖) 安装缺少的依赖后重试"
+                term_sd_sleep 5
+            fi
+        fi
+
+        # 依赖检测(Windows)
+        if is_windows_platform; then
+            if [[ ! -z "${SYSTEMROOT}" ]]; then
+                vc_runtime_dll_path="$(term_sd_win2unix_path "${SYSTEMROOT}")/System32/vcruntime140_1.dll"
+            else
+                vc_runtime_dll_path="/c/Windows/System32/vcruntime140_1.dll"
+            fi
+
+            if [[ ! -f "${vc_runtime_dll_path}" ]]; then
+                term_sd_echo "检测到 Visual C++ Runtime 未安装, 这可能会导致部分功能异常或无法正常启动, 清安装 Visual C++ Runtime 后再试"
+                term_sd_sleep 5
+            fi
+        fi
+
+        # 判断依赖检测结果
+        if [[ "${term_sd_is_missing_dep}" == 0 ]]; then
+            term_sd_echo "依赖检测完成, 无缺失依赖"
+            prepare_tcmalloc # 配置内存优化(Linux)
+            term_sd_install
+            if [[ -d "term-sd/modules" ]]; then # 找到目录后才启动
+                term_sd_auto_update_trigger
+                TERM_SD_IS_PREPARE_ENV=1 # 用于检测 Term-SD 的启动状态, 设置后不再重新执行依赖检测
+            else
+                term_sd_echo "Term-SD 模块丢失, 输入 ./term-sd.sh --reinstall-term-sd 重新安装 Term-SD"
                 exit 1
             fi
+        else
+            term_sd_print_line "缺少以下依赖"
+            for i in ${missing_depend_name}; do
+                echo "${i}"
+            done
+            term_sd_print_line
+            term_sd_echo "请安装缺少的依赖后重试"
+            exit 1
+        fi
 
-            if [[ ! -f "${START_PATH}/term-sd/config/install-by-launch-script.lock" ]]; then # 检测是否通过启动脚本安装 Term-SD
-                term_sd_set_up_normal_setting # 非启动脚本安装时设置默认 Term-SD 设置
-            fi
+        if [[ ! -f "${START_PATH}/term-sd/config/install-by-launch-script.lock" ]]; then # 检测是否通过启动脚本安装 Term-SD
+            term_sd_set_up_normal_setting # 非启动脚本安装时设置默认 Term-SD 设置
+        fi
 
-            term_sd_auto_setup_github_mirror # 配置 Github 镜像源
-            term_sd_auto_setup_huggingface_mirror # 配置 HuggingFace 镜像源
-            term_sd_user_agreement # 用户协议
-            ;;
-    esac
+        term_sd_auto_setup_github_mirror # 配置 Github 镜像源
+        term_sd_auto_setup_huggingface_mirror # 配置 HuggingFace 镜像源
+        term_sd_user_agreement # 用户协议
+    fi
 
     # 放在依赖检测之后, 解决一些奇怪的问题
     # 设置缓存路径的环境变量
