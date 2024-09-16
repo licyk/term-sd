@@ -133,3 +133,5 @@ __term_sd_task_pre_ext_132 sd-webui-aurasr OFF
 __term_sd_task_pre_ext_133 a1111-intelli-prompt OFF
 __term_sd_task_pre_ext_134 sd-webui-decadetw-auto-prompt-llm OFF
 __term_sd_task_pre_ext_135 sd-forge-temperature-settings OFF
+__term_sd_task_pre_ext_136 forge-space-SUPIR OFF
+__term_sd_task_pre_ext_137 forge-space-ollama OFF

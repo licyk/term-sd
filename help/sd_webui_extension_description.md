@@ -542,3 +542,11 @@ Stable Diffusion WebUI 插件说明：
 135、sd-forge-temperature-settings
 描述：图片色温调节，仅支持Forge
 链接：https://github.com/Haoming02/sd-forge-temperature-settings
+
+136、forge-space-SUPIR
+描述：为sd-webui-forge添加SUPIR支持
+链接：https://github.com/Haoming02/forge-space-SUPIR
+
+137、forge-space-ollama
+描述：为sd-webui-forge添加ollama支持
+链接：https://github.com/Haoming02/forge-space-ollama
