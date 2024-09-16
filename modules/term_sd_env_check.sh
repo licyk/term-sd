@@ -176,7 +176,7 @@ def get_requirement_list(requirement_list: dict) -> dict:
         requirements_path = requirement_list.get(i).get("requirements_path")
         requirements = [] # Python 包名列表
         try:
-            with open(requirements_path, "r") as f:
+            with open(requirements_path, "r", encoding = "utf8") as f:
                 # 处理文件内容
                 lines = [
                     line.strip()
@@ -494,7 +494,7 @@ def write_content_to_file(content: list, path: str) -> None:
     if len(content) == 0:
         return
 
-    with open(path, "w") as f:
+    with open(path, "w", encoding = "utf8") as f:
         for item in content:
             f.write(item + "\n")
 
@@ -607,7 +607,7 @@ for folder in torch_spec.submodule_search_locations:
     if os.path.exists(dest):
         break
 
-    with open(test_file, 'rb') as f:
+    with open(test_file, "rb", encoding = "utf8") as f:
         contents = f.read()
         if b"libomp140.x86_64.dll" not in contents:
             break
@@ -787,7 +787,7 @@ def is_installed(package: str) -> bool:
 
 # 验证是否存在未安装的依赖
 def validate_requirements(requirements_file: str):
-    with open(requirements_file, 'r', encoding='utf8') as f:
+    with open(requirements_file, "r", encoding = "utf8") as f:
         lines = [
             line.strip()
             for line in f.readlines()
@@ -878,7 +878,7 @@ def get_onnxruntime_version_file() -> str:
 def get_onnxruntime_support_cuda_version() -> str:
     ver_path = get_onnxruntime_version_file()
     try:
-        with open(ver_path, "r") as f:
+        with open(ver_path, "r", encoding = "utf8") as f:
             for line in f:
                 if "cuda_version" in line:
                     return line.strip()
@@ -1051,7 +1051,7 @@ settings = {}
 settings_file = "${path}"
 
 try:
-    with open(settings_file, "r", encoding="utf8") as file:
+    with open(settings_file, "r", encoding = "utf8") as file:
         settings = json.load(file)
 except:
     pass

@@ -463,7 +463,7 @@ def get_key_map(file_path):
     file_name = pathlib.Path(file_path)
     if os.path.exists(file_name):
         try:
-            with open(file_name, "r", encoding="utf8") as file:
+            with open(file_name, "r", encoding = "utf8") as file:
                 data = json.load(file)
         except Exception:
             # json 文件格式出现问题
@@ -513,7 +513,7 @@ def get_key_map(file_path):
     file_name = pathlib.Path(file_path)
     if os.path.exists(file_name):
         try:
-            with open(file_name, "r", encoding="utf8") as file:
+            with open(file_name, "r", encoding = "utf8") as file:
                 data = json.load(file)
         except Exception:
             # json 文件格式出现问题
@@ -531,7 +531,7 @@ def check_json(file_path):
     file_name = pathlib.Path(file_path)
     if os.path.exists(file_name):
         try:
-            with open(file_name, "r", encoding="utf8") as file:
+            with open(file_name, "r", encoding = "utf8") as file:
                 data = json.load(file)
             return True
         except Exception:
@@ -554,7 +554,7 @@ def search_key(data, key, value):
 
 def save(data, filename):
     import json
-    with open(filename, "w", encoding="utf8") as file:
+    with open(filename, "w", encoding = "utf8") as file:
         json.dump(data, file, indent = 4, ensure_ascii = False)
 
 
