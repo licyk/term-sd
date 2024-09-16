@@ -607,7 +607,7 @@ for folder in torch_spec.submodule_search_locations:
     if os.path.exists(dest):
         break
 
-    with open(test_file, "rb", encoding = "utf8") as f:
+    with open(test_file, "rb") as f:
         contents = f.read()
         if b"libomp140.x86_64.dll" not in contents:
             break
