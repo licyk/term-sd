@@ -171,9 +171,8 @@ def get_requirement_file(path: str) -> dict:
 
 # 读取依赖文件中的包名
 def get_requirement_list(requirement_list: dict) -> dict:
-    for i in requirement_list:
-        requirement_name = i
-        requirements_path = requirement_list.get(i).get("requirements_path")
+    for requirement_name in requirement_list:
+        requirements_path = requirement_list.get(requirement_name).get("requirements_path")
         requirements = [] # Python 包名列表
         try:
             with open(requirements_path, "r", encoding = "utf8") as f:
@@ -302,15 +301,14 @@ def is_installed(package: str) -> bool:
 
 
 def check_missing_requirement(requirement_list: dict) -> dict:
-    for i in requirement_list:
-        requirement_name = i
-        requirements_path = requirement_list.get(i).get("requirements_path")
-        requirements = requirement_list.get(i).get("requirements")
+    for requirement_name in requirement_list:
+        requirements_path = requirement_list.get(requirement_name).get("requirements_path")
+        requirements = requirement_list.get(requirement_name).get("requirements")
 
         missing_requirement = []
-        for i in requirements:
-            if not is_installed(i.split()[0].strip()):
-                missing_requirement.append(i)
+        for pkg in requirements:
+            if not is_installed(pkg.split()[0].strip()):
+                missing_requirement.append(pkg)
 
         requirement_list[requirement_name] = {"requirements_path": requirements_path, "requirements": requirements, "missing_requirement": missing_requirement}
 
@@ -431,12 +429,28 @@ def detect_conflict_package(pkg_1: str, pkg_2: str) -> bool:
             # if ver_1 > ver_2:
                 return True
 
+        # >=, ==
+        if ">=" in pkg_1 and "==" in pkg_2:
+            ver_1 = get_version(pkg_1.split(">").pop())
+            ver_2 = get_version(pkg_2.split("==").pop())
+            if compare_versions(ver_1, ver_2) == 1 or compare_versions(ver_1, ver_2) == -1:
+            # if ver_1 > ver_2:
+                return True
+
         # <, ==
         if "<" in pkg_1 and "=" not in pkg_1 and "==" in pkg_2:
             ver_1 = get_version(pkg_1.split("<").pop())
             ver_2 = get_version(pkg_2.split("==").pop())
             if compare_versions(ver_1, ver_2) == -1 or compare_versions(ver_1, ver_2) == 0:
             # if ver_1 < ver_2:
+                return True
+
+        # <=, ==
+        if "<=" in pkg_1 and "==" in pkg_2:
+            ver_1 = get_version(pkg_1.split(">").pop())
+            ver_2 = get_version(pkg_2.split("==").pop())
+            if compare_versions(ver_1, ver_2) == 1 or compare_versions(ver_1, ver_2) == -1:
+            # if ver_1 > ver_2:
                 return True
 
         # ==, ==
@@ -457,9 +471,9 @@ def find_conflict(requirement_list: dict, conflict_package) -> dict:
         requirements = requirement_list.get(requirement_name).get("requirements")
         missing_requirement = requirement_list.get(requirement_name).get("missing_requirement")
         has_conflict_package = False
-        for k in conflict_package:
-            for i in requirements:
-                if k in i:
+        for pkg_1 in conflict_package:
+            for pkg_2 in requirements:
+                if pkg_1 in pkg_2:
                     has_conflict_package = True
                     break
 
@@ -472,8 +486,7 @@ def find_conflict(requirement_list: dict, conflict_package) -> dict:
 def sum_conflict_notice(requirement_list: dict, conflict_package) -> list:
     content = []
     # 读取冲突的包名
-    for i in conflict_package:
-        conflict_pkg = i
+    for conflict_pkg in conflict_package:
         content.append(f"{conflict_pkg}:")
         # 读取依赖记录表
         for j in requirement_list:
