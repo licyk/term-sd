@@ -473,7 +473,7 @@ def find_conflict(requirement_list: dict, conflict_package) -> dict:
         has_conflict_package = False
         for pkg_1 in conflict_package:
             for pkg_2 in requirements:
-                if pkg_1 in pkg_2:
+                if pkg_1 == get_package_name(format_package_name(pkg_2)):
                     has_conflict_package = True
                     break
 

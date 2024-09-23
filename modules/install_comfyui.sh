@@ -49,7 +49,7 @@ install_comfyui() {
             --title "ComfyUI 管理" \
             --backtitle "ComfyUI 安装结果" \
             --ok-label "确认" \
-            --msgbox "ComfyUI 安装结束, 选择确定进入管理界面\n注:\n建议在进入 ComfyUI 管理界面后, 进入 \"管理自定义节点\" , 选择 \"安装全部自定义节点依赖\" 为自定义节点安装依赖, 保证自定义节点的正常运行" \
+            --msgbox "ComfyUI 安装结束, 选择确定进入管理界面" \
             $(get_dialog_size)
 
         comfyui_manager # 进入管理界面
@@ -164,7 +164,7 @@ install_comfyui() {
                 --title "ComfyUI 管理" \
                 --backtitle "ComfyUI 安装结果" \
                 --ok-label "确认" \
-                --msgbox "ComfyUI 安装结束, 选择确定进入管理界面\n注:\n建议在进入 ComfyUI 管理界面后, 进入 \"管理自定义节点\" , 选择 \"安装全部自定义节点依赖\" 为自定义节点安装依赖, 保证自定义节点的正常运行" \
+                --msgbox "ComfyUI 安装结束, 选择确定进入管理界面" \
                 $(get_dialog_size)
 
             comfyui_manager # 进入管理界面
