@@ -8,16 +8,13 @@ invokeai_manager() {
 
     cd "${START_PATH}" # 回到最初路径
     exit_venv # 确保进行下一步操作前已退出其他虚拟环境
-    if [[ -d "${INVOKEAI_PATH}" ]]; then # 找到invokeai文件夹
-        while true; do
-            cd "${INVOKEAI_PATH}"
-            enter_venv # 进入环境
-            if ! which invokeai-web 2> /dev/null ;then
-                exit_venv # 退出原来的环境
-                create_venv # 尝试重新生成虚拟环境,解决因为路径移动导致虚拟环境无法进入,然后检测不到invokeai
-                enter_venv # 进入环境
-            fi
-            if which invokeai-web &> /dev/null ;then #查找环境中有没有invokeai
+    if [[ -d "${INVOKEAI_PATH}" ]]; then # 找到 InvokeAI 文件夹
+        cd "${INVOKEAI_PATH}"
+        enter_venv
+        if is_invokeai_installed; then # 检测 InvokeAI 是否安装
+            while true; do
+                cd "${INVOKEAI_PATH}"
+
                 dialog_arg=$(dialog --erase-on-exit --notags \
                     --title "InvokeAI 管理" \
                     --backtitle "InvokeAI 管理选项" \
@@ -201,23 +198,20 @@ invokeai_manager() {
                         break
                         ;;
                 esac
-            else 
-                if (dialog --erase-on-exit \
-                    --title "InvokeAI 管理" \
-                    --backtitle "InvokeAI 安装选项" \
-                    --yes-label "是" --no-label "否" \
-                    --yesno "检测到当前未安装 InvokeAI, 是否进行安装 ?" \
-                    $(get_dialog_size)); then
+            done
+        else
+            if (dialog --erase-on-exit \
+                --title "InvokeAI 管理" \
+                --backtitle "InvokeAI 安装选项" \
+                --yes-label "是" --no-label "否" \
+                --yesno "检测到当前未安装 InvokeAI, 是否进行安装 ?" \
+                $(get_dialog_size)); then
 
-                    cd "${INVOKEAI_PARENT_PATH}"
-                    rm -f "${START_PATH}/term-sd/task/invokeai_install.sh"
-                    install_invokeai
-                    break
-                else
-                    break
-                fi
+                cd "${INVOKEAI_PARENT_PATH}"
+                rm -f "${START_PATH}/term-sd/task/invokeai_install.sh"
+                install_invokeai
             fi
-        done
+        fi
     else
         if (dialog --erase-on-exit \
             --title "InvokeAI 管理" \
@@ -255,4 +249,31 @@ invokeai_update_depend() {
         term_sd_pause
     fi
     clean_install_config # 清理安装参数
+}
+
+# 检测 InvokeAI 是否安装
+is_invokeai_installed() {
+    local status
+
+    status=$(term_sd_python -c "$(py_is_invokeai_installed)")
+
+    if [[ "${status}" == "True" ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+
+# 检测 InvokeAI 是否安装(Python)
+py_is_invokeai_installed() {
+    cat<<EOF
+from importlib.metadata import version
+
+try:
+    tmp = version("invokeai")
+    print(True)
+except:
+    print(False)
+EOF
 }

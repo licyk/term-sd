@@ -30,6 +30,7 @@ check_comfyui_env() {
 
     if [[ -f "${START_PATH}/term-sd/task/comfyui_has_conflict_requirement_notice.sh" ]]; then
         term_sd_echo "检测到当前 ComfyUI 环境中安装的插件之间存在依赖冲突情况, 该问题并非致命, 但建议只保留一个插件, 否则部分功能可能无法正常使用"
+        term_sd_echo "可在 Term-SD 中的 ComfyUI 管理 -> 管理自定义节点 -> 管理自定义节点 中禁用插件或者卸载插件"
         term_sd_echo "您可以选择按顺序安装依赖, 由于这将向环境中安装不符合版本要求的组件, 您将无法完全解决此问题, 但可避免组件由于依赖缺失而无法启动的情况"
         term_sd_echo "您通常情况下可以选择忽略该警告并继续运行"
         term_sd_print_line "依赖冲突"
@@ -489,16 +490,16 @@ def sum_conflict_notice(requirement_list: dict, conflict_package) -> list:
     for conflict_pkg in conflict_package:
         content.append(f"{conflict_pkg}:")
         # 读取依赖记录表
-        for j in requirement_list:
-            requirement_name = j
+        for requirement_name in requirement_list:
 
             # 查找自定义节点中的依赖是否包含冲突依赖
-            for k in requirement_list.get(requirement_name).get("requirements"):
-                if conflict_pkg == get_package_name(k):
-                    content.append(f"- {requirement_name}: {k}")
+            for pkg in requirement_list.get(requirement_name).get("requirements"):
+                if conflict_pkg == get_package_name(format_package_name(pkg)):
+                    content.append(f" - {requirement_name}: {pkg}")
 
         content.append("")
 
+    content = content[:-1] if len(content) > 0 and content[-1] == "" else content
     return content
 
 
