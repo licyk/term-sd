@@ -854,9 +854,10 @@ check_onnxruntime_gpu_ver() {
             term_sd_try term_sd_pip uninstall onnxruntime-gpu -y
         fi
         term_sd_echo "重新安装 onnxruntime-gpu"
-        PIP_INDEX_URL="https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple/" \
-        PIP_EXTRA_INDEX_URL="https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple" \
-        term_sd_try term_sd_pip install onnxruntime-gpu --no-cache-dir
+        # PIP_INDEX_URL="https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple/" \
+        # PIP_EXTRA_INDEX_URL="https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple" \
+        # term_sd_try term_sd_pip install onnxruntime-gpu --no-cache-dir
+        term_sd_pip install "onnxruntime-gpu>=1.19.0" --no-cache-dir
         if [[ "$?" == 0 ]]; then
             term_sd_echo "重新安装 onnxruntime-gpu 成功"
         else

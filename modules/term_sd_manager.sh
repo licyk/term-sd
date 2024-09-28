@@ -388,7 +388,7 @@ term_sd_manager() {
             --title "Term-SD" \
             --backtitle "主界面" \
             --ok-label "确认" --cancel-label "退出" \
-            --menu "请选择Term-SD的功能\n当前虚拟环境状态: ${venv_info}\n当前 Github 镜像源设置: ${github_mirror_info}\n当前 HuggingFace 镜像源设置: ${huggingface_mirror_info}\n当前代理设置: ${proxy_info}" \
+            --menu "请选择 Term-SD 的功能\n当前虚拟环境状态: ${venv_info}\n当前 Github 镜像源设置: ${github_mirror_info}\n当前 HuggingFace 镜像源设置: ${huggingface_mirror_info}\n当前代理设置: ${proxy_info}" \
             $(get_dialog_size_menu) \
             "0" "> Term-SD 更新管理" \
             "1" "> Stable-Diffusion-WebUI 管理" \
