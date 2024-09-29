@@ -101,3 +101,6 @@ __term_sd_task_pre_ext_8 aria2_download https://huggingface.co/licyk/sd-extensio
 
 __term_sd_task_pre_ext_9 term_sd_echo "下载 sd-webui-stablesr 模型" # StableSR(422.3m) ON
 __term_sd_task_pre_ext_9 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/sd-webui-stablesr/webui_768v_139.ckpt "${SD_WEBUI_PATH}"/extensions/sd-webui-stablesr/models
+
+__term_sd_task_pre_ext_10 term_sd_echo "下载 z-tipo-extension 模型" # z-tipo-extension(1.02g) ON
+__term_sd_task_pre_ext_10 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/z-tipo-extension/TIPO-500M_epoch5-F16.gguf "${SD_WEBUI_PATH}"/extensions/z-tipo-extension/models
