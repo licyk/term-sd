@@ -19,6 +19,8 @@ lora_scripts_launch_args_setting() {
         "3" "(disable-tensorboard)禁用 TernsorBoard" OFF \
         "4" "(disable-tageditor) 禁用标签管理器" OFF \
         "5" "(dev) 启用开发版功能" OFF \
+        "6" "(skip-prepare-onnxruntime) 跳过 onnxruntime 检查" OFF \
+        "7" "(disable-auto-mirror) 禁用自动设置镜像" OFF \
         3>&1 1>&2 2>&3)
 
     if [[ "$?" == 0 ]]; then
@@ -38,6 +40,12 @@ lora_scripts_launch_args_setting() {
                     ;;
                 5)
                     arg="--dev"
+                    ;;
+                6)
+                    arg="--skip-prepare-onnxruntime"
+                    ;;
+                7)
+                    arg="--disable-auto-mirror"
                     ;;
             esac
             launch_args="${arg} ${launch_args}"

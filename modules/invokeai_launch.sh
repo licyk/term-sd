@@ -5,7 +5,6 @@
 invokeai_launch() {
     local dialog_arg
     local launch_args
-    local i
 
     add_invokeai_normal_launch_args
 
@@ -19,12 +18,10 @@ invokeai_launch() {
             --menu "请选择 InvokeAI 启动参数\n当前自定义启动参数: ${launch_args}" \
             $(get_dialog_size_menu) \
             "0" "> 返回" \
-            "1" "> (invokeai-web) 启动 WebUI 界面" \
+            "1" "> 启动" \
             "2" "> 配置预设启动参数" \
             "3" "> 修改自定义启动参数" \
             "4" "> 重置启动参数" \
-            "5" "> (import-images) 启动图库导入界面" \
-            "6" "> (db-maintenance) 启动数据库修复" \
             3>&1 1>&2 2>&3)
 
         case "${dialog_arg}" in
@@ -39,16 +36,6 @@ invokeai_launch() {
                 ;;
             4)
                 restore_invokeai_launch_args
-                ;;
-            5)
-                term_sd_print_line "${TERM_SD_MANAGE_OBJECT} 启动"
-                invokeai-import-images --root "${INVOKEAI_PATH}"/invokeai
-                term_sd_pause
-                ;;
-            6)
-                term_sd_print_line "${TERM_SD_MANAGE_OBJECT} 启动"
-                invokeai-db-maintenance --operation all --root "${INVOKEAI_PATH}"/invokeai
-                term_sd_pause
                 ;;
             *)
                 break
