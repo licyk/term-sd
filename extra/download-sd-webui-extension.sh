@@ -23,7 +23,7 @@ else
         --ok-label "确认" --no-cancel \
         --checklist "请选择需要安装的 Stable-Diffusion-WebUI 插件" \
         $(get_dialog_size_menu) \
-        $(cat "${START_PATH}/term-sd/install/sd_webui/dialog_sd_webui_extension.sh" | awk '{sub($3,"OFF")}1') \
+        $(cat "${START_PATH}/term-sd/install/sd_webui/dialog_sd_webui_extension.sh" | awk '{print $1 " " $2 " OFF"}') \
         3>&1 1>&2 2>&3)
 
     # 插件模型列表选择

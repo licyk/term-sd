@@ -38,7 +38,7 @@ git_ver_switch() {
             --menu "请选择要切换的版本\n当前版本: ${current_commit_hash}" \
             $(get_dialog_size_menu) \
             "-->返回<--" "<-------------------" \
-            $(git -C "${path}" log "${origin_branch}" --date=short --pretty=format:"%h %cd" --date=format:"%Y-%m-%d|%H:%M:%S" | awk '{print $1 " " $2}') \
+            $(git -C "${path}" log "${origin_branch}" --date=short --pretty=format:"%h %cd" --date=format:"%Y-%m-%d|%H:%M:%S") \
             3>&1 1>&2 2>&3)
 
         if [[ "$?" == 0 ]]; then

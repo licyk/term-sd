@@ -98,7 +98,7 @@ fooocus_manager() {
                             --yesno "是否切换 Fooocus 版本 ?" \
                             $(get_dialog_size)); then
 
-                            git_ver_switch
+                            git_ver_switch && \
                             dialog --erase-on-exit \
                                 --title "Fooocus 管理" \
                                 --backtitle "Fooocus 版本切换" \

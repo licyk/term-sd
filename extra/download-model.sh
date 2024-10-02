@@ -85,7 +85,7 @@ model_download_interface() {
         --ok-label "确认" --no-cancel \
         --checklist "请选择需要下载的 ${name} 模型" \
         $(get_dialog_size_menu) \
-        $(cat "${START_PATH}"/term-sd/install/$(get_model_list_file_path ${name} dialog) | awk '{sub($3,"OFF")}1') \
+        $(cat "${START_PATH}"/term-sd/install/$(get_model_list_file_path ${name} dialog) | awk '{print $1 " " $2 " OFF"}') \
         3>&1 1>&2 2>&3)
 
     if term_sd_install_confirm "是否下载 ${name} 模型 ?"; then

@@ -106,7 +106,7 @@ comfyui_manager() {
                             --yesno "是否切换 ComfyUI 版本 ?" \
                             $(get_dialog_size)); then
 
-                            git_ver_switch
+                            git_ver_switch && \
                             dialog --erase-on-exit \
                                 --title "ComfyUI 管理" \
                                 --backtitle "ComfyUI 版本切换" \

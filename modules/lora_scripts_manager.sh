@@ -100,7 +100,7 @@ lora_scripts_manager() {
                             --yesno "是否切换 lora-scripts 版本 ?" \
                             $(get_dialog_size)); then
 
-                            git_ver_switch
+                            git_ver_switch && \
                             dialog --erase-on-exit \
                                 --title "lora-scripts 管理" \
                                 --backtitle "lora-scripts 版本切换选项" \

@@ -22,7 +22,7 @@ else
         --ok-label "确认" --no-cancel \
         --checklist "请选择需要安装的 ComfyUI 插件" \
         $(get_dialog_size_menu) \
-        $(cat "${START_PATH}/term-sd/install/comfyui/dialog_comfyui_extension.sh" | awk '{sub($3,"OFF")}1') \
+        $(cat "${START_PATH}/term-sd/install/comfyui/dialog_comfyui_extension.sh" | awk '{print $1 " " $2 " OFF"}') \
         3>&1 1>&2 2>&3)
 
     # 自定义节点选择
@@ -32,7 +32,7 @@ else
         --ok-label "确认" --no-cancel \
         --checklist "请选择需要安装的 ComfyUI 自定义节点" \
         $(get_dialog_size_menu) \
-        $(cat "${START_PATH}/term-sd/install/comfyui/dialog_comfyui_custom_node.sh" | awk '{sub($3,"OFF")}1') \
+        $(cat "${START_PATH}/term-sd/install/comfyui/dialog_comfyui_custom_node.sh" | awk '{print $1 " " $2 " OFF"}') \
         3>&1 1>&2 2>&3)
 
     if is_use_modelscope_src; then
