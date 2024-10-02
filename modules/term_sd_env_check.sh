@@ -836,35 +836,38 @@ check_onnxruntime_gpu_ver() {
 
     if [[ "${status}" == "cu118" ]]; then
         term_sd_echo "检测到 onnxruntime-gpu 所支持的 CUDA 版本 和 PyTorch 所支持的 CUDA 版本不匹配, 将执行重装操作"
-        if term_sd_pip freeze | grep -q "onnxruntime-gpu"; then
-            term_sd_echo "卸载原有 onnxruntime-gpu"
-            term_sd_try term_sd_pip uninstall onnxruntime-gpu -y
-        fi
+        uninstall_onnxruntime_gpu
         term_sd_echo "重新安装 onnxruntime-gpu"
         term_sd_try term_sd_pip install onnxruntime-gpu==1.18.1 --no-cache-dir
-        if [[ "$?" == 0 ]]; then
-            term_sd_echo "重新安装 onnxruntime-gpu 成功"
-        else
-            term_sd_echo "重新安装 onnxruntime-gpu 失败, 这可能导致部分功能无法正常使用, 如使用反推模型无法正常调用 GPU 导致推理降速"
-        fi
-    elif [[ "${status}" == "cu121" ]]; then
+    elif [[ "${status}" == "cu121cudnn9" ]]; then
         term_sd_echo "检测到 onnxruntime-gpu 所支持的 CUDA 版本 和 PyTorch 所支持的 CUDA 版本不匹配, 将执行重装操作"
-        if term_sd_pip freeze | grep -q "onnxruntime-gpu"; then
-            term_sd_echo "卸载原有 onnxruntime-gpu"
-            term_sd_try term_sd_pip uninstall onnxruntime-gpu -y
-        fi
+        uninstall_onnxruntime_gpu
         term_sd_echo "重新安装 onnxruntime-gpu"
-        # PIP_INDEX_URL="https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple/" \
-        # PIP_EXTRA_INDEX_URL="https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple" \
-        # term_sd_try term_sd_pip install onnxruntime-gpu --no-cache-dir
         term_sd_pip install "onnxruntime-gpu>=1.19.0" --no-cache-dir
-        if [[ "$?" == 0 ]]; then
-            term_sd_echo "重新安装 onnxruntime-gpu 成功"
-        else
-            term_sd_echo "重新安装 onnxruntime-gpu 失败, 这可能导致部分功能无法正常使用, 如使用反推模型无法正常调用 GPU 导致推理降速"
-        fi
+    elif [[ "${status}" == "cu121cudnn8" ]]; then
+        term_sd_echo "检测到 onnxruntime-gpu 所支持的 CUDA 版本 和 PyTorch 所支持的 CUDA 版本不匹配, 将执行重装操作"
+        uninstall_onnxruntime_gpu
+        term_sd_echo "重新安装 onnxruntime-gpu"
+        PIP_INDEX_URL="https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple/" \
+        PIP_EXTRA_INDEX_URL="https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple" \
+        term_sd_try term_sd_pip install onnxruntime-gpu==1.17.1 --no-cache-dir
     else
         term_sd_echo "onnxruntime-gpu 无版本问题"
+        return 0
+    fi
+
+    if [[ "$?" == 0 ]]; then
+        term_sd_echo "重新安装 onnxruntime-gpu 成功"
+    else
+        term_sd_echo "重新安装 onnxruntime-gpu 失败, 这可能导致部分功能无法正常使用, 如使用反推模型无法正常调用 GPU 导致推理降速"
+    fi
+}
+
+# 卸载原有的 onnxruntime-gpu
+uninstall_onnxruntime_gpu() {
+    if term_sd_pip freeze 2> /dev/null | grep -q "onnxruntime-gpu"; then
+        term_sd_echo "卸载原有 onnxruntime-gpu"
+        term_sd_try term_sd_pip uninstall onnxruntime-gpu -y
     fi
 }
 
@@ -890,16 +893,21 @@ def get_onnxruntime_version_file() -> str:
 
 
 # 获取 onnxruntime 支持的 CUDA 版本
-def get_onnxruntime_support_cuda_version() -> str:
+def get_onnxruntime_support_cuda_version() -> tuple:
     ver_path = get_onnxruntime_version_file()
+    cuda_ver = None
+    cudnn_ver = None
     try:
         with open(ver_path, "r", encoding = "utf8") as f:
             for line in f:
                 if "cuda_version" in line:
-                    return line.strip()
-            return None
+                    cuda_ver = line.strip()
+                if "cudnn_version" in line:
+                    cudnn_ver = line.strip()
     except:
-        return None
+        pass
+
+    return cuda_ver, cudnn_ver
 
 
 # 截取版本号
@@ -926,47 +934,53 @@ def compare_versions(version1: str, version2: str) -> int:
     return 0  # 版本号相同
 
 
-# 获取 Torch 的 CUDA 版本
-def get_torch_cuda_ver() -> str:
+# 获取 Torch 的 CUDA, CUDNN 版本
+def get_torch_cuda_ver() -> tuple:
     try:
         import torch
-        torch_version = torch.__version__
-        return torch_version
+        return torch.__version__, int(str(torch.backends.cudnn.version())[0]) if torch.backends.cudnn.version() is not None else None
     except:
-        return None
-
-
-# 检测 Torch 中的 CUDA 版本是否大于 12.1
-def torch_is_cuda12() -> bool:
-    if "cu12" in get_torch_cuda_ver():
-        return True
-    else:
-        return False
+        return None, None
 
 
 # 判断需要安装的 onnxruntime 版本
 def need_install_ort_ver():
     # 检测是否安装了 Torch
-    torch_ver = get_torch_cuda_ver()
-    if torch_ver is None:
+    torch_ver, cuddn_ver = get_torch_cuda_ver()
+    # 缺少 Torch 版本或者 CUDNN 版本时取消判断
+    if torch_ver is None or cuddn_ver is None:
         return None
 
     # 检测是否安装了 onnxruntime-gpu
-    onnxruntime_support_cuda_ver = get_onnxruntime_support_cuda_version()
-    if onnxruntime_support_cuda_ver is None:
+    ort_support_cuda_ver, ort_support_cudnn_ver = get_onnxruntime_support_cuda_version()
+    # 通常 onnxruntime 的 CUDA 版本和 CUDNN 版本会同时存在, 所以只需要判断 CUDA 版本是否存在即可
+    if ort_support_cuda_ver is None:
         return None
 
-    onnxruntime_support_cuda_ver = get_version(onnxruntime_support_cuda_ver)
+    ort_support_cuda_ver = get_version(ort_support_cuda_ver)
+    ort_support_cudnn_ver = int(get_version(ort_support_cudnn_ver))
 
     # 判断 Torch 中的 CUDA 版本是否为 CUDA 12.1
     if "cu12" in torch_ver: # CUDA 12.1
         # 比较 onnxtuntime 支持的 CUDA 版本是否和 Torch 中所带的 CUDA 版本匹配
-        if compare_versions(onnxruntime_support_cuda_ver, "12.0") == 1:
-            return None
+        if compare_versions(ort_support_cuda_ver, "12.0") == 1:
+            # CUDA 版本为 12.x, torch 和 ort 的 CUDA 版本匹配
+
+            # 判断 torch 和 ort 的 CUDNN 是否匹配
+            if ort_support_cudnn_ver > cuddn_ver: # ort CUDNN 版本 > torch CUDNN 版本
+                return "cu121cudnn8"
+            elif ort_support_cudnn_ver < cuddn_ver: # ort CUDNN 版本 < torch CUDNN 版本
+                return "cu121cudnn9"
+            else:
+                return None
         else:
-            return "cu121"
+            # CUDA 版本非 12.x
+            if cuddn_ver > 8:
+                return "cu121cudnn9"
+            else:
+                return "cu121cudnn8"
     else: # CUDA <= 11.8
-        if compare_versions(onnxruntime_support_cuda_ver, "12.0") == -1:
+        if compare_versions(ort_support_cuda_ver, "12.0") == -1:
             return None
         else:
             return "cu118"
