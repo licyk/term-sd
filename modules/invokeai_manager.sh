@@ -24,14 +24,15 @@ invokeai_manager() {
                     "0" "> 返回" \
                     "1" "> 启动" \
                     "2" "> 更新" \
-                    "3" "> 更新依赖" \
-                    "4" "> Python 软件包安装 / 重装 / 卸载" \
-                    "5" "> 依赖库版本管理" \
-                    "6" "> 重新安装 PyTorch" \
-                    "7" "> 修复虚拟环境" \
-                    "8" "> 重新构建虚拟环境" \
-                    "9" "> 重新安装" \
-                    "10" "> 卸载" \
+                    "3" "> 自定义节点管理" \
+                    "4" "> 更新依赖" \
+                    "5" "> Python 软件包安装 / 重装 / 卸载" \
+                    "6" "> 依赖库版本管理" \
+                    "7" "> 重新安装 PyTorch" \
+                    "8" "> 修复虚拟环境" \
+                    "9" "> 重新构建虚拟环境" \
+                    "10" "> 重新安装" \
+                    "11" "> 卸载" \
                     3>&1 1>&2 2>&3)
 
                 case "${dialog_arg}" in
@@ -65,6 +66,9 @@ invokeai_manager() {
                         fi
                         ;;
                     3)
+                        invokeai_custom_node_manager
+                        ;;
+                    4)
                             if (dialog --erase-on-exit \
                                 --title "InvokeAI 管理" \
                                 --backtitle "InvokeAI 依赖更新选项" \
@@ -75,7 +79,7 @@ invokeai_manager() {
                                 invokeai_update_depend
                             fi
                         ;;
-                    4)
+                    5)
                         if (dialog --erase-on-exit \
                             --title "InvokeAI 管理" \
                             --backtitle "InvokeAI 的 Python 软件包安装 / 重装 / 卸载选项" \
@@ -86,13 +90,13 @@ invokeai_manager() {
                             python_package_manager
                         fi
                         ;;
-                    5)
+                    6)
                         python_package_ver_backup_manager
                         ;;
-                    6)
+                    7)
                         pytorch_reinstall
                         ;;
-                    7)
+                    8)
                         if is_use_venv; then
                             if (dialog --erase-on-exit \
                                 --title "InvokeAI 管理" \
@@ -120,7 +124,7 @@ invokeai_manager() {
                                 $(get_dialog_size)
                         fi
                         ;;
-                    8)
+                    9)
                         if is_use_venv; then
                             if (dialog --erase-on-exit \
                                 --title "InvokeAI 管理" \
@@ -146,7 +150,7 @@ invokeai_manager() {
                                 $(get_dialog_size)
                         fi
                         ;;
-                    9)
+                    10)
                         if (dialog --erase-on-exit \
                             --title "InvokeAI 管理" \
                             --backtitle "InvokeAI 重新安装选项" \
@@ -161,7 +165,7 @@ invokeai_manager() {
                             break
                         fi
                         ;;
-                    10)
+                    11)
                         if (dialog --erase-on-exit \
                             --title "InvokeAI 管理" \
                             --backtitle "InvokeAI 删除选项" \

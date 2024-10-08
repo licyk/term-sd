@@ -10,3 +10,4 @@
 .agree_user_agreement
 /task/github_mirror_test
 /task/*.py
+/task/*.txt

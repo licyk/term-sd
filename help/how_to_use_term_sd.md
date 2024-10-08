@@ -433,11 +433,16 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 和 Stable Diffusion WebUI 的选择方法相同
 
 
-#### 3、Pip 安装模式选择
+#### 3、自定义节点安装
+第三个是自定义节点选择，Term-SD 默认已经勾选一些比较有用的自定义节点，可以根据个人需求进行选择  
+在 Term-SD 的帮助列表中可以查看自定义节点功能的描述，了解自定义节点的用途
+
+
+#### 4、Pip 安装模式选择
 和 Stable Diffusion WebUI 的选择方法相同
 
 
-#### 4、安装确认
+#### 5、安装确认
 最后一个是安装确认，选择`是`开始安装  
 安装时间根据网络速度和电脑性能决定
 
@@ -569,7 +574,7 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 ### 5、自定义节点管理
 用于管理自定义节点，包含以下功能
 >[!NOTE]
->仅限 ComfyUI
+>仅限 ComfyUI 和 InvokeAI
 
 - 1、安装：使用 Git 安装自定义节点
 - 2、管理：对插件进行管理，提供了一个自定义节点列表浏览器来选择插件
@@ -906,9 +911,10 @@ Term-SD 包含了一些扩展脚本，扩充 Term-SD 的功能
 - 2、list：列出可用的扩展脚本
 - 3、download-model：使用 Term-SD 的模型库下载模型
 - 4、download-sd-webui-extension：下载 Stable Diffusion WebUI 插件（脚本包含的插件列表在 Term-SD 的帮助中有说明）
-- 5、download-comfyui-extension：下载 ComfyUI 插件（脚本包含的插件列表在 Term-SD 的帮助中有说明）
-- 6、file-backup：备份 / 恢复 AI 软件的数据，备份文件储存在 Term-SD 的`backup`文件夹中
-- 7、clean-cache：使用`git gc`清理和优化`.git`文件夹，减小`.git`文件夹占用，并使用`python -m pip cache purge`清理 Pip 产生的缓存
+- 5、download-comfyui-extension：下载 ComfyUI 插件 / 自定义节点（脚本包含的插件 / 自定义节点列表在 Term-SD 的帮助中有说明）
+- 6、download-invokeai-extension：下载 InvokeAI 自定义节点（脚本包含的插件列表在 Term-SD 的帮助中有说明）
+- 7、file-backup：备份 / 恢复 AI 软件的数据，备份文件储存在 Term-SD 的`backup`文件夹中
+- 8、clean-cache：使用`git gc`清理和优化`.git`文件夹，减小`.git`文件夹占用，并使用`python -m pip cache purge`清理 Pip 产生的缓存
 
 >[!NOTE]
 >如果需要使用扩展脚本，则在启动 Term-SD 前加入`--extra`启动参数，或者`--extra <script_name>`即可使用扩展脚本

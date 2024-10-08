@@ -237,6 +237,10 @@ restore_python_package_ver() {
     local backup_name=$1
     local req_file_name=$2
     local i
+    local tmp_py_pkg_has_ver_list_path="${START_PATH}/term-sd/task/tmp-${TERM_SD_MANAGE_OBJECT}-python-pkg-has-vers.txt" # 含有版本的 Python 软件包列表(环境)
+    local tmp_py_pkg_no_ver_list_path="${START_PATH}/term-sd/task/tmp-${TERM_SD_MANAGE_OBJECT}-python-pkg-no-vers.txt" # 无版本的 Python 软件包列表(环境)
+    local tmp_py_pkg_no_ver_bak_list_path="${START_PATH}/term-sd/task/tmp-${TERM_SD_MANAGE_OBJECT}-python-pkg-no-vers-bak.txt" # 无版本的 Python 软件包列表(备份列表)
+    local ipex_mirror
     # 安装前的准备
     download_mirror_select # 下载镜像源选择
     pip_install_mode_select # 安装方式选择
@@ -246,33 +250,46 @@ restore_python_package_ver() {
         term_sd_echo "开始恢复依赖库版本中, 版本: ${req_file_name%.txt}"
         term_sd_echo "统计需要安装和卸载的 Python 软件包中"
 
-        # 这里不要用"",不然会出问题
-        cat "${START_PATH}"/term-sd/requirements-backup/${backup_name}/${req_file_name} | awk -F'==' '{print $1}' > tmp-python-pkg-no-vers-bak.txt # 生成一份无版本的备份列表
-        term_sd_pip freeze | awk -F '==' '{print $1}' | awk -F '@' '{print $1}' > tmp-python-pkg-no-vers.txt # 生成一份无版本的现有列表
+        rm -f "${tmp_py_pkg_has_ver_list_path}"
+        rm -f "${tmp_py_pkg_no_ver_list_path}"
+        rm -f "${tmp_py_pkg_no_ver_bak_list_path}"
+
+        cat "${START_PATH}"/term-sd/requirements-backup/${backup_name}/${req_file_name} | awk -F'==' '{print $1}' | awk -F '@' '{print $1}' > "${tmp_py_pkg_no_ver_bak_list_path}" # 生成一份无版本的备份列表
+        term_sd_pip freeze > "${tmp_py_pkg_has_ver_list_path}" # 生成一份含有版本的现有列表
 
         # 生成一份软件包卸载名单
-        for i in $(cat tmp-python-pkg-no-vers-bak.txt); do
-            sed -i '/'$i'/d' tmp-python-pkg-no-vers.txt 2> /dev/null # 需要卸载的依赖包名单
+        for i in $(cat "${tmp_py_pkg_no_ver_bak_list_path}"); do
+            sed -i '/'$i'==/d' "${tmp_py_pkg_has_ver_list_path}" 2> /dev/null
+            sed -i '/'$i' @/d' "${tmp_py_pkg_has_ver_list_path}" 2> /dev/null
         done
 
+        cat "${tmp_py_pkg_has_ver_list_path}" | awk -F '==' '{print $1}' | awk -F '@' '{print $1}' > "${tmp_py_pkg_no_ver_list_path}" # 生成一份无版本的卸载列表
+
         term_sd_tmp_disable_proxy # 临时取消代理,避免一些不必要的网络减速
-        if [[ ! -z "$(cat tmp-python-pkg-no-vers.txt)" ]]; then
+        if [[ ! -z "$(cat "${tmp_py_pkg_no_ver_list_path}")" ]]; then
             term_sd_print_line "Python 软件包卸载列表"
             term_sd_echo "将要卸载以下 Python 软件包"
-            cat tmp-python-pkg-no-vers.txt
+            cat "${tmp_py_pkg_no_ver_list_path}"
             term_sd_print_line
             term_sd_echo "卸载多余 Python 软件包中"
-            term_sd_pip uninstall -y -r tmp-python-pkg-no-vers.txt  # 卸载名单中的依赖包
+            term_sd_pip uninstall -y -r "${tmp_py_pkg_no_ver_list_path}" # 卸载名单中的依赖包
         fi
-        rm -f tmp-python-pkg-no-vers.txt # 删除卸载名单列表
-        rm -f tmp-python-pkg-no-vers-bak.txt # 删除不需要的包名文件缓存
+
         term_sd_print_line "Python 软件包安装列表"
         term_sd_echo "将要安装以下 Python 软件包"
         cat "${START_PATH}/term-sd/requirements-backup/${backup_name}/${req_file_name}"
         term_sd_print_line
         term_sd_echo "恢复依赖库版本中"
-        install_python_package -r "${START_PATH}/term-sd/requirements-backup/${backup_name}/${req_file_name}" --no-deps # 安装原有版本的依赖包
+        if is_use_pip_mirror; then
+            ipex_mirror="--extra-index-url https://pytorch-extension.intel.com/release-whl/stable/xpu/cn"
+        else
+            ipex_mirror="--extra-index-url https://pytorch-extension.intel.com/release-whl/stable/xpu/us"
+        fi
+        install_python_package -r "${START_PATH}/term-sd/requirements-backup/${backup_name}/${req_file_name}" --no-deps ${ipex_mirror} # 安装原有版本的依赖包
         term_sd_tmp_enable_proxy # 恢复原有的代理
+        rm -f "${tmp_py_pkg_has_ver_list_path}"
+        rm -f "${tmp_py_pkg_no_ver_list_path}"
+        rm -f "${tmp_py_pkg_no_ver_bak_list_path}"
         term_sd_echo "恢复依赖库版本完成"
         term_sd_pause
     fi

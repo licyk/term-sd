@@ -1,67 +1,54 @@
 #!/bin/bash
 
-# ComfyUI 自定义节点管理器
-# 管理 <ComfyUI Path>/custom_nodes 文件夹下的自定义节点
-comfyui_custom_node_manager() {
+# InvokeAI 自定义节点管理器
+# 管理 <InvokeAI Path>/invokeai/nodes 文件夹下的自定义节点
+invokeai_custom_node_manager() {
     local dialog_arg
 
-    if [[ ! -d "${COMFYUI_PATH}"/custom_nodes ]]; then
+    if [[ ! -d "${INVOKEAI_PATH}"/invokeai/nodes ]]; then
         dialog --erase-on-exit \
-            --title "ComfyUI 管理" \
-            --backtitle "ComfyUI 自定义节点管理选项" \
+            --title "InvokeAI 管理" \
+            --backtitle "InvokeAI 自定义节点管理选项" \
             --ok-label "确认" \
-            --msgbox "找不到 ComfyUI 自定义节点目录, 请检查 ComfyUI 是否安装完整" \
+            --msgbox "找不到 InvokeAI 自定义节点目录, 需启动一次生成 InvokeAI 以生成 InvokeAI 自定义目录" \
             $(get_dialog_size)
         return 1
     fi
 
     while true; do
-        cd "${COMFYUI_PATH}"/custom_nodes # 回到最初路径
+        cd "${INVOKEAI_PATH}"/invokeai/nodes # 回到最初路径
 
         dialog_arg=$(dialog --erase-on-exit --notags \
-            --title "ComfyUI 管理" \
-            --backtitle "ComfyUI 自定义节点管理选项" \
+            --title "InvokeAI 管理" \
+            --backtitle "InvokeAI 自定义节点管理选项" \
             --ok-label "确认" --cancel-label "取消" \
-            --menu "请选择 ComfyUI 自定义节点管理选项的功能" \
+            --menu "请选择 InvokeAI 自定义节点管理选项的功能" \
             $(get_dialog_size_menu) \
             "0" "> 返回" \
             "1" "> 安装自定义节点" \
             "2" "> 管理自定义节点" \
             "3" "> 更新全部自定义节点" \
-            "4" "> 安装全部自定义节点依赖" \
             3>&1 1>&2 2>&3)
 
         case "${dialog_arg}" in
             1)
                 # 选择安装
-                comfyui_custom_node_install
+                invokeai_custom_node_install
                 ;;
             2)
                 # 选择管理
-                comfyui_custom_node_list
+                invokeai_custom_node_list
                 ;;
             3)
                 # 选择更新全部自定义节点
                 if (dialog --erase-on-exit \
-                    --title "ComfyUI 管理" \
-                    --backtitle "ComfyUI 自定义节点管理" \
+                    --title "InvokeAI 管理" \
+                    --backtitle "InvokeAI 自定义节点管理" \
                     --yes-label "是" --no-label "否" \
-                    --yesno "是否更新所有 ComfyUI 自定义节点 ?" \
+                    --yesno "是否更新所有 InvokeAI 自定义节点 ?" \
                     $(get_dialog_size)); then
 
                     update_all_extension
-                fi
-                ;;
-            4)
-                # 选择安装全部自定义节点依赖
-                if (dialog --erase-on-exit \
-                    --title "ComfyUI 管理" \
-                    --backtitle "ComfyUI 自定义节点管理" \
-                    --yes-label "是" --no-label "否" \
-                    --yesno "是否安装所有 ComfyUI 自定义节点的依赖 ?" \
-                    $(get_dialog_size)); then
-
-                    comfyui_extension_depend_install "自定义节点"
                 fi
                 ;;
             *)
@@ -71,15 +58,14 @@ comfyui_custom_node_manager() {
     done
 }
 
-# ComfyUI 自定义节点安装
-# 使用 COMFYUI_CUSTOM_NODE_INSTALL_DEP_MESSAGE 全局变量临时储存安装信息
-comfyui_custom_node_install() {
+# InvokeAI 自定义节点安装
+invokeai_custom_node_install() {
     local repo_url
     local custom_node_name
 
     repo_url=$(dialog --erase-on-exit \
-        --title "ComfyUI 管理" \
-        --backtitle "ComfyUI 自定义节点安装选项" \
+        --title "InvokeAI 管理" \
+        --backtitle "InvokeAI 自定义节点安装选项" \
         --ok-label "确认" --cancel-label "取消" \
         --inputbox "输入自定义节点的 Github 地址或其他下载地址" \
         $(get_dialog_size) \
@@ -89,49 +75,55 @@ comfyui_custom_node_install() {
         custom_node_name=$(basename "${repo_url}" | awk -F '.git' '{print $1}')
         term_sd_echo "安装 ${custom_node_name} 自定义节点中"
         if ! term_sd_is_git_repository_exist "${repo_url}"; then # 检查待安装的自定义节点是否存在于自定义节点文件夹中
-            term_sd_try git clone --recurse-submodules "${repo_url}" "${COMFYUI_PATH}/custom_nodes/${custom_node_name}"
+            term_sd_try git clone --recurse-submodules "${repo_url}" "${INVOKEAI_PATH}/invokeai/nodes/${custom_node_name}"
             if [[ "$?" == 0 ]]; then
-                COMFYUI_CUSTOM_NODE_INSTALL_DEP_MESSAGE="${custom_node_name} 自定义节点安装成功"
-                comfyui_extension_depend_install_auto "自定义节点" "${custom_node_name}" # 检查是否存在依赖文件并安装
+                dialog --erase-on-exit \
+                    --title "InvokeAI 管理" \
+                    --backtitle "InvokeAI 自定义节点安装结果" \
+                    --ok-label "确认" \
+                    --msgbox "${custom_node_name} 自定义节点安装成功" \
+                    $(get_dialog_size)
             else
-                COMFYUI_CUSTOM_NODE_INSTALL_DEP_MESSAGE="${custom_node_name} 自定义节点安装失败"
+                dialog --erase-on-exit \
+                    --title "InvokeAI 管理" \
+                    --backtitle "InvokeAI 自定义节点安装结果" \
+                    --ok-label "确认" \
+                    --msgbox "${custom_node_name} 自定义节点安装失败" \
+                    $(get_dialog_size)
             fi
         else
-            COMFYUI_CUSTOM_NODE_INSTALL_DEP_MESSAGE="${custom_node_name} 自定义节点已存在"
+            dialog --erase-on-exit \
+                --title "InvokeAI 管理" \
+                --backtitle "InvokeAI 自定义节点安装结果" \
+                --ok-label "确认" \
+                --msgbox "${custom_node_name} 自定义节点已存在" \
+                $(get_dialog_size)
         fi
 
-        dialog --erase-on-exit \
-            --title "ComfyUI 管理" \
-            --backtitle "ComfyUI 自定义节点安装结果" \
-            --ok-label "确认" \
-            --msgbox "${COMFYUI_CUSTOM_NODE_INSTALL_DEP_MESSAGE}" \
-            $(get_dialog_size)
-
-        unset COMFYUI_CUSTOM_NODE_INSTALL_DEP_MESSAGE
     else
         dialog --erase-on-exit \
-            --title "ComfyUI 管理" \
-            --backtitle "ComfyUI 自定义节点管理选项" \
+            --title "InvokeAI 管理" \
+            --backtitle "InvokeAI 自定义节点管理选项" \
             --ok-label "确认" \
-            --msgbox "输入的 ComfyUI 自定义节点安装地址为空" \
+            --msgbox "输入的 InvokeAI 自定义节点安装地址为空" \
             $(get_dialog_size)
     fi
 }
 
 # 自定义节点浏览器
-# 将列出 <ComfyUI Path>/custom_nodes 中所有的自定义节点的文件夹
-comfyui_custom_node_list() {
+# 将列出 <InvokeAI Path>/invokeai/nodes 中所有的自定义节点的文件夹
+invokeai_custom_node_list() {
     local custom_node_name
 
     while true; do
-        cd "${COMFYUI_PATH}"/custom_nodes # 回到最初路径
+        cd "${INVOKEAI_PATH}"/invokeai/nodes # 回到最初路径
         get_dir_folder_list # 获取当前目录下的所有文件夹
 
         if term_sd_is_bash_ver_lower; then # Bash 版本低于 4 时使用旧版列表显示方案
             custom_node_name=$(dialog --erase-on-exit \
                 --ok-label "确认" --cancel-label "取消" \
-                --title "ComfyUI 管理" \
-                --backtitle "ComfyUI 自定义节点列表" \
+                --title "InvokeAI 管理" \
+                --backtitle "InvokeAI 自定义节点列表" \
                 --menu "使用上下键选择要操作的自定义节点并回车确认" \
                 $(get_dialog_size_menu) \
                 "-->返回<--" "<---------" \
@@ -140,8 +132,8 @@ comfyui_custom_node_list() {
         else
             custom_node_name=$(dialog --erase-on-exit \
                 --ok-label "确认" --cancel-label "取消" \
-                --title "ComfyUI 管理" \
-                --backtitle "ComfyUI 自定义节点列表" \
+                --title "InvokeAI 管理" \
+                --backtitle "InvokeAI 自定义节点列表" \
                 --menu "使用上下键选择要操作的自定义节点并回车确认" \
                 $(get_dialog_size_menu) \
                 "-->返回<--" "<---------" \
@@ -154,13 +146,13 @@ comfyui_custom_node_list() {
                 break
             elif [[ -d "${custom_node_name}" ]]; then # 选择文件夹
                 cd "${custom_node_name}"
-                comfyui_custom_node_interface "${custom_node_name}"
+                invokeai_custom_node_interface "${custom_node_name}"
             else
                 dialog --erase-on-exit \
-                    --title "ComfyUI 管理" \
-                    --backtitle "ComfyUI 自定义节点管理" \
+                    --title "InvokeAI 管理" \
+                    --backtitle "InvokeAI 自定义节点管理" \
                     --ok-label "确认" \
-                    --msgbox "当前的选择非 ComfyUI 自定义节点, 请重新选择" \
+                    --msgbox "当前的选择非 InvokeAI 自定义节点, 请重新选择" \
                     $(get_dialog_size)
             fi
         else
@@ -172,20 +164,19 @@ comfyui_custom_node_list() {
 }
 
 
-# ComfyUI 自定义节点管理
+# InvokeAI 自定义节点管理
 # 使用:
-# comfyui_custom_node_interface <自定义节点的文件夹名>
-comfyui_custom_node_interface() {
+# invokeai_custom_node_interface <自定义节点的文件夹名>
+invokeai_custom_node_interface() {
     local dialog_arg
-    local custom_node_name
+    local custom_node_name=$@
     local custom_node_folder=$@
     local dialog_buttom
     local status_display
     local custom_node_status
-    local tmp_folder_name
 
     while true; do
-        if [[ "$(awk -F '.' '{print $NF}' <<< ${custom_node_folder})" == "disabled" ]]; then
+        if [[ ! -f "__init__.py" ]]; then
             custom_node_status=0
             status_display="已禁用"
             dialog_buttom="启用"
@@ -195,48 +186,53 @@ comfyui_custom_node_interface() {
             dialog_buttom="禁用"
         fi
 
-        custom_node_name=$(awk -F '.disabled' '{print $1}' <<< ${custom_node_folder})
-
         dialog_arg=$(dialog --erase-on-exit --notags \
-            --title "ComfyUI 选项" \
-            --backtitle "ComfyUI 自定义节点管理选项" \
+            --title "InvokeAI 选项" \
+            --backtitle "InvokeAI 自定义节点管理选项" \
             --ok-label "确认" --cancel-label "取消" \
             --menu "请选择对 ${custom_node_name} 自定义节点的管理功能\n当前更新源: $(git_remote_display)\n当前分支: $(git_branch_display)\n当前状态: ${status_display}" \
             $(get_dialog_size_menu) \
             "0" "> 返回" \
             "1" "> 更新" \
             "2" "> 修复更新" \
-            "3" "> 安装依赖" \
-            "4" "> 版本切换" \
-            "5" "> 更新源切换" \
-            "6" "> ${dialog_buttom}自定义节点" \
-            "7" "> 卸载" \
+            "3" "> 版本切换" \
+            "4" "> 更新源切换" \
+            "5" "> ${dialog_buttom}自定义节点" \
+            "6" "> 卸载" \
             3>&1 1>&2 2>&3)
 
         case "${dialog_arg}" in
             1)
                 if is_git_repo; then
                     term_sd_echo "更新 ${custom_node_name} 自定义节点中"
+                    # 恢复文件
+                    if [[ "${custom_node_status}" == 0 ]] && [[ -f "__init__.py.bak" ]]; then
+                        mv -f "__init__.py.bak" "__init__.py" &> /dev/null
+                    fi
                     git_pull_repository
                     if [[ "$?" == 0 ]]; then
                         dialog --erase-on-exit \
-                            --title "ComfyUI 管理" \
-                            --backtitle "ComfyUI 自定义节点更新结果" \
+                            --title "InvokeAI 管理" \
+                            --backtitle "InvokeAI 自定义节点更新结果" \
                             --ok-label "确认" \
                             --msgbox "${custom_node_name} 自定义节点更新成功" \
                             $(get_dialog_size)
                     else
                         dialog --erase-on-exit \
-                            --title "ComfyUI 管理" \
-                            --backtitle "ComfyUI 自定义节点更新结果" \
+                            --title "InvokeAI 管理" \
+                            --backtitle "InvokeAI 自定义节点更新结果" \
                             --ok-label "确认" \
                             --msgbox "${custom_node_name} 自定义节点更新失败" \
                             $(get_dialog_size)
                     fi
+                    # 保持自定义节点启用或者禁用状态
+                    if [[ "${custom_node_status}" == 0 ]] && [[ ! -f "__init__.py.bak" ]] && [[ -f "__init__.py" ]]; then
+                        mv -f "__init__.py" "__init__.py.bak" &> /dev/null
+                    fi
                 else
                     dialog --erase-on-exit \
-                        --title "ComfyUI 管理" \
-                        --backtitle "ComfyUI 自定义节点更新结果" \
+                        --title "InvokeAI 管理" \
+                        --backtitle "InvokeAI 自定义节点更新结果" \
                         --ok-label "确认" \
                         --msgbox "${custom_node_name} 自定义节点非 Git 安装, 无法更新" \
                         $(get_dialog_size)
@@ -245,16 +241,26 @@ comfyui_custom_node_interface() {
             2)
                 if is_git_repo; then
                     if (dialog --erase-on-exit \
-                        --title "ComfyUI 管理" \
-                        --backtitle "ComfyUI 自定义节点修复更新" \
+                        --title "InvokeAI 管理" \
+                        --backtitle "InvokeAI 自定义节点修复更新" \
                         --yes-label "是" --no-label "否" \
                         --yesno "是否修复 ${custom_node_name} 自定义节点更新 ?" \
                         $(get_dialog_size)); then
 
+                        # 恢复文件
+                        if [[ "${custom_node_status}" == 0 ]] && [[ -f "__init__.py.bak" ]]; then
+                            mv -f "__init__.py.bak" "__init__.py" &> /dev/null
+                        fi
+
                         git_fix_pointer_offset
+                        # 保持自定义节点启用或者禁用状态
+                        if [[ "${custom_node_status}" == 0 ]] && [[ ! -f "__init__.py.bak" ]] && [[ -f "__init__.py" ]]; then
+                            mv -f "__init__.py" "__init__.py.bak" &> /dev/null
+                        fi
+
                         dialog --erase-on-exit \
-                            --title "ComfyUI 管理" \
-                            --backtitle "ComfyUI 自定义节点修复更新" \
+                            --title "InvokeAI 管理" \
+                            --backtitle "InvokeAI 自定义节点修复更新" \
                             --ok-label "确认" \
                             --msgbox "${custom_node_name} 自定义节点修复更新完成" \
                             $(get_dialog_size)
@@ -263,58 +269,44 @@ comfyui_custom_node_interface() {
                     fi
                 else
                     dialog --erase-on-exit \
-                        --title "ComfyUI 管理" \
-                        --backtitle "ComfyUI 自定义节点修复更新" \
+                        --title "InvokeAI 管理" \
+                        --backtitle "InvokeAI 自定义节点修复更新" \
                         --ok-label "确认" \
                         --msgbox "${custom_node_name} 自定义节点非 Git 安装, 无法修复更新" \
                         $(get_dialog_size)
                 fi
                 ;;
             3)
-                # ComfyUI 并不像 SD WebUI 自动为插件安装依赖, 所以只能手动装
-                if (dialog --erase-on-exit \
-                    --title "ComfyUI 选项" \
-                    --backtitle "ComfyUI 自定义节点依赖安装选项" \
-                    --yes-label "是" --no-label "否" \
-                    --yesno "是否安装 ${custom_node_name} 自定义节点依赖 ?" \
-                    $(get_dialog_size)); then
-
-                    comfyui_extension_depend_install_single "自定义节点" "${custom_node_folder}"
-                else
-                    term_sd_echo "取消安装 ${custom_node_name} 自定义节点依赖"
-                fi
-                ;;
-            4)
                 if is_git_repo; then
                     if (dialog --erase-on-exit \
-                        --title "ComfyUI 管理" \
-                        --backtitle "ComfyUI 自定义节点版本切换" \
+                        --title "InvokeAI 管理" \
+                        --backtitle "InvokeAI 自定义节点版本切换" \
                         --yes-label "是" --no-label "否" \
                         --yesno "是否切换 ${custom_node_name} 自定义节点版本 ?" \
                         $(get_dialog_size)); then
 
                         git_ver_switch
                         dialog --erase-on-exit \
-                            --title "ComfyUI 管理" \
-                            --backtitle "ComfyUI 自定义节点版本切换" \
+                            --title "InvokeAI 管理" \
+                            --backtitle "InvokeAI 自定义节点版本切换" \
                             --ok-label "确认" \
                             --msgbox "${custom_node_name} 自定义节点版本切换完成, 当前版本为: $(git_branch_display)" \
                             $(get_dialog_size)
                     fi
                 else
                     dialog --erase-on-exit \
-                        --title "ComfyUI 管理" \
-                        --backtitle "ComfyUI自定义节点版本切换" \
+                        --title "InvokeAI 管理" \
+                        --backtitle "InvokeAI自定义节点版本切换" \
                         --ok-label "确认" \
                         --msgbox "${custom_node_name} 自定义节点非 Git 安装, 无法进行版本切换" \
                         $(get_dialog_size)
                 fi
                 ;;
-            5)
+            4)
                 if is_git_repo; then
                     if (dialog --erase-on-exit \
-                        --title "ComfyUI 管理" \
-                        --backtitle "ComfyUI 自定义节点更新源切换" \
+                        --title "InvokeAI 管理" \
+                        --backtitle "InvokeAI 自定义节点更新源切换" \
                         --yes-label "是" --no-label "否" \
                         --yesno "是否切换 ${custom_node_name} 自定义节点更新源 ?" \
                         $(get_dialog_size)); then
@@ -323,60 +315,52 @@ comfyui_custom_node_interface() {
                     fi
                 else
                     dialog --erase-on-exit \
-                        --title "ComfyUI 管理" \
-                        --backtitle "ComfyUI 自定义节点更新源切换" \
+                        --title "InvokeAI 管理" \
+                        --backtitle "InvokeAI 自定义节点更新源切换" \
                         --ok-label "确认" \
                         --msgbox "${custom_node_name} 自定义节点非 Git 安装, 无法进行更新源切换" \
                         $(get_dialog_size)
                 fi
                 ;;
-            6)
+            5)
                 if [[ "${custom_node_status}" == 0 ]]; then
                     if (dialog --erase-on-exit \
-                        --title "ComfyUI 管理" \
-                        --backtitle "ComfyUI 自定义节点更新源切换" \
+                        --title "InvokeAI 管理" \
+                        --backtitle "InvokeAI 自定义节点更新源切换" \
                         --yes-label "是" --no-label "否" \
                         --yesno "是否启用 ${custom_node_name} 自定义节点 ?" \
                         $(get_dialog_size)); then
 
-                        tmp_folder_name=$custom_node_folder
-                        custom_node_folder=$(awk -F '.disabled' '{print $1}' <<< ${custom_node_folder})
-                        cd ..
-                        mv "${tmp_folder_name}" "${custom_node_folder}"
-                        cd "${custom_node_folder}"
+                        mv -f "__init__.py.bak" "__init__.py" &> /dev/null
                     else
                         continue
                     fi
                 else
                     if (dialog --erase-on-exit \
-                        --title "ComfyUI 管理" \
-                        --backtitle "ComfyUI 自定义节点更新源切换" \
+                        --title "InvokeAI 管理" \
+                        --backtitle "InvokeAI 自定义节点更新源切换" \
                         --yes-label "是" --no-label "否" \
                         --yesno "是否禁用 ${custom_node_name} 自定义节点 ?" \
                         $(get_dialog_size)); then
 
-                        tmp_folder_name=$custom_node_folder
-                        custom_node_folder="${custom_node_folder}.disabled"
-                        cd ..
-                        mv -f "${tmp_folder_name}" "${custom_node_folder}"
-                        cd "${custom_node_folder}"
+                        mv -f "__init__.py" "__init__.py.bak" &> /dev/null
                     else
                         continue
                     fi
                 fi
 
                 dialog --erase-on-exit \
-                    --title "ComfyUI 管理" \
-                    --backtitle "ComfyUI 自定义节点删除选项" \
+                    --title "InvokeAI 管理" \
+                    --backtitle "InvokeAI 自定义节点删除选项" \
                     --ok-label "确认" \
                     --msgbox "${dialog_buttom} ${custom_node_name} 自定义节点成功" \
                     $(get_dialog_size)
                 
                 ;;
-            7)
+            6)
                 if (dialog --erase-on-exit \
-                    --title "ComfyUI 选项" \
-                    --backtitle "ComfyUI 自定义节点删除选项" \
+                    --title "InvokeAI 选项" \
+                    --backtitle "InvokeAI 自定义节点删除选项" \
                     --yes-label "是" --no-label "否" \
                     --yesno "是否删除 ${custom_node_name} 自定义节点 ?" \
                     $(get_dialog_size)); then
@@ -391,8 +375,8 @@ comfyui_custom_node_interface() {
                             rm -rf "${custom_node_folder}"
 
                             dialog --erase-on-exit \
-                            --title "ComfyUI 管理" \
-                            --backtitle "ComfyUI 自定义节点删除选项" \
+                            --title "InvokeAI 管理" \
+                            --backtitle "InvokeAI 自定义节点删除选项" \
                             --ok-label "确认" \
                             --msgbox "删除 ${custom_node_name} 自定义节点完成" \
                             $(get_dialog_size)

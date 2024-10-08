@@ -1010,7 +1010,7 @@ main() {
     fi
 
     # 变量初始化
-    TERM_SD_VER="1.4.5" #  Term-SD 版本
+    TERM_SD_VER="1.4.6" #  Term-SD 版本
     USER_SHELL=$(basename "${SHELL}") # 读取用户所使用的 Shell
     START_PATH=$(pwd) # 设置启动时脚本路径
     export PYTHONUTF8=1 # 强制 Python 解释器使用 UTF-8 编码来处理字符串, 避免乱码问题
@@ -1023,6 +1023,7 @@ main() {
     # TERM_SD_PIP_EXTRA_INDEX_URL="https://mirror.baidu.com/pypi/simple"
     TERM_SD_PIP_EXTRA_INDEX_URL="https://mirrors.cernet.edu.cn/pypi/web/simple"
     TERM_SD_PIP_FIND_LINKS="https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
+    TERM_SD_PYPI_MIRROR="https://licyk.github.io/t/pypi/index_ms_mirror.html"
     TERM_SD_PIP_INDEX_URL_ARG="" # 用于设置 Pip 镜像源的命令参数
     TERM_SD_PIP_EXTRA_INDEX_URL_ARG=""
     TERM_SD_PIP_FIND_LINKS_ARG=""
@@ -1355,17 +1356,17 @@ main() {
             1)
                 export PIP_INDEX_URL="https://pypi.python.org/simple"
                 export PIP_EXTRA_INDEX_URL=""
-                export PIP_FIND_LINKS="https://download.pytorch.org/whl/torch_stable.html"
+                export PIP_FIND_LINKS="https://download.pytorch.org/whl/torch_stable.html ${TERM_SD_PYPI_MIRROR}"
                 ;;
             2)
                 export PIP_INDEX_URL=$TERM_SD_PIP_INDEX_URL
                 export PIP_EXTRA_INDEX_URL=$TERM_SD_PIP_EXTRA_INDEX_URL
-                export PIP_FIND_LINKS=$TERM_SD_PIP_FIND_LINKS
+                export PIP_FIND_LINKS="$TERM_SD_PIP_FIND_LINKS ${TERM_SD_PYPI_MIRROR}"
                 ;;
             *)
                 export PIP_INDEX_URL=$TERM_SD_PIP_INDEX_URL
                 export PIP_EXTRA_INDEX_URL=$TERM_SD_PIP_EXTRA_INDEX_URL
-                export PIP_FIND_LINKS=$TERM_SD_PIP_FIND_LINKS
+                export PIP_FIND_LINKS="$TERM_SD_PIP_FIND_LINKS ${TERM_SD_PYPI_MIRROR}"
                 ;;
         esac
     fi

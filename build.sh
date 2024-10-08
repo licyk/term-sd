@@ -3,8 +3,7 @@
 # 该脚本用于生成 Dialog 界面所需的选项
 
 # 生成插件列表
-build_list()
-{
+build_list() {
     local point
     local name
     local describe
@@ -30,15 +29,14 @@ build_list()
 }
 
 # 生成模型列表
-build_list_for_model()
-{
+build_list_for_model() {
     local input_file=$1
     local output_file=$2
     cat "${input_file}" | awk '{if ($NF!="") {print $1 " " $(NF-1) " " $NF} }' >> "${output_file}"
 }
 
-build_dialog_list()
-{
+# 生成 Dialog 列表
+build_dialog_list() {
     local start_time=$(date +'%Y-%m-%d %H:%M:%S')
     local start_time_seconds=$(date --date="${start_time}" +%s)
     local input_file=$1
@@ -58,8 +56,7 @@ build_dialog_list()
 }
 
 # 生成 SD WebUI 插件说明
-build_dialog_list_sd_webui()
-{
+build_dialog_list_sd_webui() {
     local start_time=$(date +'%Y-%m-%d %H:%M:%S')
     local start_time_seconds=$(date --date="${start_time}" +%s)
     local input_file=$1
@@ -104,8 +101,7 @@ build_dialog_list_sd_webui()
 }
 
 # 生成 ComfyUI 扩展说明
-build_dialog_list_comfyui()
-{
+build_dialog_list_comfyui() {
     local start_time=$(date +'%Y-%m-%d %H:%M:%S')
     local start_time_seconds=$(date --date="${start_time}" +%s)
     local input_file_1=$1
@@ -175,9 +171,53 @@ build_dialog_list_comfyui()
     echo ":: 完成, 用时: ${time_span} sec"
 }
 
+# 生成 InvokeAI 自定义节点说明
+build_dialog_list_invokeai() {
+    local start_time=$(date +'%Y-%m-%d %H:%M:%S')
+    local start_time_seconds=$(date --date="${start_time}" +%s)
+    local input_file=$1
+    local output_file=$2
+    local cache_file="task/dialog_cache.sh"
+    local flag=0
+    local count=1
+    local end_time
+    local end_time_seconds
+    local time_span
+    if [[ -f "${output_file}" ]]; then
+        rm -f "${output_file}"
+    fi
+    echo ":: 生成 ${output_file} 中"
+    echo "InvokeAI 自定义节点说明：" >> "${output_file}"
+    echo "注：" >> "${output_file}"
+    echo "1、有些插件因为年久失修，可能会出现兼容性问题。具体介绍请通过链接查看项目的说明" >> "${output_file}"
+    echo "2、在名称右上角标 * 的为安装时默认勾选的插件" >> "${output_file}"
+
+    while true; do
+        extension_url=$(cat "${input_file}" | awk 'NR=='${count}' {print $3}')
+        extension_name=$(cat "${input_file}" | awk 'NR=='${count}' {print $3}' | awk -F '/' '{print $NF}')
+        extension_description=$(cat "${input_file}" | awk 'NR=='${count}' {print $7}')
+        list_head=$(cat "${input_file}" | awk 'NR=='${count}' {print $1}')
+        normal_install_info=$([ "$(cat "${input_file}" | awk 'NR=='${count}' {print $5}')" = "ON" ] && echo "*")
+        if [[ -z "${list_head}" ]]; then
+            break
+        else
+            if [[ -z "$(grep __term_sd_task_sys <<< ${list_head})" ]]; then
+                echo "" >> "${output_file}"
+                echo "${count}、${extension_name}${normal_install_info}"  >> "${output_file}"
+                echo "描述：${extension_description}" >> "${output_file}"
+                echo "链接：${extension_url}" >> "${output_file}"
+            fi
+        fi
+        count=$(( count + 1 ))
+    done
+    end_time=$(date +'%Y-%m-%d %H:%M:%S')
+    end_time_seconds=$(date --date="${end_time}" +%s)
+    time_span=$(( end_time_seconds - start_time_seconds )) # 计算相隔时间
+    echo ":: 完成, 用时: ${time_span} sec"
+}
+
 # 生成模型选择列表
-build_dialog_list_model()
-{
+build_dialog_list_model() {
     local start_time=$(date +'%Y-%m-%d %H:%M:%S')
     local start_time_seconds=$(date --date="${start_time}" +%s)
     local input_file=$1
@@ -197,8 +237,7 @@ build_dialog_list_model()
 }
 
 # 从列表截取命令
-get_task_cmd()
-{
+get_task_cmd() {
     local task_cmd_sign
     local task_cmd
     task_cmd_sign=$(echo $@ | awk '{print $1}')
@@ -207,8 +246,7 @@ get_task_cmd()
 }
 
 # 重排序标签
-sort_head_point()
-{
+sort_head_point() {
     local cmd_sum
     local cmd_point
     local input_file=$2
@@ -241,8 +279,7 @@ sort_head_point()
 }
 
 # 链接查重
-detect_uplicate()
-{
+detect_uplicate() {
     local list_type=$1
     local file_path=$2
     local cmd_sum=$(( $(cat "${file_path}" | wc -l) + 1)) # 统计命令行数
@@ -303,15 +340,15 @@ detect_uplicate()
 #############################
 
 
-if [ ! -d "modules" ] || [ ! -d "install" ] || [ ! -d "task" ] || [ ! -d "help" ]; then
+if [[ ! -d "modules" ]] || [[ ! -d "install" ]] || [[ ! -d "task" ]] || [[ ! -d "help" ]]; then
     echo ":: 目录错误"
     exit 1
-elif [ ! "$(dirname "$(echo $0)")" = "." ]; then
+elif [[ ! "$(dirname "$0")" = "." ]]; then
     echo ":: 目录错误"
     exit 1
 fi
 
-if [ ! -z "$*" ]; then
+if [[ ! -z "$@" ]]; then
     echo "----------build----------"
     start_time_sum=$(date +'%Y-%m-%d %H:%M:%S')
     start_time_seconds_sum=$(date --date="$start_time_sum" +%s)
@@ -331,12 +368,14 @@ if [ ! -z "$*" ]; then
                 ;;
             --build)
                 echo ":: 构建列表"
+                build_dialog_list install/sd_webui/sd_webui_extension.sh install/sd_webui/dialog_sd_webui_extension.sh
                 build_dialog_list install/comfyui/comfyui_custom_node.sh install/comfyui/dialog_comfyui_custom_node.sh
                 build_dialog_list install/comfyui/comfyui_extension.sh install/comfyui/dialog_comfyui_extension.sh
-                build_dialog_list install/sd_webui/sd_webui_extension.sh install/sd_webui/dialog_sd_webui_extension.sh
+                build_dialog_list install/invokeai/invokeai_custom_node.sh install/invokeai/dialog_invokeai_custom_node.sh
 
                 build_dialog_list_sd_webui install/sd_webui/sd_webui_extension.sh help/sd_webui_extension_description.md
                 build_dialog_list_comfyui install/comfyui/comfyui_extension.sh install/comfyui/comfyui_custom_node.sh help/comfyui_extension_description.md
+                build_dialog_list_invokeai install/invokeai/invokeai_custom_node.sh help/invokeai_custom_node_description.md
 
                 build_dialog_list_model install/sd_webui/sd_webui_hf_model.sh install/sd_webui/dialog_sd_webui_hf_model.sh
                 build_dialog_list_model install/sd_webui/sd_webui_ms_model.sh install/sd_webui/dialog_sd_webui_ms_model.sh
@@ -376,9 +415,10 @@ if [ ! -z "$*" ]; then
                 sort_head_point __term_sd_task_pre_model_ install/kohya_ss/kohya_ss_hf_model.sh
                 sort_head_point __term_sd_task_pre_model_ install/kohya_ss/kohya_ss_ms_model.sh
 
+                sort_head_point __term_sd_task_pre_ext_ install/sd_webui/sd_webui_extension.sh
                 sort_head_point __term_sd_task_pre_ext_ install/comfyui/comfyui_custom_node.sh
                 sort_head_point __term_sd_task_pre_ext_ install/comfyui/comfyui_extension.sh
-                sort_head_point __term_sd_task_pre_ext_ install/sd_webui/sd_webui_extension.sh
+                sort_head_point __term_sd_task_pre_ext_ install/invokeai/invokeai_custom_node.sh
                 ;;
             --check)
                 echo ":: 重复链接检测"
@@ -400,9 +440,10 @@ if [ ! -z "$*" ]; then
                 detect_uplicate model install/kohya_ss/kohya_ss_hf_model.sh
                 detect_uplicate model install/kohya_ss/kohya_ss_ms_model.sh
 
+                detect_uplicate extension install/sd_webui/sd_webui_extension.sh
                 detect_uplicate extension install/comfyui/comfyui_custom_node.sh
                 detect_uplicate extension install/comfyui/comfyui_extension.sh
-                detect_uplicate extension install/sd_webui/sd_webui_extension.sh
+                detect_uplicate extension install/invokeai/invokeai_custom_node.sh
                 ;;
             *)
                 echo ":: 未知参数: \"${n}\""

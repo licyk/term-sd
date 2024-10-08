@@ -468,7 +468,8 @@ term_sd_help() {
             "3" "> 目录说明" \
             "4" "> Stable-Diffusion-WebUI 插件说明" \
             "5" "> ComfyUI 插件 / 自定义节点说明" \
-            "6" "> 用户协议" \
+            "6" "> InvokeAI 自定义节点说明" \
+            "7" "> 用户协议" \
             3>&1 1>&2 2>&3)
 
         case "${dialog_arg}" in
@@ -510,6 +511,14 @@ term_sd_help() {
                     $(get_dialog_size)
                 ;;
             6)
+                dialog --erase-on-exit \
+                    --title "Term-SD" \
+                    --backtitle "Term-SD 帮助选项" \
+                    --ok-label "确认" \
+                    --msgbox "$(cat term-sd/help/invokeai_custom_node_description.md)" \
+                    $(get_dialog_size)
+                    ;;
+            7)
                 dialog --erase-on-exit \
                     --title "Term-SD" \
                     --backtitle "Term-SD 帮助选项" \

@@ -179,8 +179,9 @@ sd_webui_extension_install_select() {
 # 将选择的模型保存在 SD_WEBUI_DOWNLOAD_MODEL_LIST 全局变量中
 sd_webui_download_model_select() {
     local dialog_list_file
-    local extension_list
+    local model_list
     local sd_webui_model_list_file
+    local i
     # 插件模型列表选择
     if is_use_modelscope_src; then
         dialog_list_file="sd_webui_extension_ms_model.sh"
@@ -193,7 +194,7 @@ sd_webui_download_model_select() {
     term_sd_echo "生成模型选择列表中"
     # 查找插件对应模型的编号
     for i in ${SD_WEBUI_INSTALL_EXTENSION_LIST}; do
-        extension_list="${extension_list} $(cat "${START_PATH}"/term-sd/install/sd_webui/${dialog_list_file} | grep -w ${i} | awk 'NR==1{if ($NF!="") {print $1 " " $(NF-1) " " $NF} }')"
+        model_list="${model_list} $(cat "${START_PATH}"/term-sd/install/sd_webui/${dialog_list_file} | grep -w ${i} | awk 'NR==1{if ($NF!="") {print $1 " " $(NF-1) " " $NF} }')"
     done
 
     # 模型选择(包含基础模型和插件的模型)
@@ -206,7 +207,7 @@ sd_webui_download_model_select() {
         "_null_" "=====基础模型选择=====" ON \
         $(cat "${START_PATH}/term-sd/install/sd_webui/${sd_webui_model_list_file}") \
         "_null_" "=====插件模型选择=====" ON \
-        $extension_list \
+        ${model_list} \
         3>&1 1>&2 2>&3)
 }
 

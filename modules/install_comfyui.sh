@@ -237,6 +237,6 @@ comfyui_download_model_select() {
         "_null_" "=====基础模型选择=====" ON \
         $(cat "${START_PATH}/term-sd/install/comfyui/${dialog_list_file}") \
         "_null_" "=====插件模型选择=====" ON \
-        $model_list \
+        ${model_list} \
         3>&1 1>&2 2>&3)
 }
