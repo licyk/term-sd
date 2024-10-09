@@ -10,6 +10,7 @@ update_all_extension() {
     local success_count=0
     local fail_count=0
     local i
+    local is_invokeai_node_disable=0
 
     term_sd_print_line "${TERM_SD_MANAGE_OBJECT} 插件一键更新"
     # 统计需要更新的数量
@@ -25,6 +26,13 @@ update_all_extension() {
             count=$(( count + 1 ))
             term_sd_echo "[${count}/${sum}] 更新 $(basename "${i}") 插件中"
             extension_update_req="${extension_update_req}$(basename "${i}") 插件:"
+
+            # 当 InvokeAI 自定义节点禁用时恢复启用状态
+            if [[ "${TERM_SD_MANAGE_OBJECT}" == "InvokeAI" ]] && [[ -f "${i}/__init__.py.bak" ]]; then
+                mv -f "${i}/__init__.py.bak" "${i}/__init__.py" &> /dev/null
+                is_invokeai_node_disable=1
+            fi
+
             git_pull_repository "${i}" # 更新插件
         
             if [[ "$?" == 0 ]]; then
@@ -33,6 +41,12 @@ update_all_extension() {
             else
                 extension_update_req="${extension_update_req} 更新失败 ×\n"
                 fail_count=$(( fail_count + 1 ))
+            fi
+
+            # 恢复 InvokeAI 自定义节点的禁用状态
+            if [[ "${TERM_SD_MANAGE_OBJECT}" == "InvokeAI" ]] && [[ "${is_invokeai_node_disable}" == 1 ]] && [[ -f "${i}/__init__.py" ]]; then
+                mv -f "${i}/__init__.py" "${i}/__init__.py.bak" &> /dev/null
+                is_invokeai_node_disable=0
             fi
         fi
     done

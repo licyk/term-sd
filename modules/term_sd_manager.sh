@@ -29,7 +29,6 @@ term_sd_launch() {
     local hf_mirror_for_fooocus
     local is_sdnext=0
     local tmp_pip_find_links=$PIP_FIND_LINKS
-    local use_pip_mirror_for_controlnet_ext=0
     local github_mirror
 
     term_sd_print_line "${TERM_SD_MANAGE_OBJECT} 启动"
@@ -81,14 +80,9 @@ term_sd_launch() {
             fi
 
             # 为 ControlNet 插件的依赖安装设置镜像源
-            if [[ "$(cat "${START_PATH}/term-sd/config/term-sd-pip-mirror.conf" 2> /dev/null)" == 2 ]]; then
-                term_sd_echo "检测到启用了 Pip 镜像源, 为 ControlNet 插件的依赖下载启用镜像源"
-                use_pip_mirror_for_controlnet_ext=1
-                export PIP_FIND_LINKS="${PIP_FIND_LINKS} https://licyk.github.io/t/pypi/index_ms_mirror.html"
-                export INSIGHTFACE_WHEEL="insightface"
-                export DEPTH_ANYTHING_WHEEL="depth_anything"
-                export HANDREFINER_WHEEL="handrefinerportable"
-            fi
+            is_windows_platform && export INSIGHTFACE_WHEEL="insightface"
+            export DEPTH_ANYTHING_WHEEL="depth_anything"
+            export HANDREFINER_WHEEL="handrefinerportable"
             ;;
         ComfyUI)
             launch_sd_config="comfyui-launch.conf"
@@ -143,7 +137,6 @@ term_sd_launch() {
         echo "github_mirror: ${github_mirror}"
         echo "WEBUI_EXTENSIONS_INDEX: ${WEBUI_EXTENSIONS_INDEX}"
         echo "CLIP_PACKAGE: ${CLIP_PACKAGE}"
-        echo "PIP_FIND_LINKS: ${PIP_FIND_LINKS}"
         echo "INSIGHTFACE_WHEEL: ${INSIGHTFACE_WHEEL}"
         echo "DEPTH_ANYTHING_WHEEL: ${DEPTH_ANYTHING_WHEEL}"
         echo "HANDREFINER_WHEEL: ${HANDREFINER_WHEEL}"
@@ -211,12 +204,9 @@ term_sd_launch() {
         unset PYTORCH_CUDA_ALLOC_CONF
     fi
 
-    if [[ "${use_pip_mirror_for_controlnet_ext}" == 1 ]]; then
-        export PIP_FIND_LINKS=$tmp_pip_find_links
-        unset INSIGHTFACE_WHEEL
-        unset DEPTH_ANYTHING_WHEEL
-        unset HANDREFINER_WHEEL
-    fi
+    unset INSIGHTFACE_WHEEL
+    unset DEPTH_ANYTHING_WHEEL
+    unset HANDREFINER_WHEEL
 
     term_sd_pause
 }

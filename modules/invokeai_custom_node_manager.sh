@@ -226,7 +226,7 @@ invokeai_custom_node_interface() {
                             $(get_dialog_size)
                     fi
                     # 保持自定义节点启用或者禁用状态
-                    if [[ "${custom_node_status}" == 0 ]] && [[ ! -f "__init__.py.bak" ]] && [[ -f "__init__.py" ]]; then
+                    if [[ "${custom_node_status}" == 0 ]] && [[ -f "__init__.py" ]]; then
                         mv -f "__init__.py" "__init__.py.bak" &> /dev/null
                     fi
                 else
@@ -254,7 +254,7 @@ invokeai_custom_node_interface() {
 
                         git_fix_pointer_offset
                         # 保持自定义节点启用或者禁用状态
-                        if [[ "${custom_node_status}" == 0 ]] && [[ ! -f "__init__.py.bak" ]] && [[ -f "__init__.py" ]]; then
+                        if [[ "${custom_node_status}" == 0 ]] && [[ -f "__init__.py" ]]; then
                             mv -f "__init__.py" "__init__.py.bak" &> /dev/null
                         fi
 
