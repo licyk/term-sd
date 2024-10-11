@@ -300,7 +300,6 @@ lora_scripts_update_depend() {
         term_sd_print_line "lora-scripts 依赖更新"
         term_sd_echo "更新 lora-scripts 依赖中"
         term_sd_tmp_disable_proxy
-        create_venv
         enter_venv
         cd scripts/dev
         python_package_update requirements.txt # scripts 目录下还有个_typos.toml，在安装 requirements.txt 里的依赖时会指向这个文件

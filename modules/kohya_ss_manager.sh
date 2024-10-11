@@ -307,7 +307,6 @@ kohya_ss_update_depend() {
         term_sd_print_line "kohya_ss 依赖更新"
         term_sd_echo "更新 kohya_ss 依赖中"
         term_sd_tmp_disable_proxy
-        create_venv
         enter_venv
         python_package_update "requirements.txt" # kohya_ss安装依赖
         exit_venv

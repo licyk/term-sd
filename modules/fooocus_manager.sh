@@ -292,7 +292,6 @@ fooocus_update_depend() {
         term_sd_print_line "Fooocus 依赖更新"
         term_sd_echo "更新 Fooocus 依赖中"
         term_sd_tmp_disable_proxy
-        create_venv
         enter_venv
         python_package_update "requirements_versions.txt"
         exit_venv

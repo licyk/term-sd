@@ -345,7 +345,6 @@ sd_webui_update_depend() {
         term_sd_print_line "Stable-Diffusion-WebUI 依赖更新"
         term_sd_echo "更新 Stable-Diffusion-WebUI 依赖中"
         term_sd_tmp_disable_proxy
-        create_venv
         enter_venv
         python_package_update "requirements_versions.txt"
         install_python_package git+$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/openai/CLIP)

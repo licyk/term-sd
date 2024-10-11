@@ -18,7 +18,6 @@ pytorch_reinstall() {
             # 开始安装pytorch
             term_sd_print_line "PyTorch 安装"
             term_sd_tmp_disable_proxy
-            create_venv
             enter_venv
             install_pytorch
             exit_venv

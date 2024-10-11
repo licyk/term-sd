@@ -242,7 +242,6 @@ invokeai_update_depend() {
         term_sd_print_line "InvokeAI 依赖更新"
         term_sd_echo "更新 InvokeAI 依赖中"
         term_sd_tmp_disable_proxy
-        create_venv
         enter_venv
         get_python_env_pkg | awk -F '==' '{print $1}' > requirements.txt #生成一个更新列表
         python_package_update "requirements.txt"

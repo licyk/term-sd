@@ -7,7 +7,7 @@ __term_sd_task_sys cd "${KOHYA_SS_FOLDER}"
 __term_sd_task_pre_core git_init_submodule "${KOHYA_SS_PATH}" # 初始化 Git 子模块
 __term_sd_task_sys is_sd_repo_exist "${KOHYA_SS_PATH}"
 __term_sd_task_sys term_sd_tmp_disable_proxy # 临时取消代理, 避免一些不必要的网络减速
-__term_sd_task_sys create_venv "${KOHYA_SS_PATH}"
+__term_sd_task_pre_core create_venv "${KOHYA_SS_PATH}"
 __term_sd_task_sys enter_venv "${KOHYA_SS_PATH}"
 __term_sd_task_pre_core term_sd_mkdir "${KOHYA_SS_PATH}"/output
 __term_sd_task_pre_core term_sd_mkdir "${KOHYA_SS_PATH}"/train

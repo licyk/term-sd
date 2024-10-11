@@ -303,7 +303,6 @@ comfyui_update_depend() {
         term_sd_print_line "ComfyUI 依赖更新"
         term_sd_echo "更新 ComfyUI 依赖中"
         term_sd_tmp_disable_proxy
-        create_venv
         enter_venv
         python_package_update "requirements.txt"
         exit_venv

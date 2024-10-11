@@ -3,7 +3,7 @@ __term_sd_task_sys cd "${INVOKEAI_PARENT_PATH}"
 __term_sd_task_sys term_sd_tmp_disable_proxy # 临时取消代理, 避免一些不必要的网络减速
 __term_sd_task_sys term_sd_mkdir "${INVOKEAI_FOLDER}"
 __term_sd_task_sys is_sd_repo_exist "${INVOKEAI_PATH}"
-__term_sd_task_sys create_venv "${INVOKEAI_PATH}"
+__term_sd_task_pre_core create_venv "${INVOKEAI_PATH}"
 __term_sd_task_sys enter_venv "${INVOKEAI_PATH}"
 __term_sd_task_pre_core install_pytorch # 安装 PyTorch
 __term_sd_task_pre_core install_python_package invokeai

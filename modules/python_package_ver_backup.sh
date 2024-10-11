@@ -274,6 +274,8 @@ restore_python_package_ver() {
             term_sd_print_line
             term_sd_echo "卸载多余 Python 软件包中"
             term_sd_pip uninstall -y -r "${tmp_py_pkg_no_ver_list_path}" # 卸载名单中的依赖包
+        else
+            term_sd_echo "无需卸载 Python 软件包"
         fi
 
         term_sd_print_line "Python 软件包安装列表"
@@ -299,6 +301,6 @@ restore_python_package_ver() {
 
 # 获取 Python 软件包版本列表
 get_python_env_pkg() {
-    term_sd_pip freeze || \
-    PIP_DISABLE_PIP_VERSION_CHECK=1 term_sd_pip list | awk 'NR>2 { if ($2 != "" && $3 == "" && $1 != "pip") {print $1 "==" $2} }'
+    term_sd_pip freeze \
+        || PIP_DISABLE_PIP_VERSION_CHECK=1 term_sd_pip list | awk 'NR>2 { if ($2 != "" && $3 == "" && $1 != "pip") {print $1 "==" $2} }'
 }
