@@ -865,7 +865,7 @@ check_onnxruntime_gpu_ver() {
 
 # 卸载原有的 onnxruntime-gpu
 uninstall_onnxruntime_gpu() {
-    if term_sd_pip freeze 2> /dev/null | grep -q "onnxruntime-gpu"; then
+    if get_python_env_pkg 2> /dev/null | grep -q "onnxruntime-gpu"; then
         term_sd_echo "卸载原有 onnxruntime-gpu"
         term_sd_try term_sd_pip uninstall onnxruntime-gpu -y
     fi

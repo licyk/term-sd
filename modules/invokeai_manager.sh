@@ -107,7 +107,7 @@ invokeai_manager() {
 
                                 fix_venv
                                 enter_venv
-                                install_python_package $(term_sd_pip freeze | grep -i invokeai) --no-deps --force-reinstall # 重新安装 InvokeAI
+                                install_python_package $(get_python_env_pkg | grep -i invokeai) --no-deps --force-reinstall # 重新安装 InvokeAI
                                 dialog --erase-on-exit \
                                     --title "InvokeAI 管理" \
                                     --backtitle "InvokeAI 虚拟环境修复选项" \
@@ -244,7 +244,7 @@ invokeai_update_depend() {
         term_sd_tmp_disable_proxy
         create_venv
         enter_venv
-        term_sd_pip freeze | awk -F '==' '{print $1}' > requirements.txt #生成一个更新列表
+        get_python_env_pkg | awk -F '==' '{print $1}' > requirements.txt #生成一个更新列表
         python_package_update "requirements.txt"
         rm -f requirements.txt
         exit_venv

@@ -111,7 +111,7 @@ backup_python_package_ver() {
     req_file="requirements-bak-$(date "+%Y-%m-%d-%H-%M-%S").txt"
 
     # 将python依赖库中各个包和包版本备份到文件中
-    term_sd_pip freeze > "${START_PATH}/term-sd/requirements-backup/${backup_name}/${req_file}"
+    get_python_env_pkg > "${START_PATH}/term-sd/requirements-backup/${backup_name}/${req_file}"
     if [[ "$?" == 0 ]]; then
         term_sd_echo "备份 ${backup_name} 依赖库版本成功"
         return 0
@@ -255,13 +255,14 @@ restore_python_package_ver() {
         rm -f "${tmp_py_pkg_no_ver_bak_list_path}"
 
         cat "${START_PATH}"/term-sd/requirements-backup/${backup_name}/${req_file_name} | awk -F'==' '{print $1}' | awk -F '@' '{print $1}' > "${tmp_py_pkg_no_ver_bak_list_path}" # 生成一份无版本的备份列表
-        term_sd_pip freeze > "${tmp_py_pkg_has_ver_list_path}" # 生成一份含有版本的现有列表
+        get_python_env_pkg > "${tmp_py_pkg_has_ver_list_path}" # 生成一份含有版本的现有列表
 
         # 生成一份软件包卸载名单
         for i in $(cat "${tmp_py_pkg_no_ver_bak_list_path}"); do
             sed -i '/'$i'==/d' "${tmp_py_pkg_has_ver_list_path}" 2> /dev/null
             sed -i '/'$i' @/d' "${tmp_py_pkg_has_ver_list_path}" 2> /dev/null
         done
+        sed -i '/-e /d' "${tmp_py_pkg_has_ver_list_path}" 2> /dev/null
 
         cat "${tmp_py_pkg_has_ver_list_path}" | awk -F '==' '{print $1}' | awk -F '@' '{print $1}' > "${tmp_py_pkg_no_ver_list_path}" # 生成一份无版本的卸载列表
 
@@ -294,4 +295,10 @@ restore_python_package_ver() {
         term_sd_pause
     fi
     clean_install_config # 清理安装参数
+}
+
+# 获取 Python 软件包版本列表
+get_python_env_pkg() {
+    term_sd_pip freeze || \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 term_sd_pip list | awk 'NR>2 { if ($2 != "" && $3 == "" && $1 != "pip") {print $1 "==" $2} }'
 }

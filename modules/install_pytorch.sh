@@ -233,7 +233,7 @@ process_pytorch() {
 
     # 安装 xFormers
     if [[ ! -z "${xformers_ver}" ]]; then
-        if term_sd_pip freeze | grep -q xformers; then # 将原有的 xFormers 卸载
+        if get_python_env_pkg | grep -q xformers; then # 将原有的 xFormers 卸载
             term_sd_echo "卸载原有版本的 xFormers"
             term_sd_try term_sd_pip uninstall xformers -y
         fi
