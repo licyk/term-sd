@@ -398,14 +398,17 @@ is_sd_webui_extension_disabled() {
     local config_path
     local extension_name=$@
 
-    config_path=$(get_sd_webui_config_path)
+    config_path="${SD_WEBUI_PATH}/config.json"
 
     # 没有配置文件时返回 1 说明插件未被禁用
     if [[ ! -f "${config_path}" ]]; then
         return 1
     fi
 
-    result=$(term_sd_python -c "$(py_is_sd_webui_extension_disabled "${config_path}" "${extension_name}")")
+    result=$(term_sd_python "${START_PATH}/term-sd/python_modules/check_sd_webui_extension_disabled.py" \
+        --config-path "${config_path}" \
+        --extension "${extension_name}" \
+    )
 
     if [[ "${result}" == "True" ]]; then
         return 0
@@ -423,179 +426,21 @@ set_sd_webui_extension_status() {
     local config_path
     local result
 
-    config_path=$(get_sd_webui_config_path)
+    config_path="${SD_WEBUI_PATH}/config.json"
 
     if [[ ! -f "${config_path}" ]]; then
         echo "{}" > "${config_path}"
     fi
-    
-    result=$(term_sd_python -c "$(py_set_sd_webui_extension_status "${config_path}" "${extension_name}" "${status}")")
+
+    result=$(term_sd_python "${START_PATH}/term-sd/python_modules/set_sd_webui_extension_status.py" \
+        --config-path "${config_path}" \
+        --extension "${extension_name}" \
+        --status "${status}" \
+    )
 
     if [[ "${result}" == "True" ]]; then
         return 0
     else
         return 1
     fi
-}
-
-# 获取 SD WebUI 配置文件路径
-get_sd_webui_config_path() {
-    local result
-
-    result=$(cd "${SD_WEBUI_PATH}" ; term_sd_python -c "$(py_get_sd_webui_config_path)")
-
-    echo "${result}"
-}
-
-# 查询插件是否被禁用(Python)
-# 使用:
-# py_is_sd_webui_extension_disabled <配置文件路径> <插件名>
-# 运行后返回完整的 python 代码
-py_is_sd_webui_extension_disabled() {
-    local config_path=$1
-    local extension_name=$2
-
-    cat<<EOF
-def get_key_map(file_path):
-    import os
-    import pathlib
-    import json
-    file_name = pathlib.Path(file_path)
-    if os.path.exists(file_name):
-        try:
-            with open(file_name, "r", encoding = "utf8") as file:
-                data = json.load(file)
-        except Exception:
-            # json 文件格式出现问题
-            data = {}
-    else:
-        data = {}
-
-    return data
-
-
-def search_key(data, key, value):
-    key_map = data.get(key)
-    if key_map is not None:
-        for i in key_map:
-            if value in i:
-                return True
-        return False
-    else:
-        return False
-
-
-json_path = "${config_path}"
-key_name = "disabled_extensions"
-extension_name = "${extension_name}"
-
-if search_key(get_key_map(json_path), key_name, extension_name):
-    print(True)
-else:
-    print(False)
-EOF
-}
-
-# 修改插件的启用状态(Python)
-# 使用:
-# py_set_sd_webui_extension_status <配置文件路径> <插件名> <True / False>
-# 运行后返回完整的 python 代码
-py_set_sd_webui_extension_status() {
-    local config_path=$1
-    local extension_name=$2
-    local status=$3
-
-    cat<<EOF
-def get_key_map(file_path):
-    import os
-    import pathlib
-    import json
-    file_name = pathlib.Path(file_path)
-    if os.path.exists(file_name):
-        try:
-            with open(file_name, "r", encoding = "utf8") as file:
-                data = json.load(file)
-        except Exception:
-            # json 文件格式出现问题
-            data = {}
-    else:
-        data = {}
-
-    return data
-
-
-def check_json(file_path):
-    import os
-    import pathlib
-    import json
-    file_name = pathlib.Path(file_path)
-    if os.path.exists(file_name):
-        try:
-            with open(file_name, "r", encoding = "utf8") as file:
-                data = json.load(file)
-            return True
-        except Exception:
-            # json 文件格式出现问题
-            return False
-    else:
-        return False
-
-
-def search_key(data, key, value):
-    key_map = data.get(key)
-    if key_map is not None:
-        if value in key_map:
-            return True
-        else:
-            return False
-    else:
-        return False
-
-
-def save(data, filename):
-    import json
-    with open(filename, "w", encoding = "utf8") as file:
-        json.dump(data, file, indent = 4, ensure_ascii = False)
-
-
-def set_extension_status(json_path, extension_name, status):
-    key_name = "disabled_extensions"
-    # 检查 json 格式是否正确
-    if check_json(json_path):
-        data = get_key_map(json_path)
-        # 缺少 disabled_extensions 这个值时自动补上
-        if data.get(key_name) is None:
-            data[key_name] = []
-
-        if status:
-            if search_key(data, key_name, extension_name):
-                data[key_name].remove(extension_name)
-                save(data, json_path)
-        else:
-            if search_key(data, key_name, extension_name) is False:
-                data[key_name].append(extension_name)
-                save(data, json_path)
-        print(True)
-    else:
-        print(False)
-
-
-
-json_path = "${config_path}"
-extension_name = "${extension_name}"
-status = ${status}
-
-set_extension_status(json_path, extension_name, status)
-EOF
-}
-
-# 获取 SD WebUI 配置文件路径(Python)
-# 运行后返回完整的 Python 代码
-py_get_sd_webui_config_path() {
-    cat<<EOF
-import os
-from pathlib import Path
-
-print(Path(os.path.abspath("config.json")).as_posix())
-EOF
 }

@@ -184,35 +184,13 @@ restore_invokeai_launch_args() {
     fi
 }
 
-# 写入 InvokeAI 的脚本
-# 使用:
-# write_invokeai_launch_script <保存启动脚本的路径>
-write_invokeai_launch_script() {
-    local path=$@
-
-    cat<<EOF > "${path}"
-import re
-import sys
-from invokeai.app.run_app import run_app
-if __name__ == '__main__':
-    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
-    sys.exit(run_app())
-EOF
-}
-
 # 启动 InvokeAI
 # 使用:
 # launch_invokeai_web <启动参数>
 launch_invokeai_web() {
-    local req
-
     if which invokeai-web &> /dev/null; then
         invokeai-web "$@"
     else
-        write_invokeai_launch_script "${START_PATH}/term-sd/task/launch_invokeai.py"
-        term_sd_python "${START_PATH}/term-sd/task/launch_invokeai.py" "$@"
-        req=$?
-        rm -f "${START_PATH}/term-sd/task/launch_invokeai.py"
-        return ${req}
+        term_sd_python "${START_PATH}/term-sd/python_modules/launch_invokeai.py" "$@"
     fi
 }

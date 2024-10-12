@@ -215,7 +215,7 @@ invokeai_download_model_select() {
 
 # 安装 PyPatchMatch (仅限 Windows 系统)
 install_pypatchmatch_for_windows() {
-    local pypatchmatch_path=$(term_sd_python -c "$(py_get_pypatchmatch_path)")
+    local pypatchmatch_path=$(term_sd_python "${START_PATH}/term-sd/python_modules/get_pypatchmatch_path.py")
     if is_windows_platform && [[ ! "${pypatchmatch_path}" == "None" ]]; then
         term_sd_echo "下载 PyPatchMatch 中"
         if is_use_modelscope_src; then
@@ -226,23 +226,4 @@ install_pypatchmatch_for_windows() {
             aria2_download https://huggingface.co/licyk/invokeai-core-model/resolve/main/pypatchmatch/opencv_world460.dll "${pypatchmatch_path}" opencv_world460.dll
         fi
     fi
-}
-
-# 获取 PyPatchMatch 路径(Python)
-py_get_pypatchmatch_path() {
-    cat<<EOF
-import importlib.metadata
-import pathlib
-
-package = "pypatchmatch"
-
-try:
-    # dist = importlib.metadata.files("ll")
-    util = [p for p in importlib.metadata.files(package) if '__init__.py' in str(p)][0]
-    path = pathlib.Path(util.locate()).parents[0]
-    print(path.as_posix())
-except importlib.metadata.PackageNotFoundError:
-    print("None")
-
-EOF
 }

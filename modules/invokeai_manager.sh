@@ -258,25 +258,11 @@ invokeai_update_depend() {
 is_invokeai_installed() {
     local status
 
-    status=$(term_sd_python -c "$(py_is_invokeai_installed)")
+    status=$(term_sd_python "${START_PATH}/term-sd/python_modules/check_invokeai_installed.py")
 
     if [[ "${status}" == "True" ]]; then
         return 0
     else
         return 1
     fi
-}
-
-
-# 检测 InvokeAI 是否安装(Python)
-py_is_invokeai_installed() {
-    cat<<EOF
-from importlib.metadata import version
-
-try:
-    tmp = version("invokeai")
-    print(True)
-except:
-    print(False)
-EOF
 }
