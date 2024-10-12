@@ -296,7 +296,7 @@ ComfyUI 插件 / 自定义节点说明：
 链接：https://github.com/flowtyone/ComfyUI-Flowty-TripoSR
 
 71、ComfyUI_ExtraModels
-描述：
+描述：添加DiT，PixArt，HunYuanDiT，MiaoBi模型的支持
 链接：https://github.com/city96/ComfyUI_ExtraModels
 
 72、ComfyUI-SUPIR
@@ -459,46 +459,42 @@ ComfyUI 插件 / 自定义节点说明：
 描述：添加lc-light支持
 链接：https://github.com/kijai/ComfyUI-IC-Light
 
-112、ComfyUI-IC-Light-Native
-描述：添加lc-light支持
-链接：https://github.com/huchenlei/ComfyUI-IC-Light-Native
-
-113、ComfyUI-KJNodes
+112、ComfyUI-KJNodes
 描述：自定义节点集合
 链接：https://github.com/kijai/ComfyUI-KJNodes
 
-114、ComfyUI_essentials
+113、ComfyUI_essentials
 描述：自定义节点集合
 链接：https://github.com/cubiq/ComfyUI_essentials
 
-115、ComfyUI-Restart-Sampler
+114、ComfyUI-Restart-Sampler
 描述：为ComfyUI添加Restart采样算法
 链接：https://github.com/licyk/ComfyUI-Restart-Sampler
 
-116、ComfyUI-TCD-Sampler
+115、ComfyUI-TCD-Sampler
 描述：为ComfyUI添加TCD采样算法
 链接：https://github.com/licyk/ComfyUI-TCD-Sampler
 
-117、cg-noise
+116、cg-noise
 描述：添加变异种子支持
 链接：https://github.com/chrisgoringe/cg-noise
 
-118、ComfyUX
+117、ComfyUX
 描述：优化ComfyUI界面，使整理节点更方便
 链接：https://github.com/googincheng/ComfyUX
 
-119、ComfyUI-UltraEdit-ZHO
+118、ComfyUI-UltraEdit-ZHO
 描述：添加UltraEdit支持
 链接：https://github.com/ZHO-ZHO-ZHO/ComfyUI-UltraEdit-ZHO
 
-120、WeiLin-ComfyUI-prompt-all-in-one
+119、WeiLin-ComfyUI-prompt-all-in-one
 描述：Prompt-all-in-one-app项目的修改版本，能够在ComfyUI中创建节点使用tag功能
 链接：https://github.com/weilin9999/WeiLin-ComfyUI-prompt-all-in-one
 
-121、ComfyUI-GGUF
+120、ComfyUI-GGUF
 描述：为ComfyUI添加gguf格式模型的支持
 链接：https://github.com/city96/ComfyUI-GGUF
 
-122、x-flux-comfyui
+121、x-flux-comfyui
 描述：添加xlabs的controlnet模型支持
 链接：https://github.com/XLabs-AI/x-flux-comfyui
