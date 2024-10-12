@@ -28,18 +28,20 @@ __term_sd_task_pre_model_27 aria2_download https://huggingface.co/licyk/sd-model
 __term_sd_task_pre_model_28 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/artiwaifu-diffusion-v2.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # artiwaifu-diffusion-v2(6.94g) OFF
 __term_sd_task_pre_model_29 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/Illustrious-XL-v0.1.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # Illustrious-XL-v0.1(6.94g) OFF
 __term_sd_task_pre_model_30 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/Illustrious-XL-v0.1-GUIDED.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # Illustrious-XL-v0.1-GUIDED(6.94g) OFF
-__term_sd_task_pre_model_31 # =====VAE模型===== OFF
-__term_sd_task_pre_model_32 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sd_1.5/vae-ft-ema-560000-ema-pruned.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # vae-ft-ema-560000-ema-pruned(334.6m) OFF
-__term_sd_task_pre_model_33 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sd_1.5/vae-ft-mse-840000-ema-pruned.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # vae-ft-mse-840000-ema-pruned(334.6m) OFF
-__term_sd_task_pre_model_34 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sdxl_1.0/sdxl_fp16_fix_vae.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # sdxl_fp16_fix_vae(334.6m) OFF
-__term_sd_task_pre_model_35 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sdxl_1.0/sdxl_vae.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # sdxl_vae(334.6m) OFF
-__term_sd_task_pre_model_36 # =====FLUX模型===== OFF
-__term_sd_task_pre_model_37 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_1/flux1-dev-fp8.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # flux1-dev-fp8(17.2g) OFF
-__term_sd_task_pre_model_38 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_1/flux1-dev.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # flux1-dev(23.8g) OFF
-__term_sd_task_pre_model_39 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_1/flux1-schnell-fp8.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # flux1-schnell-fp8(17.2g) OFF
-__term_sd_task_pre_model_40 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_1/flux1-schnell.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # flux1-schnell(23.8g) OFF
-__term_sd_task_pre_model_41 # =====FLUX-文本编码器/VAE模型===== OFF
-__term_sd_task_pre_model_42 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_text_encoders/clip_l.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # clip_l(246.1m) OFF
-__term_sd_task_pre_model_43 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_text_encoders/t5xxl_fp16.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # t5xxl_fp16(9.79g) OFF
-__term_sd_task_pre_model_44 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_text_encoders/t5xxl_fp8_e4m3fn.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # t5xxl_fp8_e4m3fn(4.89g) OFF
-__term_sd_task_pre_model_45 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_vae/ae.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # ae(335m) OFF
+__term_sd_task_pre_model_31 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/jruTheJourneyRemains_v25XL.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # jruTheJourneyRemains_v25XL(6.94g) OFF
+__term_sd_task_pre_model_32 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/noobaiXLNAIXL_earlyAccessVersion.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # noobaiXLNAIXL_earlyAccessVersion(6.94g) OFF
+__term_sd_task_pre_model_33 # =====VAE模型===== OFF
+__term_sd_task_pre_model_34 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sd_1.5/vae-ft-ema-560000-ema-pruned.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # vae-ft-ema-560000-ema-pruned(334.6m) OFF
+__term_sd_task_pre_model_35 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sd_1.5/vae-ft-mse-840000-ema-pruned.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # vae-ft-mse-840000-ema-pruned(334.6m) OFF
+__term_sd_task_pre_model_36 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sdxl_1.0/sdxl_fp16_fix_vae.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # sdxl_fp16_fix_vae(334.6m) OFF
+__term_sd_task_pre_model_37 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/sdxl_1.0/sdxl_vae.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # sdxl_vae(334.6m) OFF
+__term_sd_task_pre_model_38 # =====FLUX模型===== OFF
+__term_sd_task_pre_model_39 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_1/flux1-dev-fp8.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # flux1-dev-fp8(17.2g) OFF
+__term_sd_task_pre_model_40 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_1/flux1-dev.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # flux1-dev(23.8g) OFF
+__term_sd_task_pre_model_41 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_1/flux1-schnell-fp8.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # flux1-schnell-fp8(17.2g) OFF
+__term_sd_task_pre_model_42 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_1/flux1-schnell.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # flux1-schnell(23.8g) OFF
+__term_sd_task_pre_model_43 # =====FLUX-文本编码器/VAE模型===== OFF
+__term_sd_task_pre_model_44 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_text_encoders/clip_l.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # clip_l(246.1m) OFF
+__term_sd_task_pre_model_45 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_text_encoders/t5xxl_fp16.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # t5xxl_fp16(9.79g) OFF
+__term_sd_task_pre_model_46 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_text_encoders/t5xxl_fp8_e4m3fn.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # t5xxl_fp8_e4m3fn(4.89g) OFF
+__term_sd_task_pre_model_47 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_vae/ae.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # ae(335m) OFF
