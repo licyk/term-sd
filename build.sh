@@ -356,7 +356,7 @@ if [[ ! -z "$@" ]]; then
         case "${n}" in
             --fix)
                 echo ":: 格式转换"
-                list=$(find extra config help install modules task)
+                list=$(find extra config help install modules task python_modules)
                 for i in ${list}; do
                     if [[ -f "${i}" ]]; then
                     dos2unix "${i}"

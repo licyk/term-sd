@@ -4,7 +4,6 @@ import argparse
 
 
 
-
 def get_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
 
@@ -289,10 +288,13 @@ if __name__ == "__main__":
     if args.fix:
         print("将所有文件的换行符转换为 LF")
         file_list = []
-        for dir in ["extra", "config", "help", "install", "modules", "task"]:
+        for dir in ["extra", "config", "help", "install", "modules", "task", "python_modules"]:
             file_list += get_all_file(dir)
         for file in file_list:
             dos2unix(file)
+        dos2unix("term-sd.sh")
+        dos2unix("build.sh")
+        dos2unix("README.md")
 
 
     if args.sort:
