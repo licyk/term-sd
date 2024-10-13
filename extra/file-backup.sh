@@ -178,7 +178,7 @@ data_backup_manager() {
 # 帮助
 term_sd_file_manager_help() {
     cat<<EOF
-该备份脚本会在Term-SD目录生成"term-sd/backup"文件夹,用于储存备份数据
+该备份脚本会在 Term-SD 目录生成 "term-sd/backup" 文件夹,用于储存备份数据
 以下为脚本备份的数据:
 
 Stable-Diffusion-WebUI

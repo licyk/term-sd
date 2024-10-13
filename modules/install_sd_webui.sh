@@ -211,26 +211,9 @@ sd_webui_download_model_select() {
         3>&1 1>&2 2>&3)
 }
 
-# SD WebUI 配置文件
+# 写入 SD WebUI 配置文件
 # 保存在 <SD WebUI Path>/config.json 中
-sd_webui_config_file() {
-    cat<<EOF
-{
-    "quicksettings_list": [
-        "sd_model_checkpoint",
-        "sd_vae",
-        "CLIP_stop_at_last_layers"
-    ],
-    "save_to_dirs": false,
-    "grid_save_to_dirs": false,
-    "export_for_4chan": false,
-    "CLIP_stop_at_last_layers": 2,
-    "localization": "zh-Hans (Stable)",
-    "show_progress_every_n_steps": 1,
-    "js_live_preview_in_modal_lightbox": true,
-    "upscaler_for_img2img": "Lanczos",
-    "emphasis": "No norm",
-    "samples_filename_pattern": "[datetime<%Y%m%d_%H%M%S>]_[model_name]_[sampler]"
-}
-EOF
+set_sd_webui_normal_config() {
+    term_sd_echo "写入 Stable-Diffusion-WebUI 默认配置中"
+    cp -f "${START_PATH}/term-sd/install/sd_webui/sd_webui_config.json" "${SD_WEBUI_PATH}"/config.json
 }

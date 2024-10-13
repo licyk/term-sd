@@ -97,7 +97,7 @@ term_sd_launch_arg_parse() {
 # Term-SD 命令行帮助信息
 term_sd_args_help() {
     cat<<EOF
-    Term-SD启动参数使用方法:
+    Term-SD 启动参数使用方法:
         term-sd.sh [--help] [--extra script_name] [--reinstall-term-sd] [--remove-term-sd] [--quick-cmd] [--set-python-path python_path] [--unset-python-path] [--update-pip] [--bar display_mode] [--debug]
 
     选项:

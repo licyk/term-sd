@@ -93,11 +93,11 @@ term_sd_launch() {
         Fooocus)
             launch_sd_config="fooocus-launch.conf"
             if cat "${START_PATH}"/term-sd/config/${launch_sd_config} | grep "\-\-language zh" &> /dev/null; then # 添加中文配置
-                fooocus_lang_config_file > language/zh.json
+                set_fooocus_lang_config
             fi
 
-            if cat "${START_PATH}"/term-sd/config/${launch_sd_config} | grep "\-\-preset term_sd" &> /dev/null; then # 添加Term-SD风格的预设
-                fooocus_preset_file > "$FOOOCUS_PATH"/presets/term_sd.json
+            if cat "${START_PATH}"/term-sd/config/${launch_sd_config} | grep "\-\-preset term_sd" &> /dev/null; then # 添加 Term-SD 风格的预设
+                set_fooocus_preset
             fi
 
             if [[ -f "${START_PATH}/term-sd/config/set-global-huggingface-mirror.conf" ]]; then

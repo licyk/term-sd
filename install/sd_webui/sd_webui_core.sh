@@ -15,4 +15,4 @@ __term_sd_task_pre_core install_pytorch # 安装 PyTorch
 __term_sd_task_pre_core install_python_package git+$(git_format_repository_url ${GITHUB_MIRROR} https://github.com/openai/CLIP)
 __term_sd_task_pre_core install_python_package -r "${SD_WEBUI_PATH}"/requirements_versions.txt
 __term_sd_task_pre_core term_sd_echo "生成配置中"
-__term_sd_task_pre_core sd_webui_config_file > "${SD_WEBUI_PATH}"/config.json
+__term_sd_task_pre_core set_sd_webui_normal_config
