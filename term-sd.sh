@@ -898,6 +898,7 @@ term_sd_auto_setup_github_mirror() {
 
         if [[ "${mirror_status}" == 1 ]]; then
             term_sd_echo "设置 Github 镜像源"
+            git config --global --add safe.directory "*"
             git config --global url."${github_mirror}".insteadOf "https://github.com"
             echo "${github_mirror}" > "${START_PATH}"/term-sd/config/set-global-github-mirror.conf
         else
@@ -984,6 +985,7 @@ main() {
         && [[ -d ".git" ]] \
         && [[ -d "modules" ]] \
         && [[ -f "modules/init.sh" ]] \
+        && [[ -d "python_modules" ]] \
         && [[ -d "extra" ]] \
         && [[ -d "install" ]] \
         && [[ -d "task" ]] \

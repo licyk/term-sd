@@ -227,6 +227,9 @@ def detect_uplicate(list_type: str,file: str) -> None:
 
 
 if __name__ == "__main__":
+    root_path = os.path.dirname(os.path.abspath(__file__))
+    os.chdir(root_path)
+    print(f"脚本路径: {root_path}")
     args = get_args()
 
     if args.sort:
