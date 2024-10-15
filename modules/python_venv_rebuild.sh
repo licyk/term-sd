@@ -137,10 +137,7 @@ lora_scripts_venv_rebuild() {
         enter_venv
 
         install_pytorch # 安装 PyTorch
-        cd scripts/dev
-        install_python_package -r requirements.txt # scripts 目录下还有个 _typos.toml, 在安装 requirements.txt 里的依赖时会指向这个文件
-        cd ../..
-        install_python_package -r requirements.txt # lora-scripts 安装依赖
+        install_python_package -r requirements.txt # lora-scripts 依赖
 
         term_sd_echo "重新构建 lora-scripts 的虚拟环境结束"
         exit_venv
@@ -169,10 +166,7 @@ kohya_ss_venv_rebuild() {
         enter_venv
 
         install_pytorch # 安装 PyTorch
-        cd sd-scripts
-        install_python_package -r requirements.txt # sd-scripts 目录下还有个 _typos.toml, 在安装 requirements.txt 里的依赖时会指向这个文件
-        cd ..
-        install_python_package -r requirements.txt # kohya_ss 安装依赖
+        install_python_package -r requirements.txt # kohya_ss 依赖
 
         term_sd_echo "重新构建 kohya_ss 的虚拟环境结束"
         exit_venv

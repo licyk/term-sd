@@ -139,10 +139,10 @@ pip_manage_package_methon_select() {
 # python_package_update <requirements.txt>
 # 进行更新依赖操作时将忽略部分软件包
 # 忽略的软件包名单:
-# torch torchvision torchaudio xformers InvokeAI bitsandbytes
+# torch torchvision torchaudio xformers InvokeAI
 python_package_update() {
     cat "$@" > tmp-python-package-update-list.txt # 生成要更新的软件包名单
-    local ignore_update_python_package_list="torch torchvision torchaudio xformers InvokeAI bitsandbytes" # 忽略更新的软件包名单
+    local ignore_update_python_package_list="torch torchvision torchaudio xformers InvokeAI" # 忽略更新的软件包名单
     for i in ${ignore_update_python_package_list}; do
         sed -i '/'$i'/d' tmp-python-package-update-list.txt 2> /dev/null  # 将忽略的软件包从名单删除
     done
