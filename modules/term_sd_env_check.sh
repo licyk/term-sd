@@ -132,7 +132,7 @@ validate_requirements() {
     fi
 
     dir_path=$(dirname "${path}")
-    status=$(term_sd_python "${START_PATH}/term-sd/python_modules/get_numpy_ver.py" \
+    status=$(term_sd_python "${START_PATH}/term-sd/python_modules/validate_requirements.py" \
         --requirement-path "${path}" \
     )
 

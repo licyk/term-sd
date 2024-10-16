@@ -468,20 +468,20 @@ term_sd_help() {
                     --title "Term-SD" \
                     --backtitle "Term-SD 帮助选项" \
                     --ok-label "确认" \
-                    --msgbox "$(cat term-sd/help/about.md)" \
+                    --msgbox "$(cat "${START_PATH}"/term-sd/help/about.md)" \
                     $(get_dialog_size)
                 ;;
             2)
                 less --mouse --use-color \
                 --prompt="[Term-SD] Notice\: Use keyboard arrow keys \/ U, D key \/ mouse wheel to flip pages, enter Q key return help docs" \
-                term-sd/help/how_to_use_term_sd.md
+                "${START_PATH}"/term-sd/help/how_to_use_term_sd.md
                 ;;
             3)
                 dialog --erase-on-exit \
                     --title "Term-SD" \
                     --backtitle "Term-SD 帮助选项" \
                     --ok-label "确认" \
-                    --msgbox "$(cat term-sd/help/directory_description.md)" \
+                    --msgbox "$(cat "${START_PATH}"/term-sd/help/directory_description.md)" \
                     $(get_dialog_size)
                 ;;
             4)
@@ -489,7 +489,7 @@ term_sd_help() {
                     --title "Term-SD" \
                     --backtitle "Term-SD 帮助选项" \
                     --ok-label "确认" \
-                    --msgbox "$(cat term-sd/help/sd_webui_extension_description.md)" \
+                    --msgbox "$(cat "${START_PATH}"/term-sd/help/sd_webui_extension_description.md)" \
                     $(get_dialog_size)
                 ;;
             5)
@@ -497,7 +497,7 @@ term_sd_help() {
                     --title "Term-SD" \
                     --backtitle "Term-SD 帮助选项" \
                     --ok-label "确认" \
-                    --msgbox "$(cat term-sd/help/comfyui_extension_description.md)" \
+                    --msgbox "$(cat "${START_PATH}"/term-sd/help/comfyui_extension_description.md)" \
                     $(get_dialog_size)
                 ;;
             6)
@@ -505,7 +505,7 @@ term_sd_help() {
                     --title "Term-SD" \
                     --backtitle "Term-SD 帮助选项" \
                     --ok-label "确认" \
-                    --msgbox "$(cat term-sd/help/invokeai_custom_node_description.md)" \
+                    --msgbox "$(cat "${START_PATH}"/term-sd/help/invokeai_custom_node_description.md)" \
                     $(get_dialog_size)
                     ;;
             7)
@@ -513,7 +513,7 @@ term_sd_help() {
                     --title "Term-SD" \
                     --backtitle "Term-SD 帮助选项" \
                     --ok-label "确认" \
-                    --msgbox "$(cat term-sd/help/user_agreement.md)" \
+                    --msgbox "$(cat "${START_PATH}"/term-sd/help/user_agreement.md)" \
                     $(get_dialog_size)
                 ;;
             *)

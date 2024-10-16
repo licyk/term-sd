@@ -10,7 +10,7 @@ def get_args():
     parser = argparse.ArgumentParser()
     normalized_filepath = lambda filepath: str(Path(filepath).absolute().as_posix())
 
-    parser.add_argument("--requirement-path", type = normalized_filepath, default = None, help = "ComfyUI 路径")
+    parser.add_argument("--requirement-path", type = normalized_filepath, default = None, help = "依赖文件路径")
 
     return parser.parse_args()
 
