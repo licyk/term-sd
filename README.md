@@ -103,7 +103,7 @@ C:\msys64\ucrt64.ico
 ```
 
 >[!NOTE]  
->`C:\msys64`为安装目录，根据具体安装的目录修改。
+>`C:\msys64`为 MSYS2 的安装目录，根据具体安装的目录修改。
 
 保存后生效，在标题栏点击向下的箭头就可以看到`MSYS2 UCRT64`，打开后就可以下载和运行 Term-SD（一定要用在 Windows 终端 配置好的 MSYS2 UCRT64 运行 Term-SD，PowerShell 和 CMD 是没法运行 Term-SD 的）。
 
