@@ -367,7 +367,7 @@ a1111_sd_webui_launch_args_revise() {
 
 # 添加默认启动参数配置
 add_a1111_sd_webui_normal_launch_args() {
-    if [ ! -f "${START_PATH}/term-sd/config/sd-webui-launch.conf" ]; then # 找不到启动配置时默认生成一个
+    if [[ ! -f "${START_PATH}/term-sd/config/sd-webui-launch.conf" ]]; then # 找不到启动配置时默认生成一个
         if [[ "${OSTYPE}" == "darwin"* ]]; then
             echo "launch.py --theme dark --autolaunch --api --skip-load-model-at-start --skip-torch-cuda-test --upcast-sampling --no-half-vae --use-cpu interrogate" > "${START_PATH}"/term-sd/config/sd-webui-launch.conf
         else

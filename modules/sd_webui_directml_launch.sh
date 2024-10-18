@@ -376,7 +376,7 @@ sd_webui_directml_launch_args_revise() {
 
 # 添加默认启动参数配置
 add_sd_webui_directml_normal_launch_args() {
-    if [ ! -f "${START_PATH}/term-sd/config/sd-webui-directml-launch.conf" ]; then # 找不到启动配置时默认生成一个
+    if [[ ! -f "${START_PATH}/term-sd/config/sd-webui-directml-launch.conf" ]]; then # 找不到启动配置时默认生成一个
         echo "launch.py --theme dark --autolaunch --api --skip-torch-cuda-test --backend directml" > "${START_PATH}"/term-sd/config/sd-webui-directml-launch.conf
     fi
 }

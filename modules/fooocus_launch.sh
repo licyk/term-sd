@@ -334,7 +334,7 @@ fooocus_manual_launch() {
 
 # 添加 Fooocus 默认启动参数配置
 add_fooocus_normal_launch_args() {
-    if [ ! -f "${START_PATH}/term-sd/config/fooocus-launch.conf" ]; then # 找不到启动配置时默认生成一个
+    if [[ ! -f "${START_PATH}/term-sd/config/fooocus-launch.conf" ]]; then # 找不到启动配置时默认生成一个
         echo "launch.py --language zh --preset term_sd --disable-offload-from-vram --disable-analytics" > "${START_PATH}"/term-sd/config/fooocus-launch.conf
     fi
 }

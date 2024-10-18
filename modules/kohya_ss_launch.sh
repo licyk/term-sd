@@ -127,7 +127,7 @@ kohya_ss_launch_args_revise() {
 
 # 添加默认启动参数配置
 add_kohya_ss_normal_launch_args() {
-    if [ ! -f ""${START_PATH}"/term-sd/config/kohya_ss-launch.conf" ]; then # 找不到启动配置时默认生成一个
+    if [[ ! -f "${START_PATH}/term-sd/config/kohya_ss-launch.conf" ]]; then # 找不到启动配置时默认生成一个
         echo "kohya_gui.py --inbrowser --language zh-CN" > "${START_PATH}"/term-sd/config/kohya_ss-launch.conf
     fi
 }

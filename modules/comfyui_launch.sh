@@ -251,7 +251,7 @@ comfyui_launch_args_revise() {
 
 # 添加 ComfyUI 默认启动参数配置
 add_comfyui_normal_launch_args() {
-    if [ ! -f "${START_PATH}/term-sd/config/comfyui-launch.conf" ]; then # 找不到启动配置时默认生成一个
+    if [[ ! -f "${START_PATH}/term-sd/config/comfyui-launch.conf" ]]; then # 找不到启动配置时默认生成一个
         echo "main.py --auto-launch --preview-method auto --disable-smart-memory" > "${START_PATH}"/term-sd/config/comfyui-launch.conf
     fi
 }

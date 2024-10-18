@@ -162,7 +162,7 @@ invokeai_manual_launch() {
 
 # 添加默认启动参数配置
 add_invokeai_normal_launch_args() {
-    if [ ! -f "${START_PATH}/term-sd/config/invokeai-launch.conf" ]; then # 找不到启动配置时默认生成一个
+    if [[ ! -f "${START_PATH}/term-sd/config/invokeai-launch.conf" ]]; then # 找不到启动配置时默认生成一个
         echo "" > "${START_PATH}"/term-sd/config/invokeai-launch.conf
     fi
 }
