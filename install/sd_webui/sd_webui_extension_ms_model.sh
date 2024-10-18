@@ -103,5 +103,5 @@ __term_sd_task_pre_ext_9 term_sd_echo "下载 sd-webui-stablesr 模型" # Stable
 __term_sd_task_pre_ext_9 get_modelscope_model licyks/sd-extensions-model/master/sd-webui-stablesr/webui_768v_139.ckpt "${SD_WEBUI_PATH}"/extensions/sd-webui-stablesr/models
 
 __term_sd_task_pre_ext_10 term_sd_echo "下载 z-tipo-extension 模型" # z-tipo-extension(1.02g) ON
-__term_sd_task_pre_ext_10 get_modelscope_model licyks/sd-extensions-model/master/z-tipo-extension/TIPO-500M_epoch5-F16.gguf "${SD_WEBUI_PATH}"/models/kgen
-__term_sd_task_pre_ext_10 get_modelscope_model licyks/sd-extensions-model/master/z-tipo-extension/TIPO-200M-40Btok-F16.gguf "${SD_WEBUI_PATH}"/models/kgen
+__term_sd_task_pre_ext_10 get_modelscope_model licyks/sd-extensions-model/master/z-tipo-extension/TIPO-500M_epoch5-F16.gguf "${SD_WEBUI_PATH}"/extensions/z-tipo-extension/models
+__term_sd_task_pre_ext_10 get_modelscope_model licyks/sd-extensions-model/master/z-tipo-extension/TIPO-200M-40Btok-F16.gguf "${SD_WEBUI_PATH}"/extensions/z-tipo-extension/models
