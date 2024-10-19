@@ -136,3 +136,4 @@ __term_sd_task_pre_ext_135 sd-webui-decadetw-auto-prompt-llm OFF
 __term_sd_task_pre_ext_136 sd-forge-temperature-settings OFF
 __term_sd_task_pre_ext_137 forge-space-SUPIR OFF
 __term_sd_task_pre_ext_138 forge-space-ollama OFF
+__term_sd_task_pre_ext_139 sd-webui-cardmaster OFF

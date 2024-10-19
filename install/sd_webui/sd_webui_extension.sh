@@ -136,3 +136,4 @@ __term_sd_task_pre_ext_135 git_clone_repository https://github.com/xlinx/sd-webu
 __term_sd_task_pre_ext_136 git_clone_repository https://github.com/Haoming02/sd-forge-temperature-settings "${SD_WEBUI_PATH}"/extensions OFF # 图片色温调节，仅支持Forge
 __term_sd_task_pre_ext_137 git_clone_repository https://github.com/Haoming02/forge-space-SUPIR "${SD_WEBUI_PATH}"/extensions OFF # 为sd-webui-forge添加SUPIR支持
 __term_sd_task_pre_ext_138 git_clone_repository https://github.com/Haoming02/forge-space-ollama "${SD_WEBUI_PATH}"/extensions OFF # 为sd-webui-forge添加ollama支持
+__term_sd_task_pre_ext_139 git_clone_repository https://github.com/SenshiSentou/sd-webui-cardmaster "${SD_WEBUI_PATH}"/extensions OFF # 优化模型选项卡

@@ -554,3 +554,7 @@ Stable Diffusion WebUI 插件说明：
 138、forge-space-ollama
 描述：为sd-webui-forge添加ollama支持
 链接：https://github.com/Haoming02/forge-space-ollama
+
+139、sd-webui-cardmaster
+描述：优化模型选项卡
+链接：https://github.com/SenshiSentou/sd-webui-cardmaster
