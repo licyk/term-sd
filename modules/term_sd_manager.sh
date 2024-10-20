@@ -167,10 +167,12 @@ term_sd_launch() {
                 case "${TERM_SD_MANAGE_OBJECT}" in
                     stable-diffusion-webui)
                         validate_requirements "${SD_WEBUI_PATH}/requirements_versions.txt"
+                        PIP_FIND_LINKS="${PIP_FIND_LINKS} ${TERM_SD_PYPI_MIRROR}" \
                         check_sd_webui_extension_requirement "${launch_sd_config}"
                         ;;
                     ComfyUI)
                         validate_requirements "${COMFYUI_PATH}/requirements.txt"
+                        PIP_FIND_LINKS="${PIP_FIND_LINKS} ${TERM_SD_PYPI_MIRROR}" \
                         check_comfyui_env
                         ;;
                     Fooocus)

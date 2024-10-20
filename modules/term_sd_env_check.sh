@@ -73,7 +73,7 @@ install_comfyui_requirement() {
             term_sd_echo "[${cmd_point}/${cmd_sum}]:: 安装 ${requirement_name} 依赖失败, 这可能会影响部分功能"
         fi
 
-        if [[ -f "${requirement_parent_path}/install.py" ]]; then
+        if [[ -f "install.py" ]]; then
             term_sd_echo "[${cmd_point}/${cmd_sum}]:: 执行 ${requirement_name} 安装脚本中"
             term_sd_try term_sd_python install.py
             if [[ "$?" == 0 ]]; then
