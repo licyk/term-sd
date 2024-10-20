@@ -79,9 +79,11 @@ process_pytorch_ipex() {
         # Windows 平台
         # IPEX(Windows): https://arc.nuullll.com/resource/
 
-        # if is_use_pip_mirror; then
-        #     ipex_win_url="--find-links https://licyk.github.io/t/pypi/index_ms_mirror.html"
-        # else
+        if is_use_pip_mirror; then
+            ipex_win_url="--find-links https://licyk.github.io/t/pypi/index_ms_mirror.html"
+        else
+            ipex_win_url="--find-links ${TERM_SD_PYPI_MIRROR}"
+        fi
         #     case "${HF_ENDPOINT}" in # 选择镜像源
         #         "https://hf-mirror.com")
         #             ipex_win_url="--find-links https://licyk.github.io/t/pypi/index_hf_mirror.html"
@@ -91,20 +93,20 @@ process_pytorch_ipex() {
         #             ;;
         #         *)
         #             # ipex_win_url="--find-links https://licyk.github.io/t/pypi/index.html"
-        #             ipex_win_url="--find-links https://licyk.github.io/t/pypi/index_hf.html"
+        #             ipex_win_url="--find-links https://licyk.github.io/t/pypi/index.html"
         #             ;;
         #     esac
         # fi
 
         case "${torch_ipex_ver}" in
             2.0.0)
-                install_python_package torch==2.0.0a0+gite9ebda2 torchvision==0.15.2a0+fa99a53 intel_extension_for_pytorch==2.0.110+gitc6ea20b
+                install_python_package torch==2.0.0a0+gite9ebda2 torchvision==0.15.2a0+fa99a53 intel_extension_for_pytorch==2.0.110+gitc6ea20b ${ipex_win_url}
                 ;;
             2.1.0)
                 if [[ "${ipex_type}" == "Core_Ultra" ]]; then # 核显
-                    install_python_package torch==2.1.0a0+git7bcf7da torchvision==0.16.0+fbb4cc5 torchaudio==2.1.0+6ea1133 intel_extension_for_pytorch==2.1.20+git4849f3b
+                    install_python_package torch==2.1.0a0+git7bcf7da torchvision==0.16.0+fbb4cc5 torchaudio==2.1.0+6ea1133 intel_extension_for_pytorch==2.1.20+git4849f3b ${ipex_win_url}
                 else # 独显
-                    install_python_package torch==2.1.0a0+cxx11.abi torchvision==0.16.0a0+cxx11.abi torchaudio==2.1.0a0+cxx11.abi intel_extension_for_pytorch==2.1.10+xpu
+                    install_python_package torch==2.1.0a0+cxx11.abi torchvision==0.16.0a0+cxx11.abi torchaudio==2.1.0a0+cxx11.abi intel_extension_for_pytorch==2.1.10+xpu ${ipex_win_url}
                 fi
                 ;;
         esac

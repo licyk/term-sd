@@ -1358,17 +1358,17 @@ main() {
             1)
                 export PIP_INDEX_URL="https://pypi.python.org/simple"
                 export PIP_EXTRA_INDEX_URL=""
-                export PIP_FIND_LINKS="https://download.pytorch.org/whl/torch_stable.html ${TERM_SD_PYPI_MIRROR}"
+                export PIP_FIND_LINKS="https://download.pytorch.org/whl/torch_stable.html"
                 ;;
             2)
                 export PIP_INDEX_URL=$TERM_SD_PIP_INDEX_URL
                 export PIP_EXTRA_INDEX_URL=$TERM_SD_PIP_EXTRA_INDEX_URL
-                export PIP_FIND_LINKS="$TERM_SD_PIP_FIND_LINKS ${TERM_SD_PYPI_MIRROR}"
+                export PIP_FIND_LINKS="$TERM_SD_PIP_FIND_LINKS"
                 ;;
             *)
                 export PIP_INDEX_URL=$TERM_SD_PIP_INDEX_URL
                 export PIP_EXTRA_INDEX_URL=$TERM_SD_PIP_EXTRA_INDEX_URL
-                export PIP_FIND_LINKS="$TERM_SD_PIP_FIND_LINKS ${TERM_SD_PYPI_MIRROR}"
+                export PIP_FIND_LINKS="$TERM_SD_PIP_FIND_LINKS"
                 ;;
         esac
     fi

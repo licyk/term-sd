@@ -28,7 +28,6 @@ term_sd_launch() {
     local ignore_github_mirror
     local hf_mirror_for_fooocus
     local is_sdnext=0
-    local tmp_pip_find_links=$PIP_FIND_LINKS
     local github_mirror
 
     term_sd_print_line "${TERM_SD_MANAGE_OBJECT} 启动"
@@ -157,6 +156,7 @@ term_sd_launch() {
                 term_sd_echo "结束运行环境检测, 启动 ${TERM_SD_MANAGE_OBJECT} 中"
             fi
             term_sd_print_line
+            PIP_FIND_LINKS="${PIP_FIND_LINKS} ${TERM_SD_PYPI_MIRROR}" \
             launch_invokeai_web --root "${INVOKEAI_PATH}"/invokeai $(cat "${START_PATH}/term-sd/config/${launch_sd_config}")
             [[ ! "$?" == 0 ]] && term_sd_echo "${TERM_SD_MANAGE_OBJECT} 退出状态异常"
             ;;
@@ -189,6 +189,7 @@ term_sd_launch() {
                 term_sd_echo "结束运行环境检测, 启动 ${TERM_SD_MANAGE_OBJECT} 中"
             fi
             term_sd_print_line
+            PIP_FIND_LINKS="${PIP_FIND_LINKS} ${TERM_SD_PYPI_MIRROR}" \
             term_sd_python $(cat "${START_PATH}/term-sd/config/${launch_sd_config}") ${hf_mirror_for_fooocus}
             [[ ! "$?" == 0 ]] && term_sd_echo "${TERM_SD_MANAGE_OBJECT} 退出状态异常"
             exit_venv
