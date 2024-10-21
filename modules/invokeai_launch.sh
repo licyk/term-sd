@@ -188,9 +188,5 @@ restore_invokeai_launch_args() {
 # 使用:
 # launch_invokeai_web <启动参数>
 launch_invokeai_web() {
-    if which invokeai-web &> /dev/null; then
-        invokeai-web "$@"
-    else
-        term_sd_python "${START_PATH}/term-sd/python_modules/launch_invokeai.py" "$@"
-    fi
+    term_sd_python "${START_PATH}/term-sd/python_modules/launch_invokeai.py" "$@"
 }
