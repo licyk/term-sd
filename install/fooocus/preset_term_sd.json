@@ -1,5 +1,5 @@
 {
-    "default_model": "animagine-xl-3.1.safetensors",
+    "default_model": "Illustrious-XL-v0.1.safetensors",
     "default_refiner": "None",
     "default_refiner_switch": 0.8,
     "default_loras": [
@@ -29,7 +29,7 @@
     "default_sampler": "dpmpp_2m_sde_gpu",
     "default_scheduler": "sgm_uniform",
     "default_performance": "Speed",
-    "default_prompt": "",
+    "default_prompt": "\nmasterpiece,best quality,newest,",
     "default_prompt_negative": "low quality,worst quality,normal quality,text,signature,jpeg artifacts,bad anatomy,old,early,copyright name,watermark,artist name,signature,",
     "default_styles": [
     ],

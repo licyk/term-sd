@@ -45,6 +45,10 @@ def build_extension_list(input_file: str, output_file: str) -> None:
         if line == "":
             continue
 
+        if len(line.split()) < 5:
+            print(f"{input_file} 出现元素缺失, 缺失元素的内容为: {line}")
+            return
+
         point = line.split()[0]
         name = line.split()[2].split("/").pop()
         status = line.split()[4]
@@ -67,6 +71,10 @@ def build_sd_webui_extension_desc(input_file: str, output_file: str) -> None:
     for line in ori_content:
         if line == "":
             continue
+
+        if len(line.split()) < 7:
+            print(f"{input_file} 出现元素缺失, 缺失元素的内容为: {line}")
+            return
 
         count += 1
         link = line.split()[2]
@@ -96,6 +104,10 @@ def build_comfyui_extension_desc(input_file_1: str, input_file_2: str, output_fi
         if line == "":
             continue
 
+        if len(line.split()) < 7:
+            print(f"{input_file_1} 出现元素缺失, 缺失元素的内容为: {line}")
+            return
+
         count += 1
         link = line.split()[2]
         ext_name = link.split("/").pop()
@@ -110,6 +122,10 @@ def build_comfyui_extension_desc(input_file_1: str, input_file_2: str, output_fi
     for line in ori_content_2:
         if line == "":
             continue
+
+        if len(line.split()) < 5:
+            print(f"{input_file_2} 出现元素缺失, 缺失元素的内容为: {line}")
+            return
 
         count += 1
         link = line.split()[2]
@@ -135,6 +151,10 @@ def build_invokeai_custom_node_desc(input_file: str, output_file: str) ->None:
     for line in ori_content:
         if line == "":
             continue
+
+        if len(line.split()) < 7:
+            print(f"{input_file} 出现元素缺失, 缺失元素的内容为: {line}")
+            return
 
         count += 1
         link = line.split()[2]
