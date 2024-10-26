@@ -558,3 +558,7 @@ Stable Diffusion WebUI 插件说明：
 139、sd-webui-cardmaster
 描述：优化模型选项卡
 链接：https://github.com/SenshiSentou/sd-webui-cardmaster
+
+140、extra-network-side-panel-for-a1111
+描述：恢复旧版扩展模型按钮
+链接：https://github.com/CurtisDS/extra-network-side-panel-for-a1111

@@ -102,7 +102,7 @@ __term_sd_task_pre_ext_101 comfyui-node-beautify OFF
 __term_sd_task_pre_ext_102 comfyui-prompt-format OFF
 __term_sd_task_pre_ext_103 ComfyUI_omost OFF
 __term_sd_task_pre_ext_104 ComfyUI-Anyline OFF
-__term_sd_task_pre_ext_105 ComfyUI-TiledDiffusion OFF
+__term_sd_task_pre_ext_105 ComfyUI-TiledDiffusion ON
 __term_sd_task_pre_ext_106 ComfyUI-DynamiCrafterWrapper OFF
 __term_sd_task_pre_ext_107 comfyui-sixgod_prompt OFF
 __term_sd_task_pre_ext_108 ComfyUI_densediffusion OFF

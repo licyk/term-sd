@@ -137,3 +137,4 @@ __term_sd_task_pre_ext_136 git_clone_repository https://github.com/Haoming02/sd-
 __term_sd_task_pre_ext_137 git_clone_repository https://github.com/Haoming02/forge-space-SUPIR "${SD_WEBUI_PATH}"/extensions OFF # 为sd-webui-forge添加SUPIR支持
 __term_sd_task_pre_ext_138 git_clone_repository https://github.com/Haoming02/forge-space-ollama "${SD_WEBUI_PATH}"/extensions OFF # 为sd-webui-forge添加ollama支持
 __term_sd_task_pre_ext_139 git_clone_repository https://github.com/SenshiSentou/sd-webui-cardmaster "${SD_WEBUI_PATH}"/extensions OFF # 优化模型选项卡
+__term_sd_task_pre_ext_140 git_clone_repository https://github.com/CurtisDS/extra-network-side-panel-for-a1111 "${SD_WEBUI_PATH}"/extensions OFF # 恢复旧版扩展模型按钮

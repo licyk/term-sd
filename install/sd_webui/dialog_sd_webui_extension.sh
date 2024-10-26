@@ -137,3 +137,4 @@ __term_sd_task_pre_ext_136 sd-forge-temperature-settings OFF
 __term_sd_task_pre_ext_137 forge-space-SUPIR OFF
 __term_sd_task_pre_ext_138 forge-space-ollama OFF
 __term_sd_task_pre_ext_139 sd-webui-cardmaster OFF
+__term_sd_task_pre_ext_140 extra-network-side-panel-for-a1111 OFF
