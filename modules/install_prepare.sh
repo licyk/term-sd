@@ -668,6 +668,8 @@ clean_install_config() {
         term_sd_echo "PIP_UPDATE_PACKAGE_ARG: ${PIP_UPDATE_PACKAGE_ARG}"
         term_sd_echo "PIP_PREFER_BINARY_ARG: ${PIP_PREFER_BINARY_ARG}"
         term_sd_echo "PYTORCH_TYPE: ${PYTORCH_TYPE}"
+        term_sd_echo "SD_WEBUI_REPO: ${SD_WEBUI_REPO}"
+        term_sd_echo "SD_WEBUI_BRANCH: ${SD_WEBUI_BRANCH}"
     fi
 
     unset PIP_INDEX_MIRROR # 指定 Pip 镜像源的参数
@@ -685,6 +687,8 @@ clean_install_config() {
     unset PIP_UPDATE_PACKAGE_ARG # 是否更新软件包, 使用 --upgrade 参数
     unset PIP_PREFER_BINARY_ARG # 使用 --prefer-binary 使 Pip 优先使用编译好的 Python 软件包进行安装
     unset PYTORCH_TYPE # PyTorch 种类, 用于切换 PyTorch 镜像源
+    unset SD_WEBUI_REPO # SD WebUI 远程源地址, 用于安装 SD WebUI 时选择要安装的分支
+    unset SD_WEBUI_BRANCH # SD WebUI 分支, 用于安装 SD WebUI 时选择要切换成的分支
 }
 
 # 如果启用了 Pip 镜像源, 则返回0

@@ -1,8 +1,9 @@
 __term_sd_task_sys term_sd_mkdir "${SD_WEBUI_PARENT_PATH}"
 __term_sd_task_sys cd "${SD_WEBUI_PARENT_PATH}"
 __term_sd_task_sys term_sd_tmp_enable_proxy
-__term_sd_task_pre_core git_clone_repository https://github.com/AUTOMATIC1111/stable-diffusion-webui "${SD_WEBUI_PARENT_PATH}" "${SD_WEBUI_FOLDER}"
+__term_sd_task_pre_core git_clone_repository "${SD_WEBUI_REPO}" "${SD_WEBUI_PARENT_PATH}" "${SD_WEBUI_FOLDER}"
 __term_sd_task_sys is_sd_repo_exist "${SD_WEBUI_PATH}"
+__term_sd_task_pre_core switch_sd_webui_branch "${SD_WEBUI_BRANCH}"
 __term_sd_task_pre_core create_venv "${SD_WEBUI_PATH}"
 __term_sd_task_sys enter_venv "${SD_WEBUI_PATH}"
 __term_sd_task_pre_core git_clone_repository https://github.com/salesforce/BLIP "${SD_WEBUI_PATH}"/repositories BLIP

@@ -336,16 +336,35 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 - 一般来说找到对应显卡型号的类型后，选择最新版本的就行
 
 
-#### 3、插件选择
-第三个是插件选择，Term-SD 默认已经勾选一些比较有用的插件，可以根据个人需求进行选择  
+#### 3、Stable-Diffusion-WebUI 分支选择
+第三个为 Stable-Diffusion-WebUI 分支选择，可选的 Stable-Diffusion-WebUI 分支如下：
+- AUTOMATIC1111 - Stable-Diffusion-WebUI 主分支
+- AUTOMATIC1111 - Stable-Diffusion-WebUI 测试分支
+- lllyasviel - Stable-Diffusion-WebUI-Forge 分支
+- Panchovix - stable-diffusion-webui-reForge 主分支
+- Panchovix - stable-diffusion-webui-reForge 测试分支
+- lshqqytiger - Stable-Diffusion-WebUI-AMDGPU 分支
+- vladmandic - SD.NEXT 主分支
+- vladmandic - SD.NEXT 测试分支
+
+根据自己的需求进行选择
+- AUTOMATIC1111 - Stable-Diffusion-WebUI 分支稳定性较高，推荐选择
+- lllyasviel - Stable-Diffusion-WebUI-Forge 分支对显存优化较好，并且支持 FLUX 模型，如果有 FLUX 模型的需求可选择该分支。由于使用 Forge 推理后端，并且前端使用了 Gradio 4，可能会导致 AUTOMATIC1111 - Stable-Diffusion-WebUI 分支上的插件在 lllyasviel - Stable-Diffusion-WebUI-Forge 分支上无法使用
+- Panchovix - stable-diffusion-webui-reForge 分支基于 lllyasviel - Stable-Diffusion-WebUI-Forge 分支进行开发，因为使用 Gradio 3，相比于lllyasviel - Stable-Diffusion-WebUI-Forge 分支，对 AUTOMATIC1111 - Stable-Diffusion-WebUI 分支上插件兼容性较好
+- lshqqytiger - Stable-Diffusion-WebUI-AMDGPU 分支优化了 DirectML 和 ZLUDA 的支持，AMD 显卡可选择该分支
+- vladmandic - SD.NEXT 分支不推荐使用
+
+
+#### 4、插件选择
+第四个是插件选择，Term-SD 默认已经勾选一些比较有用的插件，可以根据个人需求进行选择  
 在 Term-SD 的帮助列表中可以查看插件功能的描述，了解插件的用途
 
 
-#### 4、模型选择
-第四个时模型选择，这里可以选择 Term-SD 要下载的模型，Term-SD 默认帮你勾选了一些模型，可根据自己需求来选择，在选项后的括号内标注了模型的大小
+#### 5、模型选择
+第五个时模型选择，这里可以选择 Term-SD 要下载的模型，Term-SD 默认帮你勾选了一些模型，可根据自己需求来选择，在选项后的括号内标注了模型的大小
 
 
-#### 5、Pip 安装模式选项
+#### 6、Pip 安装模式选项
 该功能用于选择 Pip 的安装模式
 
 该界面共有 5 种模式可以选择：
@@ -361,7 +380,7 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 >在 Linux 系统中如果不使用标准构建安装（--use-pep517）可能会出现安装失败的问题，如果不追求安装速度，可尝试勾选该选项，但是勾选后将增加安装 Python 软件包的时长
 
 
-#### 6、安装确认
+#### 7、安装确认
 最后一个是安装确认，选择`是`开始安装  
 安装时间根据网络速度和电脑性能决定
 

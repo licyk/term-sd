@@ -56,6 +56,7 @@ install_sd_webui() {
         # 安装前的准备
         download_mirror_select # 下载镜像源选择
         pytorch_version_select # PyTorch 版本选择
+        select_install_sd_webui_branch # 分支选择
         sd_webui_extension_install_select # 插件选择
         sd_webui_download_model_select # 模型选择
         pip_install_mode_select # 安装方式选择
@@ -216,4 +217,92 @@ sd_webui_download_model_select() {
 set_sd_webui_normal_config() {
     term_sd_echo "写入 Stable-Diffusion-WebUI 默认配置中"
     cp -f "${START_PATH}/term-sd/install/sd_webui/sd_webui_config.json" "${SD_WEBUI_PATH}"/config.json
+}
+
+# SD WebUI 分支选择
+# 通过 SD_WEBUI_REPO 全局变量设置 SD WebUI 分支的 Git 链接
+# 通过 SD_WEBUI_BRANCH 设置要切换到的 SD WebUI 分支
+select_install_sd_webui_branch() {
+    local dialog_arg
+
+    dialog_arg=$(dialog --erase-on-exit --notags \
+        --title "Stable-Diffusion-WebUI 安装" \
+        --backtitle "Stable-Diffusion-WebUI 分支选择选项" \
+        --ok-label "确认" --no-cancel \
+        --menu "请选择要安装的 Stable-Diffusion-WebUI 分支, 注:\n1. 推荐使用 AUTOMATIC1111 - Stable-Diffusion-WebUI 分支, 稳定性较高\n2.如果有 FLUX 模型的需求或者更好的显存优化, 可选择 lllyasviel - Stable-Diffusion-WebUI-Forge 分支, 但该分支可能会导致部分插件不兼容\n3. Panchovix - stable-diffusion-webui-reForge 分支基于 lllyasviel - Stable-Diffusion-WebUI-Forge 分支, 使用 Gradio3 前端, 对插件的兼容性好一些" \
+        $(get_dialog_size_menu) \
+        "1" "> AUTOMATIC1111 - Stable-Diffusion-WebUI 主分支" \
+        "2" "> AUTOMATIC1111 - Stable-Diffusion-WebUI 测试分支" \
+        "3" "> lllyasviel - Stable-Diffusion-WebUI-Forge 分支" \
+        "4" "> Panchovix - stable-diffusion-webui-reForge 主分支" \
+        "5" "> Panchovix - stable-diffusion-webui-reForge 测试分支" \
+        "6" "> lshqqytiger - Stable-Diffusion-WebUI-AMDGPU 分支" \
+        "7" "> vladmandic - SD.NEXT 主分支" \
+        "8" "> vladmandic - SD.NEXT 测试分支" \
+        3>&1 1>&2 2>&3)
+
+    case "${dialog_arg}" in
+        1)
+            SD_WEBUI_REPO="https://github.com/AUTOMATIC1111/stable-diffusion-webui"
+            SD_WEBUI_BRANCH="master"
+            ;;
+        2)
+            SD_WEBUI_REPO="https://github.com/AUTOMATIC1111/stable-diffusion-webui"
+            SD_WEBUI_BRANCH="dev"
+            ;;
+        3)
+            SD_WEBUI_REPO="https://github.com/lllyasviel/stable-diffusion-webui-forge"
+            SD_WEBUI_BRANCH="main"
+            ;;
+        4)
+            SD_WEBUI_REPO="https://github.com/Panchovix/stable-diffusion-webui-reForge"
+            SD_WEBUI_BRANCH="main"
+            ;;
+        5)
+            SD_WEBUI_REPO="https://github.com/Panchovix/stable-diffusion-webui-reForge"
+            SD_WEBUI_BRANCH="dev_upstream"
+            ;;
+        6)
+            SD_WEBUI_REPO="https://github.com/lshqqytiger/stable-diffusion-webui-amdgpu"
+            SD_WEBUI_BRANCH="master"
+            ;;
+        7)
+            SD_WEBUI_REPO="https://github.com/vladmandic/automatic"
+            SD_WEBUI_BRANCH="master"
+            ;;
+        8)
+            SD_WEBUI_REPO="https://github.com/vladmandic/automatic"
+            SD_WEBUI_BRANCH="dev"
+            ;;
+        *)
+            SD_WEBUI_REPO="https://github.com/AUTOMATIC1111/stable-diffusion-webui"
+            SD_WEBUI_BRANCH="master"
+            ;;
+    esac
+
+    if term_sd_is_debug; then
+        term_sd_echo "SD WebUI 远程地址: ${SD_WEBUI_REPO}"
+        term_sd_echo "SD WebUI 分支: ${SD_WEBUI_BRANCH}"
+    fi
+}
+
+# 切换 SD WebUI 的分支
+# 使用:
+# switch_sd_webui_branch <SD WebUI 的分支>
+switch_sd_webui_branch() {
+    local branch=$@
+
+    term_sd_echo "检查 Stable-Diffusion-WebUI 子模块状态"
+    if [[ ! -z "$(git -C "${SD_WEBUI_PATH}" submodule status)" ]]; then # 检测是否有子模块
+        term_sd_echo "初始化 Git 子模块"
+        use_submodules="--recurse-submodules"
+        git -C "${SD_WEBUI_PATH}" submodule update --init --recursive || return 1
+    else
+        term_sd_echo "禁用 Git 子模块"
+        use_submodules=""
+        git -C "${SD_WEBUI_PATH}" submodule deinit --all -f || return 1
+    fi
+
+    term_sd_echo "切换 Stable-Diffusion-WebUI 分支至 ${branch}"
+    git -C "${SD_WEBUI_PATH}" checkout "${branch}" ${use_submodules} || return 1
 }
