@@ -138,3 +138,16 @@ __term_sd_task_pre_ext_137 forge-space-SUPIR OFF
 __term_sd_task_pre_ext_138 forge-space-ollama OFF
 __term_sd_task_pre_ext_139 sd-webui-cardmaster OFF
 __term_sd_task_pre_ext_140 extra-network-side-panel-for-a1111 OFF
+__term_sd_task_pre_ext_141 sd-forge-regional-prompter OFF
+__term_sd_task_pre_ext_142 --sd-webui-ar-plus OFF
+__term_sd_task_pre_ext_143 forge2_cleaner OFF
+__term_sd_task_pre_ext_144 sd-webui-cleaner OFF
+__term_sd_task_pre_ext_145 HyperTile OFF
+__term_sd_task_pre_ext_146 forgeFlux_dualPrompt OFF
+__term_sd_task_pre_ext_147 GPU_For_T5 OFF
+__term_sd_task_pre_ext_148 sd-webui-top-k-emphasis OFF
+__term_sd_task_pre_ext_149 uddetailer OFF
+__term_sd_task_pre_ext_150 Config-Presets OFF
+__term_sd_task_pre_ext_151 seamless-tile-inpainting OFF
+__term_sd_task_pre_ext_152 sd-webui-ux OFF
+__term_sd_task_pre_ext_153 sd-webui-replacer OFF
