@@ -38,22 +38,23 @@ __term_sd_task_pre_model_37 get_modelscope_model licyks/sd-model/master/sdxl_1.0
 __term_sd_task_pre_model_38 get_modelscope_model licyks/sd-model/master/sdxl_1.0/noobaiXLNAIXL_vPredTestVersion.safetensors "${KOHYA_SS_PATH}"/models/ # noobaiXLNAIXL_vPredTestVersion(6.94g) OFF
 __term_sd_task_pre_model_39 get_modelscope_model licyks/sd-model/master/sdxl_1.0/noobaiXLNAIXL_epsilonPred05Version.safetensors "${KOHYA_SS_PATH}"/models/ # noobaiXLNAIXL_epsilonPred05Version(6.94g) OFF
 __term_sd_task_pre_model_40 get_modelscope_model licyks/sd-model/master/sdxl_1.0/noobaiXLNAIXL_epsilonPred075.safetensors "${KOHYA_SS_PATH}"/models/ # noobaiXLNAIXL_epsilonPred075(6.94g) OFF
-__term_sd_task_pre_model_41 get_modelscope_model licyks/sd-model/master/sdxl_1.0/ponyDiffusionV6XL_v6StartWithThisOne.safetensors "${KOHYA_SS_PATH}"/models/ # ponyDiffusionV6XL_v6(6.94g) OFF
-__term_sd_task_pre_model_42 get_modelscope_model licyks/sd-model/master/sdxl_1.0/pdForAnime_v20.safetensors "${KOHYA_SS_PATH}"/models/ # pdForAnime_v20(7.11g) OFF
-__term_sd_task_pre_model_43 get_modelscope_model licyks/sd-model/master/sdxl_1.0/tPonynai3_v51WeightOptimized.safetensors "${KOHYA_SS_PATH}"/models/ # tPonynai3_v51WeightOptimized(6.94g) OFF
-__term_sd_task_pre_model_44 get_modelscope_model licyks/sd-model/master/sdxl_1.0/omegaPonyXLAnime_v20.safetensors "${KOHYA_SS_PATH}"/models/ # omegaPonyXLAnime_v20(6.94g) OFF
-__term_sd_task_pre_model_45 get_modelscope_model licyks/sd-model/master/sdxl_1.0/animeIllustDiffusion_v061.safetensors "${KOHYA_SS_PATH}"/models/ # animeIllustDiffusion_v061(6.94g) OFF
-__term_sd_task_pre_model_46 get_modelscope_model licyks/sd-model/master/sdxl_1.0/artiwaifuDiffusion_v10.safetensors "${KOHYA_SS_PATH}"/models/ # artiwaifuDiffusion_v10(6.94g) OFF
-__term_sd_task_pre_model_47 get_modelscope_model licyks/sd-model/master/sdxl_1.0/artiwaifu-diffusion-v2.safetensors "${KOHYA_SS_PATH}"/models/ # artiwaifu-diffusion-v2(6.94g) OFF
-__term_sd_task_pre_model_48 # =====VAE模型===== OFF
-__term_sd_task_pre_model_49 get_modelscope_model licyks/sd-vae/master/sd_1.5/vae-ft-ema-560000-ema-pruned.safetensors "${KOHYA_SS_PATH}"/models/ # vae-ft-ema-560000-ema-pruned(334.6m) OFF
-__term_sd_task_pre_model_50 get_modelscope_model licyks/sd-vae/master/sd_1.5/vae-ft-mse-840000-ema-pruned.safetensors "${KOHYA_SS_PATH}"/models/ # vae-ft-mse-840000-ema-pruned(334.6m) OFF
-__term_sd_task_pre_model_51 get_modelscope_model licyks/sd-vae/master/sdxl_1.0/sdxl_fp16_fix_vae.safetensors "${KOHYA_SS_PATH}"/models/ # sdxl_fp16_fix_vae(334.6m) OFF
-__term_sd_task_pre_model_52 get_modelscope_model licyks/sd-vae/master/sdxl_1.0/sdxl_vae.safetensors "${KOHYA_SS_PATH}"/models/ # sdxl_vae(334.6m) OFF
-__term_sd_task_pre_model_53 # =====FLUX模型===== OFF
-__term_sd_task_pre_model_54 get_modelscope_model licyks/flux-model/master/flux_1/flux1-dev.safetensors "${KOHYA_SS_PATH}"/models/ # flux1-dev(23.8g) OFF
-__term_sd_task_pre_model_55 get_modelscope_model licyks/flux-model/master/flux_1/flux1-schnell.safetensors "${KOHYA_SS_PATH}"/models/ # flux1-schnell(23.8g) OFF
-__term_sd_task_pre_model_56 # =====FLUX-文本编码器/VAE模型===== OFF
-__term_sd_task_pre_model_57 get_modelscope_model licyks/flux-model/master/flux_text_encoders/clip_l.safetensors "${KOHYA_SS_PATH}"/models/ # clip_l(246.1m) OFF
-__term_sd_task_pre_model_58 get_modelscope_model licyks/flux-model/master/flux_text_encoders/t5xxl_fp16.safetensors "${KOHYA_SS_PATH}"/models/ # t5xxl_fp16(9.79g) OFF
-__term_sd_task_pre_model_59 get_modelscope_model licyks/flux-model/master/flux_vae/ae.safetensors "${KOHYA_SS_PATH}"/models/ # ae(335m) OFF
+__term_sd_task_pre_model_41 get_modelscope_model licyks/sd-model/master/sdxl_1.0/noobaiXLNAIXL_epsilonPred077.safetensors "${KOHYA_SS_PATH}"/models/ # noobaiXLNAIXL_epsilonPred077(6.94g) OFF
+__term_sd_task_pre_model_42 get_modelscope_model licyks/sd-model/master/sdxl_1.0/ponyDiffusionV6XL_v6StartWithThisOne.safetensors "${KOHYA_SS_PATH}"/models/ # ponyDiffusionV6XL_v6(6.94g) OFF
+__term_sd_task_pre_model_43 get_modelscope_model licyks/sd-model/master/sdxl_1.0/pdForAnime_v20.safetensors "${KOHYA_SS_PATH}"/models/ # pdForAnime_v20(7.11g) OFF
+__term_sd_task_pre_model_44 get_modelscope_model licyks/sd-model/master/sdxl_1.0/tPonynai3_v51WeightOptimized.safetensors "${KOHYA_SS_PATH}"/models/ # tPonynai3_v51WeightOptimized(6.94g) OFF
+__term_sd_task_pre_model_45 get_modelscope_model licyks/sd-model/master/sdxl_1.0/omegaPonyXLAnime_v20.safetensors "${KOHYA_SS_PATH}"/models/ # omegaPonyXLAnime_v20(6.94g) OFF
+__term_sd_task_pre_model_46 get_modelscope_model licyks/sd-model/master/sdxl_1.0/animeIllustDiffusion_v061.safetensors "${KOHYA_SS_PATH}"/models/ # animeIllustDiffusion_v061(6.94g) OFF
+__term_sd_task_pre_model_47 get_modelscope_model licyks/sd-model/master/sdxl_1.0/artiwaifuDiffusion_v10.safetensors "${KOHYA_SS_PATH}"/models/ # artiwaifuDiffusion_v10(6.94g) OFF
+__term_sd_task_pre_model_48 get_modelscope_model licyks/sd-model/master/sdxl_1.0/artiwaifu-diffusion-v2.safetensors "${KOHYA_SS_PATH}"/models/ # artiwaifu-diffusion-v2(6.94g) OFF
+__term_sd_task_pre_model_49 # =====VAE模型===== OFF
+__term_sd_task_pre_model_50 get_modelscope_model licyks/sd-vae/master/sd_1.5/vae-ft-ema-560000-ema-pruned.safetensors "${KOHYA_SS_PATH}"/models/ # vae-ft-ema-560000-ema-pruned(334.6m) OFF
+__term_sd_task_pre_model_51 get_modelscope_model licyks/sd-vae/master/sd_1.5/vae-ft-mse-840000-ema-pruned.safetensors "${KOHYA_SS_PATH}"/models/ # vae-ft-mse-840000-ema-pruned(334.6m) OFF
+__term_sd_task_pre_model_52 get_modelscope_model licyks/sd-vae/master/sdxl_1.0/sdxl_fp16_fix_vae.safetensors "${KOHYA_SS_PATH}"/models/ # sdxl_fp16_fix_vae(334.6m) OFF
+__term_sd_task_pre_model_53 get_modelscope_model licyks/sd-vae/master/sdxl_1.0/sdxl_vae.safetensors "${KOHYA_SS_PATH}"/models/ # sdxl_vae(334.6m) OFF
+__term_sd_task_pre_model_54 # =====FLUX模型===== OFF
+__term_sd_task_pre_model_55 get_modelscope_model licyks/flux-model/master/flux_1/flux1-dev.safetensors "${KOHYA_SS_PATH}"/models/ # flux1-dev(23.8g) OFF
+__term_sd_task_pre_model_56 get_modelscope_model licyks/flux-model/master/flux_1/flux1-schnell.safetensors "${KOHYA_SS_PATH}"/models/ # flux1-schnell(23.8g) OFF
+__term_sd_task_pre_model_57 # =====FLUX-文本编码器/VAE模型===== OFF
+__term_sd_task_pre_model_58 get_modelscope_model licyks/flux-model/master/flux_text_encoders/clip_l.safetensors "${KOHYA_SS_PATH}"/models/ # clip_l(246.1m) OFF
+__term_sd_task_pre_model_59 get_modelscope_model licyks/flux-model/master/flux_text_encoders/t5xxl_fp16.safetensors "${KOHYA_SS_PATH}"/models/ # t5xxl_fp16(9.79g) OFF
+__term_sd_task_pre_model_60 get_modelscope_model licyks/flux-model/master/flux_vae/ae.safetensors "${KOHYA_SS_PATH}"/models/ # ae(335m) OFF
