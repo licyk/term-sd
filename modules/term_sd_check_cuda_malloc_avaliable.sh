@@ -1,29 +1,12 @@
 #!/bin/bash
 
-# 返回 CUDA 内存分配器可用状态
-is_cuda_malloc_avaliable() {
+# 获取 CUDA 内存分配器配置
+get_pytorch_cuda_memory_conf() {
     local status
 
     status=$(term_sd_python "${START_PATH}/term-sd/python_modules/check_cuda_malloc_avaliable.py")
 
-    if [[ "${status}" == True ]]; then
-        return 0
-    else
-        return 1
-    fi
-}
-
-# 返回显示是否为 Nvidia 显卡的状态
-check_gpu_is_nvidia_drive() {
-    local status
-
-    status=$(term_sd_python "${START_PATH}/term-sd/python_modules/check_gpu_is_nvidia_drive.py")
-
-    if [[ "${status}" == True ]]; then
-        return 0
-    else
-        return 1
-    fi
+    echo "${status}"
 }
 
 # CUDA 内存分配设置

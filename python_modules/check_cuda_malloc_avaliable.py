@@ -49,6 +49,7 @@ blacklist = {"GeForce GTX TITAN X", "GeForce GTX 980", "GeForce GTX 970", "GeFor
                 "GeForce GTX 1650", "GeForce GTX 1630", "Tesla M4", "Tesla M6", "Tesla M10", "Tesla M40", "Tesla M60"
                 }
 
+
 def cuda_malloc_supported():
     try:
         names = get_gpu_names()
@@ -61,6 +62,26 @@ def cuda_malloc_supported():
                     return False
     return True
 
+
+def is_nvidia_device():
+    try:
+        names = get_gpu_names()
+    except:
+        names = set()
+    for x in names:
+        if "NVIDIA" in x:
+            return True
+    return False
+
+
+def get_pytorch_cuda_alloc_conf():
+    if is_nvidia_device():
+        if cuda_malloc_supported():
+            return "cuda_malloc"
+        else:
+            return "pytorch_malloc"
+    else:
+        return None
 
 
 if __name__ == "__main__":
@@ -75,9 +96,8 @@ if __name__ == "__main__":
                 spec.loader.exec_module(module)
                 version = module.__version__
         if int(version[0]) >= 2: #enable by default for torch version 2.0 and up
-            print(cuda_malloc_supported())
+            print(get_pytorch_cuda_alloc_conf())
         else:
-            print(False)
+            print(None)
     except:
         print(None)
-        pass

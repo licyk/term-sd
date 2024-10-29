@@ -29,6 +29,7 @@ term_sd_launch() {
     local hf_mirror_for_fooocus
     local is_sdnext=0
     local github_mirror
+    local cuda_memory_alloc_config
 
     term_sd_print_line "${TERM_SD_MANAGE_OBJECT} 启动"
     term_sd_echo "提示: 可以按下 Ctrl + C 键终止 AI 软件的运行"
@@ -114,19 +115,22 @@ term_sd_launch() {
 
     if [[ -f "${START_PATH}/term-sd/config/set-cuda-memory-alloc.lock" ]]; then
         term_sd_echo "检查显卡是否为 Nvidia 显卡"
-        if check_gpu_is_nvidia_drive; then
-            use_cuda_malloc=0
-            term_sd_echo "显卡为 Nvidia 显卡, 可设置 CUDA 内存分配器"
-            if is_cuda_malloc_avaliable; then
+        cuda_memory_alloc_config=$(get_pytorch_cuda_memory_conf)
+        case "${cuda_memory_alloc_config}" in
+            cuda_malloc)
+                use_cuda_malloc=1
                 term_sd_echo "设置 CUDA 内存分配器为 CUDA 内置异步分配器"
                 export PYTORCH_CUDA_ALLOC_CONF="backend:cudaMallocAsync"
-            else
+                ;;
+            pytorch_malloc)
+                use_cuda_malloc=1
                 term_sd_echo "设置 CUDA 内存分配器为 PyTorch 原生分配器"
                 export PYTORCH_CUDA_ALLOC_CONF="garbage_collection_threshold:0.9,max_split_size_mb:512"
-            fi
-        else
-            term_sd_echo "显卡非 Nvidia 显卡, 无法设置 CUDA 内存分配器"
-        fi
+                ;;
+            *)
+                term_sd_echo "显卡非 Nvidia 显卡, 无法设置 CUDA 内存分配器"
+                ;;
+        esac
     fi
 
     if term_sd_is_debug; then
