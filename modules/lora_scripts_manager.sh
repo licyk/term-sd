@@ -254,7 +254,7 @@ lora_scripts_manager() {
                                 term_sd_echo "删除 lora-scripts 中"
                                 exit_venv
                                 cd ..
-                                rm -rf "${LORA_SCRIPTS_FOLDER}"
+                                rm -rf "${LORA_SCRIPTS_PATH}"
 
                                 dialog --erase-on-exit \
                                     --title "lora-scripts 管理" \
@@ -317,15 +317,14 @@ lora_scripts_backend_repo_reinstall() {
     if term_sd_install_confirm "是否重新安装 lora-scripts 后端组件 ?"; then
         term_sd_print_line "lora-scripts 后端组件重装"
         term_sd_echo "删除原有 lora-scripts 后端组件中"
-        rm -rf frontend
-        rm -rf mikazuki/dataset-tag-editor
+        rm -rf "${LORA_SCRIPTS_PATH}"/frontend
+        rm -rf "${LORA_SCRIPTS_PATH}"/mikazuki/dataset-tag-editor
         term_sd_mkdir frontend
         term_sd_mkdir mikazuki/dataset-tag-editor
         term_sd_echo "重新下载 lora-scripts 后端组件中"
         git_clone_repository https://github.com/hanamizuki-ai/lora-gui-dist "${LORA_SCRIPTS_PATH}" frontend # lora-scripts 前端
         git_clone_repository https://github.com/Akegarasu/dataset-tag-editor "${LORA_SCRIPTS_PATH}"/mikazuki dataset-tag-editor # 标签编辑器
-        git submodule init
-        git submodule update
+        git_init_submodule "${LORA_SCRIPTS_PATH}"
         term_sd_echo "重装 lora-scripts 后端组件结束"
         term_sd_pause
     fi

@@ -246,7 +246,7 @@ fooocus_manager() {
                                 term_sd_echo "删除 Fooocus 中"
                                 exit_venv
                                 cd ..
-                                rm -rf "${FOOOCUS_FOLDER}"
+                                rm -rf "${FOOOCUS_PATH}"
                                 
                                 dialog --erase-on-exit \
                                     --title "Fooocus 管理" \

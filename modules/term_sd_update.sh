@@ -59,7 +59,7 @@ term_sd_update_manager() {
                                 --msgbox "Term-SD 更新成功, 选择确定后重启" \
                                 $(get_dialog_size)
 
-                            . ./term-sd/term-sd.sh
+                            . "${START_PATH}/term-sd/term-sd.sh"
                         fi
                     else
                         dialog --erase-on-exit \
@@ -194,7 +194,7 @@ term_sd_branch_switch() {
                         term_sd_echo "切换到 Term-SD 主分支"
                         term_sd_echo "即将重启 Term-SD"
                         term_sd_sleep 3
-                        . ./term-sd/term-sd.sh
+                        . "${START_PATH}/term-sd/term-sd.sh"
                     else
                         term_sd_echo "取消切换 Term-SD 分支操作"
                     fi
@@ -214,7 +214,7 @@ term_sd_branch_switch() {
                         term_sd_echo "切换到 Term-SD 测试分支"
                         term_sd_echo "即将重启 Term-SD"
                         term_sd_sleep 3
-                        . ./term-sd/term-sd.sh
+                        . "${START_PATH}/term-sd/term-sd.sh"
                     else
                         term_sd_echo "取消切换 Term-SD 分支操作"
                     fi

@@ -458,7 +458,7 @@ git_init_submodule() {
     name=$(git -C "${path}" remote get-url origin | awk -F '/' '{print $NF}')
 
     term_sd_echo "初始化 ${name} 的 Git 子模块"
-    git submodule init
+    git -C "${path}" submodule init
     term_sd_try git -C "${path}" submodule update
     term_sd_try git -C "${path}" reset --hard --recurse-submodules
 }

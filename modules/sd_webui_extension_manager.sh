@@ -339,7 +339,7 @@ sd_webui_extension_interface() {
                         yes|y|YES|Y)
                             term_sd_echo "删除 ${extension_name} 插件中"
                             cd ..
-                            rm -rf "${extension_name}"
+                            rm -rf "${SD_WEBUI_PATH}/extensions/${extension_name}"
 
                             dialog --erase-on-exit \
                                 --title "Stable-Diffusion-WebUI 管理" \

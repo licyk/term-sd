@@ -388,7 +388,7 @@ comfyui_custom_node_interface() {
                         yes|y|YES|Y)
                             term_sd_echo "删除 ${custom_node_name} 自定义节点中"
                             cd ..
-                            rm -rf "${custom_node_folder}"
+                            rm -rf "${COMFYUI_PATH}/custom_nodes/${custom_node_folder}"
 
                             dialog --erase-on-exit \
                             --title "ComfyUI 管理" \

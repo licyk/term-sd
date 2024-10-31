@@ -300,7 +300,7 @@ sd_webui_manager() {
                                 term_sd_echo "删除 Stable-Diffusion-WebUI 中"
                                 exit_venv
                                 cd ..
-                                rm -rf "$SD_WEBUI_FOLDER"
+                                rm -rf "${SD_WEBUI_PATH}"
 
                                 dialog --erase-on-exit \
                                     --title "Stable-Diffusion-WebUI 管理" \
@@ -363,7 +363,7 @@ sd_webui_backend_repo_reinstall() {
     if term_sd_install_confirm "是否重新安装 Stable-Diffusion-WebUI 后端组件 ?"; then
         term_sd_print_line "Stable-Diffusion-WebUI 后端组件重装"
         term_sd_echo "删除原有 Stable-Diffusion-WebUI 后端组件中"
-        rm -rf repositories/*
+        rm -rf "${SD_WEBUI_PATH}"/repositories/*
         term_sd_echo "重新下载 Stable-Diffusion-WebUI 后端组件中"
         git_clone_repository https://github.com/salesforce/BLIP "${SD_WEBUI_PATH}"/repositories BLIP
         git_clone_repository https://github.com/Stability-AI/stablediffusion "${SD_WEBUI_PATH}"/repositories stable-diffusion-stability-ai

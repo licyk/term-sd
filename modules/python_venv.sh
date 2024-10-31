@@ -15,8 +15,36 @@ create_venv() {
     fi
 }
 
+# 检测并修复虚拟环境的激活脚本中的现路径错误
+# 使用:
+# fix_activate_venv_script <虚拟环境的路径>
+fix_activate_venv_script() {
+    local status
+    local venv_path=$@
+    local venv_bin_path
+
+    if [[ -d "${venv_path}/Scripts" ]]; then
+        venv_bin_path="${venv_path}/Scripts"
+    elif [[ -d "${venv_path}/bin" ]]; then
+        venv_bin_path="${venv_path}/bin"
+    else
+        venv_bin_path="${venv_path}/bin"
+    fi
+
+    status=$(term_sd_python "${START_PATH}/term-sd/python_modules/check_venv_path_invalid.py" \
+        --venv-bin-path "${venv_bin_path}"\
+        --venv-path "${venv_path}"\
+    )
+
+    if [[ "${status}" == "True" ]]; then
+        term_sd_echo "修正虚拟环境激活脚本中"
+        python -m venv "${venv_path}"
+    fi
+}
+
 # 修复虚拟环境功能(一种骚操作, 修复完后只会丢失一些命令文件, 而 Python 的库调用依然正常)
 # 已知问题: 使用该方法修复虚拟环境后, PyTorch 可能会报错, 提示某个文件找不到, 需要使用 PyTorch 重装功能将 PyTorch 重新安装
+# fix_venv <虚拟环境的路径>
 fix_venv() {
     local venv_path
 
@@ -40,11 +68,11 @@ fix_venv() {
                 term_sd_python -m venv "${venv_path}" &> /dev/null # 重新创建新的虚拟环境
                 rm -rf "${venv_path}"/Lib # 删除新的虚拟环境中的库文件, 为移入原有的库腾出空间
                 term_sd_echo "恢复虚拟环境库文件中"
-                mv -f term-sd-tmp/Lib venv # 移入原有的库
+                mv -f term-sd-tmp/Lib "${venv_path}" # 移入原有的库
                 rm -rf term-sd-tmp # 清理临时文件夹
                 term_sd_python -m venv "${venv_path}" &> /dev/null
                 term_sd_echo "修复虚拟环境完成"
-            elif [[ -d "${venv_path}/bin" ]]; then # Linux / MacOS端的 venv 结构
+            elif [[ -d "${venv_path}/bin" ]]; then # Linux / MacOS 端的 venv 结构
                 term_sd_echo "将虚拟环境的库转移到临时文件夹中"
                 mkdir term-sd-tmp
                 mv -f "${venv_path}"/lib term-sd-tmp # 将依赖库转移到临时文件夹
@@ -53,7 +81,7 @@ fix_venv() {
                 term_sd_python -m venv "${venv_path}" &> /dev/null # 重新创建新的虚拟环境
                 rm -rf "${venv_path}"/lib # 删除新的虚拟环境中的库文件, 为移入原有的库腾出空间
                 term_sd_echo "恢复虚拟环境库文件中"
-                mv -f term-sd-tmp/lib venv # 移入原有的库
+                mv -f term-sd-tmp/lib "${venv_path}" # 移入原有的库
                 rm -rf term-sd-tmp # 清理临时文件夹
                 term_sd_python -m venv "${venv_path}" &> /dev/null
                 term_sd_echo "修复虚拟环境完成"
@@ -71,6 +99,8 @@ fix_venv() {
 }
 
 # 进入虚拟环境功能
+# 使用:
+# enter_venv <虚拟环境的路径>
 enter_venv() {
     local venv_path
     local is_venv_broken=0
@@ -87,6 +117,8 @@ enter_venv() {
             exit_venv &> /dev/null
         fi
         term_sd_echo "进入虚拟环境"
+
+        fix_activate_venv_script "${venv_path}" # 检查虚拟环境激活脚本
 
         if [[ -f "${venv_path}/Scripts/activate" ]]; then # 在 Windows 端的 venv 目录结构和 Linux, MacoOS 的不同, 所以进入虚拟环境的方式有区别
             . "${venv_path}"/Scripts/activate &> /dev/null

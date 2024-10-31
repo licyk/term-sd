@@ -181,7 +181,7 @@ invokeai_manager() {
                                     exit_venv
                                     term_sd_echo "删除 InvokeAI 中"
                                     cd ..
-                                    rm -rf "${INVOKEAI_FOLDER}"
+                                    rm -rf "${INVOKEAI_PATH}"
 
                                     dialog --erase-on-exit \
                                         --title "InvokeAI 管理" \

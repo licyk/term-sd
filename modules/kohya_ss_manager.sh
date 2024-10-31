@@ -261,7 +261,7 @@ kohya_ss_manager() {
                                 term_sd_echo "删除 kohya_ss 中"
                                 exit_venv
                                 cd ..
-                                rm -rf "${KOHYA_SS_FOLDER}"
+                                rm -rf "${KOHYA_SS_PATH}"
 
                                 dialog --erase-on-exit \
                                     --title "kohya_ss 管理" \
@@ -324,12 +324,11 @@ kohya_ss_backend_repo_reinstall() {
     if term_sd_install_confirm "是否重新安装 kohya_ss 后端组件 ?"; then
         term_sd_print_line "kohya_ss 后端组件重装"
         term_sd_echo "删除原有 kohya_ss 后端组件中"
-        rm -rf sd-scripts
-        term_sd_mkdir sd-scripts
+        rm -rf "${KOHYA_SS_PATH}"/sd-scripts
+        term_sd_mkdir "${KOHYA_SS_PATH}"/sd-scripts
         term_sd_echo "重新下载 kohya_ss 后端组件中"
-        git_clone_repository https://github.com/kohya-ss/sd-scripts "${KOHYA_SS_PATH}" sd-scripts # kohya_ss后端
-        git submodule init
-        git submodule update
+        git_clone_repository https://github.com/kohya-ss/sd-scripts "${KOHYA_SS_PATH}" sd-scripts # kohya_ss 后端
+        git_init_submodule "${KOHYA_SS_PATH}"
         term_sd_echo "重装 kohya_ss 后端组件结束"
         term_sd_pause
     fi

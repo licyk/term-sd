@@ -137,7 +137,7 @@ term_sd_extra_scripts_launch() {
         if [[ -f "term-sd/extra/${@%.sh}.sh" ]]; then
             term_sd_print_line "${@%.sh} 脚本启动"
             term_sd_echo "启动 ${@%.sh} 脚本中"
-            . ./term-sd/extra/${@%.sh}.sh
+            . "${START_PATH}/term-sd/extra/${@%.sh}.sh"
             term_sd_print_line
             term_sd_echo "退出 ${@%.sh} 脚本"
             exit 0
@@ -169,7 +169,7 @@ term_sd_extra_scripts() {
         0)
             case "${extra_script}" in
                 Term-SD)
-                    . ./term-sd/modules/init.sh
+                    . "${START_PATH}/term-sd/modules/init.sh"
                     term_sd_version
                     main
                     ;;
@@ -180,7 +180,7 @@ term_sd_extra_scripts() {
                     ;;
                 *)
                     term_sd_print_line "${extra_script%.sh} 脚本启动"
-                    . ./term-sd/extra/"${extra_script}"
+                    . "${START_PATH}/term-sd/extra/"${extra_script}""
                     term_sd_print_line
                     term_sd_echo "退出 ${extra_script%.sh} 脚本"
                     exit 0
@@ -1395,7 +1395,7 @@ main() {
     # 自动更新成功时重载环境
     if [[ "${TERM_SD_TO_RESTART}" == 1 ]]; then
         term_sd_echo "重载 Term-SD 启动脚本中"
-        . ./term-sd/term-sd.sh
+        . "${START_PATH}/term-sd/term-sd.sh"
     fi
 
     term_sd_echo "Term-SD 版本: ${TERM_SD_VER}"

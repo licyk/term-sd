@@ -255,7 +255,7 @@ comfyui_manager() {
                                 term_sd_echo "删除 ComfyUI 中"
                                 exit_venv
                                 cd ..
-                                rm -rf "${COMFYUI_FOLDER}"
+                                rm -rf "${COMFYUI_PATH}"
 
                                 dialog --erase-on-exit \
                                     --title "ComfyUI 管理" \

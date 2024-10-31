@@ -14,10 +14,10 @@ sd_webui_venv_rebuild() {
         term_sd_tmp_disable_proxy
         term_sd_echo "开始重新构建 Stable-Diffusion-WebUI 的虚拟环境"
         term_sd_echo "删除原有虚拟环境中"
-        rm -rf venv
+        rm -rf "${SD_WEBUI_PATH}/venv"
         term_sd_echo "删除完成"
-        create_venv
-        enter_venv
+        create_venv "${SD_WEBUI_PATH}"
+        enter_venv "${SD_WEBUI_PATH}"
 
         install_pytorch # 安装 PyTorch
         install_python_package git+$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/openai/CLIP)
@@ -44,10 +44,10 @@ comfyui_venv_rebuild() {
         term_sd_tmp_disable_proxy
         term_sd_echo "开始重新构建 ComfyUI 的虚拟环境"
         term_sd_echo "删除原有虚拟环境中"
-        rm -rf venv
+        rm -rf "${COMFYUI_PATH}/venv"
         term_sd_echo "删除完成"
-        create_venv
-        enter_venv
+        create_venv "${COMFYUI_PATH}"
+        enter_venv "${COMFYUI_PATH}"
 
         install_pytorch # 安装 PyTorch
         install_python_package -r requirements.txt
@@ -73,10 +73,10 @@ invokeai_venv_rebuild() {
         term_sd_tmp_disable_proxy
         term_sd_echo "开始重新构建 InvokeAI 的虚拟环境"
         term_sd_echo "删除原有虚拟环境中"
-        rm -rf venv
+        rm -rf "${INVOKEAI_PATH}/venv"
         term_sd_echo "删除完成"
-        create_venv
-        enter_venv
+        create_venv "${INVOKEAI_PATH}"
+        enter_venv "${INVOKEAI_PATH}"
 
         install_pytorch # 安装 PyTorch
         install_python_package invokeai
@@ -102,10 +102,10 @@ fooocus_venv_rebuild() {
         term_sd_tmp_disable_proxy
         term_sd_echo "开始重新构建 Fooocus 的虚拟环境"
         term_sd_echo "删除原有虚拟环境中"
-        rm -rf venv
+        rm -rf "${FOOOCUS_PATH}/venv"
         term_sd_echo "删除完成"
-        create_venv
-        enter_venv
+        create_venv "${FOOOCUS_PATH}"
+        enter_venv "${FOOOCUS_PATH}"
 
         install_pytorch # 安装 PyTorch
         install_python_package -r requirements_versions.txt
@@ -131,10 +131,10 @@ lora_scripts_venv_rebuild() {
         term_sd_tmp_disable_proxy
         term_sd_echo "开始重新构建 lora-scripts 的虚拟环境"
         term_sd_echo "删除原有虚拟环境中"
-        rm -rf venv
+        rm -rf "${LORA_SCRIPTS_PATH}/venv"
         term_sd_echo "删除完成"
-        create_venv
-        enter_venv
+        create_venv "${LORA_SCRIPTS_PATH}"
+        enter_venv "${LORA_SCRIPTS_PATH}"
 
         install_pytorch # 安装 PyTorch
         install_python_package -r requirements.txt # lora-scripts 依赖
@@ -160,10 +160,10 @@ kohya_ss_venv_rebuild() {
         term_sd_tmp_disable_proxy
         term_sd_echo "开始重新构建 kohya_ss 的虚拟环境"
         term_sd_echo "删除原有虚拟环境中"
-        rm -rf venv
+        rm -rf "${KOHYA_SS_PATH}/venv"
         term_sd_echo "删除完成"
-        create_venv
-        enter_venv
+        create_venv "${KOHYA_SS_PATH}"
+        enter_venv "${KOHYA_SS_PATH}"
 
         install_pytorch # 安装 PyTorch
         install_python_package -r requirements.txt # kohya_ss 依赖
