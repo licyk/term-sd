@@ -61,52 +61,64 @@ Term-SD 在使用安装、管理 AI 软件的功能时，会使用准备功能�
 
 ### 2、PyTorch 版本选项
 有以下版本组合：
-- Torch 2.4.1 (CUDA 11.8) + xFormers 0.0.28.post1
-- Torch 2.4.1 (CUDA 12.1) + xFormers 0.0.28.post1
+- Torch 2.5.1 (CUDA 11.8) + xFormers 0.0.28.post3 (Linux)
+- Torch 2.5.1 (CUDA 12.1) + xFormers 0.0.28.post3 (Linux)
+- Torch 2.5.1 (CUDA 12.4) + xFormers 0.0.28.post3
+- Torch 2.5.1 (RoCM 6.1) + xFormers 0.0.28.post3 (Linux)
+- Torch 2.5.1 (RoCM 6.2) (Linux)
+- Torch 2.5.1 (CPU)
+- Torch 2.5.0 (CUDA 11.8) + xFormers 0.0.28.post2 (Linux)
+- Torch 2.5.0 (CUDA 12.1) + xFormers 0.0.28.post2 (Linux)
+- Torch 2.5.0 (CUDA 12.4) + xFormers 0.0.28.post2
+- Torch 2.5.0 (RoCM 6.1) + xFormers 0.0.28.post2 (Linux)
+- Torch 2.5.0 (RoCM 6.2) (Linux)
+- Torch 2.5.0 (CPU)
+- Torch 2.4.1 (CUDA 11.8) + xFormers 0.0.28.post1 (Linux)
+- Torch 2.4.1 (CUDA 12.1) + xFormers 0.0.28.post1 (Linux)
 - Torch 2.4.1 (CUDA 12.4) + xFormers 0.0.28.post1
-- Torch 2.4.1 (RoCM 6.1) + xFormers 0.0.28.post1
+- Torch 2.4.1 (RoCM 6.1) + xFormers 0.0.28.post1 (Linux)
 - Torch 2.4.1 (CPU)
 - Torch 2.4.0 (CUDA 11.8) + xFormers 0.0.27.post2
 - Torch 2.4.0 (CUDA 12.1) + xFormers 0.0.27.post2
 - Torch 2.4.0 (CUDA 12.4)
-- Torch 2.4.0 (RoCM 6.0)
+- Torch 2.4.0 (RoCM 6.0) (Linux)
 - Torch 2.4.0 (CPU)
 - Torch 2.3.1 (CUDA 11.8) + xFormers 0.0.27
 - Torch 2.3.1 (CUDA 12.1) + xFormers 0.0.27
-- Torch 2.3.1 (RoCM 6.0)
+- Torch 2.3.1 (RoCM 6.0) (Linux)
 - Torch 2.3.1 (DirectML)
 - Torch 2.3.1 (CPU)
 - Torch 2.3.0 (CUDA 11.8) + xFormers 0.0.26.post1
 - Torch 2.3.0 (CUDA 12.1) + xFormers 0.0.26.post1
-- Torch 2.3.0 (RoCM 6.0)
+- Torch 2.3.0 (RoCM 6.0) (Linux)
 - Torch 2.3.0 (CPU)
 - Torch 2.2.2 (CUDA 11.8) + xFormers 0.0.25.post1
 - Torch 2.2.2 (CUDA 12.1) + xFormers 0.0.25.post1
-- Torch 2.2.2 (RoCM 5.7)
+- Torch 2.2.2 (RoCM 5.7) (Linux)
 - Torch 2.2.2 (CPU)
 - Torch 2.2.1 (CUDA 11.8) + xFormers 0.0.25
 - Torch 2.2.1 (CUDA 12.1) + xFormers 0.0.25
-- Torch 2.2.1 (RoCM 5.7)
+- Torch 2.2.1 (RoCM 5.7) (Linux)
 - Torch 2.2.1 (DirectML)
 - Torch 2.2.1 (CPU)
 - Torch 2.2.0 (CUDA 11.8) + xFormers 0.0.24
 - Torch 2.2.0 (CUDA 12.1) + xFormers 0.0.24
-- Torch 2.2.0 (RoCM 5.7)
+- Torch 2.2.0 (RoCM 5.7) (Linux)
 - Torch 2.2.0 (CPU)
 - Torch 2.1.2 (CUDA 11.8) + xFormers 0.0.23.post1
 - Torch 2.1.2 (CUDA 12.1) + xFormers 0.0.23.post1
-- Torch 2.1.2 (RoCM 5.6)
+- Torch 2.1.2 (RoCM 5.6) (Linux)
 - Torch 2.1.2 (CPU)
 - Torch 2.1.1 (CUDA 11.8) + xFormers 0.0.23
 - Torch 2.1.1 (CUDA 12.1) + xFormers 0.0.23
-- Torch 2.1.1 (RoCM 5.6)
+- Torch 2.1.1 (RoCM 5.6) (Linux)
 - Torch 2.1.1 (CPU)
 - Torch 2.1.0 (Intel Arc)
 - Torch 2.1.0 (Intel Core Ultra)
-- Torch 2.1.0 (RoCM 5.6)
+- Torch 2.1.0 (RoCM 5.6) (Linux)
 - Torch 2.1.0 (CPU)
 - Torch 2.0.1 (CUDA 11.8) + xFormers 0.0.22
-- Torch 2.0.1 (RoCM 5.4.2)
+- Torch 2.0.1 (RoCM 5.4.2) (Linux)
 - Torch 2.0.1 (CPU)
 - Torch 2.0.0 (CUDA 11.8) + xFormers 0.0.18
 - Torch 2.0.0 (Intel Arc)
@@ -125,6 +137,7 @@ Term-SD 在使用安装、管理 AI 软件的功能时，会使用准备功能�
 - 在 MacOS 系统中，选择 Torch 版本
 - 如果想要使用 CPU 进行跑图，选择 Torch + CPU 的版本
 - 一般来说找到对应显卡型号的类型后，选择最新版本的就行
+- 标记为 Linux 的版本只能在 Linux 系统上安装
 
 
 ### 3、Pip 安装模式选项
@@ -270,52 +283,64 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 
 #### 2、PyTorch 版本选择
 第二个是PyTorch版本的选择界面，有以下版本组合
-- Torch 2.4.1 (CUDA 11.8) + xFormers 0.0.28.post1
-- Torch 2.4.1 (CUDA 12.1) + xFormers 0.0.28.post1
+- Torch 2.5.1 (CUDA 11.8) + xFormers 0.0.28.post3 (Linux)
+- Torch 2.5.1 (CUDA 12.1) + xFormers 0.0.28.post3 (Linux)
+- Torch 2.5.1 (CUDA 12.4) + xFormers 0.0.28.post3
+- Torch 2.5.1 (RoCM 6.1) + xFormers 0.0.28.post3 (Linux)
+- Torch 2.5.1 (RoCM 6.2) (Linux)
+- Torch 2.5.1 (CPU)
+- Torch 2.5.0 (CUDA 11.8) + xFormers 0.0.28.post2 (Linux)
+- Torch 2.5.0 (CUDA 12.1) + xFormers 0.0.28.post2 (Linux)
+- Torch 2.5.0 (CUDA 12.4) + xFormers 0.0.28.post2
+- Torch 2.5.0 (RoCM 6.1) + xFormers 0.0.28.post2 (Linux)
+- Torch 2.5.0 (RoCM 6.2) (Linux)
+- Torch 2.5.0 (CPU)
+- Torch 2.4.1 (CUDA 11.8) + xFormers 0.0.28.post1 (Linux)
+- Torch 2.4.1 (CUDA 12.1) + xFormers 0.0.28.post1 (Linux)
 - Torch 2.4.1 (CUDA 12.4) + xFormers 0.0.28.post1
-- Torch 2.4.1 (RoCM 6.1) + xFormers 0.0.28.post1
+- Torch 2.4.1 (RoCM 6.1) + xFormers 0.0.28.post1 (Linux)
 - Torch 2.4.1 (CPU)
 - Torch 2.4.0 (CUDA 11.8) + xFormers 0.0.27.post2
 - Torch 2.4.0 (CUDA 12.1) + xFormers 0.0.27.post2
 - Torch 2.4.0 (CUDA 12.4)
-- Torch 2.4.0 (RoCM 6.0)
+- Torch 2.4.0 (RoCM 6.0) (Linux)
 - Torch 2.4.0 (CPU)
 - Torch 2.3.1 (CUDA 11.8) + xFormers 0.0.27
 - Torch 2.3.1 (CUDA 12.1) + xFormers 0.0.27
-- Torch 2.3.1 (RoCM 6.0)
+- Torch 2.3.1 (RoCM 6.0) (Linux)
 - Torch 2.3.1 (DirectML)
 - Torch 2.3.1 (CPU)
 - Torch 2.3.0 (CUDA 11.8) + xFormers 0.0.26.post1
 - Torch 2.3.0 (CUDA 12.1) + xFormers 0.0.26.post1
-- Torch 2.3.0 (RoCM 6.0)
+- Torch 2.3.0 (RoCM 6.0) (Linux)
 - Torch 2.3.0 (CPU)
 - Torch 2.2.2 (CUDA 11.8) + xFormers 0.0.25.post1
 - Torch 2.2.2 (CUDA 12.1) + xFormers 0.0.25.post1
-- Torch 2.2.2 (RoCM 5.7)
+- Torch 2.2.2 (RoCM 5.7) (Linux)
 - Torch 2.2.2 (CPU)
 - Torch 2.2.1 (CUDA 11.8) + xFormers 0.0.25
 - Torch 2.2.1 (CUDA 12.1) + xFormers 0.0.25
-- Torch 2.2.1 (RoCM 5.7)
+- Torch 2.2.1 (RoCM 5.7) (Linux)
 - Torch 2.2.1 (DirectML)
 - Torch 2.2.1 (CPU)
 - Torch 2.2.0 (CUDA 11.8) + xFormers 0.0.24
 - Torch 2.2.0 (CUDA 12.1) + xFormers 0.0.24
-- Torch 2.2.0 (RoCM 5.7)
+- Torch 2.2.0 (RoCM 5.7) (Linux)
 - Torch 2.2.0 (CPU)
 - Torch 2.1.2 (CUDA 11.8) + xFormers 0.0.23.post1
 - Torch 2.1.2 (CUDA 12.1) + xFormers 0.0.23.post1
-- Torch 2.1.2 (RoCM 5.6)
+- Torch 2.1.2 (RoCM 5.6) (Linux)
 - Torch 2.1.2 (CPU)
 - Torch 2.1.1 (CUDA 11.8) + xFormers 0.0.23
 - Torch 2.1.1 (CUDA 12.1) + xFormers 0.0.23
-- Torch 2.1.1 (RoCM 5.6)
+- Torch 2.1.1 (RoCM 5.6) (Linux)
 - Torch 2.1.1 (CPU)
 - Torch 2.1.0 (Intel Arc)
 - Torch 2.1.0 (Intel Core Ultra)
-- Torch 2.1.0 (RoCM 5.6)
+- Torch 2.1.0 (RoCM 5.6) (Linux)
 - Torch 2.1.0 (CPU)
 - Torch 2.0.1 (CUDA 11.8) + xFormers 0.0.22
-- Torch 2.0.1 (RoCM 5.4.2)
+- Torch 2.0.1 (RoCM 5.4.2) (Linux)
 - Torch 2.0.1 (CPU)
 - Torch 2.0.0 (CUDA 11.8) + xFormers 0.0.18
 - Torch 2.0.0 (Intel Arc)
@@ -334,6 +359,7 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 - 在 MacOS 系统中，选择 Torch 版本
 - 如果想要使用 CPU 进行跑图，选择 Torch + CPU 的版本
 - 一般来说找到对应显卡型号的类型后，选择最新版本的就行
+- 标记为 Linux 的版本只能在 Linux 系统上安装
 
 
 #### 3、Stable-Diffusion-WebUI 分支选择
