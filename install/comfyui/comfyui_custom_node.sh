@@ -120,3 +120,4 @@ __term_sd_task_pre_ext_119 git_clone_repository https://github.com/weilin9999/We
 __term_sd_task_pre_ext_120 git_clone_repository https://github.com/city96/ComfyUI-GGUF "${COMFYUI_PATH}"/custom_nodes OFF # 为ComfyUI添加gguf格式模型的支持
 __term_sd_task_pre_ext_121 git_clone_repository https://github.com/XLabs-AI/x-flux-comfyui "${COMFYUI_PATH}"/custom_nodes OFF # 添加xlabs的controlnet模型支持
 __term_sd_task_pre_ext_122 git_clone_repository https://github.com/MakkiShizu/ComfyUI-Prompt-Wildcards "${COMFYUI_PATH}"/custom_nodes OFF # 添加提示词通配符支持
+__term_sd_task_pre_ext_123 git_clone_repository https://github.com/chrisgoringe/cg-controller "${COMFYUI_PATH}"/custom_nodes OFF # 添加类似invokeai的节点整理控制

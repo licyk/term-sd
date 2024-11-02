@@ -502,3 +502,7 @@ ComfyUI 插件 / 自定义节点说明：
 122、ComfyUI-Prompt-Wildcards
 描述：添加提示词通配符支持
 链接：https://github.com/MakkiShizu/ComfyUI-Prompt-Wildcards
+
+123、cg-controller
+描述：添加类似invokeai的节点整理控制
+链接：https://github.com/chrisgoringe/cg-controller

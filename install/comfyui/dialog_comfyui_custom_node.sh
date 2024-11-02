@@ -120,3 +120,4 @@ __term_sd_task_pre_ext_119 WeiLin-ComfyUI-prompt-all-in-one OFF
 __term_sd_task_pre_ext_120 ComfyUI-GGUF OFF
 __term_sd_task_pre_ext_121 x-flux-comfyui OFF
 __term_sd_task_pre_ext_122 ComfyUI-Prompt-Wildcards OFF
+__term_sd_task_pre_ext_123 cg-controller OFF
