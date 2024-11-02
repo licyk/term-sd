@@ -151,3 +151,4 @@ __term_sd_task_pre_ext_150 Config-Presets OFF
 __term_sd_task_pre_ext_151 seamless-tile-inpainting OFF
 __term_sd_task_pre_ext_152 sd-webui-ux OFF
 __term_sd_task_pre_ext_153 sd-webui-replacer OFF
+__term_sd_task_pre_ext_154 stable-diffusion-webui-wildcards OFF

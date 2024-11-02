@@ -498,3 +498,7 @@ ComfyUI 插件 / 自定义节点说明：
 121、x-flux-comfyui
 描述：添加xlabs的controlnet模型支持
 链接：https://github.com/XLabs-AI/x-flux-comfyui
+
+122、ComfyUI-Prompt-Wildcards
+描述：添加提示词通配符支持
+链接：https://github.com/MakkiShizu/ComfyUI-Prompt-Wildcards

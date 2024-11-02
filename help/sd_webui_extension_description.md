@@ -614,3 +614,7 @@ Stable Diffusion WebUI 插件说明：
 153、sd-webui-replacer
 描述：图片内容替换工具
 链接：https://github.com/light-and-ray/sd-webui-replacer
+
+154、stable-diffusion-webui-wildcards
+描述：添加提示词通配符支持
+链接：https://github.com/sdbds/stable-diffusion-webui-wildcards
