@@ -152,3 +152,4 @@ __term_sd_task_pre_ext_151 git_clone_repository https://github.com/brick2face/se
 __term_sd_task_pre_ext_152 git_clone_repository https://github.com/anapnoe/sd-webui-ux "${SD_WEBUI_PATH}"/extensions OFF # 更改sd-webui的界面
 __term_sd_task_pre_ext_153 git_clone_repository https://github.com/light-and-ray/sd-webui-replacer "${SD_WEBUI_PATH}"/extensions OFF # 图片内容替换工具
 __term_sd_task_pre_ext_154 git_clone_repository https://github.com/sdbds/stable-diffusion-webui-wildcards "${SD_WEBUI_PATH}"/extensions OFF # 添加提示词通配符支持
+__term_sd_task_pre_ext_155 git_clone_repository https://github.com/ljleb/sd-webui-freeu "${SD_WEBUI_PATH}"/extensions OFF # 添加FreeU支持

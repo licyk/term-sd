@@ -618,3 +618,7 @@ Stable Diffusion WebUI 插件说明：
 154、stable-diffusion-webui-wildcards
 描述：添加提示词通配符支持
 链接：https://github.com/sdbds/stable-diffusion-webui-wildcards
+
+155、sd-webui-freeu
+描述：添加FreeU支持
+链接：https://github.com/ljleb/sd-webui-freeu
