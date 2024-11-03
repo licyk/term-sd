@@ -506,3 +506,7 @@ ComfyUI 插件 / 自定义节点说明：
 123、cg-controller
 描述：添加类似invokeai的节点整理控制
 链接：https://github.com/chrisgoringe/cg-controller
+
+124、ComfyUI-Latent-Modifiers
+描述：在Latent部分应用滤镜，调整出图效果
+链接：https://github.com/Clybius/ComfyUI-Latent-Modifiers

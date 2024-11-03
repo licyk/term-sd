@@ -499,126 +499,130 @@ Stable Diffusion WebUI 插件说明：
 描述：提示词辅助工具
 链接：https://github.com/thisjam/sd-webui-oldsix-prompt
 
-125、sd-webui-incantations
-描述：调整生图质量和提示词效果
-链接：https://github.com/v0xie/sd-webui-incantations
-
-126、sd-webui-ipex-enhancement
+125、sd-webui-ipex-enhancement
 描述：优化IPEX后端的运行体验
 链接：https://github.com/Nuullll/sd-webui-ipex-enhancement
 
-127、sd-webui-udav2
+126、sd-webui-udav2
 描述：添加DepthAnythingV2支持
 链接：https://github.com/MackinationsAi/sd-webui-udav2
 
-128、sd-webui-cn-sam-preprocessor
+127、sd-webui-cn-sam-preprocessor
 描述：为ControlNet插件添加SegmentAnything预处理器
 链接：https://github.com/light-and-ray/sd-webui-cn-sam-preprocessor
 
-129、sd-webui-pnginfo-beautify
+128、sd-webui-pnginfo-beautify
 描述：将图片下方的生图信息进行美化排版
 链接：https://github.com/bluelovers/sd-webui-pnginfo-beautify
 
-130、sd-webui-resource-monitor
+129、sd-webui-resource-monitor
 描述：性能监测
 链接：https://github.com/Haoming02/sd-webui-resource-monitor
 
-131、chara-searcher
+130、chara-searcher
 描述：角色图片搜索
 链接：https://github.com/NON906/chara-searcher
 
-132、sd-webui-to_top_button
+131、sd-webui-to_top_button
 描述：添加一个回滚至顶部按钮
 链接：https://github.com/MakkiShizu/sd-webui-to_top_button
 
-133、sd-webui-aurasr
+132、sd-webui-aurasr
 描述：添加AuraSR放大算法支持
 链接：https://github.com/AndreyRGW/sd-webui-aurasr
 
-134、a1111-intelli-prompt
+133、a1111-intelli-prompt
 描述：提示词辅助插件
 链接：https://github.com/quanghuyn94/a1111-intelli-prompt
 
-135、sd-webui-decadetw-auto-prompt-llm
+134、sd-webui-decadetw-auto-prompt-llm
 描述：使用LLM辅助编写提示词
 链接：https://github.com/xlinx/sd-webui-decadetw-auto-prompt-llm
 
-136、sd-forge-temperature-settings
+135、sd-forge-temperature-settings
 描述：图片色温调节，仅支持Forge
 链接：https://github.com/Haoming02/sd-forge-temperature-settings
 
-137、forge-space-SUPIR
+136、forge-space-SUPIR
 描述：为sd-webui-forge添加SUPIR支持
 链接：https://github.com/Haoming02/forge-space-SUPIR
 
-138、forge-space-ollama
+137、forge-space-ollama
 描述：为sd-webui-forge添加ollama支持
 链接：https://github.com/Haoming02/forge-space-ollama
 
-139、sd-webui-cardmaster
+138、sd-webui-cardmaster
 描述：优化模型选项卡
 链接：https://github.com/SenshiSentou/sd-webui-cardmaster
 
-140、extra-network-side-panel-for-a1111
+139、extra-network-side-panel-for-a1111
 描述：恢复旧版扩展模型按钮
 链接：https://github.com/CurtisDS/extra-network-side-panel-for-a1111
 
-141、sd-forge-regional-prompter
+140、sd-forge-regional-prompter
 描述：为sd-webui-forge添加分区提示词支持
 链接：https://github.com/jessearodriguez/sd-forge-regional-prompter
 
-142、--sd-webui-ar-plus
+141、--sd-webui-ar-plus
 描述：宽高比选择工具
 链接：https://github.com/LEv145/--sd-webui-ar-plus
 
-143、forge2_cleaner
+142、forge2_cleaner
 描述：为sd-webui-forge添加图像内容擦除功能
 链接：https://github.com/DenOfEquity/forge2_cleaner
 
-144、sd-webui-cleaner
+143、sd-webui-cleaner
 描述：添加图像内容擦除功能
 链接：https://github.com/novitalabs/sd-webui-cleaner
 
-145、HyperTile
+144、HyperTile
 描述：为sd-webui-forge添加HyperTile支持
 链接：https://github.com/DenOfEquity/HyperTile
 
-146、forgeFlux_dualPrompt
+145、forgeFlux_dualPrompt
 描述：为sd-webui-forge添加多提示词功能
 链接：https://github.com/DenOfEquity/forgeFlux_dualPrompt
 
-147、GPU_For_T5
+146、GPU_For_T5
 描述：为sd-webui-forge添加移动t5模型功能，可将t5模型权重移至指定gpu上
 链接：https://github.com/Juqowel/GPU_For_T5
 
-148、sd-webui-top-k-emphasis
+147、sd-webui-top-k-emphasis
 描述：为sd-webui-forge添加Top_K_Emphasis提示词语法
 链接：https://github.com/Filexor/sd-webui-top-k-emphasis
 
-149、uddetailer
+148、uddetailer
 描述：面部修复工具
 链接：https://github.com/wkpark/uddetailer
 
-150、Config-Presets
+149、Config-Presets
 描述：生图参数预设保存工具
 链接：https://github.com/Zyin055/Config-Presets
 
-151、seamless-tile-inpainting
+150、seamless-tile-inpainting
 描述：平滑平铺工具
 链接：https://github.com/brick2face/seamless-tile-inpainting
 
-152、sd-webui-ux
+151、sd-webui-ux
 描述：更改sd-webui的界面
 链接：https://github.com/anapnoe/sd-webui-ux
 
-153、sd-webui-replacer
+152、sd-webui-replacer
 描述：图片内容替换工具
 链接：https://github.com/light-and-ray/sd-webui-replacer
 
-154、stable-diffusion-webui-wildcards
+153、stable-diffusion-webui-wildcards
 描述：添加提示词通配符支持
 链接：https://github.com/sdbds/stable-diffusion-webui-wildcards
 
-155、sd-webui-freeu
+154、sd-webui-freeu
 描述：添加FreeU支持
 链接：https://github.com/ljleb/sd-webui-freeu
+
+155、sd-webui-incantations
+描述：添加PerturbedAttentionGuidance支持
+链接：https://github.com/v0xie/sd-webui-incantations
+
+156、sd-webui-kohya-hiresfix
+描述：修复在直出高分辨率图片时画面异常的问题
+链接：https://github.com/w-e-w/sd-webui-kohya-hiresfix
