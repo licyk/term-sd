@@ -225,7 +225,7 @@ check_sd_webui_extension_requirement() {
     # 统计需要安装依赖的插件数量
     for i in "${SD_WEBUI_PATH}/extensions"/*; do
         [[ -f "${i}" ]] && continue
-        [[ -f "${i}/install.py" ]] && sum=$(( sum + 1))
+        [[ -f "${i}/install.py" ]] && sum=$(( sum + 1 ))
     done
 
     # 检查启动参数中是否包含禁用所有插件的启动参数
@@ -256,6 +256,62 @@ check_sd_webui_extension_requirement() {
                     fi
                 else
                     term_sd_echo "[${count}/${sum}]:: ${extension_name} 插件已禁用, 不执行该插件的依赖安装脚本"
+                fi
+            fi
+        done
+    fi
+}
+
+# 检查 SD WebUI Forge 内置插件依赖
+# 使用:
+# check_sd_webui_forge_built_in_extension_requirement <SD WebUI 参数配置文件>
+check_sd_webui_forge_built_in_extension_requirement() {
+    local py_path
+    local extension_name
+    local i
+    local status
+    local launch_sd_config=$@
+    local cancel_install_extension_requirement=0
+    local install_script_path
+    local count=0
+    local sum=0
+
+    py_path=$(get_sd_webui_python_path)
+
+    # 统计需要安装依赖的插件数量
+    for i in "${SD_WEBUI_PATH}/extensions-builtin"/*; do
+        [[ -f "${i}" ]] && continue
+        [[ -f "${i}/install.py" ]] && sum=$(( sum + 1 ))
+    done
+
+    # 检查启动参数中是否包含禁用所有插件的启动参数
+    if cat "${START_PATH}"/term-sd/config/${launch_sd_config} | grep "\-\-disable\-all\-extensions" &> /dev/null \
+        || cat "${START_PATH}"/term-sd/config/${launch_sd_config} | grep "\-\-disable\-extra\-extensions" &> /dev/null; then
+
+        cancel_install_extension_requirement=1
+    fi
+
+    if ! is_sd_webui_disable_all_extension && [[ "${cancel_install_extension_requirement}" == 0 ]]; then
+        term_sd_echo "检查 ${TERM_SD_MANAGE_OBJECT} 内置插件依赖中"
+        for i in "${SD_WEBUI_PATH}/extensions-builtin"/*; do
+            if [[ -f "${i}" ]]; then
+                continue
+            fi
+
+            extension_name=$(basename "${i}")
+            install_script_path="${i}/install.py"
+            if [[ -f "${install_script_path}" ]]; then
+                count=$(( count + 1 ))
+                if ! is_sd_webui_extension_disabled "${extension_name}"; then
+                    term_sd_echo "[${count}/${sum}]:: 执行 ${extension_name} 内置插件的依赖安装脚本中"
+                    PYTHONPATH=$py_path term_sd_try term_sd_python "${install_script_path}"
+                    if [[ "$?" == 0 ]]; then
+                        term_sd_echo "[${count}/${sum}]:: ${extension_name} 内置插件的依赖安装脚本执行成功"
+                    else
+                        term_sd_echo "[${count}/${sum}]:: ${extension_name} 内置插件的依赖安装脚本执行失败, 这可能会导致 ${extension_name} 内置插件部分功能无法正常使用"
+                    fi
+                else
+                    term_sd_echo "[${count}/${sum}]:: ${extension_name} 内置插件已禁用, 不执行该内置插件的依赖安装脚本"
                 fi
             fi
         done

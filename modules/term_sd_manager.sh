@@ -30,6 +30,7 @@ term_sd_launch() {
     local is_sdnext=0
     local github_mirror
     local cuda_memory_alloc_config
+    local is_sd_webui_forge=0
 
     term_sd_print_line "${TERM_SD_MANAGE_OBJECT} 启动"
     term_sd_echo "提示: 可以按下 Ctrl + C 键终止 AI 软件的运行"
@@ -49,6 +50,7 @@ term_sd_launch() {
                     ;;
                 stable-diffusion-webui-forge|stable-diffusion-webui-forge.git)
                     launch_sd_config="sd-webui-forge-launch.conf"
+                    is_sd_webui_forge=1
                     ;;
                 *)
                     launch_sd_config="sd-webui-launch.conf"
@@ -173,6 +175,10 @@ term_sd_launch() {
                         validate_requirements "${SD_WEBUI_PATH}/requirements_versions.txt"
                         PIP_FIND_LINKS="${PIP_FIND_LINKS} ${TERM_SD_PYPI_MIRROR}" \
                         check_sd_webui_extension_requirement "${launch_sd_config}"
+                        if [[ "${is_sd_webui_forge}" == 1 ]]; then # 检查 SD WebUI Forge 内置插件的依赖
+                            PIP_FIND_LINKS="${PIP_FIND_LINKS} ${TERM_SD_PYPI_MIRROR}" \
+                            check_sd_webui_forge_built_in_extension_requirement "${launch_sd_config}"
+                        fi
                         ;;
                     ComfyUI)
                         validate_requirements "${COMFYUI_PATH}/requirements.txt"
