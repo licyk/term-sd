@@ -455,27 +455,27 @@ pytorch_version_select() {
             PYTORCH_TYPE="cu118"
             ;;
         64)
-            INSTALL_PYTORCH_VERSION="torch==2.5.1+cpu torchvision==0.20.0+cpu torchaudio==2.5.1+cpu"
+            INSTALL_PYTORCH_VERSION="torch==2.5.1+cpu torchvision==0.20.1+cpu torchaudio==2.5.1+cpu"
             PYTORCH_TYPE="other"
             ;;
         65)
-            INSTALL_PYTORCH_VERSION="torch==2.5.1+rocm6.2 torchvision==0.20.0+rocm6.2 torchaudio==2.5.1+rocm6.2"
+            INSTALL_PYTORCH_VERSION="torch==2.5.1+rocm6.2 torchvision==0.20.1+rocm6.2 torchaudio==2.5.1+rocm6.2"
             PYTORCH_TYPE="rocm62"
             ;;
         66)
-            INSTALL_PYTORCH_VERSION="torch==2.5.1+rocm6.1 torchvision==0.20.0+rocm6.1 torchaudio==2.5.1+rocm6.1 xformers==0.0.28.post3"
+            INSTALL_PYTORCH_VERSION="torch==2.5.1+rocm6.1 torchvision==0.20.1+rocm6.1 torchaudio==2.5.1+rocm6.1 xformers==0.0.28.post3"
             PYTORCH_TYPE="rocm61"
             ;;
         67)
-            INSTALL_PYTORCH_VERSION="torch==2.5.1+cu124 torchvision==0.20.0+cu124 torchaudio==2.5.1+cu124 xformers==0.0.28.post3"
+            INSTALL_PYTORCH_VERSION="torch==2.5.1+cu124 torchvision==0.20.1+cu124 torchaudio==2.5.1+cu124 xformers==0.0.28.post3"
             PYTORCH_TYPE="cu124"
             ;;
         68)
-            INSTALL_PYTORCH_VERSION="torch==2.5.1+cu121 torchvision==0.20.0+cu121 torchaudio==2.5.1+cu121 xformers==0.0.28.post3"
+            INSTALL_PYTORCH_VERSION="torch==2.5.1+cu121 torchvision==0.20.1+cu121 torchaudio==2.5.1+cu121 xformers==0.0.28.post3"
             PYTORCH_TYPE="cu121"
             ;;
         69)
-            INSTALL_PYTORCH_VERSION="torch==2.5.1+cu118 torchvision==0.20.0+cu118 torchaudio==2.5.1+cu118 xformers==0.0.28.post3"
+            INSTALL_PYTORCH_VERSION="torch==2.5.1+cu118 torchvision==0.20.1+cu118 torchaudio==2.5.1+cu118 xformers==0.0.28.post3"
             PYTORCH_TYPE="cu118"
             ;;
     esac
