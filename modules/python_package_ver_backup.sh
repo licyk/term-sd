@@ -46,7 +46,7 @@ python_package_ver_backup_manager() {
         if term_sd_is_dir_empty "${START_PATH}"/term-sd/requirements-backup/"${backup_req_file_name}"; then
             req_file_info="无"
         else
-            req_file_info=$(ls -lrh "${START_PATH}"/term-sd/requirements-backup/${backup_req_file_name} --time-style=+"%Y-%m-%d" | awk 'NR==2 {print $7}' )
+            req_file_info=$(ls -lht "${START_PATH}"/term-sd/requirements-backup/${backup_req_file_name} --time-style=+"%Y-%m-%d" | awk 'NR==2 {print $7}' )
         fi
 
         dialog_arg=$(dialog --erase-on-exit --notags \
@@ -103,12 +103,42 @@ python_package_ver_backup_manager() {
 # 使用:
 # backup_python_package_ver <要备份软件包的 AI 软件名>
 # 依赖信息文件保存在 <Start Path>/term-sd/requirements-backup/<要备份软件包的 AI 软件名> 中
+# 获取 TERM_SD_MANAGE_OBJECT 全局变量作为文件名
 backup_python_package_ver() {
     local req_file
     local backup_name=$@
+    local name
+
     term_sd_echo "备份 ${backup_name} 的 Python 依赖库版本中"
     # 生成一个文件名
-    req_file="requirements-bak-$(date "+%Y-%m-%d-%H-%M-%S").txt"
+    case "${TERM_SD_MANAGE_OBJECT}" in
+        stable-diffusion-webui)
+            case "$(git remote get-url origin | awk -F '/' '{print $NF}')" in # 分支判断
+                stable-diffusion-webui|stable-diffusion-webui.git)
+                    name="stable-diffusion-webui"
+                    ;;
+                automatic|automatic.git)
+                    name="sdnext"
+                    ;;
+                stable-diffusion-webui-directml|stable-diffusion-webui-directml.git|stable-diffusion-webui-amdgpu|stable-diffusion-webui-amdgpu.git)
+                    name="stable-diffusion-webui-directml"
+                    ;;
+                stable-diffusion-webui-forge|stable-diffusion-webui-forge.git)
+                    name="stable-diffusion-webui-forge"
+                    ;;
+                stable-diffusion-webui-reForge|stable-diffusion-webui-reForge.git)
+                    name="stable-diffusion-webui-reForge"
+                    ;;
+                *)
+                    name="stable-diffusion-webui"
+                    ;;
+            esac
+            ;;
+        ComfyUI|InvokeAI|Fooocus|lora-scripts|kohya_ss)
+            name=$TERM_SD_MANAGE_OBJECT
+            ;;
+    esac
+    req_file="${name}-$(date "+%Y-%m-%d-%H-%M-%S").txt"
 
     # 将python依赖库中各个包和包版本备份到文件中
     get_python_env_pkg > "${START_PATH}/term-sd/requirements-backup/${backup_name}/${req_file}"
