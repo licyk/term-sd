@@ -225,8 +225,8 @@ def get_package_name(pkg: str) -> str:
 # 判断 2 个版本的大小, 前面大返回 1, 后面大返回 -1, 相同返回 0
 def compare_versions(version1, version2):
     try:
-        nums1 = re.sub(r'[a-zA-Z]+', '', version1).replace('+', '.').split(".")  # 将版本号 1 拆分成数字列表
-        nums2 = re.sub(r'[a-zA-Z]+', '', version2).replace('+', '.').split(".")  # 将版本号 2 拆分成数字列表
+        nums1 = re.sub(r'[a-zA-Z]+', '', version1).replace('-', '.').replace('+', '.').split(".")  # 将版本号 1 拆分成数字列表
+        nums2 = re.sub(r'[a-zA-Z]+', '', version2).replace('-', '.').replace('+', '.').split(".")  # 将版本号 2 拆分成数字列表
     except:
         return 0
 
