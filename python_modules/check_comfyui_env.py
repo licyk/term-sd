@@ -298,9 +298,9 @@ def detect_conflict_package(pkg_1: str, pkg_2: str) -> bool:
 
         # >=, ==
         if ">=" in pkg_1 and "==" in pkg_2:
-            ver_1 = get_version(pkg_1.split(">").pop())
+            ver_1 = get_version(pkg_1.split(">=").pop())
             ver_2 = get_version(pkg_2.split("==").pop())
-            if compare_versions(ver_1, ver_2) == 1 or compare_versions(ver_1, ver_2) == -1:
+            if compare_versions(ver_1, ver_2) == 1:
             # if ver_1 > ver_2:
                 return True
 
@@ -314,7 +314,7 @@ def detect_conflict_package(pkg_1: str, pkg_2: str) -> bool:
 
         # <=, ==
         if "<=" in pkg_1 and "==" in pkg_2:
-            ver_1 = get_version(pkg_1.split(">").pop())
+            ver_1 = get_version(pkg_1.split("<=").pop())
             ver_2 = get_version(pkg_2.split("==").pop())
             if compare_versions(ver_1, ver_2) == 1 or compare_versions(ver_1, ver_2) == -1:
             # if ver_1 > ver_2:
@@ -340,7 +340,7 @@ def find_conflict(requirement_list: dict, conflict_package) -> dict:
         has_conflict_package = False
         for pkg_1 in conflict_package:
             for pkg_2 in requirements:
-                if pkg_1 == get_package_name(format_package_name(pkg_2)):
+                if pkg_1 == get_package_name(format_package_name(pkg_2)) and has_version(pkg_2):
                     has_conflict_package = True
                     break
 
@@ -360,7 +360,7 @@ def sum_conflict_notice(requirement_list: dict, conflict_package) -> list:
 
             # 查找自定义节点中的依赖是否包含冲突依赖
             for pkg in requirement_list.get(requirement_name).get("requirements"):
-                if conflict_pkg == get_package_name(format_package_name(pkg)):
+                if conflict_pkg.lower() == get_package_name(format_package_name(pkg)).lower() and has_version(pkg):
                     content.append(f" - {requirement_name}: {pkg}")
 
         content.append("")
@@ -414,7 +414,7 @@ if __name__ == "__main__":
     # 判断冲突依赖
     for i in pkg_list:
         for j in pkg_list:
-            if get_package_name(i) in j and detect_conflict_package(i, j):
+            if get_package_name(i) == get_package_name(j) and detect_conflict_package(i.lower(), j.lower()):
                 conflict_package.append(i)
 
     # conflict_package = remove_duplicate(conflict_package)
