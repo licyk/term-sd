@@ -7,14 +7,31 @@ _✨一个小巧，多功能的 AI 软件管理器_
 </div>
 
 - [Term-SD](#term-sd)
-  - [概述](#概述)
-  - [安装要求](#安装要求)
-  - [配置运行环境](#配置运行环境)
-    - [Windows](#windows)
-    - [Linux](#linux)
-    - [MacOS](#macos)
-  - [安装 Term-SD](#安装-term-sd)
-  - [帮助文档](#帮助文档)
+- [概述](#概述)
+- [安装要求](#安装要求)
+- [配置运行环境](#配置运行环境)
+  - [Windows](#windows)
+    - [1. 安装 Microsoft Visual C++ Redistributable](#1-安装-microsoft-visual-c-redistributable)
+    - [2. 安装 MSYS2](#2-安装-msys2)
+    - [3. 配置 Windows 终端](#3-配置-windows-终端)
+    - [4. 配置 MSYS2 镜像源](#4-配置-msys2-镜像源)
+    - [5. 安装 Git，Dialog，Curl，Aria2](#5-安装-gitdialogcurlaria2)
+    - [6. 安装 Python，Pip](#6-安装-pythonpip)
+  - [Linux](#linux)
+    - [Debian / Ubuntu 系：](#debian--ubuntu-系)
+    - [ArchLinux 系：](#archlinux-系)
+    - [OpenSEUS：](#openseus)
+    - [NixOS：](#nixos)
+  - [MacOS](#macos)
+    - [1. 配置 Homebrew 镜像源](#1-配置-homebrew-镜像源)
+    - [2. 安装 Homebrew](#2-安装-homebrew)
+    - [3. 检测 Homebrew 是否安装成功](#3-检测-homebrew-是否安装成功)
+    - [4. 更新并应用镜像源](#4-更新并应用镜像源)
+    - [5. 安装依赖](#5-安装依赖)
+- [安装 Term-SD](#安装-term-sd)
+  - [1. 下载 Term-SD](#1-下载-term-sd)
+  - [2. 启动 Term-SD](#2-启动-term-sd)
+- [帮助文档](#帮助文档)
     - [《Windows 平台如何配置 Term-SD 运行环境》](#windows-平台如何配置-term-sd-运行环境)
     - [《在 Linux 上使用 Python 版本管理器安装 Python》](#在-linux-上使用-python-版本管理器安装-python)
     - [《Term-SD 界面操作方法》](#term-sd-界面操作方法)
@@ -22,8 +39,8 @@ _✨一个小巧，多功能的 AI 软件管理器_
 
 ***
 
-## 概述
-Term-SD 是一款基于 Dialog 实现前端界面显示的 AI 管理器，支持安装，管理以下软件  
+# 概述
+Term-SD 是一款基于 Dialog 实现前端界面显示的 AI 管理器，支持安装，管理以下软件：
 - 1、[Stable-Diffusion-WebUI](https://github.com/AUTOMATIC1111/stable-diffusion-webui) / [Stable-Diffusion-WebUI-Forge](https://github.com/lllyasviel/stable-diffusion-webui-forge) / [stable-diffusion-webui-reForge](https://github.com/Panchovix/stable-diffusion-webui-reForge) / [Stable-Diffusion-WebUI-AMDGPU](https://github.com/lshqqytiger/stable-diffusion-webui-amdgpu) / [SD.Next](https://github.com/vladmandic/automatic)
 - 2、[ComfyUI](https://github.com/comfyanonymous/ComfyUI)
 - 3、[InvokeAI](https://github.com/invoke-ai/InvokeAI)
@@ -33,7 +50,7 @@ Term-SD 是一款基于 Dialog 实现前端界面显示的 AI 管理器，支持
 
 ***
 
-## 安装要求
+# 安装要求
 
 Term-SD 支持在 Linux，Windows，MacOS 上运行，在使用 Term-SD 前先配置好依赖环境，以下是各个平台所需的依赖：
 - Windows：MSYS2，Aria2，Python，Pip，Git，Dialog，Curl，Visual C++ Runtime
@@ -51,30 +68,13 @@ Term-SD 支持在 Linux，Windows，MacOS 上运行，在使用 Term-SD 前先�
 
 ***
 
-## 配置运行环境
+# 配置运行环境
 
-### Windows
+## Windows
 
 _！Windows 平台可阅读图文版[《Windows 平台如何配置 Term-SD 运行环境》](#windows-平台如何配置-term-sd-运行环境)_
 
-1. 安装 MSYS2
-
-下载 [MSYS2](https://github.com/msys2/msys2-installer/releases/download/2024-05-07/msys2-x86_64-20240507.exe) 安装包。  
-下载好后打开 MSYS2 安装包，打开后点击`Next`进入安装路径选择，点击`Browse`选择安装路交警，选择好后点击`Next`进行安装。
-
-
-2. 安装 Python，Pip
-
-下载 [Python](https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe) 安装包。  
-下载好后打开 Python 安装包，在安装界面点击`Customize installation`，然后点击`Next`，勾选`Add Python to environment variables`，再点击`Browse`，自己选择要安装的路径，选择好后点击`install`，等待安装完成。  
-安装结束后先不要关闭安装界面，先点击`Disable path length limit`（没有该选项时则不用理会），再退出。
-
->[!NOTE]  
->1. Python 安装器在安装 Python 时同时安装 Pip（安装选项中已默认勾选安装 Pip），所以不需要手动再去安装 Pip。  
->2. `Disable path length limit`为启用 Windows 系统的长路径支持，具体查看微软官方文档[《最大路径长度限制》](https://learn.microsoft.com/zh-cn/windows/win32/fileio/maximum-file-path-limitation)，之前已经在 Windows 系统中启用该功能之后，选项`Disable path length limit`将不会显示。
-
-
-3. 安装 Microsoft Visual C++ Redistributable
+### 1. 安装 Microsoft Visual C++ Redistributable
 
 下载 [Microsoft Visual C++ Redistributable](https://aka.ms/vs/17/release/vc_redist.x64.exe) 并安装。
 
@@ -82,7 +82,13 @@ _！Windows 平台可阅读图文版[《Windows 平台如何配置 Term-SD 运�
 >缺失 Microsoft Visual C++ Redistributable 可能会导致 PyTorch 无法正常调用 GPU，参考：[[Bug]: Missing requirement for VC_redist.x64.exe causes "RuntimeError: Torch is not able to use GPU" · Issue #16032 · AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui/issues/16032)
 
 
-4. 配置 Windows 终端
+### 2. 安装 MSYS2
+
+下载 [MSYS2](https://github.com/msys2/msys2-installer/releases/download/2024-05-07/msys2-x86_64-20240507.exe) 安装包。  
+下载好后打开 MSYS2 安装包，打开后点击`Next`进入安装路径选择，点击`Browse`选择安装路交警，选择好后点击`Next`进行安装。
+
+
+### 3. 配置 Windows 终端
 
 >[!NOTE]  
 >Windows10 需在开始菜单中找到 Micorsoft Store 并进入，搜索 [Windows Terminal](https://www.microsoft.com/store/productId/9N0DX20HK701?ocid=pdpshare) 进行安装。
@@ -112,51 +118,76 @@ C:\msys64\ucrt64.ico
 >不推荐使用 MSYS2 安装程序安装的 MSYS2 UCRT64 终端。
 
 
-5. 配置 MSYS2 镜像源
+### 4. 配置 MSYS2 镜像源
 
 配置好 Windows 终端后在 Windows 终端的顶栏菜单里找到`MSYS2 UCRT64`，打开  
 在 MSYS2 UCRT64 终端输入以下内容并回车。
 
-```
+```bash
 sed -i "s#https\?://mirror.msys2.org/#https://mirrors.tuna.tsinghua.edu.cn/msys2/#g" /etc/pacman.d/mirrorlist*
 pacman -Sy
 ```
 
 
-6. 安装 Git，Dialog，Curl，Aria2
+### 5. 安装 Git，Dialog，Curl，Aria2
 
-输入以下内容并回车。
+输入以下内容并回车，等待安装完成。
 
+```bash
+yes | pacman -S git mingw-w64-ucrt-x86_64-git-lfs dialog curl mingw-w64-ucrt-x86_64-aria2 mingw-w64-ucrt-x86_64-ca-certificates
 ```
-pacman -S git mingw-w64-ucrt-x86_64-git-lfs dialog curl mingw-w64-ucrt-x86_64-aria2 mingw-w64-ucrt-x86_64-ca-certificates
+
+
+### 6. 安装 Python，Pip
+
+这里提供两种方法进行安装。
+
+**方法1. 使用 Python 安装器**
+
+下载 [Python](https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe) 安装包。  
+下载好后打开 Python 安装包，在安装界面点击`Customize installation`，然后点击`Next`，勾选`Add Python to environment variables`，再点击`Browse`，自己选择要安装的路径，选择好后点击`install`，等待安装完成。  
+安装结束后先不要关闭安装界面，先点击`Disable path length limit`（没有该选项时则不用理会），再退出。
+
+>[!NOTE]  
+>1. Python 安装器在安装 Python 时同时安装 Pip（安装选项中已默认勾选安装 Pip），所以不需要手动再去安装 Pip。  
+>2. `Disable path length limit`为启用 Windows 系统的长路径支持，具体查看微软官方文档[《最大路径长度限制》](https://learn.microsoft.com/zh-cn/windows/win32/fileio/maximum-file-path-limitation)，之前已经在 Windows 系统中启用该功能之后，选项`Disable path length limit`将不会显示。
+
+**方法2. 使用命令安装**
+
+运行下面的命令下载 Python 并安装。
+
+```bash
+mkdir -p "${HOME}/python310" ; curl -L "https://modelscope.cn/models/licyks/invokeai-core-model/resolve/master/pypatchmatch/cpython-3.10.15%2B20241008-x86_64-pc-windows-msvc-shared-install_only.tar.gz" | tar -xzf - --strip-components=1 -C "${HOME}/python310"
 ```
 
-输入`y`，回车，等待安装完成。
+此时 Python 将会安装到`${HOME}/python310`这个路径，在[启动 Term-SD](#2-启动-term-sd)这个步骤需要手动指定一下这个路径。
 
+```bash
+./term-sd.sh --set-python-path "${HOME}/python310/python"
+```
 
 完成上面的步骤后 Term-SD 的运行环境就配置好了，可以在下面的步骤[安装 Term-SD](#安装-term-sd)。
 
 
-### Linux
-在终端输入下面的命令：
+## Linux
 
-- Debian (Ubuntu) 系：
-```
+### Debian / Ubuntu 系：
+```bash
 sudo apt install python3 python3-pip python3-venv python3-tk git aria2 dialog curl
 ```
 
-- ArchLinux 系：
-```
+### ArchLinux 系：
+```bash
 sudo pacman -S python3 python3-pip python3-venv tk git aria2 dialog curl
 ```
 
-- OpenSEUS：
-```
+### OpenSEUS：
+```bash
 sudo zypper install python3 python3-pip python-venvs python-tk git aria2 dialog curl
 ```
 
-- NixOS：
-```
+### NixOS：
+```bash
 nix-env -i python311Full aria git dialog curl
 ```
 
@@ -167,11 +198,13 @@ nix-env -i python311Full aria git dialog curl
 完成上面的步骤后 Term-SD 的运行环境就配置好了，可以在下面的步骤[安装 Term-SD](#安装-term-sd)。
 
 
-### MacOS
+## MacOS
 
-1. 配置 [Homebrew 镜像源](https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/) 的环境变量。
+### 1. 配置 Homebrew 镜像源
 
-```
+配置 [Homebrew 镜像源](https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/) 的环境变量。
+
+```bash
 export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api"
 export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
 export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
@@ -180,26 +213,28 @@ export HOMEBREW_PIP_INDEX_URL="https://pypi.tuna.tsinghua.edu.cn/simple"
 ```
 
 
-2. 下载安装脚本并安装 [Homebrew](https://brew.sh/zh-cn/)（如果下载失败可以多试几次）。
+### 2. 安装 Homebrew
 
-```
+下载安装脚本并安装 [Homebrew](https://brew.sh/zh-cn/)（如果下载失败可以多试几次）。
+
+```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 下载成功后会自动进入安装程序，根据提示来安装。
 
 
-3. 检测 Homebrew 是否安装成功
+### 3. 检测 Homebrew 是否安装成功
 
-```
+```bash
 brew -v
 ```
 
 能够正常输出 Homebrew 版本就说明安装成功。
 
 
-4. 更新并应用镜像源
+### 4. 更新并应用镜像源
 
-```
+```bash
 brew update
 ```
 
@@ -209,9 +244,11 @@ brew update
 [《Homebrew Documentation》](https://docs.brew.sh/Installation)
 
 
-5. 安装 Git，Aria2，Dialog，Python，Rust，Cmake，Protobuf，Wget，Curl
+### 5. 安装依赖
 
-```
+安装 Git，Aria2，Dialog，Python，Rust，Cmake，Protobuf，Wget，Curl。
+
+```bash
 brew install git aria2 dialog python@3.10 rust cmake protobuf wget curl
 ```
 
@@ -219,18 +256,18 @@ brew install git aria2 dialog python@3.10 rust cmake protobuf wget curl
 
 ***
 
-## 安装 Term-SD
-1. 下载 Term-SD
+# 安装 Term-SD
+## 1. 下载 Term-SD
 
 打开终端，输入以下命令下载 Term-SD。
 
-```
+```bash
 aria2c https://github.com/licyk/term-sd/raw/main/term-sd.sh && chmod +x term-sd.sh
 ```
 
 如果下载失败可以打开科学上网，再输入刚才的指令，或者使用 Gitee 仓库地址下载。
 
-```
+```bash
 aria2c https://gitee.com/licyk/term-sd/raw/main/term-sd.sh && chmod +x term-sd.sh
 ```
 
@@ -239,12 +276,18 @@ aria2c https://gitee.com/licyk/term-sd/raw/main/term-sd.sh && chmod +x term-sd.s
 >2. Term-SD 已支持修改 AI 软件的安装路径，可以在 Term-SD 的`Term-SD 设置` -> `自定义安装路径`中设置，该功能的说明在[《如何使用Term-SD》](https://github.com/licyk/README-collection/blob/main/term-sd/README_how_to_use_term_sd.md)。
 
 
-2. 启动 Term-SD
+## 2. 启动 Term-SD
 
 在终端输入以下命令启动 Term-SD。
 
-```
+```bash
 ./term-sd.sh
+```
+
+如果需要指定 Python 路径，则加上`--set-python-path <Python 解释器路径>`参数进行指定，例如。
+
+```bash
+./term-sd.sh --set-python-path "${HOME}/python310/python"
 ```
 
 启动后等待安装 Term-SD 组件后即可正常使用。  
@@ -253,7 +296,7 @@ aria2c https://gitee.com/licyk/term-sd/raw/main/term-sd.sh && chmod +x term-sd.s
 
 ***
 
-## 帮助文档
+# 帮助文档
 
 <h3>这里是有关 Term-SD 的使用方法文档。</h3>
 
