@@ -261,7 +261,6 @@ def detect_conflict_package(pkg_1: str, pkg_2: str) -> bool:
             ver_1 = get_version(pkg_1.split(">=").pop())
             ver_2 = get_version(pkg_2.split("<=").pop())
             if compare_versions(ver_1, ver_2) == 1:
-            # if ver_1 > ver_2:
                 return True
 
         # >=, <
@@ -269,7 +268,6 @@ def detect_conflict_package(pkg_1: str, pkg_2: str) -> bool:
             ver_1 = get_version(pkg_1.split(">=").pop())
             ver_2 = get_version(pkg_2.split("<").pop())
             if compare_versions(ver_1, ver_2) == 0 or compare_versions(ver_1, ver_2) == 1:
-            # if ver_1 > ver_2:
                 return True
 
         # >, <=
@@ -277,7 +275,6 @@ def detect_conflict_package(pkg_1: str, pkg_2: str) -> bool:
             ver_1 = get_version(pkg_1.split(">").pop())
             ver_2 = get_version(pkg_2.split("<=").pop())
             if compare_versions(ver_1, ver_2) == 0 or compare_versions(ver_1, ver_2) == 1:
-            # if ver_1 > ver_2:
                 return True
 
         # >, <
@@ -285,7 +282,6 @@ def detect_conflict_package(pkg_1: str, pkg_2: str) -> bool:
             ver_1 = get_version(pkg_1.split(">").pop())
             ver_2 = get_version(pkg_2.split("<").pop())
             if compare_versions(ver_1, ver_2) == 0 or compare_versions(ver_1, ver_2) == 1:
-            # if ver_1 > ver_2:
                 return True
 
         # >, ==
@@ -293,7 +289,6 @@ def detect_conflict_package(pkg_1: str, pkg_2: str) -> bool:
             ver_1 = get_version(pkg_1.split(">").pop())
             ver_2 = get_version(pkg_2.split("==").pop())
             if compare_versions(ver_1, ver_2) == 1 or compare_versions(ver_1, ver_2) == 0:
-            # if ver_1 > ver_2:
                 return True
 
         # >=, ==
@@ -301,7 +296,6 @@ def detect_conflict_package(pkg_1: str, pkg_2: str) -> bool:
             ver_1 = get_version(pkg_1.split(">=").pop())
             ver_2 = get_version(pkg_2.split("==").pop())
             if compare_versions(ver_1, ver_2) == 1:
-            # if ver_1 > ver_2:
                 return True
 
         # <, ==
@@ -309,15 +303,13 @@ def detect_conflict_package(pkg_1: str, pkg_2: str) -> bool:
             ver_1 = get_version(pkg_1.split("<").pop())
             ver_2 = get_version(pkg_2.split("==").pop())
             if compare_versions(ver_1, ver_2) == -1 or compare_versions(ver_1, ver_2) == 0:
-            # if ver_1 < ver_2:
                 return True
 
         # <=, ==
         if "<=" in pkg_1 and "==" in pkg_2:
             ver_1 = get_version(pkg_1.split("<=").pop())
             ver_2 = get_version(pkg_2.split("==").pop())
-            if compare_versions(ver_1, ver_2) == 1 or compare_versions(ver_1, ver_2) == -1:
-            # if ver_1 > ver_2:
+            if compare_versions(ver_1, ver_2) == -1:
                 return True
 
         # ==, ==
@@ -325,7 +317,6 @@ def detect_conflict_package(pkg_1: str, pkg_2: str) -> bool:
             ver_1 = get_version(pkg_1.split("==").pop())
             ver_2 = get_version(pkg_2.split("==").pop())
             if compare_versions(ver_1, ver_2) != 0:
-            # if ver_1 != ver_2:
                 return True
 
     return False
