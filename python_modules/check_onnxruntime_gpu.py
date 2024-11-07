@@ -41,8 +41,13 @@ def get_version(ver: str) -> str:
 
 # 判断版本
 def compare_versions(version1: str, version2: str) -> int:
-    nums1 = re.sub(r'[a-zA-Z]+', '', version1).split(".")  # 将版本号 1 拆分成数字列表
-    nums2 = re.sub(r'[a-zA-Z]+', '', version2).split(".")  # 将版本号 2 拆分成数字列表
+    # 将版本号拆分成数字列表
+    try:
+        nums1 = re.sub(r'[a-zA-Z]+', '', version1).replace('-', '.').replace('+', '.').split(".")  # 将版本号 1 拆分成数字列表
+        nums2 = re.sub(r'[a-zA-Z]+', '', version2).replace('-', '.').replace('+', '.').split(".")  # 将版本号 2 拆分成数字列表
+    except:
+        return 0
+
 
     for i in range(max(len(nums1), len(nums2))):
         num1 = int(nums1[i]) if i < len(nums1) else 0  # 如果版本号 1 的位数不够, 则补 0
@@ -113,3 +118,4 @@ def need_install_ort_ver():
 
 if __name__ == "__main__":
     print(need_install_ort_ver())
+
