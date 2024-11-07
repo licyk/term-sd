@@ -17,8 +17,11 @@ def get_args():
 
 # 判断 2 个版本的大小, 前面大返回 1, 后面大返回 -1, 相同返回 0
 def compare_versions(version1, version2):
-    nums1 = re.sub(r'[a-zA-Z]+', '', version1).split(".")  # 将版本号 1 拆分成数字列表
-    nums2 = re.sub(r'[a-zA-Z]+', '', version2).split(".")  # 将版本号 2 拆分成数字列表
+    try:
+        nums1 = re.sub(r'[a-zA-Z]+', '', version1).replace('+', '.').split(".")  # 将版本号 1 拆分成数字列表
+        nums2 = re.sub(r'[a-zA-Z]+', '', version2).replace('+', '.').split(".")  # 将版本号 2 拆分成数字列表
+    except:
+        return 0
 
     for i in range(max(len(nums1), len(nums2))):
         num1 = int(nums1[i]) if i < len(nums1) else 0  # 如果版本号 1 的位数不够, 则补 0
@@ -161,3 +164,4 @@ if __name__ == "__main__":
     args = get_args()
     path = args.requirement_path
     print(validate_requirements(path))
+
