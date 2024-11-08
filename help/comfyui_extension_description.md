@@ -510,3 +510,7 @@ ComfyUI 插件 / 自定义节点说明：
 124、ComfyUI-Latent-Modifiers
 描述：在Latent部分应用滤镜，调整出图效果
 链接：https://github.com/Clybius/ComfyUI-Latent-Modifiers
+
+125、comfyui-deploy
+描述：将ComfyUI工作流生成API
+链接：https://github.com/BennyKok/comfyui-deploy

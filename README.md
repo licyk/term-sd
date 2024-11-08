@@ -18,10 +18,10 @@ _✨一个小巧，多功能的 AI 软件管理器_
     - [5. 安装 Git，Dialog，Curl，Aria2](#5-安装-gitdialogcurlaria2)
     - [6. 安装 Python，Pip](#6-安装-pythonpip)
   - [Linux](#linux)
-    - [Debian / Ubuntu 系：](#debian--ubuntu-系)
-    - [ArchLinux 系：](#archlinux-系)
-    - [OpenSEUS：](#openseus)
-    - [NixOS：](#nixos)
+    - [Debian / Ubuntu 系](#debian--ubuntu-系)
+    - [ArchLinux 系](#archlinux-系)
+    - [OpenSEUS](#openseus)
+    - [NixOS](#nixos)
   - [MacOS](#macos)
     - [1. 配置 Homebrew 镜像源](#1-配置-homebrew-镜像源)
     - [2. 安装 Homebrew](#2-安装-homebrew)
@@ -171,22 +171,22 @@ mkdir -p "${HOME}/python310" ; curl -L "https://modelscope.cn/models/licyks/invo
 
 ## Linux
 
-### Debian / Ubuntu 系：
+### Debian / Ubuntu 系
 ```bash
 sudo apt install python3 python3-pip python3-venv python3-tk git aria2 dialog curl
 ```
 
-### ArchLinux 系：
+### ArchLinux 系
 ```bash
 sudo pacman -S python3 python3-pip python3-venv tk git aria2 dialog curl
 ```
 
-### OpenSEUS：
+### OpenSEUS
 ```bash
 sudo zypper install python3 python3-pip python-venvs python-tk git aria2 dialog curl
 ```
 
-### NixOS：
+### NixOS
 ```bash
 nix-env -i python311Full aria git dialog curl
 ```
@@ -209,7 +209,7 @@ export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottle
 export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
 export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
 export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
-export HOMEBREW_PIP_INDEX_URL="https://pypi.tuna.tsinghua.edu.cn/simple"
+export HOMEBREW_PIP_INDEX_URL="https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple"
 ```
 
 
@@ -220,7 +220,7 @@ export HOMEBREW_PIP_INDEX_URL="https://pypi.tuna.tsinghua.edu.cn/simple"
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
-下载成功后会自动进入安装程序，根据提示来安装。
+下载成功后会自动进入安装程序，根据提示来安装，安装成功时将会提示`Next steps`，根据提示执行`- Run these commands in your terminal to add Homebrew to your PATH:`和`- Run these commands in your terminal to add the non-default Git remotes for Homebrew/brew and Homebrew/homebrew-core:`部分的命令。
 
 
 ### 3. 检测 Homebrew 是否安装成功

@@ -122,3 +122,4 @@ __term_sd_task_pre_ext_121 git_clone_repository https://github.com/XLabs-AI/x-fl
 __term_sd_task_pre_ext_122 git_clone_repository https://github.com/MakkiShizu/ComfyUI-Prompt-Wildcards "${COMFYUI_PATH}"/custom_nodes OFF # 添加提示词通配符支持
 __term_sd_task_pre_ext_123 git_clone_repository https://github.com/chrisgoringe/cg-controller "${COMFYUI_PATH}"/custom_nodes OFF # 添加类似invokeai的节点整理控制
 __term_sd_task_pre_ext_124 git_clone_repository https://github.com/Clybius/ComfyUI-Latent-Modifiers "${COMFYUI_PATH}"/custom_nodes OFF # 在Latent部分应用滤镜，调整出图效果
+__term_sd_task_pre_ext_125 git_clone_repository https://github.com/BennyKok/comfyui-deploy "${COMFYUI_PATH}"/custom_nodes OFF # 将ComfyUI工作流生成API
