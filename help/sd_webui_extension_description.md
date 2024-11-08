@@ -626,3 +626,7 @@ Stable Diffusion WebUI 插件说明：
 156、sd-webui-kohya-hiresfix
 描述：修复在直出高分辨率图片时画面异常的问题
 链接：https://github.com/w-e-w/sd-webui-kohya-hiresfix
+
+157、sd-webui-model-mixer
+描述：模型融合工具
+链接：https://github.com/wkpark/sd-webui-model-mixer

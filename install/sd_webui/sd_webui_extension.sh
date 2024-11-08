@@ -154,3 +154,4 @@ __term_sd_task_pre_ext_153 git_clone_repository https://github.com/sdbds/stable-
 __term_sd_task_pre_ext_154 git_clone_repository https://github.com/ljleb/sd-webui-freeu "${SD_WEBUI_PATH}"/extensions OFF # 添加FreeU支持
 __term_sd_task_pre_ext_155 git_clone_repository https://github.com/v0xie/sd-webui-incantations "${SD_WEBUI_PATH}"/extensions OFF # 添加PerturbedAttentionGuidance支持
 __term_sd_task_pre_ext_156 git_clone_repository https://github.com/w-e-w/sd-webui-kohya-hiresfix "${SD_WEBUI_PATH}"/extensions OFF # 修复在直出高分辨率图片时画面异常的问题
+__term_sd_task_pre_ext_157 git_clone_repository https://github.com/wkpark/sd-webui-model-mixer "${SD_WEBUI_PATH}"/extensions OFF # 模型融合工具

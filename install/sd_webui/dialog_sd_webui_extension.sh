@@ -154,3 +154,4 @@ __term_sd_task_pre_ext_153 stable-diffusion-webui-wildcards OFF
 __term_sd_task_pre_ext_154 sd-webui-freeu OFF
 __term_sd_task_pre_ext_155 sd-webui-incantations OFF
 __term_sd_task_pre_ext_156 sd-webui-kohya-hiresfix OFF
+__term_sd_task_pre_ext_157 sd-webui-model-mixer OFF
