@@ -92,9 +92,11 @@ invokeai_manager() {
                         ;;
                     6)
                         python_package_ver_backup_manager
+                        enter_venv
                         ;;
                     7)
                         pytorch_reinstall
+                        enter_venv
                         ;;
                     8)
                         if is_use_venv; then
@@ -107,7 +109,6 @@ invokeai_manager() {
 
                                 fix_venv
                                 enter_venv
-                                install_python_package $(get_python_env_pkg | grep -i invokeai) --no-deps --force-reinstall # 重新安装 InvokeAI
                                 dialog --erase-on-exit \
                                     --title "InvokeAI 管理" \
                                     --backtitle "InvokeAI 虚拟环境修复选项" \
