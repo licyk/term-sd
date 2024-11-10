@@ -36,11 +36,11 @@ __term_sd_task_pre_model_35 Illustrious-XL-v0.1(6.94g) OFF
 __term_sd_task_pre_model_36 Illustrious-XL-v0.1-GUIDED(6.94g) OFF
 __term_sd_task_pre_model_37 jruTheJourneyRemains_v25XL(6.94g) OFF
 __term_sd_task_pre_model_38 noobaiXLNAIXL_earlyAccessVersion(6.94g) OFF
-__term_sd_task_pre_model_39 noobaiXLNAIXL_vPredTestVersion(6.94g) OFF
-__term_sd_task_pre_model_40 noobaiXLNAIXL_epsilonPred05Version(6.94g) OFF
-__term_sd_task_pre_model_41 noobaiXLNAIXL_epsilonPred075(6.94g) OFF
-__term_sd_task_pre_model_42 noobaiXLNAIXL_epsilonPred077(6.94g) OFF
-__term_sd_task_pre_model_43 noobaiXLNAIXL_epsilonPred10Version(6.94g) OFF
+__term_sd_task_pre_model_39 noobaiXLNAIXL_epsilonPred05Version(6.94g) OFF
+__term_sd_task_pre_model_40 noobaiXLNAIXL_epsilonPred075(6.94g) OFF
+__term_sd_task_pre_model_41 noobaiXLNAIXL_epsilonPred077(6.94g) OFF
+__term_sd_task_pre_model_42 noobaiXLNAIXL_epsilonPred10Version(6.94g) OFF
+__term_sd_task_pre_model_43 noobaiXLNAIXL_vPredTestVersion(6.94g) OFF
 __term_sd_task_pre_model_44 noobaiXLNAIXL_vPred05Version(6.94g) OFF
 __term_sd_task_pre_model_45 ponyDiffusionV6XL_v6(6.94g) OFF
 __term_sd_task_pre_model_46 pdForAnime_v20(7.11g) OFF
