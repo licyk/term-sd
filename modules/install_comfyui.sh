@@ -240,3 +240,11 @@ comfyui_download_model_select() {
         ${model_list} \
         3>&1 1>&2 2>&3)
 }
+
+# 写入 ComfyUI 配置文件
+# 保存在 <ComfyUI Path>/user/default/comfy.settings.json 中
+set_comfyui_normal_config() {
+    term_sd_echo "写入 ComfyUI 默认配置中"
+    term_sd_mkdir "${COMFYUI_PATH}"/user/default
+    cp -f "${START_PATH}/term-sd/install/comfyui/comfy.settings.json" "${COMFYUI_PATH}"/user/default/comfy.settings.json
+}

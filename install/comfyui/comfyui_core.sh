@@ -8,3 +8,4 @@ __term_sd_task_pre_core create_venv "${COMFYUI_PATH}"
 __term_sd_task_sys enter_venv "${COMFYUI_PATH}"
 __term_sd_task_pre_core install_pytorch # 安装 PyTorch
 __term_sd_task_pre_core install_python_package -r "${COMFYUI_PATH}"/requirements.txt
+__term_sd_task_pre_core set_comfyui_normal_config
