@@ -1,22 +1,22 @@
 __term_sd_task_pre_model_1 # =====SD1.5大模型===== OFF
 __term_sd_task_pre_model_2 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/v1-5-pruned-emaonly.safetensors "${COMFYUI_PATH}"/models/checkpoints # v1-5-pruned-emaonly(4.27g) OFF
 __term_sd_task_pre_model_3 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/animefull-final-pruned.safetensors "${COMFYUI_PATH}"/models/checkpoints # animefull-final-pruned(4.27g) ON
-__term_sd_task_pre_model_4 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/Counterfeit-V3.0_fp16.safetensors "${COMFYUI_PATH}"/models/vae # Counterfeit-V3.0(4.24g) OFF
-__term_sd_task_pre_model_5 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/cetusMix_Whalefall2.safetensors "${COMFYUI_PATH}"/models/vae # cetusMix_Whalefall2(3.85g) OFF
-__term_sd_task_pre_model_6 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/cuteyukimixAdorable_neochapter3.safetensors "${COMFYUI_PATH}"/models/vae # cuteyukimixAdorable_neochapter3(2.3g) OFF
-__term_sd_task_pre_model_7 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/ekmix-pastel-fp16-no-ema.safetensors "${COMFYUI_PATH}"/models/vae # ekmix-pastel(2.13g) OFF
-__term_sd_task_pre_model_8 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/ex2K_sse2.safetensors "${COMFYUI_PATH}"/models/vae # ex2K_sse2(2.38g) OFF
-__term_sd_task_pre_model_9 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/kohakuV5_rev2.safetensors "${COMFYUI_PATH}"/models/vae # kohakuV5_rev2(2.13g) OFF
-__term_sd_task_pre_model_10 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/meinamix_meinaV11.safetensors "${COMFYUI_PATH}"/models/vae # meinamix_meinaV11(2.13g) OFF
-__term_sd_task_pre_model_11 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/oukaStar_10.safetensors "${COMFYUI_PATH}"/models/vae # oukaStar_10(5.43g) OFF
-__term_sd_task_pre_model_12 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/pastelMixStylizedAnime_pastelMixPrunedFP16.safetensors "${COMFYUI_PATH}"/models/vae # pastelMixStylizedAnime(2.13g) OFF
-__term_sd_task_pre_model_13 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/rabbit_v6.safetensors "${COMFYUI_PATH}"/models/vae # rabbit_v6(1.97g) OFF
-__term_sd_task_pre_model_14 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/sweetSugarSyndrome_rev15.safetensors "${COMFYUI_PATH}"/models/vae # sweetSugarSyndrome_rev15(2.13g) OFF
-__term_sd_task_pre_model_15 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/AnythingV5Ink_ink.safetensors "${COMFYUI_PATH}"/models/vae # AnythingV5Ink_ink(2.13g) OFF
-__term_sd_task_pre_model_16 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/bartstyledbBlueArchiveArtStyleFineTunedModel_v10.safetensors "${COMFYUI_PATH}"/models/vae # bartstyledbBlueArchiveArtStyle(2.13g) OFF
-__term_sd_task_pre_model_17 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/meinapastel_v6Pastel.safetensors "${COMFYUI_PATH}"/models/vae # meinapastel_v6(2.13g) OFF
-__term_sd_task_pre_model_18 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/qteamixQ_omegaFp16.safetensors "${COMFYUI_PATH}"/models/vae # qteamix(2.13g) OFF
-__term_sd_task_pre_model_19 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/tmndMix_tmndMixSPRAINBOW.safetensors "${COMFYUI_PATH}"/models/vae # tmndMix(2.13g) OFF
+__term_sd_task_pre_model_4 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/Counterfeit-V3.0_fp16.safetensors "${COMFYUI_PATH}"/models/checkpoints # Counterfeit-V3.0(4.24g) OFF
+__term_sd_task_pre_model_5 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/cetusMix_Whalefall2.safetensors "${COMFYUI_PATH}"/models/checkpoints # cetusMix_Whalefall2(3.85g) OFF
+__term_sd_task_pre_model_6 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/cuteyukimixAdorable_neochapter3.safetensors "${COMFYUI_PATH}"/models/checkpoints # cuteyukimixAdorable_neochapter3(2.3g) OFF
+__term_sd_task_pre_model_7 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/ekmix-pastel-fp16-no-ema.safetensors "${COMFYUI_PATH}"/models/checkpoints # ekmix-pastel(2.13g) OFF
+__term_sd_task_pre_model_8 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/ex2K_sse2.safetensors "${COMFYUI_PATH}"/models/checkpoints # ex2K_sse2(2.38g) OFF
+__term_sd_task_pre_model_9 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/kohakuV5_rev2.safetensors "${COMFYUI_PATH}"/models/checkpoints # kohakuV5_rev2(2.13g) OFF
+__term_sd_task_pre_model_10 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/meinamix_meinaV11.safetensors "${COMFYUI_PATH}"/models/checkpoints # meinamix_meinaV11(2.13g) OFF
+__term_sd_task_pre_model_11 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/oukaStar_10.safetensors "${COMFYUI_PATH}"/models/checkpoints # oukaStar_10(5.43g) OFF
+__term_sd_task_pre_model_12 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/pastelMixStylizedAnime_pastelMixPrunedFP16.safetensors "${COMFYUI_PATH}"/models/checkpoints # pastelMixStylizedAnime(2.13g) OFF
+__term_sd_task_pre_model_13 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/rabbit_v6.safetensors "${COMFYUI_PATH}"/models/checkpoints # rabbit_v6(1.97g) OFF
+__term_sd_task_pre_model_14 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/sweetSugarSyndrome_rev15.safetensors "${COMFYUI_PATH}"/models/checkpoints # sweetSugarSyndrome_rev15(2.13g) OFF
+__term_sd_task_pre_model_15 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/AnythingV5Ink_ink.safetensors "${COMFYUI_PATH}"/models/checkpoints # AnythingV5Ink_ink(2.13g) OFF
+__term_sd_task_pre_model_16 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/bartstyledbBlueArchiveArtStyleFineTunedModel_v10.safetensors "${COMFYUI_PATH}"/models/checkpoints # bartstyledbBlueArchiveArtStyle(2.13g) OFF
+__term_sd_task_pre_model_17 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/meinapastel_v6Pastel.safetensors "${COMFYUI_PATH}"/models/checkpoints # meinapastel_v6(2.13g) OFF
+__term_sd_task_pre_model_18 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/qteamixQ_omegaFp16.safetensors "${COMFYUI_PATH}"/models/checkpoints # qteamix(2.13g) OFF
+__term_sd_task_pre_model_19 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/tmndMix_tmndMixSPRAINBOW.safetensors "${COMFYUI_PATH}"/models/checkpoints # tmndMix(2.13g) OFF
 __term_sd_task_pre_model_20 # =====SD2.1大模型===== OFF
 __term_sd_task_pre_model_21 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_2.1/v2-1_768-ema-pruned.safetensors "${COMFYUI_PATH}"/models/checkpoints # v2-1_768-ema-pruned(5.21g) OFF
 __term_sd_task_pre_model_22 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_2.1/wd-1-4-anime_e2.ckpt "${COMFYUI_PATH}"/models/checkpoints # wd-1-4-anime_e2(5.16g) OFF
@@ -157,11 +157,11 @@ __term_sd_task_pre_model_156 aria2_download https://huggingface.co/licyk/sd-upsc
 __term_sd_task_pre_model_157 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x_NMKD-Superscale-SP_178000_G.pth "${COMFYUI_PATH}"/models/upscale_models # 4x_NMKD-Superscale-SP_178000_G(66.9m) ON
 __term_sd_task_pre_model_158 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/8x_NMKD-Superscale_150000_G.pth "${COMFYUI_PATH}"/models/upscale_models # 8x_NMKD-Superscale_150000_G(67.1m) OFF
 __term_sd_task_pre_model_159 # =====Embedding模型===== OFF
-__term_sd_task_pre_model_160 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/EasyNegativeV2.safetensors "${COMFYUI_PATH}"/models/embeddings/negative # embeddings模型 EasyNegativeV2(0.1m) ON
-__term_sd_task_pre_model_161 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-artist-anime.pt "${COMFYUI_PATH}"/models/embeddings/negative # bad-artist-anime(0.1m) ON
-__term_sd_task_pre_model_162 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-artist.pt "${COMFYUI_PATH}"/models/embeddings/negative # bad-artist(0.1m) ON
-__term_sd_task_pre_model_163 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-hands-5.pt "${COMFYUI_PATH}"/models/embeddings/negative # bad-hands-5(0.1m) ON
-__term_sd_task_pre_model_164 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-image-v2-39000.pt "${COMFYUI_PATH}"/models/embeddings/negative # bad-image-v2-39000(0.1m) ON
-__term_sd_task_pre_model_165 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad_prompt_version2.pt "${COMFYUI_PATH}"/models/embeddings/negative # bad_prompt_version2(0.1m) ON
-__term_sd_task_pre_model_166 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/ng_deepnegative_v1_75t.pt "${COMFYUI_PATH}"/models/embeddings/negative # ng_deepnegative_v1_75t(0.1m) ON
-__term_sd_task_pre_model_167 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/verybadimagenegative_v1.3.pt "${COMFYUI_PATH}"/models/embeddings/negative # verybadimagenegative_v1.3(0.1m) ON
+__term_sd_task_pre_model_160 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/EasyNegativeV2.safetensors "${COMFYUI_PATH}"/models/embeddings # embeddings模型 EasyNegativeV2(0.1m) ON
+__term_sd_task_pre_model_161 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-artist-anime.pt "${COMFYUI_PATH}"/models/embeddings # bad-artist-anime(0.1m) ON
+__term_sd_task_pre_model_162 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-artist.pt "${COMFYUI_PATH}"/models/embeddings # bad-artist(0.1m) ON
+__term_sd_task_pre_model_163 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-hands-5.pt "${COMFYUI_PATH}"/models/embeddings # bad-hands-5(0.1m) ON
+__term_sd_task_pre_model_164 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-image-v2-39000.pt "${COMFYUI_PATH}"/models/embeddings # bad-image-v2-39000(0.1m) ON
+__term_sd_task_pre_model_165 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad_prompt_version2.pt "${COMFYUI_PATH}"/models/embeddings # bad_prompt_version2(0.1m) ON
+__term_sd_task_pre_model_166 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/ng_deepnegative_v1_75t.pt "${COMFYUI_PATH}"/models/embeddings # ng_deepnegative_v1_75t(0.1m) ON
+__term_sd_task_pre_model_167 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/verybadimagenegative_v1.3.pt "${COMFYUI_PATH}"/models/embeddings # verybadimagenegative_v1.3(0.1m) ON
