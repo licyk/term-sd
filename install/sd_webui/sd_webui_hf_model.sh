@@ -144,31 +144,89 @@ __term_sd_task_pre_model_143 aria2_download https://huggingface.co/licyk/sd-vae/
 __term_sd_task_pre_model_144 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/vae-approx/vaeapprox-sdxl.pt "${SD_WEBUI_PATH}"/models/VAE-approx # vaeapprox-sdxl(0.2m) ON
 __term_sd_task_pre_model_145 aria2_download https://huggingface.co/licyk/sd-vae/resolve/main/vae-approx/vaeapprox-sd3.pt "${SD_WEBUI_PATH}"/models/VAE-approx # vaeapprox-sd3(0.2m) OFF
 __term_sd_task_pre_model_146 # =====放大模型===== OFF
-__term_sd_task_pre_model_147 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x-UltraSharp.pth "${SD_WEBUI_PATH}"/models/ESRGAN # upscaler模型 4x-UltraSharp(66.9m) OFF
-__term_sd_task_pre_model_148 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/BSRGAN.pth "${SD_WEBUI_PATH}"/models/ESRGAN # BSRGAN(67m) OFF
-__term_sd_task_pre_model_149 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/ESRGAN_4x.pth "${SD_WEBUI_PATH}"/models/ESRGAN # ESRGAN_4x(66.9m) OFF
-__term_sd_task_pre_model_150 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x_NMKD-Superscale-Artisoftject_210000_G.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 4x_NMKD-Superscale-Artisoftject_210000_G(66.9m) OFF
-__term_sd_task_pre_model_151 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x_NMKD-Superscale-SP_178000_G.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 4x_NMKD-Superscale-SP_178000_G(66.9m) ON
-__term_sd_task_pre_model_152 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/8x_NMKD-Superscale_150000_G.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 8x_NMKD-Superscale_150000_G(67.1m) OFF
-__term_sd_task_pre_model_153 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/detection_Resnet50_Final.pth "${SD_WEBUI_PATH}"/models/GFPGAN # detection_Resnet50_Final(109.5m) OFF
-__term_sd_task_pre_model_154 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/GFPGANv1.4.pth "${SD_WEBUI_PATH}"/models/GFPGAN # GFPGANv1.4(348.6m) OFF
-__term_sd_task_pre_model_155 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/parsing_bisenet.pth "${SD_WEBUI_PATH}"/models/GFPGAN # parsing_bisenet(12.2m) OFF
-__term_sd_task_pre_model_156 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/parsing_parsenet.pth "${SD_WEBUI_PATH}"/models/GFPGAN # parsing_parsenet(85.3m) OFF
-__term_sd_task_pre_model_157 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/RealESRGAN/RealESRGAN_x4plus.pth "${SD_WEBUI_PATH}"/models/RealESRGAN # RealESRGAN_x4plus(67m) ON
-__term_sd_task_pre_model_158 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/RealESRGAN/RealESRGAN_x4plus_anime_6B.pth "${SD_WEBUI_PATH}"/models/RealESRGAN # RealESRGAN_x4plus_anime_6B(17.9m) ON
-__term_sd_task_pre_model_159 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/Codeformer/codeformer-v0.1.0.pth "${SD_WEBUI_PATH}"/models/Codeformer # Codeformer模型 codeformer-v0.1.0(376.6m) OFF
-__term_sd_task_pre_model_160 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/DAT/DAT_x2.pth "${SD_WEBUI_PATH}"/models/DAT # DAT_x2(154m) OFF
-__term_sd_task_pre_model_161 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/DAT/DAT_x3.pth "${SD_WEBUI_PATH}"/models/DAT # DAT_x3(154m) OFF
-__term_sd_task_pre_model_162 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/DAT/DAT_x4.pth "${SD_WEBUI_PATH}"/models/DAT # DAT_x4(154m) OFF
-__term_sd_task_pre_model_163 # =====图生图反推Tag模型===== OFF
-__term_sd_task_pre_model_164 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/BLIP/model_base_caption_capfilt_large.pth "${SD_WEBUI_PATH}"/models/BLIP # BLIP模型 model_base_caption_capfilt_large(896m) OFF
-__term_sd_task_pre_model_165 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/torch_deepdanbooru/model-resnet_custom_v3.pt "${SD_WEBUI_PATH}"/models/torch_deepdanbooru # deepdanbooru模型 model-resnet_custom_v3(644.1m) OFF
-__term_sd_task_pre_model_166 # =====Embedding模型===== OFF
-__term_sd_task_pre_model_167 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/EasyNegativeV2.safetensors "${SD_WEBUI_PATH}"/embeddings # embeddings模型 EasyNegativeV2(0.1m) ON
-__term_sd_task_pre_model_168 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-artist-anime.pt "${SD_WEBUI_PATH}"/embeddings # bad-artist-anime(0.1m) ON
-__term_sd_task_pre_model_169 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-artist.pt "${SD_WEBUI_PATH}"/embeddings # bad-artist(0.1m) ON
-__term_sd_task_pre_model_170 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-hands-5.pt "${SD_WEBUI_PATH}"/embeddings # bad-hands-5(0.1m) ON
-__term_sd_task_pre_model_171 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-image-v2-39000.pt "${SD_WEBUI_PATH}"/embeddings # bad-image-v2-39000(0.1m) ON
-__term_sd_task_pre_model_172 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad_prompt_version2.pt "${SD_WEBUI_PATH}"/embeddings # bad_prompt_version2(0.1m) ON
-__term_sd_task_pre_model_173 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/ng_deepnegative_v1_75t.pt "${SD_WEBUI_PATH}"/embeddings # ng_deepnegative_v1_75t(0.1m) ON
-__term_sd_task_pre_model_174 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/verybadimagenegative_v1.3.pt "${SD_WEBUI_PATH}"/embeddings # verybadimagenegative_v1.3(0.1m) ON
+__term_sd_task_pre_model_147 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/Codeformer/codeformer-v0.1.0.pth "${SD_WEBUI_PATH}"/models/Codeformer # codeformer-v0.1.0(376.6m) OFF
+__term_sd_task_pre_model_148 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/DAT/DAT_2_x2.pth "${SD_WEBUI_PATH}"/models/DAT # DAT_2_x2(139.7m) OFF
+__term_sd_task_pre_model_149 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/DAT/DAT_2_x3.pth "${SD_WEBUI_PATH}"/models/DAT # DAT_2_x3(140.4m) OFF
+__term_sd_task_pre_model_150 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/DAT/DAT_2_x4.pth "${SD_WEBUI_PATH}"/models/DAT # DAT_2_x4(140.3m) OFF
+__term_sd_task_pre_model_151 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/DAT/DAT_S_x2.pth "${SD_WEBUI_PATH}"/models/DAT # DAT_S_x2(87.7m) OFF
+__term_sd_task_pre_model_152 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/DAT/DAT_S_x3.pth "${SD_WEBUI_PATH}"/models/DAT # DAT_S_x3(88.4m) OFF
+__term_sd_task_pre_model_153 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/DAT/DAT_S_x4.pth "${SD_WEBUI_PATH}"/models/DAT # DAT_S_x4(88.2m) OFF
+__term_sd_task_pre_model_154 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/DAT/DAT_light_x2.pth "${SD_WEBUI_PATH}"/models/DAT # DAT_light_x2(45.7m) OFF
+__term_sd_task_pre_model_155 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/DAT/DAT_light_x3.pth "${SD_WEBUI_PATH}"/models/DAT # DAT_light_x3(45.7m) OFF
+__term_sd_task_pre_model_156 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/DAT/DAT_light_x4.pth "${SD_WEBUI_PATH}"/models/DAT # DAT_light_x4(45.8m) OFF
+__term_sd_task_pre_model_157 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/DAT/DAT_x2.pth "${SD_WEBUI_PATH}"/models/DAT # DAT_x2(154.1m) OFF
+__term_sd_task_pre_model_158 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/DAT/DAT_x3.pth "${SD_WEBUI_PATH}"/models/DAT # DAT_x3(154.8m) OFF
+__term_sd_task_pre_model_159 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/DAT/DAT_x4.pth "${SD_WEBUI_PATH}"/models/DAT # DAT_x4(154.7m) OFF
+__term_sd_task_pre_model_160 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/16xPSNR.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 16xPSNR(67.2m) OFF
+__term_sd_task_pre_model_161 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/1x-ITF-SkinDiffDetail-Lite-v1.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 1x-ITF-SkinDiffDetail-Lite-v1(20.1m) OFF
+__term_sd_task_pre_model_162 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/1x_NMKD-BrightenRedux_200k.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 1x_NMKD-BrightenRedux_200k(66.6m) OFF
+__term_sd_task_pre_model_163 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/1x_NMKD-YandereInpaint_375000_G.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 1x_NMKD-YandereInpaint_375000_G(66.6m) OFF
+__term_sd_task_pre_model_164 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/1x_NMKDDetoon_97500_G.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 1x_NMKDDetoon_97500_G(66.6m) OFF
+__term_sd_task_pre_model_165 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/1x_NoiseToner-Poisson-Detailed_108000_G.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 1x_NoiseToner-Poisson-Detailed_108000_G(66.6m) OFF
+__term_sd_task_pre_model_166 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/1x_NoiseToner-Uniform-Detailed_100000_G.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 1x_NoiseToner-Uniform-Detailed_100000_G(66.6m) OFF
+__term_sd_task_pre_model_167 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x-UltraSharp.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 4x-UltraSharp(66.9m) OFF
+__term_sd_task_pre_model_168 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4xPSNR.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 4xPSNR(66.9m) OFF
+__term_sd_task_pre_model_169 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x_CountryRoads_377000_G.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 4x_CountryRoads_377000_G(66.9m) OFF
+__term_sd_task_pre_model_170 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x_Fatality_Comix_260000_G.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 4x_Fatality_Comix_260000_G(66.9m) OFF
+__term_sd_task_pre_model_171 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x_NMKD-Siax_200k.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 4x_NMKD-Siax_200k(66.9m) OFF
+__term_sd_task_pre_model_172 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x_NMKD-Superscale-Artisoftject_210000_G.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 4x_NMKD-Superscale-Artisoftject_210000_G(66.9m) OFF
+__term_sd_task_pre_model_173 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x_NMKD-Superscale-SP_178000_G.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 4x_NMKD-Superscale-SP_178000_G(66.9m) ON
+__term_sd_task_pre_model_174 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x_NMKD-UltraYandere-Lite_280k.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 4x_NMKD-UltraYandere-Lite_280k(20.1m) OFF
+__term_sd_task_pre_model_175 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x_NMKD-UltraYandere_300k.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 4x_NMKD-UltraYandere_300k(66.9m) OFF
+__term_sd_task_pre_model_176 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x_NMKD-YandereNeoXL_200k.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 4x_NMKD-YandereNeoXL_200k(66.9m) OFF
+__term_sd_task_pre_model_177 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x_NMKDSuperscale_Artisoft_120000_G.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 4x_NMKDSuperscale_Artisoft_120000_G(67.1m) OFF
+__term_sd_task_pre_model_178 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x_NickelbackFS_72000_G.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 4x_NickelbackFS_72000_G(67.1m) OFF
+__term_sd_task_pre_model_179 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x_Nickelback_70000G.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 4x_Nickelback_70000G(66.9m) OFF
+__term_sd_task_pre_model_180 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x_RealisticRescaler_100000_G.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 4x_RealisticRescaler_100000_G(134.1m) OFF
+__term_sd_task_pre_model_181 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x_Valar_v1.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 4x_Valar_v1(67.5m) OFF
+__term_sd_task_pre_model_182 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x_fatal_Anime_500000_G.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 4x_fatal_Anime_500000_G(66.9m) OFF
+__term_sd_task_pre_model_183 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/4x_foolhardy_Remacri.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 4x_foolhardy_Remacri(67m) OFF
+__term_sd_task_pre_model_184 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/8xPSNR.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 8xPSNR(67.1m) OFF
+__term_sd_task_pre_model_185 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/8x_NMKD-Superscale_150000_G.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 8x_NMKD-Superscale_150000_G(67.1m) OFF
+__term_sd_task_pre_model_186 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/8x_NMKD-Typescale_175k.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 8x_NMKD-Typescale_175k(67.1m) OFF
+__term_sd_task_pre_model_187 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/A_ESRGAN_Single.pth "${SD_WEBUI_PATH}"/models/ESRGAN # A_ESRGAN_Single(134.1m) OFF
+__term_sd_task_pre_model_188 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/BSRGAN.pth "${SD_WEBUI_PATH}"/models/ESRGAN # BSRGAN(67.1m) OFF
+__term_sd_task_pre_model_189 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/BSRGANx2.pth "${SD_WEBUI_PATH}"/models/ESRGAN # BSRGANx2(66.8m) OFF
+__term_sd_task_pre_model_190 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/BSRNet.pth "${SD_WEBUI_PATH}"/models/ESRGAN # BSRNet(67.1m) OFF
+__term_sd_task_pre_model_191 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/ESRGAN_4x.pth "${SD_WEBUI_PATH}"/models/ESRGAN # ESRGAN_4x(66.9m) OFF
+__term_sd_task_pre_model_192 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/LADDIER1_282500_G.pth "${SD_WEBUI_PATH}"/models/ESRGAN # LADDIER1_282500_G(66.9m) OFF
+__term_sd_task_pre_model_193 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/UniversalUpscaler/4x_UniversalUpscalerV2-Neutral_115000_swaG.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 4x_UniversalUpscalerV2-Neutral_115000_swaG(66.9m) OFF
+__term_sd_task_pre_model_194 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/UniversalUpscaler/4x_UniversalUpscalerV2-Sharp_101000_G.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 4x_UniversalUpscalerV2-Sharp_101000_G(66.9m) OFF
+__term_sd_task_pre_model_195 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/UniversalUpscaler/4x_UniversalUpscalerV2-Sharper_103000_G.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 4x_UniversalUpscalerV2-Sharper_103000_G(66.9m) OFF
+__term_sd_task_pre_model_196 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/UniversalUpscaler/Legacy/4x_UniversalUpscaler-Detailed_155000_G.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 4x_UniversalUpscaler-Detailed_155000_G(66.9m) OFF
+__term_sd_task_pre_model_197 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/UniversalUpscaler/Legacy/4x_UniversalUpscaler-Soft_190000_G.pth "${SD_WEBUI_PATH}"/models/ESRGAN # 4x_UniversalUpscaler-Soft_190000_G(66.9m) OFF
+__term_sd_task_pre_model_198 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/WaifuGAN_v3_30000.pth "${SD_WEBUI_PATH}"/models/ESRGAN # WaifuGAN_v3_30000(66.9m) OFF
+__term_sd_task_pre_model_199 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/lollypop.pth "${SD_WEBUI_PATH}"/models/ESRGAN # lollypop(66.9m) OFF
+__term_sd_task_pre_model_200 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/ESRGAN/sudo_rife4_269.662_testV1_scale1.pth "${SD_WEBUI_PATH}"/models/ESRGAN # sudo_rife4_269.662_testV1_scale1(33.7m) OFF
+__term_sd_task_pre_model_201 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/GFPGANv1.3.pth "${SD_WEBUI_PATH}"/models/GFPGAN # GFPGANv1.3(348.6m) OFF
+__term_sd_task_pre_model_202 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/GFPGANv1.4.pth "${SD_WEBUI_PATH}"/models/GFPGAN # GFPGANv1.4(348.6m) OFF
+__term_sd_task_pre_model_203 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/detection_Resnet50_Final.pth "${SD_WEBUI_PATH}"/models/GFPGAN # detection_Resnet50_Final(109.5m) OFF
+__term_sd_task_pre_model_204 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/parsing_bisenet.pth "${SD_WEBUI_PATH}"/models/GFPGAN # parsing_bisenet(12.2m) OFF
+__term_sd_task_pre_model_205 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/GFPGAN/parsing_parsenet.pth "${SD_WEBUI_PATH}"/models/GFPGAN # parsing_parsenet(85.3m) OFF
+__term_sd_task_pre_model_206 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/RealESRGAN/RealESRGAN_x4plus.pth "${SD_WEBUI_PATH}"/models/RealESRGAN # RealESRGAN_x4plus(67m) ON
+__term_sd_task_pre_model_207 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/RealESRGAN/RealESRGAN_x4plus_anime_6B.pth "${SD_WEBUI_PATH}"/models/RealESRGAN # RealESRGAN_x4plus_anime_6B(17.9m) ON
+__term_sd_task_pre_model_208 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/SwinIR/001_classicalSR_DF2K_s64w8_SwinIR-M_x2.pth "${SD_WEBUI_PATH}"/models/SwinIR # 001_classicalSR_DF2K_s64w8_SwinIR-M_x2(67.2m) OFF
+__term_sd_task_pre_model_209 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/SwinIR/001_classicalSR_DF2K_s64w8_SwinIR-M_x3.pth "${SD_WEBUI_PATH}"/models/SwinIR # 001_classicalSR_DF2K_s64w8_SwinIR-M_x3(68m) OFF
+__term_sd_task_pre_model_210 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/SwinIR/001_classicalSR_DF2K_s64w8_SwinIR-M_x4.pth "${SD_WEBUI_PATH}"/models/SwinIR # 001_classicalSR_DF2K_s64w8_SwinIR-M_x4(67.8m) OFF
+__term_sd_task_pre_model_211 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/SwinIR/001_classicalSR_DF2K_s64w8_SwinIR-M_x8.pth "${SD_WEBUI_PATH}"/models/SwinIR # 001_classicalSR_DF2K_s64w8_SwinIR-M_x8(68.4m) OFF
+__term_sd_task_pre_model_212 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/SwinIR/001_classicalSR_DIV2K_s48w8_SwinIR-M_x2.pth "${SD_WEBUI_PATH}"/models/SwinIR # 001_classicalSR_DIV2K_s48w8_SwinIR-M_x2(59m) OFF
+__term_sd_task_pre_model_213 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/SwinIR/001_classicalSR_DIV2K_s48w8_SwinIR-M_x3.pth "${SD_WEBUI_PATH}"/models/SwinIR # 001_classicalSR_DIV2K_s48w8_SwinIR-M_x3(59.7m) OFF
+__term_sd_task_pre_model_214 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/SwinIR/001_classicalSR_DIV2K_s48w8_SwinIR-M_x4.pth "${SD_WEBUI_PATH}"/models/SwinIR # 001_classicalSR_DIV2K_s48w8_SwinIR-M_x4(59.6m) OFF
+__term_sd_task_pre_model_215 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/SwinIR/001_classicalSR_DIV2K_s48w8_SwinIR-M_x8.pth "${SD_WEBUI_PATH}"/models/SwinIR # 001_classicalSR_DIV2K_s48w8_SwinIR-M_x8(60.2m) OFF
+__term_sd_task_pre_model_216 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/SwinIR/Swin2SR_ClassicalSR_X2_64.pth "${SD_WEBUI_PATH}"/models/SwinIR # Swin2SR_ClassicalSR_X2_64(68.7m) OFF
+__term_sd_task_pre_model_217 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/SwinIR/Swin2SR_ClassicalSR_X4_64.pth "${SD_WEBUI_PATH}"/models/SwinIR # Swin2SR_ClassicalSR_X4_64(69.3m) OFF
+__term_sd_task_pre_model_218 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/SwinIR/Swin2SR_CompressedSR_X4_48.pth "${SD_WEBUI_PATH}"/models/SwinIR # Swin2SR_CompressedSR_X4_48(61.1m) OFF
+__term_sd_task_pre_model_219 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/SwinIR/Swin2SR_RealworldSR_X4_64_BSRGAN_PSNR.pth "${SD_WEBUI_PATH}"/models/SwinIR # Swin2SR_RealworldSR_X4_64_BSRGAN_PSNR(68.6m) OFF
+__term_sd_task_pre_model_220 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/SwinIR/SwinIR_4x.pth "${SD_WEBUI_PATH}"/models/SwinIR # SwinIR_4x(142.4m) OFF
+__term_sd_task_pre_model_221 # =====图生图反推Tag模型===== OFF
+__term_sd_task_pre_model_222 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/BLIP/model_base_caption_capfilt_large.pth "${SD_WEBUI_PATH}"/models/BLIP # BLIP模型 model_base_caption_capfilt_large(896m) OFF
+__term_sd_task_pre_model_223 aria2_download https://huggingface.co/licyk/sd-upscaler-models/resolve/main/torch_deepdanbooru/model-resnet_custom_v3.pt "${SD_WEBUI_PATH}"/models/torch_deepdanbooru # deepdanbooru模型 model-resnet_custom_v3(644.1m) OFF
+__term_sd_task_pre_model_224 # =====Embedding模型===== OFF
+__term_sd_task_pre_model_225 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/EasyNegativeV2.safetensors "${SD_WEBUI_PATH}"/embeddings # embeddings模型 EasyNegativeV2(0.1m) ON
+__term_sd_task_pre_model_226 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-artist-anime.pt "${SD_WEBUI_PATH}"/embeddings # bad-artist-anime(0.1m) ON
+__term_sd_task_pre_model_227 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-artist.pt "${SD_WEBUI_PATH}"/embeddings # bad-artist(0.1m) ON
+__term_sd_task_pre_model_228 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-hands-5.pt "${SD_WEBUI_PATH}"/embeddings # bad-hands-5(0.1m) ON
+__term_sd_task_pre_model_229 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad-image-v2-39000.pt "${SD_WEBUI_PATH}"/embeddings # bad-image-v2-39000(0.1m) ON
+__term_sd_task_pre_model_230 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/bad_prompt_version2.pt "${SD_WEBUI_PATH}"/embeddings # bad_prompt_version2(0.1m) ON
+__term_sd_task_pre_model_231 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/ng_deepnegative_v1_75t.pt "${SD_WEBUI_PATH}"/embeddings # ng_deepnegative_v1_75t(0.1m) ON
+__term_sd_task_pre_model_232 aria2_download https://huggingface.co/licyk/sd-embeddings/resolve/main/sd_1.5/verybadimagenegative_v1.3.pt "${SD_WEBUI_PATH}"/embeddings # verybadimagenegative_v1.3(0.1m) ON
