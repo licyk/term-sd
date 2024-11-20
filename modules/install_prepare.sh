@@ -28,11 +28,11 @@ download_mirror_select() {
         --backtitle "安装镜像选项" \
         --title "Term-SD" \
         --ok-label "确认" --no-cancel \
-        --checklist "请选择镜像, 注:\n1. 当同时启用多个 Github 镜像源时, 优先选择最下面的 Github 镜像源; 勾选 \"Github 镜像源自动选择\" 时, 将覆盖手动设置的 Github 镜像源\n2. 启用全局镜像源后, 优先使用设置中的镜像源\n3. 如果需要保持安装全程使用代理, 需要将 \"Huggingface / Github 下载源独占代理\" 关闭\n4. 通常情况下保持默认即可" \
+        --checklist "请选择镜像, 注:\n1. 当同时启用多个 Github 镜像源时, 优先选择最下面的 Github 镜像源; 勾选 \"Github 镜像源自动选择\" 时, 将覆盖手动设置的 Github 镜像源\n2. 启用全局镜像源后, 优先使用设置中的镜像源\n3. 如果需要保持安装全程使用代理, 需要将 \"Huggingface / Github 下载源独占代理\" 关闭\n4. 有些 Python 软件包的下载需要代理, 需要将 \"Huggingface / Github 下载源独占代理\" 关闭\n5. 通常情况下保持默认即可" \
         $(get_dialog_size_menu) \
         "1" "启用 Pip 镜像源 (使用 Pip 国内镜像源下载 Python 软件包)" OFF \
         "2" "使用全局 Pip 镜像源配置 (使用 Term-SD 设置中配置的 Pip 镜像源)" ON \
-        "3" "使用 ModelScope 模型下载源 (将 HuggingFace下载源改为 ModelScope 下载源)" ON \
+        "3" "使用 ModelScope 模型下载源 (将 HuggingFace 下载源改为 ModelScope 下载源)" ON \
         "4" "Huggingface / Github 下载源独占代理 (仅在下载 Huggingface / Github 上的文件时启用代理)" ON \
         "5" "使用全局 Github 镜像源配置 (当设置了全局 Github 镜像源时禁用 Github 镜像自动选择)" ON \
         "6" "Github 镜像源自动选择 (测试可用的镜像源并选择自动选择)" ON \
