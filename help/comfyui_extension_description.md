@@ -514,3 +514,7 @@ ComfyUI 插件 / 自定义节点说明：
 125、comfyui-deploy
 描述：将ComfyUI工作流生成API
 链接：https://github.com/BennyKok/comfyui-deploy
+
+126、ComfyUI-HakuImg
+描述：图像处理工具
+链接：https://github.com/licyk/ComfyUI-HakuImg

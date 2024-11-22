@@ -2,5 +2,6 @@
     "Comfy.Settings.ExtensionPanel":  true,
     "DZ.Debug.enabled":  true,
     "AGL.Locale":  "zh-CN",
-    "Comfy.UseNewMenu":  "Top"
+    "Comfy.UseNewMenu":  "Top",
+    "Comfy.RerouteBeta": true
 }
