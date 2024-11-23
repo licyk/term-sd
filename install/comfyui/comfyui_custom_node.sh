@@ -124,3 +124,4 @@ __term_sd_task_pre_ext_123 git_clone_repository https://github.com/chrisgoringe/
 __term_sd_task_pre_ext_124 git_clone_repository https://github.com/Clybius/ComfyUI-Latent-Modifiers "${COMFYUI_PATH}"/custom_nodes OFF # 在Latent部分应用滤镜，调整出图效果
 __term_sd_task_pre_ext_125 git_clone_repository https://github.com/BennyKok/comfyui-deploy "${COMFYUI_PATH}"/custom_nodes OFF # 将ComfyUI工作流生成API
 __term_sd_task_pre_ext_126 git_clone_repository https://github.com/licyk/ComfyUI-HakuImg "${COMFYUI_PATH}"/custom_nodes OFF # 图像处理工具
+__term_sd_task_pre_ext_127 git_clone_repository https://github.com/Repeerc/ComfyUI-flash-attention-rdna3-win-zluda "${COMFYUI_PATH}"/custom_nodes OFF # 为Windows下的ZLUDA添加FlashAttension支持

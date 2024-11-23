@@ -518,3 +518,7 @@ ComfyUI 插件 / 自定义节点说明：
 126、ComfyUI-HakuImg
 描述：图像处理工具
 链接：https://github.com/licyk/ComfyUI-HakuImg
+
+127、ComfyUI-flash-attention-rdna3-win-zluda
+描述：为Windows下的ZLUDA添加FlashAttension支持
+链接：https://github.com/Repeerc/ComfyUI-flash-attention-rdna3-win-zluda

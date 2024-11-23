@@ -630,3 +630,7 @@ Stable Diffusion WebUI 插件说明：
 157、sd-webui-model-mixer
 描述：模型融合工具
 链接：https://github.com/wkpark/sd-webui-model-mixer
+
+158、sd-webui-flash-attention2-rdna3-rocm
+描述：为Windows下的ZLUDA添加FlashAttension支持
+链接：https://github.com/Repeerc/sd-webui-flash-attention2-rdna3-rocm
