@@ -1,4 +1,4 @@
-__term_sd_task_pre_ext_1 term_sd_echo "下载 Controlnet 模型中" # ControlNet(35.43g) ON
+__term_sd_task_pre_ext_1 term_sd_echo "下载 Controlnet 模型中" # ControlNet(36.08g) ON
 __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11e_sd15_ip2p_fp16.safetensors "${SD_WEBUI_PATH}"/models/ControlNet
 __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11e_sd15_shuffle_fp16.safetensors "${SD_WEBUI_PATH}"/models/ControlNet
 __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/control_v11f1e_sd15_tile_fp16.safetensors "${SD_WEBUI_PATH}"/models/ControlNet
@@ -53,6 +53,7 @@ __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_
 __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1_annotator/resolve/main/hand_refiner/hr16/ControlNet-HandRefiner-pruned/graphormer_hand_state_dict.bin "${SD_WEBUI_PATH}"/extensions/sd-webui-controlnet/annotator/downloads/hand_refiner/hr16/ControlNet-HandRefiner-pruned
 __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1_annotator/resolve/main/hand_refiner/hr16/ControlNet-HandRefiner-pruned/hrnetv2_w64_imagenet_pretrained.pth "${SD_WEBUI_PATH}"/extensions/sd-webui-controlnet/annotator/downloads/hand_refiner/hr16/ControlNet-HandRefiner-pruned
 __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1_annotator/resolve/main/openpose/rtmpose-m_simcc-ap10k_pt-aic-coco_210e-256x256-7a041aa1_20230206.onnx "${SD_WEBUI_PATH}"/extensions/sd-webui-controlnet/annotator/downloads/openpose
+__term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/controlnet_v1.1_annotator/resolve/main/depth_anything_v2/depth_anything_v2_vitl.safetensors "${SD_WEBUI_PATH}"/extensions/sd-webui-controlnet/annotator/downloads/depth_anything_v2
 
 __term_sd_task_pre_ext_2 term_sd_echo "下载 Animatediff 模型" # AnimateDiff(1.67g) OFF
 __term_sd_task_pre_ext_2 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/sd-webui-animatediff/v3_sd15_mm.ckpt "${SD_WEBUI_PATH}"/extensions/sd-webui-animatediff/model
