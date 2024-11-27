@@ -422,12 +422,12 @@ git_switch_branch() {
     if [[ "$?" == 0 ]]; then
         commit_hash=$(git log "origin/${branch}" --max-count 1 --format="%h") # 获取最新的提交内容的 Hash
         term_sd_echo "切换分支至 ${branch}"
-        git checkout "${branch}" # 切换分支
+        git checkout "${branch}" --force # 切换分支
         term_sd_echo "应用远程源的更新"
         git reset ${use_submodules} --hard "${commit_hash}" # 切换到最新的提交内容上
         if term_sd_is_debug; then
             term_sd_echo "cmd: git fetch ${use_submodules}"
-            term_sd_echo "cmd: git checkout ${branch}"
+            term_sd_echo "cmd: git checkout ${branch} --force"
             term_sd_echo "cmd: git reset ${use_submodules} --hard ${commit_hash}"
         fi
     else
