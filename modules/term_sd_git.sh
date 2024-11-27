@@ -388,7 +388,7 @@ git_switch_branch() {
     local branch=$2
     local use_submodules=$3
 
-    preview_url=$(git remote get-url origin)
+    preview_url=$(GIT_CONFIG_GLOBAL="" git remote get-url origin)
     name=$(awk -F '/' '{print $NF}' <<< ${preview_url})
 
     if [[ "$3" == "--submod" ]]; then
