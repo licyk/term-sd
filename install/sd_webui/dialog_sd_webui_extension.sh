@@ -62,7 +62,7 @@ __term_sd_task_pre_ext_61 sd-webui-workspace OFF
 __term_sd_task_pre_ext_62 openOutpaint-webUI-extension OFF
 __term_sd_task_pre_ext_63 sd-webui-samplers-scheduler OFF
 __term_sd_task_pre_ext_64 sd-webui-boomer ON
-__term_sd_task_pre_ext_65 model-keyword ON
+__term_sd_task_pre_ext_65 model-keyword OFF
 __term_sd_task_pre_ext_66 Stable-Diffusion-WebUI-TensorRT OFF
 __term_sd_task_pre_ext_67 sd-webui-lobe-theme OFF
 __term_sd_task_pre_ext_68 stable-diffusion-webui-GPU-temperature-protection OFF

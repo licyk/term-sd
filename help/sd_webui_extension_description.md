@@ -259,7 +259,7 @@ Stable Diffusion WebUI 插件说明：
 描述：恢复新版webui已经移除的按钮
 链接：https://github.com/Haoming02/sd-webui-boomer
 
-65、model-keyword*
+65、model-keyword
 描述：用于补全模型对应的提示词，比如使用lora模型的提示词
 链接：https://github.com/mix1009/model-keyword
 
