@@ -57,11 +57,11 @@ __term_sd_task_pre_ext_56 sd-webui-oldsix-prompt-dynamic OFF
 __term_sd_task_pre_ext_57 sd-webui-fastblend OFF
 __term_sd_task_pre_ext_58 StyleSelectorXL OFF
 __term_sd_task_pre_ext_59 sd-dynamic-prompts OFF
-__term_sd_task_pre_ext_60 LightDiffusionFlow ON
+__term_sd_task_pre_ext_60 LightDiffusionFlow OFF
 __term_sd_task_pre_ext_61 sd-webui-workspace OFF
 __term_sd_task_pre_ext_62 openOutpaint-webUI-extension OFF
 __term_sd_task_pre_ext_63 sd-webui-samplers-scheduler OFF
-__term_sd_task_pre_ext_64 sd-webui-boomer ON
+__term_sd_task_pre_ext_64 sd-webui-boomer OFF
 __term_sd_task_pre_ext_65 model-keyword OFF
 __term_sd_task_pre_ext_66 Stable-Diffusion-WebUI-TensorRT OFF
 __term_sd_task_pre_ext_67 sd-webui-lobe-theme OFF

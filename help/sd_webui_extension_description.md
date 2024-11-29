@@ -239,7 +239,7 @@ Stable Diffusion WebUI 插件说明：
 描述：动态提示词
 链接：https://github.com/adieyal/sd-dynamic-prompts
 
-60、LightDiffusionFlow*
+60、LightDiffusionFlow
 描述：保存工作流
 链接：https://github.com/Tencent/LightDiffusionFlow
 
@@ -255,7 +255,7 @@ Stable Diffusion WebUI 插件说明：
 描述：采样器调度器，可以在不同的生成步骤中应用不同的采样器
 链接：https://github.com/Carzit/sd-webui-samplers-scheduler
 
-64、sd-webui-boomer*
+64、sd-webui-boomer
 描述：恢复新版webui已经移除的按钮
 链接：https://github.com/Haoming02/sd-webui-boomer
 
