@@ -429,7 +429,7 @@ git_switch_branch() {
             term_sd_echo "更新 ${name} 的 Git 子模块信息"
             git reset --hard "origin/${branch}"
             git submodule deinit --all -f
-            git submodule update --init --recursive
+            term_sd_try git submodule update --init --recursive
         fi
         git reset ${use_submodules} --hard "origin/${branch}" # 切换到最新的提交内容上
         if term_sd_is_debug; then
