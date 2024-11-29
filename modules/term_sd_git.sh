@@ -381,7 +381,6 @@ is_git_repo() {
 # 使用:
 # git_switch_branch <切换成的的远程源> <要切换的分支> <--submod>
 git_switch_branch() {
-    local commit_hash
     local name
     local preview_url
     local remote_url=$1
@@ -418,25 +417,25 @@ git_switch_branch() {
     fi
 
     term_sd_echo "拉取远程源更新"
-    term_sd_try git fetch ${use_submodules} # 拉取远程源内容
+    term_sd_try git fetch # 拉取远程源内容
     if [[ "$?" == 0 ]]; then
         if [[ "${use_submod}" == 1 ]]; then
             git submodule deinit --all -f
         fi
-        commit_hash=$(git log "origin/${branch}" --max-count 1 --format="%h") # 获取最新的提交内容的 Hash
         term_sd_echo "切换分支至 ${branch}"
         git checkout "${branch}" --force # 切换分支
         term_sd_echo "应用远程源的更新"
         if [[ "${use_submod}" == 1 ]]; then
             term_sd_echo "更新 ${name} 的 Git 子模块信息"
-            git reset ${use_submodules} --hard "${commit_hash}"
+            git reset --hard "origin/${branch}"
+            git submodule deinit --all -f
             git submodule update --init --recursive
         fi
-        git reset ${use_submodules} --hard "${commit_hash}" # 切换到最新的提交内容上
+        git reset ${use_submodules} --hard "origin/${branch}" # 切换到最新的提交内容上
         if term_sd_is_debug; then
             term_sd_echo "cmd: git fetch ${use_submodules}"
             term_sd_echo "cmd: git checkout ${branch} --force"
-            term_sd_echo "cmd: git reset ${use_submodules} --hard ${commit_hash}"
+            term_sd_echo "cmd: git reset ${use_submodules} --hard origin/${branch}"
         fi
     else
         term_sd_echo "拉取 ${name} 远程源更新失败, 取消分支切换"
