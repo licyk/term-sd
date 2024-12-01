@@ -40,26 +40,27 @@ __term_sd_task_pre_model_39 get_modelscope_model licyks/sd-model/master/sdxl_1.0
 __term_sd_task_pre_model_40 get_modelscope_model licyks/sd-model/master/sdxl_1.0/noobaiXLNAIXL_epsilonPred075.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # noobaiXLNAIXL_epsilonPred075(6.94g) OFF
 __term_sd_task_pre_model_41 get_modelscope_model licyks/sd-model/master/sdxl_1.0/noobaiXLNAIXL_epsilonPred077.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # noobaiXLNAIXL_epsilonPred077(6.94g) OFF
 __term_sd_task_pre_model_42 get_modelscope_model licyks/sd-model/master/sdxl_1.0/noobaiXLNAIXL_epsilonPred10Version.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # noobaiXLNAIXL_epsilonPred10Version(6.94g) OFF
-__term_sd_task_pre_model_43 get_modelscope_model licyks/sd-model/master/sdxl_1.0/noobaiXLNAIXL_vPredTestVersion.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # noobaiXLNAIXL_vPredTestVersion(6.94g) OFF
-__term_sd_task_pre_model_44 get_modelscope_model licyks/sd-model/master/sdxl_1.0/noobaiXLNAIXL_vPred05Version.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # noobaiXLNAIXL_vPred05Version(6.94g) OFF
-__term_sd_task_pre_model_45 get_modelscope_model licyks/sd-model/master/sdxl_1.0/noobaiXLNAIXL_vPred06Version.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # noobaiXLNAIXL_vPred06Version(6.94g) OFF
-__term_sd_task_pre_model_46 get_modelscope_model licyks/sd-model/master/sdxl_1.0/noobaiXLNAIXL_vPred065SVersion.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # noobaiXLNAIXL_vPred065SVersion(6.94g) OFF
-__term_sd_task_pre_model_47 get_modelscope_model licyks/sd-model/master/sdxl_1.0/ponyDiffusionV6XL_v6StartWithThisOne.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # ponyDiffusionV6XL_v6(6.94g) OFF
-__term_sd_task_pre_model_48 get_modelscope_model licyks/sd-model/master/sdxl_1.0/pdForAnime_v20.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # pdForAnime_v20(7.11g) OFF
-__term_sd_task_pre_model_49 get_modelscope_model licyks/sd-model/master/sdxl_1.0/tPonynai3_v51WeightOptimized.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # tPonynai3_v51WeightOptimized(6.94g) OFF
-__term_sd_task_pre_model_50 get_modelscope_model licyks/sd-model/master/sdxl_1.0/omegaPonyXLAnime_v20.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # omegaPonyXLAnime_v20(6.94g) OFF
-__term_sd_task_pre_model_51 get_modelscope_model licyks/sd-model/master/sdxl_1.0/animeIllustDiffusion_v061.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # animeIllustDiffusion_v061(6.94g) OFF
-__term_sd_task_pre_model_52 get_modelscope_model licyks/sd-model/master/sdxl_1.0/artiwaifuDiffusion_v10.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # artiwaifuDiffusion_v10(6.94g) OFF
-__term_sd_task_pre_model_53 get_modelscope_model licyks/sd-model/master/sdxl_1.0/artiwaifu-diffusion-v2.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # artiwaifu-diffusion-v2(6.94g) OFF
-__term_sd_task_pre_model_54 # =====VAE模型===== OFF
-__term_sd_task_pre_model_55 get_modelscope_model licyks/sd-vae/master/sd_1.5/vae-ft-ema-560000-ema-pruned.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # vae-ft-ema-560000-ema-pruned(334.6m) OFF
-__term_sd_task_pre_model_56 get_modelscope_model licyks/sd-vae/master/sd_1.5/vae-ft-mse-840000-ema-pruned.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # vae-ft-mse-840000-ema-pruned(334.6m) OFF
-__term_sd_task_pre_model_57 get_modelscope_model licyks/sd-vae/master/sdxl_1.0/sdxl_fp16_fix_vae.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # sdxl_fp16_fix_vae(334.6m) OFF
-__term_sd_task_pre_model_58 get_modelscope_model licyks/sd-vae/master/sdxl_1.0/sdxl_vae.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # sdxl_vae(334.6m) OFF
-__term_sd_task_pre_model_59 # =====FLUX模型===== OFF
-__term_sd_task_pre_model_60 get_modelscope_model licyks/flux-model/master/flux_1/flux1-dev.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # flux1-dev(23.8g) OFF
-__term_sd_task_pre_model_61 get_modelscope_model licyks/flux-model/master/flux_1/flux1-schnell.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # flux1-schnell(23.8g) OFF
-__term_sd_task_pre_model_62 # =====FLUX-文本编码器/VAE模型===== OFF
-__term_sd_task_pre_model_63 get_modelscope_model licyks/flux-model/master/flux_text_encoders/clip_l.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # clip_l(246.1m) OFF
-__term_sd_task_pre_model_64 get_modelscope_model licyks/flux-model/master/flux_text_encoders/t5xxl_fp16.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # t5xxl_fp16(9.79g) OFF
-__term_sd_task_pre_model_65 get_modelscope_model licyks/flux-model/master/flux_vae/ae.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # ae(335m) OFF
+__term_sd_task_pre_model_43 get_modelscope_model licyks/sd-model/master/sdxl_1.0/noobaiXLNAIXL_epsilonPred11Version.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # noobaiXLNAIXL_epsilonPred11Version(6.94g) OFF
+__term_sd_task_pre_model_44 get_modelscope_model licyks/sd-model/master/sdxl_1.0/noobaiXLNAIXL_vPredTestVersion.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # noobaiXLNAIXL_vPredTestVersion(6.94g) OFF
+__term_sd_task_pre_model_45 get_modelscope_model licyks/sd-model/master/sdxl_1.0/noobaiXLNAIXL_vPred05Version.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # noobaiXLNAIXL_vPred05Version(6.94g) OFF
+__term_sd_task_pre_model_46 get_modelscope_model licyks/sd-model/master/sdxl_1.0/noobaiXLNAIXL_vPred06Version.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # noobaiXLNAIXL_vPred06Version(6.94g) OFF
+__term_sd_task_pre_model_47 get_modelscope_model licyks/sd-model/master/sdxl_1.0/noobaiXLNAIXL_vPred065SVersion.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # noobaiXLNAIXL_vPred065SVersion(6.94g) OFF
+__term_sd_task_pre_model_48 get_modelscope_model licyks/sd-model/master/sdxl_1.0/ponyDiffusionV6XL_v6StartWithThisOne.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # ponyDiffusionV6XL_v6(6.94g) OFF
+__term_sd_task_pre_model_49 get_modelscope_model licyks/sd-model/master/sdxl_1.0/pdForAnime_v20.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # pdForAnime_v20(7.11g) OFF
+__term_sd_task_pre_model_50 get_modelscope_model licyks/sd-model/master/sdxl_1.0/tPonynai3_v51WeightOptimized.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # tPonynai3_v51WeightOptimized(6.94g) OFF
+__term_sd_task_pre_model_51 get_modelscope_model licyks/sd-model/master/sdxl_1.0/omegaPonyXLAnime_v20.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # omegaPonyXLAnime_v20(6.94g) OFF
+__term_sd_task_pre_model_52 get_modelscope_model licyks/sd-model/master/sdxl_1.0/animeIllustDiffusion_v061.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # animeIllustDiffusion_v061(6.94g) OFF
+__term_sd_task_pre_model_53 get_modelscope_model licyks/sd-model/master/sdxl_1.0/artiwaifuDiffusion_v10.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # artiwaifuDiffusion_v10(6.94g) OFF
+__term_sd_task_pre_model_54 get_modelscope_model licyks/sd-model/master/sdxl_1.0/artiwaifu-diffusion-v2.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # artiwaifu-diffusion-v2(6.94g) OFF
+__term_sd_task_pre_model_55 # =====VAE模型===== OFF
+__term_sd_task_pre_model_56 get_modelscope_model licyks/sd-vae/master/sd_1.5/vae-ft-ema-560000-ema-pruned.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # vae-ft-ema-560000-ema-pruned(334.6m) OFF
+__term_sd_task_pre_model_57 get_modelscope_model licyks/sd-vae/master/sd_1.5/vae-ft-mse-840000-ema-pruned.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # vae-ft-mse-840000-ema-pruned(334.6m) OFF
+__term_sd_task_pre_model_58 get_modelscope_model licyks/sd-vae/master/sdxl_1.0/sdxl_fp16_fix_vae.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # sdxl_fp16_fix_vae(334.6m) OFF
+__term_sd_task_pre_model_59 get_modelscope_model licyks/sd-vae/master/sdxl_1.0/sdxl_vae.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # sdxl_vae(334.6m) OFF
+__term_sd_task_pre_model_60 # =====FLUX模型===== OFF
+__term_sd_task_pre_model_61 get_modelscope_model licyks/flux-model/master/flux_1/flux1-dev.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # flux1-dev(23.8g) OFF
+__term_sd_task_pre_model_62 get_modelscope_model licyks/flux-model/master/flux_1/flux1-schnell.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # flux1-schnell(23.8g) OFF
+__term_sd_task_pre_model_63 # =====FLUX-文本编码器/VAE模型===== OFF
+__term_sd_task_pre_model_64 get_modelscope_model licyks/flux-model/master/flux_text_encoders/clip_l.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # clip_l(246.1m) OFF
+__term_sd_task_pre_model_65 get_modelscope_model licyks/flux-model/master/flux_text_encoders/t5xxl_fp16.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # t5xxl_fp16(9.79g) OFF
+__term_sd_task_pre_model_66 get_modelscope_model licyks/flux-model/master/flux_vae/ae.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # ae(335m) OFF
