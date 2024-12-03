@@ -59,15 +59,15 @@ __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/comfyui-ext
 __term_sd_task_pre_ext_1 aria2_download https://huggingface.co/licyk/comfyui-extension-models/resolve/main/comfyui_controlnet_aux/yzd-v/DWPose/yolox_l.onnx "${COMFYUI_PATH}"/custom_nodes/comfyui_controlnet_aux/ckpts/yzd-v/DWPose
 
 __term_sd_task_pre_ext_2 term_sd_echo "下载 Animatediff 模型中" # AnimateDiff(1.67g) OFF
-__term_sd_task_pre_ext_2 aria2_download https://huggingface.co/guoyww/animatediff/resolve/main/v3_sd15_mm.ckpt "${COMFYUI_PATH}"/custom_nodes/ComfyUI-AnimateDiff-Evolved/models
+__term_sd_task_pre_ext_2 aria2_download https://huggingface.co/guoyww/animatediff/resolve/main/v3_sd15_mm.ckpt "${COMFYUI_PATH}"/models/animatediff_models
 
 __term_sd_task_pre_ext_3 term_sd_echo "下载 IP-Adapter 模型中" # IP-Adapter(9.63g) ON
-__term_sd_task_pre_ext_3 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sd15.pth "${COMFYUI_PATH}"/custom_nodes/ComfyUI_IPAdapter_plus/models
-__term_sd_task_pre_ext_3 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sd15_light.pth "${COMFYUI_PATH}"/custom_nodes/ComfyUI_IPAdapter_plus/models
-__term_sd_task_pre_ext_3 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sd15_plus.pth "${COMFYUI_PATH}"/custom_nodes/ComfyUI_IPAdapter_plus/models
-__term_sd_task_pre_ext_3 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sd15_vit-G.safetensors "${COMFYUI_PATH}"/custom_nodes/ComfyUI_IPAdapter_plus/models
-__term_sd_task_pre_ext_3 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sdxl.safetensors "${COMFYUI_PATH}"/custom_nodes/ComfyUI_IPAdapter_plus/models
-__term_sd_task_pre_ext_3 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter-plus_sdxl_vit-h.safetensors "${COMFYUI_PATH}"/custom_nodes/ComfyUI_IPAdapter_plus/models
+__term_sd_task_pre_ext_3 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sd15.pth "${COMFYUI_PATH}"/models/ipadapter
+__term_sd_task_pre_ext_3 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sd15_light.pth "${COMFYUI_PATH}"/models/ipadapter
+__term_sd_task_pre_ext_3 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sd15_plus.pth "${COMFYUI_PATH}"/models/ipadapter
+__term_sd_task_pre_ext_3 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sd15_vit-G.safetensors "${COMFYUI_PATH}"/models/ipadapter
+__term_sd_task_pre_ext_3 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter_sdxl.safetensors "${COMFYUI_PATH}"/models/ipadapter
+__term_sd_task_pre_ext_3 aria2_download https://huggingface.co/licyk/controlnet_v1.1/resolve/main/ip-adapter-plus_sdxl_vit-h.safetensors "${COMFYUI_PATH}"/models/ipadapter
 __term_sd_task_pre_ext_3 aria2_download https://huggingface.co/licyk/controlnet_v1.1_annotator/resolve/main/clip_vision/clip_g.pth "${COMFYUI_PATH}"/models/clip_vision
 __term_sd_task_pre_ext_3 aria2_download https://huggingface.co/licyk/controlnet_v1.1_annotator/resolve/main/clip_vision/clip_h.pth "${COMFYUI_PATH}"/models/clip_vision
 __term_sd_task_pre_ext_3 aria2_download https://huggingface.co/licyk/controlnet_v1.1_annotator/resolve/main/clip_vision/clip_vitl.pth "${COMFYUI_PATH}"/models/clip_vision
