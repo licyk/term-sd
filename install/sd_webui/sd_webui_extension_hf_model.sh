@@ -78,6 +78,7 @@ __term_sd_task_pre_ext_5 term_sd_echo "下载 SD-WebUI-Segment-Anything模型" #
 __term_sd_task_pre_ext_5 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/sd-webui-segment-anything/sam_vit_h_4b8939.pth "${SD_WEBUI_PATH}"/extensions/sd-webui-segment-anything/models/sam
 __term_sd_task_pre_ext_5 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/sd-webui-segment-anything/sam_vit_l_0b3195.pth "${SD_WEBUI_PATH}"/extensions/sd-webui-segment-anything/models/sam
 __term_sd_task_pre_ext_5 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/sd-webui-segment-anything/sam_vit_b_01ec64.pth "${SD_WEBUI_PATH}"/extensions/sd-webui-segment-anything/models/sam
+__term_sd_task_pre_ext_5 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/sd-webui-segment-anything/mobile_sam.pt "${SD_WEBUI_PATH}"/extensions/sd-webui-segment-anything/models/sam
 __term_sd_task_pre_ext_5 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/sd-webui-segment-anything/groundingdino_swint_ogc.pth  "${SD_WEBUI_PATH}"/extensions/sd-webui-segment-anything/models/grounding-dino
 __term_sd_task_pre_ext_5 aria2_download https://huggingface.co/licyk/sd-extensions-model/resolve/main/sd-webui-segment-anything/groundingdino_swinb_cogcoor.pth "${SD_WEBUI_PATH}"/extensions/sd-webui-segment-anything/models/grounding-dino
 
