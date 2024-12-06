@@ -125,3 +125,8 @@ __term_sd_task_pre_ext_124 ComfyUI-Latent-Modifiers OFF
 __term_sd_task_pre_ext_125 comfyui-deploy OFF
 __term_sd_task_pre_ext_126 ComfyUI-HakuImg OFF
 __term_sd_task_pre_ext_127 ComfyUI-flash-attention-rdna3-win-zluda OFF
+__term_sd_task_pre_ext_128 ComfyUI-BlenderAI-node OFF
+__term_sd_task_pre_ext_129 comfyui-portrait-master OFF
+__term_sd_task_pre_ext_130 sigmas_tools_and_the_golden_scheduler OFF
+__term_sd_task_pre_ext_131 ComfyUI_fabric OFF
+__term_sd_task_pre_ext_132 ComfyUi_NNLatentUpscale OFF
