@@ -110,6 +110,8 @@ def is_installed(package: str) -> bool:
                 pkg_name, pkg_version = [x.strip() for x in pkg.split('==')]
             elif '<=' in pkg:
                 pkg_name, pkg_version = [x.strip() for x in pkg.split('<=')]
+            elif '!=' in pkg:
+                pkg_name, pkg_version = [x.strip() for x in pkg.split('!=')]
             elif '<' in pkg:
                 pkg_name, pkg_version = [x.strip() for x in pkg.split('<')]
             elif '>' in pkg:
@@ -132,6 +134,12 @@ def is_installed(package: str) -> bool:
                     elif '<=' in pkg:
                         # ok = version <= pkg_version
                         if compare_versions(version, pkg_version) == -1 or compare_versions(version, pkg_version) == 0:
+                            ok = True
+                        else:
+                            ok = False
+                    elif '!=' in pkg:
+                        # ok = version != pkg_version
+                        if compare_versions(version, pkg_version) != 0:
                             ok = True
                         else:
                             ok = False
@@ -219,7 +227,7 @@ def has_version(ver: str) -> bool:
 
 # 获取包名(去除版本号)
 def get_package_name(pkg: str) -> str:
-    return pkg.split(">")[0].split("<")[0].split("==")[0]
+    return pkg.split(">")[0].split("<")[0].split("!=")[0].split("==")[0]
 
 
 # 判断 2 个版本的大小, 前面大返回 1, 后面大返回 -1, 相同返回 0
@@ -310,6 +318,13 @@ def detect_conflict_package(pkg_1: str, pkg_2: str) -> bool:
             ver_1 = get_version(pkg_1.split("<=").pop())
             ver_2 = get_version(pkg_2.split("==").pop())
             if compare_versions(ver_1, ver_2) == -1:
+                return True
+
+        # !=, ==
+        if "!=" in pkg_1 and "==" in pkg_2:
+            ver_1 = get_version(pkg_1.split("!=").pop())
+            ver_2 = get_version(pkg_2.split("==").pop())
+            if compare_versions(ver_1, ver_2) == 0:
                 return True
 
         # ==, ==

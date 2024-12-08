@@ -88,6 +88,8 @@ def is_installed(package: str) -> bool:
                 pkg_name, pkg_version = [x.strip() for x in pkg.split('==')]
             elif '<=' in pkg:
                 pkg_name, pkg_version = [x.strip() for x in pkg.split('<=')]
+            elif '!=' in pkg:
+                pkg_name, pkg_version = [x.strip() for x in pkg.split('!=')]
             elif '>' in pkg:
                 pkg_name, pkg_version = [x.strip() for x in pkg.split('>')]
             elif '<' in pkg:
@@ -110,6 +112,12 @@ def is_installed(package: str) -> bool:
                     elif '<=' in pkg:
                         # ok = version <= pkg_version
                         if compare_versions(version, pkg_version) == -1 or compare_versions(version, pkg_version) == 0:
+                            ok = True
+                        else:
+                            ok = False
+                    elif '!=' in pkg:
+                        # ok = version != pkg_version
+                        if compare_versions(version, pkg_version) != 0:
                             ok = True
                         else:
                             ok = False
