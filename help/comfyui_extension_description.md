@@ -542,3 +542,7 @@ ComfyUI 插件 / 自定义节点说明：
 132、ComfyUi_NNLatentUpscale
 描述：使用小型神经网络快速放大潜空间图像
 链接：https://github.com/Ttl/ComfyUi_NNLatentUpscale
+
+133、comfyui_lora_tag_loader
+描述：使用提示词调用LoRA模型
+链接：https://github.com/badjeff/comfyui_lora_tag_loader
