@@ -85,6 +85,8 @@ term_sd_launch() {
             is_windows_platform && export INSIGHTFACE_WHEEL="insightface"
             export DEPTH_ANYTHING_WHEEL="depth_anything"
             export HANDREFINER_WHEEL="handrefinerportable"
+            export DEPTH_ANYTHING_V2_WHEEL="depth_anything_v2"
+            export DSINE_WHEEL="dsine"
             ;;
         ComfyUI)
             launch_sd_config="comfyui-launch.conf"
@@ -144,6 +146,8 @@ term_sd_launch() {
         echo "CLIP_PACKAGE: ${CLIP_PACKAGE}"
         echo "INSIGHTFACE_WHEEL: ${INSIGHTFACE_WHEEL}"
         echo "DEPTH_ANYTHING_WHEEL: ${DEPTH_ANYTHING_WHEEL}"
+        echo "DEPTH_ANYTHING_V2_WHEEL: ${DEPTH_ANYTHING_V2_WHEEL}"
+        echo "DSINE_WHEEL: ${DSINE_WHEEL}"
         echo "HANDREFINER_WHEEL: ${HANDREFINER_WHEEL}"
         echo "PYTORCH_CUDA_ALLOC_CONF: ${PYTORCH_CUDA_ALLOC_CONF}"
         term_sd_print_line
@@ -219,6 +223,8 @@ term_sd_launch() {
 
     unset INSIGHTFACE_WHEEL
     unset DEPTH_ANYTHING_WHEEL
+    unset DEPTH_ANYTHING_V2_WHEEL
+    unset DSINE_WHEEL
     unset HANDREFINER_WHEEL
 
     term_sd_pause
