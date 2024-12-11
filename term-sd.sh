@@ -864,6 +864,12 @@ prepare_tcmalloc() {
     esac
 }
 
+# 配置默认 Git 配置
+set_normal_git_config() {
+    git config --global --add safe.directory "*"
+    git config --global core.longpaths true
+}
+
 # 自动选择 Github 镜像源
 # 如果有可用的镜像源, 则使用 GIT_CONFIG_GLOBAL 环境变量指定 Git 配置文件路径
 # 使用 <Start Path>/term-sd/config/set-global-github-mirror.conf 保存镜像源地址
@@ -898,7 +904,7 @@ term_sd_auto_setup_github_mirror() {
 
         if [[ "${mirror_status}" == 1 ]]; then
             term_sd_echo "设置 Github 镜像源"
-            git config --global --add safe.directory "*"
+            set_normal_git_config
             git config --global url."${github_mirror}".insteadOf "https://github.com"
             echo "${github_mirror}" > "${START_PATH}"/term-sd/config/set-global-github-mirror.conf
         else

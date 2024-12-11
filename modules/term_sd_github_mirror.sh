@@ -117,7 +117,7 @@ term_sd_set_github_mirror() {
             term_sd_echo "设置 Github 镜像源"
             export GIT_CONFIG_GLOBAL="${START_PATH}/term-sd/config/.gitconfig"
             rm -f "${START_PATH}"/term-sd/config/.gitconfig
-            git config --global --add safe.directory "*"
+            set_normal_git_config
             git config --global url."${TERM_SD_GITHUB_MIRROR}".insteadOf "https://github.com"
             echo "${TERM_SD_GITHUB_MIRROR}" > "${START_PATH}"/term-sd/config/set-global-github-mirror.conf
             return 0
@@ -128,7 +128,7 @@ term_sd_set_github_mirror() {
             term_sd_echo "设置 Github 镜像源"
             export GIT_CONFIG_GLOBAL="${START_PATH}/term-sd/config/.gitconfig"
             rm -f "${START_PATH}"/term-sd/config/.gitconfig
-            git config --global --add safe.directory "*"
+            set_normal_git_config
             git config --global url."${TERM_SD_GITHUB_MIRROR}".insteadOf "https://github.com"
             echo "${TERM_SD_GITHUB_MIRROR}" > "${START_PATH}"/term-sd/config/set-global-github-mirror.conf
             return 0
@@ -139,7 +139,7 @@ term_sd_set_github_mirror() {
             term_sd_echo "设置 Github 镜像源"
             export GIT_CONFIG_GLOBAL="${START_PATH}/term-sd/config/.gitconfig"
             rm -f "${START_PATH}"/term-sd/config/.gitconfig
-            git config --global --add safe.directory "*"
+            set_normal_git_config
             git config --global url."${TERM_SD_GITHUB_MIRROR}".insteadOf "https://github.com"
             echo "${TERM_SD_GITHUB_MIRROR}" > "${START_PATH}"/term-sd/config/set-global-github-mirror.conf
             return 0
@@ -150,7 +150,7 @@ term_sd_set_github_mirror() {
             term_sd_echo "设置 Github 镜像源"
             export GIT_CONFIG_GLOBAL="${START_PATH}/term-sd/config/.gitconfig"
             rm -f "${START_PATH}"/term-sd/config/.gitconfig
-            git config --global --add safe.directory "*"
+            set_normal_git_config
             git config --global url."${TERM_SD_GITHUB_MIRROR}".insteadOf "https://github.com"
             echo "${TERM_SD_GITHUB_MIRROR}" > "${START_PATH}"/term-sd/config/set-global-github-mirror.conf
             return 0
@@ -161,7 +161,7 @@ term_sd_set_github_mirror() {
             term_sd_echo "设置 Github 镜像源"
             export GIT_CONFIG_GLOBAL="${START_PATH}/term-sd/config/.gitconfig"
             rm -f "${START_PATH}"/term-sd/config/.gitconfig
-            git config --global --add safe.directory "*"
+            set_normal_git_config
             git config --global url."${TERM_SD_GITHUB_MIRROR}".insteadOf "https://github.com"
             echo "${TERM_SD_GITHUB_MIRROR}" > "${START_PATH}"/term-sd/config/set-global-github-mirror.conf
             return 0
@@ -172,7 +172,7 @@ term_sd_set_github_mirror() {
             term_sd_echo "设置 Github 镜像源"
             export GIT_CONFIG_GLOBAL="${START_PATH}/term-sd/config/.gitconfig"
             rm -f "${START_PATH}"/term-sd/config/.gitconfig
-            git config --global --add safe.directory "*"
+            set_normal_git_config
             git config --global url."${TERM_SD_GITHUB_MIRROR}".insteadOf "https://github.com"
             echo "${TERM_SD_GITHUB_MIRROR}" > "${START_PATH}"/term-sd/config/set-global-github-mirror.conf
             return 0
@@ -183,7 +183,7 @@ term_sd_set_github_mirror() {
             term_sd_echo "设置 Github 镜像源"
             export GIT_CONFIG_GLOBAL="${START_PATH}/term-sd/config/.gitconfig"
             rm -f "${START_PATH}"/term-sd/config/.gitconfig
-            git config --global --add safe.directory "*"
+            set_normal_git_config
             git config --global url."${TERM_SD_GITHUB_MIRROR}".insteadOf "https://github.com"
             echo "${TERM_SD_GITHUB_MIRROR}" > "${START_PATH}"/term-sd/config/set-global-github-mirror.conf
             return 0
@@ -194,7 +194,7 @@ term_sd_set_github_mirror() {
             term_sd_echo "设置 Github 镜像源"
             export GIT_CONFIG_GLOBAL="${START_PATH}/term-sd/config/.gitconfig"
             rm -f "${START_PATH}"/term-sd/config/.gitconfig
-            git config --global --add safe.directory "*"
+            set_normal_git_config
             git config --global url."${TERM_SD_GITHUB_MIRROR}".insteadOf "https://github.com"
             echo "${TERM_SD_GITHUB_MIRROR}" > "${START_PATH}"/term-sd/config/set-global-github-mirror.conf
             return 0
