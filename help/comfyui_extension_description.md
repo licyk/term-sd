@@ -19,7 +19,7 @@ ComfyUI 插件 / 自定义节点说明：
 描述：ComfyUI的ControlNet辅助预处理器
 链接：https://github.com/Fannovel16/comfyui_controlnet_aux
 
-2、ComfyUI-AnimateDiff-Evolved*
+2、ComfyUI-AnimateDiff-Evolved
 描述：视频生成节点
 链接：https://github.com/Kosinkadink/ComfyUI-AnimateDiff-Evolved
 
@@ -27,7 +27,7 @@ ComfyUI 插件 / 自定义节点说明：
 描述：添加ip-adapt支持
 链接：https://github.com/cubiq/ComfyUI_IPAdapter_plus
 
-4、ComfyUI-Impact-Pack*
+4、ComfyUI-Impact-Pack
 描述：通过检测器、细节器、升频器、管道等方便地增强图像
 链接：https://github.com/ltdrdata/ComfyUI-Impact-Pack
 
@@ -95,7 +95,7 @@ ComfyUI 插件 / 自定义节点说明：
 描述：使用GPT辅助生图
 链接：https://github.com/xXAdonesXx/NodeGPT
 
-21、Derfuu_ComfyUI_ModdedNodes*
+21、Derfuu_ComfyUI_ModdedNodes
 描述：方程式节点
 链接：https://github.com/Derfuu/Derfuu_ComfyUI_ModdedNodes
 
@@ -147,7 +147,7 @@ ComfyUI 插件 / 自定义节点说明：
 描述：ComfyUI的自定义节点
 链接：https://github.com/guoyk93/yk-node-suite-comfyui
 
-34、ComfyUI_experiments*
+34、ComfyUI_experiments
 描述：ComfyUI的一些实验性自定义节点
 链接：https://github.com/comfyanonymous/ComfyUI_experiments
 
@@ -199,7 +199,7 @@ ComfyUI 插件 / 自定义节点说明：
 描述：ComfyUI的翻译扩展
 链接：https://github.com/AIGODLIKE/AIGODLIKE-COMFYUI-TRANSLATION
 
-47、stability-ComfyUI-nodes*
+47、stability-ComfyUI-nodes
 描述：Stability-AI自定义节点支持
 链接：https://github.com/Stability-AI/stability-ComfyUI-nodes
 
@@ -211,7 +211,7 @@ ComfyUI 插件 / 自定义节点说明：
 描述：生图加速
 链接：https://github.com/WASasquatch/FreeU_Advanced
 
-50、ControlNet-LLLite-ComfyUI*
+50、ControlNet-LLLite-ComfyUI
 描述：添加ControlNet-LLLite支持
 链接：https://github.com/kohya-ss/ControlNet-LLLite-ComfyUI
 
@@ -219,7 +219,7 @@ ComfyUI 插件 / 自定义节点说明：
 描述：使用ComfyUI作为外部工具后端的节点
 链接：https://github.com/Acly/comfyui-tooling-nodes
 
-52、efficiency-nodes-comfyui*
+52、efficiency-nodes-comfyui
 描述：自定义节点的集合，可帮助简化工作流程并减少节点总数
 链接：https://github.com/jags111/efficiency-nodes-comfyui
 
@@ -235,7 +235,7 @@ ComfyUI 插件 / 自定义节点说明：
 描述：SDXL提示词风格预设节点
 链接：https://github.com/twri/sdxl_prompt_styler
 
-56、comfyui-workspace-manager*
+56、comfyui-workspace-manager
 描述：工作流管理器
 链接：https://github.com/11cafe/comfyui-workspace-manager
 
@@ -263,7 +263,7 @@ ComfyUI 插件 / 自定义节点说明：
 描述：ComfyUI自定义节点合集
 链接：https://github.com/Suzie1/ComfyUI_Comfyroll_CustomNodes
 
-63、ComfyUI_FizzNodes*
+63、ComfyUI_FizzNodes
 描述：视频制作节点
 链接：https://github.com/FizzleDorf/ComfyUI_FizzNodes
 
@@ -271,7 +271,7 @@ ComfyUI 插件 / 自定义节点说明：
 描述：Controlnet节点，包含各种Controlnet调节选项
 链接：https://github.com/Kosinkadink/ComfyUI-Advanced-ControlNet
 
-65、PowerNoiseSuite*
+65、PowerNoiseSuite
 描述：噪声生成节点
 链接：https://github.com/WASasquatch/PowerNoiseSuite
 
@@ -451,7 +451,7 @@ ComfyUI 插件 / 自定义节点说明：
 描述：omost区域提示词编辑器
 链接：https://github.com/huchenlei/omost_region_editor
 
-110、ComfyUI-openpose-editor
+110、ComfyUI-openpose-editor*
 描述：openpose编辑器
 链接：https://github.com/huchenlei/ComfyUI-openpose-editor
 
@@ -467,7 +467,7 @@ ComfyUI 插件 / 自定义节点说明：
 描述：自定义节点集合
 链接：https://github.com/cubiq/ComfyUI_essentials
 
-114、ComfyUI-Restart-Sampler
+114、ComfyUI-Restart-Sampler*
 描述：为ComfyUI添加Restart采样算法
 链接：https://github.com/licyk/ComfyUI-Restart-Sampler
 
@@ -487,7 +487,7 @@ ComfyUI 插件 / 自定义节点说明：
 描述：添加UltraEdit支持
 链接：https://github.com/ZHO-ZHO-ZHO/ComfyUI-UltraEdit-ZHO
 
-119、WeiLin-ComfyUI-prompt-all-in-one
+119、WeiLin-ComfyUI-prompt-all-in-one*
 描述：Prompt-all-in-one-app项目的修改版本，能够在ComfyUI中创建节点使用tag功能
 链接：https://github.com/weilin9999/WeiLin-ComfyUI-prompt-all-in-one
 

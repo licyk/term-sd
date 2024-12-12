@@ -7,7 +7,7 @@ Stable Diffusion WebUI 插件说明：
 描述：图片生成控制
 链接：https://github.com/Mikubill/sd-webui-controlnet
 
-2、sd-webui-animatediff*
+2、sd-webui-animatediff
 描述：视频生成扩展
 链接：https://github.com/continue-revolution/sd-webui-animatediff
 
@@ -19,7 +19,7 @@ Stable Diffusion WebUI 插件说明：
 描述：人物抠图
 链接：https://github.com/ClockZinc/sd-webui-IS-NET-pro
 
-5、sd-webui-segment-anything
+5、sd-webui-segment-anything*
 描述：图片语义分割
 链接：https://github.com/continue-revolution/sd-webui-segment-anything
 
@@ -155,7 +155,7 @@ Stable Diffusion WebUI 插件说明：
 描述：添加lycoris模型支持
 链接：https://github.com/KohakuBlueleaf/a1111-sd-webui-lycoris
 
-39、stable-diffusion-webui-rembg*
+39、stable-diffusion-webui-rembg
 描述：人物背景去除
 链接：https://github.com/AUTOMATIC1111/stable-diffusion-webui-rembg
 
@@ -327,7 +327,7 @@ Stable Diffusion WebUI 插件说明：
 描述：civitai助手升级版，支持更多功能
 链接：https://github.com/BlafKing/sd-civitai-browser-plus
 
-82、sd-webui-weight-helper*
+82、sd-webui-weight-helper
 描述：快捷调整lora分层参数
 链接：https://github.com/nihedon/sd-webui-weight-helper
 
@@ -439,7 +439,7 @@ Stable Diffusion WebUI 插件说明：
 描述：改进xyz图表的功能
 链接：https://github.com/Haoming02/sd-webui-advanced-xyz
 
-110、sd-webui-mosaic-outpaint
+110、sd-webui-mosaic-outpaint*
 描述：快捷扩图工具
 链接：https://github.com/Haoming02/sd-webui-mosaic-outpaint
 
@@ -515,7 +515,7 @@ Stable Diffusion WebUI 插件说明：
 描述：将图片下方的生图信息进行美化排版
 链接：https://github.com/bluelovers/sd-webui-pnginfo-beautify
 
-129、sd-webui-resource-monitor
+129、sd-webui-resource-monitor*
 描述：性能监测
 链接：https://github.com/Haoming02/sd-webui-resource-monitor
 
@@ -634,3 +634,7 @@ Stable Diffusion WebUI 插件说明：
 158、sd-webui-flash-attention2-rdna3-rocm
 描述：为Windows下的ZLUDA添加FlashAttension支持
 链接：https://github.com/Repeerc/sd-webui-flash-attention2-rdna3-rocm
+
+159、sd-webui-tcd-sampler
+描述：为SDWebUI添加tcd采样算法
+链接：https://github.com/licyk/sd-webui-tcd-sampler

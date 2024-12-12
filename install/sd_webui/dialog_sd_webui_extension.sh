@@ -1,8 +1,8 @@
 __term_sd_task_pre_ext_1 sd-webui-controlnet ON
-__term_sd_task_pre_ext_2 sd-webui-animatediff ON
+__term_sd_task_pre_ext_2 sd-webui-animatediff OFF
 __term_sd_task_pre_ext_3 adetailer ON
 __term_sd_task_pre_ext_4 sd-webui-IS-NET-pro OFF
-__term_sd_task_pre_ext_5 sd-webui-segment-anything OFF
+__term_sd_task_pre_ext_5 sd-webui-segment-anything ON
 __term_sd_task_pre_ext_6 sd-webui-inpaint-anything OFF
 __term_sd_task_pre_ext_7 sd-forge-layerdiffuse OFF
 __term_sd_task_pre_ext_8 z-a1111-sd-webui-dtg OFF
@@ -36,7 +36,7 @@ __term_sd_task_pre_ext_35 sd-webui-tunnels OFF
 __term_sd_task_pre_ext_36 batchlinks-webui OFF
 __term_sd_task_pre_ext_37 stable-diffusion-webui-catppuccin OFF
 __term_sd_task_pre_ext_38 a1111-sd-webui-lycoris OFF
-__term_sd_task_pre_ext_39 stable-diffusion-webui-rembg ON
+__term_sd_task_pre_ext_39 stable-diffusion-webui-rembg OFF
 __term_sd_task_pre_ext_40 stable-diffusion-webui-two-shot OFF
 __term_sd_task_pre_ext_41 sd-webui-lora-block-weight ON
 __term_sd_task_pre_ext_42 sd-face-editor OFF
@@ -79,7 +79,7 @@ __term_sd_task_pre_ext_78 image-deduplicate-cluster-webui OFF
 __term_sd_task_pre_ext_79 stable-diffusion-webui-composable-lora OFF
 __term_sd_task_pre_ext_80 sdweb-merge-block-weighted-gui OFF
 __term_sd_task_pre_ext_81 sd-civitai-browser-plus OFF
-__term_sd_task_pre_ext_82 sd-webui-weight-helper ON
+__term_sd_task_pre_ext_82 sd-webui-weight-helper OFF
 __term_sd_task_pre_ext_83 sd-danbooru-tags-upsampler OFF
 __term_sd_task_pre_ext_84 Stylez OFF
 __term_sd_task_pre_ext_85 sd-webui-next-style OFF
@@ -107,7 +107,7 @@ __term_sd_task_pre_ext_106 sd-webui-easy-tag-insert OFF
 __term_sd_task_pre_ext_107 sd-webui-i2i-ancestral-tree OFF
 __term_sd_task_pre_ext_108 sd-forge-couple OFF
 __term_sd_task_pre_ext_109 sd-webui-advanced-xyz OFF
-__term_sd_task_pre_ext_110 sd-webui-mosaic-outpaint OFF
+__term_sd_task_pre_ext_110 sd-webui-mosaic-outpaint ON
 __term_sd_task_pre_ext_111 sd-webui-image-comparison OFF
 __term_sd_task_pre_ext_112 sd-webui-diffusion-cg OFF
 __term_sd_task_pre_ext_113 sd-webui-resharpen OFF
@@ -126,7 +126,7 @@ __term_sd_task_pre_ext_125 sd-webui-ipex-enhancement OFF
 __term_sd_task_pre_ext_126 sd-webui-udav2 OFF
 __term_sd_task_pre_ext_127 sd-webui-cn-sam-preprocessor OFF
 __term_sd_task_pre_ext_128 sd-webui-pnginfo-beautify OFF
-__term_sd_task_pre_ext_129 sd-webui-resource-monitor OFF
+__term_sd_task_pre_ext_129 sd-webui-resource-monitor ON
 __term_sd_task_pre_ext_130 chara-searcher OFF
 __term_sd_task_pre_ext_131 sd-webui-to_top_button OFF
 __term_sd_task_pre_ext_132 sd-webui-aurasr OFF
@@ -156,3 +156,4 @@ __term_sd_task_pre_ext_155 sd-webui-incantations OFF
 __term_sd_task_pre_ext_156 sd-webui-kohya-hiresfix OFF
 __term_sd_task_pre_ext_157 sd-webui-model-mixer OFF
 __term_sd_task_pre_ext_158 sd-webui-flash-attention2-rdna3-rocm OFF
+__term_sd_task_pre_ext_159 sd-webui-tcd-sampler OFF
