@@ -131,3 +131,5 @@ __term_sd_task_pre_ext_130 git_clone_repository https://github.com/Extraltodeus/
 __term_sd_task_pre_ext_131 git_clone_repository https://github.com/ssitu/ComfyUI_fabric "${COMFYUI_PATH}"/custom_nodes OFF # 基于注意力的参考图像调节
 __term_sd_task_pre_ext_132 git_clone_repository https://github.com/Ttl/ComfyUi_NNLatentUpscale "${COMFYUI_PATH}"/custom_nodes OFF # 使用小型神经网络快速放大潜空间图像
 __term_sd_task_pre_ext_133 git_clone_repository https://github.com/badjeff/comfyui_lora_tag_loader "${COMFYUI_PATH}"/custom_nodes OFF # 使用提示词调用LoRA模型
+__term_sd_task_pre_ext_134 git_clone_repository https://github.com/diStyApps/ComfyUI-disty-Flow "${COMFYUI_PATH}"/custom_nodes OFF # 提供便捷的ComfyUI界面
+__term_sd_task_pre_ext_135 git_clone_repository https://github.com/kijai/ComfyUI-FluxTrainer "${COMFYUI_PATH}"/custom_nodes OFF # 在ComfyUI训练FLUX模型

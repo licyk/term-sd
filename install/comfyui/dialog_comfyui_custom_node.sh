@@ -131,3 +131,5 @@ __term_sd_task_pre_ext_130 sigmas_tools_and_the_golden_scheduler OFF
 __term_sd_task_pre_ext_131 ComfyUI_fabric OFF
 __term_sd_task_pre_ext_132 ComfyUi_NNLatentUpscale OFF
 __term_sd_task_pre_ext_133 comfyui_lora_tag_loader OFF
+__term_sd_task_pre_ext_134 ComfyUI-disty-Flow OFF
+__term_sd_task_pre_ext_135 ComfyUI-FluxTrainer OFF

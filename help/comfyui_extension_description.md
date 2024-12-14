@@ -546,3 +546,11 @@ ComfyUI 插件 / 自定义节点说明：
 133、comfyui_lora_tag_loader
 描述：使用提示词调用LoRA模型
 链接：https://github.com/badjeff/comfyui_lora_tag_loader
+
+134、ComfyUI-disty-Flow
+描述：提供便捷的ComfyUI界面
+链接：https://github.com/diStyApps/ComfyUI-disty-Flow
+
+135、ComfyUI-FluxTrainer
+描述：在ComfyUI训练FLUX模型
+链接：https://github.com/kijai/ComfyUI-FluxTrainer
