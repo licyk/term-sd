@@ -638,3 +638,7 @@ Stable Diffusion WebUI 插件说明：
 159、sd-webui-tcd-sampler
 描述：为SDWebUI添加tcd采样算法
 链接：https://github.com/licyk/sd-webui-tcd-sampler
+
+160、sd-webui-birefnet
+描述：添加BiRefNet支持，用于移除背景
+链接：https://github.com/dimitribarbot/sd-webui-birefnet

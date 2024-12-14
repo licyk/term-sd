@@ -157,3 +157,4 @@ __term_sd_task_pre_ext_156 git_clone_repository https://github.com/w-e-w/sd-webu
 __term_sd_task_pre_ext_157 git_clone_repository https://github.com/wkpark/sd-webui-model-mixer "${SD_WEBUI_PATH}"/extensions OFF # 模型融合工具
 __term_sd_task_pre_ext_158 git_clone_repository https://github.com/Repeerc/sd-webui-flash-attention2-rdna3-rocm "${SD_WEBUI_PATH}"/extensions OFF # 为Windows下的ZLUDA添加FlashAttension支持
 __term_sd_task_pre_ext_159 git_clone_repository https://github.com/licyk/sd-webui-tcd-sampler "${SD_WEBUI_PATH}"/extensions OFF # 为SDWebUI添加tcd采样算法
+__term_sd_task_pre_ext_160 git_clone_repository https://github.com/dimitribarbot/sd-webui-birefnet "${SD_WEBUI_PATH}"/extensions OFF # 添加BiRefNet支持，用于移除背景

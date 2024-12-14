@@ -157,3 +157,4 @@ __term_sd_task_pre_ext_156 sd-webui-kohya-hiresfix OFF
 __term_sd_task_pre_ext_157 sd-webui-model-mixer OFF
 __term_sd_task_pre_ext_158 sd-webui-flash-attention2-rdna3-rocm OFF
 __term_sd_task_pre_ext_159 sd-webui-tcd-sampler OFF
+__term_sd_task_pre_ext_160 sd-webui-birefnet OFF

@@ -554,3 +554,7 @@ ComfyUI 插件 / 自定义节点说明：
 135、ComfyUI-FluxTrainer
 描述：在ComfyUI训练FLUX模型
 链接：https://github.com/kijai/ComfyUI-FluxTrainer
+
+136、ComfyUI-BiRefNet-Hugo
+描述：添加BiRefNet支持，用于移除背景
+链接：https://github.com/MoonHugo/ComfyUI-BiRefNet-Hugo
