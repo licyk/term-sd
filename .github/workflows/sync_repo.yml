@@ -2,6 +2,8 @@ name: Sync Repo To Other Repo
 
 on:
   push:
+    branches:
+      - main
   delete:
   create:
 
