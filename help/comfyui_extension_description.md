@@ -195,7 +195,7 @@ ComfyUI 插件 / 自定义节点说明：
 描述：提示词翻译节点
 链接：https://github.com/AlekPet/ComfyUI_Custom_Nodes_AlekPet
 
-46、AIGODLIKE-COMFYUI-TRANSLATION*
+46、AIGODLIKE-COMFYUI-TRANSLATION
 描述：ComfyUI的翻译扩展
 链接：https://github.com/AIGODLIKE/AIGODLIKE-COMFYUI-TRANSLATION
 

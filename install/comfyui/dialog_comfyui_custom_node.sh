@@ -43,7 +43,7 @@ __term_sd_task_pre_ext_42 ComfyUI_UltimateSDUpscale ON
 __term_sd_task_pre_ext_43 ComfyUI-Disco-Diffusion OFF
 __term_sd_task_pre_ext_44 ComfyUI-Waveform-Extensions OFF
 __term_sd_task_pre_ext_45 ComfyUI_Custom_Nodes_AlekPet ON
-__term_sd_task_pre_ext_46 AIGODLIKE-COMFYUI-TRANSLATION ON
+__term_sd_task_pre_ext_46 AIGODLIKE-COMFYUI-TRANSLATION OFF
 __term_sd_task_pre_ext_47 stability-ComfyUI-nodes OFF
 __term_sd_task_pre_ext_48 ComfyUI_Fooocus_KSampler OFF
 __term_sd_task_pre_ext_49 FreeU_Advanced OFF
