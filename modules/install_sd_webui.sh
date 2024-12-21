@@ -306,3 +306,22 @@ switch_sd_webui_branch() {
     term_sd_echo "切换 Stable-Diffusion-WebUI 分支至 ${branch}"
     git -C "${SD_WEBUI_PATH}" checkout "${branch}" ${use_submodules} || return 1
 }
+
+# 安装 SD WebUI 的依赖
+install_sd_webui_requirement() {
+    local requirement
+
+    if [[ -f "${SD_WEBUI_PATH}/requirements_versions.txt" ]]; then # SD WebUI / SD WebUI Forge
+        requirement="${SD_WEBUI_PATH}/requirements_versions.txt"
+    elif [[ -f "${SD_WEBUI_PATH}/requirements.txt" ]]; then # SD.Next
+        requirement="${SD_WEBUI_PATH}/requirements.txt"
+    else
+        requirement="${SD_WEBUI_PATH}/requirements_versions.txt"
+    fi
+
+    if term_sd_is_debug; then
+        term_sd_echo "requirement path: ${requirement}"
+    fi
+
+    install_python_package -r "${requirement}"
+}
