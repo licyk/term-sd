@@ -262,12 +262,12 @@ aria2_download() {
         term_sd_echo "aria2_tmp_path: ${aria2_tmp_path}"
         term_sd_echo "file_path: ${file_path}"
         term_sd_echo "ARIA2_MULTI_THREAD: ${ARIA2_MULTI_THREAD}"
-        term_sd_echo "cmd: aria2c --file-allocation=none --summary-interval=0 --console-log-level=error -s 64 -c -x ${ARIA2_MULTI_THREAD} ${url} -d ${path} -o ${name}"
+        term_sd_echo "cmd: aria2c --file-allocation=none --summary-interval=0 --console-log-level=error -s 64 -c -x ${ARIA2_MULTI_THREAD} -k 1M ${url} -d ${path} -o ${name}"
     fi
 
     if [[ ! -f "${file_path}" ]]; then
         term_sd_echo "下载 ${name} 中, 路径: ${file_path}"
-        term_sd_try aria2c --file-allocation=none --summary-interval=0 --console-log-level=error -s 64 -c -x "${ARIA2_MULTI_THREAD}" "${url}" -d "${path}" -o "${name}"
+        term_sd_try aria2c --file-allocation=none --summary-interval=0 --console-log-level=error -s 64 -c -x "${ARIA2_MULTI_THREAD}" -k 1M "${url}" -d "${path}" -o "${name}"
         if [[ "$?" == 0 ]]; then
             term_sd_echo "${name} 下载成功"
         else
@@ -277,7 +277,7 @@ aria2_download() {
     else
         if [[ -f "${aria2_tmp_path}" ]]; then
             term_sd_echo "恢复下载 ${name} 中, 路径: ${file_path}"
-            term_sd_try aria2c --file-allocation=none --summary-interval=0 --console-log-level=error -s 64 -c -x "${ARIA2_MULTI_THREAD}" "${url}" -d "${path}" -o "${name}"
+            term_sd_try aria2c --file-allocation=none --summary-interval=0 --console-log-level=error -s 64 -c -x "${ARIA2_MULTI_THREAD}" -k 1M "${url}" -d "${path}" -o "${name}"
             if [[ "$?" == 0 ]]; then
                 term_sd_echo "${name} 下载成功"
             else

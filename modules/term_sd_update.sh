@@ -112,9 +112,9 @@ term_sd_remote_revise() {
             $(get_dialog_size_menu) \
             "0" "> 返回" \
             "1" "> Github 源" \
-            "2" "> Gitlab 源" \
-            "3" "> Gitee 源" \
-            "4" "> Bitbucket 源" \
+            "2" "> Gitee 源" \
+            "3" "> Bitbucket 源" \
+            "4" "> Gitlab 源" \
             3>&1 1>&2 2>&3)
         
         case "${dialog_arg}" in
@@ -128,15 +128,6 @@ term_sd_remote_revise() {
                     $(get_dialog_size)
                 ;;
             2)
-                git -C "${START_PATH}/term-sd" remote set-url origin "https://gitlab.com/licyk/term-sd"
-                dialog --erase-on-exit \
-                    --title "Term-SD" \
-                    --backtitle "Term-SD 更新源切换选项" \
-                    --ok-label "确认" \
-                    --msgbox "Term-SD 更新源切换完成" \
-                    $(get_dialog_size)
-                ;;
-            3)
                 git -C "${START_PATH}/term-sd" remote set-url origin "https://gitee.com/licyk/term-sd"
                 dialog --erase-on-exit \
                     --title "Term-SD" \
@@ -145,8 +136,17 @@ term_sd_remote_revise() {
                     --msgbox "Term-SD 更新源切换完成" \
                     $(get_dialog_size)
                 ;;
-            4)
+            3)
                 git -C "${START_PATH}/term-sd" remote set-url origin "https://licyk@bitbucket.org/licyks/term-sd"
+                dialog --erase-on-exit \
+                    --title "Term-SD" \
+                    --backtitle "Term-SD 更新源切换选项" \
+                    --ok-label "确认" \
+                    --msgbox "Term-SD 更新源切换完成" \
+                    $(get_dialog_size)
+                ;;
+            4)
+                git -C "${START_PATH}/term-sd" remote set-url origin "https://gitlab.com/licyk/term-sd"
                 dialog --erase-on-exit \
                     --title "Term-SD" \
                     --backtitle "Term-SD 更新源切换选项" \
