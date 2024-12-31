@@ -67,7 +67,11 @@ __term_sd_task_pre_model_66 get_modelscope_model licyks/sd-vae/master/sdxl_1.0/s
 __term_sd_task_pre_model_67 # =====FLUX模型===== OFF
 __term_sd_task_pre_model_68 get_modelscope_model licyks/flux-model/master/flux_1/flux1-dev.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # flux1-dev(23.8g) OFF
 __term_sd_task_pre_model_69 get_modelscope_model licyks/flux-model/master/flux_1/flux1-schnell.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # flux1-schnell(23.8g) OFF
-__term_sd_task_pre_model_70 # =====FLUX-文本编码器/VAE模型===== OFF
-__term_sd_task_pre_model_71 get_modelscope_model licyks/flux-model/master/flux_text_encoders/clip_l.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # clip_l(246.1m) OFF
-__term_sd_task_pre_model_72 get_modelscope_model licyks/flux-model/master/flux_text_encoders/t5xxl_fp16.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # t5xxl_fp16(9.79g) OFF
-__term_sd_task_pre_model_73 get_modelscope_model licyks/flux-model/master/flux_vae/ae.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # ae(335m) OFF
+__term_sd_task_pre_model_70 get_modelscope_model licyks/flux-model/master/flux_1/ashen0209-flux1-dev2pro.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # ashen0209-flux1-dev2pro(23.8g) OFF
+__term_sd_task_pre_model_71 get_modelscope_model licyks/flux-model/master/flux_1/jimmycarter-LibreFLUX.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # jimmycarter-LibreFLUX(23.8g) OFF
+__term_sd_task_pre_model_72 get_modelscope_model licyks/flux-model/master/flux_1/nyanko7-flux-dev-de-distill.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # nyanko7-flux-dev-de-distill(23.8g) OFF
+__term_sd_task_pre_model_73 get_modelscope_model licyks/flux-model/master/flux_1/shuttle-3-diffusion.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # shuttle-3-diffusion(23.8g) OFF
+__term_sd_task_pre_model_74 # =====FLUX-文本编码器/VAE模型===== OFF
+__term_sd_task_pre_model_75 get_modelscope_model licyks/flux-model/master/flux_text_encoders/clip_l.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # clip_l(246.1m) OFF
+__term_sd_task_pre_model_76 get_modelscope_model licyks/flux-model/master/flux_text_encoders/t5xxl_fp16.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # t5xxl_fp16(9.79g) OFF
+__term_sd_task_pre_model_77 get_modelscope_model licyks/flux-model/master/flux_vae/ae.safetensors "${LORA_SCRIPTS_PATH}"/sd-models/ # ae(335m) OFF

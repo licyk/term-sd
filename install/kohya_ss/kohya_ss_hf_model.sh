@@ -67,7 +67,11 @@ __term_sd_task_pre_model_66 aria2_download https://huggingface.co/licyk/sd-vae/r
 __term_sd_task_pre_model_67 # =====FLUX模型===== OFF
 __term_sd_task_pre_model_68 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_1/flux1-dev.safetensors "${KOHYA_SS_PATH}"/models/ # flux1-dev(23.8g) OFF
 __term_sd_task_pre_model_69 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_1/flux1-schnell.safetensors "${KOHYA_SS_PATH}"/models/ # flux1-schnell(23.8g) OFF
-__term_sd_task_pre_model_70 # =====FLUX-文本编码器/VAE模型===== OFF
-__term_sd_task_pre_model_71 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_text_encoders/clip_l.safetensors "${KOHYA_SS_PATH}"/models/ # clip_l(246.1m) OFF
-__term_sd_task_pre_model_72 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_text_encoders/t5xxl_fp16.safetensors "${KOHYA_SS_PATH}"/models/ # t5xxl_fp16(9.79g) OFF
-__term_sd_task_pre_model_73 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_vae/ae.safetensors "${KOHYA_SS_PATH}"/models/ # ae(335m) OFF
+__term_sd_task_pre_model_70 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_1/ashen0209-flux1-dev2pro.safetensors "${KOHYA_SS_PATH}"/models/ # ashen0209-flux1-dev2pro(23.8g) OFF
+__term_sd_task_pre_model_71 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_1/jimmycarter-LibreFLUX.safetensors "${KOHYA_SS_PATH}"/models/ # jimmycarter-LibreFLUX(23.8g) OFF
+__term_sd_task_pre_model_72 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_1/nyanko7-flux-dev-de-distill.safetensors "${KOHYA_SS_PATH}"/models/ # nyanko7-flux-dev-de-distill(23.8g) OFF
+__term_sd_task_pre_model_73 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_1/shuttle-3-diffusion.safetensors "${KOHYA_SS_PATH}"/models/ # shuttle-3-diffusion(23.8g) OFF
+__term_sd_task_pre_model_74 # =====FLUX-文本编码器/VAE模型===== OFF
+__term_sd_task_pre_model_75 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_text_encoders/clip_l.safetensors "${KOHYA_SS_PATH}"/models/ # clip_l(246.1m) OFF
+__term_sd_task_pre_model_76 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_text_encoders/t5xxl_fp16.safetensors "${KOHYA_SS_PATH}"/models/ # t5xxl_fp16(9.79g) OFF
+__term_sd_task_pre_model_77 aria2_download https://huggingface.co/licyk/flux-model/resolve/main/flux_vae/ae.safetensors "${KOHYA_SS_PATH}"/models/ # ae(335m) OFF

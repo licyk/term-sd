@@ -67,7 +67,11 @@ __term_sd_task_pre_model_66 sdxl_vae(334.6m) OFF
 __term_sd_task_pre_model_67 =====FLUX模型===== OFF
 __term_sd_task_pre_model_68 flux1-dev(23.8g) OFF
 __term_sd_task_pre_model_69 flux1-schnell(23.8g) OFF
-__term_sd_task_pre_model_70 =====FLUX-文本编码器/VAE模型===== OFF
-__term_sd_task_pre_model_71 clip_l(246.1m) OFF
-__term_sd_task_pre_model_72 t5xxl_fp16(9.79g) OFF
-__term_sd_task_pre_model_73 ae(335m) OFF
+__term_sd_task_pre_model_70 ashen0209-flux1-dev2pro(23.8g) OFF
+__term_sd_task_pre_model_71 jimmycarter-LibreFLUX(23.8g) OFF
+__term_sd_task_pre_model_72 nyanko7-flux-dev-de-distill(23.8g) OFF
+__term_sd_task_pre_model_73 shuttle-3-diffusion(23.8g) OFF
+__term_sd_task_pre_model_74 =====FLUX-文本编码器/VAE模型===== OFF
+__term_sd_task_pre_model_75 clip_l(246.1m) OFF
+__term_sd_task_pre_model_76 t5xxl_fp16(9.79g) OFF
+__term_sd_task_pre_model_77 ae(335m) OFF
