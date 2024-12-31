@@ -158,3 +158,10 @@ __term_sd_task_pre_ext_157 sd-webui-model-mixer OFF
 __term_sd_task_pre_ext_158 sd-webui-flash-attention2-rdna3-rocm OFF
 __term_sd_task_pre_ext_159 sd-webui-tcd-sampler OFF
 __term_sd_task_pre_ext_160 sd-webui-birefnet OFF
+__term_sd_task_pre_ext_161 stable-diffusion-NPW OFF
+__term_sd_task_pre_ext_162 sd_forge_hypertile_svd_z123 OFF
+__term_sd_task_pre_ext_163 stable-diffusion-webui-zoomimage OFF
+__term_sd_task_pre_ext_164 sd-simple-dimension-preset OFF
+__term_sd_task_pre_ext_165 sd-hub OFF
+__term_sd_task_pre_ext_166 lora-keywords-finder OFF
+__term_sd_task_pre_ext_167 sd-webui-quickrecents OFF
