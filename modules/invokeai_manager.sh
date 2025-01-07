@@ -19,20 +19,21 @@ invokeai_manager() {
                     --title "InvokeAI 管理" \
                     --backtitle "InvokeAI 管理选项" \
                     --ok-label "确认" --cancel-label "取消" \
-                    --menu "请选择 InvokeAI 管理选项的功能" \
+                    --menu "请选择 InvokeAI 管理选项的功能\n当前 InvokeAI 版本: $(get_invokeai_version)" \
                     $(get_dialog_size_menu) \
                     "0" "> 返回" \
                     "1" "> 启动" \
                     "2" "> 更新" \
                     "3" "> 自定义节点管理" \
-                    "4" "> 更新依赖" \
-                    "5" "> Python 软件包安装 / 重装 / 卸载" \
-                    "6" "> 依赖库版本管理" \
-                    "7" "> 重新安装 PyTorch" \
-                    "8" "> 修复虚拟环境" \
-                    "9" "> 重新构建虚拟环境" \
-                    "10" "> 重新安装" \
-                    "11" "> 卸载" \
+                    "4" "> 切换版本" \
+                    "5" "> 更新依赖" \
+                    "6" "> Python 软件包安装 / 重装 / 卸载" \
+                    "7" "> 依赖库版本管理" \
+                    "8" "> 重新安装 PyTorch" \
+                    "9" "> 修复虚拟环境" \
+                    "10" "> 重新构建虚拟环境" \
+                    "11" "> 重新安装" \
+                    "12" "> 卸载" \
                     3>&1 1>&2 2>&3)
 
                 case "${dialog_arg}" in
@@ -69,6 +70,17 @@ invokeai_manager() {
                         invokeai_custom_node_manager
                         ;;
                     4)
+                        if (dialog --erase-on-exit \
+                            --title "InvokeAI 管理" \
+                            --backtitle "InvokeAI 版本切换选项" \
+                            --yes-label "是" --no-label "否" \
+                            --yesno "是否切换 InvokeAI 版本 ?" \
+                            $(get_dialog_size)); then
+
+                            switch_invokeai_version
+                        fi
+                        ;;
+                    5)
                             if (dialog --erase-on-exit \
                                 --title "InvokeAI 管理" \
                                 --backtitle "InvokeAI 依赖更新选项" \
@@ -79,7 +91,7 @@ invokeai_manager() {
                                 invokeai_update_depend
                             fi
                         ;;
-                    5)
+                    6)
                         if (dialog --erase-on-exit \
                             --title "InvokeAI 管理" \
                             --backtitle "InvokeAI 的 Python 软件包安装 / 重装 / 卸载选项" \
@@ -90,15 +102,15 @@ invokeai_manager() {
                             python_package_manager
                         fi
                         ;;
-                    6)
+                    7)
                         python_package_ver_backup_manager
                         enter_venv
                         ;;
-                    7)
+                    8)
                         pytorch_reinstall
                         enter_venv
                         ;;
-                    8)
+                    9)
                         if is_use_venv; then
                             if (dialog --erase-on-exit \
                                 --title "InvokeAI 管理" \
@@ -125,7 +137,7 @@ invokeai_manager() {
                                 $(get_dialog_size)
                         fi
                         ;;
-                    9)
+                    10)
                         if is_use_venv; then
                             if (dialog --erase-on-exit \
                                 --title "InvokeAI 管理" \
@@ -151,7 +163,7 @@ invokeai_manager() {
                                 $(get_dialog_size)
                         fi
                         ;;
-                    10)
+                    11)
                         if (dialog --erase-on-exit \
                             --title "InvokeAI 管理" \
                             --backtitle "InvokeAI 重新安装选项" \
@@ -166,7 +178,7 @@ invokeai_manager() {
                             break
                         fi
                         ;;
-                    11)
+                    12)
                         if (dialog --erase-on-exit \
                             --title "InvokeAI 管理" \
                             --backtitle "InvokeAI 删除选项" \
@@ -265,5 +277,69 @@ is_invokeai_installed() {
         return 0
     else
         return 1
+    fi
+}
+
+# 切换 InvokeAI 版本
+switch_invokeai_version() {
+    local dialog_arg
+    local invokeai_ver
+
+    download_mirror_select # 下载镜像源选择
+    pip_install_mode_select # 安装方式选择
+    term_sd_echo "获取 InvokeAI 版本列表中"
+
+    dialog_arg=$(dialog --erase-on-exit \
+        --title "InvokeAI 管理" \
+        --backtitle "InvokeAI 版本切换选项" \
+        --ok-label "确认" --cancel-label "取消" \
+        --menu "请选择要切换的 InvokeAI 版本\n当前 InvokeAI 版本: $(get_invokeai_version)" \
+        $(get_dialog_size_menu) \
+        "-->返回<--" "<-------------------" \
+        $(term_sd_pip index versions invokeai |\
+            grep -oP "Available versions: \K.*" |\
+            awk -F ',' '{ for (i = 1; i <= NF; i++) {print $i " <-------------------"} }' \
+        ) \
+        3>&1 1>&2 2>&3)
+
+    if [[ "$?" == 0 ]]; then
+        if [ ! "${dialog_arg}" == "-->返回<--" ]; then
+            invokeai_ver=$dialog_arg
+            term_sd_echo "当前选择的 InvokeAI 版本: ${invokeai_ver}"
+            term_sd_echo "切换 InvokeAI 版本中"
+            install_python_package "invokeai==${invokeai_ver}"
+            if [[ "$?" == 0 ]]; then
+                dialog --erase-on-exit \
+                    --title "InvokeAI 管理" \
+                    --backtitle "InvokeAI 版本切换选项" \
+                    --ok-label "确认" \
+                    --msgbox "切换 InvokeAI 版本成功, 当前版本为: ${invokeai_ver}" \
+                    $(get_dialog_size)
+            else
+                dialog --erase-on-exit \
+                    --title "InvokeAI 管理" \
+                    --backtitle "InvokeAI 版本切换选项" \
+                    --ok-label "确认" \
+                    --msgbox "切换 InvokeAI 版本失败" \
+                    $(get_dialog_size)
+            fi
+        else
+            term_sd_echo "取消切换版本"
+        fi
+    else
+        term_sd_echo "取消切换版本"
+    fi
+}
+
+# 获取 InvokeAI 版本
+get_invokeai_version() {
+    local status
+
+    status=$(term_sd_python "${START_PATH}/term-sd/python_modules/get_invokeai_version.py")
+
+    if [[ "${status}" == "None" ]]; then
+        echo "无"
+    else
+        echo "${status}"
     fi
 }
