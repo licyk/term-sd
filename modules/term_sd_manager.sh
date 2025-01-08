@@ -326,7 +326,7 @@ term_sd_version() {
 
     dialog --erase-on-exit \
         --title "Term-SD" \
-        --backtitle "Term-SD开始界面" \
+        --backtitle "Term-SD 开始界面" \
         --ok-label "确认" \
         --msgbox "版本信息:\n\n
 系统: ${platform_info}\n

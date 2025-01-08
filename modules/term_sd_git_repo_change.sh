@@ -59,6 +59,7 @@ git_remote_url_select() {
         "6" "> 镜像源 5 (ghps.cc)" \
         "7" "> 镜像源 6 (gh.idayer.com)" \
         "8" "> 镜像源 7 (ghproxy.net)" \
+        "9" "> 镜像源 8 (gh.api.99988866.xyz)" \
         3>&1 1>&2 2>&3)
 
     case "${dialog_arg}" in
@@ -102,6 +103,11 @@ git_remote_url_select() {
             GIT_REPO_REMOTE_REVISE_CMD="git_repo_remote_revise https://ghproxy.net/https://github.com/term_sd_git_user/term_sd_git_repo"
             return 0
             ;;
+        9)
+            term_sd_print_line "更新源一键替换"
+            GIT_REPO_REMOTE_REVISE_CMD="git_repo_remote_revise https://gh.api.99988866.xyz/https://github.com/term_sd_git_user/term_sd_git_repo"
+            return 0
+            ;;
         *)
             term_sd_echo "取消替换 $(basename "$(pwd)") 更新源操作"
             return 1 # 不执行替换
@@ -135,6 +141,7 @@ git_remote_url_select_single() {
             "6" "> 镜像源 5 (ghps.cc)" \
             "7" "> 镜像源 6 (gh.idayer.com)" \
             "8" "> 镜像源 7 (ghproxy.net)" \
+            "9" "> 镜像源 8 (gh.api.99988866.xyz)" \
             3>&1 1>&2 2>&3)
 
         case "${dialog_arg}" in
@@ -161,7 +168,9 @@ git_remote_url_select_single() {
                 ;;
             8)
                 git_repo_remote_revise https://ghproxy.net/https://github.com/term_sd_git_user/term_sd_git_repo
-                
+                ;;
+            9)
+                git_repo_remote_revise https://gh.api.99988866.xyz/https://github.com/term_sd_git_user/term_sd_git_repo
                 ;;
             *)
                 term_sd_echo "取消替换更新源操作"

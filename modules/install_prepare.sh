@@ -43,6 +43,7 @@ download_mirror_select() {
         "11" "启用 Github 镜像源 5 (使用 ghps.cc 镜像站下载 Github 上的源码)" OFF \
         "12" "启用 Github 镜像源 6 (使用 gh.idayer.com 镜像站下载 Github 上的源码)" OFF \
         "13" "启用 Github 镜像源 7 (使用 ghproxy.net 镜像站下载 Github 上的源码)" OFF \
+        "14" "启用 Github 镜像源 8 (使用 gh.api.99988866.xyz 镜像站下载 Github 上的源码)" OFF \
         3>&1 1>&2 2>&3)
 
     for i in ${dialog_arg}; do
@@ -97,6 +98,10 @@ download_mirror_select() {
             13)
                 GITHUB_MIRROR="https://ghproxy.net/https://github.com/term_sd_git_user/term_sd_git_repo"
                 GITHUB_MIRROR_NAME="镜像源 7 (ghproxy.net)"
+                ;;
+            14)
+                GITHUB_MIRROR="https://gh.api.99988866.xyz/https://github.com/term_sd_git_user/term_sd_git_repo"
+                GITHUB_MIRROR_NAME="镜像源 8 (gh.api.99988866.xyz)"
                 ;;
         esac
     done
