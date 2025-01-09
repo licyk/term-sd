@@ -558,3 +558,7 @@ ComfyUI 插件 / 自定义节点说明：
 136、ComfyUI-BiRefNet-Hugo
 描述：添加BiRefNet支持，用于移除背景
 链接：https://github.com/MoonHugo/ComfyUI-BiRefNet-Hugo
+
+137、WeiLin-Comfyui-Tools
+描述：ComfyUI提示词工具
+链接：https://github.com/weilin9999/WeiLin-Comfyui-Tools

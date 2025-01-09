@@ -134,3 +134,4 @@ __term_sd_task_pre_ext_133 comfyui_lora_tag_loader OFF
 __term_sd_task_pre_ext_134 ComfyUI-disty-Flow OFF
 __term_sd_task_pre_ext_135 ComfyUI-FluxTrainer OFF
 __term_sd_task_pre_ext_136 ComfyUI-BiRefNet-Hugo OFF
+__term_sd_task_pre_ext_137 WeiLin-Comfyui-Tools OFF
