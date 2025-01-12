@@ -333,6 +333,27 @@ is_sd_webui_disable_all_extension() {
     fi
 }
 
+# 检查 controlnet_aux
+check_controlnet_aux() {
+    local controlnet_aux_ver
+
+    term_sd_echo "检查 controlnet_aux 模块是否已安装"
+    controlnet_aux_ver=$(term_sd_python "${START_PATH}/term-sd/python_modules/check_controlnet_aux.py")
+
+    if [[ "${controlnet_aux_ver}" == "None" ]]; then
+        term_sd_echo "controlnet_aux 已安装"
+    else
+        term_sd_echo "检测到 controlnet_aux 缺失, 尝试安装中"
+        term_sd_python -m pip uninstall controlnet_aux -y
+        install_python_package "${controlnet_aux_ver}" --use-pep517 --no-cache-dir
+        if [[ "$?" == 0 ]]; then
+            term_sd_echo "controlnet_aux 安装成功"
+        else
+            term_sd_echo "controlnet_aux 安装失败, 可能会导致 InvokeAI 启动异常"
+        fi
+    fi
+}
+
 # 运行环境检测设置
 env_check_setting() {
     local dialog_arg
