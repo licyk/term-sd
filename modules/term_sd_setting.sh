@@ -637,7 +637,7 @@ term_sd_network_test() {
     local org
 
     count=1
-    network_test_url="google.com huggingface.co modelscope.cn github.com gh.api.99988866.xyz ghgo.xyz mirror.ghproxy.com gitclone.com gh-proxy.com ghps.cc gh.idayer.com ghproxy.net hf-mirror.com huggingface.sukaka.top"
+    network_test_url="google.com huggingface.co modelscope.cn github.com gh.api.99988866.xyz ghfast.top mirror.ghproxy.com gitclone.com gh-proxy.com ghps.cc gh.idayer.com ghproxy.net hf-mirror.com huggingface.sukaka.top"
     sum=$(echo ${network_test_url} | wc -w)
     term_sd_echo "获取网络信息"
     [ -f "term-sd/task/ipinfo.sh" ] && rm -f term-sd/task/ipinfo.sh

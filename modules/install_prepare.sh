@@ -36,7 +36,7 @@ download_mirror_select() {
         "4" "Huggingface / Github 下载源独占代理 (仅在下载 Huggingface / Github 上的文件时启用代理)" ON \
         "5" "使用全局 Github 镜像源配置 (当设置了全局 Github 镜像源时禁用 Github 镜像自动选择)" ON \
         "6" "Github 镜像源自动选择 (测试可用的镜像源并选择自动选择)" ON \
-        "7" "启用 Github 镜像源 1 (使用 ghgo.xyz 镜像站下载 Github 上的源码)" OFF \
+        "7" "启用 Github 镜像源 1 (使用 ghfast.top 镜像站下载 Github 上的源码)" OFF \
         "8" "启用 Github 镜像源 2 (使用 mirror.ghproxy.com 镜像站下载 Github 上的源码)" OFF \
         "9" "启用 Github 镜像源 3 (使用 gitclone.com 镜像站下载 Github 上的源码)" OFF  \
         "10" "启用 Github 镜像源 4 (使用 gh-proxy.com 镜像站下载 Github 上的源码)" OFF \
@@ -72,8 +72,8 @@ download_mirror_select() {
                 auto_select_github_mirror=1
                 ;;
             7)
-                GITHUB_MIRROR="https://ghgo.xyz/https://github.com/term_sd_git_user/term_sd_git_repo"
-                GITHUB_MIRROR_NAME="镜像源 1 (ghgo.xyz)"
+                GITHUB_MIRROR="https://ghfast.top/https://github.com/term_sd_git_user/term_sd_git_repo"
+                GITHUB_MIRROR_NAME="镜像源 1 (ghfast.top)"
                 ;;
             8)
                 GITHUB_MIRROR="https://mirror.ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo"

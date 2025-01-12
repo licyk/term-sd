@@ -52,7 +52,7 @@ git_remote_url_select() {
         $(get_dialog_size_menu) \
         "0" "> 返回" \
         "1" "> 官方源 (github.com)" \
-        "2" "> 镜像源 1 (ghgo.xyz)" \
+        "2" "> 镜像源 1 (ghfast.top)" \
         "3" "> 镜像源 2 (mirror.ghproxy.com)" \
         "4" "> 镜像源 3 (gitclone.com)" \
         "5" "> 镜像源 4 (gh-proxy.com)" \
@@ -70,7 +70,7 @@ git_remote_url_select() {
             ;;
         2)
             term_sd_print_line "更新源一键替换"
-            GIT_REPO_REMOTE_REVISE_CMD="git_repo_remote_revise https://ghgo.xyz/https://github.com/term_sd_git_user/term_sd_git_repo"
+            GIT_REPO_REMOTE_REVISE_CMD="git_repo_remote_revise https://ghfast.top/https://github.com/term_sd_git_user/term_sd_git_repo"
             return 0
             ;;
         3)
@@ -134,7 +134,7 @@ git_remote_url_select_single() {
             $(get_dialog_size_menu) \
             "0" "> 返回" \
             "1" "> 官方源 (github.com)" \
-            "2" "> 镜像源 1 (ghgo.xyz)" \
+            "2" "> 镜像源 1 (ghfast.top)" \
             "3" "> 镜像源 2 (mirror.ghproxy.com)" \
             "4" "> 镜像源 3 (gitclone.com)" \
             "5" "> 镜像源 4 (gh-proxy.com)" \
@@ -149,7 +149,7 @@ git_remote_url_select_single() {
                 git_repo_remote_revise https://github.com/term_sd_git_user/term_sd_git_repo
                 ;;
             2)
-                git_repo_remote_revise https://ghgo.xyz/https://github.com/term_sd_git_user/term_sd_git_repo
+                git_repo_remote_revise https://ghfast.top/https://github.com/term_sd_git_user/term_sd_git_repo
                 ;;
             3)
                 git_repo_remote_revise https://mirror.ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo
