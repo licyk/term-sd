@@ -85,7 +85,7 @@ _！Windows 平台可阅读图文版[《Windows 平台如何配置 Term-SD 运�
 ### 2. 安装 MSYS2
 
 下载 [MSYS2](https://github.com/msys2/msys2-installer/releases/download/2024-05-07/msys2-x86_64-20240507.exe) 安装包。  
-下载好后打开 MSYS2 安装包，打开后点击`Next`进入安装路径选择，点击`Browse`选择安装路交警，选择好后点击`Next`进行安装。
+下载好后打开 MSYS2 安装包，打开后点击`Next`进入安装路径选择，点击`Browse`选择安装路径，选择好后点击`Next`进行安装。
 
 
 ### 3. 配置 Windows 终端
