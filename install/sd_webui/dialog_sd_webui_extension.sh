@@ -165,3 +165,5 @@ __term_sd_task_pre_ext_164 sd-simple-dimension-preset OFF
 __term_sd_task_pre_ext_165 sd-hub OFF
 __term_sd_task_pre_ext_166 lora-keywords-finder OFF
 __term_sd_task_pre_ext_167 sd-webui-quickrecents OFF
+__term_sd_task_pre_ext_168 sd-forge-blockcache OFF
+__term_sd_task_pre_ext_169 sd-forge-blockcache OFF

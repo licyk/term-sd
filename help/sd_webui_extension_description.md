@@ -670,3 +670,11 @@ Stable Diffusion WebUI 插件说明：
 167、sd-webui-quickrecents
 描述：查看最近几次图片生成参数并导入
 链接：https://github.com/MINENEMA/sd-webui-quickrecents
+
+168、sd-forge-blockcache
+描述：使用TeaCache加速SDXL的推理速度
+链接：https://github.com/Haoming02/sd-forge-blockcache
+
+169、sd-forge-blockcache
+描述：使用TeaCache加速FLUX的推理速度
+链接：https://github.com/DenOfEquity/sd-forge-blockcache
