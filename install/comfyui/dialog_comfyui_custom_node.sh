@@ -135,3 +135,5 @@ __term_sd_task_pre_ext_134 ComfyUI-disty-Flow OFF
 __term_sd_task_pre_ext_135 ComfyUI-FluxTrainer OFF
 __term_sd_task_pre_ext_136 ComfyUI-BiRefNet-Hugo OFF
 __term_sd_task_pre_ext_137 WeiLin-Comfyui-Tools OFF
+__term_sd_task_pre_ext_138 Comfy-WaveSpeed OFF
+__term_sd_task_pre_ext_139 ComfyUI-TeaCache OFF

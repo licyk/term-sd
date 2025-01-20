@@ -135,3 +135,5 @@ __term_sd_task_pre_ext_134 git_clone_repository https://github.com/diStyApps/Com
 __term_sd_task_pre_ext_135 git_clone_repository https://github.com/kijai/ComfyUI-FluxTrainer "${COMFYUI_PATH}"/custom_nodes OFF # 在ComfyUI训练FLUX模型
 __term_sd_task_pre_ext_136 git_clone_repository https://github.com/MoonHugo/ComfyUI-BiRefNet-Hugo "${COMFYUI_PATH}"/custom_nodes OFF # 添加BiRefNet支持，用于移除背景
 __term_sd_task_pre_ext_137 git_clone_repository https://github.com/weilin9999/WeiLin-Comfyui-Tools "${COMFYUI_PATH}"/custom_nodes OFF # ComfyUI提示词工具
+__term_sd_task_pre_ext_138 git_clone_repository https://github.com/chengzeyi/Comfy-WaveSpeed "${COMFYUI_PATH}"/custom_nodes OFF # 加速ComfyUI推理速度
+__term_sd_task_pre_ext_139 git_clone_repository https://github.com/welltop-cn/ComfyUI-TeaCache "${COMFYUI_PATH}"/custom_nodes OFF # 使用TeaCache加速ComfyUI推理速度

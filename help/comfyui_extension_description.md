@@ -562,3 +562,11 @@ ComfyUI 插件 / 自定义节点说明：
 137、WeiLin-Comfyui-Tools
 描述：ComfyUI提示词工具
 链接：https://github.com/weilin9999/WeiLin-Comfyui-Tools
+
+138、Comfy-WaveSpeed
+描述：加速ComfyUI推理速度
+链接：https://github.com/chengzeyi/Comfy-WaveSpeed
+
+139、ComfyUI-TeaCache
+描述：使用TeaCache加速ComfyUI推理速度
+链接：https://github.com/welltop-cn/ComfyUI-TeaCache
