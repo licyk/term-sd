@@ -167,3 +167,4 @@ __term_sd_task_pre_ext_166 git_clone_repository https://github.com/Avaray/lora-k
 __term_sd_task_pre_ext_167 git_clone_repository https://github.com/MINENEMA/sd-webui-quickrecents "${SD_WEBUI_PATH}"/extensions OFF # 查看最近几次图片生成参数并导入
 __term_sd_task_pre_ext_168 git_clone_repository https://github.com/Haoming02/sd-forge-blockcache "${SD_WEBUI_PATH}"/extensions OFF # 使用TeaCache加速SDXL的推理速度
 __term_sd_task_pre_ext_169 git_clone_repository https://github.com/DenOfEquity/sd-forge-blockcache "${SD_WEBUI_PATH}"/extensions OFF # 使用TeaCache加速FLUX的推理速度
+__term_sd_task_pre_ext_170 git_clone_repository https://github.com/Haoming02/sd-webui-rewrite-history "${SD_WEBUI_PATH}"/extensions OFF # 批量转换图片格式并保留图片信息

@@ -678,3 +678,7 @@ Stable Diffusion WebUI 插件说明：
 169、sd-forge-blockcache
 描述：使用TeaCache加速FLUX的推理速度
 链接：https://github.com/DenOfEquity/sd-forge-blockcache
+
+170、sd-webui-rewrite-history
+描述：批量转换图片格式并保留图片信息
+链接：https://github.com/Haoming02/sd-webui-rewrite-history
