@@ -10,7 +10,7 @@ def get_onnxruntime_version_file() -> str:
     try:
         util = [p for p in importlib.metadata.files(package) if "onnxruntime/capi/version_info.py" in str(p)][0]
         info_path = Path(util.locate()).as_posix()
-    except importlib.metadata.PackageNotFoundError:
+    except:
         info_path = None
 
     return info_path
