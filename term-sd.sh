@@ -1419,6 +1419,9 @@ main() {
             ;;
     esac
 
+    # 当启动动态代理时将自动检测并使用系统代理
+    dynamic_configure_proxy
+
     # 启动 Term-SD
     term_sd_echo "启动 Term-SD 中"
     term_sd_version

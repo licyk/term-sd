@@ -560,3 +560,12 @@ term_sd_is_bash_ver_lower() {
         return 1
     fi
 }
+
+# 获取系统平台
+get_system_platform() {
+    local system_platform
+
+    system_platform=$(term_sd_python "${START_PATH}/term-sd/python_modules/get_platform.py")
+
+    echo "${system_platform}"
+}
