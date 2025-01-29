@@ -110,11 +110,8 @@ dynamic_configure_proxy() {
         return
     fi
 
+    term_sd_echo "检测本地系统代理配置中"
     proxy_config=$(get_proxy_config)
-
-    if term_sd_is_debug; then
-        echo "proxy_config: ${proxy_config}"
-    fi
 
     if [[ ! -z "${proxy_config}" ]]; then
         term_sd_echo "检测到本地系统代理配置, 设置代理中"

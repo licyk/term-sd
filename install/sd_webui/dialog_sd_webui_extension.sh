@@ -168,3 +168,5 @@ __term_sd_task_pre_ext_167 sd-webui-quickrecents OFF
 __term_sd_task_pre_ext_168 sd-forge-blockcache OFF
 __term_sd_task_pre_ext_169 sd-forge-blockcache OFF
 __term_sd_task_pre_ext_170 sd-webui-rewrite-history OFF
+__term_sd_task_pre_ext_171 sd-refdrop-forge OFF
+__term_sd_task_pre_ext_172 sd-refdrop OFF

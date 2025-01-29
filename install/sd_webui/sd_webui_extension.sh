@@ -168,3 +168,5 @@ __term_sd_task_pre_ext_167 git_clone_repository https://github.com/MINENEMA/sd-w
 __term_sd_task_pre_ext_168 git_clone_repository https://github.com/Haoming02/sd-forge-blockcache "${SD_WEBUI_PATH}"/extensions OFF # 使用TeaCache加速SDXL的推理速度
 __term_sd_task_pre_ext_169 git_clone_repository https://github.com/DenOfEquity/sd-forge-blockcache "${SD_WEBUI_PATH}"/extensions OFF # 使用TeaCache加速FLUX的推理速度
 __term_sd_task_pre_ext_170 git_clone_repository https://github.com/Haoming02/sd-webui-rewrite-history "${SD_WEBUI_PATH}"/extensions OFF # 批量转换图片格式并保留图片信息
+__term_sd_task_pre_ext_171 git_clone_repository https://github.com/tocantrell/sd-refdrop-forge "${SD_WEBUI_PATH}"/extensions OFF # 使用RefDrop保持一致性（SD-WebUI-Forge）
+__term_sd_task_pre_ext_172 git_clone_repository https://github.com/tocantrell/sd-refdrop "${SD_WEBUI_PATH}"/extensions OFF # 使用RefDrop保持一致性（SD-WebUI-reForge）

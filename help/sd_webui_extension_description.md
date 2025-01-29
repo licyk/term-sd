@@ -682,3 +682,11 @@ Stable Diffusion WebUI 插件说明：
 170、sd-webui-rewrite-history
 描述：批量转换图片格式并保留图片信息
 链接：https://github.com/Haoming02/sd-webui-rewrite-history
+
+171、sd-refdrop-forge
+描述：使用RefDrop保持一致性（SD-WebUI-Forge）
+链接：https://github.com/tocantrell/sd-refdrop-forge
+
+172、sd-refdrop
+描述：使用RefDrop保持一致性（SD-WebUI-reForge）
+链接：https://github.com/tocantrell/sd-refdrop
