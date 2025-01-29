@@ -17,4 +17,6 @@ if (($proxy_addr -match "http=(.*?);") -or ($proxy_addr -match "https=(.*?);")) 
     $proxy_value = "http://${proxy_addr}"
 }
 
-Write-Host $proxy_value
+if ($internet_setting.ProxyEnable -eq 1) {
+    Write-Host $proxy_value
+}

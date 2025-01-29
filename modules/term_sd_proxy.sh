@@ -40,6 +40,7 @@ get_proxy_config() {
     if [[ "$(get_system_platform)" == "win32" ]]; then
         windows_proxy_config=$(powershell -ExecutionPolicy Bypass \
             -File "${START_PATH}/term-sd/modules/get_windows_proxy_config.ps1" \
+            2> /dev/null \
         )
         echo "${windows_proxy_config}"
     elif [[ "$(get_system_platform)" == "linux" ]]; then
@@ -350,6 +351,7 @@ dynamic_configure_proxy_setting() {
         case "${dialog_arg}" in
             1)
                 touch -f "${START_PATH}/term-sd/config/enable-dynamic-proxy.lock"
+                term_sd_echo "检测系统代理中"
                 dynamic_configure_proxy # 检测系统代理并设置
 
                 if [[ -z "${HTTP_PROXY}" ]]; then
