@@ -45,7 +45,7 @@ get_proxy_config() {
         echo "${windows_proxy_config}"
     elif [[ "$(get_system_platform)" == "linux" ]]; then
         # 获取代理设置状态
-        gsettings_proxy_status=$(gsettings get org.gnome.system.proxy mode | sed "s/'//g") # Gnome
+        gsettings_proxy_status=$(gsettings get org.gnome.system.proxy mode 2> /dev/null | sed "s/'//g") # Gnome
         kde_proxy_status=$(cat ~/.config/kioslaverc 2> /dev/null | grep "ProxyType" | awk -F 'ProxyType=' '{print $NF}') # KDE
 
         # 判断代理设置
