@@ -993,7 +993,6 @@ main() {
 
     # 目录结构检测, 发现错误时修正路径
     if [[ ! -d "term-sd" ]] \
-        && [[ -d ".git" ]] \
         && [[ -d "modules" ]] \
         && [[ -f "modules/init.sh" ]] \
         && [[ -d "python_modules" ]] \
@@ -1320,7 +1319,7 @@ main() {
             term_sd_echo "依赖检测完成, 无缺失依赖"
             prepare_tcmalloc # 配置内存优化(Linux)
             term_sd_install
-            if [[ -d "term-sd/modules" ]]; then # 找到目录后才启动
+            if [[ -d "${START_PATH}/term-sd/modules" ]]; then # 找到目录后才启动
                 term_sd_auto_update_trigger
                 TERM_SD_IS_PREPARE_ENV=1 # 用于检测 Term-SD 的启动状态, 设置后不再重新执行依赖检测
             else
