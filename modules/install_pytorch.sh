@@ -163,6 +163,12 @@ process_pytorch() {
     term_sd_echo "开始安装 PyTorch"
     if is_use_pip_mirror; then # 镜像源
         case "${PYTORCH_TYPE}" in
+            cu126)
+                PIP_EXTRA_INDEX_URL="https://mirror.sjtu.edu.cn/pytorch-wheels/cu126" \
+                PIP_FIND_LINKS=" " \
+                term_sd_try term_sd_pip install ${torch_ver} \
+                ${PIP_INDEX_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} ${PIP_PREFER_BINARY_ARG}
+                ;;
             cu124)
                 PIP_EXTRA_INDEX_URL="https://mirror.sjtu.edu.cn/pytorch-wheels/cu124" \
                 PIP_FIND_LINKS="https://mirror.sjtu.edu.cn/pytorch-wheels/cu124/torch_stable.html" \
@@ -193,6 +199,12 @@ process_pytorch() {
                 term_sd_try term_sd_pip install ${torch_ver} \
                 ${PIP_INDEX_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} ${PIP_PREFER_BINARY_ARG}
                 ;;
+            rocm624)
+                PIP_EXTRA_INDEX_URL="https://mirror.sjtu.edu.cn/pytorch-wheels/rocm6.2.4" \
+                PIP_FIND_LINKS=" " \
+                term_sd_try term_sd_pip install ${torch_ver} \
+                ${PIP_INDEX_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} ${PIP_PREFER_BINARY_ARG}
+                ;;
             other)
                 PIP_EXTRA_INDEX_URL="https://download.pytorch.org/whl" \
                 PIP_FIND_LINKS=" " \
@@ -206,6 +218,12 @@ process_pytorch() {
         esac
     else # 官方源
         case "${PYTORCH_TYPE}" in
+            cu126)
+                PIP_EXTRA_INDEX_URL="https://download.pytorch.org/whl/cu126" \
+                PIP_FIND_LINKS=" " \
+                term_sd_try term_sd_pip install ${torch_ver} \
+                ${PIP_INDEX_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} ${PIP_PREFER_BINARY_ARG}
+                ;;
             cu124)
                 PIP_EXTRA_INDEX_URL="https://download.pytorch.org/whl/cu124" \
                 PIP_FIND_LINKS="https://download.pytorch.org/whl/cu124/torch_stable.html" \
@@ -232,6 +250,12 @@ process_pytorch() {
                 ;;
             rocm62)
                 PIP_EXTRA_INDEX_URL="https://download.pytorch.org/whl/rocm6.2" \
+                PIP_FIND_LINKS=" " \
+                term_sd_try term_sd_pip install ${torch_ver} \
+                ${PIP_INDEX_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} ${PIP_PREFER_BINARY_ARG}
+                ;;
+            rocm624)
+                PIP_EXTRA_INDEX_URL="https://download.pytorch.org/whl/rocm6.2.4" \
                 PIP_FIND_LINKS=" " \
                 term_sd_try term_sd_pip install ${torch_ver} \
                 ${PIP_INDEX_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} ${PIP_PREFER_BINARY_ARG}
@@ -266,6 +290,12 @@ process_pytorch() {
 
         if is_use_pip_mirror; then # 镜像源
             case "${PYTORCH_TYPE}" in
+                cu126)
+                    PIP_EXTRA_INDEX_URL="https://mirror.sjtu.edu.cn/pytorch-wheels/cu126" \
+                    PIP_FIND_LINKS=" " \
+                    term_sd_try term_sd_pip install ${xformers_ver} \
+                    ${PIP_INDEX_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} ${PIP_PREFER_BINARY_ARG} --no-deps
+                    ;;
                 cu124)
                     PIP_EXTRA_INDEX_URL="https://mirror.sjtu.edu.cn/pytorch-wheels/cu124" \
                     PIP_FIND_LINKS="https://mirror.sjtu.edu.cn/pytorch-wheels/cu124/torch_stable.html" \
@@ -296,6 +326,12 @@ process_pytorch() {
                     term_sd_try term_sd_pip install ${xformers_ver} \
                     ${PIP_INDEX_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} ${PIP_PREFER_BINARY_ARG} --no-deps
                     ;;
+                rocm624)
+                    PIP_EXTRA_INDEX_URL="https://mirror.sjtu.edu.cn/pytorch-wheels/rocm6.2.4" \
+                    PIP_FIND_LINKS=" " \
+                    term_sd_try term_sd_pip install ${xformers_ver} \
+                    ${PIP_INDEX_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} ${PIP_PREFER_BINARY_ARG} --no-deps
+                    ;;
                 other)
                     PIP_EXTRA_INDEX_URL="https://download.pytorch.org/whl" \
                     PIP_FIND_LINKS=" " \
@@ -309,6 +345,12 @@ process_pytorch() {
             esac
         else # 官方源
             case "${PYTORCH_TYPE}" in
+                cu126)
+                    PIP_EXTRA_INDEX_URL="https://download.pytorch.org/whl/cu126" \
+                    PIP_FIND_LINKS=" " \
+                    term_sd_try term_sd_pip install ${xformers_ver} \
+                    ${PIP_INDEX_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} ${PIP_PREFER_BINARY_ARG} --no-deps
+                    ;;
                 cu124)
                     PIP_EXTRA_INDEX_URL="https://download.pytorch.org/whl/cu124" \
                     PIP_FIND_LINKS="https://download.pytorch.org/whl/cu124/torch_stable.html" \
@@ -335,6 +377,12 @@ process_pytorch() {
                     ;;
                 rocm62)
                     PIP_EXTRA_INDEX_URL="https://download.pytorch.org/whl/rocm6.2" \
+                    PIP_FIND_LINKS=" " \
+                    term_sd_try term_sd_pip install ${xformers_ver} \
+                    ${PIP_INDEX_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} ${PIP_PREFER_BINARY_ARG} --no-deps
+                    ;;
+                rocm624)
+                    PIP_EXTRA_INDEX_URL="https://download.pytorch.org/whl/rocm6.2.4" \
                     PIP_FIND_LINKS=" " \
                     term_sd_try term_sd_pip install ${xformers_ver} \
                     ${PIP_INDEX_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} ${PIP_PREFER_BINARY_ARG} --no-deps
