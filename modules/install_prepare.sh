@@ -33,7 +33,7 @@ download_mirror_select() {
         "1" "启用 Pip 镜像源 (使用 Pip 国内镜像源下载 Python 软件包)" OFF \
         "2" "使用全局 Pip 镜像源配置 (使用 Term-SD 设置中配置的 Pip 镜像源)" ON \
         "3" "使用 ModelScope 模型下载源 (将 HuggingFace 下载源改为 ModelScope 下载源)" ON \
-        "4" "Huggingface / Github 下载源独占代理 (仅在下载 Huggingface / Github 上的文件时启用代理)" ON \
+        "4" "Huggingface / Github 下载源独占代理 (仅在下载 Huggingface / Github 上的文件时启用代理)" OFF \
         "5" "使用全局 Github 镜像源配置 (当设置了全局 Github 镜像源时禁用 Github 镜像自动选择)" ON \
         "6" "Github 镜像源自动选择 (测试可用的镜像源并选择自动选择)" ON \
         "7" "启用 Github 镜像源 1 (使用 ghfast.top 镜像站下载 Github 上的源码)" OFF \
