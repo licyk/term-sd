@@ -296,7 +296,7 @@ switch_invokeai_version() {
         --menu "请选择要切换的 InvokeAI 版本\n当前 InvokeAI 版本: $(get_invokeai_version)" \
         $(get_dialog_size_menu) \
         "-->返回<--" "<-------------------" \
-        $(term_sd_pip index versions invokeai |\
+        $(term_sd_pip index versions invokeai --pre |\
             grep -oP "Available versions: \K.*" |\
             awk -F ',' '{ for (i = 1; i <= NF; i++) {print $i " <-------------------"} }' \
         ) \
