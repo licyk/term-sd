@@ -65,21 +65,21 @@ install_comfyui_requirement() {
         requirement_name=$(basename "${requirement_parent_path}")
 
         cd "${requirement_parent_path}"
-        term_sd_echo "[${cmd_point}/${cmd_sum}]:: 安装 ${requirement_name} 依赖中"
+        term_sd_echo "[${cmd_point}/${cmd_sum}] 安装 ${requirement_name} 依赖中"
         install_python_package -r requirements.txt
         if [[ "$?" == 0 ]]; then
-            term_sd_echo "[${cmd_point}/${cmd_sum}]:: 安装 ${requirement_name} 依赖成功"
+            term_sd_echo "[${cmd_point}/${cmd_sum}] 安装 ${requirement_name} 依赖成功"
         else
-            term_sd_echo "[${cmd_point}/${cmd_sum}]:: 安装 ${requirement_name} 依赖失败, 这可能会影响部分功能"
+            term_sd_echo "[${cmd_point}/${cmd_sum}] 安装 ${requirement_name} 依赖失败, 这可能会影响部分功能"
         fi
 
         if [[ -f "install.py" ]]; then
-            term_sd_echo "[${cmd_point}/${cmd_sum}]:: 执行 ${requirement_name} 安装脚本中"
+            term_sd_echo "[${cmd_point}/${cmd_sum}] 执行 ${requirement_name} 安装脚本中"
             term_sd_try term_sd_python install.py
             if [[ "$?" == 0 ]]; then
-                term_sd_echo "[${cmd_point}/${cmd_sum}]:: 执行 ${requirement_name} 安装脚本成功"
+                term_sd_echo "[${cmd_point}/${cmd_sum}] 执行 ${requirement_name} 安装脚本成功"
             else
-                term_sd_echo "[${cmd_point}/${cmd_sum}]:: 执行 ${requirement_name} 安装脚本失败, 这可能会影响部分功能"
+                term_sd_echo "[${cmd_point}/${cmd_sum}] 执行 ${requirement_name} 安装脚本失败, 这可能会影响部分功能"
             fi
         fi
     done
@@ -247,15 +247,15 @@ check_sd_webui_extension_requirement() {
             if [[ -f "${install_script_path}" ]]; then
                 count=$(( count + 1 ))
                 if ! is_sd_webui_extension_disabled "${extension_name}"; then
-                    term_sd_echo "[${count}/${sum}]:: 执行 ${extension_name} 插件的依赖安装脚本中"
+                    term_sd_echo "[${count}/${sum}] 执行 ${extension_name} 插件的依赖安装脚本中"
                     PYTHONPATH=$py_path term_sd_try term_sd_python "${install_script_path}"
                     if [[ "$?" == 0 ]]; then
-                        term_sd_echo "[${count}/${sum}]:: ${extension_name} 插件的依赖安装脚本执行成功"
+                        term_sd_echo "[${count}/${sum}] ${extension_name} 插件的依赖安装脚本执行成功"
                     else
-                        term_sd_echo "[${count}/${sum}]:: ${extension_name} 插件的依赖安装脚本执行失败, 这可能会导致 ${extension_name} 插件部分功能无法正常使用"
+                        term_sd_echo "[${count}/${sum}] ${extension_name} 插件的依赖安装脚本执行失败, 这可能会导致 ${extension_name} 插件部分功能无法正常使用"
                     fi
                 else
-                    term_sd_echo "[${count}/${sum}]:: ${extension_name} 插件已禁用, 不执行该插件的依赖安装脚本"
+                    term_sd_echo "[${count}/${sum}] ${extension_name} 插件已禁用, 不执行该插件的依赖安装脚本"
                 fi
             fi
         done
@@ -303,15 +303,15 @@ check_sd_webui_forge_built_in_extension_requirement() {
             if [[ -f "${install_script_path}" ]]; then
                 count=$(( count + 1 ))
                 if ! is_sd_webui_extension_disabled "${extension_name}"; then
-                    term_sd_echo "[${count}/${sum}]:: 执行 ${extension_name} 内置插件的依赖安装脚本中"
+                    term_sd_echo "[${count}/${sum}] 执行 ${extension_name} 内置插件的依赖安装脚本中"
                     PYTHONPATH=$py_path term_sd_try term_sd_python "${install_script_path}"
                     if [[ "$?" == 0 ]]; then
-                        term_sd_echo "[${count}/${sum}]:: ${extension_name} 内置插件的依赖安装脚本执行成功"
+                        term_sd_echo "[${count}/${sum}] ${extension_name} 内置插件的依赖安装脚本执行成功"
                     else
-                        term_sd_echo "[${count}/${sum}]:: ${extension_name} 内置插件的依赖安装脚本执行失败, 这可能会导致 ${extension_name} 内置插件部分功能无法正常使用"
+                        term_sd_echo "[${count}/${sum}] ${extension_name} 内置插件的依赖安装脚本执行失败, 这可能会导致 ${extension_name} 内置插件部分功能无法正常使用"
                     fi
                 else
-                    term_sd_echo "[${count}/${sum}]:: ${extension_name} 内置插件已禁用, 不执行该内置插件的依赖安装脚本"
+                    term_sd_echo "[${count}/${sum}] ${extension_name} 内置插件已禁用, 不执行该内置插件的依赖安装脚本"
                 fi
             fi
         done

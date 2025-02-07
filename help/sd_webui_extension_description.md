@@ -690,3 +690,7 @@ Stable Diffusion WebUI 插件说明：
 172、sd-refdrop
 描述：使用RefDrop保持一致性（SD-WebUI-reForge）
 链接：https://github.com/tocantrell/sd-refdrop
+
+173、sd-forge-negpip
+描述：解决tag强污染，仅支持SD-WebUI-Forge
+链接：https://github.com/Haoming02/sd-forge-negpip

@@ -170,3 +170,4 @@ __term_sd_task_pre_ext_169 git_clone_repository https://github.com/DenOfEquity/s
 __term_sd_task_pre_ext_170 git_clone_repository https://github.com/Haoming02/sd-webui-rewrite-history "${SD_WEBUI_PATH}"/extensions OFF # 批量转换图片格式并保留图片信息
 __term_sd_task_pre_ext_171 git_clone_repository https://github.com/tocantrell/sd-refdrop-forge "${SD_WEBUI_PATH}"/extensions OFF # 使用RefDrop保持一致性（SD-WebUI-Forge）
 __term_sd_task_pre_ext_172 git_clone_repository https://github.com/tocantrell/sd-refdrop "${SD_WEBUI_PATH}"/extensions OFF # 使用RefDrop保持一致性（SD-WebUI-reForge）
+__term_sd_task_pre_ext_173 git_clone_repository https://github.com/Haoming02/sd-forge-negpip "${SD_WEBUI_PATH}"/extensions OFF # 解决tag强污染，仅支持SD-WebUI-Forge
