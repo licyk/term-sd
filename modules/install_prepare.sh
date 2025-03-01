@@ -169,11 +169,11 @@ pytorch_version_select() {
         --ok-label "确认" --no-cancel \
         --menu "请选择要安装的 PyTorch 版本, 注:\n1. Nvidia 显卡选择 CUDA 的版本\n2. AMD 显卡选择 RoCM(Linux) / DirectML(Windows) 版本\n3. Intel 显卡选择 IPEX Arc(独显) / Core Ultra(核显)\n4. Apple M 系列芯片选择无特殊标识版本\n5. 使用 CPU 运算选择 CPU 版本\n6. 标记为 Linux 的版本只能在 Linux 上安装" \
         $(get_dialog_size_menu) \
-        "75" "> Torch 2.6.0 (CUDA 11.8) + xFormers 0.0.29.post2 (Linux)" \
-        "74" "> Torch 2.6.0 (CUDA 12.4) + xFormers 0.0.29.post2" \
-        "73" "> Torch 2.6.0 (CUDA 12.6) + xFormers 0.0.29.post2 (Linux)" \
-        "72" "> Torch 2.6.0 (RoCM 6.1) + xFormers 0.0.29.post2 (Linux)" \
-        "71" "> Torch 2.6.0 (RoCM 6.2.4) + xFormers 0.0.29.post2 (Linux)" \
+        "75" "> Torch 2.6.0 (CUDA 11.8) + xFormers 0.0.29.post3 (Linux)" \
+        "74" "> Torch 2.6.0 (CUDA 12.4) + xFormers 0.0.29.post3" \
+        "73" "> Torch 2.6.0 (CUDA 12.6) + xFormers 0.0.29.post3" \
+        "72" "> Torch 2.6.0 (RoCM 6.1) + xFormers 0.0.29.post3 (Linux)" \
+        "71" "> Torch 2.6.0 (RoCM 6.2.4) + xFormers 0.0.29.post3 (Linux)" \
         "70" "> Torch 2.6.0 (CPU)" \
         "69" "> Torch 2.5.1 (CUDA 11.8) + xFormers 0.0.28.post3 (Linux)" \
         "68" "> Torch 2.5.1 (CUDA 12.1) + xFormers 0.0.28.post3 (Linux)" \
@@ -490,27 +490,27 @@ pytorch_version_select() {
             PYTORCH_TYPE="cu118"
             ;;
         70)
-            INSTALL_PYTORCH_VERSION="torch==2.6.0+cpu torchvision==0.21.0+cpu torchaudio==2.6.0+cpu xformers==0.0.29.post2"
+            INSTALL_PYTORCH_VERSION="torch==2.6.0+cpu torchvision==0.21.0+cpu torchaudio==2.6.0+cpu xformers==0.0.29.post3"
             PYTORCH_TYPE="other"
             ;;
         71)
-            INSTALL_PYTORCH_VERSION="torch==2.6.0+rocm6.2.4 torchvision==0.21.0+rocm6.2.4 torchaudio==2.6.0+rocm6.2.4 xformers==0.0.29.post2"
+            INSTALL_PYTORCH_VERSION="torch==2.6.0+rocm6.2.4 torchvision==0.21.0+rocm6.2.4 torchaudio==2.6.0+rocm6.2.4 xformers==0.0.29.post3"
             PYTORCH_TYPE="rocm624"
             ;;
         72)
-            INSTALL_PYTORCH_VERSION="torch==2.6.0+rocm6.1 torchvision==0.21.0+rocm6.1 torchaudio==2.6.0+rocm6.1 xformers==0.0.29.post2"
+            INSTALL_PYTORCH_VERSION="torch==2.6.0+rocm6.1 torchvision==0.21.0+rocm6.1 torchaudio==2.6.0+rocm6.1 xformers==0.0.29.post3"
             PYTORCH_TYPE="rocm61"
             ;;
         73)
-            INSTALL_PYTORCH_VERSION="torch==2.6.0+cu126 torchvision==0.21.0+cu126 torchaudio==2.6.0+cu126 xformers==0.0.29.post2"
+            INSTALL_PYTORCH_VERSION="torch==2.6.0+cu126 torchvision==0.21.0+cu126 torchaudio==2.6.0+cu126 xformers==0.0.29.post3"
             PYTORCH_TYPE="cu126"
             ;;
         74)
-            INSTALL_PYTORCH_VERSION="torch==2.6.0+cu124 torchvision==0.21.0+cu124 torchaudio==2.6.0+cu124 xformers==0.0.29.post2"
+            INSTALL_PYTORCH_VERSION="torch==2.6.0+cu124 torchvision==0.21.0+cu124 torchaudio==2.6.0+cu124 xformers==0.0.29.post3"
             PYTORCH_TYPE="cu124"
             ;;
         75)
-            INSTALL_PYTORCH_VERSION="torch==2.6.0+cu118 torchvision==0.21.0+cu118 torchaudio==2.6.0+cu118 xformers==0.0.29.post2"
+            INSTALL_PYTORCH_VERSION="torch==2.6.0+cu118 torchvision==0.21.0+cu118 torchaudio==2.6.0+cu118 xformers==0.0.29.post3"
             PYTORCH_TYPE="cu118"
             ;;
     esac
