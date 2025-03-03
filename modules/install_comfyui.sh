@@ -57,7 +57,7 @@ install_comfyui() {
         # 安装前的准备
         download_mirror_select # 下载镜像源选择
         pytorch_version_select # PyTorch 版本选择
-        comfyui_extension_install_select # 插件选择
+        # comfyui_extension_install_select # 插件选择
         comfyui_custom_node_install_select # 自定义节点选择
         comfyui_download_model_select # 模型选择
         pip_install_mode_select # 安装方式选择

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # ComfyUI 管理
+# <ComfyUI>/web 目录已移除, 不再需要插件管理, 参考: https://github.com/comfyanonymous/ComfyUI/pull/7021
 comfyui_manager() {
     local dialog_arg
 
@@ -20,7 +21,6 @@ comfyui_manager() {
                 "2" "> 更新" \
                 "3" "> 修复更新" \
                 "4" "> 管理自定义节点" \
-                "5" "> 管理插件" \
                 "6" "> 切换版本" \
                 "7" "> 更新源替换" \
                 "8" "> 更新依赖" \
@@ -95,6 +95,7 @@ comfyui_manager() {
                     comfyui_custom_node_manager
                     ;;
                 5)
+                    # 已弃用
                     comfyui_extension_manager
                     ;;
                 6)
