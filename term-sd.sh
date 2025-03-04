@@ -259,7 +259,14 @@ term_sd_sleep() {
 # 路径格式转换(将 Windows 风格的文件路径转换成 Linux / Unix 风格的路径)
 term_sd_win2unix_path() {
     if is_windows_platform; then
-        echo "$(cd "$(dirname "$@" 2> /dev/null)" ; pwd)/$(basename "$@" 2> /dev/null)"
+        if which cygpath &> /dev/null; then
+            # cygpath 可用于将 Windows 风格的路径转换成 Linux / Unix 风格的路径, 参考: https://cygwin.com/cygwin-ug-net/cygpath.html
+            # cygpath -w "${origin_path}" -> Windows style path
+            # cygpath -u "${origin_path}" -> *nix style path
+            echo "$(cygpath -u "$@")"
+        else
+            echo "$(cd "$(dirname "$@" 2> /dev/null)" ; pwd)/$(basename "$@" 2> /dev/null)"
+        fi
     else
         echo "$@"
     fi
