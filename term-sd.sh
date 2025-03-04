@@ -263,7 +263,7 @@ term_sd_win2unix_path() {
             # cygpath 可用于将 Windows 风格的路径转换成 Linux / Unix 风格的路径, 参考: https://cygwin.com/cygwin-ug-net/cygpath.html
             # cygpath -w "${origin_path}" -> Windows style path
             # cygpath -u "${origin_path}" -> *nix style path
-            echo "$(cygpath -u "$@")"
+            echo "$(cygpath -a -u "$@")"
         else
             echo "$(cd "$(dirname "$@" 2> /dev/null)" ; pwd)/$(basename "$@" 2> /dev/null)"
         fi
