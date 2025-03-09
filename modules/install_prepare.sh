@@ -167,7 +167,7 @@ pytorch_version_select() {
         --title "Term-SD" \
         --backtitle "PyTorch 安装版本选项" \
         --ok-label "确认" --no-cancel \
-        --menu "请选择要安装的 PyTorch 版本, 注:\n1. Nvidia 显卡选择 CUDA 的版本\n2. AMD 显卡选择 RoCM(Linux) / DirectML(Windows) 版本\n3. Intel 显卡选择 IPEX Arc(独显) / Core Ultra(核显)\n4. Apple M 系列芯片选择无特殊标识版本\n5. 使用 CPU 运算选择 CPU 版本\n6. 标记为 Linux 的版本只能在 Linux 上安装" \
+        --menu "请选择要安装的 PyTorch 版本, 注:\n1. Nvidia 显卡选择 CUDA 的版本\n2. AMD 显卡选择 RoCM(Linux) / DirectML(Windows) 版本\n3. Intel 显卡选择 IPEX Arc(独显) / Core Ultra(核显)\n4. Apple M 系列芯片选择无特殊标识版本\n5. 使用 CPU 运算选择 CPU 版本\n6. 标记为 Linux 的版本只能在 Linux 上安装\n当前 PyTorch 版本: $(get_pytorch_version)\n当前 xFormers 版本: $(get_xformers_version)" \
         $(get_dialog_size_menu) \
         "75" "> Torch 2.6.0 (CUDA 11.8) + xFormers 0.0.29.post3 (Linux)" \
         "74" "> Torch 2.6.0 (CUDA 12.4) + xFormers 0.0.29.post3" \

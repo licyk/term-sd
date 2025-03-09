@@ -569,3 +569,21 @@ get_system_platform() {
 
     echo "${system_platform}"
 }
+
+# 获取 PyTorch 版本
+get_pytorch_version() {
+    local torch_ver
+
+    torch_ver=$(term_sd_python "${START_PATH}/term-sd/python_modules/get_pytorch_ver.py")
+
+    echo "${torch_ver}"
+}
+
+# 获取 xFormers 版本
+get_xformers_version() {
+    local xformers_ver
+
+    xformers_ver=$(term_sd_python "${START_PATH}/term-sd/python_modules/get_xformers_ver.py")
+
+    echo "${xformers_ver}"
+}
