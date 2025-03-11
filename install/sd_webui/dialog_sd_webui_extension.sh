@@ -171,3 +171,4 @@ __term_sd_task_pre_ext_170 sd-webui-rewrite-history OFF
 __term_sd_task_pre_ext_171 sd-refdrop-forge OFF
 __term_sd_task_pre_ext_172 sd-refdrop OFF
 __term_sd_task_pre_ext_173 sd-forge-negpip OFF
+__term_sd_task_pre_ext_174 sd-webui-segment-anything-altoids OFF

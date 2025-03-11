@@ -694,3 +694,7 @@ Stable Diffusion WebUI 插件说明：
 173、sd-forge-negpip
 描述：解决tag强污染，仅支持SD-WebUI-Forge
 链接：https://github.com/Haoming02/sd-forge-negpip
+
+174、sd-webui-segment-anything-altoids
+描述：为sd_webui_forge添加SegmentAnything
+链接：https://github.com/altoiddealer/sd-webui-segment-anything-altoids
