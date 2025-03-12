@@ -570,3 +570,7 @@ ComfyUI 插件 / 自定义节点说明：
 139、ComfyUI-TeaCache
 描述：使用TeaCache加速ComfyUI推理速度
 链接：https://github.com/welltop-cn/ComfyUI-TeaCache
+
+140、AIGODLIKE-ComfyUI-Studio
+描述：提供快捷模型管理
+链接：https://github.com/AIGODLIKE/AIGODLIKE-ComfyUI-Studio

@@ -137,3 +137,4 @@ __term_sd_task_pre_ext_136 git_clone_repository https://github.com/MoonHugo/Comf
 __term_sd_task_pre_ext_137 git_clone_repository https://github.com/weilin9999/WeiLin-Comfyui-Tools "${COMFYUI_PATH}"/custom_nodes OFF # ComfyUI提示词工具
 __term_sd_task_pre_ext_138 git_clone_repository https://github.com/chengzeyi/Comfy-WaveSpeed "${COMFYUI_PATH}"/custom_nodes OFF # 加速ComfyUI推理速度
 __term_sd_task_pre_ext_139 git_clone_repository https://github.com/welltop-cn/ComfyUI-TeaCache "${COMFYUI_PATH}"/custom_nodes OFF # 使用TeaCache加速ComfyUI推理速度
+__term_sd_task_pre_ext_140 git_clone_repository https://github.com/AIGODLIKE/AIGODLIKE-ComfyUI-Studio "${COMFYUI_PATH}"/custom_nodes OFF # 提供快捷模型管理

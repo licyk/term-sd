@@ -137,3 +137,4 @@ __term_sd_task_pre_ext_136 ComfyUI-BiRefNet-Hugo OFF
 __term_sd_task_pre_ext_137 WeiLin-Comfyui-Tools OFF
 __term_sd_task_pre_ext_138 Comfy-WaveSpeed OFF
 __term_sd_task_pre_ext_139 ComfyUI-TeaCache OFF
+__term_sd_task_pre_ext_140 AIGODLIKE-ComfyUI-Studio OFF

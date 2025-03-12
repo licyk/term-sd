@@ -1038,6 +1038,7 @@ main() {
     export PIP_RETRIES=5 # 设置 Pip 的重试次数
     export PIP_DISABLE_PIP_VERSION_CHECK # Pip 版本版本检查
     export SAFETENSORS_FAST_GPU=1 # 强制所有模型使用 GPU 加载
+    export PIP_CONFIG_FILE="nul" # 屏蔽本地的 Pip 配置文件
     TERM_SD_PIP_INDEX_URL="https://mirrors.cloud.tencent.com/pypi/simple" # 保存 Pip 镜像源地址
     # TERM_SD_PIP_EXTRA_INDEX_URL="https://mirror.baidu.com/pypi/simple"
     TERM_SD_PIP_EXTRA_INDEX_URL="https://mirrors.cernet.edu.cn/pypi/web/simple"
