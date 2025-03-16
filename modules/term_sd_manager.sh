@@ -149,38 +149,51 @@ term_sd_launch() {
     else
         launch_args_string=$(cat "${START_PATH}/term-sd/config/${launch_sd_config}")
 
-        # eval 非安全解析, 只有这个可用
-        eval "launch_args=($launch_args_string)"
+        # eval 非安全解析
+        # eval "launch_args=($launch_args_string)"
 
-        # 手动解析, 解析结果还是有问题
-        # launch_args=()
-        # current=""
-        # in_quote=0
-        # quote_char=""
+        # 手动解析
+        for (( i=0; i<${#launch_args_string}; i++ )); do
+            char="${launch_args_string:$i:1}"
 
-        # for (( i=0; i<${#launch_args_string}; i++ )); do
-        #     char="${launch_args_string:$i:1}"
-        #     if [[ "$char" == \" || "$char" == "'" ]]; then
-        #         if (( in_quote )) && [[ "$char" == "$quote_char" ]]; then
-        #             in_quote=0
-        #             quote_char=""
-        #         elif ! (( in_quote )); then
-        #             in_quote=1
-        #             quote_char="$char"
-        #         else
-        #             current+="$char"
-        #         fi
-        #     elif [[ "$char" == " " && ! $in_quote ]]; then
-        #         if [[ -n "$current" ]]; then
-        #             launch_args+=("$current")
-        #             current=""
-        #         fi
-        #     else
-        #         current+="$char"
-        #     fi
-        # done
+            term_sd_is_debug && printf "位置 %2d: 字符 [%s] | 引号状态 %d | 当前缓冲 [%s]\n" $i "$char" $in_quote "$current"
 
-        # [[ -n "$current" ]] && launch_args+=("$current")
+            # 处理引号逻辑
+            if [[ "$char" == \" || "$char" == "'" ]]; then
+                if (( in_quote )); then
+                    if [[ "$char" == "$quote_char" ]]; then  # 结束引号
+                        in_quote=0
+                        quote_char=""
+                        launch_args+=("$current")  # 保存引号内内容
+                        current=""
+                    else  # 其他引号字符作为普通字符
+                        current+="$char"
+                    fi
+                else  # 开始引号
+                    if [[ -n "$current" ]]; then  # 保存引号前的内容
+                        launch_args+=("$current")
+                        current=""
+                    fi
+                    in_quote=1
+                    quote_char="$char"
+                fi
+            # 处理空格逻辑
+            elif [[ "$char" == " " ]]; then
+                if (( in_quote )); then  # 引号内空格保留
+                    current+="$char"
+                else  # 非引号空格作为分隔符
+                    if [[ -n "$current" ]]; then
+                        launch_args+=("$current")
+                        current=""
+                    fi
+                fi
+            else  # 普通字符累积
+                current+="$char"
+            fi
+        done
+
+        # 处理最后未完成的缓存
+        [[ -n "$current" ]] && launch_args+=("$current")
     fi
 
     if term_sd_is_debug; then

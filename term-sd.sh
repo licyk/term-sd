@@ -1029,7 +1029,7 @@ main() {
     fi
 
     # 变量初始化
-    TERM_SD_VER="1.4.11" #  Term-SD 版本
+    TERM_SD_VER="1.4.12" #  Term-SD 版本
     USER_SHELL=$(basename "${SHELL}") # 读取用户所使用的 Shell
     START_PATH=$(pwd) # 设置启动时脚本路径
     export PYTHONUTF8=1 # 强制 Python 解释器使用 UTF-8 编码来处理字符串, 避免乱码问题
