@@ -31,6 +31,12 @@ term_sd_launch() {
     local github_mirror
     local cuda_memory_alloc_config
     local is_sd_webui_forge=0
+    local launch_args
+    local current
+    local in_quote
+    local quote_char
+    local launch_args_string
+    local char
 
     term_sd_print_line "${TERM_SD_MANAGE_OBJECT} 启动"
     term_sd_echo "提示: 可以按下 Ctrl + C 键终止 AI 软件的运行"
@@ -48,7 +54,7 @@ term_sd_launch() {
                 stable-diffusion-webui-directml|stable-diffusion-webui-directml.git)
                     launch_sd_config="sd-webui-directml-launch.conf"
                     ;;
-                stable-diffusion-webui-forge|stable-diffusion-webui-forge.git)
+                stable-diffusion-webui-forge|stable-diffusion-webui-forge.git|stable-diffusion-webui-reForge|stable-diffusion-webui-reForge.git)
                     launch_sd_config="sd-webui-forge-launch.conf"
                     is_sd_webui_forge=1
                     ;;
@@ -137,10 +143,51 @@ term_sd_launch() {
         esac
     fi
 
+    # 启动参数处理
+    if term_sd_is_bash_ver_lower; then
+        launch_args=$(cat "${START_PATH}/term-sd/config/${launch_sd_config}")
+    else
+        launch_args_string=$(cat "${START_PATH}/term-sd/config/${launch_sd_config}")
+
+        # eval 非安全解析, 只有这个可用
+        eval "launch_args=($launch_args_string)"
+
+        # 手动解析, 解析结果还是有问题
+        # launch_args=()
+        # current=""
+        # in_quote=0
+        # quote_char=""
+
+        # for (( i=0; i<${#launch_args_string}; i++ )); do
+        #     char="${launch_args_string:$i:1}"
+        #     if [[ "$char" == \" || "$char" == "'" ]]; then
+        #         if (( in_quote )) && [[ "$char" == "$quote_char" ]]; then
+        #             in_quote=0
+        #             quote_char=""
+        #         elif ! (( in_quote )); then
+        #             in_quote=1
+        #             quote_char="$char"
+        #         else
+        #             current+="$char"
+        #         fi
+        #     elif [[ "$char" == " " && ! $in_quote ]]; then
+        #         if [[ -n "$current" ]]; then
+        #             launch_args+=("$current")
+        #             current=""
+        #         fi
+        #     else
+        #         current+="$char"
+        #     fi
+        # done
+
+        # [[ -n "$current" ]] && launch_args+=("$current")
+    fi
+
     if term_sd_is_debug; then
         term_sd_print_line
         echo "当前配置:"
         echo "launch_sd_config: ${launch_sd_config}"
+        term_sd_is_bash_ver_lower && echo "launch_args: ${launch_args}" || echo "launch_args: ${launch_args[@]}"
         echo "github_mirror: ${github_mirror}"
         echo "WEBUI_EXTENSIONS_INDEX: ${WEBUI_EXTENSIONS_INDEX}"
         echo "CLIP_PACKAGE: ${CLIP_PACKAGE}"
@@ -167,8 +214,13 @@ term_sd_launch() {
                 term_sd_echo "结束运行环境检测, 启动 ${TERM_SD_MANAGE_OBJECT} 中"
             fi
             term_sd_print_line
-            PIP_FIND_LINKS="${PIP_FIND_LINKS} ${TERM_SD_PYPI_MIRROR}" \
-            launch_invokeai_web --root "${INVOKEAI_PATH}"/invokeai $(cat "${START_PATH}/term-sd/config/${launch_sd_config}")
+            if term_sd_is_bash_ver_lower; then
+                PIP_FIND_LINKS="${PIP_FIND_LINKS} ${TERM_SD_PYPI_MIRROR}" \
+                launch_invokeai_web ${launch_args}
+            else
+                PIP_FIND_LINKS="${PIP_FIND_LINKS} ${TERM_SD_PYPI_MIRROR}" \
+                launch_invokeai_web "${launch_args[@]}"
+            fi
             [[ ! "$?" == 0 ]] && term_sd_echo "${TERM_SD_MANAGE_OBJECT} 退出状态异常"
             ;;
         *)
@@ -206,8 +258,13 @@ term_sd_launch() {
                 term_sd_echo "结束运行环境检测, 启动 ${TERM_SD_MANAGE_OBJECT} 中"
             fi
             term_sd_print_line
-            PIP_FIND_LINKS="${PIP_FIND_LINKS} ${TERM_SD_PYPI_MIRROR}" \
-            term_sd_python $(cat "${START_PATH}/term-sd/config/${launch_sd_config}") ${hf_mirror_for_fooocus}
+            if term_sd_is_bash_ver_lower; then
+                PIP_FIND_LINKS="${PIP_FIND_LINKS} ${TERM_SD_PYPI_MIRROR}" \
+                term_sd_python ${launch_args} ${hf_mirror_for_fooocus}
+            else
+                PIP_FIND_LINKS="${PIP_FIND_LINKS} ${TERM_SD_PYPI_MIRROR}" \
+                term_sd_python "${launch_args[@]}" ${hf_mirror_for_fooocus}
+            fi
             [[ ! "$?" == 0 ]] && term_sd_echo "${TERM_SD_MANAGE_OBJECT} 退出状态异常"
             exit_venv
             ;;
