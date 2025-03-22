@@ -80,7 +80,7 @@ process_pytorch_ipex() {
         # IPEX(Windows): https://arc.nuullll.com/resource/
 
         if is_use_pip_mirror; then
-            ipex_win_url="--find-links https://licyk.github.io/t/pypi/index_ms_mirror.html"
+            ipex_win_url="--find-links https://licyk.github.io/t/pypi/index.html"
         else
             ipex_win_url="--find-links ${TERM_SD_PYPI_MIRROR}"
         fi
