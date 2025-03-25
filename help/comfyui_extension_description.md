@@ -574,3 +574,7 @@ ComfyUI 插件 / 自定义节点说明：
 140、AIGODLIKE-ComfyUI-Studio
 描述：提供快捷模型管理
 链接：https://github.com/AIGODLIKE/AIGODLIKE-ComfyUI-Studio
+
+141、ComfyUI-to-Python-Extension
+描述：将工作流转换为Python库进行调用
+链接：https://github.com/pydn/ComfyUI-to-Python-Extension
