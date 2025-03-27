@@ -231,6 +231,7 @@ git_get_latest_ver() {
     local req
     local path
     local name
+    local author="origin"
 
     if [[ -z "$@" ]]; then
         path=$(pwd)
@@ -252,10 +253,28 @@ git_get_latest_ver() {
         if [[ "$?" == 0 ]]; then
             term_sd_echo "应用 ${name} 远端更新内容"
             ref=$(git -C "${path}" symbolic-ref --quiet HEAD 2> /dev/null)
-            origin_branch="origin/${ref#refs/heads/}"
+            if git_is_repo_on_origin_branch "${path}"; then
+                origin_branch="${author}/${ref#refs/heads/}"
+            else
+                origin_branch="${ref#refs/heads/}"
+                # 获取分支对应的远程源名称
+                author=$(git -C "${path}" config --get "branch.${origin_branch}.remote" 2> /dev/null)
+                if [[ -z "${author}" ]]; then
+                    author="null"
+                else
+                    origin_branch="${author}/${origin_branch}"
+                fi
+            fi
             commit_hash=$(git -C "${path}" log "${origin_branch}" --max-count 1 --format="%h")
             local_commit_hash=$(git -C "${path}" show -s --format="%h")
-            git -C "${path}" reset ${use_submodules} --hard "${commit_hash}"
+            if term_sd_is_debug; then
+                term_sd_echo "ref: ${ref}"
+                term_sd_echo "author: ${author}"
+                term_sd_echo "commit_hash: ${commit_hash}"
+                term_sd_echo "local_commit_hash: ${local_commit_hash}"
+                term_sd_echo "origin_branch: ${origin_branch}"
+            fi
+            git -C "${path}" reset ${use_submodules} --hard "${origin_branch}"
             req=$?
             if [[ "${commit_hash}" == "${local_commit_hash}" ]]; then
                 term_sd_echo "${name} 已是最新"
@@ -468,4 +487,9 @@ git_init_submodule() {
     git -C "${path}" submodule init
     term_sd_try git -C "${path}" submodule update
     term_sd_try git -C "${path}" reset --hard --recurse-submodules
+}
+
+# 检查分支是否在 origin 上
+git_is_repo_on_origin_branch() {
+    git -C "$@" show-ref --verify --quiet "refs/remotes/origin/$(git -C "$@" branch --show-current)"
 }
