@@ -262,7 +262,7 @@ git_get_latest_ver() {
                 if [[ -z "${author}" ]]; then
                     author="null"
                 else
-                    origin_branch="${author}/${origin_branch}"
+                    origin_branch=$(git -C "${path}" rev-parse --abbrev-ref "${origin_branch}@{upstream}")
                 fi
             fi
             commit_hash=$(git -C "${path}" log "${origin_branch}" --max-count 1 --format="%h")
