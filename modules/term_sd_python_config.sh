@@ -60,7 +60,7 @@ pip_mirrors_setting() {
             --title "Term-SD" \
             --backtitle "Pip 镜像源 (配置文件) 选项" \
             --ok-label "确认" --cancel-label "取消" \
-            --menu "该功能用于设置 Pip 镜像源 (环境变量) (优先级小于环境变量配置), 加速国内下载 Python 软件包的速度\n当前 Pip 全局配置:\n${pip_mirror_setup_info}\n请选择设置的 Pip 镜像源 (配置文件)" \
+            --menu "(已弃用该选项, 该设置将不会生效) 该功能用于设置 Pip 镜像源 (环境变量) (优先级小于环境变量配置), 加速国内下载 Python 软件包的速度\n当前 Pip 全局配置:\n${pip_mirror_setup_info}\n请选择设置的 Pip 镜像源 (配置文件)" \
             $(get_dialog_size_menu) \
             "0" "> 返回" \
             "1" "> 设置官方源" \
