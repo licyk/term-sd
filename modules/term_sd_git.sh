@@ -442,6 +442,12 @@ git_switch_branch() {
             git submodule deinit --all -f
         fi
         term_sd_echo "切换分支至 ${branch}"
+
+        # 本地分支不存在时创建一个分支
+        if ! git show-ref --verify --quiet "refs/heads/${branch}"; then
+            git branch "${branch}"
+        fi
+
         git checkout "${branch}" --force # 切换分支
         term_sd_echo "应用远程源的更新"
         if [[ "${use_submod}" == 1 ]]; then
