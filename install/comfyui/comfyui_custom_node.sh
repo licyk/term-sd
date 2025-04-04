@@ -14,7 +14,7 @@ __term_sd_task_pre_ext_13 git_clone_repository https://github.com/BlenderNeko/Co
 __term_sd_task_pre_ext_14 git_clone_repository https://github.com/BlenderNeko/ComfyUI_ADV_CLIP_emb "${COMFYUI_PATH}"/custom_nodes OFF # 高级剪辑文本编码，可让您选择解释提示权重的方式
 __term_sd_task_pre_ext_15 git_clone_repository https://github.com/BlenderNeko/ComfyUI_Noise "${COMFYUI_PATH}"/custom_nodes OFF # 噪声控制
 __term_sd_task_pre_ext_16 git_clone_repository https://github.com/Davemane42/ComfyUI_Dave_CustomNode "${COMFYUI_PATH}"/custom_nodes OFF # 图片区域控制
-__term_sd_task_pre_ext_17 git_clone_repository https://github.com/ltdrdata/ComfyUI-Manager "${COMFYUI_PATH}"/custom_nodes ON # 自定义节点管理器
+__term_sd_task_pre_ext_17 git_clone_repository https://github.com/Comfy-Org/ComfyUI-Manager" "$custom_node_path/ComfyUI-Manager "${COMFYUI_PATH}"/custom_nodes ON # 自定义节点管理器
 __term_sd_task_pre_ext_18 git_clone_repository https://github.com/Zuellni/ComfyUI-Custom-Nodes "${COMFYUI_PATH}"/custom_nodes OFF # ComfyUI的自定义节点
 __term_sd_task_pre_ext_19 git_clone_repository https://github.com/pythongosssss/ComfyUI-Custom-Scripts "${COMFYUI_PATH}"/custom_nodes ON # ComfyUI的增强功能
 __term_sd_task_pre_ext_20 git_clone_repository https://github.com/xXAdonesXx/NodeGPT "${COMFYUI_PATH}"/custom_nodes OFF # 使用GPT辅助生图

@@ -79,9 +79,9 @@ ComfyUI 插件 / 自定义节点说明：
 描述：图片区域控制
 链接：https://github.com/Davemane42/ComfyUI_Dave_CustomNode
 
-17、ComfyUI-Manager*
-描述：自定义节点管理器
-链接：https://github.com/ltdrdata/ComfyUI-Manager
+17、ComfyUI-Manager"
+描述：#
+链接：https://github.com/Comfy-Org/ComfyUI-Manager"
 
 18、ComfyUI-Custom-Nodes
 描述：ComfyUI的自定义节点

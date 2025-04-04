@@ -14,7 +14,7 @@ __term_sd_task_pre_ext_13 ComfyUI_TiledKSampler ON
 __term_sd_task_pre_ext_14 ComfyUI_ADV_CLIP_emb OFF
 __term_sd_task_pre_ext_15 ComfyUI_Noise OFF
 __term_sd_task_pre_ext_16 ComfyUI_Dave_CustomNode OFF
-__term_sd_task_pre_ext_17 ComfyUI-Manager ON
+__term_sd_task_pre_ext_17 ComfyUI-Manager" "${COMFYUI_PATH}"/custom_nodes
 __term_sd_task_pre_ext_18 ComfyUI-Custom-Nodes OFF
 __term_sd_task_pre_ext_19 ComfyUI-Custom-Scripts ON
 __term_sd_task_pre_ext_20 NodeGPT OFF
