@@ -67,7 +67,7 @@ term_sd_launch_arg_parse() {
             --update-pip)
                 ENABLE_PIP_VER_CHECK=1
                 PIP_DISABLE_PIP_VERSION_CHECK=0
-                term_sd_echo "进入虚拟环境时将更新 Pip 软件包管理器"
+                term_sd_echo "进入虚拟环境时将更新 Python 软件包管理器"
                 ;;
             --remove-term-sd)
                 term_sd_remove
@@ -116,7 +116,7 @@ term_sd_args_help() {
         --unset-python-path
             删除自定义 Python 解释器路径配置
         --update-pip
-            进入虚拟环境时更新 Pip 软件包管理器
+            进入虚拟环境时更新 Python 软件包管理器
         --bar display_mode
             设置 Term-SD 初始化进度条的显示样式, 有以下显示模式:
                 none: 禁用进度条显示
@@ -645,7 +645,7 @@ term_sd_set_up_normal_setting() {
 
     if [[ ! -f "${START_PATH}/term-sd/config/term-sd-pip-mirror.conf" ]]; then
         echo "2" > "${START_PATH}/term-sd/config/term-sd-pip-mirror.conf"
-        term_sd_echo "Term-SD 设置 Pip 镜像源为国内镜像源"
+        term_sd_echo "Term-SD 设置 PyPI 镜像源为国内镜像源"
     fi
 
     if [[ ! -f "${START_PATH}/term-sd/config/set-dynamic-global-github-mirror.lock" ]]; then
@@ -1039,12 +1039,12 @@ main() {
     export PIP_DISABLE_PIP_VERSION_CHECK # Pip 版本版本检查
     export SAFETENSORS_FAST_GPU=1 # 强制所有模型使用 GPU 加载
     export PIP_CONFIG_FILE="nul" # 屏蔽本地的 Pip 配置文件
-    TERM_SD_PIP_INDEX_URL="https://mirrors.cloud.tencent.com/pypi/simple" # 保存 Pip 镜像源地址
+    TERM_SD_PIP_INDEX_URL="https://mirrors.cloud.tencent.com/pypi/simple" # 保存 PyPI 镜像源地址
     # TERM_SD_PIP_EXTRA_INDEX_URL="https://mirror.baidu.com/pypi/simple"
     TERM_SD_PIP_EXTRA_INDEX_URL="https://mirrors.cernet.edu.cn/pypi/web/simple"
     TERM_SD_PIP_FIND_LINKS="https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
     TERM_SD_PYPI_MIRROR="https://licyk.github.io/t/pypi/index.html"
-    TERM_SD_PIP_INDEX_URL_ARG="" # 用于设置 Pip 镜像源的命令参数
+    TERM_SD_PIP_INDEX_URL_ARG="" # 用于设置 PyPI 镜像源的命令参数
     TERM_SD_PIP_EXTRA_INDEX_URL_ARG=""
     TERM_SD_PIP_FIND_LINKS_ARG=""
     # Github 镜像源列表
@@ -1144,7 +1144,7 @@ main() {
         TERM_SD_ENABLE_STRICT_INSTALL_MODE=1
     fi
 
-    # 生成设置 Pip 镜像源的参数
+    # 生成设置 PyPI 镜像源的参数
     for i in ${TERM_SD_PIP_INDEX_URL}; do
         TERM_SD_PIP_INDEX_URL_ARG="$TERM_SD_PIP_INDEX_URL_ARG --index-url ${i}"
     done
@@ -1370,7 +1370,7 @@ main() {
         # export TRANSFORMERS_CACHE="${START_PATH}/term-sd/cache/huggingface/transformers"
     fi
 
-    # 设置 Pip 镜像源的环境变量
+    # 设置 PyPI 镜像源的环境变量
     if [[ -f "${START_PATH}/term-sd/config/term-sd-pip-mirror.conf" ]]; then
         case "$(cat "${START_PATH}/term-sd/config/term-sd-pip-mirror.conf")" in
             1)

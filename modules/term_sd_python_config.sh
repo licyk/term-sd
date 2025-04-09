@@ -47,7 +47,7 @@ python_venv_setting() {
     done
 }
 
-# Pip 镜像源选项(配置文件)
+# PyPI 镜像源选项(配置文件)
 pip_mirrors_setting() {
     local dialog_arg
     local pip_mirror_setup_info
@@ -58,9 +58,9 @@ pip_mirrors_setting() {
 
         dialog_arg=$(dialog --erase-on-exit --notags \
             --title "Term-SD" \
-            --backtitle "Pip 镜像源 (配置文件) 选项" \
+            --backtitle "PyPI 镜像源 (配置文件) 选项" \
             --ok-label "确认" --cancel-label "取消" \
-            --menu "(已弃用该选项, 该设置将不会生效) 该功能用于设置 Pip 镜像源 (环境变量) (优先级小于环境变量配置), 加速国内下载 Python 软件包的速度\n当前 Pip 全局配置:\n${pip_mirror_setup_info}\n请选择设置的 Pip 镜像源 (配置文件)" \
+            --menu "(已弃用该选项, 该设置将不会生效) 该功能用于设置 PyPI 镜像源 (环境变量) (优先级小于环境变量配置), 加速国内下载 Python 软件包的速度\n当前 Pip 全局配置:\n${pip_mirror_setup_info}\n请选择设置的 PyPI 镜像源 (配置文件)" \
             $(get_dialog_size_menu) \
             "0" "> 返回" \
             "1" "> 设置官方源" \
@@ -70,29 +70,29 @@ pip_mirrors_setting() {
 
         case "${dialog_arg}" in
             1)
-                term_sd_echo "设置 Pip 镜像源为官方源"
+                term_sd_echo "设置 PyPI 镜像源为官方源"
                 term_sd_pip config set global.index-url "https://pypi.python.org/simple"
                 term_sd_pip config unset global.extra-index-url
                 term_sd_pip config set global.find-links "https://download.pytorch.org/whl/torch_stable.html"
 
                 dialog --erase-on-exit \
                     --title "Term-SD" \
-                    --backtitle "Pip 镜像源 (配置文件) 选项" \
+                    --backtitle "PyPI 镜像源 (配置文件) 选项" \
                     --ok-label "确认" \
-                    --msgbox "设置 Pip 镜像源为官方源完成" \
+                    --msgbox "设置 PyPI 镜像源为官方源完成" \
                     $(get_dialog_size)
                 ;;
             2)
-                term_sd_echo "设置 Pip 镜像源为国内镜像源"
+                term_sd_echo "设置 PyPI 镜像源为国内镜像源"
                 term_sd_pip config set global.index-url "${TERM_SD_PIP_INDEX_URL}"
                 term_sd_pip config set global.extra-index-url "${TERM_SD_PIP_EXTRA_INDEX_URL}"
                 term_sd_pip config set global.find-links "${TERM_SD_PIP_FIND_LINKS}"
 
                 dialog --erase-on-exit \
                     --title "Term-SD" \
-                    --backtitle "Pip 镜像源 (配置文件) 选项" \
+                    --backtitle "PyPI 镜像源 (配置文件) 选项" \
                     --ok-label "确认" \
-                    --msgbox "设置 Pip 镜像源为国内镜像源完成" \
+                    --msgbox "设置 PyPI 镜像源为国内镜像源完成" \
                     $(get_dialog_size)
                 ;;
             3)
@@ -103,9 +103,9 @@ pip_mirrors_setting() {
 
                 dialog --erase-on-exit \
                     --title "Term-SD" \
-                    --backtitle "Pip 镜像源 (配置文件) 选项" \
+                    --backtitle "PyPI 镜像源 (配置文件) 选项" \
                     --ok-label "确认" \
-                    --msgbox "删除 Pip 镜像源配置完成" \
+                    --msgbox "删除 PyPI 镜像源配置完成" \
                     $(get_dialog_size)
                 ;;
             *)
@@ -115,10 +115,10 @@ pip_mirrors_setting() {
     done
 }
 
-# Pip 镜像源设置(环境变量)
-# 使用 PIP_INDEX_URL, PIP_EXTRA_INDEX_URL, PIP_FIND_LINKS 环境变量设置 Pip 镜像源
-# 环境变量中 Pip 镜像源设置的优先级高于 Pip 配置文件中的镜像源设置
-# Pip 镜像源配置保存在 <Start Path>/term-sd/config/term-sd-pip-mirror.conf 
+# PyPI 镜像源设置(环境变量)
+# 使用 PIP_INDEX_URL, PIP_EXTRA_INDEX_URL, PIP_FIND_LINKS 环境变量设置 PyPI 镜像源
+# 环境变量中 PyPI 镜像源设置的优先级高于 Pip 配置文件中的镜像源设置
+# PyPI 镜像源配置保存在 <Start Path>/term-sd/config/term-sd-pip-mirror.conf 
 # 存储的值为 1 时,使用官方源, 为 2 时使用镜像源
 pip_mirrors_env_setting() {
     local dialog_arg
@@ -135,9 +135,9 @@ pip_mirrors_env_setting() {
 
         dialog_arg=$(dialog --erase-on-exit --notags \
             --title "Term-SD" \
-            --backtitle "Pip 镜像源 (环境变量) 选项" \
+            --backtitle "PyPI 镜像源 (环境变量) 选项" \
             --ok-label "确认" --cancel-label "取消" \
-            --menu "该功能用于设置 Pip 镜像源 (环境变量) (优先级大于全局配置), 加速国内下载 Python 软件包的速度\n当前 Pip 环境变量配置: $pip_mirror_setup_info\n请选择设置的 Pip 镜像源 (环境变量)" \
+            --menu "该功能用于设置 PyPI 镜像源 (环境变量) (优先级大于全局配置), 加速国内下载 Python 软件包的速度\n当前 Pip 环境变量配置: $pip_mirror_setup_info\n请选择设置的 PyPI 镜像源 (环境变量)" \
             $(get_dialog_size_menu) \
             "0" "> 返回" \
             "1" "> 设置官方源" \
@@ -154,9 +154,9 @@ pip_mirrors_env_setting() {
 
                 dialog --erase-on-exit \
                     --title "Term-SD" \
-                    --backtitle "Pip 镜像源 (环境变量) 选项" \
+                    --backtitle "PyPI 镜像源 (环境变量) 选项" \
                     --ok-label "确认" \
-                    --msgbox "设置 Pip 镜像源为官方源成功" \
+                    --msgbox "设置 PyPI 镜像源为官方源成功" \
                     $(get_dialog_size)
                 ;;
             2)
@@ -167,9 +167,9 @@ pip_mirrors_env_setting() {
 
                 dialog --erase-on-exit \
                     --title "Term-SD" \
-                    --backtitle "Pip 镜像源 (环境变量) 选项" \
+                    --backtitle "PyPI 镜像源 (环境变量) 选项" \
                     --ok-label "确认" \
-                    --msgbox "设置 Pip 镜像源为国内镜像源成功" \
+                    --msgbox "设置 PyPI 镜像源为国内镜像源成功" \
                     $(get_dialog_size)
                 ;;
             3)
@@ -180,7 +180,7 @@ pip_mirrors_env_setting() {
 
                 dialog --erase-on-exit \
                     --title "Term-SD" \
-                    --backtitle "Pip 镜像源 (环境变量) 选项" \
+                    --backtitle "PyPI 镜像源 (环境变量) 选项" \
                     --ok-label "确认" \
                     --msgbox "删除镜像源配置成功" \
                     $(get_dialog_size)
