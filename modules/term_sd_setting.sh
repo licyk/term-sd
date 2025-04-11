@@ -373,6 +373,8 @@ term_sd_cache_redirect_setting() {
                 export XDG_CACHE_HOME="${START_PATH}/term-sd/cache"
                 export PIP_CACHE_DIR="${START_PATH}/term-sd/cache/pip"
                 export PYTHONPYCACHEPREFIX="${START_PATH}/term-sd/cache/pycache"
+                export TORCHINDUCTOR_CACHE_DIR="${START_PATH}/term-sd/cache/torchinductor"
+                export TRITON_CACHE_DIR="${START_PATH}/term-sd/cache/triton"
 
                 dialog --erase-on-exit \
                     --title "Term-SD" \
@@ -394,6 +396,8 @@ term_sd_cache_redirect_setting() {
                 unset XDG_CACHE_HOME
                 unset PIP_CACHE_DIR
                 unset PYTHONPYCACHEPREFIX
+                unset TORCHINDUCTOR_CACHE_DIR
+                unset TRITON_CACHE_DIR
 
                 dialog --erase-on-exit \
                     --title "Term-SD" \

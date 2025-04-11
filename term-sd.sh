@@ -1367,6 +1367,8 @@ main() {
         export XDG_CACHE_HOME="${START_PATH}/term-sd/cache"
         export PIP_CACHE_DIR="${START_PATH}/term-sd/cache/pip"
         export PYTHONPYCACHEPREFIX="${START_PATH}/term-sd/cache/pycache"
+        export TORCHINDUCTOR_CACHE_DIR="${START_PATH}/term-sd/cache/torchinductor"
+        export TRITON_CACHE_DIR="${START_PATH}/term-sd/cache/triton"
         # export TRANSFORMERS_CACHE="${START_PATH}/term-sd/cache/huggingface/transformers"
     fi
 

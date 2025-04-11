@@ -158,20 +158,23 @@ download_mirror_select() {
 
 # PyTorch 安装版本选择
 # 选择后设置 INSTALL_PYTORCH_VERSION 全局变量保存 PyTorch 版本信息
+# 设置 INSTALL_XFORMERS_VERSION 全局变量保存 xFormers 版本信息
 # PYTORCH_TYPE 保存使用的 PyTorch 镜像源种类, 如果为空则使用默认的镜像源
 pytorch_version_select() {
     local dialog_arg
     unset INSTALL_PYTORCH_VERSION
+    unset INSTALL_XFORMERS_VERSION
 
     dialog_arg=$(dialog --erase-on-exit --notags \
         --title "Term-SD" \
         --backtitle "PyTorch 安装版本选项" \
         --ok-label "确认" --no-cancel \
-        --menu "请选择要安装的 PyTorch 版本, 注:\n1. Nvidia 显卡选择 CUDA 的版本\n2. AMD 显卡选择 RoCM(Linux) / DirectML(Windows) 版本\n3. Intel 显卡选择 IPEX Arc(独显) / Core Ultra(核显)\n4. Apple M 系列芯片选择无特殊标识版本\n5. 使用 CPU 运算选择 CPU 版本\n6. 标记为 Linux 的版本只能在 Linux 上安装\n当前 PyTorch 版本: $(get_pytorch_version)\n当前 xFormers 版本: $(get_xformers_version)" \
+        --menu "请选择要安装的 PyTorch 版本, 注:\n1. Nvidia 显卡选择 CUDA 的版本\n2. AMD 显卡选择 RoCM(Linux) / DirectML(Windows) 版本\n3. Intel 显卡选择 IPEX Arc(独显) / Core Ultra(核显) / Intel XPU\n4. Apple M 系列芯片选择无特殊标识版本\n5. 使用 CPU 运算选择 CPU 版本\n6. 标记为 Linux 的版本只能在 Linux 上安装\n当前 PyTorch 版本: $(get_pytorch_version)\n当前 xFormers 版本: $(get_xformers_version)" \
         $(get_dialog_size_menu) \
-        "75" "> Torch 2.6.0 (CUDA 11.8) + xFormers 0.0.29.post3 (Linux)" \
-        "74" "> Torch 2.6.0 (CUDA 12.4) + xFormers 0.0.29.post3" \
-        "73" "> Torch 2.6.0 (CUDA 12.6) + xFormers 0.0.29.post3" \
+        "76" "> Torch 2.6.0 (CUDA 11.8) + xFormers 0.0.29.post3 (Linux)" \
+        "75" "> Torch 2.6.0 (CUDA 12.4) + xFormers 0.0.29.post3" \
+        "74" "> Torch 2.6.0 (CUDA 12.6) + xFormers 0.0.29.post3" \
+        "73" "> Torch 2.6.0 (Intel XPU)" \
         "72" "> Torch 2.6.0 (RoCM 6.1) + xFormers 0.0.29.post3 (Linux)" \
         "71" "> Torch 2.6.0 (RoCM 6.2.4) + xFormers 0.0.29.post3 (Linux)" \
         "70" "> Torch 2.6.0 (CPU)" \
@@ -250,15 +253,18 @@ pytorch_version_select() {
     case "${dialog_arg}" in
         0)
             unset INSTALL_PYTORCH_VERSION
+            unset INSTALL_XFORMERS_VERSION
             ;;
         1)
             INSTALL_PYTORCH_VERSION="torch torchvision torchaudio"
             ;;
         2)
-            INSTALL_PYTORCH_VERSION="torch torchvision torchaudio xformers"
+            INSTALL_PYTORCH_VERSION="torch torchvision torchaudio"
+            INSTALL_XFORMERS_VERSION="xformers"
             ;;
         3)
-            INSTALL_PYTORCH_VERSION="torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==1.12.1+cu113 xformers==0.0.14"
+            INSTALL_PYTORCH_VERSION="torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==1.12.1+cu113"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.14"
             ;;
         4)
             INSTALL_PYTORCH_VERSION="torch==1.12.1+cpu torchvision==0.13.1+cpu torchaudio==1.12.1+cpu"
@@ -279,10 +285,11 @@ pytorch_version_select() {
             ;;
         9)
             INSTALL_PYTORCH_VERSION="torch(ipex_Arc) 2.0.0"
-            PYTORCH_TYPE="ipex"
+            PYTORCH_TYPE="ipex_legacy_arc"
             ;;
         10)
-            INSTALL_PYTORCH_VERSION="torch==2.0.0+cu118 torchvision==0.15.1+cu118 torchaudio==2.0.0+cu118 xformers==0.0.18"
+            INSTALL_PYTORCH_VERSION="torch==2.0.0+cu118 torchvision==0.15.1+cu118 torchaudio==2.0.0+cu118"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.18"
             ;;
         11)
             INSTALL_PYTORCH_VERSION="torch==2.0.1+cpu torchvision==0.15.2+cpu torchaudio==2.0.1+cpu"
@@ -292,7 +299,8 @@ pytorch_version_select() {
             INSTALL_PYTORCH_VERSION="torch==2.0.1+rocm5.4.2 torchvision==0.15.2+rocm5.4.2 torchaudio==2.0.1+rocm5.4.2"
             ;;
         13)
-            INSTALL_PYTORCH_VERSION="torch==2.0.1+cu118 torchvision==0.15.2+cu118 torchaudio==2.0.1+cu118 xformers==0.0.22"
+            INSTALL_PYTORCH_VERSION="torch==2.0.1+cu118 torchvision==0.15.2+cu118 torchaudio==2.0.1+cu118"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.22"
             ;;
         14)
             INSTALL_PYTORCH_VERSION="torch==2.1.0+cpu torchvision==0.16.0+cpu torchaudio==2.1.0+cpu"
@@ -303,11 +311,11 @@ pytorch_version_select() {
             ;;
         16)
             INSTALL_PYTORCH_VERSION="torch(ipex_Core_Ultra) 2.1.0"
-            PYTORCH_TYPE="ipex"
+            PYTORCH_TYPE="ipex_legacy_core_ultra"
             ;;
         17)
             INSTALL_PYTORCH_VERSION="torch(ipex_Arc) 2.1.0"
-            PYTORCH_TYPE="ipex"
+            PYTORCH_TYPE="ipex_legacy_arc"
             ;;
         18)
             INSTALL_PYTORCH_VERSION="torch==2.1.1+cpu torchvision==0.16.1+cpu torchaudio==2.1.1+cpu"
@@ -317,10 +325,12 @@ pytorch_version_select() {
             INSTALL_PYTORCH_VERSION="torch==2.1.1+rocm5.6 torchvision==0.16.1+rocm5.6 torchaudio==2.1.1+rocm5.6"
             ;;
         20)
-            INSTALL_PYTORCH_VERSION="torch==2.1.1+cu121 torchvision==0.16.1+cu121 torchaudio==2.1.1+cu121 xformers==0.0.23"
+            INSTALL_PYTORCH_VERSION="torch==2.1.1+cu121 torchvision==0.16.1+cu121 torchaudio==2.1.1+cu121"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.23"
             ;;
         21)
-            INSTALL_PYTORCH_VERSION="torch==2.1.1+cu118 torchvision==0.16.1+cu118 torchaudio==2.1.1+cu118 xformers==0.0.23+cu118"
+            INSTALL_PYTORCH_VERSION="torch==2.1.1+cu118 torchvision==0.16.1+cu118 torchaudio==2.1.1+cu118"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.23+cu118"
             PYTORCH_TYPE="cu118"
             ;;
         22)
@@ -331,11 +341,13 @@ pytorch_version_select() {
             INSTALL_PYTORCH_VERSION="torch==2.1.2+rocm5.6 torchvision==0.16.2+rocm5.6 torchaudio==2.1.2+rocm5.6"
             ;;
         24)
-            INSTALL_PYTORCH_VERSION="torch==2.1.2+cu121 torchvision==0.16.2+cu121 torchaudio==2.1.2+cu121 xformers==0.0.23.post1"
+            INSTALL_PYTORCH_VERSION="torch==2.1.2+cu121 torchvision==0.16.2+cu121 torchaudio==2.1.2+cu121"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.23.post1"
             PYTORCH_TYPE="cu121"
             ;;
         25)
-            INSTALL_PYTORCH_VERSION="torch==2.1.2+cu118 torchvision==0.16.2+cu118 torchaudio==2.1.2+cu118 xformers==0.0.23.post1+cu118"
+            INSTALL_PYTORCH_VERSION="torch==2.1.2+cu118 torchvision==0.16.2+cu118 torchaudio==2.1.2+cu118"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.23.post1+cu118"
             PYTORCH_TYPE="cu118"
             ;;
         26)
@@ -346,11 +358,13 @@ pytorch_version_select() {
             INSTALL_PYTORCH_VERSION="torch==2.2.0+rocm5.7 torchvision==0.17.0+rocm5.7 torchaudio==2.2.0+rocm5.7"
             ;;
         28)
-            INSTALL_PYTORCH_VERSION="torch==2.2.0+cu121 torchvision==0.17.0+cu121 torchaudio==2.2.0+cu121 xformers==0.0.24"
+            INSTALL_PYTORCH_VERSION="torch==2.2.0+cu121 torchvision==0.17.0+cu121 torchaudio==2.2.0+cu121"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.24"
             PYTORCH_TYPE="cu121"
             ;;
         29)
-            INSTALL_PYTORCH_VERSION="torch==2.2.0+cu118 torchvision==0.17.0+cu118 torchaudio==2.2.0+cu118 xformers==0.0.24+cu118"
+            INSTALL_PYTORCH_VERSION="torch==2.2.0+cu118 torchvision==0.17.0+cu118 torchaudio==2.2.0+cu118"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.24+cu118"
             PYTORCH_TYPE="cu118"
             ;;
         30)
@@ -364,11 +378,13 @@ pytorch_version_select() {
             INSTALL_PYTORCH_VERSION="torch==2.2.1+rocm5.7 torchvision==0.17.1+rocm5.7 torchaudio==2.2.1+rocm5.7"
             ;;
         33)
-            INSTALL_PYTORCH_VERSION="torch==2.2.1+cu121 torchvision==0.17.1+cu121 torchaudio==2.2.1+cu121 xformers==0.0.25"
+            INSTALL_PYTORCH_VERSION="torch==2.2.1+cu121 torchvision==0.17.1+cu121 torchaudio==2.2.1+cu121"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.25"
             PYTORCH_TYPE="cu121"
             ;;
         34)
-            INSTALL_PYTORCH_VERSION="torch==2.2.1+cu118 torchvision==0.17.1+cu118 torchaudio==2.2.1+cu118 xformers==0.0.25+cu118"
+            INSTALL_PYTORCH_VERSION="torch==2.2.1+cu118 torchvision==0.17.1+cu118 torchaudio==2.2.1+cu118"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.25+cu118"
             PYTORCH_TYPE="cu118"
             ;;
         35)
@@ -379,11 +395,13 @@ pytorch_version_select() {
             INSTALL_PYTORCH_VERSION="torch==2.2.2+rocm5.7 torchvision==0.17.2+rocm5.7 torchaudio==2.2.2+rocm5.7"
             ;;
         37)
-            INSTALL_PYTORCH_VERSION="torch==2.2.2+cu121 torchvision==0.17.2+cu121 torchaudio==2.2.2+cu121 xformers==0.0.25.post1"
+            INSTALL_PYTORCH_VERSION="torch==2.2.2+cu121 torchvision==0.17.2+cu121 torchaudio==2.2.2+cu121"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.25.post1"
             PYTORCH_TYPE="cu121"
             ;;
         38)
-            INSTALL_PYTORCH_VERSION="torch==2.2.2+cu118 torchvision==0.17.2+cu118 torchaudio==2.2.2+cu118 xformers==0.0.25.post1+cu118"
+            INSTALL_PYTORCH_VERSION="torch==2.2.2+cu118 torchvision==0.17.2+cu118 torchaudio==2.2.2+cu118"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.25.post1+cu118"
             PYTORCH_TYPE="cu118"
             ;;
         39)
@@ -394,11 +412,13 @@ pytorch_version_select() {
             INSTALL_PYTORCH_VERSION="torch==2.3.0+rocm6.0 torchvision==0.18.0+rocm6.0 torchaudio==2.3.0+rocm6.0"
             ;;
         41)
-            INSTALL_PYTORCH_VERSION="torch==2.3.0+cu121 torchvision==0.18.0+cu121 torchaudio==2.3.0+cu121 xformers==0.0.26.post1"
+            INSTALL_PYTORCH_VERSION="torch==2.3.0+cu121 torchvision==0.18.0+cu121 torchaudio==2.3.0+cu121"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.26.post1"
             PYTORCH_TYPE="cu121"
             ;;
         42)
-            INSTALL_PYTORCH_VERSION="torch==2.3.0+cu118 torchvision==0.18.0+cu118 torchaudio==2.3.0+cu118 xformers==0.0.26.post1+cu118"
+            INSTALL_PYTORCH_VERSION="torch==2.3.0+cu118 torchvision==0.18.0+cu118 torchaudio==2.3.0+cu118"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.26.post1+cu118"
             PYTORCH_TYPE="cu118"
             ;;
         43)
@@ -412,11 +432,13 @@ pytorch_version_select() {
             INSTALL_PYTORCH_VERSION="torch==2.3.1+rocm6.0 torchvision==0.18.1+rocm6.0 torchaudio==2.3.1+rocm6.0"
             ;;
         46)
-            INSTALL_PYTORCH_VERSION="torch==2.3.1+cu121 torchvision==0.18.1+cu121 torchaudio==2.3.1+cu121 xformers==0.0.27"
+            INSTALL_PYTORCH_VERSION="torch==2.3.1+cu121 torchvision==0.18.1+cu121 torchaudio==2.3.1+cu121"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.27"
             PYTORCH_TYPE="cu121"
             ;;
         47)
-            INSTALL_PYTORCH_VERSION="torch==2.3.1+cu118 torchvision==0.18.1+cu118 torchaudio==2.3.1+cu118 xformers==0.0.27+cu118"
+            INSTALL_PYTORCH_VERSION="torch==2.3.1+cu118 torchvision==0.18.1+cu118 torchaudio==2.3.1+cu118"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.27+cu118"
             PYTORCH_TYPE="cu118"
             ;;
         48)
@@ -431,11 +453,13 @@ pytorch_version_select() {
             PYTORCH_TYPE="cu124"
             ;;
         51)
-            INSTALL_PYTORCH_VERSION="torch==2.4.0+cu121 torchvision==0.19.0+cu121 torchaudio==2.4.0+cu121 xformers==0.0.27.post2"
+            INSTALL_PYTORCH_VERSION="torch==2.4.0+cu121 torchvision==0.19.0+cu121 torchaudio==2.4.0+cu121"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.27.post2"
             PYTORCH_TYPE="cu121"
             ;;
         52)
-            INSTALL_PYTORCH_VERSION="torch==2.4.0+cu118 torchvision==0.19.0+cu118 torchaudio==2.4.0+cu118 xformers==0.0.27.post2+cu118"
+            INSTALL_PYTORCH_VERSION="torch==2.4.0+cu118 torchvision==0.19.0+cu118 torchaudio==2.4.0+cu118"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.27.post2+cu118"
             PYTORCH_TYPE="cu118"
             ;;
         53)
@@ -443,19 +467,23 @@ pytorch_version_select() {
             PYTORCH_TYPE="cpu"
             ;;
         54)
-            INSTALL_PYTORCH_VERSION="torch==2.4.1+rocm6.1 torchvision==0.19.1+rocm6.1 torchaudio==2.4.1+rocm6.1 xformers===0.0.28.post1"
+            INSTALL_PYTORCH_VERSION="torch==2.4.1+rocm6.1 torchvision==0.19.1+rocm6.1 torchaudio==2.4.1+rocm6.1"
+            INSTALL_XFORMERS_VERSION="xformers===0.0.28.post1"
             PYTORCH_TYPE="rocm61"
             ;;
         55)
-            INSTALL_PYTORCH_VERSION="torch==2.4.1+cu124 torchvision==0.19.1+cu124 torchaudio==2.4.1+cu124 xformers===0.0.28.post1"
+            INSTALL_PYTORCH_VERSION="torch==2.4.1+cu124 torchvision==0.19.1+cu124 torchaudio==2.4.1+cu124"
+            INSTALL_XFORMERS_VERSION="xformers===0.0.28.post1"
             PYTORCH_TYPE="cu124"
             ;;
         56)
-            INSTALL_PYTORCH_VERSION="torch==2.4.1+cu121 torchvision==0.19.1+cu121 torchaudio==2.4.1+cu121 xformers===0.0.28.post1"
+            INSTALL_PYTORCH_VERSION="torch==2.4.1+cu121 torchvision==0.19.1+cu121 torchaudio==2.4.1+cu121"
+            INSTALL_XFORMERS_VERSION="xformers===0.0.28.post1"
             PYTORCH_TYPE="cu121"
             ;;
         57)
-            INSTALL_PYTORCH_VERSION="torch==2.4.1+cu118 torchvision==0.19.1+cu118 torchaudio==2.4.1+cu118 xformers===0.0.28.post1"
+            INSTALL_PYTORCH_VERSION="torch==2.4.1+cu118 torchvision==0.19.1+cu118 torchaudio==2.4.1+cu118"
+            INSTALL_XFORMERS_VERSION="xformers===0.0.28.post1"
             PYTORCH_TYPE="cu118"
             ;;
         58)
@@ -467,19 +495,23 @@ pytorch_version_select() {
             PYTORCH_TYPE="rocm62"
             ;;
         60)
-            INSTALL_PYTORCH_VERSION="torch==2.5.0+rocm6.1 torchvision==0.20.0+rocm6.1 torchaudio==2.5.0+rocm6.1 xformers==0.0.28.post2"
+            INSTALL_PYTORCH_VERSION="torch==2.5.0+rocm6.1 torchvision==0.20.0+rocm6.1 torchaudio==2.5.0+rocm6.1"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.28.post2"
             PYTORCH_TYPE="rocm61"
             ;;
         61)
-            INSTALL_PYTORCH_VERSION="torch==2.5.0+cu124 torchvision==0.20.0+cu124 torchaudio==2.5.0+cu124 xformers==0.0.28.post2"
+            INSTALL_PYTORCH_VERSION="torch==2.5.0+cu124 torchvision==0.20.0+cu124 torchaudio==2.5.0+cu124"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.28.post2"
             PYTORCH_TYPE="cu124"
             ;;
         62)
-            INSTALL_PYTORCH_VERSION="torch==2.5.0+cu121 torchvision==0.20.0+cu121 torchaudio==2.5.0+cu121 xformers==0.0.28.post2"
+            INSTALL_PYTORCH_VERSION="torch==2.5.0+cu121 torchvision==0.20.0+cu121 torchaudio==2.5.0+cu121"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.28.post2"
             PYTORCH_TYPE="cu121"
             ;;
         63)
-            INSTALL_PYTORCH_VERSION="torch==2.5.0+cu118 torchvision==0.20.0+cu118 torchaudio==2.5.0+cu118 xformers==0.0.28.post2"
+            INSTALL_PYTORCH_VERSION="torch==2.5.0+cu118 torchvision==0.20.0+cu118 torchaudio==2.5.0+cu118"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.28.post2"
             PYTORCH_TYPE="cu118"
             ;;
         64)
@@ -491,43 +523,57 @@ pytorch_version_select() {
             PYTORCH_TYPE="rocm62"
             ;;
         66)
-            INSTALL_PYTORCH_VERSION="torch==2.5.1+rocm6.1 torchvision==0.20.1+rocm6.1 torchaudio==2.5.1+rocm6.1 xformers==0.0.28.post3"
+            INSTALL_PYTORCH_VERSION="torch==2.5.1+rocm6.1 torchvision==0.20.1+rocm6.1 torchaudio==2.5.1+rocm6.1"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.28.post3"
             PYTORCH_TYPE="rocm61"
             ;;
         67)
-            INSTALL_PYTORCH_VERSION="torch==2.5.1+cu124 torchvision==0.20.1+cu124 torchaudio==2.5.1+cu124 xformers==0.0.28.post3"
+            INSTALL_PYTORCH_VERSION="torch==2.5.1+cu124 torchvision==0.20.1+cu124 torchaudio==2.5.1+cu124"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.28.post3"
             PYTORCH_TYPE="cu124"
             ;;
         68)
-            INSTALL_PYTORCH_VERSION="torch==2.5.1+cu121 torchvision==0.20.1+cu121 torchaudio==2.5.1+cu121 xformers==0.0.28.post3"
+            INSTALL_PYTORCH_VERSION="torch==2.5.1+cu121 torchvision==0.20.1+cu121 torchaudio==2.5.1+cu121"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.28.post3"
             PYTORCH_TYPE="cu121"
             ;;
         69)
-            INSTALL_PYTORCH_VERSION="torch==2.5.1+cu118 torchvision==0.20.1+cu118 torchaudio==2.5.1+cu118 xformers==0.0.28.post3"
+            INSTALL_PYTORCH_VERSION="torch==2.5.1+cu118 torchvision==0.20.1+cu118 torchaudio==2.5.1+cu118"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.28.post3"
             PYTORCH_TYPE="cu118"
             ;;
         70)
-            INSTALL_PYTORCH_VERSION="torch==2.6.0+cpu torchvision==0.21.0+cpu torchaudio==2.6.0+cpu xformers==0.0.29.post3"
+            INSTALL_PYTORCH_VERSION="torch==2.6.0+cpu torchvision==0.21.0+cpu torchaudio==2.6.0+cpu"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.29.post3"
             PYTORCH_TYPE="cpu"
             ;;
         71)
-            INSTALL_PYTORCH_VERSION="torch==2.6.0+rocm6.2.4 torchvision==0.21.0+rocm6.2.4 torchaudio==2.6.0+rocm6.2.4 xformers==0.0.29.post3"
+            INSTALL_PYTORCH_VERSION="torch==2.6.0+rocm6.2.4 torchvision==0.21.0+rocm6.2.4 torchaudio==2.6.0+rocm6.2.4"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.29.post3"
             PYTORCH_TYPE="rocm624"
             ;;
         72)
-            INSTALL_PYTORCH_VERSION="torch==2.6.0+rocm6.1 torchvision==0.21.0+rocm6.1 torchaudio==2.6.0+rocm6.1 xformers==0.0.29.post3"
+            INSTALL_PYTORCH_VERSION="torch==2.6.0+rocm6.1 torchvision==0.21.0+rocm6.1 torchaudio==2.6.0+rocm6.1"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.29.post3"
             PYTORCH_TYPE="rocm61"
             ;;
         73)
-            INSTALL_PYTORCH_VERSION="torch==2.6.0+cu126 torchvision==0.21.0+cu126 torchaudio==2.6.0+cu126 xformers==0.0.29.post3"
-            PYTORCH_TYPE="cu126"
+            INSTALL_PYTORCH_VERSION="torch==2.6.0+xpu torchvision==0.21.0+xpu torchaudio==2.6.0+xpu"
+            PYTORCH_TYPE="ipex"
             ;;
         74)
-            INSTALL_PYTORCH_VERSION="torch==2.6.0+cu124 torchvision==0.21.0+cu124 torchaudio==2.6.0+cu124 xformers==0.0.29.post3"
-            PYTORCH_TYPE="cu124"
+            INSTALL_PYTORCH_VERSION="torch==2.6.0+cu126 torchvision==0.21.0+cu126 torchaudio==2.6.0+cu126"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.29.post3"
+            PYTORCH_TYPE="cu126"
             ;;
         75)
-            INSTALL_PYTORCH_VERSION="torch==2.6.0+cu118 torchvision==0.21.0+cu118 torchaudio==2.6.0+cu118 xformers==0.0.29.post3"
+            INSTALL_PYTORCH_VERSION="torch==2.6.0+cu124 torchvision==0.21.0+cu124 torchaudio==2.6.0+cu124"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.29.post3"
+            PYTORCH_TYPE="cu124"
+            ;;
+        76)
+            INSTALL_PYTORCH_VERSION="torch==2.6.0+cu118 torchvision==0.21.0+cu118 torchaudio==2.6.0+cu118"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.29.post3"
             PYTORCH_TYPE="cu118"
             ;;
     esac
@@ -618,6 +664,7 @@ term_sd_install_confirm() {
     local enable_only_proxy_info
     local use_modelscope_src_info
     local pytorch_ver_info
+    local xformers_ver_info
     local use_break_system_package_info
     local use_pep517_info
     local use_force_reinstall_info
@@ -656,6 +703,12 @@ term_sd_install_confirm() {
         pytorch_ver_info="无"
     fi
 
+    if [[ ! -z "${INSTALL_XFORMERS_VERSION}" ]]; then
+        xformers_ver_info=$INSTALL_XFORMERS_VERSION
+    else
+        xformers_ver_info="无"
+    fi
+
     if [[ ! -z "${PIP_USE_PEP517_ARG}" ]]; then
         use_pep517_info="标准构建安装 (--use-pep517)"
     else
@@ -691,6 +744,7 @@ Huggingface / Github 下载源独占代理: ${enable_only_proxy_info}\n
 使用 ModelScope 模型下载源: ${use_modelscope_src_info}\n
 强制使用 Pip: ${use_break_system_package_info}\n
 PyTorch 版本: ${pytorch_ver_info}\n
+xFormers 版本: ${xformers_ver_info}\n
 Pip 安装方式: ${use_pep517_info}\n
 Pip 强制重装: ${use_force_reinstall_info}\n
 Pip 更新软件包: ${use_upgrade_info}\n
@@ -745,6 +799,7 @@ clean_install_config() {
         term_sd_echo "GITHUB_MIRROR: ${GITHUB_MIRROR}"
         term_sd_echo "GITHUB_MIRROR_NAME: ${GITHUB_MIRROR_NAME}"
         term_sd_echo "INSTALL_PYTORCH_VERSION: ${INSTALL_PYTORCH_VERSION}"
+        term_sd_echo "INSTALL_XFORMERS_VERSION: ${INSTALL_XFORMERS_VERSION}"
         term_sd_echo "PIP_USE_PEP517_ARG: ${PIP_USE_PEP517_ARG}"
         term_sd_echo "PIP_FORCE_REINSTALL_ARG: ${PIP_FORCE_REINSTALL_ARG}"
         term_sd_echo "PIP_UPDATE_PACKAGE_ARG: ${PIP_UPDATE_PACKAGE_ARG}"
@@ -763,7 +818,8 @@ clean_install_config() {
     unset USE_MODELSCOPE_MODEL_SRC # 是否使用 ModelScope 模型站下载模型
     unset GITHUB_MIRROR # Github 镜像的格式, 如: "https://github.com/term_sd_git_user/term_sd_git_repo", 需进行处理后才能使用
     unset GITHUB_MIRROR_NAME # 展示 Github 镜像源的名称
-    unset INSTALL_PYTORCH_VERSION # 要安装的 PyTorch 版本和 xFormers 版本
+    unset INSTALL_PYTORCH_VERSION # 要安装的 PyTorch 版本
+    unset INSTALL_XFORMERS_VERSION # 要安装的 xFormers 版本
     unset PIP_USE_PEP517_ARG # 是否在 Pip 使用 --use-pep517 参数
     unset PIP_FORCE_REINSTALL_ARG # 是否在 Pip 使用 --force-reinstall 参数
     unset PIP_UPDATE_PACKAGE_ARG # 是否更新软件包, 使用 --upgrade 参数
