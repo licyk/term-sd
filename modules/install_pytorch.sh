@@ -59,6 +59,7 @@ install_pytorch() {
 # PIP_UPDATE_PACKAGE_ARG PIP_PREFER_BINARY_ARG
 process_pytorch_ipex() {
     local torch_ipex_ver
+    local torch_ipex_ver_info
     local ipex_type
     local torch_ver
     local ipex_win_url="--find-links https://licyk.github.io/t/pypi/index.html"
@@ -75,17 +76,18 @@ process_pytorch_ipex() {
 
     case "${PYTORCH_TYPE}" in
         ipex_legacy_arc|ipex_legacy_core_ultra)
-            torch_ipex_ver="PyTorch $(awk '{print $2}' <<< ${INSTALL_PYTORCH_VERSION}) (IPEX ${ipex_type})"
+            torch_ipex_ver=$(awk '{print $2}' <<< ${INSTALL_PYTORCH_VERSION})
+            torch_ipex_ver_info="PyTorch $(awk '{print $2}' <<< ${INSTALL_PYTORCH_VERSION}) (IPEX ${ipex_type})"
             ;;
         ipex)
-            torch_ipex_ver="${INSTALL_PYTORCH_VERSION} (Inter XPU)"
+            torch_ipex_ver_info="${INSTALL_PYTORCH_VERSION} (Inter XPU)"
             ;;
     esac
 
     torch_ver=$INSTALL_PYTORCH_VERSION
 
     term_sd_echo "将要安装的 PyTorch 版本组合:"
-    term_sd_echo "PyTorch: ${torch_ipex_ver}"
+    term_sd_echo "PyTorch: ${torch_ipex_ver_info}"
     term_sd_echo "开始安装 PyTorch"
 
     case "${PYTORCH_TYPE}" in
