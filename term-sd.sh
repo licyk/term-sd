@@ -1042,7 +1042,8 @@ main() {
     TERM_SD_PIP_INDEX_URL="https://mirrors.cloud.tencent.com/pypi/simple" # 保存 PyPI 镜像源地址
     # TERM_SD_PIP_EXTRA_INDEX_URL="https://mirror.baidu.com/pypi/simple"
     TERM_SD_PIP_EXTRA_INDEX_URL="https://mirrors.cernet.edu.cn/pypi/web/simple"
-    TERM_SD_PIP_FIND_LINKS="https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
+    # TERM_SD_PIP_FIND_LINKS="https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html https://mirror.sjtu.edu.cn/pytorch-wheels/torch_stable.html"
+    TERM_SD_PIP_FIND_LINKS="https://mirrors.aliyun.com/pytorch-wheels/torch_stable.html"
     TERM_SD_PYPI_MIRROR="https://licyk.github.io/t/pypi/index.html"
     TERM_SD_PIP_INDEX_URL_ARG="" # 用于设置 PyPI 镜像源的命令参数
     TERM_SD_PIP_EXTRA_INDEX_URL_ARG=""

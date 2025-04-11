@@ -202,8 +202,9 @@ process_pytorch() {
                 ${PIP_INDEX_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} ${PIP_PREFER_BINARY_ARG}
                 ;;
             cu118)
-                PIP_EXTRA_INDEX_URL="https://mirror.sjtu.edu.cn/pytorch-wheels/cu118" \
-                PIP_FIND_LINKS="https://mirror.sjtu.edu.cn/pytorch-wheels/cu118/torch_stable.html" \
+                # PIP_FIND_LINKS="https://mirror.sjtu.edu.cn/pytorch-wheels/cu118/torch_stable.html" \
+                PIP_EXTRA_INDEX_URL="https://mirror.nju.edu.cn/pytorch/whl/cu118" \
+                PIP_FIND_LINKS=" " \
                 term_sd_try term_sd_pip install ${torch_ver} \
                 ${PIP_INDEX_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} ${PIP_PREFER_BINARY_ARG}
                 ;;
@@ -257,20 +258,23 @@ process_pytorch() {
                 ${PIP_INDEX_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} ${PIP_PREFER_BINARY_ARG}
                 ;;
             cu124)
+                # PIP_FIND_LINKS="https://download.pytorch.org/whl/cu124/torch_stable.html" \
                 PIP_EXTRA_INDEX_URL="https://download.pytorch.org/whl/cu124" \
-                PIP_FIND_LINKS="https://download.pytorch.org/whl/cu124/torch_stable.html" \
+                PIP_FIND_LINKS=" " \
                 term_sd_try term_sd_pip install ${torch_ver} \
                 ${PIP_INDEX_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} ${PIP_PREFER_BINARY_ARG}
                 ;;
             cu121)
+                # PIP_FIND_LINKS="https://download.pytorch.org/whl/cu121/torch_stable.html" \
                 PIP_EXTRA_INDEX_URL="https://download.pytorch.org/whl/cu121" \
-                PIP_FIND_LINKS="https://download.pytorch.org/whl/cu121/torch_stable.html" \
+                PIP_FIND_LINKS=" " \
                 term_sd_try term_sd_pip install ${torch_ver} \
                 ${PIP_INDEX_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} ${PIP_PREFER_BINARY_ARG}
                 ;;
             cu118)
+                # PIP_FIND_LINKS="https://download.pytorch.org/whl/cu118/torch_stable.html" \
                 PIP_EXTRA_INDEX_URL="https://download.pytorch.org/whl/cu118" \
-                PIP_FIND_LINKS="https://download.pytorch.org/whl/cu118/torch_stable.html" \
+                PIP_FIND_LINKS=" " \
                 term_sd_try term_sd_pip install ${torch_ver} \
                 ${PIP_INDEX_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} ${PIP_PREFER_BINARY_ARG}
                 ;;
@@ -353,8 +357,9 @@ process_pytorch() {
                     ${PIP_INDEX_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} ${PIP_PREFER_BINARY_ARG} --no-deps
                     ;;
                 cu118)
-                    PIP_EXTRA_INDEX_URL="https://mirror.sjtu.edu.cn/pytorch-wheels/cu118" \
-                    PIP_FIND_LINKS="https://mirror.sjtu.edu.cn/pytorch-wheels/cu118/torch_stable.html" \
+                    # PIP_FIND_LINKS="https://mirror.sjtu.edu.cn/pytorch-wheels/cu118/torch_stable.html" \
+                    PIP_EXTRA_INDEX_URL="https://mirror.nju.edu.cn/pytorch/whl/cu118" \
+                    PIP_FIND_LINKS=" " \
                     term_sd_try term_sd_pip install ${xformers_ver} \
                     ${PIP_INDEX_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} ${PIP_PREFER_BINARY_ARG} --no-deps
                     ;;
@@ -408,20 +413,23 @@ process_pytorch() {
                     ${PIP_INDEX_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} ${PIP_PREFER_BINARY_ARG} --no-deps
                     ;;
                 cu124)
+                    # PIP_FIND_LINKS="https://download.pytorch.org/whl/cu124/torch_stable.html" \
                     PIP_EXTRA_INDEX_URL="https://download.pytorch.org/whl/cu124" \
-                    PIP_FIND_LINKS="https://download.pytorch.org/whl/cu124/torch_stable.html" \
+                    PIP_FIND_LINKS=" " \
                     term_sd_try term_sd_pip install ${xformers_ver} \
                     ${PIP_INDEX_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} ${PIP_PREFER_BINARY_ARG} --no-deps
                     ;;
                 cu121)
+                    # PIP_FIND_LINKS="https://download.pytorch.org/whl/cu121/torch_stable.html" \
                     PIP_EXTRA_INDEX_URL="https://download.pytorch.org/whl/cu121" \
-                    PIP_FIND_LINKS="https://download.pytorch.org/whl/cu121/torch_stable.html" \
+                    PIP_FIND_LINKS=" " \
                     term_sd_try term_sd_pip install ${xformers_ver} \
                     ${PIP_INDEX_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} ${PIP_PREFER_BINARY_ARG} --no-deps
                     ;;
                 cu118)
+                    # PIP_FIND_LINKS="https://download.pytorch.org/whl/cu118/torch_stable.html" \
                     PIP_EXTRA_INDEX_URL="https://download.pytorch.org/whl/cu118" \
-                    PIP_FIND_LINKS="https://download.pytorch.org/whl/cu118/torch_stable.html" \
+                    PIP_FIND_LINKS=" " \
                     term_sd_try term_sd_pip install ${xformers_ver} \
                     ${PIP_INDEX_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} ${PIP_PREFER_BINARY_ARG} --no-deps
                     ;;
