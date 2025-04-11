@@ -476,8 +476,8 @@ term_sd_network_test() {
     network_test_url="google.com huggingface.co modelscope.cn github.com gh.api.99988866.xyz ghfast.top mirror.ghproxy.com gitclone.com gh-proxy.com ghps.cc gh.idayer.com ghproxy.net hf-mirror.com huggingface.sukaka.top"
     sum=$(echo ${network_test_url} | wc -w)
     term_sd_echo "获取网络信息"
-    [ -f "term-sd/task/ipinfo.sh" ] && rm -f term-sd/task/ipinfo.sh
-    curl -s ipinfo.io >> term-sd/task/ipinfo.sh
+    [[ -f "${START_PATH}/term-sd/task/ipinfo.sh" ]] && rm -f "${START_PATH}/term-sd/task/ipinfo.sh"
+    curl -s ipinfo.io >> "${START_PATH}/term-sd/task/ipinfo.sh"
     term_sd_echo "测试网络中"
     for i in ${network_test_url}; do
         term_sd_echo "[${count}/${sum}] 测试链接访问: ${i}"
@@ -493,11 +493,11 @@ term_sd_network_test() {
         esac
     done
 
-    ip=$(cat term-sd/task/ipinfo.sh | grep \"ip\"\: | awk '{gsub(/[\\"]/,"") ; sub("ip:","IP: ")}1')
-    country=$(cat term-sd/task/ipinfo.sh | grep \"country\"\: | awk '{gsub(/[\\"]/,"") ; sub("country:","地址: ")}1')
-    region=$(cat term-sd/task/ipinfo.sh | grep \"region\"\: | awk '{gsub(/[\\"]/,"") ; sub("region:","")}1')
-    city=$(cat term-sd/task/ipinfo.sh | grep \"city\"\: | awk '{gsub(/[\\"]/,"") ; sub("city:","")}1')
-    org=$(cat term-sd/task/ipinfo.sh | grep \"org\"\: | awk '{gsub(/[\\"]/,"") ; sub("org:","网络提供商: ")}1')
+    ip=$(cat "${START_PATH}/term-sd/task/ipinfo.sh" | grep \"ip\"\: | awk '{gsub(/[\\"]/,"") ; sub("ip:","IP: ")}1')
+    country=$(cat "${START_PATH}/term-sd/task/ipinfo.sh" | grep \"country\"\: | awk '{gsub(/[\\"]/,"") ; sub("country:","地址: ")}1')
+    region=$(cat "${START_PATH}/term-sd/task/ipinfo.sh" | grep \"region\"\: | awk '{gsub(/[\\"]/,"") ; sub("region:","")}1')
+    city=$(cat "${START_PATH}/term-sd/task/ipinfo.sh" | grep \"city\"\: | awk '{gsub(/[\\"]/,"") ; sub("city:","")}1')
+    org=$(cat "${START_PATH}/term-sd/task/ipinfo.sh" | grep \"org\"\: | awk '{gsub(/[\\"]/,"") ; sub("org:","网络提供商: ")}1')
 
     dialog --erase-on-exit \
         --title "Term-SD" \
@@ -517,7 +517,7 @@ ${req}\
 ${TERM_SD_DELIMITER}\n
 " $(get_dialog_size)
 
-    rm -f term-sd/task/ipinfo.sh
+    rm -f "${START_PATH}/term-sd/task/ipinfo.sh"
 }
 
 # 卸载 Term-SD 选项
@@ -535,8 +535,8 @@ term_sd_uninstall_interface() {
         case $(term_sd_read) in
             y|yes|YES|Y)
                 term_sd_echo "开始卸载 Term-SD"
-                rm -rf term-sd
-                rm -f term-sd.sh
+                rm -rf "${START_PATH}/term-sd"
+                rm -f "${START_PATH}/term-sd.sh"
                 USER_SHELL=$(echo ${SHELL} | awk -F "/" '{print $NF}') # 读取用户所使用的shell
                 if [ "${USER_SHELL}" = bash ] || [[ "${USER_SHELL}" == zsh ]]; then
                     sed -i '/# Term-SD/d' ~/."${USER_SHELL}"rc
@@ -544,7 +544,7 @@ term_sd_uninstall_interface() {
                     sed -i '/alias tsd/d' ~/."${USER_SHELL}"rc
                 fi
                 term_sd_echo "Term-SD 卸载完成"
-                exec ${SHELL}
+                exec "${SHELL}"
                 exit 0
                 ;;
             *)
