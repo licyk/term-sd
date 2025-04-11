@@ -109,8 +109,9 @@ download_mirror_select() {
     if [[ "${use_global_pip_mirror}" == 1 ]]; then
         if [[ ! -z "${PIP_INDEX_URL}" ]]; then # 确保存在镜像源
             use_env_pip_mirror=1
-        elif [ ! -z "$(term_sd_pip config list | grep -E "global.index-url")" ] && [ ! -z "$(term_sd_pip config list | grep -E "global.find-links")" ]; then
-            use_env_pip_mirror=1
+        # 已弃用
+        # elif [ ! -z "$(term_sd_pip config list | grep -E "global.index-url")" ] && [ ! -z "$(term_sd_pip config list | grep -E "global.find-links")" ]; then
+        #     use_env_pip_mirror=1
         else
             use_env_pip_mirror=0
         fi
@@ -126,9 +127,10 @@ download_mirror_select() {
             elif [[ "${PIP_INDEX_URL}" == "https://pypi.python.org/simple" ]]; then
                 term_sd_echo "使用 PyPI 官方源"
                 USE_PIP_MIRROR=0
-            elif term_sd_pip config list | grep -E "global.index-url" | grep "https://pypi.python.org/simple" &> /dev/null; then
-                term_sd_echo "使用 PyPI 官方源"
-                USE_PIP_MIRROR=0
+            # 已弃用
+            # elif term_sd_pip config list | grep -E "global.index-url" | grep "https://pypi.python.org/simple" &> /dev/null; then
+            #     term_sd_echo "使用 PyPI 官方源"
+            #     USE_PIP_MIRROR=0
             else
                 term_sd_echo "使用 PyPI 镜像源"
                 USE_PIP_MIRROR=1
