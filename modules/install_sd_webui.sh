@@ -229,16 +229,17 @@ select_install_sd_webui_branch() {
         --title "Stable-Diffusion-WebUI 安装" \
         --backtitle "Stable-Diffusion-WebUI 分支选择选项" \
         --ok-label "确认" --no-cancel \
-        --menu "请选择要安装的 Stable-Diffusion-WebUI 分支, 注:\n1. 推荐使用 AUTOMATIC1111 - Stable-Diffusion-WebUI 分支, 稳定性较高\n2.如果有 FLUX 模型的需求或者更好的显存优化, 可选择 lllyasviel - Stable-Diffusion-WebUI-Forge 分支, 但该分支可能会导致部分插件不兼容\n3. Panchovix - stable-diffusion-webui-reForge 分支基于 lllyasviel - Stable-Diffusion-WebUI-Forge 分支, 使用 Gradio3 前端, 对插件的兼容性好一些" \
+        --menu "请选择要安装的 Stable-Diffusion-WebUI 分支, 注:\n1. 推荐使用 AUTOMATIC1111 - Stable-Diffusion-WebUI 分支, 稳定性较高\n2.如果有 FLUX 模型的需求或者更好的显存优化, 可选择 lllyasviel - Stable-Diffusion-WebUI-Forge 分支, 但该分支可能会导致部分插件不兼容\n3. Panchovix - stable-diffusion-webui-reForge 分支基于 lllyasviel - Stable-Diffusion-WebUI-Forge 分支, 使用 Gradio3 前端, 对插件的兼容性好一些\n4、Haoming02 - Stable-Diffusion-WebUI-Forge-Classic 分支基于 lllyasviel - Stable-Diffusion-WebUI-Forge 分支, 更轻量" \
         $(get_dialog_size_menu) \
         "1" "> AUTOMATIC1111 - Stable-Diffusion-WebUI 主分支" \
         "2" "> AUTOMATIC1111 - Stable-Diffusion-WebUI 测试分支" \
         "3" "> lllyasviel - Stable-Diffusion-WebUI-Forge 分支" \
-        "4" "> Panchovix - stable-diffusion-webui-reForge 主分支" \
-        "5" "> Panchovix - stable-diffusion-webui-reForge 测试分支" \
-        "6" "> lshqqytiger - Stable-Diffusion-WebUI-AMDGPU 分支" \
-        "7" "> vladmandic - SD.NEXT 主分支" \
-        "8" "> vladmandic - SD.NEXT 测试分支" \
+        "4" "> Panchovix - Stable-Diffusion-WebUI-reForge 主分支" \
+        "5" "> Panchovix - Stable-Diffusion-WebUI-reForge 测试分支" \
+        "6" "> Haoming02 - Stable-Diffusion-WebUI-Forge-Classic 分支" \
+        "7" "> lshqqytiger - Stable-Diffusion-WebUI-AMDGPU 分支" \
+        "8" "> vladmandic - SD.NEXT 主分支" \
+        "9" "> vladmandic - SD.NEXT 测试分支" \
         3>&1 1>&2 2>&3)
 
     case "${dialog_arg}" in
@@ -263,14 +264,18 @@ select_install_sd_webui_branch() {
             SD_WEBUI_BRANCH="dev_upstream"
             ;;
         6)
+            SD_WEBUI_REPO="https://github.com/Haoming02/sd-webui-forge-classic"
+            SD_WEBUI_BRANCH="classic"
+            ;;
+        7)
             SD_WEBUI_REPO="https://github.com/lshqqytiger/stable-diffusion-webui-amdgpu"
             SD_WEBUI_BRANCH="master"
             ;;
-        7)
+        8)
             SD_WEBUI_REPO="https://github.com/vladmandic/automatic"
             SD_WEBUI_BRANCH="master"
             ;;
-        8)
+        9)
             SD_WEBUI_REPO="https://github.com/vladmandic/automatic"
             SD_WEBUI_BRANCH="dev"
             ;;
@@ -324,4 +329,37 @@ install_sd_webui_requirement() {
     fi
 
     install_python_package -r "${requirement}"
+}
+
+# 安装 SD WEbUI 组件
+install_sd_webui_component() {
+    term_sd_echo "安装 Stable Diffusion WebUI 组件中"
+    case "${SD_WEBUI_REPO}" in
+        *stable-diffusion-webui|*stable-diffusion-webui-reForge|*stable-diffusion-webui-amdgpu)
+            git_clone_repository https://github.com/salesforce/BLIP "${SD_WEBUI_PATH}"/repositories BLIP || return 1
+            git_clone_repository https://github.com/Stability-AI/stablediffusion "${SD_WEBUI_PATH}"/repositories stable-diffusion-stability-ai || return 1
+            git_clone_repository https://github.com/Stability-AI/generative-models "${SD_WEBUI_PATH}"/repositories generative-models || return 1
+            git_clone_repository https://github.com/crowsonkb/k-diffusion "${SD_WEBUI_PATH}"/repositories k-diffusion || return 1
+            git_clone_repository https://github.com/AUTOMATIC1111/stable-diffusion-webui-assets "${SD_WEBUI_PATH}"/repositories stable-diffusion-webui-assets || return 1
+            ;;
+        *automatic)
+            git_clone_repository https://github.com/salesforce/BLIP "${SD_WEBUI_PATH}"/repositories blip || return 1
+            git_clone_repository https://github.com/Stability-AI/stablediffusion "${SD_WEBUI_PATH}"/repositories stable-diffusion-stability-ai || return 1
+            git_clone_repository https://github.com/Stability-AI/generative-models "${SD_WEBUI_PATH}"/repositories generative-models || return 1
+            git_clone_repository https://github.com/crowsonkb/k-diffusion "${SD_WEBUI_PATH}"/repositories k-diffusion || return 1
+            git_clone_repository https://github.com/AUTOMATIC1111/stable-diffusion-webui-assets "${SD_WEBUI_PATH}"/repositories stable-diffusion-webui-assets || return 1
+            ;;
+        *stable-diffusion-webui-forge)
+            git_clone_repository https://github.com/salesforce/BLIP "${SD_WEBUI_PATH}"/repositories BLIP || return 1
+            git_clone_repository https://github.com/Stability-AI/stablediffusion "${SD_WEBUI_PATH}"/repositories stable-diffusion-stability-ai || return 1
+            git_clone_repository https://github.com/Stability-AI/generative-models "${SD_WEBUI_PATH}"/repositories generative-models || return 1
+            git_clone_repository https://github.com/crowsonkb/k-diffusion "${SD_WEBUI_PATH}"/repositories k-diffusion || return 1
+            git_clone_repository https://github.com/lllyasviel/huggingface_guess "${SD_WEBUI_PATH}"/repositories huggingface_guess || return 1
+            git_clone_repository https://github.com/lllyasviel/google_blockly_prototypes "${SD_WEBUI_PATH}"/repositories google_blockly_prototypes || return 1
+            ;;
+        *sd-webui-forge-classic)
+            true
+            ;;
+    esac
+    term_sd_echo "安装 Stable Diffusion WebUI 组件完成"
 }

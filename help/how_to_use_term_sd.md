@@ -390,6 +390,7 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 - lllyasviel - Stable-Diffusion-WebUI-Forge 分支
 - Panchovix - stable-diffusion-webui-reForge 主分支
 - Panchovix - stable-diffusion-webui-reForge 测试分支
+- Haoming02 - Stable-Diffusion-WebUI-Forge-Classic 分支
 - lshqqytiger - Stable-Diffusion-WebUI-AMDGPU 分支
 - vladmandic - SD.NEXT 主分支
 - vladmandic - SD.NEXT 测试分支
@@ -398,6 +399,7 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 - AUTOMATIC1111 - Stable-Diffusion-WebUI 分支稳定性较高，推荐选择
 - lllyasviel - Stable-Diffusion-WebUI-Forge 分支对显存优化较好，并且支持 FLUX 模型，如果有 FLUX 模型的需求可选择该分支。由于使用 Forge 推理后端，并且前端使用了 Gradio 4，可能会导致 AUTOMATIC1111 - Stable-Diffusion-WebUI 分支上的插件在 lllyasviel - Stable-Diffusion-WebUI-Forge 分支上无法使用
 - Panchovix - stable-diffusion-webui-reForge 分支基于 lllyasviel - Stable-Diffusion-WebUI-Forge 分支进行开发，因为使用 Gradio 3，相比于lllyasviel - Stable-Diffusion-WebUI-Forge 分支，对 AUTOMATIC1111 - Stable-Diffusion-WebUI 分支上插件兼容性较好
+- Haoming02 - Stable-Diffusion-WebUI-Forge-Classic 分支基于 lllyasviel - Stable-Diffusion-WebUI-Forge 分支，功能上做了精简，更加轻量，速度更快
 - lshqqytiger - Stable-Diffusion-WebUI-AMDGPU 分支优化了 DirectML 和 ZLUDA 的支持，AMD 显卡可选择该分支
 - vladmandic - SD.NEXT 分支不推荐使用
 

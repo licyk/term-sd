@@ -8,6 +8,8 @@
 # Vlad SD WebUI: <Start Path>/term-sd/config/vlad-sd-webui-launch.conf
 # SD WebUI DirectML: <Start Path>/term-sd/config/sd-webui-directml-launch.conf
 # SD WebUI Forge: <Start Path>/term-sd/config/sd-webui-forge-launch.conf
+# SD WebUI reForge: <Start Path>/term-sd/config/sd-webui-reforge-launch.conf
+# SD WebUI Forge Classic: <Start Path>/term-sd/config/sd-webui-forge-classic-launch.conf
 # ComfyUI: <Start Path>/term-sd/config/comfyui-launch.conf
 # InvokeAI: <Start Path>/term-sd/config/invokeai-launch.conf
 # Fooocus: <Start Path>/term-sd/config/fooocus-launch.conf
@@ -54,9 +56,16 @@ term_sd_launch() {
                 stable-diffusion-webui-directml|stable-diffusion-webui-directml.git)
                     launch_sd_config="sd-webui-directml-launch.conf"
                     ;;
-                stable-diffusion-webui-forge|stable-diffusion-webui-forge.git|stable-diffusion-webui-reForge|stable-diffusion-webui-reForge.git)
+                stable-diffusion-webui-forge|stable-diffusion-webui-forge.git)
                     launch_sd_config="sd-webui-forge-launch.conf"
                     is_sd_webui_forge=1
+                    ;;
+                stable-diffusion-webui-reForge|stable-diffusion-webui-reForge.git)
+                    launch_sd_config="sd-webui-reforge-launch.conf"
+                    is_sd_webui_forge=1
+                    ;;
+                sd-webui-forge-classic|sd-webui-forge-classic.git)
+                    launch_sd_config="sd-webui-forge-classic-launch.conf"
                     ;;
                 *)
                     launch_sd_config="sd-webui-launch.conf"

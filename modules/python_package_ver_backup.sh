@@ -129,6 +129,9 @@ backup_python_package_ver() {
                 stable-diffusion-webui-reForge|stable-diffusion-webui-reForge.git)
                     name="stable-diffusion-webui-reForge"
                     ;;
+                sd-webui-forge-classic|sd-webui-forge-classic.git)
+                    name="sd-webui-forge-classic"
+                    ;;
                 *)
                     name="stable-diffusion-webui"
                     ;;

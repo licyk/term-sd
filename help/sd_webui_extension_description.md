@@ -698,3 +698,7 @@ Stable Diffusion WebUI 插件说明：
 174、sd-webui-segment-anything-altoids
 描述：为sd_webui_forge添加SegmentAnything
 链接：https://github.com/altoiddealer/sd-webui-segment-anything-altoids
+
+175、forgeFlux_dualPrompt
+描述：为sd_webui_forge添加多提示词支持
+链接：https://github.com/DenOfEquity/forgeFlux_dualPrompt

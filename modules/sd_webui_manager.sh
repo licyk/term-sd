@@ -4,6 +4,7 @@
 sd_webui_manager() {
     local dialog_arg
     local sd_webui_branch
+    local sd_webui_branch_point
 
     cd "${START_PATH}" # 回到最初路径
     exit_venv # 确保进行下一步操作前已退出其他虚拟环境
@@ -15,21 +16,31 @@ sd_webui_manager() {
             case $(git remote get-url origin | awk -F '/' '{print $NF}') in # 分支判断
                 stable-diffusion-webui|stable-diffusion-webui.git)
                     sd_webui_branch="AUTOMATIC1111 webui $(git_branch_display)"
+                    sd_webui_branch_point="sd_webui"
                     ;;
                 automatic|automatic.git)
                     sd_webui_branch="vladmandic webui $(git_branch_display)"
+                    sd_webui_branch_point="sd_next"
                     ;;
                 stable-diffusion-webui-directml|stable-diffusion-webui-directml.git|stable-diffusion-webui-amdgpu|stable-diffusion-webui-amdgpu.git)
                     sd_webui_branch="lshqqytiger webui $(git_branch_display)"
+                    sd_webui_branch_point="sd_webui_amdgpu"
                     ;;
                 stable-diffusion-webui-forge|stable-diffusion-webui-forge.git)
                     sd_webui_branch="lllyasviel webui $(git_branch_display)"
+                    sd_webui_branch_point="sd_webui_forge"
                     ;;
                 stable-diffusion-webui-reForge|stable-diffusion-webui-reForge.git)
                     sd_webui_branch="Panchovix webui $(git_branch_display)"
+                    sd_webui_branch_point="sd_webui_reforge"
+                    ;;
+                sd-webui-forge-classic|sd-webui-forge-classic.git)
+                    sd_webui_branch="Haoming02 webui $(git_branch_display)"
+                    sd_webui_branch_point="sd_webui_forge_classic"
                     ;;
                 *)
                     sd_webui_branch="null (Git文件损坏)"
+                    sd_webui_branch_point="sd_webui"
             esac
 
             dialog_arg=$(dialog --erase-on-exit --notags \
@@ -266,7 +277,7 @@ sd_webui_manager() {
                         --yesno "是否重新安装 Stable-Diffusion-WebUI 后端组件 ?" \
                         $(get_dialog_size)); then
 
-                        sd_webui_backend_repo_reinstall
+                        sd_webui_backend_repo_reinstall "${sd_webui_branch_point}"
                     fi
                     ;;
                 15)
@@ -357,7 +368,10 @@ sd_webui_update_depend() {
 }
 
 # SD WebUI 后端组件重装
+# 使用:
+# sd_webui_backend_repo_reinstall <分支名称>
 sd_webui_backend_repo_reinstall() {
+    local branch=$@
     download_mirror_select # 下载镜像源选择
 
     if term_sd_install_confirm "是否重新安装 Stable-Diffusion-WebUI 后端组件 ?"; then
@@ -370,6 +384,33 @@ sd_webui_backend_repo_reinstall() {
         git_clone_repository https://github.com/Stability-AI/generative-models "${SD_WEBUI_PATH}"/repositories generative-models
         git_clone_repository https://github.com/crowsonkb/k-diffusion "${SD_WEBUI_PATH}"/repositories k-diffusion
         git_clone_repository https://github.com/AUTOMATIC1111/stable-diffusion-webui-assets "${SD_WEBUI_PATH}"/repositories stable-diffusion-webui-assets
+        case "${branch}" in
+            sd_webui|sd_webui_forge|sd_webui_amdgpu)
+                git_clone_repository https://github.com/salesforce/BLIP "${SD_WEBUI_PATH}"/repositories BLIP
+                git_clone_repository https://github.com/Stability-AI/stablediffusion "${SD_WEBUI_PATH}"/repositories stable-diffusion-stability-ai
+                git_clone_repository https://github.com/Stability-AI/generative-models "${SD_WEBUI_PATH}"/repositories generative-models
+                git_clone_repository https://github.com/crowsonkb/k-diffusion "${SD_WEBUI_PATH}"/repositories k-diffusion
+                git_clone_repository https://github.com/AUTOMATIC1111/stable-diffusion-webui-assets "${SD_WEBUI_PATH}"/repositories stable-diffusion-webui-assets
+                ;;
+            sd_next)
+                git_clone_repository https://github.com/salesforce/BLIP "${SD_WEBUI_PATH}"/repositories blip
+                git_clone_repository https://github.com/Stability-AI/stablediffusion "${SD_WEBUI_PATH}"/repositories stable-diffusion-stability-ai
+                git_clone_repository https://github.com/Stability-AI/generative-models "${SD_WEBUI_PATH}"/repositories generative-models
+                git_clone_repository https://github.com/crowsonkb/k-diffusion "${SD_WEBUI_PATH}"/repositories k-diffusion
+                git_clone_repository https://github.com/AUTOMATIC1111/stable-diffusion-webui-assets "${SD_WEBUI_PATH}"/repositories stable-diffusion-webui-assets
+                ;;
+            sd_webui_forge)
+                git_clone_repository https://github.com/salesforce/BLIP "${SD_WEBUI_PATH}"/repositories BLIP
+                git_clone_repository https://github.com/Stability-AI/stablediffusion "${SD_WEBUI_PATH}"/repositories stable-diffusion-stability-ai
+                git_clone_repository https://github.com/Stability-AI/generative-models "${SD_WEBUI_PATH}"/repositories generative-models
+                git_clone_repository https://github.com/crowsonkb/k-diffusion "${SD_WEBUI_PATH}"/repositories k-diffusion
+                git_clone_repository https://github.com/lllyasviel/huggingface_guess "${SD_WEBUI_PATH}"/repositories huggingface_guess
+                git_clone_repository https://github.com/lllyasviel/google_blockly_prototypes "${SD_WEBUI_PATH}"/repositories google_blockly_prototypes
+                ;;
+            sd_webui_forge_classic)
+                true
+                ;;
+        esac
         term_sd_echo "重装 Stable-Diffusion-WebUI 后端组件结束"
         term_sd_pause
     fi

@@ -172,3 +172,4 @@ __term_sd_task_pre_ext_171 git_clone_repository https://github.com/tocantrell/sd
 __term_sd_task_pre_ext_172 git_clone_repository https://github.com/tocantrell/sd-refdrop "${SD_WEBUI_PATH}"/extensions OFF # 使用RefDrop保持一致性（SD-WebUI-reForge）
 __term_sd_task_pre_ext_173 git_clone_repository https://github.com/Haoming02/sd-forge-negpip "${SD_WEBUI_PATH}"/extensions OFF # 解决tag强污染，仅支持SD-WebUI-Forge
 __term_sd_task_pre_ext_174 git_clone_repository https://github.com/altoiddealer/sd-webui-segment-anything-altoids "${SD_WEBUI_PATH}"/extensions OFF # 为sd_webui_forge添加SegmentAnything
+__term_sd_task_pre_ext_175 git_clone_repository https://github.com/DenOfEquity/forgeFlux_dualPrompt "${SD_WEBUI_PATH}"/extensions OFF # 为sd_webui_forge添加多提示词支持
