@@ -264,8 +264,8 @@ check_sd_webui_extension_requirement() {
 
 # 检查 SD WebUI Forge 内置插件依赖
 # 使用:
-# check_sd_webui_forge_built_in_extension_requirement <SD WebUI 参数配置文件>
-check_sd_webui_forge_built_in_extension_requirement() {
+# check_sd_webui_built_in_extension_requirement <SD WebUI 参数配置文件>
+check_sd_webui_built_in_extension_requirement() {
     local py_path
     local extension_name
     local i

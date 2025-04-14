@@ -32,7 +32,6 @@ term_sd_launch() {
     local is_sdnext=0
     local github_mirror
     local cuda_memory_alloc_config
-    local is_sd_webui_forge=0
     local launch_args
     local current
     local in_quote
@@ -58,11 +57,9 @@ term_sd_launch() {
                     ;;
                 stable-diffusion-webui-forge|stable-diffusion-webui-forge.git)
                     launch_sd_config="sd-webui-forge-launch.conf"
-                    is_sd_webui_forge=1
                     ;;
                 stable-diffusion-webui-reForge|stable-diffusion-webui-reForge.git)
                     launch_sd_config="sd-webui-reforge-launch.conf"
-                    is_sd_webui_forge=1
                     ;;
                 sd-webui-forge-classic|sd-webui-forge-classic.git)
                     launch_sd_config="sd-webui-forge-classic-launch.conf"
@@ -254,9 +251,9 @@ term_sd_launch() {
                         validate_requirements "${SD_WEBUI_PATH}/requirements_versions.txt"
                         PIP_FIND_LINKS="${PIP_FIND_LINKS} ${TERM_SD_PYPI_MIRROR}" \
                         check_sd_webui_extension_requirement "${launch_sd_config}"
-                        if [[ "${is_sd_webui_forge}" == 1 ]]; then # 检查 SD WebUI Forge 内置插件的依赖
-                            PIP_FIND_LINKS="${PIP_FIND_LINKS} ${TERM_SD_PYPI_MIRROR}" \
-                            check_sd_webui_forge_built_in_extension_requirement "${launch_sd_config}"
+
+                        PIP_FIND_LINKS="${PIP_FIND_LINKS} ${TERM_SD_PYPI_MIRROR}" \
+                        check_sd_webui_built_in_extension_requirement "${launch_sd_config}"
                         fi
                         ;;
                     ComfyUI)
