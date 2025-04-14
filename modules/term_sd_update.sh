@@ -22,7 +22,7 @@ term_sd_update_manager() {
                 --title "Term-SD" \
                 --backtitle "Term-SD 更新选项" \
                 --ok-label "确认" --cancel-label "取消" \
-                --menu "请选择 Term-SD 的更新源\n当前 Term-SD 更新源: $(git_remote_display "${START_PATH}/term-sd")\n当前 Term-SD 分支: $(git_branch_display "${START_PATH}/term-sd")\nTerm-SD 自动更新: ${auto_update_info}\n当前 Term-SD 版本: ${TERM_SD_VER}" \
+                --menu "请选择 Term-SD 的操作\nTerm-SD 更新源: $(git_remote_display "${START_PATH}/term-sd")\nTerm-SD 分支: $(git_branch_display "${START_PATH}/term-sd")\nTerm-SD 自动更新: ${auto_update_info}\nTerm-SD 版本: ${TERM_SD_VER}" \
                 $(get_dialog_size_menu) \
                 "0" "> 返回" \
                 "1" "> 更新" \
@@ -30,6 +30,7 @@ term_sd_update_manager() {
                 "3" "> 自动更新设置" \
                 "4" "> 切换更新源" \
                 "5" "> 切换分支" \
+                "6" "> 重启" \
                 3>&1 1>&2 2>&3)
 
             case "${dialog_arg}" in
@@ -42,8 +43,8 @@ term_sd_update_manager() {
                     git_pull_repository "${START_PATH}/term-sd"
                     if [[ "$?" == 0 ]]; then                        
                         local_commit_hash=$(git -C "${START_PATH}/term-sd" show -s --format="%h")
-                        cp -f term-sd/term-sd.sh .
-                        chmod +x term-sd.sh
+                        cp -f "${START_PATH}/term-sd/term-sd.sh" "${START_PATH}"
+                        chmod +x "${START_PATH}/term-sd.sh"
                         if [[ "${commit_hash}" == "${local_commit_hash}" ]]; then
                             dialog --erase-on-exit \
                                 --title "Term-SD" \
@@ -72,8 +73,8 @@ term_sd_update_manager() {
                     ;;
                 2)
                     git_fix_pointer_offset "${START_PATH}/term-sd"
-                    cp -f term-sd/term-sd.sh .
-                    chmod +x term-sd.sh
+                    cp -f "${START_PATH}/term-sd/term-sd.sh" "${START_PATH}"
+                    chmod +x "${START_PATH}/term-sd.sh"
                     ;;
                 3)
                     term_sd_auto_update_setting
@@ -84,12 +85,16 @@ term_sd_update_manager() {
                 5)
                     term_sd_branch_switch
                     ;;
+                6)
+                    term_sd_echo "重启 Term-SD 中"
+                    . "${START_PATH}/term-sd/term-sd.sh"
+                    ;;
                 *)
                     break
                     ;;
             esac
         done
-    else # 检测到没有该文件夹,无法进行更新,提示用户修复
+    else # 检测到没有该文件夹, 无法进行更新, 提示用户修复
         dialog --erase-on-exit \
             --title "Term-SD" \
             --backtitle "Term-SD 更新选项" \

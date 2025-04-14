@@ -192,14 +192,32 @@ pip_mirrors_env_setting() {
     done
 }
 
-# pip缓存清理功能
+# Pip 缓存清理功能
 pip_cache_clean() {
+    local pip_cache_info
+    local pip_cache_path_v23
+    local pip_cache_path
+    local pip_cache_size
+    local pip_http_file_count
+    local pip_built_wheel_path
+    local pip_built_wheel_size
+    local pip_built_wheel_count
+
     term_sd_echo "统计 Pip 缓存信息"
+    pip_cache_info=$(term_sd_python "${START_PATH}/term-sd/python_modules/get_pip_cache_info.py")
+    pip_cache_path_v23=$(awk -F ';' '{print $1}' <<< "${pip_cache_info}")
+    pip_cache_path=$(awk -F ';' '{print $2}' <<< "${pip_cache_info}")
+    pip_cache_size=$(awk -F ';' '{print $3}' <<< "${pip_cache_info}")
+    pip_http_file_count=$(awk -F ';' '{print $4}' <<< "${pip_cache_info}")
+    pip_built_wheel_path=$(awk -F ';' '{print $5}' <<< "${pip_cache_info}")
+    pip_built_wheel_size=$(awk -F ';' '{print $6}' <<< "${pip_cache_info}")
+    pip_built_wheel_count=$(awk -F ';' '{print $7}' <<< "${pip_cache_info}")
+
     if (dialog --erase-on-exit \
         --title "Term-SD" \
         --backtitle "Pip 缓存清理选项" \
         --yes-label "是" --no-label "否" \
-        --yesno "Pip 缓存信息:\nPip 缓存路径: $(term_sd_pip cache dir)\n包索引页面缓存大小: $(term_sd_pip cache info | grep "Package index page cache size" | awk -F ':'  '{print $2 $3 $4}')\n本地构建的 WHELL 包大小: $(term_sd_pip cache info | grep "Locally built wheels size" | awk -F ':'  '{print $2 $3 $4}')\n是否删除 Pip 缓存 ?" \
+        --yesno "Pip 缓存信息:\n包索引页面缓存位置 (Pip v23.3+): ${pip_cache_path_v23}\n包索引页面缓存位置 (旧版 Pip): ${pip_cache_path}\n包索引页面缓存大小: ${pip_cache_size}\nHTTP 文件数量: ${pip_http_file_count}\n本地构建的 wheel 文件位置: ${pip_built_wheel_path}\n本地构建的 wheel 文件大小: ${pip_built_wheel_size}\n本地构建的 wheel 文件数量: ${pip_built_wheel_count}\n是否删除 Pip 缓存 ?" \
         $(get_dialog_size)); then
         term_sd_pip cache purge
 
