@@ -254,7 +254,6 @@ term_sd_launch() {
 
                         PIP_FIND_LINKS="${PIP_FIND_LINKS} ${TERM_SD_PYPI_MIRROR}" \
                         check_sd_webui_built_in_extension_requirement "${launch_sd_config}"
-                        fi
                         ;;
                     ComfyUI)
                         validate_requirements "${COMFYUI_PATH}/requirements.txt"
