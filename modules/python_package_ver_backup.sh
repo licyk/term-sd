@@ -13,32 +13,32 @@ python_package_ver_backup_manager() {
         stable-diffusion-webui)
             term_sd_mkdir "${START_PATH}"/term-sd/requirements-backup/stable-diffusion-webui
             backup_req_file_name="stable-diffusion-webui"
-            enter_venv "${SD_WEBUI_PATH}"
+            enter_venv "${SD_WEBUI_ROOT_PATH}"
             ;;
         ComfyUI)
             term_sd_mkdir "${START_PATH}"/term-sd/requirements-backup/ComfyUI
             backup_req_file_name="ComfyUI"
-            enter_venv "${COMFYUI_PATH}"
+            enter_venv "${COMFYUI_ROOT_PATH}"
             ;;
         InvokeAI)
             term_sd_mkdir "${START_PATH}"/term-sd/requirements-backup/InvokeAI
             backup_req_file_name="InvokeAI"
-            enter_venv "${INVOKEAI_PATH}"
+            enter_venv "${INVOKEAI_ROOT_PATH}"
             ;;
         Fooocus)
             term_sd_mkdir "${START_PATH}"/term-sd/requirements-backup/Fooocus
             backup_req_file_name="Fooocus"
-            enter_venv "${FOOOCUS_PATH}"
+            enter_venv "${FOOOCUS_ROOT_PATH}"
             ;;
         lora-scripts)
             term_sd_mkdir "${START_PATH}"/term-sd/requirements-backup/lora-scripts
             backup_req_file_name="lora-scripts"
-            enter_venv "${LORA_SCRIPTS_PATH}"
+            enter_venv "${LORA_SCRIPTS_ROOT_PATH}"
             ;;
         kohya_ss)
             term_sd_mkdir "${START_PATH}"/term-sd/requirements-backup/kohya_ss
             backup_req_file_name="kohya_ss"
-            enter_venv "${KOHYA_SS_PATH}"
+            enter_venv "${KOHYA_SS_ROOT_PATH}"
             ;;
     esac
 

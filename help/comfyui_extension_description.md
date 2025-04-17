@@ -578,3 +578,7 @@ ComfyUI 插件 / 自定义节点说明：
 141、ComfyUI-to-Python-Extension
 描述：将工作流转换为Python库进行调用
 链接：https://github.com/pydn/ComfyUI-to-Python-Extension
+
+142、ComfyUI-FramePackWrapper
+描述：添加FramePack支持
+链接：https://github.com/kijai/ComfyUI-FramePackWrapper

@@ -173,3 +173,4 @@ __term_sd_task_pre_ext_172 sd-refdrop OFF
 __term_sd_task_pre_ext_173 sd-forge-negpip OFF
 __term_sd_task_pre_ext_174 sd-webui-segment-anything-altoids OFF
 __term_sd_task_pre_ext_175 forgeFlux_dualPrompt OFF
+__term_sd_task_pre_ext_176 sd-webui-framepack OFF

@@ -7,9 +7,9 @@ comfyui_manager() {
 
     cd "${START_PATH}" # 回到最初路径
     exit_venv # 确保进行下一步操作前已退出其他虚拟环境
-    if [[ -d "${COMFYUI_PATH}" ]] && ! term_sd_is_dir_empty "${COMFYUI_PATH}"; then
+    if [[ -d "${COMFYUI_ROOT_PATH}" ]] && ! term_sd_is_dir_empty "${COMFYUI_ROOT_PATH}"; then
         while true; do
-            cd "${COMFYUI_PATH}"
+            cd "${COMFYUI_ROOT_PATH}"
             dialog_arg=$(dialog --erase-on-exit --notags \
                 --title "ComfyUI 管理" \
                 --backtitle "ComfyUI 管理选项" \
@@ -256,7 +256,7 @@ comfyui_manager() {
                                 term_sd_echo "删除 ComfyUI 中"
                                 exit_venv
                                 cd ..
-                                rm -rf "${COMFYUI_PATH}"
+                                rm -rf "${COMFYUI_ROOT_PATH}"
 
                                 dialog --erase-on-exit \
                                     --title "ComfyUI 管理" \

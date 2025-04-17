@@ -248,7 +248,7 @@ term_sd_launch() {
                 term_sd_echo "检测 ${TERM_SD_MANAGE_OBJECT} 运行环境中"
                 case "${TERM_SD_MANAGE_OBJECT}" in
                     stable-diffusion-webui)
-                        validate_requirements "${SD_WEBUI_PATH}/requirements_versions.txt"
+                        validate_requirements "${SD_WEBUI_ROOT_PATH}/requirements_versions.txt"
                         PIP_FIND_LINKS="${PIP_FIND_LINKS} ${TERM_SD_PYPI_MIRROR}" \
                         check_sd_webui_extension_requirement "${launch_sd_config}"
 
@@ -256,18 +256,18 @@ term_sd_launch() {
                         check_sd_webui_built_in_extension_requirement "${launch_sd_config}"
                         ;;
                     ComfyUI)
-                        validate_requirements "${COMFYUI_PATH}/requirements.txt"
+                        validate_requirements "${COMFYUI_ROOT_PATH}/requirements.txt"
                         PIP_FIND_LINKS="${PIP_FIND_LINKS} ${TERM_SD_PYPI_MIRROR}" \
                         check_comfyui_env
                         ;;
                     Fooocus)
-                        validate_requirements "${FOOOCUS_PATH}/requirements_versions.txt"
+                        validate_requirements "${FOOOCUS_ROOT_PATH}/requirements_versions.txt"
                         ;;
                     lora-scripts)
-                        validate_requirements "${LORA_SCRIPTS_PATH}/requirements.txt"
+                        validate_requirements "${LORA_SCRIPTS_ROOT_PATH}/requirements.txt"
                         ;;
                     kohya_ss)
-                        validate_requirements "${KOHYA_SS_PATH}/requirements.txt"
+                        validate_requirements "${KOHYA_SS_ROOT_PATH}/requirements.txt"
                         ;;
                 esac
                 fix_pytorch

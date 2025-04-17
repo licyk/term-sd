@@ -1033,12 +1033,26 @@ main() {
     USER_SHELL=$(basename "${SHELL}") # 读取用户所使用的 Shell
     START_PATH=$(pwd) # 设置启动时脚本路径
     export PYTHONUTF8=1 # 强制 Python 解释器使用 UTF-8 编码来处理字符串, 避免乱码问题
-    export PYTHONIOENCODING=utf8
+    export PYTHONIOENCODING="utf-8"
+    export PYTHONUNBUFFERED=1 # 禁用 Python 标准输出缓存
+    export PYTHONNOUSERSITE=1 # 禁用将用户 site-packages 目录添加到 sys.path
+    export PYTHONFAULTHANDLER=1 # 启用 Python 回溯信息转储
     export PIP_TIMEOUT=30 # 设置 Pip 的超时时间
     export PIP_RETRIES=5 # 设置 Pip 的重试次数
     export PIP_DISABLE_PIP_VERSION_CHECK # Pip 版本版本检查
     export SAFETENSORS_FAST_GPU=1 # 强制所有模型使用 GPU 加载
     export PIP_CONFIG_FILE="nul" # 屏蔽本地的 Pip 配置文件
+    export PIP_PREFER_BINARY=1 # 设置 Pip 优先使用二进制包
+    export PIP_YES=1 # Pip 卸载软件包时始终确认
+    export GRADIO_ANALYTICS_ENABLED="False" # 禁用 Gradio 新版本提醒
+    export HF_HUB_DISABLE_SYMLINKS_WARNING=1 # 关闭 HuggingFace 库的禁用 syslinks 警告
+    export BITSANDBYTES_NOWELCOME=1 # 禁用 bitsandbytes 欢迎信息
+    export ClDeviceGlobalMemSizeAvailablePercent=100 # 设置内存可用率
+    export CUDA_MODULE_LOADING="LAZY" # 启用 CUDA 模块懒加载
+    export TORCH_CUDNN_V8_API_ENABLED=1 # 启用 CUDDN v8 API
+    export USE_LIBUV=0 # 禁用 PyTorch 使用 libuv
+    export SYCL_CACHE_PERSISTENT=1 # 启用持久化缓存
+    export TF_CPP_MIN_LOG_LEVEL=3 # 设置 TensorFlow 日志等级
     TERM_SD_PIP_INDEX_URL="https://mirrors.cloud.tencent.com/pypi/simple" # 保存 PyPI 镜像源地址
     # TERM_SD_PIP_EXTRA_INDEX_URL="https://mirror.baidu.com/pypi/simple"
     TERM_SD_PIP_EXTRA_INDEX_URL="https://mirrors.cernet.edu.cn/pypi/web/simple"
@@ -1166,61 +1180,63 @@ main() {
 
     # 设置 AI 软件路径
     if [[ -f "${START_PATH}/term-sd/config/sd-webui-path.conf" ]]; then
-        SD_WEBUI_PATH=$(cat "${START_PATH}/term-sd/config/sd-webui-path.conf")
-        SD_WEBUI_FOLDER=$(basename "${SD_WEBUI_PATH}")
-        SD_WEBUI_PARENT_PATH=$(dirname "${SD_WEBUI_PATH}")
+        SD_WEBUI_ROOT_PATH=$(cat "${START_PATH}/term-sd/config/sd-webui-path.conf")
+        SD_WEBUI_FOLDER=$(basename "${SD_WEBUI_ROOT_PATH}")
+        SD_WEBUI_PARENT_PATH=$(dirname "${SD_WEBUI_ROOT_PATH}")
     else
-        SD_WEBUI_PATH="${START_PATH}/stable-diffusion-webui"
+        SD_WEBUI_ROOT_PATH="${START_PATH}/stable-diffusion-webui"
         SD_WEBUI_FOLDER="stable-diffusion-webui"
         SD_WEBUI_PARENT_PATH=${START_PATH}
     fi
 
     if [[ -f "${START_PATH}/term-sd/config/comfyui-path.conf" ]]; then
-        COMFYUI_PATH=$(cat "${START_PATH}/term-sd/config/comfyui-path.conf")
-        COMFYUI_FOLDER=$(basename "${COMFYUI_PATH}")
-        COMFYUI_PARENT_PATH=$(dirname "${COMFYUI_PATH}")
+        COMFYUI_ROOT_PATH=$(cat "${START_PATH}/term-sd/config/comfyui-path.conf")
+        COMFYUI_FOLDER=$(basename "${COMFYUI_ROOT_PATH}")
+        COMFYUI_PARENT_PATH=$(dirname "${COMFYUI_ROOT_PATH}")
+        export COMFYUI_PATH=${COMFYUI_ROOT_PATH} # 为 ComfyUI-Manager 设置 ComfyUI 路径
     else
-        COMFYUI_PATH="${START_PATH}/ComfyUI"
+        COMFYUI_ROOT_PATH="${START_PATH}/ComfyUI"
         COMFYUI_FOLDER="ComfyUI"
         COMFYUI_PARENT_PATH=${START_PATH}
+        export COMFYUI_PATH=${COMFYUI_ROOT_PATH} # 为 ComfyUI-Manager 设置 ComfyUI 路径
     fi
 
     if [[ -f "${START_PATH}/term-sd/config/invokeai-path.conf" ]]; then
-        INVOKEAI_PATH=$(cat "${START_PATH}/term-sd/config/invokeai-path.conf")
-        INVOKEAI_FOLDER=$(basename "${INVOKEAI_PATH}")
-        INVOKEAI_PARENT_PATH=$(dirname "${INVOKEAI_PATH}")
+        INVOKEAI_ROOT_PATH=$(cat "${START_PATH}/term-sd/config/invokeai-path.conf")
+        INVOKEAI_FOLDER=$(basename "${INVOKEAI_ROOT_PATH}")
+        INVOKEAI_PARENT_PATH=$(dirname "${INVOKEAI_ROOT_PATH}")
     else
-        INVOKEAI_PATH="${START_PATH}/InvokeAI"
+        INVOKEAI_ROOT_PATH="${START_PATH}/InvokeAI"
         INVOKEAI_FOLDER="InvokeAI"
         INVOKEAI_PARENT_PATH=${START_PATH}
     fi
 
     if [[ -f "${START_PATH}/term-sd/config/fooocus-path.conf" ]]; then
-        FOOOCUS_PATH=$(cat "${START_PATH}/term-sd/config/fooocus-path.conf")
-        FOOOCUS_FOLDER=$(basename "${FOOOCUS_PATH}")
-        FOOOCUS_PARENT_PATH=$(dirname "${FOOOCUS_PATH}")
+        FOOOCUS_ROOT_PATH=$(cat "${START_PATH}/term-sd/config/fooocus-path.conf")
+        FOOOCUS_FOLDER=$(basename "${FOOOCUS_ROOT_PATH}")
+        FOOOCUS_PARENT_PATH=$(dirname "${FOOOCUS_ROOT_PATH}")
     else
-        FOOOCUS_PATH="${START_PATH}/Fooocus"
+        FOOOCUS_ROOT_PATH="${START_PATH}/Fooocus"
         FOOOCUS_FOLDER="Fooocus"
         FOOOCUS_PARENT_PATH=${START_PATH}
     fi
 
     if [[ -f "${START_PATH}/term-sd/config/lora-scripts-path.conf" ]]; then
-        LORA_SCRIPTS_PATH=$(cat "${START_PATH}/term-sd/config/lora-scripts-path.conf")
-        LORA_SCRIPTS_FOLDER=$(basename "${LORA_SCRIPTS_PATH}")
-        LORA_SCRIPTS_PARENT_PATH=$(dirname "${LORA_SCRIPTS_PATH}")
+        LORA_SCRIPTS_ROOT_PATH=$(cat "${START_PATH}/term-sd/config/lora-scripts-path.conf")
+        LORA_SCRIPTS_FOLDER=$(basename "${LORA_SCRIPTS_ROOT_PATH}")
+        LORA_SCRIPTS_PARENT_PATH=$(dirname "${LORA_SCRIPTS_ROOT_PATH}")
     else
-        LORA_SCRIPTS_PATH="${START_PATH}/lora-scripts"
+        LORA_SCRIPTS_ROOT_PATH="${START_PATH}/lora-scripts"
         LORA_SCRIPTS_FOLDER="lora-scripts"
         LORA_SCRIPTS_PARENT_PATH=${START_PATH}
     fi
 
     if [[ -f "${START_PATH}/term-sd/config/kohya_ss-path.conf" ]]; then
-        KOHYA_SS_PATH=$(cat "${START_PATH}/term-sd/config/kohya_ss-path.conf")
-        KOHYA_SS_FOLDER=$(basename "${KOHYA_SS_PATH}")
-        KOHYA_SS_PARENT_PATH=$(dirname "${KOHYA_SS_PATH}")
+        KOHYA_SS_ROOT_PATH=$(cat "${START_PATH}/term-sd/config/kohya_ss-path.conf")
+        KOHYA_SS_FOLDER=$(basename "${KOHYA_SS_ROOT_PATH}")
+        KOHYA_SS_PARENT_PATH=$(dirname "${KOHYA_SS_ROOT_PATH}")
     else
-        KOHYA_SS_PATH="${START_PATH}/kohya_ss"
+        KOHYA_SS_ROOT_PATH="${START_PATH}/kohya_ss"
         KOHYA_SS_FOLDER="kohya_ss"
         KOHYA_SS_PARENT_PATH=${START_PATH}
     fi

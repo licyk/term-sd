@@ -164,22 +164,22 @@ get_model_list_file_path() {
 is_sd_folder_exist() {
     case $@ in
         stable-diffusion-webui)
-            [[ -d "${SD_WEBUI_PATH}" ]] && return 0 || return 1
+            [[ -d "${SD_WEBUI_ROOT_PATH}" ]] && return 0 || return 1
             ;;
         ComfyUI)
-            [[ -d "${COMFYUI_PATH}" ]] && return 0 || return 1
+            [[ -d "${COMFYUI_ROOT_PATH}" ]] && return 0 || return 1
             ;;
         InvokeAI)
-            [[ -d "${INVOKEAI_PATH}" ]] && return 0 || return 1
+            [[ -d "${INVOKEAI_ROOT_PATH}" ]] && return 0 || return 1
             ;;
         Fooocus)
-            [[ -d "${FOOOCUS_PATH}" ]] && return 0 || return 1
+            [[ -d "${FOOOCUS_ROOT_PATH}" ]] && return 0 || return 1
             ;;
         lora-scripts)
-            [[ -d "${LORA_SCRIPTS_PATH}" ]] && return 0 || return 1
+            [[ -d "${LORA_SCRIPTS_ROOT_PATH}" ]] && return 0 || return 1
             ;;
         kohya_ss)
-            [[ -d "${KOHYA_SS_PATH}" ]] && return 0 || return 1
+            [[ -d "${KOHYA_SS_ROOT_PATH}" ]] && return 0 || return 1
             ;;
     esac
 }

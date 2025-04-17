@@ -9,7 +9,7 @@
 . "${START_PATH}"/term-sd/modules/term_sd_try.sh
 
 
-if [[ ! -d "${COMFYUI_PATH}" ]]; then
+if [[ ! -d "${COMFYUI_ROOT_PATH}" ]]; then
     term_sd_echo "未安装 ComfyUI"
 else
     rm -f "${START_PATH}/term-sd/task/comfyui_install_extension.sh"

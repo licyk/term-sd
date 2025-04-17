@@ -5,10 +5,10 @@
 
 term_sd_echo "开始清理缓存中"
 
-if [[ -d "${SD_WEBUI_PATH}" ]]; then
+if [[ -d "${SD_WEBUI_ROOT_PATH}" ]]; then
     term_sd_echo "清理 Stable-Diffusion—WebUI 缓存中"
-    git -C "${SD_WEBUI_PATH}" gc
-    for i in "${SD_WEBUI_PATH}"/repositories/*
+    git -C "${SD_WEBUI_ROOT_PATH}" gc
+    for i in "${SD_WEBUI_ROOT_PATH}"/repositories/*
     do
         if is_git_repo "${i}"; then
             term_sd_echo "清理 $(basename "${i}") 组件缓存中"
@@ -16,7 +16,7 @@ if [[ -d "${SD_WEBUI_PATH}" ]]; then
         fi
     done
     term_sd_echo "清理 Stable-Diffusion—WebUI 插件缓存中"
-    for i in "${SD_WEBUI_PATH}"/extensions/*; do
+    for i in "${SD_WEBUI_ROOT_PATH}"/extensions/*; do
         if is_git_repo "${i}"; then
             term_sd_echo "清理 $(basename "${i}") 插件缓存中"
             git -C "${i}" gc
@@ -25,18 +25,18 @@ if [[ -d "${SD_WEBUI_PATH}" ]]; then
     term_sd_echo "清理 Stable-Diffusion—WebUI 缓存完成"
 fi
 
-if [[ -d "${COMFYUI_PATH}" ]]; then
+if [[ -d "${COMFYUI_ROOT_PATH}" ]]; then
     term_sd_echo "清理 ComfyUI 缓存中"
-    git -C "${COMFYUI_PATH}" gc
+    git -C "${COMFYUI_ROOT_PATH}" gc
     term_sd_echo "清理 ComfyUI 插件缓存中"
-    for i in "${COMFYUI_PATH}"/web/extensions/*; do
+    for i in "${COMFYUI_ROOT_PATH}"/web/extensions/*; do
         if is_git_repo "${i}"; then
             term_sd_echo "清理 $(basename "${i}") 插件缓存中"
             git -C "${i}" gc
         fi
     done
     term_sd_echo "清理 ComfyUI 自定义节点缓存中"
-    for i in "${COMFYUI_PATH}"/custom_nodes/*; do
+    for i in "${COMFYUI_ROOT_PATH}"/custom_nodes/*; do
         if is_git_repo "${i}"; then
             term_sd_echo "清理 $(basename "${i}") 自定义节点缓存中"
             git -C "${i}" gc
@@ -45,21 +45,21 @@ if [[ -d "${COMFYUI_PATH}" ]]; then
     term_sd_echo "清理 ComfyUI 缓存完成"
 fi
 
-if [[ -d "${FOOOCUS_PATH}" ]]; then
+if [[ -d "${FOOOCUS_ROOT_PATH}" ]]; then
     term_sd_echo "清理 Fooocus 缓存中"
-    git -C "${FOOOCUS_PATH}" gc
+    git -C "${FOOOCUS_ROOT_PATH}" gc
     term_sd_echo "清理 Fooocus 缓存完成"
 fi
 
-if [[ -d "${LORA_SCRIPTS_PATH}" ]]; then
+if [[ -d "${LORA_SCRIPTS_ROOT_PATH}" ]]; then
     term_sd_echo "清理 lora-scrips 缓存中"
-    git -C "${LORA_SCRIPTS_PATH}" gc
+    git -C "${LORA_SCRIPTS_ROOT_PATH}" gc
     term_sd_echo "清理 lora-scrips 缓存完成"
 fi
 
-if [[ -d "${KOHYA_SS_PATH}" ]]; then
+if [[ -d "${KOHYA_SS_ROOT_PATH}" ]]; then
     term_sd_echo "清理 kohya_ss 缓存中"
-    git -C "${KOHYA_SS_PATH}" gc
+    git -C "${KOHYA_SS_ROOT_PATH}" gc
     term_sd_echo "清理 kohya_ss 缓存完成"
 fi
 

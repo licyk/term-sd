@@ -4,7 +4,7 @@
 sd_webui_extension_manager() {
     local dialog_arg
 
-    if [[ ! -d "${SD_WEBUI_PATH}"/extensions ]]; then
+    if [[ ! -d "${SD_WEBUI_ROOT_PATH}"/extensions ]]; then
         dialog --erase-on-exit \
             --title "Stable-Diffusion-WebUI 管理" \
             --backtitle "Stable-Diffusion-WebUI 插件管理选项" \
@@ -15,7 +15,7 @@ sd_webui_extension_manager() {
     fi
 
     while true; do
-        cd "${SD_WEBUI_PATH}"/extensions #回到最初路径
+        cd "${SD_WEBUI_ROOT_PATH}"/extensions #回到最初路径
 
         # 功能选择界面
         dialog_arg=$(dialog --erase-on-exit --notags \
@@ -109,7 +109,7 @@ sd_webui_extension_list() {
     local extension_name
 
     while true; do
-        cd "${SD_WEBUI_PATH}"/extensions #回到最初路径
+        cd "${SD_WEBUI_ROOT_PATH}"/extensions #回到最初路径
         get_dir_folder_list # 获取当前目录下的所有文件夹
 
         if term_sd_is_bash_ver_lower; then # Bash 版本低于 4 时使用旧版列表显示方案
@@ -339,7 +339,7 @@ sd_webui_extension_interface() {
                         yes|y|YES|Y)
                             term_sd_echo "删除 ${extension_name} 插件中"
                             cd ..
-                            rm -rf "${SD_WEBUI_PATH}/extensions/${extension_name}"
+                            rm -rf "${SD_WEBUI_ROOT_PATH}/extensions/${extension_name}"
 
                             dialog --erase-on-exit \
                                 --title "Stable-Diffusion-WebUI 管理" \
@@ -398,7 +398,7 @@ is_sd_webui_extension_disabled() {
     local config_path
     local extension_name=$@
 
-    config_path="${SD_WEBUI_PATH}/config.json"
+    config_path="${SD_WEBUI_ROOT_PATH}/config.json"
 
     # 没有配置文件时返回 1 说明插件未被禁用
     if [[ ! -f "${config_path}" ]]; then
@@ -426,7 +426,7 @@ set_sd_webui_extension_status() {
     local config_path
     local result
 
-    config_path="${SD_WEBUI_PATH}/config.json"
+    config_path="${SD_WEBUI_ROOT_PATH}/config.json"
 
     if [[ ! -f "${config_path}" ]]; then
         echo "{}" > "${config_path}"

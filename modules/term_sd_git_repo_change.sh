@@ -202,7 +202,7 @@ sd_webui_remote_revise() {
         ${GIT_REPO_REMOTE_REVISE_CMD}
 
         # 组件部分
-        for i in "${SD_WEBUI_PATH}"/repositories/*; do
+        for i in "${SD_WEBUI_ROOT_PATH}"/repositories/*; do
             if is_git_repo "${i}"; then
                 cd "${i}"
                 ${GIT_REPO_REMOTE_REVISE_CMD}
@@ -211,7 +211,7 @@ sd_webui_remote_revise() {
         done
 
         # 插件部分
-        for i in "${SD_WEBUI_PATH}"/extensions/*; do
+        for i in "${SD_WEBUI_ROOT_PATH}"/extensions/*; do
             if is_git_repo "${i}"; then
                 cd "${i}"
                 ${GIT_REPO_REMOTE_REVISE_CMD}
@@ -245,7 +245,7 @@ comfyui_remote_revise() {
         ${GIT_REPO_REMOTE_REVISE_CMD}
 
         # 插件
-        for i in "$COMFYUI_PATH"/web/extensions/*; do
+        for i in "$COMFYUI_ROOT_PATH"/web/extensions/*; do
             if is_git_repo "${i}"; then
                 cd "${i}"
                 ${GIT_REPO_REMOTE_REVISE_CMD}
@@ -254,7 +254,7 @@ comfyui_remote_revise() {
         done
 
         # 自定义节点
-        for i in "$COMFYUI_PATH"/custom_nodes/*; do
+        for i in "$COMFYUI_ROOT_PATH"/custom_nodes/*; do
             if is_git_repo "${i}"; then
                 cd "${i}"
                 ${GIT_REPO_REMOTE_REVISE_CMD}
@@ -283,9 +283,9 @@ lora_scripts_remote_revise() {
     if git_remote_url_select; then # 选择更新源
         term_sd_echo "开始替换 lora-scripts 更新源"
         ${GIT_REPO_REMOTE_REVISE_CMD}
-        cd "$LORA_SCRIPTS_PATH"/frontend
+        cd "$LORA_SCRIPTS_ROOT_PATH"/frontend
         ${GIT_REPO_REMOTE_REVISE_CMD}
-        cd "$LORA_SCRIPTS_PATH"/mikazuki/dataset-tag-editor
+        cd "$LORA_SCRIPTS_ROOT_PATH"/mikazuki/dataset-tag-editor
         ${GIT_REPO_REMOTE_REVISE_CMD}
         term_sd_echo "lora-scripts 更新源替换结束"
         term_sd_print_line

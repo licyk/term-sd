@@ -5,7 +5,7 @@
 invokeai_custom_node_manager() {
     local dialog_arg
 
-    if [[ ! -d "${INVOKEAI_PATH}"/invokeai/nodes ]]; then
+    if [[ ! -d "${INVOKEAI_ROOT_PATH}"/invokeai/nodes ]]; then
         dialog --erase-on-exit \
             --title "InvokeAI 管理" \
             --backtitle "InvokeAI 自定义节点管理选项" \
@@ -16,7 +16,7 @@ invokeai_custom_node_manager() {
     fi
 
     while true; do
-        cd "${INVOKEAI_PATH}"/invokeai/nodes # 回到最初路径
+        cd "${INVOKEAI_ROOT_PATH}"/invokeai/nodes # 回到最初路径
 
         dialog_arg=$(dialog --erase-on-exit --notags \
             --title "InvokeAI 管理" \
@@ -75,7 +75,7 @@ invokeai_custom_node_install() {
         custom_node_name=$(basename "${repo_url}" | awk -F '.git' '{print $1}')
         term_sd_echo "安装 ${custom_node_name} 自定义节点中"
         if ! term_sd_is_git_repository_exist "${repo_url}"; then # 检查待安装的自定义节点是否存在于自定义节点文件夹中
-            term_sd_try git clone --recurse-submodules "${repo_url}" "${INVOKEAI_PATH}/invokeai/nodes/${custom_node_name}"
+            term_sd_try git clone --recurse-submodules "${repo_url}" "${INVOKEAI_ROOT_PATH}/invokeai/nodes/${custom_node_name}"
             if [[ "$?" == 0 ]]; then
                 dialog --erase-on-exit \
                     --title "InvokeAI 管理" \
@@ -116,7 +116,7 @@ invokeai_custom_node_list() {
     local custom_node_name
 
     while true; do
-        cd "${INVOKEAI_PATH}"/invokeai/nodes # 回到最初路径
+        cd "${INVOKEAI_ROOT_PATH}"/invokeai/nodes # 回到最初路径
         get_dir_folder_list # 获取当前目录下的所有文件夹
 
         if term_sd_is_bash_ver_lower; then # Bash 版本低于 4 时使用旧版列表显示方案

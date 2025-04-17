@@ -229,22 +229,22 @@ EOF
 is_sd_folder_exist() {
     case "$@" in
         stable-diffusion-webui)
-            [ -d "${SD_WEBUI_PATH}" ] && return 0 || return 1
+            [ -d "${SD_WEBUI_ROOT_PATH}" ] && return 0 || return 1
             ;;
         ComfyUI)
-            [ -d "${COMFYUI_PATH}" ] && return 0 || return 1
+            [ -d "${COMFYUI_ROOT_PATH}" ] && return 0 || return 1
             ;;
         InvokeAI)
-            [ -d "${INVOKEAI_PATH}" ] && return 0 || return 1
+            [ -d "${INVOKEAI_ROOT_PATH}" ] && return 0 || return 1
             ;;
         Fooocus)
-            [ -d "${FOOOCUS_PATH}" ] && return 0 || return 1
+            [ -d "${FOOOCUS_ROOT_PATH}" ] && return 0 || return 1
             ;;
         lora-scripts)
-            [ -d "${LORA_SCRIPTS_PATH}" ] && return 0 || return 1
+            [ -d "${LORA_SCRIPTS_ROOT_PATH}" ] && return 0 || return 1
             ;;
         kohya_ss)
-            [ -d "${KOHYA_SS_PATH}" ] && return 0 || return 1
+            [ -d "${KOHYA_SS_ROOT_PATH}" ] && return 0 || return 1
             ;;
     esac
 }
@@ -309,133 +309,133 @@ term_sd_file_operate_time() {
 # SD WebUI
 sd_webui_data_backup() {
     term_sd_mkdir "${START_PATH}"/term-sd/backup/stable-diffusion-webui
-    cp -rf "${SD_WEBUI_PATH}"/embeddings "${START_PATH}"/term-sd/backup/stable-diffusion-webui/
-    cp -rf "${SD_WEBUI_PATH}"/models "${START_PATH}"/term-sd/backup/stable-diffusion-webui/
-    cp -rf "${SD_WEBUI_PATH}"/outputs "${START_PATH}"/term-sd/backup/stable-diffusion-webui/
-    cp -rf "${SD_WEBUI_PATH}"/extensions "${START_PATH}"/term-sd/backup/stable-diffusion-webui/
-    cp -f "${SD_WEBUI_PATH}"/cache.json "${START_PATH}"/term-sd/backup/stable-diffusion-webui/
-    cp -f "${SD_WEBUI_PATH}"/config.json "${START_PATH}"/term-sd/backup/stable-diffusion-webui/
-    cp -f "${SD_WEBUI_PATH}"/ui-config.json "${START_PATH}"/term-sd/backup/stable-diffusion-webui/
-    cp -f "${SD_WEBUI_PATH}"/params.txt "${START_PATH}"/term-sd/backup/stable-diffusion-webui/
-    cp -f "${SD_WEBUI_PATH}"/styles.csv "${START_PATH}"/term-sd/backup/stable-diffusion-webui/
+    cp -rf "${SD_WEBUI_ROOT_PATH}"/embeddings "${START_PATH}"/term-sd/backup/stable-diffusion-webui/
+    cp -rf "${SD_WEBUI_ROOT_PATH}"/models "${START_PATH}"/term-sd/backup/stable-diffusion-webui/
+    cp -rf "${SD_WEBUI_ROOT_PATH}"/outputs "${START_PATH}"/term-sd/backup/stable-diffusion-webui/
+    cp -rf "${SD_WEBUI_ROOT_PATH}"/extensions "${START_PATH}"/term-sd/backup/stable-diffusion-webui/
+    cp -f "${SD_WEBUI_ROOT_PATH}"/cache.json "${START_PATH}"/term-sd/backup/stable-diffusion-webui/
+    cp -f "${SD_WEBUI_ROOT_PATH}"/config.json "${START_PATH}"/term-sd/backup/stable-diffusion-webui/
+    cp -f "${SD_WEBUI_ROOT_PATH}"/ui-config.json "${START_PATH}"/term-sd/backup/stable-diffusion-webui/
+    cp -f "${SD_WEBUI_ROOT_PATH}"/params.txt "${START_PATH}"/term-sd/backup/stable-diffusion-webui/
+    cp -f "${SD_WEBUI_ROOT_PATH}"/styles.csv "${START_PATH}"/term-sd/backup/stable-diffusion-webui/
 }
 
 sd_webui_data_restore() {
-    cp -rf "${START_PATH}"/term-sd/backup/stable-diffusion-webui/embeddings "${SD_WEBUI_PATH}"/
-    cp -rf "${START_PATH}"/term-sd/backup/stable-diffusion-webui/models "${SD_WEBUI_PATH}"/
-    cp -rf "${START_PATH}"/term-sd/backup/stable-diffusion-webui/outputs "${SD_WEBUI_PATH}"/
-    cp -rf "${START_PATH}"/term-sd/backup/stable-diffusion-webui/extensions "${SD_WEBUI_PATH}"/
-    cp -f "${START_PATH}"/term-sd/backup/stable-diffusion-webui/cache.json "${SD_WEBUI_PATH}"/
-    cp -f "${START_PATH}"/term-sd/backup/stable-diffusion-webui/config.json "${SD_WEBUI_PATH}"/
-    cp -f "${START_PATH}"/term-sd/backup/stable-diffusion-webui/ui-config.json "${SD_WEBUI_PATH}"/
-    cp -f "${START_PATH}"/term-sd/backup/stable-diffusion-webui/params.txt "${SD_WEBUI_PATH}"/
-    cp -f "${START_PATH}"/term-sd/backup/stable-diffusion-webui/styles.csv "${SD_WEBUI_PATH}"/
+    cp -rf "${START_PATH}"/term-sd/backup/stable-diffusion-webui/embeddings "${SD_WEBUI_ROOT_PATH}"/
+    cp -rf "${START_PATH}"/term-sd/backup/stable-diffusion-webui/models "${SD_WEBUI_ROOT_PATH}"/
+    cp -rf "${START_PATH}"/term-sd/backup/stable-diffusion-webui/outputs "${SD_WEBUI_ROOT_PATH}"/
+    cp -rf "${START_PATH}"/term-sd/backup/stable-diffusion-webui/extensions "${SD_WEBUI_ROOT_PATH}"/
+    cp -f "${START_PATH}"/term-sd/backup/stable-diffusion-webui/cache.json "${SD_WEBUI_ROOT_PATH}"/
+    cp -f "${START_PATH}"/term-sd/backup/stable-diffusion-webui/config.json "${SD_WEBUI_ROOT_PATH}"/
+    cp -f "${START_PATH}"/term-sd/backup/stable-diffusion-webui/ui-config.json "${SD_WEBUI_ROOT_PATH}"/
+    cp -f "${START_PATH}"/term-sd/backup/stable-diffusion-webui/params.txt "${SD_WEBUI_ROOT_PATH}"/
+    cp -f "${START_PATH}"/term-sd/backup/stable-diffusion-webui/styles.csv "${SD_WEBUI_ROOT_PATH}"/
 }
 
 # ComfyUI
 comfyui_data_backup() {
     term_sd_mkdir "${START_PATH}"/term-sd/backup/ComfyUI
-    cp -rf "${COMFYUI_PATH}"/custom_nodes "${START_PATH}"/term-sd/backup/ComfyUI/
-    cp -rf "${COMFYUI_PATH}"/models "${START_PATH}"/term-sd/backup/ComfyUI/
-    cp -rf "${COMFYUI_PATH}"/output "${START_PATH}"/term-sd/backup/ComfyUI/
-    cp -rf "${COMFYUI_PATH}"/web/extensions "${START_PATH}"/term-sd/backup/ComfyUI/
-    cp -rf "${COMFYUI_PATH}"/user/default/workflows "${START_PATH}"/term-sd/backup/ComfyUI/
-    [[ -f "${COMFYUI_PATH}/extra_model_paths.yaml" ]] && cp -f "${COMFYUI_PATH}"/extra_model_paths.yaml "${START_PATH}"/term-sd/backup/ComfyUI/
+    cp -rf "${COMFYUI_ROOT_PATH}"/custom_nodes "${START_PATH}"/term-sd/backup/ComfyUI/
+    cp -rf "${COMFYUI_ROOT_PATH}"/models "${START_PATH}"/term-sd/backup/ComfyUI/
+    cp -rf "${COMFYUI_ROOT_PATH}"/output "${START_PATH}"/term-sd/backup/ComfyUI/
+    cp -rf "${COMFYUI_ROOT_PATH}"/web/extensions "${START_PATH}"/term-sd/backup/ComfyUI/
+    cp -rf "${COMFYUI_ROOT_PATH}"/user/default/workflows "${START_PATH}"/term-sd/backup/ComfyUI/
+    [[ -f "${COMFYUI_ROOT_PATH}/extra_model_paths.yaml" ]] && cp -f "${COMFYUI_ROOT_PATH}"/extra_model_paths.yaml "${START_PATH}"/term-sd/backup/ComfyUI/
     rm -rf "${START_PATH}"/term-sd/backup/ComfyUI/web/extensions/core
     rm -f "${START_PATH}"/term-sd/backup/ComfyUI/web/extensions/logging.js.example
 }
 
 comfyui_data_restore() {
-    cp -rf "${START_PATH}"/term-sd/backup/ComfyUI/custom_nodes "${COMFYUI_PATH}"/
-    cp -rf "${START_PATH}"/term-sd/backup/ComfyUI/models "${COMFYUI_PATH}"/
-    cp -rf "${START_PATH}"/term-sd/backup/ComfyUI/output "${COMFYUI_PATH}"/
-    cp -rf "${START_PATH}"/term-sd/backup/ComfyUI/web/extensions "${COMFYUI_PATH}"/
-    cp -rf "${START_PATH}"/term-sd/backup/ComfyUI/user/default/workflows "${COMFYUI_PATH}"
-    [ -f "${START_PATH}/term-sd/backup/ComfyUI/extra_model_paths.yaml" ] && cp -f "${START_PATH}"/term-sd/backup/ComfyUI/extra_model_paths.yaml "${COMFYUI_PATH}"/
+    cp -rf "${START_PATH}"/term-sd/backup/ComfyUI/custom_nodes "${COMFYUI_ROOT_PATH}"/
+    cp -rf "${START_PATH}"/term-sd/backup/ComfyUI/models "${COMFYUI_ROOT_PATH}"/
+    cp -rf "${START_PATH}"/term-sd/backup/ComfyUI/output "${COMFYUI_ROOT_PATH}"/
+    cp -rf "${START_PATH}"/term-sd/backup/ComfyUI/web/extensions "${COMFYUI_ROOT_PATH}"/
+    cp -rf "${START_PATH}"/term-sd/backup/ComfyUI/user/default/workflows "${COMFYUI_ROOT_PATH}"
+    [ -f "${START_PATH}/term-sd/backup/ComfyUI/extra_model_paths.yaml" ] && cp -f "${START_PATH}"/term-sd/backup/ComfyUI/extra_model_paths.yaml "${COMFYUI_ROOT_PATH}"/
 }
 
 # InvokeAI
 invokeai_data_backup() {
     term_sd_mkdir "${START_PATH}"term-sd/backup/InvokeAI
-    cp -rf "${INVOKEAI_PATH}"/invokeai/autoimport "${START_PATH}"/term-sd/backup/InvokeAI/
-    cp -rf "${INVOKEAI_PATH}"/invokeai/configs "${START_PATH}"/term-sd/backup/InvokeAI/
-    cp -rf "${INVOKEAI_PATH}"/invokeai/databases "${START_PATH}"/term-sd/backup/InvokeAI/
-    cp -rf "${INVOKEAI_PATH}"/invokeai/nodes "${START_PATH}"/term-sd/backup/InvokeAI/
-    cp -rf "${INVOKEAI_PATH}"/invokeai/outputs "${START_PATH}"/term-sd/backup/InvokeAI/
-    cp -rf "${INVOKEAI_PATH}"/invokeai/text-inversion-output "${START_PATH}"/term-sd/backup/InvokeAI/
-    cp -rf "${INVOKEAI_PATH}"/invokeai/text-inversion-training-data "${START_PATH}"/term-sd/backup/InvokeAI/
-    cp -f "${INVOKEAI_PATH}"/invokeai/invokeai.yaml "${START_PATH}"/term-sd/backup/InvokeAI/
+    cp -rf "${INVOKEAI_ROOT_PATH}"/invokeai/autoimport "${START_PATH}"/term-sd/backup/InvokeAI/
+    cp -rf "${INVOKEAI_ROOT_PATH}"/invokeai/configs "${START_PATH}"/term-sd/backup/InvokeAI/
+    cp -rf "${INVOKEAI_ROOT_PATH}"/invokeai/databases "${START_PATH}"/term-sd/backup/InvokeAI/
+    cp -rf "${INVOKEAI_ROOT_PATH}"/invokeai/nodes "${START_PATH}"/term-sd/backup/InvokeAI/
+    cp -rf "${INVOKEAI_ROOT_PATH}"/invokeai/outputs "${START_PATH}"/term-sd/backup/InvokeAI/
+    cp -rf "${INVOKEAI_ROOT_PATH}"/invokeai/text-inversion-output "${START_PATH}"/term-sd/backup/InvokeAI/
+    cp -rf "${INVOKEAI_ROOT_PATH}"/invokeai/text-inversion-training-data "${START_PATH}"/term-sd/backup/InvokeAI/
+    cp -f "${INVOKEAI_ROOT_PATH}"/invokeai/invokeai.yaml "${START_PATH}"/term-sd/backup/InvokeAI/
     term_sd_mkdir "${START_PATH}"/term-sd/backup/InvokeAI/models
-    cp -rf "${INVOKEAI_PATH}"/invokeai/models/any "${START_PATH}"/term-sd/backup/InvokeAI/models/
-    cp -rf "${INVOKEAI_PATH}"/invokeai/models/core "${START_PATH}"/term-sd/backup/InvokeAI/models/
-    cp -rf "${INVOKEAI_PATH}"/invokeai/models/sd-1 "${START_PATH}"/term-sd/backup/InvokeAI/models/
-    cp -rf "${INVOKEAI_PATH}"/invokeai/models/sd-2 "${START_PATH}"/term-sd/backup/InvokeAI/models/
-    cp -rf "${INVOKEAI_PATH}"/invokeai/models/sdxl "${START_PATH}"/term-sd/backup/InvokeAI/models/
-    cp -rf "${INVOKEAI_PATH}"/invokeai/models/sdxl-refiner "${START_PATH}"/term-sd/backup/InvokeAI/models/
+    cp -rf "${INVOKEAI_ROOT_PATH}"/invokeai/models/any "${START_PATH}"/term-sd/backup/InvokeAI/models/
+    cp -rf "${INVOKEAI_ROOT_PATH}"/invokeai/models/core "${START_PATH}"/term-sd/backup/InvokeAI/models/
+    cp -rf "${INVOKEAI_ROOT_PATH}"/invokeai/models/sd-1 "${START_PATH}"/term-sd/backup/InvokeAI/models/
+    cp -rf "${INVOKEAI_ROOT_PATH}"/invokeai/models/sd-2 "${START_PATH}"/term-sd/backup/InvokeAI/models/
+    cp -rf "${INVOKEAI_ROOT_PATH}"/invokeai/models/sdxl "${START_PATH}"/term-sd/backup/InvokeAI/models/
+    cp -rf "${INVOKEAI_ROOT_PATH}"/invokeai/models/sdxl-refiner "${START_PATH}"/term-sd/backup/InvokeAI/models/
 }
 
 invokeai_data_restore() {
-    cp -rf "${START_PATH}"/term-sd/backup/InvokeAI/autoimport "${INVOKEAI_PATH}"/invokeai/
-    cp -rf "${START_PATH}"/term-sd/backup/InvokeAI/configs "${INVOKEAI_PATH}"/invokeai/
-    cp -rf "${START_PATH}"/term-sd/backup/InvokeAI/databases "${INVOKEAI_PATH}"/invokeai/
-    cp -rf "${START_PATH}"/term-sd/backup/InvokeAI/nodes "${INVOKEAI_PATH}"/invokeai
-    cp -rf "${START_PATH}"/term-sd/backup/InvokeAI/outputs "${INVOKEAI_PATH}"/invokeai/
-    cp -rf "${START_PATH}"/term-sd/backup/InvokeAI/text-inversion-output "${INVOKEAI_PATH}"/invokeai/
-    cp -rf "${START_PATH}"/term-sd/backup/InvokeAI/text-inversion-training-data "${INVOKEAI_PATH}"/invokeai/
-    cp -f "${START_PATH}"/term-sd/backup/InvokeAI/invokeai.yaml "${INVOKEAI_PATH}"/invokeai/
-    term_sd_mkdir "${INVOKEAI_PATH}"/invokeai/models
-    cp -rf "${START_PATH}"/term-sd/backup/InvokeAI/models/any "${INVOKEAI_PATH}"/invokeai/models/
-    cp -rf "${START_PATH}"/term-sd/backup/InvokeAI/models/core "${INVOKEAI_PATH}"/invokeai/models/
-    cp -rf "${START_PATH}"/term-sd/backup/InvokeAI/models/sd-1 "${INVOKEAI_PATH}"/invokeai/models/
-    cp -rf "${START_PATH}"/term-sd/backup/InvokeAI/models/sd-2 "${INVOKEAI_PATH}"/invokeai/models/
-    cp -rf "${START_PATH}"/term-sd/backup/InvokeAI/models/sdxl "${INVOKEAI_PATH}"/invokeai/models/
-    cp -rf "${START_PATH}"/term-sd/backup/InvokeAI/models/sdxl-refiner "${INVOKEAI_PATH}"/invokeai/models/
+    cp -rf "${START_PATH}"/term-sd/backup/InvokeAI/autoimport "${INVOKEAI_ROOT_PATH}"/invokeai/
+    cp -rf "${START_PATH}"/term-sd/backup/InvokeAI/configs "${INVOKEAI_ROOT_PATH}"/invokeai/
+    cp -rf "${START_PATH}"/term-sd/backup/InvokeAI/databases "${INVOKEAI_ROOT_PATH}"/invokeai/
+    cp -rf "${START_PATH}"/term-sd/backup/InvokeAI/nodes "${INVOKEAI_ROOT_PATH}"/invokeai
+    cp -rf "${START_PATH}"/term-sd/backup/InvokeAI/outputs "${INVOKEAI_ROOT_PATH}"/invokeai/
+    cp -rf "${START_PATH}"/term-sd/backup/InvokeAI/text-inversion-output "${INVOKEAI_ROOT_PATH}"/invokeai/
+    cp -rf "${START_PATH}"/term-sd/backup/InvokeAI/text-inversion-training-data "${INVOKEAI_ROOT_PATH}"/invokeai/
+    cp -f "${START_PATH}"/term-sd/backup/InvokeAI/invokeai.yaml "${INVOKEAI_ROOT_PATH}"/invokeai/
+    term_sd_mkdir "${INVOKEAI_ROOT_PATH}"/invokeai/models
+    cp -rf "${START_PATH}"/term-sd/backup/InvokeAI/models/any "${INVOKEAI_ROOT_PATH}"/invokeai/models/
+    cp -rf "${START_PATH}"/term-sd/backup/InvokeAI/models/core "${INVOKEAI_ROOT_PATH}"/invokeai/models/
+    cp -rf "${START_PATH}"/term-sd/backup/InvokeAI/models/sd-1 "${INVOKEAI_ROOT_PATH}"/invokeai/models/
+    cp -rf "${START_PATH}"/term-sd/backup/InvokeAI/models/sd-2 "${INVOKEAI_ROOT_PATH}"/invokeai/models/
+    cp -rf "${START_PATH}"/term-sd/backup/InvokeAI/models/sdxl "${INVOKEAI_ROOT_PATH}"/invokeai/models/
+    cp -rf "${START_PATH}"/term-sd/backup/InvokeAI/models/sdxl-refiner "${INVOKEAI_ROOT_PATH}"/invokeai/models/
 }
 
 # Fooocus
 fooocus_data_backup() {
     term_sd_mkdir "${START_PATH}"term-sd/backup/Fooocus
-    cp -rf "${FOOOCUS_PATH}"/models "${START_PATH}"term-sd/backup/Fooocus/
-    cp -rf "${FOOOCUS_PATH}"/outputs "${START_PATH}"term-sd/backup/Fooocus/
-    cp -f "${FOOOCUS_PATH}"/config.txt "${START_PATH}"term-sd/backup/Fooocus/
+    cp -rf "${FOOOCUS_ROOT_PATH}"/models "${START_PATH}"term-sd/backup/Fooocus/
+    cp -rf "${FOOOCUS_ROOT_PATH}"/outputs "${START_PATH}"term-sd/backup/Fooocus/
+    cp -f "${FOOOCUS_ROOT_PATH}"/config.txt "${START_PATH}"term-sd/backup/Fooocus/
 }
 
 fooocus_data_restore() {
-    cp -rf "${START_PATH}"/term-sd/backup/Fooocus/models "${FOOOCUS_PATH}"/
-    cp -rf "${START_PATH}"/term-sd/backup/Fooocus/outputs "${FOOOCUS_PATH}"/
-    cp -f "${START_PATH}"/term-sd/backup/Fooocus/config.txt "${FOOOCUS_PATH}"/
+    cp -rf "${START_PATH}"/term-sd/backup/Fooocus/models "${FOOOCUS_ROOT_PATH}"/
+    cp -rf "${START_PATH}"/term-sd/backup/Fooocus/outputs "${FOOOCUS_ROOT_PATH}"/
+    cp -f "${START_PATH}"/term-sd/backup/Fooocus/config.txt "${FOOOCUS_ROOT_PATH}"/
 }
 
 # lora-scripts
 lora_scripts_data_backup() {
     term_sd_mkdir "${START_PATH}"term-sd/backup/lora-scripts
-    cp -rf "${LORA_SCRIPTS_PATH}"/config/autosave "${START_PATH}"term-sd/backup/lora-scripts/
-    cp -rf "${LORA_SCRIPTS_PATH}"/logs "${START_PATH}"term-sd/backup/lora-scripts/
-    cp -rf "${LORA_SCRIPTS_PATH}"/output "${START_PATH}"term-sd/backup/lora-scripts/
-    cp -rf "${LORA_SCRIPTS_PATH}"/sd-models "${START_PATH}"term-sd/backup/lora-scripts/
-    cp -rf "${LORA_SCRIPTS_PATH}"/train "${START_PATH}"term-sd/backup/lora-scripts/
+    cp -rf "${LORA_SCRIPTS_ROOT_PATH}"/config/autosave "${START_PATH}"term-sd/backup/lora-scripts/
+    cp -rf "${LORA_SCRIPTS_ROOT_PATH}"/logs "${START_PATH}"term-sd/backup/lora-scripts/
+    cp -rf "${LORA_SCRIPTS_ROOT_PATH}"/output "${START_PATH}"term-sd/backup/lora-scripts/
+    cp -rf "${LORA_SCRIPTS_ROOT_PATH}"/sd-models "${START_PATH}"term-sd/backup/lora-scripts/
+    cp -rf "${LORA_SCRIPTS_ROOT_PATH}"/train "${START_PATH}"term-sd/backup/lora-scripts/
 }
 
 lora_scripts_data_restore() {
-    cp -rf "${START_PATH}"/term-sd/backup/lora-scripts/config/autosave "${LORA_SCRIPTS_PATH}"/
-    cp -rf "${START_PATH}"/term-sd/backup/lora-scripts/logs "${LORA_SCRIPTS_PATH}"/
-    cp -rf "${START_PATH}"/term-sd/backup/lora-scripts/output "${LORA_SCRIPTS_PATH}"/
-    cp -rf "${START_PATH}"/term-sd/backup/lora-scripts/sd-models "${LORA_SCRIPTS_PATH}"/
-    cp -rf "${START_PATH}"/term-sd/backup/lora-scripts/train "${LORA_SCRIPTS_PATH}"/
+    cp -rf "${START_PATH}"/term-sd/backup/lora-scripts/config/autosave "${LORA_SCRIPTS_ROOT_PATH}"/
+    cp -rf "${START_PATH}"/term-sd/backup/lora-scripts/logs "${LORA_SCRIPTS_ROOT_PATH}"/
+    cp -rf "${START_PATH}"/term-sd/backup/lora-scripts/output "${LORA_SCRIPTS_ROOT_PATH}"/
+    cp -rf "${START_PATH}"/term-sd/backup/lora-scripts/sd-models "${LORA_SCRIPTS_ROOT_PATH}"/
+    cp -rf "${START_PATH}"/term-sd/backup/lora-scripts/train "${LORA_SCRIPTS_ROOT_PATH}"/
 }
 
 # kohya_ss
 kohya_ss_data_backup() {
     term_sd_mkdir "${START_PATH}"term-sd/backup/kohya_ss
-    cp -rf "${KOHYA_SS_PATH}"/output "${START_PATH}"/term-sd/backup/kohya_ss/
-    cp -rf "${KOHYA_SS_PATH}"/train "${START_PATH}"/term-sd/backup/kohya_ss/
-    cp -rf "${KOHYA_SS_PATH}"/models "${START_PATH}"/term-sd/backup/kohya_ss/
+    cp -rf "${KOHYA_SS_ROOT_PATH}"/output "${START_PATH}"/term-sd/backup/kohya_ss/
+    cp -rf "${KOHYA_SS_ROOT_PATH}"/train "${START_PATH}"/term-sd/backup/kohya_ss/
+    cp -rf "${KOHYA_SS_ROOT_PATH}"/models "${START_PATH}"/term-sd/backup/kohya_ss/
 }
 
 kohya_ss_data_restore() {
-    cp -rf "${START_PATH}"/term-sd/backup/kohya_ss/output "${KOHYA_SS_PATH}"/
-    cp -rf "${START_PATH}"/term-sd/backup/kohya_ss/train "${KOHYA_SS_PATH}"/
-    cp -rf "${START_PATH}"/term-sd/backup/kohya_ss/models "${KOHYA_SS_PATH}"/
+    cp -rf "${START_PATH}"/term-sd/backup/kohya_ss/output "${KOHYA_SS_ROOT_PATH}"/
+    cp -rf "${START_PATH}"/term-sd/backup/kohya_ss/train "${KOHYA_SS_ROOT_PATH}"/
+    cp -rf "${START_PATH}"/term-sd/backup/kohya_ss/models "${KOHYA_SS_ROOT_PATH}"/
 }
 
 #################################################

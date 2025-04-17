@@ -142,11 +142,11 @@ sd_webui_custom_install_path_setting() {
                             --msgbox "禁止将根目录设置为安装路径" \
                             $(get_dialog_size)
 
-                    elif [[ "${custom_install_path}" == "${COMFYUI_PATH}" ]] \
-                        || [[ "${custom_install_path}" == "${INVOKEAI_PATH}" ]] \
-                        || [[ "${custom_install_path}" == "${FOOOCUS_PATH}" ]] \
-                        || [[ "${custom_install_path}" == "${LORA_SCRIPTS_PATH}" ]] \
-                        || [[ "${custom_install_path}" == "${KOHYA_SS_PATH}" ]]; then
+                    elif [[ "${custom_install_path}" == "${COMFYUI_ROOT_PATH}" ]] \
+                        || [[ "${custom_install_path}" == "${INVOKEAI_ROOT_PATH}" ]] \
+                        || [[ "${custom_install_path}" == "${FOOOCUS_ROOT_PATH}" ]] \
+                        || [[ "${custom_install_path}" == "${LORA_SCRIPTS_ROOT_PATH}" ]] \
+                        || [[ "${custom_install_path}" == "${KOHYA_SS_ROOT_PATH}" ]]; then
 
                         dialog --erase-on-exit \
                             --title "Term-SD" \
@@ -156,9 +156,9 @@ sd_webui_custom_install_path_setting() {
                             $(get_dialog_size)
 
                     else
-                        SD_WEBUI_PATH=$custom_install_path
-                        SD_WEBUI_FOLDER=$(basename "${SD_WEBUI_PATH}")
-                        SD_WEBUI_PARENT_PATH=$(dirname "${SD_WEBUI_PATH}")
+                        SD_WEBUI_ROOT_PATH=$custom_install_path
+                        SD_WEBUI_FOLDER=$(basename "${SD_WEBUI_ROOT_PATH}")
+                        SD_WEBUI_PARENT_PATH=$(dirname "${SD_WEBUI_ROOT_PATH}")
                         echo "${custom_install_path}" > "${START_PATH}/term-sd/config/sd-webui-path.conf"
 
                         dialog --erase-on-exit \
@@ -179,7 +179,7 @@ sd_webui_custom_install_path_setting() {
                     $(get_dialog_size)); then
 
                     rm -f "${START_PATH}/term-sd/config/sd-webui-path.conf"
-                    SD_WEBUI_PATH="${START_PATH}/stable-diffusion-webui"
+                    SD_WEBUI_ROOT_PATH="${START_PATH}/stable-diffusion-webui"
                     SD_WEBUI_FOLDER="stable-diffusion-webui"
                     SD_WEBUI_PARENT_PATH=$START_PATH
 
@@ -247,11 +247,11 @@ comfyui_custom_install_path_setting() {
                             --msgbox "禁止将根目录设置为安装路径" \
                             $(get_dialog_size)
 
-                    elif [[ "${custom_install_path}" == "${SD_WEBUI_PATH}" ]] \
-                        || [[ "${custom_install_path}" == "${INVOKEAI_PATH}" ]] \
-                        || [[ "${custom_install_path}" == "${FOOOCUS_PATH}" ]] \
-                        || [[ "${custom_install_path}" == "${LORA_SCRIPTS_PATH}" ]] \
-                        || [[ "${custom_install_path}" == "${KOHYA_SS_PATH}" ]]; then
+                    elif [[ "${custom_install_path}" == "${SD_WEBUI_ROOT_PATH}" ]] \
+                        || [[ "${custom_install_path}" == "${INVOKEAI_ROOT_PATH}" ]] \
+                        || [[ "${custom_install_path}" == "${FOOOCUS_ROOT_PATH}" ]] \
+                        || [[ "${custom_install_path}" == "${LORA_SCRIPTS_ROOT_PATH}" ]] \
+                        || [[ "${custom_install_path}" == "${KOHYA_SS_ROOT_PATH}" ]]; then
 
                         dialog --erase-on-exit \
                             --title "Term-SD" \
@@ -261,9 +261,9 @@ comfyui_custom_install_path_setting() {
                             $(get_dialog_size)
 
                     else
-                        COMFYUI_PATH=$custom_install_path
-                        COMFYUI_FOLDER=$(basename "${COMFYUI_PATH}")
-                        COMFYUI_PARENT_PATH=$(dirname "${COMFYUI_PATH}")
+                        COMFYUI_ROOT_PATH=$custom_install_path
+                        COMFYUI_FOLDER=$(basename "${COMFYUI_ROOT_PATH}")
+                        COMFYUI_PARENT_PATH=$(dirname "${COMFYUI_ROOT_PATH}")
                         echo "${custom_install_path}" > "${START_PATH}/term-sd/config/comfyui-path.conf"
 
                         dialog --erase-on-exit \
@@ -284,7 +284,7 @@ comfyui_custom_install_path_setting() {
                     $(get_dialog_size)); then
 
                     rm -f "${START_PATH}/term-sd/config/comfyui-path.conf"
-                    COMFYUI_PATH="${START_PATH}/ComfyUI"
+                    COMFYUI_ROOT_PATH="${START_PATH}/ComfyUI"
                     COMFYUI_FOLDER="ComfyUI"
                     COMFYUI_PARENT_PATH=$START_PATH
 
@@ -350,11 +350,11 @@ invokeai_custom_install_path_setting() {
                             --msgbox "禁止将根目录设置为安装路径" \
                             $(get_dialog_size)
 
-                    elif [[ "${custom_install_path}" == "${SD_WEBUI_PATH}" ]] \
-                        || [[ "${custom_install_path}" == "${COMFYUI_PATH}" ]] \
-                        || [[ "${custom_install_path}" == "${FOOOCUS_PATH}" ]] \
-                        || [[ "${custom_install_path}" == "${LORA_SCRIPTS_PATH}" ]] \
-                        || [[ "${custom_install_path}" == "${KOHYA_SS_PATH}" ]]; then
+                    elif [[ "${custom_install_path}" == "${SD_WEBUI_ROOT_PATH}" ]] \
+                        || [[ "${custom_install_path}" == "${COMFYUI_ROOT_PATH}" ]] \
+                        || [[ "${custom_install_path}" == "${FOOOCUS_ROOT_PATH}" ]] \
+                        || [[ "${custom_install_path}" == "${LORA_SCRIPTS_ROOT_PATH}" ]] \
+                        || [[ "${custom_install_path}" == "${KOHYA_SS_ROOT_PATH}" ]]; then
 
                         dialog --erase-on-exit \
                             --title "Term-SD" \
@@ -364,9 +364,9 @@ invokeai_custom_install_path_setting() {
                             $(get_dialog_size)
 
                     else
-                        INVOKEAI_PATH=$custom_install_path
-                        INVOKEAI_FOLDER=$(basename "${INVOKEAI_PATH}")
-                        INVOKEAI_PARENT_PATH=$(dirname "${INVOKEAI_PATH}")
+                        INVOKEAI_ROOT_PATH=$custom_install_path
+                        INVOKEAI_FOLDER=$(basename "${INVOKEAI_ROOT_PATH}")
+                        INVOKEAI_PARENT_PATH=$(dirname "${INVOKEAI_ROOT_PATH}")
                         echo "${custom_install_path}" > "${START_PATH}/term-sd/config/invokeai-path.conf"
 
                         dialog --erase-on-exit \
@@ -387,7 +387,7 @@ invokeai_custom_install_path_setting() {
                     $(get_dialog_size)); then
 
                     rm -f "${START_PATH}/term-sd/config/invokeai-path.conf"
-                    INVOKEAI_PATH="${START_PATH}/InvokeAI"
+                    INVOKEAI_ROOT_PATH="${START_PATH}/InvokeAI"
                     INVOKEAI_FOLDER="InvokeAI"
                     INVOKEAI_PARENT_PATH=$START_PATH
 
@@ -453,11 +453,11 @@ fooocus_custom_install_path_setting() {
                             --msgbox "禁止将根目录设置为安装路径" \
                             $(get_dialog_size)
 
-                    elif [[ "${custom_install_path}" == "${SD_WEBUI_PATH}" ]] \
-                        || [[ "${custom_install_path}" == "${COMFYUI_PATH}" ]] \
-                        || [[ "${custom_install_path}" == "${INVOKEAI_PATH}" ]] \
-                        || [[ "${custom_install_path}" == "${LORA_SCRIPTS_PATH}" ]] \
-                        || [[ "${custom_install_path}" == "${KOHYA_SS_PATH}" ]]; then
+                    elif [[ "${custom_install_path}" == "${SD_WEBUI_ROOT_PATH}" ]] \
+                        || [[ "${custom_install_path}" == "${COMFYUI_ROOT_PATH}" ]] \
+                        || [[ "${custom_install_path}" == "${INVOKEAI_ROOT_PATH}" ]] \
+                        || [[ "${custom_install_path}" == "${LORA_SCRIPTS_ROOT_PATH}" ]] \
+                        || [[ "${custom_install_path}" == "${KOHYA_SS_ROOT_PATH}" ]]; then
 
                         dialog --erase-on-exit \
                             --title "Term-SD" \
@@ -467,9 +467,9 @@ fooocus_custom_install_path_setting() {
                             $(get_dialog_size)
 
                     else
-                        FOOOCUS_PATH=$custom_install_path
-                        FOOOCUS_FOLDER=$(basename "${FOOOCUS_PATH}")
-                        FOOOCUS_PARENT_PATH=$(dirname "${FOOOCUS_PATH}")
+                        FOOOCUS_ROOT_PATH=$custom_install_path
+                        FOOOCUS_FOLDER=$(basename "${FOOOCUS_ROOT_PATH}")
+                        FOOOCUS_PARENT_PATH=$(dirname "${FOOOCUS_ROOT_PATH}")
                         echo "${custom_install_path}" > "${START_PATH}/term-sd/config/fooocus-path.conf"
 
                         dialog --erase-on-exit \
@@ -490,7 +490,7 @@ fooocus_custom_install_path_setting() {
                 $(get_dialog_size)); then
 
                     rm -f "${START_PATH}/term-sd/config/fooocus-path.conf"
-                    FOOOCUS_PATH="${START_PATH}/Fooocus"
+                    FOOOCUS_ROOT_PATH="${START_PATH}/Fooocus"
                     FOOOCUS_FOLDER="Fooocus"
                     FOOOCUS_PARENT_PATH=$START_PATH
 
@@ -556,11 +556,11 @@ lora_scripts_custom_install_path_setting() {
                             --msgbox "禁止将根目录设置为安装路径" \
                             $(get_dialog_size)
 
-                    elif [[ "${custom_install_path}" == "${SD_WEBUI_PATH}" ]] \
-                        || [[ "${custom_install_path}" == "${COMFYUI_PATH}" ]] \
-                        || [[ "${custom_install_path}" == "${INVOKEAI_PATH}" ]] \
-                        || [[ "${custom_install_path}" == "${FOOOCUS_PATH}" ]] \
-                        || [[ "${custom_install_path}" == "${KOHYA_SS_PATH}" ]]; then
+                    elif [[ "${custom_install_path}" == "${SD_WEBUI_ROOT_PATH}" ]] \
+                        || [[ "${custom_install_path}" == "${COMFYUI_ROOT_PATH}" ]] \
+                        || [[ "${custom_install_path}" == "${INVOKEAI_ROOT_PATH}" ]] \
+                        || [[ "${custom_install_path}" == "${FOOOCUS_ROOT_PATH}" ]] \
+                        || [[ "${custom_install_path}" == "${KOHYA_SS_ROOT_PATH}" ]]; then
 
                         dialog --erase-on-exit \
                             --title "Term-SD" \
@@ -570,9 +570,9 @@ lora_scripts_custom_install_path_setting() {
                             $(get_dialog_size)
 
                     else
-                        LORA_SCRIPTS_PATH=$custom_install_path
-                        LORA_SCRIPTS_FOLDER=$(basename "${LORA_SCRIPTS_PATH}")
-                        LORA_SCRIPTS_PARENT_PATH=$(dirname "${LORA_SCRIPTS_PATH}")
+                        LORA_SCRIPTS_ROOT_PATH=$custom_install_path
+                        LORA_SCRIPTS_FOLDER=$(basename "${LORA_SCRIPTS_ROOT_PATH}")
+                        LORA_SCRIPTS_PARENT_PATH=$(dirname "${LORA_SCRIPTS_ROOT_PATH}")
                         echo "${custom_install_path}" > "${START_PATH}/term-sd/config/lora-scripts-path.conf"
 
                         dialog --erase-on-exit \
@@ -593,7 +593,7 @@ lora_scripts_custom_install_path_setting() {
                     $(get_dialog_size)); then
 
                     rm -f "${START_PATH}/term-sd/config/lora-scripts-path.conf"
-                    LORA_SCRIPTS_PATH="${START_PATH}/lora-scripts"
+                    LORA_SCRIPTS_ROOT_PATH="${START_PATH}/lora-scripts"
                     LORA_SCRIPTS_FOLDER="lora-scripts"
                     LORA_SCRIPTS_PARENT_PATH=$START_PATH
 
@@ -659,11 +659,11 @@ kohya_ss_custom_install_path_setting() {
                             --msgbox "禁止将根目录设置为安装路径" \
                             $(get_dialog_size)
 
-                    elif [[ "${custom_install_path}" == "${SD_WEBUI_PATH}" ]] \
-                        || [[ "${custom_install_path}" == "${COMFYUI_PATH}" ]] \
-                        || [[ "${custom_install_path}" == "${INVOKEAI_PATH}" ]] \
-                        || [[ "${custom_install_path}" == "${FOOOCUS_PATH}" ]] \
-                        || [[ "${custom_install_path}" == "${LORA_SCRIPTS_PATH}" ]]; then
+                    elif [[ "${custom_install_path}" == "${SD_WEBUI_ROOT_PATH}" ]] \
+                        || [[ "${custom_install_path}" == "${COMFYUI_ROOT_PATH}" ]] \
+                        || [[ "${custom_install_path}" == "${INVOKEAI_ROOT_PATH}" ]] \
+                        || [[ "${custom_install_path}" == "${FOOOCUS_ROOT_PATH}" ]] \
+                        || [[ "${custom_install_path}" == "${LORA_SCRIPTS_ROOT_PATH}" ]]; then
 
                         dialog --erase-on-exit \
                             --title "Term-SD" \
@@ -673,9 +673,9 @@ kohya_ss_custom_install_path_setting() {
                             $(get_dialog_size)
 
                     else
-                        KOHYA_SS_PATH=$custom_install_path
-                        KOHYA_SS_FOLDER=$(basename "${KOHYA_SS_PATH}")
-                        KOHYA_SS_PARENT_PATH=$(dirname "${KOHYA_SS_PATH}")
+                        KOHYA_SS_ROOT_PATH=$custom_install_path
+                        KOHYA_SS_FOLDER=$(basename "${KOHYA_SS_ROOT_PATH}")
+                        KOHYA_SS_PARENT_PATH=$(dirname "${KOHYA_SS_ROOT_PATH}")
                         echo "${custom_install_path}" > "${START_PATH}/term-sd/config/kohya_ss-path.conf"
 
                         dialog --erase-on-exit \
@@ -696,7 +696,7 @@ kohya_ss_custom_install_path_setting() {
                     $(get_dialog_size)); then
 
                     rm -f "${START_PATH}/term-sd/config/kohya_ss-path.conf"
-                    KOHYA_SS_PATH="${START_PATH}/kohya_ss"
+                    KOHYA_SS_ROOT_PATH="${START_PATH}/kohya_ss"
                     KOHYA_SS_FOLDER="kohya_ss"
                     KOHYA_SS_PARENT_PATH=$START_PATH
 

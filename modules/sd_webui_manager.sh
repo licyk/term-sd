@@ -9,9 +9,9 @@ sd_webui_manager() {
     cd "${START_PATH}" # 回到最初路径
     exit_venv # 确保进行下一步操作前已退出其他虚拟环境
 
-    if [[ -d "${SD_WEBUI_PATH}" ]] && ! term_sd_is_dir_empty "${SD_WEBUI_PATH}" ;then # 找到stable-diffusion-webui目录
+    if [[ -d "${SD_WEBUI_ROOT_PATH}" ]] && ! term_sd_is_dir_empty "${SD_WEBUI_ROOT_PATH}" ;then # 找到stable-diffusion-webui目录
         while true; do
-            cd "${SD_WEBUI_PATH}"
+            cd "${SD_WEBUI_ROOT_PATH}"
 
             case $(git remote get-url origin | awk -F '/' '{print $NF}') in # 分支判断
                 stable-diffusion-webui|stable-diffusion-webui.git)
@@ -311,7 +311,7 @@ sd_webui_manager() {
                                 term_sd_echo "删除 Stable-Diffusion-WebUI 中"
                                 exit_venv
                                 cd ..
-                                rm -rf "${SD_WEBUI_PATH}"
+                                rm -rf "${SD_WEBUI_ROOT_PATH}"
 
                                 dialog --erase-on-exit \
                                     --title "Stable-Diffusion-WebUI 管理" \
@@ -377,35 +377,35 @@ sd_webui_backend_repo_reinstall() {
     if term_sd_install_confirm "是否重新安装 Stable-Diffusion-WebUI 后端组件 ?"; then
         term_sd_print_line "Stable-Diffusion-WebUI 后端组件重装"
         term_sd_echo "删除原有 Stable-Diffusion-WebUI 后端组件中"
-        rm -rf "${SD_WEBUI_PATH}"/repositories/*
+        rm -rf "${SD_WEBUI_ROOT_PATH}"/repositories/*
         term_sd_echo "重新下载 Stable-Diffusion-WebUI 后端组件中"
-        git_clone_repository https://github.com/salesforce/BLIP "${SD_WEBUI_PATH}"/repositories BLIP
-        git_clone_repository https://github.com/Stability-AI/stablediffusion "${SD_WEBUI_PATH}"/repositories stable-diffusion-stability-ai
-        git_clone_repository https://github.com/Stability-AI/generative-models "${SD_WEBUI_PATH}"/repositories generative-models
-        git_clone_repository https://github.com/crowsonkb/k-diffusion "${SD_WEBUI_PATH}"/repositories k-diffusion
-        git_clone_repository https://github.com/AUTOMATIC1111/stable-diffusion-webui-assets "${SD_WEBUI_PATH}"/repositories stable-diffusion-webui-assets
+        git_clone_repository https://github.com/salesforce/BLIP "${SD_WEBUI_ROOT_PATH}"/repositories BLIP
+        git_clone_repository https://github.com/Stability-AI/stablediffusion "${SD_WEBUI_ROOT_PATH}"/repositories stable-diffusion-stability-ai
+        git_clone_repository https://github.com/Stability-AI/generative-models "${SD_WEBUI_ROOT_PATH}"/repositories generative-models
+        git_clone_repository https://github.com/crowsonkb/k-diffusion "${SD_WEBUI_ROOT_PATH}"/repositories k-diffusion
+        git_clone_repository https://github.com/AUTOMATIC1111/stable-diffusion-webui-assets "${SD_WEBUI_ROOT_PATH}"/repositories stable-diffusion-webui-assets
         case "${branch}" in
             sd_webui|sd_webui_forge|sd_webui_amdgpu)
-                git_clone_repository https://github.com/salesforce/BLIP "${SD_WEBUI_PATH}"/repositories BLIP
-                git_clone_repository https://github.com/Stability-AI/stablediffusion "${SD_WEBUI_PATH}"/repositories stable-diffusion-stability-ai
-                git_clone_repository https://github.com/Stability-AI/generative-models "${SD_WEBUI_PATH}"/repositories generative-models
-                git_clone_repository https://github.com/crowsonkb/k-diffusion "${SD_WEBUI_PATH}"/repositories k-diffusion
-                git_clone_repository https://github.com/AUTOMATIC1111/stable-diffusion-webui-assets "${SD_WEBUI_PATH}"/repositories stable-diffusion-webui-assets
+                git_clone_repository https://github.com/salesforce/BLIP "${SD_WEBUI_ROOT_PATH}"/repositories BLIP
+                git_clone_repository https://github.com/Stability-AI/stablediffusion "${SD_WEBUI_ROOT_PATH}"/repositories stable-diffusion-stability-ai
+                git_clone_repository https://github.com/Stability-AI/generative-models "${SD_WEBUI_ROOT_PATH}"/repositories generative-models
+                git_clone_repository https://github.com/crowsonkb/k-diffusion "${SD_WEBUI_ROOT_PATH}"/repositories k-diffusion
+                git_clone_repository https://github.com/AUTOMATIC1111/stable-diffusion-webui-assets "${SD_WEBUI_ROOT_PATH}"/repositories stable-diffusion-webui-assets
                 ;;
             sd_next)
-                git_clone_repository https://github.com/salesforce/BLIP "${SD_WEBUI_PATH}"/repositories blip
-                git_clone_repository https://github.com/Stability-AI/stablediffusion "${SD_WEBUI_PATH}"/repositories stable-diffusion-stability-ai
-                git_clone_repository https://github.com/Stability-AI/generative-models "${SD_WEBUI_PATH}"/repositories generative-models
-                git_clone_repository https://github.com/crowsonkb/k-diffusion "${SD_WEBUI_PATH}"/repositories k-diffusion
-                git_clone_repository https://github.com/AUTOMATIC1111/stable-diffusion-webui-assets "${SD_WEBUI_PATH}"/repositories stable-diffusion-webui-assets
+                git_clone_repository https://github.com/salesforce/BLIP "${SD_WEBUI_ROOT_PATH}"/repositories blip
+                git_clone_repository https://github.com/Stability-AI/stablediffusion "${SD_WEBUI_ROOT_PATH}"/repositories stable-diffusion-stability-ai
+                git_clone_repository https://github.com/Stability-AI/generative-models "${SD_WEBUI_ROOT_PATH}"/repositories generative-models
+                git_clone_repository https://github.com/crowsonkb/k-diffusion "${SD_WEBUI_ROOT_PATH}"/repositories k-diffusion
+                git_clone_repository https://github.com/AUTOMATIC1111/stable-diffusion-webui-assets "${SD_WEBUI_ROOT_PATH}"/repositories stable-diffusion-webui-assets
                 ;;
             sd_webui_forge)
-                git_clone_repository https://github.com/salesforce/BLIP "${SD_WEBUI_PATH}"/repositories BLIP
-                git_clone_repository https://github.com/Stability-AI/stablediffusion "${SD_WEBUI_PATH}"/repositories stable-diffusion-stability-ai
-                git_clone_repository https://github.com/Stability-AI/generative-models "${SD_WEBUI_PATH}"/repositories generative-models
-                git_clone_repository https://github.com/crowsonkb/k-diffusion "${SD_WEBUI_PATH}"/repositories k-diffusion
-                git_clone_repository https://github.com/lllyasviel/huggingface_guess "${SD_WEBUI_PATH}"/repositories huggingface_guess
-                git_clone_repository https://github.com/lllyasviel/google_blockly_prototypes "${SD_WEBUI_PATH}"/repositories google_blockly_prototypes
+                git_clone_repository https://github.com/salesforce/BLIP "${SD_WEBUI_ROOT_PATH}"/repositories BLIP
+                git_clone_repository https://github.com/Stability-AI/stablediffusion "${SD_WEBUI_ROOT_PATH}"/repositories stable-diffusion-stability-ai
+                git_clone_repository https://github.com/Stability-AI/generative-models "${SD_WEBUI_ROOT_PATH}"/repositories generative-models
+                git_clone_repository https://github.com/crowsonkb/k-diffusion "${SD_WEBUI_ROOT_PATH}"/repositories k-diffusion
+                git_clone_repository https://github.com/lllyasviel/huggingface_guess "${SD_WEBUI_ROOT_PATH}"/repositories huggingface_guess
+                git_clone_repository https://github.com/lllyasviel/google_blockly_prototypes "${SD_WEBUI_ROOT_PATH}"/repositories google_blockly_prototypes
                 ;;
             sd_webui_forge_classic)
                 true

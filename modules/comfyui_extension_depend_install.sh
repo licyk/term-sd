@@ -22,7 +22,7 @@ comfyui_extension_depend_install() {
     if term_sd_install_confirm "是否安装 ComfyUI 插件 / 自定义节点依赖 ?"; then
         term_sd_print_line "${TERM_SD_MANAGE_OBJECT} ${depend_type}依赖一键安装"
         term_sd_tmp_disable_proxy
-        enter_venv "${COMFYUI_PATH}"
+        enter_venv "${COMFYUI_ROOT_PATH}"
 
         for i in ./*; do # 统计需要安装的依赖
             [[ -f "${i}" ]] && continue # 排除文件
@@ -96,7 +96,7 @@ comfyui_extension_depend_install_single() {
     pip_install_mode_select # 安装方式选择
 
     if term_sd_install_confirm "是否安装 ${name} ${depend_type}依赖 ?"; then
-        enter_venv "${COMFYUI_PATH}"
+        enter_venv "${COMFYUI_ROOT_PATH}"
 
         if [[ -f "install.py" ]] || [[ -f "requirements.txt" ]]; then
             term_sd_echo "安装 ${name} ${depend_type}依赖"
@@ -144,7 +144,7 @@ comfyui_extension_depend_install_auto() {
         term_sd_echo "开始安装 ${extension_name} ${depend_type}依赖"
         COMFYUI_CUSTOM_NODE_INSTALL_DEP_MESSAGE="${COMFYUI_CUSTOM_NODE_INSTALL_DEP_MESSAGE}\n\n${extension_name} ${depend_type}依赖安装:\n"
 
-        enter_venv "${COMFYUI_PATH}"
+        enter_venv "${COMFYUI_ROOT_PATH}"
         cd "${extension_name}"
 
         if [[ -f "install.py" ]]; then # 找到install.py文件

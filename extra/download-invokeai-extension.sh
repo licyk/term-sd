@@ -9,7 +9,7 @@
 . "${START_PATH}"/term-sd/modules/term_sd_try.sh
 
 
-if [[ ! -d "${INVOKEAI_PATH}" ]]; then
+if [[ ! -d "${INVOKEAI_ROOT_PATH}" ]]; then
     term_sd_echo "未安装 InvokeAI"
 else
     # 删除 InvokeAI 自定义节点安装任务文件

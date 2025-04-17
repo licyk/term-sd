@@ -35,10 +35,10 @@ download_hanamizuki_resource_select() {
 download_hanamizuki() {
     aria2_download ${download_hanamizuki_resource} term-sd/task "绘世.exe"
     if [[ "$?" == 0 ]]; then
-        install_hanamizuki "$SD_WEBUI_PATH" "Stable-Diffusion-WebUI"
-        install_hanamizuki "$COMFYUI_PATH" "ComfyUI"
-        install_hanamizuki "$FOOOCUS_PATH" "Fooocus"
-        install_hanamizuki "$LORA_SCRIPTS_PATH" "lora-scripts"
+        install_hanamizuki "$SD_WEBUI_ROOT_PATH" "Stable-Diffusion-WebUI"
+        install_hanamizuki "$COMFYUI_ROOT_PATH" "ComfyUI"
+        install_hanamizuki "$FOOOCUS_ROOT_PATH" "Fooocus"
+        install_hanamizuki "$LORA_SCRIPTS_ROOT_PATH" "lora-scripts"
         rm -f "term-sd/task/绘世.exe"
     else
         term_sd_echo "下载失败"

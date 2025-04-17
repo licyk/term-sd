@@ -9,7 +9,7 @@ check_comfyui_env() {
     rm -f "${START_PATH}/term-sd/task/comfyui_depend_path_list.sh"
 
     term_sd_python "${START_PATH}/term-sd/python_modules/check_comfyui_env.py" \
-        --comfyui-path "${COMFYUI_PATH}" \
+        --comfyui-path "${COMFYUI_ROOT_PATH}" \
         --conflict-depend-notice-path "${START_PATH}/term-sd/task/comfyui_has_conflict_requirement_notice.sh" \
         --requirement-list-path "${START_PATH}/term-sd/task/comfyui_depend_path_list.sh"
 
@@ -85,7 +85,7 @@ install_comfyui_requirement() {
     done
 
     term_sd_echo "安装 ComfyUI 依赖结束"
-    cd "${COMFYUI_PATH}"
+    cd "${COMFYUI_ROOT_PATH}"
 }
 
 # 回滚 Numpy 版本
@@ -223,7 +223,7 @@ check_sd_webui_extension_requirement() {
     py_path=$(get_sd_webui_python_path)
 
     # 统计需要安装依赖的插件数量
-    for i in "${SD_WEBUI_PATH}/extensions"/*; do
+    for i in "${SD_WEBUI_ROOT_PATH}/extensions"/*; do
         [[ -f "${i}" ]] && continue
         [[ -f "${i}/install.py" ]] && sum=$(( sum + 1 ))
     done
@@ -237,7 +237,7 @@ check_sd_webui_extension_requirement() {
 
     if ! is_sd_webui_disable_all_extension && [[ "${cancel_install_extension_requirement}" == 0 ]]; then
         term_sd_echo "检查 ${TERM_SD_MANAGE_OBJECT} 插件依赖中"
-        for i in "${SD_WEBUI_PATH}/extensions"/*; do
+        for i in "${SD_WEBUI_ROOT_PATH}/extensions"/*; do
             if [[ -f "${i}" ]]; then
                 continue
             fi
@@ -279,7 +279,7 @@ check_sd_webui_built_in_extension_requirement() {
     py_path=$(get_sd_webui_python_path)
 
     # 统计需要安装依赖的插件数量
-    for i in "${SD_WEBUI_PATH}/extensions-builtin"/*; do
+    for i in "${SD_WEBUI_ROOT_PATH}/extensions-builtin"/*; do
         [[ -f "${i}" ]] && continue
         [[ -f "${i}/install.py" ]] && sum=$(( sum + 1 ))
     done
@@ -293,7 +293,7 @@ check_sd_webui_built_in_extension_requirement() {
 
     if ! is_sd_webui_disable_all_extension && [[ "${cancel_install_extension_requirement}" == 0 ]]; then
         term_sd_echo "检查 ${TERM_SD_MANAGE_OBJECT} 内置插件依赖中"
-        for i in "${SD_WEBUI_PATH}/extensions-builtin"/*; do
+        for i in "${SD_WEBUI_ROOT_PATH}/extensions-builtin"/*; do
             if [[ -f "${i}" ]]; then
                 continue
             fi
@@ -323,7 +323,7 @@ is_sd_webui_disable_all_extension() {
     local status
 
     status=$(term_sd_python "${START_PATH}/term-sd/python_modules/get_sd_webui_disable_all_extension_status.py" \
-        --config-path "${SD_WEBUI_PATH}/config.json" \
+        --config-path "${SD_WEBUI_ROOT_PATH}/config.json" \
     )
 
     if [[ "${status}" == "True" ]]; then

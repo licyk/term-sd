@@ -165,12 +165,12 @@ fooocus_download_model_select() {
 # 预设存放于 <Fooocus Path>/presets 中
 set_fooocus_preset() {
     term_sd_echo "写入 Fooocus 风格预设文件中"
-    cp -f "${START_PATH}/term-sd/install/fooocus/preset_term_sd.json" "${FOOOCUS_PATH}"/presets/term_sd.json
+    cp -f "${START_PATH}/term-sd/install/fooocus/preset_term_sd.json" "${FOOOCUS_ROOT_PATH}"/presets/term_sd.json
 }
 
 # Fooocus 翻译文件
 # 翻译文件存放于 <Fooocus Path>/language 中
 set_fooocus_lang_config() {
     term_sd_echo "写入 Fooocus 翻译文件中"
-    cp -f "${START_PATH}/term-sd/install/fooocus/lang_config_zh.json" "${FOOOCUS_PATH}"/language/zh.json
+    cp -f "${START_PATH}/term-sd/install/fooocus/lang_config_zh.json" "${FOOOCUS_ROOT_PATH}"/language/zh.json
 }

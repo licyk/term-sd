@@ -6,9 +6,9 @@ fooocus_manager() {
 
     cd "${START_PATH}" # 回到最初路径
     exit_venv # 确保进行下一步操作前已退出其他虚拟环境
-    if [[ -d "${FOOOCUS_PATH}" ]] && ! term_sd_is_dir_empty "${FOOOCUS_PATH}"; then
+    if [[ -d "${FOOOCUS_ROOT_PATH}" ]] && ! term_sd_is_dir_empty "${FOOOCUS_ROOT_PATH}"; then
         while true; do
-            cd "${FOOOCUS_PATH}"
+            cd "${FOOOCUS_ROOT_PATH}"
             dialog_arg=$(dialog --erase-on-exit --notags \
                 --title "Fooocus 管理" \
                 --backtitle "Fooocus 管理选项" \
@@ -246,7 +246,7 @@ fooocus_manager() {
                                 term_sd_echo "删除 Fooocus 中"
                                 exit_venv
                                 cd ..
-                                rm -rf "${FOOOCUS_PATH}"
+                                rm -rf "${FOOOCUS_ROOT_PATH}"
                                 
                                 dialog --erase-on-exit \
                                     --title "Fooocus 管理" \

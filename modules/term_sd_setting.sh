@@ -430,17 +430,17 @@ term_sd_disk_space_stat() {
     term_sd_echo "统计 Term-SD 缓存目录空间占用"
     term_sd_space_stat=$([ -d "term-sd/cache" ] && du -sh term-sd/cache | awk '{print $1}' || echo "无")
     term_sd_echo "统计 Stable-Diffusion-WebUI 占用"
-    sd_webui_space_stat=$([ -d "${SD_WEBUI_PATH}" ] && du -sh "${SD_WEBUI_PATH}" | awk '{print $1}' || echo "未安装")
+    sd_webui_space_stat=$([ -d "${SD_WEBUI_ROOT_PATH}" ] && du -sh "${SD_WEBUI_ROOT_PATH}" | awk '{print $1}' || echo "未安装")
     term_sd_echo "统计 ComfyUI 占用"
-    comfyui_space_stat=$([ -d "${COMFYUI_PATH}" ] && du -sh "${COMFYUI_PATH}" | awk '{print $1}' || echo "未安装")
+    comfyui_space_stat=$([ -d "${COMFYUI_ROOT_PATH}" ] && du -sh "${COMFYUI_ROOT_PATH}" | awk '{print $1}' || echo "未安装")
     term_sd_echo "统计 InvokeAI 占用"
-    invokeai_space_stat=$([ -d "${INVOKEAI_PATH}" ] && du -sh "${INVOKEAI_PATH}" | awk '{print $1}' || echo "未安装")
+    invokeai_space_stat=$([ -d "${INVOKEAI_ROOT_PATH}" ] && du -sh "${INVOKEAI_ROOT_PATH}" | awk '{print $1}' || echo "未安装")
     term_sd_echo "统计 Fooocus 占用"
-    fooocus_space_stat=$([ -d "${FOOOCUS_PATH}" ] && du -sh "${FOOOCUS_PATH}" | awk '{print $1}' || echo "未安装")
+    fooocus_space_stat=$([ -d "${FOOOCUS_ROOT_PATH}" ] && du -sh "${FOOOCUS_ROOT_PATH}" | awk '{print $1}' || echo "未安装")
     term_sd_echo "统计 lora-scripts 占用"
-    lora_scripts_space_stat=$([ -d "${LORA_SCRIPTS_PATH}" ] && du -sh "${LORA_SCRIPTS_PATH}" | awk '{print $1}' || echo "未安装")
+    lora_scripts_space_stat=$([ -d "${LORA_SCRIPTS_ROOT_PATH}" ] && du -sh "${LORA_SCRIPTS_ROOT_PATH}" | awk '{print $1}' || echo "未安装")
     term_sd_echo "统计 kohya_ss 占用"
-    kohya_ss_space_stat=$([ -d "${KOHYA_SS_PATH}" ] && du -sh "${KOHYA_SS_PATH}" | awk '{print $1}' || echo "未安装")
+    kohya_ss_space_stat=$([ -d "${KOHYA_SS_ROOT_PATH}" ] && du -sh "${KOHYA_SS_ROOT_PATH}" | awk '{print $1}' || echo "未安装")
 
     dialog --erase-on-exit \
         --title "Term-SD" \

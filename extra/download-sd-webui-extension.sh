@@ -9,7 +9,7 @@
 . "${START_PATH}"/term-sd/modules/term_sd_try.sh
 
 
-if [[ ! -d "${SD_WEBUI_PATH}" ]]; then
+if [[ ! -d "${SD_WEBUI_ROOT_PATH}" ]]; then
     term_sd_echo "未安装 Stable-Diffusion-WebUI"
 else
     # 删除 SD WebUI 插件安装任务文件

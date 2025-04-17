@@ -6,7 +6,7 @@
 comfyui_extension_manager() {
     local dialog_arg
 
-    if [[ ! -d "${COMFYUI_PATH}"/web/extensions ]]; then
+    if [[ ! -d "${COMFYUI_ROOT_PATH}"/web/extensions ]]; then
         dialog --erase-on-exit \
             --title "ComfyUI 管理" \
             --backtitle "ComfyUI 插件管理选项" \
@@ -17,7 +17,7 @@ comfyui_extension_manager() {
     fi
 
     while true; do
-        cd "${COMFYUI_PATH}"/web/extensions # 回到最初路径
+        cd "${COMFYUI_ROOT_PATH}"/web/extensions # 回到最初路径
 
         dialog_arg=$(dialog --erase-on-exit --notags \
             --title "ComfyUI 管理" \
@@ -90,7 +90,7 @@ comfyui_extension_install() {
         name=$(basename "${repo_url}" | awk -F '.git' '{print $1}')
         term_sd_echo "安装 ${name} 插件中"
         if ! term_sd_is_git_repository_exist "${repo_url}"; then
-            term_sd_try git clone --recurse-submodules "${repo_url}" "${COMFYUI_PATH}/web/extensions/${name}"
+            term_sd_try git clone --recurse-submodules "${repo_url}" "${COMFYUI_ROOT_PATH}/web/extensions/${name}"
             if [[ "$?" == 0 ]]; then
                 COMFYUI_CUSTOM_NODE_INSTALL_DEP_MESSAGE="${name} 插件安装成功"
                 comfyui_extension_depend_install_auto "插件" "${name}"
@@ -125,7 +125,7 @@ comfyui_extension_list() {
     local extension_name
 
     while true; do
-        cd "${COMFYUI_PATH}"/web/extensions # 回到最初路径
+        cd "${COMFYUI_ROOT_PATH}"/web/extensions # 回到最初路径
         get_dir_folder_list # 获取当前目录下的所有文件夹
 
         if term_sd_is_bash_ver_lower; then # Bash 版本低于 4 时使用旧版列表显示方案
@@ -334,7 +334,7 @@ comfyui_extension_interface() {
                         yes|y|YES|Y)
                             term_sd_echo "删除 ${extension_name} 插件中"
                             cd ..
-                            rm -rf "${COMFYUI_PATH}/web/extensions/${extension_name}"
+                            rm -rf "${COMFYUI_ROOT_PATH}/web/extensions/${extension_name}"
 
                             dialog --erase-on-exit \
                                 --title "ComfyUI 管理" \

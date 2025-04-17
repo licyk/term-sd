@@ -402,11 +402,11 @@ def sum_need_to_install(requirement_list: dict) -> list:
 
 if __name__ == "__main__":
     args = get_args()
-    comfyui_path = args.comfyui_path
+    COMFYUI_ROOT_PATH = args.COMFYUI_ROOT_PATH
     term_sd_notice_path = args.conflict_depend_notice_path
     term_sd_need_install_requirement_path = args.requirement_list_path
 
-    lists = get_requirement_list(get_requirement_file(comfyui_path))
+    lists = get_requirement_list(get_requirement_file(COMFYUI_ROOT_PATH))
     lists = check_missing_requirement(lists)
     pkg_list = [] # 依赖列表
     conflict_package = [] # 冲突的依赖列表

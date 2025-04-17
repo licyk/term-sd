@@ -5,7 +5,7 @@
 comfyui_custom_node_manager() {
     local dialog_arg
 
-    if [[ ! -d "${COMFYUI_PATH}"/custom_nodes ]]; then
+    if [[ ! -d "${COMFYUI_ROOT_PATH}"/custom_nodes ]]; then
         dialog --erase-on-exit \
             --title "ComfyUI 管理" \
             --backtitle "ComfyUI 自定义节点管理选项" \
@@ -16,7 +16,7 @@ comfyui_custom_node_manager() {
     fi
 
     while true; do
-        cd "${COMFYUI_PATH}"/custom_nodes # 回到最初路径
+        cd "${COMFYUI_ROOT_PATH}"/custom_nodes # 回到最初路径
 
         dialog_arg=$(dialog --erase-on-exit --notags \
             --title "ComfyUI 管理" \
@@ -89,7 +89,7 @@ comfyui_custom_node_install() {
         custom_node_name=$(basename "${repo_url}" | awk -F '.git' '{print $1}')
         term_sd_echo "安装 ${custom_node_name} 自定义节点中"
         if ! term_sd_is_git_repository_exist "${repo_url}"; then # 检查待安装的自定义节点是否存在于自定义节点文件夹中
-            term_sd_try git clone --recurse-submodules "${repo_url}" "${COMFYUI_PATH}/custom_nodes/${custom_node_name}"
+            term_sd_try git clone --recurse-submodules "${repo_url}" "${COMFYUI_ROOT_PATH}/custom_nodes/${custom_node_name}"
             if [[ "$?" == 0 ]]; then
                 COMFYUI_CUSTOM_NODE_INSTALL_DEP_MESSAGE="${custom_node_name} 自定义节点安装成功"
                 comfyui_extension_depend_install_auto "自定义节点" "${custom_node_name}" # 检查是否存在依赖文件并安装
@@ -124,7 +124,7 @@ comfyui_custom_node_list() {
     local custom_node_name
 
     while true; do
-        cd "${COMFYUI_PATH}"/custom_nodes # 回到最初路径
+        cd "${COMFYUI_ROOT_PATH}"/custom_nodes # 回到最初路径
         get_dir_folder_list # 获取当前目录下的所有文件夹
 
         if term_sd_is_bash_ver_lower; then # Bash 版本低于 4 时使用旧版列表显示方案
@@ -388,7 +388,7 @@ comfyui_custom_node_interface() {
                         yes|y|YES|Y)
                             term_sd_echo "删除 ${custom_node_name} 自定义节点中"
                             cd ..
-                            rm -rf "${COMFYUI_PATH}/custom_nodes/${custom_node_folder}"
+                            rm -rf "${COMFYUI_ROOT_PATH}/custom_nodes/${custom_node_folder}"
 
                             dialog --erase-on-exit \
                             --title "ComfyUI 管理" \

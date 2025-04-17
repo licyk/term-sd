@@ -4,16 +4,16 @@
 # 设置 INVOKEAI_ROOT 环境变量指定 InvokeAI 存放数据文件路径
 invokeai_manager() {
     local dialog_arg
-    export INVOKEAI_ROOT="${INVOKEAI_PATH}/invokeai"
+    export INVOKEAI_ROOT="${INVOKEAI_ROOT_PATH}/invokeai"
 
     cd "${START_PATH}" # 回到最初路径
     exit_venv # 确保进行下一步操作前已退出其他虚拟环境
-    if [[ -d "${INVOKEAI_PATH}" ]]; then # 找到 InvokeAI 文件夹
-        cd "${INVOKEAI_PATH}"
+    if [[ -d "${INVOKEAI_ROOT_PATH}" ]]; then # 找到 InvokeAI 文件夹
+        cd "${INVOKEAI_ROOT_PATH}"
         enter_venv
         if is_invokeai_installed; then # 检测 InvokeAI 是否安装
             while true; do
-                cd "${INVOKEAI_PATH}"
+                cd "${INVOKEAI_ROOT_PATH}"
 
                 dialog_arg=$(dialog --erase-on-exit --notags \
                     --title "InvokeAI 管理" \
@@ -194,7 +194,7 @@ invokeai_manager() {
                                     exit_venv
                                     term_sd_echo "删除 InvokeAI 中"
                                     cd ..
-                                    rm -rf "${INVOKEAI_PATH}"
+                                    rm -rf "${INVOKEAI_ROOT_PATH}"
 
                                     dialog --erase-on-exit \
                                         --title "InvokeAI 管理" \
