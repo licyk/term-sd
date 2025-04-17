@@ -582,7 +582,7 @@ pytorch_version_select() {
 }
 
 # 设置 Pip 的安装模式
-# 选择后设置 PIP_UPDATE_PACKAGE_ARG, PIP_USE_PEP517_ARG, PIP_FORCE_REINSTALL_ARG, PIP_BREAK_SYSTEM_PACKAGE_ARG, PIP_PREFER_BINARY_ARG 全局变量
+# 选择后设置 PIP_UPDATE_PACKAGE_ARG, PIP_USE_PEP517_ARG, PIP_FORCE_REINSTALL_ARG, PIP_BREAK_SYSTEM_PACKAGE_ARG 全局变量
 # 使用:
 # pip_install_mode_select <要默认启用的参数>
 # 参数对应的选项:
@@ -601,7 +601,6 @@ pip_install_mode_select() {
     unset PIP_USE_PEP517_ARG
     unset PIP_FORCE_REINSTALL_ARG
     unset PIP_BREAK_SYSTEM_PACKAGE_ARG
-    unset PIP_PREFER_BINARY_ARG
 
     # 界面预设
     for i in $@; do
@@ -625,13 +624,12 @@ pip_install_mode_select() {
         --title "Term-SD" \
         --backtitle "Pip 安装模式选项" \
         --ok-label "确认" --no-cancel \
-        --checklist "请选择 Pip 安装方式, 注:\n1. 安装时更新软件包\n2. 标准构建安装可解决一些报错问题, 但速度较慢\n3. 软件包存在时将重新安装\n4. 忽略系统警告强制使用 Pip 安装软件包\n5. 优先使用预编译好的软件包进行安装, 加快安装速度" \
+        --checklist "请选择 Pip 安装方式, 注:\n1. 安装时更新软件包\n2. 标准构建安装可解决一些报错问题, 但速度较慢\n3. 软件包存在时将重新安装\n4. 忽略系统警告强制使用 Pip 安装软件包" \
         $(get_dialog_size_menu) \
         "1" "> 更新软件包 (--upgrade)" "${use_upgrade}" \
         "2" "> 标准构建安装 (--use-pep517)" "${use_pep517}" \
         "3" "> 强制重新安装 (--force-reinstall)" "${use_force_reinstall}" \
         "4" "> 强制使用 Pip 安装 (--break-system-packages)" "${use_break_system_package}" \
-        "5" "> 优先使用预编译好的安装包 (--prefer-binary)" ON \
         3>&1 1>&2 2>&3)
 
     for i in ${dialog_arg}; do
@@ -647,9 +645,6 @@ pip_install_mode_select() {
                 ;;
             4)
                 PIP_BREAK_SYSTEM_PACKAGE_ARG="--break-system-packages"
-                ;;
-            5)
-                PIP_PREFER_BINARY_ARG="--prefer-binary"
                 ;;
         esac
     done
@@ -729,12 +724,6 @@ term_sd_install_confirm() {
         use_upgrade_info="禁用"
     fi
 
-    if [[ ! -z "${PIP_PREFER_BINARY_ARG}" ]]; then
-        use_prefer_binary_info="启用"
-    else
-        use_prefer_binary_info="禁用"
-    fi
-
     if (dialog --erase-on-exit \
         --title "Term-SD" \
         --backtitle "安装确认选项" \
@@ -749,8 +738,7 @@ PyTorch 版本: ${pytorch_ver_info}\n
 xFormers 版本: ${xformers_ver_info}\n
 Pip 安装方式: ${use_pep517_info}\n
 Pip 强制重装: ${use_force_reinstall_info}\n
-Pip 更新软件包: ${use_upgrade_info}\n
-Pip 优先使用预编译包: ${use_prefer_binary_info}\
+Pip 更新软件包: ${use_upgrade_info}\
 " $(get_dialog_size)); then
         term_sd_echo "确认进行安装"
         return 0
@@ -805,7 +793,6 @@ clean_install_config() {
         term_sd_echo "PIP_USE_PEP517_ARG: ${PIP_USE_PEP517_ARG}"
         term_sd_echo "PIP_FORCE_REINSTALL_ARG: ${PIP_FORCE_REINSTALL_ARG}"
         term_sd_echo "PIP_UPDATE_PACKAGE_ARG: ${PIP_UPDATE_PACKAGE_ARG}"
-        term_sd_echo "PIP_PREFER_BINARY_ARG: ${PIP_PREFER_BINARY_ARG}"
         term_sd_echo "PYTORCH_TYPE: ${PYTORCH_TYPE}"
         term_sd_echo "SD_WEBUI_REPO: ${SD_WEBUI_REPO}"
         term_sd_echo "SD_WEBUI_BRANCH: ${SD_WEBUI_BRANCH}"
@@ -825,7 +812,6 @@ clean_install_config() {
     unset PIP_USE_PEP517_ARG # 是否在 Pip 使用 --use-pep517 参数
     unset PIP_FORCE_REINSTALL_ARG # 是否在 Pip 使用 --force-reinstall 参数
     unset PIP_UPDATE_PACKAGE_ARG # 是否更新软件包, 使用 --upgrade 参数
-    unset PIP_PREFER_BINARY_ARG # 使用 --prefer-binary 使 Pip 优先使用编译好的 Python 软件包进行安装
     unset PYTORCH_TYPE # PyTorch 种类, 用于切换 PyTorch 镜像源
     unset SD_WEBUI_REPO # SD WebUI 远程源地址, 用于安装 SD WebUI 时选择要安装的分支
     unset SD_WEBUI_BRANCH # SD WebUI 分支, 用于安装 SD WebUI 时选择要切换成的分支

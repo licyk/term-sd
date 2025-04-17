@@ -86,7 +86,7 @@ term_sd_update_manager() {
                     term_sd_branch_switch
                     ;;
                 6)
-                    term_sd_echo "重启 Term-SD 中"
+                    term_sd_echo "调用初始化脚本重启 Term-SD 中"
                     . "${START_PATH}/term-sd/term-sd.sh"
                     ;;
                 *)
