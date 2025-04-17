@@ -578,3 +578,7 @@ ComfyUI 插件 / 自定义节点说明：
 141、ComfyUI-to-Python-Extension
 描述：将工作流转换为Python库进行调用
 链接：https://github.com/pydn/ComfyUI-to-Python-Extension
+
+142、comfyui-profiler
+描述：统计各个节点的运行时间
+链接：https://github.com/tzwm/comfyui-profiler

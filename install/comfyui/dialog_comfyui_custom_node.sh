@@ -139,3 +139,4 @@ __term_sd_task_pre_ext_138 Comfy-WaveSpeed OFF
 __term_sd_task_pre_ext_139 ComfyUI-TeaCache OFF
 __term_sd_task_pre_ext_140 AIGODLIKE-ComfyUI-Studio OFF
 __term_sd_task_pre_ext_141 ComfyUI-to-Python-Extension OFF
+__term_sd_task_pre_ext_142 comfyui-profiler OFF
