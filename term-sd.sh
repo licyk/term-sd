@@ -1044,6 +1044,7 @@ main() {
     export PIP_CONFIG_FILE="nul" # 屏蔽本地的 Pip 配置文件
     export PIP_PREFER_BINARY=1 # 设置 Pip 优先使用二进制包
     export PIP_YES=1 # Pip 卸载软件包时始终确认
+    export PIP_NO_WARN_SCRIPT_LOCATION=0 # 禁用 Pip 不在 PATH 时的警告
     export GRADIO_ANALYTICS_ENABLED="False" # 禁用 Gradio 新版本提醒
     export HF_HUB_DISABLE_SYMLINKS_WARNING=1 # 关闭 HuggingFace 库的禁用 syslinks 警告
     export BITSANDBYTES_NOWELCOME=1 # 禁用 bitsandbytes 欢迎信息
