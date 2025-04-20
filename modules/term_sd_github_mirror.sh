@@ -9,6 +9,7 @@
 term_sd_git_global_mirror_setting() {
     local dialog_arg
     local github_mirror_status
+    local dynamic_github_mirror_status
 
     while true; do
         if [[ -f "${START_PATH}/term-sd/config/set-global-github-mirror.conf" ]]; then
@@ -17,11 +18,17 @@ term_sd_git_global_mirror_setting() {
             github_mirror_status="未设置"
         fi
 
+        if [[ -f "${START_PATH}/term-sd/config/set-dynamic-global-github-mirror.lock" ]]; then
+            dynamic_github_mirror_status="启用"
+        else
+            dynamic_github_mirror_status="禁用"
+        fi
+
         dialog_arg=$(dialog --erase-on-exit --notags \
             --title "Term-SD" \
             --backtitle "Github 镜像源选项" \
             --ok-label "确认" --cancel-label "取消" \
-            --menu "该功能用于设置 Github 镜像源, 加速国内下载 Github 文件的速度\n当前 Github 镜像源配置: ${github_mirror_status}\n请选择对 Github 镜像源的操作" \
+            --menu "该功能用于设置 Github 镜像源, 加速国内下载 Github 文件的速度\n当前 Github 镜像源配置: ${github_mirror_status}\n动态 Github 镜像源: ${dynamic_github_mirror_status}\n请选择对 Github 镜像源的操作" \
             $(get_dialog_size_menu) \
             "0" "> 返回" \
             "1" "> 设置 Github 镜像源" \

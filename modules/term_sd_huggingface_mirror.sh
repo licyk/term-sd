@@ -6,6 +6,7 @@
 term_sd_huggingface_global_mirror_setting() {
     local dialog_arg
     local huggingface_mirror_status
+    local dynamic_huggingface_mirror_status
 
     while true; do
         if [[ -f "${START_PATH}/term-sd/config/set-global-huggingface-mirror.conf" ]]; then
@@ -14,11 +15,17 @@ term_sd_huggingface_global_mirror_setting() {
             huggingface_mirror_status="未设置"
         fi
 
+        if [[ -f "${START_PATH}/term-sd/config/set-dynamic-global-huggingface-mirror.lock" ]]; then
+            dynamic_huggingface_mirror_status="启用"
+        else
+            dynamic_huggingface_mirror_status="禁用"
+        fi
+
         dialog_arg=$(dialog --erase-on-exit --notags \
             --title "Term-SD" \
             --backtitle "HuggingFace 镜像源选项" \
             --ok-label "确认" --cancel-label "取消" \
-            --menu "该功能用于设置 HuggingFace 镜像源, 加速国内下载 HuggingFace 文件的速度\n当前 HuggingFace 镜像源配置: ${huggingface_mirror_status}\n请选择对 HuggingFace 镜像源的操作" \
+            --menu "该功能用于设置 HuggingFace 镜像源, 加速国内下载 HuggingFace 文件的速度\n当前 HuggingFace 镜像源配置: ${huggingface_mirror_status}\n动态 HuggingFace 镜像源: ${dynamic_huggingface_mirror_status}\n请选择对 HuggingFace 镜像源的操作" \
             $(get_dialog_size_menu) \
             "0" "> 返回" \
             "1" "> 设置 HuggingFace 镜像源" \

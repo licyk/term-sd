@@ -36,13 +36,21 @@ term_sd_setting() {
         fi
 
         if [[ -f "${START_PATH}/term-sd/config/set-global-github-mirror.conf" ]]; then
-            github_mirror_setup_info="镜像源: $(cat "${START_PATH}/term-sd/config/set-global-github-mirror.conf")"
+            if [[ -f "${START_PATH}/term-sd/config/set-dynamic-global-github-mirror.lock" ]]; then
+                github_mirror_setup_info="动态镜像源: $(cat "${START_PATH}/term-sd/config/set-global-github-mirror.conf")"
+            else
+                github_mirror_setup_info="镜像源: $(cat "${START_PATH}/term-sd/config/set-global-github-mirror.conf")"
+            fi
         else
             github_mirror_setup_info="未设置"
         fi
 
         if [[ -f "${START_PATH}/term-sd/config/set-global-huggingface-mirror.conf" ]]; then
-            huggingface_mirror_setup_info="镜像源: ${HF_ENDPOINT}"
+            if [[ -f "${START_PATH}/term-sd/config/set-dynamic-global-huggingface-mirror.lock" ]]; then
+                huggingface_mirror_setup_info="动态镜像源: ${HF_ENDPOINT}"
+            else
+                huggingface_mirror_setup_info="镜像源: ${HF_ENDPOINT}"
+            fi
         else
             huggingface_mirror_setup_info="未设置"
         fi
