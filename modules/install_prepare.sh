@@ -44,6 +44,14 @@ download_mirror_select() {
         "12" "启用 Github 镜像源 6 (使用 gh.idayer.com 镜像站下载 Github 上的源码)" OFF \
         "13" "启用 Github 镜像源 7 (使用 ghproxy.net 镜像站下载 Github 上的源码)" OFF \
         "14" "启用 Github 镜像源 8 (使用 gh.api.99988866.xyz 镜像站下载 Github 上的源码)" OFF \
+        "15" "启用 Github 镜像源 9 (使用 ghproxy.1888866.xyz 镜像站下载 Github 上的源码)" OFF \
+        "16" "启用 Github 镜像源 10 (使用 slink.ltd 镜像站下载 Github 上的源码)" OFF \
+        "17" "启用 Github 镜像源 11 (使用 github.boki.moe 镜像站下载 Github 上的源码)" OFF \
+        "18" "启用 Github 镜像源 12 (使用 github.moeyy.xyz 镜像站下载 Github 上的源码)" OFF \
+        "19" "启用 Github 镜像源 13 (使用 gh-proxy.net 镜像站下载 Github 上的源码)" OFF \
+        "20" "启用 Github 镜像源 14 (使用 gh-proxy.ygxz.in 镜像站下载 Github 上的源码)" OFF \
+        "21" "启用 Github 镜像源 15 (使用 wget.la 镜像站下载 Github 上的源码)" OFF \
+        "22" "启用 Github 镜像源 16 (使用 kkgithub.com 镜像站下载 Github 上的源码)" OFF \
         3>&1 1>&2 2>&3)
 
     for i in ${dialog_arg}; do
@@ -102,6 +110,38 @@ download_mirror_select() {
             14)
                 GITHUB_MIRROR="https://gh.api.99988866.xyz/https://github.com/term_sd_git_user/term_sd_git_repo"
                 GITHUB_MIRROR_NAME="镜像源 8 (gh.api.99988866.xyz)"
+                ;;
+            15)
+                GITHUB_MIRROR="https://ghproxy.1888866.xyz/github.com/term_sd_git_user/term_sd_git_repo"
+                GITHUB_MIRROR_NAME="镜像源 9 (ghproxy.1888866.xyz)"
+                ;;
+            16)
+                GITHUB_MIRROR="https://slink.ltd/https://github.com/term_sd_git_user/term_sd_git_repo"
+                GITHUB_MIRROR_NAME="镜像源 10 (slink.ltd)"
+                ;;
+            17)
+                GITHUB_MIRROR="https://github.boki.moe/github.com/term_sd_git_user/term_sd_git_repo"
+                GITHUB_MIRROR_NAME="镜像源 11 (github.boki.moe)"
+                ;;
+            18)
+                GITHUB_MIRROR="https://github.moeyy.xyz/https://github.com/term_sd_git_user/term_sd_git_repo"
+                GITHUB_MIRROR_NAME="镜像源 12 (github.moeyy.xyz)"
+                ;;
+            19)
+                GITHUB_MIRROR="https://gh-proxy.net/https://github.com/term_sd_git_user/term_sd_git_repo"
+                GITHUB_MIRROR_NAME="镜像源 13 (gh-proxy.net)"
+                ;;
+            20)
+                GITHUB_MIRROR="https://gh-proxy.ygxz.in/https://github.com/term_sd_git_user/term_sd_git_repo"
+                GITHUB_MIRROR_NAME="镜像源 14 (gh-proxy.ygxz.in)"
+                ;;
+            21)
+                GITHUB_MIRROR="https://wget.la/https://github.com/term_sd_git_user/term_sd_git_repo"
+                GITHUB_MIRROR_NAME="镜像源 15 (wget.la)"
+                ;;
+            22)
+                GITHUB_MIRROR="https://kkgithub.com/term_sd_git_user/term_sd_git_repo"
+                GITHUB_MIRROR_NAME="镜像源 16 (kkgithub.com)"
                 ;;
         esac
     done

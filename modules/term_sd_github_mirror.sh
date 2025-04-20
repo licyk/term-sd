@@ -96,6 +96,14 @@ term_sd_set_github_mirror() {
         "8" "> 镜像源 6 (gh.idayer.com)" \
         "9" "> 镜像源 7 (ghproxy.net)" \
         "10" "> 镜像源 8 (gh.api.99988866.xyz)" \
+        "11" "> 镜像源 9 (ghproxy.1888866.xyz)" \
+        "12" "> 镜像源 10 (slink.ltd)" \
+        "13" "> 镜像源 11 (github.boki.moe)" \
+        "14" "> 镜像源 12 (github.moeyy.xyz)" \
+        "15" "> 镜像源 13 (gh-proxy.net)" \
+        "16" "> 镜像源 14 (gh-proxy.ygxz.in)" \
+        "17" "> 镜像源 15 (wget.la)" \
+        "18" "> 镜像源 16 (kkgithub.com)" \
         3>&1 1>&2 2>&3)
 
     case "${dialog_arg}" in
@@ -124,97 +132,88 @@ term_sd_set_github_mirror() {
             return 0
             ;;
         3)
-            rm -f "${START_PATH}"/term-sd/config/set-dynamic-global-github-mirror.lock
-            TERM_SD_GITHUB_MIRROR="https://ghfast.top/https://github.com"
-            term_sd_echo "设置 Github 镜像源"
-            export GIT_CONFIG_GLOBAL="${START_PATH}/term-sd/config/.gitconfig"
-            rm -f "${START_PATH}"/term-sd/config/.gitconfig
-            set_normal_git_config
-            git config --global url."${TERM_SD_GITHUB_MIRROR}".insteadOf "https://github.com"
-            echo "${TERM_SD_GITHUB_MIRROR}" > "${START_PATH}"/term-sd/config/set-global-github-mirror.conf
+            process_github_mirror "https://ghfast.top/https://github.com"
             return 0
             ;;
         4)
-            rm -f "${START_PATH}"/term-sd/config/set-dynamic-global-github-mirror.lock
-            TERM_SD_GITHUB_MIRROR="https://mirror.ghproxy.com/https://github.com"
-            term_sd_echo "设置 Github 镜像源"
-            export GIT_CONFIG_GLOBAL="${START_PATH}/term-sd/config/.gitconfig"
-            rm -f "${START_PATH}"/term-sd/config/.gitconfig
-            set_normal_git_config
-            git config --global url."${TERM_SD_GITHUB_MIRROR}".insteadOf "https://github.com"
-            echo "${TERM_SD_GITHUB_MIRROR}" > "${START_PATH}"/term-sd/config/set-global-github-mirror.conf
+            process_github_mirror "https://mirror.ghproxy.com/https://github.com"
             return 0
             ;;
         5)
-            rm -f "${START_PATH}"/term-sd/config/set-dynamic-global-github-mirror.lock
-            TERM_SD_GITHUB_MIRROR="https://gitclone.com/github.com"
-            term_sd_echo "设置 Github 镜像源"
-            export GIT_CONFIG_GLOBAL="${START_PATH}/term-sd/config/.gitconfig"
-            rm -f "${START_PATH}"/term-sd/config/.gitconfig
-            set_normal_git_config
-            git config --global url."${TERM_SD_GITHUB_MIRROR}".insteadOf "https://github.com"
-            echo "${TERM_SD_GITHUB_MIRROR}" > "${START_PATH}"/term-sd/config/set-global-github-mirror.conf
+            process_github_mirror "https://gitclone.com/github.com"
             return 0
             ;;
         6)
-            rm -f "${START_PATH}"/term-sd/config/set-dynamic-global-github-mirror.lock
-            TERM_SD_GITHUB_MIRROR="https://gh-proxy.com/https://github.com"
-            term_sd_echo "设置 Github 镜像源"
-            export GIT_CONFIG_GLOBAL="${START_PATH}/term-sd/config/.gitconfig"
-            rm -f "${START_PATH}"/term-sd/config/.gitconfig
-            set_normal_git_config
-            git config --global url."${TERM_SD_GITHUB_MIRROR}".insteadOf "https://github.com"
-            echo "${TERM_SD_GITHUB_MIRROR}" > "${START_PATH}"/term-sd/config/set-global-github-mirror.conf
+            process_github_mirror "https://gh-proxy.com/https://github.com"
             return 0
             ;;
         7)
-            rm -f "${START_PATH}"/term-sd/config/set-dynamic-global-github-mirror.lock
-            TERM_SD_GITHUB_MIRROR="https://ghps.cc/https://github.com"
-            term_sd_echo "设置 Github 镜像源"
-            export GIT_CONFIG_GLOBAL="${START_PATH}/term-sd/config/.gitconfig"
-            rm -f "${START_PATH}"/term-sd/config/.gitconfig
-            set_normal_git_config
-            git config --global url."${TERM_SD_GITHUB_MIRROR}".insteadOf "https://github.com"
-            echo "${TERM_SD_GITHUB_MIRROR}" > "${START_PATH}"/term-sd/config/set-global-github-mirror.conf
+            process_github_mirror "https://ghps.cc/https://github.com"
             return 0
             ;;
         8)
-            rm -f "${START_PATH}"/term-sd/config/set-dynamic-global-github-mirror.lock
-            TERM_SD_GITHUB_MIRROR="https://gh.idayer.com/https://github.com"
-            term_sd_echo "设置 Github 镜像源"
-            export GIT_CONFIG_GLOBAL="${START_PATH}/term-sd/config/.gitconfig"
-            rm -f "${START_PATH}"/term-sd/config/.gitconfig
-            set_normal_git_config
-            git config --global url."${TERM_SD_GITHUB_MIRROR}".insteadOf "https://github.com"
-            echo "${TERM_SD_GITHUB_MIRROR}" > "${START_PATH}"/term-sd/config/set-global-github-mirror.conf
+            process_github_mirror "https://gh.idayer.com/https://github.com"
             return 0
             ;;
         9)
-            rm -f "${START_PATH}"/term-sd/config/set-dynamic-global-github-mirror.lock
-            TERM_SD_GITHUB_MIRROR="https://ghproxy.net/https://github.com"
-            term_sd_echo "设置 Github 镜像源"
-            export GIT_CONFIG_GLOBAL="${START_PATH}/term-sd/config/.gitconfig"
-            rm -f "${START_PATH}"/term-sd/config/.gitconfig
-            set_normal_git_config
-            git config --global url."${TERM_SD_GITHUB_MIRROR}".insteadOf "https://github.com"
-            echo "${TERM_SD_GITHUB_MIRROR}" > "${START_PATH}"/term-sd/config/set-global-github-mirror.conf
+            process_github_mirror "https://ghproxy.net/https://github.com"
             return 0
             ;;
         10)
-            rm -f "${START_PATH}"/term-sd/config/set-dynamic-global-github-mirror.lock
-            TERM_SD_GITHUB_MIRROR="https://gh.api.99988866.xyz/https://github.com"
-            term_sd_echo "设置 Github 镜像源"
-            export GIT_CONFIG_GLOBAL="${START_PATH}/term-sd/config/.gitconfig"
-            rm -f "${START_PATH}"/term-sd/config/.gitconfig
-            set_normal_git_config
-            git config --global url."${TERM_SD_GITHUB_MIRROR}".insteadOf "https://github.com"
-            echo "${TERM_SD_GITHUB_MIRROR}" > "${START_PATH}"/term-sd/config/set-global-github-mirror.conf
+            process_github_mirror "https://gh.api.99988866.xyz/https://github.com"
+            return 0
+            ;;
+        11)
+            process_github_mirror "https://ghproxy.1888866.xyz/github.com"
+            return 0
+            ;;
+        12)
+            process_github_mirror "https://slink.ltd/https://github.com"
+            return 0
+            ;;
+        13)
+            process_github_mirror "https://github.boki.moe/github.com"
+            return 0
+            ;;
+        14)
+            process_github_mirror "https://github.moeyy.xyz/https://github.com"
+            return 0
+            ;;
+        15)
+            process_github_mirror "https://gh-proxy.net/https://github.com"
+            return 0
+            ;;
+        16)
+            process_github_mirror "https://gh-proxy.ygxz.in/https://github.com"
+            return 0
+            ;;
+        17)
+            process_github_mirror "https://wget.la/https://github.com"
+            return 0
+            ;;
+        18)
+            process_github_mirror "https://kkgithub.com"
             return 0
             ;;
         *)
             return 1
             ;;
     esac
+}
+
+# 配置 Github 镜像源
+# 使用:
+# process_github_mirror <Github 镜像源地址>
+# 运行后设置 TERM_SD_GITHUB_MIRROR 全局变量保存 Github 镜像源地址
+process_github_mirror() {
+    TERM_SD_GITHUB_MIRROR=$@
+    rm -f "${START_PATH}"/term-sd/config/set-dynamic-global-github-mirror.lock
+    term_sd_echo "设置 Github 镜像源"
+    export GIT_CONFIG_GLOBAL="${START_PATH}/term-sd/config/.gitconfig"
+    rm -f "${START_PATH}"/term-sd/config/.gitconfig
+    set_normal_git_config
+    git config --global url."${TERM_SD_GITHUB_MIRROR}".insteadOf "https://github.com"
+    echo "${TERM_SD_GITHUB_MIRROR}" > "${START_PATH}"/term-sd/config/set-global-github-mirror.conf
 }
 
 # 测试可用的 Github 镜像源

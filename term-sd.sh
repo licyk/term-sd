@@ -1064,7 +1064,24 @@ main() {
     TERM_SD_PIP_EXTRA_INDEX_URL_ARG=""
     TERM_SD_PIP_FIND_LINKS_ARG=""
     # Github 镜像源列表
-    GITHUB_MIRROR_LIST="https://ghfast.top/https://github.com/term_sd_git_user/term_sd_git_repo https://mirror.ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo https://ghproxy.net/https://github.com/term_sd_git_user/term_sd_git_repo https://gh.api.99988866.xyz/https://github.com/term_sd_git_user/term_sd_git_repo https://gh-proxy.com/https://github.com/term_sd_git_user/term_sd_git_repo https://ghps.cc/https://github.com/term_sd_git_user/term_sd_git_repo https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo ttps://gitclone.com/github.com/term_sd_git_user/term_sd_git_repo"
+    GITHUB_MIRROR_LIST="\
+        https://ghfast.top/https://github.com/term_sd_git_user/term_sd_git_repo \
+        https://mirror.ghproxy.com/https://github.com/term_sd_git_user/term_sd_git_repo \
+        https://ghproxy.net/https://github.com/term_sd_git_user/term_sd_git_repo \
+        https://gh.api.99988866.xyz/https://github.com/term_sd_git_user/term_sd_git_repo \
+        https://gh-proxy.com/https://github.com/term_sd_git_user/term_sd_git_repo \
+        https://ghps.cc/https://github.com/term_sd_git_user/term_sd_git_repo \
+        https://gh.idayer.com/https://github.com/term_sd_git_user/term_sd_git_repo \
+        https://ghproxy.1888866.xyz/github.com/term_sd_git_user/term_sd_git_repo \
+        https://slink.ltd/https://github.com/term_sd_git_user/term_sd_git_repo \
+        https://github.boki.moe/github.com/term_sd_git_user/term_sd_git_repo \
+        https://github.moeyy.xyz/https://github.com/term_sd_git_user/term_sd_git_repo \
+        https://gh-proxy.net/https://github.com/term_sd_git_user/term_sd_git_repo \
+        https://gh-proxy.ygxz.in/https://github.com/term_sd_git_user/term_sd_git_repo \
+        https://wget.la/https://github.com/term_sd_git_user/term_sd_git_repo \
+        https://kkgithub.com/term_sd_git_user/term_sd_git_repo \
+        https://gitclone.com/github.com/term_sd_git_user/term_sd_git_repo \
+    "
     HUGGINGFACE_MIRROR_LIST="https://hf-mirror.com https://huggingface.sukaka.top" # HuggingFace 镜像源列表
     local term_sd_is_missing_dep=0 # 依赖缺失标记
     local term_sd_is_missing_macos_dep=0

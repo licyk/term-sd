@@ -60,6 +60,14 @@ git_remote_url_select() {
         "7" "> 镜像源 6 (gh.idayer.com)" \
         "8" "> 镜像源 7 (ghproxy.net)" \
         "9" "> 镜像源 8 (gh.api.99988866.xyz)" \
+        "10" "> 镜像源 9 (ghproxy.1888866.xyz)" \
+        "11" "> 镜像源 10 (slink.ltd)" \
+        "12" "> 镜像源 11 (github.boki.moe)" \
+        "13" "> 镜像源 12 (github.moeyy.xyz)" \
+        "14" "> 镜像源 13 (gh-proxy.net)" \
+        "15" "> 镜像源 14 (gh-proxy.ygxz.in)" \
+        "16" "> 镜像源 15 (wget.la)" \
+        "17" "> 镜像源 16 (kkgithub.com)" \
         3>&1 1>&2 2>&3)
 
     case "${dialog_arg}" in
@@ -108,6 +116,46 @@ git_remote_url_select() {
             GIT_REPO_REMOTE_REVISE_CMD="git_repo_remote_revise https://gh.api.99988866.xyz/https://github.com/term_sd_git_user/term_sd_git_repo"
             return 0
             ;;
+        10)
+            term_sd_print_line "更新源一键替换"
+            GIT_REPO_REMOTE_REVISE_CMD="git_repo_remote_revise https://ghproxy.1888866.xyz/github.com/term_sd_git_user/term_sd_git_repo"
+            return 0
+            ;;
+        11)
+            term_sd_print_line "更新源一键替换"
+            GIT_REPO_REMOTE_REVISE_CMD="git_repo_remote_revise https://slink.ltd/https://github.com/term_sd_git_user/term_sd_git_repo"
+            return 0
+            ;;
+        12)
+            term_sd_print_line "更新源一键替换"
+            GIT_REPO_REMOTE_REVISE_CMD="git_repo_remote_revise https://github.boki.moe/github.com/term_sd_git_user/term_sd_git_repo"
+            return 0
+            ;;
+        13)
+            term_sd_print_line "更新源一键替换"
+            GIT_REPO_REMOTE_REVISE_CMD="git_repo_remote_revise https://github.moeyy.xyz/https://github.com/term_sd_git_user/term_sd_git_repo"
+            return 0
+            ;;
+        14)
+            term_sd_print_line "更新源一键替换"
+            GIT_REPO_REMOTE_REVISE_CMD="git_repo_remote_revise https://gh-proxy.net/https://github.com/term_sd_git_user/term_sd_git_repo"
+            return 0
+            ;;
+        15)
+            term_sd_print_line "更新源一键替换"
+            GIT_REPO_REMOTE_REVISE_CMD="git_repo_remote_revise https://gh-proxy.ygxz.in/https://github.com/term_sd_git_user/term_sd_git_repo"
+            return 0
+            ;;
+        16)
+            term_sd_print_line "更新源一键替换"
+            GIT_REPO_REMOTE_REVISE_CMD="git_repo_remote_revise https://wget.la/https://github.com/term_sd_git_user/term_sd_git_repo"
+            return 0
+            ;;
+        17)
+            term_sd_print_line "更新源一键替换"
+            GIT_REPO_REMOTE_REVISE_CMD="git_repo_remote_revise https://kkgithub.com/term_sd_git_user/term_sd_git_repo"
+            return 0
+            ;;
         *)
             term_sd_echo "取消替换 $(basename "$(pwd)") 更新源操作"
             return 1 # 不执行替换
@@ -142,6 +190,14 @@ git_remote_url_select_single() {
             "7" "> 镜像源 6 (gh.idayer.com)" \
             "8" "> 镜像源 7 (ghproxy.net)" \
             "9" "> 镜像源 8 (gh.api.99988866.xyz)" \
+            "10" "> 镜像源 9 (ghproxy.1888866.xyz)" \
+            "11" "> 镜像源 10 (slink.ltd)" \
+            "12" "> 镜像源 11 (github.boki.moe)" \
+            "13" "> 镜像源 12 (github.moeyy.xyz)" \
+            "14" "> 镜像源 13 (gh-proxy.net)" \
+            "15" "> 镜像源 14 (gh-proxy.ygxz.in)" \
+            "16" "> 镜像源 15 (wget.la)" \
+            "17" "> 镜像源 16 (kkgithub.com)" \
             3>&1 1>&2 2>&3)
 
         case "${dialog_arg}" in
@@ -171,6 +227,30 @@ git_remote_url_select_single() {
                 ;;
             9)
                 git_repo_remote_revise https://gh.api.99988866.xyz/https://github.com/term_sd_git_user/term_sd_git_repo
+                ;;
+            10)
+                git_repo_remote_revise https://ghproxy.1888866.xyz/github.com/term_sd_git_user/term_sd_git_repo
+                ;;
+            11)
+                git_repo_remote_revise https://slink.ltd/https://github.com/term_sd_git_user/term_sd_git_repo
+                ;;
+            12)
+                git_repo_remote_revise https://github.boki.moe/github.com/term_sd_git_user/term_sd_git_repo
+                ;;
+            13)
+                git_repo_remote_revise https://github.moeyy.xyz/https://github.com/term_sd_git_user/term_sd_git_repo
+                ;;
+            14)
+                git_repo_remote_revise https://gh-proxy.net/https://github.com/term_sd_git_user/term_sd_git_repo
+                ;;
+            15)
+                git_repo_remote_revise https://gh-proxy.ygxz.in/https://github.com/term_sd_git_user/term_sd_git_repo
+                ;;
+            16)
+                git_repo_remote_revise https://wget.la/https://github.com/term_sd_git_user/term_sd_git_repo
+                ;;
+            17)
+                git_repo_remote_revise https://kkgithub.com/term_sd_git_user/term_sd_git_repo
                 ;;
             *)
                 term_sd_echo "取消替换更新源操作"
