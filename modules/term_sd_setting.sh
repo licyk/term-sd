@@ -32,7 +32,11 @@ term_sd_setting() {
         if [[ -z "${HTTP_PROXY}" ]]; then
             proxy_setup_info="无"
         else
-            proxy_setup_info="代理地址: $(echo ${HTTP_PROXY} | awk '{print substr($1,1,40)}')"
+            if [[ -f "${START_PATH}/term-sd/config/enable-dynamic-proxy.lock" ]]; then
+                proxy_setup_info="动态代理地址: $(echo ${HTTP_PROXY} | awk '{print substr($1,1,40)}')"
+            else
+                proxy_setup_info="代理地址: $(echo ${HTTP_PROXY} | awk '{print substr($1,1,40)}')"
+            fi
         fi
 
         if [[ -f "${START_PATH}/term-sd/config/set-global-github-mirror.conf" ]]; then

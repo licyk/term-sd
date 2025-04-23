@@ -470,7 +470,11 @@ term_sd_manager() {
         fi
 
         if [[ ! -z "${HTTP_PROXY}" ]]; then
-            proxy_info="${HTTP_PROXY} ${proxy_address_available}"
+            if [[ -f "${START_PATH}/term-sd/config/enable-dynamic-proxy.lock" ]]; then
+                proxy_info="${HTTP_PROXY} ${proxy_address_available} (动态)"
+            else
+                proxy_info="${HTTP_PROXY} ${proxy_address_available}"
+            fi
         else
             proxy_info="未设置"
         fi
