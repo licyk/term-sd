@@ -548,7 +548,6 @@ def is_package_has_version(package: str) -> bool:
         .replace('<', '')
         .replace('>', '')
         .replace('==', '')
-        .strip()
     )
 
 
