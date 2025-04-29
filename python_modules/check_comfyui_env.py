@@ -318,7 +318,7 @@ def compatible_version_matcher(spec_version: str):
     # 解析规范版本
     spec = parse_version(spec_version)
 
-    # 获取有效release段（去除末尾的零）
+    # 获取有效release段 (去除末尾的零)
     clean_release = []
     for num in spec.release:
         if num != 0 or (clean_release and clean_release[-1] != 0):
@@ -329,10 +329,10 @@ def compatible_version_matcher(spec_version: str):
         logger.error('解析到错误的兼容性发行版本号')
         raise ValueError('Invalid version for compatible release clause')
 
-    # 生成前缀匹配模板（忽略后缀）
+    # 生成前缀匹配模板 (忽略后缀)
     prefix_length = len(clean_release) - 1
     if prefix_length == 0:
-        # 处理类似 ~= 2 的情况（实际 PEP 禁止，但这里做容错）
+        # 处理类似 ~= 2 的情况 (实际 PEP 禁止，但这里做容错)
         prefix_pattern = [spec.release[0]]
         min_version = parse_version(f'{spec.release[0]}')
     else:
