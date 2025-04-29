@@ -78,7 +78,7 @@ def get_logger(
 
 
 logger = get_logger(
-    'ComfyUI Env Checker',
+    'Env Checker',
     logging.DEBUG if COMMAND_ARGS.debug_mode else logging.INFO
 )
 
