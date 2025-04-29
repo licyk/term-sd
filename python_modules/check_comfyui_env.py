@@ -548,6 +548,7 @@ def is_package_has_version(package: str) -> bool:
         .replace('<', '')
         .replace('>', '')
         .replace('==', '')
+        .strip()
     )
 
 
@@ -570,6 +571,7 @@ def get_package_name(package: str) -> str:
         .split('<')[0]
         .split('>')[0]
         .split('==')[0]
+        .strip()
     )
 
 
@@ -592,6 +594,7 @@ def get_package_version(package: str) -> str:
         .split('<').pop()
         .split('>').pop()
         .split('==').pop()
+        .strip()
     )
 
 
@@ -723,9 +726,11 @@ def parse_requirement_list(requirements: list) -> list:
             ```
     '''
     package_list = []
+    canonical_package_list = []
     requirement: str
     for requirement in requirements:
         requirement = requirement.strip()
+        logger.debug('原始 Python 软件包名: %s', requirement)
 
         if (
             requirement is None
@@ -778,10 +783,17 @@ def parse_requirement_list(requirements: list) -> list:
                 cleaned_requirements[0].strip())
             package_list.append(format_package_name)
 
-    return [
-        p for p in package_list
-        if not version_string_is_canonical(p)
-    ]
+    for p in package_list:
+        if not is_package_has_version(p):
+            canonical_package_list.append(p)
+            continue
+
+        if version_string_is_canonical(get_package_version(p)):
+            canonical_package_list.append(p)
+        else:
+            logger.debug('%s 软件包名的版本不符合标准', p)
+
+    return canonical_package_list
 
 
 def remove_duplicate_object_from_list(origin: list) -> list:
@@ -1074,8 +1086,9 @@ def update_comfyui_component_conflict_requires_list(
                 if (
                     is_package_has_version(package)
                     and
-                    get_package_name(conflict_package.lower()
-                                     ) == get_package_name(package.lower())
+                    get_package_name(
+                        conflict_package.lower()
+                    ) == get_package_name(package.lower())
                 ):
                     has_conflict_requires = True
                     conflict_requires.append(package)
