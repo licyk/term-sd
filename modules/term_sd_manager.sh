@@ -228,7 +228,7 @@ term_sd_launch() {
                 term_sd_echo "检测 ${TERM_SD_MANAGE_OBJECT} 运行环境中"
                 fix_pytorch
                 check_onnxruntime_gpu_ver
-                check_controlnet_aux
+                # check_controlnet_aux
                 fallback_numpy_version
                 term_sd_echo "结束运行环境检测, 启动 ${TERM_SD_MANAGE_OBJECT} 中"
             fi
