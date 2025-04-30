@@ -1506,22 +1506,30 @@ def display_comfyui_environment_dict(
     '''
     logger.debug('ComfyUI 环境组件表')
     for component_name, details in env_data.items():
-        logger.debug('Component: {}'
-            .format(component_name))
-        logger.debug(' - requirement_path: {}'
-            .format(details['requirement_path']))
-        logger.debug(' - is_disabled: {}'
-            .format(details['is_disabled']))
-        logger.debug(' - requires: {}'
-            .format(details['requires']))
-        logger.debug(' - has_missing_requires: {}'
-            .format(details['has_missing_requires']))
-        logger.debug(' - missing_requires: {}'
-            .format(details['missing_requires']))
-        logger.debug(' - has_conflict_requires: {}'
-            .format(details['has_conflict_requires']))
-        logger.debug(' - conflict_requires: {}'
-            .format(details['conflict_requires']))
+        logger.debug(
+            'Component: %s', component_name
+        )
+        logger.debug(
+            ' - requirement_path: %s', details['requirement_path']
+        )
+        logger.debug(
+            ' - is_disabled: %s', details['is_disabled']
+        )
+        logger.debug(
+            ' - requires: %s', details['requires']
+        )
+        logger.debug(
+            ' - has_missing_requires: %s', details['has_missing_requires']
+        )
+        logger.debug(
+            ' - missing_requires: %s', details['missing_requires']
+        )
+        logger.debug(
+            ' - has_conflict_requires: {}', details['has_conflict_requires']
+        )
+        logger.debug(
+            ' - conflict_requires: {}', details['conflict_requires']
+        )
         print()
 
 
