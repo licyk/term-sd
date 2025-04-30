@@ -206,13 +206,24 @@ def compare_version_objects(v1: VersionComponent, v2: VersionComponent) -> int:
     if v1.epoch != v2.epoch:
         return v1.epoch - v2.epoch
 
+    # 对其 release 长度, 缺失部分补 0
+    if len(v1.release) != len(v2.release):
+        for _ in range(abs(len(v1.release) - len(v2.release))):
+            if len(v1.release) < len(v2.release):
+                v1.release.append(0)
+            else:
+                v2.release.append(0)
+
     # 比较 release
     for n1, n2 in zip(v1.release, v2.release):
         if n1 != n2:
             return n1 - n2
-    # 如果 release 长度不同，较短的版本号视为较小
-    if len(v1.release) != len(v2.release):
-        return len(v1.release) - len(v2.release)
+    # 如果 release 长度不同，较短的版本号视为较小 ?
+    # 但是这样是行不通的! 比如 0.15.0 和 0.15, 处理后就会变成 [0, 15, 0] 和 [0, 15]
+    # 计算结果就会变成 len([0, 15, 0]) > len([0, 15])
+    # 但 0.15.0 和 0.15 实际上是一样的版本
+    # if len(v1.release) != len(v2.release):
+    #     return len(v1.release) - len(v2.release)
 
     # 比较 pre-release
     if v1.pre_l and not v2.pre_l:
@@ -278,6 +289,13 @@ def compare_version_objects(v1: VersionComponent, v2: VersionComponent) -> int:
     elif v1.local and v2.local:
         local1 = v1.local.split('.')
         local2 = v2.local.split('.')
+        # 和 release 的处理方式一致, 对其 local version 长度, 缺失部分补 0
+        if len(local1) != len(local2):
+            for _ in range(abs(len(local1) - len(local2))):
+                if len(local1) < len(local2):
+                    local1.append(0)
+                else:
+                    local2.append(0)
         for l1, l2 in zip(local1, local2):
             if l1.isdigit() and l2.isdigit():
                 l1, l2 = int(l1), int(l2)
@@ -690,7 +708,7 @@ def parse_requirement_list(requirements: list) -> list:
             requirements = [
                 'torch==2.3.0',
                 'diffusers[torch]==0.10.2',
-                'numpy',
+                'NUMPY',
                 '-e .',
                 '--index-url https://pypi.python.org/simple',
                 '--extra-index-url https://download.pytorch.org/whl/cu124',
@@ -778,8 +796,12 @@ def parse_requirement_list(requirements: list) -> list:
                 cleaned_requirements[0].strip())
             package_list.append(format_package_name)
 
+    # 处理包名大小写并统一成小写
     for p in package_list:
+        p: str = p.lower().strip()
+        logger.debug('预处理后的 Python 软件包名: %s', p)
         if not is_package_has_version(p):
+            logger.debug('%s 无版本声明', p)
             canonical_package_list.append(p)
             continue
 
