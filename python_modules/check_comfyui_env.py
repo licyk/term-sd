@@ -1525,10 +1525,10 @@ def display_comfyui_environment_dict(
             ' - missing_requires: %s', details['missing_requires']
         )
         logger.debug(
-            ' - has_conflict_requires: {}', details['has_conflict_requires']
+            ' - has_conflict_requires: %s', details['has_conflict_requires']
         )
         logger.debug(
-            ' - conflict_requires: {}', details['conflict_requires']
+            ' - conflict_requires: %s', details['conflict_requires']
         )
         print()
 
