@@ -644,9 +644,9 @@ pytorch_version_select() {
             PYTORCH_TYPE="ipex"
             ;;
         81)
-            INSTALL_PYTORCH_VERSION="torch==2.7.0+cu118 torchvision==0.22.0+cu118 torchaudio==2.7.0+cu118"
+            INSTALL_PYTORCH_VERSION="torch==2.7.0+cu128 torchvision==0.22.0+cu128 torchaudio==2.7.0+cu128"
             INSTALL_XFORMERS_VERSION="xformers==0.0.30"
-            PYTORCH_TYPE="cu118"
+            PYTORCH_TYPE="cu128"
             ;;
         82)
             INSTALL_PYTORCH_VERSION="torch==2.7.0+cu126 torchvision==0.22.0+cu126 torchaudio==2.7.0+cu126"
@@ -654,9 +654,9 @@ pytorch_version_select() {
             PYTORCH_TYPE="cu126"
             ;;
         83)
-            INSTALL_PYTORCH_VERSION="torch==2.7.0+cu128 torchvision==0.22.0+cu128 torchaudio==2.7.0+cu128"
+            INSTALL_PYTORCH_VERSION="torch==2.7.0+cu118 torchvision==0.22.0+cu118 torchaudio==2.7.0+cu118"
             INSTALL_XFORMERS_VERSION="xformers==0.0.30"
-            PYTORCH_TYPE="cu128"
+            PYTORCH_TYPE="cu118"
             ;;
     esac
 }

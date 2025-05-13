@@ -65,6 +65,7 @@ invokeai_manager() {
                             fi
                             term_sd_tmp_enable_proxy # 恢复原有的代理
                         fi
+                        clean_install_config # 清理安装参数
                         ;;
                     3)
                         invokeai_custom_node_manager
