@@ -127,9 +127,10 @@ class OrtType(str, Enum):
         return self.value
 
 
-def need_install_ort_ver():
+def need_install_ort_ver(ignore_ort_install: bool = True) -> OrtType | None:
     '''判断需要安装的 onnxruntime 版本
 
+    :param ignore_ort_install(bool): 当 onnxruntime 未安装时跳过检查
     :return OrtType: 需要安装的 onnxruntime-gpu 类型
     '''
     # 检测是否安装了 Torch
@@ -142,43 +143,54 @@ def need_install_ort_ver():
     ):
         return None
 
-    # 检测是否安装了 onnxruntime-gpu
-    ort_support_cuda_ver, ort_support_cudnn_ver = get_onnxruntime_support_cuda_version()
-    # 通常 onnxruntime 的 CUDA 版本和 cuDNN 版本会同时存在, 所以只需要判断 CUDA 版本是否存在即可
-    if ort_support_cuda_ver is None:
-        return None
-
     # onnxruntime 记录的 cuDNN 支持版本只有一位数, 所以 Torch 的 cuDNN 版本只能截取一位
     cuddn_ver = cuddn_ver[0]
 
-    # 判断 Torch 中的 CUDA 版本
-    if compare_versions(cuda_ver, '12.0') >= 0:
-        # CUDA >= 12.0
+    # 检测是否安装了 onnxruntime-gpu
+    ort_support_cuda_ver, ort_support_cudnn_ver = get_onnxruntime_support_cuda_version()
+    # 通常 onnxruntime 的 CUDA 版本和 cuDNN 版本会同时存在, 所以只需要判断 CUDA 版本是否存在即可
+    if ort_support_cuda_ver is not None:
+        # 当 onnxruntime 已安装
 
-        # 比较 onnxtuntime 支持的 CUDA 版本是否和 Torch 中所带的 CUDA 版本匹配
-        if compare_versions(ort_support_cuda_ver, '12.0') >= 0:
-            # CUDA 版本为 12.x, torch 和 ort 的 CUDA 版本匹配
+        # 判断 Torch 中的 CUDA 版本
+        if compare_versions(cuda_ver, '12.0') >= 0:
+            # CUDA >= 12.0
 
-            # 判断 Torch 和 onnxruntime 的 cuDNN 是否匹配
-            if compare_versions(ort_support_cudnn_ver, cuddn_ver) > 0:
-                # ort cuDNN 版本 > torch cuDNN 版本
-                return OrtType.CU121CUDNN8
-            elif compare_versions(ort_support_cudnn_ver, cuddn_ver) < 0:
-                # ort cuDNN 版本 < torch cuDNN 版本
-                return OrtType.CU121CUDNN9
+            # 比较 onnxtuntime 支持的 CUDA 版本是否和 Torch 中所带的 CUDA 版本匹配
+            if compare_versions(ort_support_cuda_ver, '12.0') >= 0:
+                # CUDA 版本为 12.x, torch 和 ort 的 CUDA 版本匹配
+
+                # 判断 Torch 和 onnxruntime 的 cuDNN 是否匹配
+                if compare_versions(ort_support_cudnn_ver, cuddn_ver) > 0:
+                    # ort cuDNN 版本 > torch cuDNN 版本
+                    return OrtType.CU121CUDNN8
+                elif compare_versions(ort_support_cudnn_ver, cuddn_ver) < 0:
+                    # ort cuDNN 版本 < torch cuDNN 版本
+                    return OrtType.CU121CUDNN9
+                else:
+                    # 版本相等, 无需重装
+                    return None
             else:
-                # 版本相等, 无需重装
-                return None
+                # CUDA 版本非 12.x, 不匹配
+                if compare_versions(cuddn_ver, '8') > 0:
+                    return OrtType.CU121CUDNN9
+                else:
+                    return OrtType.CU121CUDNN8
         else:
-            # CUDA 版本非 12.x, 不匹配
+            # CUDA <= 11.8
+            if compare_versions(ort_support_cuda_ver, '12.0') < 0:
+                return None
+            else:
+                return OrtType.CU118
+    else:
+        if ignore_ort_install:
+            return None
+
+        if compare_versions(cuda_ver, '12.0') >= 0:
             if compare_versions(cuddn_ver, '8') > 0:
                 return OrtType.CU121CUDNN9
             else:
                 return OrtType.CU121CUDNN8
-    else:
-        # CUDA <= 11.8
-        if compare_versions(ort_support_cuda_ver, '12.0') < 0:
-            return None
         else:
             return OrtType.CU118
 
