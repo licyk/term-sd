@@ -702,3 +702,15 @@ Stable Diffusion WebUI 插件说明：
 175、sd-webui-framepack
 描述：添加FramePack支持
 链接：https://github.com/spawner1145/sd-webui-framepack
+
+176、sd-webui-different-save-button-image-format
+描述：设置保存图片时保存的图片格式
+链接：https://github.com/w-e-w/sd-webui-different-save-button-image-format
+
+177、sd-webui-frequency-separation
+描述：提升图片质量
+链接：https://github.com/thavocado/sd-webui-frequency-separation
+
+178、sd-webui-hide-gradio-message
+描述：隐藏Gradio弹窗消息，将消息输出到控制台
+链接：https://github.com/w-e-w/sd-webui-hide-gradio-message

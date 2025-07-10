@@ -70,14 +70,14 @@ def compare_versions(version1: str, version2: str) -> int:
             .replace('-', '.')
             .replace('_', '.')
             .replace('+', '.')
-            .split(".")
+            .split('.')
         )
         nums2 = (
             re.sub(r'[a-zA-Z]+', '', version2)
             .replace('-', '.')
             .replace('_', '.')
             .replace('+', '.')
-            .split(".")
+            .split('.')
         )
     except Exception as _:
         return 0

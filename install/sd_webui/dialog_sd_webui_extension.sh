@@ -173,3 +173,6 @@ __term_sd_task_pre_ext_172 sd-refdrop OFF
 __term_sd_task_pre_ext_173 sd-forge-negpip OFF
 __term_sd_task_pre_ext_174 sd-webui-segment-anything-altoids OFF
 __term_sd_task_pre_ext_175 sd-webui-framepack OFF
+__term_sd_task_pre_ext_176 sd-webui-different-save-button-image-format OFF
+__term_sd_task_pre_ext_177 sd-webui-frequency-separation OFF
+__term_sd_task_pre_ext_178 sd-webui-hide-gradio-message OFF

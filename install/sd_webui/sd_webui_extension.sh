@@ -173,3 +173,6 @@ __term_sd_task_pre_ext_172 git_clone_repository https://github.com/tocantrell/sd
 __term_sd_task_pre_ext_173 git_clone_repository https://github.com/Haoming02/sd-forge-negpip "${SD_WEBUI_ROOT_PATH}"/extensions OFF # 解决tag强污染，仅支持SD-WebUI-Forge
 __term_sd_task_pre_ext_174 git_clone_repository https://github.com/altoiddealer/sd-webui-segment-anything-altoids "${SD_WEBUI_ROOT_PATH}"/extensions OFF # 为sd_webui_forge添加SegmentAnything
 __term_sd_task_pre_ext_175 git_clone_repository https://github.com/spawner1145/sd-webui-framepack "${SD_WEBUI_ROOT_PATH}"/extensions OFF # 添加FramePack支持
+__term_sd_task_pre_ext_176 git_clone_repository https://github.com/w-e-w/sd-webui-different-save-button-image-format "${SD_WEBUI_ROOT_PATH}"/extensions OFF # 设置保存图片时保存的图片格式
+__term_sd_task_pre_ext_177 git_clone_repository https://github.com/thavocado/sd-webui-frequency-separation "${SD_WEBUI_ROOT_PATH}"/extensions OFF # 提升图片质量
+__term_sd_task_pre_ext_178 git_clone_repository https://github.com/w-e-w/sd-webui-hide-gradio-message "${SD_WEBUI_ROOT_PATH}"/extensions OFF # 隐藏Gradio弹窗消息，将消息输出到控制台
