@@ -175,7 +175,6 @@ check_onnxruntime_gpu_ver() {
         uninstall_onnxruntime_gpu
         term_sd_echo "重新安装 onnxruntime-gpu"
         PIP_INDEX_URL="https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple/" \
-        PIP_EXTRA_INDEX_URL="https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple" \
         term_sd_try term_sd_pip install onnxruntime-gpu==1.17.1 --no-cache-dir
     else
         term_sd_echo "onnxruntime-gpu 无版本问题"
