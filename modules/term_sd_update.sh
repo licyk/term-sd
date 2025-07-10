@@ -118,7 +118,6 @@ term_sd_remote_revise() {
             "0" "> 返回" \
             "1" "> Github 源" \
             "2" "> Gitee 源" \
-            "3" "> Bitbucket 源" \
             "4" "> Gitlab 源" \
             3>&1 1>&2 2>&3)
         

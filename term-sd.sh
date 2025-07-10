@@ -579,7 +579,7 @@ term_sd_reinstall() {
 term_sd_clone_modules() {
     local i
     local count=0
-    local repo_urls="https://github.com/licyk/term-sd https://gitee.com/licyk/term-sd https://licyk@bitbucket.org/licyks/term-sd https://gitlab.com/licyk/term-sd"
+    local repo_urls="https://github.com/licyk/term-sd https://gitee.com/licyk/term-sd https://gitlab.com/licyk/term-sd"
 
     term_sd_echo "下载 Term-SD 中"
     for i in ${repo_urls}; do
