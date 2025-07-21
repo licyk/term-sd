@@ -174,6 +174,7 @@ check_onnxruntime_gpu_ver() {
             if check_uv_install_failed_and_warning; then
                 term_sd_try term_sd_pip install onnxruntime-gpu==1.18.1 --no-cache-dir
             fi
+        else
             term_sd_try term_sd_pip install onnxruntime-gpu==1.18.1 --no-cache-dir
         fi
     elif [[ "${status}" == "cu121cudnn9" ]]; then
@@ -185,6 +186,7 @@ check_onnxruntime_gpu_ver() {
             if check_uv_install_failed_and_warning; then
                 term_sd_try term_sd_pip install "onnxruntime-gpu>=1.19.0" --no-cache-dir
             fi
+        else
             term_sd_try term_sd_pip install "onnxruntime-gpu>=1.19.0" --no-cache-dir
         fi
     elif [[ "${status}" == "cu121cudnn8" ]]; then
@@ -198,6 +200,7 @@ check_onnxruntime_gpu_ver() {
                 PIP_INDEX_URL="https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple/" \
                 term_sd_try term_sd_pip install onnxruntime-gpu==1.17.1 --no-cache-dir
             fi
+        else
             PIP_INDEX_URL="https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple/" \
             term_sd_try term_sd_pip install onnxruntime-gpu==1.17.1 --no-cache-dir
         fi
