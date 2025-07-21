@@ -111,8 +111,7 @@ term_sd_setting() {
             $(get_dialog_size_menu) \
             "0" "> 返回" \
             "1" "> 虚拟环境设置 (${venv_setup_info})" \
-            "2" "> PyPI 镜像源设置 (配置文件, 已弃用)" \
-            "3" "> PyPI 镜像源设置 (环境变量)(${pip_mirror_setup_info})" \
+            "3" "> PyPI 镜像源设置 (${pip_mirror_setup_info})" \
             "4" "> Python 包管理器选择设置 (${python_package_manager_info})" \
             "5" "> Pip 缓存清理" \
             "6" "> 代理设置 (${proxy_setup_info})" \
