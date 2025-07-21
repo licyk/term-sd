@@ -254,24 +254,28 @@ term_sd_launch() {
 
                         PIP_FIND_LINKS="${PIP_FIND_LINKS} ${TERM_SD_PYPI_MIRROR}" \
                         check_sd_webui_built_in_extension_requirement "${launch_sd_config}"
+                        check_onnxruntime_gpu_ver
                         ;;
                     ComfyUI)
                         validate_requirements "${COMFYUI_ROOT_PATH}/requirements.txt"
                         PIP_FIND_LINKS="${PIP_FIND_LINKS} ${TERM_SD_PYPI_MIRROR}" \
                         check_comfyui_env
+                        check_onnxruntime_gpu_ver
                         ;;
                     Fooocus)
                         validate_requirements "${FOOOCUS_ROOT_PATH}/requirements_versions.txt"
+                        check_onnxruntime_gpu_ver
                         ;;
                     lora-scripts)
                         validate_requirements "${LORA_SCRIPTS_ROOT_PATH}/requirements.txt"
+                        check_onnxruntime_gpu_ver force_check
                         ;;
                     kohya_ss)
                         validate_requirements "${KOHYA_SS_ROOT_PATH}/requirements.txt"
+                        check_onnxruntime_gpu_ver force_check
                         ;;
                 esac
                 fix_pytorch
-                check_onnxruntime_gpu_ver
                 fallback_numpy_version
                 term_sd_echo "结束运行环境检测, 启动 ${TERM_SD_MANAGE_OBJECT} 中"
             fi

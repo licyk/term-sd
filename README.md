@@ -59,8 +59,8 @@ Term-SD 支持在 Linux，Windows，MacOS 上运行，在使用 Term-SD 前先�
 
 >[!NOTE]  
 >Python 的版本建议使用 3.9 ~ 3.11，推荐使用 3.10。这里推荐一些 Python 版本管理器。  
->1. [Pyenv](https://github.com/pyenv/pyenv)（Windows 系统上使用 [Pyenv-Win](https://github.com/pyenv-win/pyenv-win)）
->2. [MicroMamba](https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html)
+>1. [MicroMamba](https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html)
+>2. [Pyenv](https://github.com/pyenv/pyenv)（Windows 系统上使用 [Pyenv-Win](https://github.com/pyenv-win/pyenv-win)）
 >3. [MiniConda](https://docs.anaconda.com/free/miniconda/index.html)
 >
 >在 Linux 上安装指定版本的 Python 并不方便，所以可以用上面的 Python 版本管理器安装 Python，并在启动 Term-SD 时加上`--set-python-path`启动参数来指定 Python 的路径。  
@@ -305,6 +305,9 @@ aria2c https://gitee.com/licyk/term-sd/raw/main/term-sd.sh && chmod +x term-sd.s
 
 ### [《在 Linux 上使用 Python 版本管理器安装 Python》](https://github.com/licyk/README-collection/blob/main/term-sd/README_install_python_on_linux.md)
 介绍使用 Python 版本管理器安装指定版本的 Python。
+
+>[!IMPORTANT]  
+>如果使用 Micromamba 安装 Python，可以参考详细配置 MicroMamba 的教程：[《配置 MicroMamaba 包管理器 - licyk的小窝》](https://licyk.netlify.app/2025/05/31/configure-micromamba)
 
 ### [《Term-SD 界面操作方法》](https://github.com/licyk/README-collection/blob/main/term-sd/README_how_to_use_dialog.md)
 介绍 Term-SD 界面 (Dialog) 的操作方法。

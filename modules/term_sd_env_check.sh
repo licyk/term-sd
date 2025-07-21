@@ -156,9 +156,14 @@ validate_requirements() {
 # 检查 onnxruntime-gpu 版本
 check_onnxruntime_gpu_ver() {
     local status
+    local args=$@
 
     term_sd_echo "检测 onnxruntime-gpu 所支持的 CUDA 版本是否匹配 PyTorch 所支持的 CUDA 版本"
-    status=$(term_sd_python "${START_PATH}/term-sd/python_modules/check_onnxruntime_gpu.py")
+    if [[ "${args}" == "force_check" ]]; then
+        status=$(term_sd_python "${START_PATH}/term-sd/python_modules/check_onnxruntime_gpu.py" --ignore-ort-install)
+    else
+        status=$(term_sd_python "${START_PATH}/term-sd/python_modules/check_onnxruntime_gpu.py")
+    fi
 
     if [[ "${status}" == "cu118" ]]; then
         term_sd_echo "检测到 onnxruntime-gpu 所支持的 CUDA 版本 和 PyTorch 所支持的 CUDA 版本不匹配, 将执行重装操作"

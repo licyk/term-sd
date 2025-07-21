@@ -1,7 +1,20 @@
 import re
+import argparse
 import importlib.metadata
 from pathlib import Path
 from enum import Enum
+
+
+def get_args() -> argparse.Namespace:
+    '''获取命令行参数
+
+    :return `argparse.Namespace`: 命令行参数命名空间
+    '''
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('--ignore-ort-install', action='store_true', help='忽略 onnxruntime-gpu 未安装的状态, 强制进行检查')
+
+    return parser.parse_args()
 
 
 def get_onnxruntime_version_file() -> Path | None:
@@ -196,4 +209,5 @@ def need_install_ort_ver(ignore_ort_install: bool = True) -> OrtType | None:
 
 
 if __name__ == '__main__':
-    print(need_install_ort_ver())
+    arg = get_args()
+    print(need_install_ort_ver(arg.ignore_ort_install))
