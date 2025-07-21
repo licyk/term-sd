@@ -1,10 +1,12 @@
 #!/bin/bash
 
 # 安装前镜像选择
-# 该函数需要使用 TERM_SD_PIP_INDEX_URL_ARG, TERM_SD_PIP_EXTRA_INDEX_URL_ARG, TERM_SD_PIP_FIND_LINKS_ARG 变量
+# 该函数需要使用 TERM_SD_PIP_INDEX_URL_ARG, TERM_SD_PIP_EXTRA_INDEX_URL_ARG, TERM_SD_PIP_FIND_LINKS_ARG
+# TERM_SD_UV_INDEX_URL_ARG, TERM_SD_UV_EXTRA_INDEX_URL_ARG, TERM_SD_UV_FIND_LINKS_ARG 变量
 # 用于设置其他参数
 # 选择后将设置以下变量:
 # PIP_INDEX_MIRROR, PIP_EXTRA_INDEX_MIRROR, PIP_FIND_LINKS_MIRROR
+# UV_INDEX_MIRROR, UV_EXTRA_INDEX_MIRROR, UV_FIND_LINKS_MIRROR
 # USE_MODELSCOPE_MODEL_SRC, GITHUB_MIRROR, GITHUB_MIRROR_NAME
 # USE_PIP_MIRROR, TERM_SD_ENABLE_ONLY_PROXY
 download_mirror_select() {
@@ -15,8 +17,11 @@ download_mirror_select() {
     local use_global_pip_mirror=0
     local i
     PIP_INDEX_MIRROR="--index-url https://pypi.python.org/simple"
+    UV_INDEX_MIRROR="--default-index https://pypi.python.org/simple"
     unset PIP_EXTRA_INDEX_MIRROR
+    unset UV_EXTRA_INDEX_MIRROR
     PIP_FIND_LINKS_MIRROR="--find-links https://download.pytorch.org/whl/torch_stable.html"
+    UV_FIND_LINKS_MIRROR="--find-links https://download.pytorch.org/whl/torch_stable.html"
     USE_PIP_MIRROR=0
     TERM_SD_ENABLE_ONLY_PROXY=0
     USE_MODELSCOPE_MODEL_SRC=0
@@ -61,6 +66,9 @@ download_mirror_select() {
                 PIP_INDEX_MIRROR=$TERM_SD_PIP_INDEX_URL_ARG
                 PIP_EXTRA_INDEX_MIRROR=$TERM_SD_PIP_EXTRA_INDEX_URL_ARG
                 PIP_FIND_LINKS_MIRROR=$TERM_SD_PIP_FIND_LINKS_ARG
+                UV_INDEX_MIRROR=$TERM_SD_UV_INDEX_URL_ARG
+                UV_EXTRA_INDEX_MIRROR=$TERM_SD_UV_EXTRA_INDEX_URL_ARG
+                UV_FIND_LINKS_MIRROR=$TERM_SD_UV_FIND_LINKS_ARG
                 ;;
             2)
                 use_global_pip_mirror=1
@@ -161,6 +169,9 @@ download_mirror_select() {
             unset PIP_INDEX_MIRROR
             unset PIP_EXTRA_INDEX_MIRROR
             unset PIP_FIND_LINKS_MIRROR
+            unset UV_INDEX_MIRROR
+            unset UV_EXTRA_INDEX_MIRROR
+            unset UV_FIND_LINKS_MIRROR
             if [[ ! "${PIP_INDEX_URL}" == "https://pypi.python.org/simple" ]]; then
                 term_sd_echo "使用 PyPI 镜像源"
                 USE_PIP_MIRROR=1
@@ -181,6 +192,9 @@ download_mirror_select() {
             PIP_INDEX_MIRROR=$TERM_SD_PIP_INDEX_URL_ARG
             PIP_EXTRA_INDEX_MIRROR=$TERM_SD_PIP_EXTRA_INDEX_URL_ARG
             PIP_FIND_LINKS_MIRROR=$TERM_SD_PIP_FIND_LINKS_ARG
+            UV_INDEX_MIRROR=$TERM_SD_UV_INDEX_URL_ARG
+            UV_EXTRA_INDEX_MIRROR=$TERM_SD_UV_EXTRA_INDEX_URL_ARG
+            UV_FIND_LINKS_MIRROR=$TERM_SD_UV_FIND_LINKS_ARG
         fi
     fi
 
@@ -902,6 +916,9 @@ clean_install_config() {
         term_sd_echo "PIP_INDEX_MIRROR: ${PIP_INDEX_MIRROR}"
         term_sd_echo "PIP_EXTRA_INDEX_MIRROR: ${PIP_EXTRA_INDEX_MIRROR}"
         term_sd_echo "PIP_FIND_LINKS_MIRROR: ${PIP_FIND_LINKS_MIRROR}"
+        term_sd_echo "UV_INDEX_MIRROR: ${UV_INDEX_MIRROR}"
+        term_sd_echo "UV_EXTRA_INDEX_MIRROR: ${UV_EXTRA_INDEX_MIRROR}"
+        term_sd_echo "UV_FIND_LINKS_MIRROR: ${UV_FIND_LINKS_MIRROR}"
         term_sd_echo "USE_PIP_MIRROR: ${USE_PIP_MIRROR}"
         term_sd_echo "PIP_BREAK_SYSTEM_PACKAGE_ARG: ${PIP_BREAK_SYSTEM_PACKAGE_ARG}"
         term_sd_echo "TERM_SD_ENABLE_ONLY_PROXY: ${TERM_SD_ENABLE_ONLY_PROXY}"
@@ -921,6 +938,9 @@ clean_install_config() {
     unset PIP_INDEX_MIRROR # 指定 PyPI 镜像源的参数
     unset PIP_EXTRA_INDEX_MIRROR
     unset PIP_FIND_LINKS_MIRROR
+    unset UV_INDEX_MIRROR
+    unset UV_EXTRA_INDEX_MIRROR
+    unset UV_FIND_LINKS_MIRROR
     unset USE_PIP_MIRROR # 是否启用 Pip 镜像
     unset PIP_BREAK_SYSTEM_PACKAGE_ARG # 是否在 Pip 使用 --break-system-package 参数
     unset TERM_SD_ENABLE_ONLY_PROXY # 是否启用 Github / HuggingFace 独占代理功能

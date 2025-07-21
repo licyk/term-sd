@@ -163,17 +163,34 @@ python_package_update() {
 # install_python_package <软件包> <其他参数>
 # 使用以下全局变量作为参数使用
 # PIP_INDEX_MIRROR, PIP_EXTRA_INDEX_MIRROR, PIP_FIND_LINKS_MIRROR
+# UV_INDEX_MIRROR, UV_EXTRA_INDEX_MIRROR, UV_FIND_LINKS_MIRROR
 # PIP_BREAK_SYSTEM_PACKAGE_ARG, PIP_USE_PEP517_ARG, PIP_FORCE_REINSTALL_ARG
+# 可使用 Pip 或者 uv 进行 Python 软件包安装
 install_python_package() {
     if term_sd_is_debug; then
         term_sd_echo "PIP_INDEX_MIRROR: ${PIP_INDEX_MIRROR}"
         term_sd_echo "PIP_EXTRA_INDEX_MIRROR: ${PIP_EXTRA_INDEX_MIRROR}"
         term_sd_echo "PIP_FIND_LINKS_MIRROR: ${PIP_FIND_LINKS_MIRROR}"
+        term_sd_echo "UV_INDEX_MIRROR: ${UV_INDEX_MIRROR}"
+        term_sd_echo "UV_EXTRA_INDEX_MIRROR: ${UV_EXTRA_INDEX_MIRROR}"
+        term_sd_echo "UV_FIND_LINKS_MIRROR: ${UV_FIND_LINKS_MIRROR}"
         term_sd_echo "PIP_BREAK_SYSTEM_PACKAGE_ARG: ${PIP_BREAK_SYSTEM_PACKAGE_ARG}"
         term_sd_echo "PIP_USE_PEP517_ARG: ${PIP_USE_PEP517_ARG}"
         term_sd_echo "PIP_FORCE_REINSTALL_ARG: ${PIP_FORCE_REINSTALL_ARG}"
         term_sd_echo "PIP_UPDATE_PACKAGE_ARG: ${PIP_UPDATE_PACKAGE_ARG}"
-        term_sd_echo "cmd: term_sd_pip install $@ ${PIP_INDEX_MIRROR} ${PIP_EXTRA_INDEX_MIRROR} ${PIP_FIND_LINKS_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG}"
+        if term_sd_is_use_uv; then
+            term_sd_echo "cmd: term_sd_uv_install $@ ${UV_INDEX_MIRROR} ${UV_EXTRA_INDEX_MIRROR} ${UV_FIND_LINKS_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG}"
+        else
+            term_sd_echo "cmd: term_sd_pip install $@ ${PIP_INDEX_MIRROR} ${PIP_EXTRA_INDEX_MIRROR} ${PIP_FIND_LINKS_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG}"
+        fi
     fi
-    term_sd_try term_sd_pip install "$@" ${PIP_INDEX_MIRROR} ${PIP_EXTRA_INDEX_MIRROR} ${PIP_FIND_LINKS_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG}
+
+    if term_sd_is_use_uv; then
+        term_sd_try term_sd_uv_install "$@" ${UV_INDEX_MIRROR} ${UV_EXTRA_INDEX_MIRROR} ${UV_FIND_LINKS_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG}
+        if check_uv_install_failed_and_warning; then
+            term_sd_try term_sd_pip install "$@" ${PIP_INDEX_MIRROR} ${PIP_EXTRA_INDEX_MIRROR} ${PIP_FIND_LINKS_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG}
+        fi
+    else
+        term_sd_try term_sd_pip install "$@" ${PIP_INDEX_MIRROR} ${PIP_EXTRA_INDEX_MIRROR} ${PIP_FIND_LINKS_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG}
+    fi
 }

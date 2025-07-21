@@ -5,6 +5,7 @@ term_sd_setting() {
     local dialog_arg
     local pip_mirror_setup_info
     local venv_setup_info
+    local python_package_manager_info
     local proxy_setup_info
     local github_mirror_setup_info
     local term_sd_cmd_retry_setup_info
@@ -27,6 +28,12 @@ term_sd_setting() {
             pip_mirror_setup_info="官方源"
         else
             pip_mirror_setup_info="国内镜像源"
+        fi
+
+        if [[ -f "${START_PATH}/term-sd/config/disable-uv.lock" ]]; then
+            python_package_manager_info="Pip"
+        else
+            python_package_manager_info="uv"
         fi
 
         if [[ -z "${HTTP_PROXY}" ]]; then
@@ -106,20 +113,21 @@ term_sd_setting() {
             "1" "> 虚拟环境设置 (${venv_setup_info})" \
             "2" "> PyPI 镜像源设置 (配置文件, 已弃用)" \
             "3" "> PyPI 镜像源设置 (环境变量)(${pip_mirror_setup_info})" \
-            "4" "> Pip 缓存清理" \
-            "5" "> 代理设置 (${proxy_setup_info})" \
-            "6" "> Github 镜像源设置 (${github_mirror_setup_info})" \
-            "7" "> HuggingFace 镜像源设置 (${huggingface_mirror_setup_info})" \
-            "8" "> 命令执行监测设置 (${term_sd_cmd_retry_setup_info})" \
-            "9" "> Term-SD 安装模式 (${term_sd_enable_strict_install_mode_setup_info})" \
-            "10" "> Aria2 线程设置 (${aria2_thread_setup_info})" \
-            "11" "> 缓存重定向设置 (${term_sd_path_redirect_setup_info})" \
-            "12" "> CUDA 内存分配设置 (${cuda_memory_alloc_setup_info})" \
-            "13" "> 运行环境检测设置 (${env_check_setup_info})" \
-            "14" "> 自定义安装路径" \
-            "15" "> 空间占用分析" \
-            "16" "> 网络连接测试" \
-            "17" "> 卸载 Term-SD" \
+            "4" "> Python 包管理器选择设置 (${python_package_manager_info})" \
+            "5" "> Pip 缓存清理" \
+            "6" "> 代理设置 (${proxy_setup_info})" \
+            "7" "> Github 镜像源设置 (${github_mirror_setup_info})" \
+            "8" "> HuggingFace 镜像源设置 (${huggingface_mirror_setup_info})" \
+            "9" "> 命令执行监测设置 (${term_sd_cmd_retry_setup_info})" \
+            "10" "> Term-SD 安装模式 (${term_sd_enable_strict_install_mode_setup_info})" \
+            "11" "> Aria2 线程设置 (${aria2_thread_setup_info})" \
+            "12" "> 缓存重定向设置 (${term_sd_path_redirect_setup_info})" \
+            "13" "> CUDA 内存分配设置 (${cuda_memory_alloc_setup_info})" \
+            "14" "> 运行环境检测设置 (${env_check_setup_info})" \
+            "15" "> 自定义安装路径" \
+            "16" "> 空间占用分析" \
+            "17" "> 网络连接测试" \
+            "18" "> 卸载 Term-SD" \
             3>&1 1>&2 2>&3)
 
         case "${dialog_arg}" in
@@ -133,45 +141,48 @@ term_sd_setting() {
                 pip_mirrors_env_setting
                 ;;
             4)
-                pip_cache_clean
+                python_package_install_manager_setting
                 ;;
             5)
-                term_sd_proxy_setting
+                pip_cache_clean
                 ;;
             6)
-                term_sd_git_global_mirror_setting
+                term_sd_proxy_setting
                 ;;
             7)
-                term_sd_huggingface_global_mirror_setting
+                term_sd_git_global_mirror_setting
                 ;;
             8)
-                term_sd_try_setting
+                term_sd_huggingface_global_mirror_setting
                 ;;
             9)
-                term_sd_enable_strict_install_mode_setting
+                term_sd_try_setting
                 ;;
             10)
-                aria2_multi_threaded_setting
+                term_sd_enable_strict_install_mode_setting
                 ;;
             11)
-                term_sd_cache_redirect_setting
+                aria2_multi_threaded_setting
                 ;;
             12)
-                cuda_memory_alloc_setting
+                term_sd_cache_redirect_setting
                 ;;
             13)
-                env_check_setting
+                cuda_memory_alloc_setting
                 ;;
             14)
-                custom_install_path_setting
+                env_check_setting
                 ;;
             15)
-                term_sd_disk_space_stat
+                custom_install_path_setting
                 ;;
             16)
-                term_sd_network_test
+                term_sd_disk_space_stat
                 ;;
             17)
+                term_sd_network_test
+                ;;
+            18)
                 term_sd_uninstall_interface
                 ;;
             *)

@@ -69,6 +69,7 @@ term_sd_echo "清理 Term-SD 缓存完成"
 
 term_sd_echo "清理 Pip 缓存中"
 term_sd_pip cache purge
+term_sd_uv cache clean
 term_sd_echo "清理 Pip 缓存完成"
 
 term_sd_echo "缓存清理结束"

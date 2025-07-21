@@ -1030,6 +1030,7 @@ main() {
 
     # 变量初始化
     TERM_SD_VER="1.4.14" #  Term-SD 版本
+    TERM_SD_UV_MININUM_VER="0.8" # 设置 uv 的最低版本
     USER_SHELL=$(basename "${SHELL}") # 读取用户所使用的 Shell
     START_PATH=$(pwd) # 设置启动时脚本路径
     export PYTHONUTF8=1 # 强制 Python 解释器使用 UTF-8 编码来处理字符串, 避免乱码问题
@@ -1045,6 +1046,10 @@ main() {
     export PIP_PREFER_BINARY=1 # 设置 Pip 优先使用二进制包
     export PIP_YES=1 # Pip 卸载软件包时始终确认
     export PIP_NO_WARN_SCRIPT_LOCATION=0 # 禁用 Pip 不在 PATH 时的警告
+    export UV_HTTP_TIMEOUT=30 # 设置 uv 的超时时间
+    export UV_CONCURRENT_DOWNLOADS=50 # 设置 uv 的下载线程数
+    export UV_INDEX_STRATEGY="unsafe-best-match" # 设置 uv 匹配 Python 软件包的模式
+    export UV_CONFIG_FILE="nul" # 屏蔽本地的 uv 配置文件
     export GRADIO_ANALYTICS_ENABLED="False" # 禁用 Gradio 新版本提醒
     export HF_HUB_DISABLE_SYMLINKS_WARNING=1 # 关闭 HuggingFace 库的禁用 syslinks 警告
     export BITSANDBYTES_NOWELCOME=1 # 禁用 bitsandbytes 欢迎信息
@@ -1063,6 +1068,9 @@ main() {
     TERM_SD_PIP_INDEX_URL_ARG="" # 用于设置 PyPI 镜像源的命令参数
     TERM_SD_PIP_EXTRA_INDEX_URL_ARG=""
     TERM_SD_PIP_FIND_LINKS_ARG=""
+    TERM_SD_UV_INDEX_URL_ARG=""
+    TERM_SD_UV_EXTRA_INDEX_URL_ARG=""
+    TERM_SD_UV_FIND_LINKS_ARG=""
     # Github 镜像源列表
     GITHUB_MIRROR_LIST="\
         https://ghfast.top/https://github.com/term_sd_git_user/term_sd_git_repo \
@@ -1177,23 +1185,36 @@ main() {
         TERM_SD_ENABLE_STRICT_INSTALL_MODE=1
     fi
 
+    # 设置 Term-SD 使用的 Python 包管理器
+    if [[ -f "${START_PATH}/term-sd/config/disable-uv.lock" ]]; then
+        USE_UV_TO_MANAGE_PACKAGE=0 # 使用 Pip 进行 Python 包管理
+    else
+        USE_UV_TO_MANAGE_PACKAGE=1 # 使用 uv 进行 Python 包管理
+    fi
+
     # 生成设置 PyPI 镜像源的参数
     for i in ${TERM_SD_PIP_INDEX_URL}; do
-        TERM_SD_PIP_INDEX_URL_ARG="$TERM_SD_PIP_INDEX_URL_ARG --index-url ${i}"
+        TERM_SD_PIP_INDEX_URL_ARG="${TERM_SD_PIP_INDEX_URL_ARG} --index-url ${i}"
+        TERM_SD_UV_INDEX_URL_ARG="${TERM_SD_UV_INDEX_URL_ARG} --default-index ${i}"
     done
     TERM_SD_PIP_INDEX_URL_ARG=$(echo "${TERM_SD_PIP_INDEX_URL_ARG}")
+    TERM_SD_UV_INDEX_URL_ARG=$(echo "${TERM_SD_UV_INDEX_URL_ARG}")
 
 
     for i in ${TERM_SD_PIP_EXTRA_INDEX_URL}; do
-        TERM_SD_PIP_EXTRA_INDEX_URL_ARG="$TERM_SD_PIP_EXTRA_INDEX_URL_ARG --extra-index-url ${i}"
+        TERM_SD_PIP_EXTRA_INDEX_URL_ARG="${TERM_SD_PIP_EXTRA_INDEX_URL_ARG} --extra-index-url ${i}"
+        TERM_SD_UV_EXTRA_INDEX_URL_ARG="${TERM_SD_UV_EXTRA_INDEX_URL_ARG} --index ${i}"
     done
     TERM_SD_PIP_EXTRA_INDEX_URL_ARG=$(echo "${TERM_SD_PIP_EXTRA_INDEX_URL_ARG}")
+    TERM_SD_UV_EXTRA_INDEX_URL_ARG=$(echo "${TERM_SD_UV_EXTRA_INDEX_URL_ARG}")
 
 
     for i in ${TERM_SD_PIP_FIND_LINKS}; do
-        TERM_SD_PIP_FIND_LINKS_ARG="$TERM_SD_PIP_FIND_LINKS_ARG --find-links ${i}"
+        TERM_SD_PIP_FIND_LINKS_ARG="${TERM_SD_PIP_FIND_LINKS_ARG} --find-links ${i}"
+        TERM_SD_UV_FIND_LINKS_ARG="${TERM_SD_UV_FIND_LINKS_ARG} --find-links ${i}"
     done
     TERM_SD_PIP_FIND_LINKS_ARG=$(echo "${TERM_SD_PIP_FIND_LINKS_ARG}")
+    TERM_SD_UV_FIND_LINKS_ARG=$(echo "${TERM_SD_UV_FIND_LINKS_ARG}")
 
 
     # 设置 AI 软件路径
@@ -1261,6 +1282,11 @@ main() {
 
     # 获取 Bash 主版本
     BASH_MAJOR_VERSION=$(awk -F '.' '{print $1}' <<< ${BASH_VERSION})
+
+    # 使用的 Windows 系统时将 uv 安装软件包的模式修改为复制模式
+    if is_windows_platform; then
+        export UV_LINK_MODE="copy"
+    fi
 
     # 依赖检测
     if [[ ! "${TERM_SD_IS_PREPARE_ENV}" == 1 ]]; then # 判断启动状态
@@ -1404,6 +1430,7 @@ main() {
         export PYTHONPYCACHEPREFIX="${START_PATH}/term-sd/cache/pycache"
         export TORCHINDUCTOR_CACHE_DIR="${START_PATH}/term-sd/cache/torchinductor"
         export TRITON_CACHE_DIR="${START_PATH}/term-sd/cache/triton"
+        export UV_CACHE_DIR="${START_PATH}/term-sd/cache/uv"
         # export TRANSFORMERS_CACHE="${START_PATH}/term-sd/cache/huggingface/transformers"
     fi
 
@@ -1414,16 +1441,25 @@ main() {
                 export PIP_INDEX_URL="https://pypi.python.org/simple"
                 export PIP_EXTRA_INDEX_URL=""
                 export PIP_FIND_LINKS="https://download.pytorch.org/whl/torch_stable.html"
+                export UV_DEFAULT_INDEX="https://pypi.python.org/simple"
+                export UV_INDEX=""
+                export UV_FIND_LINKS="https://download.pytorch.org/whl/torch_stable.html"
                 ;;
             2)
                 export PIP_INDEX_URL=$TERM_SD_PIP_INDEX_URL
                 export PIP_EXTRA_INDEX_URL=$TERM_SD_PIP_EXTRA_INDEX_URL
-                export PIP_FIND_LINKS="$TERM_SD_PIP_FIND_LINKS"
+                export PIP_FIND_LINKS=$TERM_SD_PIP_FIND_LINKS
+                export UV_DEFAULT_INDEX=$TERM_SD_PIP_INDEX_URL
+                export UV_INDEX=$TERM_SD_PIP_EXTRA_INDEX_URL
+                export UV_FIND_LINKS=$TERM_SD_PIP_FIND_LINKS
                 ;;
             *)
                 export PIP_INDEX_URL=$TERM_SD_PIP_INDEX_URL
                 export PIP_EXTRA_INDEX_URL=$TERM_SD_PIP_EXTRA_INDEX_URL
-                export PIP_FIND_LINKS="$TERM_SD_PIP_FIND_LINKS"
+                export PIP_FIND_LINKS=$TERM_SD_PIP_FIND_LINKS
+                export UV_DEFAULT_INDEX=$TERM_SD_PIP_INDEX_URL
+                export UV_INDEX=$TERM_SD_PIP_EXTRA_INDEX_URL
+                export UV_FIND_LINKS=$TERM_SD_PIP_FIND_LINKS
                 ;;
         esac
     fi

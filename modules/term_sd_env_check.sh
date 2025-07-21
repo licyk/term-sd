@@ -164,18 +164,38 @@ check_onnxruntime_gpu_ver() {
         term_sd_echo "检测到 onnxruntime-gpu 所支持的 CUDA 版本 和 PyTorch 所支持的 CUDA 版本不匹配, 将执行重装操作"
         uninstall_onnxruntime_gpu
         term_sd_echo "重新安装 onnxruntime-gpu"
-        term_sd_try term_sd_pip install onnxruntime-gpu==1.18.1 --no-cache-dir
+        if term_sd_is_use_uv; then
+            term_sd_uv_install onnxruntime-gpu==1.18.1 --no-cache-dir
+            if check_uv_install_failed_and_warning; then
+                term_sd_try term_sd_pip install onnxruntime-gpu==1.18.1 --no-cache-dir
+            fi
+            term_sd_try term_sd_pip install onnxruntime-gpu==1.18.1 --no-cache-dir
+        fi
     elif [[ "${status}" == "cu121cudnn9" ]]; then
         term_sd_echo "检测到 onnxruntime-gpu 所支持的 CUDA 版本 和 PyTorch 所支持的 CUDA 版本不匹配, 将执行重装操作"
         uninstall_onnxruntime_gpu
         term_sd_echo "重新安装 onnxruntime-gpu"
-        term_sd_pip install "onnxruntime-gpu>=1.19.0" --no-cache-dir
+        if term_sd_is_use_uv; then
+            term_sd_uv_install "onnxruntime-gpu>=1.19.0" --no-cache-dir
+            if check_uv_install_failed_and_warning; then
+                term_sd_try term_sd_pip install "onnxruntime-gpu>=1.19.0" --no-cache-dir
+            fi
+            term_sd_try term_sd_pip install "onnxruntime-gpu>=1.19.0" --no-cache-dir
+        fi
     elif [[ "${status}" == "cu121cudnn8" ]]; then
         term_sd_echo "检测到 onnxruntime-gpu 所支持的 CUDA 版本 和 PyTorch 所支持的 CUDA 版本不匹配, 将执行重装操作"
         uninstall_onnxruntime_gpu
         term_sd_echo "重新安装 onnxruntime-gpu"
-        PIP_INDEX_URL="https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple/" \
-        term_sd_try term_sd_pip install onnxruntime-gpu==1.17.1 --no-cache-dir
+        if term_sd_is_use_uv; then
+            UV_DEFAULT_INDEX="https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple/" \
+            term_sd_try term_sd_uv_install onnxruntime-gpu==1.17.1 --no-cache-dir
+            if check_uv_install_failed_and_warning; then
+                PIP_INDEX_URL="https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple/" \
+                term_sd_try term_sd_pip install onnxruntime-gpu==1.17.1 --no-cache-dir
+            fi
+            PIP_INDEX_URL="https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple/" \
+            term_sd_try term_sd_pip install onnxruntime-gpu==1.17.1 --no-cache-dir
+        fi
     else
         term_sd_echo "onnxruntime-gpu 无版本问题"
         return 0

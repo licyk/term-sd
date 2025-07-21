@@ -56,6 +56,7 @@ install_pytorch() {
 # 使用 PYTORCH_TYPE 判断 PyTorch 种类, 用于切换 PyTorch 镜像源
 # 接受 Pip 参数:
 # PIP_INDEX_MIRROR PIP_EXTRA_INDEX_MIRROR PIP_FIND_LINKS_MIRROR
+# UV_INDEX_MIRROR UV_EXTRA_INDEX_MIRROR UV_FIND_LINKS_MIRROR
 # PIP_BREAK_SYSTEM_PACKAGE_ARG PIP_USE_PEP517_ARG PIP_FORCE_REINSTALL_ARG
 # PIP_UPDATE_PACKAGE_ARG
 process_pytorch_ipex() {
@@ -66,6 +67,9 @@ process_pytorch_ipex() {
     local ipex_win_url="--find-links https://licyk.github.io/t/pypi/index.html"
     local ipex_url_cn="--extra-index-url https://pytorch-extension.intel.com/release-whl/stable/xpu/cn"
     local ipex_url_us="--extra-index-url https://pytorch-extension.intel.com/release-whl/stable/xpu/us"
+    local ipex_win_url_uv="--find-links https://licyk.github.io/t/pypi/index.html"
+    local ipex_url_cn_uv="--index https://pytorch-extension.intel.com/release-whl/stable/xpu/cn"
+    local ipex_url_us_uv="--index https://pytorch-extension.intel.com/release-whl/stable/xpu/us"
 
     if [[ "${PYTORCH_TYPE}" == "ipex_legacy_core_ultra" ]]; then
         ipex_type="Core_Ultra"
@@ -99,13 +103,13 @@ process_pytorch_ipex() {
 
                 case "${torch_ipex_ver}" in
                     2.0.0)
-                        install_python_package torch==2.0.0a0+gite9ebda2 torchvision==0.15.2a0+fa99a53 intel_extension_for_pytorch==2.0.110+gitc6ea20b ${ipex_win_url} --no-warn-conflicts
+                        install_python_package torch==2.0.0a0+gite9ebda2 torchvision==0.15.2a0+fa99a53 intel_extension_for_pytorch==2.0.110+gitc6ea20b $(term_sd_is_use_uv && echo ${ipex_win_url} || echo ${ipex_win_url_uv}) --no-warn-conflicts
                         ;;
                     2.1.0)
                         if [[ "${ipex_type}" == "Core_Ultra" ]]; then # 核显
-                            install_python_package torch==2.1.0a0+git7bcf7da torchvision==0.16.0+fbb4cc5 torchaudio==2.1.0+6ea1133 intel_extension_for_pytorch==2.1.20+git4849f3b ${ipex_win_url} --no-warn-conflicts
+                            install_python_package torch==2.1.0a0+git7bcf7da torchvision==0.16.0+fbb4cc5 torchaudio==2.1.0+6ea1133 intel_extension_for_pytorch==2.1.20+git4849f3b $(term_sd_is_use_uv && echo ${ipex_win_url} || echo ${ipex_win_url_uv}) --no-warn-conflicts
                         else # 独显
-                            install_python_package torch==2.1.0a0+cxx11.abi torchvision==0.16.0a0+cxx11.abi torchaudio==2.1.0a0+cxx11.abi intel_extension_for_pytorch==2.1.10+xpu ${ipex_win_url} --no-warn-conflicts
+                            install_python_package torch==2.1.0a0+cxx11.abi torchvision==0.16.0a0+cxx11.abi torchaudio==2.1.0a0+cxx11.abi intel_extension_for_pytorch==2.1.10+xpu $(term_sd_is_use_uv && echo ${ipex_win_url} || echo ${ipex_win_url_uv}) --no-warn-conflicts
                         fi
                         ;;
                 esac
@@ -115,19 +119,19 @@ process_pytorch_ipex() {
                 if is_use_pip_mirror; then # 国内镜像
                     case "${torch_ipex_ver}" in
                         2.0.0)
-                            install_python_package torch==2.0.1a0 torchvision==0.15.2a0 intel-extension-for-pytorch==2.0.120+xpu ${ipex_url_cn} --no-warn-conflicts
+                            install_python_package torch==2.0.1a0 torchvision==0.15.2a0 intel-extension-for-pytorch==2.0.120+xpu $(term_sd_is_use_uv && echo ${ipex_url_cn_uv} || echo ${ipex_url_cn}) --no-warn-conflicts
                             ;;
                         2.1.0)
-                            install_python_package torch==2.1.0.post0 torchvision==0.16.0.post0 torchaudio==2.1.0.post0 intel-extension-for-pytorch==2.1.20 ${ipex_url_cn} --no-warn-conflicts
+                            install_python_package torch==2.1.0.post0 torchvision==0.16.0.post0 torchaudio==2.1.0.post0 intel-extension-for-pytorch==2.1.20 $(term_sd_is_use_uv && echo ${ipex_url_cn_uv} || echo ${ipex_url_cn}) --no-warn-conflicts
                             ;;
                     esac
                 else
                     case "${torch_ipex_ver}" in
                         2.0.0)
-                            install_python_package torch==2.0.1a0 torchvision==0.15.2a0 intel-extension-for-pytorch==2.0.120+xpu ${ipex_url_us} --no-warn-conflicts
+                            install_python_package torch==2.0.1a0 torchvision==0.15.2a0 intel-extension-for-pytorch==2.0.120+xpu $(term_sd_is_use_uv && echo ${ipex_url_us_uv} || echo ${ipex_url_us}) --no-warn-conflicts
                             ;;
                         2.1.0)
-                            install_python_package torch==2.1.0.post0 torchvision==0.16.0.post0 torchaudio==2.1.0.post0 intel-extension-for-pytorch==2.1.20 ${ipex_url_us} --no-warn-conflicts
+                            install_python_package torch==2.1.0.post0 torchvision==0.16.0.post0 torchaudio==2.1.0.post0 intel-extension-for-pytorch==2.1.20 $(term_sd_is_use_uv && echo ${ipex_url_us_uv} || echo ${ipex_url_us}) --no-warn-conflicts
                             ;;
                     esac
                 fi
@@ -135,17 +139,47 @@ process_pytorch_ipex() {
             ;;
         ipex)
             if is_use_pip_mirror; then
-                PIP_INDEX_URL="https://download.pytorch.org/whl/xpu" \
-                PIP_EXTRA_INDEX_URL="" \
-                PIP_FIND_LINKS="" \
-                term_sd_try term_sd_pip install ${torch_ver} \
-                ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                if term_sd_is_use_uv; then
+                    UV_DEFAULT_INDEX="https://download.pytorch.org/whl/xpu" \
+                    UV_INDEX="" \
+                    UV_FIND_LINKS="" \
+                    term_sd_try term_sd_uv_install ${torch_ver} \
+                    ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                    if check_uv_install_failed_and_warning; then
+                        PIP_INDEX_URL="https://download.pytorch.org/whl/xpu" \
+                        PIP_EXTRA_INDEX_URL="" \
+                        PIP_FIND_LINKS="" \
+                        term_sd_try term_sd_pip install ${torch_ver} \
+                        ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                    fi
+                else
+                    PIP_INDEX_URL="https://download.pytorch.org/whl/xpu" \
+                    PIP_EXTRA_INDEX_URL="" \
+                    PIP_FIND_LINKS="" \
+                    term_sd_try term_sd_pip install ${torch_ver} \
+                    ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                fi
             else
-                PIP_INDEX_URL="https://download.pytorch.org/whl/xpu" \
-                PIP_EXTRA_INDEX_URL="" \
-                PIP_FIND_LINKS="" \
-                term_sd_try term_sd_pip install ${torch_ver} \
-                ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                if term_sd_is_use_uv; then
+                    UV_DEFAULT_INDEX="https://download.pytorch.org/whl/xpu" \
+                    UV_INDEX="" \
+                    UV_FIND_LINKS="" \
+                    term_sd_try term_sd_uv_install ${torch_ver} \
+                    ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                    if check_uv_install_failed_and_warning; then
+                        PIP_INDEX_URL="https://download.pytorch.org/whl/xpu" \
+                        PIP_EXTRA_INDEX_URL="" \
+                        PIP_FIND_LINKS="" \
+                        term_sd_try term_sd_pip install ${torch_ver} \
+                        ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                    fi
+                else
+                    PIP_INDEX_URL="https://download.pytorch.org/whl/xpu" \
+                    PIP_EXTRA_INDEX_URL="" \
+                    PIP_FIND_LINKS="" \
+                    term_sd_try term_sd_pip install ${torch_ver} \
+                    ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                fi
             fi
             ;;
     esac
@@ -164,11 +198,16 @@ process_pytorch_ipex() {
 # 使用 PYTORCH_TYPE 判断 PyTorch 种类, 用于切换 PyTorch 镜像源
 # 接受 Pip 参数:
 # PIP_INDEX_MIRROR PIP_EXTRA_INDEX_MIRROR PIP_FIND_LINKS_MIRROR
+# UV_INDEX_MIRROR UV_EXTRA_INDEX_MIRROR UV_FIND_LINKS_MIRROR
 # PIP_BREAK_SYSTEM_PACKAGE_ARG PIP_USE_PEP517_ARG PIP_FORCE_REINSTALL_ARG
 # PIP_UPDATE_PACKAGE_ARG
 process_pytorch() {
     local torch_ver
     local xformers_ver
+    local pypi_index_url
+    local pypi_extra_index_url
+    local pypi_find_links_url
+    local with_pypi_mirror_env_value=0
 
     torch_ver=$INSTALL_PYTORCH_VERSION
     xformers_ver=$INSTALL_XFORMERS_VERSION
@@ -176,180 +215,190 @@ process_pytorch() {
     term_sd_echo "将要安装的 PyTorch 版本组合:"
     term_sd_echo "PyTorch: ${torch_ver}"
     term_sd_echo "xFormers: $([[ ! -z "${xformers_ver}" ]] && echo ${xformers_ver} || echo "无")"
-    # 安装 PyTorch
-    term_sd_echo "开始安装 PyTorch"
+
+    # 配置 PyTorch 镜像源
     if is_use_pip_mirror; then # 镜像源
         case "${PYTORCH_TYPE}" in
             cu128)
-                PIP_INDEX_URL="https://mirror.nju.edu.cn/pytorch/whl/cu128" \
-                PIP_EXTRA_INDEX_URL="" \
-                PIP_FIND_LINKS="" \
-                term_sd_try term_sd_pip install ${torch_ver} \
-                ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                pypi_index_url="https://mirror.nju.edu.cn/pytorch/whl/cu128"
+                pypi_extra_index_url=""
+                pypi_find_links_url=""
+                with_pypi_mirror_env_value=1
                 ;;
             cu126)
-                PIP_INDEX_URL="https://mirror.nju.edu.cn/pytorch/whl/cu126" \
-                PIP_EXTRA_INDEX_URL="" \
-                PIP_FIND_LINKS="" \
-                term_sd_try term_sd_pip install ${torch_ver} \
-                ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                pypi_index_url="https://mirror.nju.edu.cn/pytorch/whl/cu126"
+                pypi_extra_index_url=""
+                pypi_find_links_url=""
+                with_pypi_mirror_env_value=1
                 ;;
             cu124)
-                PIP_INDEX_URL="https://mirror.nju.edu.cn/pytorch/whl/cu124" \
-                PIP_EXTRA_INDEX_URL="" \
-                PIP_FIND_LINKS="" \
-                term_sd_try term_sd_pip install ${torch_ver} \
-                ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                pypi_index_url="https://mirror.nju.edu.cn/pytorch/whl/cu124"
+                pypi_extra_index_url=""
+                pypi_find_links_url=""
+                with_pypi_mirror_env_value=1
                 ;;
             cu121)
-                PIP_INDEX_URL="https://mirror.sjtu.edu.cn/pytorch-wheels/cu121" \
-                PIP_EXTRA_INDEX_URL="" \
-                PIP_FIND_LINKS="" \
-                term_sd_try term_sd_pip install ${torch_ver} \
-                ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                pypi_index_url="https://mirror.sjtu.edu.cn/pytorch-wheels/cu121"
+                pypi_extra_index_url=""
+                pypi_find_links_url=""
+                with_pypi_mirror_env_value=1
                 ;;
             cu118)
-                # PIP_FIND_LINKS="https://mirror.sjtu.edu.cn/pytorch-wheels/cu118/torch_stable.html" \
-                PIP_INDEX_URL="https://mirror.nju.edu.cn/pytorch/whl/cu118" \
-                PIP_EXTRA_INDEX_URL="" \
-                PIP_FIND_LINKS="" \
-                term_sd_try term_sd_pip install ${torch_ver} \
-                ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                pypi_index_url="https://mirror.nju.edu.cn/pytorch/whl/cu118"
+                pypi_extra_index_url=""
+                pypi_find_links_url=""
+                with_pypi_mirror_env_value=1
                 ;;
             rocm61)
-                PIP_INDEX_URL="https://mirror.nju.edu.cn/pytorch/whl/rocm6.1" \
-                PIP_EXTRA_INDEX_URL="" \
-                PIP_FIND_LINKS="" \
-                term_sd_try term_sd_pip install ${torch_ver} \
-                ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                pypi_index_url="https://mirror.nju.edu.cn/pytorch/whl/rocm6.1"
+                pypi_extra_index_url=""
+                pypi_find_links_url=""
+                with_pypi_mirror_env_value=1
                 ;;
             rocm62)
-                PIP_INDEX_URL="https://mirror.sjtu.edu.cn/pytorch-wheels/rocm6.2" \
-                PIP_EXTRA_INDEX_URL="" \
-                PIP_FIND_LINKS="" \
-                term_sd_try term_sd_pip install ${torch_ver} \
-                ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                pypi_index_url="https://mirror.sjtu.edu.cn/pytorch-wheels/rocm6.2"
+                pypi_extra_index_url=""
+                pypi_find_links_url=""
+                with_pypi_mirror_env_value=1
                 ;;
             rocm624)
-                PIP_INDEX_URL="https://mirror.nju.edu.cn/pytorch/whl/rocm6.2.4" \
-                PIP_EXTRA_INDEX_URL="" \
-                PIP_FIND_LINKS="" \
-                term_sd_try term_sd_pip install ${torch_ver} \
-                ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                pypi_index_url="https://mirror.nju.edu.cn/pytorch/whl/rocm6.2.4"
+                pypi_extra_index_url=""
+                pypi_find_links_url=""
+                with_pypi_mirror_env_value=1
                 ;;
             rocm63)
-                PIP_INDEX_URL="https://mirror.nju.edu.cn/pytorch/whl/rocm6.3" \
-                PIP_EXTRA_INDEX_URL="" \
-                PIP_FIND_LINKS="" \
-                term_sd_try term_sd_pip install ${torch_ver} \
-                ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                pypi_index_url="https://mirror.nju.edu.cn/pytorch/whl/rocm6.3"
+                pypi_extra_index_url=""
+                pypi_find_links_url=""
+                with_pypi_mirror_env_value=1
                 ;;
             cpu)
-                PIP_INDEX_URL="https://mirror.nju.edu.cn/pytorch/whl/cpu" \
-                PIP_EXTRA_INDEX_URL="" \
-                PIP_FIND_LINKS="" \
-                term_sd_try term_sd_pip install ${torch_ver} \
-                ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                pypi_index_url="https://mirror.nju.edu.cn/pytorch/whl/cpu"
+                pypi_extra_index_url=""
+                pypi_find_links_url=""
+                with_pypi_mirror_env_value=1
                 ;;
             other)
-                PIP_INDEX_URL="https://download.pytorch.org/whl" \
-                PIP_EXTRA_INDEX_URL="" \
-                PIP_FIND_LINKS="" \
-                term_sd_try term_sd_pip install ${torch_ver} \
-                ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                pypi_index_url="https://download.pytorch.org/whl"
+                pypi_extra_index_url=""
+                pypi_find_links_url=""
+                with_pypi_mirror_env_value=1
                 ;;
             *)
-                term_sd_try term_sd_pip install ${torch_ver} \
-                ${PIP_INDEX_MIRROR} ${PIP_EXTRA_INDEX_MIRROR} ${PIP_FIND_LINKS_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                true
                 ;;
         esac
     else # 官方源
         case "${PYTORCH_TYPE}" in
             cu128)
-                PIP_INDEX_URL="https://download.pytorch.org/whl/cu128" \
-                PIP_EXTRA_INDEX_URL="" \
-                PIP_FIND_LINKS="" \
-                term_sd_try term_sd_pip install ${torch_ver} \
-                ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                pypi_index_url="https://download.pytorch.org/whl/cu128"
+                pypi_extra_index_url=""
+                pypi_find_links_url=""
+                with_pypi_mirror_env_value=1
                 ;;
             cu126)
-                PIP_INDEX_URL="https://download.pytorch.org/whl/cu126" \
-                PIP_EXTRA_INDEX_URL="" \
-                PIP_FIND_LINKS="" \
-                term_sd_try term_sd_pip install ${torch_ver} \
-                ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                pypi_index_url="https://download.pytorch.org/whl/cu126"
+                pypi_extra_index_url=""
+                pypi_find_links_url=""
+                with_pypi_mirror_env_value=1
                 ;;
             cu124)
-                # PIP_FIND_LINKS="https://download.pytorch.org/whl/cu124/torch_stable.html" \
-                PIP_INDEX_URL="https://download.pytorch.org/whl/cu124" \
-                PIP_EXTRA_INDEX_URL="" \
-                PIP_FIND_LINKS="" \
-                term_sd_try term_sd_pip install ${torch_ver} \
-                ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                pypi_index_url="https://download.pytorch.org/whl/cu124"
+                pypi_extra_index_url=""
+                pypi_find_links_url=""
+                with_pypi_mirror_env_value=1
                 ;;
             cu121)
-                # PIP_FIND_LINKS="https://download.pytorch.org/whl/cu121/torch_stable.html" \
-                PIP_INDEX_URL="https://download.pytorch.org/whl/cu121" \
-                PIP_EXTRA_INDEX_URL="" \
-                PIP_FIND_LINKS="" \
-                term_sd_try term_sd_pip install ${torch_ver} \
-                ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                pypi_index_url="https://download.pytorch.org/whl/cu121"
+                pypi_extra_index_url=""
+                pypi_find_links_url=""
+                with_pypi_mirror_env_value=1
                 ;;
             cu118)
-                # PIP_FIND_LINKS="https://download.pytorch.org/whl/cu118/torch_stable.html" \
-                PIP_INDEX_URL="https://download.pytorch.org/whl/cu118" \
-                PIP_EXTRA_INDEX_URL="" \
-                PIP_FIND_LINKS="" \
-                term_sd_try term_sd_pip install ${torch_ver} \
-                ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                pypi_index_url="https://download.pytorch.org/whl/cu118"
+                pypi_extra_index_url=""
+                pypi_find_links_url=""
+                with_pypi_mirror_env_value=1
                 ;;
             rocm61)
-                PIP_INDEX_URL="https://download.pytorch.org/whl/rocm6.1" \
-                PIP_EXTRA_INDEX_URL="" \
-                PIP_FIND_LINKS="" \
-                term_sd_try term_sd_pip install ${torch_ver} \
-                ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                pypi_index_url="https://download.pytorch.org/whl/rocm6.1"
+                pypi_extra_index_url=""
+                pypi_find_links_url=""
+                with_pypi_mirror_env_value=1
                 ;;
             rocm62)
-                PIP_INDEX_URL="https://download.pytorch.org/whl/rocm6.2" \
-                PIP_EXTRA_INDEX_URL="" \
-                PIP_FIND_LINKS="" \
-                term_sd_try term_sd_pip install ${torch_ver} \
-                ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                pypi_index_url="https://download.pytorch.org/whl/rocm6.2"
+                pypi_extra_index_url=""
+                pypi_find_links_url=""
+                with_pypi_mirror_env_value=1
                 ;;
             rocm624)
-                PIP_INDEX_URL="https://download.pytorch.org/whl/rocm6.2.4" \
-                PIP_EXTRA_INDEX_URL="" \
-                PIP_FIND_LINKS="" \
-                term_sd_try term_sd_pip install ${torch_ver} \
-                ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                pypi_index_url="https://download.pytorch.org/whl/rocm6.2.4"
+                pypi_extra_index_url=""
+                pypi_find_links_url=""
+                with_pypi_mirror_env_value=1
                 ;;
             rocm63)
-                PIP_INDEX_URL="https://download.pytorch.org/whl/rocm6.3" \
-                PIP_EXTRA_INDEX_URL="" \
-                PIP_FIND_LINKS="" \
-                term_sd_try term_sd_pip install ${torch_ver} \
-                ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                pypi_index_url="https://download.pytorch.org/whl/rocm6.3"
+                pypi_extra_index_url=""
+                pypi_find_links_url=""
+                with_pypi_mirror_env_value=1
                 ;;
             cpu)
-                PIP_INDEX_URL="https://download.pytorch.org/whl/cpu" \
-                PIP_EXTRA_INDEX_URL="" \
-                PIP_FIND_LINKS="" \
-                term_sd_try term_sd_pip install ${torch_ver} \
-                ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                pypi_index_url="https://download.pytorch.org/whl/cpu"
+                pypi_extra_index_url=""
+                pypi_find_links_url=""
+                with_pypi_mirror_env_value=1
                 ;;
             other)
-                PIP_INDEX_URL="https://download.pytorch.org/whl" \
-                PIP_EXTRA_INDEX_URL="" \
-                PIP_FIND_LINKS="" \
-                term_sd_try term_sd_pip install ${torch_ver} \
-                ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                pypi_index_url="https://download.pytorch.org/whl"
+                pypi_extra_index_url=""
+                pypi_find_links_url=""
+                with_pypi_mirror_env_value=1
                 ;;
             *)
-                term_sd_try term_sd_pip install ${torch_ver} \
-                ${PIP_INDEX_MIRROR} ${PIP_EXTRA_INDEX_MIRROR} ${PIP_FIND_LINKS_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                true
                 ;;
         esac
+    fi
+
+    # 安装 PyTorch
+    term_sd_echo "开始安装 PyTorch"
+    if [[ "${with_pypi_mirror_env_value}" == 1 ]]; then
+        # 使用临时镜像源环境变量进行安装
+        if term_sd_is_use_uv; then
+            UV_DEFAULT_INDEX=$pypi_index_url \
+            UV_INDEX=$pypi_extra_index_url \
+            UV_FIND_LINKS=$pypi_find_links_url \
+            term_sd_try term_sd_uv_install ${torch_ver} \
+            ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+            if check_uv_install_failed_and_warning; then
+                PIP_INDEX_URL=$pypi_index_url \
+                PIP_EXTRA_INDEX_URL=$pypi_extra_index_url \
+                PIP_FIND_LINKS=$pypi_find_links_url \
+                term_sd_try term_sd_pip install ${torch_ver} \
+                ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+            fi
+        else
+            PIP_INDEX_URL=$pypi_index_url \
+            PIP_EXTRA_INDEX_URL=$pypi_extra_index_url \
+            PIP_FIND_LINKS=$pypi_find_links_url \
+            term_sd_try term_sd_pip install ${torch_ver} \
+            ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+        fi
+    else
+        if term_sd_is_use_uv; then
+            term_sd_try term_sd_uv_install ${torch_ver} \
+            ${UV_INDEX_MIRROR} ${UV_EXTRA_INDEX_MIRROR} ${UV_FIND_LINKS_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+            if check_uv_install_failed_and_warning; then
+                term_sd_try term_sd_pip install ${torch_ver} \
+                ${PIP_INDEX_MIRROR} ${PIP_EXTRA_INDEX_MIRROR} ${PIP_FIND_LINKS_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+            fi
+        else
+            term_sd_try term_sd_pip install ${torch_ver} \
+            ${PIP_INDEX_MIRROR} ${PIP_EXTRA_INDEX_MIRROR} ${PIP_FIND_LINKS_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+        fi
     fi
 
     if [[ "$?" == 0 ]]; then
@@ -367,178 +416,40 @@ process_pytorch() {
         fi
         term_sd_echo "开始安装 xFormers"
 
-        if is_use_pip_mirror; then # 镜像源
-            case "${PYTORCH_TYPE}" in
-                cu128)
-                    PIP_INDEX_URL="https://mirror.nju.edu.cn/pytorch/whl/cu128" \
-                    PIP_EXTRA_INDEX_URL="" \
-                    PIP_FIND_LINKS="" \
+        if [[ "${with_pypi_mirror_env_value}" == 1 ]]; then
+            # 使用临时镜像源环境变量进行安装
+            if term_sd_is_use_uv; then
+                UV_DEFAULT_INDEX=$pypi_index_url \
+                UV_INDEX=$pypi_extra_index_url \
+                UV_FIND_LINKS=$pypi_find_links_url \
+                term_sd_try term_sd_uv_install ${xformers_ver} \
+                ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts --no-deps
+                if check_uv_install_failed_and_warning; then
+                    PIP_INDEX_URL=$pypi_index_url \
+                    PIP_EXTRA_INDEX_URL=$pypi_extra_index_url \
+                    PIP_FIND_LINKS=$pypi_find_links_url \
                     term_sd_try term_sd_pip install ${xformers_ver} \
                     ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts --no-deps
-                    ;;
-                cu126)
-                    PIP_INDEX_URL="https://mirror.nju.edu.cn/pytorch/whl/cu126" \
-                    PIP_EXTRA_INDEX_URL="" \
-                    PIP_FIND_LINKS="" \
-                    term_sd_try term_sd_pip install ${xformers_ver} \
-                    ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts --no-deps
-                    ;;
-                cu124)
-                    PIP_INDEX_URL="https://mirror.nju.edu.cn/pytorch/whl/cu124" \
-                    PIP_EXTRA_INDEX_URL="" \
-                    PIP_FIND_LINKS="" \
-                    term_sd_try term_sd_pip install ${xformers_ver} \
-                    ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts --no-deps
-                    ;;
-                cu121)
-                    PIP_INDEX_URL="https://mirror.sjtu.edu.cn/pytorch-wheels/cu121" \
-                    PIP_EXTRA_INDEX_URL="" \
-                    PIP_FIND_LINKS="" \
-                    term_sd_try term_sd_pip install ${xformers_ver} \
-                    ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts --no-deps
-                    ;;
-                cu118)
-                    # PIP_FIND_LINKS="https://mirror.sjtu.edu.cn/pytorch-wheels/cu118/torch_stable.html" \
-                    PIP_INDEX_URL="https://mirror.nju.edu.cn/pytorch/whl/cu118" \
-                    PIP_EXTRA_INDEX_URL="" \
-                    PIP_FIND_LINKS="" \
-                    term_sd_try term_sd_pip install ${xformers_ver} \
-                    ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts --no-deps
-                    ;;
-                rocm61)
-                    PIP_INDEX_URL="https://mirror.nju.edu.cn/pytorch/whl/rocm6.1" \
-                    PIP_EXTRA_INDEX_URL="" \
-                    PIP_FIND_LINKS="" \
-                    term_sd_try term_sd_pip install ${xformers_ver} \
-                    ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts --no-deps
-                    ;;
-                rocm62)
-                    PIP_INDEX_URL="https://mirror.sjtu.edu.cn/pytorch-wheels/rocm6.2" \
-                    PIP_EXTRA_INDEX_URL="" \
-                    PIP_FIND_LINKS="" \
-                    term_sd_try term_sd_pip install ${xformers_ver} \
-                    ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts --no-deps
-                    ;;
-                rocm624)
-                    PIP_INDEX_URL="https://mirror.nju.edu.cn/pytorch/whl/rocm6.2.4" \
-                    PIP_EXTRA_INDEX_URL="" \
-                    PIP_FIND_LINKS="" \
-                    term_sd_try term_sd_pip install ${xformers_ver} \
-                    ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts --no-deps
-                    ;;
-                rocm63)
-                    PIP_INDEX_URL="https://mirror.nju.edu.cn/pytorch/whl/rocm6.3" \
-                    PIP_EXTRA_INDEX_URL="" \
-                    PIP_FIND_LINKS="" \
-                    term_sd_try term_sd_pip install ${xformers_ver} \
-                    ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts --no-deps
-                    ;;
-                cpu)
-                    PIP_INDEX_URL="https://mirror.nju.edu.cn/pytorch/whl/cpu" \
-                    PIP_EXTRA_INDEX_URL="" \
-                    PIP_FIND_LINKS="" \
-                    term_sd_try term_sd_pip install ${xformers_ver} \
-                    ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts --no-deps
-                    ;;
-                other)
-                    PIP_INDEX_URL="https://download.pytorch.org/whl" \
-                    PIP_EXTRA_INDEX_URL="" \
-                    PIP_FIND_LINKS="" \
-                    term_sd_try term_sd_pip install ${xformers_ver} \
-                    ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts --no-deps
-                    ;;
-                *)
+                fi
+            else
+                PIP_INDEX_URL=$pypi_index_url \
+                PIP_EXTRA_INDEX_URL=$pypi_extra_index_url \
+                PIP_FIND_LINKS=$pypi_find_links_url \
+                term_sd_try term_sd_pip install ${xformers_ver} \
+                ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts --no-deps
+            fi
+        else
+            if term_sd_is_use_uv; then
+                term_sd_try term_sd_uv_install ${xformers_ver} \
+                ${UV_INDEX_MIRROR} ${UV_EXTRA_INDEX_MIRROR} ${UV_FIND_LINKS_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts --no-deps
+                if check_uv_install_failed_and_warning; then
                     term_sd_try term_sd_pip install ${xformers_ver} \
                     ${PIP_INDEX_MIRROR} ${PIP_EXTRA_INDEX_MIRROR} ${PIP_FIND_LINKS_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts --no-deps
-                    ;;
-            esac
-        else # 官方源
-            case "${PYTORCH_TYPE}" in
-                cu128)
-                    PIP_INDEX_URL="https://download.pytorch.org/whl/cu128" \
-                    PIP_EXTRA_INDEX_URL="" \
-                    PIP_FIND_LINKS="" \
-                    term_sd_try term_sd_pip install ${xformers_ver} \
-                    ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts --no-deps
-                    ;;
-                cu126)
-                    PIP_INDEX_URL="https://download.pytorch.org/whl/cu126" \
-                    PIP_EXTRA_INDEX_URL="" \
-                    PIP_FIND_LINKS="" \
-                    term_sd_try term_sd_pip install ${xformers_ver} \
-                    ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts --no-deps
-                    ;;
-                cu124)
-                    # PIP_FIND_LINKS="https://download.pytorch.org/whl/cu124/torch_stable.html" \
-                    PIP_INDEX_URL="https://download.pytorch.org/whl/cu124" \
-                    PIP_EXTRA_INDEX_URL="" \
-                    PIP_FIND_LINKS="" \
-                    term_sd_try term_sd_pip install ${xformers_ver} \
-                    ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts --no-deps
-                    ;;
-                cu121)
-                    # PIP_FIND_LINKS="https://download.pytorch.org/whl/cu121/torch_stable.html" \
-                    PIP_INDEX_URL="https://download.pytorch.org/whl/cu121" \
-                    PIP_EXTRA_INDEX_URL="" \
-                    PIP_FIND_LINKS="" \
-                    term_sd_try term_sd_pip install ${xformers_ver} \
-                    ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts --no-deps
-                    ;;
-                cu118)
-                    # PIP_FIND_LINKS="https://download.pytorch.org/whl/cu118/torch_stable.html" \
-                    PIP_INDEX_URL="https://download.pytorch.org/whl/cu118" \
-                    PIP_EXTRA_INDEX_URL="" \
-                    PIP_FIND_LINKS="" \
-                    term_sd_try term_sd_pip install ${xformers_ver} \
-                    ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts --no-deps
-                    ;;
-                rocm61)
-                    PIP_INDEX_URL="https://download.pytorch.org/whl/rocm6.1" \
-                    PIP_EXTRA_INDEX_URL="" \
-                    PIP_FIND_LINKS="" \
-                    term_sd_try term_sd_pip install ${xformers_ver} \
-                    ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts --no-deps
-                    ;;
-                rocm62)
-                    PIP_INDEX_URL="https://download.pytorch.org/whl/rocm6.2" \
-                    PIP_EXTRA_INDEX_URL="" \
-                    PIP_FIND_LINKS="" \
-                    term_sd_try term_sd_pip install ${xformers_ver} \
-                    ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts --no-deps
-                    ;;
-                rocm624)
-                    PIP_INDEX_URL="https://download.pytorch.org/whl/rocm6.2.4" \
-                    PIP_EXTRA_INDEX_URL="" \
-                    PIP_FIND_LINKS="" \
-                    term_sd_try term_sd_pip install ${xformers_ver} \
-                    ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts --no-deps
-                    ;;
-                rocm63)
-                    PIP_INDEX_URL="https://download.pytorch.org/whl/rocm6.3" \
-                    PIP_EXTRA_INDEX_URL="" \
-                    PIP_FIND_LINKS="" \
-                    term_sd_try term_sd_pip install ${xformers_ver} \
-                    ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts --no-deps
-                    ;;
-                cpu)
-                    PIP_INDEX_URL="https://download.pytorch.org/whl/cpu" \
-                    PIP_EXTRA_INDEX_URL="" \
-                    PIP_FIND_LINKS="" \
-                    term_sd_try term_sd_pip install ${xformers_ver} \
-                    ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts --no-deps
-                    ;;
-                other)
-                    PIP_INDEX_URL="https://download.pytorch.org/whl" \
-                    PIP_EXTRA_INDEX_URL="" \
-                    PIP_FIND_LINKS="" \
-                    term_sd_try term_sd_pip install ${xformers_ver} \
-                    ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts --no-deps
-                    ;;
-                *)
-                    term_sd_try term_sd_pip install ${xformers_ver} \
-                    ${PIP_INDEX_MIRROR} ${PIP_EXTRA_INDEX_MIRROR} ${PIP_FIND_LINKS_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts --no-deps
-                    ;;
-            esac
+                fi
+            else
+                term_sd_try term_sd_pip install ${xformers_ver} \
+                ${PIP_INDEX_MIRROR} ${PIP_EXTRA_INDEX_MIRROR} ${PIP_FIND_LINKS_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts --no-deps
+            fi
         fi
     fi
 

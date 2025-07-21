@@ -153,6 +153,9 @@ term_sd_set_install_env_value() {
 __term_sd_task_sys PIP_INDEX_MIRROR="${PIP_INDEX_MIRROR}"
 __term_sd_task_sys PIP_EXTRA_INDEX_MIRROR="${PIP_EXTRA_INDEX_MIRROR}"
 __term_sd_task_sys PIP_FIND_LINKS_MIRROR="${PIP_FIND_LINKS_MIRROR}"
+__term_sd_task_sys UV_INDEX_MIRROR="${UV_INDEX_MIRROR}"
+__term_sd_task_sys UV_EXTRA_INDEX_MIRROR="${UV_EXTRA_INDEX_MIRROR}"
+__term_sd_task_sys UV_FIND_LINKS_MIRROR="${UV_FIND_LINKS_MIRROR}"
 __term_sd_task_sys USE_PIP_MIRROR=${USE_PIP_MIRROR}
 __term_sd_task_sys PIP_BREAK_SYSTEM_PACKAGE_ARG="${PIP_BREAK_SYSTEM_PACKAGE_ARG}"
 __term_sd_task_sys PIP_USE_PEP517_ARG="${PIP_USE_PEP517_ARG}"
