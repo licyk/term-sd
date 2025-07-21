@@ -38,7 +38,7 @@ fix_activate_venv_script() {
 
     if [[ "${status}" == "True" ]]; then
         term_sd_echo "修正虚拟环境激活脚本中"
-        python -m venv "${venv_path}"
+        term_sd_python -m venv "${venv_path}"
     fi
 }
 
@@ -189,9 +189,20 @@ exit_venv() {
 
 # 更新虚拟环境中的 Pip 包管理器
 pip_package_manager_update() {
+    local upgrade_status
+    upgrade_status=$(term_sd_python "${START_PATH}/term-sd/python_modules/check_pip_need_upgrade.py")
+
     if [[ "${ENABLE_PIP_VER_CHECK}" == 1 ]]; then
         term_sd_echo "开始更新 Pip 包管理器"
-        term_sd_python -m pip install --upgrade pip
+        term_sd_pip install --upgrade pip
+        if [[ "$?" == 0 ]]; then
+            term_sd_echo "Pip 包管理器更新成功"
+        else
+            term_sd_echo "Pip 包管理器更新失败"
+        fi
+    elif [[ "${upgrade_status}" == "True" ]]; then
+        term_sd_echo "开始更新 Pip 包管理器"
+        term_sd_pip install --upgrade pip
         if [[ "$?" == 0 ]]; then
             term_sd_echo "Pip 包管理器更新成功"
         else

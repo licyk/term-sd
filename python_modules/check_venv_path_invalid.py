@@ -1,4 +1,5 @@
 import os
+import re
 import argparse
 from pathlib import Path
 
@@ -27,13 +28,25 @@ def read_content_from_file(path: str) -> list:
     return lines
 
 
+def get_value_from_variable(content: str, var_name: str) -> str | None:
+    '''从字符串 (Python 代码片段) 中找出指定字符串变量的值
+
+    :param content(str): 待查找的内容
+    :param var_name(str): 待查找的字符串变量
+    :return str | None: 返回字符串变量的值
+    '''
+    # 匹配三种情况：单引号/双引号/无引号
+    pattern = rf"{re.escape(var_name)}\s*=\s*(?:['\"]([^'\"]*)['\"]|([^ \n'\"]+))"
+    match = re.search(pattern, content)
+    return match.group(1) or match.group(2) if match else None
+
+
 # 获取 activate 文件中的虚拟环境路径
 def get_virtual_env_sh(content: list) -> str:
     for line in content:
         line = line.strip()
         if line.startswith("VIRTUAL_ENV"):
-            line = line.split("VIRTUAL_ENV=\"").pop()[:-1]
-            return line
+            return get_value_from_variable(line, "VIRTUAL_ENV")
 
     return None
 
