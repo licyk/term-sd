@@ -103,13 +103,25 @@ process_pytorch_ipex() {
 
                 case "${torch_ipex_ver}" in
                     2.0.0)
-                        install_python_package torch==2.0.0a0+gite9ebda2 torchvision==0.15.2a0+fa99a53 intel_extension_for_pytorch==2.0.110+gitc6ea20b $(term_sd_is_use_uv && echo ${ipex_win_url} || echo ${ipex_win_url_uv}) --no-warn-conflicts
+                        if term_sd_is_use_uv; then
+                            install_python_package torch==2.0.0a0+gite9ebda2 torchvision==0.15.2a0+fa99a53 intel_extension_for_pytorch==2.0.110+gitc6ea20b ${ipex_win_url_uv}
+                        else
+                            install_python_package torch==2.0.0a0+gite9ebda2 torchvision==0.15.2a0+fa99a53 intel_extension_for_pytorch==2.0.110+gitc6ea20b ${ipex_win_url} --no-warn-conflicts
+                        fi
                         ;;
                     2.1.0)
                         if [[ "${ipex_type}" == "Core_Ultra" ]]; then # 核显
-                            install_python_package torch==2.1.0a0+git7bcf7da torchvision==0.16.0+fbb4cc5 torchaudio==2.1.0+6ea1133 intel_extension_for_pytorch==2.1.20+git4849f3b $(term_sd_is_use_uv && echo ${ipex_win_url} || echo ${ipex_win_url_uv}) --no-warn-conflicts
+                            if term_sd_is_use_uv; then
+                                install_python_package torch==2.1.0a0+git7bcf7da torchvision==0.16.0+fbb4cc5 torchaudio==2.1.0+6ea1133 intel_extension_for_pytorch==2.1.20+git4849f3b ${ipex_win_url_uv}
+                            else
+                                install_python_package torch==2.1.0a0+git7bcf7da torchvision==0.16.0+fbb4cc5 torchaudio==2.1.0+6ea1133 intel_extension_for_pytorch==2.1.20+git4849f3b ${ipex_win_url} --no-warn-conflicts
+                            fi
                         else # 独显
-                            install_python_package torch==2.1.0a0+cxx11.abi torchvision==0.16.0a0+cxx11.abi torchaudio==2.1.0a0+cxx11.abi intel_extension_for_pytorch==2.1.10+xpu $(term_sd_is_use_uv && echo ${ipex_win_url} || echo ${ipex_win_url_uv}) --no-warn-conflicts
+                            if term_sd_is_use_uv; then
+                                install_python_package torch==2.1.0a0+cxx11.abi torchvision==0.16.0a0+cxx11.abi torchaudio==2.1.0a0+cxx11.abi intel_extension_for_pytorch==2.1.10+xpu ${ipex_win_url_uv}
+                            else
+                                install_python_package torch==2.1.0a0+cxx11.abi torchvision==0.16.0a0+cxx11.abi torchaudio==2.1.0a0+cxx11.abi intel_extension_for_pytorch==2.1.10+xpu ${ipex_win_url} --no-warn-conflicts
+                            fi
                         fi
                         ;;
                 esac
@@ -119,19 +131,35 @@ process_pytorch_ipex() {
                 if is_use_pip_mirror; then # 国内镜像
                     case "${torch_ipex_ver}" in
                         2.0.0)
-                            install_python_package torch==2.0.1a0 torchvision==0.15.2a0 intel-extension-for-pytorch==2.0.120+xpu $(term_sd_is_use_uv && echo ${ipex_url_cn_uv} || echo ${ipex_url_cn}) --no-warn-conflicts
+                            if term_sd_is_use_uv; then
+                                install_python_package torch==2.0.1a0 torchvision==0.15.2a0 intel-extension-for-pytorch==2.0.120+xpu ${ipex_url_cn_uv}
+                            else
+                                install_python_package torch==2.0.1a0 torchvision==0.15.2a0 intel-extension-for-pytorch==2.0.120+xpu ${ipex_url_cn} --no-warn-conflicts
+                            fi
                             ;;
                         2.1.0)
-                            install_python_package torch==2.1.0.post0 torchvision==0.16.0.post0 torchaudio==2.1.0.post0 intel-extension-for-pytorch==2.1.20 $(term_sd_is_use_uv && echo ${ipex_url_cn_uv} || echo ${ipex_url_cn}) --no-warn-conflicts
+                            if term_sd_is_use_uv; then
+                                install_python_package torch==2.1.0.post0 torchvision==0.16.0.post0 torchaudio==2.1.0.post0 intel-extension-for-pytorch==2.1.20 ${ipex_url_cn_uv}
+                            else
+                                install_python_package torch==2.1.0.post0 torchvision==0.16.0.post0 torchaudio==2.1.0.post0 intel-extension-for-pytorch==2.1.20 ${ipex_url_cn} --no-warn-conflicts
+                            fi
                             ;;
                     esac
                 else
                     case "${torch_ipex_ver}" in
                         2.0.0)
-                            install_python_package torch==2.0.1a0 torchvision==0.15.2a0 intel-extension-for-pytorch==2.0.120+xpu $(term_sd_is_use_uv && echo ${ipex_url_us_uv} || echo ${ipex_url_us}) --no-warn-conflicts
+                            if term_sd_is_use_uv; then
+                                install_python_package torch==2.0.1a0 torchvision==0.15.2a0 intel-extension-for-pytorch==2.0.120+xpu ${ipex_url_us_uv}
+                            else
+                                install_python_package torch==2.0.1a0 torchvision==0.15.2a0 intel-extension-for-pytorch==2.0.120+xpu ${ipex_url_us} --no-warn-conflicts
+                            fi
                             ;;
                         2.1.0)
-                            install_python_package torch==2.1.0.post0 torchvision==0.16.0.post0 torchaudio==2.1.0.post0 intel-extension-for-pytorch==2.1.20 $(term_sd_is_use_uv && echo ${ipex_url_us_uv} || echo ${ipex_url_us}) --no-warn-conflicts
+                            if term_sd_is_use_uv; then
+                                install_python_package torch==2.1.0.post0 torchvision==0.16.0.post0 torchaudio==2.1.0.post0 intel-extension-for-pytorch==2.1.20 ${ipex_url_us_uv}
+                            else
+                                install_python_package torch==2.1.0.post0 torchvision==0.16.0.post0 torchaudio==2.1.0.post0 intel-extension-for-pytorch==2.1.20 ${ipex_url_us} --no-warn-conflicts
+                            fi
                             ;;
                     esac
                 fi
@@ -144,7 +172,7 @@ process_pytorch_ipex() {
                     UV_INDEX="" \
                     UV_FIND_LINKS="" \
                     term_sd_try term_sd_uv_install ${torch_ver} \
-                    ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                    ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG}
                     if check_uv_install_failed_and_warning; then
                         PIP_INDEX_URL="https://download.pytorch.org/whl/xpu" \
                         PIP_EXTRA_INDEX_URL="" \
@@ -165,7 +193,7 @@ process_pytorch_ipex() {
                     UV_INDEX="" \
                     UV_FIND_LINKS="" \
                     term_sd_try term_sd_uv_install ${torch_ver} \
-                    ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+                    ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG}
                     if check_uv_install_failed_and_warning; then
                         PIP_INDEX_URL="https://download.pytorch.org/whl/xpu" \
                         PIP_EXTRA_INDEX_URL="" \
@@ -372,7 +400,7 @@ process_pytorch() {
             UV_INDEX=$pypi_extra_index_url \
             UV_FIND_LINKS=$pypi_find_links_url \
             term_sd_try term_sd_uv_install ${torch_ver} \
-            ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+            ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG}
             if check_uv_install_failed_and_warning; then
                 PIP_INDEX_URL=$pypi_index_url \
                 PIP_EXTRA_INDEX_URL=$pypi_extra_index_url \
@@ -390,7 +418,7 @@ process_pytorch() {
     else
         if term_sd_is_use_uv; then
             term_sd_try term_sd_uv_install ${torch_ver} \
-            ${UV_INDEX_MIRROR} ${UV_EXTRA_INDEX_MIRROR} ${UV_FIND_LINKS_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
+            ${UV_INDEX_MIRROR} ${UV_EXTRA_INDEX_MIRROR} ${UV_FIND_LINKS_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG}
             if check_uv_install_failed_and_warning; then
                 term_sd_try term_sd_pip install ${torch_ver} \
                 ${PIP_INDEX_MIRROR} ${PIP_EXTRA_INDEX_MIRROR} ${PIP_FIND_LINKS_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
@@ -423,7 +451,7 @@ process_pytorch() {
                 UV_INDEX=$pypi_extra_index_url \
                 UV_FIND_LINKS=$pypi_find_links_url \
                 term_sd_try term_sd_uv_install ${xformers_ver} \
-                ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts --no-deps
+                ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-deps
                 if check_uv_install_failed_and_warning; then
                     PIP_INDEX_URL=$pypi_index_url \
                     PIP_EXTRA_INDEX_URL=$pypi_extra_index_url \
@@ -441,7 +469,7 @@ process_pytorch() {
         else
             if term_sd_is_use_uv; then
                 term_sd_try term_sd_uv_install ${xformers_ver} \
-                ${UV_INDEX_MIRROR} ${UV_EXTRA_INDEX_MIRROR} ${UV_FIND_LINKS_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts --no-deps
+                ${UV_INDEX_MIRROR} ${UV_EXTRA_INDEX_MIRROR} ${UV_FIND_LINKS_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-deps
                 if check_uv_install_failed_and_warning; then
                     term_sd_try term_sd_pip install ${xformers_ver} \
                     ${PIP_INDEX_MIRROR} ${PIP_EXTRA_INDEX_MIRROR} ${PIP_FIND_LINKS_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts --no-deps

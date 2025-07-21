@@ -12,7 +12,7 @@ term_sd_uv() {
 # 处理 uv 安装命令
 term_sd_uv_install() {
     check_uv_upgrade
-    term_sd_uv install "$@"
+    term_sd_uv pip install "$@"
 }
 
 # 安装 uv
