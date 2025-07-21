@@ -210,4 +210,4 @@ def need_install_ort_ver(ignore_ort_install: bool = True) -> OrtType | None:
 
 if __name__ == '__main__':
     arg = get_args()
-    print(need_install_ort_ver(arg.ignore_ort_install))
+    print(need_install_ort_ver(not arg.ignore_ort_install))
