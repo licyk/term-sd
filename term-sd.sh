@@ -994,6 +994,16 @@ get_dialog_size_menu() {
     echo "${DIALOG_HEIGHT}" "${DIALOG_WIDTH}" "${DIALOG_MENU_HEIGHT}"
 }
 
+# 为 Pip / uv 创建空的配置文件
+term_sd_init_pip_and_uv_config_file() {
+    local pip_config_file_path=$(dirname "${PIP_CONFIG_FILE}")
+    local uv_config_file_path=$(dirname "${UV_CONFIG_FILE}")
+    [[ ! -d "${pip_config_file_path}" ]] && term_sd_mkdir "${pip_config_file_path}"
+    [[ ! -d "${uv_config_file_path}" ]] && term_sd_mkdir "${uv_config_file_path}"
+    [[ ! -f "${PIP_CONFIG_FILE}" ]] && touch "${PIP_CONFIG_FILE}"
+    [[ ! -f "${UV_CONFIG_FILE}" ]] && touch "${UV_CONFIG_FILE}"
+}
+
 main() {
     # 切换到 term-sd.sh 文件所在位置
     cd "$(cd "$(dirname "$0")" ; pwd)"
@@ -1042,14 +1052,14 @@ main() {
     export PIP_RETRIES=5 # 设置 Pip 的重试次数
     export PIP_DISABLE_PIP_VERSION_CHECK # Pip 版本版本检查
     export SAFETENSORS_FAST_GPU=1 # 强制所有模型使用 GPU 加载
-    export PIP_CONFIG_FILE="nul" # 屏蔽本地的 Pip 配置文件
+    export PIP_CONFIG_FILE="${START_PATH}/term-sd/config/pip.ini" # 屏蔽本地的 Pip 配置文件
     export PIP_PREFER_BINARY=1 # 设置 Pip 优先使用二进制包
     export PIP_YES=1 # Pip 卸载软件包时始终确认
     export PIP_NO_WARN_SCRIPT_LOCATION=0 # 禁用 Pip 不在 PATH 时的警告
     export UV_HTTP_TIMEOUT=30 # 设置 uv 的超时时间
     export UV_CONCURRENT_DOWNLOADS=50 # 设置 uv 的下载线程数
     export UV_INDEX_STRATEGY="unsafe-best-match" # 设置 uv 匹配 Python 软件包的模式
-    export UV_CONFIG_FILE="nul" # 屏蔽本地的 uv 配置文件
+    export UV_CONFIG_FILE="${START_PATH}/term-sd/config/uv.toml" # 屏蔽本地的 uv 配置文件
     export GRADIO_ANALYTICS_ENABLED="False" # 禁用 Gradio 新版本提醒
     export HF_HUB_DISABLE_SYMLINKS_WARNING=1 # 关闭 HuggingFace 库的禁用 syslinks 警告
     export BITSANDBYTES_NOWELCOME=1 # 禁用 bitsandbytes 欢迎信息
@@ -1216,6 +1226,8 @@ main() {
     TERM_SD_PIP_FIND_LINKS_ARG=$(echo "${TERM_SD_PIP_FIND_LINKS_ARG}")
     TERM_SD_UV_FIND_LINKS_ARG=$(echo "${TERM_SD_UV_FIND_LINKS_ARG}")
 
+    #  为 uv / Pip 生成空的配置文件
+    term_sd_init_pip_and_uv_config_file
 
     # 设置 AI 软件路径
     if [[ -f "${START_PATH}/term-sd/config/sd-webui-path.conf" ]]; then

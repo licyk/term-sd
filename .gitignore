@@ -2,6 +2,8 @@
 /task/*.sh
 /config/*.lock
 /config/*.conf
+/config/*.ini
+/config/*.toml
 /config/.gitconfig
 /requirements-backup
 /backup
