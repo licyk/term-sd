@@ -191,7 +191,7 @@ sudo zypper install python3 python3-pip python-venvs python-tk git aria2 dialog 
 nix-env -i python311Full aria git dialog curl
 ```
 
->[!NOTE]  
+>[!IMPORTANT]  
 >一些 Linux 发行版没法安装指定版本的 Python，导致 Python 版本不合适，造成 AI 软件运行出错，所以可以用[安装要求](#安装要求)部分推荐的 Python 版本管理器安装 Python，并在启动 Term-SD 时加上`--set-python-path`启动参数来指定 Python 的路径。  
 >参考该教程：[《在 Linux 上使用 Python 版本管理器安装 Python》](#在-linux-上使用-python-版本管理器安装-python)
 
@@ -307,7 +307,7 @@ aria2c https://gitee.com/licyk/term-sd/raw/main/term-sd.sh && chmod +x term-sd.s
 介绍使用 Python 版本管理器安装指定版本的 Python。
 
 >[!IMPORTANT]  
->如果使用 Micromamba 安装 Python，可以参考详细配置 MicroMamba 的教程：[《配置 MicroMamaba 包管理器 - licyk的小窝》](https://licyk.netlify.app/2025/05/31/configure-micromamba)
+>如果使用 MicroMamba 安装 Python，可以参考详细配置 MicroMamba 的教程：[《配置 MicroMamaba 包管理器 - licyk的小窝》](https://licyk.netlify.app/2025/05/31/configure-micromamba)
 
 ### [《Term-SD 界面操作方法》](https://github.com/licyk/README-collection/blob/main/term-sd/README_how_to_use_dialog.md)
 介绍 Term-SD 界面 (Dialog) 的操作方法。
