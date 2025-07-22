@@ -44,7 +44,7 @@ invokeai_manager() {
                     2)
                         # 更新前的准备
                         download_mirror_select # 下载镜像源选择
-                        pip_install_mode_select upgrade # 安装方式选择
+                        pip_install_mode_select # 安装方式选择
                         if term_sd_install_confirm "是否更新 InvokeAI ?"; then
                             term_sd_echo "更新 InvokeAI 中"
                             term_sd_tmp_disable_proxy # 临时取消代理,避免一些不必要的网络减速
@@ -337,6 +337,7 @@ switch_invokeai_version() {
     else
         term_sd_echo "取消切换版本"
     fi
+    clean_install_config # 清理安装参数
 }
 
 # 更新 InvokeAI
@@ -380,15 +381,19 @@ get_pytorch_mirror_type_for_invokeai() {
 # 使用时需确保 InvokeAI 核心包已被安装
 set_pytorch_install_config_for_invokeai() {
     local device_type=$@
+    local pytorch_ver
+    local xformers_ver
     term_sd_echo "配置 InvokeAI 所需 PyTorch 的安装信息"
     PYTORCH_TYPE=$(get_pytorch_mirror_type_for_invokeai "${device_type}")
-    INSTALL_PYTORCH_VERSION=$(term_sd_python "${START_PATH}/term-sd/python_modules/get_invokeai_require_pytorch.py")
-    INSTALL_XFORMERS_VERSION=$(term_sd_python "${START_PATH}/term-sd/python_modules/get_invokeai_require_xformers.py")
+    pytorch_ver=$(term_sd_python "${START_PATH}/term-sd/python_modules/get_invokeai_require_pytorch.py")
+    xformers_ver=$(term_sd_python "${START_PATH}/term-sd/python_modules/get_invokeai_require_xformers.py")
+    INSTALL_PYTORCH_VERSION="${pytorch_ver} ${xformers_ver}" # 合并依赖需求
 
     if term_sd_is_debug; then
         term_sd_echo "PYTORCH_TYPE: ${PYTORCH_TYPE}"
+        term_sd_echo "pytorch_ver: ${pytorch_ver}"
+        term_sd_echo "xformers_ver: ${xformers_ver}"
         term_sd_echo "INSTALL_PYTORCH_VERSION: ${INSTALL_PYTORCH_VERSION}"
-        term_sd_echo "INSTALL_XFORMERS_VERSION: ${INSTALL_XFORMERS_VERSION}"
     fi
 
     term_sd_echo "InvokeAI 所需 PyTorch 的安装信息配置完成"
@@ -396,16 +401,23 @@ set_pytorch_install_config_for_invokeai() {
 
 # 同步 InvokeAI 组件
 # 使用:
-# sync_invokeai_component <显卡类型>
+# sync_invokeai_component <显卡类型> <可选参数: force_reinstall (用于强制切换 PyTorch 版本)>
 sync_invokeai_component() {
     local invokeai_package_ver
-    local device_type=$@
+    local device_type=$1
+    local force_reinstall_pytorch=$2
     invokeai_package_ver=$(get_invokeai_version)
     [[ "${invokeai_package_ver}" == "无" ]] && invokeai_package_ver="invokeai"
     term_sd_echo "同步 InvokeAI 组件中"
     set_pytorch_install_config_for_invokeai "${device_type}" # 配置 PyTorch 安装信息
-    process_pytorch || return 1 # 安装 PyTorch
-    install_python_package "invokeai=${invokeai_package_ver}" || return 1 # 安装 InvokeAI 依赖
+    term_sd_echo "同步 PyTorch 组件中"
+    if [[ "${force_reinstall_pytorch}" == "force_reinstall" ]]; then
+        PIP_FORCE_REINSTALL_ARG="--force-reinstall" process_pytorch || return 1 # 安装 PyTorch
+    else
+        process_pytorch || return 1 # 安装 PyTorch
+    fi
+    term_sd_echo "同步 InvokeAI 其余组件中"
+    install_python_package "invokeai==${invokeai_package_ver}" || return 1 # 安装 InvokeAI 依赖
     term_sd_echo "同步 InvokeAI 组件完成"
 }
 
@@ -420,12 +432,13 @@ install_invokeai_process() {
 
 # 更新 / 切换 InvokeAI 版本处理
 # 使用:
-# switch_invokeai_version_process <显卡类型> <InvokeAI 版本>
+# switch_invokeai_version_process <显卡类型> <InvokeAI 版本> <可选参数: force_reinstall (用于强制切换 PyTorch 版本)>
 # 当 <InvokeAI 版本> 指定为 latest 时, 则更新 InvokeAI 到最新版本
 # 否则切换到指定的 InvokeAI 版本
 update_or_switch_invokeai_version_process() {
     local device_type=$1
     local invokeai_version=$2
+    local force_reinstall_pytorch=$3
     local current_version
 
     current_version=$(get_invokeai_version)
@@ -442,7 +455,7 @@ update_or_switch_invokeai_version_process() {
     if [[ "$?" == 0 ]]; then
         # 内核更新成功时再同步组件版本
         term_sd_echo "切换 InvokeAI 内核版本完成, 开始同步组件版本中"
-        if sync_invokeai_component "${device_type}"; then
+        if sync_invokeai_component "${device_type}" "${force_reinstall_pytorch}"; then
             term_sd_echo "InvokeAI 版本切换成功"
             return 0
         else
@@ -468,13 +481,15 @@ switch_pytorch_type_for_invokeai() {
         $(get_dialog_size)); then
 
         pytorch_type_select # 选择 PyTorch 类型
+        download_mirror_select # 下载镜像源选择
+        pip_install_mode_select # 安装方式选择
 
-        if [[ "$?" == 0 ]]; then
+        if term_sd_install_confirm "是否切换 PyTorch 类型 ?"; then
             term_sd_echo "开始切换 PyTorch 类型"
             current_version=$(get_invokeai_version)
             [[ "${current_version}" == "无" ]] && current_version="5.0.2"
 
-            update_or_switch_invokeai_version_process "${PYTORCH_TYPE}" "${current_version}"
+            update_or_switch_invokeai_version_process "${PYTORCH_TYPE}" "${current_version}" "force_reinstall"
             if [[ "$?" == 0 ]]; then
                 dialog --erase-on-exit \
                     --title "InvokeAI 管理" \
@@ -493,6 +508,7 @@ switch_pytorch_type_for_invokeai() {
         else
             term_sd_echo "取消切换 PyTorch 类型"
         fi
+        clean_install_config # 清理安装参数
     else
         term_sd_echo "取消切换 PyTorch 类型"
     fi

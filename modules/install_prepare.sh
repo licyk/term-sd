@@ -739,13 +739,13 @@ pytorch_type_select() {
         1)
             PYTORCH_TYPE="cuda"
             ;;
-        RoCM)
+        2)
             PYTORCH_TYPE="rocm"
             ;;
-        IPEX)
+        3)
             PYTORCH_TYPE="ipex"
             ;;
-        CPU)
+        4)
             PYTORCH_TYPE="cpu"
             ;;
         *)
