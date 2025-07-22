@@ -190,7 +190,7 @@ exit_venv() {
 # 更新虚拟环境中的 Pip 包管理器
 pip_package_manager_update() {
     local upgrade_status
-    upgrade_status=$(term_sd_python "${START_PATH}/term-sd/python_modules/check_pip_need_upgrade.py" --pip-mininum-ver "${TERM_SD_UV_MININUM_VER}")
+    upgrade_status=$(term_sd_python "${START_PATH}/term-sd/python_modules/check_pip_need_upgrade.py" --pip-mininum-ver "${TERM_SD_PIP_MININUM_VER}")
 
     if [[ "${ENABLE_PIP_VER_CHECK}" == 1 ]]; then
         term_sd_echo "开始更新 Pip 包管理器"
