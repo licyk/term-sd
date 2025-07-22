@@ -1,5 +1,19 @@
 import re
+import argparse
 from importlib.metadata import version
+
+
+def get_args() -> argparse.Namespace:
+    """获取命令行参数
+
+    :return `argparse.Namespace`: 命令行参数命名空间
+    """
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("--pip-mininum-ver", type=str,
+                        default="25.0", help="Pip 最低版本")
+
+    return parser.parse_args()
 
 
 def compare_versions(version1: str, version2: str) -> int:
@@ -43,12 +57,13 @@ def compare_versions(version1: str, version2: str) -> int:
 
 
 def need_upgrade_pip_ver() -> bool:
+    arg = get_args()
     try:
         pip_ver = version("pip")
     except Exception as _:
         return False
 
-    if compare_versions(pip_ver, "25.0") < 0:
+    if compare_versions(pip_ver, arg.pip_mininum_ver) < 0:
         return True
 
     return False

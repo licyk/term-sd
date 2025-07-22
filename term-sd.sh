@@ -1041,6 +1041,7 @@ main() {
     # 变量初始化
     TERM_SD_VER="1.4.15" #  Term-SD 版本
     TERM_SD_UV_MININUM_VER="0.8" # 设置 uv 的最低版本
+    TERM_SD_UV_MININUM_VER="25.0" # 设置 Pip 的最低版本
     USER_SHELL=$(basename "${SHELL}") # 读取用户所使用的 Shell
     START_PATH=$(pwd) # 设置启动时脚本路径
     export PYTHONUTF8=1 # 强制 Python 解释器使用 UTF-8 编码来处理字符串, 避免乱码问题
