@@ -13,3 +13,4 @@
 /task/github_mirror_test
 /task/*.py
 /task/*.txt
+/task/*.md

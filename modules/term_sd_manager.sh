@@ -552,6 +552,7 @@ term_sd_manager() {
 # 帮助文件保存在 <Start Path>/term-sd/help
 term_sd_help() {
     local dialog_arg
+    local tmp_docs_path
 
     while true; do
         dialog_arg=$(dialog --erase-on-exit --notags \
@@ -581,9 +582,11 @@ term_sd_help() {
                     $(get_dialog_size)
                 ;;
             2)
+                tmp_docs_path=$(term_sd_merge_tips_to_help_docs "${START_PATH}"/term-sd/help/how_to_use_term_sd.md)
                 less --mouse --use-color \
                 --prompt="[Term-SD] Notice\: Use keyboard arrow keys \/ U, D key \/ mouse wheel to flip pages, enter Q key return help docs" \
-                "${START_PATH}"/term-sd/help/how_to_use_term_sd.md
+                "${tmp_docs_path}"
+                rm -f "${tmp_docs_path}"
                 ;;
             3)
                 dialog --erase-on-exit \
@@ -630,6 +633,19 @@ term_sd_help() {
                 ;;
         esac
     done
+}
+
+# 合并 less 命令操作信息到帮助信息中
+term_sd_merge_tips_to_help_docs() {
+    local origin_docs_path=$@
+    local docs_name=$(basename "${origin_docs_path}")
+    local docs_path
+    docs_path="${START_PATH}/term-sd/task/${docs_name}"
+    touch "${docs_path}"
+    cat "${START_PATH}/term-sd/help/tips.md" > "${docs_path}"
+    echo "" >> "${docs_path}"
+    cat "${origin_docs_path}" >> "${docs_path}"
+    echo "${docs_path}"
 }
 
 # 检测 Term-SD 是否处于 Debug 模式, 如果是则返回 0

@@ -227,7 +227,7 @@ pip_cache_clean() {
         if which uv &> /dev/null; then
             term_sd_uv cache clean
         else
-            [[ -d "${UV_CACHE_DIR}" ]] && rm -rf "${UV_CACHE_DIR}"/*
+            [[ -d "${UV_CACHE_DIR}" ]] && rm -rf "${UV_CACHE_DIR}/"
         fi
 
         dialog --erase-on-exit \
