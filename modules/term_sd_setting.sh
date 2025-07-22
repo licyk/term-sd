@@ -37,7 +37,11 @@ term_sd_setting() {
         fi
 
         if [[ -z "${HTTP_PROXY}" ]]; then
-            proxy_setup_info="无"
+            if [[ -f "${START_PATH}/term-sd/config/enable-dynamic-proxy.lock" ]]; then
+                proxy_setup_info="无 (动态配置)"
+            else
+                proxy_setup_info="无"
+            fi
         else
             if [[ -f "${START_PATH}/term-sd/config/enable-dynamic-proxy.lock" ]]; then
                 proxy_setup_info="动态代理地址: $(echo ${HTTP_PROXY} | awk '{print substr($1,1,40)}')"
@@ -53,7 +57,11 @@ term_sd_setting() {
                 github_mirror_setup_info="镜像源: $(cat "${START_PATH}/term-sd/config/set-global-github-mirror.conf")"
             fi
         else
-            github_mirror_setup_info="未设置"
+            if [[ -f "${START_PATH}/term-sd/config/set-dynamic-global-github-mirror.lock" ]]; then
+                github_mirror_setup_info="未设置 (动态配置)"
+            else
+                github_mirror_setup_info="未设置"
+            fi
         fi
 
         if [[ -f "${START_PATH}/term-sd/config/set-global-huggingface-mirror.conf" ]]; then
@@ -63,7 +71,11 @@ term_sd_setting() {
                 huggingface_mirror_setup_info="镜像源: ${HF_ENDPOINT}"
             fi
         else
-            huggingface_mirror_setup_info="未设置"
+            if [[ -f "${START_PATH}/term-sd/config/set-dynamic-global-huggingface-mirror.lock" ]]; then
+                huggingface_mirror_setup_info="未设置 (动态配置)"
+            else
+                huggingface_mirror_setup_info="未设置"
+            fi
         fi
 
         if [[ -f "${START_PATH}/term-sd/config/term-sd-watch-retry.conf" ]]; then

@@ -457,30 +457,32 @@ term_sd_manager() {
 
         if [[ -f "${START_PATH}/term-sd/config/set-global-github-mirror.conf" ]]; then
             github_mirror_info=$(cat "${START_PATH}/term-sd/config/set-global-github-mirror.conf" | awk '{sub("/https://github.com","") sub("/github.com","")}1')
-            if [[ -f "${START_PATH}/term-sd/config/set-dynamic-global-github-mirror.lock" ]]; then
-                github_mirror_info="${github_mirror_info} (动态)"
-            fi
         else
             github_mirror_info="未设置"
         fi
 
+        if [[ -f "${START_PATH}/term-sd/config/set-dynamic-global-github-mirror.lock" ]]; then
+            github_mirror_info="${github_mirror_info} (动态配置)"
+        fi
+
         if [[ -f "${START_PATH}/term-sd/config/set-global-huggingface-mirror.conf" ]]; then
             huggingface_mirror_info=$HF_ENDPOINT
-            if [[ -f "${START_PATH}/term-sd/config/set-dynamic-global-huggingface-mirror.lock" ]]; then
-                huggingface_mirror_info="${huggingface_mirror_info} (动态)"
-            fi
         else
             huggingface_mirror_info="未设置"
         fi
 
+        if [[ -f "${START_PATH}/term-sd/config/set-dynamic-global-huggingface-mirror.lock" ]]; then
+            huggingface_mirror_info="${huggingface_mirror_info} (动态配置)"
+        fi
+
         if [[ ! -z "${HTTP_PROXY}" ]]; then
-            if [[ -f "${START_PATH}/term-sd/config/enable-dynamic-proxy.lock" ]]; then
-                proxy_info="${HTTP_PROXY} ${proxy_address_available} (动态)"
-            else
-                proxy_info="${HTTP_PROXY} ${proxy_address_available}"
-            fi
+            proxy_info="${HTTP_PROXY} ${proxy_address_available}"
         else
             proxy_info="未设置"
+        fi
+
+        if [[ -f "${START_PATH}/term-sd/config/enable-dynamic-proxy.lock" ]]; then
+            proxy_info="${proxy_info} (动态配置)"
         fi
 
         dialog_arg=$(dialog --erase-on-exit --notags \
