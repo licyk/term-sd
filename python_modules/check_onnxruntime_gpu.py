@@ -158,6 +158,8 @@ def need_install_ort_ver(ignore_ort_install: bool = True) -> OrtType | None:
         or cuda_ver is None
         or cuddn_ver is None
     ):
+        if not ignore_ort_install:
+            return OrtType.CU121CUDNN9
         return None
 
     # onnxruntime 记录的 cuDNN 支持版本只有一位数, 所以 Torch 的 cuDNN 版本只能截取一位
