@@ -119,7 +119,11 @@ def get_torch_cuda_ver() -> tuple[str | None, str | None, str | None]:
         torch_ver = torch.__version__
         cuda_ver = torch.version.cuda
         cudnn_ver = torch.backends.cudnn.version()
-        return str(torch_ver), str(cuda_ver), str(cudnn_ver)
+        return (
+            str(torch_ver) if torch_ver is not None else None,
+            str(cuda_ver) if cuda_ver is not None else None,
+            str(cudnn_ver) if cudnn_ver is not None else None,
+        )
     except Exception as _:
         return None, None, None
 
