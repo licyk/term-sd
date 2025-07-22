@@ -5,6 +5,5 @@ __term_sd_task_sys term_sd_mkdir "${INVOKEAI_FOLDER}"
 __term_sd_task_sys is_sd_repo_exist "${INVOKEAI_ROOT_PATH}"
 __term_sd_task_pre_core create_venv "${INVOKEAI_ROOT_PATH}"
 __term_sd_task_sys enter_venv "${INVOKEAI_ROOT_PATH}"
-__term_sd_task_pre_core install_pytorch # 安装 PyTorch
-__term_sd_task_pre_core install_python_package invokeai
+__term_sd_task_pre_core install_invokeai_process "${PYTORCH_TYPE}" # 安装 PyTorch
 __term_sd_task_pre_core install_pypatchmatch_for_windows # 下载 PyPatchMatch

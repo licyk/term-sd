@@ -6,7 +6,7 @@ lora_scripts_manager() {
 
     cd "${START_PATH}" # 回到最初路径
     exit_venv # 确保进行下一步操作前已退出其他虚拟环境
-    if [[ -d "$LORA_SCRIPTS_ROOT_PATH" ]] && ! term_sd_is_dir_empty "${LORA_SCRIPTS_ROOT_PATH}"; then
+    if [[ -d "${LORA_SCRIPTS_ROOT_PATH}" ]] && ! term_sd_is_dir_empty "${LORA_SCRIPTS_ROOT_PATH}"; then
         while true; do
             cd "${LORA_SCRIPTS_ROOT_PATH}"
             dialog_arg=$(dialog --erase-on-exit --notags \

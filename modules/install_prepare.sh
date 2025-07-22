@@ -715,6 +715,46 @@ pytorch_version_select() {
     esac
 }
 
+# PyTorch 类型选择
+# 设置 PYTORCH_TYPE 全局变量指定 PyTorch 类型
+# 注:
+# 指定的 PYTORCH_TYPE 类型为大致类型, 无法被 install_pytorch 直接使用
+pytorch_type_select() {
+    local dialog_arg
+    unset PYTORCH_TYPE
+
+    dialog_arg=$(dialog --erase-on-exit --notags \
+        --title "Term-SD" \
+        --backtitle "PyTorch 安装版本选项" \
+        --ok-label "确认" --no-cancel \
+        --menu "请选择要安装的 PyTorch 类型\n当前 PyTorch 版本: $(get_pytorch_version)\n当前 xFormers 版本: $(get_xformers_version)" \
+        $(get_dialog_size_menu) \
+        "1" "CUDA (Nvidia 显卡)" \
+        "2" "RoCM (AMD 显卡)" \
+        "3" "IPEX (Intel 显卡)" \
+        "4" "CPU (使用 CPU)" \
+        3>&1 1>&2 2>&3)
+
+    case "${dialog_arg}" in
+        1)
+            PYTORCH_TYPE="cuda"
+            ;;
+        RoCM)
+            PYTORCH_TYPE="rocm"
+            ;;
+        IPEX)
+            PYTORCH_TYPE="ipex"
+            ;;
+        CPU)
+            PYTORCH_TYPE="cpu"
+            ;;
+        *)
+            term_sd_echo "未选择 PyTorch 类型, 默认选择 cuda 类型"
+            PYTORCH_TYPE="cuda"
+            ;;
+    esac
+}
+
 # 设置 Pip 的安装模式
 # 选择后设置 PIP_UPDATE_PACKAGE_ARG, PIP_USE_PEP517_ARG, PIP_FORCE_REINSTALL_ARG, PIP_BREAK_SYSTEM_PACKAGE_ARG 全局变量
 # 使用:
