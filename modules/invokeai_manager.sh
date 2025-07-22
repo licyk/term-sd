@@ -450,7 +450,7 @@ update_or_switch_invokeai_version_process() {
 
     if [[ "${invokeai_version}" == "latest" ]]; then
         term_sd_echo "更新 InvokeAI 内核中"
-        install_python_package invokeai --no-deps
+        install_python_package invokeai --no-deps --upgrade
     else
         term_sd_echo "切换 InvokeAI 内核版本到 ${invokeai_version} 中"
         install_python_package "invokeai==${invokeai_version}" --no-deps
