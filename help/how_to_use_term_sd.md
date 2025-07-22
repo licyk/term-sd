@@ -834,8 +834,8 @@ numpy -U
 该功能用于设置 Term-SD 在安装 Python 软件包时使用的 Python 包管理器，可使用 Pip 或 uv，使用 uv 包管理器可获得更快的安装速度。当 uv 安装 Python 软件包失败时，Term-SD 将自动切换到 Pip 再次重试 uv 的安装任务。
 
 
-### Pip 缓存清理
-显示 Pip 下载软件包产生的缓存路径和大小，也可以清理 Pip 下载 Python 软件包产生的缓存
+### Pip / uv 缓存清理
+显示 Pip / uv 下载软件包产生的缓存路径和大小，也可以清理 Pip / uv 下载 Python 软件包产生的缓存
 
 
 ### 代理设置

@@ -125,7 +125,7 @@ term_sd_setting() {
             "1" "> 虚拟环境设置 (${venv_setup_info})" \
             "3" "> PyPI 镜像源设置 (${pip_mirror_setup_info})" \
             "4" "> Python 包管理器选择设置 (${python_package_manager_info})" \
-            "5" "> Pip 缓存清理" \
+            "5" "> Pip / uv 缓存清理" \
             "6" "> 代理设置 (${proxy_setup_info})" \
             "7" "> Github 镜像源设置 (${github_mirror_setup_info})" \
             "8" "> HuggingFace 镜像源设置 (${huggingface_mirror_setup_info})" \
