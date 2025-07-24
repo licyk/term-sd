@@ -74,17 +74,20 @@ def is_nvidia_device():
     return False
 
 
-def get_pytorch_cuda_alloc_conf():
+def get_pytorch_cuda_alloc_conf(is_cuda = True):
     if is_nvidia_device():
         if cuda_malloc_supported():
-            return "cuda_malloc"
+            if is_cuda:
+                return "cuda_malloc"
+            else:
+                return "pytorch_malloc"
         else:
             return "pytorch_malloc"
     else:
         return None
 
 
-if __name__ == "__main__":
+def main():
     try:
         version = ""
         torch_spec = importlib.util.find_spec("torch")
@@ -96,8 +99,15 @@ if __name__ == "__main__":
                 spec.loader.exec_module(module)
                 version = module.__version__
         if int(version[0]) >= 2: #enable by default for torch version 2.0 and up
-            print(get_pytorch_cuda_alloc_conf())
+            if "+cu" in version: #only on cuda torch
+                print(get_pytorch_cuda_alloc_conf())
+            else:
+                print(get_pytorch_cuda_alloc_conf(False))
         else:
             print(None)
-    except:
+    except Exception as _:
         print(None)
+
+
+if __name__ == "__main__":
+    main()
