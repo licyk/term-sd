@@ -235,8 +235,8 @@ get_sd_webui_python_path() {
 
 # 安装 SD WebUI 的插件依赖
 # 使用:
-# check_sd_webui_extension_requirement <SD WebUI 参数配置文件>
-check_sd_webui_extension_requirement() {
+# check_sd_webui_extension_requirement_legacy <SD WebUI 参数配置文件>
+check_sd_webui_extension_requirement_legacy() {
     local py_path
     local extension_name
     local i
@@ -286,6 +286,42 @@ check_sd_webui_extension_requirement() {
                 fi
             fi
         done
+    fi
+}
+
+# 安装 SD WebUI 的插件依赖
+# 使用:
+# check_sd_webui_extension_requirement_legacy <SD WebUI 参数配置文件>
+check_sd_webui_extension_requirement() {
+    local i
+    local status
+    local launch_sd_config=$@
+    local cancel_install_extension_requirement=0
+    local install_script_path
+    local count=0
+    local sum=0
+    local disable_extra_extensions_arg=""
+    local disable_all_extensions_arg=""
+
+    # 检查启动参数中是否包含禁用所有插件的启动参数
+    if cat "${START_PATH}"/term-sd/config/${launch_sd_config} | grep "\-\-disable\-all\-extensions" &> /dev/null; then
+        disable_all_extensions_arg="--disable-all-extensions"
+    fi
+
+    if cat "${START_PATH}"/term-sd/config/${launch_sd_config} | grep "\-\-disable\-extra\-extensions" &> /dev/null; then
+        disable_extra_extensions_arg="--disable-extra-extensions"
+    fi
+
+    term_sd_echo "检查 ${TERM_SD_MANAGE_OBJECT} 扩展依赖中"
+    term_sd_python "${START_PATH}/term-sd/python_modules/install_sd_webui_extension_requirement.py" \
+        --sd-webui-base-path "${SD_WEBUI_ROOT_PATH}" \
+        ${disable_extra_extensions_arg} \
+        ${disable_all_extensions_arg}
+
+    if [[ "$?" == 0 ]]; then
+        term_sd_echo "检查 ${TERM_SD_MANAGE_OBJECT} 扩展依赖完成"
+    else
+        term_sd_echo "执行 ${TERM_SD_MANAGE_OBJECT} 扩展依赖检查脚本时发送错误"
     fi
 }
 
