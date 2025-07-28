@@ -117,7 +117,7 @@ def run_cmd(
             env=custom_env,
         )
         if result.returncode != 0:
-            raise RuntimeError(f'''{errdesc or '执行命令时发送错误'}
+            raise RuntimeError(f'''{errdesc or '执行命令时发生错误'}
 命令: {command}
 错误代码: {result.returncode}''')
 
@@ -132,7 +132,7 @@ def run_cmd(
     )
 
     if result.returncode != 0:
-        message = f'''{errdesc or '执行命令时发送错误'}
+        message = f'''{errdesc or '执行命令时发生错误'}
 命令: {command}
 错误代码: {result.returncode}
 标准输出: {result.stdout.decode(encoding='utf8', errors='ignore') if len(result.stdout) > 0 else ''}
@@ -164,7 +164,7 @@ def run_extension_installer(sd_webui_base_path: Path, extension_dir: Path) -> bo
         )
         return True
     except Exception as e:
-        logger.info('执行 %s 扩展依赖安装脚本时发送错误: %s', extension_dir.name, e)
+        logger.info('执行 %s 扩展依赖安装脚本时发生错误: %s', extension_dir.name, e)
         traceback.print_exc()
         return False
 
