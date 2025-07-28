@@ -182,7 +182,9 @@ def install_extension_requirements(
     '''
     settings_file = sd_webui_base_path / 'config.json'
     extensions_dir = sd_webui_base_path / 'extensions'
-
+    builtin_extensions_dir = sd_webui_base_path / 'extensions-builtin'
+    ext_install_list = []
+    ext_builtin_install_list = []
     settings = {}
 
     try:
@@ -195,25 +197,31 @@ def install_extension_requirements(
     disable_all_extensions = settings.get('disable_all_extensions', 'none')
 
     if (
-        disable_all_extensions != 'none'
-        or arg_disable_extra_extensions
+        disable_all_extensions == 'all'
         or arg_disable_all_extensions
     ):
         logger.info('已禁用所有 Stable Diffusion WebUI 扩展, 不执行扩展依赖检查')
         return
 
-    if not extensions_dir.is_dir():
-        logger.warning('未找到 Stable Diffusion WebUI 扩展路径')
-        return
+    if extensions_dir.is_dir() and disable_all_extensions != 'extra' and not arg_disable_extra_extensions:
+        ext_install_list = [
+            x
+            for x in extensions_dir.glob('*')
+            if x.name not in disabled_extensions
+            and
+            (x / 'install.py').is_file()
+        ]
 
-    install_list = [
-        x
-        for x in extensions_dir.glob('*')
-        if x.name not in disabled_extensions
-        and
-        (x / 'install.py').is_file()
-    ]
+    if builtin_extensions_dir.is_dir():
+        ext_builtin_install_list = [
+            x
+            for x in builtin_extensions_dir.glob('*')
+            if x.name not in disabled_extensions
+            and
+            (x / 'install.py').is_file()
+        ]
 
+    install_list = ext_install_list + ext_builtin_install_list
     extension_count = len(install_list)
 
     if extension_count == 0:
