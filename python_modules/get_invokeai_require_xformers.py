@@ -31,11 +31,15 @@ def get_pytorch() -> str:
     except Exception as _:
         invokeai_requires = []
 
+    xformers_added = False
+
     for require in invokeai_requires:
         require = require.split(';')[0].strip()
+        package_name = get_package_name(require)
 
-        if get_package_name(require) == 'xformers':
+        if package_name == 'xformers' and not xformers_added:
             pytorch_ver.append(require)
+            xformers_added = True
 
     return ' '.join([str(x).strip() for x in pytorch_ver])
 

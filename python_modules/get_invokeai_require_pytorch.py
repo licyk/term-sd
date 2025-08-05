@@ -31,16 +31,25 @@ def get_pytorch() -> str:
     except Exception as _:
         invokeai_requires = []
 
+    torch_added = False
+    torchvision_added = False
+    torchaudio_added = False
+
     for require in invokeai_requires:
         require = require.split(';')[0].strip()
-        if get_package_name(require) == 'torch':
-            pytorch_ver.append(require)
+        package_name = get_package_name(require)
 
-        if get_package_name(require) == 'torchvision':
+        if package_name == 'torch' and not torch_added:
             pytorch_ver.append(require)
+            torch_added = True
 
-        if get_package_name(require) == 'torchaudio':
+        if package_name == 'torchvision' and not torchvision_added:
             pytorch_ver.append(require)
+            torchvision_added = True
+
+        if package_name == 'torchaudio' and not torchaudio_added:
+            pytorch_ver.append(require)
+            torchaudio_added = True
 
     return ' '.join([str(x).strip() for x in pytorch_ver])
 
