@@ -207,6 +207,7 @@ def get_pytorch_mirror_type_cuda(torch_ver: str) -> str:
     if compare_versions(torch_ver, '2.7.0') >= 0:
         # torch >= 2.7.0
         return 'cu128'
+    # TODO: 更新类型分配
 
     return 'cu128'
 
