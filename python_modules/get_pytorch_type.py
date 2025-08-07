@@ -28,7 +28,7 @@ def get_pytorch_type() -> str:
         return None
 
     if torch_ver in torch_ipex_legacy_ver_list:
-        return 'ipex'
+        return 'xpu'
 
     if 'cu' in torch_type:
         return 'cuda'
@@ -37,7 +37,7 @@ def get_pytorch_type() -> str:
         return 'rocm'
 
     if 'xpu' in torch_type:
-        return 'ipex'
+        return 'xpu'
 
     if 'cpu' in torch_type:
         return 'cpu'

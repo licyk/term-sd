@@ -4,7 +4,7 @@ from importlib.metadata import requires
 from typing import Literal
 
 
-DeviceType = Literal["cuda", "rocm", "ipex", "cpu"]
+DeviceType = Literal["cuda", "rocm", "xpu", "cpu"]
 
 
 def get_args() -> argparse.Namespace:
@@ -256,9 +256,9 @@ def get_pytorch_mirror_type_ipex(torch_ver: str) -> str:
         return 'ipex_legacy_arc'
     if compare_versions(torch_ver, '2.6.0') >= 0:
         # torch >= 2.6.0
-        return 'ipex'
+        return 'xpu'
 
-    return 'ipex'
+    return 'xpu'
 
 
 def get_pytorch_mirror_type_cpu(torch_ver: str) -> str:
@@ -285,7 +285,7 @@ def get_pytorch_mirror_type(device_type: DeviceType) -> str:
     if device_type == 'rocm':
         return get_pytorch_mirror_type_rocm(torch_ver)
 
-    if device_type == 'ipex':
+    if device_type == 'xpu':
         return get_pytorch_mirror_type_ipex(torch_ver)
 
     if device_type == 'cpu':

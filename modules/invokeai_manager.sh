@@ -365,7 +365,7 @@ get_invokeai_version() {
 # 获取 InvokeAI 当前版本对应的 PyTorch 所需的PyTorch镜像源类型
 # 使用:
 # get_pytorch_mirror_type_for_invokeai <显卡类型>
-# 可用的显卡类型: cuda, rocm, ipex, cpu
+# 可用的显卡类型: cuda, rocm, xpu, cpu
 # 返回: PyTorch 镜像源类型
 get_pytorch_mirror_type_for_invokeai() {
     local status

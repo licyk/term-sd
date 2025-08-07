@@ -43,6 +43,14 @@ term_sd_launch() {
     term_sd_echo "提示: 可以按下 Ctrl + C 键终止 AI 软件的运行"
 
     case "${TERM_SD_MANAGE_OBJECT}" in
+        InvokeAI)
+            ;;
+        *)
+            enter_venv
+            ;;
+    esac
+
+    case "${TERM_SD_MANAGE_OBJECT}" in
         stable-diffusion-webui)
             case "$(git remote get-url origin | awk -F '/' '{print $NF}')" in # 分支判断
                 stable-diffusion-webui|stable-diffusion-webui.git)
@@ -243,7 +251,6 @@ term_sd_launch() {
             [[ ! "$?" == 0 ]] && term_sd_echo "${TERM_SD_MANAGE_OBJECT} 退出状态异常"
             ;;
         *)
-            enter_venv
             if [[ ! -f "${START_PATH}/term-sd/config/disable-env-check.lock" ]]; then
                 term_sd_echo "检测 ${TERM_SD_MANAGE_OBJECT} 运行环境中"
                 case "${TERM_SD_MANAGE_OBJECT}" in
@@ -286,7 +293,6 @@ term_sd_launch() {
                 term_sd_python "${launch_args[@]}" ${hf_mirror_for_fooocus}
             fi
             [[ ! "$?" == 0 ]] && term_sd_echo "${TERM_SD_MANAGE_OBJECT} 退出状态异常"
-            exit_venv
             ;;
     esac
 
@@ -304,6 +310,14 @@ term_sd_launch() {
     unset DEPTH_ANYTHING_V2_WHEEL
     unset DSINE_WHEEL
     unset HANDREFINER_WHEEL
+
+    case "${TERM_SD_MANAGE_OBJECT}" in
+        InvokeAI)
+            ;;
+        *)
+            exit_venv
+            ;;
+    esac
 
     term_sd_pause
 }

@@ -37,10 +37,10 @@ pytorch_reinstall() {
 # 使用 PYTORCH_TYPE 判断 PyTorch 种类, 用于切换 PyTorch 镜像源
 install_pytorch() {
     if [[ ! -z "${INSTALL_PYTORCH_VERSION}" ]]; then
-        # 检测是否使用 PyTorch IPEX 版本
+        # 检测是否使用 PyTorch IPEX Legacy 版本
         case "${PYTORCH_TYPE}" in
-            ipex|ipex_legacy_arc|ipex_legacy_core_ultra)
-                process_pytorch_ipex
+            ipex_legacy_arc|ipex_legacy_core_ultra)
+                process_pytorch_ipex_legacy
                 ;;
             *)
                 process_pytorch
@@ -59,7 +59,7 @@ install_pytorch() {
 # UV_INDEX_MIRROR UV_EXTRA_INDEX_MIRROR UV_FIND_LINKS_MIRROR
 # PIP_BREAK_SYSTEM_PACKAGE_ARG PIP_USE_PEP517_ARG PIP_FORCE_REINSTALL_ARG
 # PIP_UPDATE_PACKAGE_ARG
-process_pytorch_ipex() {
+process_pytorch_ipex_legacy() {
     local torch_ipex_ver
     local torch_ipex_ver_info
     local ipex_type
@@ -83,9 +83,6 @@ process_pytorch_ipex() {
         ipex_legacy_arc|ipex_legacy_core_ultra)
             torch_ipex_ver=$(awk '{print $2}' <<< ${INSTALL_PYTORCH_VERSION})
             torch_ipex_ver_info="PyTorch $(awk '{print $2}' <<< ${INSTALL_PYTORCH_VERSION}) (IPEX ${ipex_type})"
-            ;;
-        ipex)
-            torch_ipex_ver_info="${INSTALL_PYTORCH_VERSION} (Inter XPU)"
             ;;
     esac
 
@@ -165,51 +162,6 @@ process_pytorch_ipex() {
                 fi
             fi
             ;;
-        ipex)
-            if is_use_pip_mirror; then
-                if term_sd_is_use_uv; then
-                    UV_DEFAULT_INDEX="https://download.pytorch.org/whl/xpu" \
-                    UV_INDEX="" \
-                    UV_FIND_LINKS="" \
-                    term_sd_try term_sd_uv_install ${torch_ver} \
-                    ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG}
-                    if check_uv_install_failed_and_warning; then
-                        PIP_INDEX_URL="https://download.pytorch.org/whl/xpu" \
-                        PIP_EXTRA_INDEX_URL="" \
-                        PIP_FIND_LINKS="" \
-                        term_sd_try term_sd_pip install ${torch_ver} \
-                        ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
-                    fi
-                else
-                    PIP_INDEX_URL="https://download.pytorch.org/whl/xpu" \
-                    PIP_EXTRA_INDEX_URL="" \
-                    PIP_FIND_LINKS="" \
-                    term_sd_try term_sd_pip install ${torch_ver} \
-                    ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
-                fi
-            else
-                if term_sd_is_use_uv; then
-                    UV_DEFAULT_INDEX="https://download.pytorch.org/whl/xpu" \
-                    UV_INDEX="" \
-                    UV_FIND_LINKS="" \
-                    term_sd_try term_sd_uv_install ${torch_ver} \
-                    ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG}
-                    if check_uv_install_failed_and_warning; then
-                        PIP_INDEX_URL="https://download.pytorch.org/whl/xpu" \
-                        PIP_EXTRA_INDEX_URL="" \
-                        PIP_FIND_LINKS="" \
-                        term_sd_try term_sd_pip install ${torch_ver} \
-                        ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
-                    fi
-                else
-                    PIP_INDEX_URL="https://download.pytorch.org/whl/xpu" \
-                    PIP_EXTRA_INDEX_URL="" \
-                    PIP_FIND_LINKS="" \
-                    term_sd_try term_sd_pip install ${torch_ver} \
-                    ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts
-                fi
-            fi
-            ;;
     esac
 
     if [[ "$?" == 0 ]]; then
@@ -247,6 +199,12 @@ process_pytorch() {
     # 配置 PyTorch 镜像源
     if is_use_pip_mirror; then # 镜像源
         case "${PYTORCH_TYPE}" in
+            cu129)
+                pypi_index_url="https://mirror.nju.edu.cn/pytorch/whl/cu129"
+                pypi_extra_index_url=""
+                pypi_find_links_url=""
+                with_pypi_mirror_env_value=1
+                ;;
             cu128)
                 pypi_index_url="https://mirror.nju.edu.cn/pytorch/whl/cu128"
                 pypi_extra_index_url=""
@@ -266,7 +224,7 @@ process_pytorch() {
                 with_pypi_mirror_env_value=1
                 ;;
             cu121)
-                pypi_index_url="https://mirror.sjtu.edu.cn/pytorch-wheels/cu121"
+                pypi_index_url="https://mirror.sjtu.edu.cn/pytorch-wheels/cu121" # TODO: 可能有可用的 NJU 镜像
                 pypi_extra_index_url=""
                 pypi_find_links_url=""
                 with_pypi_mirror_env_value=1
@@ -284,7 +242,7 @@ process_pytorch() {
                 with_pypi_mirror_env_value=1
                 ;;
             rocm62)
-                pypi_index_url="https://mirror.sjtu.edu.cn/pytorch-wheels/rocm6.2"
+                pypi_index_url="https://mirror.sjtu.edu.cn/pytorch-wheels/rocm6.2" # TODO: 可能有可用的 NJU 镜像
                 pypi_extra_index_url=""
                 pypi_find_links_url=""
                 with_pypi_mirror_env_value=1
@@ -297,6 +255,18 @@ process_pytorch() {
                 ;;
             rocm63)
                 pypi_index_url="https://mirror.nju.edu.cn/pytorch/whl/rocm6.3"
+                pypi_extra_index_url=""
+                pypi_find_links_url=""
+                with_pypi_mirror_env_value=1
+                ;;
+            rocm64)
+                pypi_index_url="https://mirror.nju.edu.cn/pytorch/whl/rocm6.4"
+                pypi_extra_index_url=""
+                pypi_find_links_url=""
+                with_pypi_mirror_env_value=1
+                ;;
+            xpu)
+                pypi_index_url="https://download.pytorch.org/whl/xpu" # TODO: 可能有可用的 NJU 镜像
                 pypi_extra_index_url=""
                 pypi_find_links_url=""
                 with_pypi_mirror_env_value=1
@@ -319,6 +289,12 @@ process_pytorch() {
         esac
     else # 官方源
         case "${PYTORCH_TYPE}" in
+            cu129)
+                pypi_index_url="https://download.pytorch.org/whl/cu129"
+                pypi_extra_index_url=""
+                pypi_find_links_url=""
+                with_pypi_mirror_env_value=1
+                ;;
             cu128)
                 pypi_index_url="https://download.pytorch.org/whl/cu128"
                 pypi_extra_index_url=""
@@ -369,6 +345,18 @@ process_pytorch() {
                 ;;
             rocm63)
                 pypi_index_url="https://download.pytorch.org/whl/rocm6.3"
+                pypi_extra_index_url=""
+                pypi_find_links_url=""
+                with_pypi_mirror_env_value=1
+                ;;
+            rocm64)
+                pypi_index_url="https://download.pytorch.org/whl/rocm6.4"
+                pypi_extra_index_url=""
+                pypi_find_links_url=""
+                with_pypi_mirror_env_value=1
+                ;;
+            xpu)
+                pypi_index_url="https://download.pytorch.org/whl/xpu"
                 pypi_extra_index_url=""
                 pypi_find_links_url=""
                 with_pypi_mirror_env_value=1
