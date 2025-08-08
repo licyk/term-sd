@@ -224,7 +224,7 @@ process_pytorch() {
                 with_pypi_mirror_env_value=1
                 ;;
             cu121)
-                pypi_index_url="https://mirror.sjtu.edu.cn/pytorch-wheels/cu121" # TODO: 可能有可用的 NJU 镜像
+                pypi_index_url="https://mirror.nju.edu.cn/pytorch/whl/cu121"
                 pypi_extra_index_url=""
                 pypi_find_links_url=""
                 with_pypi_mirror_env_value=1
@@ -242,7 +242,7 @@ process_pytorch() {
                 with_pypi_mirror_env_value=1
                 ;;
             rocm62)
-                pypi_index_url="https://mirror.sjtu.edu.cn/pytorch-wheels/rocm6.2" # TODO: 可能有可用的 NJU 镜像
+                pypi_index_url="https://mirror.nju.edu.cn/pytorch/whl/rocm6.2"
                 pypi_extra_index_url=""
                 pypi_find_links_url=""
                 with_pypi_mirror_env_value=1
@@ -266,7 +266,7 @@ process_pytorch() {
                 with_pypi_mirror_env_value=1
                 ;;
             xpu)
-                pypi_index_url="https://download.pytorch.org/whl/xpu" # TODO: 可能有可用的 NJU 镜像
+                pypi_index_url="https://mirror.nju.edu.cn/pytorch/whl/xpu"
                 pypi_extra_index_url=""
                 pypi_find_links_url=""
                 with_pypi_mirror_env_value=1
