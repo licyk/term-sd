@@ -387,11 +387,14 @@ set_pytorch_install_config_for_invokeai() {
     PYTORCH_TYPE=$(get_pytorch_mirror_type_for_invokeai "${device_type}")
     pytorch_ver=$(term_sd_python "${START_PATH}/term-sd/python_modules/get_invokeai_require_pytorch.py")
     xformers_ver=$(term_sd_python "${START_PATH}/term-sd/python_modules/get_invokeai_require_xformers.py")
-    if [[ "${PYTORCH_TYPE}" == "cpu" ]]; then
-        INSTALL_PYTORCH_VERSION=$pytorch_ver
-    else
-        INSTALL_PYTORCH_VERSION="${pytorch_ver} ${xformers_ver}" # 合并依赖需求
-    fi
+    case "${PYTORCH_TYPE}" in
+        cpu|xpu|ipex_legacy_arc|rocm62|other)
+            INSTALL_PYTORCH_VERSION=$pytorch_ver
+            ;;
+        *)
+            INSTALL_PYTORCH_VERSION="${pytorch_ver} ${xformers_ver}" # 合并依赖需求
+            ;;
+    esac
 
     if term_sd_is_debug; then
         term_sd_echo "PYTORCH_TYPE: ${PYTORCH_TYPE}"
