@@ -20,7 +20,7 @@ __term_sd_task_pre_ext_19 image-resize-plus-node OFF
 __term_sd_task_pre_ext_20 latent-upscale OFF
 __term_sd_task_pre_ext_21 load_video_frame OFF
 __term_sd_task_pre_ext_22 mask-operations-node OFF
-__term_sd_task_pre_ext_23 metadata-linked-nodes ON
+__term_sd_task_pre_ext_23 metadata-linked-nodes OFF
 __term_sd_task_pre_ext_24 Prompt-tools-nodes OFF
 __term_sd_task_pre_ext_25 invoke_bria_rmbg ON
 __term_sd_task_pre_ext_26 remove-background-node OFF

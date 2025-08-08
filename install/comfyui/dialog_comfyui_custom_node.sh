@@ -123,7 +123,7 @@ __term_sd_task_pre_ext_122 ComfyUI-Prompt-Wildcards OFF
 __term_sd_task_pre_ext_123 cg-controller OFF
 __term_sd_task_pre_ext_124 ComfyUI-Latent-Modifiers OFF
 __term_sd_task_pre_ext_125 comfyui-deploy OFF
-__term_sd_task_pre_ext_126 ComfyUI-HakuImg OFF
+__term_sd_task_pre_ext_126 ComfyUI-HakuImg ON
 __term_sd_task_pre_ext_127 ComfyUI-flash-attention-rdna3-win-zluda OFF
 __term_sd_task_pre_ext_128 ComfyUI-BlenderAI-node OFF
 __term_sd_task_pre_ext_129 comfyui-portrait-master OFF

@@ -91,7 +91,7 @@ InvokeAI 自定义节点说明：
 描述：蒙版组合
 链接：https://github.com/VeyDlin/mask-operations-node
 
-23、metadata-linked-nodes*
+23、metadata-linked-nodes
 描述：元数据转换节点
 链接：https://github.com/skunkworxdark/metadata-linked-nodes
 
