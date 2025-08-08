@@ -467,6 +467,8 @@ process_pytorch() {
                 ${PIP_INDEX_MIRROR} ${PIP_EXTRA_INDEX_MIRROR} ${PIP_FIND_LINKS_MIRROR} ${PIP_BREAK_SYSTEM_PACKAGE_ARG} ${PIP_USE_PEP517_ARG} ${PIP_FORCE_REINSTALL_ARG} ${PIP_UPDATE_PACKAGE_ARG} --no-warn-conflicts --no-deps
             fi
         fi
+    else
+        return 0
     fi
 
     if [[ "$?" == 0 ]]; then
