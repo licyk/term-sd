@@ -52,9 +52,10 @@ sd_webui_branch_switch() {
         "4" "> Panchovix - Stable-Diffusion-WebUI-reForge 主分支" \
         "5" "> Panchovix - Stable-Diffusion-WebUI-reForge 测试分支" \
         "6" "> Haoming02 - Stable-Diffusion-WebUI-Forge-Classic 分支" \
-        "7" "> lshqqytiger - Stable-Diffusion-WebUI-AMDGPU 分支" \
-        "8" "> vladmandic - SD.NEXT 主分支" \
-        "9" "> vladmandic - SD.NEXT 测试分支" \
+        "7" "> Haoming02 - Stable-Diffusion-WebUI-Forge-Neo 分支" \
+        "8" "> lshqqytiger - Stable-Diffusion-WebUI-AMDGPU 分支" \
+        "9" "> vladmandic - SD.NEXT 主分支" \
+        "10" "> vladmandic - SD.NEXT 测试分支" \
         3>&1 1>&2 2>&3)
 
     case "${dialog_arg}" in
@@ -138,6 +139,19 @@ sd_webui_branch_switch() {
             ;;
         7)
             term_sd_print_line "Stable-Diffusion-WebUI 分支切换"
+            term_sd_echo "切换到 Haoming02 - Stable-Diffusion-WebUI-Forge-Neo 分支"
+            remote_url=$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/Haoming02/sd-webui-forge-classic)
+            git_switch_branch "${remote_url}" neo
+            if [[ "$?" == 0 ]]; then
+                mv -f "${SD_WEBUI_ROOT_PATH}"/repositories/blip "${SD_WEBUI_ROOT_PATH}"/repositories/BLIP &> /dev/null
+                term_sd_echo "Stable-Diffusion-WebUI 分支切换完成"
+            else
+                term_sd_echo "Stable-Diffusion-WebUI 分支切换失败"
+            fi
+            term_sd_pause
+            ;;
+        8)
+            term_sd_print_line "Stable-Diffusion-WebUI 分支切换"
             term_sd_echo "切换到 lshqqytiger - Stable-Diffusion-WebUI-AMDGPU 主分支"
             remote_url=$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/lshqqytiger/stable-diffusion-webui-amdgpu)
             git_switch_branch "${remote_url}" master
@@ -149,7 +163,7 @@ sd_webui_branch_switch() {
             fi
             term_sd_pause
             ;;
-        8)
+        9)
             term_sd_print_line "Stable-Diffusion-WebUI 分支切换"
             term_sd_echo "切换到 vladmandic - SD.NEXT 主分支"
             remote_url=$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/vladmandic/automatic)
@@ -162,7 +176,7 @@ sd_webui_branch_switch() {
             fi
             term_sd_pause
             ;;
-        9)
+        10)
             term_sd_print_line "Stable-Diffusion-WebUI 分支切换"
             term_sd_echo "切换到 vladmandic - SD.NEXT 测试分支"
             remote_url=$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/vladmandic/automatic)

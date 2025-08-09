@@ -237,9 +237,10 @@ select_install_sd_webui_branch() {
         "4" "> Panchovix - Stable-Diffusion-WebUI-reForge 主分支" \
         "5" "> Panchovix - Stable-Diffusion-WebUI-reForge 测试分支" \
         "6" "> Haoming02 - Stable-Diffusion-WebUI-Forge-Classic 分支" \
-        "7" "> lshqqytiger - Stable-Diffusion-WebUI-AMDGPU 分支" \
-        "8" "> vladmandic - SD.NEXT 主分支" \
-        "9" "> vladmandic - SD.NEXT 测试分支" \
+        "7" "> Haoming02 - Stable-Diffusion-WebUI-Forge-Neo 分支" \
+        "8" "> lshqqytiger - Stable-Diffusion-WebUI-AMDGPU 分支" \
+        "9" "> vladmandic - SD.NEXT 主分支" \
+        "10" "> vladmandic - SD.NEXT 测试分支" \
         3>&1 1>&2 2>&3)
 
     case "${dialog_arg}" in
@@ -268,14 +269,18 @@ select_install_sd_webui_branch() {
             SD_WEBUI_BRANCH="classic"
             ;;
         7)
+            SD_WEBUI_REPO="https://github.com/Haoming02/sd-webui-forge-classic"
+            SD_WEBUI_BRANCH="neo"
+            ;;
+        8)
             SD_WEBUI_REPO="https://github.com/lshqqytiger/stable-diffusion-webui-amdgpu"
             SD_WEBUI_BRANCH="master"
             ;;
-        8)
+        9)
             SD_WEBUI_REPO="https://github.com/vladmandic/automatic"
             SD_WEBUI_BRANCH="master"
             ;;
-        9)
+        10)
             SD_WEBUI_REPO="https://github.com/vladmandic/automatic"
             SD_WEBUI_BRANCH="dev"
             ;;
