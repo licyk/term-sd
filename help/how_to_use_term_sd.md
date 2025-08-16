@@ -153,85 +153,128 @@ Term-SD 在使用安装、管理 AI 软件的功能时，会使用准备功能�
 
 ### 2、PyTorch 版本选项
 有以下版本组合：
-- Torch 2.6.0 (CUDA 11.8) + xFormers 0.0.29.post2 (Linux)
-- Torch 2.6.0 (CUDA 12.4) + xFormers 0.0.29.post2
-- Torch 2.6.0 (CUDA 12.6) + xFormers 0.0.29.post2 (Linux)
-- Torch 2.6.0 (RoCM 6.1) + xFormers 0.0.29.post2 (Linux)
-- Torch 2.6.0 (RoCM 6.2.4) + xFormers 0.0.29.post2 (Linux)
+- Torch 2.8.0 (CUDA 12.6) + xFormers 0.0.32.post2
+- Torch 2.8.0 (CUDA 12.8) + xFormers 0.0.32.post2
+- Torch 2.8.0 (CUDA 12.9) + xFormers 0.0.32.post2
+- Torch 2.8.0 (Intel XPU)
+- Torch 2.8.0 (ROCm 6.3)
+- Torch 2.8.0 (ROCm 6.4) + xFormers 0.0.32.post2
+- Torch 2.8.0 (CPU)
+- Torch 2.8.0
+- Torch 2.7.1 (CUDA 11.8) + xFormers 0.0.31.post1 (Linux)
+- Torch 2.7.1 (CUDA 12.6) + xFormers 0.0.31.post1
+- Torch 2.7.1 (CUDA 12.8) + xFormers 0.0.31.post1
+- Torch 2.7.1 (Intel XPU)
+- Torch 2.7.1 (ROCm 6.2.4) + xFormers 0.0.31.post1 (Linux)
+- Torch 2.7.1 (ROCm 6.3) + xFormers 0.0.31.post1 (Linux)
+- Torch 2.7.1 (CPU)
+- Torch 2.7.1
+- Torch 2.7.0 (CUDA 11.8) + xFormers 0.0.30 (Linux)
+- Torch 2.7.0 (CUDA 12.6) + xFormers 0.0.30
+- Torch 2.7.0 (CUDA 12.8) + xFormers 0.0.30
+- Torch 2.7.0 (Intel XPU)
+- Torch 2.7.0 (ROCm 6.2.4) + xFormers 0.0.30 (Linux)
+- Torch 2.7.0 (ROCm 6.3) + xFormers 0.0.30 (Linux)
+- Torch 2.7.0 (CPU)
+- Torch 2.7.0
+- Torch 2.6.0 (CUDA 11.8) + xFormers 0.0.29.post3 (Linux)
+- Torch 2.6.0 (CUDA 12.4) + xFormers 0.0.29.post3
+- Torch 2.6.0 (CUDA 12.6) + xFormers 0.0.29.post3
+- Torch 2.6.0 (Intel XPU)
+- Torch 2.6.0 (ROCm 6.1) + xFormers 0.0.29.post3 (Linux)
+- Torch 2.6.0 (ROCm 6.2.4) + xFormers 0.0.29.post3 (Linux)
 - Torch 2.6.0 (CPU)
+- Torch 2.6.0
 - Torch 2.5.1 (CUDA 11.8) + xFormers 0.0.28.post3 (Linux)
 - Torch 2.5.1 (CUDA 12.1) + xFormers 0.0.28.post3 (Linux)
 - Torch 2.5.1 (CUDA 12.4) + xFormers 0.0.28.post3
-- Torch 2.5.1 (RoCM 6.1) + xFormers 0.0.28.post3 (Linux)
-- Torch 2.5.1 (RoCM 6.2) (Linux)
+- Torch 2.5.1 (ROCm 6.1) + xFormers 0.0.28.post3 (Linux)
+- Torch 2.5.1 (ROCm 6.2) (Linux)
 - Torch 2.5.1 (CPU)
+- Torch 2.5.1
 - Torch 2.5.0 (CUDA 11.8) + xFormers 0.0.28.post2 (Linux)
 - Torch 2.5.0 (CUDA 12.1) + xFormers 0.0.28.post2 (Linux)
 - Torch 2.5.0 (CUDA 12.4) + xFormers 0.0.28.post2
-- Torch 2.5.0 (RoCM 6.1) + xFormers 0.0.28.post2 (Linux)
-- Torch 2.5.0 (RoCM 6.2) (Linux)
+- Torch 2.5.0 (ROCm 6.1) + xFormers 0.0.28.post2 (Linux)
+- Torch 2.5.0 (ROCm 6.2) (Linux)
 - Torch 2.5.0 (CPU)
+- Torch 2.5.0
 - Torch 2.4.1 (CUDA 11.8) + xFormers 0.0.28.post1 (Linux)
 - Torch 2.4.1 (CUDA 12.1) + xFormers 0.0.28.post1 (Linux)
 - Torch 2.4.1 (CUDA 12.4) + xFormers 0.0.28.post1
-- Torch 2.4.1 (RoCM 6.1) + xFormers 0.0.28.post1 (Linux)
+- Torch 2.4.1 (ROCm 6.1) + xFormers 0.0.28.post1 (Linux)
 - Torch 2.4.1 (CPU)
+- Torch 2.4.1
 - Torch 2.4.0 (CUDA 11.8) + xFormers 0.0.27.post2
 - Torch 2.4.0 (CUDA 12.1) + xFormers 0.0.27.post2
 - Torch 2.4.0 (CUDA 12.4)
-- Torch 2.4.0 (RoCM 6.0) (Linux)
+- Torch 2.4.0 (ROCm 6.0) (Linux)
 - Torch 2.4.0 (CPU)
+- Torch 2.4.0
 - Torch 2.3.1 (CUDA 11.8) + xFormers 0.0.27
 - Torch 2.3.1 (CUDA 12.1) + xFormers 0.0.27
-- Torch 2.3.1 (RoCM 6.0) (Linux)
+- Torch 2.3.1 (ROCm 6.0) (Linux)
 - Torch 2.3.1 (DirectML)
 - Torch 2.3.1 (CPU)
+- Torch 2.3.1
 - Torch 2.3.0 (CUDA 11.8) + xFormers 0.0.26.post1
 - Torch 2.3.0 (CUDA 12.1) + xFormers 0.0.26.post1
-- Torch 2.3.0 (RoCM 6.0) (Linux)
+- Torch 2.3.0 (ROCm 6.0) (Linux)
 - Torch 2.3.0 (CPU)
+- Torch 2.3.0
 - Torch 2.2.2 (CUDA 11.8) + xFormers 0.0.25.post1
 - Torch 2.2.2 (CUDA 12.1) + xFormers 0.0.25.post1
-- Torch 2.2.2 (RoCM 5.7) (Linux)
+- Torch 2.2.2 (ROCm 5.7) (Linux)
 - Torch 2.2.2 (CPU)
+- Torch 2.2.2
 - Torch 2.2.1 (CUDA 11.8) + xFormers 0.0.25
 - Torch 2.2.1 (CUDA 12.1) + xFormers 0.0.25
-- Torch 2.2.1 (RoCM 5.7) (Linux)
+- Torch 2.2.1 (ROCm 5.7) (Linux)
 - Torch 2.2.1 (DirectML)
 - Torch 2.2.1 (CPU)
+- Torch 2.2.1
 - Torch 2.2.0 (CUDA 11.8) + xFormers 0.0.24
 - Torch 2.2.0 (CUDA 12.1) + xFormers 0.0.24
-- Torch 2.2.0 (RoCM 5.7) (Linux)
+- Torch 2.2.0 (ROCm 5.7) (Linux)
 - Torch 2.2.0 (CPU)
+- Torch 2.2.0
 - Torch 2.1.2 (CUDA 11.8) + xFormers 0.0.23.post1
 - Torch 2.1.2 (CUDA 12.1) + xFormers 0.0.23.post1
-- Torch 2.1.2 (RoCM 5.6) (Linux)
+- Torch 2.1.2 (ROCm 5.6) (Linux)
 - Torch 2.1.2 (CPU)
+- Torch 2.1.2
 - Torch 2.1.1 (CUDA 11.8) + xFormers 0.0.23
 - Torch 2.1.1 (CUDA 12.1) + xFormers 0.0.23
-- Torch 2.1.1 (RoCM 5.6) (Linux)
+- Torch 2.1.1 (ROCm 5.6) (Linux)
 - Torch 2.1.1 (CPU)
+- Torch 2.1.1
 - Torch 2.1.0 (Intel Arc)
 - Torch 2.1.0 (Intel Core Ultra)
-- Torch 2.1.0 (RoCM 5.6) (Linux)
+- Torch 2.1.0 (ROCm 5.6) (Linux)
 - Torch 2.1.0 (CPU)
+- Torch 2.1.0
 - Torch 2.0.1 (CUDA 11.8) + xFormers 0.0.22
-- Torch 2.0.1 (RoCM 5.4.2) (Linux)
+- Torch 2.0.1 (ROCm 5.4.2) (Linux)
 - Torch 2.0.1 (CPU)
+- Torch 2.0.1
 - Torch 2.0.0 (CUDA 11.8) + xFormers 0.0.18
 - Torch 2.0.0 (Intel Arc)
 - Torch 2.0.0 (DirectML)
 - Torch 2.0.0 (CPU)
+- Torch 2.0.0
 - Torch 1.13.1 (CUDA 11.7) + xFormers 0.0.16
 - Torch 1.13.1 (DirectML)
 - Torch 1.13.1 (CPU)
+- Torch 1.13.1
 - Torch 1.12.1 (CUDA 11.3) + xFormers 0.0.14
+- Torch 1.12.1 (CPU)
+- Torch 1.12.1
 - Torch + xFormers
 - Torch
 
 选择版本时需要根据系统类型和显卡选择
 - 在 Windows 系统中，Nvidia 显卡选择 Torch（CUDA）+ xFormers 的版本，AMD 显卡选择 Torch (Directml) 的版本，Intel 显卡选择 Torch (Intel Arc / Core Ultra) 的版本（核显选择 Intel Core Ultra 版本，独显选择 Intel Arc 版本）
-- 在 Linux 系统中，Nvidia 显卡选择 Torch（CUDA）+ xFormers 的版本，AMD 显卡选择 Torch (RoCM) 的版本，Intel 显卡选择 Torch (Intel Arc / Core Ultra) 版本
+- 在 Linux 系统中，Nvidia 显卡选择 Torch（CUDA）+ xFormers 的版本，AMD 显卡选择 Torch (ROCm) 的版本，Intel 显卡选择 Torch (Intel Arc / Core Ultra) 版本
 - 在 MacOS 系统中，选择 Torch 版本
 - 如果想要使用 CPU 进行跑图，选择 Torch + CPU 的版本
 - 一般来说找到对应显卡型号的类型后，选择最新版本的就行
@@ -243,7 +286,7 @@ Term-SD 在使用安装、管理 AI 软件的功能时，会使用准备功能�
 
 可选的类型：
 - CUDA (Nvidia 显卡)
-- RoCM (AMD 显卡)
+- ROCm (AMD 显卡)
 - XPU (Intel 显卡)
 - CPU (使用 CPU)
 
@@ -401,86 +444,11 @@ Term-SD 支持 Stable Diffusion WebUI，ComfyUI，InvokeAI，Fooocus，lora-scri
 
 
 #### 2、PyTorch 版本选择
-第二个是 PyTorch 版本的选择界面，有以下版本组合
-- Torch 2.6.0 (CUDA 11.8) + xFormers 0.0.29.post2 (Linux)
-- Torch 2.6.0 (CUDA 12.4) + xFormers 0.0.29.post2
-- Torch 2.6.0 (CUDA 12.6) + xFormers 0.0.29.post2 (Linux)
-- Torch 2.6.0 (RoCM 6.1) + xFormers 0.0.29.post2 (Linux)
-- Torch 2.6.0 (RoCM 6.2.4) + xFormers 0.0.29.post2 (Linux)
-- Torch 2.6.0 (CPU)
-- Torch 2.5.1 (CUDA 11.8) + xFormers 0.0.28.post3 (Linux)
-- Torch 2.5.1 (CUDA 12.1) + xFormers 0.0.28.post3 (Linux)
-- Torch 2.5.1 (CUDA 12.4) + xFormers 0.0.28.post3
-- Torch 2.5.1 (RoCM 6.1) + xFormers 0.0.28.post3 (Linux)
-- Torch 2.5.1 (RoCM 6.2) (Linux)
-- Torch 2.5.1 (CPU)
-- Torch 2.5.0 (CUDA 11.8) + xFormers 0.0.28.post2 (Linux)
-- Torch 2.5.0 (CUDA 12.1) + xFormers 0.0.28.post2 (Linux)
-- Torch 2.5.0 (CUDA 12.4) + xFormers 0.0.28.post2
-- Torch 2.5.0 (RoCM 6.1) + xFormers 0.0.28.post2 (Linux)
-- Torch 2.5.0 (RoCM 6.2) (Linux)
-- Torch 2.5.0 (CPU)
-- Torch 2.4.1 (CUDA 11.8) + xFormers 0.0.28.post1 (Linux)
-- Torch 2.4.1 (CUDA 12.1) + xFormers 0.0.28.post1 (Linux)
-- Torch 2.4.1 (CUDA 12.4) + xFormers 0.0.28.post1
-- Torch 2.4.1 (RoCM 6.1) + xFormers 0.0.28.post1 (Linux)
-- Torch 2.4.1 (CPU)
-- Torch 2.4.0 (CUDA 11.8) + xFormers 0.0.27.post2
-- Torch 2.4.0 (CUDA 12.1) + xFormers 0.0.27.post2
-- Torch 2.4.0 (CUDA 12.4)
-- Torch 2.4.0 (RoCM 6.0) (Linux)
-- Torch 2.4.0 (CPU)
-- Torch 2.3.1 (CUDA 11.8) + xFormers 0.0.27
-- Torch 2.3.1 (CUDA 12.1) + xFormers 0.0.27
-- Torch 2.3.1 (RoCM 6.0) (Linux)
-- Torch 2.3.1 (DirectML)
-- Torch 2.3.1 (CPU)
-- Torch 2.3.0 (CUDA 11.8) + xFormers 0.0.26.post1
-- Torch 2.3.0 (CUDA 12.1) + xFormers 0.0.26.post1
-- Torch 2.3.0 (RoCM 6.0) (Linux)
-- Torch 2.3.0 (CPU)
-- Torch 2.2.2 (CUDA 11.8) + xFormers 0.0.25.post1
-- Torch 2.2.2 (CUDA 12.1) + xFormers 0.0.25.post1
-- Torch 2.2.2 (RoCM 5.7) (Linux)
-- Torch 2.2.2 (CPU)
-- Torch 2.2.1 (CUDA 11.8) + xFormers 0.0.25
-- Torch 2.2.1 (CUDA 12.1) + xFormers 0.0.25
-- Torch 2.2.1 (RoCM 5.7) (Linux)
-- Torch 2.2.1 (DirectML)
-- Torch 2.2.1 (CPU)
-- Torch 2.2.0 (CUDA 11.8) + xFormers 0.0.24
-- Torch 2.2.0 (CUDA 12.1) + xFormers 0.0.24
-- Torch 2.2.0 (RoCM 5.7) (Linux)
-- Torch 2.2.0 (CPU)
-- Torch 2.1.2 (CUDA 11.8) + xFormers 0.0.23.post1
-- Torch 2.1.2 (CUDA 12.1) + xFormers 0.0.23.post1
-- Torch 2.1.2 (RoCM 5.6) (Linux)
-- Torch 2.1.2 (CPU)
-- Torch 2.1.1 (CUDA 11.8) + xFormers 0.0.23
-- Torch 2.1.1 (CUDA 12.1) + xFormers 0.0.23
-- Torch 2.1.1 (RoCM 5.6) (Linux)
-- Torch 2.1.1 (CPU)
-- Torch 2.1.0 (Intel Arc)
-- Torch 2.1.0 (Intel Core Ultra)
-- Torch 2.1.0 (RoCM 5.6) (Linux)
-- Torch 2.1.0 (CPU)
-- Torch 2.0.1 (CUDA 11.8) + xFormers 0.0.22
-- Torch 2.0.1 (RoCM 5.4.2) (Linux)
-- Torch 2.0.1 (CPU)
-- Torch 2.0.0 (CUDA 11.8) + xFormers 0.0.18
-- Torch 2.0.0 (Intel Arc)
-- Torch 2.0.0 (DirectML)
-- Torch 2.0.0 (CPU)
-- Torch 1.13.1 (CUDA 11.7) + xFormers 0.0.16
-- Torch 1.13.1 (DirectML)
-- Torch 1.13.1 (CPU)
-- Torch 1.12.1 (CUDA 11.3) + xFormers 0.0.14
-- Torch + xFormers
-- Torch
+第二个是 PyTorch 版本的选择界面
 
 选择版本时需要根据系统类型和显卡选择
 - 在 Windows 系统中，Nvidia 显卡选择 Torch（CUDA）+ xFormers 的版本，AMD 显卡选择 Torch (Directml) 的版本，Intel 显卡选择 Torch (Intel Arc / Core Ultra) 的版本（核显选择 Intel Core Ultra 版本，独显选择 Intel Arc 版本）
-- 在 Linux 系统中，Nvidia 显卡选择 Torch（CUDA）+ xFormers 的版本，AMD 显卡选择 Torch (RoCM) 的版本，Intel 显卡选择 Torch (Intel Arc / Core Ultra) 版本
+- 在 Linux 系统中，Nvidia 显卡选择 Torch（CUDA）+ xFormers 的版本，AMD 显卡选择 Torch (ROCm) 的版本，Intel 显卡选择 Torch (Intel Arc / Core Ultra) 版本
 - 在 MacOS 系统中，选择 Torch 版本
 - 如果想要使用 CPU 进行跑图，选择 Torch + CPU 的版本
 - 一般来说找到对应显卡型号的类型后，选择最新版本的就行
@@ -837,7 +805,7 @@ InvokeAI 已经移除了启动参数，如果想要修改一些设置，需要�
 
 可选的类型：
 - CUDA (Nvidia 显卡)
-- RoCM (AMD 显卡)
+- ROCm (AMD 显卡)
 - XPU (Intel 显卡)
 - CPU (使用 CPU)
 

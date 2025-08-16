@@ -225,110 +225,110 @@ pytorch_version_select() {
         --title "Term-SD" \
         --backtitle "PyTorch 安装版本选项" \
         --ok-label "确认" --no-cancel \
-        --menu "请选择要安装的 PyTorch 版本, 注:\n1. Nvidia 显卡选择 CUDA 的版本\n2. AMD 显卡选择 RoCM(Linux) / DirectML(Windows) 版本\n3. Intel 显卡选择 IPEX Arc(独显) / Core Ultra(核显) / Intel XPU\n4. Apple M 系列芯片选择无特殊标识版本\n5. 使用 CPU 运算选择 CPU 版本\n6. 标记为 Linux 的版本只能在 Linux 上安装\n当前 PyTorch 版本: $(get_pytorch_version)\n当前 xFormers 版本: $(get_xformers_version)" \
+        --menu "请选择要安装的 PyTorch 版本, 注:\n1. Nvidia 显卡选择 CUDA 的版本\n2. AMD 显卡选择 ROCm(Linux) / DirectML(Windows) 版本\n3. Intel 显卡选择 IPEX Arc(独显) / Core Ultra(核显) / Intel XPU\n4. Apple M 系列芯片选择无特殊标识版本\n5. 使用 CPU 运算选择 CPU 版本\n6. 标记为 Linux 的版本只能在 Linux 上安装\n当前 PyTorch 版本: $(get_pytorch_version)\n当前 xFormers 版本: $(get_xformers_version)" \
         $(get_dialog_size_menu) \
-        "118" "> Torch 2.8.0 (CUDA 12.6)" \
-        "117" "> Torch 2.8.0 (CUDA 12.8)" \
-        "116" "> Torch 2.8.0 (CUDA 12.9)" \
+        "118" "> Torch 2.8.0 (CUDA 12.6) + xFormers 0.0.32.post2" \
+        "117" "> Torch 2.8.0 (CUDA 12.8) + xFormers 0.0.32.post2" \
+        "116" "> Torch 2.8.0 (CUDA 12.9) + xFormers 0.0.32.post2" \
         "115" "> Torch 2.8.0 (Intel XPU)" \
-        "114" "> Torch 2.8.0 (RoCM 6.3)" \
-        "113" "> Torch 2.8.0 (RoCM 6.4)" \
+        "114" "> Torch 2.8.0 (ROCm 6.3)" \
+        "113" "> Torch 2.8.0 (ROCm 6.4) + xFormers 0.0.32.post2" \
         "112" "> Torch 2.8.0 (CPU)" \
         "111" "> Torch 2.8.0" \
         "110" "> Torch 2.7.1 (CUDA 11.8) + xFormers 0.0.31.post1 (Linux)" \
         "109" "> Torch 2.7.1 (CUDA 12.6) + xFormers 0.0.31.post1" \
         "108" "> Torch 2.7.1 (CUDA 12.8) + xFormers 0.0.31.post1" \
         "107" "> Torch 2.7.1 (Intel XPU)" \
-        "106" "> Torch 2.7.1 (RoCM 6.2.4) + xFormers 0.0.31.post1 (Linux)" \
-        "105" "> Torch 2.7.1 (RoCM 6.3) + xFormers 0.0.31.post1 (Linux)" \
+        "106" "> Torch 2.7.1 (ROCm 6.2.4) + xFormers 0.0.31.post1 (Linux)" \
+        "105" "> Torch 2.7.1 (ROCm 6.3) + xFormers 0.0.31.post1 (Linux)" \
         "104" "> Torch 2.7.1 (CPU)" \
         "103" "> Torch 2.7.1" \
         "102" "> Torch 2.7.0 (CUDA 11.8) + xFormers 0.0.30 (Linux)" \
         "101" "> Torch 2.7.0 (CUDA 12.6) + xFormers 0.0.30" \
         "100" "> Torch 2.7.0 (CUDA 12.8) + xFormers 0.0.30" \
         "99" "> Torch 2.7.0 (Intel XPU)" \
-        "98" "> Torch 2.7.0 (RoCM 6.2.4) + xFormers 0.0.30 (Linux)" \
-        "97" "> Torch 2.7.0 (RoCM 6.3) + xFormers 0.0.30 (Linux)" \
+        "98" "> Torch 2.7.0 (ROCm 6.2.4) + xFormers 0.0.30 (Linux)" \
+        "97" "> Torch 2.7.0 (ROCm 6.3) + xFormers 0.0.30 (Linux)" \
         "96" "> Torch 2.7.0 (CPU)" \
         "95" "> Torch 2.7.0" \
         "94" "> Torch 2.6.0 (CUDA 11.8) + xFormers 0.0.29.post3 (Linux)" \
         "93" "> Torch 2.6.0 (CUDA 12.4) + xFormers 0.0.29.post3" \
         "92" "> Torch 2.6.0 (CUDA 12.6) + xFormers 0.0.29.post3" \
         "91" "> Torch 2.6.0 (Intel XPU)" \
-        "90" "> Torch 2.6.0 (RoCM 6.1) + xFormers 0.0.29.post3 (Linux)" \
-        "89" "> Torch 2.6.0 (RoCM 6.2.4) + xFormers 0.0.29.post3 (Linux)" \
+        "90" "> Torch 2.6.0 (ROCm 6.1) + xFormers 0.0.29.post3 (Linux)" \
+        "89" "> Torch 2.6.0 (ROCm 6.2.4) + xFormers 0.0.29.post3 (Linux)" \
         "88" "> Torch 2.6.0 (CPU)" \
         "87" "> Torch 2.6.0" \
         "86" "> Torch 2.5.1 (CUDA 11.8) + xFormers 0.0.28.post3 (Linux)" \
         "85" "> Torch 2.5.1 (CUDA 12.1) + xFormers 0.0.28.post3 (Linux)" \
         "84" "> Torch 2.5.1 (CUDA 12.4) + xFormers 0.0.28.post3" \
-        "83" "> Torch 2.5.1 (RoCM 6.1) + xFormers 0.0.28.post3 (Linux)" \
-        "82" "> Torch 2.5.1 (RoCM 6.2) (Linux)" \
+        "83" "> Torch 2.5.1 (ROCm 6.1) + xFormers 0.0.28.post3 (Linux)" \
+        "82" "> Torch 2.5.1 (ROCm 6.2) (Linux)" \
         "81" "> Torch 2.5.1 (CPU)" \
         "80" "> Torch 2.5.1" \
         "79" "> Torch 2.5.0 (CUDA 11.8) + xFormers 0.0.28.post2 (Linux)" \
         "78" "> Torch 2.5.0 (CUDA 12.1) + xFormers 0.0.28.post2 (Linux)" \
         "77" "> Torch 2.5.0 (CUDA 12.4) + xFormers 0.0.28.post2" \
-        "76" "> Torch 2.5.0 (RoCM 6.1) + xFormers 0.0.28.post2 (Linux)" \
-        "75" "> Torch 2.5.0 (RoCM 6.2) (Linux)" \
+        "76" "> Torch 2.5.0 (ROCm 6.1) + xFormers 0.0.28.post2 (Linux)" \
+        "75" "> Torch 2.5.0 (ROCm 6.2) (Linux)" \
         "74" "> Torch 2.5.0 (CPU)" \
         "73" "> Torch 2.5.0" \
         "72" "> Torch 2.4.1 (CUDA 11.8) + xFormers 0.0.28.post1 (Linux)" \
         "71" "> Torch 2.4.1 (CUDA 12.1) + xFormers 0.0.28.post1 (Linux)" \
         "70" "> Torch 2.4.1 (CUDA 12.4) + xFormers 0.0.28.post1" \
-        "69" "> Torch 2.4.1 (RoCM 6.1) + xFormers 0.0.28.post1 (Linux)" \
+        "69" "> Torch 2.4.1 (ROCm 6.1) + xFormers 0.0.28.post1 (Linux)" \
         "68" "> Torch 2.4.1 (CPU)" \
         "67" "> Torch 2.4.1" \
         "66" "> Torch 2.4.0 (CUDA 11.8) + xFormers 0.0.27.post2" \
         "65" "> Torch 2.4.0 (CUDA 12.1) + xFormers 0.0.27.post2" \
         "64" "> Torch 2.4.0 (CUDA 12.4)" \
-        "63" "> Torch 2.4.0 (RoCM 6.0) (Linux)" \
+        "63" "> Torch 2.4.0 (ROCm 6.0) (Linux)" \
         "62" "> Torch 2.4.0 (CPU)" \
         "61" "> Torch 2.4.0" \
         "60" "> Torch 2.3.1 (CUDA 11.8) + xFormers 0.0.27" \
         "59" "> Torch 2.3.1 (CUDA 12.1) + xFormers 0.0.27" \
-        "58" "> Torch 2.3.1 (RoCM 6.0) (Linux)" \
+        "58" "> Torch 2.3.1 (ROCm 6.0) (Linux)" \
         "57" "> Torch 2.3.1 (DirectML)" \
         "56" "> Torch 2.3.1 (CPU)" \
         "55" "> Torch 2.3.1" \
         "54" "> Torch 2.3.0 (CUDA 11.8) + xFormers 0.0.26.post1" \
         "53" "> Torch 2.3.0 (CUDA 12.1) + xFormers 0.0.26.post1" \
-        "52" "> Torch 2.3.0 (RoCM 6.0) (Linux)" \
+        "52" "> Torch 2.3.0 (ROCm 6.0) (Linux)" \
         "51" "> Torch 2.3.0 (CPU)" \
         "50" "> Torch 2.3.0" \
         "49" "> Torch 2.2.2 (CUDA 11.8) + xFormers 0.0.25.post1" \
         "48" "> Torch 2.2.2 (CUDA 12.1) + xFormers 0.0.25.post1" \
-        "47" "> Torch 2.2.2 (RoCM 5.7) (Linux)" \
+        "47" "> Torch 2.2.2 (ROCm 5.7) (Linux)" \
         "46" "> Torch 2.2.2 (CPU)" \
         "45" "> Torch 2.2.2" \
         "44" "> Torch 2.2.1 (CUDA 11.8) + xFormers 0.0.25" \
         "43" "> Torch 2.2.1 (CUDA 12.1) + xFormers 0.0.25" \
-        "42" "> Torch 2.2.1 (RoCM 5.7) (Linux)" \
+        "42" "> Torch 2.2.1 (ROCm 5.7) (Linux)" \
         "41" "> Torch 2.2.1 (DirectML)" \
         "40" "> Torch 2.2.1 (CPU)" \
         "39" "> Torch 2.2.1" \
         "38" "> Torch 2.2.0 (CUDA 11.8) + xFormers 0.0.24" \
         "37" "> Torch 2.2.0 (CUDA 12.1) + xFormers 0.0.24" \
-        "36" "> Torch 2.2.0 (RoCM 5.7) (Linux)" \
+        "36" "> Torch 2.2.0 (ROCm 5.7) (Linux)" \
         "35" "> Torch 2.2.0 (CPU)" \
         "34" "> Torch 2.2.0" \
         "33" "> Torch 2.1.2 (CUDA 11.8) + xFormers 0.0.23.post1" \
         "32" "> Torch 2.1.2 (CUDA 12.1) + xFormers 0.0.23.post1" \
-        "31" "> Torch 2.1.2 (RoCM 5.6) (Linux)" \
+        "31" "> Torch 2.1.2 (ROCm 5.6) (Linux)" \
         "30" "> Torch 2.1.2 (CPU)" \
         "29" "> Torch 2.1.2" \
         "28" "> Torch 2.1.1 (CUDA 11.8) + xFormers 0.0.23" \
         "27" "> Torch 2.1.1 (CUDA 12.1) + xFormers 0.0.23" \
-        "26" "> Torch 2.1.1 (RoCM 5.6) (Linux)" \
+        "26" "> Torch 2.1.1 (ROCm 5.6) (Linux)" \
         "25" "> Torch 2.1.1 (CPU)" \
         "24" "> Torch 2.1.1" \
         "23" "> Torch 2.1.0 (Intel Arc)" \
         "22" "> Torch 2.1.0 (Intel Core Ultra)" \
-        "21" "> Torch 2.1.0 (RoCM 5.6) (Linux)" \
+        "21" "> Torch 2.1.0 (ROCm 5.6) (Linux)" \
         "20" "> Torch 2.1.0 (CPU)" \
         "19" "> Torch 2.1.0" \
         "18" "> Torch 2.0.1 (CUDA 11.8) + xFormers 0.0.22" \
-        "17" "> Torch 2.0.1 (RoCM 5.4.2) (Linux)" \
+        "17" "> Torch 2.0.1 (ROCm 5.4.2) (Linux)" \
         "16" "> Torch 2.0.1 (CPU)" \
         "15" "> Torch 2.0.1" \
         "14" "> Torch 2.0.0 (CUDA 11.8) + xFormers 0.0.18" \
@@ -809,13 +809,12 @@ pytorch_version_select() {
             ;;
         113)
             INSTALL_PYTORCH_VERSION="torch==2.8.0+rocm6.4 torchvision==0.23.0+rocm6.4 torchaudio==2.8.0+rocm6.4"
-            # INSTALL_XFORMERS_VERSION="xformers==" # TODO: 待补充 xFormers 版本
+            INSTALL_XFORMERS_VERSION="xformers==0.0.32.post2"
             PYTORCH_TYPE="rocm64"
             ;;
         114)
             INSTALL_PYTORCH_VERSION="torch==2.8.0+rocm6.3 torchvision==0.23.0+rocm6.3 torchaudio==2.8.0+rocm6.3"
-            # INSTALL_XFORMERS_VERSION="xformers==" # TODO: 待补充 xFormers 版本
-            PYTORCH_TYPE="rocm64"
+            PYTORCH_TYPE="rocm63"
             ;;
         115)
             INSTALL_PYTORCH_VERSION="torch==2.8.0+xpu torchvision==0.23.0+xpu torchaudio==2.8.0+xpu"
@@ -823,17 +822,17 @@ pytorch_version_select() {
             ;;
         116)
             INSTALL_PYTORCH_VERSION="torch==2.8.0+cu129 torchvision==0.23.0+cu129 torchaudio==2.8.0+cu129"
-            # INSTALL_XFORMERS_VERSION="xformers==" # TODO: 待补充 xFormers 版本
+            INSTALL_XFORMERS_VERSION="xformers==0.0.32.post2"
             PYTORCH_TYPE="cu129"
             ;;
         117)
             INSTALL_PYTORCH_VERSION="torch==2.8.0+cu128 torchvision==0.23.0+cu128 torchaudio==2.8.0+cu128"
-            # INSTALL_XFORMERS_VERSION="xformers==" # TODO: 待补充 xFormers 版本
+            INSTALL_XFORMERS_VERSION="xformers==0.0.32.post2"
             PYTORCH_TYPE="cu128"
             ;;
         118)
             INSTALL_PYTORCH_VERSION="torch==2.8.0+cu126 torchvision==0.23.0+cu126 torchaudio==2.8.0+cu126"
-            # INSTALL_XFORMERS_VERSION="xformers==" # TODO: 待补充 xFormers 版本
+            INSTALL_XFORMERS_VERSION="xformers==0.0.32.post2"
             PYTORCH_TYPE="cu126"
             ;;
     esac
@@ -854,7 +853,7 @@ pytorch_type_select() {
         --menu "请选择要安装的 PyTorch 类型\n当前 PyTorch 版本: $(get_pytorch_version)\n当前 xFormers 版本: $(get_xformers_version)" \
         $(get_dialog_size_menu) \
         "1" "CUDA (Nvidia 显卡)" \
-        "2" "RoCM (AMD 显卡)" \
+        "2" "ROCm (AMD 显卡)" \
         "3" "XPU (Intel 显卡)" \
         "4" "CPU (使用 CPU)" \
         3>&1 1>&2 2>&3)
