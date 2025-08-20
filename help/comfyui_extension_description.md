@@ -586,3 +586,11 @@ ComfyUI 插件 / 自定义节点说明：
 143、comfyui-profiler
 描述：统计各个节点的运行时间
 链接：https://github.com/tzwm/comfyui-profiler
+
+144、HDM-ext
+描述：添加HDM模型加载器
+链接：https://github.com/KohakuBlueleaf/HDM-ext
+
+145、ComfyUI-rgthree-comfy
+描述：自定义节点集合，并提供进度条显示
+链接：https://github.com/QuangLe97/ComfyUI-rgthree-comfy

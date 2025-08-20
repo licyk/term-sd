@@ -141,3 +141,5 @@ __term_sd_task_pre_ext_140 git_clone_repository https://github.com/AIGODLIKE/AIG
 __term_sd_task_pre_ext_141 git_clone_repository https://github.com/pydn/ComfyUI-to-Python-Extension "${COMFYUI_ROOT_PATH}"/custom_nodes OFF # 将工作流转换为Python库进行调用
 __term_sd_task_pre_ext_142 git_clone_repository https://github.com/kijai/ComfyUI-FramePackWrapper "${COMFYUI_ROOT_PATH}"/custom_nodes OFF # 添加FramePack支持
 __term_sd_task_pre_ext_143 git_clone_repository https://github.com/tzwm/comfyui-profiler "${COMFYUI_ROOT_PATH}"/custom_nodes OFF # 统计各个节点的运行时间
+__term_sd_task_pre_ext_144 git_clone_repository https://github.com/KohakuBlueleaf/HDM-ext "${COMFYUI_ROOT_PATH}"/custom_nodes OFF # 添加HDM模型加载器
+__term_sd_task_pre_ext_145 git_clone_repository https://github.com/QuangLe97/ComfyUI-rgthree-comfy "${COMFYUI_ROOT_PATH}"/custom_nodes OFF # 自定义节点集合，并提供进度条显示

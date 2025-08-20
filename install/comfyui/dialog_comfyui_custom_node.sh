@@ -141,3 +141,5 @@ __term_sd_task_pre_ext_140 AIGODLIKE-ComfyUI-Studio OFF
 __term_sd_task_pre_ext_141 ComfyUI-to-Python-Extension OFF
 __term_sd_task_pre_ext_142 ComfyUI-FramePackWrapper OFF
 __term_sd_task_pre_ext_143 comfyui-profiler OFF
+__term_sd_task_pre_ext_144 HDM-ext OFF
+__term_sd_task_pre_ext_145 ComfyUI-rgthree-comfy OFF
