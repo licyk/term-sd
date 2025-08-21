@@ -594,3 +594,7 @@ ComfyUI 插件 / 自定义节点说明：
 145、ComfyUI-rgthree-comfy
 描述：自定义节点集合，并提供进度条显示
 链接：https://github.com/QuangLe97/ComfyUI-rgthree-comfy
+
+146、ComfyUI_Civitai_Gallery
+描述：将Civitai中的图片参数导入到工作流中
+链接：https://github.com/Firetheft/ComfyUI_Civitai_Gallery
