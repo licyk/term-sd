@@ -1,6 +1,6 @@
 __term_sd_task_pre_model_1 =====SD1.5大模型===== OFF
 __term_sd_task_pre_model_2 v1-5-pruned-emaonly(4.27g) OFF
-__term_sd_task_pre_model_3 animefull-final-pruned(4.27g) ON
+__term_sd_task_pre_model_3 animefull-final-pruned(4.27g) OFF
 __term_sd_task_pre_model_4 =====SD2.1大模型===== OFF
 __term_sd_task_pre_model_5 v2-1_768-ema-pruned(5.21g) OFF
 __term_sd_task_pre_model_6 wd-1-4-anime_e2(5.16g) OFF
@@ -35,7 +35,7 @@ __term_sd_task_pre_model_34 sanaexlAnimeV10_v10(6.94g) OFF
 __term_sd_task_pre_model_35 sanaexlAnimeV10_v11(6.94g) OFF
 __term_sd_task_pre_model_36 SanaeXL-Anime-v1.2-aesthetic(6.94g) OFF
 __term_sd_task_pre_model_37 SanaeXL-Anime-v1.3-aesthetic(6.94g) OFF
-__term_sd_task_pre_model_38 Illustrious-XL-v0.1(6.94g) OFF
+__term_sd_task_pre_model_38 Illustrious-XL-v0.1(6.94g) ON
 __term_sd_task_pre_model_39 Illustrious-XL-v0.1-GUIDED(6.94g) OFF
 __term_sd_task_pre_model_40 Illustrious-XL-v1.0(6.94g) OFF
 __term_sd_task_pre_model_41 Illustrious-XL-v1.1(6.94g) OFF

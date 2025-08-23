@@ -1,6 +1,6 @@
 __term_sd_task_pre_model_1 # =====SD1.5大模型===== OFF
 __term_sd_task_pre_model_2 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/v1-5-pruned-emaonly.safetensors "${LORA_SCRIPTS_ROOT_PATH}"/sd-models/ # v1-5-pruned-emaonly(4.27g) OFF
-__term_sd_task_pre_model_3 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/animefull-final-pruned.safetensors "${LORA_SCRIPTS_ROOT_PATH}"/sd-models/ # animefull-final-pruned(4.27g) ON
+__term_sd_task_pre_model_3 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_1.5/animefull-final-pruned.safetensors "${LORA_SCRIPTS_ROOT_PATH}"/sd-models/ # animefull-final-pruned(4.27g) OFF
 __term_sd_task_pre_model_4 # =====SD2.1大模型===== OFF
 __term_sd_task_pre_model_5 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_2.1/v2-1_768-ema-pruned.safetensors "${LORA_SCRIPTS_ROOT_PATH}"/sd-models/ # v2-1_768-ema-pruned(5.21g) OFF
 __term_sd_task_pre_model_6 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sd_2.1/wd-1-4-anime_e2.ckpt "${LORA_SCRIPTS_ROOT_PATH}"/sd-models/ # wd-1-4-anime_e2(5.16g) OFF
@@ -35,7 +35,7 @@ __term_sd_task_pre_model_34 aria2_download https://huggingface.co/licyk/sd-model
 __term_sd_task_pre_model_35 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/sanaexlAnimeV10_v11.safetensors "${LORA_SCRIPTS_ROOT_PATH}"/sd-models/ # sanaexlAnimeV10_v11(6.94g) OFF
 __term_sd_task_pre_model_36 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/SanaeXL-Anime-v1.2-aesthetic.safetensors "${LORA_SCRIPTS_ROOT_PATH}"/sd-models/ # SanaeXL-Anime-v1.2-aesthetic(6.94g) OFF
 __term_sd_task_pre_model_37 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/SanaeXL-Anime-v1.3-aesthetic.safetensors "${LORA_SCRIPTS_ROOT_PATH}"/sd-models/ # SanaeXL-Anime-v1.3-aesthetic(6.94g) OFF
-__term_sd_task_pre_model_38 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/Illustrious-XL-v0.1.safetensors "${LORA_SCRIPTS_ROOT_PATH}"/sd-models/ # Illustrious-XL-v0.1(6.94g) OFF
+__term_sd_task_pre_model_38 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/Illustrious-XL-v0.1.safetensors "${LORA_SCRIPTS_ROOT_PATH}"/sd-models/ # Illustrious-XL-v0.1(6.94g) ON
 __term_sd_task_pre_model_39 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/Illustrious-XL-v0.1-GUIDED.safetensors "${LORA_SCRIPTS_ROOT_PATH}"/sd-models/ # Illustrious-XL-v0.1-GUIDED(6.94g) OFF
 __term_sd_task_pre_model_40 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/Illustrious-XL-v1.0.safetensors "${LORA_SCRIPTS_ROOT_PATH}"/sd-models/ # Illustrious-XL-v1.0(6.94g) OFF
 __term_sd_task_pre_model_41 aria2_download https://huggingface.co/licyk/sd-model/resolve/main/sdxl_1.0/Illustrious-XL-v1.1.safetensors "${LORA_SCRIPTS_ROOT_PATH}"/sd-models/ # Illustrious-XL-v1.1(6.94g) OFF

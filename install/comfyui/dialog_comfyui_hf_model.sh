@@ -57,9 +57,9 @@ __term_sd_task_pre_model_56 SanaeXL-Anime-v1.2-aesthetic(6.94g) OFF
 __term_sd_task_pre_model_57 SanaeXL-Anime-v1.3-aesthetic(6.94g) OFF
 __term_sd_task_pre_model_58 Illustrious-XL-v0.1(6.94g) OFF
 __term_sd_task_pre_model_59 Illustrious-XL-v0.1-GUIDED(6.94g) OFF
-__term_sd_task_pre_model_60 Illustrious-XL-v1.0(6.94g) OFF
+__term_sd_task_pre_model_60 Illustrious-XL-v1.0(6.94g) ON
 __term_sd_task_pre_model_61 Illustrious-XL-v1.1(6.94g) OFF
-__term_sd_task_pre_model_62 Illustrious-XL-v2.0-stable(6.94g) ON
+__term_sd_task_pre_model_62 Illustrious-XL-v2.0-stable(6.94g) OFF
 __term_sd_task_pre_model_63 jruTheJourneyRemains_v25XL(6.94g) OFF
 __term_sd_task_pre_model_64 PVCStyleModelMovable_illustriousxl10(6.94g) OFF
 __term_sd_task_pre_model_65 miaomiaoHarem_v15a(6.94g) OFF

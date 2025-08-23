@@ -1,6 +1,6 @@
 __term_sd_task_pre_model_1 # =====SD1.5大模型===== OFF
 __term_sd_task_pre_model_2 get_modelscope_model licyks/sd-model/master/sd_1.5/v1-5-pruned-emaonly.safetensors "${KOHYA_SS_ROOT_PATH}"/models/ # v1-5-pruned-emaonly(4.27g) OFF
-__term_sd_task_pre_model_3 get_modelscope_model licyks/sd-model/master/sd_1.5/animefull-final-pruned.safetensors "${KOHYA_SS_ROOT_PATH}"/models/ # animefull-final-pruned(4.27g) ON
+__term_sd_task_pre_model_3 get_modelscope_model licyks/sd-model/master/sd_1.5/animefull-final-pruned.safetensors "${KOHYA_SS_ROOT_PATH}"/models/ # animefull-final-pruned(4.27g) OFF
 __term_sd_task_pre_model_4 # =====SD2.1大模型===== OFF
 __term_sd_task_pre_model_5 get_modelscope_model licyks/sd-model/master/sd_2.1/v2-1_768-ema-pruned.safetensors "${KOHYA_SS_ROOT_PATH}"/models/ # v2-1_768-ema-pruned(5.21g) OFF
 __term_sd_task_pre_model_6 get_modelscope_model licyks/sd-model/master/sd_2.1/wd-1-4-anime_e2.ckpt "${KOHYA_SS_ROOT_PATH}"/models/ # wd-1-4-anime_e2(5.16g) OFF
@@ -35,7 +35,7 @@ __term_sd_task_pre_model_34 get_modelscope_model licyks/sd-model/master/sdxl_1.0
 __term_sd_task_pre_model_35 get_modelscope_model licyks/sd-model/master/sdxl_1.0/sanaexlAnimeV10_v11.safetensors "${KOHYA_SS_ROOT_PATH}"/models/ # sanaexlAnimeV10_v11(6.94g) OFF
 __term_sd_task_pre_model_36 get_modelscope_model licyks/sd-model/master/sdxl_1.0/SanaeXL-Anime-v1.2-aesthetic.safetensors "${KOHYA_SS_ROOT_PATH}"/models/ # SanaeXL-Anime-v1.2-aesthetic(6.94g) OFF
 __term_sd_task_pre_model_37 get_modelscope_model licyks/sd-model/master/sdxl_1.0/SanaeXL-Anime-v1.3-aesthetic.safetensors "${KOHYA_SS_ROOT_PATH}"/models/ # SanaeXL-Anime-v1.3-aesthetic(6.94g) OFF
-__term_sd_task_pre_model_38 get_modelscope_model licyks/sd-model/master/sdxl_1.0/Illustrious-XL-v0.1.safetensors "${KOHYA_SS_ROOT_PATH}"/models/ # Illustrious-XL-v0.1(6.94g) OFF
+__term_sd_task_pre_model_38 get_modelscope_model licyks/sd-model/master/sdxl_1.0/Illustrious-XL-v0.1.safetensors "${KOHYA_SS_ROOT_PATH}"/models/ # Illustrious-XL-v0.1(6.94g) ON
 __term_sd_task_pre_model_39 get_modelscope_model licyks/sd-model/master/sdxl_1.0/Illustrious-XL-v0.1-GUIDED.safetensors "${KOHYA_SS_ROOT_PATH}"/models/ # Illustrious-XL-v0.1-GUIDED(6.94g) OFF
 __term_sd_task_pre_model_40 get_modelscope_model licyks/sd-model/master/sdxl_1.0/Illustrious-XL-v1.0.safetensors "${KOHYA_SS_ROOT_PATH}"/models/ # Illustrious-XL-v1.0(6.94g) OFF
 __term_sd_task_pre_model_41 get_modelscope_model licyks/sd-model/master/sdxl_1.0/Illustrious-XL-v1.1.safetensors "${KOHYA_SS_ROOT_PATH}"/models/ # Illustrious-XL-v1.1(6.94g) OFF

@@ -1,5 +1,5 @@
 {
-    "default_model": "Illustrious-XL-v2.0-stable.safetensors",
+    "default_model": "Illustrious-XL-v1.0.safetensors",
     "default_refiner": "None",
     "default_refiner_switch": 0.8,
     "default_loras": [
