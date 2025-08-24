@@ -144,3 +144,5 @@ __term_sd_task_pre_ext_143 comfyui-profiler OFF
 __term_sd_task_pre_ext_144 HDM-ext OFF
 __term_sd_task_pre_ext_145 ComfyUI-rgthree-comfy OFF
 __term_sd_task_pre_ext_146 ComfyUI_Civitai_Gallery OFF
+__term_sd_task_pre_ext_147 A8R8_ComfyUI_nodes OFF
+__term_sd_task_pre_ext_148 cgem156-ComfyUI OFF

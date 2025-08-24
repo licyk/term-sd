@@ -144,3 +144,5 @@ __term_sd_task_pre_ext_143 git_clone_repository https://github.com/tzwm/comfyui-
 __term_sd_task_pre_ext_144 git_clone_repository https://github.com/KohakuBlueleaf/HDM-ext "${COMFYUI_ROOT_PATH}"/custom_nodes OFF # 添加HDM模型加载器
 __term_sd_task_pre_ext_145 git_clone_repository https://github.com/QuangLe97/ComfyUI-rgthree-comfy "${COMFYUI_ROOT_PATH}"/custom_nodes OFF # 自定义节点集合，并提供进度条显示
 __term_sd_task_pre_ext_146 git_clone_repository https://github.com/Firetheft/ComfyUI_Civitai_Gallery "${COMFYUI_ROOT_PATH}"/custom_nodes OFF # 将Civitai中的图片参数导入到工作流中
+__term_sd_task_pre_ext_147 git_clone_repository https://github.com/ramyma/A8R8_ComfyUI_nodes "${COMFYUI_ROOT_PATH}"/custom_nodes OFF # 提供分区绘制
+__term_sd_task_pre_ext_148 git_clone_repository https://github.com/laksjdjf/cgem156-ComfyUI "${COMFYUI_ROOT_PATH}"/custom_nodes OFF # 提供分区绘制等节点

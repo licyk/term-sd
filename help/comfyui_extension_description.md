@@ -598,3 +598,11 @@ ComfyUI 插件 / 自定义节点说明：
 146、ComfyUI_Civitai_Gallery
 描述：将Civitai中的图片参数导入到工作流中
 链接：https://github.com/Firetheft/ComfyUI_Civitai_Gallery
+
+147、A8R8_ComfyUI_nodes
+描述：提供分区绘制
+链接：https://github.com/ramyma/A8R8_ComfyUI_nodes
+
+148、cgem156-ComfyUI
+描述：提供分区绘制等节点
+链接：https://github.com/laksjdjf/cgem156-ComfyUI
