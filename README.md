@@ -114,7 +114,7 @@ C:\msys64\ucrt64.ico
 保存后生效，在标题栏点击向下的箭头就可以看到`MSYS2 UCRT64`，打开后就可以下载和运行 Term-SD（一定要用在 Windows 终端 配置好的 MSYS2 UCRT64 运行 Term-SD，PowerShell 和 CMD 是没法运行 Term-SD 的）。
 
 >[!NOTE]  
->Windows 终端默认启动 PowerShell，如果想要启动时直接启动 MSYS2 UCRT64，可以在Windows 终端设置，`启动` -> `默认配置文件`，将`Windows Powershell`改成`MSYS2 UCRT64`，这样每次打开 Windows 终端时默认就会打开 MSYS2 UCRT64，不过 MSYS2 UCRT64 并不兼容 PowerShell 或者 CMD 的命令。  
+>Windows 终端默认启动 PowerShell，如果想要启动时直接启动 MSYS2 UCRT64，可以在 Windows 终端设置，`启动` -> `默认配置文件`，将`Windows Powershell`改成`MSYS2 UCRT64`，这样每次打开 Windows 终端时默认就会打开 MSYS2 UCRT64，不过 MSYS2 UCRT64 并不兼容 PowerShell 或者 CMD 的命令。  
 >不推荐使用 MSYS2 安装程序安装的 MSYS2 UCRT64 终端。
 
 
@@ -249,7 +249,7 @@ brew update
 安装 Git，Aria2，Dialog，Python，Rust，Cmake，Protobuf，Wget，Curl。
 
 ```bash
-brew install git aria2 dialog python@3.10 rust cmake protobuf wget curl
+brew install git aria2 dialog python@3.10 rust cmake protobuf wget curl gawk bash
 ```
 
 完成上面的步骤后 Term-SD 的运行环境就配置好了，可以在下面的步骤[安装 Term-SD](#安装-term-sd)。
@@ -283,6 +283,13 @@ aria2c https://gitee.com/licyk/term-sd/raw/main/term-sd.sh && chmod +x term-sd.s
 ```bash
 ./term-sd.sh
 ```
+
+>[!IMPORTANT]  
+>MacOS 需要使用 Homebrew 安装的新版 bash 来启动 Term-SD，避免出现一些功能异常。
+>
+>```bash
+>/usr/local/bin/bash ./term-sd.sh
+>```
 
 如果需要指定 Python 路径，则加上`--set-python-path <Python 解释器路径>`参数进行指定，例如。
 

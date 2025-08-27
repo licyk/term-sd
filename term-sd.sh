@@ -754,7 +754,7 @@ install_cmd_to_shell() {
 install_config_to_shell() {
     cat<<EOF >> ~/."${USER_SHELL}"rc
 # Term-SD
-term_sd(){ "$(pwd)/term-sd.sh" "\$@" || echo -e "[\033[33m\$(date "+%Y-%m-%d %H:%M:%S")\033[0m][\033[36mTerm-SD\033[0m]\033[36m::\033[0m Term-SD 异常退出" ; }
+term_sd(){ [[ "\${OSTYPE}" == "darwin"* ]] && export PATH="/usr/local/bin:\${PATH}"; "\$(which bash)" "$(pwd)/term-sd.sh" "\$@" || echo -e "[\033[33m\$(date "+%Y-%m-%d %H:%M:%S")\033[0m][\033[36mTerm-SD\033[0m]\033[36m::\033[0m Term-SD 异常退出" ; }
 alias tsd="term_sd"
 EOF
 }
@@ -811,7 +811,7 @@ set_python_path() {
     done
 }
 
-# 配置内存优化(仅限Linux)
+# 配置内存优化(仅限 Linux)
 prepare_tcmalloc() {
     local LIBC_VER
     local libc_vernum
@@ -1021,6 +1021,11 @@ main() {
         cd ..
     fi
 
+    # 为 MacOS 配置 gawk
+    if [[ ! "${TERM_SD_IS_PREPARE_ENV}" == 1 ]] && [[ "${OSTYPE}" == "darwin"* ]]; then
+        export PATH="${HOMEBREW_PREFIX}/opt/gawk/libexec/gnubin:${PATH}"
+    fi
+
     # root 权限检测
     if [[ $(id -u) -eq 0 ]]; then
         term_sd_echo "检测到使用 root 权限运行 Term-SD, 这可能会导致不良后果"
@@ -1119,7 +1124,7 @@ main() {
     # 需要设置 NO_PROXY 让 localhost,127.0.0.1,::1 不走 HTTP_PROXY
     # 参考: https://github.com/microsoft/TaskMatrix/issues/250
     # 除了避免 HTTP_PROXY 变量的影响, 也避免了代理软件的影响(在启动 SD WebUI 前开启代理软件可能会导致无法生图(启动后再开启没有影响), 并报错, 设置该变量后完美解决该问题)
-    export NO_PROXY="localhost,127.0.0.1,::1" 
+    export NO_PROXY="localhost,127.0.0.1,::1"
 
     term_sd_print_line "Term-SD"
 
