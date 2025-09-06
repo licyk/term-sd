@@ -4,24 +4,29 @@ import argparse
 from pathlib import Path
 
 
-
 def get_args():
     parser = argparse.ArgumentParser()
     normalized_filepath = lambda filepath: str(Path(filepath).absolute().as_posix())
 
-    parser.add_argument("--config-path", type = normalized_filepath, default = None, help = "SD WebUI 配置文件路径")
-    parser.add_argument("--extension", type = str, default = None, help = "SD WebUI 插件名称")
-    parser.add_argument("--status", type = str, default = None, help = "设置 SD WebUI 插件的状态")
+    parser.add_argument(
+        "--config-path",
+        type=normalized_filepath,
+        default=None,
+        help="SD WebUI 配置文件路径",
+    )
+    parser.add_argument("--extension", type=str, default=None, help="SD WebUI 插件名称")
+    parser.add_argument(
+        "--status", type=str, default=None, help="设置 SD WebUI 插件的状态"
+    )
 
     return parser.parse_args()
 
 
 def get_key_map(file_path):
-
     file_name = Path(file_path)
     if os.path.exists(file_name):
         try:
-            with open(file_name, "r", encoding = "utf8") as file:
+            with open(file_name, "r", encoding="utf8") as file:
                 data = json.load(file)
         except Exception:
             # json 文件格式出现问题
@@ -36,7 +41,7 @@ def check_json(file_path):
     file_name = Path(file_path)
     if os.path.exists(file_name):
         try:
-            with open(file_name, "r", encoding = "utf8") as file:
+            with open(file_name, "r", encoding="utf8") as file:
                 _ = json.load(file)
             return True
         except Exception:
@@ -58,8 +63,8 @@ def search_key(data, key, value):
 
 
 def save(data, filename):
-    with open(filename, "w", encoding = "utf8") as file:
-        json.dump(data, file, indent = 4, ensure_ascii = False)
+    with open(filename, "w", encoding="utf8") as file:
+        json.dump(data, file, indent=4, ensure_ascii=False)
 
 
 def set_extension_status(json_path, extension_name, status):
@@ -82,7 +87,6 @@ def set_extension_status(json_path, extension_name, status):
         print(True)
     else:
         print(False)
-
 
 
 if __name__ == "__main__":

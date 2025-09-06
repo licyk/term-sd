@@ -1,4 +1,5 @@
-'''ComfyUI 运行环境检查'''
+"""ComfyUI 运行环境检查"""
+
 import re
 import os
 import sys
@@ -12,18 +13,28 @@ from typing import Optional, TypedDict, Union
 
 
 def get_args() -> argparse.Namespace:
-    '''获取命令行参数输入参数输入'''
-    parser = argparse.ArgumentParser(description='ComfyUI 运行环境检查')
-    def normalized_filepath(filepath): return str(
-        Path(filepath).absolute().as_posix())
+    """获取命令行参数输入参数输入"""
+    parser = argparse.ArgumentParser(description="ComfyUI 运行环境检查")
+
+    def normalized_filepath(filepath):
+        return str(Path(filepath).absolute().as_posix())
 
     parser.add_argument(
-        '--comfyui-path', type=normalized_filepath, default=None, help='ComfyUI 路径')
-    parser.add_argument('--conflict-depend-notice-path', type=normalized_filepath,
-                        default=None, help='保存 ComfyUI 扩展依赖冲突信息的文件路径')
-    parser.add_argument('--requirement-list-path', type=normalized_filepath,
-                        default=None, help='保存 ComfyUI 需要安装扩展依赖的路径列表')
-    parser.add_argument('--debug-mode', action='store_true', help='显示调试信息')
+        "--comfyui-path", type=normalized_filepath, default=None, help="ComfyUI 路径"
+    )
+    parser.add_argument(
+        "--conflict-depend-notice-path",
+        type=normalized_filepath,
+        default=None,
+        help="保存 ComfyUI 扩展依赖冲突信息的文件路径",
+    )
+    parser.add_argument(
+        "--requirement-list-path",
+        type=normalized_filepath,
+        default=None,
+        help="保存 ComfyUI 需要安装扩展依赖的路径列表",
+    )
+    parser.add_argument("--debug-mode", action="store_true", help="显示调试信息")
 
     return parser.parse_args()
 
@@ -32,22 +43,22 @@ COMMAND_ARGS = get_args()
 
 
 class ColoredFormatter(logging.Formatter):
-    '''Logging 格式化'''
+    """Logging 格式化"""
+
     COLORS = {
-        'DEBUG': '\033[0;36m',          # CYAN
-        'INFO': '\033[0;32m',           # GREEN
-        'WARNING': '\033[0;33m',        # YELLOW
-        'ERROR': '\033[0;31m',          # RED
-        'CRITICAL': '\033[0;37;41m',    # WHITE ON RED
-        'RESET': '\033[0m',             # RESET COLOR
+        "DEBUG": "\033[0;36m",  # CYAN
+        "INFO": "\033[0;32m",  # GREEN
+        "WARNING": "\033[0;33m",  # YELLOW
+        "ERROR": "\033[0;31m",  # RED
+        "CRITICAL": "\033[0;37;41m",  # WHITE ON RED
+        "RESET": "\033[0m",  # RESET COLOR
     }
 
     def format(self, record):
         colored_record = copy.copy(record)
         levelname = colored_record.levelname
-        seq = self.COLORS.get(levelname, self.COLORS['RESET'])
-        colored_record.levelname = '{}{}{}'.format(
-            seq, levelname, self.COLORS['RESET'])
+        seq = self.COLORS.get(levelname, self.COLORS["RESET"])
+        colored_record.levelname = "{}{}{}".format(seq, levelname, self.COLORS["RESET"])
         return super().format(colored_record)
 
 
@@ -55,14 +66,14 @@ def get_logger(
     name: str,
     level: int = logging.INFO,
 ) -> logging.Logger:
-    '''获取 Loging 对象
+    """获取 Loging 对象
 
     参数:
         name (`str`):
             Logging 名称
 
 
-    '''
+    """
     logger = logging.getLogger(name)
     logger.propagate = False
 
@@ -70,20 +81,19 @@ def get_logger(
         handler = logging.StreamHandler(sys.stdout)
         handler.setFormatter(
             ColoredFormatter(
-                '[%(name)s]-|%(asctime)s|-%(levelname)s: %(message)s', '%H:%M:%S'
+                "[%(name)s]-|%(asctime)s|-%(levelname)s: %(message)s", "%H:%M:%S"
             )
         )
         logger.addHandler(handler)
 
     logger.setLevel(level)
-    logger.debug('Logger initialized.')
+    logger.debug("Logger initialized.")
 
     return logger
 
 
 logger = get_logger(
-    'ComfyUI Env Checker',
-    logging.DEBUG if COMMAND_ARGS.debug_mode else logging.INFO
+    "ComfyUI Env Checker", logging.DEBUG if COMMAND_ARGS.debug_mode else logging.INFO
 )
 
 
@@ -91,7 +101,7 @@ logger = get_logger(
 # ref:
 # https://peps.python.org/pep-0440
 # https://packaging.python.org/en/latest/specifications/version-specifiers
-VERSION_PATTERN = r'''
+VERSION_PATTERN = r"""
     v?
     (?:
         (?:(?P<epoch>[0-9]+)!)?                           # epoch
@@ -120,36 +130,37 @@ VERSION_PATTERN = r'''
         )?
     )
     (?:\+(?P<local>[a-z0-9]+(?:[-_\.][a-z0-9]+)*))?       # local version
-'''
+"""
 
 
 # 编译正则表达式
 package_version_parse_regex = re.compile(
-    r'^\s*' + VERSION_PATTERN + r'\s*$',
+    r"^\s*" + VERSION_PATTERN + r"\s*$",
     re.VERBOSE | re.IGNORECASE,
 )
 
 
 # 定义版本组件的命名元组
 VersionComponent = namedtuple(
-    'VersionComponent', [
-        'epoch',
-        'release',
-        'pre_l',
-        'pre_n',
-        'post_n1',
-        'post_l',
-        'post_n2',
-        'dev_l',
-        'dev_n',
-        'local',
-        'is_wildcard'
-    ]
+    "VersionComponent",
+    [
+        "epoch",
+        "release",
+        "pre_l",
+        "pre_n",
+        "post_n1",
+        "post_l",
+        "post_n2",
+        "dev_l",
+        "dev_n",
+        "local",
+        "is_wildcard",
+    ],
 )
 
 
 def parse_version(version_str: str) -> VersionComponent:
-    '''解释 Python 软件包版本号
+    """解释 Python 软件包版本号
 
     参数:
         version_str (`str`):
@@ -160,41 +171,40 @@ def parse_version(version_str: str) -> VersionComponent:
 
     异常:
         `ValueError`: 如果 Python 版本号不符合 PEP440 规范
-    '''
+    """
     # 检测并剥离通配符
-    wildcard = version_str.endswith('.*') or version_str.endswith('*')
-    clean_str = version_str.rstrip(
-        '*').rstrip('.') if wildcard else version_str
+    wildcard = version_str.endswith(".*") or version_str.endswith("*")
+    clean_str = version_str.rstrip("*").rstrip(".") if wildcard else version_str
 
     match = package_version_parse_regex.match(clean_str)
     if not match:
-        logger.error(f'未知的版本号字符串: {version_str}')
-        raise ValueError(f'Invalid version string: {version_str}')
+        logger.error(f"未知的版本号字符串: {version_str}")
+        raise ValueError(f"Invalid version string: {version_str}")
 
     components = match.groupdict()
 
     # 处理 release 段 (允许空字符串)
-    release_str = components['release'] or '0'
-    release_segments = [int(seg) for seg in release_str.split('.')]
+    release_str = components["release"] or "0"
+    release_segments = [int(seg) for seg in release_str.split(".")]
 
     # 构建命名元组
     return VersionComponent(
-        epoch=int(components['epoch'] or 0),
+        epoch=int(components["epoch"] or 0),
         release=release_segments,
-        pre_l=components['pre_l'],
-        pre_n=int(components['pre_n']) if components['pre_n'] else None,
-        post_n1=int(components['post_n1']) if components['post_n1'] else None,
-        post_l=components['post_l'],
-        post_n2=int(components['post_n2']) if components['post_n2'] else None,
-        dev_l=components['dev_l'],
-        dev_n=int(components['dev_n']) if components['dev_n'] else None,
-        local=components['local'],
-        is_wildcard=wildcard
+        pre_l=components["pre_l"],
+        pre_n=int(components["pre_n"]) if components["pre_n"] else None,
+        post_n1=int(components["post_n1"]) if components["post_n1"] else None,
+        post_l=components["post_l"],
+        post_n2=int(components["post_n2"]) if components["post_n2"] else None,
+        dev_l=components["dev_l"],
+        dev_n=int(components["dev_n"]) if components["dev_n"] else None,
+        local=components["local"],
+        is_wildcard=wildcard,
     )
 
 
 def compare_version_objects(v1: VersionComponent, v2: VersionComponent) -> int:
-    '''比较两个版本字符串 Python 软件包版本号
+    """比较两个版本字符串 Python 软件包版本号
 
     参数:
         v1 (`VersionComponent`):
@@ -204,7 +214,7 @@ def compare_version_objects(v1: VersionComponent, v2: VersionComponent) -> int:
 
     返回值:
         `int`: 如果版本号 1 大于 版本号 2, 则返回`1`, 小于则返回`-1`, 如果相等则返回`0`
-    '''
+    """
 
     # 比较 epoch
     if v1.epoch != v2.epoch:
@@ -236,14 +246,14 @@ def compare_version_objects(v1: VersionComponent, v2: VersionComponent) -> int:
         return 1
     elif v1.pre_l and v2.pre_l:
         pre_order = {
-            'a': 0,
-            'b': 1,
-            'c': 2,
-            'rc': 3,
-            'alpha': 0,
-            'beta': 1,
-            'pre': 0,
-            'preview': 0
+            "a": 0,
+            "b": 1,
+            "c": 2,
+            "rc": 3,
+            "alpha": 0,
+            "beta": 1,
+            "pre": 0,
+            "preview": 0,
         }
         if pre_order[v1.pre_l] != pre_order[v2.pre_l]:
             return pre_order[v1.pre_l] - pre_order[v2.pre_l]
@@ -291,8 +301,8 @@ def compare_version_objects(v1: VersionComponent, v2: VersionComponent) -> int:
     elif not v1.local and v2.local:
         return 1
     elif v1.local and v2.local:
-        local1 = v1.local.split('.')
-        local2 = v2.local.split('.')
+        local1 = v1.local.split(".")
+        local2 = v2.local.split(".")
         # 和 release 的处理方式一致, 对其 local version 长度, 缺失部分补 0
         if len(local1) != len(local2):
             for _ in range(abs(len(local1) - len(local2))):
@@ -311,7 +321,7 @@ def compare_version_objects(v1: VersionComponent, v2: VersionComponent) -> int:
 
 
 def compare_versions(version1: str, version2: str) -> int:
-    '''比较两个版本字符串 Python 软件包版本号
+    """比较两个版本字符串 Python 软件包版本号
 
     参数:
         version1 (`str`):
@@ -321,18 +331,18 @@ def compare_versions(version1: str, version2: str) -> int:
 
     返回值:
         `int`: 如果版本号 1 大于 版本号 2, 则返回`1`, 小于则返回`-1`, 如果相等则返回`0`
-    '''
+    """
     v1 = parse_version(version1)
     v2 = parse_version(version2)
     return compare_version_objects(v1, v2)
 
 
 def compatible_version_matcher(spec_version: str):
-    '''PEP 440 兼容性版本匹配 (~= 操作符)
+    """PEP 440 兼容性版本匹配 (~= 操作符)
 
     返回值:
         `_is_compatible(version_str: str) -> bool`: 一个接受 version_str (`str`) 参数的判断函数
-    '''
+    """
     # 解析规范版本
     spec = parse_version(spec_version)
 
@@ -344,15 +354,15 @@ def compatible_version_matcher(spec_version: str):
 
     # 确定最低版本和前缀匹配规则
     if len(clean_release) == 0:
-        logger.error('解析到错误的兼容性发行版本号')
-        raise ValueError('Invalid version for compatible release clause')
+        logger.error("解析到错误的兼容性发行版本号")
+        raise ValueError("Invalid version for compatible release clause")
 
     # 生成前缀匹配模板 (忽略后缀)
     prefix_length = len(clean_release) - 1
     if prefix_length == 0:
         # 处理类似 ~= 2 的情况 (实际 PEP 禁止，但这里做容错)
         prefix_pattern = [spec.release[0]]
-        min_version = parse_version(f'{spec.release[0]}')
+        min_version = parse_version(f"{spec.release[0]}")
     else:
         prefix_pattern = list(spec.release[:prefix_length])
         min_version = spec
@@ -361,7 +371,7 @@ def compatible_version_matcher(spec_version: str):
         target = parse_version(version_str)
 
         # 主版本前缀检查
-        target_prefix = target.release[:len(prefix_pattern)]
+        target_prefix = target.release[: len(prefix_pattern)]
         if target_prefix != prefix_pattern:
             return False
 
@@ -372,7 +382,7 @@ def compatible_version_matcher(spec_version: str):
 
 
 def version_match(spec: str, version: str) -> bool:
-    '''PEP 440 版本前缀匹配
+    """PEP 440 版本前缀匹配
 
     参数:
         spec (`str`): 版本匹配表达式 (e.g. '1.1.*')
@@ -380,11 +390,11 @@ def version_match(spec: str, version: str) -> bool:
 
     返回值:
         `bool`: 是否匹配
-    '''
+    """
     # 分离通配符和本地版本
-    spec_parts = spec.split('+', 1)
-    spec_main = spec_parts[0].rstrip('.*')  # 移除通配符
-    has_wildcard = spec.endswith('.*') and '+' not in spec
+    spec_parts = spec.split("+", 1)
+    spec_main = spec_parts[0].rstrip(".*")  # 移除通配符
+    has_wildcard = spec.endswith(".*") and "+" not in spec
 
     # 解析规范版本 (不带通配符)
     try:
@@ -393,7 +403,7 @@ def version_match(spec: str, version: str) -> bool:
         return False
 
     # 解析目标版本 (忽略本地版本)
-    target_ver = parse_version(version.split('+', 1)[0])
+    target_ver = parse_version(version.split("+", 1)[0])
 
     # 前缀匹配规则
     if has_wildcard:
@@ -404,7 +414,7 @@ def version_match(spec: str, version: str) -> bool:
 
         # 比较前 N 个 release 段 (N 为规范版本长度)
         return (
-            target_ver.release[:len(spec_ver.release)] == spec_ver.release
+            target_ver.release[: len(spec_ver.release)] == spec_ver.release
             and target_ver.epoch == spec_ver.epoch
         )
     else:
@@ -413,7 +423,7 @@ def version_match(spec: str, version: str) -> bool:
 
 
 def is_v1_ge_v2(v1: str, v2: str) -> bool:
-    '''查看 Python 版本号 v1 是否大于或等于 v2
+    """查看 Python 版本号 v1 是否大于或等于 v2
 
     参数:
         v1 (`str`):
@@ -428,12 +438,12 @@ def is_v1_ge_v2(v1: str, v2: str) -> bool:
             1.1, 1.0 -> True
             1.0, 1.0 -> True
             0.9, 1.0 -> False
-    '''
+    """
     return compare_versions(v1, v2) >= 0
 
 
 def is_v1_gt_v2(v1: str, v2: str) -> bool:
-    '''查看 Python 版本号 v1 是否大于 v2
+    """查看 Python 版本号 v1 是否大于 v2
 
     参数:
         v1 (`str`):
@@ -447,12 +457,12 @@ def is_v1_gt_v2(v1: str, v2: str) -> bool:
         e.g.:
             1.1, 1.0 -> True
             1.0, 1.0 -> False
-    '''
+    """
     return compare_versions(v1, v2) > 0
 
 
 def is_v1_eq_v2(v1: str, v2: str) -> bool:
-    '''查看 Python 版本号 v1 是否等于 v2
+    """查看 Python 版本号 v1 是否等于 v2
 
     参数:
         v1 (`str`):
@@ -467,12 +477,12 @@ def is_v1_eq_v2(v1: str, v2: str) -> bool:
             1.0, 1.0 -> True
             0.9, 1.0 -> False
             1.1, 1.0 -> False
-    '''
+    """
     return compare_versions(v1, v2) == 0
 
 
 def is_v1_lt_v2(v1: str, v2: str) -> bool:
-    '''查看 Python 版本号 v1 是否小于 v2
+    """查看 Python 版本号 v1 是否小于 v2
 
     参数:
         v1 (`str`):
@@ -486,12 +496,12 @@ def is_v1_lt_v2(v1: str, v2: str) -> bool:
         e.g.:
             0.9, 1.0 -> True
             1.0, 1.0 -> False
-    '''
+    """
     return compare_versions(v1, v2) < 0
 
 
 def is_v1_le_v2(v1: str, v2: str) -> bool:
-    '''查看 Python 版本号 v1 是否小于或等于 v2
+    """查看 Python 版本号 v1 是否小于或等于 v2
 
     参数:
         v1 (`str`):
@@ -506,12 +516,12 @@ def is_v1_le_v2(v1: str, v2: str) -> bool:
             0.9, 1.0 -> True
             1.0, 1.0 -> True
             1.1, 1.0 -> False
-    '''
+    """
     return compare_versions(v1, v2) <= 0
 
 
 def is_v1_c_eq_v2(v1: str, v2: str) -> bool:
-    '''查看 Python 版本号 v1 是否大于等于 v2, (兼容性版本匹配)
+    """查看 Python 版本号 v1 是否大于等于 v2, (兼容性版本匹配)
 
     参数:
         v1 (`str`):
@@ -525,13 +535,13 @@ def is_v1_c_eq_v2(v1: str, v2: str) -> bool:
         e.g.:
             1.0*, 1.0a1 -> True
             0.9*, 1.0 -> False
-    '''
+    """
     func = compatible_version_matcher(v1)
     return func(v2)
 
 
 def version_string_is_canonical(version: str) -> bool:
-    '''判断版本号标识符是否符合标准
+    """判断版本号标识符是否符合标准
 
     参数:
         version (`str`):
@@ -540,15 +550,18 @@ def version_string_is_canonical(version: str) -> bool:
     返回值:
         `bool`: 如果版本号标识符符合 PEP 440 标准, 则返回`True`
 
-    '''
-    return re.match(
-        r'^([1-9][0-9]*!)?(0|[1-9][0-9]*)(\.(0|[1-9][0-9]*))*((a|b|rc)(0|[1-9][0-9]*))?(\.post(0|[1-9][0-9]*))?(\.dev(0|[1-9][0-9]*))?$',
-        version,
-    ) is not None
+    """
+    return (
+        re.match(
+            r"^([1-9][0-9]*!)?(0|[1-9][0-9]*)(\.(0|[1-9][0-9]*))*((a|b|rc)(0|[1-9][0-9]*))?(\.post(0|[1-9][0-9]*))?(\.dev(0|[1-9][0-9]*))?$",
+            version,
+        )
+        is not None
+    )
 
 
 def is_package_has_version(package: str) -> bool:
-    '''检查 Python 软件包是否指定版本号
+    """检查 Python 软件包是否指定版本号
 
     参数:
         package (`str`):
@@ -556,21 +569,21 @@ def is_package_has_version(package: str) -> bool:
 
     返回值:
         `bool`: 如果 Python 软件包存在版本声明, 如`torch==2.3.0`, 则返回`True`
-    '''
+    """
     return package != (
-        package.replace('===', '')
-        .replace('~=', '')
-        .replace('!=', '')
-        .replace('<=', '')
-        .replace('>=', '')
-        .replace('<', '')
-        .replace('>', '')
-        .replace('==', '')
+        package.replace("===", "")
+        .replace("~=", "")
+        .replace("!=", "")
+        .replace("<=", "")
+        .replace(">=", "")
+        .replace("<", "")
+        .replace(">", "")
+        .replace("==", "")
     )
 
 
 def get_package_name(package: str) -> str:
-    '''获取 Python 软件包的包名, 去除末尾的版本声明
+    """获取 Python 软件包的包名, 去除末尾的版本声明
 
     参数:
         package (`str`):
@@ -578,22 +591,22 @@ def get_package_name(package: str) -> str:
 
     返回值:
         `str`: 返回去除版本声明后的 Python 软件包名
-    '''
+    """
     return (
-        package.split('===')[0]
-        .split('~=')[0]
-        .split('!=')[0]
-        .split('<=')[0]
-        .split('>=')[0]
-        .split('<')[0]
-        .split('>')[0]
-        .split('==')[0]
+        package.split("===")[0]
+        .split("~=")[0]
+        .split("!=")[0]
+        .split("<=")[0]
+        .split(">=")[0]
+        .split("<")[0]
+        .split(">")[0]
+        .split("==")[0]
         .strip()
     )
 
 
 def get_package_version(package: str) -> str:
-    '''获取 Python 软件包的包版本号
+    """获取 Python 软件包的包版本号
 
     参数:
         package (`str`):
@@ -601,21 +614,29 @@ def get_package_version(package: str) -> str:
 
     返回值:
         `str`: 返回 Python 软件包的包版本号
-    '''
+    """
     return (
-        package.split('===').pop()
-        .split('~=').pop()
-        .split('!=').pop()
-        .split('<=').pop()
-        .split('>=').pop()
-        .split('<').pop()
-        .split('>').pop()
-        .split('==').pop()
+        package.split("===")
+        .pop()
+        .split("~=")
+        .pop()
+        .split("!=")
+        .pop()
+        .split("<=")
+        .pop()
+        .split(">=")
+        .pop()
+        .split("<")
+        .pop()
+        .split(">")
+        .pop()
+        .split("==")
+        .pop()
         .strip()
     )
 
 
-WHEEL_PATTERN = r'''
+WHEEL_PATTERN = r"""
     ^                           # 字符串开始
     (?P<distribution>[^-]+)     # 包名 (匹配第一个非连字符段)
     -                           # 分隔符
@@ -630,11 +651,11 @@ WHEEL_PATTERN = r'''
     -                           # 分隔符
     (?P<platform>[^-]+)         # 平台标签
     \.whl$                      # 固定后缀
-'''
+"""
 
 
 def parse_wheel_filename(filename: str) -> str:
-    '''解析 Python wheel 文件名并返回 distribution 名称
+    """解析 Python wheel 文件名并返回 distribution 名称
 
     参数:
         filename (`str`):
@@ -645,16 +666,16 @@ def parse_wheel_filename(filename: str) -> str:
 
     异常:
         `ValueError`: 如果文件名不符合 PEP491 规范
-    '''
+    """
     match = re.fullmatch(WHEEL_PATTERN, filename, re.VERBOSE)
     if not match:
-        logger.error('未知的 Wheel 文件名: %s', filename)
-        raise ValueError(f'Invalid wheel filename: {filename}')
-    return match.group('distribution')
+        logger.error("未知的 Wheel 文件名: %s", filename)
+        raise ValueError(f"Invalid wheel filename: {filename}")
+    return match.group("distribution")
 
 
 def parse_wheel_version(filename: str) -> str:
-    '''解析 Python wheel 文件名并返回 version 名称
+    """解析 Python wheel 文件名并返回 version 名称
 
     参数:
         filename (`str`):
@@ -665,16 +686,16 @@ def parse_wheel_version(filename: str) -> str:
 
     异常:
         `ValueError`: 如果文件名不符合 PEP491 规范
-    '''
+    """
     match = re.fullmatch(WHEEL_PATTERN, filename, re.VERBOSE)
     if not match:
-        logger.error('未知的 Wheel 文件名: %s', filename)
-        raise ValueError(f'Invalid wheel filename: {filename}')
-    return match.group('version')
+        logger.error("未知的 Wheel 文件名: %s", filename)
+        raise ValueError(f"Invalid wheel filename: {filename}")
+    return match.group("version")
 
 
 def parse_wheel_to_package_name(filename: str) -> str:
-    '''解析 Python wheel 文件名并返回 <distribution>==<version>
+    """解析 Python wheel 文件名并返回 <distribution>==<version>
 
     参数:
         filename (`str`):
@@ -682,14 +703,14 @@ def parse_wheel_to_package_name(filename: str) -> str:
 
     返回值:
         `str`: <distribution>==<version> 名称, 例如 pydantic==1.10.15
-    '''
+    """
     distribution = parse_wheel_filename(filename)
     version = parse_wheel_version(filename)
-    return f'{distribution}=={version}'
+    return f"{distribution}=={version}"
 
 
 def remove_optional_dependence_from_package(filename: str) -> str:
-    '''移除 Python 软件包声明中可选依赖
+    """移除 Python 软件包声明中可选依赖
 
     参数:
         filename (`str`):
@@ -697,12 +718,12 @@ def remove_optional_dependence_from_package(filename: str) -> str:
 
     返回值:
         `str`: 移除可选依赖后的软件包名, e.g. diffusers[torch]==0.10.2 -> diffusers==0.10.2
-    '''
-    return re.sub(r'\[.*?\]', '', filename)
+    """
+    return re.sub(r"\[.*?\]", "", filename)
 
 
 def parse_requirement_list(requirements: list) -> list:
-    '''将 Python 软件包声明列表解析成标准 Python 软件包名列表
+    """将 Python 软件包声明列表解析成标准 Python 软件包名列表
 
     参数:
         requirements (`list`):
@@ -741,84 +762,88 @@ def parse_requirement_list(requirements: list) -> list:
                 'protobuf>=4.25.3',
             ]
             ```
-    '''
+    """
     package_list = []
     canonical_package_list = []
     requirement: str
     for requirement in requirements:
         requirement = requirement.strip()
-        logger.debug('原始 Python 软件包名: %s', requirement)
+        logger.debug("原始 Python 软件包名: %s", requirement)
 
         if (
             requirement is None
-            or requirement == ''
-            or requirement.startswith('#')
-            or '# skip_verify' in requirement
-            or requirement.startswith('--index-url')
-            or requirement.startswith('--extra-index-url')
-            or requirement.startswith('--find-links')
-            or requirement.startswith('-e .')
+            or requirement == ""
+            or requirement.startswith("#")
+            or "# skip_verify" in requirement
+            or requirement.startswith("--index-url")
+            or requirement.startswith("--extra-index-url")
+            or requirement.startswith("--find-links")
+            or requirement.startswith("-e .")
         ):
             continue
 
         # -e git+https://github.com/Nerogar/mgds.git@2c67a5a#egg=mgds -> mgds
         # git+https://github.com/WASasquatch/img2texture.git -> img2texture
         # git+https://github.com/deepghs/waifuc -> waifuc
-        if requirement.startswith('-e git+http') or requirement.startswith('git+http'):
-            egg_match = re.search(r'egg=([^#&]+)', requirement)
+        if requirement.startswith("-e git+http") or requirement.startswith("git+http"):
+            egg_match = re.search(r"egg=([^#&]+)", requirement)
             if egg_match:
-                package_list.append(egg_match.group(1).split('-')[0])
+                package_list.append(egg_match.group(1).split("-")[0])
                 continue
 
             package_name = os.path.basename(requirement)
-            package_name = package_name.split(
-                '.git')[0] if package_name.endswith('.git') else package_name
+            package_name = (
+                package_name.split(".git")[0]
+                if package_name.endswith(".git")
+                else package_name
+            )
             package_list.append(package_name)
             continue
 
         # https://github.com/Panchovix/pydantic-fixreforge/releases/download/main_v1/pydantic-1.10.15-py3-none-any.whl -> pydantic==1.10.15
-        if requirement.startswith('https://') or requirement.startswith('http://'):
-            package_name = parse_wheel_to_package_name(
-                os.path.basename(requirement))
+        if requirement.startswith("https://") or requirement.startswith("http://"):
+            package_name = parse_wheel_to_package_name(os.path.basename(requirement))
             package_list.append(package_name)
             continue
 
         # 常规 Python 软件包声明
         # prodigy-plus-schedule-free==1.9.1 # prodigy+schedulefree optimizer -> prodigy-plus-schedule-free==1.9.1
-        cleaned_requirements = re.sub(
-            r'\s*#.*$', '', requirement).strip().split(',')
+        cleaned_requirements = re.sub(r"\s*#.*$", "", requirement).strip().split(",")
         if len(cleaned_requirements) > 1:
             package_name = get_package_name(cleaned_requirements[0].strip())
             for package_name_with_version_marked in cleaned_requirements:
                 version_symbol = str.replace(
-                    package_name_with_version_marked, package_name, '', 1)
+                    package_name_with_version_marked, package_name, "", 1
+                )
                 format_package_name = remove_optional_dependence_from_package(
-                    f'{package_name}{version_symbol}'.strip())
+                    f"{package_name}{version_symbol}".strip()
+                )
                 package_list.append(format_package_name)
         else:
             format_package_name = remove_optional_dependence_from_package(
-                cleaned_requirements[0].strip())
+                cleaned_requirements[0].strip()
+            )
             package_list.append(format_package_name)
 
     # 处理包名大小写并统一成小写, 并去除前后空格
     for p in package_list:
         p: str = p.lower().strip()
-        logger.debug('预处理后的 Python 软件包名: %s', p)
+        logger.debug("预处理后的 Python 软件包名: %s", p)
         if not is_package_has_version(p):
-            logger.debug('%s 无版本声明', p)
+            logger.debug("%s 无版本声明", p)
             canonical_package_list.append(p)
             continue
 
         if version_string_is_canonical(get_package_version(p)):
             canonical_package_list.append(p)
         else:
-            logger.debug('%s 软件包名的版本不符合标准', p)
+            logger.debug("%s 软件包名的版本不符合标准", p)
 
     return canonical_package_list
 
 
 def remove_duplicate_object_from_list(origin: list) -> list:
-    '''对`list`进行去重
+    """对`list`进行去重
 
     参数:
         origin (`list`):
@@ -826,12 +851,12 @@ def remove_duplicate_object_from_list(origin: list) -> list:
 
     返回值:
         `list`: 去重后的`list`, e.g. [1, 2, 3, 2] -> [1, 2, 3]
-    '''
+    """
     return list(set(origin))
 
 
 def read_packages_from_requirements_file(file_path: Union[str, Path]) -> list:
-    '''从 requirements.txt 文件中读取 Python 软件包版本声明列表
+    """从 requirements.txt 文件中读取 Python 软件包版本声明列表
 
     参数:
         file_path (`str`, `Path`):
@@ -839,24 +864,24 @@ def read_packages_from_requirements_file(file_path: Union[str, Path]) -> list:
 
     返回值:
         `list`: 从 requirements.txt 文件中读取的 Python 软件包声明列表
-    '''
+    """
     try:
-        with open(file_path, 'r', encoding='utf-8') as f:
+        with open(file_path, "r", encoding="utf-8") as f:
             return f.readlines()
     except Exception as e:
-        logger.error('打开 %s 时出现错误: %s\n请检查文件是否出现损坏', file_path, e)
+        logger.error("打开 %s 时出现错误: %s\n请检查文件是否出现损坏", file_path, e)
         return []
 
 
 def get_package_version_from_library(package_name: str) -> Union[str, None]:
-    '''获取已安装的 Python 软件包版本号
+    """获取已安装的 Python 软件包版本号
 
     参数:
         package_name (`str`):
 
     返回值:
         (`str` | `None`): 如果获取到 Python 软件包版本号则返回版本号字符串, 否则返回`None`
-    '''
+    """
     try:
         ver = importlib.metadata.version(package_name)
     except:
@@ -870,7 +895,7 @@ def get_package_version_from_library(package_name: str) -> Union[str, None]:
 
     if ver is None:
         try:
-            ver = importlib.metadata.version(package_name.replace('_', '-'))
+            ver = importlib.metadata.version(package_name.replace("_", "-"))
         except:
             ver = None
 
@@ -878,14 +903,15 @@ def get_package_version_from_library(package_name: str) -> Union[str, None]:
 
 
 class ComponentEnvironmentDetails(TypedDict):
-    '''ComfyUI 组件的环境信息结构'''
-    requirement_path: str           # 依赖文件路径
-    is_disabled: bool               # 组件是否禁用
-    requires: list[str]             # 需要的依赖列表
-    has_missing_requires: bool      # 是否存在缺失依赖
-    missing_requires: list[str]     # 具体缺失的依赖项
-    has_conflict_requires: bool     # 是否存在冲突依赖
-    conflict_requires: list[str]    # 具体冲突的依赖项
+    """ComfyUI 组件的环境信息结构"""
+
+    requirement_path: str  # 依赖文件路径
+    is_disabled: bool  # 组件是否禁用
+    requires: list[str]  # 需要的依赖列表
+    has_missing_requires: bool  # 是否存在缺失依赖
+    missing_requires: list[str]  # 具体缺失的依赖项
+    has_conflict_requires: bool  # 是否存在冲突依赖
+    conflict_requires: list[str]  # 具体冲突的依赖项
 
 
 ComfyUIEnvironmentComponent = dict[
@@ -896,7 +922,7 @@ ComfyUIEnvironmentComponent = dict[
 def create_comfyui_environment_dict(
     comfyui_path: Union[str, Path],
 ) -> ComfyUIEnvironmentComponent:
-    '''创建 ComfyUI 环境组件表字典
+    """创建 ComfyUI 环境组件表字典
 
     参数:
         comfyui_path (`str`, `Path`):
@@ -904,40 +930,40 @@ def create_comfyui_environment_dict(
 
     返回值:
         `ComfyUIEnvironmentComponent`: ComfyUI 环境组件表字典
-    '''
+    """
     comfyui_env_data: ComfyUIEnvironmentComponent = {
-        'ComfyUI': {
-            'requirement_path': os.path.join(comfyui_path, 'requirements.txt'),
-            'is_disabled': False,
-            'requires': [],
-            'has_missing_requires': False,
-            'missing_requires': [],
-            'has_conflict_requires': False,
-            'conflict_requires': [],
+        "ComfyUI": {
+            "requirement_path": os.path.join(comfyui_path, "requirements.txt"),
+            "is_disabled": False,
+            "requires": [],
+            "has_missing_requires": False,
+            "missing_requires": [],
+            "has_conflict_requires": False,
+            "conflict_requires": [],
         },
     }
-    custom_nodes_path = os.path.join(comfyui_path, 'custom_nodes')
+    custom_nodes_path = os.path.join(comfyui_path, "custom_nodes")
     for custom_node in os.listdir(custom_nodes_path):
         if os.path.isfile(os.path.join(custom_nodes_path, custom_node)):
             continue
 
         custom_node_requirement_path = os.path.join(
-            custom_nodes_path, custom_node, 'requirements.txt')
-        custom_node_is_disabled = True if custom_node.endswith(
-            '.disabled') else False
+            custom_nodes_path, custom_node, "requirements.txt"
+        )
+        custom_node_is_disabled = True if custom_node.endswith(".disabled") else False
 
         comfyui_env_data[custom_node] = {
-            'requirement_path': (
+            "requirement_path": (
                 custom_node_requirement_path
                 if os.path.exists(custom_node_requirement_path)
                 else None
             ),
-            'is_disabled': custom_node_is_disabled,
-            'requires': [],
-            'has_missing_requires': False,
-            'missing_requires': [],
-            'has_conflict_requires': False,
-            'conflict_requires': [],
+            "is_disabled": custom_node_is_disabled,
+            "requires": [],
+            "has_missing_requires": False,
+            "missing_requires": [],
+            "has_conflict_requires": False,
+            "conflict_requires": [],
         }
 
     return comfyui_env_data
@@ -954,7 +980,7 @@ def update_comfyui_environment_dict(
     has_conflict_requires: Optional[bool] = None,
     conflict_requires: Optional[list[str]] = None,
 ) -> None:
-    '''更新 ComfyUI 环境组件表字典
+    """更新 ComfyUI 环境组件表字典
 
     参数:
         env_data (`ComfyUIEnvironmentComponent`):
@@ -983,42 +1009,40 @@ def update_comfyui_environment_dict(
 
         conflict_requires (`list[str]`, `None`):
             ComfyUI 组件冲突依赖列表
-    '''
+    """
     env_data[component_name] = {
-        'requirement_path': (
+        "requirement_path": (
             requirement_path
             if requirement_path
-            else env_data.get(component_name).get('requirement_path')
+            else env_data.get(component_name).get("requirement_path")
         ),
-        'is_disabled': (
+        "is_disabled": (
             is_disabled
             if is_disabled
-            else env_data.get(component_name).get('is_disabled')
+            else env_data.get(component_name).get("is_disabled")
         ),
-        'requires': (
-            requires
-            if requires
-            else env_data.get(component_name).get('requires')
+        "requires": (
+            requires if requires else env_data.get(component_name).get("requires")
         ),
-        'has_missing_requires': (
+        "has_missing_requires": (
             has_missing_requires
             if has_missing_requires
-            else env_data.get(component_name).get('has_missing_requires')
+            else env_data.get(component_name).get("has_missing_requires")
         ),
-        'missing_requires': (
+        "missing_requires": (
             missing_requires
             if missing_requires
-            else env_data.get(component_name).get('missing_requires')
+            else env_data.get(component_name).get("missing_requires")
         ),
-        'has_conflict_requires': (
+        "has_conflict_requires": (
             has_conflict_requires
             if has_conflict_requires
-            else env_data.get(component_name).get('has_conflict_requires')
+            else env_data.get(component_name).get("has_conflict_requires")
         ),
-        'conflict_requires': (
+        "conflict_requires": (
             conflict_requires
             if conflict_requires
-            else env_data.get(component_name).get('conflict_requires')
+            else env_data.get(component_name).get("conflict_requires")
         ),
     }
 
@@ -1026,23 +1050,21 @@ def update_comfyui_environment_dict(
 def update_comfyui_component_requires_list(
     env_data: ComfyUIEnvironmentComponent,
 ) -> None:
-    '''更新 ComfyUI 环境组件表字典, 根据字典中的 requirement_path 确定 Python 软件包版本声明文件, 并解析后写入 requires 字段
+    """更新 ComfyUI 环境组件表字典, 根据字典中的 requirement_path 确定 Python 软件包版本声明文件, 并解析后写入 requires 字段
 
     参数:
         env_data (`ComfyUIEnvironmentComponent`):
             ComfyUI 环境组件表字典
-    '''
+    """
     for component_name, details in env_data.items():
-        if details.get('is_disabled'):
+        if details.get("is_disabled"):
             continue
 
-        requirement_path = details.get('requirement_path')
+        requirement_path = details.get("requirement_path")
         if requirement_path is None:
             continue
 
-        origin_requires = read_packages_from_requirements_file(
-            requirement_path
-        )
+        origin_requires = read_packages_from_requirements_file(requirement_path)
         requires = parse_requirement_list(origin_requires)
         update_comfyui_environment_dict(
             env_data=env_data,
@@ -1054,17 +1076,17 @@ def update_comfyui_component_requires_list(
 def update_comfyui_component_missing_requires_list(
     env_data: ComfyUIEnvironmentComponent,
 ) -> None:
-    '''更新 ComfyUI 环境组件表字典, 根据字典中的 requires 检查缺失的 Python 软件包, 并保存到 missing_requires 字段和设置 has_missing_requires 状态
+    """更新 ComfyUI 环境组件表字典, 根据字典中的 requires 检查缺失的 Python 软件包, 并保存到 missing_requires 字段和设置 has_missing_requires 状态
 
     参数:
         env_data (`ComfyUIEnvironmentComponent`):
             ComfyUI 环境组件表字典
-    '''
+    """
     for component_name, details in env_data.items():
-        if details.get('is_disabled'):
+        if details.get("is_disabled"):
             continue
 
-        requires = details.get('requires')
+        requires = details.get("requires")
         has_missing_requires = False
         missing_requires = []
 
@@ -1082,10 +1104,9 @@ def update_comfyui_component_missing_requires_list(
 
 
 def update_comfyui_component_conflict_requires_list(
-    env_data: ComfyUIEnvironmentComponent,
-    conflict_package_list: list
+    env_data: ComfyUIEnvironmentComponent, conflict_package_list: list
 ) -> None:
-    '''更新 ComfyUI 环境组件表字典, 根据 conflicconflict_package_listt_package 检查 ComfyUI 组件冲突的 Python 软件包, 并保存到 conflict_requires 字段和设置 has_conflict_requires 状态
+    """更新 ComfyUI 环境组件表字典, 根据 conflicconflict_package_listt_package 检查 ComfyUI 组件冲突的 Python 软件包, 并保存到 conflict_requires 字段和设置 has_conflict_requires 状态
 
     参数:
         env_data (`ComfyUIEnvironmentComponent`):
@@ -1093,24 +1114,20 @@ def update_comfyui_component_conflict_requires_list(
 
         conflict_package_list (`list`):
             冲突的 Python 软件包列表
-    '''
+    """
     for component_name, details in env_data.items():
-        if details.get('is_disabled'):
+        if details.get("is_disabled"):
             continue
 
-        requires = details.get('requires')
+        requires = details.get("requires")
         has_conflict_requires = False
         conflict_requires = []
 
         for conflict_package in conflict_package_list:
             for package in requires:
-                if (
-                    is_package_has_version(package)
-                    and
-                    get_package_name(
-                        conflict_package
-                    ) == get_package_name(package)
-                ):
+                if is_package_has_version(package) and get_package_name(
+                    conflict_package
+                ) == get_package_name(package):
                     has_conflict_requires = True
                     conflict_requires.append(package)
 
@@ -1125,7 +1142,7 @@ def update_comfyui_component_conflict_requires_list(
 def get_comfyui_component_requires_list(
     env_data: ComfyUIEnvironmentComponent,
 ) -> list:
-    '''从 ComfyUI 环境组件表字典读取所有组件的 requires
+    """从 ComfyUI 环境组件表字典读取所有组件的 requires
 
     参数:
         env_data (`ComfyUIEnvironmentComponent`):
@@ -1133,13 +1150,13 @@ def get_comfyui_component_requires_list(
 
     返回值:
         `list`: ComfyUI 环境组件的 Python 软件包列表
-    '''
+    """
     package_list = []
     for _, details in env_data.items():
-        if details.get('is_disabled'):
+        if details.get("is_disabled"):
             continue
 
-        package_list += details.get('requires')
+        package_list += details.get("requires")
 
     return remove_duplicate_object_from_list(package_list)
 
@@ -1147,7 +1164,7 @@ def get_comfyui_component_requires_list(
 def statistical_need_install_require_component(
     env_data: ComfyUIEnvironmentComponent,
 ) -> list:
-    '''根据 ComfyUI 环境组件表字典中的 has_missing_requires 和 has_conflict_requires 字段确认需要安装依赖的列表
+    """根据 ComfyUI 环境组件表字典中的 has_missing_requires 和 has_conflict_requires 字段确认需要安装依赖的列表
 
     参数:
         env_data (`ComfyUIEnvironmentComponent`):
@@ -1155,24 +1172,19 @@ def statistical_need_install_require_component(
 
     返回值:
         `list`: ComfyUI 环境组件的依赖文件路径列表
-    '''
+    """
     requirement_list = []
     for _, details in env_data.items():
-        if (
-            details.get('has_missing_requires')
-            or details.get('has_conflict_requires')
-        ):
-            requirement_list.append(
-                Path(details.get('requirement_path')).as_posix())
+        if details.get("has_missing_requires") or details.get("has_conflict_requires"):
+            requirement_list.append(Path(details.get("requirement_path")).as_posix())
 
     return requirement_list
 
 
 def statistical_has_conflict_component(
-    env_data: ComfyUIEnvironmentComponent,
-    conflict_package_list: list
+    env_data: ComfyUIEnvironmentComponent, conflict_package_list: list
 ) -> list:
-    '''根据 ComfyUI 环境组件表字典中的 has_conflict_requires 字段确认需要安装依赖的列表
+    """根据 ComfyUI 环境组件表字典中的 has_conflict_requires 字段确认需要安装依赖的列表
 
     参数:
         env_data (`ComfyUIEnvironmentComponent`):
@@ -1180,21 +1192,20 @@ def statistical_has_conflict_component(
 
     返回值:
         `list`: ComfyUI 环境组件的依赖文件路径列表
-    '''
+    """
     content = []
     for conflict_package in conflict_package_list:
-        content.append(get_package_name(f'{conflict_package}:'))
+        content.append(get_package_name(f"{conflict_package}:"))
         for component_name, details in env_data.items():
-            for conflict_component_package in details.get('conflict_requires'):
+            for conflict_component_package in details.get("conflict_requires"):
                 if get_package_name(conflict_component_package) == conflict_package:
-                    content.append(
-                        f' - {component_name}: {conflict_component_package}')
+                    content.append(f" - {component_name}: {conflict_component_package}")
 
-    return content[:-1] if len(content) > 0 and content[-1] == '' else content
+    return content[:-1] if len(content) > 0 and content[-1] == "" else content
 
 
 def is_package_installed(package: str) -> bool:
-    '''判断 Python 软件包是否已安装在环境中
+    """判断 Python 软件包是否已安装在环境中
 
     参数:
         package (`str`):
@@ -1202,95 +1213,97 @@ def is_package_installed(package: str) -> bool:
 
     返回值:
         `bool`: 如果 Python 软件包未安装或者未安装正确的版本, 则返回`False`
-    '''
+    """
     # 分割 Python 软件包名和版本号
-    if '===' in package:
-        pkg_name, pkg_version = [x.strip() for x in package.split('===')]
-    elif '~=' in package:
-        pkg_name, pkg_version = [x.strip() for x in package.split('~=')]
-    elif '!=' in package:
-        pkg_name, pkg_version = [x.strip() for x in package.split('!=')]
-    elif '<=' in package:
-        pkg_name, pkg_version = [x.strip() for x in package.split('<=')]
-    elif '>=' in package:
-        pkg_name, pkg_version = [x.strip() for x in package.split('>=')]
-    elif '<' in package:
-        pkg_name, pkg_version = [x.strip() for x in package.split('<')]
-    elif '>' in package:
-        pkg_name, pkg_version = [x.strip() for x in package.split('>')]
-    elif '==' in package:
-        pkg_name, pkg_version = [x.strip() for x in package.split('==')]
+    if "===" in package:
+        pkg_name, pkg_version = [x.strip() for x in package.split("===")]
+    elif "~=" in package:
+        pkg_name, pkg_version = [x.strip() for x in package.split("~=")]
+    elif "!=" in package:
+        pkg_name, pkg_version = [x.strip() for x in package.split("!=")]
+    elif "<=" in package:
+        pkg_name, pkg_version = [x.strip() for x in package.split("<=")]
+    elif ">=" in package:
+        pkg_name, pkg_version = [x.strip() for x in package.split(">=")]
+    elif "<" in package:
+        pkg_name, pkg_version = [x.strip() for x in package.split("<")]
+    elif ">" in package:
+        pkg_name, pkg_version = [x.strip() for x in package.split(">")]
+    elif "==" in package:
+        pkg_name, pkg_version = [x.strip() for x in package.split("==")]
     else:
         pkg_name, pkg_version = package.strip(), None
 
     env_pkg_version = get_package_version_from_library(pkg_name)
     logger.debug(
-        '已安装 Python 软件包检测: pkg_name: %s, env_pkg_version: %s, pkg_version: %s',
-        pkg_name, env_pkg_version, pkg_version
+        "已安装 Python 软件包检测: pkg_name: %s, env_pkg_version: %s, pkg_version: %s",
+        pkg_name,
+        env_pkg_version,
+        pkg_version,
     )
 
     if env_pkg_version is None:
-        logger.debug('%s 未安装到环境中', package)
+        logger.debug("%s 未安装到环境中", package)
         return False
 
     if pkg_version is not None:
         # ok = env_pkg_version === / == pkg_version
-        if '===' in package or '==' in package:
-            logger.debug('包含条件: === / ==')
+        if "===" in package or "==" in package:
+            logger.debug("包含条件: === / ==")
             if is_v1_eq_v2(env_pkg_version, pkg_version):
-                logger.debug('%s == %s', env_pkg_version, pkg_version)
+                logger.debug("%s == %s", env_pkg_version, pkg_version)
                 return True
 
         # ok = env_pkg_version ~= pkg_version
-        if '~=' in package:
-            logger.debug('包含条件: ~=')
+        if "~=" in package:
+            logger.debug("包含条件: ~=")
             if is_v1_c_eq_v2(pkg_version, env_pkg_version):
-                logger.debug('%s ~= %s', pkg_version, env_pkg_version)
+                logger.debug("%s ~= %s", pkg_version, env_pkg_version)
                 return True
 
         # ok = env_pkg_version != pkg_version
-        if '!=' in package:
-            logger.debug('包含条件: !=')
+        if "!=" in package:
+            logger.debug("包含条件: !=")
             if not is_v1_eq_v2(env_pkg_version, pkg_version):
-                logger.debug('%s != %s', env_pkg_version, pkg_version)
+                logger.debug("%s != %s", env_pkg_version, pkg_version)
                 return True
 
         # ok = env_pkg_version <= pkg_version
-        if '<=' in package:
-            logger.debug('包含条件: <=')
+        if "<=" in package:
+            logger.debug("包含条件: <=")
             if is_v1_le_v2(env_pkg_version, pkg_version):
-                logger.debug('%s <= %s', env_pkg_version, pkg_version)
+                logger.debug("%s <= %s", env_pkg_version, pkg_version)
                 return True
 
         # ok = env_pkg_version >= pkg_version
-        if '>=' in package:
-            logger.debug('包含条件: >=')
+        if ">=" in package:
+            logger.debug("包含条件: >=")
             if is_v1_ge_v2(env_pkg_version, pkg_version):
-                logger.debug('%s >= %s', env_pkg_version, pkg_version)
+                logger.debug("%s >= %s", env_pkg_version, pkg_version)
                 return True
 
         # ok = env_pkg_version < pkg_version
-        if '<' in package:
-            logger.debug('包含条件: <')
+        if "<" in package:
+            logger.debug("包含条件: <")
             if is_v1_lt_v2(env_pkg_version, pkg_version):
-                logger.debug('%s < %s', env_pkg_version, pkg_version)
+                logger.debug("%s < %s", env_pkg_version, pkg_version)
                 return True
 
         # ok = env_pkg_version > pkg_version
-        if '>' in package:
-            logger.debug('包含条件: >')
+        if ">" in package:
+            logger.debug("包含条件: >")
             if is_v1_gt_v2(env_pkg_version, pkg_version):
-                logger.debug('%s > %s', env_pkg_version, pkg_version)
+                logger.debug("%s > %s", env_pkg_version, pkg_version)
                 return True
 
-        logger.debug('%s 需要安装正确版本', package)
+        logger.debug("%s 需要安装正确版本", package)
         return False
 
     return True
 
 
 def fitter_has_version_package(package_list: list) -> list:
-    '''过滤不包含版本的 Python 软件包, 仅保留包含版本号声明的 Python 软件包
+    """过滤不包含版本的 Python 软件包, 仅保留包含版本号声明的 Python 软件包
 
     参数:
         package_list (`list`):
@@ -1298,15 +1311,12 @@ def fitter_has_version_package(package_list: list) -> list:
 
     返回值:
         `list`: 仅包含版本号的 Python 软件包列表
-    '''
-    return [
-        p for p in package_list
-        if is_package_has_version(p)
-    ]
+    """
+    return [p for p in package_list if is_package_has_version(p)]
 
 
 def detect_conflict_package(pkg1: str, pkg2: str) -> bool:
-    '''检测 Python 软件包版本号声明是否存在冲突
+    """检测 Python 软件包版本号声明是否存在冲突
 
     参数:
         pkg1 (`str`):
@@ -1317,7 +1327,7 @@ def detect_conflict_package(pkg1: str, pkg2: str) -> bool:
 
     返回值:
         `bool`: 如果 Python 软件包版本声明出现冲突则返回`True`
-    '''
+    """
     # 进行 2 次循环, 第 2 次循环时交换版本后再进行判断
     for i in range(2):
         if i == 1:
@@ -1329,111 +1339,115 @@ def detect_conflict_package(pkg1: str, pkg2: str) -> bool:
         ver1 = get_package_version(pkg1)
         ver2 = get_package_version(pkg2)
         logger.debug(
-            '冲突依赖检测: pkg1: %s, pkg2: %s, ver1: %s, ver2: %s',
-            pkg1, pkg2, ver1, ver2)
+            "冲突依赖检测: pkg1: %s, pkg2: %s, ver1: %s, ver2: %s",
+            pkg1,
+            pkg2,
+            ver1,
+            ver2,
+        )
 
         # >=, <=
-        if '>=' in pkg1 and '<=' in pkg2:
+        if ">=" in pkg1 and "<=" in pkg2:
             if is_v1_gt_v2(ver1, ver2):
                 logger.debug(
-                    '冲突依赖: %s, %s, 版本冲突: %s > %s',
-                    pkg1, pkg2, ver1, ver2)
+                    "冲突依赖: %s, %s, 版本冲突: %s > %s", pkg1, pkg2, ver1, ver2
+                )
                 return True
 
         # >=, <
-        if '>=' in pkg1 and '<' in pkg2 and '=' not in pkg2:
+        if ">=" in pkg1 and "<" in pkg2 and "=" not in pkg2:
             if is_v1_ge_v2(ver1, ver2):
                 logger.debug(
-                    '冲突依赖: %s, %s, 版本冲突: %s >= %s',
-                    pkg1, pkg2, ver1, ver2)
+                    "冲突依赖: %s, %s, 版本冲突: %s >= %s", pkg1, pkg2, ver1, ver2
+                )
                 return True
 
         # >, <=
-        if '>' in pkg1 and '=' not in pkg1 and '<=' in pkg2:
+        if ">" in pkg1 and "=" not in pkg1 and "<=" in pkg2:
             if is_v1_ge_v2(ver1, ver2):
                 logger.debug(
-                    '冲突依赖: %s, %s, 版本冲突: %s >= %s',
-                    pkg1, pkg2, ver1, ver2)
+                    "冲突依赖: %s, %s, 版本冲突: %s >= %s", pkg1, pkg2, ver1, ver2
+                )
                 return True
 
         # >, <
-        if '>' in pkg1 and '=' not in pkg1 and '<' in pkg2 and '=' not in pkg2:
+        if ">" in pkg1 and "=" not in pkg1 and "<" in pkg2 and "=" not in pkg2:
             if is_v1_ge_v2(ver1, ver2):
                 logger.debug(
-                    '冲突依赖: %s, %s, 版本冲突: %s >= %s',
-                    pkg1, pkg2, ver1, ver2)
+                    "冲突依赖: %s, %s, 版本冲突: %s >= %s", pkg1, pkg2, ver1, ver2
+                )
                 return True
 
         # >, ==
-        if '>' in pkg1 and '=' not in pkg1 and '==' in pkg2:
+        if ">" in pkg1 and "=" not in pkg1 and "==" in pkg2:
             if is_v1_ge_v2(ver1, ver2):
                 logger.debug(
-                    '冲突依赖: %s, %s, 版本冲突: %s >= %s',
-                    pkg1, pkg2, ver1, ver2)
+                    "冲突依赖: %s, %s, 版本冲突: %s >= %s", pkg1, pkg2, ver1, ver2
+                )
                 return True
 
         # >=, ==
-        if '>=' in pkg1 and '==' in pkg2:
+        if ">=" in pkg1 and "==" in pkg2:
             if is_v1_gt_v2(ver1, ver2):
                 logger.debug(
-                    '冲突依赖: %s, %s, 版本冲突: %s > %s',
-                    pkg1, pkg2, ver1, ver2)
+                    "冲突依赖: %s, %s, 版本冲突: %s > %s", pkg1, pkg2, ver1, ver2
+                )
                 return True
 
         # <, ==
-        if '<' in pkg1 and '=' not in pkg1 and '==' in pkg2:
+        if "<" in pkg1 and "=" not in pkg1 and "==" in pkg2:
             if is_v1_le_v2(ver1, ver2):
                 logger.debug(
-                    '冲突依赖: %s, %s, 版本冲突: %s <= %s',
-                    pkg1, pkg2, ver1, ver2)
+                    "冲突依赖: %s, %s, 版本冲突: %s <= %s", pkg1, pkg2, ver1, ver2
+                )
                 return True
 
         # <=, ==
-        if '<=' in pkg1 and '==' in pkg2:
+        if "<=" in pkg1 and "==" in pkg2:
             if is_v1_lt_v2(ver1, ver2):
                 logger.debug(
-                    '冲突依赖: %s, %s, 版本冲突: %s < %s',
-                    pkg1, pkg2, ver1, ver2)
+                    "冲突依赖: %s, %s, 版本冲突: %s < %s", pkg1, pkg2, ver1, ver2
+                )
                 return True
 
         # !=, ==
-        if '!=' in pkg1 and '==' in pkg2:
+        if "!=" in pkg1 and "==" in pkg2:
             if is_v1_eq_v2(ver1, ver2):
                 logger.debug(
-                    '冲突依赖: %s, %s, 版本冲突: %s == %s',
-                    pkg1, pkg2, ver1, ver2)
+                    "冲突依赖: %s, %s, 版本冲突: %s == %s", pkg1, pkg2, ver1, ver2
+                )
                 return True
 
         # >, ~=
-        if '>' in pkg1 and '=' not in pkg1 and '~=' in pkg2:
+        if ">" in pkg1 and "=" not in pkg1 and "~=" in pkg2:
             if is_v1_ge_v2(ver1, ver2):
                 logger.debug(
-                    '冲突依赖: %s, %s, 版本冲突: %s >= %s',
-                    pkg1, pkg2, ver1, ver2)
+                    "冲突依赖: %s, %s, 版本冲突: %s >= %s", pkg1, pkg2, ver1, ver2
+                )
                 return True
 
         # >=, ~=
-        if '>=' in pkg1 and '~=' in pkg2:
+        if ">=" in pkg1 and "~=" in pkg2:
             if is_v1_gt_v2(ver1, ver2):
                 logger.debug(
-                    '冲突依赖: %s, %s, 版本冲突: %s > %s',
-                    pkg1, pkg2, ver1, ver2)
+                    "冲突依赖: %s, %s, 版本冲突: %s > %s", pkg1, pkg2, ver1, ver2
+                )
                 return True
 
         # <, ~=
-        if '<' in pkg1 and '=' not in pkg1 and '~=' in pkg2:
+        if "<" in pkg1 and "=" not in pkg1 and "~=" in pkg2:
             if is_v1_le_v2(ver1, ver2):
                 logger.debug(
-                    '冲突依赖: %s, %s, 版本冲突: %s <= %s',
-                    pkg1, pkg2, ver1, ver2)
+                    "冲突依赖: %s, %s, 版本冲突: %s <= %s", pkg1, pkg2, ver1, ver2
+                )
                 return True
 
         # <=, ~=
-        if '<=' in pkg1 and '~=' in pkg2:
+        if "<=" in pkg1 and "~=" in pkg2:
             if is_v1_lt_v2(ver1, ver2):
                 logger.debug(
-                    '冲突依赖: %s, %s, 版本冲突: %s < %s',
-                    pkg1, pkg2, ver1, ver2)
+                    "冲突依赖: %s, %s, 版本冲突: %s < %s", pkg1, pkg2, ver1, ver2
+                )
                 return True
 
         # !=, ~=
@@ -1446,11 +1460,11 @@ def detect_conflict_package(pkg1: str, pkg2: str) -> bool:
         #         return True
 
         # ~=, == / ~=, ===
-        if ('~=' in pkg1 and '==' in pkg2) or ('~=' in pkg1 and '===' in pkg2):
+        if ("~=" in pkg1 and "==" in pkg2) or ("~=" in pkg1 and "===" in pkg2):
             if is_v1_gt_v2(ver1, ver2):
                 logger.debug(
-                    '冲突依赖: %s, %s, 版本冲突: %s > %s',
-                    pkg1, pkg2, ver1, ver2)
+                    "冲突依赖: %s, %s, 版本冲突: %s > %s", pkg1, pkg2, ver1, ver2
+                )
                 return True
 
         # ~=, ~=
@@ -1463,18 +1477,18 @@ def detect_conflict_package(pkg1: str, pkg2: str) -> bool:
         #         return True
 
         # ==, == / ===, ===
-        if ('==' in pkg1 and '==' in pkg2) or ('===' in pkg1 and '===' in pkg2):
+        if ("==" in pkg1 and "==" in pkg2) or ("===" in pkg1 and "===" in pkg2):
             if not is_v1_eq_v2(ver1, ver2):
                 logger.debug(
-                    '冲突依赖: %s, %s, 版本冲突: %s != %s',
-                    pkg1, pkg2, ver1, ver2)
+                    "冲突依赖: %s, %s, 版本冲突: %s != %s", pkg1, pkg2, ver1, ver2
+                )
                 return True
 
     return False
 
 
 def detect_conflict_package_from_list(package_list: list) -> list:
-    '''检测 Python 软件包版本声明列表中存在冲突的软件包
+    """检测 Python 软件包版本声明列表中存在冲突的软件包
 
     参数:
         package_list (`list`):
@@ -1482,13 +1496,12 @@ def detect_conflict_package_from_list(package_list: list) -> list:
 
     返回值:
         `list`: 冲突的 Python 软件包列表
-    '''
+    """
     conflict_package = []
     for i in package_list:
         for j in package_list:
-            if (
-                get_package_name(i) == get_package_name(j)
-                and detect_conflict_package(i, j)
+            if get_package_name(i) == get_package_name(j) and detect_conflict_package(
+                i, j
             ):
                 conflict_package.append(get_package_name(i))
 
@@ -1498,46 +1511,27 @@ def detect_conflict_package_from_list(package_list: list) -> list:
 def display_comfyui_environment_dict(
     env_data: ComfyUIEnvironmentComponent,
 ) -> None:
-    '''列出 ComfyUI 环境组件字典内容
+    """列出 ComfyUI 环境组件字典内容
 
     参数:
         env_data (`ComfyUIEnvironmentComponent`):
             ComfyUI 环境组件表字典
-    '''
-    logger.debug('ComfyUI 环境组件表')
+    """
+    logger.debug("ComfyUI 环境组件表")
     for component_name, details in env_data.items():
-        logger.debug(
-            'Component: %s', component_name
-        )
-        logger.debug(
-            ' - requirement_path: %s', details['requirement_path']
-        )
-        logger.debug(
-            ' - is_disabled: %s', details['is_disabled']
-        )
-        logger.debug(
-            ' - requires: %s', details['requires']
-        )
-        logger.debug(
-            ' - has_missing_requires: %s', details['has_missing_requires']
-        )
-        logger.debug(
-            ' - missing_requires: %s', details['missing_requires']
-        )
-        logger.debug(
-            ' - has_conflict_requires: %s', details['has_conflict_requires']
-        )
-        logger.debug(
-            ' - conflict_requires: %s', details['conflict_requires']
-        )
+        logger.debug("Component: %s", component_name)
+        logger.debug(" - requirement_path: %s", details["requirement_path"])
+        logger.debug(" - is_disabled: %s", details["is_disabled"])
+        logger.debug(" - requires: %s", details["requires"])
+        logger.debug(" - has_missing_requires: %s", details["has_missing_requires"])
+        logger.debug(" - missing_requires: %s", details["missing_requires"])
+        logger.debug(" - has_conflict_requires: %s", details["has_conflict_requires"])
+        logger.debug(" - conflict_requires: %s", details["conflict_requires"])
         print()
 
 
-def display_check_result(
-    requirement_list: list,
-    conflict_result: list
-) -> None:
-    '''显示 ComfyUI 运行环境检查结果
+def display_check_result(requirement_list: list, conflict_result: list) -> None:
+    """显示 ComfyUI 运行环境检查结果
 
     参数:
         requirement_list (`list`):
@@ -1545,27 +1539,24 @@ def display_check_result(
 
         conflict_result (`list`):
             冲突组件统计信息
-    '''
+    """
     if len(requirement_list) > 0:
-        logger.debug('需要安装 ComfyUI 组件列表')
+        logger.debug("需要安装 ComfyUI 组件列表")
         for requirement in requirement_list:
-            component_name = requirement.split('/')[-2]
-            logger.debug('%s:', component_name)
-            logger.debug(' - %s', requirement)
+            component_name = requirement.split("/")[-2]
+            logger.debug("%s:", component_name)
+            logger.debug(" - %s", requirement)
         print()
 
     if len(conflict_result) > 0:
-        logger.debug('ComfyUI 冲突组件')
+        logger.debug("ComfyUI 冲突组件")
         for text in conflict_result:
             logger.debug(text)
         print()
 
 
-def write_content_to_file(
-        content: list,
-        path: Union[str, Path]
-) -> None:
-    '''将内容列表写入到文件中
+def write_content_to_file(content: list, path: Union[str, Path]) -> None:
+    """将内容列表写入到文件中
 
     参数:
         content (`list`):
@@ -1573,7 +1564,7 @@ def write_content_to_file(
 
         path (`str`, `Path`):
             保存内容的路径
-    '''
+    """
     if len(content) == 0:
         return
 
@@ -1582,12 +1573,12 @@ def write_content_to_file(
         os.makedirs(dir_path, exist_ok=True)
 
     try:
-        logger.debug('写入文件到 %s', path)
-        with open(path, 'w', encoding='utf-8') as f:
+        logger.debug("写入文件到 %s", path)
+        with open(path, "w", encoding="utf-8") as f:
             for item in content:
-                f.write(item + '\n')
+                f.write(item + "\n")
     except Exception as e:
-        logger.error('写入文件到 %s 时出现了错误: %s', path, e)
+        logger.error("写入文件到 %s 时出现了错误: %s", path, e)
 
 
 def main() -> None:
@@ -1596,20 +1587,21 @@ def main() -> None:
     comfyui_requirement_path = COMMAND_ARGS.requirement_list_path
     debug_mode = COMMAND_ARGS.debug_mode
 
-    if not os.path.exists(os.path.join(comfyui_root_path, 'requirements.txt')):
-        logger.error('ComfyUI 依赖文件缺失, 请检查 ComfyUI 是否安装完整')
+    if not os.path.exists(os.path.join(comfyui_root_path, "requirements.txt")):
+        logger.error("ComfyUI 依赖文件缺失, 请检查 ComfyUI 是否安装完整")
         sys.exit(1)
 
-    if not os.path.exists(os.path.join(comfyui_root_path, 'custom_nodes')):
-        logger.error('ComfyUI 自定义节点文件夹未找到, 请检查 ComfyUI 是否安装完整')
+    if not os.path.exists(os.path.join(comfyui_root_path, "custom_nodes")):
+        logger.error("ComfyUI 自定义节点文件夹未找到, 请检查 ComfyUI 是否安装完整")
         sys.exit(1)
 
     if not comfyui_conflict_notice or not comfyui_requirement_path:
         logger.error(
-            '未配置 --conflict-depend-notice-path / --requirement-list-path, 无法进行环境检测')
+            "未配置 --conflict-depend-notice-path / --requirement-list-path, 无法进行环境检测"
+        )
         sys.exit(1)
 
-    logger.debug('检测 ComfyUI 环境中')
+    logger.debug("检测 ComfyUI 环境中")
     env_data = create_comfyui_environment_dict(comfyui_root_path)
     update_comfyui_component_requires_list(env_data)
     update_comfyui_component_missing_requires_list(env_data)
@@ -1624,8 +1616,8 @@ def main() -> None:
     if debug_mode:
         display_comfyui_environment_dict(env_data)
         display_check_result(req_list, conflict_info)
-    logger.debug('ComfyUI 环境检查完成')
+    logger.debug("ComfyUI 环境检查完成")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

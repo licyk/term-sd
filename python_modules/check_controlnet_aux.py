@@ -1,11 +1,13 @@
 try:
-    import controlnet_aux
+    import controlnet_aux  # noqa: F401
+
     success = True
 except:
     success = False
 
 if not success:
     from importlib.metadata import requires
+
     try:
         invokeai_requires = requires("invokeai")
     except:

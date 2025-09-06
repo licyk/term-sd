@@ -1,6 +1,6 @@
 from importlib.metadata import version
 
 try:
-    print(version('torch'))
+    print(version("torch"))
 except:
-    print('无')
+    print("无")

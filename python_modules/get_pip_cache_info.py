@@ -5,23 +5,19 @@ import subprocess
 
 try:
     output = subprocess.check_output(
-        [sys.executable, "-m", "pip", "cache", "info"],
-        text=True
+        [sys.executable, "-m", "pip", "cache", "info"], text=True
     )
 except Exception as _:
     output = []
 
 try:
-    uv_output = subprocess.check_output(
-        ["uv", "cache", "dir"],
-        text=True
-    )
+    uv_output = subprocess.check_output(["uv", "cache", "dir"], text=True)
 except Exception as _:
     uv_output = ""
 
 
 pattern_list = [
-    r"^Package index page cache location(?: \(pip v23\.3\+\))?:\s*(.*)$", 
+    r"^Package index page cache location(?: \(pip v23\.3\+\))?:\s*(.*)$",
     r"^Package index page cache location \(older pips\):\s*(.*)$",
     r"^Package index page cache size:\s*(.*)$",
     r"^Number of HTTP files:\s*(.*)$",

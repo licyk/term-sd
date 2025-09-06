@@ -4,13 +4,19 @@ import argparse
 from pathlib import Path
 
 
-
 def get_args():
     parser = argparse.ArgumentParser()
     normalized_filepath = lambda filepath: str(Path(filepath).absolute().as_posix())
 
-    parser.add_argument("--venv-bin-path", type = normalized_filepath, default = None, help = "虚拟环境的 bin 路径")
-    parser.add_argument("--venv-path", type = normalized_filepath, default = None, help = "虚拟环境的路径")
+    parser.add_argument(
+        "--venv-bin-path",
+        type=normalized_filepath,
+        default=None,
+        help="虚拟环境的 bin 路径",
+    )
+    parser.add_argument(
+        "--venv-path", type=normalized_filepath, default=None, help="虚拟环境的路径"
+    )
 
     return parser.parse_args()
 
@@ -29,12 +35,12 @@ def read_content_from_file(path: str) -> list:
 
 
 def get_value_from_variable(content: str, var_name: str) -> str | None:
-    '''从字符串 (Python 代码片段) 中找出指定字符串变量的值
+    """从字符串 (Python 代码片段) 中找出指定字符串变量的值
 
     :param content(str): 待查找的内容
     :param var_name(str): 待查找的字符串变量
     :return str | None: 返回字符串变量的值
-    '''
+    """
     # 匹配三种情况：单引号/双引号/无引号
     pattern = rf"{re.escape(var_name)}\s*=\s*(?:['\"]([^'\"]*)['\"]|([^ \n'\"]+))"
     match = re.search(pattern, content)
@@ -60,7 +66,6 @@ def get_virtual_env_bat(content: list) -> str:
             return line
 
     return None
-
 
 
 if __name__ == "__main__":

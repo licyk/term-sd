@@ -10,34 +10,35 @@ def get_args() -> argparse.Namespace:
     """
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("--pip-mininum-ver", type=str,
-                        default="25.0", help="Pip 最低版本")
+    parser.add_argument(
+        "--pip-mininum-ver", type=str, default="25.0", help="Pip 最低版本"
+    )
 
     return parser.parse_args()
 
 
 def compare_versions(version1: str, version2: str) -> int:
-    '''对比两个版本号大小
+    """对比两个版本号大小
 
     :param version1(str): 第一个版本号
     :param version2(str): 第二个版本号
     :return int: 版本对比结果, 1 为第一个版本号大, -1 为第二个版本号大, 0 为两个版本号一样
-    '''
+    """
     # 将版本号拆分成数字列表
     try:
         nums1 = (
-            re.sub(r'[a-zA-Z]+', '', version1)
-            .replace('-', '.')
-            .replace('_', '.')
-            .replace('+', '.')
-            .split('.')
+            re.sub(r"[a-zA-Z]+", "", version1)
+            .replace("-", ".")
+            .replace("_", ".")
+            .replace("+", ".")
+            .split(".")
         )
         nums2 = (
-            re.sub(r'[a-zA-Z]+', '', version2)
-            .replace('-', '.')
-            .replace('_', '.')
-            .replace('+', '.')
-            .split('.')
+            re.sub(r"[a-zA-Z]+", "", version2)
+            .replace("-", ".")
+            .replace("_", ".")
+            .replace("+", ".")
+            .split(".")
         )
     except Exception as _:
         return 0
