@@ -38,6 +38,7 @@ term_sd_launch() {
     local quote_char
     local launch_args_string
     local char
+    local sd_webui_requirement_file
 
     term_sd_print_line "${TERM_SD_MANAGE_OBJECT} 启动"
     term_sd_echo "提示: 可以按下 Ctrl + C 键终止 AI 软件的运行"
@@ -255,7 +256,14 @@ term_sd_launch() {
                 term_sd_echo "检测 ${TERM_SD_MANAGE_OBJECT} 运行环境中"
                 case "${TERM_SD_MANAGE_OBJECT}" in
                     stable-diffusion-webui)
-                        validate_requirements "${SD_WEBUI_ROOT_PATH}/requirements_versions.txt"
+                        if [[ -f "${SD_WEBUI_ROOT_PATH}/requirements_versions.txt" ]]; then
+                            sd_webui_requirement_file="${SD_WEBUI_ROOT_PATH}/requirements_versions.txt"
+                        elif [[ -f "${SD_WEBUI_ROOT_PATH}/requirements.txt" ]]; then
+                            sd_webui_requirement_file="${SD_WEBUI_ROOT_PATH}/requirements.txt"
+                        else
+                            sd_webui_requirement_file="${SD_WEBUI_ROOT_PATH}/requirements_versions.txt"
+                        fi
+                        validate_requirements "${sd_webui_requirement_file}"
                         PIP_FIND_LINKS="${PIP_FIND_LINKS} ${TERM_SD_PYPI_MIRROR}" \
                         check_sd_webui_extension_requirement "${launch_sd_config}"
 
