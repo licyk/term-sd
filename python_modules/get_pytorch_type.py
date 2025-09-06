@@ -24,9 +24,9 @@ def get_pytorch_type() -> str:
         "2.1.0.post0",
     ]
     torch_ver = get_pytorch_version()
-    torch_type = torch_ver.split("+").pop()
     if torch_ver is None:
-        return None
+        return "cuda"
+    torch_type = torch_ver.split("+").pop()
 
     if torch_ver in torch_ipex_legacy_ver_list:
         return "xpu"
