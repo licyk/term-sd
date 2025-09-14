@@ -81,7 +81,7 @@ Stable Diffusion WebUI 插件说明：
 
 20、sd-webui-wd14-tagger*
 描述：图片tag反推
-链接：https://github.com/Akegarasu/sd-webui-wd14-tagger
+链接：https://github.com/licyk/sd-webui-wd14-tagger
 
 21、sd-webui-regional-prompter*
 描述：图片区域分割
@@ -345,7 +345,7 @@ Stable Diffusion WebUI 插件说明：
 
 86、a1111-sd-webui-haku-img*
 描述：图像处理工具
-链接：https://github.com/KohakuBlueleaf/a1111-sd-webui-haku-img
+链接：https://github.com/licyk/a1111-sd-webui-haku-img
 
 87、Kohaku-NAI
 描述：novelai_api调用工具
