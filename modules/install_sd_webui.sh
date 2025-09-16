@@ -277,11 +277,11 @@ select_install_sd_webui_branch() {
             SD_WEBUI_BRANCH="master"
             ;;
         9)
-            SD_WEBUI_REPO="https://github.com/vladmandic/automatic"
+            SD_WEBUI_REPO="https://github.com/vladmandic/sdnext"
             SD_WEBUI_BRANCH="master"
             ;;
         10)
-            SD_WEBUI_REPO="https://github.com/vladmandic/automatic"
+            SD_WEBUI_REPO="https://github.com/vladmandic/sdnext"
             SD_WEBUI_BRANCH="dev"
             ;;
         *)

@@ -166,7 +166,7 @@ sd_webui_branch_switch() {
         9)
             term_sd_print_line "Stable-Diffusion-WebUI 分支切换"
             term_sd_echo "切换到 vladmandic - SD.NEXT 主分支"
-            remote_url=$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/vladmandic/automatic)
+            remote_url=$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/vladmandic/sdnext)
             git_switch_branch "${remote_url}" master --submod
             if [[ "$?" == 0 ]]; then
                 mv -f "${SD_WEBUI_ROOT_PATH}"/repositories/BLIP "${SD_WEBUI_ROOT_PATH}"/repositories/blip &> /dev/null
@@ -179,7 +179,7 @@ sd_webui_branch_switch() {
         10)
             term_sd_print_line "Stable-Diffusion-WebUI 分支切换"
             term_sd_echo "切换到 vladmandic - SD.NEXT 测试分支"
-            remote_url=$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/vladmandic/automatic)
+            remote_url=$(git_format_repository_url "${GITHUB_MIRROR}" https://github.com/vladmandic/sdnext)
             git_switch_branch "${remote_url}" dev --submod
             if [[ "$?" == 0 ]]; then
                 mv -f "${SD_WEBUI_ROOT_PATH}"/repositories/BLIP "${SD_WEBUI_ROOT_PATH}"/repositories/blip &> /dev/null
