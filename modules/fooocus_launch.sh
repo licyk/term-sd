@@ -70,7 +70,7 @@ fooocus_launch_args_setting() {
         "54" "(disable-metadata) 禁用保存生图信息到图片中" OFF \
         "55" "(disable-preset-download) 禁用下载预设中的模型" OFF \
         "56" "(enable-describe-uov-image) 为 uov 图像描述提示词" OFF \
-        "57" "(always-download-new-model) 总是下载最新的模型" OFF \
+        "57" "(always-download-new-model) 总是下载最新的模型" ON \
         3>&1 1>&2 2>&3)
 
     if [[ "$?" == 0 ]]; then
@@ -335,7 +335,7 @@ fooocus_manual_launch() {
 # 添加 Fooocus 默认启动参数配置
 add_fooocus_normal_launch_args() {
     if [[ ! -f "${START_PATH}/term-sd/config/fooocus-launch.conf" ]]; then # 找不到启动配置时默认生成一个
-        echo "launch.py --language zh --preset term_sd --disable-offload-from-vram --disable-analytics" > "${START_PATH}"/term-sd/config/fooocus-launch.conf
+        echo "launch.py --language zh --preset term_sd --disable-offload-from-vram --disable-analytics --always-download-new-model" > "${START_PATH}"/term-sd/config/fooocus-launch.conf
     fi
 }
 

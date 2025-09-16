@@ -714,3 +714,7 @@ Stable Diffusion WebUI 插件说明：
 178、sd-webui-hide-gradio-message
 描述：隐藏Gradio弹窗消息，将消息输出到控制台
 链接：https://github.com/w-e-w/sd-webui-hide-gradio-message
+
+179、sd-webui-licyk-style-image
+描述：图片滤镜扩展
+链接：https://github.com/licyk/sd-webui-licyk-style-image
