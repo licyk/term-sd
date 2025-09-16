@@ -176,4 +176,4 @@ __term_sd_task_pre_ext_175 git_clone_repository https://github.com/spawner1145/s
 __term_sd_task_pre_ext_176 git_clone_repository https://github.com/w-e-w/sd-webui-different-save-button-image-format "${SD_WEBUI_ROOT_PATH}"/extensions OFF # 设置保存图片时保存的图片格式
 __term_sd_task_pre_ext_177 git_clone_repository https://github.com/thavocado/sd-webui-frequency-separation "${SD_WEBUI_ROOT_PATH}"/extensions OFF # 提升图片质量
 __term_sd_task_pre_ext_178 git_clone_repository https://github.com/w-e-w/sd-webui-hide-gradio-message "${SD_WEBUI_ROOT_PATH}"/extensions OFF # 隐藏Gradio弹窗消息，将消息输出到控制台
-__term_sd_task_pre_ext_179 git_clone_repository https://github.com/licyk/sd-webui-licyk-style-image "${SD_WEBUI_ROOT_PATH}"/extensions OFF # 图片滤镜扩展
+__term_sd_task_pre_ext_179 git_clone_repository https://github.com/licyk/sd-webui-licyk-style-image "${SD_WEBUI_ROOT_PATH}"/extensions ON # 图片滤镜扩展
