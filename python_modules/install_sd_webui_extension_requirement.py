@@ -2,6 +2,7 @@ import os
 import sys
 import json
 import copy
+import shlex
 import inspect
 import logging
 import argparse
@@ -95,21 +96,22 @@ logger = get_logger("Term-SD")
 
 def run_cmd(
     command: str | list,
-    desc: Optional[str] = None,
-    errdesc: Optional[str] = None,
-    custom_env: Optional[list] = None,
-    live: Optional[bool] = True,
-    shell: Optional[bool] = None,
-) -> str:
+    desc: str | None = None,
+    errdesc: str | None = None,
+    custom_env: dict[str, str] | None = None,
+    live: bool | None = True,
+    shell: bool | None = None,
+) -> str | None:
     """执行 Shell 命令
 
     :param command`(str|list)`: 要执行的命令
-    :param desc`(Optional[str])`: 执行命令的描述
-    :param errdesc`(Optional[str])`: 执行命令报错时的描述
-    :param custom_env`(Optional[str])`: 自定义环境变量
-    :param live`Optional[bool]`: 是否实时输出命令执行日志
-    :param shell`Optional[bool]`: 是否使用内置 Shell 执行命令
-    :return `str`: 命令执行时输出的内容
+    :param desc`(str|None)`: 执行命令的描述
+    :param errdesc`(str|None)`: 执行命令报错时的描述
+    :param custom_env`(dict[str,str]|None)`: 自定义环境变量
+    :param live`(bool|None)`: 是否实时输出命令执行日志
+    :param shell`(bool|None)`: 是否使用内置 Shell 执行命令
+    :return `str|None`: 命令执行时输出的内容
+    :raises RuntimeError: 当命令执行失败时
     """
 
     if shell is None:
@@ -121,21 +123,23 @@ def run_cmd(
     if custom_env is None:
         custom_env = os.environ
 
+    command_str = shlex.join(command) if isinstance(command, list) else command
+
     if live:
-        result: subprocess.CompletedProcess = subprocess.run(
-            command,
+        result: subprocess.CompletedProcess[bytes] = subprocess.run(
+            command_str,
             shell=shell,
             env=custom_env,
         )
         if result.returncode != 0:
             raise RuntimeError(f"""{errdesc or "执行命令时发生错误"}
-命令: {command}
+命令: {command_str}
 错误代码: {result.returncode}""")
 
         return ""
 
-    result: subprocess.CompletedProcess = subprocess.run(
-        command,
+    result: subprocess.CompletedProcess[bytes] = subprocess.run(
+        command_str,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         shell=shell,
@@ -144,7 +148,7 @@ def run_cmd(
 
     if result.returncode != 0:
         message = f"""{errdesc or "执行命令时发生错误"}
-命令: {command}
+命令: {command_str}
 错误代码: {result.returncode}
 标准输出: {result.stdout.decode(encoding="utf8", errors="ignore") if len(result.stdout) > 0 else ""}
 错误输出: {result.stderr.decode(encoding="utf8", errors="ignore") if len(result.stderr) > 0 else ""}
