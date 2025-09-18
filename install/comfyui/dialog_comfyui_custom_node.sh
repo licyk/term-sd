@@ -51,14 +51,14 @@ __term_sd_task_pre_ext_50 ControlNet-LLLite-ComfyUI OFF
 __term_sd_task_pre_ext_51 comfyui-tooling-nodes OFF
 __term_sd_task_pre_ext_52 efficiency-nodes-comfyui OFF
 __term_sd_task_pre_ext_53 cd-tuner_negpip-ComfyUI OFF
-__term_sd_task_pre_ext_54 ComfyUI-Easy-Use OFF
+__term_sd_task_pre_ext_54 ComfyUI-Easy-Use ON
 __term_sd_task_pre_ext_55 sdxl_prompt_styler OFF
 __term_sd_task_pre_ext_56 comfyui-workspace-manager OFF
 __term_sd_task_pre_ext_57 comfyui-browser ON
 __term_sd_task_pre_ext_58 cg-use-everywhere OFF
 __term_sd_task_pre_ext_59 ComfyUI-Inspire-Pack ON
 __term_sd_task_pre_ext_60 sd-dynamic-thresholding OFF
-__term_sd_task_pre_ext_61 rgthree-comfy OFF
+__term_sd_task_pre_ext_61 rgthree-comfy ON
 __term_sd_task_pre_ext_62 ComfyUI_Comfyroll_CustomNodes ON
 __term_sd_task_pre_ext_63 ComfyUI_FizzNodes OFF
 __term_sd_task_pre_ext_64 ComfyUI-Advanced-ControlNet ON

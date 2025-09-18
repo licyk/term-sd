@@ -227,7 +227,7 @@ ComfyUI 插件 / 自定义节点说明：
 描述：解决tag的强污染，效果比cutoff好
 链接：https://github.com/laksjdjf/cd-tuner_negpip-ComfyUI
 
-54、ComfyUI-Easy-Use
+54、ComfyUI-Easy-Use*
 描述：自定义节点集合
 链接：https://github.com/yolain/ComfyUI-Easy-Use
 
@@ -255,7 +255,7 @@ ComfyUI 插件 / 自定义节点说明：
 描述：解决使用更高的CFGScale而出现颜色问题
 链接：https://github.com/mcmonkeyprojects/sd-dynamic-thresholding
 
-61、rgthree-comfy
+61、rgthree-comfy*
 描述：节点管道工具
 链接：https://github.com/rgthree/rgthree-comfy
 
