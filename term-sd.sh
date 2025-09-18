@@ -460,7 +460,7 @@ term_sd_auto_update() {
     local local_commit_hash
 
     term_sd_echo "检查更新中"
-    git -C term-sd fetch
+    git -C term-sd fetch || HTTP_PROXY="" HTTPS_PROXY="" git -C term-sd fetch
     if [[ "$?" = 0 ]]; then # 拉取远端内容成功后再更新
         ref=$(git -C "${START_PATH}/term-sd" symbolic-ref --quiet HEAD 2> /dev/null)
         if [[ "$?" = 0 ]]; then # 未出现分支游离
@@ -472,7 +472,7 @@ term_sd_auto_update() {
         local_commit_hash=$(git -C "${START_PATH}/term-sd" show -s --format="%h")
         if [[ ! "${commit_hash}" == "${local_commit_hash}" ]]; then
             term_sd_echo "检测到 Term-SD 有新版本"
-            term_sd_echo "是否选择更新(yes/no) ?"
+            term_sd_echo "是否选择更新 (yes/no) ?"
             term_sd_echo "提示: 输入 yes 或 no 后回车"
             case "$(term_sd_read)" in
                 yes|y|YES|Y)
@@ -869,7 +869,7 @@ prepare_tcmalloc() {
                     term_sd_echo "无法定位 TCMalloc。未在系统上找到 tcmalloc 或 google-perftool"
                     term_sd_echo "取消加载内存优化"
                     term_sd_echo "提示: 可根据 Term-SD 帮助文档安装 google-perftool"
-                    term_sd_sleep 3
+                    term_sd_sleep 1
                 fi
             fi
             ;;
@@ -1027,12 +1027,13 @@ main() {
     fi
 
     # root 权限检测
-    if [[ $(id -u) -eq 0 ]]; then
+    if [[ $(id -u) -eq 0 ]] && [[ ! "${TERM_SD_ALLOW_ROOT_LAUNCH}" == 1 ]]; then
         term_sd_echo "检测到使用 root 权限运行 Term-SD, 这可能会导致不良后果"
         term_sd_echo "是否继续运行 Term-SD (yes/no) ?"
         term_sd_echo "提示: 输入 yes 或 no 后回车"
         case "$(term_sd_read)" in
             yes|y|YES|Y)
+                TERM_SD_ALLOW_ROOT_LAUNCH=1 # 避免多次弹出提示
                 term_sd_echo "继续初始化 Term-SD"
                 ;;
             *)
@@ -1383,7 +1384,7 @@ main() {
                 unset MISSING_DEPEND_MACOS_NAME
                 print_line_to_shell
                 term_sd_echo "缺少依赖将影响 AI 软件的安装, 请退出 Term-SD 并使用 Homebrew (如果没有 Homebrew, 则先安装 Homebrew, 再用 Homebrew 去安装其他缺少依赖) 安装缺少的依赖后重试"
-                term_sd_sleep 5
+                term_sd_sleep 1
             fi
         fi
 
@@ -1397,7 +1398,7 @@ main() {
 
             if [[ ! -f "${vc_runtime_dll_path}" ]]; then
                 term_sd_echo "检测到 Microsoft Visual C++ Redistributable 未安装, 这可能会导致部分功能异常或无法正常启动, 请安装 Microsoft Visual C++ Redistributable 后再试"
-                term_sd_sleep 5
+                term_sd_sleep 1
             fi
         fi
 
