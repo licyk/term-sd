@@ -297,6 +297,11 @@ aria2c https://gitee.com/licyk/term-sd/raw/main/term-sd.sh && chmod +x term-sd.s
 ./term-sd.sh --set-python-path "${HOME}/python310/python"
 ```
 
+>[!NOTE]  
+>在检测部分环境问题但非严重问题时，Term-SD 将使用倒计时展示警告信息，可设置环境变量`TERM_SD_DISABLE_COUNTDOWN=1`禁用该倒计时。
+>
+>当使用 root 用户启动 Term-SD 时，Term-SD 将警告用户使用了管理员权限进行启动，可设置环境变量`TERM_SD_ALLOW_ROOT_LAUNCH=1`禁用警告。
+
 启动后等待安装 Term-SD 组件后即可正常使用。  
 可在启动 Term-SD 时加上`--quick-cmd`启动参数安装`term_sd`命令和`tsd`命令，使启动 Term-SD 更快捷。  
 更多信息请阅读[帮助文档](#帮助文档)。

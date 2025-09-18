@@ -869,7 +869,7 @@ prepare_tcmalloc() {
                     term_sd_echo "无法定位 TCMalloc。未在系统上找到 tcmalloc 或 google-perftool"
                     term_sd_echo "取消加载内存优化"
                     term_sd_echo "提示: 可根据 Term-SD 帮助文档安装 google-perftool"
-                    term_sd_sleep 1
+                    [[ ! "${TERM_SD_DISABLE_COUNTDOWN}" == 1 ]] && term_sd_sleep 3
                 fi
             fi
             ;;
@@ -1384,7 +1384,7 @@ main() {
                 unset MISSING_DEPEND_MACOS_NAME
                 print_line_to_shell
                 term_sd_echo "缺少依赖将影响 AI 软件的安装, 请退出 Term-SD 并使用 Homebrew (如果没有 Homebrew, 则先安装 Homebrew, 再用 Homebrew 去安装其他缺少依赖) 安装缺少的依赖后重试"
-                term_sd_sleep 1
+                [[ ! "${TERM_SD_DISABLE_COUNTDOWN}" == 1 ]] && term_sd_sleep 3
             fi
         fi
 
@@ -1398,7 +1398,7 @@ main() {
 
             if [[ ! -f "${vc_runtime_dll_path}" ]]; then
                 term_sd_echo "检测到 Microsoft Visual C++ Redistributable 未安装, 这可能会导致部分功能异常或无法正常启动, 请安装 Microsoft Visual C++ Redistributable 后再试"
-                term_sd_sleep 1
+                [[ ! "${TERM_SD_DISABLE_COUNTDOWN}" == 1 ]] && term_sd_sleep 3
             fi
         fi
 
