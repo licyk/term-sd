@@ -19,7 +19,7 @@ lora_scripts_launch_args_setting() {
         "3" "(disable-tensorboard)禁用 TernsorBoard" OFF \
         "4" "(disable-tageditor) 禁用标签管理器" OFF \
         "5" "(dev) 启用开发版功能" OFF \
-        "6" "(skip-prepare-onnxruntime) 跳过 onnxruntime 检查" OFF \
+        "6" "(skip-prepare-onnxruntime) 跳过 onnxruntime 检查" ON \
         "7" "(disable-auto-mirror) 禁用自动设置镜像" OFF \
         3>&1 1>&2 2>&3)
 
@@ -138,7 +138,7 @@ lora_scripts_launch_args_revise() {
 # 添加默认启动参数配置
 add_lora_scripts_normal_launch_args() {
     if [[ ! -f "${START_PATH}/term-sd/config/lora-scripts-launch.conf" ]]; then # 找不到启动配置时默认生成一个
-        echo "gui.py " > "${START_PATH}"/term-sd/config/lora-scripts-launch.conf
+        echo "gui.py --skip-prepare-onnxruntime" > "${START_PATH}"/term-sd/config/lora-scripts-launch.conf
     fi
 }
 
