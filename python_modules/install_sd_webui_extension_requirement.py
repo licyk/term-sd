@@ -175,7 +175,7 @@ def run_extension_installer(sd_webui_base_path: Path, extension_dir: Path) -> bo
         env["PYTHONPATH"] = f"{sd_webui_base_path}{os.pathsep}{py_path}"
         env["WEBUI_LAUNCH_LIVE_OUTPUT"] = "1"
         run_cmd(
-            command=[sys.executable, str(path_installer)],
+            command=[Path(sys.executable).as_posix(), path_installer.as_posix()],
             custom_env=env,
         )
         return True
