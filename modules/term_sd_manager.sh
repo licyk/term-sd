@@ -145,12 +145,14 @@ term_sd_launch() {
             cuda_malloc)
                 use_cuda_malloc=1
                 term_sd_echo "设置 CUDA 内存分配器为 CUDA 内置异步分配器"
-                export PYTORCH_CUDA_ALLOC_CONF="backend:cudaMallocAsync"
+                export PYTORCH_CUDA_ALLOC_CONF="backend:cudaMallocAsync" # PyTorch 将弃用该参数
+                export PYTORCH_ALLOC_CONF="backend:cudaMallocAsync"
                 ;;
             pytorch_malloc)
                 use_cuda_malloc=1
                 term_sd_echo "设置 CUDA 内存分配器为 PyTorch 原生分配器"
-                export PYTORCH_CUDA_ALLOC_CONF="garbage_collection_threshold:0.9,max_split_size_mb:512"
+                export PYTORCH_CUDA_ALLOC_CONF="garbage_collection_threshold:0.9,max_split_size_mb:512" # PyTorch 将弃用该参数
+                export PYTORCH_ALLOC_CONF="garbage_collection_threshold:0.9,max_split_size_mb:512"
                 ;;
             *)
                 term_sd_echo "显卡非 Nvidia 显卡, 无法设置 CUDA 内存分配器"
@@ -225,6 +227,7 @@ term_sd_launch() {
         echo "DSINE_WHEEL: ${DSINE_WHEEL}"
         echo "HANDREFINER_WHEEL: ${HANDREFINER_WHEEL}"
         echo "PYTORCH_CUDA_ALLOC_CONF: ${PYTORCH_CUDA_ALLOC_CONF}"
+        echo "PYTORCH_ALLOC_CONF: ${PYTORCH_ALLOC_CONF}"
         term_sd_print_line
         echo "环境变量:"
         echo "ENV:"
@@ -309,8 +312,9 @@ term_sd_launch() {
         unset CLIP_PACKAGE
     fi
 
-    if [[ "${use_cuda_malloc}" == 1 ]];then
-        unset PYTORCH_CUDA_ALLOC_CONF
+    if [[ "${use_cuda_malloc}" == 1 ]]; then
+        unset PYTORCH_CUDA_ALLOC_CONF # PyTorch 将弃用该参数
+        unset PYTORCH_ALLOC_CONF
     fi
 
     unset INSIGHTFACE_WHEEL
