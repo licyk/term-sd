@@ -46,8 +46,8 @@ term_sd_process_bar() {
     local bar
     local bar_length_sum=$1
     local i
-    mark=$(echo $(awk 'BEGIN {print '$count' / '$sum' * 100 }') | awk -F'.' '{print $1}') # 加载进度百分比
-    bar_length=$(echo $(awk 'BEGIN {print '$count' / '$sum' * '$bar_length_sum' }') | awk -F '.' '{print $1}') # 进度条已完成的实时长度
+    mark=$(($count * 100 / $sum)) # 加载进度百分比
+    bar_length=$(($count * $bar_length_sum / $sum)) # 进度条已完成的实时长度
 
     for i in $(seq 1 ${bar_length_sum}); do # 这个循环将空的进度条填上一堆空格
         if [[ "${i}" -gt "${bar_length}" ]]; then # 更换进度条的内容

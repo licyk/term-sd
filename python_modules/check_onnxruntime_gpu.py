@@ -1,4 +1,5 @@
 import re
+import sys
 import argparse
 import importlib.metadata
 from pathlib import Path
@@ -141,6 +142,7 @@ class OrtType(str, Enum):
     - CU118: CUDA 11.8
     """
 
+    CU130 = "cu130"
     CU121CUDNN8 = "cu121cudnn8"
     CU121CUDNN9 = "cu121cudnn9"
     CU118 = "cu118"
@@ -177,11 +179,17 @@ def need_install_ort_ver(ignore_ort_install: bool = True) -> OrtType | None:
         # 当 onnxruntime 已安装
 
         # 判断 Torch 中的 CUDA 版本
-        if compare_versions(cuda_ver, "12.0") >= 0:
-            # CUDA >= 12.0
+        if compare_versions(cuda_ver, "13.0") >= 0:
+            # CUDA > 13.0
+            if compare_versions(ort_support_cuda_ver, "13.0") <= 0:
+                return OrtType.CU130
+            else:
+                return None
+        elif compare_versions(cuda_ver, "12.0") >= 0 and compare_versions(cuda_ver, "13.0") < 0:
+            # 12.0 =< CUDA < 13.0
 
             # 比较 onnxtuntime 支持的 CUDA 版本是否和 Torch 中所带的 CUDA 版本匹配
-            if compare_versions(ort_support_cuda_ver, "12.0") >= 0:
+            if compare_versions(ort_support_cuda_ver, "12.0") >= 0 and compare_versions(ort_support_cuda_ver, "13.0") < 0:
                 # CUDA 版本为 12.x, torch 和 ort 的 CUDA 版本匹配
 
                 # 判断 Torch 和 onnxruntime 的 cuDNN 是否匹配
@@ -210,12 +218,27 @@ def need_install_ort_ver(ignore_ort_install: bool = True) -> OrtType | None:
         if ignore_ort_install:
             return None
 
-        if compare_versions(cuda_ver, "12.0") >= 0:
+        if sys.platform != "win32":
+            # 非 Windows 平台未在 Onnxruntime GPU 中声明支持的 CUDA 版本 (无 onnxruntime/capi/version_info.py)
+            # 所以需要跳过检查, 直接给出版本
+            try:
+                _ = importlib.metadata.version("onnxruntime-gpu")
+                return None
+            except Exception as _:
+                # onnxruntime-gpu 没有安装时
+                return OrtType.CU130
+
+        if compare_versions(cuda_ver, "13.0") >= 0:
+            # CUDA >= 13.x
+            return OrtType.CU130
+        elif compare_versions(cuda_ver, "12.0") >= 0 and compare_versions(cuda_ver, "13.0") < 0:
+            # 12.0 <= CUDA < 13.0
             if compare_versions(cuddn_ver, "8") > 0:
                 return OrtType.CU121CUDNN9
             else:
                 return OrtType.CU121CUDNN8
         else:
+            # CUDA <= 11.8
             return OrtType.CU118
 
 

@@ -199,6 +199,12 @@ process_pytorch() {
     # 配置 PyTorch 镜像源
     if is_use_pip_mirror; then # 镜像源
         case "${PYTORCH_TYPE}" in
+            cu130)
+                pypi_index_url="https://mirror.nju.edu.cn/pytorch/whl/cu130"
+                pypi_extra_index_url=""
+                pypi_find_links_url=""
+                with_pypi_mirror_env_value=1
+                ;;
             cu129)
                 pypi_index_url="https://mirror.nju.edu.cn/pytorch/whl/cu129"
                 pypi_extra_index_url=""
@@ -289,6 +295,12 @@ process_pytorch() {
         esac
     else # 官方源
         case "${PYTORCH_TYPE}" in
+            cu130)
+                pypi_index_url="https://download.pytorch.org/whl/cu130"
+                pypi_extra_index_url=""
+                pypi_find_links_url=""
+                with_pypi_mirror_env_value=1
+                ;;
             cu129)
                 pypi_index_url="https://download.pytorch.org/whl/cu129"
                 pypi_extra_index_url=""

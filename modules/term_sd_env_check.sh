@@ -165,6 +165,7 @@ check_onnxruntime_gpu_ver() {
         status=$(term_sd_python "${START_PATH}/term-sd/python_modules/check_onnxruntime_gpu.py")
     fi
 
+    # TODO: 将 onnxruntime-gpu 的 1.23.2 版本替换成实际属于 CU130 的版本
     if [[ "${status}" == "cu118" ]]; then
         term_sd_echo "检测到 onnxruntime-gpu 所支持的 CUDA 版本 和 PyTorch 所支持的 CUDA 版本不匹配, 将执行重装操作"
         uninstall_onnxruntime_gpu
@@ -182,12 +183,12 @@ check_onnxruntime_gpu_ver() {
         uninstall_onnxruntime_gpu
         term_sd_echo "重新安装 onnxruntime-gpu"
         if term_sd_is_use_uv; then
-            term_sd_uv_install "onnxruntime-gpu>=1.19.0" --no-cache-dir
+            term_sd_uv_install "onnxruntime-gpu>=1.19.0,<1.23.2" --no-cache-dir
             if check_uv_install_failed_and_warning; then
-                term_sd_try term_sd_pip install "onnxruntime-gpu>=1.19.0" --no-cache-dir
+                term_sd_try term_sd_pip install "onnxruntime-gpu>=1.19.0,<1.23.2" --no-cache-dir
             fi
         else
-            term_sd_try term_sd_pip install "onnxruntime-gpu>=1.19.0" --no-cache-dir
+            term_sd_try term_sd_pip install "onnxruntime-gpu>=1.19.0,<1.23.2" --no-cache-dir
         fi
     elif [[ "${status}" == "cu121cudnn8" ]]; then
         term_sd_echo "检测到 onnxruntime-gpu 所支持的 CUDA 版本 和 PyTorch 所支持的 CUDA 版本不匹配, 将执行重装操作"
@@ -203,6 +204,18 @@ check_onnxruntime_gpu_ver() {
         else
             PIP_INDEX_URL="https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple/" \
             term_sd_try term_sd_pip install onnxruntime-gpu==1.17.1 --no-cache-dir
+        fi
+    elif [[ "${status}" == "cu130" ]]; then
+        term_sd_echo "检测到 onnxruntime-gpu 所支持的 CUDA 版本 和 PyTorch 所支持的 CUDA 版本不匹配, 将执行重装操作"
+        uninstall_onnxruntime_gpu
+        term_sd_echo "重新安装 onnxruntime-gpu"
+        if term_sd_is_use_uv; then
+            term_sd_uv_install "onnxruntime-gpu>=1.23.2" --no-cache-dir
+            if check_uv_install_failed_and_warning; then
+                term_sd_try term_sd_pip install "onnxruntime-gpu>=1.23.2" --no-cache-dir
+            fi
+        else
+            term_sd_try term_sd_pip install "onnxruntime-gpu>=1.23.2" --no-cache-dir
         fi
     else
         term_sd_echo "onnxruntime-gpu 无版本问题"

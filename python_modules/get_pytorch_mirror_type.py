@@ -240,22 +240,23 @@ def get_pytorch_mirror_type_cuda(torch_ver: str) -> str:
     # cu124: 2.4.0 ~ 2.6.0
     # cu126: 2.6.0 ~ 2.7.1
     # cu128: 2.7.0 ~ 2.7.1
-    # cu129: 2.8.0 ~
+    # cu129: 2.8.0
+    # cu130: 2.9.0 ~
     cuda_comp_cap = get_cuda_comp_cap()
     cuda_support_ver = get_cuda_version()
 
-    if compare_versions(torch_ver, "2.0.0") == -1:
+    if compare_versions(torch_ver, "2.0.0") < 0:
         # torch < 2.0.0: default cu11x
         return "other"
     if (
         compare_versions(torch_ver, "2.0.0") >= 0
-        and compare_versions(torch_ver, "2.3.1") == -1
+        and compare_versions(torch_ver, "2.3.1") < 0
     ):
         # 2.0.0 <= torch < 2.3.1: default cu118
         return "cu118"
     if (
         compare_versions(torch_ver, "2.3.0") >= 0
-        and compare_versions(torch_ver, "2.4.1") == -1
+        and compare_versions(torch_ver, "2.4.1") < 0
     ):
         # 2.3.0 <= torch < 2.4.1: default cu121
         if compare_versions(str(int(cuda_support_ver * 10)), "cu121") < 0:
@@ -264,7 +265,7 @@ def get_pytorch_mirror_type_cuda(torch_ver: str) -> str:
         return "cu121"
     if (
         compare_versions(torch_ver, "2.4.0") >= 0
-        and compare_versions(torch_ver, "2.6.0") == -1
+        and compare_versions(torch_ver, "2.6.0") < 0
     ):
         # 2.4.0 <= torch < 2.6.0: default cu124
         if compare_versions(str(int(cuda_support_ver * 10)), "cu124") < 0:
@@ -275,7 +276,7 @@ def get_pytorch_mirror_type_cuda(torch_ver: str) -> str:
         return "cu124"
     if (
         compare_versions(torch_ver, "2.6.0") >= 0
-        and compare_versions(torch_ver, "2.7.0") == -1
+        and compare_versions(torch_ver, "2.7.0") < 0
     ):
         # 2.6.0 <= torch < 2.7.0: default cu126
         if compare_versions(str(int(cuda_support_ver * 10)), "cu126") < 0:
@@ -287,18 +288,34 @@ def get_pytorch_mirror_type_cuda(torch_ver: str) -> str:
         return "cu126"
     if (
         compare_versions(torch_ver, "2.7.0") >= 0
-        and compare_versions(torch_ver, "2.8.0") == -1
+        and compare_versions(torch_ver, "2.8.0") < 0
     ):
         # 2.7.0 <= torch < 2.8.0: default cu128
         if compare_versions(str(int(cuda_support_ver * 10)), "cu128") < 0:
             if compare_versions(str(int(cuda_support_ver * 10)), "cu126") >= 0:
                 return "cu126"
         return "cu128"
-    if compare_versions(torch_ver, "2.8.0") >= 0:
-        # torch >= 2.8.0: default cu129
+    if (
+        compare_versions(torch_ver, "2.8.0") >= 0
+        and compare_versions(torch_ver, "2.9.0") < 0
+    ):
+        # torch ~= 2.8.0: default cu129
+        if compare_versions(str(int(cuda_support_ver * 10)), "cu129") < 0:
+            if compare_versions(str(int(cuda_support_ver * 10)), "cu128") >= 0:
+                return "cu128"
+            if compare_versions(str(int(cuda_support_ver * 10)), "cu126") >= 0:
+                return "cu126"
         return "cu129"
+    if compare_versions(torch_ver, "2.9.0") >= 0:
+        # torch >= 2.9.0: default cu130
+        if compare_versions(str(int(cuda_support_ver * 10)), "cu130") < 0:
+            if compare_versions(str(int(cuda_support_ver * 10)), "cu128") >= 0:
+                return "cu128"
+            if compare_versions(str(int(cuda_support_ver * 10)), "cu126") >= 0:
+                return "cu126"
+        return "cu130"
 
-    return "cu129"
+    return "cu130"
 
 
 def get_pytorch_mirror_type_rocm(torch_ver: str) -> str:
@@ -328,11 +345,17 @@ def get_pytorch_mirror_type_rocm(torch_ver: str) -> str:
     ):
         # 2.6.0 < torch < 2.7.0
         return "rocm624"
-    if compare_versions(torch_ver, "2.7.0") >= 0:
-        # torch >= 2.7.0
+    if (
+        compare_versions(torch_ver, "2.7.0") >= 0
+        and compare_versions(torch_ver, "2.8.0") < 0
+    ):
+        # 2.7.0 < torch < 2.8.0
         return "rocm63"
+    if compare_versions(torch_ver, "2.8.0") >= 0:
+        # torch >= 2.8.0
+        return "rocm64"
 
-    return "rocm63"
+    return "rocm64"
 
 
 def get_pytorch_mirror_type_ipex(torch_ver: str) -> str:

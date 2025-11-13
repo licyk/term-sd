@@ -1046,8 +1046,8 @@ main() {
 
     # 变量初始化
     TERM_SD_VER="1.4.16" #  Term-SD 版本
-    TERM_SD_UV_MININUM_VER="0.8" # 设置 uv 的最低版本
-    TERM_SD_PIP_MININUM_VER="25.0" # 设置 Pip 的最低版本
+    TERM_SD_UV_MININUM_VER="0.9.9" # 设置 uv 的最低版本
+    TERM_SD_PIP_MININUM_VER="25.3" # 设置 Pip 的最低版本
     USER_SHELL=$(basename "${SHELL}") # 读取用户所使用的 Shell
     START_PATH=$(pwd) # 设置启动时脚本路径
     export PYTHONUTF8=1 # 强制 Python 解释器使用 UTF-8 编码来处理字符串, 避免乱码问题
@@ -1055,6 +1055,7 @@ main() {
     export PYTHONUNBUFFERED=1 # 禁用 Python 标准输出缓存
     export PYTHONNOUSERSITE=1 # 禁用将用户 site-packages 目录添加到 sys.path
     export PYTHONFAULTHANDLER=1 # 启用 Python 回溯信息转储
+    export PYTHONWARNINGS="ignore:::torchvision.transforms.functional_tensor,ignore::UserWarning,ignore::FutureWarning,ignore::DeprecationWarning" # 忽略部分警告信息
     export PIP_TIMEOUT=30 # 设置 Pip 的超时时间
     export PIP_RETRIES=5 # 设置 Pip 的重试次数
     export PIP_DISABLE_PIP_VERSION_CHECK # Pip 版本版本检查
