@@ -20,7 +20,7 @@ _✨一个小巧，多功能的 AI 软件管理器_
   - [Linux](#linux)
     - [Debian / Ubuntu 系](#debian--ubuntu-系)
     - [ArchLinux 系](#archlinux-系)
-    - [OpenSEUS](#openseus)
+    - [OpenSUSE](#opensuse)
     - [NixOS](#nixos)
   - [MacOS](#macos)
     - [1. 配置 Homebrew 镜像源](#1-配置-homebrew-镜像源)
@@ -181,7 +181,7 @@ sudo apt install python3 python3-pip python3-venv python3-tk git aria2 dialog cu
 sudo pacman -S python3 python3-pip python3-venv tk git aria2 dialog curl
 ```
 
-### OpenSEUS
+### OpenSUSE
 ```bash
 sudo zypper install python3 python3-pip python-venvs python-tk git aria2 dialog curl
 ```

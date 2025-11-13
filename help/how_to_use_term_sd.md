@@ -1183,7 +1183,7 @@ sudo apt install google-perftools
 ```bash
 sudo pacman -S gperftools
 ```
-- OpenSEUS：
+- OpenSUSE：
 ```bash
 sudo zypper install gperftools
 ```
