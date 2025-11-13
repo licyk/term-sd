@@ -137,6 +137,7 @@ class OrtType(str, Enum):
     """onnxruntime-gpu 的类型
 
     版本说明:
+    - CU130: CU13.x
     - CU121CUDNN8: CUDA 12.1 + cuDNN8
     - CU121CUDNN9: CUDA 12.1 + cuDNN9
     - CU118: CUDA 11.8
@@ -185,11 +186,17 @@ def need_install_ort_ver(ignore_ort_install: bool = True) -> OrtType | None:
                 return OrtType.CU130
             else:
                 return None
-        elif compare_versions(cuda_ver, "12.0") >= 0 and compare_versions(cuda_ver, "13.0") < 0:
+        elif (
+            compare_versions(cuda_ver, "12.0") >= 0
+            and compare_versions(cuda_ver, "13.0") < 0
+        ):
             # 12.0 =< CUDA < 13.0
 
             # 比较 onnxtuntime 支持的 CUDA 版本是否和 Torch 中所带的 CUDA 版本匹配
-            if compare_versions(ort_support_cuda_ver, "12.0") >= 0 and compare_versions(ort_support_cuda_ver, "13.0") < 0:
+            if (
+                compare_versions(ort_support_cuda_ver, "12.0") >= 0
+                and compare_versions(ort_support_cuda_ver, "13.0") < 0
+            ):
                 # CUDA 版本为 12.x, torch 和 ort 的 CUDA 版本匹配
 
                 # 判断 Torch 和 onnxruntime 的 cuDNN 是否匹配
@@ -231,7 +238,10 @@ def need_install_ort_ver(ignore_ort_install: bool = True) -> OrtType | None:
         if compare_versions(cuda_ver, "13.0") >= 0:
             # CUDA >= 13.x
             return OrtType.CU130
-        elif compare_versions(cuda_ver, "12.0") >= 0 and compare_versions(cuda_ver, "13.0") < 0:
+        elif (
+            compare_versions(cuda_ver, "12.0") >= 0
+            and compare_versions(cuda_ver, "13.0") < 0
+        ):
             # 12.0 <= CUDA < 13.0
             if compare_versions(cuddn_ver, "8") > 0:
                 return OrtType.CU121CUDNN9
