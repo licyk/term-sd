@@ -86,7 +86,7 @@ __term_sd_task_pre_ext_85 sd-webui-next-style OFF
 __term_sd_task_pre_ext_86 a1111-sd-webui-haku-img ON
 __term_sd_task_pre_ext_87 Kohaku-NAI OFF
 __term_sd_task_pre_ext_88 sd-webui-cli-interruption OFF
-__term_sd_task_pre_ext_89 sdwebui-close-confirmation-dialogue OFF
+__term_sd_task_pre_ext_89 sdwebui-close-confirmation-dialogue ON
 __term_sd_task_pre_ext_90 sd-webui-hires-fix-tweaks OFF
 __term_sd_task_pre_ext_91 sd-webui-custom-autolaunch OFF
 __term_sd_task_pre_ext_92 sd-webui-triposr OFF
@@ -160,7 +160,7 @@ __term_sd_task_pre_ext_159 sd-webui-tcd-sampler OFF
 __term_sd_task_pre_ext_160 sd-webui-birefnet OFF
 __term_sd_task_pre_ext_161 stable-diffusion-NPW OFF
 __term_sd_task_pre_ext_162 sd_forge_hypertile_svd_z123 OFF
-__term_sd_task_pre_ext_163 stable-diffusion-webui-zoomimage OFF
+__term_sd_task_pre_ext_163 stable-diffusion-webui-zoomimage ON
 __term_sd_task_pre_ext_164 sd-simple-dimension-preset OFF
 __term_sd_task_pre_ext_165 sd-hub OFF
 __term_sd_task_pre_ext_166 lora-keywords-finder OFF

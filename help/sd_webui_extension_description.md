@@ -355,7 +355,7 @@ Stable Diffusion WebUI 插件说明：
 描述：当在终端中按下Ctrl+C时，若此时正在生图，则将Ctrl+C的终止程序信号更改为终止生图的信号
 链接：https://github.com/light-and-ray/sd-webui-cli-interruption
 
-89、sdwebui-close-confirmation-dialogue
+89、sdwebui-close-confirmation-dialogue*
 描述：添加关闭SD-WebUI界面的确认提醒
 链接：https://github.com/w-e-w/sdwebui-close-confirmation-dialogue
 
@@ -651,7 +651,7 @@ Stable Diffusion WebUI 插件说明：
 描述：为sd-webui和sd-webui-forge添加hypertile，svd，stable-z123支持
 链接：https://github.com/licyk/sd_forge_hypertile_svd_z123
 
-163、stable-diffusion-webui-zoomimage
+163、stable-diffusion-webui-zoomimage*
 描述：为图片查看窗口添加鼠标缩放拖动功能
 链接：https://github.com/viyiviyi/stable-diffusion-webui-zoomimage
 
