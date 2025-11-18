@@ -1,3 +1,5 @@
+"""启动 InvokeAI"""
+
 import re
 import sys
 from invokeai.app.run_app import run_app

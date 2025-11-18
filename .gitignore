@@ -14,3 +14,10 @@
 /task/*.py
 /task/*.txt
 /task/*.md
+/venv
+__pycache__/
+*.py[cod]
+*$py.class
+dist/
+build/
+*.egg-info/

@@ -21,6 +21,7 @@ check_comfyui_env() {
         term_sd_print_line "依赖冲突"
         term_sd_echo "检测到冲突的依赖:"
         cat "${START_PATH}/term-sd/task/comfyui_has_conflict_requirement_notice.sh"
+        echo
         term_sd_print_line
         term_sd_echo "是否按顺序安装冲突依赖 (yes/no) ?"
         term_sd_echo "提示:"
