@@ -33,10 +33,7 @@ def get_args() -> argparse.Namespace:
 
 COMMAND_ARGS = get_args()
 if COMMAND_ARGS.debug_mode:
-    os.environ["MANAGER_LOGGER_LEVEL"] = "10"
-
-os.environ["MANAGER_LOGGER_NAME"] = "Term-SD"
-os.environ["MANAGER_LOGGER_COLOR"] = "1"
+    os.environ["SD_WEBUI_ALL_IN_ONE_LOGGER_LEVEL"] = "10"
 
 from sd_webui_all_in_one.env_check.comfyui_env_analyze import process_comfyui_env_analysis, display_comfyui_environment_dict, display_check_result, logger
 
