@@ -1320,7 +1320,8 @@ main() {
     fi
 
     # 保存初始 PYTHONPATH 环境变量
-    if [[ ! "${TERM_SD_IS_PREPARE_ENV}" == 1 ]]; then
+    if [[ ! "${TERM_SD_IS_GET_ORIGIN_PYTHONPATH}" == 1 ]]; then
+        TERM_SD_IS_GET_ORIGIN_PYTHONPATH=1
         TERM_SD_ORIGIN_PYTHONPATH=$PYTHONPATH
     fi
 
