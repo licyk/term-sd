@@ -188,6 +188,11 @@ class InvokeAIComponentManager:
         pytorch_mirror = self.get_pytorch_mirror_url(pytorch_mirror_type)
         pytorch_package = self.get_pytorch_for_invokeai()
         xformers_package = self.get_xformers_for_invokeai()
+        logger.debug("InvokeAI 所需的 PyTorch 版本: %s", torch_ver)
+        logger.debug("InvokeAI 使用的 PyTorch 镜像源类型: %s", pytorch_mirror_type)
+        logger.debug("PyTorch 镜像源: %s", pytorch_mirror)
+        logger.debug("安装的 PyTorch: %s", pytorch_package)
+        logger.debug("安装的 xFormers: %s", xformers_package)
         pytorch_package_args = []
         if pytorch_mirror_type in ["cpu", "xpu", "ipex_legacy_arc", "rocm62", "other"]:
             for i in pytorch_package.split():
@@ -516,6 +521,9 @@ class InvokeAIManager(BaseManager):
         enable_tcmalloc: bool | None = True,
         enable_cuda_malloc: bool | None = True,
         custom_sys_pkg_cmd: list[list[str]] | list[str] | bool | None = None,
+        huggingface_token: str | None = None,
+        modelscope_token: str | None = None,
+        update_core: bool | None = True,
         *args,
         **kwargs,
     ) -> None:
@@ -534,7 +542,10 @@ class InvokeAIManager(BaseManager):
             check_avaliable_gpu (bool | None): 是否检查可用的 GPU, 当检查时没有可用 GPU 将引发`Exception`
             enable_tcmalloc (bool | None): 是否启用 TCMalloc 内存优化
             enable_cuda_malloc (bool | None): 启用 CUDA 显存优化
-            custom_sys_pkg_cmd (list[list[str]] | list[str] | bool | None): 自定义调用系统包管理器命令, 设置为 True / None 为使用默认的调用命令, 设置为 False 则禁用该功能
+            custom_sys_pkg_cmd (list[list[str]] | list[str] | bool | None): 自定义调用系统包管理器命令, 设置为 True / None 为使用默认的调用命令, 设置为 False 则禁用该功能ol | None): 自定义调用系统包管理器命令, 设置为 True / None 为使用默认的调用命令, 设置为 False 则禁用该功能
+            huggingface_token (str | None): 配置 HuggingFace Token
+            modelscope_token (str | None): 配置 ModelScope Token
+            update_core (bool | None): 安装时更新内核和扩展
         Raises:
             Exception: GPU 不可用
         """
@@ -568,11 +579,15 @@ class InvokeAIManager(BaseManager):
             self.component.update_pytorch_mirror_dict(pytorch_mirror_dict)
         self.component.install_invokeai(
             device_type=device_type,
-            upgrade=True,
+            upgrade=update_core,
             use_uv=use_uv,
         )
         if model_list is not None:
             self.get_sd_model_from_list(model_list=model_list)
+        self.restart_repo_manager(
+            hf_token=huggingface_token,
+            ms_token=modelscope_token,
+        )
         if enable_tcmalloc:
             self.tcmalloc.configure_tcmalloc()
         if enable_cuda_malloc:

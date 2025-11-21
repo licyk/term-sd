@@ -79,6 +79,7 @@ class SDScriptsManager(BaseManager):
         enable_tcmalloc: bool | None = True,
         enable_cuda_malloc: bool | None = True,
         custom_sys_pkg_cmd: list[list[str]] | list[str] | bool | None = None,
+        update_core: bool | None = True,
         *args,
         **kwargs,
     ) -> None:
@@ -125,6 +126,7 @@ class SDScriptsManager(BaseManager):
             enable_tcmalloc (bool | None): 启用 TCMalloc 内存优化
             enable_cuda_malloc (bool | None): 启用 CUDA 显存优化
             custom_sys_pkg_cmd (list[list[str]] | list[str] | bool | None): 自定义调用系统包管理器命令, 设置为 True / None 为使用默认的调用命令, 设置为 False 则禁用该功能
+            update_core (bool | None): 安装时更新内核和扩展
         Raises:
             Exception: GPU 不可用
         """
@@ -166,7 +168,8 @@ class SDScriptsManager(BaseManager):
             repo=sd_scripts_repo,
             path=sd_scripts_path,
         )
-        git_warpper.update(sd_scripts_path)  # 更新 sd-scripts
+        if update_core:
+            git_warpper.update(sd_scripts_path)  # 更新 sd-scripts
         # 切换指定的 sd-scripts 分支
         if git_branch is not None:
             git_warpper.switch_branch(path=sd_scripts_path, branch=git_branch)
@@ -184,7 +187,7 @@ class SDScriptsManager(BaseManager):
         install_requirements(
             path=requirement_path,
             use_uv=use_uv,
-            cwd=sd_scripts_path.parent,
+            cwd=sd_scripts_path,
         )
         # 安装使用 sd-scripts 进行训练所需的其他软件包
         logger.info("安装其他 Python 模块中")

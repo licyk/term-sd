@@ -272,6 +272,26 @@ class FooocusManager(BaseManager):
         check_onnxruntime_gpu(use_uv=use_uv, ignore_ort_install=True)
         check_numpy(use_uv=use_uv)
 
+    def get_launch_command(
+        self,
+        params: list[str] | str | None = None,
+    ) -> str:
+        """获取 Fooocus 启动命令
+
+        Args:
+            params (list[str] | str | None): 启动 Fooocus 的参数
+        Returns:
+            str: 完整的启动 Fooocus 的命令
+        """
+        fooocus_path = self.workspace / self.workfolder
+        cmd = [Path(sys.executable).as_posix(), (fooocus_path / "launch.py").as_posix()]
+        if params is not None:
+            if isinstance(params, str):
+                cmd += self.parse_cmd_str_to_list(params)
+            else:
+                cmd += params
+        return self.parse_cmd_list_to_str(cmd)
+
     def run(
         self,
         params: list[str] | str | None = None,
@@ -283,17 +303,10 @@ class FooocusManager(BaseManager):
             params (list[str] | str | None): Fooocus 启动参数
             display_mode (Literal["terminal", "jupyter"] | None): 执行子进程时使用的输出模式
         """
-        fooocus_path = self.workspace / self.workfolder
-        cmd = [Path(sys.executable).as_posix(), (fooocus_path / "launch.py").as_posix()]
-        if params is not None:
-            if isinstance(params, str):
-                cmd += self.parse_arguments(params)
-            else:
-                cmd += params
         self.launch(
             name="Fooocus",
-            base_path=fooocus_path.parent,
-            cmd=cmd,
+            base_path=self.workspace / self.workfolder,
+            cmd=self.get_launch_command(params),
             display_mode=display_mode,
         )
 
@@ -318,6 +331,9 @@ class FooocusManager(BaseManager):
         enable_tcmalloc: bool | None = True,
         enable_cuda_malloc: bool | None = True,
         custom_sys_pkg_cmd: list[list[str]] | list[str] | bool | None = None,
+        huggingface_token: str | None = None,
+        modelscope_token: str | None = None,
+        update_core: bool | None = True,
         *args,
         **kwargs,
     ) -> None:
@@ -343,6 +359,9 @@ class FooocusManager(BaseManager):
             enable_tcmalloc (bool | None): 是否启用 TCMalloc 内存优化
             enable_cuda_malloc (bool | None): 启用 CUDA 显存优化
             custom_sys_pkg_cmd (list[list[str]] | list[str] | bool | None): 自定义调用系统包管理器命令, 设置为 True / None 为使用默认的调用命令, 设置为 False 则禁用该功能
+            huggingface_token (str | None): 配置 HuggingFace Token
+            modelscope_token (str | None): 配置 ModelScope Token
+            update_core (bool | None): 安装时更新内核和扩展
         Raises:
             Exception: GPU 不可用
         """
@@ -382,7 +401,8 @@ class FooocusManager(BaseManager):
             custom_sys_pkg_cmd=custom_sys_pkg_cmd,
         )
         git_warpper.clone(fooocus_repo, fooocus_path)
-        git_warpper.update(fooocus_path)
+        if update_core:
+            git_warpper.update(fooocus_path)
         install_pytorch(
             torch_package=torch_ver,
             xformers_package=xformers_ver,
@@ -392,11 +412,15 @@ class FooocusManager(BaseManager):
         install_requirements(
             path=requirements_path,
             use_uv=use_uv,
-            cwd=fooocus_path.parent,
+            cwd=fooocus_path,
         )
         self.install_config(
             preset=fooocus_preset,
             translation=fooocus_translation,
+        )
+        self.restart_repo_manager(
+            hf_token=huggingface_token,
+            ms_token=modelscope_token,
         )
         if enable_tcmalloc:
             self.tcmalloc.configure_tcmalloc()

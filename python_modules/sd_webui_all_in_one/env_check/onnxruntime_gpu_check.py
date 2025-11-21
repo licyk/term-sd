@@ -132,14 +132,19 @@ def need_install_ort_ver(ignore_ort_install: bool = True) -> OrtType | None:
     """
     # 检测是否安装了 Torch
     torch_ver, cuda_ver, cuddn_ver = get_torch_cuda_ver()
+    logger.debug("torch_ver: %s, cuda_ver: %s, cuddn_ver: %s", torch_ver, cuda_ver, cuddn_ver)
     # 缺少 Torch / CUDA / cuDNN 版本时取消判断
     if torch_ver is None or cuda_ver is None or cuddn_ver is None:
+        logger.debug("缺少 Torch / CUDA / cuDNN 版本")
         if not ignore_ort_install:
             try:
+                logger.debug("检查 Onnxruntime GPU 是否已安装")
                 _ = importlib.metadata.version("onnxruntime-gpu")
             except Exception as _:
+                logger.debug("Onnxruntime GPU 未安装, 使用默认版本进行安装")
                 # onnxruntime-gpu 没有安装时
-                return OrtType.CU121CUDNN9
+                return OrtType.CU130
+        logger.debug("跳过安装 Onnxruntime GPU")
         return None
 
     # onnxruntime 记录的 cuDNN 支持版本只有一位数, 所以 Torch 的 cuDNN 版本只能截取一位
@@ -147,9 +152,11 @@ def need_install_ort_ver(ignore_ort_install: bool = True) -> OrtType | None:
 
     # 检测是否安装了 onnxruntime-gpu
     ort_support_cuda_ver, ort_support_cudnn_ver = get_onnxruntime_support_cuda_version()
+    logger.debug("cuddn_ver: %s, ort_support_cuda_ver: %s, ort_support_cudnn_ver: %s", cuddn_ver, ort_support_cuda_ver, ort_support_cudnn_ver)
     # 通常 onnxruntime 的 CUDA 版本和 cuDNN 版本会同时存在, 所以只需要判断 CUDA 版本是否存在即可
     if ort_support_cuda_ver is not None:
         # 当 onnxruntime 已安装
+        logger.debug("检测到 Onnxruntime GPU 声明的 CUDA / cuDNN 版本, 开始检测是否匹配 PyTorch 中的 CUDA / cuDNN 版本")
 
         # 判断 Torch 中的 CUDA 版本
         if CommonVersionComparison(cuda_ver) >= CommonVersionComparison("13.0"):
@@ -188,12 +195,15 @@ def need_install_ort_ver(ignore_ort_install: bool = True) -> OrtType | None:
             else:
                 return OrtType.CU118
     else:
+        logger.debug("未检测到 Onnxruntime GPU 声明的 CUDA / cuDNN 版本")
         if ignore_ort_install:
             return None
 
+        logger.debug("确定需要安装的 Onnxruntime GPU 版本")
         if sys.platform != "win32":
             # 非 Windows 平台未在 Onnxruntime GPU 中声明支持的 CUDA 版本 (无 onnxruntime/capi/version_info.py)
             # 所以需要跳过检查, 直接给出版本
+            logger.debug("非 Windows 版本, 当 Onnxruntime GPU 未安装时给出默认版本")
             try:
                 _ = importlib.metadata.version("onnxruntime-gpu")
                 return None
@@ -224,6 +234,7 @@ def check_onnxruntime_gpu(use_uv: bool | None = True, ignore_ort_install: bool |
     """
     logger.info("检查 Onnxruntime GPU 版本问题中")
     ver = need_install_ort_ver(ignore_ort_install)
+    logger.debug("需要安装的 Onnxruntime GPU 版本类型: %s", ver)
     if ver is None:
         logger.info("Onnxruntime GPU 无版本问题")
         return

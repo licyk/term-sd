@@ -14,6 +14,7 @@ term_sd_setting() {
     local term_sd_path_redirect_setup_info
     local cuda_memory_alloc_setup_info
     local env_check_setup_info
+    local term_sd_patcher_info
 
     while true; do
         if is_use_venv; then
@@ -114,6 +115,12 @@ term_sd_setting() {
             env_check_setup_info="禁用"
         fi
 
+        if [[ ! -f "${START_PATH}/term-sd/config/disable-term-sd-patcher.lock" ]]; then
+            term_sd_patcher_info="启用"
+        else
+            term_sd_patcher_info="禁用"
+        fi
+
         dialog_arg=$(dialog --erase-on-exit --notags \
             --title "Term-SD" \
             --backtitle "Term-SD 设置选项" \
@@ -135,10 +142,11 @@ term_sd_setting() {
             "12" "> 缓存重定向设置 (${term_sd_path_redirect_setup_info})" \
             "13" "> CUDA 内存分配设置 (${cuda_memory_alloc_setup_info})" \
             "14" "> 运行环境检测设置 (${env_check_setup_info})" \
-            "15" "> 自定义安装路径" \
-            "16" "> 空间占用分析" \
-            "17" "> 网络连接测试" \
-            "18" "> 卸载 Term-SD" \
+            "15" "> Term-SD 补丁系统设置 (${term_sd_patcher_info})" \
+            "16" "> 自定义安装路径" \
+            "17" "> 空间占用分析" \
+            "18" "> 网络连接测试" \
+            "19" "> 卸载 Term-SD" \
             3>&1 1>&2 2>&3)
 
         case "${dialog_arg}" in
@@ -185,15 +193,18 @@ term_sd_setting() {
                 env_check_setting
                 ;;
             15)
-                custom_install_path_setting
+                term_sd_python_patcher_setting
                 ;;
             16)
-                term_sd_disk_space_stat
+                custom_install_path_setting
                 ;;
             17)
-                term_sd_network_test
+                term_sd_disk_space_stat
                 ;;
             18)
+                term_sd_network_test
+                ;;
+            19)
                 term_sd_uninstall_interface
                 ;;
             *)

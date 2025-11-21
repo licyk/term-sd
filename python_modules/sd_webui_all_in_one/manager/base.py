@@ -1,7 +1,9 @@
 """管理工具基础类"""
 
 import re
+import os
 import subprocess
+import shlex
 from pathlib import Path
 from typing import Literal
 
@@ -12,9 +14,11 @@ from sd_webui_all_in_one.downloader import download_file, download_archive_and_u
 from sd_webui_all_in_one.optimize.tcmalloc import TCMalloc
 from sd_webui_all_in_one.utils import check_gpu, in_jupyter, clear_up
 from sd_webui_all_in_one.colab_tools import is_colab_environment
-from sd_webui_all_in_one.config import LOGGER_COLOR, LOGGER_LEVEL
+from sd_webui_all_in_one.config import LOGGER_COLOR, LOGGER_LEVEL, SD_WEBUI_ALL_IN_ONE_PATCHER_PATH, SD_WEBUI_ALL_IN_ONE_PATCHER
 from sd_webui_all_in_one.file_manager import copy_files, sync_files_and_create_symlink
 from sd_webui_all_in_one.kaggle_tools import display_model_and_dataset_dir, import_kaggle_input
+from sd_webui_all_in_one.cmd import run_cmd
+from sd_webui_all_in_one.file_manager import remove_files
 
 
 logger = get_logger(
@@ -39,6 +43,8 @@ class BaseManager:
         clear_up (Callable): 清理 Jupyter 输出函数引用
         download_file (Callable): 文件下载函数引用
         download_archive_and_unpack (Callable): 下载压缩包并解压的函数引用
+        run_cmd (Callable): Shell 命令执行函数引用
+        remove_files (Callable): 删除文件函数引用
     """
 
     def __init__(
@@ -70,6 +76,15 @@ class BaseManager:
         self.clear_up = clear_up
         self.download_file = download_file
         self.download_archive_and_unpack = download_archive_and_unpack
+        self.run_cmd = run_cmd
+        self.remove_files = remove_files
+        if SD_WEBUI_ALL_IN_ONE_PATCHER:
+            logger.debug("配置 SD WebUI All In One 补丁模块")
+            if "PYTHONPATH" in os.environ and os.environ["PYTHONPATH"]:
+                os.environ["PYTHONPATH"] = SD_WEBUI_ALL_IN_ONE_PATCHER_PATH.as_posix() + os.pathsep + os.environ["PYTHONPATH"]
+            else:
+                os.environ["PYTHONPATH"] = SD_WEBUI_ALL_IN_ONE_PATCHER_PATH.as_posix()
+            logger.debug("PYTHONPATH: %s", os.getenv("PYTHONPATH"))
 
     def restart_repo_manager(
         self,
@@ -206,7 +221,7 @@ class BaseManager:
                 src_is_file=is_file,
             )
 
-    def parse_arguments(self, launch_args: str) -> list[str]:
+    def parse_cmd_str_to_list(self, launch_args: str) -> list[str]:
         """解析命令行参数字符串，返回参数列表
 
         Args:
@@ -234,11 +249,21 @@ class BaseManager:
 
         return arguments
 
+    def parse_cmd_list_to_str(self, cmd_list: list[str]) -> str:
+        """将命令列表转换为命令字符串
+
+        Args:
+            cmd_list (list[str]): 命令列表
+        Returns:
+            str: 命令字符串
+        """
+        return shlex.join(cmd_list)
+
     def launch(
         self,
         name: str,
         base_path: Path | str,
-        cmd: list[str],
+        cmd: list[str] | str,
         display_mode: Literal["terminal", "jupyter"] | None = None,
     ) -> None:
         """启动 WebUI
@@ -246,7 +271,7 @@ class BaseManager:
         Args:
             name (str): 启动的名称
             base_path (Path | str): 启动时得的根目录
-            params (list[str] | str | None): 启动 WebUI 的参数
+            cmd (list[str] | str | None): 启动 WebUI 的参数
             display_mode (Literal["terminal", "jupyter"] | None): 执行子进程时使用的输出模式
         """
 

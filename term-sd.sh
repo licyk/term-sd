@@ -1004,6 +1004,17 @@ term_sd_init_pip_and_uv_config_file() {
     [[ ! -f "${UV_CONFIG_FILE}" ]] && touch "${UV_CONFIG_FILE}"
 }
 
+# 获取 Term-SD 补丁系统路径
+get_term_sd_patcher_path() {
+    local patcher_path
+    patcher_path="${START_PATH}/term-sd/python_modules/sd_webui_all_in_one/sdaio_patcher"
+    if is_windows_platform && which cygpath &> /dev/null; then
+        echo "$(cygpath -a -w "${patcher_path}")"
+    else
+        echo "${patcher_path}"
+    fi
+}
+
 main() {
     # 切换到 term-sd.sh 文件所在位置
     cd "$(cd "$(dirname "$0")" ; pwd)"
@@ -1306,6 +1317,22 @@ main() {
     # 使用的 Windows 系统时将 uv 安装软件包的模式修改为复制模式
     if is_windows_platform; then
         export UV_LINK_MODE="copy"
+    fi
+
+    # 保存初始 PYTHONPATH 环境变量
+    if [[ ! "${TERM_SD_IS_PREPARE_ENV}" == 1 ]]; then
+        TERM_SD_ORIGIN_PYTHONPATH=$PYTHONPATH
+    fi
+
+    # 配置 Term-SD 补丁系统
+    if [[ ! -f "${START_PATH}/term-sd/config/disable-term-sd-patcher.lock" ]] && [[ ! "${TERM_SD_IS_INIT_PATCHER}" == 1 ]]; then
+        term_sd_echo "配置 Term-SD 补丁系统"
+        TERM_SD_IS_INIT_PATCHER=1
+        if is_windows_platform; then
+            export PYTHONPATH="$(get_term_sd_patcher_path);${TERM_SD_ORIGIN_PYTHONPATH}"
+        else
+            export PYTHONPATH="$(get_term_sd_patcher_path):${TERM_SD_ORIGIN_PYTHONPATH}"
+        fi
     fi
 
     # 依赖检测

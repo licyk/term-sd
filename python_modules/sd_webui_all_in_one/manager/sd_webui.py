@@ -235,6 +235,26 @@ class SDWebUIManager(BaseManager):
         check_onnxruntime_gpu(use_uv=use_uv, ignore_ort_install=True)
         check_numpy(use_uv=use_uv)
 
+    def get_launch_command(
+        self,
+        params: list[str] | str | None = None,
+    ) -> str:
+        """获取 Stable Diffusion WebUI 启动命令
+
+        Args:
+            params (list[str] | str | None): 启动 Stable Diffusion WebUI 的参数
+        Returns:
+            str: 完整的启动 Stable Diffusion WebUI 的命令
+        """
+        sd_webui_path = self.workspace / self.workfolder
+        cmd = [Path(sys.executable).as_posix(), (sd_webui_path / "launch.py").as_posix()]
+        if params is not None:
+            if isinstance(params, str):
+                cmd += self.parse_cmd_str_to_list(params)
+            else:
+                cmd += params
+        return self.parse_cmd_list_to_str(cmd)
+
     def run(
         self,
         params: list[str] | str | None = None,
@@ -246,17 +266,10 @@ class SDWebUIManager(BaseManager):
             params (list[str] | str | None): 启动 Stable Diffusion WebUI 的参数
             display_mode (Literal["terminal", "jupyter"] | None): 执行子进程时使用的输出模式
         """
-        sd_webui_path = self.workspace / self.workfolder
-        cmd = [Path(sys.executable).as_posix(), (sd_webui_path / "launch.py").as_posix()]
-        if params is not None:
-            if isinstance(params, str):
-                cmd += self.parse_arguments(params)
-            else:
-                cmd += params
         self.launch(
             name="Stable Diffusion WebUI",
-            base_path=sd_webui_path.parent,
-            cmd=cmd,
+            base_path=self.workspace / self.workfolder,
+            cmd=self.get_launch_command(params),
             display_mode=display_mode,
         )
 
@@ -282,6 +295,9 @@ class SDWebUIManager(BaseManager):
         enable_tcmalloc: bool | None = True,
         enable_cuda_malloc: bool | None = True,
         custom_sys_pkg_cmd: list[list[str]] | list[str] | bool | None = None,
+        huggingface_token: str | None = None,
+        modelscope_token: str | None = None,
+        update_core: bool | None = True,
         *args,
         **kwargs,
     ) -> None:
@@ -308,6 +324,9 @@ class SDWebUIManager(BaseManager):
             enable_tcmalloc (bool | None): 是否启用 TCMalloc 内存优化
             enable_cuda_malloc (bool | None): 启用 CUDA 显存优化
             custom_sys_pkg_cmd (list[list[str]] | list[str] | bool | None): 自定义调用系统包管理器命令, 设置为 True / None 为使用默认的调用命令, 设置为 False 则禁用该功能
+            huggingface_token (str | None): 配置 HuggingFace Token
+            modelscope_token (str | None): 配置 ModelScope Token
+            update_core (bool | None): 安装时更新内核和扩展
         Raises:
             Exception: GPU 不可用
         """
@@ -344,8 +363,9 @@ class SDWebUIManager(BaseManager):
         git_warpper.clone(sd_webui_repo, sd_webui_path)
         if extension_list is not None:
             self.install_extensions_from_list(extension_list)
-        git_warpper.update(sd_webui_path)
-        self.update_extensions()
+        if update_core:
+            git_warpper.update(sd_webui_path)
+            self.update_extensions()
         if sd_webui_branch is not None:
             git_warpper.switch_branch(
                 path=sd_webui_path,
@@ -366,10 +386,14 @@ class SDWebUIManager(BaseManager):
         install_requirements(
             path=requirements_path,
             use_uv=use_uv,
-            cwd=sd_webui_path.parent,
+            cwd=sd_webui_path,
         )
         if model_list is not None:
             self.get_sd_model_from_list(model_list)
+        self.restart_repo_manager(
+            hf_token=huggingface_token,
+            ms_token=modelscope_token,
+        )
         if enable_tcmalloc:
             self.tcmalloc.configure_tcmalloc()
         if enable_cuda_malloc:
