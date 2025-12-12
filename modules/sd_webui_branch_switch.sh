@@ -11,7 +11,7 @@ sd_webui_branch_switch() {
         stable-diffusion-webui|stable-diffusion-webui.git)
             sd_webui_branch="AUTOMATIC1111 webui $(git_branch_display)"
             ;;
-        automatic|automatic.git)
+        automatic|automatic.git|sdnext|sdnext.git)
             sd_webui_branch="vladmandic webui $(git_branch_display)"
             ;;
         stable-diffusion-webui-directml|stable-diffusion-webui-directml.git|stable-diffusion-webui-amdgpu|stable-diffusion-webui-amdgpu.git)

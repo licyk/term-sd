@@ -117,7 +117,7 @@ backup_python_package_ver() {
                 stable-diffusion-webui|stable-diffusion-webui.git)
                     name="stable-diffusion-webui"
                     ;;
-                automatic|automatic.git)
+                automatic|automatic.git|sdnext|sdnext.git)
                     name="sdnext"
                     ;;
                 stable-diffusion-webui-directml|stable-diffusion-webui-directml.git|stable-diffusion-webui-amdgpu|stable-diffusion-webui-amdgpu.git)

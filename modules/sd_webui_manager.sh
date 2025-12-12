@@ -18,7 +18,7 @@ sd_webui_manager() {
                     sd_webui_branch="AUTOMATIC1111 webui $(git_branch_display)"
                     sd_webui_branch_point="sd_webui"
                     ;;
-                automatic|automatic.git)
+                automatic|automatic.git|sdnext|sdnext.git)
                     sd_webui_branch="vladmandic webui $(git_branch_display)"
                     sd_webui_branch_point="sd_next"
                     ;;

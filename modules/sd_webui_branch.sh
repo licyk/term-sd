@@ -7,7 +7,7 @@ sd_webui_launch() {
         stable-diffusion-webui|stable-diffusion-webui.git)
             a1111_sd_webui_launch
             ;;
-        automatic|automatic.git)
+        automatic|automatic.git|sdnext|sdnext.git)
             vlad_sd_webui_launch
             ;;
         stable-diffusion-webui-directml|stable-diffusion-webui-directml.git|stable-diffusion-webui-amdgpu|stable-diffusion-webui-amdgpu.git)

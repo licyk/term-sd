@@ -39,6 +39,7 @@ term_sd_launch() {
     local launch_args_string
     local char
     local sd_webui_requirement_file
+    local skip_check_numpy=0
 
     term_sd_print_line "${TERM_SD_MANAGE_OBJECT} 启动"
     term_sd_echo "提示: 可以按下 Ctrl + C 键终止 AI 软件的运行"
@@ -57,9 +58,10 @@ term_sd_launch() {
                 stable-diffusion-webui|stable-diffusion-webui.git)
                     launch_sd_config="sd-webui-launch.conf"
                     ;;
-                automatic|automatic.git)
+                automatic|automatic.git|sdnext|sdnext.git)
                     launch_sd_config="vlad-sd-webui-launch.conf"
                     is_sdnext=1
+                    skip_check_numpy=1
                     ;;
                 stable-diffusion-webui-directml|stable-diffusion-webui-directml.git)
                     launch_sd_config="sd-webui-directml-launch.conf"
@@ -292,7 +294,7 @@ term_sd_launch() {
                         ;;
                 esac
                 fix_pytorch
-                fallback_numpy_version
+                [[ ! "${skip_check_numpy}" == 1 ]] && fallback_numpy_version
                 term_sd_echo "结束运行环境检测, 启动 ${TERM_SD_MANAGE_OBJECT} 中"
             fi
             term_sd_print_line
