@@ -606,3 +606,11 @@ ComfyUI 插件 / 自定义节点说明：
 148、cgem156-ComfyUI
 描述：提供分区绘制等节点
 链接：https://github.com/laksjdjf/cgem156-ComfyUI
+
+149、ComfyUI-Danbooru-Gallery
+描述：Danbooru画廊扩展，提供基于Danbooru-API的图像搜索、预览、下载和提示词提取功能，支持多人角色提示词编辑器(需要搭配comfyui-prompt-control扩展进行使用)
+链接：https://github.com/Aaalice233/ComfyUI-Danbooru-Gallery
+
+150、comfyui-prompt-control
+描述：提示词控制工具
+链接：https://github.com/asagi4/comfyui-prompt-control

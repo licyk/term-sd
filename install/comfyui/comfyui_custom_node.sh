@@ -146,3 +146,5 @@ __term_sd_task_pre_ext_145 git_clone_repository https://github.com/QuangLe97/Com
 __term_sd_task_pre_ext_146 git_clone_repository https://github.com/Firetheft/ComfyUI_Civitai_Gallery "${COMFYUI_ROOT_PATH}"/custom_nodes OFF # 将Civitai中的图片参数导入到工作流中
 __term_sd_task_pre_ext_147 git_clone_repository https://github.com/ramyma/A8R8_ComfyUI_nodes "${COMFYUI_ROOT_PATH}"/custom_nodes OFF # 提供分区绘制
 __term_sd_task_pre_ext_148 git_clone_repository https://github.com/laksjdjf/cgem156-ComfyUI "${COMFYUI_ROOT_PATH}"/custom_nodes OFF # 提供分区绘制等节点
+__term_sd_task_pre_ext_149 git_clone_repository https://github.com/Aaalice233/ComfyUI-Danbooru-Gallery "${COMFYUI_ROOT_PATH}"/custom_nodes OFF # Danbooru画廊扩展，提供基于Danbooru-API的图像搜索、预览、下载和提示词提取功能，支持多人角色提示词编辑器(需要搭配comfyui-prompt-control扩展进行使用)
+__term_sd_task_pre_ext_150 git_clone_repository https://github.com/asagi4/comfyui-prompt-control "${COMFYUI_ROOT_PATH}"/custom_nodes OFF # 提示词控制工具

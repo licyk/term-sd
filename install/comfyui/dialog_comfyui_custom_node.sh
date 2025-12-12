@@ -146,3 +146,5 @@ __term_sd_task_pre_ext_145 ComfyUI-rgthree-comfy OFF
 __term_sd_task_pre_ext_146 ComfyUI_Civitai_Gallery OFF
 __term_sd_task_pre_ext_147 A8R8_ComfyUI_nodes OFF
 __term_sd_task_pre_ext_148 cgem156-ComfyUI OFF
+__term_sd_task_pre_ext_149 ComfyUI-Danbooru-Gallery OFF
+__term_sd_task_pre_ext_150 comfyui-prompt-control OFF

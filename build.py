@@ -1,5 +1,4 @@
 import os
-from pathlib import Path
 import argparse
 
 
@@ -229,6 +228,8 @@ def detect_uplicate(list_type: str,file: str) -> None:
         list_column = 2
     elif list_type == "extension":
         list_column = 2
+    else:
+        list_column = 2
 
     point_1 = 0
     point_2 = 0
@@ -314,7 +315,10 @@ if __name__ == "__main__":
         for dir in ["extra", "config", "help", "install", "modules", "task", "python_modules"]:
             file_list += get_all_file(dir)
         for file in file_list:
-            dos2unix(file)
+            try:
+                dos2unix(file)
+            except Exception as e:
+                print(f"转换 {file} 时失败: {e}")
         dos2unix("term-sd.sh")
         dos2unix("build.sh")
         dos2unix("README.md")
