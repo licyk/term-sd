@@ -342,21 +342,21 @@ install_sd_webui_component() {
     case "${SD_WEBUI_REPO}" in
         *stable-diffusion-webui|*stable-diffusion-webui-reForge|*stable-diffusion-webui-amdgpu)
             git_clone_repository https://github.com/salesforce/BLIP "${SD_WEBUI_ROOT_PATH}"/repositories BLIP || return 1
-            git_clone_repository https://github.com/Stability-AI/stablediffusion "${SD_WEBUI_ROOT_PATH}"/repositories stable-diffusion-stability-ai || return 1
+            git_clone_repository https://github.com/licyk/stablediffusion "${SD_WEBUI_ROOT_PATH}"/repositories stable-diffusion-stability-ai || return 1
             git_clone_repository https://github.com/Stability-AI/generative-models "${SD_WEBUI_ROOT_PATH}"/repositories generative-models || return 1
             git_clone_repository https://github.com/crowsonkb/k-diffusion "${SD_WEBUI_ROOT_PATH}"/repositories k-diffusion || return 1
             git_clone_repository https://github.com/AUTOMATIC1111/stable-diffusion-webui-assets "${SD_WEBUI_ROOT_PATH}"/repositories stable-diffusion-webui-assets || return 1
             ;;
         *automatic)
             git_clone_repository https://github.com/salesforce/BLIP "${SD_WEBUI_ROOT_PATH}"/repositories blip || return 1
-            git_clone_repository https://github.com/Stability-AI/stablediffusion "${SD_WEBUI_ROOT_PATH}"/repositories stable-diffusion-stability-ai || return 1
+            git_clone_repository https://github.com/licyk/stablediffusion "${SD_WEBUI_ROOT_PATH}"/repositories stable-diffusion-stability-ai || return 1
             git_clone_repository https://github.com/Stability-AI/generative-models "${SD_WEBUI_ROOT_PATH}"/repositories generative-models || return 1
             git_clone_repository https://github.com/crowsonkb/k-diffusion "${SD_WEBUI_ROOT_PATH}"/repositories k-diffusion || return 1
             git_clone_repository https://github.com/AUTOMATIC1111/stable-diffusion-webui-assets "${SD_WEBUI_ROOT_PATH}"/repositories stable-diffusion-webui-assets || return 1
             ;;
         *stable-diffusion-webui-forge)
             git_clone_repository https://github.com/salesforce/BLIP "${SD_WEBUI_ROOT_PATH}"/repositories BLIP || return 1
-            git_clone_repository https://github.com/Stability-AI/stablediffusion "${SD_WEBUI_ROOT_PATH}"/repositories stable-diffusion-stability-ai || return 1
+            git_clone_repository https://github.com/licyk/stablediffusion "${SD_WEBUI_ROOT_PATH}"/repositories stable-diffusion-stability-ai || return 1
             git_clone_repository https://github.com/Stability-AI/generative-models "${SD_WEBUI_ROOT_PATH}"/repositories generative-models || return 1
             git_clone_repository https://github.com/crowsonkb/k-diffusion "${SD_WEBUI_ROOT_PATH}"/repositories k-diffusion || return 1
             git_clone_repository https://github.com/lllyasviel/huggingface_guess "${SD_WEBUI_ROOT_PATH}"/repositories huggingface_guess || return 1
