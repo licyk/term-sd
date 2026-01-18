@@ -431,6 +431,31 @@ check_controlnet_aux() {
     fi
 }
 
+# 修复 SD WebUI 中已经无法访问组件仓库地址
+fix_sd_webui_invaild_repo_url() {
+    local repo_url
+    local stable_diffusion_repo_path
+    local new_repo_url="https://github.com/licyk/stablediffusion"
+
+    term_sd_echo "检测 Stable Diffusion WebUI 无效组件仓库源"
+    stable_diffusion_repo_path="${SD_WEBUI_ROOT_PATH}/repositories/stable-diffusion-stability-ai"
+    if ! is_git_repo "${stable_diffusion_repo_path}"; then
+        return
+    fi
+
+    repo_url=$(GIT_CONFIG_GLOBAL="" git -C "${stable_diffusion_repo_path}" remote get-url origin)
+    case "${repo_url}" in
+        https://github.com/Stability-AI/stablediffusion.git|https://github.com/Stability-AI/stablediffusion)
+            git -C "${stable_diffusion_repo_path}" remote set-url origin "${new_repo_url}"
+            term_sd_echo "替换仓库源: ${repo_url} -> ${new_repo_url}"
+            ;;
+        *)
+            term_sd_echo "Stable Diffusion WebUI 组件仓库源未检测出问题"
+            return
+            ;;
+    esac
+}
+
 # 运行环境检测设置
 env_check_setting() {
     local dialog_arg

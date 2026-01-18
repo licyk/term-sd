@@ -110,6 +110,9 @@ term_sd_launch() {
             export HANDREFINER_WHEEL="handrefinerportable"
             export DEPTH_ANYTHING_V2_WHEEL="depth_anything_v2"
             export DSINE_WHEEL="dsine"
+
+            # 替换无效的仓库源
+            export STABLE_DIFFUSION_REPO="https://github.com/licyk/stablediffusion"
             ;;
         ComfyUI)
             launch_sd_config="comfyui-launch.conf"
@@ -227,6 +230,7 @@ term_sd_launch() {
         echo "DEPTH_ANYTHING_WHEEL: ${DEPTH_ANYTHING_WHEEL}"
         echo "DEPTH_ANYTHING_V2_WHEEL: ${DEPTH_ANYTHING_V2_WHEEL}"
         echo "DSINE_WHEEL: ${DSINE_WHEEL}"
+        echo "STABLE_DIFFUSION_REPO: ${STABLE_DIFFUSION_REPO}"
         echo "HANDREFINER_WHEEL: ${HANDREFINER_WHEEL}"
         echo "PYTORCH_CUDA_ALLOC_CONF: ${PYTORCH_CUDA_ALLOC_CONF}"
         echo "PYTORCH_ALLOC_CONF: ${PYTORCH_ALLOC_CONF}"
@@ -268,6 +272,7 @@ term_sd_launch() {
                         else
                             sd_webui_requirement_file="${SD_WEBUI_ROOT_PATH}/requirements_versions.txt"
                         fi
+                        fix_sd_webui_invaild_repo_url
                         validate_requirements "${sd_webui_requirement_file}"
                         PIP_FIND_LINKS="${PIP_FIND_LINKS} ${TERM_SD_PYPI_MIRROR}" \
                         check_sd_webui_extension_requirement "${launch_sd_config}"
@@ -324,6 +329,7 @@ term_sd_launch() {
     unset DEPTH_ANYTHING_V2_WHEEL
     unset DSINE_WHEEL
     unset HANDREFINER_WHEEL
+    unset STABLE_DIFFUSION_REPO
 
     case "${TERM_SD_MANAGE_OBJECT}" in
         InvokeAI)
