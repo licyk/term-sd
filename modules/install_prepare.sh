@@ -227,6 +227,14 @@ pytorch_version_select() {
         --ok-label "确认" --no-cancel \
         --menu "请选择要安装的 PyTorch 版本, 注:\n1. Nvidia 显卡选择 CUDA 的版本\n2. AMD 显卡选择 ROCm(Linux) / DirectML(Windows) 版本\n3. Intel 显卡选择 IPEX Arc(独显) / Core Ultra(核显) / Intel XPU\n4. Apple M 系列芯片选择无特殊标识版本\n5. 使用 CPU 运算选择 CPU 版本\n6. 标记为 Linux 的版本只能在 Linux 上安装\n当前 PyTorch 版本: $(get_pytorch_version)\n当前 xFormers 版本: $(get_xformers_version)" \
         $(get_dialog_size_menu) \
+        "134" "> Torch 2.9.1 (CUDA 12.6) + xFormers 0.0.33.post2" \
+        "133" "> Torch 2.9.1 (CUDA 12.8) + xFormers 0.0.33.post2" \
+        "132" "> Torch 2.9.1 (CUDA 13.0) + xFormers 0.0.33.post2" \
+        "131" "> Torch 2.9.1 (Intel XPU)" \
+        "130" "> Torch 2.9.1 (ROCm 6.3)" \
+        "129" "> Torch 2.9.1 (ROCm 6.4) + xFormers 0.0.33.post2" \
+        "128" "> Torch 2.9.1 (CPU)" \
+        "127" "> Torch 2.9.1" \
         "126" "> Torch 2.9.0 (CUDA 12.6) + xFormers 0.0.33" \
         "125" "> Torch 2.9.0 (CUDA 12.8) + xFormers 0.0.33" \
         "124" "> Torch 2.9.0 (CUDA 13.0) + xFormers 0.0.33" \
@@ -876,6 +884,41 @@ pytorch_version_select() {
         126)
             INSTALL_PYTORCH_VERSION="torch==2.9.0+cu126 torchvision==0.24.0+cu126 torchaudio==2.9.0+cu126"
             INSTALL_XFORMERS_VERSION="xformers==0.0.33"
+            PYTORCH_TYPE="cu126"
+            ;;
+        127)
+            INSTALL_PYTORCH_VERSION="torch==2.9.1 torchvision==0.24.1 torchaudio==2.9.1"
+            ;;
+        128)
+            INSTALL_PYTORCH_VERSION="torch==2.9.1+cpu torchvision==0.24.1+cpu torchaudio==2.9.1+cpu"
+            PYTORCH_TYPE="cpu"
+            ;;
+        129)
+            INSTALL_PYTORCH_VERSION="torch==2.9.1+rocm6.4 torchvision==0.24.1+rocm6.4 torchaudio==2.9.1+rocm6.4"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.33.post2"
+            PYTORCH_TYPE="rocm64"
+            ;;
+        130)
+            INSTALL_PYTORCH_VERSION="torch==2.9.1+rocm6.3 torchvision==0.24.1+rocm6.3 torchaudio==2.9.1+rocm6.3"
+            PYTORCH_TYPE="rocm63"
+            ;;
+        131)
+            INSTALL_PYTORCH_VERSION="torch==2.9.1+xpu torchvision==0.24.1+xpu torchaudio==2.9.1+xpu"
+            PYTORCH_TYPE="xpu"
+            ;;
+        132)
+            INSTALL_PYTORCH_VERSION="torch==2.9.1+cu130 torchvision==0.24.1+cu130 torchaudio==2.9.1+cu130"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.33.post2"
+            PYTORCH_TYPE="cu130"
+            ;;
+        133)
+            INSTALL_PYTORCH_VERSION="torch==2.9.1+cu128 torchvision==0.24.1+cu128 torchaudio==2.9.1+cu128"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.33.post2"
+            PYTORCH_TYPE="cu128"
+            ;;
+        134)
+            INSTALL_PYTORCH_VERSION="torch==2.9.1+cu126 torchvision==0.24.1+cu126 torchaudio==2.9.1+cu126"
+            INSTALL_XFORMERS_VERSION="xformers==0.0.33.post2"
             PYTORCH_TYPE="cu126"
             ;;
     esac
