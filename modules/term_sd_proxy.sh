@@ -38,7 +38,7 @@ get_proxy_config() {
     local macos_proxy_config
 
     if [[ "$(get_system_platform)" == "win32" ]]; then
-        windows_proxy_config=$(powershell -ExecutionPolicy Bypass \
+        windows_proxy_config=$(powershell -NoProfile -ExecutionPolicy Bypass \
             -File "${START_PATH}/term-sd/modules/get_windows_proxy_config.ps1" \
             2> /dev/null \
         )
