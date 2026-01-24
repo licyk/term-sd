@@ -271,6 +271,12 @@ process_pytorch() {
                 pypi_find_links_url=""
                 with_pypi_mirror_env_value=1
                 ;;
+            rocm71)
+                pypi_index_url="https://mirror.nju.edu.cn/pytorch/whl/rocm7.1"
+                pypi_extra_index_url=""
+                pypi_find_links_url=""
+                with_pypi_mirror_env_value=1
+                ;;
             xpu)
                 pypi_index_url="https://mirror.nju.edu.cn/pytorch/whl/xpu"
                 pypi_extra_index_url=""
@@ -363,6 +369,12 @@ process_pytorch() {
                 ;;
             rocm64)
                 pypi_index_url="https://download.pytorch.org/whl/rocm6.4"
+                pypi_extra_index_url=""
+                pypi_find_links_url=""
+                with_pypi_mirror_env_value=1
+                ;;
+            rocm71)
+                pypi_index_url="https://download.pytorch.org/whl/rocm7.1"
                 pypi_extra_index_url=""
                 pypi_find_links_url=""
                 with_pypi_mirror_env_value=1
