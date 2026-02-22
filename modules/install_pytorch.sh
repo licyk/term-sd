@@ -64,10 +64,10 @@ process_pytorch_ipex_legacy() {
     local torch_ipex_ver_info
     local ipex_type
     local torch_ver
-    local ipex_win_url="--find-links https://licyk.github.io/t/pypi/index.html"
+    local ipex_win_url="--find-links https://licyk.github.io/t/pypi_legecy/index.html"
     local ipex_url_cn="--extra-index-url https://pytorch-extension.intel.com/release-whl/stable/xpu/cn"
     local ipex_url_us="--extra-index-url https://pytorch-extension.intel.com/release-whl/stable/xpu/us"
-    local ipex_win_url_uv="--find-links https://licyk.github.io/t/pypi/index.html"
+    local ipex_win_url_uv="--find-links https://licyk.github.io/t/pypi_legecy/index.html"
     local ipex_url_cn_uv="--index https://pytorch-extension.intel.com/release-whl/stable/xpu/cn"
     local ipex_url_us_uv="--index https://pytorch-extension.intel.com/release-whl/stable/xpu/us"
 
