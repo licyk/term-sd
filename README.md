@@ -39,6 +39,9 @@ _✨一个小巧，多功能的 AI 软件管理器_
 
 ***
 
+>[!WARNING]  
+>## **该项目已不再进行功能维护，新项目将代替该项目：[licyk/sd-webui-all-in-one-launcher](https://licyk.github.io/sd-webui-all-in-one/tools/launcher-tui/)**
+
 # 概述
 Term-SD 是一款基于 Dialog 实现前端界面显示的 AI 管理器，支持安装，管理以下软件：
 - 1、[Stable-Diffusion-WebUI](https://github.com/AUTOMATIC1111/stable-diffusion-webui) / [Stable-Diffusion-WebUI-Forge](https://github.com/lllyasviel/stable-diffusion-webui-forge) / [stable-diffusion-webui-reForge](https://github.com/Panchovix/stable-diffusion-webui-reForge) / [Stable-Diffusion-WebUI-Forge-Classic](https://github.com/Haoming02/sd-webui-forge-classic) / [Stable-Diffusion-WebUI-AMDGPU](https://github.com/lshqqytiger/stable-diffusion-webui-amdgpu) / [SD.Next](https://github.com/vladmandic/sdnext)
