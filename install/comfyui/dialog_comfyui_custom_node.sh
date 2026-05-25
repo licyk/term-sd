@@ -148,3 +148,4 @@ __term_sd_task_pre_ext_147 A8R8_ComfyUI_nodes OFF
 __term_sd_task_pre_ext_148 cgem156-ComfyUI OFF
 __term_sd_task_pre_ext_149 ComfyUI-Danbooru-Gallery OFF
 __term_sd_task_pre_ext_150 comfyui-prompt-control OFF
+__term_sd_task_pre_ext_151 Anima-Artist-Mixer OFF

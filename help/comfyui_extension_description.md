@@ -614,3 +614,7 @@ ComfyUI 插件 / 自定义节点说明：
 150、comfyui-prompt-control
 描述：提示词控制工具
 链接：https://github.com/asagi4/comfyui-prompt-control
+
+151、Anima-Artist-Mixer
+描述：为Anima模型添加画师提示词融合功能
+链接：https://github.com/An1X3R/Anima-Artist-Mixer
